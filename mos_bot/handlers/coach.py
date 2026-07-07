@@ -4,6 +4,7 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ContextTypes, ConversationHandler
 from mos_bot.states import COACH_CHAT
 from mos_bot.core.intake_builder import load_profile
+from mos_bot.core.analytics import track
 from chatbot import chat_completion, check_server, LMSTUDIO_MODEL
 from checkin_tracker import CheckInStore
 from coaching_mode import QUICK_DECISION_PROMPT
@@ -62,7 +63,9 @@ async def coach_chat_handler(update, context):
         {"role": "user", "content": text},
     ]
 
-    response = chat_completion(messages, model=LMSTUDIO_MODEL, temperature=0.4, max_tokens=1024)
+    track("coach_question", context.user_data.get("coach_user_id", "?"), {"question_length": len(text)})
+
+    response = await chat_completion(messages, model=LMSTUDIO_MODEL, temperature=0.4, max_tokens=1024)
 
     if response:
         kb = InlineKeyboardMarkup([
