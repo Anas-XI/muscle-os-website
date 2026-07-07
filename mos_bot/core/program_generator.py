@@ -5,7 +5,7 @@ import os
 from datetime import datetime
 from mos_bot.config import USERS_DIR, PROGRAMS_DIR, PDFS_DIR
 from mos_bot.core.models import ClientProfile
-from mos_bot.core.context_loader import load_context
+from mos_bot.core.context_loader import load_context, evaluate_rag_impact
 from mos_bot.core.content_generator import generate_program as build_program_content, program_to_markdown
 from mos_bot.core.pdf_renderer import generate_program_pdf
 from mos_bot.core.analytics import track
@@ -34,7 +34,6 @@ def generate_program_pipeline(user_id: str, ed_answers: dict = None) -> dict:
         return {"error": context["triage"].caution_note, "blocked": True}
 
     # Wire rag_failed: hard-block on flagged profiles, soft-warn otherwise
-    from mos_bot.core.context_loader import evaluate_rag_impact
     rag_action, rag_msg = evaluate_rag_impact(profile, context.get("rag_failed", False))
     if rag_action == "block":
         track("program_blocked", {"user_id": user_id, "reason": "rag_failure_flagged"})

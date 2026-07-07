@@ -17,6 +17,7 @@ from mos_bot.core.intake_builder import (
     TRAINING_DAYS_MAP, SESSION_LENGTH_MAP, GUT_MAP,
     SLEEP_MAP, STRESS_MAP, STEPS_MAP, CAFFEINE_MAP,
 )
+from mos_bot.core.analytics import track
 try:
     from mos_cli import evaluate_ed_screening
 except ImportError:
@@ -55,6 +56,13 @@ SCREEN_MAP = {
     ED_SCREENING_4: (7, "Health Screening"),
     CONFIRM_PROFILE: (8, "Review"),
 }
+
+
+def _sanitize_text(text: str, max_len: int = 500) -> str:
+    import re
+    cleaned = re.sub(r'[<>\n\r\t]', ' ', text)
+    cleaned = cleaned.strip()
+    return cleaned[:max_len]
 
 
 def _header(state_or_num):
@@ -128,7 +136,7 @@ async def goal_handler(update, context):
         f"{_header(SITUATION)}What best describes where you are right now?",
         reply_markup=kb,
     )
-    return EXPERIENCE
+    return SITUATION
 
 
 async def situation_handler(update, context):
@@ -143,7 +151,7 @@ async def situation_handler(update, context):
         f"{_header(EXPERIENCE)}How long have you been training consistently?",
         reply_markup=kb,
     )
-    return WEIGHT
+    return EXPERIENCE
 
 
 async def experience_handler(update, context):
@@ -163,7 +171,7 @@ async def experience_handler(update, context):
         'Reply with weight and unit, e.g: `84 kg` or `185 lb`',
         parse_mode="Markdown",
     )
-    return HEIGHT
+    return WEIGHT
 
 
 async def weight_handler(update, context):
@@ -181,7 +189,7 @@ async def weight_handler(update, context):
         f"{_header(HEIGHT)}And your height? e.g: `175 cm` or `5'9`",
         parse_mode="Markdown",
     )
-    return AGE
+    return HEIGHT
 
 
 async def height_handler(update, context):
@@ -198,7 +206,7 @@ async def height_handler(update, context):
     await update.message.reply_text(
         f"{_header(AGE)}How old are you? Reply with your age.",
     )
-    return TRAINING_DAYS
+    return AGE
 
 
 async def age_handler(update, context):
@@ -236,7 +244,7 @@ async def age_handler(update, context):
         (_btn("5+ days"),),
     )
     await update.message.reply_text(line, reply_markup=kb, parse_mode="Markdown")
-    return SESSION_LENGTH
+    return TRAINING_DAYS
 
 
 async def training_days_handler(update, context):
@@ -250,7 +258,7 @@ async def training_days_handler(update, context):
     await query.edit_message_text(
         f"{_header(SESSION_LENGTH)}How long are your sessions?", reply_markup=kb
     )
-    return CURRENT_SPLIT
+    return SESSION_LENGTH
 
 
 async def session_length_handler(update, context):
@@ -261,11 +269,11 @@ async def session_length_handler(update, context):
         f"{_header(CURRENT_SPLIT)}What split are you running right now? "
         '(or type "none" if you don\'t have one)'
     )
-    return INJURIES
+    return CURRENT_SPLIT
 
 
 async def current_split_handler(update, context):
-    context.user_data["current_split"] = update.message.text.strip()
+    context.user_data["current_split"] = _sanitize_text(update.message.text)
     kb = _keyboard(
         (_btn("No injuries"), _btn("Yes, describe \u2192")),
     )
@@ -274,7 +282,7 @@ async def current_split_handler(update, context):
         "Any current injuries or pain I should know about?", reply_markup=kb,
         parse_mode="Markdown",
     )
-    return GUT_HEALTH
+    return INJURIES
 
 
 async def injuries_handler(update, context):
@@ -291,7 +299,7 @@ async def injuries_handler(update, context):
             "(bloating, IBS, poor digestion, food intolerances)",
             reply_markup=kb,
         )
-        return SLEEP
+        return GUT_HEALTH
     else:
         await query.edit_message_text(
             f"{_header(INJURIES)}Please describe your injuries and any relevant details."
@@ -302,7 +310,7 @@ async def injuries_handler(update, context):
 
 
 async def injuries_text_handler(update, context):
-    text = update.message.text.strip()
+    text = _sanitize_text(update.message.text)
     context.user_data["injuries"] = [text]
     kb = _keyboard(
         (_btn("None"), _btn("Mild")),
@@ -313,7 +321,7 @@ async def injuries_text_handler(update, context):
         "(bloating, IBS, poor digestion, food intolerances)",
         reply_markup=kb,
     )
-    return SLEEP
+    return GUT_HEALTH
 
 
 async def gut_health_handler(update, context):
@@ -329,7 +337,7 @@ async def gut_health_handler(update, context):
         "How many hours of sleep do you average per night?", reply_markup=kb,
         parse_mode="Markdown",
     )
-    return STRESS
+    return SLEEP
 
 
 async def sleep_handler(update, context):
@@ -344,7 +352,7 @@ async def sleep_handler(update, context):
         f"{_header(STRESS)}How would you rate your daily life stress right now?",
         reply_markup=kb,
     )
-    return STEPS
+    return STRESS
 
 
 async def stress_handler(update, context):
@@ -359,7 +367,7 @@ async def stress_handler(update, context):
         f"{_header(STEPS)}Roughly how many steps do you average per day?",
         reply_markup=kb,
     )
-    return CAFFEINE
+    return STEPS
 
 
 async def steps_handler(update, context):
@@ -375,7 +383,7 @@ async def steps_handler(update, context):
         "Daily caffeine intake?", reply_markup=kb,
         parse_mode="Markdown",
     )
-    return SUPPLEMENTS
+    return CAFFEINE
 
 
 async def caffeine_handler(update, context):
@@ -388,7 +396,7 @@ async def caffeine_handler(update, context):
         "List them (e.g: creatine, protein, vitamin D) or tap below.",
         reply_markup=kb,
     )
-    return MEDICAL
+    return SUPPLEMENTS
 
 
 async def supplements_handler(update, context):
@@ -404,7 +412,7 @@ async def supplements_handler(update, context):
             parse_mode="Markdown",
         )
     else:
-        context.user_data["supplements"] = [update.message.text.strip()]
+        context.user_data["supplements"] = [_sanitize_text(update.message.text)]
         kb = _keyboard((_btn("None"), _btn("Yes, describe \u2192")))
         await update.message.reply_text(
             f"{_header(MEDICAL)}🏥 **Health Screening**\n\n"
@@ -413,7 +421,7 @@ async def supplements_handler(update, context):
             reply_markup=kb,
             parse_mode="Markdown",
         )
-    return ED_SCREENING_1
+    return MEDICAL
 
 
 async def medical_handler(update, context):
@@ -438,7 +446,7 @@ async def medical_handler(update, context):
 
 
 async def medical_text_handler(update, context):
-    context.user_data["medical"] = [update.message.text.strip()]
+    context.user_data["medical"] = [_sanitize_text(update.message.text)]
     kb = _keyboard((_btn("No"), _btn("Yes")))
     await update.message.reply_text(
         f"{_header(ED_SCREENING_1)}A few quick health screening questions...\n\n"
@@ -749,21 +757,24 @@ async def confirm_handler(update, context):
         parse_mode="Markdown",
     )
 
-    from mos_bot.core.vault_context import get_vault_context
-    from mos_bot.core.program_generator import generate_program
-    from mos_bot.core.pdf_renderer import generate_program_pdf
+    from mos_bot.core.program_generator import generate_program_pipeline
 
-    vault = get_vault_context(profile)
-    program = generate_program(profile, vault)
+    result = generate_program_pipeline(profile["user_id"])
 
-    if program is None:
-        await query.message.reply_text(
-            "I'm having trouble connecting to the AI engine. Make sure LM Studio is "
-            "running with a model loaded, then try again."
-        )
+    if "error" in result:
+        if result.get("blocked"):
+            await query.message.reply_text(
+                "I'm unable to build your program at this time. "
+                "Please consult a healthcare professional before proceeding.\n\n"
+                "If you have questions, use /help or contact support."
+            )
+        else:
+            await query.message.reply_text(
+                "I ran into an error building your program. Please try again or use /help."
+            )
         return ConversationHandler.END
 
-    pdf_path = generate_program_pdf(program, profile["user_id"])
+    pdf_path = result.get("pdf_path")
 
     if pdf_path:
         with open(pdf_path, "rb") as f:
@@ -783,9 +794,8 @@ async def confirm_handler(update, context):
                 ),
             )
     else:
-        from mos_bot.config import PROGRAMS_DIR
-        md_path = os.path.join(PROGRAMS_DIR, f"{profile['user_id']}_program.md")
-        if os.path.exists(md_path):
+        md_path = result.get("markdown_path", "")
+        if md_path and os.path.exists(md_path):
             with open(md_path, "rb") as f:
                 await query.message.reply_document(
                     document=f,
@@ -797,5 +807,10 @@ async def confirm_handler(update, context):
                 "Your program couldn't be delivered as a file. Please try again."
             )
 
+    track("intake_completed", profile["user_id"], {
+        "goal": profile.get("goal", ""),
+        "triage": profile.get("triage_result", ""),
+        "ed_risk": profile.get("ed_risk", False),
+    })
     context.user_data.clear()
     return ConversationHandler.END

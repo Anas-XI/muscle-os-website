@@ -2,9 +2,7 @@ import json, os, tempfile
 from telegram import Update
 from telegram.ext import ContextTypes, ConversationHandler
 from mos_bot.core.intake_builder import build_profile, save_profile, parse_weight, parse_height
-from mos_bot.core.vault_context import get_vault_context
-from mos_bot.core.program_generator import generate_program
-from mos_bot.core.pdf_renderer import generate_program_pdf
+from mos_bot.core.program_generator import generate_program_pipeline
 
 
 # ── Field mapping helpers ──
@@ -163,22 +161,23 @@ async def _process_json_file(update: Update, context: ContextTypes.DEFAULT_TYPE,
         await msg.edit_text(f"Could not build your profile.\nError: {e}")
         return
 
-    await msg.edit_text(f"Profile built for {profile['name']}. Loading knowledge base...")
+    await msg.edit_text(f"Profile built for {profile['name']}. Generating your coaching program...")
 
-    vault = get_vault_context(profile)
+    result = generate_program_pipeline(user_id)
 
-    await msg.edit_text("Generating your coaching program... (this takes ~30 seconds)")
-
-    program = generate_program(profile, vault)
-
-    if program is None:
-        await msg.edit_text(
-            "I'm having trouble connecting to the AI engine. Make sure LM Studio is "
-            "running with a model loaded, then try again."
-        )
+    if "error" in result:
+        if result.get("blocked"):
+            await msg.edit_text(
+                "I'm unable to build your program at this time. "
+                "Please consult a healthcare professional before proceeding."
+            )
+        else:
+            await msg.edit_text(
+                "I ran into an error building your program. Please try again."
+            )
         return
 
-    pdf_path = generate_program_pdf(program, user_id)
+    pdf_path = result.get("pdf_path")
 
     if pdf_path:
         with open(pdf_path, "rb") as f:
@@ -196,9 +195,8 @@ async def _process_json_file(update: Update, context: ContextTypes.DEFAULT_TYPE,
                 ),
             )
     else:
-        from mos_bot.config import PROGRAMS_DIR
-        md_path = os.path.join(PROGRAMS_DIR, f"{user_id}_program.md")
-        if os.path.exists(md_path):
+        md_path = result.get("markdown_path", "")
+        if md_path and os.path.exists(md_path):
             with open(md_path, "rb") as f:
                 await update.message.reply_document(
                     document=f,

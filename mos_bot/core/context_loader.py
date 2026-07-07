@@ -3,8 +3,6 @@
 import logging
 from typing import List, Tuple
 from mos_bot.core.models import ClientProfile, SafetyTriageResult, PillarAssignment, VaultSource
-from mos_bot.core.vault_rag import VaultIndexer
-
 logger = logging.getLogger(__name__)
 
 
@@ -228,6 +226,7 @@ def load_context(profile: ClientProfile, ed_answers: dict = None) -> dict:
     vault_context = ""
     vault_sources = []
     try:
+        from mos_bot.core.vault_rag import VaultIndexer
         indexer = VaultIndexer()
         indexer.index_vault()
 

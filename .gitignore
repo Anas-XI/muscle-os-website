@@ -21,6 +21,9 @@ __pycache__/
 
 # Bot data
 mos_bot/data/users/
+mos_bot/data/checkins/
+mos_bot/data/analytics/
+mos_bot/data/feedback/
 mos_bot/data/pdfs/
 mos_bot/data/programs/
 
@@ -30,6 +33,9 @@ bot_log.txt
 bot_output.log
 *.pdf
 test_e2e_pipeline.py
+
+# Auto-installed agent skills (reproducible via npx skills add)
+.agents/
 
 # IDE
 .idea/
