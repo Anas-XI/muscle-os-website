@@ -7,6 +7,7 @@ from mos_bot.states import (
     CHECKIN_SORENESS, CHECKIN_ADHERENCE, CHECKIN_TOP_SETS,
 )
 from mos_bot.core.intake_builder import load_profile, parse_weight
+from mos_bot.core.analytics import track
 from mos_bot.config import DATA_ROOT
 
 try:
@@ -193,6 +194,12 @@ async def checkin_top_sets_handler(update, context):
     msg_parts.append("")
     msg_parts.append("=== Adjustments ===")
     msg_parts.append(format_adjustments(adj))
+
+    track("checkin_completed", user_id, {
+        "weight_kg": ud.get("checkin_weight"),
+        "readiness": ud.get("checkin_readiness"),
+        "adherence": ud.get("checkin_adherence"),
+    })
 
     await query.edit_message_text("\n".join(msg_parts))
 

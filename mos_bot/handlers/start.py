@@ -2,12 +2,15 @@ import os
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ContextTypes, ConversationHandler
 from mos_bot.states import GOAL
+from mos_bot.core.analytics import track
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     first_name = update.effective_user.first_name
+    user_id = str(update.effective_user.id)
     context.user_data["name"] = first_name
-    context.user_data["user_id"] = str(update.effective_user.id)
+    context.user_data["user_id"] = user_id
+    track("user_started", user_id, {"source": "start_command"})
 
     # Send the intake form as a file
     form_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "intake-form.html")
@@ -36,8 +39,10 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def intake_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Start the step-by-step conversation intake (alternative to form upload)."""
     first_name = update.effective_user.first_name
+    user_id = str(update.effective_user.id)
     context.user_data["name"] = first_name
-    context.user_data["user_id"] = str(update.effective_user.id)
+    context.user_data["user_id"] = user_id
+    track("user_started", user_id, {"source": "intake_command"})
 
     text = (
         f"Welcome to Muscle OS, {first_name}.\n\n"
