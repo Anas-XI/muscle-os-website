@@ -12,7 +12,6 @@ from pydantic import BaseModel
 from mos_bot.config import DATA_ROOT, LLM_API_KEY, LLM_API_URL, LLM_MODEL
 from mos_bot.core.intake_builder import load_profile, save_profile, build_profile
 from mos_bot.core.program_generator import generate_program
-from mos_bot.core.vault_context import get_vault_context
 
 app = FastAPI(title="Muscle OS Web")
 
@@ -131,7 +130,8 @@ async def list_profiles():
                 "date": data.get("date", ""),
             })
         except Exception:
-            pass
+            import traceback
+            print(f"[WebUI] Failed to read profile {f.name}: {traceback.format_exc()}")
     return profiles
 
 
@@ -166,10 +166,10 @@ async def generate(req: ChatRequest):
     profile = load_profile(req.user_id)
     if profile is None:
         raise HTTPException(400, "Create profile first")
-    vault = get_vault_context(profile)
-    result = generate_program(profile, vault)
+
+    result = generate_program(profile)
     if result is None:
-        raise HTTPException(500, "LLM generation failed")
+        raise HTTPException(500, "Program generation failed")
     return {"program": result}
 
 

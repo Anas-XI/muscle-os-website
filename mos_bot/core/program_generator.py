@@ -1,105 +1,83 @@
+"""Program generation pipeline: profile → context → content → PDF"""
+
 import json
 import os
-import requests
-from mos_bot.config import LM_STUDIO_URL, PROGRAMS_DIR, LLM_API_KEY, LLM_API_URL, LLM_MODEL
-
-SYSTEM_PROMPT = """You are Muscle OS, an evidence-based AI coaching system. 
-You have access to the Muscle OS vault — a structured knowledge base of training, 
-nutrition, sleep, recovery, and injury protocols.
-
-Your job: generate a complete, personalized coaching program from the user profile 
-provided. Use the vault documents to inform every decision.
-
-FORMAT RULES:
-- Use markdown with headers, tables, and code blocks
-- Structure: Profile Summary → Constraint Analysis → Program Overview → 
-  Training (Phase 1 + Phase 2) → Nutrition → Sleep → Supplements → 
-  Rehab/Prehab → Measurement KPIs → Adjustment Triggers → 
-  Exercise Alternatives → Week 1 Action Plan → Sources
-- Cite vault documents in Sources section
-- Be specific: exact sets, reps, RIR, weights, grams, timing
-- If constraints conflict, resolve explicitly and explain the resolution
-- Never recommend anything that conflicts with the triage result
-- If ed_risk is true: set calories to maintenance only, no deficit
-
-COACHING HIERARCHY (always apply in this order):
-Safety > Adherence > Recovery > Nutrition > Training > Optimisation"""
+from datetime import datetime
+from mos_bot.config import USERS_DIR, PROGRAMS_DIR, PDFS_DIR
+from mos_bot.core.models import ClientProfile
+from mos_bot.core.context_loader import load_context
+from mos_bot.core.content_generator import generate_program as build_program_content, program_to_markdown
+from mos_bot.core.pdf_renderer import generate_program_pdf
+from mos_bot.core.analytics import track
 
 
-def _lm_available() -> bool:
-    """Quick health check — returns True if LM Studio is reachable."""
-    try:
-        r = requests.get(f"{LM_STUDIO_URL}/v1/models", timeout=3)
-        r.raise_for_status()
-        return True
-    except Exception:
-        return False
+def generate_program_pipeline(user_id: str, ed_answers: dict = None) -> dict:
+    """Full deterministic pipeline: load profile → context → content → PDF.
+    Returns dict with program_content, markdown, pdf_path, and metadata.
+    """
+    # 1. Load profile
+    profile_path = os.path.join(USERS_DIR, f"{user_id}.json")
+    if not os.path.exists(profile_path):
+        return {"error": f"Profile not found for user_id: {user_id}"}
 
+    with open(profile_path, "r", encoding="utf-8") as f:
+        raw_profile = json.load(f)
 
-def _build_headers() -> dict:
-    headers = {"Content-Type": "application/json"}
-    if LLM_API_KEY:
-        headers["Authorization"] = f"Bearer {LLM_API_KEY}"
-    return headers
+    profile = ClientProfile.from_dict(raw_profile)
+    client_name = profile.name or user_id
 
+    # 2. Context loading (ED screening → triage → pillars → RAG)
+    context = load_context(profile, ed_answers)
 
-def _build_url() -> str:
-    if LLM_API_URL:
-        return f"{LLM_API_URL.rstrip('/')}/chat/completions"
-    return f"{LM_STUDIO_URL}/v1/chat/completions"
+    if context.get("blocked"):
+        track("program_blocked", {"user_id": user_id, "reason": "screening_red"})
+        return {"error": context["triage"].caution_note, "blocked": True}
 
+    # Wire rag_failed: hard-block on flagged profiles, soft-warn otherwise
+    from mos_bot.core.context_loader import evaluate_rag_impact
+    rag_action, rag_msg = evaluate_rag_impact(profile, context.get("rag_failed", False))
+    if rag_action == "block":
+        track("program_blocked", {"user_id": user_id, "reason": "rag_failure_flagged"})
+        return {"error": rag_msg, "blocked": True}
 
-def _build_model_list() -> list:
-    if LLM_MODEL:
-        return [LLM_MODEL]
-    return ["gemma-4-e4b-it", "qwen3.6-27b"]
+    # 3. Content generation (deterministic from templates + vault)
+    pc = build_program_content(profile, context["triage"], context["pillars"], context.get("vault_sources", []))
+    markdown = program_to_markdown(pc)
 
+    # 4. Save markdown
+    os.makedirs(PROGRAMS_DIR, exist_ok=True)
+    md_path = os.path.join(PROGRAMS_DIR, f"{user_id}_program.md")
+    with open(md_path, "w", encoding="utf-8") as f:
+        f.write(markdown)
 
-def generate_program(profile: dict, vault_context: str) -> str:
-    use_cloud = bool(LLM_API_KEY and LLM_API_URL)
-    if not use_cloud and (not LM_STUDIO_URL or not _lm_available()):
-        return None
+    # 5. Render PDF
+    goal_label = profile.goal.replace("_", " ").title() if profile.goal else "Fitness"
+    pdf_path = generate_program_pdf(markdown, user_id, client_name, goal=goal_label)
 
-    user_message = (
-        f"User Profile:\n{json.dumps(profile, indent=2)}\n\n"
-        f"Vault Knowledge:\n{vault_context}\n\n"
-        f"Generate a complete coaching program for this user."
-    )
+    track("program_generated", {"user_id": user_id, "has_pdf": bool(pdf_path)})
 
-    payload = {
-        "model": "",
-        "messages": [
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": user_message},
-        ],
-        "temperature": 0.4,
-        "max_tokens": 2000,
-        "stream": False,
+    return {
+        "program_content": pc,
+        "markdown": markdown,
+        "markdown_path": md_path,
+        "pdf_path": pdf_path,
+        "user_id": user_id,
+        "client_name": client_name,
+        "generated_at": datetime.now().isoformat(),
     }
 
-    url = _build_url()
-    headers = _build_headers()
-    models = _build_model_list()
-    timeout = 120 if use_cloud else 600
 
-    for model in models:
-        payload["model"] = model
-        try:
-            resp = requests.post(url, json=payload, headers=headers, timeout=timeout)
-            resp.raise_for_status()
-            data = resp.json()
-            content = data["choices"][0]["message"]["content"]
-            if content:
-                break
-        except Exception:
-            if model == models[-1]:
-                return None
-            continue
-    else:
+# Legacy wrapper — kept for compatibility with existing imports
+def generate_program(profile: dict) -> str:
+    """Legacy wrapper. Generates deterministically from profile dict.
+    NOTE: vault_context param removed — load_context() handles vault internally.
+    """
+    p = ClientProfile.from_dict(profile)
+    context = load_context(p)
+    if context.get("blocked"):
         return None
-
-    os.makedirs(PROGRAMS_DIR, exist_ok=True)
-    path = os.path.join(PROGRAMS_DIR, f"{profile['user_id']}_program.md")
-    with open(path, "w", encoding="utf-8") as f:
-        f.write(content)
-    return content
+    rag_action, rag_msg = evaluate_rag_impact(p, context.get("rag_failed", False))
+    if rag_action == "block":
+        return None
+    pc = build_program_content(p, context["triage"], context["pillars"], context.get("vault_sources", []))
+    return program_to_markdown(pc)
