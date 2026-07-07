@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muscle OS — Expo QR Code</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;gap:24px}
+h1{font-size:24px;font-weight:700;color:#fff}
+h2{font-size:16px;font-weight:400;color:#888;text-align:center}
+#qrcode{padding:24px;background:#fff;border-radius:16px}
+#qrcode img{display:block;image-rendering:pixelated}
+.url{background:#1a1a2a;border-radius:10px;padding:12px 20px;font-size:14px;color:#3b82f6;font-weight:500;max-width:90vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;border:1px solid #333;user-select:all}
+.url:hover{border-color:#3b82f6}
+.instructions{max-width:400px;text-align:center;color:#666;font-size:13px;line-height:1.6}
+.instructions strong{color:#e0e0e0}
+button{background:#3b82f6;border:none;color:#fff;padding:10px 24px;border-radius:8px;font-size:14px;cursor:pointer}
+button:hover{background:#4a92ff}
+.status{color:#22c55e;font-size:13px}
+.error{color:#ef4444;font-size:13px}
+</style>
+</head>
+<body>
+<h1>Muscle OS</h1>
+<h2 id="status">Detecting network...</h2>
+
+<div id="qrcode"></div>
+
+<div class="url" id="url-display" onclick="copyUrl()"></div>
+
+<div class="instructions">
+  1. Install <strong>Expo Go</strong> on your phone<br>
+  2. Make sure phone is on the same Wi-Fi as this computer<br>
+  3. Scan the QR code or type the URL above<br>
+  4. The app will load automatically
+</div>
+
+<button onclick="location.reload()">Refresh QR Code</button>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script>
+async function getLocalIP() {
+  try {
+    const r = await fetch('/api/network-ip');
+    const d = await r.json();
+    return d.ip;
+  } catch { return null }
+}
+
+async function init() {
+  const status = document.getElementById('status');
+  const urlDisplay = document.getElementById('url-display');
+  const qrContainer = document.getElementById('qrcode');
+
+  const ip = await getLocalIP();
+  if (!ip) {
+    status.textContent = 'Could not detect network IP';
+    status.className = 'error';
+    return;
+  }
+
+  const expoUrl = `exp://${ip}:8081`;
+  urlDisplay.textContent = expoUrl;
+  status.textContent = `Connect from the same Wi-Fi network (${ip})`;
+  status.className = 'status';
+
+  try {
+    new QRCode(qrContainer, {
+      text: expoUrl,
+      width: 256,
+      height: 256,
+      colorDark: '#000000',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.H,
+    });
+  } catch {
+    qrContainer.innerHTML = '<p style="color:#888">QR code library failed to load. Try refreshing.</p>';
+  }
+}
+
+function copyUrl() {
+  const url = document.getElementById('url-display').textContent;
+  navigator.clipboard.writeText(url).then(() => {
+    const btn = document.querySelector('.url');
+    const orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = orig, 2000);
+  }).catch(() => {});
+}
+
+init();
+</script>
+</body>
+</html>
