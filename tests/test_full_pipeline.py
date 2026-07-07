@@ -300,15 +300,13 @@ def test_minimal_form_json():
     assert profile["triage_result"] == "green"
 
 
-def test_generate_program_returns_none_when_lm_unavailable():
-    """Verify generate_program returns None quickly when LM Studio is unreachable."""
-    profile = {"user_id": "lm_down_test", "name": "Test"}
-    vault = "Test vault context"
-    with patch("mos_bot.core.program_generator._lm_available", return_value=False), \
-         patch("mos_bot.core.program_generator.LLM_API_KEY", ""), \
-         patch("mos_bot.core.program_generator.LLM_API_URL", ""):
-        result = generate_program(profile, vault)
-        assert result is None
+def test_generate_program_pipeline_generates_deterministically():
+    """Verify the deterministic pipeline generates content without an LLM."""
+    profile = {"user_id": "e2e_test_user", "name": "Test"}
+    result = generate_program(profile)
+    assert result is not None
+    assert "Coaching Program" in result
+    assert "Session" in result or "Training" in result
 
 
 def test_mocked_program_pdf():
