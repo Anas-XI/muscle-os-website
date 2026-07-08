@@ -69,6 +69,7 @@ class SafetyTriageResult(BaseModel):
     triage: Literal["red", "yellow", "green"] = "green"
     ed_items: List[str] = []
     blocked: bool = False
+    block_reason: str = ""
     caution_note: str = ""
     modifiers: List[str] = Field(default_factory=list)
 

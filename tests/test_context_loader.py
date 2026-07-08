@@ -10,6 +10,7 @@ from mos_bot.core.context_loader import (
     run_safety_triage,
     assign_pillars,
     load_context,
+    evaluate_rag_impact,
 )
 
 
@@ -187,3 +188,66 @@ def test_load_context_returns_pillars():
     assert ctx["triage"].triage == "green"
     assert ctx["pillars"] is not None
     assert ctx["pillars"].primary_pillars
+
+
+# ── Bug 1 regression: crisis must win over ED-red ──
+
+def test_safety_triage_ed_red_alone_block_reason():
+    profile = ClientProfile(user_id="test", name="Test")
+    triage = run_safety_triage(profile, ("red", ["diagnosed_ed"]))
+    assert triage.blocked
+    assert triage.block_reason == "ed_red"
+
+
+def test_safety_triage_crisis_alone_block_reason():
+    profile = ClientProfile(user_id="test", name="Test", mental_health_concern="significant")
+    triage = run_safety_triage(profile, ("green", []))
+    assert triage.blocked
+    assert triage.block_reason == "crisis"
+
+
+def test_safety_triage_crisis_wins_over_ed_red():
+    """When both crisis and ED-red fire, crisis must win."""
+    profile = ClientProfile(user_id="test", name="Test", mental_health_concern="significant")
+    triage = run_safety_triage(profile, ("red", ["diagnosed_ed"]))
+    assert triage.blocked
+    assert triage.block_reason == "crisis"
+    assert "support" in triage.caution_note.lower()
+    assert "findahelpline" in triage.caution_note
+
+
+# ── Bug 2 regression: crisis_cleared respected in evaluate_rag_impact ──
+
+def test_evaluate_rag_impact_significant_not_cleared_blocks():
+    profile = ClientProfile(user_id="t", name="T", mental_health_concern="significant",
+                            crisis_cleared=False)
+    action, _ = evaluate_rag_impact(profile, rag_failed=True)
+    assert action == "block"
+
+
+def test_evaluate_rag_impact_significant_cleared_does_not_block():
+    profile = ClientProfile(user_id="t", name="T", mental_health_concern="significant",
+                            crisis_cleared=True)
+    action, _ = evaluate_rag_impact(profile, rag_failed=True)
+    assert action == "warn"
+
+
+def test_evaluate_rag_impact_moderate_cleared_still_blocks():
+    """crisis_cleared only applies to 'significant', not 'moderate'."""
+    profile = ClientProfile(user_id="t", name="T", mental_health_concern="moderate",
+                            crisis_cleared=True)
+    action, _ = evaluate_rag_impact(profile, rag_failed=True)
+    assert action == "block"
+
+
+def test_evaluate_rag_impact_dict_significant_cleared_does_not_block():
+    """Dict-profile branch must also respect crisis_cleared."""
+    profile = {"user_id": "t", "mental_health_concern": "significant", "crisis_cleared": True}
+    action, _ = evaluate_rag_impact(profile, rag_failed=True)
+    assert action == "warn"
+
+
+def test_evaluate_rag_impact_dict_significant_not_cleared_blocks():
+    profile = {"user_id": "t", "mental_health_concern": "significant", "crisis_cleared": False}
+    action, _ = evaluate_rag_impact(profile, rag_failed=True)
+    assert action == "block"

@@ -72,16 +72,12 @@ def run_safety_triage(profile: ClientProfile, ed_result: Tuple[str, List[str]]) 
     triage, ed_items = ed_result
     modifiers = []
 
-    if triage == "red":
-        return SafetyTriageResult(
-            triage="red", ed_items=ed_items, blocked=True,
-            caution_note="BLOCKED: Professional referral required before program generation."
-        )
-
-    # Mental health crisis block (soft-reversible via crisis_cleared flag)
+    # Crisis block checked FIRST — must win over every other gate.
+    # A person in crisis showing crisis resources is strictly more important
+    # than showing ED-specific or BMI-specific messaging.
     if profile.mental_health_concern == "significant" and not profile.crisis_cleared:
         return SafetyTriageResult(
-            triage="red", blocked=True,
+            triage="red", ed_items=ed_items, blocked=True, block_reason="crisis",
             caution_note=(
                 "BLOCKED: Significant mental health concern reported. Professional support "
                 "is recommended before beginning a structured fitness program.\n\n"
@@ -89,6 +85,12 @@ def run_safety_triage(profile: ClientProfile, ed_result: Tuple[str, List[str]]) 
                 + format_crisis_resources()
                 + "\n\nYour profile is saved. A coach has been notified and will follow up."
             )
+        )
+
+    if triage == "red":
+        return SafetyTriageResult(
+            triage="red", ed_items=ed_items, blocked=True, block_reason="ed_red",
+            caution_note="BLOCKED: Professional referral required before program generation."
         )
 
     if triage == "green":
@@ -243,24 +245,28 @@ def evaluate_rag_impact(profile, rag_failed: bool) -> tuple:
         _bmi_low = False
         if profile.height_cm > 0 and profile.bodyweight_kg > 0:
             _bmi_low = profile.bodyweight_kg / ((profile.height_cm / 100) ** 2) < 18.5
+        _mh_significant = profile.mental_health_concern == "significant" and not bool(profile.crisis_cleared)
+        _mh_moderate = profile.mental_health_concern == "moderate"
         has_flags = bool(profile.medical) or bool(profile.injuries) or \
                     bool(profile.known_deficiencies) or \
                     bool(profile.rapid_weight_loss) or \
                     _bmi_low or \
                     profile.last_bloodwork in ("2yr_plus", "never") or \
-                    profile.mental_health_concern in ("moderate", "significant")
+                    _mh_moderate or _mh_significant
     else:
         _bmi_low = False
         h = profile.get("height_cm", 0)
         w = profile.get("bodyweight_kg", 0)
         if h and w:
             _bmi_low = w / ((h / 100) ** 2) < 18.5
+        _mh_significant = profile.get("mental_health_concern", "") == "significant" and not bool(profile.get("crisis_cleared"))
+        _mh_moderate = profile.get("mental_health_concern", "") == "moderate"
         has_flags = bool(profile.get("medical_conditions")) or bool(profile.get("injuries")) or \
                     bool(profile.get("known_deficiencies")) or \
                     bool(profile.get("rapid_weight_loss")) or \
                     _bmi_low or \
                     profile.get("last_bloodwork", "") in ("2yr_plus", "never") or \
-                    profile.get("mental_health_concern", "") in ("moderate", "significant")
+                    _mh_moderate or _mh_significant
 
     if has_flags:
         return ("block", "Vault knowledge base is unavailable. Cannot safely generate program for profile with active medical, injury, or deficiency flags.")
@@ -275,8 +281,7 @@ def load_context(profile: ClientProfile, ed_answers: dict = None) -> dict:
 
     triage = run_safety_triage(profile, ed_result)
     if triage.blocked:
-        block_reason = "crisis" if profile.mental_health_concern == "significant" else "ed_red"
-        return {"triage": triage, "pillars": None, "vault_context": "", "vault_sources": [], "blocked": True, "block_reason": block_reason}
+        return {"triage": triage, "pillars": None, "vault_context": "", "vault_sources": [], "blocked": True, "block_reason": triage.block_reason}
 
     # BMI < 18.5 safety check (Master Protocol.md:225 — RED: "Do not proceed")
     if profile.height_cm > 0 and profile.bodyweight_kg > 0:
