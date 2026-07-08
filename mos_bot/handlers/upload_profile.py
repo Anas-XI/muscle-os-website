@@ -170,15 +170,13 @@ async def _process_json_file(update: Update, context: ContextTypes.DEFAULT_TYPE,
     if "error" in result:
         if result.get("blocked"):
             if result.get("block_reason") == "crisis":
+                from mos_bot.core.context_loader import format_crisis_resources
                 await msg.edit_text(
                     "Your wellbeing comes first.\n\n"
-                    "**Immediate support options:**\n"
-                    "\u2022 Find a Helpline (global): https://findahelpline.com\n"
-                    "\u2022 Crisis Text Line: Text HOME to 741741\n"
-                    "\u2022 International Association for Suicide Prevention: "
-                    "https://iasp.info/resources/Crisis_Centres/\n\n"
-                    "If you're in immediate danger, please call your local emergency services.\n\n"
-                    "Your profile is saved. When you're ready, a coach can help you proceed."
+                    + format_crisis_resources()
+                    + "\n\nIf you're in immediate danger, please call your local "
+                    "emergency services.\n\n"
+                    "Your profile is saved and a coach will follow up with you directly."
                 )
             else:
                 await msg.edit_text(

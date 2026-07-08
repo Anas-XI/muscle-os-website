@@ -707,37 +707,85 @@ async def mental_health_handler(update, context):
 
 async def _ask_crisis_intervention(query, ud):
     await query.edit_message_text(
-        f"{_header(CRISIS_INTERVENTION)}Thank you for sharing that. "
-        "Your wellbeing is the most important thing.\n\n"
+        f"{_header(CRISIS_INTERVENTION)}Thank you for sharing that. Your wellbeing "
+        "is the most important thing.\n\n"
         "Starting a fitness program is best done when your mental health is stable "
-        "and you have the right support in place. Based on what you've shared, I "
-        "recommend speaking with a mental health professional before beginning "
-        "a structured training program.\n\n"
-        "\u2022 Your profile will be saved so you can come back anytime\n"
-        "\u2022 A coach can help you prepare when you're ready\n"
-        "\u2022 You can use /checkin for general wellness tracking\n\n"
-        "**Immediate support options:**\n"
-        "\u2022 Find a Helpline (global): https://findahelpline.com\n"
-        "\u2022 Crisis Text Line: Text HOME to 741741\n"
-        "\u2022 International Association for Suicide Prevention: "
-        "https://iasp.info/resources/Crisis_Centres/\n\n"
-        "If you're in immediate danger, please call your local emergency services.\n\n"
-        "Your profile has been saved. When you're ready, come back and we'll proceed.",
+        "and you have the right support in place. Based on what you've shared, I'd "
+        "encourage you to reach out to one of the resources below now — even just "
+        "to talk.\n\n"
+        + _crisis_resources_text()
+        + "\n\nIf you're in immediate danger, please call your local emergency services.\n\n"
+        "Your profile has been saved. A coach will also be in touch. You don't need "
+        "to do anything else right now.",
         reply_markup=_keyboard(
-            (_btn("I understand — save my profile", "crisis_acknowledge"),),
+            (_btn("I understand", "crisis_acknowledge"),),
         ),
     )
     return CRISIS_INTERVENTION
 
 
+def _crisis_resources_text() -> str:
+    from mos_bot.core.context_loader import format_crisis_resources
+    return format_crisis_resources()
+
+
 async def crisis_intervention_handler(update, context):
     query = update.callback_query
     await query.answer()
-    context.user_data["crisis_intervention_shown"] = True
-    track("crisis_intervention_shown", context.user_data.get("user_id", ""), {
+    ud = context.user_data
+    track("crisis_intervention_shown", ud.get("user_id", ""), {
         "mental_health_concern": "significant",
     })
-    return await _show_confirm(query, context)
+    # Save partial profile so "coach will follow up" is grounded in real data
+    raw = _raw_profile_from_user_data(ud)
+    profile = build_profile(raw)
+    save_profile(profile)
+    track("intake_completed", profile["user_id"], {
+        "goal": profile.get("goal", ""),
+        "triage": profile.get("triage_result", ""),
+        "ed_risk": profile.get("ed_risk", False),
+        "crisis": True,
+    })
+    await query.edit_message_text(
+        "Your profile is saved. A coach will follow up with you directly.\n\n"
+        "Type /start anytime to return."
+    )
+    return ConversationHandler.END
+
+
+def _raw_profile_from_user_data(ud: dict) -> dict:
+    return {
+        "user_id": ud.get("user_id"),
+        "name": ud.get("name", ""),
+        "goal": ud.get("goal", ""),
+        "situation": ud.get("situation", ""),
+        "bodyweight_kg": ud.get("bodyweight_kg", "0"),
+        "height_cm": ud.get("height_cm", "0"),
+        "age": ud.get("age", "0"),
+        "sex": "male",
+        "experience": ud.get("experience", ""),
+        "training_days": ud.get("training_days", ""),
+        "session_length": ud.get("session_length", ""),
+        "current_split": ud.get("current_split", ""),
+        "injuries": ud.get("injuries", []),
+        "gut_health": ud.get("gut_health", ""),
+        "sleep": ud.get("sleep", ""),
+        "stress": ud.get("stress", ""),
+        "steps": ud.get("steps", ""),
+        "caffeine": ud.get("caffeine", ""),
+        "supplements": ud.get("supplements", []),
+        "medical": ud.get("medical", []),
+        "ed_risk": ud.get("ed_risk", False),
+        "triage_result": "yellow" if ud.get("ed_risk") else "green",
+        "daily_water_liters": ud.get("daily_water_liters", ""),
+        "alcohol_weekly": ud.get("alcohol_weekly", "0"),
+        "work_schedule": ud.get("work_schedule", ""),
+        "mobility_limitations": ud.get("mobility_limitations", []),
+        "last_bloodwork": ud.get("last_bloodwork", ""),
+        "mental_health_concern": ud.get("mental_health_concern", ""),
+        "rapid_weight_loss": ud.get("rapid_weight_loss", False),
+        "crisis_cleared": False,
+    }
 
 
 async def _show_confirm(query, context):
@@ -782,38 +830,7 @@ async def confirm_handler(update, context):
         )
         return ConversationHandler.END
 
-    raw = {
-        "user_id": context.user_data.get("user_id"),
-        "name": context.user_data.get("name", ""),
-        "goal": context.user_data.get("goal", ""),
-        "situation": context.user_data.get("situation", ""),
-        "bodyweight_kg": context.user_data.get("bodyweight_kg", "0"),
-        "height_cm": context.user_data.get("height_cm", "0"),
-        "age": context.user_data.get("age", "0"),
-        "sex": "male",
-        "experience": context.user_data.get("experience", ""),
-        "training_days": context.user_data.get("training_days", ""),
-        "session_length": context.user_data.get("session_length", ""),
-        "current_split": context.user_data.get("current_split", ""),
-        "injuries": context.user_data.get("injuries", []),
-        "gut_health": context.user_data.get("gut_health", ""),
-        "sleep": context.user_data.get("sleep", ""),
-        "stress": context.user_data.get("stress", ""),
-        "steps": context.user_data.get("steps", ""),
-        "caffeine": context.user_data.get("caffeine", ""),
-        "supplements": context.user_data.get("supplements", []),
-        "medical": context.user_data.get("medical", []),
-        "ed_risk": context.user_data.get("ed_risk", False),
-        "triage_result": "yellow" if context.user_data.get("ed_risk") else "green",
-        "daily_water_liters": context.user_data.get("daily_water_liters", ""),
-        "alcohol_weekly": context.user_data.get("alcohol_weekly", "0"),
-        "work_schedule": context.user_data.get("work_schedule", ""),
-        "mobility_limitations": context.user_data.get("mobility_limitations", []),
-        "last_bloodwork": context.user_data.get("last_bloodwork", ""),
-        "mental_health_concern": context.user_data.get("mental_health_concern", ""),
-        "rapid_weight_loss": context.user_data.get("rapid_weight_loss", False),
-        "crisis_cleared": False,
-    }
+    raw = _raw_profile_from_user_data(context.user_data)
 
     profile = build_profile(raw)
     save_profile(profile)
@@ -832,16 +849,14 @@ async def confirm_handler(update, context):
     if "error" in result:
         if result.get("blocked"):
             if result.get("block_reason") == "crisis":
+                from mos_bot.core.context_loader import format_crisis_resources
                 await query.message.reply_text(
                     "Your wellbeing comes first.\n\n"
-                    "**Immediate support options:**\n"
-                    "\u2022 Find a Helpline (global): https://findahelpline.com\n"
-                    "\u2022 Crisis Text Line: Text HOME to 741741\n"
-                    "\u2022 International Association for Suicide Prevention: "
-                    "https://iasp.info/resources/Crisis_Centres/\n\n"
-                    "If you're in immediate danger, please call your local emergency services.\n\n"
-                    "Your profile is saved. When you're ready, a coach can help you proceed. "
-                    "Type /start to return."
+                    + format_crisis_resources()
+                    + "\n\nIf you're in immediate danger, please call your local "
+                    "emergency services.\n\n"
+                    "Your profile is saved and a coach will follow up with you "
+                    "directly. Type /start anytime to return."
                 )
             else:
                 await query.message.reply_text(

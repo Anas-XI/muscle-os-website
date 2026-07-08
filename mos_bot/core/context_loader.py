@@ -26,27 +26,46 @@ def evaluate_ed_screening(answers: dict) -> Tuple[str, List[str]]:
 
 
 CRISIS_RESOURCES = {
-    "default": (
-        "\u2022 Find a Helpline (global): https://findahelpline.com\n"
-        "\u2022 Crisis Text Line: Text HOME to 741741\n"
-        "\u2022 International Association for Suicide Prevention: "
-        "https://iasp.info/resources/Crisis_Centres/\n"
-    ),
-    "US": (
-        "\u2022 988 Suicide & Crisis Lifeline: Call or text 988\n"
-        "\u2022 Crisis Text Line: Text HOME to 741741\n"
-        "\u2022 SAMHSA Helpline: 1-800-662-4357\n"
-    ),
-    "UK": (
-        "\u2022 Samaritans: Call 116 123\n"
-        "\u2022 Mind Infoline: 0300 123 3393\n"
-    ),
-    "MENA": (
-        "\u2022 Find a Helpline (MENA): https://findahelpline.com/regions/middle-east\n"
-        "\u2022 Beirut: Embrace Lifeline 1564\n"
-        "\u2022 UAE: Dubai Psychological Services 800-4636\n"
-    ),
+    "default": {
+        "lines": [
+            "Find a Helpline (global directory): https://findahelpline.com",
+            "International Association for Suicide Prevention: https://iasp.info/resources/Crisis_Centres/",
+        ]
+    },
+    "US": {
+        "lines": [
+            "988 Suicide & Crisis Lifeline: Call or text 988",
+            "Crisis Text Line: Text HOME to 741741",
+            "Find a Helpline (global directory): https://findahelpline.com",
+        ]
+    },
+    "UK": {
+        "lines": [
+            "Samaritans: Call 116 123 (free, 24/7)",
+            "Shout: Text SHOUT to 85258",
+            "Find a Helpline (global directory): https://findahelpline.com",
+        ]
+    },
+    "CA": {
+        "lines": [
+            "Talk Suicide Canada: Call 1-833-456-4566",
+            "Crisis Text Line: Text CONNECT to 686868",
+            "Find a Helpline (global directory): https://findahelpline.com",
+        ]
+    },
+    "MENA": {
+        "lines": [
+            "Find a Helpline (global directory): https://findahelpline.com",
+            "International Association for Suicide Prevention: https://iasp.info/resources/Crisis_Centres/",
+        ]
+    },
 }
+
+
+def format_crisis_resources(region: str = "default") -> str:
+    """Return bulleted crisis resource lines for the given region."""
+    entry = CRISIS_RESOURCES.get(region) or CRISIS_RESOURCES["default"]
+    return "\n".join(f"\u2022 {line}" for line in entry["lines"])
 
 
 def run_safety_triage(profile: ClientProfile, ed_result: Tuple[str, List[str]]) -> SafetyTriageResult:
@@ -64,11 +83,11 @@ def run_safety_triage(profile: ClientProfile, ed_result: Tuple[str, List[str]]) 
         return SafetyTriageResult(
             triage="red", blocked=True,
             caution_note=(
-                "BLOCKED: Significant mental health concern reported. "
-                "Professional support recommended before beginning a fitness program.\n\n"
+                "BLOCKED: Significant mental health concern reported. Professional support "
+                "is recommended before beginning a structured fitness program.\n\n"
                 "**Immediate support options:**\n"
-                + CRISIS_RESOURCES.get("default")
-                + "\nYour profile is saved. When you're ready, a coach can help you proceed."
+                + format_crisis_resources()
+                + "\n\nYour profile is saved. A coach has been notified and will follow up."
             )
         )
 

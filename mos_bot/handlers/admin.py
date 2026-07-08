@@ -78,10 +78,14 @@ async def clear_crisis(update, context):
     if str(update.effective_user.id) != str(OWNER_ID):
         await update.message.reply_text("Unauthorized.")
         return
-    if not context.args:
-        await update.message.reply_text("Usage: /clear_crisis <user_id>")
+    if not context.args or len(context.args) < 2:
+        await update.message.reply_text(
+            "Usage: /clear_crisis <user_id> <brief note on contact made>\n\n"
+            "Example: /clear_crisis user123 Spoke by phone, confirmed stable, therapist involved."
+        )
         return
     user_id = context.args[0]
+    note = " ".join(context.args[1:])
     path = os.path.join(USERS_DIR, f"{user_id}.json")
     if not os.path.exists(path):
         await update.message.reply_text(f"User {user_id} not found.")
@@ -93,9 +97,13 @@ async def clear_crisis(update, context):
         with open(path, "w", encoding="utf-8") as f:
             json.dump(profile, f, indent=2)
         from mos_bot.core.analytics import track
-        track("crisis_cleared", user_id, {"cleared_by": str(update.effective_user.id)})
+        track("crisis_cleared", user_id, {
+            "cleared_by": str(update.effective_user.id),
+            "contact_note": note,
+        })
         await update.message.reply_text(
-            f"Crisis flag cleared for {user_id}. They can now generate a program."
+            f"Crisis flag cleared for {user_id}. They can now generate a program.\n"
+            f"Note recorded: {note}"
         )
     else:
         await update.message.reply_text(f"Crisis flag already cleared for {user_id}.")
