@@ -68,6 +68,18 @@ def test_evaluate_rag_impact_clientprofile_bmi_low_blocks():
     assert action == "block"
 
 
+def test_evaluate_rag_impact_rapid_weight_loss_blocks():
+    profile = {"user_id": "t", "rapid_weight_loss": True}
+    action, msg = evaluate_rag_impact(profile, rag_failed=True)
+    assert action == "block"
+
+
+def test_evaluate_rag_impact_clientprofile_rapid_weight_loss_blocks():
+    p = ClientProfile(user_id="t", name="T", rapid_weight_loss=True)
+    action, msg = evaluate_rag_impact(p, rag_failed=True)
+    assert action == "block"
+
+
 def test_evaluate_rag_impact_bmi_exactly_18_5_not_blocked():
     # 18.5 * (1.7^2) = 53.465; use slightly above to confirm strict <
     profile = {"user_id": "t", "height_cm": 170, "bodyweight_kg": 53.5}

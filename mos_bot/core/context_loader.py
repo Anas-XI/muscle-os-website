@@ -189,6 +189,7 @@ def evaluate_rag_impact(profile, rag_failed: bool) -> tuple:
             _bmi_low = profile.bodyweight_kg / ((profile.height_cm / 100) ** 2) < 18.5
         has_flags = bool(profile.medical) or bool(profile.injuries) or \
                     bool(profile.known_deficiencies) or \
+                    bool(profile.rapid_weight_loss) or \
                     _bmi_low or \
                     profile.last_bloodwork in ("2yr_plus", "never") or \
                     profile.mental_health_concern in ("moderate", "significant")
@@ -200,6 +201,7 @@ def evaluate_rag_impact(profile, rag_failed: bool) -> tuple:
             _bmi_low = w / ((h / 100) ** 2) < 18.5
         has_flags = bool(profile.get("medical_conditions")) or bool(profile.get("injuries")) or \
                     bool(profile.get("known_deficiencies")) or \
+                    bool(profile.get("rapid_weight_loss")) or \
                     _bmi_low or \
                     profile.get("last_bloodwork", "") in ("2yr_plus", "never") or \
                     profile.get("mental_health_concern", "") in ("moderate", "significant")

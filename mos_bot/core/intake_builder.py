@@ -141,6 +141,7 @@ def build_profile(raw: dict) -> dict:
         "family_history": list_field("family_history"),
         "mental_health_concern": raw.get("mental_health_concern", ""),
         "mental_health_care": raw.get("mental_health_care", ""),
+        "rapid_weight_loss": raw.get("rapid_weight_loss", False),
         "ed_risk": raw.get("ed_risk", False),
         "triage_result": raw.get("triage_result", "green"),
         "inbody": raw.get("inbody"),

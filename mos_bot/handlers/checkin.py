@@ -190,10 +190,31 @@ async def checkin_top_sets_handler(update, context):
     adj = suggest_adjustments(trends, goal, current_calories=2500)
 
     msg_parts = ["\u2705 Check-in recorded!\n"]
-    msg_parts.append(format_trends(trends))
-    msg_parts.append("")
-    msg_parts.append("=== Adjustments ===")
-    msg_parts.append(format_adjustments(adj))
+
+    # Post-onboarding rapid weight loss gate (Safety Triage.md:B5 — RED)
+    rapid_loss_flag = False
+    for t in trends:
+        if t["metric"] == "weight" and t["change"] <= -5.0:
+            rapid_loss_flag = True
+            break
+    if rapid_loss_flag:
+        msg_parts.append(
+            "\u26a0\ufe0f **Rapid weight loss detected.** You've lost {:.0f} kg since "
+            "your first check-in. This should be evaluated by a healthcare professional "
+            "before continuing any fitness program.\n\n"
+            "Your coach has been notified and will reach out to you. "
+            "The current program is paused for safety.".format(
+                abs([t["change"] for t in trends if t["metric"] == "weight"][0])
+            )
+        )
+        track("checkin_rapid_weight_loss", user_id, {
+            "weight_change": [t["change"] for t in trends if t["metric"] == "weight"][0],
+        })
+    else:
+        msg_parts.append(format_trends(trends))
+        msg_parts.append("")
+        msg_parts.append("=== Adjustments ===")
+        msg_parts.append(format_adjustments(adj))
 
     track("checkin_completed", user_id, {
         "weight_kg": ud.get("checkin_weight"),

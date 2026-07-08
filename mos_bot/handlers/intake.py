@@ -9,7 +9,8 @@ from mos_bot.states import (
     SUPPLEMENTS, MEDICAL,
     ED_SCREENING_1, ED_SCREENING_2, ED_SCREENING_3, ED_SCREENING_4,
     CONFIRM_PROFILE,
-    HYDRATION, ALCOHOL_WEEKLY, WORK_SCHEDULE, MOBILITY, BLOODWORK, MENTAL_HEALTH,
+    HYDRATION, ALCOHOL_WEEKLY, WORK_SCHEDULE, MOBILITY, BLOODWORK,
+    RAPID_WEIGHT_LOSS, MENTAL_HEALTH,
 )
 from mos_bot.core.intake_builder import (
     build_profile, save_profile, parse_weight, parse_height,
@@ -49,6 +50,7 @@ SCREEN_MAP = {
     WORK_SCHEDULE: (7, "Health Screening"),
     MOBILITY: (7, "Health Screening"),
     BLOODWORK: (7, "Health Screening"),
+    RAPID_WEIGHT_LOSS: (7, "Health Screening"),
     MENTAL_HEALTH: (7, "Health Screening"),
     ED_SCREENING_1: (7, "Health Screening"),
     ED_SCREENING_2: (7, "Health Screening"),
@@ -648,6 +650,31 @@ async def bloodwork_handler(update, context):
               "bw_overdue": "2yr_plus", "bw_never": "never"}
     if query.data in bw_map:
         ud["last_bloodwork"] = bw_map[query.data]
+    return await _ask_rapid_weight_loss(query, ud)
+
+
+async def _ask_rapid_weight_loss(query, ud):
+    await query.edit_message_text(
+        f"{_header(RAPID_WEIGHT_LOSS)}Have you lost more than 5kg (11lbs) "
+        "unintentionally in the last 3 months?\n\n"
+        "This helps me understand whether there's an underlying health concern "
+        "that should be addressed before starting a fitness program.",
+        reply_markup=_keyboard(
+            (_btn("Yes", "rw_yes"),),
+            (_btn("No", "rw_no"),),
+        ),
+    )
+    return RAPID_WEIGHT_LOSS
+
+
+async def rapid_weight_loss_handler(update, context):
+    query = update.callback_query
+    await query.answer()
+    ud = context.user_data
+    if query.data == "rw_yes":
+        ud["rapid_weight_loss"] = True
+    else:
+        ud["rapid_weight_loss"] = False
     return await _ask_mental_health(query, ud)
 
 
@@ -695,6 +722,7 @@ async def _show_confirm(query, context):
         f"🍺 **Alcohol:** {alc_labels.get(ud.get('alcohol_weekly', ''), '?')}",
         f"💼 **Schedule:** {ws_labels.get(ud.get('work_schedule', ''), '?')}  |  "
         f"🏃 **Mobility:** {'Limited' if ud.get('mobility_limitations') else 'No issues'}",
+        f"⚖️ **Rapid weight loss:** {'Yes' if ud.get('rapid_weight_loss') else 'No'}",
         "",
         "Everything look right?",
     ]
@@ -745,6 +773,7 @@ async def confirm_handler(update, context):
         "mobility_limitations": context.user_data.get("mobility_limitations", []),
         "last_bloodwork": context.user_data.get("last_bloodwork", ""),
         "mental_health_concern": context.user_data.get("mental_health_concern", ""),
+        "rapid_weight_loss": context.user_data.get("rapid_weight_loss", False),
     }
 
     profile = build_profile(raw)

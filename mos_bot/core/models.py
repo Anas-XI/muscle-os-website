@@ -52,6 +52,7 @@ class ClientProfile(BaseModel):
     family_history: List[str] = []
     mental_health_concern: str = ""
     mental_health_care: str = ""
+    rapid_weight_loss: bool = False
     ed_risk: bool = False
     triage_result: str = "green"
     inbody: Optional[dict] = None

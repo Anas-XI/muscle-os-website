@@ -95,6 +95,7 @@ def map_form_json(form_json: dict, user_id: str) -> dict:
         "family_history": _list_form_field(a, "Q77"),
         "mental_health_concern": a.get("Q78", ""),
         "mental_health_care": a.get("Q79", ""),
+        "rapid_weight_loss": a.get("Q80") == "yes",
         "ed_risk": any(a.get(q, "never") in ("often", "very_often") for q in ("Q58", "Q59", "Q60"))
                     or a.get("Q61") in ("moderate", "significant"),
         "triage_result": "red" if any(a.get(q, "never") in ("often", "very_often") for q in ("Q58", "Q59", "Q60"))

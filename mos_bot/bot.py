@@ -17,7 +17,8 @@ from mos_bot.states import (
     CHECKIN_WEIGHT, CHECKIN_WAIST, CHECKIN_SLEEP, CHECKIN_READINESS,
     CHECKIN_SORENESS, CHECKIN_ADHERENCE, CHECKIN_TOP_SETS,
     COACH_CHAT,
-    HYDRATION, ALCOHOL_WEEKLY, WORK_SCHEDULE, MOBILITY, BLOODWORK, MENTAL_HEALTH,
+    HYDRATION, ALCOHOL_WEEKLY, WORK_SCHEDULE, MOBILITY, BLOODWORK,
+    RAPID_WEIGHT_LOSS, MENTAL_HEALTH,
 )
 from mos_bot.handlers.start import start, help_command, cancel
 from mos_bot.handlers.upload_profile import upload_profile, handle_json_upload
@@ -33,7 +34,8 @@ from mos_bot.handlers.intake import (
     ed1_handler, ed2_handler, ed3_handler, ed4_handler,
     confirm_handler,
     water_handler, alcohol_handler, work_schedule_handler,
-    mobility_handler, bloodwork_handler, mental_health_handler,
+    mobility_handler, bloodwork_handler,
+    rapid_weight_loss_handler, mental_health_handler,
 )
 from mos_bot.handlers.checkin import (
     checkin_start,
@@ -91,6 +93,7 @@ def main():
             WORK_SCHEDULE: [CallbackQueryHandler(work_schedule_handler)],
             MOBILITY: [CallbackQueryHandler(mobility_handler)],
             BLOODWORK: [CallbackQueryHandler(bloodwork_handler)],
+            RAPID_WEIGHT_LOSS: [CallbackQueryHandler(rapid_weight_loss_handler)],
             MENTAL_HEALTH: [CallbackQueryHandler(mental_health_handler)],
             CONFIRM_PROFILE: [CallbackQueryHandler(confirm_handler)],
         },
