@@ -185,10 +185,12 @@ def evaluate_rag_impact(profile, rag_failed: bool) -> tuple:
 
     if hasattr(profile, 'medical'):
         has_flags = bool(profile.medical) or bool(profile.injuries) or \
+                    bool(profile.known_deficiencies) or \
                     profile.last_bloodwork in ("2yr_plus", "never") or \
                     profile.mental_health_concern in ("moderate", "significant")
     else:
         has_flags = bool(profile.get("medical_conditions")) or bool(profile.get("injuries")) or \
+                    bool(profile.get("known_deficiencies")) or \
                     profile.get("last_bloodwork", "") in ("2yr_plus", "never") or \
                     profile.get("mental_health_concern", "") in ("moderate", "significant")
 

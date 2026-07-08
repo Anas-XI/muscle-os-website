@@ -44,6 +44,18 @@ def test_evaluate_rag_impact_failure_with_mental_health():
     assert action == "block"
 
 
+def test_evaluate_rag_impact_failure_with_known_deficiencies():
+    profile = {"user_id": "t", "known_deficiencies": ["vitamin_d"]}
+    action, msg = evaluate_rag_impact(profile, rag_failed=True)
+    assert action == "block"
+
+
+def test_evaluate_rag_impact_clientprofile_known_deficiencies_blocks():
+    p = ClientProfile(user_id="t", name="T", known_deficiencies=["vitamin_d"])
+    action, msg = evaluate_rag_impact(p, rag_failed=True)
+    assert action == "block"
+
+
 def test_evaluate_rag_impact_clientprofile_clean():
     p = ClientProfile(user_id="t", name="Clean")
     action, msg = evaluate_rag_impact(p, rag_failed=True)
