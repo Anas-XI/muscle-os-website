@@ -184,13 +184,23 @@ def evaluate_rag_impact(profile, rag_failed: bool) -> tuple:
         return ("proceed", "")
 
     if hasattr(profile, 'medical'):
+        _bmi_low = False
+        if profile.height_cm > 0 and profile.bodyweight_kg > 0:
+            _bmi_low = profile.bodyweight_kg / ((profile.height_cm / 100) ** 2) < 18.5
         has_flags = bool(profile.medical) or bool(profile.injuries) or \
                     bool(profile.known_deficiencies) or \
+                    _bmi_low or \
                     profile.last_bloodwork in ("2yr_plus", "never") or \
                     profile.mental_health_concern in ("moderate", "significant")
     else:
+        _bmi_low = False
+        h = profile.get("height_cm", 0)
+        w = profile.get("bodyweight_kg", 0)
+        if h and w:
+            _bmi_low = w / ((h / 100) ** 2) < 18.5
         has_flags = bool(profile.get("medical_conditions")) or bool(profile.get("injuries")) or \
                     bool(profile.get("known_deficiencies")) or \
+                    _bmi_low or \
                     profile.get("last_bloodwork", "") in ("2yr_plus", "never") or \
                     profile.get("mental_health_concern", "") in ("moderate", "significant")
 
@@ -208,6 +218,17 @@ def load_context(profile: ClientProfile, ed_answers: dict = None) -> dict:
     triage = run_safety_triage(profile, ed_result)
     if triage.blocked:
         return {"triage": triage, "pillars": None, "vault_context": "", "vault_sources": [], "blocked": True}
+
+    # BMI < 18.5 safety check (Master Protocol.md:225 — RED: "Do not proceed")
+    if profile.height_cm > 0 and profile.bodyweight_kg > 0:
+        bmi = profile.bodyweight_kg / ((profile.height_cm / 100) ** 2)
+        if bmi < 18.5:
+            from mos_bot.core.models import SafetyTriageResult
+            triage = SafetyTriageResult(
+                triage="red", blocked=True,
+                caution_note="BLOCKED: BMI indicates underweight status. Professional nutritional assessment recommended before program generation."
+            )
+            return {"triage": triage, "pillars": None, "vault_context": "", "vault_sources": [], "blocked": True}
 
     pillars = assign_pillars(profile, triage)
 

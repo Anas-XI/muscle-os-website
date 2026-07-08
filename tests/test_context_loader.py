@@ -120,6 +120,21 @@ def test_load_context_blocked_on_red():
     assert ctx["triage"].triage == "red"
 
 
+def test_load_context_bmi_under_18_5_blocks():
+    profile = ClientProfile(user_id="test", name="Test", bodyweight_kg=50, height_cm=170)
+    ctx = load_context(profile)
+    assert ctx.get("blocked") is True
+    assert "underweight" in ctx["triage"].caution_note.lower()
+
+
+def test_load_context_bmi_exactly_18_5_passes():
+    # Vault says "< 18.5" (strict), so exactly 18.5 must NOT block
+    # 18.5 * (1.7^2) = 53.465; use slightly above to confirm strict <
+    profile = ClientProfile(user_id="test", name="Test", bodyweight_kg=53.5, height_cm=170)
+    ctx = load_context(profile)
+    assert ctx.get("blocked") is False
+
+
 def test_load_context_returns_pillars():
     profile = ClientProfile(user_id="test", name="Test", goal="fat_loss", bodyweight_kg=80,
                             height_cm=175, age=30, training_days=4)

@@ -56,6 +56,25 @@ def test_evaluate_rag_impact_clientprofile_known_deficiencies_blocks():
     assert action == "block"
 
 
+def test_evaluate_rag_impact_bmi_low_blocks():
+    profile = {"user_id": "t", "height_cm": 170, "bodyweight_kg": 50}
+    action, msg = evaluate_rag_impact(profile, rag_failed=True)
+    assert action == "block"
+
+
+def test_evaluate_rag_impact_clientprofile_bmi_low_blocks():
+    p = ClientProfile(user_id="t", name="T", bodyweight_kg=50, height_cm=170)
+    action, msg = evaluate_rag_impact(p, rag_failed=True)
+    assert action == "block"
+
+
+def test_evaluate_rag_impact_bmi_exactly_18_5_not_blocked():
+    # 18.5 * (1.7^2) = 53.465; use slightly above to confirm strict <
+    profile = {"user_id": "t", "height_cm": 170, "bodyweight_kg": 53.5}
+    action, msg = evaluate_rag_impact(profile, rag_failed=True)
+    assert action == "warn"
+
+
 def test_evaluate_rag_impact_clientprofile_clean():
     p = ClientProfile(user_id="t", name="Clean")
     action, msg = evaluate_rag_impact(p, rag_failed=True)
