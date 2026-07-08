@@ -72,3 +72,30 @@ async def users(update, context):
     if len(text) > 4000:
         text = text[:4000] + "\n... (truncated)"
     await update.message.reply_text(text)
+
+
+async def clear_crisis(update, context):
+    if str(update.effective_user.id) != str(OWNER_ID):
+        await update.message.reply_text("Unauthorized.")
+        return
+    if not context.args:
+        await update.message.reply_text("Usage: /clear_crisis <user_id>")
+        return
+    user_id = context.args[0]
+    path = os.path.join(USERS_DIR, f"{user_id}.json")
+    if not os.path.exists(path):
+        await update.message.reply_text(f"User {user_id} not found.")
+        return
+    with open(path, "r", encoding="utf-8") as f:
+        profile = json.load(f)
+    if not profile.get("crisis_cleared"):
+        profile["crisis_cleared"] = True
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(profile, f, indent=2)
+        from mos_bot.core.analytics import track
+        track("crisis_cleared", user_id, {"cleared_by": str(update.effective_user.id)})
+        await update.message.reply_text(
+            f"Crisis flag cleared for {user_id}. They can now generate a program."
+        )
+    else:
+        await update.message.reply_text(f"Crisis flag already cleared for {user_id}.")

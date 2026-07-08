@@ -53,6 +53,7 @@ class ClientProfile(BaseModel):
     mental_health_concern: str = ""
     mental_health_care: str = ""
     rapid_weight_loss: bool = False
+    crisis_cleared: bool = False
     ed_risk: bool = False
     triage_result: str = "green"
     inbody: Optional[dict] = None

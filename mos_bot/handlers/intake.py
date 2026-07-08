@@ -10,7 +10,7 @@ from mos_bot.states import (
     ED_SCREENING_1, ED_SCREENING_2, ED_SCREENING_3, ED_SCREENING_4,
     CONFIRM_PROFILE,
     HYDRATION, ALCOHOL_WEEKLY, WORK_SCHEDULE, MOBILITY, BLOODWORK,
-    RAPID_WEIGHT_LOSS, MENTAL_HEALTH,
+    RAPID_WEIGHT_LOSS, MENTAL_HEALTH, CRISIS_INTERVENTION,
 )
 from mos_bot.core.intake_builder import (
     build_profile, save_profile, parse_weight, parse_height,
@@ -51,6 +51,7 @@ SCREEN_MAP = {
     MOBILITY: (7, "Health Screening"),
     BLOODWORK: (7, "Health Screening"),
     RAPID_WEIGHT_LOSS: (7, "Health Screening"),
+    CRISIS_INTERVENTION: (7, "Health Screening"),
     MENTAL_HEALTH: (7, "Health Screening"),
     ED_SCREENING_1: (7, "Health Screening"),
     ED_SCREENING_2: (7, "Health Screening"),
@@ -699,7 +700,44 @@ async def mental_health_handler(update, context):
     mh_map = {"mh_no": "no", "mh_mild": "mild", "mh_moderate": "moderate", "mh_significant": "significant"}
     if query.data in mh_map:
         ud["mental_health_concern"] = mh_map[query.data]
+    if query.data == "mh_significant":
+        return await _ask_crisis_intervention(query, ud)
     return await _show_confirm(query, ud)
+
+
+async def _ask_crisis_intervention(query, ud):
+    await query.edit_message_text(
+        f"{_header(CRISIS_INTERVENTION)}Thank you for sharing that. "
+        "Your wellbeing is the most important thing.\n\n"
+        "Starting a fitness program is best done when your mental health is stable "
+        "and you have the right support in place. Based on what you've shared, I "
+        "recommend speaking with a mental health professional before beginning "
+        "a structured training program.\n\n"
+        "\u2022 Your profile will be saved so you can come back anytime\n"
+        "\u2022 A coach can help you prepare when you're ready\n"
+        "\u2022 You can use /checkin for general wellness tracking\n\n"
+        "**Immediate support options:**\n"
+        "\u2022 Find a Helpline (global): https://findahelpline.com\n"
+        "\u2022 Crisis Text Line: Text HOME to 741741\n"
+        "\u2022 International Association for Suicide Prevention: "
+        "https://iasp.info/resources/Crisis_Centres/\n\n"
+        "If you're in immediate danger, please call your local emergency services.\n\n"
+        "Your profile has been saved. When you're ready, come back and we'll proceed.",
+        reply_markup=_keyboard(
+            (_btn("I understand — save my profile", "crisis_acknowledge"),),
+        ),
+    )
+    return CRISIS_INTERVENTION
+
+
+async def crisis_intervention_handler(update, context):
+    query = update.callback_query
+    await query.answer()
+    context.user_data["crisis_intervention_shown"] = True
+    track("crisis_intervention_shown", context.user_data.get("user_id", ""), {
+        "mental_health_concern": "significant",
+    })
+    return await _show_confirm(query, context)
 
 
 async def _show_confirm(query, context):
@@ -774,6 +812,7 @@ async def confirm_handler(update, context):
         "last_bloodwork": context.user_data.get("last_bloodwork", ""),
         "mental_health_concern": context.user_data.get("mental_health_concern", ""),
         "rapid_weight_loss": context.user_data.get("rapid_weight_loss", False),
+        "crisis_cleared": False,
     }
 
     profile = build_profile(raw)
@@ -792,11 +831,24 @@ async def confirm_handler(update, context):
 
     if "error" in result:
         if result.get("blocked"):
-            await query.message.reply_text(
-                "I'm unable to build your program at this time. "
-                "Please consult a healthcare professional before proceeding.\n\n"
-                "If you have questions, use /help or contact support."
-            )
+            if result.get("block_reason") == "crisis":
+                await query.message.reply_text(
+                    "Your wellbeing comes first.\n\n"
+                    "**Immediate support options:**\n"
+                    "\u2022 Find a Helpline (global): https://findahelpline.com\n"
+                    "\u2022 Crisis Text Line: Text HOME to 741741\n"
+                    "\u2022 International Association for Suicide Prevention: "
+                    "https://iasp.info/resources/Crisis_Centres/\n\n"
+                    "If you're in immediate danger, please call your local emergency services.\n\n"
+                    "Your profile is saved. When you're ready, a coach can help you proceed. "
+                    "Type /start to return."
+                )
+            else:
+                await query.message.reply_text(
+                    "I'm unable to build your program at this time. "
+                    "Please consult a healthcare professional before proceeding.\n\n"
+                    "If you have questions, use /help or contact support."
+                )
         else:
             await query.message.reply_text(
                 "I ran into an error building your program. Please try again or use /help."

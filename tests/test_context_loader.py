@@ -105,6 +105,50 @@ def test_assign_pillars_poor_sleep():
     assert any("Sleep" in p for p in pillars.primary_pillars)
 
 
+def test_safety_triage_mental_health_significant_blocks():
+    profile = ClientProfile(user_id="test", name="Test", mental_health_concern="significant")
+    triage = run_safety_triage(profile, ("green", []))
+    assert triage.blocked
+    assert "support" in triage.caution_note.lower()
+
+
+def test_safety_triage_mental_health_cleared_does_not_block():
+    profile = ClientProfile(user_id="test", name="Test", mental_health_concern="significant",
+                            crisis_cleared=True)
+    triage = run_safety_triage(profile, ("green", []))
+    assert not triage.blocked
+    assert "mental_health_support" in triage.modifiers
+
+
+def test_safety_triage_mental_health_moderate_does_not_block():
+    profile = ClientProfile(user_id="test", name="Test", mental_health_concern="moderate")
+    triage = run_safety_triage(profile, ("green", []))
+    assert not triage.blocked
+    assert "mental_health_support" in triage.modifiers
+
+
+def test_load_context_crisis_block_reason():
+    profile = ClientProfile(user_id="test", name="Test", mental_health_concern="significant")
+    ctx = load_context(profile)
+    assert ctx.get("blocked") is True
+    assert ctx.get("block_reason") == "crisis"
+
+
+def test_load_context_crisis_cleared_passes():
+    profile = ClientProfile(user_id="test", name="Test", mental_health_concern="significant",
+                            crisis_cleared=True, goal="hypertrophy", bodyweight_kg=80, height_cm=175)
+    ctx = load_context(profile)
+    assert ctx.get("blocked") is False
+    assert "mental_health_support" in ctx["triage"].modifiers
+
+
+def test_load_context_bmi_low_block_reason():
+    profile = ClientProfile(user_id="test", name="Test", bodyweight_kg=50, height_cm=170)
+    ctx = load_context(profile)
+    assert ctx.get("blocked") is True
+    assert ctx.get("block_reason") == "bmi_low"
+
+
 def test_assign_pillars_high_stress():
     profile = ClientProfile(user_id="test", name="Test", goal="fat_loss", stress_level=8)
     triage = run_safety_triage(profile, ("green", []))

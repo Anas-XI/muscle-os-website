@@ -18,7 +18,7 @@ from mos_bot.states import (
     CHECKIN_SORENESS, CHECKIN_ADHERENCE, CHECKIN_TOP_SETS,
     COACH_CHAT,
     HYDRATION, ALCOHOL_WEEKLY, WORK_SCHEDULE, MOBILITY, BLOODWORK,
-    RAPID_WEIGHT_LOSS, MENTAL_HEALTH,
+    RAPID_WEIGHT_LOSS, MENTAL_HEALTH, CRISIS_INTERVENTION,
 )
 from mos_bot.handlers.start import start, help_command, cancel
 from mos_bot.handlers.upload_profile import upload_profile, handle_json_upload
@@ -36,6 +36,7 @@ from mos_bot.handlers.intake import (
     water_handler, alcohol_handler, work_schedule_handler,
     mobility_handler, bloodwork_handler,
     rapid_weight_loss_handler, mental_health_handler,
+    crisis_intervention_handler,
 )
 from mos_bot.handlers.checkin import (
     checkin_start,
@@ -45,7 +46,7 @@ from mos_bot.handlers.checkin import (
     checkin_top_sets_handler,
 )
 from mos_bot.handlers.coach import coach_start, coach_chat_handler, coach_callback_handler
-from mos_bot.handlers.admin import status, users
+from mos_bot.handlers.admin import status, users, clear_crisis
 
 
 def main():
@@ -95,6 +96,7 @@ def main():
             BLOODWORK: [CallbackQueryHandler(bloodwork_handler)],
             RAPID_WEIGHT_LOSS: [CallbackQueryHandler(rapid_weight_loss_handler)],
             MENTAL_HEALTH: [CallbackQueryHandler(mental_health_handler)],
+            CRISIS_INTERVENTION: [CallbackQueryHandler(crisis_intervention_handler)],
             CONFIRM_PROFILE: [CallbackQueryHandler(confirm_handler)],
         },
         fallbacks=[CommandHandler("cancel", cancel)],
@@ -140,6 +142,7 @@ def main():
     app.add_handler(CommandHandler("help", help_command))
     app.add_handler(CommandHandler("status", status))
     app.add_handler(CommandHandler("users", users))
+    app.add_handler(CommandHandler("clear_crisis", clear_crisis))
 
     start_in_thread()
     print("Muscle OS Bot + Web started. Press Ctrl+C to stop.")

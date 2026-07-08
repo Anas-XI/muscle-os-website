@@ -25,6 +25,30 @@ def evaluate_ed_screening(answers: dict) -> Tuple[str, List[str]]:
     return "green", items
 
 
+CRISIS_RESOURCES = {
+    "default": (
+        "\u2022 Find a Helpline (global): https://findahelpline.com\n"
+        "\u2022 Crisis Text Line: Text HOME to 741741\n"
+        "\u2022 International Association for Suicide Prevention: "
+        "https://iasp.info/resources/Crisis_Centres/\n"
+    ),
+    "US": (
+        "\u2022 988 Suicide & Crisis Lifeline: Call or text 988\n"
+        "\u2022 Crisis Text Line: Text HOME to 741741\n"
+        "\u2022 SAMHSA Helpline: 1-800-662-4357\n"
+    ),
+    "UK": (
+        "\u2022 Samaritans: Call 116 123\n"
+        "\u2022 Mind Infoline: 0300 123 3393\n"
+    ),
+    "MENA": (
+        "\u2022 Find a Helpline (MENA): https://findahelpline.com/regions/middle-east\n"
+        "\u2022 Beirut: Embrace Lifeline 1564\n"
+        "\u2022 UAE: Dubai Psychological Services 800-4636\n"
+    ),
+}
+
+
 def run_safety_triage(profile: ClientProfile, ed_result: Tuple[str, List[str]]) -> SafetyTriageResult:
     triage, ed_items = ed_result
     modifiers = []
@@ -33,6 +57,19 @@ def run_safety_triage(profile: ClientProfile, ed_result: Tuple[str, List[str]]) 
         return SafetyTriageResult(
             triage="red", ed_items=ed_items, blocked=True,
             caution_note="BLOCKED: Professional referral required before program generation."
+        )
+
+    # Mental health crisis block (soft-reversible via crisis_cleared flag)
+    if profile.mental_health_concern == "significant" and not profile.crisis_cleared:
+        return SafetyTriageResult(
+            triage="red", blocked=True,
+            caution_note=(
+                "BLOCKED: Significant mental health concern reported. "
+                "Professional support recommended before beginning a fitness program.\n\n"
+                "**Immediate support options:**\n"
+                + CRISIS_RESOURCES.get("default")
+                + "\nYour profile is saved. When you're ready, a coach can help you proceed."
+            )
         )
 
     if triage == "green":
@@ -219,7 +256,8 @@ def load_context(profile: ClientProfile, ed_answers: dict = None) -> dict:
 
     triage = run_safety_triage(profile, ed_result)
     if triage.blocked:
-        return {"triage": triage, "pillars": None, "vault_context": "", "vault_sources": [], "blocked": True}
+        block_reason = "crisis" if profile.mental_health_concern == "significant" else "ed_red"
+        return {"triage": triage, "pillars": None, "vault_context": "", "vault_sources": [], "blocked": True, "block_reason": block_reason}
 
     # BMI < 18.5 safety check (Master Protocol.md:225 — RED: "Do not proceed")
     if profile.height_cm > 0 and profile.bodyweight_kg > 0:
@@ -230,7 +268,7 @@ def load_context(profile: ClientProfile, ed_answers: dict = None) -> dict:
                 triage="red", blocked=True,
                 caution_note="BLOCKED: BMI indicates underweight status. Professional nutritional assessment recommended before program generation."
             )
-            return {"triage": triage, "pillars": None, "vault_context": "", "vault_sources": [], "blocked": True}
+            return {"triage": triage, "pillars": None, "vault_context": "", "vault_sources": [], "blocked": True, "block_reason": "bmi_low"}
 
     pillars = assign_pillars(profile, triage)
 

@@ -96,6 +96,7 @@ def map_form_json(form_json: dict, user_id: str) -> dict:
         "mental_health_concern": a.get("Q78", ""),
         "mental_health_care": a.get("Q79", ""),
         "rapid_weight_loss": a.get("Q80") == "yes",
+        "crisis_cleared": False,
         "ed_risk": any(a.get(q, "never") in ("often", "very_often") for q in ("Q58", "Q59", "Q60"))
                     or a.get("Q61") in ("moderate", "significant"),
         "triage_result": "red" if any(a.get(q, "never") in ("often", "very_often") for q in ("Q58", "Q59", "Q60"))
@@ -168,10 +169,22 @@ async def _process_json_file(update: Update, context: ContextTypes.DEFAULT_TYPE,
 
     if "error" in result:
         if result.get("blocked"):
-            await msg.edit_text(
-                "I'm unable to build your program at this time. "
-                "Please consult a healthcare professional before proceeding."
-            )
+            if result.get("block_reason") == "crisis":
+                await msg.edit_text(
+                    "Your wellbeing comes first.\n\n"
+                    "**Immediate support options:**\n"
+                    "\u2022 Find a Helpline (global): https://findahelpline.com\n"
+                    "\u2022 Crisis Text Line: Text HOME to 741741\n"
+                    "\u2022 International Association for Suicide Prevention: "
+                    "https://iasp.info/resources/Crisis_Centres/\n\n"
+                    "If you're in immediate danger, please call your local emergency services.\n\n"
+                    "Your profile is saved. When you're ready, a coach can help you proceed."
+                )
+            else:
+                await msg.edit_text(
+                    "I'm unable to build your program at this time. "
+                    "Please consult a healthcare professional before proceeding."
+                )
         else:
             await msg.edit_text(
                 "I ran into an error building your program. Please try again."

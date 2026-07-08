@@ -30,8 +30,9 @@ def generate_program_pipeline(user_id: str, ed_answers: dict = None) -> dict:
     context = load_context(profile, ed_answers)
 
     if context.get("blocked"):
-        track("program_blocked", {"user_id": user_id, "reason": "screening_red"})
-        return {"error": context["triage"].caution_note, "blocked": True}
+        block_reason = context.get("block_reason", "screening_red")
+        track("program_blocked", {"user_id": user_id, "reason": block_reason})
+        return {"error": context["triage"].caution_note, "blocked": True, "block_reason": block_reason}
 
     # Wire rag_failed: hard-block on flagged profiles, soft-warn otherwise
     rag_action, rag_msg = evaluate_rag_impact(profile, context.get("rag_failed", False))
