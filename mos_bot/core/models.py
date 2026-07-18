@@ -49,11 +49,25 @@ class ClientProfile(BaseModel):
     medical: List[str] = []
     last_bloodwork: str = ""
     known_deficiencies: List[str] = []
+    # deficiency_status tracks whether a listed deficiency is current/untreated
+    # vs past/resolved. Default is "current" (fail-safe toward blocking).
+    # Only structured sources (form fields, human confirmation) set "resolved";
+    # keyword-scan detection (e.g. _detect_deficiencies()) always emits "current".
+    # deficiency_confirmed=False means an auto-detected flag needs human review
+    # before it is trusted for downstream clearance decisions.
+    # Confirmation-gate pattern per session_state.py:20-30.
+    deficiency_status: str = "current"
+    deficiency_confirmed: bool = False
     family_history: List[str] = []
     mental_health_concern: str = ""
     mental_health_care: str = ""
     rapid_weight_loss: bool = False
-    crisis_cleared: bool = False
+    # crisis_incident_id is set when a crisis is detected (e.g., "20260709_143022").
+    # crisis_cleared_incident stores the incident_id that was cleared via /clear_crisis.
+    # A new crisis is only blocked if its incident_id differs from the cleared one,
+    # so an old clearance never suppresses a new incident.
+    crisis_incident_id: str = ""
+    crisis_cleared_incident: str = ""
     ed_risk: bool = False
     triage_result: str = "green"
     inbody: Optional[dict] = None
@@ -125,6 +139,16 @@ class NutritionPlan(BaseModel):
     special_notes: str = ""
 
 
+class VaultInformedSignals(BaseModel):
+    """Structured signals extracted from vault RAG output to inform program decisions."""
+    vault_recommended_pillars: List[str] = Field(default_factory=list)
+    vault_nutrition_guidance: str = ""
+    vault_training_guidance: str = ""
+    vault_recovery_guidance: str = ""
+    vault_injury_guidance: str = ""
+    vault_top_snippets: List[str] = Field(default_factory=list)
+
+
 class ProgramContent(BaseModel):
     client: ClientProfile
     triage: SafetyTriageResult = Field(default_factory=SafetyTriageResult)
@@ -135,4 +159,6 @@ class ProgramContent(BaseModel):
     supplement_recommendations: str = ""
     rehab_prehab: str = ""
     vault_sources: List[VaultSource] = Field(default_factory=list)
+    vault_insights: List[str] = Field(default_factory=list)
+    vault_context_raw: str = ""
     generated_at: str = ""

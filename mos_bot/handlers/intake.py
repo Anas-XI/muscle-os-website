@@ -19,6 +19,7 @@ from mos_bot.core.intake_builder import (
     SLEEP_MAP, STRESS_MAP, STEPS_MAP, CAFFEINE_MAP,
 )
 from mos_bot.core.analytics import track
+from mos_bot.config import OWNER_ID
 try:
     from mos_cli import evaluate_ed_screening
 except ImportError:
@@ -26,6 +27,12 @@ except ImportError:
         return "green", []
 
 TOTAL_SCREENS = 8
+
+
+def _incident_id() -> str:
+    """Generate a unique crisis incident identifier (timestamp-based)."""
+    from datetime import datetime
+    return datetime.utcnow().strftime("%Y%m%d_%H%M%S")
 
 SCREEN_MAP = {
     GOAL: (1, "Your Goal"),
@@ -746,6 +753,23 @@ async def crisis_intervention_handler(update, context):
         "ed_risk": profile.get("ed_risk", False),
         "crisis": True,
     })
+    # Notify owner/inbox synchronously — the crisis handler made a promise
+    # ("a coach will follow up") that can't depend on the user polling analytics.
+    if OWNER_ID:
+        try:
+            from mos_bot.core.context_loader import format_crisis_resources
+            await context.bot.send_message(
+                chat_id=OWNER_ID,
+                text=(
+                    f"\u26a0\ufe0f CRISIS: user {profile['user_id']}\n"
+                    f"Time: {profile.get('crisis_incident_id', '?')}\n"
+                    f"Name: {profile.get('name', '?')}\n\n"
+                    f"Profile saved. Manual follow-up required.\n"
+                    f"Use /clear_crisis {profile['user_id']} <note> after contact."
+                )
+            )
+        except Exception as e:
+            logger.error("Failed to notify owner of crisis: %s", e)
     await query.edit_message_text(
         "Your profile is saved. A coach will follow up with you directly.\n\n"
         "Type /start anytime to return."
@@ -775,6 +799,10 @@ def _raw_profile_from_user_data(ud: dict) -> dict:
         "caffeine": ud.get("caffeine", ""),
         "supplements": ud.get("supplements", []),
         "medical": ud.get("medical", []),
+        "ED1": ud.get("ED1", "no"),
+        "ED2": ud.get("ED2", "no"),
+        "ED3": ud.get("ED3", "no"),
+        "ED4": ud.get("ED4", "no"),
         "ed_risk": ud.get("ed_risk", False),
         "triage_result": "yellow" if ud.get("ed_risk") else "green",
         "daily_water_liters": ud.get("daily_water_liters", ""),
@@ -784,7 +812,8 @@ def _raw_profile_from_user_data(ud: dict) -> dict:
         "last_bloodwork": ud.get("last_bloodwork", ""),
         "mental_health_concern": ud.get("mental_health_concern", ""),
         "rapid_weight_loss": ud.get("rapid_weight_loss", False),
-        "crisis_cleared": False,
+        "crisis_incident_id": _incident_id() if ud.get("mental_health_concern") == "significant" else "",
+        "crisis_cleared_incident": "",
     }
 
 

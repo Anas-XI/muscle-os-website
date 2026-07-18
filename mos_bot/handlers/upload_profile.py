@@ -5,6 +5,12 @@ from mos_bot.core.intake_builder import build_profile, save_profile, parse_weigh
 from mos_bot.core.program_generator import generate_program_pipeline
 
 
+def _incident_id() -> str:
+    """Generate a unique crisis incident identifier (timestamp-based)."""
+    from datetime import datetime
+    return datetime.utcnow().strftime("%Y%m%d_%H%M%S")
+
+
 # ── Field mapping helpers ──
 
 GOAL_MAP = {
@@ -92,11 +98,17 @@ def map_form_json(form_json: dict, user_id: str) -> dict:
         "medical": [a.get("Q47", "")] if a.get("Q47", "").strip() else [],
         "last_bloodwork": a.get("Q75", ""),
         "known_deficiencies": _list_form_field(a, "Q76"),
+        # All deficiency data starts unconfirmed — requires human (coach) review
+        # per session_state.py confirmation-gate pattern. Default "current" is
+        # fail-safe toward blocking.
+        "deficiency_status": "current",
+        "deficiency_confirmed": False,
         "family_history": _list_form_field(a, "Q77"),
         "mental_health_concern": a.get("Q78", ""),
         "mental_health_care": a.get("Q79", ""),
         "rapid_weight_loss": a.get("Q80") == "yes",
-        "crisis_cleared": False,
+        "crisis_incident_id": _incident_id() if a.get("Q78") == "significant" else "",
+        "crisis_cleared_incident": "",
         "ed_risk": any(a.get(q, "never") in ("often", "very_often") for q in ("Q58", "Q59", "Q60"))
                     or a.get("Q61") in ("moderate", "significant"),
         "triage_result": "red" if any(a.get(q, "never") in ("often", "very_often") for q in ("Q58", "Q59", "Q60"))

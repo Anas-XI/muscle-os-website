@@ -23,5 +23,6 @@ VAULT_ROOT = os.getenv("VAULT_ROOT", os.path.join(os.path.dirname(SCRIPT_DIR), "
 BOT_USERNAME = ""
 DATA_ROOT = os.path.join(SCRIPT_DIR, "data")
 USERS_DIR = os.path.join(DATA_ROOT, "users")
+SUPPLEMENTAL_DIR = os.path.join(DATA_ROOT, "supplemental")
 PROGRAMS_DIR = os.path.join(DATA_ROOT, "programs")
 PDFS_DIR = os.path.join(DATA_ROOT, "pdfs")

@@ -92,18 +92,44 @@ async def clear_crisis(update, context):
         return
     with open(path, "r", encoding="utf-8") as f:
         profile = json.load(f)
-    if not profile.get("crisis_cleared"):
-        profile["crisis_cleared"] = True
-        with open(path, "w", encoding="utf-8") as f:
-            json.dump(profile, f, indent=2)
-        from mos_bot.core.analytics import track
-        track("crisis_cleared", user_id, {
-            "cleared_by": str(update.effective_user.id),
-            "contact_note": note,
-        })
+    incident_id = profile.get("crisis_incident_id", "")
+    cleared_incident = profile.get("crisis_cleared_incident", "")
+    if incident_id and cleared_incident == incident_id:
         await update.message.reply_text(
-            f"Crisis flag cleared for {user_id}. They can now generate a program.\n"
-            f"Note recorded: {note}"
+            f"Crisis incident '{incident_id}' already cleared for {user_id}."
         )
-    else:
-        await update.message.reply_text(f"Crisis flag already cleared for {user_id}.")
+        return
+    profile["crisis_cleared_incident"] = incident_id
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(profile, f, indent=2)
+    from mos_bot.core.analytics import track
+    track("crisis_cleared", user_id, {
+        "cleared_by": str(update.effective_user.id),
+        "contact_note": note,
+        "incident_id": incident_id,
+    })
+    await update.message.reply_text(
+        f"Crisis incident '{incident_id}' cleared for {user_id}. "
+        f"They can now generate a program.\n"
+        f"Note recorded: {note}"
+    )
+
+
+async def test_alert(update, context):
+    if str(update.effective_user.id) != str(OWNER_ID):
+        await update.message.reply_text("Unauthorized.")
+        return
+    if not OWNER_ID:
+        await update.message.reply_text("No OWNER_ID configured.")
+        return
+    try:
+        await context.bot.send_message(
+            chat_id=OWNER_ID,
+            text=(
+                "Test alert from Muscle OS Bot.\n\n"
+                "If you can read this, the crisis alert DM path is working."
+            )
+        )
+        await update.message.reply_text("Test alert sent.")
+    except Exception as e:
+        await update.message.reply_text(f"Test alert failed: {e}")

@@ -5,8 +5,9 @@ import threading
 import traceback
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException
-from fastapi.responses import HTMLResponse, FileResponse
+from fastapi import FastAPI, HTTPException, Request
+from fastapi.responses import HTMLResponse, FileResponse, JSONResponse
+from fastapi.exceptions import RequestValidationError
 from pydantic import BaseModel
 
 from mos_bot.config import DATA_ROOT, LLM_API_KEY, LLM_API_URL, LLM_MODEL
@@ -14,6 +15,28 @@ from mos_bot.core.intake_builder import load_profile, save_profile, build_profil
 from mos_bot.core.program_generator import generate_program
 
 app = FastAPI(title="Muscle OS Web")
+
+
+# ── Global exception handlers ──
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    return JSONResponse(
+        status_code=422,
+        content={
+            "error": "invalid_request",
+            "detail": exc.errors(),
+        },
+    )
+
+
+# ── Routers ──
+
+from mos_bot.web.routers.arbitrate import router as arbitrate_router
+app.include_router(arbitrate_router)
+from mos_bot.web.routers.supplemental import router as supplemental_router
+app.include_router(supplemental_router)
 
 INDEX_HTML: str | None = None
 

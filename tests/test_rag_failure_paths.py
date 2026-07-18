@@ -39,21 +39,24 @@ def test_evaluate_rag_impact_failure_with_bloodwork():
 
 
 def test_evaluate_rag_impact_failure_with_mental_health():
-    profile = {"user_id": "t", "mental_health_concern": "significant"}
+    profile = {"user_id": "t", "mental_health_concern": "significant",
+               "crisis_incident_id": "inc_001"}
     action, msg = evaluate_rag_impact(profile, rag_failed=True)
     assert action == "block"
 
 
 def test_evaluate_rag_impact_failure_with_known_deficiencies():
+    """Deficiencies alone no longer block in evaluate_rag_impact — upstream now."""
     profile = {"user_id": "t", "known_deficiencies": ["vitamin_d"]}
     action, msg = evaluate_rag_impact(profile, rag_failed=True)
-    assert action == "block"
+    assert action == "warn"
 
 
 def test_evaluate_rag_impact_clientprofile_known_deficiencies_blocks():
+    """Deficiencies alone no longer block in evaluate_rag_impact — upstream now."""
     p = ClientProfile(user_id="t", name="T", known_deficiencies=["vitamin_d"])
     action, msg = evaluate_rag_impact(p, rag_failed=True)
-    assert action == "block"
+    assert action == "warn"
 
 
 def test_evaluate_rag_impact_bmi_low_blocks():
@@ -106,3 +109,44 @@ def test_generate_program_returns_markdown_for_clean_profile():
     result = generate_program(profile)
     assert result is not None
     assert "Coaching Program" in result
+
+
+# ── deficiency_status + deficiency_confirmed branching ──
+
+def test_deficiency_evaluate_rag_impact_clean_does_not_block():
+    """Deficiency-only profiles no longer block in evaluate_rag_impact."""
+    profile = {"user_id": "t", "known_deficiencies": ["vitamin_d"]}
+    action, _ = evaluate_rag_impact(profile, rag_failed=True)
+    assert action == "warn"
+
+
+def test_deficiency_evaluate_rag_impact_confirmed_current_does_not_block():
+    """Confirmed+current deficiency no longer blocks in evaluate_rag_impact."""
+    p = ClientProfile(user_id="t", name="T", known_deficiencies=["vitamin_d"],
+                      deficiency_status="current", deficiency_confirmed=True)
+    action, _ = evaluate_rag_impact(p, rag_failed=True)
+    assert action == "warn"
+
+
+def test_deficiency_confirmed_resolved_warns():
+    """Confirmed+resolved deficiency → warn (no other flags in evaluate_rag_impact)."""
+    p = ClientProfile(user_id="t", name="T", known_deficiencies=["vitamin_d"],
+                      deficiency_status="resolved", deficiency_confirmed=True)
+    action, _ = evaluate_rag_impact(p, rag_failed=True)
+    assert action == "warn"
+
+
+def test_deficiency_dict_confirmed_resolved_warns():
+    """Dict-profile branch: confirmed+resolved → warn."""
+    profile = {"user_id": "t", "known_deficiencies": ["vitamin_d"],
+               "deficiency_status": "resolved", "deficiency_confirmed": True}
+    action, _ = evaluate_rag_impact(profile, rag_failed=True)
+    assert action == "warn"
+
+
+def test_deficiency_empty_does_not_block():
+    """Empty known_deficiencies list — no flag regardless of status fields."""
+    p = ClientProfile(user_id="t", name="T", deficiency_status="current",
+                      deficiency_confirmed=False)
+    action, _ = evaluate_rag_impact(p, rag_failed=True)
+    assert action == "warn"

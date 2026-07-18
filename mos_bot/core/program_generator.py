@@ -1,19 +1,24 @@
-"""Program generation pipeline: profile → context → content → PDF"""
+"""Program generation pipeline: profile → safety triage → RAG → content → PDF"""
 
 import json
 import os
 from datetime import datetime
 from mos_bot.config import USERS_DIR, PROGRAMS_DIR, PDFS_DIR
 from mos_bot.core.models import ClientProfile
-from mos_bot.core.context_loader import load_context, evaluate_rag_impact
+from mos_bot.core.context_loader import (
+    evaluate_ed_screening, run_safety_triage, assign_pillars,
+    _build_vault_context, _extract_vault_signals, evaluate_rag_impact,
+)
 from mos_bot.core.content_generator import generate_program as build_program_content, program_to_markdown
+from mos_bot.core.book_engine import BookDecisionEngine
 from mos_bot.core.pdf_renderer import generate_program_pdf
 from mos_bot.core.analytics import track
 
 
 def generate_program_pipeline(user_id: str, ed_answers: dict = None) -> dict:
-    """Full deterministic pipeline: load profile → context → content → PDF.
-    Returns dict with program_content, markdown, pdf_path, and metadata.
+    """Full deterministic pipeline: load profile → safety → RAG → content → PDF.
+    Safety uses the same functions as /arbitrate (evaluate_ed_screening,
+    run_safety_triage, assign_pillars). RAG vault queries are a separate step.
     """
     # 1. Load profile
     profile_path = os.path.join(USERS_DIR, f"{user_id}.json")
@@ -26,22 +31,34 @@ def generate_program_pipeline(user_id: str, ed_answers: dict = None) -> dict:
     profile = ClientProfile.from_dict(raw_profile)
     client_name = profile.name or user_id
 
-    # 2. Context loading (ED screening → triage → pillars → RAG)
-    context = load_context(profile, ed_answers)
+    # 2. Safety triage (same pipeline as /arbitrate)
+    ed_result = evaluate_ed_screening(ed_answers or {})
+    triage = run_safety_triage(profile, ed_result)
 
-    if context.get("blocked"):
-        block_reason = context.get("block_reason", "screening_red")
+    if triage.blocked:
+        block_reason = triage.block_reason or "screening_red"
         track("program_blocked", {"user_id": user_id, "reason": block_reason})
-        return {"error": context["triage"].caution_note, "blocked": True, "block_reason": block_reason}
+        return {"error": triage.caution_note, "blocked": True, "block_reason": block_reason}
 
-    # Wire rag_failed: hard-block on flagged profiles, soft-warn otherwise
-    rag_action, rag_msg = evaluate_rag_impact(profile, context.get("rag_failed", False))
+    # 3. Vault RAG (runs before pillar assignment so vault signals inform pillars)
+    vault_context, vault_sources, rag_failed = _build_vault_context(profile, triage)
+
+    rag_action, rag_msg = evaluate_rag_impact(profile, rag_failed)
     if rag_action == "block":
         track("program_blocked", {"user_id": user_id, "reason": "rag_failure_flagged"})
         return {"error": rag_msg, "blocked": True}
 
-    # 3. Content generation (deterministic from templates + vault)
-    pc = build_program_content(profile, context["triage"], context["pillars"], context.get("vault_sources", []))
+    # 4. Vault signals extraction + vault-informed pillar assignment
+    vault_signals = _extract_vault_signals(vault_sources, profile)
+    pillars = assign_pillars(profile, triage, vault_signals)
+
+    # 5. Book Decision Engine — vault-informed enrichment of pillars and program
+    book_engine = BookDecisionEngine()
+    book_result = book_engine.apply(profile, pillars, triage)
+    pillars.modifications.extend(book_result.extra_modifiers)
+
+    # 6. Content generation (deterministic from templates + vault + book rules)
+    pc = build_program_content(profile, triage, pillars, vault_sources, vault_context, book_result, vault_signals)
     markdown = program_to_markdown(pc)
 
     # 4. Save markdown
@@ -70,14 +87,25 @@ def generate_program_pipeline(user_id: str, ed_answers: dict = None) -> dict:
 # Legacy wrapper — kept for compatibility with existing imports
 def generate_program(profile: dict) -> str:
     """Legacy wrapper. Generates deterministically from profile dict.
-    NOTE: vault_context param removed — load_context() handles vault internally.
+    Uses same safety pipeline as generate_program_pipeline.
     """
     p = ClientProfile.from_dict(profile)
-    context = load_context(p)
-    if context.get("blocked"):
+    ed_result = evaluate_ed_screening({})
+    triage = run_safety_triage(p, ed_result)
+    if triage.blocked:
         return None
-    rag_action, rag_msg = evaluate_rag_impact(p, context.get("rag_failed", False))
+
+    vault_context, vault_sources, rag_failed = _build_vault_context(p, triage)
+    rag_action, rag_msg = evaluate_rag_impact(p, rag_failed)
     if rag_action == "block":
         return None
-    pc = build_program_content(p, context["triage"], context["pillars"], context.get("vault_sources", []))
+
+    vault_signals = _extract_vault_signals(vault_sources, p)
+    pillars = assign_pillars(p, triage, vault_signals)
+
+    book_engine = BookDecisionEngine()
+    book_result = book_engine.apply(p, pillars, triage)
+    pillars.modifications.extend(book_result.extra_modifiers)
+
+    pc = build_program_content(p, triage, pillars, vault_sources, vault_context, book_result, vault_signals)
     return program_to_markdown(pc)

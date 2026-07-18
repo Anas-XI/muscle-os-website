@@ -8,9 +8,10 @@ Muscle Operating System/
 node_modules/
 
 # Frontend app (separate project)
-muscle-os-alpha/node_modules/
-muscle-os-alpha/dist/
-muscle-os-alpha/.vite/
+# Separate projects (pushed to own repos)
+muscle-os-alpha/
+mos-mobile/
+elitefit-master/
 
 # Python
 __pycache__/
@@ -26,6 +27,7 @@ mos_bot/data/analytics/
 mos_bot/data/feedback/
 mos_bot/data/pdfs/
 mos_bot/data/programs/
+mos_bot/data/vault_index/
 
 # Generated files
 bot_err.txt

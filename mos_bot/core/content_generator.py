@@ -1,12 +1,13 @@
 """Content Generator: Build structured program content from vault context + templates"""
 
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 from mos_bot.core.models import (
     ClientProfile, SafetyTriageResult, PillarAssignment,
     ProgramContent, ProgramStructure, NutritionPlan,
-    Exercise, Session, Phase, VaultSource,
+    Exercise, Session, Phase, VaultSource, VaultInformedSignals,
 )
+from mos_bot.core.book_engine import BookEngineResult
 
 
 def _goal_label(goal: str) -> str:
@@ -110,11 +111,19 @@ def generate_pillars_section(pillars: PillarAssignment) -> str:
     return "\n".join(lines)
 
 
-def generate_nutrition_plan(profile: ClientProfile, triage: SafetyTriageResult, pillars: PillarAssignment) -> NutritionPlan:
+def generate_nutrition_plan(profile: ClientProfile, triage: SafetyTriageResult, pillars: PillarAssignment, book_result: Optional[BookEngineResult] = None, vault_signals: Optional[VaultInformedSignals] = None) -> NutritionPlan:
     bmr = _calc_bmr(profile)
     tdee = _calc_tdee(bmr, profile)
-    protein_per_kg = 2.0 if profile.experience_years >= 2 else 1.6
+
+    # Book-informed protein target
+    book_protein = book_result.protein_per_kg if book_result else 1.6
+    protein_per_kg = max(book_protein, 2.0 if profile.experience_years >= 2 else 1.6)
     protein_g = round(profile.bodyweight_kg * protein_per_kg)
+
+    # Book-informed meal timing
+    meal_timing = book_result.meal_timing if book_result and book_result.meal_timing else (
+        "Distribute protein across 3-4 meals at leucine threshold (30-40g per meal). Carbs prioritized around training window."
+    )
 
     if pillars.gentle_entry or "no_calorie_deficit" in pillars.modifications:
         calories = tdee
@@ -124,10 +133,12 @@ def generate_nutrition_plan(profile: ClientProfile, triage: SafetyTriageResult, 
     else:
         goal = profile.goal.lower()
         if goal in ("fat_loss", "cut"):
-            deficit = min(500, round(tdee * 0.2))
+            bk = book_result if book_result else None
+            deficit = min((bk.deficit_kcal if bk else 500), round(tdee * 0.2))
             calories = tdee - deficit
         elif goal in ("hypertrophy", "build muscle", "strength"):
-            surplus = round(tdee * 0.1)
+            bk = book_result if book_result else None
+            surplus = round(tdee * 0.1) if not bk else round(tdee * 0.1)  # surplus_kcal used for note
             calories = tdee + surplus
         else:
             calories = tdee
@@ -135,19 +146,32 @@ def generate_nutrition_plan(profile: ClientProfile, triage: SafetyTriageResult, 
         carbs_g = round((calories - protein_g * 4 - fat_g * 9) / 4)
         special = ""
 
+    # Collect nutrition notes from vault + books + special notes from gentle entry / modifiers
+    nutrition_lines = []
+    if special:
+        nutrition_lines.append(special)
+    if vault_signals and vault_signals.vault_nutrition_guidance:
+        for snippet in vault_signals.vault_nutrition_guidance.split("\n\n"):
+            if snippet.strip() and snippet.strip() not in nutrition_lines:
+                nutrition_lines.append(f"Vault reference: {snippet.strip()[:300]}")
+    if book_result:
+        for n in book_result.nutrition_notes:
+            if n not in nutrition_lines:
+                nutrition_lines.append(n)
+
     return NutritionPlan(
         calories_target=calories,
         protein_g=protein_g,
         carbs_g=max(carbs_g, 0),
         fat_g=max(fat_g, 0),
         protein_per_kg=protein_per_kg,
-        meal_timing_notes="Distribute protein across 3-4 meals at leucine threshold (30-40g per meal). Carbs prioritized around training window.",
+        meal_timing_notes=meal_timing,
         hydration_target_l=max(2.5, round(profile.bodyweight_kg * 0.035, 1)),
-        special_notes=special,
+        special_notes="; ".join(nutrition_lines) if nutrition_lines else "",
     )
 
 
-def generate_program_structure(profile: ClientProfile, triage: SafetyTriageResult, pillars: PillarAssignment) -> ProgramStructure:
+def generate_program_structure(profile: ClientProfile, triage: SafetyTriageResult, pillars: PillarAssignment, book_result: Optional[BookEngineResult] = None, vault_signals: Optional[VaultInformedSignals] = None) -> ProgramStructure:
     split_name = _determine_split(profile)
     is_gentle = pillars.gentle_entry
 
@@ -225,7 +249,17 @@ def generate_program_structure(profile: ClientProfile, triage: SafetyTriageResul
     phase1 = Phase(name="Phase 1: Accumulation & Stability", duration=phase1_duration, goal=phase1_goal, sessions=sessions)
     phase2 = Phase(name="Phase 2: Intensification & Progressive Overload", duration=phase2_duration, goal=phase2_goal, progression_notes="When RIR drops below 2 on all sets of a movement, increase weight 5-7.5% or add 1 set. Re-test MAV landmarks after 8 weeks.")
 
-    warm_up = "5 min incline walk or bike (RPE 3-4)\nDynamic warm-up: leg swings, cat-cow, thoracic rotations, band pull-aparts\nMovement-specific warm-up: 2x10 reps at 50% working weight"
+    # Vault-informed + book-informed warm-up
+    base_warm_up = "5 min incline walk or bike (RPE 3-4)\nDynamic warm-up: leg swings, cat-cow, thoracic rotations, band pull-aparts\nMovement-specific warm-up: 2x10 reps at 50% working weight"
+    vault_extra = ""
+    if vault_signals and vault_signals.vault_injury_guidance:
+        vault_extra = vault_signals.vault_injury_guidance[:300]
+    if book_result and book_result.warm_up:
+        warm_up = base_warm_up + "\n" + book_result.warm_up
+    else:
+        warm_up = base_warm_up
+    if vault_extra:
+        warm_up += "\n\n" + vault_extra
     cool_down = "5 min light cardio (RPE 2-3)\nStatic stretching for worked muscle groups: 30s holds\nOptional: foam rolling for tight areas"
 
     return ProgramStructure(
@@ -237,9 +271,15 @@ def generate_program_structure(profile: ClientProfile, triage: SafetyTriageResul
     )
 
 
-def generate_program(profile: ClientProfile, triage: SafetyTriageResult, pillars: PillarAssignment, vault_sources: List[VaultSource] = None) -> ProgramContent:
-    nutrition = generate_nutrition_plan(profile, triage, pillars)
-    program = generate_program_structure(profile, triage, pillars)
+def generate_program(profile: ClientProfile, triage: SafetyTriageResult, pillars: PillarAssignment,
+                     vault_sources: List[VaultSource] = None,
+                     vault_context: str = "",
+                     book_result: Optional[BookEngineResult] = None,
+                     vault_signals: Optional[VaultInformedSignals] = None) -> ProgramContent:
+    nutrition = generate_nutrition_plan(profile, triage, pillars, book_result, vault_signals)
+    program = generate_program_structure(profile, triage, pillars, book_result, vault_signals)
+
+    vault_insights = list(book_result.vault_insights) if book_result else []
 
     return ProgramContent(
         client=profile,
@@ -248,6 +288,8 @@ def generate_program(profile: ClientProfile, triage: SafetyTriageResult, pillars
         program=program,
         nutrition=nutrition,
         vault_sources=vault_sources or [],
+        vault_insights=vault_insights,
+        vault_context_raw=vault_context,
     )
 
 
@@ -315,6 +357,11 @@ def program_to_markdown(pc: ProgramContent) -> str:
     lines.append(f"*   **Training Split:** {p.split}")
     lines.append(f"*   **Schedule:** {p.weekly_schedule}")
     lines.append(f"*   **Phasing:** Two-phase approach: **{p.phases[0].goal}** followed by **{p.phases[1].goal}** once movement quality is confirmed.")
+    # Vault-informed program notes
+    if pc.vault_insights:
+        lines.append(f"*   **Evidence Base:** This program is informed by {len(pc.vault_insights)} decision rules from the Muscle OS knowledge vault.")
+    if pc.vault_context_raw:
+        lines.append("*   **Vault Integration:** Program decisions incorporate relevant vault knowledge alongside book evidence.")
     lines.append("")
 
     # --- 5. Training Program ---
@@ -493,11 +540,19 @@ def program_to_markdown(pc: ProgramContent) -> str:
     lines.append("- [ ] 10min daily morning walk for light exposure")
     lines.append("")
 
-    # --- 14. Vault Sources ---
-    if pc.vault_sources:
-        lines.append("## 14. Vault Sources")
+    # --- 14. Vault-Informed Decisions ---
+    if pc.vault_insights:
+        lines.append("## 14. Vault-Informed Decisions")
         lines.append("")
-        lines.append("This program draws on the following Muscle OS vault documents:")
+        lines.append("The following evidence-based insights from the Muscle OS knowledge vault influenced this program:")
+        lines.append("")
+        for insight in pc.vault_insights:
+            lines.append(f"- {insight}")
+        lines.append("")
+
+    # --- 15. Vault Sources ---
+    if pc.vault_sources:
+        lines.append("## 15. Vault Sources")
         lines.append("")
         grouped = {}
         for vs in pc.vault_sources:
@@ -513,7 +568,7 @@ def program_to_markdown(pc: ProgramContent) -> str:
                 lines.append(f"- [{vs.title}](vault://{path_display}) (relevance: {vs.score:.2f})")
             lines.append("")
     else:
-        lines.append("## 14. Vault Sources")
+        lines.append("## 15. Vault Sources")
         lines.append("")
         lines.append("*Vault context was not available during generation.*")
         lines.append("")

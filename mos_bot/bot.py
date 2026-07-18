@@ -46,7 +46,7 @@ from mos_bot.handlers.checkin import (
     checkin_top_sets_handler,
 )
 from mos_bot.handlers.coach import coach_start, coach_chat_handler, coach_callback_handler
-from mos_bot.handlers.admin import status, users, clear_crisis
+from mos_bot.handlers.admin import status, users, clear_crisis, test_alert
 
 
 def main():
@@ -143,6 +143,7 @@ def main():
     app.add_handler(CommandHandler("status", status))
     app.add_handler(CommandHandler("users", users))
     app.add_handler(CommandHandler("clear_crisis", clear_crisis))
+    app.add_handler(CommandHandler("test_alert", test_alert))
 
     start_in_thread()
     print("Muscle OS Bot + Web started. Press Ctrl+C to stop.")

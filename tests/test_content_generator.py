@@ -87,7 +87,11 @@ def test_program_to_markdown_all_sections():
                             sex="male")
     triage = SafetyTriageResult(triage="green")
     pillars = PillarAssignment(primary_pillars=["P2 - Training Maxing"])
-    pc = generate_program(profile, triage, pillars)
+    from mos_bot.core.book_engine import BookEngineResult
+
+    pc = generate_program(profile, triage, pillars, book_result=BookEngineResult(
+        vault_insights=["[Schoenfeld] Prioritize compound movements for hypertrophy."],
+    ))
     md = program_to_markdown(pc)
 
     assert "# Muscle OS Coaching Program: Test User" in md
@@ -100,7 +104,8 @@ def test_program_to_markdown_all_sections():
     assert "## 10. Measurement KPIs" in md
     assert "## 11. Adjustment Triggers" in md
     assert "## 13. Week 1 Action Plan" in md
-    assert "## 14. Vault Sources" in md
+    assert "## 14. Vault-Informed Decisions" in md
+    assert "## 15. Vault Sources" in md
 
 
 def test_program_to_markdown_includes_vault_sources():

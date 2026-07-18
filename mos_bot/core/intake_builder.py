@@ -1,7 +1,7 @@
 import json
 import os
 from datetime import date
-from mos_bot.config import USERS_DIR
+from mos_bot.config import USERS_DIR, SUPPLEMENTAL_DIR
 
 
 def parse_weight(text: str) -> float:
@@ -138,11 +138,14 @@ def build_profile(raw: dict) -> dict:
         "medical": raw.get("medical", []),
         "last_bloodwork": raw.get("last_bloodwork", ""),
         "known_deficiencies": list_field("known_deficiencies"),
+        "deficiency_status": raw.get("deficiency_status", "current"),
+        "deficiency_confirmed": raw.get("deficiency_confirmed", False),
         "family_history": list_field("family_history"),
         "mental_health_concern": raw.get("mental_health_concern", ""),
         "mental_health_care": raw.get("mental_health_care", ""),
         "rapid_weight_loss": raw.get("rapid_weight_loss", False),
-        "crisis_cleared": raw.get("crisis_cleared", False),
+        "crisis_incident_id": raw.get("crisis_incident_id", ""),
+        "crisis_cleared_incident": raw.get("crisis_cleared_incident", ""),
         "ed_risk": raw.get("ed_risk", False),
         "triage_result": raw.get("triage_result", "green"),
         "inbody": raw.get("inbody"),
@@ -160,6 +163,22 @@ def save_profile(profile: dict):
 
 def load_profile(user_id: str) -> dict:
     path = os.path.join(USERS_DIR, f"{user_id}.json")
+    if not os.path.exists(path):
+        return None
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def save_supplemental(user_id: str, data: dict) -> str:
+    os.makedirs(SUPPLEMENTAL_DIR, exist_ok=True)
+    path = os.path.join(SUPPLEMENTAL_DIR, f"{user_id}.json")
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+    return path
+
+
+def load_supplemental(user_id: str) -> dict:
+    path = os.path.join(SUPPLEMENTAL_DIR, f"{user_id}.json")
     if not os.path.exists(path):
         return None
     with open(path, "r", encoding="utf-8") as f:
