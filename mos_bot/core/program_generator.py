@@ -3,7 +3,7 @@
 import json
 import os
 from datetime import datetime
-from mos_bot.config import USERS_DIR, PROGRAMS_DIR, PDFS_DIR
+from mos_bot.config import USERS_DIR, PROGRAMS_DIR, PDFS_DIR, TRACKERS_DIR
 from mos_bot.core.models import ClientProfile
 from mos_bot.core.context_loader import (
     evaluate_ed_screening, run_safety_triage, assign_pillars,
@@ -12,6 +12,7 @@ from mos_bot.core.context_loader import (
 from mos_bot.core.content_generator import generate_program as build_program_content, program_to_markdown
 from mos_bot.core.book_engine import BookDecisionEngine
 from mos_bot.core.pdf_renderer import generate_program_pdf
+from mos_bot.core.tracker_renderer import generate_tracker_file
 from mos_bot.core.analytics import track
 
 
@@ -71,13 +72,27 @@ def generate_program_pipeline(user_id: str, ed_answers: dict = None) -> dict:
     goal_label = profile.goal.replace("_", " ").title() if profile.goal else "Fitness"
     pdf_path = generate_program_pdf(markdown, user_id, client_name, goal=goal_label)
 
-    track("program_generated", {"user_id": user_id, "has_pdf": bool(pdf_path)})
+    # 6. Generate HTML workout tracker
+    tracker_path = generate_tracker_file(pc, user_id)
+
+    # 7. Save ProgramContent as JSON for coach reference
+    programs_json_dir = os.path.join(os.path.dirname(PROGRAMS_DIR), "programs_json")
+    os.makedirs(programs_json_dir, exist_ok=True)
+    program_json_path = os.path.join(programs_json_dir, f"{user_id}_program.json")
+    pc_dict = pc.model_dump(mode="json")
+    pc_dict["generated_at"] = datetime.now().isoformat()
+    with open(program_json_path, "w", encoding="utf-8") as f:
+        json.dump(pc_dict, f, indent=2, ensure_ascii=False)
+
+    track("program_generated", {"user_id": user_id, "has_pdf": bool(pdf_path), "has_tracker": bool(tracker_path)})
 
     return {
         "program_content": pc,
         "markdown": markdown,
         "markdown_path": md_path,
         "pdf_path": pdf_path,
+        "tracker_path": tracker_path,
+        "program_json_path": program_json_path,
         "user_id": user_id,
         "client_name": client_name,
         "generated_at": datetime.now().isoformat(),

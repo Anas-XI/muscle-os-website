@@ -1,4 +1,12 @@
-"""Muscle OS CLI — Program generation and system tools"""
+"""Muscle OS CLI — Program generation and system tools
+
+Usage:
+  python mos_cli.py from-json <intake.json> [--user-id ID]  # From intake form JSON
+  python mos_cli.py generate-program <user_id>                # From saved profile
+  python mos_cli.py preview <user_id>                         # Markdown preview only
+  python mos_cli.py rag-query <query>                         # Query vault knowledge base
+  python mos_cli.py pillar-info <user_id>                     # Show pillar assignment
+"""
 
 import argparse
 import json
@@ -26,6 +34,69 @@ def evaluate_ed_screening(answers: dict) -> tuple:
     if sum([ed1, ed2, ed4]) >= 2: return "yellow", items
     if ed4: return "yellow", items
     return "green", items
+
+
+def cmd_from_json(args):
+    """Generate a full program (PDF + HTML tracker + JSON data) from an intake JSON file."""
+    from mos_bot.core.intake_builder import build_profile, save_profile
+    from mos_bot.core.program_generator import generate_program_pipeline
+
+    json_path = args.json_file
+    if not os.path.exists(json_path):
+        print(f"Error: file not found — {json_path}")
+        sys.exit(1)
+
+    with open(json_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    user_id = args.user_id
+
+    # Auto-detect format: web form (has "answers") vs raw profile (has profile fields)
+    if "answers" in data:
+        from mos_bot.handlers.upload_profile import map_form_json
+        name = data.get("name") or data.get("answers", {}).get("Q45", "client")
+        if not user_id:
+            user_id = name.lower().replace(" ", "_").replace("'", "")
+        raw = map_form_json(data, user_id)
+    else:
+        name = data.get("name") or data.get("user_id", "client")
+        if not user_id:
+            user_id = name.lower().replace(" ", "_").replace("'", "")
+        data["user_id"] = user_id
+        raw = data
+
+    # Build and save profile
+    try:
+        profile = build_profile(raw)
+        save_profile(profile)
+    except Exception as e:
+        print(f"Error building profile: {e}")
+        sys.exit(1)
+
+    print(f"Profile built for {profile['name']} (user_id: {user_id})")
+    print("Generating coaching program...")
+
+    # Run pipeline
+    result = generate_program_pipeline(user_id)
+
+    if "error" in result:
+        print(f"Error: {result['error']}")
+        if result.get("blocked"):
+            print("Reason: pipeline blocked by safety triage or RAG assessment")
+        sys.exit(1 if result.get("blocked") else 0)
+
+    print(f"\n{'='*50}")
+    print(f"Program generated successfully!")
+    print(f"{'='*50}")
+    print(f"  Client:     {result['client_name']}")
+    print(f"  Generated:  {result['generated_at']}")
+    print(f"  Markdown:   {result['markdown_path']}")
+    if result.get("pdf_path"):
+        print(f"  PDF:        {result['pdf_path']}")
+    if result.get("tracker_path"):
+        print(f"  Tracker:    {result['tracker_path']}")
+    if result.get("program_json_path"):
+        print(f"  Program:    {result['program_json_path']}")
 
 
 def cmd_generate(args):
@@ -111,8 +182,17 @@ def cmd_pillar_info(args):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Muscle OS CLI")
+    parser = argparse.ArgumentParser(
+        description="Muscle OS CLI — Generate coaching programs and system tools",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=__doc__,
+    )
     sub = parser.add_subparsers(dest="command")
+
+    # from-json
+    fj = sub.add_parser("from-json", help="Generate program from intake JSON file")
+    fj.add_argument("json_file", help="Path to intake JSON file (from web form)")
+    fj.add_argument("--user-id", help="Override user_id (defaults to sanitized name)")
 
     # generate-program
     gp = sub.add_parser("generate-program", help="Generate a coaching program PDF")
@@ -134,7 +214,9 @@ def main():
     pi.add_argument("user_id", help="User ID")
 
     args = parser.parse_args()
-    if args.command == "generate-program":
+    if args.command == "from-json":
+        cmd_from_json(args)
+    elif args.command == "generate-program":
         cmd_generate(args)
     elif args.command == "preview":
         cmd_preview(args)

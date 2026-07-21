@@ -3,6 +3,7 @@ import json
 import asyncio
 import threading
 import traceback
+from datetime import datetime
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Request
@@ -10,9 +11,10 @@ from fastapi.responses import HTMLResponse, FileResponse, JSONResponse
 from fastapi.exceptions import RequestValidationError
 from pydantic import BaseModel
 
-from mos_bot.config import DATA_ROOT, LLM_API_KEY, LLM_API_URL, LLM_MODEL
+from mos_bot.config import DATA_ROOT, LLM_API_KEY, LLM_API_URL, LLM_MODEL, TRACKERS_DIR
 from mos_bot.core.intake_builder import load_profile, save_profile, build_profile
 from mos_bot.core.program_generator import generate_program
+from mos_bot.core.tracker_renderer import generate_tracker_html
 
 app = FastAPI(title="Muscle OS Web")
 
@@ -218,6 +220,64 @@ async def chat(req: ChatRequest):
         raise HTTPException(503, "LLM unavailable")
     return {"response": response}
 
+
+# ---------- Tracker Endpoints ----------
+
+TRACKER_LOGS_DIR = os.path.join(DATA_ROOT, "tracker_logs")
+
+
+@app.get("/tracker/{user_id}")
+async def get_tracker_html(user_id: str):
+    """Serve the HTML workout tracker for a user."""
+    tracker_file = os.path.join(TRACKERS_DIR, f"{user_id}_tracker.html")
+    if os.path.exists(tracker_file):
+        return HTMLResponse(Path(tracker_file).read_text(encoding="utf-8"))
+    raise HTTPException(404, "Tracker not found — generate a program first")
+
+
+@app.post("/api/tracker/log")
+async def submit_tracker_log(request: Request):
+    """Receive a workout log / check-in submission from the client."""
+    os.makedirs(TRACKER_LOGS_DIR, exist_ok=True)
+    body = await request.json()
+    user_id = body.get("user_id")
+    if not user_id:
+        raise HTTPException(400, "user_id is required")
+    date = body.get("exported_at", datetime.now().isoformat())[:10]
+    filename = f"{user_id}_{date}.json"
+    file_path = os.path.join(TRACKER_LOGS_DIR, filename)
+    with open(file_path, "w", encoding="utf-8") as f:
+        json.dump(body, f, indent=2, default=str)
+    return {"status": "ok", "file": filename, "workouts": len(body.get("workouts", [])), "checkins": len(body.get("checkins", []))}
+
+
+@app.get("/api/tracker/{user_id}/logs")
+async def get_tracker_logs(user_id: str):
+    """List all submitted tracker logs for a user."""
+    if not os.path.isdir(TRACKER_LOGS_DIR):
+        return []
+    logs = []
+    for f in sorted(os.listdir(TRACKER_LOGS_DIR)):
+        if f.startswith(f"{user_id}_") and f.endswith(".json"):
+            file_path = os.path.join(TRACKER_LOGS_DIR, f)
+            logs.append({
+                "filename": f,
+                "date": os.path.getmtime(file_path),
+                "size": os.path.getsize(file_path),
+            })
+    return logs
+
+
+@app.get("/api/tracker/{user_id}/logs/{filename}")
+async def get_tracker_log_detail(user_id: str, filename: str):
+    """Return the full content of a specific tracker log."""
+    file_path = os.path.join(TRACKER_LOGS_DIR, filename)
+    if not os.path.exists(file_path):
+        raise HTTPException(404, "Log not found")
+    return JSONResponse(json.loads(Path(file_path).read_text(encoding="utf-8")))
+
+
+# ---------- Server ----------
 
 def run_web_server():
     import uvicorn
