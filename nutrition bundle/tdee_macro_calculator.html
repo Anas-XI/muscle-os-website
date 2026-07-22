@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TDEE & Macro Calculator</title>
+<title>TDEE & Macro Calculator — Hybrid Athlete</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -19,10 +19,7 @@ body {
   align-items: center;
   padding: 40px 16px;
 }
-.container {
-  width: 100%;
-  max-width: 560px;
-}
+.container { width: 100%; max-width: 620px; }
 .header { text-align: center; margin-bottom: 32px; }
 .header h1 {
   font-family: 'Oswald', sans-serif;
@@ -34,7 +31,6 @@ body {
   line-height: 1.1;
 }
 .header p {
-  font-family: 'Inter', sans-serif;
   font-size: 0.85rem;
   color: rgba(250,250,248,0.55);
   margin-top: 4px;
@@ -45,12 +41,12 @@ body {
   background: #1E1E2A;
   border-radius: 16px;
   padding: 28px 24px;
+  margin-bottom: 0;
 }
 .form-group { margin-bottom: 18px; }
 .form-group:last-of-type { margin-bottom: 0; }
 .form-group label {
   display: block;
-  font-family: 'Inter', sans-serif;
   font-size: 0.65rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -89,7 +85,7 @@ input, select {
   border-radius: 8px;
   color: #FAFAF8;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   outline: none;
   transition: border-color 0.2s;
 }
@@ -105,9 +101,28 @@ select {
   padding-right: 34px;
 }
 select option { background: #1E1E2A; color: #FAFAF8; }
+.section-header {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #F4C93B;
+  border-bottom: 1px solid rgba(250,250,248,0.08);
+  padding-bottom: 6px;
+  margin-bottom: 14px;
+}
+.section-sub {
+  font-size: 0.65rem;
+  color: rgba(250,250,248,0.35);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  font-family: 'Inter', sans-serif;
+}
 .btn-calculate {
   width: 100%;
-  margin-top: 20px;
+  margin-top: 24px;
   padding: 14px 0;
   background: #F4C93B;
   color: #14151A;
@@ -170,11 +185,48 @@ select option { background: #1E1E2A; color: #FAFAF8; }
   color: rgba(250,250,248,0.35);
   font-weight: 300;
 }
+.breakdown-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.breakdown-item {
+  text-align: center;
+  padding: 10px 6px;
+  border-radius: 10px;
+  background: rgba(20,21,26,0.4);
+}
+.breakdown-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #FAFAF8;
+}
+.breakdown-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(250,250,248,0.35);
+  margin-top: 2px;
+  font-weight: 500;
+}
+.breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(250,250,248,0.06);
+  font-size: 0.78rem;
+}
+.breakdown-row:last-child { border-bottom: none; }
+.breakdown-row .label { color: rgba(250,250,248,0.5); text-transform: none; letter-spacing: 0; font-size: 0.78rem; }
+.breakdown-row .value { font-family: 'JetBrains Mono', monospace; color: #FAFAF8; }
 .macros-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 12px;
-  margin-bottom: 20px;
+  margin-top: 18px;
 }
 .macro-item {
   text-align: center;
@@ -259,30 +311,27 @@ select option { background: #1E1E2A; color: #FAFAF8; }
   font-weight: 500;
 }
 .footer a:hover { text-decoration: underline; }
-@media (max-width: 520px) {
+@media (max-width: 580px) {
   body { padding: 24px 12px; }
   .header h1 { font-size: 2rem; }
   .card { padding: 20px 16px; }
   .form-row { grid-template-columns: 1fr; }
-  .macros-grid { grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .breakdown-grid { grid-template-columns: 1fr; }
+  .macros-grid { gap: 8px; }
   .calories-value { font-size: 2.5rem; }
   .results-card { padding: 20px 16px; }
 }
-/* Print */
 @media print {
   body { background: #fff; padding: 20px; }
   .card, .btn-calculate, .error, .footer { display: none !important; }
   .header h1 { color: #000; }
   .header p { color: #666; }
   .results { display: block !important; }
-  .results-card {
-    background: #fff;
-    border: 2px solid #F4C93B;
-    border-top: 3px solid #F4C93B;
-  }
+  .results-card { background: #fff; border: 2px solid #F4C93B; border-top: 3px solid #F4C93B; }
   .calories-value { color: #F4C93B; }
-  .macro-item { background: #f5f5f5; }
-  .macro-value { color: #000; }
+  .breakdown-item, .macro-item { background: #f5f5f5; }
+  .breakdown-value, .macro-value { color: #000; }
+  .breakdown-row .value { color: #000; }
   .bar-protein { background: #F4C93B; }
   .bar-fat { background: #e8a83a; }
   .bar-carbs { background: #c48a30; }
@@ -319,17 +368,190 @@ select option { background: #1E1E2A; color: #FAFAF8; }
         <input type="number" id="age" min="0" step="1" placeholder="e.g. 30">
       </div>
       <div class="form-group">
-        <label>Activity Level</label>
-        <select id="activity">
-          <option value="">Select activity level</option>
-          <option value="1.2">Sedentary (desk job, minimal movement)</option>
-          <option value="1.375">Light activity (1-3 days/week)</option>
-          <option value="1.55">Moderate activity (3-5 days/week)</option>
-          <option value="1.725">Very active (6-7 days/week)</option>
-          <option value="1.9">Extreme (twice-daily training, physical labour)</option>
+        <label>Occupation / Lifestyle</label>
+        <select id="lifestyle">
+          <option value="">Select lifestyle</option>
+          <option value="1.15">Desk job (sit all day, minimal walking)</option>
+          <option value="1.25">Light movement (teacher, retail, some standing)</option>
+          <option value="1.35">Moderate movement (nurse, waiter, on feet all day)</option>
+          <option value="1.5">Active job (construction, warehouse, labour)</option>
         </select>
       </div>
     </div>
+
+    <div class="section-header">Resistance Training <span class="section-sub">— weight lifting, bodybuilding, powerlifting</span></div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Sessions / Week</label>
+        <select id="rtFreq">
+          <option value="0">0 — None</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Minutes / Session</label>
+        <select id="rtDuration">
+          <option value="30">30 min</option>
+          <option value="45">45 min</option>
+          <option value="60" selected>60 min</option>
+          <option value="75">75 min</option>
+          <option value="90">90 min</option>
+          <option value="105">105 min</option>
+          <option value="120">120 min</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Intensity</label>
+      <select id="rtIntensity">
+        <option value="light">Light (low weight, high reps, circuit)</option>
+        <option value="moderate" selected>Moderate (standard lifting)</option>
+        <option value="heavy">Heavy (low reps, high intensity, big compounds)</option>
+      </select>
+    </div>
+
+    <div class="section-header">Cardio <span class="section-sub">— running, cycling, swimming, etc.</span></div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Type</label>
+        <select id="cardioType">
+          <option value="none">None</option>
+          <optgroup label="Walking / Running">
+            <option value="walk_leisurely">Walking (leisurely, 3 km/h)</option>
+            <option value="walk_moderate">Walking (moderate, 5 km/h)</option>
+            <option value="walk_brisk">Walking (brisk, 6.5 km/h)</option>
+            <option value="jog">Jogging (8 km/h)</option>
+            <option value="run">Running (10 km/h)</option>
+            <option value="run_fast">Running (fast, 12+ km/h)</option>
+          </optgroup>
+          <optgroup label="Cycling">
+            <option value="cycle_leisurely">Cycling (leisurely, 15 km/h)</option>
+            <option value="cycle_moderate">Cycling (moderate, 20 km/h)</option>
+            <option value="cycle_vigorous">Cycling (vigorous, 25+ km/h)</option>
+          </optgroup>
+          <optgroup label="Swimming">
+            <option value="swim_moderate">Swimming (moderate pace)</option>
+            <option value="swim_vigorous">Swimming (vigorous / laps)</option>
+          </optgroup>
+          <optgroup label="Machine / Other">
+            <option value="rowing">Rowing machine</option>
+            <option value="jump_rope">Jump rope</option>
+            <option value="elliptical">Elliptical</option>
+            <option value="stair_climber">Stair climber</option>
+            <option value="hiit">HIIT (general)</option>
+            <option value="hiking">Hiking</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Sessions / Week</label>
+        <select id="cardioFreq">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Minutes / Session</label>
+      <select id="cardioDuration">
+        <option value="10">10 min</option>
+        <option value="15">15 min</option>
+        <option value="20">20 min</option>
+        <option value="25">25 min</option>
+        <option value="30" selected>30 min</option>
+        <option value="35">35 min</option>
+        <option value="40">40 min</option>
+        <option value="45">45 min</option>
+        <option value="50">50 min</option>
+        <option value="60">60 min</option>
+        <option value="75">75 min</option>
+        <option value="90">90 min</option>
+        <option value="120">120 min</option>
+      </select>
+    </div>
+
+    <div class="section-header">Sports / Hybrid Athlete <span class="section-sub">— football, basketball, martial arts, etc.</span></div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Type</label>
+        <select id="sportType">
+          <option value="none">None</option>
+          <optgroup label="Field / Court">
+            <option value="football_casual">Football / Soccer (casual)</option>
+            <option value="football_competitive">Football / Soccer (competitive)</option>
+            <option value="basketball_casual">Basketball (casual)</option>
+            <option value="basketball_competitive">Basketball (competitive)</option>
+            <option value="volleyball">Volleyball</option>
+            <option value="handball">Handball</option>
+            <option value="rugby">Rugby</option>
+          </optgroup>
+          <optgroup label="Racquet">
+            <option value="tennis_singles">Tennis (singles)</option>
+            <option value="tennis_doubles">Tennis (doubles)</option>
+            <option value="padel_squash">Padel / Squash</option>
+            <option value="badminton_casual">Badminton (casual)</option>
+            <option value="badminton_competitive">Badminton (competitive)</option>
+          </optgroup>
+          <optgroup label="Combat / Martial Arts">
+            <option value="boxing_bag">Boxing (bag / pads)</option>
+            <option value="boxing_sparring">Boxing (sparring)</option>
+            <option value="martial_arts">Martial Arts / BJJ / Judo</option>
+            <option value="wrestling">Wrestling</option>
+          </optgroup>
+          <optgroup label="Other">
+            <option value="crossfit">CrossFit</option>
+            <option value="dance_general">Dance (general)</option>
+            <option value="dance_intense">Dance (intense / hip-hop)</option>
+            <option value="climbing">Climbing (rock / bouldering)</option>
+            <option value="ski_downhill">Skiing (downhill) / Snowboarding</option>
+            <option value="ski_xc">Skiing (cross-country)</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Sessions / Week</label>
+        <select id="sportFreq">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Minutes / Session</label>
+      <select id="sportDuration">
+        <option value="15">15 min</option>
+        <option value="30">30 min</option>
+        <option value="45">45 min</option>
+        <option value="60" selected>60 min</option>
+        <option value="75">75 min</option>
+        <option value="90">90 min</option>
+        <option value="105">105 min</option>
+        <option value="120">120 min</option>
+      </select>
+    </div>
+
+    <div class="section-header">Goal</div>
     <div class="form-group">
       <label>Goal</label>
       <select id="goal">
@@ -342,9 +564,10 @@ select option { background: #1E1E2A; color: #FAFAF8; }
         <option value="aggressive_gain">Aggressive Muscle Gain</option>
       </select>
     </div>
-    <div class="error" id="errorMsg">Please fill all fields</div>
+    <div class="error" id="errorMsg">Please fill all required fields</div>
     <button class="btn-calculate" id="calcBtn">Calculate My Numbers</button>
   </div>
+
   <div class="results" id="resultsSection">
     <div class="results-card">
       <div class="calories-section">
@@ -352,6 +575,21 @@ select option { background: #1E1E2A; color: #FAFAF8; }
         <div class="calories-value" id="resultCalories">0</div>
         <div class="calories-unit">kcal / day</div>
       </div>
+      <div class="breakdown-grid">
+        <div class="breakdown-item">
+          <div class="breakdown-value" id="bmrDisplay">0</div>
+          <div class="breakdown-label">BMR</div>
+        </div>
+        <div class="breakdown-item">
+          <div class="breakdown-value" id="eatDisplay">0</div>
+          <div class="breakdown-label">Exercise (EAT)</div>
+        </div>
+        <div class="breakdown-item">
+          <div class="breakdown-value" id="tdeeDisplay">0</div>
+          <div class="breakdown-label">Maintenance (TDEE)</div>
+        </div>
+      </div>
+      <div id="exerciseBreakdown"></div>
       <div class="macros-grid">
         <div class="macro-item">
           <div class="macro-value" id="resultProtein">0</div>
@@ -387,6 +625,59 @@ select option { background: #1E1E2A; color: #FAFAF8; }
 </div>
 <script>
 (function() {
+  const MET = {
+    // Resistance training
+    rt_light: 3.5, rt_moderate: 5.0, rt_heavy: 6.0,
+    // Cardio — Walking / Running
+    walk_leisurely: 3.0, walk_moderate: 3.8, walk_brisk: 5.0,
+    jog: 7.0, run: 9.8, run_fast: 12.0,
+    // Cardio — Cycling
+    cycle_leisurely: 6.0, cycle_moderate: 8.0, cycle_vigorous: 10.0,
+    // Cardio — Swimming
+    swim_moderate: 7.0, swim_vigorous: 10.0,
+    // Cardio — Machine / Other
+    rowing: 7.0, jump_rope: 12.3, elliptical: 5.5, stair_climber: 8.0, hiit: 10.0, hiking: 6.0,
+    // Sports — Field / Court
+    football_casual: 7.0, football_competitive: 10.0,
+    basketball_casual: 6.0, basketball_competitive: 8.0,
+    volleyball: 5.0, handball: 8.0, rugby: 9.0,
+    // Sports — Racquet
+    tennis_singles: 8.0, tennis_doubles: 6.0,
+    padel_squash: 8.0, badminton_casual: 5.0, badminton_competitive: 8.0,
+    // Sports — Combat
+    boxing_bag: 6.0, boxing_sparring: 9.0, martial_arts: 8.0, wrestling: 8.0,
+    // Sports — Other
+    crossfit: 10.0, dance_general: 5.0, dance_intense: 7.0,
+    climbing: 7.5, ski_downhill: 6.0, ski_xc: 10.0,
+  };
+
+  const DISPLAY_NAMES = {
+    rt_light: 'Light', rt_moderate: 'Moderate', rt_heavy: 'Heavy',
+    walk_leisurely: 'Walking (leisurely)', walk_moderate: 'Walking (moderate)', walk_brisk: 'Walking (brisk)',
+    jog: 'Jogging', run: 'Running', run_fast: 'Running (fast)',
+    cycle_leisurely: 'Cycling (leisurely)', cycle_moderate: 'Cycling (moderate)', cycle_vigorous: 'Cycling (vigorous)',
+    swim_moderate: 'Swimming (moderate)', swim_vigorous: 'Swimming (vigorous)',
+    rowing: 'Rowing', jump_rope: 'Jump rope', elliptical: 'Elliptical', stair_climber: 'Stair climber', hiit: 'HIIT', hiking: 'Hiking',
+    football_casual: 'Football (casual)', football_competitive: 'Football (competitive)',
+    basketball_casual: 'Basketball (casual)', basketball_competitive: 'Basketball (competitive)',
+    volleyball: 'Volleyball', handball: 'Handball', rugby: 'Rugby',
+    tennis_singles: 'Tennis (singles)', tennis_doubles: 'Tennis (doubles)',
+    padel_squash: 'Padel / Squash', badminton_casual: 'Badminton (casual)', badminton_competitive: 'Badminton (competitive)',
+    boxing_bag: 'Boxing (bag)', boxing_sparring: 'Boxing (sparring)', martial_arts: 'Martial Arts / BJJ', wrestling: 'Wrestling',
+    crossfit: 'CrossFit', dance_general: 'Dance (general)', dance_intense: 'Dance (intense)',
+    climbing: 'Climbing', ski_downhill: 'Ski / Snowboard', ski_xc: 'Ski (cross-country)',
+  };
+
+  const INTENSITY_MAP = { light: 'rt_light', moderate: 'rt_moderate', heavy: 'rt_heavy' };
+
+  function getExerciseCalories(metKey, weightKg, minutes, freq) {
+    if (freq <= 0 || !minutes || !metKey || metKey === 'none') return 0;
+    const met = MET[metKey];
+    if (!met) return 0;
+    const perSession = met * 3.5 * weightKg / 200 * minutes;
+    return perSession * freq; // total weekly
+  }
+
   let selectedSex = null;
   const sexBtns = document.querySelectorAll('.sex-btn');
   sexBtns.forEach(btn => {
@@ -396,62 +687,113 @@ select option { background: #1E1E2A; color: #FAFAF8; }
       selectedSex = this.dataset.sex;
     });
   });
+
   document.getElementById('calcBtn').addEventListener('click', function() {
     const errorEl = document.getElementById('errorMsg');
     const resultsSection = document.getElementById('resultsSection');
+
     const weight = parseFloat(document.getElementById('weight').value);
     const height = parseFloat(document.getElementById('height').value);
     const age = parseFloat(document.getElementById('age').value);
-    const activityVal = document.getElementById('activity').value;
+    const lifestyleVal = document.getElementById('lifestyle').value;
     const goal = document.getElementById('goal').value;
-    if (!selectedSex || isNaN(weight) || weight <= 0 || isNaN(height) || height <= 0 || isNaN(age) || age <= 0 || !activityVal || !goal) {
+
+    if (!selectedSex || isNaN(weight) || weight <= 0 || isNaN(height) || height <= 0 || isNaN(age) || age <= 0 || !lifestyleVal || !goal) {
       errorEl.style.display = 'block';
       resultsSection.style.display = 'none';
       return;
     }
     errorEl.style.display = 'none';
-    const actMult = parseFloat(activityVal);
+
+    // BMR — Mifflin-St Jeor
     let bmr;
     if (selectedSex === 'male') {
       bmr = 10 * weight + 6.25 * height - 5 * age + 5;
     } else {
       bmr = 10 * weight + 6.25 * height - 5 * age - 161;
     }
-    const tdee = bmr * actMult;
+    bmr = Math.round(bmr);
+
+    // Baseline TDEE (NEAT + TEF from lifestyle)
+    const lifestyleMult = parseFloat(lifestyleVal);
+    const baselineTDEE = Math.round(bmr * lifestyleMult);
+
+    // Resistance training calories
+    const rtFreq = parseInt(document.getElementById('rtFreq').value);
+    const rtDuration = parseInt(document.getElementById('rtDuration').value);
+    const rtIntensity = document.getElementById('rtIntensity').value;
+    const rtMetKey = INTENSITY_MAP[rtIntensity];
+    const rtWeekly = getExerciseCalories(rtMetKey, weight, rtDuration, rtFreq);
+
+    // Cardio calories
+    const cardioType = document.getElementById('cardioType').value;
+    const cardioFreq = parseInt(document.getElementById('cardioFreq').value);
+    const cardioDuration = parseInt(document.getElementById('cardioDuration').value);
+    const cardioWeekly = getExerciseCalories(cardioType, weight, cardioDuration, cardioFreq);
+
+    // Sport calories
+    const sportType = document.getElementById('sportType').value;
+    const sportFreq = parseInt(document.getElementById('sportFreq').value);
+    const sportDuration = parseInt(document.getElementById('sportDuration').value);
+    const sportWeekly = getExerciseCalories(sportType, weight, sportDuration, sportFreq);
+
+    const totalWeeklyExercise = rtWeekly + cardioWeekly + sportWeekly;
+    const dailyExercise = Math.round(totalWeeklyExercise / 7);
+    const rawTDEE = baselineTDEE + dailyExercise;
+
+    // Goal adjustment
     let goalCal;
-    let isFatLoss = false;
-    let isGain = false;
     switch (goal) {
-      case 'aggressive_loss': goalCal = tdee * 0.75; isFatLoss = true; break;
-      case 'moderate_loss': goalCal = tdee * 0.80; isFatLoss = true; break;
-      case 'recomp': goalCal = tdee - 100; break;
-      case 'maintenance': goalCal = tdee; break;
-      case 'lean_gain': goalCal = tdee * 1.05; isGain = true; break;
-      case 'aggressive_gain': goalCal = tdee * 1.15; isGain = true; break;
+      case 'aggressive_loss': goalCal = rawTDEE * 0.75; break;
+      case 'moderate_loss': goalCal = rawTDEE * 0.80; break;
+      case 'recomp': goalCal = rawTDEE - 100; break;
+      case 'maintenance': goalCal = rawTDEE; break;
+      case 'lean_gain': goalCal = rawTDEE * 1.05; break;
+      case 'aggressive_gain': goalCal = rawTDEE * 1.15; break;
     }
     goalCal = Math.round(goalCal);
-    let proteinPerKg;
-    if (isFatLoss) {
-      proteinPerKg = 2.2;
-    } else {
-      proteinPerKg = 1.8;
-    }
-    const proteinG = Math.round(proteinPerKg * weight);
-    let fatPerKg;
-    if (isFatLoss) {
-      fatPerKg = 0.6;
-    } else {
-      fatPerKg = 0.8;
-    }
-    const minFatFromCal = goalCal * (isFatLoss ? 0.20 : 0.25) / 9;
-    const minFatFloor = 0.5 * weight;
-    const fatG = Math.round(Math.max(fatPerKg * weight, minFatFromCal, minFatFloor));
+
+    // Macros
+    const isFatLoss = goal === 'aggressive_loss' || goal === 'moderate_loss';
+    const proteinG = Math.round((isFatLoss ? 2.2 : 1.8) * weight);
+    const fatG = Math.round(Math.max(
+      (isFatLoss ? 0.6 : 0.8) * weight,
+      goalCal * (isFatLoss ? 0.20 : 0.25) / 9,
+      0.5 * weight
+    ));
     const carbsCal = goalCal - (proteinG * 4) - (fatG * 9);
-    const carbsG = Math.round(carbsCal / 4);
+    const carbsG = Math.round(Math.max(0, carbsCal / 4));
+
+    // Display
     document.getElementById('resultCalories').textContent = goalCal.toLocaleString();
+    document.getElementById('bmrDisplay').textContent = bmr;
+    document.getElementById('eatDisplay').textContent = dailyExercise;
+    document.getElementById('tdeeDisplay').textContent = rawTDEE;
+
+    // Exercise breakdown
+    let exHtml = '';
+    if (rtFreq > 0) {
+      const perSession = Math.round(MET[rtMetKey] * 3.5 * weight / 200 * rtDuration);
+      exHtml += '<div class="breakdown-row"><span class="label">Resistance: ' + DISPLAY_NAMES[rtMetKey] + ' — ' + rtFreq + '×' + rtDuration + 'min</span><span class="value">' + perSession + ' cal/session · ' + Math.round(rtWeekly) + ' cal/wk</span></div>';
+    }
+    if (cardioFreq > 0 && cardioType !== 'none') {
+      const perSession = Math.round(MET[cardioType] * 3.5 * weight / 200 * cardioDuration);
+      exHtml += '<div class="breakdown-row"><span class="label">Cardio: ' + DISPLAY_NAMES[cardioType] + ' — ' + cardioFreq + '×' + cardioDuration + 'min</span><span class="value">' + perSession + ' cal/session · ' + Math.round(cardioWeekly) + ' cal/wk</span></div>';
+    }
+    if (sportFreq > 0 && sportType !== 'none') {
+      const perSession = Math.round(MET[sportType] * 3.5 * weight / 200 * sportDuration);
+      exHtml += '<div class="breakdown-row"><span class="label">Sport: ' + DISPLAY_NAMES[sportType] + ' — ' + sportFreq + '×' + sportDuration + 'min</span><span class="value">' + perSession + ' cal/session · ' + Math.round(sportWeekly) + ' cal/wk</span></div>';
+    }
+    if (exHtml) {
+      exHtml = '<div style="margin-bottom:12px;">' +
+        '<div class="bar-section-title">Exercise Calorie Breakdown (Weekly)</div>' + exHtml + '</div>';
+    }
+    document.getElementById('exerciseBreakdown').innerHTML = exHtml;
+
     document.getElementById('resultProtein').textContent = proteinG;
     document.getElementById('resultFat').textContent = fatG;
     document.getElementById('resultCarbs').textContent = Math.max(0, carbsG);
+
     const proteinCal = proteinG * 4;
     const fatCal = fatG * 9;
     const carbsCalTotal = carbsG * 4;
@@ -459,13 +801,16 @@ select option { background: #1E1E2A; color: #FAFAF8; }
     const pPct = total > 0 ? Math.round((proteinCal / total) * 100) : 0;
     const fPct = total > 0 ? Math.round((fatCal / total) * 100) : 0;
     const cPct = total > 0 ? Math.round((carbsCalTotal / total) * 100) : 0;
+
     document.getElementById('barProtein').style.width = pPct + '%';
     document.getElementById('barProtein').textContent = pPct + '%';
     document.getElementById('barFat').style.width = fPct + '%';
     document.getElementById('barFat').textContent = fPct + '%';
     document.getElementById('barCarbs').style.width = cPct + '%';
     document.getElementById('barCarbs').textContent = cPct + '%';
+
     resultsSection.style.display = 'block';
+    resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 })();
 </script>
