@@ -4,88 +4,93 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Muscle OS — Client Intake Form</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif; background: #0a0a0b; color: #e4e4e7; line-height: 1.5; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: #FAFAF8; color: #14151A; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4, h5, h6 { font-family: 'Oswald', sans-serif; font-weight: 600; line-height: 1.2; }
+  .mono, .num { font-family: 'JetBrains Mono', monospace; }
   .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 48px; }
-  h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; color: #f4f4f5; }
-  .subtitle { font-size: 13px; color: #a1a1aa; margin-bottom: 24px; }
-  .progress-wrap { background: #18181b; border-radius: 8px; height: 6px; margin-bottom: 8px; overflow: hidden; }
-  .progress-bar { height: 100%; background: #22c55e; border-radius: 8px; transition: width 0.3s; }
-  .step-label { font-size: 11px; color: #71717a; margin-bottom: 16px; }
-  .section { background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 20px; margin-bottom: 16px; animation: fadeIn .3s ease; }
+  h1 { font-size: 24px; margin-bottom: 4px; color: #14151A; letter-spacing: 0.3px; }
+  .subtitle { font-size: 13px; color: #5B5F68; margin-bottom: 24px; font-family: 'Inter', sans-serif; }
+  .progress-wrap { background: #E4E1D8; border-radius: 8px; height: 6px; margin-bottom: 8px; overflow: hidden; }
+  .progress-bar { height: 100%; background: #F4C93B; border-radius: 8px; transition: width 0.3s; }
+  .step-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8A8D96; margin-bottom: 16px; }
+  .section { background: #fff; border: 1px solid #E4E1D8; border-radius: 12px; padding: 20px; margin-bottom: 16px; animation: fadeIn .3s ease; box-shadow: 0 1px 2px rgba(20,21,26,0.04); }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
   .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-  .section-emoji { font-size: 24px; }
-  .section-title { font-size: 15px; font-weight: 600; color: #f4f4f5; }
-  .section-desc { font-size: 11px; color: #71717a; margin: -8px 0 14px; }
+  .section-emoji { font-size: 22px; }
+  .section-title { font-size: 15px; font-weight: 600; color: #14151A; letter-spacing: 0.3px; }
+  .section-desc { font-size: 11px; color: #8A8D96; margin: -8px 0 14px; }
   .q { margin-bottom: 14px; }
   .q:last-child { margin-bottom: 0; }
-  .q-label { font-size: 13px; color: #d4d4d8; margin-bottom: 8px; line-height: 1.4; }
+  .q-label { font-size: 13px; color: #14151A; margin-bottom: 8px; line-height: 1.4; font-weight: 500; }
   .opts { display: flex; flex-wrap: wrap; gap: 6px; }
-  .opts button, .opts label { padding: 7px 14px; border-radius: 8px; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.15s; border: 1px solid #27272a; background: #27272a; color: #a1a1aa; user-select: none; }
+  .opts button, .opts label { padding: 7px 14px; border-radius: 8px; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.15s; border: 1.5px solid #E4E1D8; background: #fff; color: #5B5F68; user-select: none; }
   .opts input[type="radio"] { display: none; }
-  .opts input[type="radio"]:checked + label, .opts button.selected { background: #3b82f6; border-color: #3b82f6; color: #fff; }
-  .opts label:hover, .opts button:hover { background: #3f3f46; color: #e4e4e7; }
+  .opts input[type="radio"]:checked + label, .opts button.selected { background: #14151A; border-color: #14151A; color: #F4C93B; }
+  .opts label:hover, .opts button:hover { border-color: #14151A; color: #14151A; }
   .nav { display: flex; gap: 10px; margin-top: 8px; }
   .nav-spacer { flex: 1; }
-  .btn { padding: 12px 20px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; transition: all 0.15s; text-align: center; display: inline-flex; align-items: center; gap: 6px; }
-  .btn-primary { background: #22c55e; color: #fff; }
-  .btn-primary:hover { background: #16a34a; }
-  .btn-primary:disabled { background: #27272a; color: #52525b; cursor: not-allowed; }
-  .btn-secondary { background: #27272a; color: #d4d4d8; border: 1px solid #3f3f46; }
-  .btn-secondary:hover { background: #3f3f46; }
-  .btn-ghost { background: transparent; color: #a1a1aa; }
-  .btn-ghost:hover { color: #d4d4d8; }
-  .result { background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 20px; margin-top: 16px; }
-  .result h2 { font-size: 16px; margin-bottom: 12px; color: #f4f4f5; }
+  .btn { padding: 12px 20px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; transition: all 0.15s; text-align: center; display: inline-flex; align-items: center; gap: 6px; font-family: 'Oswald', sans-serif; letter-spacing: 0.5px; text-transform: uppercase; }
+  .btn-primary { background: #14151A; color: #F4C93B; }
+  .btn-primary:hover { background: #1E2027; }
+  .btn-primary:disabled { background: #E4E1D8; color: #8A8D96; cursor: not-allowed; }
+  .btn-secondary { background: #fff; color: #14151A; border: 1.5px solid #E4E1D8; }
+  .btn-secondary:hover { border-color: #14151A; }
+  .btn-ghost { background: transparent; color: #8A8D96; }
+  .btn-ghost:hover { color: #14151A; }
+  .result { background: #fff; border: 1px solid #E4E1D8; border-radius: 12px; padding: 20px; margin-top: 16px; box-shadow: 0 1px 2px rgba(20,21,26,0.04); }
+  .result h2 { font-size: 16px; margin-bottom: 12px; color: #14151A; }
   .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
-  .result-card { background: #27272a; border-radius: 8px; padding: 12px; }
-  .result-card .label { font-size: 10px; text-transform: uppercase; letter-spacing: .05em; color: #71717a; margin-bottom: 4px; }
-  .result-card .val { font-size: 16px; font-weight: 700; color: #f4f4f5; }
+  .result-card { background: #f5f5f3; border-radius: 8px; padding: 12px; }
+  .result-card .label { font-size: 10px; text-transform: uppercase; letter-spacing: .05em; color: #8A8D96; margin-bottom: 4px; font-family: 'Oswald', sans-serif; }
+  .result-card .val { font-size: 16px; font-weight: 700; color: #14151A; font-family: 'JetBrains Mono', monospace; }
   .result-section { margin-bottom: 16px; }
-  .result-section h3 { font-size: 13px; font-weight: 600; color: #d4d4d8; margin-bottom: 6px; }
+  .result-section h3 { font-size: 13px; font-weight: 600; color: #14151A; margin-bottom: 6px; }
   .result-section ul { list-style: none; padding: 0; }
-  .result-section li { font-size: 12px; color: #a1a1aa; padding: 3px 0; display: flex; align-items: center; gap: 6px; }
-  .result-section li::before { content: "\2022"; color: #22c55e; }
-  .flag-badge { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 11px; background: #78350f; color: #fbbf24; margin: 2px 4px 2px 0; }
+  .result-section li { font-size: 12px; color: #5B5F68; padding: 3px 0; display: flex; align-items: center; gap: 6px; }
+  .result-section li::before { content: "\2022"; color: #F4C93B; }
+  .flag-badge { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 11px; background: #14151A; color: #F4C93B; margin: 2px 4px 2px 0; font-family: 'JetBrains Mono', monospace; }
   .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
   @media (max-width: 500px) { .result-grid { grid-template-columns: 1fr; } .opts button, .opts label { flex: 1; text-align: center; } }
-  .fill-input { width:100%;padding:10px 12px;border:1px solid #3f3f46;border-radius:8px;font-size:13px;font-family:inherit;background:#27272a;color:#e4e4e7;outline:none;transition:border-color .2s;box-sizing:border-box; }
-  .fill-input:focus { border-color:#3b82f6; }
+  .fill-input { width:100%;padding:10px 12px;border:1.5px solid #E4E1D8;border-radius:8px;font-size:13px;font-family:'Inter',sans-serif;background:#fff;color:#14151A;outline:none;transition:border-color .2s;box-sizing:border-box; }
+  .fill-input:focus { border-color:#14151A; }
   .fill-textarea { min-height:60px;resize:vertical; }
   .chk-group { display:flex;flex-wrap:wrap;gap:6px; }
-  .chk-item { display:flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid #3f3f46;border-radius:8px;font-size:12px;background:#27272a;color:#a1a1aa;cursor:pointer;transition:all .15s;user-select:none; }
-  .chk-item:has(input:checked) { background:#1a3a5c;border-color:#3b82f6;color:#f4f4f5; }
-  .chk-item input[type="checkbox"] { accent-color:#3b82f6;width:14px;height:14px; }
+  .chk-item { display:flex;align-items:center;gap:6px;padding:6px 10px;border:1.5px solid #E4E1D8;border-radius:8px;font-size:12px;background:#fff;color:#5B5F68;cursor:pointer;transition:all .15s;user-select:none; }
+  .chk-item:has(input:checked) { background:#f5f5f3;border-color:#14151A;color:#14151A; }
+  .chk-item input[type="checkbox"] { accent-color:#14151A;width:14px;height:14px; }
   .hidden { display: none !important; }
-  .upload-zone { border:2px dashed #3f3f46;border-radius:8px;padding:20px;text-align:center;cursor:pointer;transition:all .2s;background:#27272a; }
-  .upload-zone.drag-over { border-color:#22c55e;background:#1a2e1a; }
-  .upload-zone.has-file { border-style:solid;border-color:#22c55e;background:#1a2e1a;padding:12px 20px; }
+  .upload-zone { border:2px dashed #E4E1D8;border-radius:8px;padding:20px;text-align:center;cursor:pointer;transition:all .2s;background:#f5f5f3; }
+  .upload-zone.drag-over { border-color:#14151A;background:#faf5e6; }
+  .upload-zone.has-file { border-style:solid;border-color:#14151A;background:#faf5e6;padding:12px 20px; }
   .inbody-grid { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px; }
   .inbody-field { display:flex;flex-direction:column;gap:4px; }
-  .inbody-field label { font-size:11px;color:#a1a1aa; }
+  .inbody-field label { font-size:11px;color:#5B5F68; }
   .inbody-field input[readonly] { opacity:.7; }
-  .inbody-field .hint { font-size:10px;color:#71717a;margin-top:1px; }
+  .inbody-field .hint { font-size:10px;color:#8A8D96;margin-top:1px; }
   .inbody-grid-5 { display:grid;grid-template-columns:repeat(5,1fr);gap:8px; }
-  .inbody-section-label { font-size:12px;font-weight:600;color:#d4d4d8;margin-bottom:8px; }
-  .inbody-optional-badge { font-size:11px;color:#71717a;background:#27272a;padding:2px 8px;border-radius:4px; }
-  .seg-label { font-size:10px;color:#71717a;text-align:center;margin-top:2px; }
+  .inbody-section-label { font-size:12px;font-weight:600;color:#14151A;margin-bottom:8px; }
+  .inbody-optional-badge { font-size:11px;color:#8A8D96;background:#f5f5f3;padding:2px 8px;border-radius:4px; }
+  .seg-label { font-size:10px;color:#8A8D96;text-align:center;margin-top:2px; }
   .ratio-bar { display:flex;align-items:center;gap:8px; }
-  .ratio-bar-track { flex:1;height:6px;background:#3f3f46;border-radius:3px;overflow:hidden; }
+  .ratio-bar-track { flex:1;height:6px;background:#E4E1D8;border-radius:3px;overflow:hidden; }
   .ratio-bar-fill { height:100%;border-radius:3px;transition:width .3s; }
-  .inbody-input { padding:8px 10px;border:1px solid #3f3f46;border-radius:6px;font-size:12px;font-family:inherit;background:#27272a;color:#e4e4e7;outline:none;transition:border-color .2s;width:100%;box-sizing:border-box; }
-  .inbody-input:focus { border-color:#3b82f6; }
+  .inbody-input { padding:8px 10px;border:1.5px solid #E4E1D8;border-radius:6px;font-size:12px;font-family:'Inter',sans-serif;background:#fff;color:#14151A;outline:none;transition:border-color .2s;width:100%;box-sizing:border-box; }
+  .inbody-input:focus { border-color:#14151A; }
   .inbody-input[readonly] { opacity:.7; }
   @media (max-width:500px){ .inbody-grid { grid-template-columns:1fr; } .inbody-grid-5 { grid-template-columns:repeat(3,1fr); } }
   .review-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
-  .review-card { background: #27272a; border-radius: 8px; padding: 10px 12px; }
-  .review-card .label { font-size: 10px; text-transform: uppercase; letter-spacing: .05em; color: #71717a; margin-bottom: 2px; }
-  .review-card .val { font-size: 13px; font-weight: 600; color: #f4f4f5; }
-  .review-card .val.missing { color: #a1a1aa; font-style: italic; font-weight: 400; }
+  .review-card { background: #f5f5f3; border-radius: 8px; padding: 10px 12px; }
+  .review-card .label { font-size: 10px; text-transform: uppercase; letter-spacing: .05em; color: #8A8D96; margin-bottom: 2px; font-family: 'Oswald', sans-serif; }
+  .review-card .val { font-size: 13px; font-weight: 600; color: #14151A; }
+  .review-card .val.missing { color: #8A8D96; font-style: italic; font-weight: 400; }
   @media (max-width:500px){ .review-grid { grid-template-columns: 1fr; } }
-  .ed-banner { font-size:11px;color:#fbbf24;background:#451a03;border:1px solid #78350f;border-radius:8px;padding:10px 12px;margin-bottom:12px;line-height:1.5; }
-  .ed-safe { font-size:11px;color:#a1a1aa;background:#1a2e1a;border:1px solid #22c55e33;border-radius:8px;padding:10px 12px;margin-bottom:12px;line-height:1.5; }
+  .ed-banner { font-size:11px;color:#14151A;background:#faf5e6;border:1.5px solid #F4C93B;border-radius:8px;padding:10px 12px;margin-bottom:12px;line-height:1.5; }
+  .ed-safe { font-size:11px;color:#5B5F68;background:#f5f5f3;border:1px solid #E4E1D8;border-radius:8px;padding:10px 12px;margin-bottom:12px;line-height:1.5; }
+.arch-desc { font-size:12px;color:#5B5F68;margin-top:4px;line-height:1.4; }
 </style>
 </head>
 <body>
@@ -556,13 +561,13 @@ function renderInbodyScreen(body, nav, screens) {
   let html = `<div class="section"><div class="section-header"><span class="section-emoji">\uD83D\uDCCA</span><span class="section-title">Body Composition Scan</span><span class="inbody-optional-badge">Optional</span></div><div class="section-desc">Upload a DEXA / InBody report and optionally enter metrics manually</div>`;
 
   if (inbodyFileName) {
-    html += `<div class="upload-zone has-file" id="inbodyUploadZone" onclick="document.getElementById('inbodyFileInput').click();"><div style="display:flex;align-items:center;justify-content:center;gap:10px;"><span style="font-size:12px;color:#d4d4d8;">${inbodyFileName}</span><span style="font-size:11px;color:#71717a;">(${inbodyFileSize})</span><span onclick="event.stopPropagation();removeInbodyFile();" style="cursor:pointer;color:#ef4444;font-weight:700;font-size:16px;line-height:1;">\u00d7</span></div></div>`;
+    html += `<div class="upload-zone has-file" id="inbodyUploadZone" onclick="document.getElementById('inbodyFileInput').click();"><div style="display:flex;align-items:center;justify-content:center;gap:10px;"><span style="font-size:12px;color:#14151A;">${inbodyFileName}</span><span style="font-size:11px;color:#8A8D96;">(${inbodyFileSize})</span><span onclick="event.stopPropagation();removeInbodyFile();" style="cursor:pointer;color:#ef4444;font-weight:700;font-size:16px;line-height:1;">\u00d7</span></div></div>`;
   } else {
-    html += `<div class="upload-zone" id="inbodyUploadZone" onclick="document.getElementById('inbodyFileInput').click();" ondragover="event.preventDefault();this.classList.add('drag-over');" ondragleave="event.preventDefault();this.classList.remove('drag-over');" ondrop="event.preventDefault();this.classList.remove('drag-over');handleInbodyFile(event.dataTransfer.files[0]);"><p style="font-size:13px;color:#a1a1aa;margin-bottom:4px;">Drop your scan report here</p><p style="font-size:11px;color:#71717a;">or click to browse (PDF, JPG, PNG)</p></div>`;
+    html += `<div class="upload-zone" id="inbodyUploadZone" onclick="document.getElementById('inbodyFileInput').click();" ondragover="event.preventDefault();this.classList.add('drag-over');" ondragleave="event.preventDefault();this.classList.remove('drag-over');" ondrop="event.preventDefault();this.classList.remove('drag-over');handleInbodyFile(event.dataTransfer.files[0]);"><p style="font-size:13px;color:#5B5F68;margin-bottom:4px;">Drop your scan report here</p><p style="font-size:11px;color:#8A8D96;">or click to browse (PDF, JPG, PNG)</p></div>`;
   }
   html += `<input type="file" id="inbodyFileInput" accept=".pdf,.jpg,.jpeg,.png" style="display:none" onchange="if(this.files[0])handleInbodyFile(this.files[0]);">`;
   html += `<div style="margin-top:16px;"><div class="inbody-section-label">Manual Entry</div>`;
-  html += `<div class="inbody-section-label" style="font-size:11px;color:#a1a1aa;margin-bottom:6px;">Core Body Composition</div><div class="inbody-grid">`;
+  html += `<div class="inbody-section-label" style="font-size:11px;color:#5B5F68;margin-bottom:6px;">Core Body Composition</div><div class="inbody-grid">`;
   html += inbodyFieldHtml('scanDate','Scan date','date','');
   html += inbodyFieldHtml('device','Device / scan type','text','e.g. InBody 570');
   html += inbodyFieldHtml('weight_kg','Weight (kg)','number','e.g. 74.2');
@@ -573,13 +578,13 @@ function renderInbodyScreen(body, nav, screens) {
   html += inbodyFieldHtml('bmr_kcal','BMR (kcal)','number','e.g. 1824');
   html += inbodyFieldHtml('visceral_fat','Visceral Fat Level','number','1–20');
   html += `</div>`;
-  html += `<div class="inbody-section-label" style="font-size:11px;color:#a1a1aa;margin-top:16px;margin-bottom:6px;">Body Water — InBody 570+ only</div><div class="inbody-grid">`;
+  html += `<div class="inbody-section-label" style="font-size:11px;color:#5B5F68;margin-top:16px;margin-bottom:6px;">Body Water — InBody 570+ only</div><div class="inbody-grid">`;
   html += inbodyFieldHtml('tbw_L','TBW (L)','number','e.g. 38.4');
   html += inbodyFieldHtml('icw_L','ICW (L)','number','e.g. 25.1');
   html += inbodyFieldHtml('ecw_L','ECW (L)','number','e.g. 13.3');
   html += `<div class="inbody-field"><label>ECW/TBW ratio</label><input type="number" step="0.001" id="inbody_ecw_tbw_ratio" value="${inbodyData.ecw_tbw_ratio}" readonly class="inbody-input" placeholder="Auto-computed"><div class="hint">Target &lt;0.380</div></div>`;
   html += `</div>`;
-  html += `<div class="inbody-section-label" style="font-size:11px;color:#a1a1aa;margin-top:14px;margin-bottom:6px;">Segmental Lean Mass (kg) — optional, InBody 570+ only</div><div class="inbody-grid-5">`;
+  html += `<div class="inbody-section-label" style="font-size:11px;color:#5B5F68;margin-top:14px;margin-bottom:6px;">Segmental Lean Mass (kg) — optional, InBody 570+ only</div><div class="inbody-grid-5">`;
   html += inbodyFieldHtml('seg_rArm_kg','R Arm','number','');
   html += inbodyFieldHtml('seg_lArm_kg','L Arm','number','');
   html += inbodyFieldHtml('seg_trunk_kg','Trunk','number','');
@@ -610,12 +615,12 @@ function renderReviewScreen(body, nav, screens) {
   let html = `<div class="section"><div class="section-header"><span class="section-emoji">\u2705</span><span class="section-title">Review & Submit</span></div><div class="section-desc">Confirm your answers before submitting</div>`;
 
   if (!allAnswered) {
-    html += `<div style="background:#451a03;border:1px solid #78350f;border-radius:8px;padding:12px;margin-bottom:16px;"><p style="font-size:12px;color:#fbbf24;font-weight:600;">${missing.length} question(s) still need an answer</p>`;
-    html += `<ul style="font-size:11px;color:#a1a1aa;margin-top:6px;padding-left:16px;">`;
+    html += `<div style="background:#faf5e6;border:1.5px solid #F4C93B;border-radius:8px;padding:12px;margin-bottom:16px;"><p style="font-size:12px;color:#14151A;font-weight:600;">${missing.length} question(s) still need an answer</p>`;
+    html += `<ul style="font-size:11px;color:#5B5F68;margin-top:6px;padding-left:16px;">`;
     missing.forEach(q => { html += `<li style="padding:2px 0;">${q.sectionLabel}: ${q.label}</li>`; });
     html += `</ul></div>`;
   } else {
-    html += `<div style="background:#1a2e1a;border:1px solid #22c55e33;border-radius:8px;padding:10px 12px;margin-bottom:16px;font-size:12px;color:#22c55e;">\u2713 All required questions answered</div>`;
+    html += `<div style="background:#f5f5f3;border:1px solid #E4E1D8;border-radius:8px;padding:10px 12px;margin-bottom:16px;font-size:12px;color:#14151A;">\u2713 All required questions answered</div>`;
   }
 
   // Summary grid
@@ -869,20 +874,20 @@ function renderResult(r) {
   ];
 
   let html = `<div class="result fade-in"><h2>Your Muscle OS Profile</h2>`;
-  if (r.name) html += `<div style="font-size:11px;color:#71717a;margin:-8px 0 12px;">Client: ${r.name}</div>`;
+  if (r.name) html += `<div style="font-size:11px;color:#8A8D96;margin:-8px 0 12px;">Client: ${r.name}</div>`;
   html += `<div class="result-card" style="margin-bottom:16px;"><div class="label">Archetype</div><div class="val">${r.archetype}</div><div class="arch-desc">${ARCHETYPE_DESCRIPTIONS[r.archetype]||''}</div></div>`;
   html += `<div class="result-grid">`;
   scoreBars.forEach(b => {
     const pct = Math.round((b.score/b.max)*100);
-    const color = pct>=70?'#22c55e':pct>=40?'#eab308':'#ef4444';
-    html += `<div class="result-card"><div class="label">${b.label}</div><div class="val" style="color:${color}">${b.score}/${b.max}</div><div style="background:#3f3f46;border-radius:4px;height:4px;margin-top:6px;overflow:hidden;"><div style="height:100%;background:${color};width:${pct}%;border-radius:4px;"></div></div></div>`;
+    const color = pct>=70?'#14151A':pct>=40?'#F4C93B':'#ef4444';
+    html += `<div class="result-card"><div class="label">${b.label}</div><div class="val" style="color:${color}">${b.score}/${b.max}</div><div style="background:#E4E1D8;border-radius:4px;height:4px;margin-top:6px;overflow:hidden;"><div style="height:100%;background:${color};width:${pct}%;border-radius:4px;"></div></div></div>`;
   });
   html += `</div>`;
   html += `<div class="result-card" style="margin-bottom:16px;"><div class="label">Total Score</div><div class="val">${r.scores.total}/74</div></div>`;
 
   if (r.flags.length) {
     html += `<div class="result-section"><h3>Flags & Constraints</h3>${r.flags.map(f=>'<span class="flag-badge">'+f+'</span>').join('')}</div>`;
-    html += `<div style="font-size:11px;color:#71717a;margin:-10px 0 14px;">See <strong>ADJUSTMENTS.md</strong> for flag-to-action mappings and protocol triggers.</div>`;
+    html += `<div style="font-size:11px;color:#8A8D96;margin:-10px 0 14px;">See <strong>ADJUSTMENTS.md</strong> for flag-to-action mappings and protocol triggers.</div>`;
   }
 
   html += `<div class="result-section"><h3>Priority Focus Areas</h3><ol class="pillar-list">${r.pillarPriorities.map(p=>'<li>'+p+'</li>').join('')}</ol></div>`;
@@ -937,7 +942,7 @@ function renderResult(r) {
   html += `<li>Accountability: ${r.psychProfile.accountabilityPref}</li>`;
   html += `</ul></div>`;
 
-  html += `<div class="result-section" style="background:#1a2e1a;border:1px solid #22c55e33;border-radius:8px;padding:12px;"><h3 style="color:#22c55e;">Start Here</h3><p style="font-size:12px;color:#a1a1aa;line-height:1.5;">Open <strong>ADJUSTMENTS.md</strong> to see flag-to-action mappings. Then visit <strong>07_PROFILES/</strong> for your archetype playbook. Use <strong>05_JOURNAL/</strong> to log your N-of-1 experiments as you adjust.</p></div>`;
+  html += `<div class="result-section" style="background:#faf5e6;border:1.5px solid #F4C93B;border-radius:8px;padding:12px;"><h3 style="color:#14151A;">Start Here</h3><p style="font-size:12px;color:#5B5F68;line-height:1.5;">Open <strong>ADJUSTMENTS.md</strong> to see flag-to-action mappings. Then visit <strong>07_PROFILES/</strong> for your archetype playbook. Use <strong>05_JOURNAL/</strong> to log your N-of-1 experiments as you adjust.</p></div>`;
 
   if (r.inbodyScan && r.inbodyScan.hasScan) {
     const s = r.inbodyScan;
@@ -945,7 +950,7 @@ function renderResult(r) {
     if (!hasCoreMetric && !s.flags.length) { /* skip */ }
     else {
     html += `<div class="result fade-in" style="margin-top:16px;"><h2>InBody / DEXA Scan</h2>`;
-    if (s.fileName) html += `<div style="font-size:11px;color:#71717a;margin:-8px 0 12px;">File: ${s.fileName}${s.scanDate?' | Scan date: '+s.scanDate:''}${s.device?' | Device: '+s.device:''}</div>`;
+    if (s.fileName) html += `<div style="font-size:11px;color:#8A8D96;margin:-8px 0 12px;">File: ${s.fileName}${s.scanDate?' | Scan date: '+s.scanDate:''}${s.device?' | Device: '+s.device:''}</div>`;
     html += `<div class="result-grid">`;
     const metricCards = [
       { label:'Weight', val:s.metrics.weight_kg, unit:'kg' },
@@ -960,7 +965,7 @@ function renderResult(r) {
     ];
     metricCards.forEach(m => {
       if (m.val !== null && m.val !== undefined && m.val !== '') {
-        html += `<div class="result-card"><div class="label">${m.label}</div><div class="val">${m.val}${m.unit?' <span style="font-size:11px;color:#71717a;font-weight:400;">'+m.unit+'</span>':''}</div></div>`;
+        html += `<div class="result-card"><div class="label">${m.label}</div><div class="val">${m.val}${m.unit?' <span style="font-size:11px;color:#8A8D96;font-weight:400;">'+m.unit+'</span>':''}</div></div>`;
       }
     });
     html += `</div>`;
@@ -968,10 +973,10 @@ function renderResult(r) {
       const ratio = s.metrics.ecw_tbw_ratio;
       const pct = Math.min(ratio / 0.420 * 100, 100);
       let color, statusText;
-      if (ratio < 0.380) { color = '#22c55e'; statusText = 'Normal'; }
-      else if (ratio < 0.390) { color = '#eab308'; statusText = 'Borderline'; }
+      if (ratio < 0.380) { color = '#14151A'; statusText = 'Normal'; }
+      else if (ratio < 0.390) { color = '#F4C93B'; statusText = 'Borderline'; }
       else { color = '#ef4444'; statusText = 'Elevated'; }
-      html += `<div class="result-section"><h3>ECW/TBW Ratio: ${ratio.toFixed(3)} <span style="font-weight:400;font-size:11px;color:${color};">(${statusText})</span></h3><div class="ratio-bar"><div class="ratio-bar-track"><div class="ratio-bar-fill" style="width:${pct}%;background:${color};"></div></div></div><div style="font-size:10px;color:#71717a;margin-top:2px;">Target &lt;0.380</div></div>`;
+      html += `<div class="result-section"><h3>ECW/TBW Ratio: ${ratio.toFixed(3)} <span style="font-weight:400;font-size:11px;color:${color};">(${statusText})</span></h3><div class="ratio-bar"><div class="ratio-bar-track"><div class="ratio-bar-fill" style="width:${pct}%;background:${color};"></div></div></div><div style="font-size:10px;color:#8A8D96;margin-top:2px;">Target &lt;0.380</div></div>`;
     }
     const segs = [
       { label:'R Arm', val:s.metrics.seg_rArm_kg },
@@ -984,7 +989,7 @@ function renderResult(r) {
     if (hasSeg) {
       html += `<div class="result-section"><h3>Segmental Lean Mass (kg)</h3><div class="inbody-grid-5">`;
       segs.forEach(x => {
-        html += `<div style="text-align:center;background:#27272a;border-radius:6px;padding:8px 4px;"><div style="font-size:18px;font-weight:700;color:#f4f4f5;">${x.val !== null && x.val !== undefined && x.val !== '' ? x.val : '-'}</div><div class="seg-label">${x.label}</div></div>`;
+        html += `<div style="text-align:center;background:#f5f5f3;border-radius:6px;padding:8px 4px;"><div style="font-size:18px;font-weight:700;color:#14151A;">${x.val !== null && x.val !== undefined && x.val !== '' ? x.val : '-'}</div><div class="seg-label">${x.label}</div></div>`;
       });
       html += `</div></div>`;
     }

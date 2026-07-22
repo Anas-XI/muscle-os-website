@@ -5,13 +5,13 @@ from datetime import datetime
 from mos_bot.config import PDFS_DIR
 from pypdf import PdfReader, PdfWriter
 
-LINK_COLOR = (30, 100, 200)
-ACCENT_COLOR = (12, 34, 56)
-LIGHT_ACCENT = (235, 240, 248)
-TEXT_DARK = (40, 40, 40)
-TEXT_MED = (80, 80, 80)
-TEXT_LIGHT = (160, 160, 160)
-BORDER_COLOR = (210, 210, 210)
+LINK_COLOR = (244, 201, 59)
+ACCENT_COLOR = (20, 21, 26)
+LIGHT_ACCENT = (245, 245, 243)
+TEXT_DARK = (20, 21, 26)
+TEXT_MED = (91, 95, 104)
+TEXT_LIGHT = (138, 141, 150)
+BORDER_COLOR = (228, 225, 216)
 
 
 class ProgramPDF(FPDF):
@@ -21,7 +21,7 @@ class ProgramPDF(FPDF):
         self.rect(0, 0, 210, 297, "F")
 
         # Decorative accent bar
-        self.set_fill_color(60, 130, 210)
+        self.set_fill_color(244, 201, 59)
         self.rect(0, 0, 210, 4, "F")
 
         self.set_y(55)
@@ -30,12 +30,12 @@ class ProgramPDF(FPDF):
         self.set_text_color(255, 255, 255)
         self.cell(0, 15, "MUSCLE OS", align="C", new_x="LMARGIN", new_y="NEXT")
         self.set_font("Helvetica", "", 11)
-        self.set_text_color(180, 200, 225)
+        self.set_text_color(244, 201, 59)
         self.cell(0, 7, "AI-Native Fitness Coaching System", align="C", new_x="LMARGIN", new_y="NEXT")
         self.ln(15)
 
         # Decorative divider
-        self.set_draw_color(80, 150, 220)
+        self.set_draw_color(244, 201, 59)
         self.set_line_width(0.6)
         self.line(55, self.get_y(), 155, self.get_y())
         self.ln(20)
@@ -47,29 +47,29 @@ class ProgramPDF(FPDF):
         self.ln(4)
 
         self.set_font("Helvetica", "", 13)
-        self.set_text_color(180, 200, 225)
+        self.set_text_color(244, 201, 59)
         self.cell(0, 7, subtitle, align="C", new_x="LMARGIN", new_y="NEXT")
         self.ln(35)
 
         # Client info box
-        self.set_draw_color(80, 150, 220)
-        self.set_fill_color(20, 50, 80)
+        self.set_draw_color(244, 201, 59)
+        self.set_fill_color(30, 31, 38)
         self.rect(55, self.get_y(), 100, 30, "DF")
         y_box = self.get_y()
         self.set_y(y_box + 4)
         self.set_font("Helvetica", "", 10)
-        self.set_text_color(200, 215, 235)
+        self.set_text_color(244, 201, 59)
         self.cell(0, 7, f"Client: {client_name}", align="C", new_x="LMARGIN", new_y="NEXT")
         self.cell(0, 7, f"Date: {date_str}", align="C", new_x="LMARGIN", new_y="NEXT")
         self.set_y(y_box + 34)
 
         self.ln(30)
         self.set_font("Helvetica", "I", 8)
-        self.set_text_color(120, 145, 170)
+        self.set_text_color(244, 201, 59)
         self.cell(0, 5, "CONFIDENTIAL -- Personal Coaching Program", align="C", new_x="LMARGIN", new_y="NEXT")
 
         # Bottom accent bar
-        self.set_fill_color(60, 130, 210)
+        self.set_fill_color(244, 201, 59)
         self.rect(0, 293, 210, 4, "F")
 
     def header(self):

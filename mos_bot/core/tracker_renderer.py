@@ -37,8 +37,8 @@ TRACKER_HTML_TEMPLATE = r"""<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Workout Tracker — {CLIENT_NAME}</title>
 <style>
-  :root { --primary: #1a1a2e; --accent: #e94560; --bg: #16213e; --card: #0f3460; --text: #eee; --muted: #8899aa; --green: #2ecc71; --orange: #f39c12; --border: #2a2a4a; --card-hover: rgba(255,255,255,0.04); --shadow: rgba(0,0,0,0.3); --chart-line: #e94560; --chart-fill: rgba(233,69,96,0.15); }
-  .light { --primary: #f5f5f5; --accent: #d63031; --bg: #ffffff; --card: #ffffff; --text: #2d3436; --muted: #636e72; --border: #dfe6e9; --card-hover: rgba(0,0,0,0.02); --shadow: rgba(0,0,0,0.08); --chart-line: #d63031; --chart-fill: rgba(214,48,49,0.1); }
+  :root { --primary: #14151A; --accent: #F4C93B; --bg: #1E2027; --card: #2A2C33; --text: #FAFAF8; --muted: #8A8D96; --green: #2ecc71; --orange: #f39c12; --border: #2A2C33; --card-hover: rgba(244,201,59,0.06); --shadow: rgba(0,0,0,0.3); --chart-line: #F4C93B; --chart-fill: rgba(244,201,59,0.15); }
+  .light { --primary: #FAFAF8; --accent: #14151A; --bg: #FAFAF8; --card: #FAFAF8; --text: #14151A; --muted: #5B5F68; --border: #E4E1D8; --card-hover: rgba(20,21,26,0.03); --shadow: rgba(0,0,0,0.06); --chart-line: #14151A; --chart-fill: rgba(20,21,26,0.08); }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--primary); color: var(--text); min-height: 100vh; transition: background .3s, color .3s; }
   .header { background: var(--bg); padding: 12px 20px; text-align: center; border-bottom: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
@@ -455,7 +455,7 @@ function renderWeightChart() {{
   const xScale = cw / (checkins.length - 1 || 1);
   const yScale = ch / (max - min || 1);
   ctx.clearRect(0, 0, w, h);
-  ctx.strokeStyle = getComputedStyle(document.body).getPropertyValue('--chart-line').trim() || '#e94560';
+  ctx.strokeStyle = getComputedStyle(document.body).getPropertyValue('--chart-line').trim() || '#F4C93B';
   ctx.lineWidth = 2;
   ctx.beginPath();
   checkins.forEach((c, i) => {{
@@ -474,7 +474,7 @@ function renderWeightChart() {{
   checkins.forEach((c, i) => {{
     const x = pad.left + i * xScale, y = pad.top + ch - (c.weight_kg - min) * yScale;
     ctx.beginPath(); ctx.arc(x, y, 3, 0, Math.PI * 2); ctx.fillStyle = '#fff'; ctx.fill();
-    ctx.strokeStyle = getComputedStyle(document.body).getPropertyValue('--chart-line').trim() || '#e94560';
+    ctx.strokeStyle = getComputedStyle(document.body).getPropertyValue('--chart-line').trim() || '#F4C93B';
     ctx.lineWidth = 1.5; ctx.stroke();
   }});
 }}
@@ -507,7 +507,7 @@ function renderVolumeChart() {{
     const x = pad.left + i * (barW + gap) + gap / 2;
     const bh = (v.vol / maxVol) * ch;
     const y = pad.top + ch - bh;
-    ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--chart-line').trim() || '#e94560';
+    ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--chart-line').trim() || '#F4C93B';
     ctx.fillRect(x, y, barW, bh);
     ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--muted').trim() || '#8899aa';
     ctx.font = '9px sans-serif';

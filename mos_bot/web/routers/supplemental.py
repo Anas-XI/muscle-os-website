@@ -14,21 +14,24 @@ FORM_HTML = """
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Safety Profile — Supplemental Intake</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   * {{ box-sizing: border-box; margin: 0; padding: 0; }}
-  body {{ font-family: -apple-system, system-ui, sans-serif; background: #f5f5f7; color: #1d1d1f; padding: 1rem; }}
-  .container {{ max-width: 640px; margin: 2rem auto; background: #fff; border-radius: 12px; padding: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }}
-  h1 {{ font-size: 1.5rem; margin-bottom: 0.25rem; }}
-  p.sub {{ color: #6e6e73; margin-bottom: 1.5rem; }}
-  fieldset {{ border: 1px solid #d2d2d7; border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem; }}
-  legend {{ font-weight: 600; font-size: 1.05rem; padding: 0 0.5rem; }}
+  body {{ font-family: 'Inter', system-ui, sans-serif; background: #FAFAF8; color: #14151A; padding: 1rem; }}
+  .container {{ max-width: 640px; margin: 2rem auto; background: #FAFAF8; border: 1px solid #E4E1D8; border-radius: 12px; padding: 2rem; box-shadow: 0 1px 2px rgba(20,21,26,0.04); }}
+  h1 {{ font-family: 'Oswald', sans-serif; font-size: 1.5rem; margin-bottom: 0.25rem; color: #14151A; }}
+  p.sub {{ color: #5B5F68; margin-bottom: 1.5rem; }}
+  fieldset {{ border: 1px solid #E4E1D8; border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem; }}
+  legend {{ font-weight: 600; font-size: 1.05rem; padding: 0 0.5rem; color: #14151A; }}
   label {{ display: block; margin: 0.75rem 0 0.25rem; font-size: 0.9rem; }}
-  select, input[type=text] {{ width: 100%; padding: 0.5rem; border: 1px solid #d2d2d7; border-radius: 6px; font-size: 0.95rem; }}
+  select, input[type=text] {{ width: 100%; padding: 0.5rem; border: 1.5px solid #E4E1D8; border-radius: 8px; font-size: 0.95rem; font-family: 'Inter', sans-serif; background: #fff; color: #14151A; }}
+  select:focus, input[type=text]:focus {{ outline: none; border-color: #14151A; }}
   .radio-group {{ display: flex; gap: 1rem; margin-top: 0.25rem; }}
   .radio-group label {{ display: flex; align-items: center; gap: 0.3rem; font-weight: 400; }}
-  button {{ width: 100%; padding: 0.75rem; background: #0071e3; color: #fff; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; }}
-  button:hover {{ background: #0077ed; }}
-  .success {{ background: #e8f5e9; border: 1px solid #a5d6a7; border-radius: 8px; padding: 1rem; text-align: center; }}
+  button {{ width: 100%; padding: 0.75rem; background: #14151A; color: #F4C93B; border: none; border-radius: 10px; font-size: 1rem; cursor: pointer; font-family: 'Oswald', sans-serif; letter-spacing: 0.5px; text-transform: uppercase; }}
+  button:hover {{ background: #1E2027; }}
+  .success {{ background: #f5f5f3; border: 1px solid #E4E1D8; border-radius: 8px; padding: 1rem; text-align: center; color: #14151A; }}
 </style>
 </head>
 <body>
@@ -74,7 +77,7 @@ FORM_HTML = """
 
     <fieldset>
       <legend>Eating Disorder Screening</legend>
-      <p style="font-size:0.85rem;color:#6e6e73;margin-bottom:0.75rem;">These questions help us ensure programs are appropriate for your needs.</p>
+      <p style="font-size:0.85rem;color:#5B5F68;margin-bottom:0.75rem;">These questions help us ensure programs are appropriate for your needs.</p>
       <label>In the past 3 months, have you had episodes of binge eating (eating a very large amount of food with a sense of loss of control)?</label>
       <div class="radio-group"><label><input type="radio" name="ED1" value="yes" required> Yes</label><label><input type="radio" name="ED1" value="no"> No</label></div>
       <label>In the past 3 months, have you used vomiting, laxatives, or excessive exercise to compensate for eating?</label>
@@ -101,16 +104,16 @@ SUCCESS_HTML = """
 <title>Safety Profile Saved</title>
 <style>
   * {{ box-sizing: border-box; margin: 0; padding: 0; }}
-  body {{ font-family: -apple-system, system-ui, sans-serif; background: #f5f5f7; color: #1d1d1f; padding: 1rem; }}
-  .container {{ max-width: 640px; margin: 2rem auto; background: #fff; border-radius: 12px; padding: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }}
-  .success {{ background: #e8f5e9; border: 1px solid #a5d6a7; border-radius: 8px; padding: 1.5rem; text-align: center; font-size: 1.1rem; }}
+  body {{ font-family: 'Inter', system-ui, sans-serif; background: #FAFAF8; color: #14151A; padding: 1rem; }}
+  .container {{ max-width: 640px; margin: 2rem auto; background: #FAFAF8; border: 1px solid #E4E1D8; border-radius: 12px; padding: 2rem; box-shadow: 0 1px 2px rgba(20,21,26,0.04); }}
+  .success {{ background: #f5f5f3; border: 1px solid #E4E1D8; border-radius: 8px; padding: 1.5rem; text-align: center; font-size: 1.1rem; color: #14151A; }}
 </style>
 </head>
 <body>
 <div class="container">
   <div class="success">
     <p><strong>Safety profile saved.</strong></p>
-    <p style="margin-top:0.5rem;color:#555;">You can now return to the app and request your program.</p>
+    <p style="margin-top:0.5rem;color:#5B5F68;">You can now return to the app and request your program.</p>
   </div>
 </div>
 </body>
