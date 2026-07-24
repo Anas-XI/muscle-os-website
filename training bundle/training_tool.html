@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Training Tool — Volume Calc + Split Selector + Program Generator + Logger — by Coach Anas Mo'men</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:32px 16px}
+@media print{body{background:#fff;color:#000;padding:20px}body *{color:#000!important}
+ .container{max-width:100%}.header h1{color:#000!important}.card{background:#f5f5f5!important;border:1px solid #ddd!important}
+ .stepper,.btn-group,.btn-primary,.btn-secondary,.add-set,.del-set,#resetAllBtn,#backToProgBtn,.footer{display:none!important}
+ .log-card{break-inside:avoid;background:#fff!important;border:1px solid #ddd!important}
+ .log-ex-name{color:#000!important}.logged-badge{display:none!important}.last-session{display:none!important}
+ .set-row input{border:1px solid #ccc!important;background:#fff!important;color:#000!important}
+ .print-header{display:block!important;text-align:center;margin-bottom:20px;font-family:'Oswald',sans-serif}
+ .print-header h2{font-size:1.4rem;margin:0}.print-header p{font-size:.8rem;color:#666!important;margin:2px 0}
+ .print-only{display:block!important}.no-print{display:none!important}}
+.print-header{display:none}.print-only{display:none}
+.btn-danger{width:auto;padding:5px 10px;background:rgba(244,67,54,.12);border:1px solid rgba(244,67,54,.2);border-radius:6px;color:#f44336;font-family:'Inter',sans-serif;font-size:.6rem;font-weight:600;cursor:pointer;transition:all .2s;text-transform:uppercase;letter-spacing:.5px}
+.btn-danger:hover{background:rgba(244,67,54,.2)}
+.rm-ex{width:auto;padding:4px 8px;background:transparent;border:1px solid rgba(244,67,54,.15);border-radius:4px;color:rgba(244,67,54,.5);font-family:'Inter',sans-serif;font-size:.5rem;font-weight:600;cursor:pointer;transition:all .2s;text-transform:uppercase;letter-spacing:.5px;margin-left:6px}
+.rm-ex:hover{background:rgba(244,67,54,.08);border-color:#f44336;color:#f44336}
+.container{width:100%;max-width:800px}
+.header{text-align:center;margin-bottom:24px}
+.header h1{font-family:'Oswald',sans-serif;font-size:2.2rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:1px;line-height:1.1}
+.header p{font-size:.78rem;color:rgba(250,250,248,.45);margin-top:4px;font-weight:300;letter-spacing:.5px}
+.stepper{display:flex;gap:0;background:rgba(20,21,26,.4);border-radius:10px;padding:3px;margin-bottom:20px;overflow:hidden}
+.step{flex:1;text-align:center;padding:9px 4px;font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.2);cursor:pointer;transition:all .2s;border-radius:8px;position:relative}
+.step:hover{color:rgba(250,250,248,.4)}
+.step.active{background:#F4C93B;color:#14151A}
+.step.done{color:rgba(250,250,248,.5)}
+.step .num{display:inline-block;width:16px;height:16px;line-height:16px;border-radius:50%;font-size:.5rem;font-weight:700;text-align:center;margin-right:4px}
+.step.active .num{background:#14151A;color:#F4C93B}
+.step.done .num{background:rgba(250,250,248,.15);color:#FAFAF8}
+.card{background:#1E1E2A;border-radius:16px;padding:24px 22px;margin-bottom:16px}
+.card+.card{margin-top:0}
+.step-content{display:none}
+.step-content.active{display:block;animation:fadeSlideIn .4s ease-out}
+@keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.section-header{font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:500;text-transform:uppercase;letter-spacing:.5px;color:#F4C93B;border-bottom:1px solid rgba(250,250,248,.07);padding-bottom:5px;margin:18px 0 10px}
+.section-header:first-of-type{margin-top:0}
+.section-sub{font-size:.58rem;color:rgba(250,250,248,.3);font-weight:400;text-transform:none;letter-spacing:0;font-family:'Inter',sans-serif}
+.form-group{margin-bottom:12px}
+.form-group label{display:block;font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(250,250,248,.4);margin-bottom:4px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+input,select{width:100%;padding:8px 10px;background:rgba(20,21,26,.6);border:1.5px solid rgba(250,250,248,.08);border-radius:8px;color:#FAFAF8;font-family:'JetBrains Mono',monospace;font-size:.82rem;outline:none;transition:border-color .2s}
+input:focus,select:focus{border-color:#F4C93B}
+select{font-family:'Inter',sans-serif;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 12 8'%3E%3Cpath fill='%23FAFAF8' opacity='0.5' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;padding-right:32px}
+select option{background:#1E1E2A;color:#FAFAF8}
+.tip{font-size:.58rem;color:rgba(250,250,248,.22);margin-top:2px;font-style:italic}
+.btn-primary{width:100%;margin-top:16px;padding:13px 0;background:#F4C93B;color:#14151A;border:none;border-radius:10px;font-family:'Oswald',sans-serif;font-size:1rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;transition:opacity .2s,transform .15s}
+.btn-primary:hover{opacity:.9}
+.btn-primary:active{transform:scale(.98)}
+.btn-secondary{width:auto;padding:8px 16px;background:transparent;border:1.5px solid rgba(250,250,248,.1);border-radius:8px;color:rgba(250,250,248,.5);font-family:'Inter',sans-serif;font-size:.72rem;font-weight:500;cursor:pointer;transition:all .2s}
+.btn-secondary:hover{border-color:rgba(250,250,248,.2);color:#FAFAF8}
+.btn-group{display:flex;gap:8px;margin-top:16px}
+.btn-group .btn-primary{margin-top:0;flex:1}
+.error{display:none;color:#F4C93B;font-size:.72rem;text-align:center;margin-top:8px;font-weight:500}
+.priority-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.priority-item{display:flex;align-items:center;gap:6px;padding:5px 8px;background:rgba(20,21,26,.4);border-radius:6px}
+.priority-item .name{flex:1;font-size:.68rem;color:#FAFAF8;font-weight:500}
+.prio-btn{padding:2px 8px;border-radius:4px;font-size:.5rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;border:1.5px solid transparent;cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif}
+.prio-btn.focus{background:rgba(244,201,59,.12);color:#F4C93B;border-color:rgba(244,201,59,.2)}
+.prio-btn.maint{background:rgba(250,250,248,.04);color:rgba(250,250,248,.3);border-color:rgba(250,250,248,.06)}
+.prio-btn.maint.active{background:rgba(250,250,248,.1);color:rgba(250,250,248,.6);border-color:rgba(250,250,248,.15)}
+.prio-btn.focus.active{background:#F4C93B;color:#14151A;border-color:#F4C93B}
+.split-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.split-card{padding:12px 14px;border-radius:10px;border:1.5px solid rgba(250,250,248,.06);cursor:pointer;transition:all .2s;background:rgba(20,21,26,.3)}
+.split-card:hover{border-color:rgba(250,250,248,.15)}
+.split-card.selected{border-color:#F4C93B;background:rgba(244,201,59,.06)}
+.split-card .s-name{font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:600;color:#FAFAF8;text-transform:uppercase;letter-spacing:.5px}
+.split-card .s-detail{font-size:.6rem;color:rgba(250,250,248,.35);margin-top:2px}
+.program-day{background:rgba(20,21,26,.3);border-radius:10px;padding:12px 14px;margin-bottom:10px}
+.program-day .day-header{font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid rgba(250,250,248,.05)}
+.exercise-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:6px;padding:4px 0;font-size:.72rem;border-bottom:1px solid rgba(250,250,248,.02)}
+.exercise-row.header{color:rgba(250,250,248,.25);font-weight:600;font-size:.55rem;text-transform:uppercase;letter-spacing:1px;padding:4px 0;border-bottom:1px solid rgba(250,250,248,.06)}
+.exercise-row .ex-name{color:#FAFAF8;font-weight:500}
+.exercise-row .ex-center{text-align:center;color:rgba(250,250,248,.5)}
+.log-day-select{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.log-day-select button{padding:6px 14px;border-radius:6px;border:1.5px solid rgba(250,250,248,.08);background:transparent;color:rgba(250,250,248,.4);font-family:'Inter',sans-serif;font-size:.68rem;cursor:pointer;transition:all .2s;font-weight:500}
+.log-day-select button:hover{border-color:rgba(250,250,248,.2);color:#FAFAF8}
+.log-day-select button.active{background:#F4C93B;color:#14151A;border-color:#F4C93B;font-weight:600}
+.log-card{background:rgba(20,21,26,.3);border-radius:10px;padding:12px 14px;margin-bottom:8px}
+.log-card .log-ex-name{font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:600;color:#FAFAF8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.log-card .last-session{font-size:.6rem;color:rgba(250,250,248,.25);margin-bottom:6px;font-style:italic}
+.set-row{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:6px;margin-bottom:4px;align-items:center}
+.set-row input{padding:5px 8px;font-size:.75rem}
+.set-row .set-lbl{font-size:.6rem;color:rgba(250,250,248,.25);font-weight:500;text-transform:uppercase;letter-spacing:.5px;min-width:30px}
+.set-row .add-set{background:transparent;border:1.5px dashed rgba(250,250,248,.1);border-radius:6px;color:rgba(250,250,248,.3);font-size:.6rem;cursor:pointer;padding:4px 10px;transition:all .2s}
+.set-row .add-set:hover{border-color:#F4C93B;color:#F4C93B}
+.set-row .del-set{background:transparent;border:none;color:rgba(250,250,248,.15);cursor:pointer;font-size:.7rem;padding:4px;transition:color .15s}
+.set-row .del-set:hover{color:#f44336}
+.logged-badge{display:inline-block;background:rgba(76,175,80,.15);color:#4CAF50;font-size:.5rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:1px 6px;border-radius:3px;margin-left:6px}
+.summary-dash{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px}
+.summary-card{background:rgba(20,21,26,.4);border-radius:10px;padding:12px;text-align:center}
+.summary-val{font-family:'JetBrains Mono',monospace;font-size:1.4rem;font-weight:700;color:#F4C93B;line-height:1.1}
+.summary-lbl{font-size:.5rem;text-transform:uppercase;letter-spacing:1.5px;color:rgba(250,250,248,.3);font-weight:600;margin-top:2px}
+.summary-sub{font-size:.55rem;color:rgba(250,250,248.2)}
+.footer{text-align:center;margin-top:24px;font-size:.65rem;color:rgba(250,250,248,.2);font-weight:300}
+.footer a{color:#F4C93B;text-decoration:none;font-weight:500}
+.footer a:hover{text-decoration:underline}
+.recap-box{background:rgba(244,201,59,.04);border:1px solid rgba(244,201,59,.12);border-radius:10px;padding:12px 14px;margin-bottom:14px;font-size:.72rem;line-height:1.5;color:rgba(250,250,248,.5)}
+.recap-box strong{color:#FAFAF8}
+.recap-box .rb-title{font-family:'Oswald',sans-serif;font-size:.72rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+@media(max-width:600px){
+  body{padding:20px 12px}
+  .header h1{font-size:1.8rem}
+  .card{padding:18px 14px}
+  .form-row,.form-row-3{grid-template-columns:1fr}
+  .priority-grid,.split-grid,.summary-dash{grid-template-columns:1fr}
+  .step{font-size:.5rem}
+  .step .num{width:14px;height:14px;line-height:14px;font-size:.45rem}
+  .exercise-row{grid-template-columns:1.5fr 1fr 1fr 1fr;font-size:.65rem}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>Training Tool</h1>
+    <p>Volume Calculator → Split Selector → Program Generator → Daily Logger</p>
+  </div>
+
+  <!-- Stepper -->
+  <div class="stepper" id="stepper">
+    <div class="step active" data-step="1"><span class="num">1</span>Volume</div>
+    <div class="step" data-step="2"><span class="num">2</span>Split</div>
+    <div class="step" data-step="3"><span class="num">3</span>Program</div>
+    <div class="step" data-step="4"><span class="num">4</span>Logger</div>
+  </div>
+
+  <!-- Step 1: Volume Calculator -->
+  <div class="step-content active" id="step1">
+    <div class="card">
+      <div class="section-header">Training Profile</div>
+      <div class="form-row">
+        <div class="form-group"><label>Training Age</label>
+          <select id="ta"><option value="novice">Novice (under 1 year)</option>
+          <option value="intermediate" selected>Intermediate (1–3 years)</option>
+          <option value="advanced">Advanced (3+ years)</option></select></div>
+        <div class="form-group"><label>Primary Goal</label>
+          <select id="goal"><option value="hypertrophy" selected>Hypertrophy</option>
+          <option value="strength">Strength</option><option value="both">Balanced</option></select></div>
+      </div>
+      <div class="form-group"><label>Days Per Week Available to Train</label>
+        <select id="dow"><option value="1">1</option><option value="2">2</option><option value="3">3</option>
+        <option value="4" selected>4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option></select></div>
+
+      <div class="section-header">Recovery &amp; Lifestyle Modifiers</div>
+      <div class="form-row">
+        <div class="form-group"><label>Sleep Quality</label>
+          <select id="sleep"><option value="poor">Poor (&lt;6h, restless)</option>
+          <option value="fair">Fair (6-7h)</option><option value="good" selected>Good (7-8h)</option>
+          <option value="excellent">Excellent (8h+)</option></select></div>
+        <div class="form-group"><label>Stress Level</label>
+          <select id="stress"><option value="high">High (chronic stress)</option>
+          <option value="moderate" selected>Moderate (work/life balance)</option>
+          <option value="low">Low (relaxed)</option></select></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Nutrition Adherence</label>
+          <select id="nutrition"><option value="poor">Poor (inconsistent)</option>
+          <option value="fair">Fair (50-70%)</option><option value="good" selected>Good (70-90%)</option>
+          <option value="excellent">Excellent (90%+)</option></select></div>
+        <div class="form-group"><label>Injury Flags</label>
+          <select id="injury"><option value="none" selected>None</option>
+          <option value="minor">Minor (manageable, modify exercises)</option>
+          <option value="moderate">Moderate (reduced load, avoid some movements)</option></select></div>
+      </div>
+
+      <div class="section-header">Muscle Priority <span class="section-sub">— Focus or Maintenance</span></div>
+      <p style="font-size:.62rem;color:rgba(250,250,248,.35);margin-bottom:8px;line-height:1.4;">Focus muscles target MEV–MAV range. Maintenance muscles get ~half volume.</p>
+      <div class="priority-grid" id="priorityGrid"></div>
+
+      <div class="error" id="volErr">Select at least one Focus muscle group.</div>
+      <button class="btn-primary" id="volCalcBtn">Calculate Volume &amp; Continue</button>
+    </div>
+  </div>
+
+  <!-- Step 2: Split Selector -->
+  <div class="step-content" id="step2">
+    <div class="card">
+      <div id="splitRecap" class="recap-box"></div>
+      <div class="section-header">Select Your Split</div>
+      <p style="font-size:.62rem;color:rgba(250,250,248,.35);margin-bottom:10px;line-height:1.4;">Based on <strong id="dowDisplay">4 days/week</strong>, these splits fit your schedule.</p>
+      <div class="split-grid" id="splitGrid"></div>
+      <div class="error" id="splitErr">Select a split to continue.</div>
+      <div class="btn-group">
+        <button class="btn-primary" id="backToVolBtn" style="background:transparent;border:1.5px solid rgba(250,250,248,.1);color:rgba(250,250,248,.4);">Back</button>
+        <button class="btn-primary" id="splitConfirmBtn">Generate Program</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 3: Program Generator -->
+  <div class="step-content" id="step3">
+    <div class="card">
+      <div id="progRecap" class="recap-box"></div>
+      <div class="summary-dash">
+        <div class="summary-card"><div class="summary-val" id="progTotalSets">0</div><div class="summary-lbl">Weekly Sets</div></div>
+        <div class="summary-card"><div class="summary-val" id="progTotalEx">0</div><div class="summary-lbl">Exercises</div></div>
+        <div class="summary-card"><div class="summary-val" id="progDaysCount">0</div><div class="summary-lbl">Days/Week</div></div>
+      </div>
+      <div id="programOutput"></div>
+      <div class="btn-group">
+        <button class="btn-primary" id="backToSplitBtn" style="background:transparent;border:1.5px solid rgba(250,250,248,.1);color:rgba(250,250,248,.4);">Back</button>
+        <button class="btn-primary" id="progAcceptBtn">Save &amp; Start Logging</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 4: Daily Logger -->
+  <div class="step-content" id="step4">
+    <div class="card">
+      <div class="section-header">Daily Training Log</div>
+      <div id="loggerRecap" class="recap-box" style="display:none"></div>
+      <div class="log-day-select" id="logDaySelector"></div>
+      <div id="logOutput">
+        <p style="font-size:.78rem;color:rgba(250,250,248,.3);text-align:center;padding:30px 0">Select a day above to start logging.</p>
+      </div>
+      <div id="pdfBtnGroup" style="display:none;margin-top:8px"><button class="btn-primary" id="savePdfBtn" style="background:rgba(244,201,59,.08);border:1px solid rgba(244,201,59,.2);color:#F4C93B;font-size:.75rem;padding:10px 0;">📄 Save This Session as PDF</button></div>
+      <div class="btn-group" style="flex-wrap:wrap">
+        <button class="btn-primary" id="backToProgBtn" style="background:transparent;border:1.5px solid rgba(250,250,248,.1);color:rgba(250,250,248,.4);">Back to Program</button>
+        <button class="btn-primary" id="resetAllBtn" style="background:transparent;border:1.5px solid rgba(244,67,54,.2);color:rgba(244,67,54,.5);font-size:.7rem;padding:8px 0;">Reset All Data</button>
+        <button class="btn-primary" id="exportDataBtn" style="background:rgba(76,175,80,.08);border:1px solid rgba(76,175,80,.15);color:#4CAF50;font-size:.65rem;padding:8px 0;flex:0.5">⬇ Export Data</button>
+        <button class="btn-primary" id="importDataBtn" style="background:rgba(33,150,243,.08);border:1px solid rgba(33,150,243,.15);color:#2196F3;font-size:.65rem;padding:8px 0;flex:0.5">⬆ Import Data</button>
+      </div>
+      <input type="file" id="importFileInput" accept=".json" style="display:none">
+    </div>
+  </div>
+
+  <div class="footer">
+    Free tool by Coach Anas Mo'men — <a href="https://wa.me/201040796017">Start your coaching journey now</a>
+  </div>
+</div>
+
+<script>
+(function(){
+  // ─── Volume Landmarks (reused from Volume & Set Calculator) ───
+  const VOLUME_TABLES = {
+    novice: {
+      hypertrophy: { chest:[6,10,14], back_lat:[8,12,18], back_upper:[8,12,16], shoulders:[6,10,16], quads:[6,12,18], hamstrings:[6,10,14], glutes:[6,10,14], biceps:[4,8,12], triceps:[4,8,12], calves:[4,8,12], abs:[4,8,12], traps:[4,8,10], forearms:[4,6,10] },
+      strength: { chest:[4,7,12], back_lat:[5,9,14], back_upper:[5,9,12], shoulders:[4,7,12], quads:[5,9,14], hamstrings:[4,7,12], glutes:[4,7,12], biceps:[3,5,9], triceps:[3,5,9], calves:[3,5,9], abs:[3,5,9], traps:[3,5,8], forearms:[3,4,8] },
+      both: { chest:[5,9,14], back_lat:[7,11,16], back_upper:[7,11,14], shoulders:[5,9,14], quads:[6,10,16], hamstrings:[5,9,14], glutes:[5,9,14], biceps:[3,7,11], triceps:[3,7,11], calves:[3,7,11], abs:[3,7,11], traps:[3,6,10], forearms:[3,5,9] }
+    },
+    intermediate: {
+      hypertrophy: { chest:[8,14,20], back_lat:[10,16,22], back_upper:[10,15,20], shoulders:[8,14,20], quads:[8,14,22], hamstrings:[8,12,18], glutes:[8,12,18], biceps:[6,12,16], triceps:[6,12,16], calves:[6,10,16], abs:[6,10,16], traps:[6,10,14], forearms:[6,8,14] },
+      strength: { chest:[5,10,16], back_lat:[7,12,18], back_upper:[7,12,16], shoulders:[5,10,16], quads:[6,12,18], hamstrings:[5,10,16], glutes:[5,10,16], biceps:[4,8,13], triceps:[4,8,13], calves:[4,8,13], abs:[4,8,13], traps:[4,8,11], forearms:[4,6,11] },
+      both: { chest:[7,12,18], back_lat:[9,14,20], back_upper:[9,13,18], shoulders:[7,12,18], quads:[7,13,20], hamstrings:[7,11,17], glutes:[7,11,17], biceps:[5,10,14], triceps:[5,10,14], calves:[5,9,14], abs:[5,9,14], traps:[5,9,12], forearms:[5,7,12] }
+    },
+    advanced: {
+      hypertrophy: { chest:[10,16,22], back_lat:[12,18,26], back_upper:[12,18,24], shoulders:[10,16,24], quads:[10,16,24], hamstrings:[10,14,22], glutes:[10,14,22], biceps:[8,14,20], triceps:[8,14,20], calves:[8,12,18], abs:[8,12,18], traps:[8,12,16], forearms:[8,10,16] },
+      strength: { chest:[6,12,18], back_lat:[8,14,20], back_upper:[8,14,18], shoulders:[6,12,18], quads:[7,14,20], hamstrings:[6,12,18], glutes:[6,12,18], biceps:[5,10,15], triceps:[5,10,15], calves:[5,9,15], abs:[5,9,15], traps:[5,9,13], forearms:[5,7,13] },
+      both: { chest:[8,14,20], back_lat:[10,16,22], back_upper:[10,16,20], shoulders:[8,14,20], quads:[9,15,22], hamstrings:[8,13,20], glutes:[8,13,20], biceps:[7,12,18], triceps:[7,12,18], calves:[7,11,17], abs:[7,11,17], traps:[7,11,15], forearms:[7,9,15] }
+    }
+  };
+
+  const PRIORITY_MULT = {focus:1.0, maintenance:0.55};
+  const RECOVERY_MODIFIERS = {
+    sleep: { poor:0.85, fair:0.93, good:1.0, excellent:1.05 },
+    stress: { high:0.88, moderate:1.0, low:1.05 },
+    nutrition: { poor:0.85, fair:0.93, good:1.0, excellent:1.08 },
+    injury: { none:1.0, minor:0.9, moderate:0.78 }
+  };
+
+  const MUSCLE_LIST = [
+    {id:'chest', name:'Chest'}, {id:'back', name:'Back (Lats+Upper)'},
+    {id:'shoulders', name:'Shoulders (Delts)'}, {id:'quads', name:'Quads'},
+    {id:'hamstrings', name:'Hamstrings'}, {id:'glutes', name:'Glutes'},
+    {id:'biceps', name:'Biceps'}, {id:'triceps', name:'Triceps'},
+    {id:'calves', name:'Calves'}, {id:'abs', name:'Abs / Core'},
+    {id:'traps', name:'Traps'}, {id:'forearms', name:'Forearms'}
+  ];
+
+  // Map simplified IDs to volume table IDs
+  const MUSCLE_VOL_MAP = {
+    chest:'chest', back:'back_lat', shoulders:'shoulders', quads:'quads',
+    hamstrings:'hamstrings', glutes:'glutes', biceps:'biceps', triceps:'triceps',
+    calves:'calves', abs:'abs', traps:'traps', forearms:'forearms'
+  };
+
+  // ─── Split Data from Training Book (Ch 14-16) ───
+  const SPLITS = {
+    fullbody_3: {
+      name: 'Full Body (3-Day)',
+      daysPerWeek: 3,
+      matchDays: [2,3],
+      days: [
+        { name: 'Session A (Squat Focus)', exercises: [
+          { name:'Barbell Squat', sets:3, primary:'quads', secondary:['glutes','hamstrings'] },
+          { name:'Bench Press', sets:3, primary:'chest', secondary:['shoulders','triceps'] },
+          { name:'Barbell Row', sets:3, primary:'back', secondary:['biceps'] },
+          { name:'Leg Curl', sets:2, primary:'hamstrings', secondary:[] },
+          { name:'Lateral Raise', sets:2, primary:'shoulders', secondary:[] },
+          { name:'Triceps Pushdown', sets:2, primary:'triceps', secondary:[] }
+        ]},
+        { name: 'Session B (Hinge Focus)', exercises: [
+          { name:'Deadlift Variation', sets:3, primary:'hamstrings', secondary:['glutes','back'] },
+          { name:'Overhead Press', sets:3, primary:'shoulders', secondary:['triceps'] },
+          { name:'Pull-Up', sets:3, primary:'back', secondary:['biceps'] },
+          { name:'Leg Extension', sets:2, primary:'quads', secondary:[] },
+          { name:'Bicep Curl', sets:2, primary:'biceps', secondary:[] },
+          { name:'Calf Raise', sets:2, primary:'calves', secondary:[] }
+        ]},
+        { name: 'Session C (Balanced)', exercises: [
+          { name:'Front Squat or Lunge', sets:3, primary:'quads', secondary:['glutes'] },
+          { name:'Incline Press', sets:3, primary:'chest', secondary:['shoulders','triceps'] },
+          { name:'Lat Pulldown', sets:3, primary:'back', secondary:['biceps'] },
+          { name:'RDL', sets:2, primary:'hamstrings', secondary:['glutes','back'] },
+          { name:'Lateral Raise', sets:2, primary:'shoulders', secondary:[] },
+          { name:'Triceps Overhead Ext', sets:2, primary:'triceps', secondary:[] }
+        ]}
+      ]
+    },
+    upper_lower_4: {
+      name: 'Upper/Lower (4-Day)',
+      daysPerWeek: 4,
+      matchDays: [4,5],
+      days: [
+        { name: 'Upper 1 — Chest, Back, Delts, Arms', exercises: [
+          { name:'Incline Chest Press', sets:3, primary:'chest', secondary:['shoulders','triceps'] },
+          { name:'Machine Chest Flies', sets:3, primary:'chest', secondary:[] },
+          { name:'Lat Pulldown', sets:2, primary:'back', secondary:['biceps'] },
+          { name:'T-Bar Row', sets:2, primary:'back', secondary:['biceps'] },
+          { name:'Kelso Shrugs', sets:1, primary:'traps', secondary:[] },
+          { name:'Shoulder Press', sets:1, primary:'shoulders', secondary:['triceps'] },
+          { name:'Lateral Raises', sets:2, primary:'shoulders', secondary:[] },
+          { name:'Rear Delt Flies', sets:1, primary:'shoulders', secondary:[] },
+          { name:'Preacher Curls', sets:2, primary:'biceps', secondary:[] },
+          { name:'Triceps Pushdown', sets:2, primary:'triceps', secondary:[] }
+        ]},
+        { name: 'Lower 1 — Quads, Hams, Glutes, Add/Abductors, Calves', exercises: [
+          { name:'Leg Extensions', sets:3, primary:'quads', secondary:[] },
+          { name:'Leg Curls', sets:2, primary:'hamstrings', secondary:[] },
+          { name:'Adductors (Machine)', sets:2, primary:'quads', secondary:[] },
+          { name:'Abductors (Machine)', sets:2, primary:'glutes', secondary:[] },
+          { name:'Hip Thrust', sets:2, primary:'glutes', secondary:['hamstrings'] },
+          { name:'Calf Raises', sets:2, primary:'calves', secondary:[] }
+        ]},
+        { name: 'Upper 2 — Chest, Back, Delts, Arms', exercises: [
+          { name:'Incline Chest Press', sets:2, primary:'chest', secondary:['shoulders','triceps'] },
+          { name:'Machine Chest Flies', sets:3, primary:'chest', secondary:[] },
+          { name:'Lat Pulldown', sets:2, primary:'back', secondary:['biceps'] },
+          { name:'Seated Row', sets:2, primary:'back', secondary:['biceps'] },
+          { name:'Kelso Shrugs', sets:2, primary:'traps', secondary:[] },
+          { name:'Vertical Shrugs', sets:1, primary:'traps', secondary:[] },
+          { name:'Lateral Raises', sets:2, primary:'shoulders', secondary:[] },
+          { name:'Preacher Curls', sets:3, primary:'biceps', secondary:[] },
+          { name:'Triceps Overhead Extensions', sets:3, primary:'triceps', secondary:[] }
+        ]},
+        { name: 'Lower 2 — Quads, Hams, Glutes, Add/Abductors, Calves', exercises: [
+          { name:'Leg Extensions', sets:2, primary:'quads', secondary:[] },
+          { name:'Leg Curls', sets:3, primary:'hamstrings', secondary:[] },
+          { name:'Adductors (Machine)', sets:2, primary:'quads', secondary:[] },
+          { name:'Abductors (Machine)', sets:2, primary:'glutes', secondary:[] },
+          { name:'Hip Thrust', sets:2, primary:'glutes', secondary:['hamstrings'] },
+          { name:'Calf Raises', sets:2, primary:'calves', secondary:[] }
+        ]}
+      ]
+    },
+    ppl_6: {
+      name: 'PPL (6-Day)',
+      daysPerWeek: 6,
+      matchDays: [5,6],
+      days: [
+        { name: 'Push — Chest, Front Delt, Triceps', exercises: [
+          { name:'Incline Chest Press', sets:3, primary:'chest', secondary:['shoulders','triceps'] },
+          { name:'Machine Chest Flies', sets:3, primary:'chest', secondary:[] },
+          { name:'Shoulder Press', sets:2, primary:'shoulders', secondary:['triceps'] },
+          { name:'Lateral Raises', sets:2, primary:'shoulders', secondary:[] },
+          { name:'Triceps Pushdown', sets:2, primary:'triceps', secondary:[] },
+          { name:'Triceps Overhead Extensions', sets:2, primary:'triceps', secondary:[] }
+        ]},
+        { name: 'Pull — Back, Rear Delt, Biceps, Forearms', exercises: [
+          { name:'Lat Pulldown', sets:2, primary:'back', secondary:['biceps'] },
+          { name:'Seated Row', sets:2, primary:'back', secondary:['biceps'] },
+          { name:'T-Bar Row', sets:2, primary:'back', secondary:['biceps'] },
+          { name:'Kelso Shrugs', sets:1, primary:'traps', secondary:[] },
+          { name:'Vertical Shrugs', sets:1, primary:'traps', secondary:[] },
+          { name:'Rear Delt Flies', sets:2, primary:'shoulders', secondary:[] },
+          { name:'Preacher Curls', sets:3, primary:'biceps', secondary:[] },
+          { name:'Forearm Ext/Flex', sets:1, primary:'forearms', secondary:[] }
+        ]},
+        { name: 'Legs — Quads, Hams, Glutes, Add/Abductors, Calves', exercises: [
+          { name:'Leg Extensions', sets:2, primary:'quads', secondary:[] },
+          { name:'Leg Curls', sets:2, primary:'hamstrings', secondary:[] },
+          { name:'Adductors (Machine)', sets:2, primary:'quads', secondary:[] },
+          { name:'Abductors (Machine)', sets:2, primary:'glutes', secondary:[] },
+          { name:'Hip Thrust', sets:2, primary:'glutes', secondary:['hamstrings'] },
+          { name:'Calf Raises', sets:2, primary:'calves', secondary:[] }
+        ]}
+      ]
+    },
+    torso_limbs_4: {
+      name: 'Torso/Limbs (4-Day)',
+      daysPerWeek: 4,
+      matchDays: [4,5],
+      days: [
+        { name: 'Torso — Chest, Back, Delts', exercises: [
+          { name:'Incline Chest Press', sets:3, primary:'chest', secondary:['shoulders','triceps'] },
+          { name:'Machine Chest Flies', sets:3, primary:'chest', secondary:[] },
+          { name:'Lat Pulldown', sets:2, primary:'back', secondary:['biceps'] },
+          { name:'Seated Row', sets:1, primary:'back', secondary:['biceps'] },
+          { name:'T-Bar Row', sets:2, primary:'back', secondary:['biceps'] },
+          { name:'Kelso Shrugs', sets:1, primary:'traps', secondary:[] },
+          { name:'Vertical Shrugs', sets:1, primary:'traps', secondary:[] },
+          { name:'Shoulder Press', sets:1, primary:'shoulders', secondary:['triceps'] },
+          { name:'Lateral Raises', sets:2, primary:'shoulders', secondary:[] },
+          { name:'Rear Delt Flies', sets:1, primary:'shoulders', secondary:[] }
+        ]},
+        { name: 'Limbs — Legs, Arms', exercises: [
+          { name:'Leg Extensions', sets:3, primary:'quads', secondary:[] },
+          { name:'Leg Curls', sets:3, primary:'hamstrings', secondary:[] },
+          { name:'Adductors (Machine)', sets:2, primary:'quads', secondary:[] },
+          { name:'Abductors (Machine)', sets:2, primary:'glutes', secondary:[] },
+          { name:'Hip Thrust', sets:2, primary:'glutes', secondary:['hamstrings'] },
+          { name:'Calf Raises', sets:2, primary:'calves', secondary:[] },
+          { name:'Preacher Curls', sets:2, primary:'biceps', secondary:[] },
+          { name:'Hammer Curls', sets:2, primary:'biceps', secondary:['forearms'] },
+          { name:'Triceps Pushdown', sets:2, primary:'triceps', secondary:[] },
+          { name:'Triceps Overhead Extensions', sets:2, primary:'triceps', secondary:[] }
+        ]}
+      ]
+    },
+    arnold_3r: {
+      name: 'Arnold Split (3-Day Rotation)',
+      daysPerWeek: 6,
+      matchDays: [5,6],
+      days: [
+        { name: 'Day 1 — Chest & Back', exercises: [
+          { name:'Incline Chest Press', sets:4, primary:'chest', secondary:['shoulders','triceps'] },
+          { name:'Machine Chest Flies', sets:3, primary:'chest', secondary:[] },
+          { name:'Lat Pulldown', sets:3, primary:'back', secondary:['biceps'] },
+          { name:'Seated Row', sets:3, primary:'back', secondary:['biceps'] },
+          { name:'T-Bar Row', sets:2, primary:'back', secondary:['biceps'] },
+          { name:'Kelso Shrugs', sets:1, primary:'traps', secondary:[] }
+        ]},
+        { name: 'Day 2 — Legs', exercises: [
+          { name:'Leg Extensions', sets:3, primary:'quads', secondary:[] },
+          { name:'Leg Curls', sets:3, primary:'hamstrings', secondary:[] },
+          { name:'Adductors (Machine)', sets:2, primary:'quads', secondary:[] },
+          { name:'Abductors (Machine)', sets:2, primary:'glutes', secondary:[] },
+          { name:'Hip Thrust', sets:3, primary:'glutes', secondary:['hamstrings'] },
+          { name:'Calf Raises', sets:3, primary:'calves', secondary:[] }
+        ]},
+        { name: 'Day 3 — Shoulders & Arms', exercises: [
+          { name:'Shoulder Press', sets:3, primary:'shoulders', secondary:['triceps'] },
+          { name:'Lateral Raises', sets:3, primary:'shoulders', secondary:[] },
+          { name:'Rear Delt Flies', sets:2, primary:'shoulders', secondary:[] },
+          { name:'Preacher Curls', sets:3, primary:'biceps', secondary:[] },
+          { name:'Hammer Curls', sets:2, primary:'biceps', secondary:['forearms'] },
+          { name:'Triceps Pushdown', sets:3, primary:'triceps', secondary:[] },
+          { name:'Triceps Overhead Extensions', sets:2, primary:'triceps', secondary:[] }
+        ]}
+      ]
+    }
+  };
+
+  // ─── localStorage ───
+  const KEYS = {
+    VOLUME_TARGETS: 'mos_vol_targets',
+    SPLIT_PROFILE: 'mos_split_profile',
+    PROGRAM: 'mos_program',
+    LOGS: 'mos_logs',
+    VOL_INPUTS: 'mos_vol_inputs'
+  };
+
+  function lsGet(key, def){
+    try{ const r = localStorage.getItem(key); return r ? JSON.parse(r) : def; }catch(e){ return def; }
+  }
+  function lsSet(key, val){ localStorage.setItem(key, JSON.stringify(val)); }
+
+  // ─── Stepper ───
+  let currentStep = 1;
+  function goToStep(n){
+    currentStep = n;
+    document.querySelectorAll('.step-content').forEach(s=>s.classList.remove('active'));
+    document.getElementById('step'+n).classList.add('active');
+    document.querySelectorAll('.step').forEach(s=>{
+      const sn = parseInt(s.dataset.step);
+      s.classList.remove('active','done');
+      if(sn === n) s.classList.add('active');
+      else if(sn < n) s.classList.add('done');
+    });
+  }
+
+  document.querySelectorAll('.step').forEach(s=>{
+    s.addEventListener('click', function(){
+      const n = parseInt(this.dataset.step);
+      if(n <= currentStep) goToStep(n);
+    });
+  });
+
+  // ─── Step 1: Volume Calculator ───
+  function renderPriorityGrid(){
+    const grid = document.getElementById('priorityGrid');
+    grid.innerHTML = '';
+    MUSCLE_LIST.forEach(m => {
+      const div = document.createElement('div');
+      div.className = 'priority-item';
+      div.innerHTML = '<span class="name">'+m.name+'</span>' +
+        '<button class="prio-btn focus active" data-muscle="'+m.id+'" data-val="focus">Focus</button>' +
+        '<button class="prio-btn maint" data-muscle="'+m.id+'" data-val="maintenance">Maint</button>';
+      div.querySelectorAll('.prio-btn').forEach(b => {
+        b.addEventListener('click', function(){
+          const parent = this.parentElement;
+          parent.querySelectorAll('.prio-btn').forEach(x=>x.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+      grid.appendChild(div);
+    });
+  }
+  renderPriorityGrid();
+
+  function getPriority(id){
+    const btn = document.querySelector('.prio-btn.active[data-muscle="'+id+'"]');
+    return btn ? btn.dataset.val : 'focus';
+  }
+
+  function getRecoveryFactor(){
+    const s = RECOVERY_MODIFIERS.sleep[document.getElementById('sleep').value] || 1;
+    const st = RECOVERY_MODIFIERS.stress[document.getElementById('stress').value] || 1;
+    const n = RECOVERY_MODIFIERS.nutrition[document.getElementById('nutrition').value] || 1;
+    const i = RECOVERY_MODIFIERS.injury[document.getElementById('injury').value] || 1;
+    return Math.min(1.15, Math.max(0.6, (s + st + n + i) / 4));
+  }
+
+  function calcVolume(){
+    const level = document.getElementById('ta').value;
+    const goal = document.getElementById('goal').value;
+    const days = parseInt(document.getElementById('dow').value);
+    const recFactor = getRecoveryFactor();
+    const focusCount = MUSCLE_LIST.filter(m => getPriority(m.id) === 'focus').length;
+    if(focusCount === 0) return null;
+
+    const table = VOLUME_TABLES[level][goal];
+    const targets = {};
+    let totalSets = 0;
+
+    MUSCLE_LIST.forEach(m => {
+      const volId = MUSCLE_VOL_MAP[m.id];
+      const vol = table[volId] || [4,8,12];
+      const priority = getPriority(m.id);
+      const mult = PRIORITY_MULT[priority];
+      const mev = Math.round(vol[0] * mult * recFactor);
+      const mav = Math.round(vol[1] * mult * recFactor);
+      const mrv = Math.round(vol[2] * mult * recFactor);
+      const rec = Math.round((mev + mav) / 2);
+      targets[m.id] = { mev, mav, mrv, rec, priority, name: m.name };
+      totalSets += rec;
+    });
+
+    return { targets, totalSets, level, goal, days, recFactor };
+  }
+
+  document.getElementById('volCalcBtn').addEventListener('click', function(){
+    const err = document.getElementById('volErr');
+    const result = calcVolume();
+    if(!result){ err.style.display='block'; return; }
+    err.style.display='none';
+
+    // Save inputs for later
+    lsSet(KEYS.VOL_INPUTS, {
+      ta: document.getElementById('ta').value,
+      goal: document.getElementById('goal').value,
+      days: parseInt(document.getElementById('dow').value),
+      sleep: document.getElementById('sleep').value,
+      stress: document.getElementById('stress').value,
+      nutrition: document.getElementById('nutrition').value,
+      injury: document.getElementById('injury').value,
+      priorities: MUSCLE_LIST.map(m => ({id:m.id, priority: getPriority(m.id)}))
+    });
+
+    lsSet(KEYS.VOLUME_TARGETS, result.targets);
+
+    // Update split display
+    const days = result.days;
+    document.getElementById('dowDisplay').textContent = days + ' days/week';
+
+    // Filter and show matching splits
+    const splitGrid = document.getElementById('splitGrid');
+    splitGrid.innerHTML = '';
+    let firstMatch = null;
+    Object.keys(SPLITS).forEach(key => {
+      const s = SPLITS[key];
+      if(s.matchDays.includes(days)){
+        const card = document.createElement('div');
+        card.className = 'split-card';
+        card.dataset.splitKey = key;
+        card.innerHTML = '<div class="s-name">'+s.name+'</div><div class="s-detail">'+s.days.length+' sessions · '+
+          s.days.map(d=>d.exercises.length+' ex').join(', ')+'</div>';
+        card.addEventListener('click', function(){
+          splitGrid.querySelectorAll('.split-card').forEach(c=>c.classList.remove('selected'));
+          this.classList.add('selected');
+        });
+        splitGrid.appendChild(card);
+        if(!firstMatch) firstMatch = key;
+      }
+    });
+    if(firstMatch) splitGrid.querySelector('.split-card').classList.add('selected');
+
+    // Recap
+    document.getElementById('splitRecap').innerHTML =
+      '<div class="rb-title">Volume Summary</div>' +
+      '<strong>'+result.totalSets+' weekly sets</strong> · '+
+      result.level+' · '+result.goal+' · '+result.days+' days/week · '+
+      'Recovery factor: '+(result.recFactor*100).toFixed(0)+'%';
+
+    goToStep(2);
+  });
+
+  // ─── Step 2: Split Selector ───
+  document.getElementById('backToVolBtn').addEventListener('click', function(){ goToStep(1); });
+
+  document.getElementById('splitConfirmBtn').addEventListener('click', function(){
+    const err = document.getElementById('splitErr');
+    const selected = document.querySelector('.split-card.selected');
+    if(!selected){ err.style.display='block'; return; }
+    err.style.display='none';
+
+    const splitKey = selected.dataset.splitKey;
+    const split = SPLITS[splitKey];
+    lsSet(KEYS.SPLIT_PROFILE, { key: splitKey, name: split.name, daysPerWeek: split.daysPerWeek, days: split.days });
+
+    generateProgram(splitKey);
+  });
+
+  const PRIMARY_CREDIT = 1.0;
+  const SECONDARY_CREDIT = 0.5;
+
+  function calcImpliedVolume(split){
+    const impl = {};
+    MUSCLE_LIST.forEach(m => { impl[m.id] = 0; });
+    split.days.forEach(day => {
+      day.exercises.forEach(ex => {
+        if(impl[ex.primary] !== undefined) impl[ex.primary] += ex.sets * PRIMARY_CREDIT;
+        (ex.secondary || []).forEach(sec => {
+          if(impl[sec] !== undefined) impl[sec] += ex.sets * SECONDARY_CREDIT;
+        });
+      });
+    });
+    return impl;
+  }
+
+  // ─── Step 3: Program Generator ───
+  function generateProgram(splitKey){
+    const split = SPLITS[splitKey];
+    const targets = lsGet(KEYS.VOLUME_TARGETS, {});
+    const volInputs = lsGet(KEYS.VOL_INPUTS, {});
+    const goal = volInputs.goal || 'hypertrophy';
+    const MAX_SETS = goal === 'strength' ? 6 : 5;
+
+    // If no volume targets from step 1, warn and use defaults
+    const hasTargets = Object.keys(targets).length > 0 && targets.chest && targets.chest.rec;
+
+    // Calculate implied volume per muscle from split defaults
+    const implied = calcImpliedVolume(split);
+
+    // Calculate scale factor per muscle: target / implied
+    const scales = {};
+    MUSCLE_LIST.forEach(m => {
+      const target = hasTargets ? (targets[m.id] ? targets[m.id].rec : implied[m.id]) : implied[m.id];
+      const current = implied[m.id] || 1;
+      scales[m.id] = target / current;
+    });
+
+    // Redistribute: for each exercise, average the scale factors of muscles it trains
+    const weekDays = split.days.map(day => {
+      const exWithSets = day.exercises.map(ex => {
+        let weightedSum = 0, totalW = 0;
+
+        // Primary: full weight
+        const ps = scales[ex.primary] || 1;
+        weightedSum += ps * PRIMARY_CREDIT;
+        totalW += PRIMARY_CREDIT;
+
+        // Secondary: half weight
+        (ex.secondary || []).forEach(sec => {
+          const ss = scales[sec] || 1;
+          weightedSum += ss * SECONDARY_CREDIT;
+          totalW += SECONDARY_CREDIT;
+        });
+
+        const avgScale = totalW > 0 ? weightedSum / totalW : 1;
+        let newSets = Math.max(1, Math.round(ex.sets * avgScale));
+        newSets = Math.min(MAX_SETS, newSets);
+
+        let repLow, repHigh;
+        if(goal === 'strength'){ repLow=4; repHigh=6; }
+        else if(goal === 'hypertrophy'){ repLow=8; repHigh=12; }
+        else { repLow=6; repHigh=10; }
+
+        return {
+          name: ex.name,
+          defaultSets: ex.sets,
+          sets: newSets,
+          repRangeLow: repLow,
+          repRangeHigh: repHigh,
+          primary: ex.primary,
+          secondary: ex.secondary || []
+        };
+      });
+
+      return {
+        name: day.name,
+        exercises: exWithSets
+      };
+    });
+
+    const totalEx = weekDays.reduce((sum, d) => sum + d.exercises.length, 0);
+    const totalSets = weekDays.reduce((sum, d) => sum + d.exercises.reduce((s, e) => s + e.sets, 0), 0);
+
+    const program = {
+      weekStartDate: new Date().toISOString().split('T')[0],
+      splitName: split.name,
+      days: weekDays,
+      totalSets: totalSets,
+      totalExercises: totalEx
+    };
+
+    lsSet(KEYS.PROGRAM, program);
+
+    // Render program
+    document.getElementById('progTotalSets').textContent = program.totalSets;
+    document.getElementById('progTotalEx').textContent = program.totalExercises;
+    document.getElementById('progDaysCount').textContent = weekDays.length;
+
+    document.getElementById('progRecap').innerHTML =
+      '<div class="rb-title">Program Overview</div>' +
+      '<strong>'+split.name+'</strong> · '+program.totalSets+' weekly sets · '+program.totalExercises+' exercises';
+
+    let html = '';
+    weekDays.forEach((day, di) => {
+      html += '<div class="program-day">' +
+        '<div class="day-header">Day '+(di+1)+': '+day.name+'</div>' +
+        '<div class="exercise-row header">' +
+          '<span>Exercise</span><span>Sets</span><span>Reps</span><span>Rest</span>' +
+        '</div>';
+      day.exercises.forEach(ex => {
+        const rest = ex.repRangeLow <= 6 ? '2-3 min' : (ex.repRangeLow <= 10 ? '90-120s' : '60-90s');
+        html += '<div class="exercise-row">' +
+          '<span class="ex-name">'+ex.name+'</span>' +
+          '<span class="ex-center">'+ex.sets+'</span>' +
+          '<span class="ex-center">'+ex.repRangeLow+'-'+ex.repRangeHigh+'</span>' +
+          '<span class="ex-center">'+rest+'</span>' +
+        '</div>';
+      });
+      html += '</div>';
+    });
+    document.getElementById('programOutput').innerHTML = html;
+
+    goToStep(3);
+  }
+
+  document.getElementById('backToSplitBtn').addEventListener('click', function(){ goToStep(2); });
+
+  document.getElementById('progAcceptBtn').addEventListener('click', function(){
+    const prog = lsGet(KEYS.PROGRAM, null);
+    if(!prog) return;
+    goToStep(4);
+    renderLogger();
+  });
+
+  // ─── Step 4: Daily Logger ───
+  // Helpers to build stable log keys from program data
+  function logExId(prog, dayIdx, exName){
+    // Stable key: "dayName__exerciseName"
+    if(!prog || !prog.days[dayIdx]) return exName;
+    return prog.days[dayIdx].name + '__' + exName;
+  }
+
+  function renderLogger(){
+    const prog = lsGet(KEYS.PROGRAM, null);
+    const logs = lsGet(KEYS.LOGS, {});
+    if(!prog){ document.getElementById('logOutput').innerHTML = '<p style="font-size:.78rem;color:rgba(250,250,248,.3);text-align:center;padding:30px 0">No program found. Go back and generate one.</p>'; return; }
+
+    const today = new Date().toISOString().split('T')[0];
+
+    // Day selector
+    const selector = document.getElementById('logDaySelector');
+    selector.innerHTML = '';
+    prog.days.forEach((day, di) => {
+      const btn = document.createElement('button');
+      btn.textContent = 'Day '+(di+1)+': '+day.name;
+      let loggedCount = 0;
+      day.exercises.forEach(ex => {
+        const eid = logExId(prog, di, ex.name);
+        const exLog = logs[today] && logs[today][eid];
+        if(exLog && exLog.sets) loggedCount += exLog.sets.filter(s=>s.weight).length;
+      });
+      if(loggedCount > 0) btn.textContent += ' ('+loggedCount+')';
+      btn.addEventListener('click', function(){
+        selector.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+        this.classList.add('active');
+        renderDayLog(di, today);
+      });
+      selector.appendChild(btn);
+    });
+    // Select first day
+    const firstBtn = selector.querySelector('button');
+    if(firstBtn) { firstBtn.classList.add('active'); renderDayLog(0, today); }
+
+    // Recap
+    const totalLogged = Object.keys(logs).length;
+    document.getElementById('loggerRecap').style.display = totalLogged > 0 ? 'block' : 'none';
+    if(totalLogged > 0){
+      const dates = Object.keys(logs).sort().reverse();
+      document.getElementById('loggerRecap').innerHTML =
+        '<div class="rb-title">Logging Activity</div>' +
+        '<strong>'+totalLogged+' workout day'+(totalLogged>1?'s':'')+' logged</strong> · '+
+        'Last: '+(dates[0]||'') + ' · ' +
+        'Total sets: '+Object.values(logs).reduce((s,d)=>s+Object.values(d).reduce((s2,ex)=>s2+(ex.sets?ex.sets.length:0),0),0);
+    }
+  }
+
+  function renderDayLog(dayIdx, dateStr){
+    const prog = lsGet(KEYS.PROGRAM, null);
+    const logs = lsGet(KEYS.LOGS, {});
+    if(!prog || !prog.days[dayIdx]) return;
+
+    const day = prog.days[dayIdx];
+    const todayLog = logs[dateStr] || {};
+
+    let html = '';
+    day.exercises.forEach((ex) => {
+      const eid = logExId(prog, dayIdx, ex.name);
+      const exLog = todayLog[eid] || { sets: [] };
+      const lastSets = getLastSessionSets(dayIdx, ex.name, dateStr);
+
+      html += '<div class="log-card" data-day="'+dayIdx+'" data-exname="'+ex.name+'">' +
+        '<div class="log-ex-name">'+ex.name+' <span class="logged-badge" id="logBadge_'+eid.replace(/[^a-zA-Z0-9]/g,'_')+'"'+(exLog.sets.length>0&&exLog.sets.some(s=>s.weight)?'':' style="display:none"')+'>Logged</span></div>' +
+        '<div class="last-session" id="lastSess_'+eid.replace(/[^a-zA-Z0-9]/g,'_')+'">'+(lastSets ? 'Last: '+lastSets : 'No previous data')+'</div>';
+
+      // Set rows
+      if(exLog.sets.length === 0){
+        exLog.sets = [{weight:'', reps:'', rpe:''}, {weight:'', reps:'', rpe:''}, {weight:'', reps:'', rpe:''}];
+      }
+
+      html += '<div id="setsContainer_'+eid.replace(/[^a-zA-Z0-9]/g,'_')+'">';
+      exLog.sets.forEach((set, si) => {
+        html += renderSetRow(dayIdx, ex.name, si, set);
+      });
+      html += '</div>';
+
+      html += '<div style="margin-top:4px;display:flex;gap:6px;align-items:center"><button class="add-set" data-day="'+dayIdx+'" data-exname="'+ex.name+'">+ Add Set</button>' +
+        '<button class="rm-ex" data-day="'+dayIdx+'" data-exname="'+ex.name+'">✕ Remove Exercise</button></div>';
+      html += '</div>';
+    });
+
+    document.getElementById('logOutput').innerHTML = html;
+    document.getElementById('pdfBtnGroup').style.display = 'block';
+
+    // Wire up input events
+    document.querySelectorAll('.set-row input').forEach(inp => {
+      inp.addEventListener('input', function(){
+        const d = parseInt(this.dataset.day);
+        const en = this.dataset.exname;
+        const s = parseInt(this.dataset.set);
+        const f = this.dataset.field;
+        saveSet(d, en, s, f, this.value, dateStr);
+      });
+    });
+
+    document.querySelectorAll('.del-set').forEach(btn => {
+      btn.addEventListener('click', function(){
+        const d = parseInt(this.dataset.day);
+        const en = this.dataset.exname;
+        const s = parseInt(this.dataset.set);
+        deleteSet(d, en, s, dateStr);
+      });
+    });
+
+    document.querySelectorAll('.add-set').forEach(btn => {
+      btn.addEventListener('click', function(){
+        const d = parseInt(this.dataset.day);
+        const en = this.dataset.exname;
+        addSet(d, en, dateStr);
+      });
+    });
+
+    document.querySelectorAll('.rm-ex').forEach(btn => {
+      btn.addEventListener('click', function(){
+        const d = parseInt(this.dataset.day);
+        const en = this.dataset.exname;
+        if(confirm('Remove "'+en+'" and all its logged data from this session?')){
+          removeExercise(d, en, dateStr);
+        }
+      });
+    });
+  }
+
+  function renderSetRow(dayIdx, exName, setIdx, set){
+    const safeId = ('row_'+dayIdx+'_'+exName+'_'+setIdx).replace(/[^a-zA-Z0-9]/g,'_');
+    return '<div class="set-row" data-day="'+dayIdx+'" data-exname="'+exName+'" data-set="'+setIdx+'">' +
+      '<span class="set-lbl">Set '+(setIdx+1)+'</span>' +
+      '<input type="number" step="0.5" placeholder="kg" value="'+(set.weight||'')+'" data-day="'+dayIdx+'" data-exname="'+exName+'" data-set="'+setIdx+'" data-field="weight">' +
+      '<input type="number" step="1" placeholder="reps" value="'+(set.reps||'')+'" data-day="'+dayIdx+'" data-exname="'+exName+'" data-set="'+setIdx+'" data-field="reps">' +
+      '<div style="display:flex;gap:4px;align-items:center">' +
+        '<input type="number" step="0.5" placeholder="RPE" value="'+(set.rpe||'')+'" style="max-width:50px" data-day="'+dayIdx+'" data-exname="'+exName+'" data-set="'+setIdx+'" data-field="rpe">' +
+        '<button class="btn-danger del-set" data-day="'+dayIdx+'" data-exname="'+exName+'" data-set="'+setIdx+'" style="padding:3px 6px;font-size:.5rem">✕ Remove</button>' +
+      '</div></div>';
+  }
+
+  function saveSet(dayIdx, exName, setIdx, field, value, dateStr){
+    const prog = lsGet(KEYS.PROGRAM, null);
+    const logs = lsGet(KEYS.LOGS, {});
+    if(!logs[dateStr]) logs[dateStr] = {};
+    const eid = logExId(prog, dayIdx, exName);
+    if(!logs[dateStr][eid]) logs[dateStr][eid] = { sets: [] };
+    if(!logs[dateStr][eid].sets[setIdx]) logs[dateStr][eid].sets[setIdx] = {weight:'',reps:'',rpe:''};
+    logs[dateStr][eid].sets[setIdx][field] = value;
+    lsSet(KEYS.LOGS, logs);
+
+    const hasData = logs[dateStr][eid].sets.some(s => s && s.weight && s.weight > 0);
+    const badge = document.getElementById('logBadge_'+eid.replace(/[^a-zA-Z0-9]/g,'_'));
+    if(badge) badge.style.display = hasData ? 'inline-block' : 'none';
+  }
+
+  function deleteSet(dayIdx, exName, setIdx, dateStr){
+    const prog = lsGet(KEYS.PROGRAM, null);
+    const logs = lsGet(KEYS.LOGS, {});
+    const eid = logExId(prog, dayIdx, exName);
+    if(logs[dateStr] && logs[dateStr][eid]){
+      logs[dateStr][eid].sets.splice(setIdx, 1);
+      if(logs[dateStr][eid].sets.length === 0) delete logs[dateStr][eid];
+      lsSet(KEYS.LOGS, logs);
+    }
+    renderDayLog(dayIdx, dateStr);
+  }
+
+  function addSet(dayIdx, exName, dateStr){
+    const prog = lsGet(KEYS.PROGRAM, null);
+    const logs = lsGet(KEYS.LOGS, {});
+    if(!logs[dateStr]) logs[dateStr] = {};
+    const eid = logExId(prog, dayIdx, exName);
+    if(!logs[dateStr][eid]) logs[dateStr][eid] = { sets: [] };
+    logs[dateStr][eid].sets.push({weight:'',reps:'',rpe:''});
+    lsSet(KEYS.LOGS, logs);
+    renderDayLog(dayIdx, dateStr);
+  }
+
+  function removeExercise(dayIdx, exName, dateStr){
+    const prog = lsGet(KEYS.PROGRAM, null);
+    const logs = lsGet(KEYS.LOGS, {});
+    const eid = logExId(prog, dayIdx, exName);
+    if(logs[dateStr] && logs[dateStr][eid]){
+      delete logs[dateStr][eid];
+      if(Object.keys(logs[dateStr]).length === 0) delete logs[dateStr];
+      lsSet(KEYS.LOGS, logs);
+    }
+    renderDayLog(dayIdx, dateStr);
+    renderLogger();
+  }
+
+  function exportAllData(){
+    const data = {};
+    Object.values(KEYS).forEach(k => {
+      const val = localStorage.getItem(k);
+      if(val) data[k] = JSON.parse(val);
+    });
+    const blob = new Blob([JSON.stringify({exported:new Date().toISOString(), data:data}, null, 2)], {type:'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'muscle_os_training_data_' + new Date().toISOString().split('T')[0] + '.json';
+    a.click();
+  }
+
+  function importAllData(file){
+    const reader = new FileReader();
+    reader.onload = function(e){
+      try {
+        const parsed = JSON.parse(e.target.result);
+        if(!parsed.data || typeof parsed.data !== 'object') throw new Error('Invalid format');
+        const imported = parsed.data;
+        // Validate we have at least one known key
+        let hasAny = false;
+        Object.values(KEYS).forEach(k => {
+          if(imported[k] !== undefined) hasAny = true;
+        });
+        if(!hasAny) throw new Error('No recognized training data in file');
+        if(!confirm('Import data will overwrite all current training data. Continue?')) return;
+        Object.keys(imported).forEach(k => {
+          if(Object.values(KEYS).includes(k)){
+            localStorage.setItem(k, JSON.stringify(imported[k]));
+          }
+        });
+        alert('Data imported successfully. Reloading...');
+        location.reload();
+      } catch(err){
+        alert('Import failed: '+err.message);
+      }
+    };
+    reader.readAsText(file);
+  }
+
+  document.getElementById('exportDataBtn').addEventListener('click', exportAllData);
+  document.getElementById('importDataBtn').addEventListener('click', function(){
+    document.getElementById('importFileInput').click();
+  });
+  document.getElementById('importFileInput').addEventListener('change', function(){
+    if(this.files && this.files[0]) importAllData(this.files[0]);
+    this.value = '';
+  });
+
+  function saveSessionPDF(dayIdx, dateStr){
+    const prog = lsGet(KEYS.PROGRAM, null);
+    const logs = lsGet(KEYS.LOGS, {});
+    if(!prog || !prog.days[dayIdx]) return;
+    const day = prog.days[dayIdx];
+    const dayLogMap = logs[dateStr] || {};
+
+    const now = new Date();
+    const dateLabel = now.toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'});
+    const timeLabel = now.toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit'});
+
+    let printWin = window.open('', '_blank', 'width=800,height=600');
+    printWin.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8">');
+    printWin.document.write('<title>Workout Log — '+dateLabel+'</title>');
+    printWin.document.write('<style>');
+    printWin.document.write('body{font-family:Arial,sans-serif;max-width:700px;margin:30px auto;padding:20px;color:#222}');
+    printWin.document.write('h1{font-size:1.6rem;margin:0;text-transform:uppercase;letter-spacing:1px}');
+    printWin.document.write('h2{font-size:1rem;color:#555;font-weight:400;margin:4px 0 20px}');
+    printWin.document.write('.day-title{font-size:1.1rem;font-weight:700;margin:16px 0 8px;padding-bottom:4px;border-bottom:2px solid #333}');
+    printWin.document.write('table{width:100%;border-collapse:collapse;margin-bottom:20px}');
+    printWin.document.write('th{text-align:left;font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:#666;border-bottom:1px solid #ddd;padding:6px 4px}');
+    printWin.document.write('td{padding:5px 4px;border-bottom:1px solid #eee;font-size:.85rem}');
+    printWin.document.write('.ex-name{font-weight:600}.ex-sub{font-size:.7rem;color:#888}.center{text-align:center}');
+    printWin.document.write('.footer{text-align:center;margin-top:24px;font-size:.7rem;color:#999;border-top:1px solid #eee;padding-top:12px}');
+    printWin.document.write('.label{font-size:.6rem;color:#aaa;text-transform:uppercase;letter-spacing:.5px}');
+    printWin.document.write('@media print{body{margin:15px}}');
+    printWin.document.write('</style></head><body>');
+    printWin.document.write('<h1>Training Log</h1><h2>'+dateLabel+' · '+timeLabel+'</h2>');
+    printWin.document.write('<div class="day-title">'+(dayIdx+1)+'. '+day.name+'</div>');
+    printWin.document.write('<table><thead><tr><th>Exercise</th><th class="center">Set</th><th class="center">Weight</th><th class="center">Reps</th><th class="center">RPE</th></tr></thead><tbody>');
+
+    let hasAnyData = false;
+    day.exercises.forEach((ex) => {
+      const eid = logExId(prog, dayIdx, ex.name);
+      const exLog = dayLogMap[eid] || {sets:[]};
+      const exSets = exLog.sets.filter(s => s && s.weight);
+      if(exSets.length === 0){
+        printWin.document.write('<tr><td class="ex-name">'+ex.name+'</td><td class="center label" colspan="4">No data logged</td></tr>');
+      } else {
+        hasAnyData = true;
+        exSets.forEach((set, si) => {
+          printWin.document.write('<tr><td class="ex-name">'+(si===0?ex.name:'')+'</td><td class="center">'+(si+1)+'</td><td class="center">'+set.weight+' kg</td><td class="center">'+set.reps+'</td><td class="center">'+(set.rpe||'-')+'</td></tr>');
+        });
+      }
+    });
+
+    printWin.document.write('</tbody></table>');
+    printWin.document.write('<div class="footer">Generated by Muscle OS Training Tool — Coach Anas Mo\'men</div>');
+    printWin.document.write('</body></html>');
+    printWin.document.close();
+    printWin.focus();
+    setTimeout(function(){ printWin.print(); }, 300);
+  }
+
+  function getLastSessionSets(dayIdx, exName, currentDate){
+    const prog = lsGet(KEYS.PROGRAM, null);
+    const logs = lsGet(KEYS.LOGS, {});
+    const eid = logExId(prog, dayIdx, exName);
+    const dates = Object.keys(logs).filter(d => d < currentDate).sort().reverse();
+    for(const d of dates){
+      const exLog = logs[d] && logs[d][eid];
+      if(exLog && exLog.sets){
+        const done = exLog.sets.filter(s => s && s.weight && s.reps);
+        if(done.length > 0){
+          const last = done[done.length-1];
+          return last.weight+' kg × '+last.reps+' reps'+(last.rpe?' @ RPE '+last.rpe:'');
+        }
+      }
+    }
+    return null;
+  }
+
+  // ─── PDF Save ───
+  document.getElementById('savePdfBtn').addEventListener('click', function(){
+    const activeDay = document.querySelector('#logDaySelector .active');
+    if(!activeDay) return;
+    const dayBtns = Array.from(document.querySelectorAll('#logDaySelector button'));
+    const dayIdx = dayBtns.indexOf(activeDay);
+    if(dayIdx >= 0) saveSessionPDF(dayIdx, new Date().toISOString().split('T')[0]);
+  });
+
+  // ─── Reset ───
+  document.getElementById('resetAllBtn').addEventListener('click', function(){
+    if(!confirm('Reset all training data (volume targets, split, program, and logs)?')) return;
+    Object.values(KEYS).forEach(k => localStorage.removeItem(k));
+    goToStep(1);
+    renderPriorityGrid();
+  });
+
+  // ─── Init: check existing state ───
+  (function init(){
+    const prog = lsGet(KEYS.PROGRAM, null);
+    const volTargets = lsGet(KEYS.VOLUME_TARGETS, null);
+    const splitProf = lsGet(KEYS.SPLIT_PROFILE, null);
+
+    if(prog && splitProf){
+      // Has data, show step 4 with option to restart
+      document.getElementById('dowDisplay').textContent = splitProf.daysPerWeek + ' days/week';
+      goToStep(4);
+      renderLogger();
+    } else if(volTargets && splitProf){
+      // Has volume + split but no program
+      generateProgram(splitProf.key);
+    }
+  })();
+
+  console.log('Training Tool loaded. Keys: '+Object.values(KEYS).join(', '));
+})();
+</script>
+</body>
+</html>

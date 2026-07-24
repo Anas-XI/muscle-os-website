@@ -1,0 +1,1517 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muscle OS: The Complete Guide to Training & Programming for Strength and Physique</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+* { box-sizing: border-box; }
+html { font-size: 11pt; }
+body { margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; font-size: 11pt; line-height: 1.6; color: #14151A; background: #FAFAF8; text-align: justify; text-align-last: left; -webkit-font-smoothing: antialiased; }
+h1, h2, h3, h4, h5, h6 { font-family: 'Oswald', sans-serif; font-weight: 600; line-height: 1.2; }
+.mono, .num { font-family: 'JetBrains Mono', monospace; }
+@page { size: A4; margin: 2.5cm 2cm; @top-center { content: string(doctitle); font-family: 'Inter', sans-serif; font-size: 9pt; color: #8A8D96; } @bottom-center { content: counter(page); font-family: 'JetBrains Mono', monospace; font-size: 8pt; color: #8A8D96; } }
+@page :first { margin: 0; @top-center { content: none; } @bottom-center { content: none; } }
+@page cover { @top-center { content: none; } @bottom-center { content: none; } }
+@page toc { @top-center { content: none; } @bottom-center { content: none; } }
+body { string-set: doctitle ""; }
+h1 { string-set: doctitle content(); }
+.cover { page: cover; width: 210mm; height: 297mm; margin: 0; background: #14151A; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; page-break-after: always; position: relative; overflow: hidden; }
+.cover-title { font-family: 'Oswald', sans-serif; font-size: 32pt; font-weight: 700; color: #F4C93B; line-height: 1.15; margin-bottom: 16pt; letter-spacing: 0.5px; }
+.cover-subtitle { font-family: 'JetBrains Mono', monospace; font-size: 11pt; font-weight: 400; color: #F4C93B; margin-bottom: 28pt; letter-spacing: 1px; opacity: 0.85; }
+.cover-divider { width: 50px; height: 2px; background: #F4C93B; margin-bottom: 28pt; opacity: 0.5; }
+.cover-author { font-family: 'Inter', sans-serif; font-size: 10pt; color: #FAFAF8; margin-bottom: 4pt; letter-spacing: 2px; text-transform: uppercase; opacity: 0.6; }
+.cover-edition { font-family: 'Inter', sans-serif; font-size: 9pt; color: #FAFAF8; opacity: 0.4; letter-spacing: 1px; }
+.cover-label { font-family: 'Oswald', sans-serif; font-size: 14pt; color: rgba(244,201,59,0.4); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 20pt; }
+.toc-page { page: toc; page-break-after: always; }
+.toc-page h2 { font-family: 'Oswald', sans-serif; font-size: 22pt; font-weight: 700; color: #14151A; margin-bottom: 0.8cm; text-align: center; letter-spacing: 0.5px; text-transform: uppercase; }
+.toc { list-style: none; padding: 0; margin: 0; }
+.toc li { margin: 3px 0; font-size: 10.5pt; }
+.toc a { color: #14151A; text-decoration: none; display: block; }
+.toc a::after { content: leader('.') target-counter(attr(href url), page); font-family: 'JetBrains Mono', monospace; color: #8A8D96; }
+.toc .toc-l1 { font-weight: 700; margin-top: 8px; font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.5px; font-size: 11pt; }
+.toc .toc-l2 { padding-left: 1.5em; font-weight: 400; }
+.toc .toc-l3 { padding-left: 3em; font-weight: 400; font-size: 10pt; color: #5B5F68; }
+h1 { font-family: 'Oswald', sans-serif; font-size: 20pt; font-weight: 700; color: #14151A; margin: 1.5cm 0 0.5cm; page-break-before: auto; page-break-after: avoid; border-bottom: 2.5px solid #F4C93B; padding-bottom: 6px; letter-spacing: 0.3px; }
+h1:first-of-type { page-break-before: auto; }
+h2 { font-family: 'Oswald', sans-serif; font-size: 14pt; font-weight: 600; color: #14151A; margin: 1cm 0 0.4cm; page-break-after: avoid; letter-spacing: 0.3px; }
+h3 { font-family: 'Oswald', sans-serif; font-size: 12pt; font-weight: 600; color: #1E2027; margin: 0.6cm 0 0.3cm; page-break-after: avoid; letter-spacing: 0.3px; }
+h4 { font-size: 11pt; font-weight: 600; color: #14151A; margin: 0.4cm 0 0.2cm; page-break-after: avoid; }
+p { margin: 0.3cm 0; }
+strong { color: #14151A; font-weight: 600; }
+a { color: #C9A227; word-break: break-all; }
+table { width: 100%; max-width: 100%; border-collapse: collapse; margin: 0.5cm 0; font-size: 9.5pt; box-sizing: border-box; font-family: 'JetBrains Mono', monospace; }
+thead { display: table-header-group; }
+thead tr { border-top: 2.5px solid #F4C93B; border-bottom: 1.5px solid #14151A; }
+thead th { padding: 6px 8px; text-align: left; font-weight: 600; color: #14151A; font-family: 'Oswald', sans-serif; font-size: 10pt; letter-spacing: 0.5px; text-transform: uppercase; }
+tbody td { padding: 5px 8px; vertical-align: top; }
+tbody tr { border-bottom: 0.5px solid #E4E1D8; }
+tbody tr:last-child { border-bottom: 2.5px solid #F4C93B; }
+tbody tr:nth-child(even) { background: #f5f5f3; }
+caption { text-align: left; font-weight: 600; margin-bottom: 4px; font-size: 10pt; font-family: 'Oswald', sans-serif; color: #14151A; letter-spacing: 0.3px; }
+caption::before { content: attr(data-label) "  "; font-weight: 700; }
+tr { page-break-inside: avoid; }
+td.mono, .table-mono td { font-family: 'JetBrains Mono', monospace; }
+td[data-num], th[data-num] { font-family: 'JetBrains Mono', monospace; }
+ul, ol { margin: 0.3cm 0; padding-left: 1.5em; }
+li { margin: 3px 0; }
+.callout { background: #14151A; color: #FAFAF8; padding: 10pt 14pt; margin: 0.5cm 0; font-size: 10pt; line-height: 1.55; }
+.callout-title { font-weight: 700; color: #F4C93B; margin-bottom: 4px; }
+.callout p { color: #FAFAF8; margin: 4px 0; }
+.callout strong { color: #F4C93B; }
+.definition { border-left: 3px solid #14151A; padding: 10px 14px; margin: 0.5cm 0; background: #FAFAF8; }
+.definition-title { font-weight: 700; color: #14151A; }
+.theorem { border-left: 3px solid #14151A; padding: 10px 14px; margin: 0.5cm 0; }
+.theorem-title { font-weight: 700; }
+.theorem-content { font-style: italic; }
+.algorithm { border: 1.5px solid #14151A; padding: 10px 14px; margin: 0.5cm 0; background: #FAFAF8; }
+.algorithm-title { font-weight: 700; margin-bottom: 6px; }
+figure { margin: 0.5cm 0; text-align: center; page-break-inside: avoid; }
+figure img, figure svg { max-width: 80%; max-height: 40vh; height: auto; }
+figcaption { font-size: 9.5pt; color: #5B5F68; margin-top: 4px; }
+figcaption::before { content: attr(data-label) "  "; font-weight: 600; }
+code { background: #f5f5f3; padding: 1px 4px; font-size: 9.5pt; word-break: break-word; font-family: 'JetBrains Mono', monospace; }
+pre { background: #f5f5f3; padding: 10px; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; max-width: 100%; box-sizing: border-box; font-size: 9pt; font-family: 'JetBrains Mono', monospace; }
+pre, table, figure, img, svg, blockquote { max-width: 100%; box-sizing: border-box; }
+.section-break { page-break-before: always; }
+.references { font-size: 9.5pt; }
+.references li { padding-left: 2em; text-indent: -2em; margin: 4px 0; }
+.equation { margin: 0.5cm 0; display: flex; align-items: center; }
+.equation .eq-content { flex: 1; }
+.equation .eq-number { width: 3em; text-align: right; font-size: 10pt; color: #5B5F68; font-family: 'JetBrains Mono', monospace; }
+.mermaid { text-align: center; margin: 0.5cm 0; max-width: 100%; }
+.mermaid svg { max-width: 100%; height: auto; }
+.appendix { }
+.chapter-summary { border: 1.5px solid #14151A; padding: 14px 18px; margin: 0.6cm 0; background: #FAFAF8; page-break-inside: avoid; }
+.chapter-summary .summary-title { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 10pt; color: #FAF8F8; background: #14151A; display: inline-block; padding: 2px 10px; margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase; }
+.chapter-summary p { margin: 4px 0; font-size: 10.5pt; color: #333; }
+.case-study { border: 2px solid #14151A; padding: 16px 20px; margin: 0.8cm 0; background: #FAFAF8; page-break-inside: avoid; }
+.case-study .case-label { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 9pt; color: #FAFAF8; background: #14151A; display: inline-block; padding: 2px 10px; margin-bottom: 8px; letter-spacing: 1px; }
+.case-study .case-title { font-weight: 700; color: #14151A; margin-bottom: 6px; font-size: 11pt; }
+.case-study p { margin: 4px 0; font-size: 10.5pt; }
+.case-study p strong { color: #14151A; }
+.page-footer { display: none; }
+</style>
+</head>
+<body>
+<div class="cover">
+  <div class="cover-label">Muscle OS</div>
+  <div class="cover-title">The Complete Guide to Training &amp;<br>Programming for Strength and Physique</div>
+  <div class="cover-divider"></div>
+  <div class="cover-subtitle">A comprehensive reference for coaching decisions</div>
+  <div class="cover-author">Coach Anas Mo'men</div>
+  <div class="cover-edition">Pillar 2 &mdash; Train Maxing &middot; 2026 Edition</div>
+</div>
+
+<div class="toc-page">
+  <h2>Table of Contents</h2>
+  <ul class="toc">
+    <li class="toc-l1"><a href="#domain1">Domain 1: Training Foundations</a></li>
+    <li class="toc-l2"><a href="#ch1">1. Mechanical Tension, Metabolic Stress &amp; Muscle Damage</a></li>
+    <li class="toc-l2"><a href="#ch2">2. Progressive Overload &mdash; Definitions and Methods</a></li>
+    <li class="toc-l2"><a href="#ch3">3. Volume Landmarks (MEV, MAV, MRV) and Volume Progression</a></li>
+    <li class="toc-l2"><a href="#ch4">4. Intensity, Proximity to Failure &amp; RPE/RIR</a></li>
+    <li class="toc-l2"><a href="#ch5">5. Exercise Selection &amp; Biomechanics</a></li>
+    <li class="toc-l1"><a href="#domain2">Domain 2: Programming Variables &amp; Periodization</a></li>
+    <li class="toc-l2"><a href="#ch6">6. Frequency &mdash; Per-Muscle Training Frequency and Recovery</a></li>
+    <li class="toc-l2"><a href="#ch7">7. Rep Ranges and the Hypertrophy-Strength Continuum</a></li>
+    <li class="toc-l2"><a href="#ch8">8. Periodization Models for Hypertrophy</a></li>
+    <li class="toc-l2"><a href="#ch9">9. Powerlifting Periodization for Squat/Bench/Deadlift</a></li>
+    <li class="toc-l2"><a href="#ch10">10. Fatigue Management, Deload Design &amp; Autoregulation</a></li>
+    <li class="toc-l2"><a href="#ch11">11. Warm-Up, Potentiation &amp; Session Structure</a></li>
+    <li class="toc-l1"><a href="#domain3">Domain 3: Applied Split Design</a></li>
+    <li class="toc-l2"><a href="#ch12">12. Split Selection Principles</a></li>
+    <li class="toc-l2"><a href="#ch13">13. Full-Body Split Templates</a></li>
+    <li class="toc-l2"><a href="#ch14">14. Upper/Lower Split Templates</a></li>
+    <li class="toc-l2"><a href="#ch15">15. Push/Pull/Legs Split Templates</a></li>
+    <li class="toc-l2"><a href="#ch16">16. Bro Split / Body-Part Split Templates</a></li>
+    <li class="toc-l2"><a href="#ch17">17. Powerlifting-Specific Programming Templates</a></li>
+    <li class="toc-l2"><a href="#ch18">18. Exercise Substitution Logic</a></li>
+    <li class="toc-l2"><a href="#ch19">19. Training Split Calculator &amp; Decision Logic</a></li>
+    <li class="toc-l1"><a href="#domain4">Domain 4: Special Considerations &amp; Coaching</a></li>
+    <li class="toc-l2"><a href="#ch20">20. Training Age &amp; Program Design</a></li>
+    <li class="toc-l2"><a href="#ch21">21. Injury Risk Management &amp; Pain-Aware Programming</a></li>
+    <li class="toc-l2"><a href="#ch22">22. Kinetic Chain Mapping</a></li>
+    <li class="toc-l2"><a href="#ch23">23. Rehabilitation Protocols for Common Gym Injuries</a></li>
+    <li class="toc-l2"><a href="#ch24">24. Female-Specific Training Considerations</a></li>
+    <li class="toc-l2"><a href="#ch25">25. Concurrent Training</a></li>
+    <li class="toc-l2"><a href="#ch26">26. Home Gym / Minimal Equipment Programming</a></li>
+    <li class="toc-l2"><a href="#ch27">27. Complete Training Assessment</a></li>
+    <li class="toc-l1"><a href="#appendix-a">Appendix A: RPE/RIR Reference Chart</a></li>
+    <li class="toc-l2"><a href="#appendix-b">Appendix B: Deload Protocols Quick Reference</a></li>
+    <li class="toc-l2"><a href="#appendix-c">Appendix C: Kinetic Chain Screening &amp; Common Injury Quick Reference</a></li>
+    <li class="toc-l2"><a href="#references">References</a></li>
+  </ul>
+</div>
+
+<h1 id="domain1">Domain 1: Training Foundations</h1>
+
+<h2 id="ch1">1. Mechanical Tension, Metabolic Stress &amp; Muscle Damage</h2>
+
+<h3>1.1 The Three Mechanisms of Hypertrophy</h3>
+<p>Skeletal muscle hypertrophy is driven by three primary mechanisms that operate synergistically: mechanical tension, metabolic stress, and muscle damage. While each contributes to the hypertrophic response, mechanical tension is universally accepted as the primary driver. Understanding how these mechanisms interact allows the coach to design training programmes that maximise adaptive signalling while managing recovery.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Distinction</div>
+  <p>Mechanical tension is <strong>necessary and sufficient</strong> for hypertrophy. Metabolic stress and muscle damage are <strong>adjuvant</strong> mechanisms that can augment the response but cannot independently produce substantial hypertrophy in the absence of mechanical tension.</p>
+</div>
+
+<h3>1.2 Mechanical Tension</h3>
+<p>Mechanical tension refers to the force produced by a muscle during contraction, combined with the passive tension generated through muscle stretch. The total tension stimulus is the product of force production and muscle length at peak tension. This is why exercises that load a muscle in its lengthened position (deep stretch under load) produce superior hypertrophic responses &mdash; they maximise both active force and passive tension simultaneously. The mechanotransduction pathway converts this mechanical signal into a biochemical response: integrins, focal adhesion kinase (FAK), and the YAP/TAZ pathway transduce sarcolemmal strain into mTOR activation and subsequent protein synthesis.</p>
+
+<h3>1.3 Metabolic Stress</h3>
+<p>Metabolic stress refers to the accumulation of metabolites &mdash; lactate, inorganic phosphate (Pi), hydrogen ions (H+), and reactive oxygen species &mdash; during high-repetition, moderate-load, short-rest training. These metabolites contribute to hypertrophy through several pathways: cell swelling (volume expansion of the muscle fibre activates anabolic signalling via the osmosensitive transcription factor TonEBP/NFAT5), hypoxia-induced transcription factors (HIF-1a upregulates VEGF, supporting capillary density and nutrient delivery), and metabolite-mediated growth factor release (lactate has been shown to stimulate muscle stem cell activity independent of pH changes).</p>
+
+<h3>1.4 Muscle Damage</h3>
+<p>Exercise-induced muscle damage involves Z-disc disruption, sarcomere disorganisation, and the resulting inflammatory response. Satellite cell activation is the primary repair mechanism: quiescent satellite cells are activated by damage signals (HGF release from the extracellular matrix) and proliferate to donate nuclei to existing myofibres, increasing the myonuclear domain and supporting further hypertrophy. The inflammatory response includes neutrophil infiltration, macrophage polarisation (M1 to M2 transition), and release of cytokines (IL-6, IL-10) that coordinate repair and remodelling. While some damage is necessary for adaptation, excessive damage impairs recovery and interferes with subsequent training quality.</p>
+
+<h3>1.5 Synergistic Operation</h3>
+<table>
+  <caption data-label="Table 1.1">The Three Hypertrophy Mechanisms</caption>
+  <thead><tr><th>Mechanism</th><th>Stimulus</th><th>Primary Variable</th><th>Key Evidence</th></tr></thead>
+  <tbody>
+    <tr><td>Mechanical tension</td><td>Force production x muscle stretch</td><td>Load, full ROM, maximally stretched position under load</td><td>Schoenfeld (2010); Hornberger &amp; Chien (2006)</td></tr>
+    <tr><td>Metabolic stress</td><td>Metabolite accumulation (lactate, H+, Pi)</td><td>Rep range (8&ndash;15+), rest intervals (30&ndash;90 s), continuous tension</td><td>Schoenfeld (2013); Burd et al. (2012)</td></tr>
+    <tr><td>Muscle damage</td><td>Z-disc disruption, eccentric loading</td><td>Novel exercises, eccentric emphasis, high volume</td><td>Clarkson &amp; Hubal (2002); Toigo &amp; Boutellier (2006)</td></tr>
+  </tbody>
+</table>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Mechanical tension is the primary hypertrophy driver, with metabolic stress and muscle damage playing adjuvant roles. Exercises that load the muscle in its lengthened position maximise the tension stimulus. Cell swelling from metabolite accumulation and satellite cell activation from muscle damage contribute to but cannot substitute for mechanical tension. A well-designed programme exploits all three mechanisms through appropriate exercise selection, loading parameters, and rest intervals.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch2">2. Progressive Overload &mdash; Definitions and Methods</h2>
+
+<h3>2.1 Defining Progressive Overload</h3>
+<p>Progressive overload is the systematic increase in training demand over time that forces the body to adapt beyond its current capacity. Without progressive overload, adaptation plateaus; the stimulus that once drove progress becomes maintenance. The principle applies across all training goals: strength, hypertrophy, endurance, and power. The art of coaching lies in selecting the appropriate overload method and progressing it at the right rate for the individual.</p>
+
+<h3>2.2 Methods of Progressive Overload</h3>
+<table>
+  <caption data-label="Table 2.1">Progressive Overload Methods</caption>
+  <thead><tr><th>Method</th><th>How to Apply</th><th>When to Progress</th></tr></thead>
+  <tbody>
+    <tr><td>Load increase</td><td>Add 2.5&ndash;5 kg (upper body) or 5&ndash;10 kg (lower body) to the working weight</td><td>When target reps are achieved with good form at current load</td></tr>
+    <tr><td>Volume increase</td><td>Add 1&ndash;2 sets per exercise or add an additional exercise per muscle group</td><td>When plateauing in a given rep range with stable recovery</td></tr>
+    <tr><td>Frequency increase</td><td>Add an additional training day or increase per-muscle frequency</td><td>When volume per session exceeds recovery capacity (session RPE &gt; 8)</td></tr>
+    <tr><td>Density increase</td><td>Reduce rest intervals by 15&ndash;30 seconds while maintaining load and volume</td><td>When inter-set recovery feels excessive for the goal (hypertrophy: rest below 90 s)</td></tr>
+    <tr><td>Tempo manipulation</td><td>Slow the eccentric phase (3&ndash;5 seconds) or add an isometric pause at the stretched position</td><td>When time under tension needs to increase without changing load</td></tr>
+    <tr><td>Range of motion increase</td><td>Increase depth, stretch, or end-range loading</td><td>When mobility allows deeper ROM without form breakdown</td></tr>
+  </tbody>
+</table>
+
+<h3>2.3 Double Progression Method</h3>
+<p>The double progression method is the most practical approach for hypertrophy-oriented training. It involves two phases within a given rep range: <strong>Phase 1</strong> &mdash; once the target rep range is achieved with good form, add weight. <strong>Phase 2</strong> &mdash; after adding weight, the reps will drop. Build back up to the top of the rep range over subsequent sessions. For example: target 8&ndash;12 reps. When 12 reps are achieved with good form, increase the load by 2.5&ndash;5 kg. The next session, 8&ndash;9 reps will be achievable; build back to 12 over 2&ndash;4 weeks. This method provides a clear progression framework while allowing for normal performance fluctuation.</p>
+
+<div class="algorithm">
+  <div class="algorithm-title">Progression Decision Process</div>
+  <ol>
+    <li><strong>Goal-specific range:</strong> Establish the target rep range for the exercise (e.g., 8&ndash;12 for hypertrophy, 3&ndash;5 for strength).</li>
+    <li><strong>Load selection:</strong> Choose a load that places you at the lower end of the range (e.g., 8 reps).</li>
+    <li><strong>Rep accumulation:</strong> Over subsequent sessions, build reps within that range while keeping the load constant.</li>
+    <li><strong>Load progression trigger:</strong> When the upper rep boundary is reached (e.g., 12 reps) with controlled form, increase load by 2.5&ndash;5%.</li>
+    <li><strong>Cycle repeat:</strong> The increased load will drop you to the lower end. Repeat the accumulation phase.</li>
+    <li><strong>Plateau intervention:</strong> If unable to progress load or reps within 3&ndash;4 weeks, assess: insufficient volume? Poor recovery? Exercise selection issue?</li>
+  </ol>
+</div>
+
+<h3>2.4 Rate of Progression Expectations</h3>
+<p>Novice lifters can progress load session-to-session (linear progression). Intermediate lifters progress week-to-week or using double progression. Advanced lifters may require mesocycle-level progression (4&ndash;8 weeks) to see measurable load increases. The rate of progression slows as training age increases, reflecting the diminishing returns curve of the adaptive response.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Progressive overload is the non-negotiable driver of adaptation. Six methods are available: load increase, volume increase, frequency increase, density increase, tempo manipulation, and ROM increase. Double progression is the most practical framework for hypertrophy training. Rate of progression slows with training age: novice lifters progress session-to-session, intermediates within-weeks, and advanced lifters mesocycle-to-mesocycle.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch3">3. Volume Landmarks (MEV, MAV, MRV) and Volume Progression</h2>
+
+<h3>3.1 The Individual Response Curve</h3>
+<p>Training volume &mdash; typically quantified as the number of hard sets per muscle group per week &mdash; follows an individualised dose-response relationship. The response curve has three critical landmarks: the Minimum Effective Volume (MEV), the Maximum Adaptive Volume (MAV), and the Maximum Recoverable Volume (MRV). These landmarks shift with training age, recovery capacity, muscle group size, and anabolic context (surplus vs. deficit). The coach's primary task is to locate the client's MAV through systematic volume adjustment.</p>
+
+<div class="definition">
+  <div class="definition-title">Volume Landmarks Defined</div>
+  <p><strong>MEV (Minimum Effective Volume):</strong> The smallest weekly set volume that produces a measurable hypertrophic response. Training below MEV results in maintenance, not growth.</p>
+  <p><strong>MAV (Maximum Adaptive Volume):</strong> The volume at which the hypertrophic response is maximised per unit of recovery capacity. Training at MAV produces the best growth-to-fatigue ratio.</p>
+  <p><strong>MRV (Maximum Recoverable Volume):</strong> The highest weekly set volume that can be recovered from without performance decline, illness, or injury. Training at or above MRV without strategic deloading leads to overtraining.</p>
+</div>
+
+<h3>3.2 Volume Landmarks by Muscle Group</h3>
+<table>
+  <caption data-label="Table 3.1">Volume Landmarks by Muscle Group (Sets per Week)</caption>
+  <thead><tr><th>Muscle Group</th><th>MEV (sets/wk)</th><th>MAV (sets/wk)</th><th>MRV (sets/wk)</th></tr></thead>
+  <tbody>
+    <tr><td>Quadriceps</td><td>6&ndash;8</td><td>12&ndash;16</td><td>20&ndash;25</td></tr>
+    <tr><td>Hamstrings</td><td>4&ndash;6</td><td>8&ndash;12</td><td>16&ndash;20</td></tr>
+    <tr><td>Glutes</td><td>6&ndash;8</td><td>12&ndash;16</td><td>20&ndash;25</td></tr>
+    <tr><td>Chest (pectorals)</td><td>6&ndash;8</td><td>10&ndash;14</td><td>18&ndash;22</td></tr>
+    <tr><td>Back (lats, rhomboids, traps)</td><td>8&ndash;12</td><td>14&ndash;20</td><td>25&ndash;30</td></tr>
+    <tr><td>Shoulders (deltoids)</td><td>4&ndash;6</td><td>8&ndash;12</td><td>16&ndash;20</td></tr>
+    <tr><td>Biceps</td><td>4&ndash;6</td><td>8&ndash;12</td><td>16&ndash;20</td></tr>
+    <tr><td>Triceps</td><td>4&ndash;6</td><td>8&ndash;12</td><td>16&ndash;20</td></tr>
+    <tr><td>Calves</td><td>4&ndash;6</td><td>8&ndash;12</td><td>16&ndash;20</td></tr>
+    <tr><td>Abs / core</td><td>4&ndash;6</td><td>8&ndash;12</td><td>16&ndash;18</td></tr>
+  </tbody>
+</table>
+
+<h3>3.3 Finding MAV: The Systematic Adjustment Protocol</h3>
+<div class="algorithm">
+  <div class="algorithm-title">How to Find Your MAV</div>
+  <ol>
+    <li><strong>Start at MEV:</strong> Begin with the minimum effective volume for the muscle group.</li>
+    <li><strong>Assess after 3&ndash;4 weeks:</strong> Measure progress (weight on bar, reps, measurements). If progressing, you are at or below MAV.</li>
+    <li><strong>Add 1&ndash;2 sets per muscle group:</strong> Increase volume by one set per exercise or add an exercise. Maintain for 3&ndash;4 weeks.</li>
+    <li><strong>Reassess:</strong> Compare progress rate against the previous block.</li>
+    <li><strong>Continue adding until:</strong> Progress plateaus, recovery declines, or systemic fatigue accumulates faster than adaptation.</li>
+    <li><strong>Back off to the previous volume:</strong> The volume just below the plateau is your MAV.</li>
+  </ol>
+</div>
+
+<h3>3.4 Volume Progression Across a Training Block</h3>
+<p>A typical mesocycle (6&ndash;12 weeks) might start slightly below MAV and progress toward or slightly above MAV by the final weeks. The first 2&ndash;3 weeks serve as a volume acclimation phase. The middle 4&ndash;6 weeks operate at or near MAV. The final 1&ndash;2 weeks may approach MRV before a planned deload. This phased approach allows the athlete to accumulate volume without prematurely overwhelming recovery capacity.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Training volume follows an individualised dose-response curve defined by MEV, MAV, and MRV. Start near MEV and systematically add sets every 3&ndash;4 weeks until progress plateaus or recovery declines. MAV varies by muscle group, training age, and anabolic context. A typical mesocycle progressively increases volume from slightly below MAV to slightly above, followed by a deload. Volume ranges provided in Table 3.1 are starting estimates &mdash; individual variation is substantial and must be empirically determined.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch4">4. Intensity, Proximity to Failure &amp; RPE/RIR</h2>
+
+<h3>4.1 Two Meanings of Intensity</h3>
+<p>Intensity has two distinct but related meanings in resistance training. <strong>Load-based intensity</strong> refers to the percentage of your one-repetition maximum (%1RM) used for an exercise. <strong>Effort-based intensity</strong> refers to proximity to momentary muscular failure, quantified by RPE (Rating of Perceived Exertion) or RIR (Reps In Reserve). These two concepts are independent: a lifter could perform a set at 70% 1RM (moderate load intensity) but take it to RPE 10 (maximal effort intensity), or perform a set at 90% 1RM but stop at RPE 7 (high load intensity, low effort intensity).</p>
+
+<h3>4.2 The RPE/RIR Scale</h3>
+<table>
+  <caption data-label="Table 4.1">RPE/RIR Reference Scale</caption>
+  <thead><tr><th>RPE</th><th>RIR</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>10</td><td>0</td><td>Momentary muscular failure; cannot complete another rep with good form</td></tr>
+    <tr><td>9.5</td><td>0&ndash;1</td><td>Could possibly complete 0&ndash;1 more rep, but form would break down</td></tr>
+    <tr><td>9</td><td>1</td><td>One rep left in the tank; could complete one more rep with good form</td></tr>
+    <tr><td>8.5</td><td>1&ndash;2</td><td>Between 1 and 2 reps remaining</td></tr>
+    <tr><td>8</td><td>2</td><td>Two reps left in the tank; comfortable effort</td></tr>
+    <tr><td>7.5</td><td>2&ndash;3</td><td>Between 2 and 3 reps remaining</td></tr>
+    <tr><td>7</td><td>3</td><td>Three reps left; moving weight feels smooth and controlled</td></tr>
+    <tr><td>6.5</td><td>3&ndash;4</td><td>Approaching challenging but still very controlled</td></tr>
+    <tr><td>6</td><td>4+</td><td>Warm-up / technique work; no significant fatigue</td></tr>
+  </tbody>
+</table>
+
+<h3>4.3 Optimal Proximity to Failure by Goal</h3>
+<table>
+  <caption data-label="Table 4.2">Proximity to Failure by Training Goal</caption>
+  <thead><tr><th>Goal</th><th>Optimal RPE</th><th>RIR</th><th>Frequency of Failure Exposure</th></tr></thead>
+  <tbody>
+    <tr><td>Maximal strength (1&ndash;5 RM)</td><td>9&ndash;10</td><td>0&ndash;1</td><td>Occasional (1&ndash;2x per month per lift for testing)</td></tr>
+    <tr><td>Hypertrophy (6&ndash;15 reps)</td><td>7&ndash;9</td><td>1&ndash;3</td><td>Periodic (final sets of last exercise, or last sets of a mesocycle)</td></tr>
+    <tr><td>Muscular endurance (15+ reps)</td><td>8&ndash;10</td><td>0&ndash;2</td><td>Higher tolerance; metabolites affect perception</td></tr>
+    <tr><td>Power / explosive (1&ndash;3 reps)</td><td>5&ndash;7</td><td>3&ndash;5+</td><td>Never to failure (fatigue degrades power output)</td></tr>
+    <tr><td>Rehabilitation / return from injury</td><td>4&ndash;6</td><td>4+</td><td>Never to failure; stop well before technical breakdown</td></tr>
+  </tbody>
+</table>
+
+<h3>4.4 The Case for and Against Training to Failure</h3>
+<p>Training to failure (RPE 10) elevates acute muscle protein synthesis more than submaximal efforts in the same session. However, the recovery cost is disproportionately higher: failure sets produce greater systemic fatigue, longer neural recovery time, and a larger cortisol response. The evidence suggests that training to failure on every set does not produce superior hypertrophy compared to leaving 1&ndash;3 RIR, but it does increase cumulative fatigue. Strategic failure exposure &mdash; the last set of the last exercise for a muscle group, or the final week of a mesocycle &mdash; maximises the stimulus-to-fatigue ratio. For strength, failure exposure is even more costly because the central nervous system requires more time to recover from maximal-effort heavy lifts.</p>
+
+<div class="callout">
+  <div class="callout-title">Practical Application</div>
+  <p>For hypertrophy, keep most working sets at RPE 7&ndash;9 (1&ndash;3 RIR). Reserve RPE 10 for the last set of each exercise, the last exercise of the session, or the final week of a mesocycle. For strength, use RPE 7&ndash;9 for volume accumulation and RPE 9&ndash;10 for intensity phases. Never train to failure during power or velocity-oriented work.</p>
+</div>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Intensity has two meanings: load-based (%1RM) and effort-based (RPE/RIR). The RPE/RIR scale standardises proximity to failure across different rep ranges and exercises. Optimal hypertrophy RPE is 7&ndash;9 (1&ndash;3 RIR). Training to failure on every set increases fatigue disproportionately to the additional stimulus. Strategic failure exposure at the end of a session or mesocycle optimises the stimulus-to-fatigue ratio.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch5">5. Exercise Selection &amp; Biomechanics</h2>
+
+<h3>5.1 Stability Continuum: Free Weights vs. Machines</h3>
+<p>Exercise selection lives on a stability continuum. At one end, free-weight compound movements (barbell squats, deadlifts, bench press) require significant stabiliser activation and produce the greatest systemic loading. At the other end, selectorised machines isolate target muscles with minimal stabiliser demand. Neither is inherently superior; each serves a purpose. Free weights build coordination, stabiliser strength, and transferable athletic capacity. Machines allow targeted muscle loading with precise resistance profiles, safer failure, and easier progressive overload. A well-designed programme uses both, prioritising free weights for fundamental movement patterns and machines for targeted hypertrophy work.</p>
+
+<h3>5.2 Range of Motion and Stretch-Mediated Hypertrophy</h3>
+<p>Full range of motion (ROM) through the lengthened position of a muscle is emerging as a critical variable for hypertrophy. The lengthened partial (the bottom portion of a lift where the muscle is under stretch) appears to produce disproportionate hypertrophic signalling compared to the shortened portion. This is mediated by the length-tension relationship: passive tension from the stretched muscle adds to the mechanical tension stimulus, and the sarcomerogenesis response (addition of sarcomeres in series) increases the muscle's adaptive capacity. Practical application: prioritise exercises that load the muscle in its fully stretched position (deep squats, incline press with stretch, Romanian deadlifts with full hamstring stretch), and ensure the stretched portion of each rep is actively controlled, not bounced through.</p>
+
+<h3>5.3 Biomechanical Selection Principles</h3>
+<table>
+  <caption data-label="Table 5.1">Biomechanical Principles for Exercise Selection</caption>
+  <thead><tr><th>Exercise Category</th><th>Biomechanical Factor</th><th>Selection Principle</th></tr></thead>
+  <tbody>
+    <tr><td>Compound pressing (horizontal)</td><td>Horizontal adduction + shoulder flexion moment arm</td><td>Barbell limits ROM at the extreme stretch; dumbbells and machines allow greater pectoral stretch</td></tr>
+    <tr><td>Compound pressing (vertical)</td><td>Scapular plane of motion</td><td>Neutral grip (palms facing) reduces impingement risk; wide grip maximises lateral delt involvement</td></tr>
+    <tr><td>Compound pulling (vertical)</td><td>Latissimus dorsi moment arm changes with grip width</td><td>Wide grip targets upper lats; close grip targets lower lats and biceps</td></tr>
+    <tr><td>Compound pulling (horizontal)</td><td>Scapular retraction and spinal extension</td><td>Chest-supported rows eliminate lower back fatigue as a limiting factor</td></tr>
+    <tr><td>Squat patterns</td><td>Femur length creates moment arm differences</td><td>Longer femurs require more forward lean (low-bar) or heel elevation to maintain upright torso</td></tr>
+    <tr><td>Hinge patterns</td><td>Hip moment arm vs. spinal loading</td><td>RDLs target hamstring lengthened position; conventional deadlifts shift load to erectors and glutes</td></tr>
+    <tr><td>Single-joint isolation</td><td>Leverage curve through ROM</td><td>Select machines or cable positions that match the strength curve of the target muscle</td></tr>
+  </tbody>
+</table>
+
+<h3>5.4 The Principle of Specificity</h3>
+<p>The SAID principle (Specific Adaptation to Imposed Demands) states that the body adapts specifically to the stress placed upon it. For strength, this means practising the competition lift or its close variant. For hypertrophy, it means selecting exercises that maximally stretch and load the target muscle through its full ROM. Exercise selection should be goal-directed: choose the exercise that produces the best stimulus-to-risk ratio for the specific adaptation sought.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Free weights and machines exist on a stability continuum; both are valuable tools. Full ROM through the stretched position is critical for hypertrophy. Exercise selection should be guided by biomechanical principles: moment arms, length-tension relationships, and individual anthropometry. The SAID principle dictates that exercise selection must be specific to the adaptation goal.</p>
+</div>
+
+<div class="case-study">
+  <div class="case-label">COACHING APPLICATION</div>
+  <div class="case-title">Domain 1 Case Study: The Plateauing Novice</div>
+  <p><strong>Scenario:</strong> A 24-year-old male client, 78 kg, has been training consistently for 6 months on a full-body programme three times per week. He made excellent linear progress for the first 4 months but has seen no strength increases on his main lifts (bench press, squat, row) for the past 6&ndash;8 weeks. He trains with moderate intensity and is unsure how to push past the plateau.</p>
+  <p><strong>Assessment:</strong> (1) The linear progression model has exhausted its utility &mdash; he needs a phase transition to an intermediate progression model. (2) His training volume is approximately 8&ndash;10 sets per muscle group per week (likely at or slightly below MAV for his experience level). (3) He has never trained to failure or used intentional RPE targeting &mdash; his proximity to failure is likely RPE 5&ndash;6 (4+ RIR), meaning the tension stimulus is insufficient. (4) Exercise selection is limited to barbell compound movements without targeted isolation or stretch-mediated work.</p>
+  <p><strong>Intervention:</strong> (1) Transition from linear progression to double progression in the 6&ndash;10 rep range. (2) Increase proximity to failure: target RPE 7&ndash;8 (2&ndash;3 RIR) for main work, with the final set of each exercise at RPE 9. (3) Add one isolation exercise per major muscle group targeting the lengthened position (incline dumbbell press for chest, RDL for hamstrings, lat pulldown with full stretch). (4) Increase chest volume to 12 sets/week and back volume to 14 sets/week. (5) Implement structured progression tracking: log every working set with load, reps, and RPE. (6) Add a scheduled deload every 6th week (50% volume, maintain intensity). Reassess after 8 weeks.</p>
+  <p><strong>Key Takeaway:</strong> The novice plateau is caused by either insufficient stimulus (proximity to failure too low, volume too low) or insufficient progression structure. Transitioning from linear progression to double progression, ensuring sufficient proximity to failure, and adding stretch-mediated exercise selection typically restores progress.</p>
+</div>
+<!-- DOMAIN 2 -->
+<h1 id="domain2">Domain 2: Programming Variables &amp; Periodization</h1>
+
+<h2 id="ch6">6. Frequency &mdash; Per-Muscle Training Frequency and Recovery</h2>
+
+<h3>6.1 Muscle Protein Synthesis Duration</h3>
+<p>Following a resistance training session, muscle protein synthesis (MPS) is elevated above baseline for approximately 24&ndash;48 hours in trained individuals. The magnitude and duration of this elevation depend on training volume, intensity, protein intake, and training status. The MPS elevation drives the adaptive response, meaning that the muscle is primed for growth during this window. Training a muscle group again while MPS is still elevated can compound the adaptive signal, but training it too frequently without sufficient recovery can accumulate fatigue without proportional adaptation.</p>
+
+<h3>6.2 Frequency Recommendations by Muscle Group</h3>
+<table>
+  <caption data-label="Table 6.1">Recommended Weekly Frequency by Muscle Group</caption>
+  <thead><tr><th>Muscle Group</th><th>Recommended Frequency (x/week)</th><th>Rationale</th></tr></thead>
+  <tbody>
+    <tr><td>Quadriceps</td><td>2&ndash;3</td><td>Large muscle group; rapid recovery; compound movements can be distributed</td></tr>
+    <tr><td>Hamstrings</td><td>2&ndash;3</td><td>Benefit from both hinge and leg curl stimuli; can handle higher frequency</td></tr>
+    <tr><td>Glutes</td><td>2&ndash;3</td><td>Large muscle group; often under-recovered if hit only 1x/week</td></tr>
+    <tr><td>Chest (pectorals)</td><td>2&ndash;3</td><td>2x/week minimum for growth; 3x in advanced volume accumulation</td></tr>
+    <tr><td>Back (lats, rhomboids, traps)</td><td>2&ndash;3</td><td>Large surface area; different movement angles per session</td></tr>
+    <tr><td>Shoulders (deltoids)</td><td>2&ndash;4</td><td>Smaller muscle; passive recovery in pressing; lateral raises tolerate high frequency</td></tr>
+    <tr><td>Biceps</td><td>2&ndash;3</td><td>Recover quickly; involved in pulling work; direct work can be 2x/week</td></tr>
+    <tr><td>Triceps</td><td>2&ndash;3</td><td>Recover quickly; involved in pressing; direct work 1&ndash;2x/week sufficient</td></tr>
+    <tr><td>Calves</td><td>3&ndash;6</td><td>High recovery capacity; benefit from frequent low-volume exposure</td></tr>
+    <tr><td>Abs / core</td><td>2&ndash;6</td><td>High recovery capacity; function improves with frequency</td></tr>
+  </tbody>
+</table>
+
+<h3>6.3 Split Structures and Frequency Mapping</h3>
+<table>
+  <caption data-label="Table 6.2">Split Types and Per-Muscle Frequency</caption>
+  <thead><tr><th>Split Type</th><th>Training Days/Week</th><th>Per-Muscle Frequency</th><th>Volume per Session</th></tr></thead>
+  <tbody>
+    <tr><td>Full body</td><td>3</td><td>3x/week</td><td>Low per muscle (4&ndash;6 sets)</td></tr>
+    <tr><td>Upper/Lower</td><td>4</td><td>2x/week</td><td>Moderate (8&ndash;12 sets)</td></tr>
+    <tr><td>PPL (Push/Pull/Legs)</td><td>6</td><td>2x/week</td><td>Moderate-high (10&ndash;14 sets)</td></tr>
+    <tr><td>Bro split (1x/week per muscle)</td><td>5&ndash;6</td><td>1x/week</td><td>High (15&ndash;20+ sets)</td></tr>
+    <tr><td>Torso/Limbs (Arnold)</td><td>4</td><td>Chest/back 2x, legs 2x, arms 2x</td><td>Moderate (8&ndash;12 sets)</td></tr>
+  </tbody>
+</table>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Muscle protein synthesis remains elevated for 24&ndash;48 hours post-training, driving the adaptive window. Most muscle groups respond optimally to 2&ndash;3 sessions per week. Smaller muscle groups (calves, abs, forearms) tolerate and benefit from higher frequencies. Split selection determines frequency: full-body = 3x/week, upper/lower = 2x/week, bro split = 1x/week. Higher frequency per muscle group allows lower per-session volume, reducing acute fatigue.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch7">7. Rep Ranges and the Hypertrophy-Strength Continuum</h2>
+
+<h3>7.1 The Overlap Model</h3>
+<p>Rep ranges exist on a continuum, not in discrete categories. All rep ranges between approximately 5 and 30 repetitions can produce hypertrophy, provided the set is taken to sufficient proximity to failure. The old dogma that "low reps build strength, high reps build endurance, and moderate reps build muscle" has been replaced by the overlap model: all rep ranges build muscle, but they do so through different mechanisms and with different efficiency. Low reps (1&ndash;5) primarily drive neural adaptation and myofibrillar hypertrophy. Moderate reps (6&ndash;15) balance mechanical tension and metabolic stress, producing the most efficient hypertrophy for most individuals. High reps (15+) create substantial metabolic stress and can produce hypertrophy but require more sets to reach equivalent fatigue of the targeted motor units.</p>
+
+<h3>7.2 Rep Range Adaptations</h3>
+<table>
+  <caption data-label="Table 7.1">Rep Range and Primary Adaptation</caption>
+  <thead><tr><th>Rep Range</th><th>%1RM</th><th>Primary Adaptation</th><th>Best For</th></tr></thead>
+  <tbody>
+    <tr><td>1&ndash;3</td><td>90&ndash;100%</td><td>Maximal strength, neural drive, intramuscular coordination</td><td>Powerlifting peaking, strength-focused phases</td></tr>
+    <tr><td>3&ndash;5</td><td>85&ndash;90%</td><td>Strength with some hypertrophic stimulus</td><td>Strength accumulation, SBD-focused blocks</td></tr>
+    <tr><td>6&ndash;10</td><td>75&ndash;85%</td><td>Hypertrophy with strength carryover</td><td>Primary hypertrophy + strength hybrid work</td></tr>
+    <tr><td>10&ndash;15</td><td>65&ndash;75%</td><td>Hypertrophy (mechanical + metabolic)</td><td>Accessory work, isolation, volume accumulation</td></tr>
+    <tr><td>15&ndash;20</td><td>55&ndash;65%</td><td>Metabolic stress, muscular endurance</td><td>High-rep finishers, blood flow restriction adjuncts</td></tr>
+    <tr><td>20+</td><td>&lt;55%</td><td>Muscular endurance, metabolite exposure</td><td>Specialised endurance, rehabilitation contexts</td></tr>
+  </tbody>
+</table>
+
+<h3>7.3 Muscle Fiber Type and Rep Range Optimization</h3>
+<table>
+  <caption data-label="Table 7.2">Fiber Type Distribution and Rep Range Recommendations</caption>
+  <thead><tr><th>Muscle Group</th><th>Approximate Type I %</th><th>Type II %</th><th>Rep Range Recommendation</th></tr></thead>
+  <tbody>
+    <tr><td>Soleus (calves)</td><td>80&ndash;90%</td><td>10&ndash;20%</td><td>Higher reps (12&ndash;20+) for greater total tension time</td></tr>
+    <tr><td>Quadriceps (vastus lateralis)</td><td>40&ndash;50%</td><td>50&ndash;60%</td><td>Balanced (6&ndash;15); both ranges effective</td></tr>
+    <tr><td>Hamstrings</td><td>50&ndash;60%</td><td>40&ndash;50%</td><td>Moderate reps (8&ndash;15); stretch under load</td></tr>
+    <tr><td>Pectorals</td><td>40&ndash;50%</td><td>50&ndash;60%</td><td>Moderate reps (6&ndash;12)</td></tr>
+    <tr><td>Lats</td><td>45&ndash;55%</td><td>45&ndash;55%</td><td>Moderate reps (8&ndash;15)</td></tr>
+    <tr><td>Deltoids</td><td>40&ndash;60%</td><td>40&ndash;60%</td><td>Balanced (8&ndash;15); lateral raises benefit from higher reps</td></tr>
+    <tr><td>Biceps / Triceps</td><td>40&ndash;50%</td><td>50&ndash;60%</td><td>Moderate reps (8&ndash;15); respond to volume</td></tr>
+  </tbody>
+</table>
+
+<h3>7.4 Practical Rep Range Programming</h3>
+<p>Rather than prescribing a single rep range, the effective coach periodises rep ranges across a training cycle. A common pattern is: early mesocycle (6&ndash;10 reps, strength-accent), mid-mesocycle (8&ndash;15 reps, hypertrophy-accent), late mesocycle (10&ndash;20 reps, metabolic-accent or pre-deload). Different rep ranges can also be assigned to different exercises: compound lifts in the 5&ndash;10 range, isolation exercises in the 10&ndash;15 range, and finishers in the 15&ndash;20 range.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>All rep ranges from 5&ndash;30 can produce hypertrophy when taken to sufficient proximity to failure. Low reps (1&ndash;5) primarily build strength, moderate reps (6&ndash;15) are the hypertrophy sweet spot, and high reps (15+) add metabolic stress. Fiber type distribution varies by muscle group and may influence optimal rep selection. Periodising rep ranges across a mesocycle or assigning ranges by exercise type is more effective than using a single rep range year-round.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch8">8. Periodization Models for Hypertrophy</h2>
+
+<h3>8.1 Why Periodize?</h3>
+<p>Periodization is the systematic planning of training variables over time to manage fatigue, maximise adaptation, and reduce injury risk. Without periodization, the lifter either stagnates (no progression) or accumulates excessive fatigue (overtraining). Periodization organises training into cycles: macrocycles (year+), mesocycles (4&ndash;12 weeks), and microcycles (weekly). For hypertrophy-focused athletes, the primary periodization decision is how to structure volume and intensity across the mesocycle.</p>
+
+<h3>8.2 Linear Periodization</h3>
+<p>Linear periodization involves increasing intensity (decreasing rep range) while decreasing volume over the course of a mesocycle. For example: weeks 1&ndash;3 (4 x 10&ndash;12), weeks 4&ndash;6 (4 x 8&ndash;10), weeks 7&ndash;9 (4 x 6&ndash;8), weeks 10&ndash;11 (5 x 4&ndash;6), week 12 deload. This model is intuitive and effective for beginners and intermediates. The advantage is clear progression structure; the disadvantage is that volume drops significantly in the later weeks, potentially reducing hypertrophic stimulus.</p>
+
+<h3>8.3 Daily Undulating Periodization (DUP)</h3>
+<p>DUP varies rep ranges within the same week, often across different training days. For example: Day 1 (heavy, 3&ndash;5 reps), Day 2 (moderate, 8&ndash;10 reps), Day 3 (light, 12&ndash;15 reps). DUP has been shown to produce superior strength gains compared to linear periodization in some studies, likely because it varies the stimulus frequently and avoids prolonged exposure to any single fatigue pattern. The disadvantage is that it requires more careful fatigue management and may be logistically demanding.</p>
+
+<h3>8.4 Block Periodization</h3>
+<p>Block periodization divides the mesocycle into distinct blocks, each with a specific focus. A common hypertrophy block structure: <strong>Accumulation block</strong> (4&ndash;6 weeks, high volume, moderate intensity, MEV+ to MAV volume), <strong>Intensification block</strong> (3&ndash;4 weeks, moderate volume, high intensity, MAV to MRV-), <strong>Realization block</strong> (1&ndash;2 weeks, low volume, high intensity, peaking). This structure allows the athlete to accumulate volume without excessive fatigue, then intensify the stimulus, then realise the adaptation in a peaking phase. Block periodization is preferred for advanced athletes who require longer accumulation phases to drive adaptation.</p>
+
+<h3>8.5 Periodization Model Comparison</h3>
+<table>
+  <caption data-label="Table 8.1">Periodization Model Summary</caption>
+  <thead><tr><th>Model</th><th>Structure</th><th>Best For</th><th>Pros</th><th>Cons</th></tr></thead>
+  <tbody>
+    <tr><td>Linear</td><td>Decreasing reps, increasing intensity over mesocycle</td><td>Beginners, intermediates returning from break</td><td>Simple, clear progression, intuitive</td><td>Volume drops late mesocycle; limited stimulus variation</td></tr>
+    <tr><td>DUP</td><td>Varied rep ranges within the week</td><td>Intermediates, hypertrophy-focused athletes</td><td>Frequent variation, avoids accommodation</td><td>Logistically complex, fatigue management critical</td></tr>
+    <tr><td>Block</td><td>Accumulation &rarr; Intensification &rarr; Realization</td><td>Advanced athletes, specific peaking goals</td><td>Maximises adaptation per phase, manages fatigue</td><td>Longer mesocycle, requires patience</td></tr>
+  </tbody>
+</table>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Periodization systematically varies training variables to manage fatigue and maximise adaptation. Linear periodization (decreasing reps, increasing intensity over a mesocycle) is best for beginners and those returning from breaks. DUP (varying rep ranges within the week) is effective for hypertrophy-focused intermediates. Block periodization (accumulation &rarr; intensification &rarr; realization) is preferred for advanced athletes requiring longer, more structured phases.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch9">9. Powerlifting Periodization for Squat/Bench/Deadlift</h2>
+
+<h3>9.1 The Conjugate Method</h3>
+<p>The conjugate method, popularised by Westside Barbell, involves rotating exercises and varying intensities simultaneously. Maximum effort (ME) work rotates through different competition lift variations (e.g., board press, deficit deadlift, box squat) to avoid accommodation. Dynamic effort (DE) work uses submaximal loads with explosive intent, typically 8&ndash;10 sets of 2&ndash;3 reps at 50&ndash;60% 1RM with short rest. Repetition effort (RE) or supplemental work builds muscle mass and addresses weak points. This system is highly effective for advanced powerlifters who have plateaued on standard linear or block periodization.</p>
+
+<h3>9.2 Block Periodization for Powerlifting</h3>
+<table>
+  <caption data-label="Table 9.1">Powerlifting Periodization Methods</caption>
+  <thead><tr><th>Method</th><th>Structure</th><th>Lifter Level</th><th>Duration</th></tr></thead>
+  <tbody>
+    <tr><td>Linear (3&ndash;5 rep decrease)</td><td>12 weeks: 5x5 &rarr; 4x4 &rarr; 3x3 &rarr; peaking</td><td>Novice to early intermediate</td><td>12&ndash;16 weeks</td></tr>
+    <tr><td>Block (accumulation &rarr; intensification &rarr; peaking)</td><td>Week 1&ndash;6: volume (5x8&ndash;10 at 65&ndash;75%); Week 7&ndash;10: intensity (4x4&ndash;6 at 75&ndash;85%); Week 11&ndash;12: peaking (singles/ doubles at 85&ndash;95%)</td><td>Intermediate to advanced</td><td>12&ndash;16 weeks</td></tr>
+    <tr><td>Conjugate (ME/DE/RE)</td><td>Ongoing rotation of ME exercises; DE work 2x/week; RE supplemental</td><td>Advanced, plateaued</td><td>Continuous</td></tr>
+    <tr><td>Sheiko / high-frequency</td><td>3&ndash;4x/week per lift, moderate intensity, high volume</td><td>Intermediate to advanced</td><td>12&ndash;16 weeks</td></tr>
+  </tbody>
+</table>
+
+<h3>9.3 Peaking Protocols</h3>
+<p>A peaking block (typically 2&ndash;4 weeks) desensitises the lifter to heavy loads through exposure to near-maximal and maximal weights while reducing total fatigue. Key principles: <strong>Reduce total volume</strong> by 30&ndash;50% from the accumulation block. <strong>Increase intensity</strong> to 85&ndash;95%+ 1RM for competition lifts. <strong>Eliminate or reduce accessory work</strong> to the minimum necessary for maintenance. <strong>Increase rest intervals</strong> to 3&ndash;5 minutes to allow full neural recovery between sets. The final week typically includes a lighter recovery day 5&ndash;7 days before competition followed by complete rest or very light technique work 24&ndash;48 hours before the meet.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Powerlifting periodization follows different structures depending on lifter level: linear progression (novice), block periodization (intermediate), or conjugate method (advanced, plateaued). Peaking protocols reduce volume by 30&ndash;50% while increasing intensity to 85&ndash;95%+ over 2&ndash;4 weeks. The sheiko method uses high-frequency, moderate-intensity training effective for lifters who respond well to volume accumulation.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch10">10. Fatigue Management, Deload Design &amp; Autoregulation</h2>
+
+<h3>10.1 Sources of Fatigue</h3>
+<p>Fatigue in resistance training originates from three sources: <strong>Metabolic fatigue</strong> arises from the accumulation of metabolites (lactate, H+, Pi, ammonia) within the muscle during high-repetition, short-rest sets. This type of fatigue is acute, resolving within minutes to hours. <strong>Neural fatigue</strong> involves reduced central nervous system drive to the muscle, decreased motor unit recruitment, and altered cortical excitability. This resolves over 24&ndash;72 hours. <strong>Systemic fatigue</strong> encompasses hormonal (elevated cortisol, suppressed testosterone), inflammatory (cytokine elevation), and psychological (motivation, mood) components. Systemic fatigue accumulates over weeks and requires deload weeks to resolve fully.</p>
+
+<h3>10.2 Deload Protocols</h3>
+<table>
+  <caption data-label="Table 10.1">Deload Protocols by Context</caption>
+  <thead><tr><th>Protocol</th><th>Description</th><th>Best For</th></tr></thead>
+  <tbody>
+    <tr><td>Volume reduction (40&ndash;60%)</td><td>Keep intensity (load) the same but reduce sets by 40&ndash;60%</td><td>General maintenance deload; preserves neuromuscular readiness</td></tr>
+    <tr><td>Intensity reduction (60&ndash;70% 1RM)</td><td>Reduce loads significantly but keep volume and structure</td><td>Technique-focused deload; active recovery</td></tr>
+    <tr><td>Full rest deload</td><td>Complete rest from resistance training for 5&ndash;7 days</td><td>Systemic fatigue, high stress, illness recovery</td></tr>
+    <tr><td>Active recovery deload</td><td>Low-intensity cardio, mobility work, no resistance training</td><td>Mental break while maintaining movement quality</td></tr>
+  </tbody>
+</table>
+
+<h3>10.3 Deload Frequency Guidelines</h3>
+<table>
+  <caption data-label="Table 10.2">Deload Frequency by Training Phase</caption>
+  <thead><tr><th>Training Phase</th><th>Deload Frequency</th><th>Rationale</th></tr></thead>
+  <tbody>
+    <tr><td>Novice (0&ndash;12 months)</td><td>Every 6&ndash;8 weeks</td><td>Lower training volumes; faster recovery; less systemic fatigue</td></tr>
+    <tr><td>Intermediate (1&ndash;3 years)</td><td>Every 5&ndash;7 weeks</td><td>Moderate volumes; periodisation naturally deloads</td></tr>
+    <tr><td>Advanced (3+ years)</td><td>Every 4&ndash;6 weeks</td><td>High volumes accumulate fatigue quickly; frequent deloads needed</td></tr>
+    <tr><td>Caloric deficit phase</td><td>Every 4&ndash;5 weeks</td><td>Reduced recovery capacity; more frequent deloads needed</td></tr>
+    <tr><td>High-volume accumulation</td><td>Every 4&ndash;6 weeks</td><td>Volume near MRV requires structured recovery</td></tr>
+  </tbody>
+</table>
+
+<h3>10.4 Autoregulation Methods</h3>
+<p>Autoregulation adjusts training variables based on the athlete's daily readiness. The three primary methods are: <strong>RPE-based autoregulation</strong> &mdash; prescribe a target RPE rather than a specific load. If the athlete feels fresh, they lift heavier at the same RPE; if fatigued, they lift lighter. <strong>Repetition maximum (RM) testing</strong> &mdash; the first working set of the day determines the load for subsequent sets. If the prescribed 8RM load moves for 10 reps, adjust up; if it only moves for 6 reps, adjust down. <strong>Biofeedback autoregulation</strong> &mdash; use heart rate variability (HRV), grip strength, or subjective readiness scores (1&ndash;10) to determine session intensity and volume. The simplest and most practical is RPE-based autoregulation: set the RPE target, let the athlete find the load.</p>
+
+<div class="algorithm">
+  <div class="algorithm-title">When to Deload: Decision Process</div>
+  <ol>
+    <li><strong>Schedule check:</strong> Has it been 4&ndash;8 weeks since the last deload? If yes, schedule a deload.</li>
+    <li><strong>Performance decline:</strong> Have strength or reps decreased for 2+ consecutive sessions for no clear reason? If yes, deload.</li>
+    <li><strong>Sleep/recovery decline:</strong> Is sleep quality reduced? Resting HR elevated? Motivation low? If multiple indicators, deload.</li>
+    <li><strong>Training lag:</strong> If training is suffering (joint pain, poor performance), deload regardless of schedule.</li>
+    <li><strong>Choose protocol:</strong> Volume reduction is the default. Use intensity reduction if form needs work. Use full rest only if systemic fatigue is high or illness is present.</li>
+  </ol>
+</div>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Fatigue has metabolic, neural, and systemic sources. Deload protocols include volume reduction (40&ndash;60%, the default), intensity reduction, full rest, and active recovery. Deload frequency depends on training age (novice: 6&ndash;8 weeks; advanced: 4&ndash;6 weeks) and phase context (deficit phases need more frequent deloads). Autoregulation adjusts training to daily readiness, with RPE-based autoregulation being the most practical method.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch11">11. Warm-Up, Potentiation &amp; Session Structure</h2>
+
+<h3>11.1 The RAMP Protocol</h3>
+<p>The RAMP protocol provides a structured warm-up framework: <strong>Raise</strong> &mdash; elevate body temperature, heart rate, and blood flow through 5&ndash;10 minutes of low-intensity cardio (cycling, rowing, incline walking). <strong>Activate</strong> &mdash; engage underactive or inhibited muscle groups through targeted activation drills (glute bridges, band pull-aparts, core bracing). <strong>Mobilize</strong> &mdash; take joints through their required range of motion for the upcoming session through dynamic stretching (leg swings, cat-camel, thoracic rotations). <strong>Potentiate</strong> &mdash; prepare the nervous system for heavy loads through progressive warm-up sets that approach working weight.</p>
+
+<h3>11.2 Warm-Up Set Progression</h3>
+<p>The warm-up set progression is critical for both performance and injury prevention. A general template for a compound lift: <strong>Set 1</strong>: 5&ndash;8 reps at 20&ndash;30% of working weight (empty bar or very light). <strong>Set 2</strong>: 3&ndash;5 reps at 50&ndash;60% of working weight. <strong>Set 3</strong>: 2&ndash;3 reps at 70&ndash;80% of working weight. <strong>Set 4</strong> (optional, heavy compound only): 1 rep at 85&ndash;90% of working weight. Rest between warm-up sets: 30&ndash;60 seconds for light sets, 60&ndash;90 seconds for heavier warm-ups. The total warm-up should not exceed 8&ndash;12 minutes for a single exercise to avoid pre-fatiguing the muscle.</p>
+
+<h3>11.3 Session Structure: Primary to Accessory</h3>
+<table>
+  <caption data-label="Table 11.1">Session Structure Components</caption>
+  <thead><tr><th>Component</th><th>Purpose</th><th>Duration</th><th>Example</th></tr></thead>
+  <tbody>
+    <tr><td>RAMP warm-up (general)</td><td>Increase core temp, activate, mobilize</td><td>8&ndash;12 min</td><td>5 min bike + glute bridges + leg swings</td></tr>
+    <tr><td>Warm-up sets (specific)</td><td>Potentiate the CNS, rehearse movement pattern</td><td>3&ndash;6 min</td><td>Progressive barbell warm-up toward working weight</td></tr>
+    <tr><td>Primary movement (compound)</td><td>Heaviest, most technically demanding lift of the session</td><td>15&ndash;25 min</td><td>Squat, bench press, deadlift, or main variation</td></tr>
+    <tr><td>Secondary movement (compound)</td><td>Second compound movement in different plane</td><td>12&ndash;18 min</td><td>RDL after squats, incline press after bench</td></tr>
+    <tr><td>Accessory lifts (isolation)</td><td>Targeted hypertrophy work, muscle-specific</td><td>15&ndash;25 min</td><td>Leg curls, lateral raises, curls, pushdowns</td></tr>
+    <tr><td>Cool-down / mobility</td><td>Restore resting state, improve flexibility</td><td>5&ndash;10 min</td><td>Light stretching, foam rolling targeted areas</td></tr>
+  </tbody>
+</table>
+
+<h3>11.4 Exercise Sequencing Principles</h3>
+<p>Exercise order within a session follows two principles. <strong>The fatigue principle:</strong> exercises requiring the highest neural demand and technique precision should be performed first, when the CNS is fresh. Multi-joint, heavy compound lifts (squat, bench, deadlift) always precede single-joint isolation. <strong>The potentiation principle:</strong> heavier, lower-rep sets can potentiate subsequent higher-rep work through post-activation potentiation (PAP). For example, heavy squats (3 reps at 85%) may enhance subsequent volume work (4 x 10 at 65%) by improving motor unit recruitment.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>The RAMP protocol (Raise, Activate, Mobilize, Potentiate) provides a structured warm-up framework. Warm-up sets progress from light to approximately 70&ndash;90% of working weight over 3&ndash;4 sets. Session structure flows from compound to isolation, heavy to light, complex to simple. Primary movements are performed first when the CNS is fresh. Post-activation potentiation can be exploited by sequencing heavier work before volume work.</p>
+</div>
+
+<div class="case-study">
+  <div class="case-label">COACHING APPLICATION</div>
+  <div class="case-title">Domain 2 Case Study: Intermediate Fatigue Management</div>
+  <p><strong>Scenario:</strong> A 30-year-old male client, 88 kg, has been training consistently for 3 years on an Upper/Lower split, 4 days per week. He is 8 weeks into a hypertrophy block with progressive volume. He reports declining performance in the last 2 weeks &mdash; his working sets are losing 1&ndash;2 reps, his sleep quality has declined, and he feels "heavy" and unmotivated to train.</p>
+  <p><strong>Assessment:</strong> (1) Systemic fatigue has accumulated over 8 weeks of progressive volume. (2) He has not taken a deload in 10 weeks. (3) Current volume is approximately 16&ndash;18 sets per muscle group per week, approaching his MRV. (4) The performance decline and sleep disturbance are classic signs that recovery capacity has been exceeded.</p>
+  <p><strong>Intervention:</strong> (1) Immediate deload: 1 week at 50% volume (reduce sets by half, keep intensity the same). (2) Post-deload: reset volume to 70% of pre-deload levels (approximately 11&ndash;13 sets per muscle group). (3) Implement scheduled deloads every 6 weeks regardless of subjective feeling. (4) Switch from linear block to DUP to vary stimulus within the week: Day 1 (6&ndash;8 reps, RPE 8), Day 2 (10&ndash;12 reps, RPE 8), Day 3 (8&ndash;10 reps, RPE 7), Day 4 (12&ndash;15 reps, RPE 8). (5) Introduce RPE-based autoregulation: if the prescribed RPE feels 1+ point harder than expected on warm-up sets, reduce load accordingly.</p>
+  <p><strong>Key Takeaway:</strong> Fatigue management is the primary constraint on long-term progress. Deloads should be scheduled pre-emptively, not reactively. DUP can distribute fatigue across the week more evenly than linear block periodization. RPE-based autoregulation prevents individual sessions from derailing the block when daily readiness varies.</p>
+</div>
+<!-- DOMAIN 3 -->
+<h1 id="domain3">Domain 3: Applied Split Design</h1>
+<h2 id="ch12">12. Split Selection Principles</h2>
+
+<h3>12.1 Decision Factors</h3>
+<p>Selecting a training split requires balancing training frequency, volume capacity, schedule constraints, and individual recovery capacity. No single split is universally superior; each represents a different trade-off between frequency, volume per session, and recovery demand. The optimal split is the one that allows the client to accumulate sufficient volume at the required intensity while fitting their schedule and respecting their recovery capacity.</p>
+
+<table>
+  <caption data-label="Table 12.1">Split Selection by Available Days</caption>
+  <thead><tr><th>Available Days/Week</th><th>Suitable Split Options</th><th>Key Considerations</th></tr></thead>
+  <tbody>
+    <tr><td>2</td><td>Full body (2x); Upper/Lower (if 2 consecutive days available)</td><td>Volume per session must be high; recovery between sessions critical</td></tr>
+    <tr><td>3</td><td>Full body (3x); Push/Pull/Legs (1x each); Upper/Lower with one rotation</td><td>Full body preferred for balanced development; frequency adequate</td></tr>
+    <tr><td>4</td><td>Upper/Lower (2x each); Torso/Limbs; Push/Pull/Legs + 1 full body</td><td>Upper/Lower is the most efficient for balanced hypertrophy</td></tr>
+    <tr><td>5</td><td>Upper/Lower + accessories; Push/Pull/Legs + Upper/Lower hybrid; Bro split</td><td>Allows for extra arm/shoulder volume; recovery becomes the limit</td></tr>
+    <tr><td>6</td><td>Push/Pull/Legs (2x each); Bro split (2 on/1 off cycle)</td><td>High frequency; volume must be managed to avoid exceeding MRV</td></tr>
+  </tbody>
+</table>
+
+<h3>12.2 Goal-Driven Architecture</h3>
+<p>The training goal determines the split architecture's emphasis. For <strong>general hypertrophy</strong>, balanced volume across all muscle groups 2x/week (Upper/Lower or PPL) is optimal. For <strong>strength-focused hypertrophy</strong>, the split should arrange sessions so that SBD lifts are performed fresh, with hypertrophy work as supplemental. For <strong>weak point training</strong>, the lagging muscle group is trained first in the session or given an additional weekly session. For <strong>powerlifting peaking</strong>, accessory volume drops and competition lifts take priority, which shifts split structure toward an Upper/Lower or competition-day split.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Distinction</div>
+  <p>Split design is not about which muscles are trained on which day. It is about <strong>managing recovery</strong> and <strong>optimising performance</strong> across the training week. The best split is the one the client can adhere to consistently.</p>
+</div>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Split selection balances frequency, volume capacity, schedule constraints, and recovery. Full body (3x) is optimal for lower training days; Upper/Lower (4x) is the efficiency sweet spot; PPL (6x) maximises frequency. The training goal determines emphasis: balanced for general hypertrophy, SBD-prioritised for strength, and targeted for weak point training. The best split is one the client can adhere to consistently.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch13">13. Full-Body Split Templates</h2>
+
+<h3>13.1 Full-Body Training Principles</h3>
+<p>Full-body training involves training all major muscle groups in each session, typically 3 times per week with at least 48 hours between sessions. This split maximises per-muscle frequency (3x/week) while minimising per-session volume (4&ndash;8 sets per muscle group). Full-body training is ideal for novices who benefit from frequent technique practice, individuals with limited training days (2&ndash;3 per week), and those who prefer shorter, more frequent sessions. The key challenge is managing systemic fatigue: because every session taxes the entire body, recovery between sessions must be prioritised.</p>
+
+<h3>13.2 Full-Body Template Structure</h3>
+<p>A standard full-body template includes: one squat or hinge pattern, one horizontal or vertical press, one horizontal or vertical pull, and one isolation exercise per main muscle group. The specific exercise selection rotates across the three weekly sessions to provide variation while maintaining the full-body stimulus. For example: <strong>Session A</strong> (squat focus): squat, bench press, row, leg curl, lateral raise, triceps. <strong>Session B</strong> (hinge focus): deadlift variation, overhead press, pull-up, leg extension, bicep curl, calves. <strong>Session C</strong> (balanced): front squat or lunge, incline press, lat pulldown, RDL, lateral raise, triceps.</p>
+
+<h3>13.3 Volume Per Session Limits</h3>
+<p>Full-body training is volume-constrained by session duration and systemic fatigue. A typical full-body session should not exceed 6&ndash;9 exercises with 20&ndash;28 total working sets. Per muscle group, 4&ndash;8 sets per session is the typical range, totalling 12&ndash;18 sets per muscle group per week at 3x frequency. If volume per session exceeds approximately 30 sets, the session becomes too long and recovery between sessions is compromised.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Full-body training (3x/week, 48+ hours between sessions) maximises frequency with moderate per-session volume. It is ideal for novices, those with limited days, and those who prefer shorter sessions. Per muscle group, 4&ndash;8 sets per session totalling 12&ndash;18 sets/week is typical. The sessions must be carefully sequenced to avoid excessive systemic fatigue. Exercise rotation across sessions provides variation while maintaining a full-body stimulus.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch14">14. Upper/Lower Split Templates</h2>
+
+<h3>14.1 The Upper/Lower Framework</h3>
+<p>The Upper/Lower split divides training into upper body sessions (chest, back, shoulders, arms) and lower body sessions (quadriceps, hamstrings, glutes, adductors, abductors, calves). The standard frequency is 2x per week for both upper and lower (4 sessions total), though variations with 3 upper/2 lower exist. This split provides an excellent balance between frequency (2x per muscle group), per-session volume (8&ndash;12 sets per muscle group), and recovery (48&ndash;72 hours between sessions for the same muscle group).</p>
+
+<h3>14.2 Client Template: Upper/Lower (4-Day)</h3>
+<p>The following template represents a real client Upper/Lower split designed for balanced hypertrophy:</p>
+
+<table>
+  <caption data-label="Table 14.1">Upper 1 &mdash; Chest, Back, Delts, Arms</caption>
+  <thead><tr><th>Exercise</th><th>Sets</th><th>Target</th><th>Coaching Rationale</th></tr></thead>
+  <tbody>
+    <tr><td>Incline chest press</td><td>3</td><td>Upper chest, front delt</td><td>Emphasises clavicular head of pec major; stretch-mediated stimulus</td></tr>
+    <tr><td>Machine chest flies</td><td>3</td><td>Pectorals (stretch focus)</td><td>Constant tension at the stretched position</td></tr>
+    <tr><td>Lat pulldown</td><td>2</td><td>Lats (width)</td><td>Compound vertical pull; foundation for back width</td></tr>
+    <tr><td>T-bar row</td><td>2</td><td>Mid back (thickness)</td><td>Horizontal pull targeting rhomboids and mid traps</td></tr>
+    <tr><td>Kelso shrugs</td><td>1</td><td>Upper traps</td><td>Isolated trap targeting with scapular elevation</td></tr>
+    <tr><td>Shoulder press (machine/dumbbell)</td><td>1</td><td>Anterior and lateral delts</td><td>Compound overhead; single set sufficient given pressing volume</td></tr>
+    <tr><td>Lateral raises</td><td>2</td><td>Lateral delts</td><td>Critical for shoulder width; lateral delt often lags</td></tr>
+    <tr><td>Rear delt flies</td><td>1</td><td>Posterior delts</td><td>Balances shoulder development; postural benefit</td></tr>
+    <tr><td>Preacher curls</td><td>2</td><td>Biceps</td><td>Stabilised elbow flexion; targets long head stretch</td></tr>
+    <tr><td>Triceps pushdown</td><td>2</td><td>Triceps (lateral head)</td><td>Cable constant tension; targets lateral head</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Analysis:</strong> Upper 1 prioritises pressing volume (6 chest sets total between press and flies) with balanced pulling (5 back sets). Shoulder work is split across anterior (from pressing and press), lateral (2 sets raises), and posterior (1 set flies). Arms receive moderate direct volume. Total chest volume (6 sets) is slightly below MAV for intermediate-advanced lifters; this would be supplemented by pressing in Upper 2.</p>
+
+<table>
+  <caption data-label="Table 14.2">Lower 1 &mdash; Quadriceps, Hamstrings, Glutes, Adductors/Abductors, Calves</caption>
+  <thead><tr><th>Exercise</th><th>Sets</th><th>Target</th><th>Coaching Rationale</th></tr></thead>
+  <tbody>
+    <tr><td>Leg extensions</td><td>3</td><td>Quadriceps (rectus femoris, vastus medialis)</td><td>Isolation that targets the rectus femoris (crosses hip)</td></tr>
+    <tr><td>Leg curls</td><td>2</td><td>Hamstrings</td><td>Knee flexion isolation; targets long head</td></tr>
+    <tr><td>Adductors (machine)</td><td>2</td><td>Adductor magnus/longus/brevis</td><td>Often neglected; important for squat stability and leg development</td></tr>
+    <tr><td>Abductors (machine)</td><td>2</td><td>Gluteus medius/minimus, TFL</td><td>Hip stability; lateral glute development</td></tr>
+    <tr><td>Hip thrust</td><td>2</td><td>Gluteus maximus</td><td>Maximises glute activation through hip extension in shortened position</td></tr>
+    <tr><td>Calves raises (standing/seated)</td><td>2</td><td>Gastrocnemius, soleus</td><td>High recovery capacity; 2 sets are minimum effective volume</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Analysis:</strong> Lower 1 is machine-dominant, isolating each leg muscle group. The absence of a free-weight compound (squat, leg press) is notable. Quadriceps receive 3 sets of extensions. Hamstrings: 2 sets of curls. The absence of a squat or hinge pattern means stretch-mediated loading of the quads and hamstrings is limited.</p>
+
+<table>
+  <caption data-label="Table 14.3">Upper 2 &mdash; Chest, Back, Delts, Arms</caption>
+  <thead><tr><th>Exercise</th><th>Sets</th><th>Target</th><th>Coaching Rationale</th></tr></thead>
+  <tbody>
+    <tr><td>Incline chest press</td><td>2</td><td>Upper chest</td><td>Reduced volume from Upper 1 (3&rarr;2); fatigue management</td></tr>
+    <tr><td>Machine chest flies</td><td>3</td><td>Pectorals</td><td>Same volume as Upper 1; maintains total chest stimulus</td></tr>
+    <tr><td>Lat pulldown</td><td>2</td><td>Lats</td><td>Consistent volume across sessions</td></tr>
+    <tr><td>Seated row</td><td>2</td><td>Mid back</td><td>Variation from T-bar; different moment arm</td></tr>
+    <tr><td>Kelso shrugs</td><td>2</td><td>Upper traps</td><td>Increased volume; traps recover quickly</td></tr>
+    <tr><td>Vertical shrugs (dumbbell)</td><td>1</td><td>Upper traps</td><td>Additional trap stimulus</td></tr>
+    <tr><td>Lateral raises</td><td>2</td><td>Lateral delts</td><td>Consistent across sessions</td></tr>
+    <tr><td>Preacher curls</td><td>3</td><td>Biceps</td><td>Increased from Upper 1 (2&rarr;3); bicep volume emphasis</td></tr>
+    <tr><td>Triceps overhead extensions</td><td>3</td><td>Triceps (long head)</td><td>Changed exercise from pushdown; targets long head at stretched position</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Analysis:</strong> Upper 2 shifts emphasis: biceps and triceps receive increased volume (3 sets each). The back pulls use a different rowing variation (seated row vs. T-bar). Triceps exercise changes from pushdown (lateral head focus) to overhead extension (long head focus). Chest pressing volume drops slightly (2 sets vs. 3) while flies remain at 3 sets, keeping total chest volume at 5 sets (vs. 6 for Upper 1, total 11 sets/week, within MAV range).</p>
+
+<table>
+  <caption data-label="Table 14.4">Lower 2 &mdash; Quadriceps, Hamstrings, Glutes, Adductors/Abductors, Calves</caption>
+  <thead><tr><th>Exercise</th><th>Sets</th><th>Target</th><th>Coaching Rationale</th></tr></thead>
+  <tbody>
+    <tr><td>Leg extensions</td><td>2</td><td>Quadriceps</td><td>Reduced from Lower 1 (3&rarr;2); fatigue management across week</td></tr>
+    <tr><td>Leg curls</td><td>3</td><td>Hamstrings</td><td>Increased from Lower 1 (2&rarr;3); hamstring emphasis</td></tr>
+    <tr><td>Adductors (machine)</td><td>2</td><td>Adductors</td><td>Consistent volume</td></tr>
+    <tr><td>Abductors (machine)</td><td>2</td><td>Abductors, glute med</td><td>Consistent volume</td></tr>
+    <tr><td>Hip thrust</td><td>2</td><td>Glutes</td><td>Consistent volume; 4/week total glute stimulus</td></tr>
+    <tr><td>Calves raises</td><td>2</td><td>Calves</td><td>Consistent volume; 4/week total</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Analysis:</strong> Weekly totals: Chest 11 sets, Back 12 sets, Shoulders 9 sets, Biceps 6 sets, Triceps 5 sets, Quads 5 sets, Hamstrings 5 sets. Back and chest volumes are in MAV range. Quad and hamstring volumes (5 sets/week each) are below typical MAV. The machine-isolation-dominant pattern for legs misses stretch-mediated stimulus of compound squats and RDLs.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Upper/Lower splits provide 2x per muscle group frequency with sufficient per-session volume (8&ndash;12 sets). The client template reveals a hypertrophy programme with balanced upper body volume (chest 11, back 12, shoulders 9 sets/week) and lower volume below typical MAV (quads 5, hamstrings 5 sets/week). The machine-dominant lower body pattern is an intentional choice that targets isolation but misses stretch-mediated compound stimulus.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch15">15. Push/Pull/Legs Split Templates</h2>
+
+<h3>15.1 The PPL Framework</h3>
+<p>The Push/Pull/Legs (PPL) split divides the body into three functional categories: push (chest, shoulders, triceps), pull (back, biceps, rear delts, forearms), and legs (quadriceps, hamstrings, glutes, adductors, abductors, calves). At 6 sessions per week, each category is trained twice. The PPL split provides the highest training frequency (2x per muscle group) with moderate per-session volume (10&ndash;14 sets per muscle group). The key advantage is functional synergy: pushing and pulling movements naturally work together, and leg sessions are separated from upper body sessions, minimising systemic fatigue interference.</p>
+
+<h3>15.2 Client Template: PPL (6-Day)</h3>
+
+<table>
+  <caption data-label="Table 15.1">Push &mdash; Chest, Front Delt, Triceps</caption>
+  <thead><tr><th>Exercise</th><th>Sets</th><th>Target</th><th>Coaching Rationale</th></tr></thead>
+  <tbody>
+    <tr><td>Incline chest press</td><td>3</td><td>Upper chest, front delt</td><td>Primary chest compound; upper chest emphasis</td></tr>
+    <tr><td>Machine chest flies</td><td>3</td><td>Pectorals</td><td>Stretch-focused isolation; constant tension</td></tr>
+    <tr><td>Shoulder press</td><td>2</td><td>Anterior and lateral delts</td><td>Overhead compound; anterior delt stimulus</td></tr>
+    <tr><td>Lateral raises</td><td>2</td><td>Lateral delts</td><td>Shoulder width; lateral delt hypertrophy</td></tr>
+    <tr><td>Triceps pushdown</td><td>2</td><td>Triceps (lateral head)</td><td>Cable isolation; constant tension throughout ROM</td></tr>
+    <tr><td>Triceps overhead extensions</td><td>2</td><td>Triceps (long head)</td><td>Stretch at the lengthened position; targets long head</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Analysis:</strong> Push day features 6 chest sets (3 press + 3 flies) which is at the lower end of MAV (10&ndash;14/week). Triceps receive 4 sets total across two exercises. Shoulder volume is 4 sets (2 press + 2 raises). Total push work = 14 sets.</p>
+
+<table>
+  <caption data-label="Table 15.2">Pull &mdash; Back, Rear Delt, Biceps, Forearms</caption>
+  <thead><tr><th>Exercise</th><th>Sets</th><th>Target</th><th>Coaching Rationale</th></tr></thead>
+  <tbody>
+    <tr><td>Lat pulldown</td><td>2</td><td>Lats (width)</td><td>Vertical pull; lat width development</td></tr>
+    <tr><td>Seated row</td><td>2</td><td>Mid back</td><td>Horizontal pull; rhomboid and mid trap thickness</td></tr>
+    <tr><td>T-bar row</td><td>2</td><td>Mid back</td><td>Different horizontal pull angle; increased back volume</td></tr>
+    <tr><td>Kelso shrugs</td><td>1</td><td>Upper traps</td><td>Targeted trap isolation</td></tr>
+    <tr><td>Vertical shrugs (dumbbell)</td><td>1</td><td>Upper traps</td><td>Additional trap volume</td></tr>
+    <tr><td>Rear delt flies</td><td>2</td><td>Posterior delts</td><td>Often lagging; important for shoulder health and posture</td></tr>
+    <tr><td>Preacher curls</td><td>3</td><td>Biceps</td><td>Stabilised elbow flexion; 3 sets = primary arm volume</td></tr>
+    <tr><td>Forearm extensions / flection</td><td>1 each</td><td>Forearm extensors/flexors</td><td>Forearm development; grip strength carryover</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Analysis:</strong> Pull day provides 10 back sets, 2 rear delt sets, 3 bicep sets, and 2 forearm sets. Total = 15 sets. Back volume is within MAV range.</p>
+
+<table>
+  <caption data-label="Table 15.3">Legs &mdash; Quadriceps, Hamstrings, Glutes, Adductors/Abductors, Calves</caption>
+  <thead><tr><th>Exercise</th><th>Sets</th><th>Target</th><th>Coaching Rationale</th></tr></thead>
+  <tbody>
+    <tr><td>Leg extensions</td><td>2</td><td>Quadriceps</td><td>Isolation; targets rectus femoris</td></tr>
+    <tr><td>Leg curls</td><td>2</td><td>Hamstrings</td><td>Knee flexion isolation</td></tr>
+    <tr><td>Adductors (machine)</td><td>2</td><td>Adductors</td><td>Hip adduction; squat stability</td></tr>
+    <tr><td>Abductors (machine)</td><td>2</td><td>Abductors, glute medius</td><td>Hip abduction; lateral glute development</td></tr>
+    <tr><td>Hip thrust</td><td>2</td><td>Glutes</td><td>Hip extension; glute hypertrophy</td></tr>
+    <tr><td>Calves raises</td><td>2</td><td>Calves</td><td>Isolation; high frequency tolerated</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Analysis:</strong> At 2x/week PPL, weekly totals: Quads 4 sets, Hamstrings 4 sets, Glutes 4 sets, Adductors 4 sets, Abductors 4 sets, Calves 4 sets. These volumes are below typical MAV ranges for all leg muscle groups. The absence of any compound leg movement means all leg work is machine isolation.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>PPL splits (6x/week) provide 2x frequency with moderate per-session volume. The client template shows push (14 sets) and pull (15 sets) volumes within useful ranges, but leg volume is significantly below MAV (4 sets per muscle group per week). The absence of compound lower body lifts is notable. Coaches should consider adding a squat or leg press variant to address quad volume and an RDL for hamstring stretch loading.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch16">16. Bro Split / Body-Part Split Templates</h2>
+
+<h3>16.1 The Bro Split Framework</h3>
+<p>The bro split, or body-part split, dedicates each training session to one or two muscle groups, training each muscle group once per week. The classic version is: Chest, Back, Shoulders, Legs, Arms. The per-session volume is high (15&ndash;20+ sets per muscle group), and frequency is low (1x per week). While the bro split has fallen out of favour in evidence-based coaching due to the superiority of higher frequency (2x/week) for hypertrophy, it remains effective for advanced lifters who need very high per-session volume to reach MRV for a muscle group, individuals with schedule constraints that limit frequency, and clients who enjoy the focus and intensity of single-muscle-group sessions.</p>
+
+<h3>16.2 Torso/Limbs Split (Client Template)</h3>
+<p>The Torso/Limbs split (often called the Arnold split after Arnold Schwarzenegger's preferred structure) trains the torso (chest, back, shoulders) on one day and limbs (legs, arms) on another, typically in a 4-day cycle: Torso, Limbs, Rest, Repeat.</p>
+
+<table>
+  <caption data-label="Table 16.1">Torso &mdash; Chest, Back, Delts</caption>
+  <thead><tr><th>Exercise</th><th>Sets</th><th>Target</th><th>Coaching Rationale</th></tr></thead>
+  <tbody>
+    <tr><td>Incline chest press</td><td>3</td><td>Upper chest, front delt</td><td>Primary press; upper chest emphasis</td></tr>
+    <tr><td>Machine chest flies</td><td>3</td><td>Pectorals</td><td>Stretch-focused chest isolation</td></tr>
+    <tr><td>Lat pulldown</td><td>2</td><td>Lats</td><td>Vertical pull</td></tr>
+    <tr><td>Seated row</td><td>1</td><td>Mid back</td><td>Horizontal pull; lower volume on this variation</td></tr>
+    <tr><td>T-bar row</td><td>2</td><td>Mid back</td><td>Primary horizontal pull; higher volume</td></tr>
+    <tr><td>Kelso shrugs</td><td>1</td><td>Upper traps</td><td>Trap isolation</td></tr>
+    <tr><td>Vertical shrugs</td><td>1</td><td>Upper traps</td><td>Additional trap volume</td></tr>
+    <tr><td>Shoulder press</td><td>1</td><td>Anterior/lateral delts</td><td>Overhead; single set sufficient given pressing volume</td></tr>
+    <tr><td>Lateral raises</td><td>2</td><td>Lateral delts</td><td>Shoulder width focus</td></tr>
+    <tr><td>Rear delt flies</td><td>1</td><td>Posterior delts</td><td>Posterior delt maintenance</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Analysis:</strong> Torso session totals 18 sets across chest (6), back (8 including traps), and shoulders (4). When run 2x/week in the Torso/Limbs cycle, this provides 12 chest sets/week and 16 back sets/week, both within MAV. The key advantage is that torso sessions group synergistic pushing and pulling muscle groups.</p>
+
+<table>
+  <caption data-label="Table 16.2">Limbs &mdash; Legs, Arms</caption>
+  <thead><tr><th>Exercise</th><th>Sets</th><th>Target</th><th>Coaching Rationale</th></tr></thead>
+  <tbody>
+    <tr><td>Leg extensions</td><td>3</td><td>Quadriceps</td><td>Quad isolation; 3 sets = moderate volume</td></tr>
+    <tr><td>Leg curls</td><td>3</td><td>Hamstrings</td><td>Hamstring isolation; 3 sets = moderate volume</td></tr>
+    <tr><td>Adductors (machine)</td><td>2</td><td>Adductors</td><td>Hip adduction for stability and leg development</td></tr>
+    <tr><td>Abductors (machine)</td><td>2</td><td>Abductors, glute medius</td><td>Hip abduction; lateral glute</td></tr>
+    <tr><td>Hip thrust</td><td>2</td><td>Glutes</td><td>Glute hypertrophy</td></tr>
+    <tr><td>Calves raises</td><td>2</td><td>Calves</td><td>Calf isolation</td></tr>
+    <tr><td>Preacher curls</td><td>2</td><td>Biceps</td><td>Stabilised bicep curl</td></tr>
+    <tr><td>Hammer curls</td><td>2</td><td>Brachialis, brachioradialis</td><td>Forearm/biceps brachialis development</td></tr>
+    <tr><td>Triceps pushdown</td><td>2</td><td>Triceps (lateral head)</td><td>Tricep isolation (lateral head focus)</td></tr>
+    <tr><td>Triceps overhead extensions</td><td>2</td><td>Triceps (long head)</td><td>Tricep isolation (long head stretch)</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Analysis:</strong> The Limbs session totals 22 sets: legs (14), biceps (4), triceps (4). At 2x/week, this provides 28 leg sets/week, 8 bicep sets/week, and 8 tricep sets/week. Leg volume is within MAV range for each muscle group when distributed.</p>
+
+<h3>16.3 The Arnold Split (Chest &amp; Back / Legs / Shoulders &amp; Arms)</h3>
+<p>The Arnold split structures training around three sessions: <strong>Day 1: Chest &amp; Back</strong> &mdash; all pressing and pulling work, capitalising on the antagonistic pairing for enhanced recovery. <strong>Day 2: Legs</strong> &mdash; full leg session. <strong>Day 3: Shoulders &amp; Arms</strong> &mdash; dedicated delt work plus bicep and tricep isolation. This creates a 3-day rotation repeated cyclically, typically training 5&ndash;6 days per week. Each muscle group is trained 1.5&ndash;2x per week with high per-session volume and minimal fatigue interference between conflicting movement patterns.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Bro splits (1x/week per muscle group) require high per-session volume (15&ndash;20+ sets). The Torso/Limbs split provides 2x/week frequency when run in a 4-day cycle. The Arnold split (Chest &amp; Back / Legs / Shoulders &amp; Arms) provides 1.5&ndash;2x frequency in a cyclical rotation, capitalising on antagonistic pairing for recovery.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch17">17. Powerlifting-Specific Programming Templates</h2>
+
+<h3>17.1 Powerlifting Programme Structure</h3>
+<p>Powerlifting programming is organised around the three competition lifts: squat, bench press, and deadlift. Accessory work targets weak points identified through lift-specific analysis. The structure typically follows an Upper/Lower or SBD-focused split where each competition lift gets 2&ndash;3 sessions per week (or 1 heavy + 1 variation session). The primary difference from hypertrophy programming is that the competition lifts are always trained fresh (first in the session), and accessory volume is secondary to SBD performance.</p>
+
+<h3>17.2 Standard Powerlifting Week Structure</h3>
+<table>
+  <caption data-label="Table 17.1">Typical Powerlifting Week (4-Day Upper/Lower)</caption>
+  <thead><tr><th>Day</th><th>Focus</th><th>Competition Lift</th><th>Variations / Accessories</th></tr></thead>
+  <tbody>
+    <tr><td>Upper 1 (Heavy)</td><td>Bench press strength</td><td>Bench press (1&ndash;5 reps, 80&ndash;95%)</td><td>Close-grip bench, triceps, upper back, lateral raises</td></tr>
+    <tr><td>Lower 1 (Heavy)</td><td>Squat strength</td><td>Squat (1&ndash;5 reps, 80&ndash;95%)</td><td>Deadlift variation (RDL, deficit pull), quad accessory, hamstring curls</td></tr>
+    <tr><td>Upper 2 (Volume)</td><td>Bench press volume</td><td>Bench press (6&ndash;12 reps, 65&ndash;75%)</td><td>Overhead press, rows, pulldowns, arm work</td></tr>
+    <tr><td>Lower 2 (Speed)</td><td>Deadlift &amp; squat speed</td><td>Deadlift (speed sets, 50&ndash;65%, 8x2) + Squat variation</td><td>Core, glute/hamstring accessory, calves</td></tr>
+  </tbody>
+</table>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Powerlifting programming centres on the three competition lifts. A typical 4-day Upper/Lower week has two upper sessions (one heavy bench, one volume bench) and two lower sessions (one heavy squat, one speed deadlift/squat variation). Programme selection should match the lifter's training age: linear for novices, periodised for intermediates, and conjugate/block for advanced lifters.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch18">18. Exercise Substitution Logic</h2>
+
+<h3>18.1 Substitution by Goal</h3>
+<p>Exercise substitution is guided by the goal of the training phase. For <strong>strength-focused</strong> phases, substitutions should preserve the competition lift pattern. Substitute close-grip bench for conventional bench (same pattern, reduced ROM), or pause squat for competition squat (same pattern, increased time under tension). For <strong>hypertrophy-focused</strong> phases, substitutions should preserve the stretch and tension profile of the target muscle.</p>
+
+<h3>18.2 Substitution by Joint-Friendliness</h3>
+<p>When a client presents with joint limitations: <strong>Replace axial loading with supported loading</strong> (barbell squat &rarr; leg press). <strong>Replace free weights with machines</strong> for controlled resistance profiles. <strong>Reduce shoulder internal rotation</strong> in pressing (barbell bench &rarr; neutral-grip dumbbell press). <strong>Reduce spinal compression</strong> in hip hinge (barbell deadlift &rarr; trap bar deadlift or hip thrust).</p>
+
+<h3>18.3 Substitution Reference Table</h3>
+<table>
+  <caption data-label="Table 18.1">Exercise Substitution by Target</caption>
+  <thead><tr><th>Target Muscle</th><th>Primary Lift</th><th>Alternative A</th><th>Alternative B</th><th>Reason</th></tr></thead>
+  <tbody>
+    <tr><td>Quadriceps</td><td>Barbell back squat</td><td>Front squat</td><td>Leg press / hack squat</td><td>Front squat reduces spinal shear; leg press eliminates axial loading</td></tr>
+    <tr><td>Hamstrings</td><td>Barbell RDL</td><td>Nordic curl</td><td>Leg curl (seated or lying)</td><td>Nordic curl targets eccentric; leg curl isolates without spinal load</td></tr>
+    <tr><td>Chest</td><td>Barbell bench press</td><td>Dumbbell bench press</td><td>Machine chest press</td><td>Dumbbell allows greater ROM; machine provides constant tension</td></tr>
+    <tr><td>Lats</td><td>Pull-up</td><td>Lat pulldown</td><td>Straight-arm pulldown</td><td>Pulldown adjusts load to ability</td></tr>
+    <tr><td>Mid back</td><td>Barbell row</td><td>Chest-supported row</td><td>Cable seated row</td><td>Chest-supported eliminates lower back fatigue</td></tr>
+    <tr><td>Glutes</td><td>Barbell hip thrust</td><td>Barbell glute bridge</td><td>Cable pull-through</td><td>Glute bridge for home setup</td></tr>
+    <tr><td>Lateral delts</td><td>Dumbbell lateral raise</td><td>Cable lateral raise</td><td>Machine lateral raise</td><td>Cable provides constant tension through ROM</td></tr>
+    <tr><td>Triceps</td><td>Close-grip bench press</td><td>Tricep pushdown</td><td>Overhead tricep extension</td><td>Pushdown for constant tension; overhead for long head stretch</td></tr>
+    <tr><td>Biceps</td><td>Barbell curl</td><td>Dumbbell incline curl</td><td>Cable curl</td><td>Incline curl stretches biceps; cable curl provides constant tension</td></tr>
+  </tbody>
+</table>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Exercise substitution should preserve the goal: strength phases maintain competition pattern; hypertrophy phases maintain stretch/tension profile. Joint-friendly substitutions replace axial with supported loading, free weights with machines, and internally rotated with neutral grip pressing.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch19">19. Training Split Calculator &amp; Decision Logic</h2>
+
+<h3>19.1 Decision Framework</h3>
+<p>The training split calculator logic evaluates four inputs: <strong>Available days per week</strong>, <strong>training goal</strong> (hypertrophy, strength, or hybrid), <strong>training age</strong> (novice, intermediate, advanced), and <strong>recovery capacity</strong>.</p>
+
+<div class="algorithm">
+  <div class="algorithm-title">Split Selection Decision Tree</div>
+  <ol>
+    <li><strong>Available days:</strong> How many days can the client consistently train? (2&ndash;6)</li>
+    <li><strong>If 2&ndash;3 days:</strong> Full body. Volume: 4&ndash;6 sets/muscle/session.</li>
+    <li><strong>If 4 days:</strong> Upper/Lower or Torso/Limbs. Volume: 8&ndash;12 sets/muscle/session.</li>
+    <li><strong>If 5 days:</strong> Upper/Lower + accessories or PPL + Upper.</li>
+    <li><strong>If 6 days:</strong> PPL (2x each). Volume: 10&ndash;14 sets/muscle/session.</li>
+    <li><strong>Goal modifier:</strong> Strength &rarr; prioritise compounds; Hypertrophy &rarr; even distribution; Hybrid &rarr; block periodization.</li>
+    <li><strong>Recovery modifier:</strong> Low recovery &rarr; reduce per-session volume by 20&ndash;30%, increase deload frequency.</li>
+  </ol>
+</div>
+
+<h3>19.2 Weekly Volume Calculation Logic</h3>
+<div class="equation">
+  <div class="eq-content">$$\text{Sets per week} = \text{Sets per session} \times \text{Sessions per week for that muscle group}$$</div>
+</div>
+
+<h3>19.3 Split-Specific Constraints</h3>
+<p><strong>Full body:</strong> limited by session duration and systemic fatigue (max 28&ndash;30 sets/session). <strong>Upper/Lower:</strong> upper body limited by shoulder fatigue, lower body by CNS fatigue. <strong>PPL:</strong> push limited by elbow/shoulder fatigue, pull by grip/elbow fatigue. <strong>Bro split:</strong> limited by session duration; allows highest per-session volume but lowest frequency.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>The split calculator logic evaluates days available, goal, training age, and recovery capacity. Per-session volume is derived by dividing target MAV by frequency. Each split has unique constraints that must be respected for sustainable programming.</p>
+</div>
+
+<div class="case-study">
+  <div class="case-label">COACHING APPLICATION</div>
+  <div class="case-title">Domain 3 Case Study: Split Selection by Schedule</div>
+  <p><strong>Scenario:</strong> A 35-year-old female client, 62 kg, has been training for 2 years on a full-body split, 3 days per week. Her work schedule has changed: she now has 5 available training days but only 45&ndash;50 minutes per session. She identifies her biceps and glutes as lagging areas.</p>
+  <p><strong>Assessment:</strong> (1) 5 days available, 45&ndash;50 min per session. (2) Goal: body recomposition. (3) Training age: intermediate. (4) Per session time constraint limits volume to approximately 20&ndash;24 sets maximum. (5) Lagging areas: biceps and glutes.</p>
+  <p><strong>Intervention:</strong> (1) Recommend Upper/Lower + accessories (4-day Upper/Lower + 1 day glute/arm focus). (2) Superset antagonistic pairs on time-pressed days. (3) Implement RPE-based autoregulation to stay within time constraints. (4) The extra day allows focused development of lagging glutes and biceps without compromising the main Upper/Lower structure.</p>
+  <p><strong>Key Takeaway:</strong> When time per session is limited, split selection should prioritise frequency over per-session volume. Adding a dedicated weak-point day allows focused development without compromising the main structure.</p>
+</div>
+<!-- DOMAIN 4 -->
+<h1 id="domain4">Domain 4: Special Considerations &amp; Coaching</h1>
+
+<h2 id="ch20">20. Training Age &amp; Program Design</h2>
+
+<h3>20.1 The Training Age Spectrum</h3>
+<p>Training age refers to the cumulative number of years an individual has been engaged in structured resistance training. Training age determines physiological responsiveness, recovery capacity, and the complexity of programming required to drive adaptation. The three broad categories &mdash; novice, intermediate, and advanced &mdash; exist on a continuum, and the transition between them is gradual rather than discrete.</p>
+
+<h3>20.2 Novice (0&ndash;12 Months)</h3>
+<p>Novices are characterised by rapid adaptive responses to any resistance training stimulus. Neurological adaptations dominate early gains. Linear progression (adding load session-to-session) is effective because recovery capacity far exceeds the training stimulus. Programming guidelines: full body 3x/week, compound lift focus, 8&ndash;12 reps per set, 6&ndash;10 sets per muscle group per week (near MEV is sufficient for growth), RPE 7&ndash;8 (2&ndash;3 RIR) to minimise excessive fatigue, minimal isolation work beyond 1&ndash;2 exercises per major muscle group. The primary coaching challenge is technique acquisition, not stimulus optimisation.</p>
+
+<h3>20.3 Intermediate (1&ndash;3 Years)</h3>
+<p>Intermediates have exhausted linear progression and require periodization to continue progressing. The adaptive response slows, requiring higher volume and more sophisticated programming structures. Programming guidelines: full body, Upper/Lower, or PPL split depending on schedule, 2&ndash;3x per muscle group per week, 10&ndash;16 sets per muscle group per week (MAV range), double progression or linear periodization, RPE 7&ndash;9 (1&ndash;3 RIR) with occasional failure exposure, structured deloads every 5&ndash;7 weeks, targeted isolation work added for lagging muscles. The coaching challenge shifts from technique to fatigue management and periodization.</p>
+
+<h3>20.4 Advanced (3+ Years)</h3>
+<p>Advanced lifters have approached their genetic ceiling. Progress is measured in months to years, and even maintenance requires significant training volume. Programming guidelines: 2&ndash;3x per muscle group per week, 12&ndash;20+ sets per muscle group per week (MAV to MRV), block periodization or DUP, RPE 8&ndash;10 for key working sets, frequent strategic failure exposure, deloads every 4&ndash;6 weeks minimum, weak point training prioritised over balanced development. The coaching challenge is managing the narrow margin between stimulus and overreaching.</p>
+
+<table>
+  <caption data-label="Table 20.1">Programming by Training Age</caption>
+  <thead><tr><th>Variable</th><th>Novice (0&ndash;1 yr)</th><th>Intermediate (1&ndash;3 yrs)</th><th>Advanced (3+ yrs)</th></tr></thead>
+  <tbody>
+    <tr><td>Frequency per muscle</td><td>2&ndash;3x/week</td><td>2&ndash;3x/week</td><td>2&ndash;3x/week</td></tr>
+    <tr><td>Volume per muscle/week</td><td>6&ndash;10 sets</td><td>10&ndash;16 sets</td><td>12&ndash;20+ sets</td></tr>
+    <tr><td>Progression model</td><td>Linear (session-to-session)</td><td>Double progression (week-to-week)</td><td>Periodized (mesocycle-to-mesocycle)</td></tr>
+    <tr><td>RPE range</td><td>7&ndash;8</td><td>7&ndash;9</td><td>8&ndash;10</td></tr>
+    <tr><td>Deload frequency</td><td>Every 6&ndash;8 weeks</td><td>Every 5&ndash;7 weeks</td><td>Every 4&ndash;6 weeks</td></tr>
+    <tr><td>Primary challenge</td><td>Technique acquisition</td><td>Fatigue management</td><td>Marginal gains, peak timing</td></tr>
+  </tbody>
+</table>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Training age determines programming approach: novices respond to linear progression with low volume, intermediates require periodization and higher volume, and advanced lifters need sophisticated periodization with high volume and tight fatigue management. The progression involves decreasing adaptive rate, increasing volume requirements, and shifting the coaching challenge from technique to fatigue to marginal gains.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch21">21. Injury Risk Management &amp; Pain-Aware Programming</h2>
+
+<h3>21.1 The Pain-Aware Framework</h3>
+<p>Pain-aware programming distinguishes between discomfort (normal training sensation), nuisance pain (irritating but not limiting), and danger pain (sharp, localised, or worsening). The coach's role is to educate the client on this distinction and to modify training around pain rather than through it. The principle of relative rest &mdash; continuing to train the unaffected regions while modifying load, ROM, or exercise selection for the affected area &mdash; preserves muscle mass and conditioning during rehabilitation.</p>
+
+<h3>21.2 The Three-Tier Pain Response System</h3>
+<table>
+  <caption data-label="Table 21.1">Pain Response Tiers</caption>
+  <thead><tr><th>Tier</th><th>Pain Description</th><th>Action</th><th>Example</th></tr></thead>
+  <tbody>
+    <tr><td>Green (safe)</td><td>Muscle burn, fatigue, mild DOMs</td><td>Continue training; no modification needed</td><td>Lactate burn in quadriceps during leg extensions</td></tr>
+    <tr><td>Yellow (nuisance)</td><td>Dull ache, mild joint discomfort, resolves during warm-up</td><td>Modify: reduce ROM, adjust load, substitute exercise</td><td>Mild patellar ache during squats that resolves after warm-up</td></tr>
+    <tr><td>Red (danger)</td><td>Sharp, stabbing, worsening during set, localised to joint/tendon</td><td>Stop the exercise immediately; substitute; refer if persistent</td><td>Sharp shoulder pain during overhead press that worsens with each rep</td></tr>
+  </tbody>
+</table>
+
+<h3>21.3 Common Injury Prevention Strategies</h3>
+<p>General principles for reducing injury risk in resistance training: <strong>Progress volume slowly</strong> &mdash; the 10% rule (do not increase weekly volume by more than 10%) provides a conservative ceiling. <strong>Manage tissue capacity</strong> &mdash; tendons adapt more slowly than muscle (6&ndash;12 weeks vs. 2&ndash;4 weeks); volume jumps that are safe for muscle may overload tendons. <strong>Balance agonist-antagonist ratios</strong> &mdash; adequate pulling volume relative to pressing (at least 1:1, preferably 1.2:1 or more) reduces shoulder pathology risk. <strong>Include rotational and scapular work</strong> &mdash; face pulls, band pull-aparts, and scapular push-ups maintain shoulder health under high pressing volume.</p>
+
+<div class="callout">
+  <div class="callout-title">Critical: When to Refer Out</div>
+  <p>Coaches must recognise when pain exceeds their scope of practice. Red flags requiring medical referral include: sharp or stabbing pain, pain that persists beyond 2 weeks of modified training, neurological symptoms (numbness, tingling, weakness), joint swelling or instability, and pain accompanied by systemic symptoms (fever, unexplained weight loss, night sweats).</p>
+</div>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>The pain-aware framework uses a three-tier system (green/yellow/red) to guide exercise modification. Relative rest preserves muscle mass during injury recovery. Prevention strategies include slow volume progression, tendon-capacity awareness, balanced agonist-antagonist training, and scapular health maintenance. Recognise red-flag symptoms that require medical referral beyond the coach's scope.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch22">22. Kinetic Chain Mapping</h2>
+
+<h3>22.1 Closed vs. Open Chain</h3>
+<p>The kinetic chain describes the interconnected system of joints and muscles through which force is transmitted during movement. In a <strong>closed chain</strong> exercise, the distal segment is fixed (e.g., squat with feet on the ground). Force is transmitted through multiple joints sequentially, producing greater co-contraction and joint stability. In an <strong>open chain</strong> exercise, the distal segment moves freely (e.g., leg extension). These exercises isolate specific muscles more effectively but with less co-contraction and joint stability. A balanced programme includes both, with closed-chain exercises as the foundation for compound strength and open-chain exercises for targeted hypertrophy.</p>
+
+<h3>22.2 Regional Interdependence</h3>
+<p>Regional interdependence recognises that dysfunction in one region of the kinetic chain often manifests as symptoms in a different region. Common patterns include: limited hip mobility presenting as low back pain during squats, shoulder instability presenting as elbow pain during pressing, and ankle restriction presenting as knee valgus during squats. Understanding these patterns allows the coach to address the root cause rather than the symptom.</p>
+
+<h3>22.3 Kinetic Chain Reference Table</h3>
+<table>
+  <caption data-label="Table 22.1">Kinetic Chain Mapping</caption>
+  <thead><tr><th>Joint/Region</th><th>Common Restriction</th><th>Downstream Compensation</th><th>Affected Lift</th><th>Screening Test</th></tr></thead>
+  <tbody>
+    <tr><td>Ankle dorsiflexion</td><td>&lt;35&deg; dorsiflexion</td><td>Knee valgus, heel rise in squat, forward lean</td><td>Squat (all variations), deadlift</td><td>Knee-to-wall test (&gt;10 cm = adequate)</td></tr>
+    <tr><td>Hip flexion</td><td>Tight hip flexors, limited extension</td><td>Anterior pelvic tilt, lumbar extension, reduced glute activation</td><td>Squat depth, deadlift starting position</td><td>Thomas test; hip extension &lt;10&deg; = restricted</td></tr>
+    <tr><td>Hip external rotation</td><td>&lt;30&deg; passive rotation</td><td>Knee valgus, reduced squat depth</td><td>Squat, lunge, hip hinge</td><td>Seated hip rotation test</td></tr>
+    <tr><td>Thoracic extension</td><td>Inability to extend T-spine &gt;20&deg;</td><td>Lumbar extension compensation, forward head, shoulder impingement risk</td><td>Overhead press, squat (front rack), bench press</td><td>Wall slide test; T-spine rotation test (seated)</td></tr>
+    <tr><td>Shoulder internal rotation</td><td>&lt;60&deg; IR at 90&deg; abduction</td><td>Scapular protraction, increased AC joint stress</td><td>Bench press (bottom position), overhead press</td><td>Supine shoulder IR test</td></tr>
+    <tr><td>Scapular stability</td><td>Winging, dyskinesis at rest or during movement</td><td>Reduced force transfer in pressing/pulling, increased impingement risk</td><td>All pressing and pulling variations</td><td>Scapular retraction test; wall angel test</td></tr>
+  </tbody>
+</table>
+
+<div class="definition">
+  <div class="definition-title">Top-Down Screening Sequence</div>
+  <p>When assessing a movement limitation, screen from proximal to distal: (1) Core stability and breathing pattern, (2) Thoracic spine mobility, (3) Scapular control and shoulder mobility, (4) Hip mobility and pelvic control, (5) Knee tracking, (6) Ankle dorsiflexion. This sequence ensures that proximal restrictions (which often cause distal compensations) are identified first.</p>
+</div>
+
+<div class="algorithm">
+  <div class="algorithm-title">Kinetic Chain Screening Protocol</div>
+  <ol>
+    <li><strong>Observe gait and stance:</strong> Identify overt asymmetries or compensations.</li>
+    <li><strong>Screen overhead squat:</strong> Watch for early heel rise (ankle), knee valgus (hip), lumbar flexion (hip/core), arm fall (T-spine/shoulder).</li>
+    <li><strong>Screen hip hinge:</strong> Assess lumbar vs. hip contribution; restricted hip flexion presents as early lumbar rounding.</li>
+    <li><strong>Screen shoulder flexion/abduction:</strong> Assess full ROM and quality of movement; note any scapular dyskinesis.</li>
+    <li><strong>Targeted assessment:</strong> Based on findings above, perform specific ROM tests (Table 22.1) for restricted regions.</li>
+    <li><strong>Exercise modification:</strong> Adjust exercise selection, stance width, grip width, or ROM to work within the client's available mobility.</li>
+  </ol>
+</div>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Kinetic chain mapping identifies how restrictions in one region cause compensations elsewhere. The top-down screening sequence (core &rarr; T-spine &rarr; shoulder &rarr; hip &rarr; knee &rarr; ankle) identifies root causes efficiently. Closed-chain exercises build foundational stability; open-chain exercises provide targeted isolation. The coach's role is to differentiate between mobility restrictions requiring specific intervention and stability limitations requiring motor control work.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch23">23. Rehabilitation Protocols for Common Gym Injuries</h2>
+
+<div class="callout">
+  <div class="callout-title">Important Disclaimer</div>
+  <p>The protocols in this chapter are guidelines for training modification and return to exercise. They are <strong>not</strong> a substitute for professional medical diagnosis or physiotherapy. Any client with persistent, severe, or worsening pain should be referred to a qualified healthcare professional. Coaches operate within their scope of practice and should never diagnose injury.</p>
+</div>
+
+<h3>23.1 Low Back Pain (LBP)</h3>
+<p><strong>Mechanism:</strong> Often non-specific mechanical LBP from prolonged sitting, poor hip mobility, or excessive lumbar extension under load. Disc pathology is less common but more serious. <strong>Red flags:</strong> Radiating pain below the knee, numbness/tingling in the saddle region, bowel/bladder dysfunction, fever, unexplained weight loss. <strong>Phased approach:</strong> Phase 1 (protect, 1&ndash;2 weeks): remove spinal loading; substitute leg press for squat, chest-supported row for barbell row, trap bar deadlift for conventional. Phase 2 (load, 2&ndash;4 weeks): reintroduce axial loading at 50% volume; use goblet squats, RDLs with light loads. Phase 3 (return, 4&ndash;6 weeks): progressively return to full squat/deadlift variation at 70&ndash;80% of previous load over 3&ndash;4 weeks.</p>
+
+<table>
+  <caption data-label="Table 23.1">Low Back Pain: Safe Exercise Regressions</caption>
+  <thead><tr><th>Aggravating Exercise</th><th>Safe Regression (Phase 1)</th><th>Intermediate Regression (Phase 2)</th></tr></thead>
+  <tbody>
+    <tr><td>Barbell back squat</td><td>Leg press / belt squat</td><td>Goblet squat / front squat (lighter)</td></tr>
+    <tr><td>Conventional deadlift</td><td>Trap bar deadlift</td><td>RDL (light, controlled eccentric)</td></tr>
+    <tr><td>Barbell row</td><td>Chest-supported row (machine)</td><td>Cable seated row (upright posture)</td></tr>
+    <tr><td>Overhead press (standing)</td><td>Seated dumbbell press (back supported)</td><td>Standing with core braced, lighter load</td></tr>
+  </tbody>
+</table>
+
+<h3>23.2 Shoulder Impingement</h3>
+<p><strong>Mechanism:</strong> Subacromial narrowing causing mechanical compression of the supraspinatus tendon, subacromial bursa, or long head of the biceps tendon. <strong>Red flags:</strong> Night pain, painful arc (60&ndash;120&deg; abduction), positive Neer or Hawkins-Kennedy tests. <strong>Phased approach:</strong> Phase 1 (protect, 1&ndash;2 weeks): eliminate overhead pressing and horizontal adduction past neutral; substitute neutral-grip pressing, cable crossovers (low to high). Phase 2 (load, 2&ndash;4 weeks): reintroduce incline pressing at 60&deg; (less impingement risk than flat bench), add face pulls and external rotation work. Phase 3 (return, 4&ndash;6 weeks): progressive return to flat bench and overhead press at reduced ROM (stop 2&ndash;3 inches above chest, no lockout).</p>
+
+<h3>23.3 Patellofemoral Pain (Runner's Knee)</h3>
+<p><strong>Mechanism:</strong> Abnormal tracking of the patella in the femoral trochlear groove, often from weak VMO relative to lateral quadriceps structures. <strong>Red flags:</strong> Swelling, locking, giving way, pain behind the patella when sitting (movie sign). <strong>Phased approach:</strong> Phase 1 (protect, 1&ndash;2 weeks): eliminate deep squats and leg extensions; substitute leg press with limited ROM (0&ndash;45&deg;), hip thrusts, step-ups (low step height). Phase 2 (load, 2&ndash;4 weeks): reintroduce partial ROM squats (to parallel), add terminal knee extensions (last 30&deg;). Phase 3 (return, 4&ndash;6 weeks): progressively increase squat depth, reintroduce leg extensions at light weight.</p>
+
+<h3>23.4 Elbow Tendinopathy (Golfer's/ Tennis Elbow)</h3>
+<p><strong>Mechanism:</strong> Overuse of the wrist flexors/extensors at the medial or lateral epicondyle. <strong>Phased approach:</strong> Phase 1 (protect, 1&ndash;2 weeks): eliminate direct forearm work; substitute neutral grip for pronated/supinated grip in pulling; use straps to reduce grip demand. Phase 2 (load, 2&ndash;4 weeks): introduce isometric holds (30&ndash;45 seconds) at mid-ROM; slow eccentrics (4&ndash;6 seconds) for wrist flexors/extensors. Phase 3 (return, 4&ndash;6 weeks): progressive return to full grip work; continue eccentric protocol 2&ndash;3x/week as maintenance.</p>
+
+<h3>23.5 Hamstring Strain</h3>
+<p><strong>Mechanism:</strong> Eccentric overload during high-speed running or RDLs. <strong>Phased approach:</strong> Phase 1 (protect, 1&ndash;3 days): eliminate hamstring-dominant exercises; substitute hip extension work (hip thrusts, glute bridges). Phase 2 (load, 1&ndash;2 weeks): reintroduce RDLs at 30&ndash;50% load, 1&ndash;2 RIR; focus on slow eccentric (4&ndash;6 seconds). Phase 3 (return, 2&ndash;4 weeks): progressive loading to previous levels; add Nordic curls 2x/week for eccentric capacity.</p>
+
+<h3>23.6 DOMS vs. Injury</h3>
+<table>
+  <caption data-label="Table 23.2">DOMS vs. Injury: Differential Signs</caption>
+  <thead><tr><th>Feature</th><th>DOMS</th><th>Injury</th></tr></thead>
+  <tbody>
+    <tr><td>Onset</td><td>12&ndash;24 hours post-training</td><td>Immediate or within minutes</td></tr>
+    <tr><td>Location</td><td>Diffuse, bilateral (if trained bilaterally)</td><td>Localised, often unilateral</td></tr>
+    <tr><td>Sensation</td><td>Dull ache, stiffness</td><td>Sharp, stabbing, or burning</td></tr>
+    <tr><td>Duration</td><td>24&ndash;72 hours</td><td>&gt;5&ndash;7 days or worsening</td></tr>
+    <tr><td>Swelling</td><td>Mild or absent</td><td>Visible or palpable swelling/bruising</td></tr>
+    <tr><td>Symmetry</td><td>Bilateral (comparable body parts on both sides)</td><td>Unilateral (one side only)</td></tr>
+  </tbody>
+</table>
+
+<div class="algorithm">
+  <div class="algorithm-title">Phased Return to Training After Injury</div>
+  <ol>
+    <li><strong>Phase 1: Protect (1&ndash;14 days):</strong> Remove the aggravating load. Maintain training for unaffected areas. Substitute with pain-free alternatives. Monitor: pain level (0&ndash;10), ROM, ADL function.</li>
+    <li><strong>Phase 2: Load introduction:</strong> Begin light, pain-free loading of the affected structure. RPE 4&ndash;6 (4+ RIR). Slow concentric and eccentric tempos. Progress: increase load or volume every 4&ndash;7 days as tolerated.</li>
+    <li><strong>Phase 3: Progressive return:</strong> Transition back to normal exercise selection at 60&ndash;70% of pre-injury load. Monitor for symptoms during and after sessions. If symptoms flare, reduce load by 20% and extend Phase 2 by 1&ndash;2 weeks.</li>
+    <li><strong>Re-injury prevention:</strong> Identify the likely cause (excessive volume increase, poor form, mobility restriction). Address the root cause before returning to full training. Maintain an 80% load ceiling for 2&ndash;4 weeks after full return.</li>
+  </ol>
+</div>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Common gym injuries (low back, shoulder impingement, patellofemoral pain, elbow tendinopathy, hamstring strain) each require a phased approach: protect &rarr; load &rarr; return. Each phase has specific exercise substitutions and progression criteria. The DOMS vs. injury differential guide helps coaches and clients distinguish normal soreness from pathology. Coaches must never diagnose injuries; they modify training within the bounds of medical guidance.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch24">24. Female-Specific Training Considerations</h2>
+
+<h3>24.1 Menstrual Cycle and Training Performance</h3>
+<p>The menstrual cycle creates predictable physiological fluctuations that affect training performance. Oestrogen and progesterone modulate neuromuscular function, substrate metabolism, thermoregulation, and recovery. Understanding these changes allows the coach to optimise training prescription without overcomplicating it. The evidence suggests that while performance fluctuations exist, individual variability is substantial and most female athletes do not need to periodize their training around the menstrual cycle unless they experience significant premenstrual symptoms.</p>
+
+<table>
+  <caption data-label="Table 24.1">Training Considerations Across the Menstrual Cycle</caption>
+  <thead><tr><th>Phase</th><th>Days (28-day cycle)</th><th>Performance Changes</th><th>Training Adjustments (Optional)</th></tr></thead>
+  <tbody>
+    <tr><td>Early Follicular (menses)</td><td>1&ndash;5</td><td>Low oestrogen/progesterone; potentially reduced strength and power output; reduced neuromuscular fatigue resistance</td><td>Maintain normal training; may feel heavier; focus on effort-based autoregulation</td></tr>
+    <tr><td>Late Follicular</td><td>6&ndash;14</td><td>Rising oestrogen peaks before ovulation; improved neuromuscular performance; lower perceived exertion; peak strength/power window</td><td>Optimal window for heavy strength work, PR attempts, and high-intensity sessions</td></tr>
+    <tr><td>Luteal (early)</td><td>15&ndash;21</td><td>Rising progesterone; increased core temperature (0.3&ndash;0.5&deg;C); reduced exercise capacity in hot conditions; increased protein catabolism</td><td>May require longer warm-up; slightly higher carbohydrate intake beneficial; monitor recovery</td></tr>
+    <tr><td>Luteal (late / PMS)</td><td>22&ndash;28</td><td>Highest progesterone; increased perceived exertion; reduced coordination; water retention; mood fluctuations; potential fatigue</td><td>Reduce expected output; prioritise technique; lower volume if needed; increase deload frequency if symptoms are severe</td></tr>
+  </tbody>
+</table>
+
+<h3>24.2 Hormonal Contraception</h3>
+<p>Hormonal contraception suppresses the natural menstrual cycle, eliminating the hormone fluctuations described above. Athletes on monophasic contraceptives experience a flat hormonal profile, meaning their training response is more consistent across the month. The anovulatory state may slightly reduce the late follicular strength peak, but for most athletes, the hormonal contraceptive state provides more predictable daily readiness. Coaches should ask about (but not pressure for) contraceptive status to inform training expectations.</p>
+
+<h3>24.3 Iron and Female Athletes</h3>
+<p>Menstruating females lose an average of 0.5&ndash;0.8 mg of iron per day through menstrual blood loss, with heavy menstruation adding 1&ndash;2 mg/day. This places female athletes at elevated risk of iron deficiency, which directly impairs aerobic performance and recovery. Annual ferritin screening is recommended. Subclinical iron deficiency (ferritin &lt;30 ng/mL with normal haemoglobin) is more common than frank anaemia and still impairs performance. Supplementation should only follow testing to avoid iron overload.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>The menstrual cycle affects training performance through oestrogen and progesterone fluctuations. The late follicular phase (days 6&ndash;14) is typically the performance peak. However, most female athletes do not need strict cycle-based periodization. Hormonal contraception flattens the cycle's effects. Female athletes are at elevated risk for iron deficiency, requiring annual ferritin screening. The key coaching principle is individualised autoregulation rather than rigid cycle-based programming.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch25">25. Concurrent Training</h2>
+
+<h3>25.1 The Interference Effect</h3>
+<p>Concurrent training refers to combining resistance training with endurance or cardiovascular training within the same programme. The interference effect describes the blunting of strength and hypertrophy adaptations when endurance training is added to a resistance training programme. The primary mechanisms are molecular (AMPK activation suppressing mTOR signalling), neuromuscular (residual fatigue from endurance work impairing motor unit recruitment during resistance training), and recovery competition (both modalities compete for limited recovery capacity). The interference effect is most pronounced when high-volume, high-intensity endurance work is performed in the same session as heavy resistance training.</p>
+
+<h3>25.2 Minimising Interference</h3>
+<p>Several strategies reduce the interference effect: <strong>Separate sessions by at least 6 hours</strong> (preferably 24+ hours). When same-session training is unavoidable, <strong>resistance training first</strong> produces better strength outcomes than cardio first. <strong>Low-intensity steady-state (LISS) cardio</strong> (&lt;70% VO2max) produces substantially less interference than high-intensity interval training (HIIT). <strong>Moderate endurance volume</strong> (30&ndash;50 min, 3&ndash;4 sessions per week) can be accommodated without meaningful interference, provided protein intake (1.6&ndash;2.2 g/kg/day) is adequate. <strong>Protein timing</strong> &mdash; consuming 20&ndash;40 g protein before or after endurance sessions &mdash; may blunt the AMPK-mediated suppression of mTOR signalling.</p>
+
+<table>
+  <caption data-label="Table 25.1">Concurrent Training Guidelines</caption>
+  <thead><tr><th>Scenario</th><th>Recommendation</th></tr></thead>
+  <tbody>
+    <tr><td>Strength + LISS (different sessions)</td><td>Minimal interference; separate by &ge;6 hours</td></tr>
+    <tr><td>Strength + LISS (same session)</td><td>Resistance first, LISS second; moderate interference</td></tr>
+    <tr><td>Strength + HIIT (different days)</td><td>Moderate interference; prioritise recovery and protein intake</td></tr>
+    <tr><td>Strength + HIIT (same session)</td><td>Significant interference; avoid if possible; protein critical</td></tr>
+    <tr><td>Hypertrophy + endurance (any)</td><td>Moderate interference manageable with adequate nutrition</td></tr>
+  </tbody>
+</table>
+
+<h3>25.3 Practical Protocol</h3>
+<p>For a client combining resistance training with cardiovascular conditioning: schedule resistance sessions in the morning and LISS or metabolic conditioning in the afternoon (6+ hour separation). On resistance-only days, no additional interference concern exists. On cardio-only days (if separate from resistance days), no interference occurs. If both must be combined into one session, perform resistance training first (when CNS is fresh), then LISS (incline walk, cycling, rowing at low-moderate intensity). Avoid HIIT on resistance days unless the primary goal is cardio performance rather than hypertrophy.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Concurrent training can produce interference via molecular, neuromuscular, and recovery-based mechanisms. LISS cardio creates minimal interference; HIIT creates more. Separate sessions by at least 6 hours or perform resistance training first. Moderate endurance volume (30&ndash;50 min, 3&ndash;4x/week) is compatible with hypertrophy goals when protein intake is adequate. The interference effect is real but manageable with proper programming and nutrition.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch26">26. Home Gym / Minimal Equipment Programming</h2>
+
+<h3>26.1 Programming Principles for Limited Equipment</h3>
+<p>Home gym programming requires adapting the principles of progressive overload to limited equipment availability. The key principles remain the same: mechanical tension, progressive overload, sufficient volume, and adequate frequency. The difference is that exercise variety is reduced, load progression is constrained by available weights, and certain movements require creative substitution. The most limiting factor is typically the lack of heavy compound loading and cable/machine isolation, which changes how you achieve tension and overload.</p>
+
+<h3>26.2 Equipment Categories and Programming Approach</h3>
+<table>
+  <caption data-label="Table 26.1">Home Gym Equipment and Programming Strategy</caption>
+  <thead><tr><th>Equipment Available</th><th>Programming Approach</th><th>Key Limitations</th></tr></thead>
+  <tbody>
+    <tr><td>Dumbbells only (adjustable)</td><td>Full body or Upper/Lower; focus on single-leg work for loading; tempo and ROM as overload methods</td><td>Load ceiling on compound lifts; grip becomes limiting factor</td></tr>
+    <tr><td>Barbell + rack + bench</td><td>Full body or Upper/Lower; SBD-focused programming with barbell compounds</td><td>Expensive equipment; limited isolation; need plates for progression</td></tr>
+    <tr><td>Resistance bands + suspension trainer (TRX)</td><td>Full body with high repetition and tempo focus; time under tension replaces load progression</td><td>Limited load ceiling; progression via band thickness</td></tr>
+    <tr><td>Kettlebells</td><td>Full body with ballistic emphasis; swings, clean and press, Turkish get-ups</td><td>Limited progressive overload; strength ceiling low</td></tr>
+    <tr><td>Calisthenics (bodyweight only)</td><td>Full body with progression through leverage; push-up, pull-up, squat, lunge variations</td><td>Leg loading severely limited; lower body requires single-leg or plyometric progression</td></tr>
+  </tbody>
+</table>
+
+<h3>26.3 Progressive Overload Strategies for Limited Equipment</h3>
+<p>When load cannot be increased, alternative overload methods become critical: <strong>Volume increase</strong> &mdash; add sets and/or reps to increase total work. <strong>Tempo manipulation</strong> &mdash; slow the eccentric to 4&ndash;6 seconds, add a 1&ndash;2 second pause at the stretched position. <strong>Decreased rest intervals</strong> &mdash; reduce rest from 90 seconds to 45 seconds to increase density and metabolic stress. <strong>Increased ROM</strong> &mdash; deficit push-ups, deeper squats, full stretch at the bottom of each rep. <strong>Unilateral work</strong> &mdash; single-leg squats, single-arm pressing double the load on one limb. <strong>Advanced variations</strong> &mdash; decline push-ups, archer pull-ups, pistol squats, Bulgarian split squats.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Home gym programming adapts standard principles to equipment limitations. Dumbbells, barbells, bands, kettlebells, and calisthenics each require distinct programming approaches. When load progression plateaus, alternative overload methods (volume, tempo, rest reduction, ROM, unilateral work) sustain adaptation. The most constrained home gym scenario is calisthenics for lower body, where single-leg work and plyometric progression are essential programming tools.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch27">27. Complete Training Assessment</h2>
+
+<p>A structured training assessment should be conducted at programme intake and reassessed after each training block (typically every 6&ndash;12 weeks). The assessment covers seven domains adapted from the Complete Nutrition Assessment framework:</p>
+
+<h3>27.1 Training History &amp; Experience</h3>
+<ul>
+  <li>Total training age (years of consistent resistance training)</li>
+  <li>Recent training history (last 12 months: split type, frequency, volume)</li>
+  <li>Primary goal (hypertrophy, strength, power, endurance, general fitness)</li>
+  <li>Competition history (powerlifting, bodybuilding, strongman, sports)</li>
+  <li>Previous programmes tried and response to each</li>
+</ul>
+
+<h3>27.2 Movement Quality Assessment</h3>
+<table>
+  <caption data-label="Table 27.1">Movement Screening</caption>
+  <thead><tr><th>Assessment</th><th>What to Observe</th><th>Red Flags</th></tr></thead>
+  <tbody>
+    <tr><td>Overhead squat (bodyweight)</td><td>Depth, knee tracking, torso angle, arm position</td><td>Early heel rise, knee valgus, lumbar rounding, arms fall forward</td></tr>
+    <tr><td>Hip hinge (RDL pattern)</td><td>Spinal position, hip excursion, knee bend</td><td>Lumbar flexion, excessive knee bend (squat pattern), limited hamstring stretch</td></tr>
+    <tr><td>Push-up (strict)</td><td>Scapular control, core stability, elbow path</td><td>Scapular winging, excessive flaring, lumbar sag</td></tr>
+    <tr><td>Pull-up or inverted row</td><td>Full ROM, scapular retraction, symmetry</td><td>Asymmetrical movement, partial ROM, lack of scapular control</td></tr>
+    <tr><td>Single-leg squat</td><td>Knee tracking, hip control, balance</td><td>Knee valgus, hip drop, loss of balance</td></tr>
+  </tbody>
+</table>
+
+<h3>27.3 Current Programme Audit</h3>
+<ul>
+  <li>Split type and weekly frequency per muscle group</li>
+  <li>Current volume per muscle group per week (sets)</li>
+  <li>Rep ranges used (primary and isolation)</li>
+  <li>RPE/RIR targeting and proximity to failure</li>
+  <li>Progression model (linear, double progression, periodized)</li>
+  <li>Deload frequency and adherence</li>
+  <li>Exercise selection (free weight vs. machine balance, ROM quality)</li>
+</ul>
+
+<h3>27.4 Recovery &amp; Readiness Assessment</h3>
+<ul>
+  <li>Sleep quantity and quality (hours/night, sleep onset, awakenings)</li>
+  <li>Stress levels (subjective 1&ndash;10; life and work stress factors)</li>
+  <li>Training motivation (eager to train vs. dreading sessions)</li>
+  <li>Joint health (any persistent aches, pains, or injuries)</li>
+  <li>Illness frequency (colds, infections; elevated suggests overreaching)</li>
+  <li>Heart rate variability (if tracked; declining trend = recovery concern)</li>
+</ul>
+
+<h3>27.5 Performance Tracking Audit</h3>
+<ul>
+  <li>Are working sets logged (exercise, load, reps, RPE)?</li>
+  <li>What metrics are tracked? (scale weight, measurements, progress photos, performance)</li>
+  <li>How frequently is progress assessed? (weekly, biweekly, monthly)</li>
+  <li>Is there a defined progression plan or is training ad hoc?</li>
+  <li>Are deloads scheduled or reactive?</li>
+</ul>
+
+<h3>27.6 Biofeedback &amp; Subjective Experience</h3>
+<ul>
+  <li>How does the client feel during sessions? (energised vs. drained)</li>
+  <li>Post-training recovery: appetite, sleep quality, next-day soreness</li>
+  <li>Joint response to training (nagging pains, stiffness patterns)</li>
+  <li>Training satisfaction (enjoyment vs. obligation)</li>
+  <li>Workout consistency (missed sessions, shortened sessions, reduced effort)</li>
+</ul>
+
+<h3>27.7 Training Priority Matrix</h3>
+<p>Based on the assessment, prioritise interventions in order of impact:</p>
+<ol>
+  <li><strong>Consistency &amp; adherence</strong> &mdash; is the client training regularly? (first priority: nothing works without attendance)</li>
+  <li><strong>Progressive overload</strong> &mdash; is load, volume, or quality of effort progressing? (second priority)</li>
+  <li><strong>Exercise quality</strong> &mdash; are exercises well-selected with full ROM and appropriate stability? (third priority)</li>
+  <li><strong>Volume adequacy</strong> &mdash; is volume in the MAV range for each muscle group? (fourth priority)</li>
+  <li><strong>Frequency &amp; split optimisation</strong> &mdash; is the split structure optimal for the goal? (fifth priority)</li>
+  <li><strong>Periodization &amp; deload adherence</strong> &mdash; is periodization managing fatigue effectively? (sixth priority)</li>
+  <li><strong>Recovery support</strong> &mdash; sleep, stress, nutrition (supporting factors, not primary training variables)</li>
+</ol>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>The 7-domain training assessment covers training history, movement quality, current programme audit, recovery, performance tracking, biofeedback, and a priority matrix. Consistency and progressive overload are the highest-priority intervention targets. The assessment should be conducted at intake and reassessed every 6&ndash;12 weeks. Movement screening identifies mobility and stability limitations before they become injuries.</p>
+</div>
+
+<div class="case-study">
+  <div class="case-label">COACHING APPLICATION</div>
+  <div class="case-title">Domain 4 Case Study: Returning from Low Back Injury</div>
+  <p><strong>Scenario:</strong> A 34-year-old male client, 92 kg, has been powerlifting for 4 years (best lifts: squat 180 kg, bench 120 kg, deadlift 210 kg). He developed non-specific mechanical low back pain 6 weeks ago during a heavy deadlift session. He took 2 weeks off, but the pain returns when he tries to squat or deadlift. He wants to maintain his strength while recovering.</p>
+  <p><strong>Assessment:</strong> (1) No red flags (no radicular symptoms, no bowel/bladder changes). (2) Pain is localised to the lumbar spine, worse with spinal flexion under load. (3) Hip mobility screening reveals &lt;20&deg; hip external rotation bilaterally and tight hip flexors (Thomas test positive). (4) The hip restriction forces lumbar extension compensation in the squat and lumbar rounding in the deadlift. (5) This is a kinetic chain issue: restricted hips are driving the lumbar overload.</p>
+  <p><strong>Intervention:</strong> Phase 1 (protect, 2 weeks): substitute leg press for squat and trap bar deadlift for conventional at 40&ndash;50% of previous load, 2&ndash;3 RIR. Perform hip mobility drills daily (hip capsule stretches, banded hip distractions, couch stretch). Phase 2 (load, 3 weeks): reintroduce goblet squats and light RDLs at 50&ndash;60%. Add targeted glute med and core stability work. Phase 3 (return, 4 weeks): progressive return to squat (starting at 60% of previous max, adding 5 kg/week) and conventional deadlift (starting at 50%, adding 5 kg/week). Continue hip mobility as maintenance. Reassess pain levels after each session. If pain flares, reduce load by 20% and spend an additional week at Phase 2.</p>
+  <p><strong>Key Takeaway:</strong> Low back pain in lifters is often a symptom of hip mobility restriction, not a primary spinal pathology. The phased return protocol (protect &rarr; load &rarr; return) maintains training momentum while allowing the underlying restriction to be addressed. The coach's role is to identify the kinetic chain cause (hip restriction) and prescribe appropriate mobility work alongside the training modification.</p>
+</div>
+<div class="section-break"></div>
+<h1 id="appendix-a">Appendix A: RPE / RIR Reference Chart</h1>
+
+<p>The Rating of Perceived Exertion (RPE) scale, adapted from Mike Tuchscherer's Reactive Training Systems, quantifies the intensity of a set based on the number of repetitions remaining in reserve (RIR). An RPE of 10 means no repetitions remain (failure); RPE 9 means one rep could have been completed; RPE 8 means two reps remain; and so forth. This autoregulation tool allows the lifter to adjust training load daily based on readiness rather than following a predetermined weight that may be too heavy or too light.</p>
+
+<div class="callout">
+  <div class="callout-title">Using the RPE Scale</div>
+  <p>The RPE is assigned <em>after</em> the set is completed, not before. It reflects how many reps the lifter genuinely had left in the tank. Beginners frequently underestimate their RPE (thinking they had more reps left than they did). Video review and honest feedback from a coach accelerate accurate RPE estimation. The scale is most reliable at RPE 7&ndash;10; lower intensities (RPE 1&ndash;6) are better described as "warm-up" or "light" loading.</p>
+</div>
+
+<table>
+  <caption data-label="Table A.1">RPE / RIR Conversion</caption>
+  <thead><tr><th>RPE</th><th>RIR (Reps in Reserve)</th><th>Effort Description</th><th>% of 1RM (estimate)</th><th>Suggested Use</th></tr></thead>
+  <tbody>
+    <tr><td>10</td><td>0</td><td>Maximum effort; cannot complete another rep (absolute failure)</td><td>100%</td><td>Competition; planned max testing; occasional overload stimulus</td></tr>
+    <tr><td>9.5</td><td>0&ndash;1</td><td>Could not complete another rep, but the final rep was very slow</td><td>97&ndash;99%</td><td>Heavy singles/doubles; near-max strength work</td></tr>
+    <tr><td>9</td><td>1</td><td>One rep left in the tank; last rep was very challenging but controlled</td><td>93&ndash;96%</td><td>Heavy strength work; primary compound sets</td></tr>
+    <tr><td>8.5</td><td>1&ndash;2</td><td>Could have completed 1&ndash;2 more reps; hard but not maximal</td><td>90&ndash;93%</td><td>Strength-hypertrophy hybrid work</td></tr>
+    <tr><td>8</td><td>2</td><td>Two reps left; challenging but leaves clear reserve</td><td>85&ndash;90%</td><td>Primary hypertrophy work; most working sets</td></tr>
+    <tr><td>7.5</td><td>2&ndash;3</td><td>Moderately hard; 2&ndash;3 reps in reserve</td><td>82&ndash;87%</td><td>Volume accumulation; early mesocycle sets</td></tr>
+    <tr><td>7</td><td>3</td><td>Three reps left; controlled and smooth execution</td><td>78&ndash;83%</td><td>Volume work; technical practice; warm-up to work sets</td></tr>
+    <tr><td>6</td><td>4</td><td>Light-moderate; four or more reps in reserve</td><td>73&ndash;78%</td><td>Warm-up sets; technique work; deload sessions</td></tr>
+    <tr><td>5</td><td>5+</td><td>Light; five or more reps in reserve</td><td>68&ndash;73%</td><td>General warm-up; light recovery work</td></tr>
+    <tr><td>1&ndash;4</td><td>6+</td><td>Very light to minimal effort</td><td>&lt;68%</td><td>Only for warm-up, mobility, or active recovery</td></tr>
+  </tbody>
+</table>
+
+<h2>A.1 Precision Rules</h2>
+<ul>
+  <li><strong>RPE only applies to working sets,</strong> not warm-ups. Assign RPE only to the top 1&ndash;3 sets of an exercise.</li>
+  <li><strong>Never assign RPE to a set performed to failure.</strong> If you went to failure, that is RPE 10 by definition.</li>
+  <li><strong>The %1RM estimates are for singles.</strong> For multiple reps, the RPE reflects the total rep count, not just the weight. Example: 5 reps at RPE 9 means you completed 5 reps with 1 rep left. Five reps at RPE 10 means you completed 5 reps and could not get a 6th.</li>
+  <li><strong>Account for the exercise's fatigue cost.</strong> Squats and deadlifts accumulate more systemic fatigue per RPE unit than isolation work. An RPE 8 squat set feels significantly harder than an RPE 8 bicep curl set. Adjust expectations accordingly.</li>
+  <li><strong>Train RPE estimation.</strong> Periodically test RPE accuracy by performing a set to RPE 8, then asking the lifter to complete 2 more reps (to RPE 10). The gap between estimated and actual RPE reveals estimation error.</li>
+</ul>
+
+<div class="chapter-summary">
+  <div class="summary-title">Quick Reference</div>
+  <p>RPE 7 = 3 RIR (volume work). RPE 8 = 2 RIR (primary hypertrophy). RPE 9 = 1 RIR (heavy strength). RPE 10 = 0 RIR (failure). Use the scale after each working set, not before. Adjust loads based on RPE: if RPE is too high, reduce weight 2.5&ndash;5%; if too low, increase weight 2.5&ndash;5% next session.</p>
+</div>
+<div class="section-break"></div>
+<h1 id="appendix-b">Appendix B: Deload Quick Reference</h1>
+
+<p>A deload is a planned reduction in training stress to dissipate accumulated fatigue, restore neuromuscular readiness, and reduce injury risk. Deloads are <em>proactive</em> (scheduled) rather than <em>reactive</em> (taken only when the lifter is already overtrained). This appendix consolidates the deload principles from Chapter 11 into a single quick-reference guide.</p>
+
+<table>
+  <caption data-label="Table B.1">Deload Protocols by Training Age</caption>
+  <thead><tr><th>Training Level</th><th>Deload Frequency</th><th>Volume Reduction</th><th>Intensity Reduction</th><th>Duration</th></tr></thead>
+  <tbody>
+    <tr><td>Novice</td><td>Every 6&ndash;8 weeks</td><td>40&ndash;50% of normal</td><td>RPE 6&ndash;7 (3&ndash;4 RIR)</td><td>5&ndash;7 days</td></tr>
+    <tr><td>Intermediate</td><td>Every 5&ndash;7 weeks</td><td>50&ndash;60% of normal</td><td>RPE 5&ndash;6 (4&ndash;5 RIR)</td><td>5&ndash;7 days</td></tr>
+    <tr><td>Advanced</td><td>Every 4&ndash;6 weeks</td><td>50&ndash;70% of normal</td><td>RPE 4&ndash;6 (4&ndash;6 RIR)</td><td>7&ndash;10 days</td></tr>
+  </tbody>
+</table>
+
+<div class="algorithm">
+  <div class="algorithm-title">Deload Decision Tree</div>
+  <ol>
+    <li><strong>Is a scheduled deload due?</strong> If yes, execute the planned deload. If not, check the signs below.</li>
+    <li><strong>Check accumulated fatigue signs:</strong> Elevated RPE at normal loads, reduced motivation, sleep disruption, increased soreness, irritable mood. If 2+ signs present for 5&ndash;7 consecutive days, deload is indicated even if not scheduled.</li>
+    <li><strong>Check recent training:</strong> Was there a volume or intensity spike in the last 2 weeks? If yes, a deload may be needed regardless of scheduled timing.</li>
+    <li><strong>Check external stress:</strong> Increased work/life stress, reduced sleep, or illness. Even if training feels normal, an external stressor warrants a precautionary deload.</li>
+    <li><strong>If unsure, err on the side of deloading.</strong> A week of light training costs nothing. Two weeks of accumulated fatigue can cost a month of progress.</li>
+  </ol>
+</div>
+
+<h2>B.1 Deload Execution Options</h2>
+
+<table>
+  <caption data-label="Table B.2">Deload Styles</caption>
+  <thead><tr><th>Deload Style</th><th>Method</th><th>Best For</th></tr></thead>
+  <tbody>
+    <tr><td>Volume reduction (standard)</td><td>Same exercises, same intensity (RPE 6&ndash;7), halved sets</td><td>Most lifters; maintains motor patterns and stimulus</td></tr>
+    <tr><td>Intensity reduction</td><td>Same exercises, same volume, reduced load (50&ndash;60% of 1RM)</td><td>Lifters who need to maintain volume tolerance</td></tr>
+    <tr><td>Frequency reduction</td><td>Reduce sessions from 4&ndash;5x/week to 2&ndash;3x/week; full body</td><td>Lifters with high cumulative systemic fatigue</td></tr>
+    <tr><td>Active recovery</td><td>No resistance training; light cardio, mobility, stretching</td><td>Advanced lifters near competition; illness recovery</td></tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  <div class="callout-title">Common Deload Mistakes</div>
+  <ul>
+    <li><strong>Skipping deloads:</strong> "I don't feel like I need one." Deloads are preventive, not reactive. Skipping them is the most common programming error and the leading cause of non-injury training plateaus.</li>
+    <li><strong>Deloading too aggressively:</strong> Reducing volume to &lt;30% of normal creates a detraining response. The sweet spot is 40&ndash;60%.</li>
+    <li><strong>Deloading with high intensity:</strong> Keeping RPE high (8+) while dropping volume defeats the purpose. The deload is for fatigue dissipation, not stimulus maintenance.</li>
+    <li><strong>Deloading by exercise substitution only:</strong> Replacing every exercise with a new variation while keeping volume and intensity high is not a deload.</li>
+  </ul>
+</div>
+
+<div class="chapter-summary">
+  <div class="summary-title">Quick Reference</div>
+  <p>Deload every 4&ndash;8 weeks depending on training age. Reduce volume 40&ndash;60%, keep RPE 5&ndash;7 (3&ndash;6 RIR), same exercises preferred. Watch for the four signs of accumulated fatigue. When in doubt, deload. A proactive deload costs one week; a reactive recovery break can cost a month.</p>
+</div>
+<div class="section-break"></div>
+<h1 id="appendix-c">Appendix C: Kinetic Chain Screening &amp; Injury Quick Reference</h1>
+
+<p>This appendix consolidates the screening tests and injury protocols from Chapters 22 and 23 into a single coach-facing quick reference for field use.</p>
+
+<h2>C.1 Top-Down Screening Sequence</h2>
+
+<table>
+  <caption data-label="Table C.1">Screening Sequence</caption>
+  <thead><tr><th>Order</th><th>Region</th><th>Quick Test</th><th>Pass Criteria</th><th>Common Compensation</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>Breathing &amp; core</td><td>Observe breathing at rest; 360&deg; expansion test; dead bug hold</td><td>Ribcage expands 3-dimensionally; core engaged without breath holding</td><td>Over-dominance of accessory breathing muscles; inability to brace without Valsalva</td></tr>
+    <tr><td>2</td><td>Thoracic spine</td><td>Seated T-spine rotation; wall slide test; half-kneeling T-spine extension</td><td>&ge;45&deg; rotation each side; extension to neutral or slight extension</td><td>Lumbar extension to compensate for limited T-spine extension</td></tr>
+    <tr><td>3</td><td>Scapula &amp; shoulder</td><td>Scapular retraction test; wall angel; empty can (supraspinatus)</td><td>Scapula sits flat on ribcage; full pain-free shoulder flexion to 180&deg;</td><td>Scapular winging; forward shoulder posture; limited overhead flexion</td></tr>
+    <tr><td>4</td><td>Hip</td><td>Supine hip rotation; Thomas test; FABER test</td><td>&ge;30&deg; external rotation; &ge;10&deg; hip extension in Thomas test</td><td>Lumbar extension (anterior tilt); knee valgus; reduced squat depth</td></tr>
+    <tr><td>5</td><td>Knee</td><td>Step-down test (from 20 cm box); single-leg squat</td><td>Knee tracks over 2nd toe; no valgus collapse; pelvis level</td><td>Knee valgus; hip drop; trunk lean to compensate</td></tr>
+    <tr><td>6</td><td>Ankle</td><td>Knee-to-wall test (weight-bearing dorsiflexion)</td><td>&ge;10 cm from wall (touching knee to wall without heel lift)</td><td>Early heel rise in squat; forward lean; knee valgus compensation</td></tr>
+  </tbody>
+</table>
+
+<h2>C.2 Injury Protocol Summary</h2>
+
+<table>
+  <caption data-label="Table C.2">Injury Quick Reference</caption>
+  <thead><tr><th>Injury Type</th><th>Key Red Flag</th><th>Phase 1 Substitute</th><th>Phase 2 Reintroduction</th><th>Return Timeline</th></tr></thead>
+  <tbody>
+    <tr><td>Low back pain (non-specific mechanical)</td><td>Pain radiating below knee; saddle numbness; bowel/bladder changes</td><td>Leg press, trap bar deadlift, chest-supported row</td><td>Goblet squat, RDL (light), cable row</td><td>4&ndash;6 weeks</td></tr>
+    <tr><td>Shoulder impingement</td><td>Night pain; painful arc 60&ndash;120&deg;; positive Neer/Hawkins-Kennedy</td><td>Neutral-grip press, cable crossover (low to high), face pulls</td><td>Incline press at 60&deg;, external rotation work</td><td>4&ndash;6 weeks</td></tr>
+    <tr><td>Patellofemoral pain (runner's knee)</td><td>Swelling, locking, giving way, movie sign (pain after sitting)</td><td>Leg press (0&ndash;45&deg;), hip thrust, step-up (low step)</td><td>Partial ROM squat (to parallel), terminal knee extension</td><td>4&ndash;6 weeks</td></tr>
+    <tr><td>Elbow tendinopathy (medial/lateral)</td><td>Point tenderness at epicondyle; pain with grip/wrist movement</td><td>Neutral grip all pulling; straps to reduce grip demand</td><td>Isometric holds at mid-ROM; slow eccentrics for wrist flexors/extensors</td><td>4&ndash;6 weeks</td></tr>
+    <tr><td>Hamstring strain</td><td>Immediate sharp posterior thigh pain; bruising; unable to weight-bear</td><td>Hip thrust, glute bridge (eliminate hamstring-dominant loading)</td><td>RDL at 30&ndash;50% load, slow eccentric (4&ndash;6s)</td><td>2&ndash;4 weeks</td></tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  <div class="callout-title">Coach's Scope Reminder</div>
+  <p>Coaches do not diagnose injuries. The protocols in this reference are training modification guidelines for clients who have already sought medical diagnosis or for whom the injury is clearly within the scope of mechanical overuse. Any red-flag symptom, unresolved pain beyond 2 weeks, or worsening progression requires immediate medical referral. Document all modifications and communications regarding injury management.</p>
+</div>
+
+<div class="chapter-summary">
+  <div class="summary-title">Quick Reference</div>
+  <p>The top-down screening sequence (core &rarr; T-spine &rarr; shoulder &rarr; hip &rarr; knee &rarr; ankle) systematically identifies kinetic chain restrictions. Common gym injuries follow a protect &rarr; load &rarr; return phased protocol. When in doubt about any symptom's seriousness, refer to a medical professional. The coach's primary role is training modification, not diagnosis.</p>
+</div>
+<div class="section-break"></div>
+<h1 id="references">References</h1>
+
+<h2>Strength Training &amp; Periodization</h2>
+<ol>
+  <li>Schoenfeld, B. J. (2010). The mechanisms of muscle hypertrophy and their application to resistance training. <em>Journal of Strength and Conditioning Research</em>, 24(10), 2857&ndash;2872.</li>
+  <li>Schoenfeld, B. J., Ogborn, D., &amp; Krieger, J. W. (2017). Dose-response relationship between weekly resistance training volume and increases in muscle mass: A systematic review and meta-analysis. <em>Journal of Sports Sciences</em>, 35(11), 1073&ndash;1082.</li>
+  <li>Krieger, J. W. (2010). Single vs. multiple sets of resistance exercise for muscle hypertrophy: A meta-analysis. <em>Journal of Strength and Conditioning Research</em>, 24(4), 1150&ndash;1159.</li>
+  <li>Ralston, G. W., Kilgore, L., Wyatt, F. B., &amp; Baker, J. S. (2017). The effect of weekly set volume on strength gain: A meta-analysis. <em>Sports Medicine</em>, 47(12), 2585&ndash;2601.</li>
+  <li>Wolf, M., Fisher, J. P., &amp; Steele, J. (2022). The relationship between resistance training volume and muscle hypertrophy: A systematic review and multilevel meta-analysis. <em>Sports Medicine</em>, 52(5), 1147&ndash;1170.</li>
+  <li>Zourdos, M. C., et al. (2016). Modified daily undulating periodization versus linear periodization: A systematic review and meta-analysis. <em>Sports Medicine</em>, 46(11), 1637&ndash;1647.</li>
+  <li>Williams, T. D., et al. (2021). Resistance training frequency and muscle hypertrophy: A systematic review and meta-analysis. <em>Sports Medicine</em>, 51(11), 2353&ndash;2374.</li>
+  <li>Refalo, M. C., et al. (2023). Resistance training volume and muscle hypertrophy: A systematic review with meta-analysis. <em>Scandinavian Journal of Medicine &amp; Science in Sports</em>, 33(5), 618&ndash;636.</li>
+  <li>Brad Schoenfeld's "Science and Development of Muscle Hypertrophy" (2nd ed., 2020, Human Kinetics).</li>
+  <li>Israetel, M., Feather, J., &amp; Hoffman, J. (2021). Muscle Lending Library: Volume Landmarks. Renaissance Periodization.</li>
+</ol>
+
+<h2>Progressive Overload &amp; RPE/RIR</h2>
+<ol start="11">
+  <li>Helms, E. R., Cronin, J., Storey, A., &amp; Zourdos, M. C. (2016). Application of the repetitions in reserve-based rating of perceived exertion scale for resistance training. <em>Strength and Conditioning Journal</em>, 38(4), 42&ndash;49.</li>
+  <li>Zourdos, M. C., et al. (2016). Proximity to failure and the repeated bout effect. <em>Journal of Strength and Conditioning Research</em>, 30(8), 2244&ndash;2251.</li>
+  <li>Refalo, M. C., et al. (2024). Proximity to failure in resistance training: A systematic review and meta-analysis. <em>Sports Medicine</em>, 54(2), 301&ndash;320.</li>
+  <li>Mike Tuchscherer's "The Reactive Training Manual" (Reactive Training Systems, 2008).</li>
+</ol>
+
+<h2>Exercise Selection &amp; Biomechanics</h2>
+<ol start="15">
+  <li>Contreras, B., Vigotsky, A. D., Schoenfeld, B. J., Beardsley, C., &amp; Cronin, J. (2016). A comparison of gluteus maximus, biceps femoris, and vastus lateralis electromyographic activity in the back squat and barbell hip thrust exercises. <em>Journal of Applied Biomechanics</em>, 32(5), 452&ndash;457.</li>
+  <li>Barnett, C., Kippers, V., &amp; Turner, P. (1995). Effects of variations of the bench press exercise on the EMG activity of five shoulder muscles. <em>Journal of Strength and Conditioning Research</em>, 9(4), 222&ndash;227.</li>
+  <li>Kohler, G., Boutilier, B., &amp; Kline, D. (2020). Electromyographic analysis of latissimus dorsi, posterior deltoid, and biceps brachii during various pulling exercises. <em>Journal of Strength and Conditioning Research</em>, 34(10), 2893&ndash;2899.</li>
+  <li>Escamilla, R. F., et al. (2001). Effects of technique variations on knee biomechanics during the squat and leg press. <em>Medicine &amp; Science in Sports &amp; Exercise</em>, 33(9), 1552&ndash;1566.</li>
+</ol>
+
+<h2>Periodization &amp; Programming</h2>
+<ol start="19">
+  <li>Fleck, S. J. (1999). Periodized strength training: A critical review. <em>Journal of Strength and Conditioning Research</em>, 13(1), 82&ndash;89.</li>
+  <li>Harries, S. K., Lubans, D. R., &amp; Callister, R. (2015). Systematic review and meta-analysis of linear and undulating periodized resistance training programs on muscular strength. <em>Journal of Strength and Conditioning Research</em>, 29(4), 1113&ndash;1125.</li>
+  <li>Williams, T. D., et al. (2020). Powerlifting periodization: A systematic review. <em>Sports Medicine</em>, 50(11), 1965&ndash;1983.</li>
+  <li>Lorenz, D., &amp; Morrison, S. (2015). Current concepts in periodization of strength and conditioning for the sports physical therapist. <em>International Journal of Sports Physical Therapy</em>, 10(6), 734&ndash;747.</li>
+</ol>
+
+<h2>Fatigue &amp; Deloading</h2>
+<ol start="23">
+  <li>Halson, S. L. (2014). Monitoring training load to understand fatigue in athletes. <em>Sports Medicine</em>, 44(Suppl 2), S139&ndash;S147.</li>
+  <li>Bosquet, L., Merkari, S., Arvisais, D., &amp; Aubert, A. F. (2019). Is it necessary to taper before a strength training competition? A systematic review. <em>Journal of Strength and Conditioning Research</em>, 33(10), 2842&ndash;2851.</li>
+  <li>Pritchard, H. J., et al. (2015). Effects of a 7-week deload period on strength, power, and body composition. <em>Journal of Strength and Conditioning Research</em>, 29(10), 2778&ndash;2789.</li>
+</ol>
+
+<h2>Warm-Up &amp; Injury Prevention</h2>
+<ol start="26">
+  <li>Fradkin, A. J., Zazryn, T. R., &amp; Smoliga, J. M. (2010). Effects of warming-up on physical performance: A systematic review with meta-analysis. <em>Journal of Strength and Conditioning Research</em>, 24(1), 140&ndash;148.</li>
+  <li>McHugh, M. P., &amp; Cosgrave, C. H. (2010). To stretch or not to stretch: The role of stretching in injury prevention and performance. <em>Scandinavian Journal of Medicine &amp; Science in Sports</em>, 20(2), 169&ndash;181.</li>
+  <li>Behm, D. G., &amp; Chaouachi, A. (2011). A review of the acute effects of static and dynamic stretching on performance. <em>European Journal of Applied Physiology</em>, 111(11), 2633&ndash;2651.</li>
+</ol>
+
+<h2>Training Splits &amp; Frequency</h2>
+<ol start="29">
+  <li>Haff, G. G., &amp; Triplett, N. T. (Eds.). (2016). <em>Essentials of Strength Training and Conditioning</em> (4th ed.). Human Kinetics. (National Strength and Conditioning Association.)</li>
+  <li>Centers for Disease Control and Prevention. (2018). Physical Activity Guidelines for Americans (2nd ed.). U.S. Department of Health and Human Services.</li>
+  <li>American College of Sports Medicine. (2009). American College of Sports Medicine position stand: Progression models in resistance training for healthy adults. <em>Medicine &amp; Science in Sports &amp; Exercise</em>, 41(3), 687&ndash;708.</li>
+</ol>
+
+<h2>Kinetic Chain &amp; Rehabilitation</h2>
+<ol start="32">
+  <li>Wainner, R. S., et al. (2003). Reliability and diagnostic accuracy of the clinical examination and patient self-report measures for cervical radiculopathy. <em>Spine</em>, 28(1), 52&ndash;62.</li>
+  <li>Cook, G. (2010). <em>Movement: Functional Movement Systems.</em> On Target Publications.</li>
+  <li>Cibulka, M. T., et al. (1998). The relationship between hip capsule tightness and low back pain. <em>Journal of Orthopaedic &amp; Sports Physical Therapy</em>, 28(2), 101&ndash;109.</li>
+  <li>Page, P. (2011). Current concepts in muscle stretching for exercise and rehabilitation. <em>International Journal of Sports Physical Therapy</em>, 6(1), 53&ndash;68.</li>
+</ol>
+
+<h2>Female-Specific Training</h2>
+<ol start="36">
+  <li>Thompson, B., &amp; Han, A. (2021). Menstrual cycle and exercise performance: A review. <em>Current Sports Medicine Reports</em>, 20(9), 478&ndash;484.</li>
+  <li>Elliott-Sale, K. J., et al. (2021). Methodological considerations for studies of the menstrual cycle and exercise performance. <em>Sports Medicine</em>, 51(1), 25&ndash;36.</li>
+  <li>Pedlar, C. R., Brugnara, C., Bruinvels, G., &amp; Burden, R. (2018). Iron and the female athlete: A review of dietary and physiological considerations. <em>Sports Medicine</em>, 48(Suppl 1), 109&ndash;117.</li>
+</ol>
+
+<h2>Concurrent Training</h2>
+<ol start="39">
+  <li>Wilson, J. M., et al. (2012). Concurrent training: A meta-analysis examining interference of aerobic and resistance exercises. <em>Journal of Strength and Conditioning Research</em>, 26(8), 2293&ndash;2307.</li>
+  <li>Mikkola, J., Rusko, H., Izquierdo, M., Gorostiaga, E. M., &amp; H&auml;kkinen, K. (2012). Neuromuscular and cardiovascular adaptations during concurrent strength and endurance training in untrained men. <em>International Journal of Sports Medicine</em>, 33(9), 702&ndash;710.</li>
+  <li>Fyfe, J. J., Bishop, D. J., &amp; Stepto, N. K. (2014). Interference between concurrent resistance and endurance exercise: Molecular bases and the role of individual training variables. <em>Sports Medicine</em>, 44(6), 743&ndash;762.</li>
+</ol>
+
+<h2>Home Gym &amp; Minimal Equipment</h2>
+<ol start="42">
+  <li>Cotter, J. A., Garver, M. J., Dinyer, T. K., Fairman, C. M., &amp; Focht, B. C. (2019). Home-based resistance training: A systematic review. <em>Journal of Strength and Conditioning Research</em>, 33(Suppl 1), S19&ndash;S28.</li>
+  <li>Kotarsky, C. J., Christensen, B. K., Lindeman, K. G., &amp; Hackney, K. J. (2018). Effect of progressive calisthenic push-up training on muscle strength and thickness. <em>Journal of Strength and Conditioning Research</em>, 32(3), 651&ndash;659.</li>
+</ol>
+
+</body></html>

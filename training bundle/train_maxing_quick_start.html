@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Train Maxing — Quick Start Guide by Coach Anas Mo'men</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:11pt}
+body{margin:0;padding:0;font-family:'Inter',system-ui,sans-serif;font-size:11pt;line-height:1.6;color:#14151A;background:#FAFAF8;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,h5,h6{font-family:'Oswald',sans-serif;font-weight:600;line-height:1.2}
+.num,.mono,table,.number{font-family:'JetBrains Mono',monospace}
+body,p,li,.body-text{font-family:'Inter',system-ui,sans-serif}
+@page{size:A4;margin:2cm 1.8cm;@bottom-center{content:counter(page);font-family:'JetBrains Mono',monospace;font-size:8pt;color:#888}}
+@page :first{margin:0;@top-center{content:none}@bottom-center{content:none}}
+@page cover-page{margin:0;@top-center{content:none}@bottom-center{content:none}}
+@page cheat-page{margin:0;@top-center{content:none}@bottom-center{content:none}}
+.cover{page:cover-page;width:210mm;height:297mm;margin:0;background:#14151A;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;page-break-after:always;position:relative;overflow:hidden}
+.cover-title{font-family:'Oswald',sans-serif;font-size:38pt;font-weight:700;color:#F4C93B;line-height:1.15;margin-bottom:18pt;letter-spacing:0.5px}
+.cover-subtitle{font-family:'JetBrains Mono',monospace;font-size:12pt;font-weight:400;color:#F4C93B;margin-bottom:30pt;letter-spacing:1px;opacity:0.85}
+.cover-divider{width:50px;height:2px;background:#F4C93B;margin-bottom:30pt;opacity:0.5}
+.cover-author{font-family:'Inter',sans-serif;font-size:10pt;color:#FAFAF8;margin-bottom:6pt;letter-spacing:2px;text-transform:uppercase;opacity:0.6}
+.cover-edition{font-family:'Inter',sans-serif;font-size:9pt;color:#FAFAF8;opacity:0.4;letter-spacing:1px}
+.section{page-break-before:always;background:#FAFAF8;min-height:267mm;padding:0}
+.section-content{max-width:100%}
+.section h1{font-family:'Oswald',sans-serif;font-size:22pt;font-weight:700;color:#14151A;margin-bottom:10pt;letter-spacing:0.3px}
+.section h2{font-family:'Oswald',sans-serif;font-size:15pt;font-weight:600;color:#14151A;margin:14pt 0 6pt;letter-spacing:0.3px}
+.section h3{font-family:'Oswald',sans-serif;font-size:12pt;font-weight:600;color:#14151A;margin:10pt 0 4pt;letter-spacing:0.3px}
+.section p{margin:4pt 0 8pt;font-size:10.5pt;line-height:1.65}
+.section ul,.section ol{margin:6pt 0;padding-left:1.4em}
+.section li{margin:3pt 0;font-size:10.5pt;line-height:1.6}
+.step-intro{font-size:10.5pt;color:#555;margin-bottom:14pt;line-height:1.6}
+.table-wrap{overflow-x:auto;margin:10pt 0}
+table{width:100%;border-collapse:collapse;font-size:10pt;font-family:'Inter',sans-serif}
+table.num-table td,table.num-table th{font-family:'JetBrains Mono',monospace}
+thead tr{border-top:2.5px solid #F4C93B;border-bottom:1.2px solid #14151A}
+thead th{padding:7px 8px;text-align:left;font-weight:600;color:#14151A;font-family:'Oswald',sans-serif;font-size:10.5pt;letter-spacing:0.5px;text-transform:uppercase}
+tbody td{padding:6px 8px;vertical-align:top}
+tbody tr{border-bottom:0.5px solid #ddd}
+tbody tr:last-child{border-bottom:2.5px solid #F4C93B}
+tbody tr:nth-child(even){background:#f5f5f3}
+.coach-note{background:#14151A;color:#FAFAF8;padding:10pt 14pt;margin:10pt 0;border-radius:2px;font-size:10pt;line-height:1.55}
+.coach-note strong{color:#F4C93B;font-weight:600}
+.step-heading{font-family:'JetBrains Mono',monospace;font-size:12pt;font-weight:600;color:#F4C93B;background:#14151A;display:inline-block;padding:2pt 8pt;margin-bottom:6pt;letter-spacing:0.5px}
+.how-list{list-style:none;padding:0;margin:16pt 0}
+.how-list li{margin:6pt 0;padding:6pt 0 6pt 36pt;position:relative;font-size:10.5pt;border-bottom:0.5px solid #e0e0dd}
+.how-list li[data-num]::before{content:attr(data-num);font-family:'JetBrains Mono',monospace;font-size:10pt;font-weight:700;color:#F4C93B;background:#14151A;width:22pt;height:22pt;display:flex;align-items:center;justify-content:center;position:absolute;left:0;top:6pt}
+.how-list li span{font-weight:600}
+.how-list .how-page{font-family:'JetBrains Mono',monospace;font-size:9pt;color:#888}
+.cheat{page:cheat-page;width:210mm;min-height:297mm;background:#14151A;padding:0;page-break-before:always;position:relative;overflow:hidden}
+.cheat-inner{padding:24pt 30pt;height:100%;display:flex;flex-direction:column;justify-content:space-between;min-height:267mm}
+.cheat h1{font-family:'Oswald',sans-serif;font-size:26pt;font-weight:700;color:#F4C93B;text-align:center;letter-spacing:1px;margin-bottom:20pt}
+.cheat h2{font-family:'Oswald',sans-serif;font-size:14pt;font-weight:600;color:#F4C93B;letter-spacing:0.5px;margin-bottom:6pt;text-transform:uppercase}
+.cheat-grid{display:grid;grid-template-columns:1fr 1fr;gap:14pt;flex:1}
+.cheat-block{background:rgba(255,255,255,0.04);border:1px solid rgba(244,201,59,0.15);padding:12pt 14pt}
+.cheat-block p,.cheat-block li{color:#FAFAF8;font-size:9.5pt;line-height:1.6}
+.cheat-block ul{list-style:none;padding:0}
+.cheat-block li{padding:2pt 0}
+.cheat-block li::before{content:"— ";color:#F4C93B}
+.cheat-fill-row{display:flex;gap:8pt;align-items:center;margin:4pt 0}
+.cheat-fill-label{font-family:'Oswald',sans-serif;font-size:10pt;color:#F4C93B;min-width:80pt;text-transform:uppercase}
+.cheat-fill-line{flex:1;border-bottom:1.5px solid rgba(244,201,59,0.3);height:1px;margin-bottom:4pt}
+.cheat-bottom{text-align:center;margin-top:16pt;padding-top:12pt;border-top:1px solid rgba(244,201,59,0.15)}
+.cheat-bottom p{font-family:'JetBrains Mono',monospace;font-size:9pt;color:#FAFAF8;opacity:0.5;letter-spacing:2px;text-transform:uppercase}
+.cheat-bottom .cheat-author{font-family:'Inter',sans-serif;font-size:8pt;color:#FAFAF8;opacity:0.35;margin-top:2pt}
+.cheat .hand-row{display:flex;gap:10pt;flex-wrap:wrap;margin:6pt 0}
+.cheat .hand-item{flex:1;min-width:90pt;text-align:center}
+.cheat .hand-item .hand-icon{font-family:'JetBrains Mono',monospace;font-size:11pt;font-weight:700;color:#F4C93B;display:block}
+.cheat .hand-item .hand-desc{font-size:8.5pt;color:#FAFAF8;opacity:0.7}
+.mistake-list{list-style:none;padding:0;margin:10pt 0}
+.mistake-list li{padding:8pt 0 8pt 28pt;position:relative;font-size:10.5pt;line-height:1.55;border-bottom:0.5px solid #e0e0dd}
+.mistake-list li::before{content:"!";font-family:'JetBrains Mono',monospace;font-size:9pt;font-weight:700;color:#14151A;background:#F4C93B;width:18pt;height:18pt;display:flex;align-items:center;justify-content:center;position:absolute;left:0;top:8pt;border-radius:50%}
+.upsell{background:#14151A;color:#FAFAF8;padding:14pt 16pt;margin:12pt 0;border-radius:2px}
+.upsell h2{color:#F4C93B;margin-top:0}
+.upsell p{color:#FAFAF8;font-size:10pt}
+.upsell a{color:#F4C93B;font-weight:600;text-decoration:none}
+.upsell ul{list-style:none;padding:0}
+.upsell li{padding:3pt 0 3pt 18pt;position:relative;font-size:10pt;color:#FAFAF8}
+.upsell li::before{content:">";font-family:'JetBrains Mono',monospace;color:#F4C93B;position:absolute;left:0;font-weight:700}
+.strong-yellow{color:#F4C93B}
+.small-note{font-size:9pt;color:#888;margin-top:4pt}
+.highlight-num{font-family:'JetBrains Mono',monospace;font-weight:700;color:#F4C93B;background:#14151A;padding:1pt 5pt;font-size:10pt}
+.no-break{page-break-inside:avoid}
+@media print{body{color:#000}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-title">Train Maxing<br>Quick Start Guide</div>
+  <div class="cover-subtitle">Pick Your Split. Set Your Volume. Track. Deload. Repeat.</div>
+  <div class="cover-divider"></div>
+  <div class="cover-author">by Coach Anas Mo'men</div>
+  <div class="cover-edition">2026 Edition</div>
+</div>
+
+<div class="section">
+  <div class="section-content">
+    <h1>How This Guide Works</h1>
+    <p>This guide has exactly five steps to go from "I want to train properly" to a structured, progressive programme you can follow for months. No exercise physiology. No citations. No "on the other hand."</p>
+    <p>Open the full Training &amp; Programming book when you want to know <em>why</em> something works. Open this guide when you want to know <em>what to do today</em>.</p>
+    <ol class="how-list">
+      <li data-num="1"><span>Pick your split</span> <span class="how-page">page 3</span></li>
+      <li data-num="2"><span>Set your training frequency</span> <span class="how-page">page 4</span></li>
+      <li data-num="3"><span>Set your volume</span> <span class="how-page">page 5</span></li>
+      <li data-num="4"><span>Track progressive overload</span> <span class="how-page">page 6</span></li>
+      <li data-num="5"><span>Know when to deload</span> <span class="how-page">page 7</span></li>
+    </ol>
+    <p class="small-note">Start at step 1. Work through in order. Skip nothing.</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-content">
+    <div class="step-heading">Step 1</div>
+    <h1>Pick Your Split</h1>
+    <p class="step-intro">Your training split determines how you organise your training days. Choose based on how many days you can train and what you want to achieve.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Available Days</th><th>Recommended Split</th><th>Best For</th></tr></thead>
+        <tbody>
+          <tr><td>2 days</td><td>Full Body</td><td>Time-constrained, novice lifters</td></tr>
+          <tr><td>3 days</td><td>Full Body or Push/Pull/Legs</td><td>General fitness, moderate availability</td></tr>
+          <tr><td>4 days</td><td>Upper / Lower</td><td>Best balance of frequency and recovery</td></tr>
+          <tr><td>5 days</td><td>Push / Pull / Legs or Upper/Lower+PPL hybrid</td><td>High commitment, advanced lifters</td></tr>
+          <tr><td>6 days</td><td>Push / Pull / Legs or Bro Split</td><td>Maximum volume, bodybuilding focus</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="coach-note">
+      <strong>Coach says:</strong> More days is not always better. Four focused sessions beat six rushed ones. Pick the split that fits your schedule, not the one that sounds most impressive.
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-content">
+    <div class="step-heading">Step 2</div>
+    <h1>Set Your Training Frequency</h1>
+    <p class="step-intro">Frequency = how many times per week each muscle group gets trained. This determines recovery and growth potential.</p>
+    <div class="table-wrap">
+      <table class="num-table">
+        <thead><tr><th>Split Type</th><th>Frequency per Muscle Group</th></tr></thead>
+        <tbody>
+          <tr><td>Full Body (2-3 days)</td><td>2-3x per week</td></tr>
+          <tr><td>Upper / Lower (4 days)</td><td>2x per week</td></tr>
+          <tr><td>Push / Pull / Legs (5-6 days)</td><td>2x per week (some groups 1.5x)</td></tr>
+          <tr><td>Bro Split (6 days)</td><td>1x per week (high volume each session)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>Key rule:</strong> Higher frequency (2-3x/week) with moderate volume per session is superior for hypertrophy compared to lower frequency (1x/week) with high volume per session. The MPS window lasts 24-48 hours — more frequent stimulation keeps it elevated.</p>
+    <div class="coach-note">
+      <strong>Coach says:</strong> Train each muscle group at least 2x per week if possible. Unless you're advanced, 1x/week frequency leaves gains on the table.
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-content">
+    <div class="step-heading">Step 3</div>
+    <h1>Set Your Volume</h1>
+    <p class="step-intro">Volume is the total number of hard sets per muscle group per week. Each set should be within 1-3 reps of failure (RPE 7-9 for hypertrophy, RPE 6-8 for strength).</p>
+    <div class="table-wrap">
+      <table class="num-table">
+        <thead><tr><th>Muscle Group</th><th>Beginner (sets/wk)</th><th>Intermediate (sets/wk)</th><th>Advanced (sets/wk)</th></tr></thead>
+        <tbody>
+          <tr><td>Chest</td><td>6-10</td><td>8-14</td><td>10-16</td></tr>
+          <tr><td>Back</td><td>8-14</td><td>10-18</td><td>12-20</td></tr>
+          <tr><td>Shoulders</td><td>6-10</td><td>8-14</td><td>10-16</td></tr>
+          <tr><td>Quads</td><td>6-10</td><td>8-14</td><td>10-16</td></tr>
+          <tr><td>Hamstrings</td><td>6-10</td><td>8-12</td><td>10-14</td></tr>
+          <tr><td>Glutes</td><td>6-10</td><td>8-12</td><td>10-14</td></tr>
+          <tr><td>Biceps</td><td>4-8</td><td>6-12</td><td>8-14</td></tr>
+          <tr><td>Triceps</td><td>4-8</td><td>6-12</td><td>8-14</td></tr>
+          <tr><td>Calves</td><td>4-8</td><td>6-10</td><td>8-12</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="coach-note">
+      <strong>Coach says:</strong> Start at the lower end. Add one set per muscle group every 2-3 weeks only if you're progressing. More volume only helps if you can recover from it. Use the <a href="volume_set_calculator.html" style="color:#F4C93B;">Volume &amp; Set Calculator</a> for your exact numbers.
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-content">
+    <div class="step-heading">Step 4</div>
+    <h1>Track Progressive Overload</h1>
+    <p class="step-intro">Every session should be slightly harder than last time. If you're not progressing, you're not growing.</p>
+    <h2>The Double Progression Method</h2>
+    <ol>
+      <li><strong>Pick a rep range</strong> (e.g., 8-12 reps for hypertrophy).</li>
+      <li><strong>Stay at the same weight</strong> until you can hit the top of the range (12 reps) with good form on your first set.</li>
+      <li><strong>Increase the weight</strong> by the smallest increment available (2.5-5 kg).</li>
+      <li><strong>Repeat</strong> — you'll likely drop back to 8 reps. Build back up to 12.</li>
+    </ol>
+    <h2>What to Track</h2>
+    <div class="table-wrap">
+      <table class="num-table">
+        <thead><tr><th>Track This</th><th>Why</th><th>How Often</th></tr></thead>
+        <tbody>
+          <tr><td>Weight on the bar</td><td>Primary overload variable</td><td>Every session</td></tr>
+          <tr><td>Reps achieved</td><td>Tells you when to increase weight</td><td>Every set</td></tr>
+          <tr><td>Sets completed</td><td>Volume tracking</td><td>Every session</td></tr>
+          <tr><td>RPE of each set</td><td>Ensures you're in the right effort zone</td><td>Every set</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="coach-note">
+      <strong>Coach says:</strong> Never increase weight at the expense of form. If you can't control the rep, the weight is too heavy. Progress = quality reps over time.
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-content">
+    <div class="step-heading">Step 5</div>
+    <h1>Know When to Deload</h1>
+    <p class="step-intro">Deloading is planned recovery. It prevents burnout and keeps you progressing long-term.</p>
+    <h2>When to Deload</h2>
+    <ul>
+      <li>Every 4-8 weeks as a proactive maintenance week.</li>
+      <li>When performance stalls for 2+ weeks despite good adherence.</li>
+      <li>When sleep quality drops, motivation disappears, or joints hurt.</li>
+    </ul>
+    <h2>How to Deload</h2>
+    <div class="table-wrap">
+      <table class="num-table">
+        <thead><tr><th>Method</th><th>Sets</th><th>Intensity</th><th>Duration</th></tr></thead>
+        <tbody>
+          <tr><td>Volume deload</td><td>40-60% of normal</td><td>Same or slightly lower</td><td>5-7 days</td></tr>
+          <tr><td>Intensity deload</td><td>Same as normal</td><td>50-70% of normal</td><td>5-7 days</td></tr>
+          <tr><td>Full rest</td><td>Zero</td><td>Zero</td><td>3-5 days</td></tr>
+          <tr><td>Active recovery</td><td>Light movement only</td><td>Light cardio, mobility</td><td>5-7 days</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="coach-note">
+      <strong>Coach says:</strong> A deload is not a vacation — it's maintenance. You are not losing gains. You are shedding accumulated fatigue so you can smash your next block. Use the <a href="deload_decision_tree.html" style="color:#F4C93B;">Deload Decision Tree</a> to decide when.
+    </div>
+  </div>
+</div>
+
+<div class="cheat">
+  <div class="cheat-inner">
+    <h1>TRAIN MAXING — QUICK REFERENCE</h1>
+    <div class="cheat-grid">
+      <div class="cheat-block">
+        <h2>Your Split</h2>
+        <div class="cheat-fill-row"><span class="cheat-fill-label">Split</span><span class="cheat-fill-line"></span></div>
+        <div class="cheat-fill-row"><span class="cheat-fill-label">Days</span><span class="cheat-fill-line"></span></div>
+        <div class="cheat-fill-row"><span class="cheat-fill-label">Frequency</span><span class="cheat-fill-line"></span> <span class="mono" style="color:#F4C93B;font-size:9pt;">x/wk</span></div>
+      </div>
+      <div class="cheat-block">
+        <h2>Volume Targets</h2>
+        <div class="cheat-fill-row"><span class="cheat-fill-label">Chest</span><span class="cheat-fill-line"></span> <span class="mono" style="color:#F4C93B;font-size:9pt;">sets</span></div>
+        <div class="cheat-fill-row"><span class="cheat-fill-label">Back</span><span class="cheat-fill-line"></span> <span class="mono" style="color:#F4C93B;font-size:9pt;">sets</span></div>
+        <div class="cheat-fill-row"><span class="cheat-fill-label">Legs</span><span class="cheat-fill-line"></span> <span class="mono" style="color:#F4C93B;font-size:9pt;">sets</span></div>
+        <div class="cheat-fill-row"><span class="cheat-fill-label">Arms</span><span class="cheat-fill-line"></span> <span class="mono" style="color:#F4C93B;font-size:9pt;">sets</span></div>
+      </div>
+      <div class="cheat-block">
+        <h2>Progression</h2>
+        <p>Reps in 8-12 range → add 2.5 kg → drop to 8 reps → build back up.<br>If stalled 2+ weeks: check volume, food, sleep, then deload.</p>
+      </div>
+      <div class="cheat-block">
+        <h2>Deload</h2>
+        <p>Every 4-8 weeks: 40-60% volume for 5-7 days.<br>Sleep off, joints ache, not motivated? Deload.</p>
+      </div>
+    </div>
+    <div class="cheat-bottom">
+      <p>muscleos.coach</p>
+      <p class="cheat-author">by Coach Anas Mo'men</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-content">
+    <h1>Common Mistakes</h1>
+    <p class="step-intro">Avoid these. They will cost you weeks of progress.</p>
+    <ul class="mistake-list">
+      <li><strong>Adding too much volume too fast</strong> — your MRV is lower than you think. Fatigue accumulates silently for 3-4 weeks before you crash.</li>
+      <li><strong>Never training close to failure</strong> — if every set has 4+ reps in reserve, you're doing glorified cardio. Intensity drives adaptation.</li>
+      <li><strong>Changing splits every 4 weeks</strong> — pick a split and run it for 8-16 weeks. Consistency of programming is how you measure progress.</li>
+      <li><strong>Ignoring the deload</strong> — "I don't need a deload, I'll just push through" is exactly what people say before getting injured or overtrained.</li>
+      <li><strong>Not tracking your lifts</strong> — if you don't know what you did last session, you're guessing. Guessing is not programming. Use a log, an app, or a notebook.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-content">
+    <h1>When You've Outgrown This Guide</h1>
+    <p class="step-intro">This guide gets you 80% of the way there. If you're experiencing any of these, it's time to level up:</p>
+    <div class="upsell">
+      <ul>
+        <li>Your progress has stalled for 6+ weeks despite good adherence and programming</li>
+        <li>You're preparing for a powerlifting competition or bodybuilding show</li>
+        <li>You're returning from an injury and need rehab-integrated programming</li>
+        <li>You're a female athlete needing cycle-aware periodisation</li>
+        <li>You want a fully customised plan with weekly adjustments and coach feedback</li>
+      </ul>
+    </div>
+    <p><strong>Start your coaching journey now:</strong><br>
+    <a href="https://wa.me/201040796017" style="font-family:'JetBrains Mono',monospace;font-size:11pt;color:#14151A;font-weight:700;">Start your coaching journey now</a></p>
+    <p style="margin-top:14pt;font-size:10pt;color:#555;">Ready for the full science? Get The Complete Guide to Training &amp; Programming for Strength and Physique.</p>
+  </div>
+</div>
+
+</body>
+</html>
