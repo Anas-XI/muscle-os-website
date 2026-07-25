@@ -289,6 +289,14 @@
   .rc-badge-guide{background:rgba(76,175,80,.15);color:#4CAF50}
   .rc-badge-book{background:rgba(33,150,243,.15);color:#2196F3}
   @media(max-width:768px){.resource-grid{grid-template-columns:1fr}}
+  .hub-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:640px;margin:0 auto}
+  .hub-card{background:var(--ink-3);border:1px solid var(--line);border-radius:8px;padding:28px;transition:border-color .2s,transform .2s;text-decoration:none;display:block}
+  .hub-card:hover{border-color:var(--yellow);transform:translateY(-2px)}
+  .hub-card .hub-title{font-family:'Oswald',sans-serif;font-size:17px;font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px}
+  .hub-card .hub-desc{font-size:13px;color:var(--gray);line-height:1.5;margin-bottom:10px}
+  .hub-card .hub-link{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--yellow)}
+  .hub-cta-wrap{text-align:center;margin-top:36px}
+  @media(max-width:560px){.hub-grid{grid-template-columns:1fr}}
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:860px) {
@@ -315,7 +323,7 @@
       <a href="#services">Services</a>
       <a href="#mos">Muscle OS</a>
       <a href="#tools">Tools</a>
-      <a href="knowledge-hub/">Knowledge Hub</a>
+      <a href="#knowledge-hub">Knowledge Hub</a>
       <a href="#packages">Packages</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -330,6 +338,7 @@
   <a href="#services" class="mobile-link display" style="font-size:22px;">Services</a>
   <a href="#mos" class="mobile-link display" style="font-size:22px;">Muscle OS</a>
   <a href="#tools" class="mobile-link display" style="font-size:22px;">Tools</a>
+  <a href="#knowledge-hub" class="mobile-link display" style="font-size:22px;">Knowledge Hub</a>
   <a href="#packages" class="mobile-link display" style="font-size:22px;">Packages</a>
   <a href="#contact" class="mobile-link display" style="font-size:22px;">Contact</a>
   <a href="https://wa.me/201040796017" class="btn btn-primary" style="margin-top:10px; width:fit-content;">Message on WhatsApp</a>
@@ -591,6 +600,30 @@
           <div class="rc-price">500 EGP &middot; one-time</div>
         </a>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- KNOWLEDGE HUB -->
+<section class="resources-section" id="knowledge-hub">
+  <div class="wrap">
+    <div class="eyebrow">Knowledge Hub</div>
+    <h2>Books, Guides &amp; Reference</h2>
+    <p class="subtitle">Full reference books and quick-start guides — from foundational science to daily application.</p>
+    <div class="hub-grid">
+      <a href="knowledge-hub/" class="hub-card">
+        <div class="hub-title">Reference Books</div>
+        <div class="hub-desc">Training &amp; Programming Book, Diet &amp; Nutrition Book — 27 and 33 chapters each, 200+ scientific references.</div>
+        <div class="hub-link">Browse Books &rarr;</div>
+      </a>
+      <a href="knowledge-hub/" class="hub-card">
+        <div class="hub-title">Free Guides &amp; Worksheets</div>
+        <div class="hub-desc">Quick-start guides, decision trees, cheat sheets, and a 6-week consistency workbook.</div>
+        <div class="hub-link">Open Guides &rarr;</div>
+      </a>
+    </div>
+    <div class="hub-cta-wrap">
+      <a href="knowledge-hub/" class="nav-cta" style="display:inline-flex">Explore Full Knowledge Hub &rarr;</a>
     </div>
   </div>
 </section>
