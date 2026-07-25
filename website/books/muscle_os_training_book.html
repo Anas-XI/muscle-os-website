@@ -12,7 +12,7 @@
 <style>
 * { box-sizing: border-box; }
 html { font-size: 11pt; }
-body { margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; font-size: 11pt; line-height: 1.6; color: #14151A; background: #FAFAF8; text-align: justify; text-align-last: left; -webkit-font-smoothing: antialiased; }
+body { margin: 0; padding: 0; font-family: 'Times New Roman', Georgia, serif; font-size: 11pt; line-height: 1.6; color: #14151A; background: #FAFAF8; text-align: justify; text-align-last: left; -webkit-font-smoothing: antialiased; }
 h1, h2, h3, h4, h5, h6 { font-family: 'Oswald', sans-serif; font-weight: 600; line-height: 1.2; }
 .mono, .num { font-family: 'JetBrains Mono', monospace; }
 @page { size: A4; margin: 2.5cm 2cm; @top-center { content: string(doctitle); font-family: 'Inter', sans-serif; font-size: 9pt; color: #8A8D96; } @bottom-center { content: counter(page); font-family: 'JetBrains Mono', monospace; font-size: 8pt; color: #8A8D96; } }
@@ -25,8 +25,8 @@ h1 { string-set: doctitle content(); }
 .cover-title { font-family: 'Oswald', sans-serif; font-size: 32pt; font-weight: 700; color: #F4C93B; line-height: 1.15; margin-bottom: 16pt; letter-spacing: 0.5px; }
 .cover-subtitle { font-family: 'JetBrains Mono', monospace; font-size: 11pt; font-weight: 400; color: #F4C93B; margin-bottom: 28pt; letter-spacing: 1px; opacity: 0.85; }
 .cover-divider { width: 50px; height: 2px; background: #F4C93B; margin-bottom: 28pt; opacity: 0.5; }
-.cover-author { font-family: 'Inter', sans-serif; font-size: 10pt; color: #FAFAF8; margin-bottom: 4pt; letter-spacing: 2px; text-transform: uppercase; opacity: 0.6; }
-.cover-edition { font-family: 'Inter', sans-serif; font-size: 9pt; color: #FAFAF8; opacity: 0.4; letter-spacing: 1px; }
+.cover-author { font-size: 10pt; color: #FAFAF8; margin-bottom: 4pt; letter-spacing: 2px; text-transform: uppercase; opacity: 0.6; }
+.cover-edition { font-size: 9pt; color: #FAFAF8; opacity: 0.4; letter-spacing: 1px; }
 .cover-label { font-family: 'Oswald', sans-serif; font-size: 14pt; color: rgba(244,201,59,0.4); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 20pt; }
 .toc-page { page: toc; page-break-after: always; }
 .toc-page h2 { font-family: 'Oswald', sans-serif; font-size: 22pt; font-weight: 700; color: #14151A; margin-bottom: 0.8cm; text-align: center; letter-spacing: 0.5px; text-transform: uppercase; }
@@ -45,16 +45,15 @@ h4 { font-size: 11pt; font-weight: 600; color: #14151A; margin: 0.4cm 0 0.2cm; p
 p { margin: 0.3cm 0; }
 strong { color: #14151A; font-weight: 600; }
 a { color: #C9A227; word-break: break-all; }
-table { width: 100%; max-width: 100%; border-collapse: collapse; margin: 0.5cm 0; font-size: 9.5pt; box-sizing: border-box; font-family: 'JetBrains Mono', monospace; }
+table { width: 100%; max-width: 100%; border-collapse: collapse; margin: 0.5cm 0; font-size: 9.5pt; box-sizing: border-box; word-wrap: break-word; overflow-wrap: break-word; }
 thead { display: table-header-group; }
 thead tr { border-top: 2.5px solid #F4C93B; border-bottom: 1.5px solid #14151A; }
-thead th { padding: 6px 8px; text-align: left; font-weight: 600; color: #14151A; font-family: 'Oswald', sans-serif; font-size: 10pt; letter-spacing: 0.5px; text-transform: uppercase; }
-tbody td { padding: 5px 8px; vertical-align: top; }
-tbody tr { border-bottom: 0.5px solid #E4E1D8; }
+thead th { padding: 7px 10px; text-align: left; font-weight: 700; color: #14151A; font-family: 'Times New Roman', Georgia, serif; font-size: 10pt; letter-spacing: 0.3px; }
+tbody td { padding: 6px 10px; vertical-align: top; word-break: break-word; }
+tbody tr { border-bottom: 0.5px solid #D6D3CB; }
 tbody tr:last-child { border-bottom: 2.5px solid #F4C93B; }
-tbody tr:nth-child(even) { background: #f5f5f3; }
-caption { text-align: left; font-weight: 600; margin-bottom: 4px; font-size: 10pt; font-family: 'Oswald', sans-serif; color: #14151A; letter-spacing: 0.3px; }
-caption::before { content: attr(data-label) "  "; font-weight: 700; }
+caption { text-align: left; font-weight: 700; margin-bottom: 4px; font-size: 10pt; font-family: 'Times New Roman', Georgia, serif; color: #14151A; }
+caption::before { content: attr(data-label) "  "; }
 tr { page-break-inside: avoid; }
 td.mono, .table-mono td { font-family: 'JetBrains Mono', monospace; }
 td[data-num], th[data-num] { font-family: 'JetBrains Mono', monospace; }
