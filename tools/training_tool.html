@@ -397,7 +397,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
   <div class="sub-modal">
     <div class="lock-icon">&#128274;</div>
     <h2>Pro Tool</h2>
-    <div class="sub-price">200 EGP / month</div>
+    <div class="sub-price">300 EGP / month</div>
     <p class="sub-desc">This tool requires an active subscription. Subscribe now or enter your access code if you already have one.</p>
     <ul class="sub-features">
       <li>Full training program generator with auto-periodization</li>
@@ -2824,6 +2824,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
 <script>
 (function(){
   var SUB_KEY = 'mos_subscription';
+  var EMAIL_CODE = 'ANASSTEM2025@GMAIL.COM';
   var sub = null;
   try { sub = JSON.parse(localStorage.getItem(SUB_KEY)); } catch(e){}
   var now = new Date();
@@ -2833,7 +2834,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     document.getElementById('subOverlay').style.display = 'flex';
     document.getElementById('subVerify').addEventListener('click', function(){
       var code = document.getElementById('subCode').value.trim().toUpperCase();
-      if(code && code.length >= 6){
+      if(code && (code.length >= 6 || code === EMAIL_CODE)){
         var expiry = new Date();
         expiry.setMonth(expiry.getMonth() + 1);
         localStorage.setItem(SUB_KEY, JSON.stringify({

@@ -1582,6 +1582,7 @@ pre, table, figure, img, svg, blockquote { max-width: 100%; box-sizing: border-b
 <script>
 (function(){
   var KEY = 'mos_book_training';
+  var EMAIL_CODE = 'ANASSTEM2025@GMAIL.COM';
   var data = null;
   try { data = JSON.parse(localStorage.getItem(KEY)); } catch(e){}
   if(data && data.active){
@@ -1590,7 +1591,7 @@ pre, table, figure, img, svg, blockquote { max-width: 100%; box-sizing: border-b
     document.getElementById('poOverlay').style.display = 'flex';
     document.getElementById('poVerify').addEventListener('click', function(){
       var code = document.getElementById('poCode').value.trim().toUpperCase();
-      if(code && code.length >= 6){
+      if(code && (code.length >= 6 || code === EMAIL_CODE)){
         localStorage.setItem(KEY, JSON.stringify({ active: true, book: 'training', code: code }));
         document.getElementById('poError').style.display = 'none';
         document.getElementById('poSuccess').style.display = 'block';

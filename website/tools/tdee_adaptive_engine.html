@@ -947,6 +947,7 @@ select option{background:#1E1E2A;color:#FAFAF8}
 
 (function(){
   var SUB_KEY = 'mos_subscription';
+  var EMAIL_CODE = 'ANASSTEM2025@GMAIL.COM';
   var sub = null;
   try { sub = JSON.parse(localStorage.getItem(SUB_KEY)); } catch(e){}
   var now = new Date();
@@ -956,7 +957,7 @@ select option{background:#1E1E2A;color:#FAFAF8}
     document.getElementById('subOverlay').style.display = 'flex';
     document.getElementById('subVerify').addEventListener('click', function(){
       var code = document.getElementById('subCode').value.trim().toUpperCase();
-      if(code && code.length >= 6){
+      if(code && (code.length >= 6 || code === EMAIL_CODE)){
         var expiry = new Date();
         expiry.setMonth(expiry.getMonth() + 1);
         localStorage.setItem(SUB_KEY, JSON.stringify({
