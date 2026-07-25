@@ -194,7 +194,7 @@
   .pkg-grid { margin-top:56px; display:grid; grid-template-columns:repeat(2,1fr); gap:22px; align-items:stretch; }
   .pkg-card {
     background:var(--ink-2); border:1px solid var(--line); padding:34px 28px;
-    display:flex; flex-direction:column;
+    display:flex; flex-direction:column; position:relative;
   }
   .pkg-card.featured { background:var(--yellow); color:var(--ink); border-color:var(--yellow); position:relative; transform:translateY(-10px); }
   .pkg-badge {
@@ -202,6 +202,7 @@
     font-size:10.5px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
     padding:5px 12px; border-radius:2px;
   }
+  .pkg-badge.best-value { left:auto; right:28px; background:rgba(76,175,80,.12); color:#4CAF50; border:1px solid rgba(76,175,80,.3); }
   .pkg-name { font-family:'Oswald',sans-serif; text-transform:uppercase; font-size:20px; font-weight:600; }
   .pkg-tagline { font-size:12.5px; color:var(--gray); margin-top:4px; text-transform:uppercase; letter-spacing:0.5px; }
   .pkg-card.featured .pkg-tagline { color:#5B4E12; }
@@ -620,6 +621,7 @@
       </div>
 
       <div class="pkg-card">
+        <div class="pkg-badge best-value">Best Value</div>
         <div class="pkg-name">Premium</div>
         <div class="pkg-tagline">Full Coaching</div>
         <div class="pkg-price"><span class="amount mono">1000</span><span class="cur">EGP</span><span class="per">/ month</span>
