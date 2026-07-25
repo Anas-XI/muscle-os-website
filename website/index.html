@@ -21,12 +21,13 @@
     --line-light: #E4E1D8;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
-  html { scroll-behavior:smooth; }
+  html { scroll-behavior:smooth; scroll-padding-top:72px; }
   body {
     font-family:'Inter',Arial,sans-serif;
     background:var(--ink);
     color:#fff;
     line-height:1.5;
+    overflow-x:hidden;
   }
   .display { font-family:'Oswald',sans-serif; text-transform:uppercase; }
   .mono { font-family:'JetBrains Mono',monospace; }
@@ -37,13 +38,23 @@
 
   ::selection { background:var(--yellow); color:var(--ink); }
 
+  /* Scroll-reveal */
+  .reveal { opacity:0; transform:translateY(28px); transition:opacity .7s ease,transform .7s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+  .reveal-delay-1 { transition-delay:.1s; }
+  .reveal-delay-2 { transition-delay:.2s; }
+  .reveal-delay-3 { transition-delay:.3s; }
+  .reveal-delay-4 { transition-delay:.4s; }
+
   /* ---------- NAV ---------- */
   header {
     position:fixed; top:0; left:0; right:0; z-index:100;
     background:rgba(20,21,26,0.92);
     backdrop-filter:blur(8px);
     border-bottom:1px solid var(--line);
+    transition:background .3s;
   }
+  header.scrolled { background:rgba(20,21,26,0.98); }
   .nav-inner {
     max-width:1180px; margin:0 auto; padding:16px 24px;
     display:flex; align-items:center; justify-content:space-between;
@@ -56,11 +67,36 @@
   .nav-cta {
     background:var(--yellow); color:var(--ink); font-weight:700; font-size:13px;
     padding:10px 20px; border-radius:3px; text-transform:uppercase; letter-spacing:0.4px;
-    display:flex; align-items:center; gap:7px;
+    display:flex; align-items:center; gap:7px; transition:background .2s;
   }
   .nav-cta:hover { background:#fff; }
-  .menu-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; }
-  .menu-toggle span { width:24px; height:2px; background:#fff; display:block; }
+  .menu-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:4px 0; }
+  .menu-toggle span { width:24px; height:2px; background:#fff; display:block; transition:transform .3s,opacity .3s; border-radius:1px; }
+  .menu-toggle.active span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+  .menu-toggle.active span:nth-child(2) { opacity:0; }
+  .menu-toggle.active span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+  /* Mobile panel */
+  .mobile-panel {
+    position:fixed; top:0; right:0; width:100%; max-width:320px; height:100vh; z-index:99;
+    background:var(--ink-2); border-left:1px solid var(--line);
+    transform:translateX(100%); transition:transform .35s cubic-bezier(.4,0,.2,1);
+    display:flex; flex-direction:column; padding:100px 32px 32px; gap:4px;
+    overflow-y:auto;
+  }
+  .mobile-panel.open { transform:translateX(0); }
+  .mobile-panel .mob-link {
+    font-family:'Oswald',sans-serif; font-size:19px; font-weight:600; text-transform:uppercase;
+    color:#C7C9D0; padding:12px 0; border-bottom:1px solid rgba(255,255,255,.04);
+    transition:color .2s;
+  }
+  .mobile-panel .mob-link:hover { color:var(--yellow); }
+  .mobile-panel .mob-cta { margin-top:20px; }
+  .mob-overlay {
+    position:fixed; inset:0; z-index:98; background:rgba(0,0,0,.6);
+    opacity:0; pointer-events:none; transition:opacity .35s;
+  }
+  .mob-overlay.open { opacity:1; pointer-events:auto; }
+  .no-scroll { overflow:hidden; }
 
   /* ---------- HERO ---------- */
   .hero {
@@ -74,6 +110,12 @@
     position:absolute; inset:0; z-index:0;
   }
   .hero-bg img { width:100%; height:100%; object-fit:cover; object-position:center 15%; }
+  .hero-bg img[src="assets/hero.jpg"]:not([loaded]) { opacity:0; }
+  .hero-bg .img-fallback {
+    position:absolute; inset:0;
+    background:linear-gradient(135deg, var(--ink) 0%, var(--ink-2) 50%, rgba(244,201,59,.08) 100%);
+    display:none;
+  }
   .hero-bg::after {
     content:"";
     position:absolute; inset:0;
@@ -332,21 +374,24 @@
   </div>
 </header>
 
-<!-- MOBILE MENU -->
-<div id="mobileMenu" style="display:none; position:fixed; inset:0; z-index:99; background:var(--ink); padding:100px 24px 24px; flex-direction:column; gap:26px;">
-  <a href="#about" class="mobile-link display" style="font-size:22px;">About</a>
-  <a href="#services" class="mobile-link display" style="font-size:22px;">Services</a>
-  <a href="#mos" class="mobile-link display" style="font-size:22px;">Muscle OS</a>
-  <a href="#tools" class="mobile-link display" style="font-size:22px;">Tools</a>
-  <a href="#knowledge-hub" class="mobile-link display" style="font-size:22px;">Knowledge Hub</a>
-  <a href="#packages" class="mobile-link display" style="font-size:22px;">Packages</a>
-  <a href="#contact" class="mobile-link display" style="font-size:22px;">Contact</a>
-  <a href="https://wa.me/201040796017" class="btn btn-primary" style="margin-top:10px; width:fit-content;">Message on WhatsApp</a>
+<div class="mob-overlay" id="mobOverlay"></div>
+<div class="mobile-panel" id="mobilePanel">
+  <a href="#about" class="mob-link">About</a>
+  <a href="#services" class="mob-link">Services</a>
+  <a href="#mos" class="mob-link">Muscle OS</a>
+  <a href="#tools" class="mob-link">Tools</a>
+  <a href="#knowledge-hub" class="mob-link">Knowledge Hub</a>
+  <a href="#packages" class="mob-link">Packages</a>
+  <a href="#contact" class="mob-link">Contact</a>
+  <a href="https://wa.me/201040796017" class="btn btn-primary mob-cta" style="justify-content:center;" target="_blank" rel="noopener">Message on WhatsApp</a>
 </div>
 
 <!-- HERO -->
 <section class="hero" id="top">
-  <div class="hero-bg"><img src="assets/hero.jpg" alt="Anas Mo'men training"></div>
+  <div class="hero-bg">
+    <img src="assets/hero.jpg" alt="Anas Mo'men training" onerror="this.style.display='none';this.parentNode.querySelector('.img-fallback').style.display='block'" onload="this.setAttribute('loaded','')">
+    <div class="img-fallback"></div>
+  </div>
   <div class="hero-shard"></div>
   <div class="wrap hero-content">
     <div class="kicker">Hypertrophy &amp; Powerlifting Coaching</div>
@@ -371,10 +416,10 @@
 </section>
 
 <!-- ABOUT -->
-<section class="about section-pad" id="about">
+<section class="about section-pad reveal" id="about">
   <div class="wrap about-grid">
     <div class="about-photo-wrap">
-      <div class="about-photo"><img src="assets/portrait.png" alt="Anas Mo'men in the gym"></div>
+      <div class="about-photo"><img src="assets/portrait.png" alt="Anas Mo'men in the gym" onerror="this.style.display='none';this.parentNode.style.background='var(--ink)';this.parentNode.style.minHeight='320px';this.parentNode.style.display='flex';this.parentNode.style.alignItems='center';this.parentNode.style.justifyContent='center';this.parentNode.innerHTML='<div style=text-align:center;padding:40px><div style=font-size:48px;margin-bottom:8px>&#127947;</div><div style=font-size:11px;color:var(--gray);letter-spacing:.5px>Coach Anas</div></div>'"></div>
     </div>
     <div>
       <div class="eyebrow" style="color:var(--yellow-dim);">About Your Coach</div>
@@ -394,7 +439,7 @@
 </section>
 
 <!-- SERVICES -->
-<section class="services section-pad" id="services">
+<section class="services section-pad reveal" id="services">
   <div class="wrap">
     <div class="eyebrow">What I Coach</div>
     <h2 class="section-title">Programming built on<br>evidence, not trend.</h2>
@@ -437,7 +482,7 @@
 </section>
 
 <!-- MUSCLE OS -->
-<section class="mos section-pad" id="mos">
+<section class="mos section-pad reveal" id="mos">
   <div class="wrap mos-grid">
     <div>
       <div class="mos-tag">Founder &amp; Lead Engineer</div>
@@ -481,7 +526,7 @@
 </section>
 
 <!-- TOOLS & RESOURCES -->
-<section class="resources-section" id="tools">
+<section class="resources-section reveal" id="tools">
   <div class="wrap">
     <h2>TOOLS &amp; BUNDLES</h2>
     <p class="subtitle">Professional training tools and bundled resources to level up your coaching.</p>
@@ -525,7 +570,7 @@
 </section>
 
 <!-- KNOWLEDGE HUB -->
-<section class="resources-section" id="knowledge-hub">
+<section class="resources-section reveal" id="knowledge-hub">
   <div class="wrap">
     <div class="eyebrow">Knowledge Hub</div>
     <h2>Books, Guides &amp; Reference</h2>
@@ -549,7 +594,7 @@
 </section>
 
 <!-- PACKAGES -->
-<section class="packages section-pad" id="packages">
+<section class="packages section-pad reveal" id="packages">
   <div class="wrap">
     <div class="eyebrow">Coaching Packages</div>
     <h2 class="section-title">Pick the level of<br>support you need.</h2>
@@ -597,7 +642,7 @@
 </section>
 
 <!-- CONTACT -->
-<section class="contact section-pad" id="contact">
+<section class="contact section-pad reveal" id="contact">
   <div class="wrap contact-inner">
     <div>
       <h2>Ready to train with a coach who delivers?</h2>
@@ -622,14 +667,37 @@
 </footer>
 
 <script>
+  // Mobile panel
   const menuToggle = document.getElementById('menuToggle');
-  const mobileMenu = document.getElementById('mobileMenu');
-  menuToggle.addEventListener('click', () => {
-    const isOpen = mobileMenu.style.display === 'flex';
-    mobileMenu.style.display = isOpen ? 'none' : 'flex';
+  const mobilePanel = document.getElementById('mobilePanel');
+  const mobOverlay = document.getElementById('mobOverlay');
+  function openMobile(){ mobilePanel.classList.add('open'); mobOverlay.classList.add('open'); document.body.classList.add('no-scroll'); menuToggle.classList.add('active'); }
+  function closeMobile(){ mobilePanel.classList.remove('open'); mobOverlay.classList.remove('open'); document.body.classList.remove('no-scroll'); menuToggle.classList.remove('active'); }
+  menuToggle.addEventListener('click', () => { mobilePanel.classList.contains('open') ? closeMobile() : openMobile(); });
+  mobOverlay.addEventListener('click', closeMobile);
+  document.querySelectorAll('.mob-link').forEach(link => { link.addEventListener('click', closeMobile); });
+
+  // Scroll-reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){ entry.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Header scroll class
+  const header = document.querySelector('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 60);
   });
-  document.querySelectorAll('.mobile-link').forEach(link => {
-    link.addEventListener('click', () => { mobileMenu.style.display = 'none'; });
+
+  // Active nav link
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if(window.scrollY >= s.offsetTop - 150) current = s.id; });
+    navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#'+current ? 'var(--yellow)' : ''; });
   });
 </script>
 
