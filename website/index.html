@@ -240,18 +240,15 @@
     background:var(--yellow); color:var(--ink);
     position:relative; overflow:hidden;
   }
-  .contact-inner { display:grid; grid-template-columns:1.3fr 1fr; gap:48px; align-items:center; }
+  .contact-inner { text-align:center; }
   .contact h2 { font-family:'Oswald',sans-serif; text-transform:uppercase; font-size:clamp(28px,4vw,44px); line-height:1.05; font-weight:700; }
-  .contact p.lead { margin-top:16px; font-size:15px; color:#403911; max-width:460px; line-height:1.65; }
-  .contact-ctas { margin-top:28px; display:flex; gap:14px; flex-wrap:wrap; }
+  .contact p.lead { margin-top:16px; font-size:15px; color:#403911; max-width:600px; line-height:1.65; margin-left:auto; margin-right:auto; }
+  .contact-ctas { margin-top:28px; display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
   .btn-dark { background:var(--ink); color:#fff; }
   .btn-dark:hover { background:#000; }
   .btn-outline-dark { background:transparent; color:var(--ink); border:1.5px solid rgba(20,21,26,0.4); }
   .btn-outline-dark:hover { border-color:var(--ink); }
-  .qr-block { background:var(--ink); padding:22px; border-radius:4px; display:flex; align-items:center; gap:18px; justify-self:end; }
-  .qr-block img { width:96px; height:96px; }
-  .qr-block .qtext .qt1 { font-size:11px; color:var(--gray); text-transform:uppercase; letter-spacing:1px; }
-  .qr-block .qtext .qt2 { font-size:15px; font-weight:700; color:var(--yellow); margin-top:4px; }
+
 
   /* ---------- FOOTER ---------- */
   footer { background:var(--ink); border-top:1px solid var(--line); padding:32px 0; }
@@ -296,12 +293,12 @@
   @media (max-width:860px) {
     .nav-links { display:none; }
     .menu-toggle { display:flex; }
-    .about-grid, .mos-grid, .contact-inner { grid-template-columns:1fr; }
+    .about-grid, .mos-grid { grid-template-columns:1fr; }
     .service-grid { grid-template-columns:1fr; }
     .pkg-grid { grid-template-columns:1fr; }
     .pkg-card.featured { transform:none; }
     .about-facts { grid-template-columns:1fr 1fr; }
-    .qr-block { justify-self:start; }
+
     .section-pad { padding:72px 0; }
     .hero { min-height:92vh; }
   }
@@ -654,13 +651,6 @@
       <div class="contact-ctas">
         <a href="https://wa.me/201040796017" class="btn btn-dark" target="_blank" rel="noopener">Message on WhatsApp</a>
         <a href="https://instagram.com/anas_moamen1" class="btn btn-outline-dark" target="_blank" rel="noopener">@anas_moamen1</a>
-      </div>
-    </div>
-    <div class="qr-block">
-      <img src="assets/qr.png" alt="Instagram QR code">
-      <div class="qtext">
-        <div class="qt1">Scan to follow</div>
-        <div class="qt2">@anas_moamen1</div>
       </div>
     </div>
   </div>
