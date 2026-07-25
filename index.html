@@ -209,9 +209,17 @@
   .pkg-price .amount { font-family:'JetBrains Mono',monospace; font-size:38px; font-weight:700; }
   .pkg-price .cur { font-size:14px; font-weight:600; color:var(--gray); }
   .pkg-card.featured .pkg-price .cur { color:#5B4E12; }
-  .pkg-price .per { font-size:13px; color:var(--gray); }
-  .pkg-card.featured .pkg-price .per { color:#5B4E12; }
-  .pkg-divider { height:1px; background:var(--line); margin:22px 0; }
+.pkg-price .per { font-size:13px; color:var(--gray); }
+.pkg-card.featured .pkg-price .per { color:#5B4E12; }
+.pkg-price .term-save{display:block;font-size:12px;color:#4CAF50;margin-top:4px;font-weight:600}
+.pkg-card.featured .pkg-price .term-save{color:#2E7D32}
+.pkg-term{display:block;margin-top:14px;padding:12px;background:rgba(76,175,80,.08);border:1px solid rgba(76,175,80,.2);border-radius:8px;text-align:center}
+.pkg-term .term-label{font-size:11px;color:#8A8D96;text-transform:uppercase;letter-spacing:.5px}
+.pkg-term .term-price{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;margin-top:2px}
+.pkg-term .term-note{font-size:11px;color:#4CAF50;margin-top:2px}
+.pkg-card.featured .pkg-term{border-color:rgba(46,125,50,.3);background:rgba(76,175,80,.06)}
+.pkg-card.featured .pkg-term .term-note{color:#2E7D32}
+.pkg-divider { height:1px; background:var(--line); margin:22px 0; }
   .pkg-card.featured .pkg-divider { background:rgba(20,21,26,0.18); }
   .pkg-features { flex:1; display:flex; flex-direction:column; gap:12px; }
   .pkg-feature { display:flex; gap:10px; align-items:flex-start; font-size:13.5px; }
@@ -600,7 +608,9 @@
         <div class="pkg-badge">Most Popular</div>
         <div class="pkg-name">Standard</div>
         <div class="pkg-tagline">Coached</div>
-        <div class="pkg-price"><span class="amount mono">600</span><span class="cur">EGP</span><span class="per">/ month</span></div>
+        <div class="pkg-price"><span class="amount mono">600</span><span class="cur">EGP</span><span class="per">/ month</span>
+        <span class="term-save">Save 300 EGP — pay 1,500 for 3 months</span></div>
+        <div class="pkg-term"><div class="term-label">3-Month Plan</div><div class="term-price">1,500 EGP</div><div class="term-note">Save 300 EGP (1,800 value)</div></div>
         <div class="pkg-divider"></div>
         <div class="pkg-features">
           
@@ -608,6 +618,7 @@
           <div class="pkg-feature"><span class="check">✓</span><span class="txt">Real-time program adjustments</span></div>
           <div class="pkg-feature"><span class="check">✓</span><span class="txt">Basic nutrition guidance (macros/calories)</span></div>
           <div class="pkg-feature"><span class="check">✓</span><span class="txt">Direct messaging access between check-ins</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt">50% off all tools during subscription</span></div>
         </div>
         <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%27m%20interested%20in%20the%20Standard%20package." class="pkg-cta" target="_blank" rel="noopener">Start with Standard</a>
       </div>
@@ -615,7 +626,9 @@
       <div class="pkg-card">
         <div class="pkg-name">Premium</div>
         <div class="pkg-tagline">Full Coaching</div>
-        <div class="pkg-price"><span class="amount mono">1000</span><span class="cur">EGP</span><span class="per">/ month</span></div>
+        <div class="pkg-price"><span class="amount mono">1000</span><span class="cur">EGP</span><span class="per">/ month</span>
+        <span class="term-save">Save 500 EGP — pay 2,500 for 3 months</span></div>
+        <div class="pkg-term"><div class="term-label">3-Month Plan</div><div class="term-price">2,500 EGP</div><div class="term-note">Save 500 EGP (3,000 value)</div></div>
         <div class="pkg-divider"></div>
         <div class="pkg-features">
           <div class="pkg-feature"><span class="check">✓</span><span class="txt">Everything in Standard</span></div>
@@ -624,11 +637,12 @@
           <div class="pkg-feature"><span class="check">✓</span><span class="txt">Competition prep support</span></div>
           <div class="pkg-feature"><span class="check">✓</span><span class="txt">Periodic video call check-ins</span></div>
           <div class="pkg-feature"><span class="check">✓</span><span class="txt">Early access to Muscle OS features</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt">50% off all tools during subscription</span></div>
         </div>
         <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%27m%20interested%20in%20the%20Premium%20package." class="pkg-cta" target="_blank" rel="noopener">Start with Premium</a>
       </div>
     </div>
-    <p class="pkg-note">Prices in EGP, billed monthly. Cancel anytime — no long-term contracts.</p>
+    <p class="pkg-note">Prices in EGP. Monthly billing or 3-month plan. Cancel anytime — no long-term contracts.</p>
   </div>
 </section>
 
