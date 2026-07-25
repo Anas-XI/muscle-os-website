@@ -369,8 +369,8 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
  .set-log-header{grid-template-columns:28px 1fr 1fr 1fr 26px}.suggest-val{font-size:1.1rem}
 }
 /* Subscription paywall */
-.sub-overlay{position:fixed;inset:0;z-index:9999;background:rgba(20,21,26,.97);display:flex;align-items:center;justify-content:center;padding:24px}
-.sub-modal{max-width:520px;width:100%;background:#1E1E2A;border:1px solid #2C2E37;border-radius:16px;padding:40px 32px;text-align:center}
+.sub-overlay{position:fixed;inset:0;z-index:9999;background:rgba(20,21,26,.97);display:flex;align-items:center;justify-content:center;padding:24px;overflow-y:auto}
+.sub-modal{max-width:520px;width:100%;background:#1E1E2A;border:1px solid #2C2E37;border-radius:16px;padding:40px 32px;text-align:center;margin:auto}
 .sub-modal .lock-icon{font-size:48px;margin-bottom:8px}
 .sub-modal h2{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;color:#F4C93B;text-transform:uppercase;margin-bottom:4px;letter-spacing:.5px}
 .sub-modal .sub-price{font-family:'JetBrains Mono',monospace;font-size:14px;color:rgba(255,215,0,.6);margin-bottom:20px}
@@ -410,10 +410,10 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     </ul>
     <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20subscribe%20to%20the%20Training%20Tool%20for%20200%20EGP/month" class="sub-btn" target="_blank" rel="noopener">Subscribe via WhatsApp</a>
     <div class="sub-divider">Already have access?</div>
-    <div class="sub-code-row">
-      <input type="text" class="sub-code-input" id="subCode" placeholder="Enter your access code" autocomplete="off">
-      <button class="sub-verify-btn" id="subVerify">Verify</button>
-    </div>
+    <form class="sub-code-row" id="subForm" action="javascript:void(0)">
+      <input type="text" class="sub-code-input" id="subCode" placeholder="Enter access code or email" autocomplete="off" inputmode="text">
+      <button type="submit" class="sub-verify-btn" id="subVerify">Verify</button>
+    </form>
     <div class="sub-error" id="subError">Invalid code. Please check and try again.</div>
     <div class="sub-success" id="subSuccess">Access granted! Reloading tool...</div>
   </div>
@@ -2832,7 +2832,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
 
   if(!active){
     document.getElementById('subOverlay').style.display = 'flex';
-    document.getElementById('subVerify').addEventListener('click', function(){
+    function doVerify(){
       var code = document.getElementById('subCode').value.trim().toUpperCase();
       if(code && (code.length >= 6 || code === EMAIL_CODE)){
         var expiry = new Date();
@@ -2849,10 +2849,10 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       } else {
         document.getElementById('subError').style.display = 'block';
       }
-    });
-    document.getElementById('subCode').addEventListener('keydown', function(e){
-      if(e.key === 'Enter') document.getElementById('subVerify').click();
-    });
+    }
+    document.getElementById('subForm').addEventListener('submit', function(e){ e.preventDefault(); doVerify(); });
+    document.getElementById('subVerify').addEventListener('click', doVerify);
+    document.getElementById('subVerify').addEventListener('touchend', function(e){ e.preventDefault(); doVerify(); });
   }
 })();
 </script>

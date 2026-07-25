@@ -157,7 +157,7 @@ pre, table, figure, img, svg, blockquote { max-width: 100%; box-sizing: border-b
 .mos-fsocial a{color:#F4C93B;text-decoration:none;margin:0 8px;font-size:11px}
 .mos-fcopy{font-size:10px;color:rgba(250,250,248,.3);margin-top:6px}
 /* Purchase overlay */
-.po-overlay{position:fixed;inset:0;z-index:9999;background:rgba(20,21,26,.97);display:flex;align-items:center;justify-content:center;padding:24px}
+.po-overlay{position:fixed;inset:0;z-index:9999;background:rgba(20,21,26,.97);display:flex;align-items:center;justify-content:center;padding:24px;overflow-y:auto}
 .po-modal{max-width:520px;width:100%;background:#1E1E2A;border:1px solid #2C2E37;border-radius:16px;padding:40px 32px;text-align:center}
 .po-modal .po-icon{font-size:48px;margin-bottom:8px}
 .po-modal h2{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;color:#F4C93B;text-transform:uppercase;margin-bottom:4px;letter-spacing:.5px}
@@ -197,10 +197,10 @@ pre, table, figure, img, svg, blockquote { max-width: 100%; box-sizing: border-b
     </ul>
     <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20purchase%20the%20Nutrition%20Book%20for%20500%20EGP" class="po-btn" target="_blank" rel="noopener">Buy via WhatsApp</a>
     <div class="po-divider">Already purchased?</div>
-    <div class="po-code-row">
-      <input type="text" class="po-code-input" id="poCode" placeholder="Enter your access code" autocomplete="off">
-      <button class="po-verify-btn" id="poVerify">Unlock</button>
-    </div>
+    <form class="po-code-row" id="poForm" action="javascript:void(0)">
+      <input type="text" class="po-code-input" id="poCode" placeholder="Enter access code or email" autocomplete="off" inputmode="text">
+      <button type="submit" class="po-verify-btn" id="poVerify">Unlock</button>
+    </form>
     <div class="po-error" id="poError">Invalid code. Please check and try again.</div>
     <div class="po-success" id="poSuccess">Access granted! Loading book...</div>
   </div>
@@ -1450,7 +1450,7 @@ pre, table, figure, img, svg, blockquote { max-width: 100%; box-sizing: border-b
     document.getElementById('poOverlay').style.display = 'none';
   } else {
     document.getElementById('poOverlay').style.display = 'flex';
-    document.getElementById('poVerify').addEventListener('click', function(){
+    function doVerify(){
       var code = document.getElementById('poCode').value.trim().toUpperCase();
       if(code && (code.length >= 6 || code === EMAIL_CODE)){
         localStorage.setItem(KEY, JSON.stringify({ active: true, book: 'nutrition', code: code }));
@@ -1460,10 +1460,10 @@ pre, table, figure, img, svg, blockquote { max-width: 100%; box-sizing: border-b
       } else {
         document.getElementById('poError').style.display = 'block';
       }
-    });
-    document.getElementById('poCode').addEventListener('keydown', function(e){
-      if(e.key === 'Enter') document.getElementById('poVerify').click();
-    });
+    }
+    document.getElementById('poForm').addEventListener('submit', function(e){ e.preventDefault(); doVerify(); });
+    document.getElementById('poVerify').addEventListener('click', doVerify);
+    document.getElementById('poVerify').addEventListener('touchend', function(e){ e.preventDefault(); doVerify(); });
   }
 })();
 </script>
