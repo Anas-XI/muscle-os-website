@@ -1,0 +1,338 @@
+{
+  "client": {
+    "user_id": "beshoy_ashraf",
+    "name": "Beshoy Ashraf Nassem Bakloj",
+    "profile_date": "2026-07-21",
+    "goal": "recomp",
+    "situation": "",
+    "bodyweight_kg": 80.0,
+    "height_cm": 173.0,
+    "age": 22,
+    "sex": "male",
+    "training_days": 2,
+    "session_length_min": 90,
+    "experience_years": 0.5,
+    "current_split": "upper_lower",
+    "injuries": [
+      "A minor pain in the elbow and wrist. Most likely due to tendons and joints damage and inflexibility."
+    ],
+    "gut_health": "none",
+    "bowel_frequency_weekly": 14,
+    "fermented_foods": "rarely_never",
+    "antibiotic_recent": false,
+    "supplement_regimen": "Creatine 3 grams per serving, Omega-3 once capsule per day, Multivitamins once a day all together in the evening ",
+    "vegan_unsupplemented": false,
+    "sleep_hours": 7.5,
+    "stress_level": 5,
+    "daily_water_liters": 0.0,
+    "urine_color": "straw",
+    "muscle_cramps": true,
+    "alcohol_weekly": 0,
+    "alcohol_near_bed": false,
+    "daily_steps": 7500,
+    "caffeine_mg": 250,
+    "work_schedule": "student",
+    "reliable_hours_weekly": 12,
+    "mobility_limitations": [
+      "multiple",
+      "shoulder",
+      "ankle",
+      "hip",
+      "lower_back",
+      "neck",
+      "thoracic"
+    ],
+    "joint_pain": "no_pain",
+    "supplements": [
+      "creatine",
+      "omega3",
+      "vitamin_d",
+      "magnesium",
+      "zinc"
+    ],
+    "medical": [
+      "I most likely have a condition of poor calcium and vitamin D deficiency. My bones are believed to be not as dense as it should be"
+    ],
+    "last_bloodwork": "2yr_plus",
+    "known_deficiencies": [
+      "vitamin_d",
+      "magnesium",
+      "zinc",
+      "multiple"
+    ],
+    "deficiency_status": "resolved",
+    "deficiency_confirmed": true,
+    "family_history": [
+      "heart_disease",
+      "diabetes",
+      "autoimmune"
+    ],
+    "mental_health_concern": "moderate",
+    "mental_health_care": "no",
+    "rapid_weight_loss": false,
+    "crisis_incident_id": "",
+    "crisis_cleared_incident": "",
+    "ed_risk": true,
+    "triage_result": "red",
+    "inbody": null
+  },
+  "triage": {
+    "triage": "green",
+    "ed_items": [],
+    "blocked": false,
+    "block_reason": "",
+    "caution_note": "",
+    "modifiers": [
+      "vitamin_d_supplementation",
+      "mental_health_support",
+      "injury_aware"
+    ]
+  },
+  "pillars": {
+    "primary_pillars": [
+      "P1 - Diet Maxing",
+      "P2 - Training Maxing"
+    ],
+    "secondary_pillars": [
+      "P4 - Recovery Maxing",
+      "P9 - Measurement and Feedback Systems",
+      "P7 - Adherence Engineering",
+      "P8 - Individualization",
+      "P10 - Integration"
+    ],
+    "gentle_entry": false,
+    "modifications": [
+      "vitamin_d_supplementation",
+      "mental_health_support",
+      "injury_aware",
+      "volume_progression_cap",
+      "evidence_based_rep_range",
+      "adherence_first",
+      "long_length_emphasis"
+    ]
+  },
+  "program": {
+    "split": "Upper/Lower Split",
+    "phases": [
+      {
+        "name": "Phase 1: Accumulation & Stability",
+        "duration": "Weeks 1-4",
+        "goal": "Accumulation & Movement Quality",
+        "sessions": [
+          {
+            "day": "Upper A",
+            "focus": "Push/Pull Balance",
+            "exercises": [
+              {
+                "name": "Dumbbell Bench Press (Neutral Grip)",
+                "sets": 3,
+                "reps": "10-12",
+                "rir": "2",
+                "notes": "Control tempo 2-0-2",
+                "weight": "",
+                "rest": "90s"
+              },
+              {
+                "name": "Lat Pulldown (Neutral Grip)",
+                "sets": 3,
+                "reps": "10-12",
+                "rir": "1-2",
+                "notes": "Full stretch at top",
+                "weight": "",
+                "rest": "90s"
+              },
+              {
+                "name": "Seated Cable Row",
+                "sets": 3,
+                "reps": "12-15",
+                "rir": "1-2",
+                "notes": "Squeeze shoulder blades together",
+                "weight": "",
+                "rest": "90s"
+              },
+              {
+                "name": "DB Lateral Raise (Thumb Up)",
+                "sets": 3,
+                "reps": "15-20",
+                "rir": "1",
+                "notes": "Light weight, strict form",
+                "weight": "",
+                "rest": "90s"
+              },
+              {
+                "name": "Face Pull (Low Pulley)",
+                "sets": 3,
+                "reps": "15-20",
+                "rir": "1",
+                "notes": "External rotation focus",
+                "weight": "",
+                "rest": "90s"
+              }
+            ],
+            "notes": ""
+          },
+          {
+            "day": "Lower A",
+            "focus": "Compound/Glutes",
+            "exercises": [
+              {
+                "name": "Goblet Squat",
+                "sets": 3,
+                "reps": "10-12",
+                "rir": "2",
+                "notes": "Depth control",
+                "weight": "",
+                "rest": "90s"
+              },
+              {
+                "name": "Dumbbell RDL",
+                "sets": 3,
+                "reps": "12-15",
+                "rir": "2",
+                "notes": "Soft knees, feel stretch",
+                "weight": "",
+                "rest": "90s"
+              },
+              {
+                "name": "Leg Press",
+                "sets": 3,
+                "reps": "15-20",
+                "rir": "1",
+                "notes": "High volume pump",
+                "weight": "",
+                "rest": "90s"
+              },
+              {
+                "name": "Walking Lunge",
+                "sets": 3,
+                "reps": "10/leg",
+                "rir": "2",
+                "notes": "Control each rep",
+                "weight": "",
+                "rest": "90s"
+              },
+              {
+                "name": "Calf Raise (Standing)",
+                "sets": 3,
+                "reps": "15-20",
+                "rir": "1",
+                "notes": "Slow, full ROM",
+                "weight": "",
+                "rest": "90s"
+              }
+            ],
+            "notes": ""
+          }
+        ],
+        "progression_notes": ""
+      },
+      {
+        "name": "Phase 2: Intensification & Progressive Overload",
+        "duration": "Weeks 5+",
+        "goal": "Intensification & Progressive Overload",
+        "sessions": [],
+        "progression_notes": "When RIR drops below 2 on all sets of a movement, increase weight 5-7.5% or add 1 set. Re-test MAV landmarks after 8 weeks."
+      }
+    ],
+    "weekly_schedule": "Based on 2x/week schedule. Sessions alternated with rest days for recovery.",
+    "warm_up_protocol": "5 min incline walk or bike (RPE 3-4)\nDynamic warm-up: leg swings, cat-cow, thoracic rotations, band pull-aparts\nMovement-specific warm-up: 2x10 reps at 50% working weight\nIPTA warm-up standard: 5-10 min general cardio → dynamic stretching → movement-specific warm-up at 40-60% working weight.\n\n# Injury Diagnosis Tree — Route Pain to the Right Protocol\n\nUse this tree when you feel pain or suspect an injury. Follow each question sequentially. If any RED FLAG appears, stop and consult a professional.\n\n---\n\n## Step 1: Mechanism — How Did It Start?\n\n- **Acute / traumatic** (sudden pop, twist, ",
+    "cool_down_protocol": "5 min light cardio (RPE 2-3)\nStatic stretching for worked muscle groups: 30s holds\nOptional: foam rolling for tight areas"
+  },
+  "nutrition": {
+    "calories_target": 2131,
+    "protein_g": 160,
+    "carbs_g": 240,
+    "fat_g": 59,
+    "protein_per_kg": 2.0,
+    "meal_timing_notes": "Per IPTA CNS: distribute protein across 3-5 meals at ≥0.4 g/kg per meal (minimum 20-30g) for optimal MPS. Post-exercise: consume 0.4 g/kg within 2 hours.",
+    "hydration_target_l": 2.8,
+    "special_notes": "Protein target is evidence-based: 1.6-2.2 g/kg/day (Schoenfeld). Older adults (65+): 1.6-2.4 g/kg/day.; Per Schoenfeld: modest 200-400 kcal surplus is permissive for maximal hypertrophy.; Per ISSA: hand portion method — start standard, adjust by 1 unit after 2 weeks based on weight trend.; Per IPTA CNS: hypertrophy surplus 200-400 kcal/day, primarily from carbohydrates for training performance.; Per IPTA CNS: minimum 0.5 g/kg fat for hormone function. Increase to 0.8-1.0 g/kg for hormonal concerns or amenorrhea.; Per IPTA CNS: supplement tier — Tier 1 (strong evidence): creatine 5g/day, vitamin D 2000-4000 IU, omega-3 2-3g. Tier 2 (moderate): magnesium, B12, probiotics."
+  },
+  "sleep_notes": "",
+  "supplement_recommendations": "",
+  "rehab_prehab": "",
+  "vault_sources": [
+    {
+      "title": "Recomp Decision Protocol — Body Recomposition Guide",
+      "path": "04_PROTOCOLS\\Recomp Decision Protocol.md",
+      "score": 0.417,
+      "pillar": "",
+      "snippet": "# Recomp Decision Protocol — Body Recomposition Guide\n\n**Purpose:** Determine whether body recomposition (building muscle while losing fat) is realistic for a given user, and provide protocols for those who qualify.\n\n---\n\n## What Recomp Is (and Isn't)\n\n| Is | Is Not |\n|----|--------|\n| Building musc"
+    },
+    {
+      "title": "[ARCHIVED] Recomp Maxing — Content Absorbed Across Pillars",
+      "path": "00_META\\archive\\Recomp Maxing.md",
+      "score": 0.413,
+      "pillar": "",
+      "snippet": "# [ARCHIVED] Recomp Maxing — Content Absorbed Across Pillars\n\n**This content has been distributed across:**\n- **Pillar 1 (Diet Maxing):** P-Ratio determinants, Energy Flux Model, TG/FA Cycling, Insulin Periodisation, Recomp Day Blueprint, Cheat Code, FAQ\n- **Pillar 2 (Training Maxing):** Dual-Signal"
+    },
+    {
+      "title": "Recomp Assessment Decision Tree",
+      "path": "04_TOOLS\\Decision Trees\\Recomp Assessment Decision Tree.md",
+      "score": 0.384,
+      "pillar": "",
+      "snippet": "# Recomp Assessment Decision Tree\n\nDetermine whether body recomposition is occurring and what adjustments are needed based on weight, waist, and performance trends.\n\nFor full methodology, see [[04_TOOLS/Decision Tree Engine.md|Decision Tree Engine]]\n\n- Q1: 7-day rolling weight trend over the last 4 "
+    },
+    {
+      "title": "Elbow Tendinopathy — Self-Managed Rehab",
+      "path": "04_PROTOCOLS\\Rehab\\Elbow Tendinopathy.md",
+      "score": 0.548,
+      "pillar": "",
+      "snippet": "# Elbow Tendinopathy — Self-Managed Rehab\n\n*Also applies to: Lateral epicondylitis (tennis elbow), medial epicondylitis (golfer's elbow), triceps tendinopathy*\n\n---\n\n**Evidence sources:** [[08_EXTERNAL_KNOWLEDGE/Books/Junqueira's Basic Histology 14ed/03 Extracted Concepts.md\\|Junqueira Ch 5,7,10]] ("
+    },
+    {
+      "title": "Wrist Overuse — Self-Managed Rehab",
+      "path": "04_PROTOCOLS\\Rehab\\Wrist Overuse.md",
+      "score": 0.527,
+      "pillar": "",
+      "snippet": "# Wrist Overuse — Self-Managed Rehab\n\n*Also applies to: Wrist tendinitis, De Quervain's tenosynovitis (thumb side), carpal tunnel (mild), wrist strain*\n\n---\n\n**Evidence sources:** [[08_EXTERNAL_KNOWLEDGE/Books/Junqueira's Basic Histology 14ed/03 Extracted Concepts.md\\|Junqueira Ch 5,7,10]] (tissue h"
+    },
+    {
+      "title": "Injury Diagnosis Tree — Route Pain to the Right Protocol",
+      "path": "04_TOOLS\\Decision Trees\\Injury Diagnosis Tree.md",
+      "score": 0.462,
+      "pillar": "",
+      "snippet": "# Injury Diagnosis Tree — Route Pain to the Right Protocol\n\nUse this tree when you feel pain or suspect an injury. Follow each question sequentially. If any RED FLAG appears, stop and consult a professional.\n\n---\n\n## Step 1: Mechanism — How Did It Start?\n\n- **Acute / traumatic** (sudden pop, twist, "
+    },
+    {
+      "title": "Muscle OS Core Engine — Decision-Making Loop v1.0",
+      "path": "Muscle OS Core Engine.md",
+      "score": 0.418,
+      "pillar": "",
+      "snippet": "blocks your progress is often the one you did not assess. ### Body Composition Assessment - [[Pillar 9 - Measurement and Feedback Systems|P9 Measurement — Body Composition Tracking]] - **Metrics to capture:** 7-day rolling weight trend, waist circumference, progress photos, estimated body fat % - **"
+    },
+    {
+      "title": "Vitamin D & Calcium Pathway",
+      "path": "03_SECTIONS\\Pillar 1\\Vitamin D & Calcium Pathway.md",
+      "score": 0.414,
+      "pillar": "Pillar 1",
+      "snippet": "# Vitamin D & Calcium Pathway\n\n## Role in MOS\nPillar 1 (Diet Maxing) — Hormonal optimisation, bone health, and calcium handling. Vitamin D is the single most commonly deficient vitamin in athletes.\n\n---\n\n## Vitamin D (Calciferol)\n\n### Physiological Pathways\n\n| Pathway | Mechanism | Training Impact |"
+    }
+  ],
+  "vault_insights": [
+    "[Schoenfeld - Science and Development of Muscle Hypertrophy] Per Schoenfeld: effective hypertrophy rep range is 5-30 RM, practical sweet spot 6-15 RM.",
+    "[Schoenfeld - Science and Development of Muscle Hypertrophy] Per Schoenfeld: longer rest (2-3 min) maintains mechanical tension across sets.",
+    "[Schoenfeld - Science and Development of Muscle Hypertrophy] Per Schoenfeld: prioritize exercises that train target muscles at long lengths under load.",
+    "[Schoenfeld - Science and Development of Muscle Hypertrophy] Per Schoenfeld: deload every 6-8 weeks preventatively — reduce volume 40-60% at same intensity.",
+    "[Schoenfeld - Science and Development of Muscle Hypertrophy] Per Schoenfeld: monitor overreaching — performance decline, mood disturbance, sleep disruption, elevated HR, illness frequency.",
+    "[Jeff Nippard - The Muscle Ladder] Per Nippard: 1-3 RIR on most sets. Failure reserved for last set of last exercise per muscle group.",
+    "[Jeff Nippard - The Muscle Ladder] Per Nippard: 6-15 reps is the hypertrophy sweet spot — below 6 lacks metabolic stimulus.",
+    "[Jeff Nippard - The Muscle Ladder] Per Nippard: deload every 6-8 weeks preventatively — never wait for exhaustion symptoms.",
+    "[NSCA - Essentials of Strength Training and Conditioning] Per NSCA: load assignment by goal — strength ≥85% 1RM (2-6 reps), hypertrophy 67-85% 1RM (6-12 reps).",
+    "[NSCA - Essentials of Strength Training and Conditioning] Per NSCA: cap volume increase at 20-30% per mesocycle to prevent injury and systemic fatigue.",
+    "[NSCA - Essentials of Strength Training and Conditioning] Per NSCA: 3-tier fatigue — <2w acute (normal), 2-4w functional overreaching (expected supercompensation), >4w nonfunctional (medical).",
+    "[NSCA - Essentials of Strength Training and Conditioning] Per NSCA: 3+ criteria for >4 weeks — performance decline, fatigue, sleep/mood disruption, appetite loss, frequent illness → medical escalation.",
+    "[NSCA - Essentials of Strength Training and Conditioning] Per NSCA: standardized 4-phase warm-up protocol (15-20 min total).",
+    "[NSCA - Essentials of Strength Training and Conditioning] Per NSCA: detraining recovery guidelines — 1-2w off at 90%, 2-4w at 80%, 4-8w at 70%, 8+w at 50-60%.",
+    "[ACE - Personal Trainer Manual] Per ACE: first 2 weeks prioritize adherence over optimal — achievable > perfect.",
+    "[ACE - Personal Trainer Manual] Per ACE IFT model: verify pain-free ROM, neutral spine, and 15s single-leg balance before progressing intensity.",
+    "[IPTA - Certified Personal Trainer] Per IPTA: rep range by goal — power (1-5), strength (1-6), hypertrophy (6-12), endurance (12-20+).",
+    "[IPTA - Certified Personal Trainer] Per IPTA: rest by goal — strength 3-5 min, hypertrophy 30-90s, endurance 30-60s.",
+    "[IPTA - Certified Personal Trainer] Per IPTA: 3-phase warm-up — general cardio, dynamic mobility, movement-specific preparation.",
+    "[IPTA - Certified Personal Trainer] Per IPTA: 4-criteria movement screen gate before loaded exercise — ROM, squat, balance, hinge.",
+    "[IPTA - Certified Personal Trainer] Per IPTA: periodization by training status — beginner (linear), intermediate (undulating), advanced (block).",
+    "[IPTA - Bodybuilding Screen] Per IPTA Bodybuilding: recovery priority — sleep > protein > active > passive. Reduce volume first when recovery is compromised."
+  ],
+  "vault_context_raw": "=== VAULT CONTEXT ===\n\n--- Recomp Decision Protocol — Body Recomposition Guide (from 04_PROTOCOLS\\Recomp Decision Protocol.md) [score: 0.417] ---\n# Recomp Decision Protocol — Body Recomposition Guide\n\n**Purpose:** Determine whether body recomposition (building muscle while losing fat) is realistic for a given user, and provide protocols for those who qualify.\n\n---\n\n## What Recomp Is (and Isn't)\n\n| Is | Is Not |\n|----|--------|\n| Building muscle while losing fat simultaneously | A magic bullet for fast results |\n| A slow process (0.25-0.5% body composition change per month visible) | Something that works for everyone |\n| Possible only under specific conditions | A replacement for bulking/cutting cycles at advanced levels |\n| Best for beginners and returning lifters | Efficient for anyone past the intermediate level |\n\n---\n\n## Recomp Eligibility Decision Tree\n\n```\nQ1: What is your training age?\n  → <6 months → RECOMP LIKELY. Beginners build muscle and lose fat easily.\n  → 6-12 months → RECOMP POSSIBLE. Strong candidate.\n  → 1-2 years → RECOMP POSSIBLE but slow. Depends on body fat and consistency.\n  → 2+ years → RECOMP UNLIKELY. You need dedicated bulking/cutting phases.\n  → Returning after 3+ month break → RECOMP LIKELY (muscle memory effect).\n\nQ2: What is your body fat percentage?\n  → Male: >18% / Female: >28% → RECOMP LIKELY. Higher body fat has more energy for muscle building.\n  → Male: 12-18% / Female: 22-28% → RECOMP POSSIBLE. Moderate candidate.\n  → Male: <12% / Female: <22% → RECOMP UNLIKELY. Body has insufficient energy reserves. Need surplus.\n\nQ3: Are you taking any body composition-altering compounds?\n  → Yes \n\n--- [ARCHIVED] Recomp Maxing — Content Absorbed Across Pillars (from 00_META\\archive\\Recomp Maxing.md) [score: 0.413] ---\n# [ARCHIVED] Recomp Maxing — Content Absorbed Across Pillars\n\n**This content has been distributed across:**\n- **Pillar 1 (Diet Maxing):** P-Ratio determinants, Energy Flux Model, TG/FA Cycling, Insulin Periodisation, Recomp Day Blueprint, Cheat Code, FAQ\n- **Pillar 2 (Training Maxing):** Dual-Signal Training, SFR adjustments during deficit, GLUT4 frequency, Recomp Training Priority Matrix, Fasted training FAQ\n- **Pillar 4 (Recovery Maxing):** Pre-sleep protein, nocturnal GH partitioning\n- **Pillar 9 (Measurement):** Rate Equations, Recomp Bottleneck Audit, Recomp Rate Calculator, 12-week projection\n- **Synergy Matrix:** Reframed recomp as cross-pillar outcome\n\n## The Body's Architectural Redesign\n\nBody recomposition — simultaneously losing fat and gaining muscle — sits at the intersection of every other pillar in this guide. It is the hardest physiological state to achieve, the most impressive to witness, and the most misunderstood in all of fitness media. The reason is not that recomp is a myth, as many claim. The reason is that recomp requires simultaneous optimisation of five systems — diet, training, sleep, recovery, and strength — operating in precise coordination, with no single lever dominant enough to overcome neglect in the others. This chapter is the master blueprint for that coordination.\n\n## 1. The Grand Paradox: When Your Body Simultaneously Builds and Burns\n\nThe default teaching in fitness is that you must choose: bulk (build muscle, gain some fat) or cut (lose \n\n--- Recomp Assessment Decision Tree (from 04_TOOLS\\Decision Trees\\Recomp Assessment Decision Tree.md) [score: 0.384] ---\n# Recomp Assessment Decision Tree\n\nDetermine whether body recomposition is occurring and what adjustments are needed based on weight, waist, and performance trends.\n\nFor full methodology, see [[04_TOOLS/Decision Tree Engine.md|Decision Tree Engine]]\n\n- Q1: 7-day rolling weight trend over the last 4 weeks — stable (±0.5 kg)?\n  - Yes → Q2: Waist circumference trend over the last 4 weeks — stable, decreasing, or increasing?\n    - Decreasing → **Successful recomp** — You are losing fat while maintaining weight. Continue all variables. Reassess monthly. This is the ideal recomp signal\n    - Stable → Q3: Performance trend (top sets, 3-week rolling) — improving, stable, or declining?\n      - Improving → **Slow recomp** — Muscle is being added at approximately the same rate fat is being lost. Continue. Consider increasing protein if <2.0 g/kg to accelerate\n      - Stable → **Maintenance** — You are neither gaining nor losing significant tissue of either type. To recomp, increase training volume toward MAV and ensure protein ≥2.0 g/kg\n      - Declining → **Under-recovery** — Deficit may be too large or recovery insufficient. Check sleep, stress, protein. Consider reducing deficit by 100-200 kcal. Reassess in 3 weeks\n    - Increasing → **Unwanted gain** — You are gaining fat. Reduce calories by 200-300 (carbs on rest days) OR increase step count by 3,000/day. Check stress and sleep\n  - No (weight moving) → Q4: Is weight decreasing >1 kg over 4 weeks?\n    - Yes → **Recomp not optimal** \n\n=== VAULT CONTEXT ===\n\n--- Elbow Tendinopathy — Self-Managed Rehab (from 04_PROTOCOLS\\Rehab\\Elbow Tendinopathy.md) [score: 0.548] ---\n# Elbow Tendinopathy — Self-Managed Rehab\n\n*Also applies to: Lateral epicondylitis (tennis elbow), medial epicondylitis (golfer's elbow), triceps tendinopathy*\n\n---\n\n**Evidence sources:** [[08_EXTERNAL_KNOWLEDGE/Books/Junqueira's Basic Histology 14ed/03 Extracted Concepts.md\\|Junqueira Ch 5,7,10]] (tissue healing hierarchy, collagen types) | [[08_EXTERNAL_KNOWLEDGE/Books/Seeley's Anatomy and Physiology 2019/03 Extracted Concepts.md\\|Seeley Ch 8]] (joint classification, anatomy) | [[08_EXTERNAL_KNOWLEDGE/Books/Guyton and Hall - Textbook of Medical Physiology 14ed/03 Extracted Concepts.md\\|Guyton Ch 72,85]] (metabolic adaptation, energy systems)\n\n## When This Protocol Applies\n\n- Pain on **outside of elbow** (tennis elbow) — worse with gripping, lifting with palm down, typing, or shaking hands\n- Pain on **inside of elbow** (golfer's elbow) — worse with gripping, lifting with palm up, golf, climbing\n- Pain **back of elbow** (triceps tendinopathy) — worse with pushing, dips, overhead extension\n- Gradual onset from repetitive loading\n- **Red flags → do NOT self-treat:** Elbow locking/catching, numbness/tingling in ring/pinky finger (ulnar nerve), loss of grip strength, swelling + redness + fever\n- **Tissue healing tier:** Tier 3 (tendon, poorly vascularized, months-years) — Junqueira Ch 5,7,10. See [[02_PILLARS/Pillar 4 - Recovery Maxing.md\\|P4 Recovery — Tissue Healing Hierarchy]]\n- **Joint classification:** Elbow (hinge, mono-axial) — Seeley Ch 8. See [[02_PILLARS/Pillar 4 - Reco\n\n--- Wrist Overuse — Self-Managed Rehab (from 04_PROTOCOLS\\Rehab\\Wrist Overuse.md) [score: 0.527] ---\n# Wrist Overuse — Self-Managed Rehab\n\n*Also applies to: Wrist tendinitis, De Quervain's tenosynovitis (thumb side), carpal tunnel (mild), wrist strain*\n\n---\n\n**Evidence sources:** [[08_EXTERNAL_KNOWLEDGE/Books/Junqueira's Basic Histology 14ed/03 Extracted Concepts.md\\|Junqueira Ch 5,7,10]] (tissue healing hierarchy, collagen types) | [[08_EXTERNAL_KNOWLEDGE/Books/Seeley's Anatomy and Physiology 2019/03 Extracted Concepts.md\\|Seeley Ch 8]] (joint classification, anatomy) | [[08_EXTERNAL_KNOWLEDGE/Books/Guyton and Hall - Textbook of Medical Physiology 14ed/03 Extracted Concepts.md\\|Guyton Ch 72,85]] (metabolic adaptation, energy systems)\n\n## When This Protocol Applies\n\n- Pain in the **wrist** aggravated by gripping, pushing, or repetitive wrist movements\n- Pain on **thumb side of wrist** that radiates up forearm (De Quervain's)\n- **Mild** numbness/tingling in thumb/index fingers (mild carpal tunnel) — worse at night\n- Gradual onset from increased volume (push-ups, handstands, typing, lifting)\n- **Red flags → do NOT self-treat:** Severe/persistent numbness (possible nerve compression), wrist locking/catching, swelling + redness + heat, deformity, trauma with inability to move wrist\n- **Tissue healing tier:** Tier 3 (tendon, poorly vascularized, months-years) — Junqueira Ch 5,7,10. See [[02_PILLARS/Pillar 4 - Recovery Maxing.md\\|P4 Recovery — Tissue Healing Hierarchy]]\n- **Joint classification:** Wrist (condylar, bi-axial) — Seeley Ch 8. See [[02_PILLARS/Pillar 4 - Recovery Maxin\n\n--- Injury Diagnosis Tree — Route Pain to the Right Protocol (from 04_TOOLS\\Decision Trees\\Injury Diagnosis Tree.md) [score: 0.462] ---\n# Injury Diagnosis Tree — Route Pain to the Right Protocol\n\nUse this tree when you feel pain or suspect an injury. Follow each question sequentially. If any RED FLAG appears, stop and consult a professional.\n\n---\n\n## Step 1: Mechanism — How Did It Start?\n\n- **Acute / traumatic** (sudden pop, twist, fall, or collision)\n  - Was there a **pop or tearing sensation** + immediate weakness/inability to use the limb? → **RED FLAG** — Seek medical eval. Do NOT self-rehab.\n  - Can you bear weight / use the limb normally despite pain? → Proceed to Step 2\n- **Gradual / overuse** (no specific incident, pain built over days/weeks) → Proceed to Step 2\n\n---\n\n## Step 2: Pain Location — Where Does It Hurt?\n\n**Shoulder:**\n- Pain on **outside/ top of shoulder**, especially reaching overhead or lifting → [[04_PROTOCOLS/Rehab/Shoulder Impingement.md\\|Shoulder Impingement Protocol]]\n- Pain **front of shoulder** radiating down arm, worse with overhead activity → [[04_PROTOCOLS/Rehab/Shoulder Impingement.md\\|Shoulder Impingement Protocol]]\n- Pain **deep in shoulder** + difficulty sleeping on that side, clicking/grinding → [[04_PROTOCOLS/Rehab/Shoulder Impingement.md\\|Shoulder Impingement Protocol]]\n- Pain with **numbness/tingling** down arm into fingers → **RED FLAG** — Cervical radiculopathy. See professional.\n- Recent dislocation or feeling of instability → **RED FLAG** — Requires professional assessment.\n\n**Elbow:**\n- Pain on **outside of elbow**, worse with gripping, lifting palm-down, typing → [\n\n--- Shoulder Impingement — Self-Managed Rehab (from 04_PROTOCOLS\\Rehab\\Shoulder Impingement.md) [score: 0.443] ---\n# Shoulder Impingement — Self-Managed Rehab\n\n*Also applies to: Subacromial pain syndrome, rotator cuff tendinopathy, shoulder bursitis*\n\n---\n\n**Evidence sources:** [[08_EXTERNAL_KNOWLEDGE/Books/Junqueira's Basic Histology 14ed/03 Extracted Concepts.md\\|Junqueira Ch 5,7,10]] (tissue healing hierarchy, collagen types) | [[08_EXTERNAL_KNOWLEDGE/Books/Seeley's Anatomy and Physiology 2019/03 Extracted Concepts.md\\|Seeley Ch 8]] (joint classification, anatomy) | [[08_EXTERNAL_KNOWLEDGE/Books/Guyton and Hall - Textbook of Medical Physiology 14ed/03 Extracted Concepts.md\\|Guyton Ch 72,85]] (metabolic adaptation, energy systems)\n\n## When This Protocol Applies\n\n- Pain on **outside/top of shoulder** with overhead reaching, lifting, or lying on that side\n- Painful arc between 60-120° of abduction\n- Weakness without traumatic tear (difficulty lifting arm overhead)\n- **Red flags → do NOT self-treat:** Acute traumatic pop/tear + inability to lift arm (possible full-thickness rotator cuff tear), fever + redness + heat (infectious), shoulder dislocation/subluxation\n- **Tissue healing tier:** Varies (tendon: Tier 3; muscle: Tier 2) — Junqueira Ch 5,7,10. See [[02_PILLARS/Pillar 4 - Recovery Maxing.md\\|P4 Recovery — Tissue Healing Hierarchy]]\n- **Joint classification:** Shoulder (ball-and-socket, multi-axial) — Seeley Ch 8. See [[02_PILLARS/Pillar 4 - Recovery Maxing.md\\|P4 Recovery — Joint Classification Reference]]\n\n---\n\n## Acute Phase (Days 1-7)\n\n- **Reduce aggravating load:** Avoid overhead\n\n=== VAULT CONTEXT ===\n\n--- Muscle OS Core Engine — Decision-Making Loop v1.0 (from Muscle OS Core Engine.md) [score: 0.418] ---\nblocks your progress is often the one you did not assess. ### Body Composition Assessment - [[Pillar 9 - Measurement and Feedback Systems|P9 Measurement — Body Composition Tracking]] - **Metrics to capture:** 7-day rolling weight trend, waist circumference, progress photos, estimated body fat % - **Output:** Current body composition snapshot\n\n### Nutritional Status Assessment\n- [[03_SECTIONS/Pillar 1/Micronutrient Hub.md\\|Micronutrient Hub]] — Deficiency screening by diet phase\n- [[03_SECTIONS/Pillar 1/Magnesium Pathway.md\\|Magnesium Pathway]] — ATP, sleep, cortisol, cramps\n- [[03_SECTIONS/Pillar 1/Zinc & Iron Pathway.md\\|Zinc & Iron Pathway]] — Testosterone, oxygen transport, immunity\n- [[03_SECTIONS/Pillar 1/Vitamin D & Calcium Pathway.md\\|Vitamin D & Calcium Pathway]] — Testosterone, bone density, immune\n- [[03_SECTIONS/Pillar 1/B-Complex & Energy Metabolism Pathway.md\\|B-Complex Pathway]] — Energy metabolism, cutting risk\n- [[03_SECTIONS/Pillar 1/Antioxidant Network Pathway.md\\|Antioxidant Network Pathway]] — Recovery, oxidative stress\n- [[03_SECTIONS/Pillar 1/Electrolyte & Hydration Pathway.md\\|Electrolyte & Hydration Pathway]] — Hydration, muscle contraction\n- **Key screening questions:** Dietary restrictions? Vegan/vegetarian? Cutting >8 weeks? Low sunlight? Female athlete? Supplement use? Recent bloodwork?\n- **Output:** Micronutrient risk profile (low / moderate / high for each key nutrient)\n\n### Training Age Assessment\n- [[Pillar 2 - Training Maxing|P2 Training — Vol\n\n--- Vitamin D & Calcium Pathway (from 03_SECTIONS\\Pillar 1\\Vitamin D & Calcium Pathway.md) [score: 0.414] ---\n# Vitamin D & Calcium Pathway\n\n## Role in MOS\nPillar 1 (Diet Maxing) — Hormonal optimisation, bone health, and calcium handling. Vitamin D is the single most commonly deficient vitamin in athletes.\n\n---\n\n## Vitamin D (Calciferol)\n\n### Physiological Pathways\n\n| Pathway | Mechanism | Training Impact |\n|---------|-----------|----------------|\n| **Testosterone synthesis** | Leydig cell VDR activation upregulates steroidogenic enzyme expression. Serum 25(OH)D correlates with free testosterone | Anabolic environment |\n| **Calcium absorption** | VDR in enterocytes upregulates TRPV6 and calbindin-D9k (active Ca2+ transport). Without D, Ca absorption drops to 10-15% | Bone health, muscle contraction |\n| **Immune regulation** | VDR modulates T-cell differentiation (Th1/Th2 balance) and antimicrobial peptide (cathelicidin) production | Infection resistance |\n| **Glucose metabolism** | VDR in pancreatic β-cells regulates insulin secretion. Deficiency reduces insulin secretion by ~30% | Carb partitioning, muscle glycogen |\n| **Inflammation modulation** | VDR suppresses NF-κB signalling and pro-inflammatory cytokine production | Recovery, joint health |\n\n### Athlete Protocol\n\n| Aspect | Detail |\n|--------|--------|\n| **RDA** | 600-800 IU/day (general). Athletes typically need 1,500-2,500 IU/day |\n| **Target serum level** | 50+ ng/mL (125+ nmol/L) 25(OH)D. Deficiency <30 ng/mL |\n| **Deficiency prevalence** | Up to 40% of athletes deficient, especially in winter months (Nov-Mar in northern h\n\n--- Vitamins and Minerals Protocol (from 01_RESEARCH\\Supplements\\Vitamins and Minerals Protocol.md) [score: 0.394] ---\n# Vitamins and Minerals Protocol\n\nReference guide for dietary adequacy thresholds, food sources, and supplementation protocols. This is not a recommendation to supplement — it is a decision framework for when supplementation is warranted.\n\n## Vitamin D Protocol\n\nThe most common micronutrient insufficiency in athletes. Up to 40% of athletes may be deficient, especially in winter or in northern latitudes.\n\n### Testing and Targets\n- **Serum marker:** 25-hydroxyvitamin D [25(OH)D]\n- **Deficient:** <30 ng/mL (<75 nmol/L)\n- **Insufficient:** 30-50 ng/mL (75-125 nmol/L)\n- **Optimal:** 50-80 ng/mL (125-200 nmol/L)\n- **Test timing:** Late winter (Feb-Mar for northern hemisphere) is the lowest point\n\n### Supplement Protocol\n| Current Level | Vitamin D3 Dose | Duration | Re-test |\n|---|---|---|---|\n| <30 ng/mL | 3,000-5,000 IU/day | 8-12 weeks | After 3 months |\n| 30-50 ng/mL | 2,000-3,000 IU/day | 8-12 weeks | After 3 months |\n| 50-80 ng/mL (maintenance) | 1,500-2,500 IU/day | Ongoing | Annually |\n\n- **Form:** Vitamin D3 (cholecalciferol), not D2\n- **Co-factor:** Vitamin K2 (MK-7, 100 mcg/day) to route calcium to bone\n- **Absorption:** Take with a meal containing fat\n- **Toxicity:** Below 10,000 IU/day is safe long-term. 4,000 IU/day is the safe upper limit for chronic use without monitoring\n\n### Food Sources\n| Food | Vitamin D Content |\n|---|---|\n| Salmon, wild | 600-1,000 IU/100 g |\n| Salmon, farmed | 400-600 IU/100 g |\n| Sardines, canned | 300 IU/100 g |\n| Cod liver oil | 1,300 IU/t",
+  "generated_at": "2026-07-21T13:54:59.232156"
+}

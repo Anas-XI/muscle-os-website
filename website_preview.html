@@ -191,7 +191,7 @@
 
   /* ---------- PACKAGES ---------- */
   .packages { background:var(--ink); }
-  .pkg-grid { margin-top:56px; display:grid; grid-template-columns:repeat(2,1fr); gap:22px; align-items:stretch; }
+  .pkg-grid { margin-top:56px; display:grid; grid-template-columns:repeat(3,1fr); gap:22px; align-items:stretch; }
   .pkg-card {
     background:var(--ink-2); border:1px solid var(--line); padding:34px 28px;
     display:flex; flex-direction:column;
@@ -253,37 +253,6 @@
   .footer-links { display:flex; gap:22px; font-size:12.5px; color:var(--gray); }
   .footer-links a:hover { color:var(--yellow); }
 
-  /* ---------- RESOURCES ---------- */
-  .resources-section{padding:100px 0;background:var(--ink-2)}
-  .resources-section h2{font-family:'Oswald',sans-serif;font-size:clamp(28px,4vw,42px);font-weight:700;text-transform:uppercase;text-align:center;color:#fff;margin-bottom:8px}
-  .resources-section .subtitle{text-align:center;color:var(--gray);font-size:15px;margin-bottom:48px;max-width:600px;margin-left:auto;margin-right:auto}
-  .resource-category{margin-bottom:40px}
-  .resource-category h3{font-family:'Oswald',sans-serif;font-size:20px;font-weight:600;text-transform:uppercase;color:var(--yellow);margin-bottom:16px;padding-bottom:6px;border-bottom:2px solid var(--yellow);display:inline-block}
-  .resource-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  .resource-card{background:var(--ink-3);border:1px solid var(--line);border-radius:8px;padding:20px;transition:border-color .2s,transform .2s;text-decoration:none;display:block}
-  .resource-card:hover{border-color:var(--yellow);transform:translateY(-2px)}
-  .resource-card .rc-title{font-family:'Oswald',sans-serif;font-size:16px;font-weight:600;color:#fff;margin-bottom:4px;text-transform:uppercase;letter-spacing:.3px}
-  .resource-card .rc-desc{font-size:13px;color:var(--gray);line-height:1.5}
-  .resource-card .rc-badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:2px 8px;border-radius:3px;margin-bottom:8px}
-  .rc-badge-tool{background:rgba(244,201,59,.15);color:var(--yellow)}
-  .rc-badge-pro{background:linear-gradient(135deg,rgba(255,215,0,.2),rgba(244,201,59,.1));color:#FFD700;border:1px solid rgba(255,215,0,.3)}
-  .resource-card.pro-card{border-color:rgba(255,215,0,.2);background:linear-gradient(135deg,var(--ink-3),rgba(255,215,0,.03))}
-  .resource-card.pro-card:hover{border-color:#FFD700}
-  .resource-card.pro-card .rc-title::after{content:" PRO";font-size:10px;color:#FFD700;vertical-align:super;margin-left:4px;font-family:'JetBrains Mono',monospace}
-  .rc-price{font-size:11px;color:rgba(255,215,0,.6);margin-top:2px;font-family:'JetBrains Mono',monospace}
-  .mos-extras{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px}
-  .mos-extra-card{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:8px;padding:24px;transition:border-color .2s}
-  .mos-extra-card:hover{border-color:var(--yellow)}
-  .mos-extra-card .extra-icon{font-size:24px;margin-bottom:8px}
-  .mos-extra-card h4{font-family:'Oswald',sans-serif;font-size:16px;font-weight:600;text-transform:uppercase;color:#fff;margin-bottom:4px;letter-spacing:.3px}
-  .mos-extra-card p{font-size:13px;color:var(--gray);line-height:1.5;margin:0}
-  .mos-extra-card .extra-cta{display:inline-block;margin-top:12px;font-size:12px;font-weight:600;color:var(--yellow);text-decoration:none;font-family:'JetBrains Mono',monospace}
-  .mos-extra-card .extra-cta:hover{text-decoration:underline}
-  @media(max-width:768px){.mos-extras{grid-template-columns:1fr}}
-  .rc-badge-guide{background:rgba(76,175,80,.15);color:#4CAF50}
-  .rc-badge-book{background:rgba(33,150,243,.15);color:#2196F3}
-  @media(max-width:768px){.resource-grid{grid-template-columns:1fr}}
-
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:860px) {
     .nav-links { display:none; }
@@ -308,7 +277,6 @@
       <a href="#about">About</a>
       <a href="#services">Services</a>
       <a href="#mos">Muscle OS</a>
-      <a href="#tools">Tools</a>
       <a href="#packages">Packages</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -322,7 +290,6 @@
   <a href="#about" class="mobile-link display" style="font-size:22px;">About</a>
   <a href="#services" class="mobile-link display" style="font-size:22px;">Services</a>
   <a href="#mos" class="mobile-link display" style="font-size:22px;">Muscle OS</a>
-  <a href="#tools" class="mobile-link display" style="font-size:22px;">Tools</a>
   <a href="#packages" class="mobile-link display" style="font-size:22px;">Packages</a>
   <a href="#contact" class="mobile-link display" style="font-size:22px;">Contact</a>
   <a href="https://wa.me/201040796017" class="btn btn-primary" style="margin-top:10px; width:fit-content;">Message on WhatsApp</a>
@@ -445,147 +412,6 @@
       <div><span class="comment">// before it ever reaches a client</span></div>
     </div>
   </div>
-
-  <div class="wrap mos-extras">
-    <div class="mos-extra-card">
-      <div class="extra-icon">&#9733;</div>
-      <h4>Early Access for Premium Clients</h4>
-      <p>Premium coaching clients get first access to every new Muscle OS feature before public release — including AI-powered program adjustments, automated check-in analysis, and the client dashboard.</p>
-      <a href="#packages" class="extra-cta">Upgrade to Premium &rarr;</a>
-    </div>
-    <div class="mos-extra-card" style="border-color:rgba(76,175,80,.3);background:linear-gradient(135deg,rgba(20,21,26,1),rgba(76,175,80,.04))">
-      <div class="extra-icon">&#9889;</div>
-      <h4>Bundle Cross-Sell Offers</h4>
-      <p><strong style="color:#4CAF50">Buy the Training Bundle</strong> (500 EGP) — get <strong style="color:#F4C93B">50% off the Training Tool</strong> for your first month (150 EGP instead of 300).<br><br>
-      <strong style="color:#4CAF50">Buy the Nutrition Bundle</strong> (500 EGP) — get <strong style="color:#F4C93B">50% off the TDEE Adaptive Engine</strong> for your first month (100 EGP instead of 200).<br><br>
-      Message on WhatsApp to claim. Limited to one per client.</p>
-      <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20claim%20a%20bundle%20cross-sell%20offer" class="extra-cta">Claim Your Offer &rarr;</a>
-    </div>
-  </div>
-</section>
-
-<!-- TOOLS & RESOURCES -->
-<section class="resources-section" id="tools">
-  <div class="wrap">
-    <h2>FREE TOOLS &amp; RESOURCES</h2>
-    <p class="subtitle">Calculators, quick-start guides, and full reference books to level up your training and nutrition.</p>
-
-      <div class="resource-category">
-      <h3>PRO TOOLS <span style="font-size:12px;color:#FFD700;font-family:'JetBrains Mono',monospace;vertical-align:middle">— Subscription</span></h3>
-      <div class="resource-grid">
-        <a href="tools/training_tool.html" class="resource-card pro-card">
-          <div class="rc-badge rc-badge-pro">PRO</div>
-          <div class="rc-title">Training Tool</div>
-          <div class="rc-desc">Full training app: volume calculator, split selector, program generator, session logger &amp; progress tracking with EN/AR bilingual interface.</div>
-          <div class="rc-price">300 EGP / month</div>
-        </a>
-        <a href="tools/tdee_adaptive_engine.html" class="resource-card pro-card">
-          <div class="rc-badge rc-badge-pro">PRO</div>
-          <div class="rc-title">TDEE Adaptive Engine</div>
-          <div class="rc-desc">Log daily weight &amp; calories — the engine auto-adjusts your TDEE using rolling averages &amp; trend analysis.</div>
-          <div class="rc-price">200 EGP / month</div>
-        </a>
-      </div>
-    </div>
-
-    <div class="resource-category">
-      <h3>BUNDLES <span style="font-size:12px;color:#4CAF50;font-family:'JetBrains Mono',monospace;vertical-align:middle">— 500 EGP one-time</span></h3>
-      <div class="resource-grid">
-        <a href="books/muscle_os_training_book.html" class="resource-card" style="border-color:rgba(76,175,80,.3);background:linear-gradient(135deg,var(--ink-3),rgba(76,175,80,.05))">
-          <div class="rc-badge" style="background:rgba(76,175,80,.15);color:#4CAF50">Bundle</div>
-          <div class="rc-title">Training Bundle</div>
-          <div class="rc-desc">Training &amp; Programming Book + Volume Calculator, RPE Calculator, Split Quiz. Plus 50% off the Training Tool for 1 month.</div>
-          <div class="rc-price">500 EGP &middot; includes 3 free tools</div>
-        </a>
-        <a href="books/muscle_os_nutrition_book.html" class="resource-card" style="border-color:rgba(76,175,80,.3);background:linear-gradient(135deg,var(--ink-3),rgba(76,175,80,.05))">
-          <div class="rc-badge" style="background:rgba(76,175,80,.15);color:#4CAF50">Bundle</div>
-          <div class="rc-title">Nutrition Bundle</div>
-          <div class="rc-desc">Diet &amp; Nutrition Book + TDEE &amp; Macro Calculator. Plus 50% off the TDEE Adaptive Engine for 1 month.</div>
-          <div class="rc-price">500 EGP &middot; includes free calculator</div>
-        </a>
-      </div>
-    </div>
-
-    <div class="resource-category">
-      <h3>FREE TOOLS</h3>
-      <div class="resource-grid">
-        <a href="tools/tdee_macro_calculator.html" class="resource-card">
-          <div class="rc-badge rc-badge-tool">Free</div>
-          <div class="rc-title">TDEE &amp; Macro Calculator</div>
-          <div class="rc-desc">Set your calories and macros for any goal.</div>
-        </a>
-        <a href="tools/volume_set_calculator.html" class="resource-card">
-          <div class="rc-badge rc-badge-tool">Free</div>
-          <div class="rc-title">Volume &amp; Set Calculator</div>
-          <div class="rc-desc">Find your ideal weekly sets per muscle group.</div>
-        </a>
-        <a href="tools/rpe_load_calculator.html" class="resource-card">
-          <div class="rc-badge rc-badge-tool">Free</div>
-          <div class="rc-title">RPE / Load Calculator</div>
-          <div class="rc-desc">Calculate your working weights from RPE.</div>
-        </a>
-        <a href="tools/split_selector_quiz.html" class="resource-card">
-          <div class="rc-badge rc-badge-tool">Free</div>
-          <div class="rc-title">Split Selector Quiz</div>
-          <div class="rc-desc">30-second quiz to find your ideal training split.</div>
-        </a>
-      </div>
-    </div>
-
-    <div class="resource-category">
-      <h3>GUIDES</h3>
-      <div class="resource-grid">
-        <a href="guides/train_maxing_quick_start.html" class="resource-card">
-          <div class="rc-badge rc-badge-guide">Guide</div>
-          <div class="rc-title">Train Maxing Quick Start</div>
-          <div class="rc-desc">Pick your split, set volume, track progress, deload.</div>
-        </a>
-        <a href="guides/diet_maxing_quick_start.html" class="resource-card">
-          <div class="rc-badge rc-badge-guide">Guide</div>
-          <div class="rc-title">Diet Maxing Quick Start</div>
-          <div class="rc-desc">Set calories, macros, meal timing, and adherence.</div>
-        </a>
-        <a href="guides/plateau_decision_tree.html" class="resource-card">
-          <div class="rc-badge rc-badge-guide">Guide</div>
-          <div class="rc-title">Plateau Decision Tree</div>
-          <div class="rc-desc">Stalled? Use this flowchart to diagnose and fix.</div>
-        </a>
-        <a href="guides/deload_decision_tree.html" class="resource-card">
-          <div class="rc-badge rc-badge-guide">Guide</div>
-          <div class="rc-title">Deload Decision Tree</div>
-          <div class="rc-desc">When and how to deload — visual flowchart.</div>
-        </a>
-        <a href="guides/recomp_protocol_cheat_sheet.html" class="resource-card">
-          <div class="rc-badge rc-badge-guide">Guide</div>
-          <div class="rc-title">Recomp Protocol Cheat Sheet</div>
-          <div class="rc-desc">Quick reference for body recomposition protocols.</div>
-        </a>
-        <a href="guides/consistency_workbook.html" class="resource-card">
-          <div class="rc-badge rc-badge-guide">Guide</div>
-          <div class="rc-title">Consistency Workbook</div>
-          <div class="rc-desc">6-week guided workbook for building habits.</div>
-        </a>
-      </div>
-    </div>
-
-    <div class="resource-category">
-      <h3>BOOKS <span style="font-size:12px;color:#FFD700;font-family:'JetBrains Mono',monospace;vertical-align:middle">— 500 EGP each</span></h3>
-      <div class="resource-grid">
-        <a href="books/muscle_os_training_book.html" class="resource-card" style="border-color:rgba(255,215,0,.2);background:linear-gradient(135deg,var(--ink-3),rgba(255,215,0,.03))">
-          <div class="rc-badge rc-badge-pro">Book</div>
-          <div class="rc-title">Training &amp; Programming Book</div>
-          <div class="rc-desc">The complete guide to strength and physique programming.</div>
-          <div class="rc-price">500 EGP &middot; one-time</div>
-        </a>
-        <a href="books/muscle_os_nutrition_book.html" class="resource-card" style="border-color:rgba(255,215,0,.2);background:linear-gradient(135deg,var(--ink-3),rgba(255,215,0,.03))">
-          <div class="rc-badge rc-badge-pro">Book</div>
-          <div class="rc-title">Diet &amp; Nutrition Book</div>
-          <div class="rc-desc">The complete guide to nutrition for body composition.</div>
-          <div class="rc-price">500 EGP &middot; one-time</div>
-        </a>
-      </div>
-    </div>
-  </div>
 </section>
 
 <!-- PACKAGES -->
@@ -596,14 +422,28 @@
     <p class="section-intro">All three tiers run on the same programming standard. The difference is how closely we work together.</p>
 
     <div class="pkg-grid">
+      <div class="pkg-card">
+        <div class="pkg-name">Basic</div>
+        <div class="pkg-tagline">Program Only</div>
+        <div class="pkg-price"><span class="amount mono">300</span><span class="cur">EGP</span><span class="per">/ month</span></div>
+        <div class="pkg-divider"></div>
+        <div class="pkg-features">
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt">Custom hypertrophy/powerlifting program</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt">Program updates every 4 weeks</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt">Exercise demo &amp; form video library</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt">Self-guided execution, no check-ins</span></div>
+        </div>
+        <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%27m%20interested%20in%20the%20Basic%20package." class="pkg-cta" target="_blank" rel="noopener">Start with Basic</a>
+      </div>
+
       <div class="pkg-card featured">
         <div class="pkg-badge">Most Popular</div>
         <div class="pkg-name">Standard</div>
         <div class="pkg-tagline">Coached</div>
-        <div class="pkg-price"><span class="amount mono">600</span><span class="cur">EGP</span><span class="per">/ month</span></div>
+        <div class="pkg-price"><span class="amount mono">500</span><span class="cur">EGP</span><span class="per">/ month</span></div>
         <div class="pkg-divider"></div>
         <div class="pkg-features">
-          
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt">Everything in Basic</span></div>
           <div class="pkg-feature"><span class="check">✓</span><span class="txt">Weekly check-ins &amp; progress review</span></div>
           <div class="pkg-feature"><span class="check">✓</span><span class="txt">Real-time program adjustments</span></div>
           <div class="pkg-feature"><span class="check">✓</span><span class="txt">Basic nutrition guidance (macros/calories)</span></div>
