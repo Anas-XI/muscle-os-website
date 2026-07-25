@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deload Decision Tree — Train Maxing by Coach Anas Mo'men</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;font-size:10pt;color:#14151A;background:#FAFAF8}
+@page{size:A4 landscape;margin:0}
+.page{width:297mm;height:210mm;background:#FAFAF8;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.top-bar{background:#14151A;padding:10px 20px;display:flex;align-items:center;justify-content:space-between}
+.top-bar h1{font-family:'Oswald',sans-serif;font-weight:600;font-size:16pt;color:#F4C93B;letter-spacing:1px;text-transform:uppercase}
+.top-bar .sub{font-family:'Inter',sans-serif;font-size:7pt;color:rgba(255,255,255,0.5);letter-spacing:2px;text-transform:uppercase}
+.content{flex:1;padding:14px 20px;display:flex;gap:14px;overflow:hidden}
+.flow{flex:1;display:flex;flex-direction:column;gap:6px}
+.row{display:flex;gap:8px;align-items:stretch}
+.row-center{justify-content:center}
+.node{border:2px solid #14151A;border-radius:6px;padding:8px 14px;text-align:center;min-width:100px}
+.node-title{font-family:'Oswald',sans-serif;font-weight:600;font-size:9pt;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px}
+.node-desc{font-size:7.5pt;line-height:1.4;color:#555}
+.node .q{font-family:'JetBrains Mono',monospace;font-size:8pt;font-weight:600;color:#F4C93B;background:#14151A;display:inline-block;padding:1px 6px;border-radius:2px;margin-bottom:3px}
+.start-node{background:#14151A;border-color:#14151A}
+.start-node .node-title{color:#F4C93B}
+.start-node .node-desc{color:rgba(255,255,255,0.7)}
+.start-node .q{background:#F4C93B;color:#14151A}
+.decision-node{background:#fff;border-color:#F4C93B;border-width:2px}
+.decision-node .node-title{color:#14151A}
+.action-node{background:#f0f0ee;border-color:#ccc}
+.action-node .node-title{color:#14151A}
+.end-node{background:#14151A;border-color:#14151A}
+.end-node .node-title{color:#F4C93B}
+.end-node .node-desc{color:rgba(255,255,255,0.7)}
+.arrow-down{text-align:center;font-size:10pt;color:#14151A;line-height:1;padding:1px 0}
+.arrow-branch{display:flex;justify-content:space-around;font-size:8pt;color:#888;padding:1px 0}
+.arrow-branch span{font-family:'JetBrains Mono',monospace;font-weight:600}
+.arrow-branch .yes{color:#14151A}
+.arrow-branch .no{color:#999}
+.branch{display:flex;gap:8px;flex:1}
+.branch-side{flex:1}
+.branch-side .branch-label{font-family:'Oswald',sans-serif;font-size:7pt;text-transform:uppercase;letter-spacing:1px;color:#999;text-align:center;margin-bottom:3px}
+.notes-section{width:195px;border-left:1px solid #e0e0dd;padding-left:14px;display:flex;flex-direction:column;gap:6px}
+.notes-section .notes-title{font-family:'Oswald',sans-serif;font-weight:600;font-size:9pt;color:#14151A;text-transform:uppercase;letter-spacing:0.5px}
+.note-card{background:#fff;border:1px solid #e0e0dd;border-radius:4px;padding:6px 10px}
+.note-card .note-label{font-family:'Oswald',sans-serif;font-weight:600;font-size:7.5pt;color:#F4C93B;text-transform:uppercase;letter-spacing:0.3px;background:#14151A;display:inline-block;padding:1px 5px;border-radius:2px;margin-bottom:2px}
+.note-card p{font-size:7pt;line-height:1.4;color:#555}
+.footer{background:#14151A;padding:8px 20px;display:flex;justify-content:space-between;align-items:center}
+.footer span{font-size:7pt;color:rgba(255,255,255,0.4)}
+.footer a{font-family:'JetBrains Mono',monospace;font-size:7.5pt;color:#F4C93B;text-decoration:none}
+.mos-nav{position:sticky;top:0;z-index:999;background:rgba(20,21,26,.95);backdrop-filter:blur(8px);border-bottom:1px solid #2C2E37;font-family:'Inter',sans-serif}
+.mos-nav-inner{max-width:1180px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
+.mos-brand{font-family:'Oswald',sans-serif;font-weight:700;font-size:15px;letter-spacing:.5px;text-transform:uppercase;color:#fff;text-decoration:none}
+.mos-brand span{color:#F4C93B}
+.mos-nav-links{display:flex;gap:20px;font-size:11px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
+.mos-nav-links a{color:#C7C9D0;text-decoration:none;transition:color .2s}
+.mos-nav-links a:hover{color:#F4C93B}
+@media(max-width:600px){.mos-nav-links{gap:10px;font-size:9px}.mos-nav-inner{padding:8px 16px}.mos-brand{font-size:12px}}
+@media print{.mos-nav{display:none!important}.mos-footer{display:none!important}}
+.mos-footer{padding:20px 24px;background:#14151A;border-top:1px solid #2C2E37;font-family:'Inter',sans-serif;text-align:center}
+.mos-footer-inner{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
+.mos-fbrand{font-family:'Oswald',sans-serif;font-weight:700;font-size:13px;letter-spacing:.5px;text-transform:uppercase;color:#fff}
+.mos-fbrand span{color:#F4C93B}
+.mos-fnav a{color:rgba(250,250,248,.5);text-decoration:none;margin:0 8px;font-size:11px;font-weight:500}
+.mos-fnav a:hover{color:#F4C93B}
+.mos-fsocial a{color:#F4C93B;text-decoration:none;margin:0 8px;font-size:11px}
+.mos-fcopy{font-size:10px;color:rgba(250,250,248,.3);margin-top:6px}
+</style>
+</head>
+<body>
+<nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a><a href="../index.html#packages">Coaching</a></div></div></nav>
+<div class="page">
+  <div class="top-bar">
+    <h1>Deload Decision Tree</h1>
+    <span class="sub">Coach Anas Mo'men</span>
+  </div>
+  <div class="content">
+    <div class="flow">
+      <!-- Step 0: When to check -->
+      <div class="row row-center">
+        <div class="node start-node">
+          <div class="q">TRIGGER</div>
+          <div class="node-title">Has It Been 4-8 Weeks?</div>
+          <div class="node-desc">Deload every 4-8 weeks depending on training phase, volume, and intensity</div>
+        </div>
+      </div>
+      <div class="arrow-branch">
+        <span class="yes">&#9660; Yes, time to assess</span>
+      </div>
+
+      <!-- Step 1: Performance trend -->
+      <div class="row row-center">
+        <div class="node decision-node">
+          <div class="q">STEP 1</div>
+          <div class="node-title">Check Performance Trend</div>
+          <div class="node-desc">Are your main lifts progressing, stalling, or regressing?<br>Compare current vs. 2-3 weeks ago.</div>
+        </div>
+      </div>
+      <div class="arrow-branch">
+        <span class="no">&#9660; Progressing &rarr; No deload needed</span>
+        <span class="yes">&#9660; Stalled or regressed &rarr; Continue</span>
+      </div>
+
+      <!-- Step 2a: No deload needed path -->
+      <div class="row">
+        <div class="branch">
+          <div class="branch-side">
+            <div class="node end-node">
+              <div class="node-title">Continue Training</div>
+              <div class="node-desc">Stay the course. Reassess in 2-3 weeks. If no progression for 6+ weeks, deload anyway.</div>
+            </div>
+          </div>
+          <div class="branch-side">
+            <div class="node decision-node">
+              <div class="q">STEP 2</div>
+              <div class="node-title">Soreness &amp; Joint Pain Check</div>
+              <div class="node-desc">Persistent joint pain?<br>Muscle soreness lasting &gt;72 hours?<br>Any sharp pain during movement?</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="arrow-branch">
+        <span></span>
+        <span class="yes">&#9660; Yes &rarr; Full deload or active rest</span>
+        <span class="no">&#9660; No &rarr; Continue</span>
+      </div>
+
+      <!-- Step 3: Systemic markers -->
+      <div class="row row-center">
+        <div class="node decision-node">
+          <div class="q">STEP 3</div>
+          <div class="node-title">Sleep, HRV &amp; Motivation</div>
+          <div class="node-desc">Sleep quality &lt;6.5h avg? Resting HR elevated?<br>Dreading training? Loss of appetite?</div>
+        </div>
+      </div>
+      <div class="arrow-branch">
+        <span class="yes">&#9660; Yes, multiple markers &rarr; Deload</span>
+        <span class="no">&#9660; No &rarr; Continue</span>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="row">
+        <div class="branch">
+          <div class="branch-side">
+            <div class="node action-node">
+              <div class="q">FULL DELOAD</div>
+              <div class="node-title">Full Deload</div>
+              <div class="node-desc">Reduce volume 40-60%, keep intensity moderate<br>Duration: 5-7 days</div>
+            </div>
+          </div>
+          <div class="branch-side">
+            <div class="node action-node">
+              <div class="q">PARTIAL</div>
+              <div class="node-title">Partial Deload</div>
+              <div class="node-desc">Reduce volume 20-30%, keep intensity<br>Duration: 5-7 days</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="arrow-branch">
+        <span class="yes">&#9660; After deload</span>
+        <span class="yes">&#9660; After deload</span>
+      </div>
+
+      <!-- Step 5: Reassess -->
+      <div class="row row-center">
+        <div class="node end-node">
+          <div class="node-title">Reassess After Deload</div>
+          <div class="node-desc">If performance returns: resume normal programming<br>If not: extend deload to 10-14 days or consult medical professional</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Population-Specific Notes -->
+    <div class="notes-section">
+      <div class="notes-title">Population Notes</div>
+      <div class="note-card">
+        <div class="note-label">Novice Lifters</div>
+        <p>Deload less often — every 6-10 weeks. Progress is rapid and recovery capacity is high. A single reduced-volume week is sufficient. No need for full rest weeks.</p>
+      </div>
+      <div class="note-card">
+        <div class="note-label">Advanced / High-Frequency</div>
+        <p>Deload every 4-6 weeks. Higher training density creates more accumulated fatigue. Consider "active recovery" deload: 50% volume at 60-70% intensity with movement-focused exercises.</p>
+      </div>
+      <div class="note-card">
+        <div class="note-label">Powerlifting Pre-Comp</div>
+        <p>Pre‑competition taper (1-2 weeks): reduce volume 40-60% while maintaining intensity at 85-95%. This is NOT a deload — it is a programmed peak. Mid-cycle deload: every 4-5 weeks, take volume to 60% and intensity to 70%.</p>
+      </div>
+      <div class="note-card">
+        <div class="note-label">Return from Injury</div>
+        <p>Re-entry after injury requires an extended deload period (2-4 weeks). Start at 50% of pre-injury volume, progress by feel. Use RPE as the primary guide, not percentages.</p>
+      </div>
+    </div>
+  </div>
+  <footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo'men</div></footer>
+</div>
+</body>
+</html>
