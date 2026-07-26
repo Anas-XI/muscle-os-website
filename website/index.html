@@ -92,7 +92,8 @@
     display:flex; align-items:center; gap:7px; transition:background .2s;
   }
   .nav-cta:hover { background:#fff; }
-  .menu-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:4px 0; }
+  .mob-wa-btn { display:none; background:#25D366; color:#fff; font-size:12px; font-weight:700; padding:8px 10px; border-radius:4px; text-decoration:none; text-transform:uppercase; letter-spacing:.5px; min-width:44px; min-height:44px; align-items:center; justify-content:center; }
+  .menu-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:4px 0; min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center; }
   .menu-toggle span { width:24px; height:2px; background:#fff; display:block; transition:transform .3s,opacity .3s; border-radius:1px; }
   .menu-toggle.active span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
   .menu-toggle.active span:nth-child(2) { opacity:0; }
@@ -366,11 +367,13 @@
   .hub-card .hub-link{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--yellow)}
   .hub-cta-wrap{text-align:center;margin-top:36px}
   @media(max-width:560px){.hub-grid{grid-template-columns:1fr}}
+  @media(max-width:480px){.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}.hstat{padding:10px 0 0 0;flex:unset}}
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:860px) {
     .nav-links { display:none; }
     .menu-toggle { display:flex; }
+    .mob-wa-btn { display:flex; }
     .about-grid, .mos-grid { grid-template-columns:1fr; }
     .service-grid { grid-template-columns:1fr; }
     .pkg-grid { grid-template-columns:1fr; }
@@ -397,6 +400,7 @@
       <a href="#contact">Contact</a>
     </nav>
     <a class="nav-cta" href="https://wa.me/201040796017" target="_blank" rel="noopener">Message on WhatsApp</a>
+    <a href="https://wa.me/201040796017" class="mob-wa-btn" aria-label="WhatsApp" target="_blank" rel="noopener">WA</a>
     <button class="menu-toggle" id="menuToggle" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </header>
@@ -410,6 +414,9 @@
   <a href="#knowledge-hub" class="mob-link">Knowledge Hub</a>
   <a href="#packages" class="mob-link">Packages</a>
   <a href="#contact" class="mob-link">Contact</a>
+  <div style="margin-top:20px;padding-top:16px;border-top:1px solid #2C2E37">
+    <a href="https://wa.me/201040796017" class="btn" style="display:block;text-align:center;background:#25D366;color:#fff;padding:12px 20px;border-radius:6px;font-size:13px;font-weight:600;text-transform:uppercase;text-decoration:none" target="_blank" rel="noopener">WhatsApp CTA</a>
+  </div>
   <a href="https://wa.me/201040796017" class="btn btn-primary mob-cta" style="justify-content:center;" target="_blank" rel="noopener">Message on WhatsApp</a>
 </div>
 

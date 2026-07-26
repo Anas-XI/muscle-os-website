@@ -59,14 +59,14 @@ body { font-family: Georgia,'Times New Roman',Times,serif; font-size: 10pt; line
 .mos-nav.nav-hidden{transform:translateY(-100%)}
 body{opacity:0;transition:opacity .4s ease}
 body.loaded{opacity:1}
-.mos-menu-toggle{display:none;background:none;border:none;color:#FAFAF8;font-size:22px;cursor:pointer;padding:2px 4px;line-height:1;font-family:Georgia,'Times New Roman',Times,serif;transition:color .2s}
+.mos-menu-toggle{display:none;background:none;border:none;color:#FAFAF8;font-size:22px;cursor:pointer;padding:2px 4px;min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;line-height:1;font-family:Georgia,'Times New Roman',Times,serif;transition:color .2s}
 .mos-menu-toggle:hover{color:#F4C93B}
 @media(max-width:768px){.mos-nav-links{display:none}.mos-menu-toggle{display:block}}
 .mos-mobile-panel{position:fixed;top:0;right:-100%;width:280px;height:100%;background:#1E2027;z-index:1001;padding:64px 24px 24px;transition:right .3s ease;border-left:1px solid #2C2E37;overflow-y:auto}
 .mos-mobile-panel.open{right:0}
 .mos-mobile-panel a{display:block;padding:12px 0;font-size:13px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:#C7C9D0;border-bottom:1px solid #2C2E37;text-decoration:none;transition:color .2s}
 .mos-mobile-panel a:hover{color:#F4C93B}
-.mos-mobile-panel .mob-close{position:absolute;top:14px;right:16px;font-size:22px;color:#C7C9D0;background:none;border:none;cursor:pointer;padding:4px}
+.mos-mobile-panel .mob-close{position:absolute;top:14px;right:16px;font-size:22px;color:#C7C9D0;background:none;border:none;cursor:pointer;padding:4px;min-width:44px;min-height:44px}
 .mos-menu-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:1000;opacity:0;pointer-events:none;transition:opacity .3s ease}
 .mos-menu-overlay.visible{opacity:1;pointer-events:auto}
 .mos-nav-inner{max-width:1180px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
@@ -102,6 +102,27 @@ body.loaded{opacity:1}
 .styled-table td{padding:6pt 10pt;border-bottom:.5px solid rgba(250,250,248,.08)}
 .styled-table tbody tr:nth-child(even){background:rgba(250,250,248,.02)}
 .styled-table tbody tr:hover{background:rgba(244,201,59,.05)}
+@media(max-width:768px){
+.cover{width:100vw;height:auto;min-height:100vh;padding:40px 24px}
+.cover-title{font-size:clamp(24px,8vw,38pt)!important}
+.cover-subtitle{font-size:clamp(11px,3vw,12pt)!important}
+.cover-author{font-size:9px!important}
+.cover-edition{font-size:8px!important}
+.section{page-break-before:auto;min-height:auto;padding:20px 16px}
+.section-content{max-width:100%;overflow-x:hidden}
+.cheat{width:100vw;min-height:auto}
+.cheat-inner{padding:20px 16px;min-height:auto}
+.cheat-grid{grid-template-columns:1fr}
+body{font-size:clamp(10pt,3.5vw,11pt)}
+.section h1{font-size:clamp(18pt,5vw,22pt)}
+.section h2{font-size:clamp(13pt,4vw,15pt)}
+.section h3{font-size:clamp(11pt,3.5vw,12pt)}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.how-list li{padding-left:32px}
+.step-heading{font-size:clamp(10pt,3.5vw,12pt)}
+.upsell{padding:12px 14px}
+.coach-note{padding:10px 12px}
+}
 </style>
 </head>
 <body>
