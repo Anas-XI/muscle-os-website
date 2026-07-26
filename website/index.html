@@ -303,6 +303,33 @@
   .footer-links { display:flex; gap:22px; font-size:12.5px; color:var(--gray); }
   .footer-links a:hover { color:var(--yellow); }
 
+  /* ---------- TOOL OVERVIEW (pre-tools gate) ---------- */
+  .tool-overview { background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%); position:relative; overflow:hidden; }
+  .tool-overview::before { content:""; position:absolute; top:-200px; right:-200px; width:500px; height:500px; background:radial-gradient(circle,rgba(244,201,59,0.06) 0%,transparent 70%); pointer-events:none; }
+  .tool-overview .to-title { font-family:'Oswald',sans-serif; font-size:clamp(26px,3.6vw,40px); font-weight:700; text-transform:uppercase; line-height:1.05; margin-bottom:12px; }
+  .tool-overview .to-sub { color:var(--gray); font-size:15px; max-width:580px; line-height:1.7; margin-bottom:48px; }
+  .tool-detail { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:48px; }
+  .tool-detail-card { background:var(--ink-3); border:1px solid var(--line); border-radius:8px; padding:32px; transition:border-color .25s,transform .3s cubic-bezier(.22,1,.36,1); }
+  .tool-detail-card:hover { border-color:var(--yellow); transform:translateY(-3px); }
+  .tool-detail-card .td-badge { display:inline-block; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1px; padding:2px 8px; border-radius:3px; margin-bottom:12px; background:rgba(244,201,59,0.15); color:var(--yellow); }
+  .tool-detail-card h3 { font-family:'Oswald',sans-serif; font-size:19px; font-weight:600; text-transform:uppercase; color:#fff; margin-bottom:8px; }
+  .tool-detail-card .td-desc { font-size:13.5px; color:var(--gray); line-height:1.65; margin-bottom:16px; }
+  .tool-detail-card .td-list { display:flex; flex-direction:column; gap:8px; margin-bottom:18px; }
+  .tool-detail-card .td-list-item { display:flex; gap:10px; align-items:flex-start; font-size:13px; color:#C7C9D0; }
+  .tool-detail-card .td-list-item .td-bullet { width:5px; height:5px; background:var(--yellow); margin-top:7px; flex-shrink:0; border-radius:1px; }
+  .tool-detail-card .td-price { font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--gray); margin-top:auto; }
+  .tool-detail-card .td-price strong { color:var(--yellow); font-size:16px; }
+  .tool-gate { text-align:center; padding:40px 0 0 0; border-top:1px solid var(--line); }
+  .tool-gate .gate-title { font-family:'Oswald',sans-serif; font-size:22px; font-weight:600; text-transform:uppercase; color:#fff; margin-bottom:8px; }
+  .tool-gate .gate-sub { font-size:14px; color:var(--gray); margin-bottom:24px; }
+  .tool-gate .gate-btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+  .gate-btn { display:inline-flex; align-items:center; gap:9px; padding:15px 32px; border-radius:3px; font-weight:700; font-size:14px; letter-spacing:0.3px; text-transform:uppercase; transition:all .25s cubic-bezier(.22,1,.36,1); text-decoration:none; }
+  .gate-btn-primary { background:var(--yellow); color:var(--ink); }
+  .gate-btn-primary:hover { background:#fff; transform:translateY(-2px); box-shadow:0 4px 14px rgba(244,201,59,.25); }
+  .gate-btn-ghost { background:transparent; color:#fff; border:1.5px solid #454854; }
+  .gate-btn-ghost:hover { border-color:var(--yellow); color:var(--yellow); }
+  @media(max-width:640px){ .tool-detail { grid-template-columns:1fr; } }
+
   /* ---------- RESOURCES ---------- */
   .resources-section{padding:100px 0;background:var(--ink-2)}
   .resources-section h2{font-family:'Oswald',sans-serif;font-size:clamp(28px,4vw,42px);font-weight:700;text-transform:uppercase;text-align:center;color:#fff;margin-bottom:8px}
@@ -363,7 +390,7 @@
       <a href="#about">About</a>
       <a href="#services">Services</a>
       <a href="#mos">Muscle OS</a>
-      <a href="#tools">Tools</a>
+      <a href="#tool-overview">Tools</a>
       <a href="#knowledge-hub">Knowledge Hub</a>
       <a href="#packages">Packages</a>
       <a href="#contact">Contact</a>
@@ -512,6 +539,56 @@
       <strong style="color:#4CAF50">Buy the Nutrition Bundle</strong> (500 EGP) — get <strong style="color:#F4C93B">50% off the TDEE Adaptive Engine</strong> for your first month (100 EGP instead of 200).<br><br>
       Message on WhatsApp to claim. Limited to one per client.</p>
       <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20claim%20a%20bundle%20cross-sell%20offer" class="extra-cta">Claim Your Offer &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- TOOL OVERVIEW -->
+<section class="tool-overview section-pad reveal" id="tool-overview">
+  <div class="wrap">
+    <div class="eyebrow">What You Get</div>
+    <h2 class="to-title">Every tool, broken down —<br>so you know exactly what you're using.</h2>
+    <p class="to-sub">Below is everything each tool does, what it gives you, and how it works. No blind boxes — pick what fits your goal and use it immediately.</p>
+
+    <div class="tool-detail">
+      <!-- Training Tool -->
+      <div class="tool-detail-card reveal reveal-delay-1">
+        <div class="td-badge">PRO &middot; 300 EGP / mo</div>
+        <h3>Training Tool</h3>
+        <p class="td-desc">A full training application that generates, logs, and tracks your programs. Built for lifters who want structure without paying a full coach every month.</p>
+        <div class="td-list">
+          <div class="td-list-item"><div class="td-bullet"></div><span><b>Volume Calculator</b> — set your total weekly sets per muscle group based on your training age and recovery capacity</span></div>
+          <div class="td-list-item"><div class="td-bullet"></div><span><b>Split Selector</b> — choose from PPL, Upper/Lower, Full Body, Push/Pull/Legs, or custom with auto-set-recommendations</span></div>
+          <div class="td-list-item"><div class="td-bullet"></div><span><b>Program Generator</b> — produces a full weekly program with exercise selection, sets, reps, and RPE targets</span></div>
+          <div class="td-list-item"><div class="td-bullet"></div><span><b>Session Logger</b> — log each workout with weight, reps, RPE, and notes; view your history per exercise</span></div>
+          <div class="td-list-item"><div class="td-bullet"></div><span><b>Progress Tracking</b> — graphs for estimated 1RM progression per lift, volume over time, and bodyweight trends</span></div>
+          <div class="td-list-item"><div class="td-bullet"></div><span><b>Bilingual Interface</b> — full English / Arabic toggle for all screens and outputs</span></div>
+        </div>
+      </div>
+
+      <!-- TDEE Adaptive Engine -->
+      <div class="tool-detail-card reveal reveal-delay-2">
+        <div class="td-badge">PRO &middot; 200 EGP / mo</div>
+        <h3>TDEE Adaptive Engine</h3>
+        <p class="td-desc">Stop guessing your maintenance calories. Log what you eat and weigh yourself daily — the engine calculates your real TDEE and adjusts automatically.</p>
+        <div class="td-list">
+          <div class="td-list-item"><div class="td-bullet"></div><span><b>Daily Log</b> — enter weight and calories once per day; takes 30 seconds</span></div>
+          <div class="td-list-item"><div class="td-bullet"></div><span><b>Adaptive TDEE</b> — the engine uses a rolling average + trend analysis to calculate your actual expenditure, not a formula estimate</span></div>
+          <div class="td-list-item"><div class="td-bullet"></div><span><b>Trend Graph</b> — see your weight trend vs daily weigh-ins with a smoothed line, and TDEE changes over time</span></div>
+          <div class="td-list-item"><div class="td-bullet"></div><span><b>Surplus / Deficit View</b> — compares actual intake vs calculated TDEE so you know exactly where your surplus or deficit is</span></div>
+          <div class="td-list-item"><div class="td-bullet"></div><span><b>Export Data</b> — download your log as CSV for your own analysis or to share with your coach</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gate: Sign In / Subscribe -->
+    <div class="tool-gate reveal">
+      <div class="gate-title">Ready to use these tools?</div>
+      <p class="gate-sub">Sign in if you already have access, or subscribe on WhatsApp to get started.</p>
+      <div class="gate-btns">
+        <a href="tools/training_tool.html" class="gate-btn gate-btn-primary">Sign In &amp; Start Training</a>
+        <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20subscribe%20to%20a%20tool" class="gate-btn gate-btn-ghost" target="_blank" rel="noopener">Subscribe on WhatsApp</a>
+      </div>
     </div>
   </div>
 </section>
