@@ -110,6 +110,22 @@
       });
     },
 
+    /** Set ARIA attributes and manage focus for an overlay */
+    _setupOverlayAria: function(overlay, productId, focusOnShow) {
+      if (!overlay) return;
+      if (overlay.getAttribute('role') !== 'dialog') {
+        overlay.setAttribute('role', 'dialog');
+        overlay.setAttribute('aria-modal', 'true');
+        overlay.setAttribute('aria-label', 'Access code required for ' + (getProduct(productId) ? getProduct(productId).label : productId));
+      }
+      var codeInput = document.getElementById('subCode') || document.getElementById('poCode');
+      if (focusOnShow && codeInput) setTimeout(function(){ codeInput.focus(); }, 100);
+      var errorEl = document.getElementById('subError') || document.getElementById('poError');
+      if (errorEl && !errorEl.getAttribute('role')) { errorEl.setAttribute('role', 'alert'); }
+      var successEl = document.getElementById('subSuccess') || document.getElementById('poSuccess');
+      if (successEl && !successEl.getAttribute('aria-live')) { successEl.setAttribute('aria-live', 'polite'); }
+    },
+
     /** Check access AND show/hide overlay. Returns access object or null. */
     checkOrShow: function(productId) {
       var overlay = document.getElementById('subOverlay') || document.getElementById('poOverlay');
@@ -121,7 +137,10 @@
           if (overlay) overlay.classList.remove('visible');
           return access;
         }
-        if (overlay) overlay.classList.add('visible');
+        if (overlay) {
+          overlay.classList.add('visible');
+          MosAccess._setupOverlayAria(overlay, productId, true);
+        }
         return null;
       });
     },
@@ -132,6 +151,7 @@
       if (!overlay) return;
       if (overlay.getAttribute('data-mos-init')) return;
       overlay.setAttribute('data-mos-init', '1');
+      MosAccess._setupOverlayAria(overlay, productId, false);
       var form = document.getElementById('subForm') || document.getElementById('poForm');
       var codeInput = document.getElementById('subCode') || document.getElementById('poCode');
       var verifyBtn = document.getElementById('subVerify') || document.getElementById('poVerify');
@@ -244,7 +264,7 @@
       var gate = document.getElementById('googleGate');
       var landing = document.getElementById('contentLanding');
       var main = document.getElementById('contentMain');
-      var overlay = document.getElementById('subOverlay');
+      var overlay = document.getElementById('subOverlay') || document.getElementById('poOverlay');
 
       if (!gate) { if (callback) callback(true); return; }
 
