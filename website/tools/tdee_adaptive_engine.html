@@ -145,9 +145,20 @@ body{opacity:0;transition:opacity .4s ease}body.loaded{opacity:1}.mos-nav{transi
 }
 </style>
 <link rel="stylesheet" href="../assets/css/overlay.css">
+<link rel="stylesheet" href="../assets/css/landing.css">
+<meta name="google-signin-client_id" content="x22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com">
 </head>
 <body>
 <nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div></div></nav>
+<div id="googleGate">
+  <div class="gate-card">
+    <div class="gate-icon">&#128100;</div>
+    <h2>Sign in to continue</h2>
+    <p>Use your Google account to access Muscle OS tools and books.</p>
+    <div id="googleSignIn"></div>
+    <div class="guest-link" onclick="MosAccess.requireGoogleAuth('tdee_adaptive_engine', function(){})">Skip for now</div>
+  </div>
+</div>
 <div class="sub-overlay" id="subOverlay">
   <div class="sub-modal">
     <div class="lock-icon">&#128274;</div>
@@ -172,6 +183,47 @@ body{opacity:0;transition:opacity .4s ease}body.loaded{opacity:1}.mos-nav{transi
     <div class="sub-success" id="subSuccess">Access granted! Reloading tool...</div>
   </div>
 </div>
+<div id="contentLanding" class="content-landing">
+  <div class="lnd-hero">
+    <h1>Adaptive TDEE Engine</h1>
+    <p>Your weight trends, recalculated. This tool replaces static calorie formulas with real-time TDEE estimation based on your actual daily weight and intake data.</p>
+  </div>
+  <div class="lnd-section">
+    <h2>Quick-Start Guide</h2>
+    <div class="lnd-quickstart">
+      <ol>
+        <li><strong>Log your weight</strong> — Enter your daily weight each morning. Consistency matters more than precision.</li>
+        <li><strong>Log your calories</strong> — Track daily intake from your food log (MyFitnessPal, Cronometer, or manual).</li>
+        <li><strong>Wait 7 days</strong> — After 7 consecutive days, the engine computes your first TDEE estimate using the trend-weight algorithm.</li>
+        <li><strong>Adjust based on goal</strong> — Set deficit (fat loss), maintenance, or surplus. The engine gives you a calorie target.</li>
+        <li><strong>Review trend charts</strong> — Visualize your weight trend, moving averages, and TDEE changes over time.</li>
+        <li><strong>Export data</strong> — Download your full history as CSV for your own analysis.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="lnd-section">
+    <h2>What You Get</h2>
+    <div class="lnd-features">
+      <div class="lnd-feat-card"><h4>Trend-Weight Algorithm</h4><p>Removes daily water-weight noise using a 7-day rolling average so you see real fat-loss or gain trends.</p></div>
+      <div class="lnd-feat-card"><h4>Auto-Recalibration</h4><p>TDEE recalculates every 2 weeks as your weight changes — no need to guess or re-enter data.</p></div>
+      <div class="lnd-feat-card"><h4>Goal-Based Targets</h4><p>Deficit, surplus, or maintenance — the engine gives you a daily calorie target based on your selected goal rate of change.</p></div>
+      <div class="lnd-feat-card"><h4>Visual Charts</h4><p>Interactive weight trend and TDEE charts help you see the bigger picture at a glance.</p></div>
+      <div class="lnd-feat-card"><h4>Data Import/Export</h4><p>Import from spreadsheet or export your history as CSV. Your data stays yours.</p></div>
+    </div>
+  </div>
+  <div class="lnd-subscribe" id="lndSubscribe">
+    <h3>Unlock the Adaptive TDEE Engine</h3>
+    <p>200 EGP / month. Subscribe via WhatsApp, then enter your access code below.</p>
+    <div class="sub-code-area">
+      <input type="text" class="sub-code-input" id="lndSubCode" placeholder="Enter your access code">
+      <button class="sub-verify-btn" id="lndSubVerify">Verify Code</button>
+      <div class="sub-error" id="lndSubError">Invalid code. Try again or contact support.</div>
+      <div class="sub-checkmark" id="lndSubCheck">&#10003; Access granted! Loading tool...</div>
+    </div>
+    <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20subscribe%20to%20the%20TDEE%20Adaptive%20Engine%20for%20200%20EGP/month" style="display:inline-block;margin-top:1rem;color:#4285f4;font-size:.85rem;text-decoration:underline" target="_blank" rel="noopener">Subscribe via WhatsApp &rarr;</a>
+  </div>
+</div>
+<div id="contentMain">
 <div class="container">
   <div class="header">
     <h1>Adaptive TDEE Engine</h1>
@@ -926,8 +978,35 @@ body{opacity:0;transition:opacity .4s ease}body.loaded{opacity:1}.mos-nav{transi
   console.log('Adaptive TDEE Engine loaded. Data stored in localStorage under key: '+STORAGE_KEY);
 })();
 
+</div><!-- /contentMain -->
+
+<script src="https://accounts.google.com/gsi/client" async defer onload="if(window.mosGoogleInit)mosGoogleInit()"></script>
 <script src="../assets/js/site.js"></script>
 <script src="../assets/js/access-control.js"></script>
-<script>MosAccess.checkOrShow('tdee_adaptive_engine');MosAccess.initOverlay('tdee_adaptive_engine');</script>
+<script>
+MosAccess.requireGoogleAuth('tdee_adaptive_engine', function(ready){
+  MosAccess.initOverlay('tdee_adaptive_engine');
+  if(ready){
+    MosAccess.checkOrShow('tdee_adaptive_engine');
+  }
+});
+var lndVerify = document.getElementById('lndSubVerify');
+var lndInput = document.getElementById('lndSubCode');
+if(lndVerify && lndInput){
+  lndVerify.addEventListener('click', function(){
+    var code = lndInput.value.trim();
+    if(!code){ document.getElementById('lndSubError').style.display='block'; return; }
+    MosAccess.verifyCode(code, 'tdee_adaptive_engine').then(function(res){
+      if(res.valid){
+        document.getElementById('lndSubError').style.display='none';
+        document.getElementById('lndSubCheck').style.display='block';
+        setTimeout(function(){ location.reload(); }, 1500);
+      } else {
+        document.getElementById('lndSubError').style.display='block';
+      }
+    });
+  });
+}
+</script>
 </body>
 </html>

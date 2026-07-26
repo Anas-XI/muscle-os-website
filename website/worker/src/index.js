@@ -16,9 +16,16 @@
  *   (guides are free — served without JWT)
  */
 
-import { SignJWT, jwtVerify } from 'jose';
+import { SignJWT, jwtVerify, createRemoteJWKSet } from 'jose';
 
 const encoder = new TextEncoder();
+let googleJWKS = null;
+function getGoogleJWKS() {
+  if (!googleJWKS) {
+    googleJWKS = createRemoteJWKSet(new URL('https://www.googleapis.com/oauth2/v3/certs'));
+  }
+  return googleJWKS;
+}
 
 // Maps PDF KV key → required productId for JWT (null = free/no auth needed)
 const PDF_PRODUCT_MAP = {
@@ -54,6 +61,13 @@ export default {
     // ---- Admin endpoint ----
     if (url.pathname === '/api/issue-code' && request.method === 'POST') {
       return handleIssueCode(request, env);
+    }
+    // ---- Google Auth ----
+    if (url.pathname === '/api/auth/google' && request.method === 'POST') {
+      return handleGoogleAuth(request, env);
+    }
+    if (url.pathname === '/api/check-session' && request.method === 'POST') {
+      return handleCheckSession(request, env);
     }
     return new Response('Not found', { status: 404, headers: corsHeaders(env, request) });
   }
@@ -97,8 +111,10 @@ async function handleVerify(request, env) {
   record.uses = (record.uses || 0) + 1;
   await env.ACCESS_CODES.put(`code:${normalized}`, JSON.stringify(record));
 
-  const durationMs = (record.durationDays || 30) * 86400000;
-  const expiresAt = new Date(Date.now() + durationMs);
+  const durationDays = record.durationDays != null ? record.durationDays : 30;
+  const expiresAt = durationDays > 0
+    ? new Date(Date.now() + durationDays * 86400000)
+    : new Date('2099-12-31'); // lifetime
 
   const secret = await getSecret(env);
   const token = await new SignJWT({ productId, plan: record.plan, codePrefix: normalized.substring(0, 4) })
@@ -175,6 +191,60 @@ async function handleIssueCode(request, env) {
 
   await env.ACCESS_CODES.put(`code:${normalized}`, JSON.stringify(record));
   return json({ success: true, code: normalized }, 200, env);
+}
+
+async function handleGoogleAuth(request, env) {
+  if (!env.GOOGLE_CLIENT_ID) {
+    return json({ valid: false, error: 'google_auth_not_configured' }, 501, env);
+  }
+  let body;
+  try { body = await request.json(); } catch (e) {
+    return json({ valid: false, error: 'invalid_json' }, 400, env);
+  }
+  const { token } = body;
+  if (!token) return json({ valid: false, error: 'missing_token' }, 400, env);
+  try {
+    const { payload } = await jwtVerify(token, getGoogleJWKS(), {
+      issuer: ['https://accounts.google.com', 'accounts.google.com'],
+      audience: env.GOOGLE_CLIENT_ID,
+    });
+    const email = payload.email;
+    if (!email) return json({ valid: false, error: 'no_email_in_token' }, 400, env);
+    const secret = await getSecret(env);
+    const sessionToken = await new SignJWT({
+      type: 'session', email, name: payload.name || '', googleSub: payload.sub,
+    })
+      .setProtectedHeader({ alg: 'HS256' })
+      .setIssuedAt()
+      .setIssuer('muscleos-access-control')
+      .setAudience('muscleos-website')
+      .setSubject(email)
+      .setExpirationTime(Math.floor(Date.now() / 1000) + 604800)
+      .sign(secret);
+    return json({ valid: true, session: sessionToken, email, name: payload.name || '' }, 200, env);
+  } catch (e) {
+    return json({ valid: false, error: 'invalid_google_token' }, 401, env);
+  }
+}
+
+async function handleCheckSession(request, env) {
+  let body;
+  try { body = await request.json(); } catch (e) {
+    return json({ valid: false, error: 'invalid_json' }, 400, env);
+  }
+  const { session } = body;
+  if (!session) return json({ valid: false, error: 'missing_session' }, 400, env);
+  try {
+    const secret = await getSecret(env);
+    const { payload } = await jwtVerify(session, secret, {
+      audience: 'muscleos-website',
+      issuer: 'muscleos-access-control',
+    });
+    if (payload.type !== 'session') return json({ valid: false }, 403, env);
+    return json({ valid: true, email: payload.email, name: payload.name }, 200, env);
+  } catch (e) {
+    return json({ valid: false, error: 'invalid_session' }, 401, env);
+  }
 }
 
 async function handlePdfProxy(request, env, url) {

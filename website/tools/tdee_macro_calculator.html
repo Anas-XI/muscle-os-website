@@ -126,10 +126,20 @@ html[dir="rtl"] select{background-position:left 11px center;padding-right:11px;p
   .bar-c{background:#c48a30}
 }
 </style>
+<link rel="stylesheet" href="../assets/css/landing.css">
+<meta name="google-signin-client_id" content="x22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com">
 </head>
 <body>
 <nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div></div></nav>
-<div class="container">
+<div id="googleGate">
+  <div class="gate-card">
+    <div class="gate-icon">&#128100;</div>
+    <h2>Sign in to continue</h2>
+    <p>Use your Google account to access free Muscle OS tools.</p>
+    <div id="googleSignIn"></div>
+  </div>
+</div>
+<div id="contentMain"><div class="container">
   <button class="lang-toggle" onclick="toggleLang()" data-i18n="langBtn">🇸🇦 AR</button>
   <div class="header">
     <h1 data-i18n="title">TDEE Calculator</h1>
@@ -508,7 +518,7 @@ html[dir="rtl"] select{background-position:left 11px center;padding-right:11px;p
       </div>
     </div>
   </div>
-</div>
+</div></div>
 <div class="upsell-box">
   <h3>Want the full picture?</h3>
   <p>This free calculator gives you a snapshot. The full Diet &amp; Nutrition Book covers calorie cycling, macro periodisation, metabolic adaptation, refeeds, and nutrient timing across 28 chapters with 200+ scientific references.</p>
@@ -865,6 +875,13 @@ html[dir="rtl"] select{background-position:left 11px center;padding-right:11px;p
   translateUI();
 })();
 </script>
+<script src="https://accounts.google.com/gsi/client" async defer onload="if(window.mosGoogleInit)mosGoogleInit()"></script>
 <script src="../assets/js/site.js"></script>
+<script src="../assets/js/access-control.js"></script>
+<script>
+MosAccess.requireGoogleAuth(null, function(ready){
+  if(ready) document.getElementById('googleGate').style.display = 'none';
+});
+</script>
 </body>
 </html>

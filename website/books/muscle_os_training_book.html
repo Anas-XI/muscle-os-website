@@ -133,6 +133,8 @@ pre{max-width:100%;overflow-x:auto}
 }
 </style>
 <link rel="stylesheet" href="../assets/css/overlay.css">
+<link rel="stylesheet" href="../assets/css/landing.css">
+<meta name="google-signin-client_id" content="x22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com">
 </head>
 <body>
 <div class="po-overlay" id="poOverlay">
@@ -160,7 +162,50 @@ pre{max-width:100%;overflow-x:auto}
   </div>
 </div>
 <nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div></div></nav>
+<div id="googleGate">
+  <div class="gate-card">
+    <div class="gate-icon">&#128100;</div>
+    <h2>Sign in to continue</h2>
+    <p>Use your Google account to access Muscle OS books.</p>
+    <div id="googleSignIn"></div>
+    <div class="guest-link" onclick="MosAccess.requireGoogleAuth('training_book', function(){})">Skip for now</div>
+  </div>
+</div>
 <div class="pdf-banner" style="background:#1E1E2A;border-bottom:1px solid #2C2E37;padding:10px 24px;text-align:center;font-family:'Inter',sans-serif;font-size:13px;color:rgba(250,250,248,.6)"><span>Prefer a clean reading view? </span><a href="../pdf/viewer.html?product=training-book" style="color:#F4C93B;text-decoration:none;font-weight:600" target="_blank">Open PDF Reader &rarr;</a></div>
+<div id="contentLanding" class="content-landing">
+  <div class="lnd-hero">
+    <h1>The Complete Guide to Training &amp; Programming</h1>
+    <p>A comprehensive 27-chapter reference covering program design, periodization, exercise selection, volume management, and fatigue control — built on 200+ scientific references.</p>
+  </div>
+  <div class="lnd-section">
+    <h2>Table of Contents</h2>
+    <div class="lnd-toc">
+      <div class="lnd-toc-item"><span class="lnd-toc-num">01</span><span class="lnd-toc-text"><strong>Foundations of Program Design</strong> — Needs analysis, goal setting, training frequency, and the dose-response relationship</span></div>
+      <div class="lnd-toc-item"><span class="lnd-toc-num">02</span><span class="lnd-toc-text"><strong>Periodization Models</strong> — Linear, undulating, block, conjugate, and daily undulating periodization</span></div>
+      <div class="lnd-toc-item"><span class="lnd-toc-num">03</span><span class="lnd-toc-text"><strong>Exercise Selection</strong> — Compound vs isolation, movement patterns, exercise order, and substitution logic</span></div>
+      <div class="lnd-toc-item"><span class="lnd-toc-num">04</span><span class="lnd-toc-text"><strong>Volume Prescription</strong> — MEV, MAV, and MRV across muscle groups, training age, and proximity to failure</span></div>
+      <div class="lnd-toc-item"><span class="lnd-toc-num">05</span><span class="lnd-toc-text"><strong>Intensity &amp; Load Management</strong> — %1RM, RPE, RIR, repetition ranges, and velocity-based training</span></div>
+      <div class="lnd-toc-item"><span class="lnd-toc-num">06</span><span class="lnd-toc-text"><strong>Fatigue Management</strong> — Systemic vs local fatigue, deload strategies, stress-recovery balance</span></div>
+      <div class="lnd-toc-item"><span class="lnd-toc-num">07</span><span class="lnd-toc-text"><strong>Autoregulation</strong> — Adjusting load and volume based on daily readiness, RPE drift, and performance trends</span></div>
+      <div class="lnd-toc-item"><span class="lnd-toc-num">08</span><span class="lnd-toc-text"><strong>Progression Models</strong> — Double progression, step loading, wave loading, and AMRAP-based progression</span></div>
+      <div class="lnd-toc-item"><span class="lnd-toc-num">09</span><span class="lnd-toc-text"><strong>Special Populations</strong> — Older adults, beginners, post-rehab clients, and advanced athletes</span></div>
+      <div class="lnd-toc-item"><span class="lnd-toc-num">10</span><span class="lnd-toc-text"><strong>Program Evaluation</strong> — Auditing results, adjusting variables, and when to change the program</span></div>
+    </div>
+    <p style="text-align:center;color:rgba(250,250,248,.35);font-size:.82rem;margin-top:.75rem">... and 17 more chapters covering advanced periodization, peaking, tapering, and injury-specific programming.</p>
+  </div>
+  <div class="lnd-subscribe" id="lndSubscribe">
+    <h3>Purchase the Training &amp; Programming Book</h3>
+    <p>500 EGP &middot; one-time payment &middot; lifetime access. Enter your access code below if you've already purchased.</p>
+    <div class="sub-code-area">
+      <input type="text" class="sub-code-input" id="lndSubCode" placeholder="Enter your access code">
+      <button class="sub-verify-btn" id="lndSubVerify">Unlock Book</button>
+      <div class="sub-error" id="lndSubError">Invalid code. Check and try again.</div>
+      <div class="sub-checkmark" id="lndSubCheck">&#10003; Access granted! Loading book...</div>
+    </div>
+    <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20purchase%20the%20Training%20Book%20for%20500%20EGP" style="display:inline-block;margin-top:1rem;color:#4285f4;font-size:.85rem;text-decoration:underline" target="_blank" rel="noopener">Buy via WhatsApp &rarr;</a>
+  </div>
+</div>
+<div id="contentMain">
 <div class="cover">
   <div class="cover-label">Muscle OS</div>
   <div class="cover-title">The Complete Guide to Training &amp;<br>Programming for Strength and Physique</div>
@@ -1577,7 +1622,33 @@ pre{max-width:100%;overflow-x:auto}
 </ol>
 
 <footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach � Coach Anas Mo'men</div></footer>
+</div>
+<script src="https://accounts.google.com/gsi/client" async defer onload="if(window.mosGoogleInit)mosGoogleInit()"></script>
 <script src="../assets/js/access-control.js"></script>
-<script>MosAccess.checkOrShow('training_book');MosAccess.initOverlay('training_book');</script>
+<script>
+MosAccess.requireGoogleAuth('training_book', function(ready){
+  MosAccess.initOverlay('training_book');
+  if(ready){
+    MosAccess.checkOrShow('training_book');
+  }
+});
+var lndVerify = document.getElementById('lndSubVerify');
+var lndInput = document.getElementById('lndSubCode');
+if(lndVerify && lndInput){
+  lndVerify.addEventListener('click', function(){
+    var code = lndInput.value.trim();
+    if(!code){ document.getElementById('lndSubError').style.display='block'; return; }
+    MosAccess.verifyCode(code, 'training_book').then(function(res){
+      if(res.valid){
+        document.getElementById('lndSubError').style.display='none';
+        document.getElementById('lndSubCheck').style.display='block';
+        setTimeout(function(){ location.reload(); }, 1500);
+      } else {
+        document.getElementById('lndSubError').style.display='block';
+      }
+    });
+  });
+}
+</script>
 <script src="../assets/js/site.js"></script>
 </body></html>

@@ -177,6 +177,8 @@ pre{max-width:100%;overflow-x:auto}
 }
 </style>
 <link rel="stylesheet" href="../assets/css/overlay.css">
+<link rel="stylesheet" href="../assets/css/landing.css">
+<meta name="google-signin-client_id" content="x22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com">
 </head>
 <body>
 <div class="po-overlay" id="poOverlay">
@@ -204,8 +206,52 @@ pre{max-width:100%;overflow-x:auto}
   </div>
 </div>
 <nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div></div></nav>
+<div id="googleGate">
+  <div class="gate-card">
+    <div class="gate-icon">&#128100;</div>
+    <h2>Sign in to continue</h2>
+    <p>Use your Google account to access Muscle OS books.</p>
+    <div id="googleSignIn"></div>
+    <div class="guest-link" onclick="MosAccess.requireGoogleAuth('nutrition_book', function(){})">Skip for now</div>
+  </div>
+</div>
 <div class="pdf-banner" style="background:#1E1E2A;border-bottom:1px solid #2C2E37;padding:10px 24px;text-align:center;font-family:'Inter',sans-serif;font-size:13px;color:rgba(250,250,248,.6)"><span>Prefer a clean reading view? </span><a href="../pdf/viewer.html?product=nutrition-book" style="color:#F4C93B;text-decoration:none;font-weight:600" target="_blank">Open PDF Reader &rarr;</a></div>
 
+<div id="contentLanding" class="content-landing">
+  <div class="lnd-hero">
+    <h1>The Complete Guide to Diet &amp; Nutrition for Body Composition</h1>
+    <p>A comprehensive 33-chapter reference covering energy balance, macronutrients, meal timing, supplementation, diet phases, and adherence psychology — built on 200+ scientific references.</p>
+  </div>
+  <div class="lnd-section">
+    <h2>Table of Contents</h2>
+    <div class="lnd-toc">
+      <div class="lnd-toc-item"><span class="lnd-toc-num">01</span><span class="lnd-toc-text"><strong>Energy Balance Fundamentals</strong> — TDEE breakdown, BMR, NEAT, EAT, TEF, and the thermodynamics of body composition change</span></div>
+      <div class="lnd-toc-item"><span class="lnd-toc-num">02</span><span class="lnd-toc-text"><strong>Caloric Requirements</strong> — Calculating maintenance, deficit, and surplus targets with precision formulas</span></div>
+      <div class="lnd-toc-item"><span class="lnd-toc-num">03</span><span class="lnd-toc-text"><strong>Macronutrient Guidelines</strong> — Protein, carbohydrate, and fat requirements for different goals and activity levels</span></div>
+      <div class="lnd-toc-item"><span class="lnd-toc-num">04</span><span class="lnd-toc-text"><strong>Micronutrients</strong> — Vitamin and mineral requirements, deficiency risks, and food-first strategies</span></div>
+      <div class="lnd-toc-item"><span class="lnd-toc-num">05</span><span class="lnd-toc-text"><strong>Meal Timing &amp; Frequency</strong> — Pre/post workout nutrition, meal spacing, and circadian considerations</span></div>
+      <div class="lnd-toc-item"><span class="lnd-toc-num">06</span><span class="lnd-toc-text"><strong>Supplementation</strong> — Evidence-based supplement guide: what works, what doesn't, and what needs more research</span></div>
+      <div class="lnd-toc-item"><span class="lnd-toc-num">07</span><span class="lnd-toc-text"><strong>Diet Phases</strong> — Cutting, bulking, recomposition, reverse dieting: protocols and pitfalls</span></div>
+      <div class="lnd-toc-item"><span class="lnd-toc-num">08</span><span class="lnd-toc-text"><strong>Adherence Psychology</strong> — Habit design, willpower management, dietary flexibility, and long-term sustainability</span></div>
+      <div class="lnd-toc-item"><span class="lnd-toc-num">09</span><span class="lnd-toc-text"><strong>Special Populations</strong> — Plant-based eaters, women's cycle considerations, older adults, and clinical conditions</span></div>
+      <div class="lnd-toc-item"><span class="lnd-toc-num">10</span><span class="lnd-toc-text"><strong>Tracking &amp; Adjusting</strong> — How to audit progress, when to adjust calories/macros, and common troubleshooting</span></div>
+    </div>
+    <p style="text-align:center;color:rgba(250,250,248,.35);font-size:.82rem;margin-top:.75rem">... and 23 more chapters covering advanced carbohydrate periodization, ketogenic approaches, nutrient timing for muscle gain, and refeed strategies.</p>
+  </div>
+  <div class="lnd-subscribe" id="lndSubscribe">
+    <h3>Purchase the Diet &amp; Nutrition Book</h3>
+    <p>500 EGP &middot; one-time payment &middot; lifetime access. Enter your access code below if you've already purchased.</p>
+    <div class="sub-code-area">
+      <input type="text" class="sub-code-input" id="lndSubCode" placeholder="Enter your access code">
+      <button class="sub-verify-btn" id="lndSubVerify">Unlock Book</button>
+      <div class="sub-error" id="lndSubError">Invalid code. Check and try again.</div>
+      <div class="sub-checkmark" id="lndSubCheck">&#10003; Access granted! Loading book...</div>
+    </div>
+    <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20purchase%20the%20Nutrition%20Book%20for%20500%20EGP" style="display:inline-block;margin-top:1rem;color:#4285f4;font-size:.85rem;text-decoration:underline" target="_blank" rel="noopener">Buy via WhatsApp &rarr;</a>
+  </div>
+</div>
+
+<div id="contentMain">
 <!-- ── COVER ── -->
 <div class="cover">
   <div class="cover-label">Muscle OS</div>
@@ -1439,8 +1485,34 @@ pre{max-width:100%;overflow-x:auto}
 </ol>
 
 <footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo'men</div></footer>
+</div>
+<script src="https://accounts.google.com/gsi/client" async defer onload="if(window.mosGoogleInit)mosGoogleInit()"></script>
 <script src="../assets/js/access-control.js"></script>
-<script>MosAccess.checkOrShow('nutrition_book');MosAccess.initOverlay('nutrition_book');</script>
+<script>
+MosAccess.requireGoogleAuth('nutrition_book', function(ready){
+  MosAccess.initOverlay('nutrition_book');
+  if(ready){
+    MosAccess.checkOrShow('nutrition_book');
+  }
+});
+var lndVerify = document.getElementById('lndSubVerify');
+var lndInput = document.getElementById('lndSubCode');
+if(lndVerify && lndInput){
+  lndVerify.addEventListener('click', function(){
+    var code = lndInput.value.trim();
+    if(!code){ document.getElementById('lndSubError').style.display='block'; return; }
+    MosAccess.verifyCode(code, 'nutrition_book').then(function(res){
+      if(res.valid){
+        document.getElementById('lndSubError').style.display='none';
+        document.getElementById('lndSubCheck').style.display='block';
+        setTimeout(function(){ location.reload(); }, 1500);
+      } else {
+        document.getElementById('lndSubError').style.display='block';
+      }
+    });
+  });
+}
+</script>
 <script src="../assets/js/site.js"></script>
 </body>
 </html>

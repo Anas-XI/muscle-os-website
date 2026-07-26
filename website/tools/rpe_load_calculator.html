@@ -156,10 +156,20 @@ body{opacity:0;transition:opacity .4s ease}body.loaded{opacity:1}.mos-nav{transi
   .set-log-header{grid-template-columns:30px 1fr 1fr 1fr 30px}
 }
 </style>
+<link rel="stylesheet" href="../assets/css/landing.css">
+<meta name="google-signin-client_id" content="x22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com">
 </head>
 <body>
 <nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div></div></nav>
-<div class="container">
+<div id="googleGate">
+  <div class="gate-card">
+    <div class="gate-icon">&#128100;</div>
+    <h2>Sign in to continue</h2>
+    <p>Use your Google account to access free Muscle OS tools.</p>
+    <div id="googleSignIn"></div>
+  </div>
+</div>
+<div id="contentMain"><div class="container">
   <div class="header">
     <h1>RPE Load Calculator</h1>
     <p>Autoregulated load suggestions · e1RM tracking · Safety layer · Weekly volume dashboard</p>
@@ -250,7 +260,7 @@ body{opacity:0;transition:opacity .4s ease}body.loaded{opacity:1}.mos-nav{transi
     </div>
   </div>
 
-</div>
+</div></div>
 <div class="upsell-box">
   <h3>Want the full picture?</h3>
   <p>This free calculator gives you a snapshot. The full Training &amp; Programming Book covers progressive overload, periodisation, exercise selection, fatigue management, and autoregulation across 27 chapters with 200+ scientific references.</p>
@@ -1414,6 +1424,13 @@ body{opacity:0;transition:opacity .4s ease}body.loaded{opacity:1}.mos-nav{transi
 
 })();
 </script>
+<script src="https://accounts.google.com/gsi/client" async defer onload="if(window.mosGoogleInit)mosGoogleInit()"></script>
 <script src="../assets/js/site.js"></script>
+<script src="../assets/js/access-control.js"></script>
+<script>
+MosAccess.requireGoogleAuth(null, function(ready){
+  if(ready) document.getElementById('googleGate').style.display = 'none';
+});
+</script>
 </body>
 </html>

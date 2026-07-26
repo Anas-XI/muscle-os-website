@@ -20,6 +20,11 @@
 
   function getProduct(id) { return CONFIG.products[id]; }
 
+  function getGoogleClientId() {
+    var meta = document.querySelector('meta[name="google-signin-client_id"]');
+    return meta ? meta.getAttribute('content') : '';
+  }
+
   /* ---- Check stored localStorage access ---- */
   function getStoredAccess(productId) {
     var p = getProduct(productId);
@@ -40,9 +45,10 @@
     var p = getProduct(productId);
     if (!p) return;
     var data = { active: true, code: code, plan: plan, token: token };
-    if (p.durationDays > 0) {
+    var dd = durationDays != null ? durationDays : p.durationDays;
+    if (dd > 0) {
       var expiry = new Date();
-      expiry.setDate(expiry.getDate() + (durationDays || p.durationDays));
+      expiry.setDate(expiry.getDate() + dd);
       data.expiry = expiry.toISOString().split('T')[0];
     }
     if (productId.indexOf('book') !== -1) {
@@ -157,6 +163,133 @@
     revokeAccess: function(productId) {
       var p = getProduct(productId);
       if (p) localStorage.removeItem(p.key);
+    },
+
+    /* ── Google Auth ── */
+
+    /** Get stored Google session */
+    getGoogleSession: function() {
+      try {
+        var raw = localStorage.getItem('mos_google_session');
+        if (!raw) return null;
+        var s = JSON.parse(raw);
+        return s && s.session ? s : null;
+      } catch(e) { return null; }
+    },
+
+    /** Check session validity with Worker */
+    checkGoogleSession: function() {
+      var s = MosAccess.getGoogleSession();
+      if (!s) return Promise.resolve(null);
+      return fetch(CONFIG.apiBase + '/api/check-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ session: s.session })
+      }).then(function(r){ return r.json(); }).then(function(data){
+        if (data.valid) return s;
+        localStorage.removeItem('mos_google_session');
+        return null;
+      }).catch(function(){
+        return s;
+      });
+    },
+
+    /** Initialize Google Sign-In button in a container element */
+    initGoogleAuth: function(containerId) {
+      var container = document.getElementById(containerId);
+      if (!container) return;
+      if (container.getAttribute('data-google-init')) return;
+      container.setAttribute('data-google-init', '1');
+
+      if (typeof google === 'undefined' || !google.accounts) {
+        container.innerHTML = '<p style="color:rgba(250,250,248,.3);font-size:.8rem">Loading Google Sign-In...</p>';
+        return;
+      }
+
+      google.accounts.id.initialize({
+        client_id: getGoogleClientId() || 'NOT_CONFIGURED',
+        callback: function(response) {
+          var idToken = response.credential;
+          fetch(CONFIG.apiBase + '/api/auth/google', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token: idToken })
+          }).then(function(r){ return r.json(); }).then(function(data){
+            if (data.valid) {
+              localStorage.setItem('mos_google_session', JSON.stringify({
+                session: data.session,
+                email: data.email,
+                name: data.name,
+                ts: Date.now()
+              }));
+              location.reload();
+            } else {
+              container.innerHTML = '<p style="color:#f44336;font-size:.8rem">Google verification failed. Please try again.</p>';
+            }
+          }).catch(function(){
+            container.innerHTML = '<p style="color:#f44336;font-size:.8rem">Network error. Please try again.</p>';
+          });
+        }
+      });
+
+      google.accounts.id.renderButton(container, {
+        theme: 'outline',
+        size: 'large',
+        width: container.offsetWidth > 300 ? 300 : container.offsetWidth
+      });
+    },
+
+    /** Gate the page: Google sign-in or content. CSS defaults: gate visible, content hidden. */
+    requireGoogleAuth: function(productId, callback) {
+      var gate = document.getElementById('googleGate');
+      var landing = document.getElementById('contentLanding');
+      var main = document.getElementById('contentMain');
+      var overlay = document.getElementById('subOverlay');
+
+      if (!gate) { if (callback) callback(true); return; }
+
+      MosAccess.checkGoogleSession().then(function(session) {
+        if (!session) {
+          MosAccess.initGoogleAuth('googleSignIn');
+          if (callback) callback(false);
+          return;
+        }
+
+        // Session valid — hide gate, show appropriate content
+        gate.classList.add('gate-hidden');
+
+        if (!productId) {
+          if (landing) landing.style.display = 'block';
+          if (main) main.classList.add('main-visible');
+          if (callback) callback(true);
+          return;
+        }
+
+        // Has product ID — verify subscription
+        MosAccess.checkAccess(productId).then(function(access) {
+          if (access) {
+            if (overlay) overlay.classList.remove('visible');
+            if (landing) landing.style.display = 'block';
+            if (main) main.classList.add('main-visible');
+            if (callback) callback(true);
+            return;
+          }
+          // Not subscribed — show landing + code entry overlay
+          if (landing) landing.style.display = 'block';
+          if (overlay) { overlay.classList.add('visible'); MosAccess.initOverlay(productId); }
+          if (callback) callback(false);
+        });
+      });
     }
   };
 })();
+
+/* ── Global Google callback (for async GIS load) ── */
+window.mosGoogleInit = function() {
+  // Re-init any gate containers that were rendered before GIS loaded
+  var containers = document.querySelectorAll('[id^="googleSignIn"]');
+  containers.forEach(function(c) {
+    if (c.getAttribute('data-google-init')) return;
+    MosAccess.initGoogleAuth(c.id);
+  });
+};
