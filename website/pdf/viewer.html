@@ -43,6 +43,24 @@ body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:
 .mos-footer a{color:rgba(250,250,248,.5);text-decoration:none}
 .mos-footer a:hover{color:#F4C93B}
 @media(max-width:600px){.toolbar .filename{display:none}.toolbar{gap:6px;padding:8px 10px}.toolbar button{padding:5px 10px;font-size:11px}}
+.library{flex:1;padding:48px 24px 64px}
+.lib-wrap{max-width:760px;margin:0 auto}
+.lib-title{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;text-transform:uppercase;text-align:center;margin-bottom:6px}
+.lib-sub{text-align:center;color:rgba(250,250,248,.45);font-size:14px;margin-bottom:40px;line-height:1.5}
+.lib-section{margin-bottom:36px}
+.lib-section-title{font-family:'Oswald',sans-serif;font-size:18px;font-weight:600;text-transform:uppercase;color:#F4C93B;margin-bottom:14px;padding-bottom:4px;border-bottom:1px solid #2C2E37}
+.lib-price{font-size:12px;color:rgba(255,215,0,.5);font-family:'JetBrains Mono',monospace;margin-left:8px;font-weight:400}
+.lib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.lib-card{background:#1E2027;border:1px solid #2C2E37;border-radius:8px;padding:18px;text-decoration:none;display:flex;flex-direction:column;gap:6px;transition:border-color .2s,transform .2s}
+.lib-card:hover{border-color:#F4C93B;transform:translateY(-2px)}
+.lib-prod{border-color:rgba(255,215,0,.15);background:linear-gradient(135deg,#1E2027,rgba(255,215,0,.02))}
+.lib-prod:hover{border-color:#FFD700}
+.lib-badge{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:2px 6px;border-radius:3px;display:inline-block;width:fit-content}
+.badge-g{background:rgba(76,175,80,.15);color:#4CAF50}
+.badge-b{background:rgba(255,215,0,.15);color:#FFD700;border:1px solid rgba(255,215,0,.2)}
+.lib-name{font-family:'Oswald',sans-serif;font-size:15px;font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.3px}
+.lib-desc{font-size:12px;color:rgba(250,250,248,.4);line-height:1.5}
+
 </style>
 </head>
 <body>
@@ -72,6 +90,30 @@ body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:
     <p id="errorMsg">The file was not found or could not be opened.</p>
     <a href="../index.html">Back to Home</a>
   </div>
+  <div class="library" id="library">
+    <div class="lib-wrap">
+      <h1 class="lib-title">PDF Library</h1>
+      <p class="lib-sub">Select a guide or book to view in the built-in PDF reader. Books require purchase; guides are free.</p>
+      <div class="lib-section">
+        <h2 class="lib-section-title">Free Guides</h2>
+        <div class="lib-grid">
+          <a class="lib-card" href="?product=consistency-workbook"><span class="lib-badge badge-g">Workbook</span><span class="lib-name">Consistency Workbook</span><span class="lib-desc">6-week guided workbook for building training &amp; nutrition habits.</span></a>
+          <a class="lib-card" href="?product=train-maxing-quick-start"><span class="lib-badge badge-g">Quick-Start</span><span class="lib-name">Train Maxing Quick Start</span><span class="lib-desc">Five steps to a structured, progressive programme.</span></a>
+          <a class="lib-card" href="?product=diet-maxing-quick-start"><span class="lib-badge badge-g">Quick-Start</span><span class="lib-name">Diet Maxing Quick Start</span><span class="lib-desc">Set calories, macros, and meal structure.</span></a>
+          <a class="lib-card" href="?product=deload-decision-tree"><span class="lib-badge badge-g">Decision Aid</span><span class="lib-name">Deload Decision Tree</span><span class="lib-desc">Visual flowchart for when and how to deload.</span></a>
+          <a class="lib-card" href="?product=plateau-decision-tree"><span class="lib-badge badge-g">Decision Aid</span><span class="lib-name">Plateau Decision Tree</span><span class="lib-desc">Diagnose stalled progress bottlenecks.</span></a>
+          <a class="lib-card" href="?product=recomp-cheat-sheet"><span class="lib-badge badge-g">Cheat Sheet</span><span class="lib-name">Recomp Protocol Cheat Sheet</span><span class="lib-desc">Quick reference for body recomposition.</span></a>
+        </div>
+      </div>
+      <div class="lib-section">
+        <h2 class="lib-section-title">Paid Books <span class="lib-price">500 EGP each</span></h2>
+        <div class="lib-grid">
+          <a class="lib-card lib-prod" href="?product=training-book"><span class="lib-badge badge-b">Book</span><span class="lib-name">Training &amp; Programming Book</span><span class="lib-desc">27 chapters — program design, periodisation, exercise selection.</span></a>
+          <a class="lib-card lib-prod" href="?product=nutrition-book"><span class="lib-badge badge-b">Book</span><span class="lib-name">Diet &amp; Nutrition Book</span><span class="lib-desc">33 chapters — energy balance, macros, meal timing.</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <footer class="mos-footer"><a href="https://muscleos.coach">muscleos.coach</a> — Coach Anas Mo'men</footer>
@@ -89,6 +131,7 @@ var viewer = document.getElementById('viewer');
 var loading = document.getElementById('loading');
 var error = document.getElementById('error');
 var errorMsg = document.getElementById('errorMsg');
+var library = document.getElementById('library');
 var filename = document.getElementById('filename');
 var pageInfo = document.getElementById('pageInfo');
 var zoomInfo = document.getElementById('zoomInfo');
@@ -139,10 +182,12 @@ function setCache(id, data) {
 function loadPdf() {
   if (!product) {
     loading.style.display = 'none';
-    error.style.display = 'flex';
-    errorMsg.textContent = 'No PDF specified.';
+    error.style.display = 'none';
+    viewer.style.display = 'none';
+    library.style.display = 'flex';
     return;
   }
+  library.style.display = 'none';
 
   var isPaid = !!PAID_PRODUCTS[product];
 
