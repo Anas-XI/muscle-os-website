@@ -38,6 +38,8 @@
   body.loaded .hero-content .hero-sub{opacity:1;transform:translateY(0);transition-delay:.5s}
   body.loaded .hero-content .hero-ctas{opacity:1;transform:translateY(0);transition-delay:.65s}
   body.loaded .hero-stats{opacity:1;transform:translateY(0);transition-delay:.8s}
+  body.loaded .hero-image{opacity:1;transform:translateY(0) scale(1);transition-delay:.45s}
+  .hero-image{opacity:0;transform:translateY(30px) scale(.97);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1)}
   .display { font-family:'Oswald',sans-serif; text-transform:uppercase; }
   .mono { font-family:'JetBrains Mono',monospace; }
   img { max-width:100%; display:block; }
@@ -146,7 +148,11 @@
     transform:skewX(-12deg) translateX(15%);
     z-index:1;
   }
-  .hero-content { position:relative; z-index:2; width:100%; padding-bottom:80px; }
+  .hero-content { position:relative; z-index:2; width:100%; padding-bottom:80px; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:end; }
+  .hero-text { display:flex; flex-direction:column; }
+  .hero-image { position:relative; height:100%; min-height:420px; display:flex; align-items:flex-end; justify-content:center; }
+  .hero-image img { width:100%; height:auto; max-height:600px; object-fit:contain; object-position:bottom center; border-radius:12px; box-shadow:0 20px 60px rgba(0,0,0,.5); }
+  @media(max-width:768px){ .hero-content { grid-template-columns:1fr; gap:30px; } .hero-image { display:none; } }
   .kicker {
     display:inline-block; font-size:13px; font-weight:700; color:var(--yellow);
     letter-spacing:3px; text-transform:uppercase; margin-bottom:16px;
@@ -414,22 +420,27 @@
   </div>
   <div class="hero-shard"></div>
   <div class="wrap hero-content">
-    <div class="kicker">Hypertrophy &amp; Powerlifting Coaching</div>
-    <h1>Stop Guessing.<br>Start <span class="accent">Progressing.</span></h1>
-    <p class="hero-sub">
-      Coached by <b>Anas Mo'men</b> — a competitive powerlifter with a <b>700kg+ total</b>, training and
-      coaching from real experience under the bar. Programming built on biomechanics and data, not a
-      template with your name pasted on it.
-    </p>
-    <div class="hero-ctas">
-      <a href="https://wa.me/201040796017" class="btn btn-primary" target="_blank" rel="noopener">Start Coaching — WhatsApp</a>
-      <a href="#packages" class="btn btn-ghost">View Packages</a>
+    <div class="hero-text">
+      <div class="kicker">Hypertrophy &amp; Powerlifting Coaching</div>
+      <h1>Stop Guessing.<br>Start <span class="accent">Progressing.</span></h1>
+      <p class="hero-sub">
+        Coached by <b>Anas Mo'men</b> — a competitive powerlifter with a <b>700kg+ total</b>, training and
+        coaching from real experience under the bar. Programming built on biomechanics and data, not a
+        template with your name pasted on it.
+      </p>
+      <div class="hero-ctas">
+        <a href="https://wa.me/201040796017" class="btn btn-primary" target="_blank" rel="noopener">Start Coaching — WhatsApp</a>
+        <a href="#packages" class="btn btn-ghost">View Packages</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><div class="num mono">700kg+</div><div class="lbl">SBD Total</div></div>
+        <div class="hstat"><div class="num mono">82kg</div><div class="lbl">Bodyweight</div></div>
+        <div class="hstat"><div class="num mono">100+</div><div class="lbl">Clients Coached</div></div>
+        <div class="hstat"><div class="num mono">2024</div><div class="lbl">Coaching Since</div></div>
+      </div>
     </div>
-    <div class="hero-stats">
-      <div class="hstat"><div class="num mono">700kg+</div><div class="lbl">SBD Total</div></div>
-      <div class="hstat"><div class="num mono">82kg</div><div class="lbl">Bodyweight</div></div>
-      <div class="hstat"><div class="num mono">100+</div><div class="lbl">Clients Coached</div></div>
-      <div class="hstat"><div class="num mono">2024</div><div class="lbl">Coaching Since</div></div>
+    <div class="hero-image">
+      <img src="assets/img/tool-hero.jpg" alt="Training session" onerror="this.style.display='none'">
     </div>
   </div>
   <div class="scroll-cue">Scroll</div>
