@@ -1,6 +1,20 @@
 name: test
 
-on: [push, pull_request]
+on:
+  push:
+    branches: ["master"]
+    paths:
+      - "mos_bot/**"
+      - "tests/**"
+      - "requirements.txt"
+      - ".github/workflows/test.yml"
+  pull_request:
+    branches: ["master"]
+    paths:
+      - "mos_bot/**"
+      - "tests/**"
+      - "requirements.txt"
+      - ".github/workflows/test.yml"
 
 jobs:
   test:
