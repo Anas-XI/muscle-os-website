@@ -176,10 +176,10 @@
 
       return this.checkAccess(productId).then(function(access){
         if (access) {
-          if (overlay) overlay.style.display = 'none';
+          if (overlay) overlay.classList.remove('visible');
           return access;
         }
-        if (overlay) overlay.style.display = 'flex';
+        if (overlay) overlay.classList.add('visible');
         return null;
       });
     },

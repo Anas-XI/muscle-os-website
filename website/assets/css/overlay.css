@@ -1,6 +1,8 @@
 /* Shared overlay styles — Phase A */
-.sub-overlay,.po-overlay{position:fixed;inset:0;z-index:9999;background:rgba(20,21,26,.97);display:flex;align-items:center;justify-content:center;padding:24px;overflow-y:auto}
-.sub-modal,.po-modal{max-width:520px;width:100%;background:#1E1E2A;border:1px solid #2C2E37;border-radius:16px;padding:40px 32px;text-align:center;margin:auto}
+.sub-overlay,.po-overlay{position:fixed;inset:0;z-index:9999;background:rgba(20,21,26,.97);display:flex;align-items:center;justify-content:center;padding:24px;overflow-y:auto;opacity:0;pointer-events:none;transition:opacity .4s ease}
+.sub-overlay.visible,.po-overlay.visible{opacity:1;pointer-events:auto}
+.sub-modal,.po-modal{max-width:520px;width:100%;background:#1E1E2A;border:1px solid #2C2E37;border-radius:16px;padding:40px 32px;text-align:center;margin:auto;transform:translateY(24px) scale(.96);opacity:0;transition:transform .45s cubic-bezier(.34,1.56,.64,1),opacity .35s ease}
+.sub-overlay.visible .sub-modal,.po-overlay.visible .po-modal{transform:translateY(0) scale(1);opacity:1}
 .sub-modal .lock-icon,.po-modal .lock-icon{font-size:48px;margin-bottom:8px}
 .sub-modal h2,.po-modal h2{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;color:#F4C93B;text-transform:uppercase;margin-bottom:4px;letter-spacing:.5px}
 .sub-modal .sub-price,.po-modal .po-price{font-family:'JetBrains Mono',monospace;font-size:14px;color:rgba(255,215,0,.6);margin-bottom:20px}

@@ -28,7 +28,16 @@
     color:#fff;
     line-height:1.5;
     overflow-x:hidden;
+    opacity:0; transition:opacity .6s ease;
   }
+  body.loaded { opacity:1; }
+  /* Hero entrance */
+  .hero-content .kicker,.hero-content h1,.hero-content .hero-sub,.hero-content .hero-ctas,.hero-stats{opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+  body.loaded .hero-content .kicker{opacity:1;transform:translateY(0);transition-delay:.2s}
+  body.loaded .hero-content h1{opacity:1;transform:translateY(0);transition-delay:.35s}
+  body.loaded .hero-content .hero-sub{opacity:1;transform:translateY(0);transition-delay:.5s}
+  body.loaded .hero-content .hero-ctas{opacity:1;transform:translateY(0);transition-delay:.65s}
+  body.loaded .hero-stats{opacity:1;transform:translateY(0);transition-delay:.8s}
   .display { font-family:'Oswald',sans-serif; text-transform:uppercase; }
   .mono { font-family:'JetBrains Mono',monospace; }
   img { max-width:100%; display:block; }
@@ -39,12 +48,20 @@
   ::selection { background:var(--yellow); color:var(--ink); }
 
   /* Scroll-reveal */
-  .reveal { opacity:0; transform:translateY(28px); transition:opacity .7s ease,transform .7s ease; }
+  .reveal { opacity:0; transform:translateY(32px); transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1); }
   .reveal.visible { opacity:1; transform:translateY(0); }
   .reveal-delay-1 { transition-delay:.1s; }
   .reveal-delay-2 { transition-delay:.2s; }
   .reveal-delay-3 { transition-delay:.3s; }
   .reveal-delay-4 { transition-delay:.4s; }
+  .reveal-delay-5 { transition-delay:.5s; }
+  .reveal-delay-6 { transition-delay:.6s; }
+  .reveal-scale { opacity:0; transform:scale(.96); transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1); }
+  .reveal-scale.visible { opacity:1; transform:scale(1); }
+  .reveal-left { opacity:0; transform:translateX(-24px); transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1); }
+  .reveal-left.visible { opacity:1; transform:translateX(0); }
+  .reveal-right { opacity:0; transform:translateX(24px); transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1); }
+  .reveal-right.visible { opacity:1; transform:translateX(0); }
 
   /* ---------- NAV ---------- */
   header {
@@ -62,8 +79,10 @@
   .brand { font-family:'Oswald',sans-serif; font-weight:700; font-size:18px; letter-spacing:0.5px; text-transform:uppercase; }
   .brand span { color:var(--yellow); }
   .nav-links { display:flex; gap:32px; font-size:13px; font-weight:600; letter-spacing:0.3px; text-transform:uppercase; }
-  .nav-links a { color:#C7C9D0; transition:color .2s; }
+  .nav-links a { color:#C7C9D0; transition:color .25s; position:relative; }
+  .nav-links a::after { content:""; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:var(--yellow); transition:width .3s cubic-bezier(.22,1,.36,1); border-radius:1px; }
   .nav-links a:hover { color:var(--yellow); }
+  .nav-links a:hover::after { width:100%; }
   .nav-cta {
     background:var(--yellow); color:var(--ink); font-weight:700; font-size:13px;
     padding:10px 20px; border-radius:3px; text-transform:uppercase; letter-spacing:0.4px;
@@ -147,11 +166,11 @@
   .btn {
     display:inline-flex; align-items:center; gap:9px;
     padding:15px 28px; border-radius:3px; font-weight:700; font-size:14px;
-    letter-spacing:0.3px; text-transform:uppercase; transition:all .2s;
+    letter-spacing:0.3px; text-transform:uppercase; transition:all .25s cubic-bezier(.22,1,.36,1);
     cursor:pointer; border:none;
   }
   .btn-primary { background:var(--yellow); color:var(--ink); }
-  .btn-primary:hover { background:#fff; transform:translateY(-1px); }
+  .btn-primary:hover { background:#fff; transform:translateY(-2px); box-shadow:0 4px 14px rgba(244,201,59,.25); }
   .btn-ghost { background:transparent; color:#fff; border:1.5px solid #454854; }
   .btn-ghost:hover { border-color:var(--yellow); color:var(--yellow); }
 
@@ -308,8 +327,8 @@
   .resource-category{margin-bottom:40px}
   .resource-category h3{font-family:'Oswald',sans-serif;font-size:20px;font-weight:600;text-transform:uppercase;color:var(--yellow);margin-bottom:16px;padding-bottom:6px;border-bottom:2px solid var(--yellow);display:inline-block}
   .resource-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  .resource-card{background:var(--ink-3);border:1px solid var(--line);border-radius:8px;padding:20px;transition:border-color .2s,transform .2s;text-decoration:none;display:block}
-  .resource-card:hover{border-color:var(--yellow);transform:translateY(-2px)}
+  .resource-card{background:var(--ink-3);border:1px solid var(--line);border-radius:8px;padding:20px;transition:border-color .25s,transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s ease;text-decoration:none;display:block}
+  .resource-card:hover{border-color:var(--yellow);transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
   .resource-card .rc-title{font-family:'Oswald',sans-serif;font-size:16px;font-weight:600;color:#fff;margin-bottom:4px;text-transform:uppercase;letter-spacing:.3px}
   .resource-card .rc-desc{font-size:13px;color:var(--gray);line-height:1.5}
   .resource-card .rc-badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:2px 8px;border-radius:3px;margin-bottom:8px}
@@ -320,7 +339,8 @@
   .resource-card.pro-card .rc-title::after{content:" PRO";font-size:10px;color:#FFD700;vertical-align:super;margin-left:4px;font-family:'JetBrains Mono',monospace}
   .rc-price{font-size:11px;color:rgba(255,215,0,.6);margin-top:2px;font-family:'JetBrains Mono',monospace}
   .mos-extras{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px}
-  .mos-extra-card{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:8px;padding:24px;transition:border-color .2s}
+  .mos-extra-card{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:8px;padding:24px;transition:border-color .25s,transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s ease}
+  .mos-extra-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.25)}
   .mos-extra-card:hover{border-color:var(--yellow)}
   .mos-extra-card .extra-icon{font-size:24px;margin-bottom:8px}
   .mos-extra-card h4{font-family:'Oswald',sans-serif;font-size:16px;font-weight:600;text-transform:uppercase;color:#fff;margin-bottom:4px;letter-spacing:.3px}
@@ -332,8 +352,8 @@
   .rc-badge-book{background:rgba(33,150,243,.15);color:#2196F3}
   @media(max-width:768px){.resource-grid{grid-template-columns:1fr}}
   .hub-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:640px;margin:0 auto}
-  .hub-card{background:var(--ink-3);border:1px solid var(--line);border-radius:8px;padding:28px;transition:border-color .2s,transform .2s;text-decoration:none;display:block}
-  .hub-card:hover{border-color:var(--yellow);transform:translateY(-2px)}
+  .hub-card{background:var(--ink-3);border:1px solid var(--line);border-radius:8px;padding:28px;transition:border-color .25s,transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s ease;text-decoration:none;display:block}
+  .hub-card:hover{border-color:var(--yellow);transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
   .hub-card .hub-title{font-family:'Oswald',sans-serif;font-size:17px;font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px}
   .hub-card .hub-desc{font-size:13px;color:var(--gray);line-height:1.5;margin-bottom:10px}
   .hub-card .hub-link{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--yellow)}
@@ -447,32 +467,32 @@
   </div>
   <div class="wrap">
     <div class="service-grid">
-      <div class="service-card">
+      <div class="service-card reveal reveal-delay-1">
         <div class="snum">01</div>
         <h3>Hypertrophy Programming</h3>
         <p>Structured muscle-building splits tailored to your recovery capacity, training age, and equipment access.</p>
       </div>
-      <div class="service-card">
+      <div class="service-card reveal reveal-delay-2">
         <div class="snum">02</div>
         <h3>Powerlifting Coaching</h3>
         <p>Competition-focused periodization for squat, bench, and deadlift — built from someone who competes, not just programs.</p>
       </div>
-      <div class="service-card">
+      <div class="service-card reveal reveal-delay-3">
         <div class="snum">03</div>
         <h3>Biomechanics Assessment</h3>
         <p>Movement patterns and leverages factored into every program so exercise selection actually fits your body.</p>
       </div>
-      <div class="service-card">
+      <div class="service-card reveal reveal-delay-4">
         <div class="snum">04</div>
         <h3>Nutrition &amp; Carb Cycling</h3>
         <p>Physiological reasoning behind every target — calories, macros, and timing explained, not just prescribed.</p>
       </div>
-      <div class="service-card">
+      <div class="service-card reveal reveal-delay-5">
         <div class="snum">05</div>
         <h3>Progress Tracking &amp; Data</h3>
         <p>Continuous adjustment based on real performance numbers, not a rigid four-week block regardless of how you're responding.</p>
       </div>
-      <div class="service-card">
+      <div class="service-card reveal reveal-delay-6">
         <div class="snum">06</div>
         <h3>Client Management</h3>
         <p>Direct, responsive coaching relationship — questions get answered, programs get adjusted, nothing sits stagnant.</p>
@@ -667,6 +687,9 @@
 </footer>
 
 <script>
+  // Page load entrance
+  document.addEventListener('DOMContentLoaded', function(){ document.body.classList.add('loaded'); });
+
   // Mobile panel
   const menuToggle = document.getElementById('menuToggle');
   const mobilePanel = document.getElementById('mobilePanel');
