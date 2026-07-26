@@ -17,7 +17,7 @@ body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:
  .set-row input{border:1px solid #ccc!important;background:#fff!important;color:#000!important}
  .print-header{display:block!important;text-align:center;margin-bottom:16px}.print-header h2{font-family:'Oswald',sans-serif;font-size:1.3rem;margin:0}
  .print-header p{font-size:.75rem;color:#666!important;margin:2px 0}.no-print{display:none!important}}
-.print-header{display:none}
+.print-header{display:none}.tool-hero{display:block}@media print{.tool-hero{display:none!important}}
 .container{width:100%;max-width:860px}
 .header{text-align:center;margin-bottom:20px}
 .header h1{font-family:'Oswald',sans-serif;font-size:2rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:1px;line-height:1.1}
@@ -373,6 +373,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
 </head>
 <body>
 <nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div></div></nav>
+<div class="tool-hero" style="position:relative;width:100%;height:260px;overflow:hidden;background:#14151A"><img src="../assets/img/tool-hero.jpg" alt="" style="width:100%;height:100%;object-fit:cover;opacity:.45" onerror="this.style.display='none'"><div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,#14151A)"></div><div style="position:absolute;bottom:32px;left:50%;transform:translateX(-50%);text-align:center"><h1 style="font-family:'Oswald',sans-serif;font-size:3rem;font-weight:700;color:#F4C93B;text-transform:uppercase;letter-spacing:2px;text-shadow:0 2px 12px rgba(0,0,0,.6)">Training Tool</h1><p style="font-size:.7rem;color:rgba(250,250,248,.5);letter-spacing:4px;text-transform:uppercase;margin-top:4px">Program Builder · Session Logger · Auto-Adjustments</p></div></div>
 <div class="sub-overlay" id="subOverlay">
   <div class="sub-modal">
     <div class="lock-icon">&#128274;</div>
