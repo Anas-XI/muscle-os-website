@@ -35,7 +35,8 @@ export default {
     const url = new URL(request.url);
 
     if (request.method === 'OPTIONS') {
-      return new Response(null, { headers: corsHeaders(env, request) });
+      const isPdf = url.pathname.startsWith('/api/pdf/');
+      return new Response(null, { headers: corsHeaders(env, request, !isPdf) });
     }
 
     // ---- PDF proxy ----
