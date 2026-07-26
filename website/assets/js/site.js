@@ -1,4 +1,4 @@
-/* ── Site-wide: page-load fade, scroll nav, active link, mobile toggle ── */
+/* ── Site-wide: page-load fade, scroll reveal, scroll nav, active link, mobile toggle ── */
 (function () {
   'use strict';
 
@@ -7,6 +7,27 @@
     requestAnimationFrame(function () {
       document.body.classList.add('loaded');
     });
+  });
+
+  // ── Scroll reveal: observe .reveal elements and add .visible when in view ──
+  document.addEventListener('DOMContentLoaded', function () {
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right').forEach(function (el) {
+        observer.observe(el);
+      });
+    } else {
+      document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right').forEach(function (el) {
+        el.classList.add('visible');
+      });
+    }
   });
 
   // ── Scroll-aware sticky nav (hide on scroll down, show on scroll up) ──
