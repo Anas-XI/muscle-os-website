@@ -1,7 +1,6 @@
 {
   "version": 1,
   "note": "Hashed access codes — never store plaintext codes here. Generate with scripts/hash-code.js.",
-  "whitelist": ["ANASSTEM2025@GMAIL.COM"],
   "hashes": {
     "283e9f51af165cc2e884b020c1df5cde1922533cfbfea505cc9c30693e308932": {
       "productId": ["training_tool","tdee_adaptive_engine","training_book","nutrition_book"],

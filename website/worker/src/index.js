@@ -104,6 +104,9 @@ async function handleVerify(request, env) {
   const token = await new SignJWT({ productId, plan: record.plan, codePrefix: normalized.substring(0, 4) })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
+    .setIssuer('muscleos-access-control')
+    .setAudience('muscleos-website')
+    .setSubject(normalized.substring(0, 4))
     .setExpirationTime(Math.floor(expiresAt.getTime() / 1000))
     .sign(secret);
 
@@ -141,9 +144,14 @@ async function handleCheckToken(request, env) {
 }
 
 async function handleIssueCode(request, env) {
+  // Rate limit admin endpoint separately
+  const adminLimited = await checkRateLimit(request, env, 5);
+  if (adminLimited) return json({ error: 'rate_limited' }, 429, env);
+
   // Authenticate with a shared admin secret
   const authHeader = request.headers.get('X-Admin-Key');
-  if (!authHeader || authHeader !== env.ADMIN_KEY) {
+  const key = env.ADMIN_KEY || '';
+  if (!authHeader || !timingSafeEqual(authHeader, key)) {
     return json({ error: 'unauthorized' }, 401, env);
   }
   let body;
@@ -172,7 +180,13 @@ async function handleIssueCode(request, env) {
 async function handlePdfProxy(request, env, url) {
   // Extract filename: /api/pdf/training-book → training-book
   const filename = url.pathname.replace('/api/pdf/', '');
-  const token = url.searchParams.get('token');
+  // H-1: Validate filename — only allow alphanumeric, hyphens, underscores
+  if (!/^[a-zA-Z0-9_-]+$/.test(filename)) {
+    return new Response('Invalid filename', { status: 400, headers: corsHeaders(env, request, false) });
+  }
+  // C-2: Read JWT from Authorization header, not URL
+  const authHeader = request.headers.get('Authorization') || '';
+  const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : '';
   const requiredProduct = PDF_PRODUCT_MAP[filename];
 
   // Free guides — serve directly (no JWT needed)
@@ -191,6 +205,10 @@ async function handlePdfProxy(request, env, url) {
       }
     });
   }
+
+  // Rate limit PDF downloads
+  const pdfLimited = await checkRateLimit(request, env, 50);
+  if (pdfLimited) return new Response('Too many requests', { status: 429, headers: corsHeaders(env, request, false) });
 
   // Paid book — require valid JWT
   if (!token) {
@@ -221,11 +239,11 @@ async function handlePdfProxy(request, env, url) {
   }
 }
 
-async function checkRateLimit(request, env) {
+async function checkRateLimit(request, env, maxRequests = 10) {
   const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
   const key = `ratelimit:${ip}`;
   const count = parseInt(await env.ACCESS_CODES.get(key) || '0');
-  if (count >= 10) return true;
+  if (count >= maxRequests) return true;
   await env.ACCESS_CODES.put(key, String(count + 1), { expirationTtl: 300 });
   return false;
 }
@@ -236,6 +254,15 @@ async function logAttempt(env, code, productId, success) {
     { expirationTtl: 2592000 });
 }
 
+/** Constant-time string comparison to prevent timing attacks */
+function timingSafeEqual(a, b) {
+  if (typeof a !== 'string' || typeof b !== 'string') return false;
+  if (a.length !== b.length) return false;
+  let result = 0;
+  for (let i = 0; i < a.length; i++) result |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return result === 0;
+}
+
 function json(obj, status = 200, env) {
   return new Response(JSON.stringify(obj), {
     status,
@@ -244,17 +271,21 @@ function json(obj, status = 200, env) {
 }
 
 function corsHeaders(env, request, isAuth = true) {
-  let origin = '*';
+  const ALLOWED_ORIGINS = ['https://anas-xi.github.io', 'https://muscleos.is-a.dev'];
+  let origin = 'https://anas-xi.github.io';
   if (env && env.CORS_ORIGIN) {
     origin = env.CORS_ORIGIN;
   } else if (request) {
     const reqOrigin = request.headers.get('Origin');
-    if (reqOrigin) origin = reqOrigin;
+    if (reqOrigin && ALLOWED_ORIGINS.includes(reqOrigin)) {
+      origin = reqOrigin;
+    }
   }
   const methods = isAuth ? 'POST, OPTIONS' : 'GET, OPTIONS';
   return {
     'Access-Control-Allow-Origin': origin,
     'Access-Control-Allow-Methods': methods,
-    'Access-Control-Allow-Headers': 'Content-Type, X-Admin-Key'
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Admin-Key',
+    'Vary': 'Origin'
   };
 }

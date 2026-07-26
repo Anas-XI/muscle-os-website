@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
 <title>PDF Viewer — Muscle OS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -143,7 +144,7 @@ var nextBtn = document.getElementById('nextPage');
 var zoomOutBtn = document.getElementById('zoomOut');
 var zoomInBtn = document.getElementById('zoomIn');
 var pdfDoc = null, pageNum = 1, scale = 1.2, pageRendering = false, pageNumPending = null;
-var dbOpen = null;
+var dbOpen = null, authToken = null;
 
 filename.textContent = product.replace(/-/g,' ') || 'PDF Viewer';
 
@@ -204,19 +205,16 @@ function loadPdf() {
     var url = API_BASE + '/api/pdf/' + encodeURIComponent(product);
     
     if (isPaid) {
-      // Get JWT from localStorage (set by access-control.js)
+      // Get JWT from localStorage (same keys as access-control.js)
       var session = null;
       try {
-        var raw = localStorage.getItem('mos_access_' + PAID_PRODUCTS[product]);
+        var key = product === 'training-book' ? 'mos_book_training' : 'mos_book_nutrition';
+        var raw = localStorage.getItem(key);
         if (raw) session = JSON.parse(raw);
-        if (!raw) {
-          raw = localStorage.getItem('mos_access_training_book') || localStorage.getItem('mos_access_nutrition_book');
-          if (raw) session = JSON.parse(raw);
-        }
       } catch(e) {}
       
       if (session && session.token) {
-        url += '?token=' + encodeURIComponent(session.token);
+        authToken = session.token;
       } else {
         loading.style.display = 'none';
         error.style.display = 'flex';
@@ -225,7 +223,10 @@ function loadPdf() {
       }
     }
 
-    fetch(url).then(function(resp) {
+    var fetchOpts = { headers: {} };
+    if (authToken) fetchOpts.headers['Authorization'] = 'Bearer ' + authToken;
+
+    fetch(url, fetchOpts).then(function(resp) {
       if (!resp.ok) {
         loading.style.display = 'none';
         if (resp.status === 401 || resp.status === 403) {
@@ -353,9 +354,6 @@ document.addEventListener('keydown', function(e) {
   else if (e.key === '+' || e.key === '=') { zoomInBtn.click(); }
   else if (e.key === '-') { zoomOutBtn.click(); }
 });
-
-// Disable right-click on viewer to prevent save-as
-document.getElementById('viewerContainer').addEventListener('contextmenu', function(e) { e.preventDefault(); });
 
 loadPdf();
 </script>
