@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-signin-client_id" content="22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-<title>Anas Mo'men — Hypertrophy & Powerlifting Coach</title>
+<title data-i18n="page_title">Anas Mo'men — Hypertrophy &amp; Powerlifting Coach</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Tajawal:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
     --ink: #14151A;
@@ -379,78 +379,104 @@
   @media (max-width:560px) {
     .nav-links { gap:10px; font-size:10px; }
   }
+
+  /* ---------- BILINGUAL (EN/AR) ---------- */
+  .lang-toggle { display:flex; align-items:center; gap:4px; margin-left:12px; cursor:pointer; user-select:none; flex-shrink:0; }
+  .lang-toggle .lt-btn { font-size:11px; font-weight:700; padding:4px 8px; border-radius:3px; background:transparent; color:var(--gray); border:1px solid var(--line); cursor:pointer; transition:all .2s; letter-spacing:.5px; }
+  .lang-toggle .lt-btn.active { background:var(--yellow); color:var(--ink); border-color:var(--yellow); }
+  .lang-toggle .lt-btn:hover:not(.active) { color:#fff; border-color:#fff; }
+  @media(max-width:640px){ .lang-toggle .lt-btn { font-size:10px; padding:3px 6px; } }
+
+  /* RTL overrides */
+  [dir="rtl"] body { font-family:'Tajawal','Inter',sans-serif; }
+  [dir="rtl"] .display, [dir="rtl"] .brand, [dir="rtl"] .fbrand, [dir="rtl"] .kicker, [dir="rtl"] .eyebrow, [dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4, [dir="rtl"] .nav-links, [dir="rtl"] .section-title, [dir="rtl"] .to-title, [dir="rtl"] .gate-title, [dir="rtl"] .pkg-name, [dir="rtl"] .rc-title, [dir="rtl"] .hub-title, [dir="rtl"] .mos-tag { font-family:'Tajawal','Oswald',sans-serif; }
+  [dir="rtl"] .kicker, [dir="rtl"] .eyebrow { border-left:none; border-right:3px solid var(--yellow); padding-left:0; padding-right:10px; }
+  [dir="rtl"] .fact { border-left:none; border-right:3px solid var(--yellow-dim); padding-left:0; padding-right:14px; }
+  [dir="rtl"] .hstat { padding:18px 0 0 20px; border-right:none; border-left:1px solid var(--line); }
+  [dir="rtl"] .hstat:last-child { border-left:none; }
+  [dir="rtl"] .mos-visual { direction:ltr; text-align:left; font-family:'JetBrains Mono',monospace; }
+  [dir="rtl"] .about-photo::before { left:-16px; right:16px; }
+  [dir="rtl"] .pkg-badge { left:auto; right:28px; }
+  [dir="rtl"] .pkg-badge.best-value { left:28px; right:auto; }
+  [dir="rtl"] .about-photo-wrap { padding-right:0; padding-left:16px; }
+  [dir="rtl"] .tool-detail-card .td-list-item { flex-direction:row-reverse; }
+  [dir="rtl"] .tool-detail-card .td-list-item .td-bullet { margin-top:7px; }
 </style>
 </head>
 <body>
 
 <header>
   <div class="nav-inner">
-    <div class="brand">ANAS MO'MEN <span>COACHING</span></div>
+    <div class="brand" data-i18n="nav_brand">ANAS MO'MEN <span>COACHING</span></div>
     <nav class="nav-links">
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#mos">Muscle OS</a>
-      <a href="#tool-overview">Tools</a>
-      <a href="#knowledge-hub">Knowledge Hub</a>
-      <a href="#packages">Packages</a>
-      <a href="#contact">Contact</a>
+      <a href="#about" data-i18n="nav_about">About</a>
+      <a href="#services" data-i18n="nav_services">Services</a>
+      <a href="#mos" data-i18n="nav_muscleos">Muscle OS</a>
+      <a href="#tool-overview" data-i18n="nav_tools">Tools</a>
+      <a href="#knowledge-hub" data-i18n="nav_knowledge">Knowledge Hub</a>
+      <a href="#packages" data-i18n="nav_packages">Packages</a>
+      <a href="#contact" data-i18n="nav_contact">Contact</a>
     </nav>
-    <a class="nav-cta" href="https://wa.me/201040796017" target="_blank" rel="noopener">Message on WhatsApp</a>
+    <a class="nav-cta" href="https://wa.me/201040796017" target="_blank" rel="noopener" data-i18n="nav_whatsapp">Message on WhatsApp</a>
+    <div class="lang-toggle">
+      <span class="lt-btn active" data-lang="en">EN</span>
+      <span class="lt-btn" data-lang="ar">AR</span>
+    </div>
   </div>
 </header>
 
 <!-- HERO -->
 <section class="hero" id="top">
   <div class="hero-bg">
-    <img src="assets/hero.svg" alt="Muscle OS — AI-Powered Coaching" onerror="this.style.display='none';this.parentNode.querySelector('.img-fallback').style.display='block'" onload="this.setAttribute('loaded','')">
+    <img src="assets/hero.svg" alt="Muscle OS — AI-Powered Coaching" data-i18n-alt="hero_img_alt" onerror="this.style.display='none';this.parentNode.querySelector('.img-fallback').style.display='block'" onload="this.setAttribute('loaded','')">
     <div class="img-fallback"></div>
   </div>
   <div class="hero-shard"></div>
   <div class="wrap hero-content">
     <div class="hero-text">
-      <div class="kicker">Hypertrophy &amp; Powerlifting Coaching</div>
-      <h1>Stop Guessing.<br>Start <span class="accent">Progressing.</span></h1>
-      <p class="hero-sub">
+      <div class="kicker" data-i18n="hero_kicker">Hypertrophy &amp; Powerlifting Coaching</div>
+      <h1 data-i18n="hero_title">Stop Guessing.<br>Start <span class="accent">Progressing.</span></h1>
+      <p class="hero-sub" data-i18n="hero_sub">
         Coached by <b>Anas Mo'men</b> — a competitive powerlifter with a <b>700kg+ total</b>, training and
         coaching from real experience under the bar. Programming built on biomechanics and data, not a
         template with your name pasted on it.
       </p>
       <div class="hero-ctas">
-        <a href="https://wa.me/201040796017" class="btn btn-primary" target="_blank" rel="noopener">Start Coaching — WhatsApp</a>
-        <a href="#packages" class="btn btn-ghost">View Packages</a>
+        <a href="https://wa.me/201040796017" class="btn btn-primary" target="_blank" rel="noopener" data-i18n="hero_cta1">Start Coaching — WhatsApp</a>
+        <a href="#packages" class="btn btn-ghost" data-i18n="hero_cta2">View Packages</a>
       </div>
       <div class="hero-stats">
-        <div class="hstat"><div class="num mono">700kg+</div><div class="lbl">SBD Total</div></div>
-        <div class="hstat"><div class="num mono">82kg</div><div class="lbl">Bodyweight</div></div>
-        <div class="hstat"><div class="num mono">100+</div><div class="lbl">Clients Coached</div></div>
-        <div class="hstat"><div class="num mono">2024</div><div class="lbl">Coaching Since</div></div>
+        <div class="hstat"><div class="num mono">700kg+</div><div class="lbl" data-i18n="hero_stat1_lbl">SBD Total</div></div>
+        <div class="hstat"><div class="num mono">82kg</div><div class="lbl" data-i18n="hero_stat2_lbl">Bodyweight</div></div>
+        <div class="hstat"><div class="num mono">100+</div><div class="lbl" data-i18n="hero_stat3_lbl">Clients Coached</div></div>
+        <div class="hstat"><div class="num mono">2024</div><div class="lbl" data-i18n="hero_stat4_lbl">Coaching Since</div></div>
       </div>
     </div>
     <div class="hero-image">
-      <img src="assets/img/tool-hero.jpg" alt="Training session" onerror="this.style.display='none'">
+      <img src="assets/img/tool-hero.jpg" alt="Training session" data-i18n-alt="hero_img_alt2" onerror="this.style.display='none'">
     </div>
   </div>
-  <div class="scroll-cue">Scroll</div>
+  <div class="scroll-cue" data-i18n="hero_scroll">Scroll</div>
 </section>
 
 <!-- ABOUT -->
 <section class="about section-pad reveal" id="about">
   <div class="wrap about-grid">
     <div class="about-photo-wrap">
-      <div class="about-photo"><img src="assets/img/coach.jpg" alt="Anas Mo'men in the gym" onerror="this.style.display='none';this.parentNode.style.background='var(--ink)';this.parentNode.style.minHeight='320px';this.parentNode.style.display='flex';this.parentNode.style.alignItems='center';this.parentNode.style.justifyContent='center';this.parentNode.innerHTML='<div style=text-align:center;padding:40px><div style=font-size:48px;margin-bottom:8px>&#127947;</div><div style=font-size:11px;color:var(--gray);letter-spacing:.5px>Coach Anas</div></div>'"></div>
+      <div class="about-photo"><img src="assets/img/coach.jpg" alt="Anas Mo'men in the gym" data-i18n-alt="about_img_alt" onerror="this.style.display='none';this.parentNode.style.background='var(--ink)';this.parentNode.style.minHeight='320px';this.parentNode.style.display='flex';this.parentNode.style.alignItems='center';this.parentNode.style.justifyContent='center';this.parentNode.innerHTML='<div style=text-align:center;padding:40px><div style=font-size:48px;margin-bottom:8px>&#127947;</div><div style=font-size:11px;color:var(--gray);letter-spacing:.5px>Coach Anas</div></div>'"></div>
     </div>
     <div>
-      <div class="eyebrow" style="color:var(--yellow-dim);">About Your Coach</div>
-      <h2 class="section-title" style="color:var(--ink);">Trained under the bar.<br>Engineered on paper.</h2>
+      <div class="eyebrow" style="color:var(--yellow-dim);" data-i18n="about_eyebrow">About Your Coach</div>
+      <h2 class="section-title" style="color:var(--ink);" data-i18n="about_title">Trained under the bar.<br>Engineered on paper.</h2>
       <div class="about-copy" style="margin-top:22px;">
-        <p>Most online coaches sell a program. I coach from a different starting point: I'm a <b>competitive powerlifter</b> with a total exceeding <b>700kg at ~82kg bodyweight</b>, and I've taken over <b>100 clients</b> through hypertrophy, strength, and physique goals since 2024.</p>
-        <p>I'm also finishing a degree in <b>Mechatronics Engineering</b> — which shows up directly in how I coach. Every program is built on biomechanics and adjusted against real performance data, not a fixed template. I'm currently building <b>Muscle OS</b>, an AI-powered coaching platform, because I refuse to let a client's progress depend on guesswork.</p>
+        <p data-i18n="about_p1">Most online coaches sell a program. I coach from a different starting point: I'm a <b>competitive powerlifter</b> with a total exceeding <b>700kg at ~82kg bodyweight</b>, and I've taken over <b>100 clients</b> through hypertrophy, strength, and physique goals since 2024.</p>
+        <p data-i18n="about_p2">I'm also finishing a degree in <b>Mechatronics Engineering</b> — which shows up directly in how I coach. Every program is built on biomechanics and adjusted against real performance data, not a fixed template. I'm currently building <b>Muscle OS</b>, an AI-powered coaching platform, because I refuse to let a client's progress depend on guesswork.</p>
       </div>
       <div class="about-facts">
-        <div class="fact"><div class="fnum mono">700kg+</div><div class="flbl">Competitive SBD Total</div></div>
-        <div class="fact"><div class="fnum mono">100+</div><div class="flbl">Clients Coached</div></div>
-        <div class="fact"><div class="fnum mono">2030</div><div class="flbl">Mechatronics Eng. Grad</div></div>
-        <div class="fact"><div class="fnum mono">PT</div><div class="flbl">Certification In Progress</div></div>
+        <div class="fact"><div class="fnum mono">700kg+</div><div class="flbl" data-i18n="about_fact1">Competitive SBD Total</div></div>
+        <div class="fact"><div class="fnum mono">100+</div><div class="flbl" data-i18n="about_fact2">Clients Coached</div></div>
+        <div class="fact"><div class="fnum mono">2030</div><div class="flbl" data-i18n="about_fact3">Mechatronics Eng. Grad</div></div>
+        <div class="fact"><div class="fnum mono">PT</div><div class="flbl" data-i18n="about_fact4">Certification In Progress</div></div>
       </div>
     </div>
   </div>
@@ -459,41 +485,41 @@
 <!-- SERVICES -->
 <section class="services section-pad reveal" id="services">
   <div class="wrap">
-    <div class="eyebrow">What I Coach</div>
-    <h2 class="section-title">Programming built on<br>evidence, not trend.</h2>
-    <p class="section-intro">Every service below runs through the same standard: biomechanics-aware, data-driven, adjusted continuously against how you actually respond — not a static plan you get once and follow blind.</p>
+    <div class="eyebrow" data-i18n="services_eyebrow">What I Coach</div>
+    <h2 class="section-title" data-i18n="services_title">Programming built on<br>evidence, not trend.</h2>
+    <p class="section-intro" data-i18n="services_intro">Every service below runs through the same standard: biomechanics-aware, data-driven, adjusted continuously against how you actually respond — not a static plan you get once and follow blind.</p>
   </div>
   <div class="wrap">
     <div class="service-grid">
       <div class="service-card reveal reveal-delay-1">
         <div class="snum">01</div>
-        <h3>Hypertrophy Programming</h3>
-        <p>Structured muscle-building splits tailored to your recovery capacity, training age, and equipment access.</p>
+        <h3 data-i18n="svc1_title">Hypertrophy Programming</h3>
+        <p data-i18n="svc1_desc">Structured muscle-building splits tailored to your recovery capacity, training age, and equipment access.</p>
       </div>
       <div class="service-card reveal reveal-delay-2">
         <div class="snum">02</div>
-        <h3>Powerlifting Coaching</h3>
-        <p>Competition-focused periodization for squat, bench, and deadlift — built from someone who competes, not just programs.</p>
+        <h3 data-i18n="svc2_title">Powerlifting Coaching</h3>
+        <p data-i18n="svc2_desc">Competition-focused periodization for squat, bench, and deadlift — built from someone who competes, not just programs.</p>
       </div>
       <div class="service-card reveal reveal-delay-3">
         <div class="snum">03</div>
-        <h3>Biomechanics Assessment</h3>
-        <p>Movement patterns and leverages factored into every program so exercise selection actually fits your body.</p>
+        <h3 data-i18n="svc3_title">Biomechanics Assessment</h3>
+        <p data-i18n="svc3_desc">Movement patterns and leverages factored into every program so exercise selection actually fits your body.</p>
       </div>
       <div class="service-card reveal reveal-delay-4">
         <div class="snum">04</div>
-        <h3>Nutrition &amp; Carb Cycling</h3>
-        <p>Physiological reasoning behind every target — calories, macros, and timing explained, not just prescribed.</p>
+        <h3 data-i18n="svc4_title">Nutrition &amp; Carb Cycling</h3>
+        <p data-i18n="svc4_desc">Physiological reasoning behind every target — calories, macros, and timing explained, not just prescribed.</p>
       </div>
       <div class="service-card reveal reveal-delay-5">
         <div class="snum">05</div>
-        <h3>Progress Tracking &amp; Data</h3>
-        <p>Continuous adjustment based on real performance numbers, not a rigid four-week block regardless of how you're responding.</p>
+        <h3 data-i18n="svc5_title">Progress Tracking &amp; Data</h3>
+        <p data-i18n="svc5_desc">Continuous adjustment based on real performance numbers, not a rigid four-week block regardless of how you're responding.</p>
       </div>
       <div class="service-card reveal reveal-delay-6">
         <div class="snum">06</div>
-        <h3>Client Management</h3>
-        <p>Direct, responsive coaching relationship — questions get answered, programs get adjusted, nothing sits stagnant.</p>
+        <h3 data-i18n="svc6_title">Client Management</h3>
+        <p data-i18n="svc6_desc">Direct, responsive coaching relationship — questions get answered, programs get adjusted, nothing sits stagnant.</p>
       </div>
     </div>
   </div>
@@ -503,13 +529,13 @@
 <section class="mos section-pad reveal" id="mos">
   <div class="wrap mos-grid">
     <div>
-      <div class="mos-tag">Founder &amp; Lead Engineer</div>
-      <h2>Muscle OS — coaching backed by an actual system, not a spreadsheet.</h2>
-      <p class="lead">Most coaches manage clients from memory and a notes app. I'm building the infrastructure myself — because rigor shouldn't stop at the whiteboard.</p>
+      <div class="mos-tag" data-i18n="mos_tag">Founder &amp; Lead Engineer</div>
+      <h2 data-i18n="mos_title">Muscle OS — coaching backed by an actual system, not a spreadsheet.</h2>
+      <p class="lead" data-i18n="mos_lead">Most coaches manage clients from memory and a notes app. I'm building the infrastructure myself — because rigor shouldn't stop at the whiteboard.</p>
       <div class="mos-list">
-        <div class="mos-list-item"><div class="bullet"></div><p>An AI-powered multi-channel coaching platform (web, mobile, Telegram) engineered to scale personalized programming without losing quality.</p></div>
-        <div class="mos-list-item"><div class="bullet"></div><p>A safety arbitration system that hard-gates every coaching decision against injury risk and client-specific health constraints.</p></div>
-        <div class="mos-list-item"><div class="bullet"></div><p>Every line of code exists to make client results more consistent — not to replace the coaching relationship.</p></div>
+        <div class="mos-list-item"><div class="bullet"></div><p data-i18n="mos_b1">An AI-powered multi-channel coaching platform (web, mobile, Telegram) engineered to scale personalized programming without losing quality.</p></div>
+        <div class="mos-list-item"><div class="bullet"></div><p data-i18n="mos_b2">A safety arbitration system that hard-gates every coaching decision against injury risk and client-specific health constraints.</p></div>
+        <div class="mos-list-item"><div class="bullet"></div><p data-i18n="mos_b3">Every line of code exists to make client results more consistent — not to replace the coaching relationship.</p></div>
       </div>
     </div>
     <div class="mos-visual">
@@ -528,17 +554,17 @@
   <div class="wrap mos-extras">
     <div class="mos-extra-card">
       <div class="extra-icon">&#9733;</div>
-      <h4>Early Access for Premium Clients</h4>
-      <p>Premium coaching clients get first access to every new Muscle OS feature before public release — including AI-powered program adjustments, automated check-in analysis, and the client dashboard.</p>
-      <a href="#packages" class="extra-cta">Upgrade to Premium &rarr;</a>
+      <h4 data-i18n="mosextra1_title">Early Access for Premium Clients</h4>
+      <p data-i18n="mosextra1_desc">Premium coaching clients get first access to every new Muscle OS feature before public release — including AI-powered program adjustments, automated check-in analysis, and the client dashboard.</p>
+      <a href="#packages" class="extra-cta" data-i18n="mosextra1_cta">Upgrade to Premium &rarr;</a>
     </div>
     <div class="mos-extra-card" style="border-color:rgba(76,175,80,.3);background:linear-gradient(135deg,rgba(20,21,26,1),rgba(76,175,80,.04))">
       <div class="extra-icon">&#9889;</div>
-      <h4>Bundle Cross-Sell Offers</h4>
-      <p><strong style="color:#4CAF50">Buy the Training Bundle</strong> (500 EGP) — get <strong style="color:#F4C93B">50% off the Training Tool</strong> for your first month (150 EGP instead of 300).<br><br>
+      <h4 data-i18n="mosextra2_title">Bundle Cross-Sell Offers</h4>
+      <p data-i18n="mosextra2_desc"><strong style="color:#4CAF50">Buy the Training Bundle</strong> (500 EGP) — get <strong style="color:#F4C93B">50% off the Training Tool</strong> for your first month (150 EGP instead of 300).<br><br>
       <strong style="color:#4CAF50">Buy the Nutrition Bundle</strong> (500 EGP) — get <strong style="color:#F4C93B">50% off the TDEE Adaptive Engine</strong> for your first month (100 EGP instead of 200).<br><br>
       Message on WhatsApp to claim. Limited to one per client.</p>
-      <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20claim%20a%20bundle%20cross-sell%20offer" class="extra-cta">Claim Your Offer &rarr;</a>
+      <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20claim%20a%20bundle%20cross-sell%20offer" class="extra-cta" data-i18n="mosextra2_cta">Claim Your Offer &rarr;</a>
     </div>
   </div>
 </section>
@@ -546,48 +572,45 @@
 <!-- TOOL OVERVIEW -->
 <section class="tool-overview section-pad reveal" id="tool-overview">
   <div class="wrap">
-    <div class="eyebrow">What You Get</div>
-    <h2 class="to-title">Every tool, broken down —<br>so you know exactly what you're using.</h2>
-    <p class="to-sub">Below is everything each tool does, what it gives you, and how it works. No blind boxes — pick what fits your goal and use it immediately.</p>
+    <div class="eyebrow" data-i18n="to_eyebrow">What You Get</div>
+    <h2 class="to-title" data-i18n="to_title">Every tool, broken down —<br>so you know exactly what you're using.</h2>
+    <p class="to-sub" data-i18n="to_sub">Below is everything each tool does, what it gives you, and how it works. No blind boxes — pick what fits your goal and use it immediately.</p>
 
     <div class="tool-detail">
-      <!-- Training Tool -->
       <div class="tool-detail-card reveal reveal-delay-1">
-        <div class="td-badge">PRO &middot; 300 EGP / mo</div>
-        <h3>Training Tool</h3>
-        <p class="td-desc">A full training application that generates, logs, and tracks your programs. Built for lifters who want structure without paying a full coach every month.</p>
+        <div class="td-badge" data-i18n="tt_badge">PRO &middot; 300 EGP / mo</div>
+        <h3 data-i18n="tt_title">Training Tool</h3>
+        <p class="td-desc" data-i18n="tt_desc">A full training application that generates, logs, and tracks your programs. Built for lifters who want structure without paying a full coach every month.</p>
         <div class="td-list">
-          <div class="td-list-item"><div class="td-bullet"></div><span><b>Volume Calculator</b> — set your total weekly sets per muscle group based on your training age and recovery capacity</span></div>
-          <div class="td-list-item"><div class="td-bullet"></div><span><b>Split Selector</b> — choose from PPL, Upper/Lower, Full Body, Push/Pull/Legs, or custom with auto-set-recommendations</span></div>
-          <div class="td-list-item"><div class="td-bullet"></div><span><b>Program Generator</b> — produces a full weekly program with exercise selection, sets, reps, and RPE targets</span></div>
-          <div class="td-list-item"><div class="td-bullet"></div><span><b>Session Logger</b> — log each workout with weight, reps, RPE, and notes; view your history per exercise</span></div>
-          <div class="td-list-item"><div class="td-bullet"></div><span><b>Progress Tracking</b> — graphs for estimated 1RM progression per lift, volume over time, and bodyweight trends</span></div>
-          <div class="td-list-item"><div class="td-bullet"></div><span><b>Bilingual Interface</b> — full English / Arabic toggle for all screens and outputs</span></div>
+          <div class="td-list-item"><div class="td-bullet"></div><span data-i18n="tt_f1"><b>Volume Calculator</b> — set your total weekly sets per muscle group based on your training age and recovery capacity</span></div>
+          <div class="td-list-item"><div class="td-bullet"></div><span data-i18n="tt_f2"><b>Split Selector</b> — choose from PPL, Upper/Lower, Full Body, Push/Pull/Legs, or custom with auto-set-recommendations</span></div>
+          <div class="td-list-item"><div class="td-bullet"></div><span data-i18n="tt_f3"><b>Program Generator</b> — produces a full weekly program with exercise selection, sets, reps, and RPE targets</span></div>
+          <div class="td-list-item"><div class="td-bullet"></div><span data-i18n="tt_f4"><b>Session Logger</b> — log each workout with weight, reps, RPE, and notes; view your history per exercise</span></div>
+          <div class="td-list-item"><div class="td-bullet"></div><span data-i18n="tt_f5"><b>Progress Tracking</b> — graphs for estimated 1RM progression per lift, volume over time, and bodyweight trends</span></div>
+          <div class="td-list-item"><div class="td-bullet"></div><span data-i18n="tt_f6"><b>Bilingual Interface</b> — full English / Arabic toggle for all screens and outputs</span></div>
         </div>
       </div>
 
-      <!-- TDEE Adaptive Engine -->
       <div class="tool-detail-card reveal reveal-delay-2">
-        <div class="td-badge">PRO &middot; 200 EGP / mo</div>
-        <h3>TDEE Adaptive Engine</h3>
-        <p class="td-desc">Stop guessing your maintenance calories. Log what you eat and weigh yourself daily — the engine calculates your real TDEE and adjusts automatically.</p>
+        <div class="td-badge" data-i18n="tdee_badge">PRO &middot; 200 EGP / mo</div>
+        <h3 data-i18n="tdee_title">TDEE Adaptive Engine</h3>
+        <p class="td-desc" data-i18n="tdee_desc">Stop guessing your maintenance calories. Log what you eat and weigh yourself daily — the engine calculates your real TDEE and adjusts automatically.</p>
         <div class="td-list">
-          <div class="td-list-item"><div class="td-bullet"></div><span><b>Daily Log</b> — enter weight and calories once per day; takes 30 seconds</span></div>
-          <div class="td-list-item"><div class="td-bullet"></div><span><b>Adaptive TDEE</b> — the engine uses a rolling average + trend analysis to calculate your actual expenditure, not a formula estimate</span></div>
-          <div class="td-list-item"><div class="td-bullet"></div><span><b>Trend Graph</b> — see your weight trend vs daily weigh-ins with a smoothed line, and TDEE changes over time</span></div>
-          <div class="td-list-item"><div class="td-bullet"></div><span><b>Surplus / Deficit View</b> — compares actual intake vs calculated TDEE so you know exactly where your surplus or deficit is</span></div>
-          <div class="td-list-item"><div class="td-bullet"></div><span><b>Export Data</b> — download your log as CSV for your own analysis or to share with your coach</span></div>
+          <div class="td-list-item"><div class="td-bullet"></div><span data-i18n="tdee_f1"><b>Daily Log</b> — enter weight and calories once per day; takes 30 seconds</span></div>
+          <div class="td-list-item"><div class="td-bullet"></div><span data-i18n="tdee_f2"><b>Adaptive TDEE</b> — the engine uses a rolling average + trend analysis to calculate your actual expenditure, not a formula estimate</span></div>
+          <div class="td-list-item"><div class="td-bullet"></div><span data-i18n="tdee_f3"><b>Trend Graph</b> — see your weight trend vs daily weigh-ins with a smoothed line, and TDEE changes over time</span></div>
+          <div class="td-list-item"><div class="td-bullet"></div><span data-i18n="tdee_f4"><b>Surplus / Deficit View</b> — compares actual intake vs calculated TDEE so you know exactly where your surplus or deficit is</span></div>
+          <div class="td-list-item"><div class="td-bullet"></div><span data-i18n="tdee_f5"><b>Export Data</b> — download your log as CSV for your own analysis or to share with your coach</span></div>
         </div>
       </div>
     </div>
 
-    <!-- Gate: Sign In / Subscribe -->
     <div class="tool-gate reveal">
-      <div class="gate-title">Ready to use these tools?</div>
-      <p class="gate-sub">Sign in if you already have access, or subscribe on WhatsApp to get started.</p>
+      <div class="gate-title" data-i18n="to_gate_title">Ready to use these tools?</div>
+      <p class="gate-sub" data-i18n="to_gate_sub">Sign in if you already have access, or subscribe on WhatsApp to get started.</p>
       <div class="gate-btns">
-        <a href="tools/training_tool.html" class="gate-btn gate-btn-primary">Sign In &amp; Start Training</a>
-        <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20subscribe%20to%20a%20tool" class="gate-btn gate-btn-ghost" target="_blank" rel="noopener">Subscribe on WhatsApp</a>
+        <a href="tools/training_tool.html" class="gate-btn gate-btn-primary" data-i18n="to_gate_btn1">Sign In &amp; Start Training</a>
+        <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20subscribe%20to%20a%20tool" class="gate-btn gate-btn-ghost" target="_blank" rel="noopener" data-i18n="to_gate_btn2">Subscribe on WhatsApp</a>
       </div>
     </div>
   </div>
@@ -596,41 +619,41 @@
 <!-- TOOLS & RESOURCES -->
 <section class="resources-section reveal" id="tools">
   <div class="wrap">
-    <h2>TOOLS &amp; BUNDLES</h2>
-    <p class="subtitle">Professional training tools and bundled resources to level up your coaching.</p>
+    <h2 data-i18n="tr_title">TOOLS &amp; BUNDLES</h2>
+    <p class="subtitle" data-i18n="tr_sub">Professional training tools and bundled resources to level up your coaching.</p>
 
       <div class="resource-category">
-      <h3>PRO TOOLS <span style="font-size:12px;color:#FFD700;font-family:'JetBrains Mono',monospace;vertical-align:middle">— Subscription</span></h3>
+      <h3 data-i18n="tr_protitle">PRO TOOLS <span style="font-size:12px;color:#FFD700;font-family:'JetBrains Mono',monospace;vertical-align:middle">— Subscription</span></h3>
       <div class="resource-grid">
         <a href="tools/training_tool.html" class="resource-card pro-card">
-          <div class="rc-badge rc-badge-pro">PRO</div>
-          <div class="rc-title">Training Tool</div>
-          <div class="rc-desc">Full training app: volume calculator, split selector, program generator, session logger &amp; progress tracking with EN/AR bilingual interface.</div>
-          <div class="rc-price">300 EGP / month</div>
+          <div class="rc-badge rc-badge-pro" data-i18n="tr_probadge">PRO</div>
+          <div class="rc-title" data-i18n="tr_tt">Training Tool</div>
+          <div class="rc-desc" data-i18n="tr_ttdesc">Full training app: volume calculator, split selector, program generator, session logger &amp; progress tracking with EN/AR bilingual interface.</div>
+          <div class="rc-price" data-i18n="tr_ttprice">300 EGP / month</div>
         </a>
         <a href="tools/tdee_adaptive_engine.html" class="resource-card pro-card">
-          <div class="rc-badge rc-badge-pro">PRO</div>
-          <div class="rc-title">TDEE Adaptive Engine</div>
-          <div class="rc-desc">Log daily weight &amp; calories — the engine auto-adjusts your TDEE using rolling averages &amp; trend analysis.</div>
-          <div class="rc-price">200 EGP / month</div>
+          <div class="rc-badge rc-badge-pro" data-i18n="tr_probadge2">PRO</div>
+          <div class="rc-title" data-i18n="tr_tdeet">TDEE Adaptive Engine</div>
+          <div class="rc-desc" data-i18n="tr_tdeedesc">Log daily weight &amp; calories — the engine auto-adjusts your TDEE using rolling averages &amp; trend analysis.</div>
+          <div class="rc-price" data-i18n="tr_tdeeprice">200 EGP / month</div>
         </a>
       </div>
     </div>
 
     <div class="resource-category">
-      <h3>BUNDLES <span style="font-size:12px;color:#4CAF50;font-family:'JetBrains Mono',monospace;vertical-align:middle">— 500 EGP one-time</span></h3>
+      <h3 data-i18n="tr_bundletitle">BUNDLES <span style="font-size:12px;color:#4CAF50;font-family:'JetBrains Mono',monospace;vertical-align:middle">— 500 EGP one-time</span></h3>
       <div class="resource-grid">
         <a href="books/muscle_os_training_book.html" class="resource-card" style="border-color:rgba(76,175,80,.3);background:linear-gradient(135deg,var(--ink-3),rgba(76,175,80,.05))">
-          <div class="rc-badge" style="background:rgba(76,175,80,.15);color:#4CAF50">Bundle</div>
-          <div class="rc-title">Training Bundle</div>
-          <div class="rc-desc">Training &amp; Programming Book + Volume Calculator, RPE Calculator, Split Quiz. Plus 50% off the Training Tool for 1 month.</div>
-          <div class="rc-price">500 EGP &middot; includes 3 free tools</div>
+          <div class="rc-badge" style="background:rgba(76,175,80,.15);color:#4CAF50" data-i18n="tr_bundlebadge">Bundle</div>
+          <div class="rc-title" data-i18n="tr_bt">Training Bundle</div>
+          <div class="rc-desc" data-i18n="tr_btdesc">Training &amp; Programming Book + Volume Calculator, RPE Calculator, Split Quiz. Plus 50% off the Training Tool for 1 month.</div>
+          <div class="rc-price" data-i18n="tr_btprice">500 EGP &middot; includes 3 free tools</div>
         </a>
         <a href="books/muscle_os_nutrition_book.html" class="resource-card" style="border-color:rgba(76,175,80,.3);background:linear-gradient(135deg,var(--ink-3),rgba(76,175,80,.05))">
-          <div class="rc-badge" style="background:rgba(76,175,80,.15);color:#4CAF50">Bundle</div>
-          <div class="rc-title">Nutrition Bundle</div>
-          <div class="rc-desc">Diet &amp; Nutrition Book + TDEE &amp; Macro Calculator. Plus 50% off the TDEE Adaptive Engine for 1 month.</div>
-          <div class="rc-price">500 EGP &middot; includes free calculator</div>
+          <div class="rc-badge" style="background:rgba(76,175,80,.15);color:#4CAF50" data-i18n="tr_nbadge">Bundle</div>
+          <div class="rc-title" data-i18n="tr_nt">Nutrition Bundle</div>
+          <div class="rc-desc" data-i18n="tr_ntdesc">Diet &amp; Nutrition Book + TDEE &amp; Macro Calculator. Plus 50% off the TDEE Adaptive Engine for 1 month.</div>
+          <div class="rc-price" data-i18n="tr_ntprice">500 EGP &middot; includes free calculator</div>
         </a>
       </div>
     </div>
@@ -640,24 +663,24 @@
 <!-- KNOWLEDGE HUB -->
 <section class="resources-section reveal" id="knowledge-hub">
   <div class="wrap">
-    <div class="eyebrow">Knowledge Hub</div>
-    <h2>Books, Guides &amp; Reference</h2>
-    <p class="subtitle">Full reference books and quick-start guides — from foundational science to daily application.</p>
+    <div class="eyebrow" data-i18n="kh_eyebrow">Knowledge Hub</div>
+    <h2 data-i18n="kh_title">Books, Guides &amp; Reference</h2>
+    <p class="subtitle" data-i18n="kh_sub">Full reference books and quick-start guides — from foundational science to daily application.</p>
     <div class="hub-grid">
       <a href="knowledge-hub/" class="hub-card">
-        <div class="hub-title">Reference Books</div>
-        <div class="hub-desc">Training &amp; Programming Book, Diet &amp; Nutrition Book — 27 and 33 chapters each, 200+ scientific references.</div>
-        <div class="hub-link">Browse &amp; Buy Books &rarr;</div>
+        <div class="hub-title" data-i18n="kh_ref_title">Reference Books</div>
+        <div class="hub-desc" data-i18n="kh_ref_desc">Training &amp; Programming Book, Diet &amp; Nutrition Book — 27 and 33 chapters each, 200+ scientific references.</div>
+        <div class="hub-link" data-i18n="kh_ref_link">Browse &amp; Buy Books &rarr;</div>
       </a>
       <a href="knowledge-hub/" class="hub-card">
-        <div class="hub-title">Free Guides &amp; Worksheets</div>
-        <div class="hub-desc">Quick-start guides, decision trees, cheat sheets, and a 6-week consistency workbook — all available as HTML or PDF.</div>
-        <div class="hub-link">Open Guides &rarr;</div>
+        <div class="hub-title" data-i18n="kh_guide_title">Free Guides &amp; Worksheets</div>
+        <div class="hub-desc" data-i18n="kh_guide_desc">Quick-start guides, decision trees, cheat sheets, and a 6-week consistency workbook — all available as HTML or PDF.</div>
+        <div class="hub-link" data-i18n="kh_guide_link">Open Guides &rarr;</div>
       </a>
     </div>
     <div class="hub-cta-wrap">
-      <a href="pdf/viewer.html" class="nav-cta" style="display:inline-flex">PDF Library &rarr;</a>
-      <a href="knowledge-hub/" class="nav-cta" style="display:inline-flex;margin-left:12px">Explore Full Knowledge Hub &rarr;</a>
+      <a href="pdf/viewer.html" class="nav-cta" style="display:inline-flex" data-i18n="kh_pdf">PDF Library &rarr;</a>
+      <a href="knowledge-hub/" class="nav-cta" style="display:inline-flex;margin-left:12px" data-i18n="kh_explore">Explore Full Knowledge Hub &rarr;</a>
     </div>
   </div>
 </section>
@@ -665,48 +688,47 @@
 <!-- PACKAGES -->
 <section class="packages section-pad reveal" id="packages">
   <div class="wrap">
-    <div class="eyebrow">Coaching Packages</div>
-    <h2 class="section-title">Pick the level of<br>support you need.</h2>
+    <div class="eyebrow" data-i18n="pkg_eyebrow">Coaching Packages</div>
+    <h2 class="section-title" data-i18n="pkg_title">Pick the level of<br>support you need.</h2>
     <div class="pkg-grid">
       <div class="pkg-card featured">
-        <div class="pkg-badge">Most Popular</div>
-        <div class="pkg-name">Standard</div>
-        <div class="pkg-tagline">Coached</div>
-        <div class="pkg-price"><span class="amount mono">600</span><span class="cur">EGP</span><span class="per">/ month</span>
-        <span class="term-save">Save 300 EGP — pay 1,500 for 3 months</span></div>
-        <div class="pkg-term"><div class="term-label">3-Month Plan</div><div class="term-price">1,500 EGP</div><div class="term-note">Save 300 EGP (1,800 value)</div></div>
+        <div class="pkg-badge" data-i18n="pkg_std_badge">Most Popular</div>
+        <div class="pkg-name" data-i18n="pkg_std_name">Standard</div>
+        <div class="pkg-tagline" data-i18n="pkg_std_tag">Coached</div>
+        <div class="pkg-price"><span class="amount mono">600</span><span class="cur">EGP</span><span class="per" data-i18n="per_month">/ month</span>
+        <span class="term-save" data-i18n="pkg_std_save">Save 300 EGP — pay 1,500 for 3 months</span></div>
+        <div class="pkg-term"><div class="term-label" data-i18n="pkg_3mo">3-Month Plan</div><div class="term-price">1,500 EGP</div><div class="term-note" data-i18n="pkg_std_save2">Save 300 EGP (1,800 value)</div></div>
         <div class="pkg-divider"></div>
         <div class="pkg-features">
-          
-          <div class="pkg-feature"><span class="check">✓</span><span class="txt">Weekly check-ins &amp; progress review</span></div>
-          <div class="pkg-feature"><span class="check">✓</span><span class="txt">Real-time program adjustments</span></div>
-          <div class="pkg-feature"><span class="check">✓</span><span class="txt">Basic nutrition guidance (macros/calories)</span></div>
-          <div class="pkg-feature"><span class="check">✓</span><span class="txt">Direct messaging access between check-ins</span></div>
-          <div class="pkg-feature"><span class="check">✓</span><span class="txt">50% off all tools during subscription</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt" data-i18n="pkg_f1">Weekly check-ins &amp; progress review</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt" data-i18n="pkg_f2">Real-time program adjustments</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt" data-i18n="pkg_f3">Basic nutrition guidance (macros/calories)</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt" data-i18n="pkg_f4">Direct messaging access between check-ins</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt" data-i18n="pkg_f5">50% off all tools during subscription</span></div>
         </div>
-        <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%27m%20interested%20in%20the%20Standard%20package." class="pkg-cta" target="_blank" rel="noopener">Start with Standard</a>
+        <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%27m%20interested%20in%20the%20Standard%20package." class="pkg-cta" target="_blank" rel="noopener" data-i18n="pkg_std_cta">Start with Standard</a>
       </div>
 
       <div class="pkg-card">
-        <div class="pkg-badge best-value">Best Value</div>
-        <div class="pkg-name">Premium</div>
-        <div class="pkg-tagline">Full Coaching</div>
-        <div class="pkg-price"><span class="amount mono">1000</span><span class="cur">EGP</span><span class="per">/ month</span>
-        <span class="term-save">Save 500 EGP — pay 2,500 for 3 months</span></div>
-        <div class="pkg-term"><div class="term-label">3-Month Plan</div><div class="term-price">2,500 EGP</div><div class="term-note">Save 500 EGP (3,000 value)</div></div>
+        <div class="pkg-badge best-value" data-i18n="pkg_prem_badge">Best Value</div>
+        <div class="pkg-name" data-i18n="pkg_prem_name">Premium</div>
+        <div class="pkg-tagline" data-i18n="pkg_prem_tag">Full Coaching</div>
+        <div class="pkg-price"><span class="amount mono">1000</span><span class="cur">EGP</span><span class="per" data-i18n="per_month2">/ month</span>
+        <span class="term-save" data-i18n="pkg_prem_save">Save 500 EGP — pay 2,500 for 3 months</span></div>
+        <div class="pkg-term"><div class="term-label" data-i18n="pkg_3mo2">3-Month Plan</div><div class="term-price">2,500 EGP</div><div class="term-note" data-i18n="pkg_prem_save2">Save 500 EGP (3,000 value)</div></div>
         <div class="pkg-divider"></div>
         <div class="pkg-features">
-          <div class="pkg-feature"><span class="check">✓</span><span class="txt">Everything in Standard</span></div>
-          <div class="pkg-feature"><span class="check">✓</span><span class="txt">Personalized nutrition &amp; carb cycling protocol</span></div>
-          <div class="pkg-feature"><span class="check">✓</span><span class="txt">Priority response time</span></div>
-          <div class="pkg-feature"><span class="check">✓</span><span class="txt">Periodic video call check-ins</span></div>
-          <div class="pkg-feature"><span class="check">✓</span><span class="txt">Early access to Muscle OS features</span></div>
-          <div class="pkg-feature"><span class="check">✓</span><span class="txt">50% off all tools during subscription</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt" data-i18n="pkg_g1">Everything in Standard</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt" data-i18n="pkg_g2">Personalized nutrition &amp; carb cycling protocol</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt" data-i18n="pkg_g3">Priority response time</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt" data-i18n="pkg_g4">Periodic video call check-ins</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt" data-i18n="pkg_g5">Early access to Muscle OS features</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt" data-i18n="pkg_g6">50% off all tools during subscription</span></div>
         </div>
-        <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%27m%20interested%20in%20the%20Premium%20package." class="pkg-cta" target="_blank" rel="noopener">Start with Premium</a>
+        <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%27m%20interested%20in%20the%20Premium%20package." class="pkg-cta" target="_blank" rel="noopener" data-i18n="pkg_prem_cta">Start with Premium</a>
       </div>
     </div>
-    <p class="pkg-note">Prices in EGP. Monthly billing or 3-month plan. </p>
+    <p class="pkg-note" data-i18n="pkg_note">Prices in EGP. Monthly billing or 3-month plan. </p>
   </div>
 </section>
 
@@ -714,10 +736,10 @@
 <section class="contact section-pad reveal" id="contact">
   <div class="wrap contact-inner">
     <div>
-      <h2>Ready to train with a coach who delivers?</h2>
-      <p class="lead">Limited coaching slots — programming built around you, not the other way around. Message me directly and let's talk about your goals.</p>
+      <h2 data-i18n="contact_title">Ready to train with a coach who delivers?</h2>
+      <p class="lead" data-i18n="contact_sub">Limited coaching slots — programming built around you, not the other way around. Message me directly and let's talk about your goals.</p>
       <div class="contact-ctas">
-        <a href="https://wa.me/201040796017" class="btn btn-dark" target="_blank" rel="noopener">Message on WhatsApp</a>
+        <a href="https://wa.me/201040796017" class="btn btn-dark" target="_blank" rel="noopener" data-i18n="contact_wa">Message on WhatsApp</a>
         <a href="https://instagram.com/anas_moamen1" class="btn btn-outline-dark" target="_blank" rel="noopener">@anas_moamen1</a>
       </div>
     </div>
@@ -726,51 +748,244 @@
 
 <footer>
   <div class="wrap footer-inner">
-    <div class="fbrand">ANAS MO'MEN <span>COACHING</span></div>
+    <div class="fbrand" data-i18n="footer_brand">ANAS MO'MEN <span>COACHING</span></div>
     <div class="footer-links">
       <a href="tel:01040796017">01040796017</a>
       <a href="https://instagram.com/anas_moamen1" target="_blank" rel="noopener">@anas_moamen1</a>
-      <a href="https://wa.me/201040796017" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="https://wa.me/201040796017" target="_blank" rel="noopener" data-i18n="footer_wa">WhatsApp</a>
     </div>
   </div>
 </footer>
 
 <script>
-  // Page load entrance
-  document.addEventListener('DOMContentLoaded', function(){ document.body.classList.add('loaded'); });
+// ── Bilingual EN/AR translations ──
+const TR = {
+  page_title: { en:'Anas Mo\'men — Hypertrophy & Powerlifting Coach', ar:'أنس مؤمن — تدريب تضخيم عضلي ورفع أثقال' },
+  hero_img_alt: { en:'Muscle OS — AI-Powered Coaching', ar:'نظام العضلات — تدريب بالذكاء الاصطناعي' },
+  hero_img_alt2: { en:'Training session', ar:'جلسة تدريب' },
+  about_img_alt: { en:'Anas Mo\'men in the gym', ar:'أنس مؤمن في الجيم' },
+  nav_brand: { en:'ANAS MO\'MEN <span>COACHING</span>', ar:'أنس مؤمن <span>تدريب</span>' },
+  nav_about: { en:'About', ar:'عني' },
+  nav_services: { en:'Services', ar:'الخدمات' },
+  nav_muscleos: { en:'Muscle OS', ar:'نظام العضلات' },
+  nav_tools: { en:'Tools', ar:'الأدوات' },
+  nav_knowledge: { en:'Knowledge Hub', ar:'المكتبة' },
+  nav_packages: { en:'Packages', ar:'الباقات' },
+  nav_contact: { en:'Contact', ar:'تواصل' },
+  nav_whatsapp: { en:'Message on WhatsApp', ar:'راسلني على واتساب' },
+  hero_kicker: { en:'Hypertrophy &amp; Powerlifting Coaching', ar:'تدريب تضخيم عضلي ورفع أثقال' },
+  hero_title: { en:'Stop Guessing.<br>Start <span class=accent>Progressing.</span>', ar:'توقف عن التخمين.<br>ابدأ <span class=accent>التقدم.</span>' },
+  hero_sub: { en:'Coached by <b>Anas Mo\'men</b> — a competitive powerlifter with a <b>700kg+ total</b>, training and coaching from real experience under the bar. Programming built on biomechanics and data, not a template with your name pasted on it.', ar:'يُدربك <b>أنس مؤمن</b> — رافع أثقال تنافسي بمجموع <b>أكثر من 700 كجم</b>، تدريب وتوجيه من خبرة حقيقية تحت البار. البرامج مبنية على الميكانيكا الحيوية والبيانات، وليس قالباً باسمك.' },
+  hero_cta1: { en:'Start Coaching — WhatsApp', ar:'ابدأ التدريب — واتساب' },
+  hero_cta2: { en:'View Packages', ar:'عرض الباقات' },
+  hero_stat1_lbl: { en:'SBD Total', ar:'المجموع الكلي' },
+  hero_stat2_lbl: { en:'Bodyweight', ar:'وزن الجسم' },
+  hero_stat3_lbl: { en:'Clients Coached', ar:'عملاء دربتهم' },
+  hero_stat4_lbl: { en:'Coaching Since', ar:'تدريب منذ' },
+  hero_scroll: { en:'Scroll', ar:'اسفل' },
+  about_eyebrow: { en:'About Your Coach', ar:'عن المدرب' },
+  about_title: { en:'Trained under the bar.<br>Engineered on paper.', ar:'مُدرَّب تحت البار.<br>مُهندَس على الورق.' },
+  about_p1: { en:'Most online coaches sell a program. I coach from a different starting point: I\'m a <b>competitive powerlifter</b> with a total exceeding <b>700kg at ~82kg bodyweight</b>, and I\'ve taken over <b>100 clients</b> through hypertrophy, strength, and physique goals since 2024.', ar:'معظم المدربين أونلاين يبيعون برنامجاً. أنا أدرب من نقطة بداية مختلفة: أنا <b>رافع أثقال تنافسي</b> بمجموع يتجاوز <b>700 كجم عند وزن ~82 كجم</b>، وقد دربت أكثر من <b>100 عميل</b> في أهداف التضخيم والقوة وتشكيل الجسم منذ 2024.' },
+  about_p2: { en:'I\'m also finishing a degree in <b>Mechatronics Engineering</b> — which shows up directly in how I coach. Every program is built on biomechanics and adjusted against real performance data, not a fixed template. I\'m currently building <b>Muscle OS</b>, an AI-powered coaching platform, because I refuse to let a client\'s progress depend on guesswork.', ar:'أيضاً أنهي درجتي في <b>هندسة الميكاترونكس</b> — وهذا يظهر مباشرة في طريقة تدريبي. كل برنامج مبني على الميكانيكا الحيوية ويُعدَّل بناءً على بيانات الأداء الحقيقية، وليس قالباً ثابتاً. أقوم حالياً ببناء <b>نظام العضلات</b>، منصة تدريب بالذكاء الاصطناعي، لأنني أرفض أن يعتمد تقدم العميل على التخمين.' },
+  about_fact1: { en:'Competitive SBD Total', ar:'مجموع تنافسي كلي' },
+  about_fact2: { en:'Clients Coached', ar:'عملاء دربتهم' },
+  about_fact3: { en:'Mechatronics Eng. Grad', ar:'مهندس ميكاترونكس' },
+  about_fact4: { en:'Certification In Progress', ar:'شهادة تدريب قيد الإنجاز' },
+  services_eyebrow: { en:'What I Coach', ar:'ماذا أقدم' },
+  services_title: { en:'Programming built on<br>evidence, not trend.', ar:'برامج مبنية على<br>الأدلة، لا الموضة.' },
+  services_intro: { en:'Every service below runs through the same standard: biomechanics-aware, data-driven, adjusted continuously against how you actually respond — not a static plan you get once and follow blind.', ar:'كل خدمة أدناه تخضع لنفس المعيار: مراعاة الميكانيكا الحيوية، مدعومة بالبيانات، تُعدَّل باستمرار حسب استجابتك الفعلية — ليست خطة ثابتة تأخذها مرة وتتبعها بشكل أعمى.' },
+  svc1_title: { en:'Hypertrophy Programming', ar:'برمجة التضخيم العضلي' },
+  svc1_desc: { en:'Structured muscle-building splits tailored to your recovery capacity, training age, and equipment access.', ar:'تقسيمات مبنية على بناء العضلات بما يناسب قدرتك على التعافي، عمرك التدريبي، والأجهزة المتاحة.' },
+  svc2_title: { en:'Powerlifting Coaching', ar:'تدريب رفع الأثقال' },
+  svc2_desc: { en:'Competition-focused periodization for squat, bench, and deadlift — built from someone who competes, not just programs.', ar:'دورات تدريبية تنافسية للقرفصاء، الضغط، والرفعة الميتة — من شخص ينافس، لا يبرمج فقط.' },
+  svc3_title: { en:'Biomechanics Assessment', ar:'تقييم الميكانيكا الحيوية' },
+  svc3_desc: { en:'Movement patterns and leverages factored into every program so exercise selection actually fits your body.', ar:'أنماط الحركة والعوامل الميكانيكية مدمجة في كل برنامج لتناسب اختيار التمرين جسمك فعلياً.' },
+  svc4_title: { en:'Nutrition &amp; Carb Cycling', ar:'التغذية وتدوير الكربوهيدرات' },
+  svc4_desc: { en:'Physiological reasoning behind every target — calories, macros, and timing explained, not just prescribed.', ar:'المنطق الفسيولوجي وراء كل هدف — السعرات، المغذيات، والتوقيت موضح، ليس مجرد وصفة.' },
+  svc5_title: { en:'Progress Tracking &amp; Data', ar:'تتبع التقدم والبيانات' },
+  svc5_desc: { en:'Continuous adjustment based on real performance numbers, not a rigid four-week block regardless of how you\'re responding.', ar:'تعديل مستمر بناءً على أرقام الأداء الحقيقية، ليس كتلة جامدة مدتها أربعة أسابيع بغض النظر عن استجابتك.' },
+  svc6_title: { en:'Client Management', ar:'إدارة العملاء' },
+  svc6_desc: { en:'Direct, responsive coaching relationship — questions get answered, programs get adjusted, nothing sits stagnant.', ar:'علاقة تدريب مباشرة وسريعة الاستجابة — الأسئلة تُجاب، البرامج تُعدَّل، لا شيء يبقى راكداً.' },
+  mos_tag: { en:'Founder &amp; Lead Engineer', ar:'المؤسس والمهندس الرئيسي' },
+  mos_title: { en:'Muscle OS — coaching backed by an actual system, not a spreadsheet.', ar:'نظام العضلات — تدريب مدعوم بنظام فعلي، ليس جدول بيانات.' },
+  mos_lead: { en:'Most coaches manage clients from memory and a notes app. I\'m building the infrastructure myself — because rigor shouldn\'t stop at the whiteboard.', ar:'معظم المدربين يديرون العملاء من الذاكرة وتطبيق ملاحظات. أنا أبني البنية التحتية بنفسي — لأن الدقة لا يجب أن تتوقف عند السبورة.' },
+  mos_b1: { en:'An AI-powered multi-channel coaching platform (web, mobile, Telegram) engineered to scale personalized programming without losing quality.', ar:'منصة تدريب متعددة القنوات مدعومة بالذكاء الاصطناعي (ويب، موبايل، تلغرام) صُممت لتوسيع نطاق البرامج المخصصة دون فقدان الجودة.' },
+  mos_b2: { en:'A safety arbitration system that hard-gates every coaching decision against injury risk and client-specific health constraints.', ar:'نظام تحكيم أمان يمنع كل قرار تدريبي بناءً على خطر الإصابة والقيود الصحية الخاصة بالعميل.' },
+  mos_b3: { en:'Every line of code exists to make client results more consistent — not to replace the coaching relationship.', ar:'كل سطر من الكود موجود لجعل نتائج العملاء أكثر اتساقاً — وليس لاستبدال علاقة التدريب.' },
+  mosextra1_title: { en:'Early Access for Premium Clients', ar:'وصول مبكر للعملاء المميزين' },
+  mosextra1_desc: { en:'Premium coaching clients get first access to every new Muscle OS feature before public release — including AI-powered program adjustments, automated check-in analysis, and the client dashboard.', ar:'عملاء التدريب المميزين يحصلون على أول وصول لكل ميزة جديدة في نظام العضلات قبل الإصدار العام — بما في ذلك تعديلات البرامج بالذكاء الاصطناعي، تحليل المتابعة الآلي، ولوحة تحكم العميل.' },
+  mosextra1_cta: { en:'Upgrade to Premium &rarr;', ar:'ترقية إلى المميزة &rarr;' },
+  mosextra2_title: { en:'Bundle Cross-Sell Offers', ar:'عروض الباقات المشتركة' },
+  mosextra2_desc: { en:'<strong style=color:#4CAF50>Buy the Training Bundle</strong> (500 EGP) — get <strong style=color:#F4C93B>50% off the Training Tool</strong> for your first month (150 EGP instead of 300).<br><br><strong style=color:#4CAF50>Buy the Nutrition Bundle</strong> (500 EGP) — get <strong style=color:#F4C93B>50% off the TDEE Adaptive Engine</strong> for your first month (100 EGP instead of 200).<br><br>Message on WhatsApp to claim. Limited to one per client.', ar:'<strong style=color:#4CAF50>اشتر حزمة التدريب</strong> (500 ج.م) — احصل على <strong style=color:#F4C93B>خصم 50% على أداة التدريب</strong> للشهر الأول (150 ج.م بدلاً من 300).<br><br><strong style=color:#4CAF50>اشتر حزمة التغذية</strong> (500 ج.م) — احصل على <strong style=color:#F4C93B>خصم 50% على محرك TDEE</strong> للشهر الأول (100 ج.م بدلاً من 200).<br><br>راسلنا على واتساب للحصول على العرض. عرض محدود لكل عميل.' },
+  mosextra2_cta: { en:'Claim Your Offer &rarr;', ar:'احصل على عرضك &rarr;' },
+  to_eyebrow: { en:'What You Get', ar:'ماذا ستحصل' },
+  to_title: { en:'Every tool, broken down —<br>so you know exactly what you\'re using.', ar:'كل أداة، موضحة بالتفصيل —<br>لتعرف بالضبط ما تستخدم.' },
+  to_sub: { en:'Below is everything each tool does, what it gives you, and how it works. No blind boxes — pick what fits your goal and use it immediately.', ar:'أدناه كل ما تفعله كل أداة، ما تقدمه لك، وكيف تعمل. لا صناديق عمياء — اختر ما يناسب هدفك واستخدمه فوراً.' },
+  tt_badge: { en:'PRO &middot; 300 EGP / mo', ar:'احترافية &middot; 300 ج.م / شهر' },
+  tt_title: { en:'Training Tool', ar:'أداة التدريب' },
+  tt_desc: { en:'A full training application that generates, logs, and tracks your programs. Built for lifters who want structure without paying a full coach every month.', ar:'تطبيق تدريب كامل يُنشئ، يُسجل، ويتتبع برامجك. صُمم للرياضيين الذين يريدون تنظيماً دون دفع مرتب مدرب كامل كل شهر.' },
+  tt_f1: { en:'<b>Volume Calculator</b> — set your total weekly sets per muscle group based on your training age and recovery capacity', ar:'<b>حاسبة الحجم</b> — حدد مجموعاتك الأسبوعية لكل مجموعة عضلية بناءً على عمرك التدريبي وقدرتك على التعافي' },
+  tt_f2: { en:'<b>Split Selector</b> — choose from PPL, Upper/Lower, Full Body, Push/Pull/Legs, or custom with auto-set-recommendations', ar:'<b>محدد التقسيم</b> — اختر من PPL، أعلى/أسفل، كامل الجسم، دفع/سحب/أرجل، أو مخصص مع توصيات تلقائية' },
+  tt_f3: { en:'<b>Program Generator</b> — produces a full weekly program with exercise selection, sets, reps, and RPE targets', ar:'<b>مولد البرامج</b> — يُنتج برنامجاً أسبوعياً كاملاً مع اختيار التمارين، المجموعات، التكرارات، وأهداف RPE' },
+  tt_f4: { en:'<b>Session Logger</b> — log each workout with weight, reps, RPE, and notes; view your history per exercise', ar:'<b>مسجل الجلسات</b> — سجل كل تمرين مع الوزن، التكرارات، RPE، والملاحظات؛ اعرض تاريخك لكل تمرين' },
+  tt_f5: { en:'<b>Progress Tracking</b> — graphs for estimated 1RM progression per lift, volume over time, and bodyweight trends', ar:'<b>تتبع التقدم</b> — رسوم بيانية لتطور 1RM المقدر لكل حركة، الحجم بمرور الوقت، واتجاهات وزن الجسم' },
+  tt_f6: { en:'<b>Bilingual Interface</b> — full English / Arabic toggle for all screens and outputs', ar:'<b>واجهة ثنائية اللغة</b> — تبديل كامل بين الإنجليزية والعربية لجميع الشاشات والمخرجات' },
+  tdee_badge: { en:'PRO &middot; 200 EGP / mo', ar:'احترافية &middot; 200 ج.م / شهر' },
+  tdee_title: { en:'TDEE Adaptive Engine', ar:'محرك TDEE التكيفي' },
+  tdee_desc: { en:'Stop guessing your maintenance calories. Log what you eat and weigh yourself daily — the engine calculates your real TDEE and adjusts automatically.', ar:'توقف عن تخمين سعراتك الحافظة. سجل ما تأكله ووزنك يومياً — المحرك يحسب TDEE الحقيقي ويعدله تلقائياً.' },
+  tdee_f1: { en:'<b>Daily Log</b> — enter weight and calories once per day; takes 30 seconds', ar:'<b>تسجيل يومي</b> — أدخل الوزن والسعرات مرة يومياً؛ يستغرق 30 ثانية' },
+  tdee_f2: { en:'<b>Adaptive TDEE</b> — the engine uses a rolling average + trend analysis to calculate your actual expenditure, not a formula estimate', ar:'<b>TDEE تكيفي</b> — المحرك يستخدم متوسط متحرك + تحليل اتجاه لحساب إنفاقك الفعلي، ليس تقديراً بمعادلة' },
+  tdee_f3: { en:'<b>Trend Graph</b> — see your weight trend vs daily weigh-ins with a smoothed line, and TDEE changes over time', ar:'<b>رسم بياني للاتجاه</b> — شاهد اتجاه وزنك مقابل قياساتك اليومية بخط منعم، وتغيرات TDEE مع الوقت' },
+  tdee_f4: { en:'<b>Surplus / Deficit View</b> — compares actual intake vs calculated TDEE so you know exactly where your surplus or deficit is', ar:'<b>عرض الفائض/العجز</b> — يقارن السعرات الفعلية مع TDEE المحسوب لتعرف بالضبط أين فائضك أو عجزك' },
+  tdee_f5: { en:'<b>Export Data</b> — download your log as CSV for your own analysis or to share with your coach', ar:'<b>تصدير البيانات</b> — حمل سجلك كـ CSV لتحليلك الخاص أو لمشاركته مع مدربك' },
+  to_gate_title: { en:'Ready to use these tools?', ar:'مستعد لاستخدام الأدوات؟' },
+  to_gate_sub: { en:'Sign in if you already have access, or subscribe on WhatsApp to get started.', ar:'سجل الدخول إذا كان لديك وصول، أو اشترك عبر واتساب للبدء.' },
+  to_gate_btn1: { en:'Sign In &amp; Start Training', ar:'تسجيل الدخول وبدء التدريب' },
+  to_gate_btn2: { en:'Subscribe on WhatsApp', ar:'اشترك عبر واتساب' },
+  tr_title: { en:'TOOLS &amp; BUNDLES', ar:'الأدوات والحزم' },
+  tr_sub: { en:'Professional training tools and bundled resources to level up your coaching.', ar:'أدوات تدريب احترافية وموارد مجمعة للارتقاء بتدريبك.' },
+  tr_protitle: { en:'PRO TOOLS <span style=font-size:12px;color:#FFD700;font-family:JetBrains\\ Mono,monospace;vertical-align:middle>— Subscription</span>', ar:'أدوات احترافية <span style=font-size:12px;color:#FFD700;font-family:JetBrains\\ Mono,monospace;vertical-align:middle>— اشتراك</span>' },
+  tr_probadge: { en:'PRO', ar:'احترافية' },
+  tr_tt: { en:'Training Tool', ar:'أداة التدريب' },
+  tr_ttdesc: { en:'Full training app: volume calculator, split selector, program generator, session logger &amp; progress tracking with EN/AR bilingual interface.', ar:'تطبيق تدريب كامل: حاسبة الحجم، محدد التقسيم، مولد البرامج، مسجل الجلسات وتتبع التقدم بواجهة ثنائية اللغة.' },
+  tr_ttprice: { en:'300 EGP / month', ar:'300 ج.م / شهر' },
+  tr_probadge2: { en:'PRO', ar:'احترافية' },
+  tr_tdeet: { en:'TDEE Adaptive Engine', ar:'محرك TDEE التكيفي' },
+  tr_tdeedesc: { en:'Log daily weight &amp; calories — the engine auto-adjusts your TDEE using rolling averages &amp; trend analysis.', ar:'سجل الوزن والسعرات يومياً — المحرك يعدل TDEE تلقائياً باستخدام المتوسطات المتحركة وتحليل الاتجاه.' },
+  tr_tdeeprice: { en:'200 EGP / month', ar:'200 ج.م / شهر' },
+  tr_bundletitle: { en:'BUNDLES <span style=font-size:12px;color:#4CAF50;font-family:JetBrains\\ Mono,monospace;vertical-align:middle>— 500 EGP one-time</span>', ar:'حزم <span style=font-size:12px;color:#4CAF50;font-family:JetBrains\\ Mono,monospace;vertical-align:middle>— 500 ج.م مرة واحدة</span>' },
+  tr_bundlebadge: { en:'Bundle', ar:'حزمة' },
+  tr_bt: { en:'Training Bundle', ar:'حزمة التدريب' },
+  tr_btdesc: { en:'Training &amp; Programming Book + Volume Calculator, RPE Calculator, Split Quiz. Plus 50% off the Training Tool for 1 month.', ar:'كتاب التدريب والبرمجة + حاسبة الحجم، حاسبة RPE، اختبار التقسيم. بالإضافة إلى خصم 50% على أداة التدريب لشهر واحد.' },
+  tr_btprice: { en:'500 EGP &middot; includes 3 free tools', ar:'500 ج.م &middot; تشمل 3 أدوات مجانية' },
+  tr_nbadge: { en:'Bundle', ar:'حزمة' },
+  tr_nt: { en:'Nutrition Bundle', ar:'حزمة التغذية' },
+  tr_ntdesc: { en:'Diet &amp; Nutrition Book + TDEE &amp; Macro Calculator. Plus 50% off the TDEE Adaptive Engine for 1 month.', ar:'كتاب الحمية والتغذية + حاسبة TDEE والمغذيات. بالإضافة إلى خصم 50% على محرك TDEE التكيفي لشهر واحد.' },
+  tr_ntprice: { en:'500 EGP &middot; includes free calculator', ar:'500 ج.م &middot; تشمل حاسبة مجانية' },
+  kh_eyebrow: { en:'Knowledge Hub', ar:'المكتبة المعرفية' },
+  kh_title: { en:'Books, Guides &amp; Reference', ar:'كتب، أدلة ومراجع' },
+  kh_sub: { en:'Full reference books and quick-start guides — from foundational science to daily application.', ar:'كتب مرجعية كاملة وأدلة بداية سريعة — من العلوم الأساسية إلى التطبيق اليومي.' },
+  kh_ref_title: { en:'Reference Books', ar:'الكتب المرجعية' },
+  kh_ref_desc: { en:'Training &amp; Programming Book, Diet &amp; Nutrition Book — 27 and 33 chapters each, 200+ scientific references.', ar:'كتاب التدريب والبرمجة، كتاب الحمية والتغذية — 27 و 33 فصلاً لكل منهما، أكثر من 200 مرجع علمي.' },
+  kh_ref_link: { en:'Browse &amp; Buy Books &rarr;', ar:'تصفح واشترِ الكتب &rarr;' },
+  kh_guide_title: { en:'Free Guides &amp; Worksheets', ar:'أدلة ورق عمل مجانية' },
+  kh_guide_desc: { en:'Quick-start guides, decision trees, cheat sheets, and a 6-week consistency workbook — all available as HTML or PDF.', ar:'أدلة بداية سريعة، أشجار قرار، أوراق غش، وكراسة اتساق 6 أسابيع — كلها متاحة كـ HTML أو PDF.' },
+  kh_guide_link: { en:'Open Guides &rarr;', ar:'افتح الأدلة &rarr;' },
+  kh_pdf: { en:'PDF Library &rarr;', ar:'مكتبة PDF &rarr;' },
+  kh_explore: { en:'Explore Full Knowledge Hub &rarr;', ar:'استكشف المكتبة الكاملة &rarr;' },
+  pkg_eyebrow: { en:'Coaching Packages', ar:'باقات التدريب' },
+  pkg_title: { en:'Pick the level of<br>support you need.', ar:'اختر مستوى<br>الدعم الذي تحتاجه.' },
+  pkg_std_badge: { en:'Most Popular', ar:'الأكثر طلباً' },
+  pkg_std_name: { en:'Standard', ar:'قياسية' },
+  pkg_std_tag: { en:'Coached', ar:'مدرب' },
+  per_month: { en:'/ month', ar:'/ شهرياً' },
+  pkg_std_save: { en:'Save 300 EGP — pay 1,500 for 3 months', ar:'وفر 300 ج.م — ادفع 1,500 لمدة 3 أشهر' },
+  pkg_3mo: { en:'3-Month Plan', ar:'خطة 3 أشهر' },
+  pkg_std_save2: { en:'Save 300 EGP (1,800 value)', ar:'وفر 300 ج.م (قيمة 1,800)' },
+  pkg_f1: { en:'Weekly check-ins &amp; progress review', ar:'متابعة أسبوعية ومراجعة التقدم' },
+  pkg_f2: { en:'Real-time program adjustments', ar:'تعديلات فورية للبرنامج' },
+  pkg_f3: { en:'Basic nutrition guidance (macros/calories)', ar:'إرشادات تغذية أساسية (مغذيات/سعرات)' },
+  pkg_f4: { en:'Direct messaging access between check-ins', ar:'إمكانية مراسلة مباشرة بين المتابعات' },
+  pkg_f5: { en:'50% off all tools during subscription', ar:'خصم 50% على جميع الأدوات أثناء الاشتراك' },
+  pkg_std_cta: { en:'Start with Standard', ar:'ابدأ بالقياسية' },
+  pkg_prem_badge: { en:'Best Value', ar:'أفضل قيمة' },
+  pkg_prem_name: { en:'Premium', ar:'مميزة' },
+  pkg_prem_tag: { en:'Full Coaching', ar:'تدريب كامل' },
+  per_month2: { en:'/ month', ar:'/ شهرياً' },
+  pkg_prem_save: { en:'Save 500 EGP — pay 2,500 for 3 months', ar:'وفر 500 ج.م — ادفع 2,500 لمدة 3 أشهر' },
+  pkg_3mo2: { en:'3-Month Plan', ar:'خطة 3 أشهر' },
+  pkg_prem_save2: { en:'Save 500 EGP (3,000 value)', ar:'وفر 500 ج.م (قيمة 3,000)' },
+  pkg_g1: { en:'Everything in Standard', ar:'كل ما في القياسية' },
+  pkg_g2: { en:'Personalized nutrition &amp; carb cycling protocol', ar:'تغذية شخصية وبروتوكول تدوير الكربوهيدرات' },
+  pkg_g3: { en:'Priority response time', ar:'وقت استجابة أولوية' },
+  pkg_g4: { en:'Periodic video call check-ins', ar:'متابعات دورية بمكالمات فيديو' },
+  pkg_g5: { en:'Early access to Muscle OS features', ar:'وصول مبكر لميزات نظام العضلات' },
+  pkg_g6: { en:'50% off all tools during subscription', ar:'خصم 50% على جميع الأدوات أثناء الاشتراك' },
+  pkg_prem_cta: { en:'Start with Premium', ar:'ابدأ بالمميزة' },
+  pkg_note: { en:'Prices in EGP. Monthly billing or 3-month plan.', ar:'الأسعار بالجنيه المصري. فاتورة شهرية أو خطة 3 أشهر.' },
+  contact_title: { en:'Ready to train with a coach who delivers?', ar:'مستعد للتدرب مع مدرب يلتزم بما يعد به؟' },
+  contact_sub: { en:'Limited coaching slots — programming built around you, not the other way around. Message me directly and let\'s talk about your goals.', ar:'أماكن محدودة — البرنامج مبني حولك، لا العكس. راسلني مباشرة ودعنا نتحدث عن أهدافك.' },
+  contact_wa: { en:'Message on WhatsApp', ar:'راسلني على واتساب' },
+  footer_brand: { en:'ANAS MO\'MEN <span>COACHING</span>', ar:'أنس مؤمن <span>تدريب</span>' },
+  footer_wa: { en:'WhatsApp', ar:'واتساب' }
+};
 
-  // Mobile panel
-  const menuToggle = document.getElementById('menuToggle');
-  const mobilePanel = document.getElementById('mobilePanel');
-  const mobOverlay = document.getElementById('mobOverlay');
-  function openMobile(){ mobilePanel.classList.add('open'); mobOverlay.classList.add('open'); document.body.classList.add('no-scroll'); menuToggle.classList.add('active'); }
-  function closeMobile(){ mobilePanel.classList.remove('open'); mobOverlay.classList.remove('open'); document.body.classList.remove('no-scroll'); menuToggle.classList.remove('active'); }
-  menuToggle.addEventListener('click', () => { mobilePanel.classList.contains('open') ? closeMobile() : openMobile(); });
-  mobOverlay.addEventListener('click', closeMobile);
-  document.querySelectorAll('.mob-link').forEach(link => { link.addEventListener('click', closeMobile); });
+// ── Language switching ──
+let currentLang = localStorage.getItem('mos_lang') || 'en';
 
-  // Scroll-reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){ entry.target.classList.add('visible'); }
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('mos_lang', lang);
+  // Set html dir
+  document.documentElement.lang = lang === 'ar' ? 'ar' : 'en';
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  // Update toggle buttons
+  document.querySelectorAll('.lang-toggle .lt-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+  });
+  // Translate all data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n');
+    if (TR[key] && TR[key][lang]) {
+      el.innerHTML = TR[key][lang];
+    }
+  });
+  // Translate data-i18n-alt
+  document.querySelectorAll('[data-i18n-alt]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n-alt');
+    if (TR[key] && TR[key][lang]) {
+      el.setAttribute('alt', TR[key][lang].replace(/<[^>]*>/g, ''));
+    }
+  });
+}
+
+// ── Init on DOM ready ──
+document.addEventListener('DOMContentLoaded', function() {
+  // Language toggle click
+  document.querySelectorAll('.lang-toggle .lt-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var l = this.getAttribute('data-lang');
+      if (l !== currentLang) setLang(l);
     });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  // Header scroll class
-  const header = document.querySelector('header');
-  window.addEventListener('scroll', () => {
+  });
+  // Apply persisted language
+  setLang(currentLang);
+  // Page load entrance
+  requestAnimationFrame(function() {
+    document.body.classList.add('loaded');
+  });
+  // Scroll-reveal
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right').forEach(function(el) {
+      observer.observe(el);
+    });
+  } else {
+    document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right').forEach(function(el) {
+      el.classList.add('visible');
+    });
+  }
+  // Header scroll
+  var header = document.querySelector('header');
+  window.addEventListener('scroll', function() {
     header.classList.toggle('scrolled', window.scrollY > 60);
-  });
-
+  }, { passive: true });
   // Active nav link
-  const navLinks = document.querySelectorAll('.nav-links a');
-  const sections = document.querySelectorAll('section[id]');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => { if(window.scrollY >= s.offsetTop - 150) current = s.id; });
-    navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#'+current ? 'var(--yellow)' : ''; });
-  });
+  var navLinks = document.querySelectorAll('.nav-links a');
+  var sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', function() {
+    var current = '';
+    sections.forEach(function(s) { if (window.scrollY >= s.offsetTop - 150) current = s.id; });
+    navLinks.forEach(function(a) { a.style.color = a.getAttribute('href') === '#' + current ? 'var(--yellow)' : ''; });
+  }, { passive: true });
+});
 </script>
 
 <script src="assets/js/site.js"></script>
