@@ -29,6 +29,9 @@ mos_bot/data/pdfs/
 mos_bot/data/programs/
 mos_bot/data/vault_index/
 
+# Wrangler local state
+.wrangler/
+
 # Generated files
 bot_err.txt
 bot_log.txt

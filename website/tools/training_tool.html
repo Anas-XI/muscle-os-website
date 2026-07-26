@@ -390,6 +390,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
 .sub-error{font-size:12px;color:#f44336;margin-top:6px;display:none}
 .sub-success{font-size:12px;color:#4CAF50;margin-top:6px;display:none}
 </style>
+<link rel="stylesheet" href="../assets/css/overlay.css">
 </head>
 <body>
 <nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div></div></nav>
@@ -2821,40 +2822,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
   })();
 })();
 </script>
-<script>
-(function(){
-  var SUB_KEY = 'mos_subscription';
-  var EMAIL_CODE = 'ANASSTEM2025@GMAIL.COM';
-  var sub = null;
-  try { sub = JSON.parse(localStorage.getItem(SUB_KEY)); } catch(e){}
-  var now = new Date();
-  var active = sub && sub.active && new Date(sub.expiry) > now;
-
-  if(!active){
-    document.getElementById('subOverlay').style.display = 'flex';
-    function doVerify(){
-      var code = document.getElementById('subCode').value.trim().toUpperCase();
-      if(code && (code.length >= 6 || code === EMAIL_CODE)){
-        var expiry = new Date();
-        expiry.setMonth(expiry.getMonth() + 1);
-        localStorage.setItem(SUB_KEY, JSON.stringify({
-          active: true,
-          plan: 'pro_training',
-          expiry: expiry.toISOString().split('T')[0],
-          code: code
-        }));
-        document.getElementById('subError').style.display = 'none';
-        document.getElementById('subSuccess').style.display = 'block';
-        setTimeout(function(){ location.reload(); }, 1500);
-      } else {
-        document.getElementById('subError').style.display = 'block';
-      }
-    }
-    document.getElementById('subForm').addEventListener('submit', function(e){ e.preventDefault(); doVerify(); });
-    document.getElementById('subVerify').addEventListener('click', doVerify);
-    document.getElementById('subVerify').addEventListener('touchend', function(e){ e.preventDefault(); doVerify(); });
-  }
-})();
-</script>
+<script src="../assets/js/access-control.js"></script>
+<script>MosAccess.checkOrShow('training_tool');MosAccess.initOverlay('training_tool');</script>
 </body>
 </html>

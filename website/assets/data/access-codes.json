@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "note": "Hashed access codes — never store plaintext codes here. Generate with scripts/hash-code.js.",
+  "whitelist": ["ANASSTEM2025@GMAIL.COM"],
+  "hashes": {
+    "283e9f51af165cc2e884b020c1df5cde1922533cfbfea505cc9c30693e308932": {
+      "productId": ["training_tool","tdee_adaptive_engine","training_book","nutrition_book"],
+      "plan": "master",
+      "durationDays": 30
+    },
+    "fae3d71f84aa854a1040cccbd77a2a609340952dada5a14755492abe7f24f116": {
+      "productId": ["training_tool"],
+      "plan": "single_product",
+      "durationDays": 30
+    },
+    "698f4c2b9de9f9f84799484a19378cbb6889184c424dbbf9405374a0685fadaa": {
+      "productId": ["tdee_adaptive_engine"],
+      "plan": "single_product",
+      "durationDays": 30
+    },
+    "aa752ca12f73ddc398c1046897df4de6087eb1d549ced4532590ad2f32746397": {
+      "productId": ["training_book"],
+      "plan": "book_purchase",
+      "durationDays": 0
+    },
+    "4a38acbc6a0ed31d70ac266d7debf6227d6631cf4b5de9834c1a14ee2f4f7f91": {
+      "productId": ["nutrition_book"],
+      "plan": "book_purchase",
+      "durationDays": 0
+    }
+  }
+}

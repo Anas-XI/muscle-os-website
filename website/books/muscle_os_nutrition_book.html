@@ -179,6 +179,7 @@ pre, table, figure, img, svg, blockquote { max-width: 100%; box-sizing: border-b
 .po-success{font-size:12px;color:#4CAF50;margin-top:6px;display:none}
 @media print{.po-overlay{display:none!important}}
 </style>
+<link rel="stylesheet" href="../assets/css/overlay.css">
 </head>
 <body>
 <div class="po-overlay" id="poOverlay">
@@ -1440,32 +1441,7 @@ pre, table, figure, img, svg, blockquote { max-width: 100%; box-sizing: border-b
 </ol>
 
 <footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo'men</div></footer>
-<script>
-(function(){
-  var KEY = 'mos_book_nutrition';
-  var EMAIL_CODE = 'ANASSTEM2025@GMAIL.COM';
-  var data = null;
-  try { data = JSON.parse(localStorage.getItem(KEY)); } catch(e){}
-  if(data && data.active){
-    document.getElementById('poOverlay').style.display = 'none';
-  } else {
-    document.getElementById('poOverlay').style.display = 'flex';
-    function doVerify(){
-      var code = document.getElementById('poCode').value.trim().toUpperCase();
-      if(code && (code.length >= 6 || code === EMAIL_CODE)){
-        localStorage.setItem(KEY, JSON.stringify({ active: true, book: 'nutrition', code: code }));
-        document.getElementById('poError').style.display = 'none';
-        document.getElementById('poSuccess').style.display = 'block';
-        setTimeout(function(){ location.reload(); }, 1500);
-      } else {
-        document.getElementById('poError').style.display = 'block';
-      }
-    }
-    document.getElementById('poForm').addEventListener('submit', function(e){ e.preventDefault(); doVerify(); });
-    document.getElementById('poVerify').addEventListener('click', doVerify);
-    document.getElementById('poVerify').addEventListener('touchend', function(e){ e.preventDefault(); doVerify(); });
-  }
-})();
-</script>
+<script src="../assets/js/access-control.js"></script>
+<script>MosAccess.checkOrShow('nutrition_book');MosAccess.initOverlay('nutrition_book');</script>
 </body>
 </html>

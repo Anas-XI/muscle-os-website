@@ -135,6 +135,7 @@ pre, table, figure, img, svg, blockquote { max-width: 100%; box-sizing: border-b
 .po-success{font-size:12px;color:#4CAF50;margin-top:6px;display:none}
 @media print{.po-overlay{display:none!important}}
 </style>
+<link rel="stylesheet" href="../assets/css/overlay.css">
 </head>
 <body>
 <div class="po-overlay" id="poOverlay">
@@ -1577,32 +1578,7 @@ pre, table, figure, img, svg, blockquote { max-width: 100%; box-sizing: border-b
   <li>Kotarsky, C. J., Christensen, B. K., Lindeman, K. G., &amp; Hackney, K. J. (2018). Effect of progressive calisthenic push-up training on muscle strength and thickness. <em>Journal of Strength and Conditioning Research</em>, 32(3), 651&ndash;659.</li>
 </ol>
 
-<footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo'men</div></footer>
-<script>
-(function(){
-  var KEY = 'mos_book_training';
-  var EMAIL_CODE = 'ANASSTEM2025@GMAIL.COM';
-  var data = null;
-  try { data = JSON.parse(localStorage.getItem(KEY)); } catch(e){}
-  if(data && data.active){
-    document.getElementById('poOverlay').style.display = 'none';
-  } else {
-    document.getElementById('poOverlay').style.display = 'flex';
-    function doVerify(){
-      var code = document.getElementById('poCode').value.trim().toUpperCase();
-      if(code && (code.length >= 6 || code === EMAIL_CODE)){
-        localStorage.setItem(KEY, JSON.stringify({ active: true, book: 'training', code: code }));
-        document.getElementById('poError').style.display = 'none';
-        document.getElementById('poSuccess').style.display = 'block';
-        setTimeout(function(){ location.reload(); }, 1500);
-      } else {
-        document.getElementById('poError').style.display = 'block';
-      }
-    }
-    document.getElementById('poForm').addEventListener('submit', function(e){ e.preventDefault(); doVerify(); });
-    document.getElementById('poVerify').addEventListener('click', doVerify);
-    document.getElementById('poVerify').addEventListener('touchend', function(e){ e.preventDefault(); doVerify(); });
-  }
-})();
-</script>
+<footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach ï¿½ Coach Anas Mo'men</div></footer>
+<script src="../assets/js/access-control.js"></script>
+<script>MosAccess.checkOrShow('training_book');MosAccess.initOverlay('training_book');</script>
 </body></html>
