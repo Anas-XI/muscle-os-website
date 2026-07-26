@@ -71,9 +71,10 @@
     background:rgba(20,21,26,0.92);
     backdrop-filter:blur(8px);
     border-bottom:1px solid var(--line);
-    transition:background .3s;
+    transition:transform .3s ease, background .3s;
   }
   header.scrolled { background:rgba(20,21,26,0.98); }
+  header.nav-hidden { transform:translateY(-100%); }
   .nav-inner {
     max-width:1180px; margin:0 auto; padding:16px 24px;
     display:flex; align-items:center; justify-content:space-between;
@@ -736,5 +737,6 @@
   });
 </script>
 
+<script src="assets/js/site.js"></script>
 </body>
 </html>

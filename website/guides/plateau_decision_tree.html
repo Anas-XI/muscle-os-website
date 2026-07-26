@@ -62,14 +62,27 @@ body { font-family: Georgia,'Times New Roman',Times,serif; font-size: 10pt; line
 .footer { background: #14151A; padding: 8px 20px; display: flex; justify-content: space-between; align-items: center; }
 .footer span { font-size: 7pt; color: rgba(255,255,255,0.4); }
 .footer a { font-family: 'Courier New',Courier,monospace; font-size: 7.5pt; color: #F4C93B; text-decoration: none; }
-.mos-nav{position:sticky;top:0;z-index:999;background:rgba(20,21,26,.95);backdrop-filter:blur(8px);border-bottom:1px solid #2C2E37;font-family:Georgia,'Times New Roman',Times,serif}
+.mos-nav{position:sticky;top:0;z-index:999;background:rgba(20,21,26,.95);backdrop-filter:blur(8px);border-bottom:1px solid #2C2E37;font-family:Georgia,'Times New Roman',Times,serif;transition:transform .3s ease}
+.mos-nav.nav-hidden{transform:translateY(-100%)}
+body{opacity:0;transition:opacity .4s ease}
+body.loaded{opacity:1}
+.mos-menu-toggle{display:none;background:none;border:none;color:#FAFAF8;font-size:22px;cursor:pointer;padding:2px 4px;line-height:1;font-family:Georgia,'Times New Roman',Times,serif;transition:color .2s}
+.mos-menu-toggle:hover{color:#F4C93B}
+@media(max-width:768px){.mos-nav-links{display:none}.mos-menu-toggle{display:block}}
+.mos-mobile-panel{position:fixed;top:0;right:-100%;width:280px;height:100%;background:#1E2027;z-index:1001;padding:64px 24px 24px;transition:right .3s ease;border-left:1px solid #2C2E37;overflow-y:auto}
+.mos-mobile-panel.open{right:0}
+.mos-mobile-panel a{display:block;padding:12px 0;font-size:13px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:#C7C9D0;border-bottom:1px solid #2C2E37;text-decoration:none;transition:color .2s}
+.mos-mobile-panel a:hover{color:#F4C93B}
+.mos-mobile-panel .mob-close{position:absolute;top:14px;right:16px;font-size:22px;color:#C7C9D0;background:none;border:none;cursor:pointer;padding:4px}
+.mos-menu-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:1000;opacity:0;pointer-events:none;transition:opacity .3s ease}
+.mos-menu-overlay.visible{opacity:1;pointer-events:auto}
 .mos-nav-inner{max-width:1180px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
 .mos-brand{font-family:Georgia,'Times New Roman',Times,serif;font-weight:700;font-size:15px;letter-spacing:.5px;text-transform:uppercase;color:#fff;text-decoration:none}
 .mos-brand span{color:#F4C93B}
 .mos-nav-links{display:flex;gap:20px;font-size:11px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
 .mos-nav-links a{color:#C7C9D0;text-decoration:none;transition:color .2s}
 .mos-nav-links a:hover{color:#F4C93B}
-@media(max-width:600px){.mos-nav-links{gap:10px;font-size:9px}.mos-nav-inner{padding:8px 16px}.mos-brand{font-size:12px}}
+@media(max-width:600px){.mos-nav-inner{padding:8px 16px}.mos-brand{font-size:12px}}
 @media print{.mos-nav{display:none!important}.mos-footer{display:none!important}}
 .mos-footer{padding:20px 24px;background:#14151A;border-top:1px solid #2C2E37;font-family:Georgia,'Times New Roman',Times,serif;text-align:center}
 .mos-footer-inner{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
@@ -99,7 +112,9 @@ body { font-family: Georgia,'Times New Roman',Times,serif; font-size: 10pt; line
 </style>
 </head>
 <body>
-<nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div></div></nav>
+<nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div><button class="mos-menu-toggle" aria-label="Menu">☰</button></div></nav>
+<div class="mos-menu-overlay"></div>
+<div class="mos-mobile-panel"><button class="mob-close" aria-label="Close">×</button><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div>
 <div style="background:#1E1E2A;border-bottom:1px solid #2C2E37;padding:8px 24px;text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:rgba(250,250,248,.5)"><span>Download or view as PDF: </span><a href="../pdf/viewer.html?product=plateau-decision-tree" style="color:#F4C93B;text-decoration:none;font-weight:600" target="_blank">Open PDF Reader &rarr;</a></div>
 <div class="guide-intro" style="margin:10px 20px;max-width:277mm;">
   <strong>Fat loss plateaus</strong> are a normal part of the dieting process, not a sign that something is broken. This decision tree guides you through the diagnostic process — adherence audit, metabolic adaptation check, and recovery assessment — so you can make the right adjustment instead of guessing.
@@ -230,5 +245,6 @@ body { font-family: Georgia,'Times New Roman',Times,serif; font-size: 10pt; line
   </div>
   <footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo'men</div></footer>
 </div>
+<script src="../assets/js/site.js"></script>
 </body>
 </html>
