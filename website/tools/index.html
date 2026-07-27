@@ -14,6 +14,7 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',sans-serif;background:var(--ink);color:#fff;line-height:1.5;min-height:100vh;display:flex;flex-direction:column;opacity:0;transition:opacity .4s ease}
 body.loaded{opacity:1}
+h1,h2,h3,h4,p,li,blockquote,figcaption{overflow-wrap:break-word;word-break:break-word}
 .display{font-family:'Oswald',sans-serif;text-transform:uppercase}
 .mono{font-family:'JetBrains Mono',monospace}
 a{color:inherit;text-decoration:none}
@@ -61,7 +62,7 @@ footer a{color:var(--yellow)}
 .mobile-menu-inner{display:flex;flex-direction:column;gap:4px}
 .mobile-menu-inner a{display:block;padding:14px 12px;color:#C7C9D0;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;transition:background .2s,color .2s;min-height:44px;line-height:44px}
 .mobile-menu-inner a:hover,.mobile-menu-inner a:active{background:rgba(244,201,59,.1);color:#F4C93B}
-@media(max-width:700px){.nav-links{display:none}.menu-toggle{display:flex}.brand{font-size:13px}}
+@media(max-width:700px){.nav-links{display:none}.menu-toggle{display:flex}.brand{font-size:13px}input,select,textarea{font-size:16px!important}}
 [dir="rtl"] .mobile-menu{right:auto;left:-280px;border-left:none;border-right:1px solid #2C2E37}
 [dir="rtl"] .mobile-menu.open{left:0;right:auto}
 </style>
