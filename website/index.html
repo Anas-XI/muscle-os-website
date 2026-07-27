@@ -95,22 +95,33 @@
   }
   .nav-cta:hover { background:#fff; }
   /* Mobile slide-out menu */
-  .mobile-menu { position:fixed; top:0; right:-320px; width:300px; height:100%; z-index:200; background:var(--ink-2); border-left:1px solid var(--line); padding:80px 24px 24px; display:flex; flex-direction:column; gap:4px; transition:right .3s cubic-bezier(.22,1,.36,1); overflow-y:auto; }
+  .mobile-menu { position:fixed; top:0; right:-100%; width:min(320px,85vw); height:100%; z-index:200; background:var(--ink-2); border-left:1px solid var(--line); padding:88px 28px 32px; display:flex; flex-direction:column; gap:6px; transition:right .35s cubic-bezier(.22,1,.36,1); overflow-y:auto; }
   .mobile-menu.open { right:0; }
-  .mobile-menu a { display:block; padding:12px 8px; font-size:14px; font-weight:600; color:#C7C9D0; text-transform:uppercase; letter-spacing:.3px; border-radius:4px; transition:all .15s; min-height:44px; }
+  .mobile-menu a { display:block; padding:14px 12px; font-size:15px; font-weight:600; color:#C7C9D0; text-transform:uppercase; letter-spacing:.5px; border-radius:6px; transition:all .15s; min-height:48px; display:flex; align-items:center; }
   .mobile-menu a:hover { background:rgba(255,255,255,.04); color:var(--yellow); }
   .mobile-menu .mobile-cta { margin-top:12px; background:var(--yellow); color:var(--ink); text-align:center; font-weight:700; border-radius:4px; }
   .mobile-menu .mobile-cta:hover { background:#fff; color:var(--ink); }
   .mobile-menu .mobile-lang { display:flex; gap:6px; margin-top:auto; padding-top:20px; border-top:1px solid var(--line); }
   .mobile-menu .mobile-lang .lt-btn { flex:1; font-size:13px; font-weight:700; padding:10px; border-radius:4px; background:transparent; color:var(--gray); border:1px solid var(--line); cursor:pointer; text-align:center; min-height:44px; display:flex; align-items:center; justify-content:center; }
   .mobile-menu .mobile-lang .lt-btn.active { background:var(--yellow); color:var(--ink); border-color:var(--yellow); }
-  .mobile-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.5); z-index:150; display:none; }
+  .mobile-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.6); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px); z-index:150; display:none; }
   .mobile-overlay.open { display:block; }
-  .menu-toggle { display:none; flex-direction:column; gap:4px; cursor:pointer; background:none; border:none; padding:8px; min-width:44px; min-height:44px; align-items:center; justify-content:center; }
-  .menu-toggle span { display:block; width:22px; height:2px; background:#FAFAF8; border-radius:1px; transition:all .3s; }
-  .menu-toggle.open span:nth-child(1) { transform:rotate(45deg) translate(4px,4px); }
+  .menu-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:8px; min-width:48px; min-height:48px; align-items:center; justify-content:center; }
+  .menu-toggle span { display:block; width:24px; height:2.5px; background:#FAFAF8; border-radius:2px; transition:all .3s cubic-bezier(.22,1,.36,1); }
+  .menu-toggle.open span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
   .menu-toggle.open span:nth-child(2) { opacity:0; }
-  .menu-toggle.open span:nth-child(3) { transform:rotate(-45deg) translate(4px,-4px); }
+  .menu-toggle.open span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+
+  /* Sticky mobile bottom CTA bar */
+  .mobile-bottom-bar { display:none; position:fixed; bottom:0; left:0; right:0; z-index:90; background:rgba(20,21,26,.97); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-top:1px solid var(--line); padding:10px 16px; padding-bottom:max(10px,env(safe-area-inset-bottom)); }
+  .mobile-bottom-bar .mbb-inner { display:flex; gap:8px; max-width:500px; margin:0 auto; }
+  .mobile-bottom-bar .mbb-btn { flex:1; display:flex; align-items:center; justify-content:center; gap:8px; padding:14px 12px; border-radius:4px; font-weight:700; font-size:14px; text-transform:uppercase; letter-spacing:.3px; border:none; cursor:pointer; transition:all .2s; min-height:48px; }
+  .mobile-bottom-bar .mbb-primary { background:var(--yellow); color:var(--ink); }
+  .mobile-bottom-bar .mbb-primary:active { background:#fff; transform:scale(.98); }
+  .mobile-bottom-bar .mbb-ghost { background:transparent; color:#fff; border:1.5px solid #454854; }
+  .mobile-bottom-bar .mbb-ghost:active { border-color:var(--yellow); color:var(--yellow); }
+  .mobile-bottom-bar { transition:transform .3s cubic-bezier(.22,1,.36,1); }
+  .mobile-bottom-bar a { text-decoration:none; color:inherit; }
 
   /* ---------- HERO ---------- */
   .hero {
@@ -170,8 +181,10 @@
   }
   .btn-primary { background:var(--yellow); color:var(--ink); }
   .btn-primary:hover { background:#fff; transform:translateY(-2px); box-shadow:0 4px 14px rgba(244,201,59,.25); }
+  .btn-primary:active { transform:scale(.97); background:#e8c234; }
   .btn-ghost { background:transparent; color:#fff; border:1.5px solid #454854; }
   .btn-ghost:hover { border-color:var(--yellow); color:var(--yellow); }
+  .btn-ghost:active { transform:scale(.97); border-color:var(--yellow-dim); color:var(--yellow-dim); }
 
   .hero-stats {
     margin-top:52px; display:flex; gap:0; border-top:1px solid var(--line);
@@ -399,17 +412,19 @@
     .hero-content h1 { font-size:clamp(28px,13vw,52px); }
     .hero { min-height:85vh; padding-top:60px; }
     .hero-content { padding-bottom:40px; }
-    .hero-sub { font-size:14px; max-width:100%; }
-    .hero-ctas { gap:10px; }
-    .btn { padding:12px 20px; font-size:12px; min-height:44px; }
+    .hero-sub { font-size:15px; max-width:100%; line-height:1.6; }
+    .hero-ctas { gap:10px; flex-direction:column; }
+    .hero-ctas .btn { justify-content:center; }
+    .btn { padding:14px 20px; font-size:13px; min-height:48px; }
     input,select,textarea { font-size:16px!important; }
     .hero-stats { margin-top:32px; display:grid; grid-template-columns:1fr 1fr; gap:4px; border-top:none; }
     .hstat { padding:12px 0 0 0; border-right:none; flex:unset; }
     .hstat .num { font-size:20px; }
     .hstat .lbl { font-size:9px; }
     .service-grid { grid-template-columns:1fr; }
-    .service-card { padding:24px 18px; }
+    .service-card { padding:24px 18px; border-width:1px; }
     .service-card h3 { font-size:16px; }
+    .service-card:active { transform:scale(.99); }
     .about-grid { grid-template-columns:1fr; gap:32px; }
     .about-photo-wrap { padding-right:0; padding-bottom:12px; }
     [dir="rtl"] .about-photo-wrap { padding-left:0; }
@@ -421,6 +436,8 @@
     .resource-grid { grid-template-columns:1fr; }
     .mos-extras { grid-template-columns:1fr; }
     .how-it-works div[style*="grid-template-columns:repeat(3"] { grid-template-columns:1fr!important; gap:24px!important; }
+    .mobile-bottom-bar { display:block; }
+    body { padding-bottom:76px; }
   }
   @media (max-width:560px) {
     .brand { font-size:13px; }
@@ -463,6 +480,7 @@
   [dir="rtl"] .mobile-menu { right:auto; left:-320px; }
   [dir="rtl"] .mobile-menu.open { left:0; right:auto; }
   [dir="rtl"] .mobile-menu { border-left:none; border-right:1px solid var(--line); }
+  [dir="rtl"] .mobile-bottom-bar .mbb-inner { flex-direction:row-reverse; }
 
   /* Skip link */
   .skip-link { position:absolute; top:-100%; left:0; z-index:1000; background:var(--yellow); color:var(--ink); padding:8px 16px; font-weight:700; font-size:14px; text-decoration:none; }
@@ -1055,7 +1073,9 @@ const TR = {
   hiw_step2_desc: { en:'Payment confirmed directly with me — no card forms, no third-party fees.', ar:'الدفع يتم تأكيده معي مباشرة — لا نماذج بطاقات، لا رسوم طرف ثالث.' },
   hiw_step3: { en:'Instant Access', ar:'وصول فوري' },
   hiw_step3_desc: { en:'Enter your code and start training, tracking, or reading immediately.', ar:'أدخل الكود وابدأ التدريب، التتبع، أو القراءة فوراً.' },
-  pkg_recommend: { en:'New to structured coaching? <strong>Standard</strong> covers everything most people need — upgrade anytime.', ar:'جديد في التدريب المنظم؟ <strong>القياسية</strong> تغطي كل ما يحتاجه معظم الناس — يمكنك الترقية في أي وقت.' }
+  pkg_recommend: { en:'New to structured coaching? <strong>Standard</strong> covers everything most people need — upgrade anytime.', ar:'جديد في التدريب المنظم؟ <strong>القياسية</strong> تغطي كل ما يحتاجه معظم الناس — يمكنك الترقية في أي وقت.' },
+  mbb_book: { en:'Book a Free Chat', ar:'احجز استشارة مجانية' },
+  mbb_tools: { en:'Explore Tools', ar:'استعرض الأدوات' }
 };
 
 // ── Language switching ──
@@ -1171,5 +1191,33 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<!-- Mobile bottom sticky CTA bar -->
+<div class="mobile-bottom-bar" id="mobileBottomBar">
+  <div class="mbb-inner">
+    <a href="https://wa.me/201040796017" target="_blank" rel="noopener" class="mbb-btn mbb-primary" data-i18n="mbb_book">Book a Free Chat</a>
+    <a href="#tools" class="mbb-btn mbb-ghost" data-i18n="mbb_tools">Explore Tools</a>
+  </div>
+</div>
+
+<script>
+(function(){
+  var bar = document.getElementById('mobileBottomBar');
+  if(!bar) return;
+  var ticking = false;
+  var lastScroll = 0;
+  window.addEventListener('scroll', function(){
+    if(!ticking){
+      window.requestAnimationFrame(function(){
+        var cur = window.scrollY;
+        if(cur > lastScroll && cur > 200) bar.style.transform = 'translateY(100%)';
+        else bar.style.transform = 'translateY(0)';
+        lastScroll = cur;
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+})();
+</script>
 </body>
 </html>
