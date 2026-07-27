@@ -128,7 +128,6 @@ select option{background:#1E1E2A;color:#FAFAF8}
 .mos-nav-links{display:flex;gap:20px;font-size:11px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
 .mos-nav-links a{color:#C7C9D0;text-decoration:none;transition:color .2s}
 .mos-nav-links a:hover{color:#F4C93B}
-@media(max-width:600px){.mos-nav-links{gap:10px;font-size:9px}.mos-nav-inner{padding:8px 16px}.mos-brand{font-size:12px}}
 body{opacity:0;transition:opacity .4s ease}body.loaded{opacity:1}.mos-nav{transition:transform .3s ease}.mos-nav.nav-hidden{transform:translateY(-100%)}
 @media print{.mos-nav{display:none!important}.mos-footer{display:none!important}}
 .mos-footer{padding:20px 24px;background:#14151A;border-top:1px solid #2C2E37;font-family:Georgia,'Times New Roman',Times,serif;text-align:center}
@@ -159,8 +158,9 @@ body{opacity:0;transition:opacity .4s ease}body.loaded{opacity:1}.mos-nav{transi
 @media(max-width:600px){
  body{padding:20px 10px}.step{font-size:.6rem}.step .num{width:14px;height:14px;line-height:14px;font-size:.45rem}
  .set-row{grid-template-columns:30px 1fr 1fr 1fr 30px}.set-log-header{grid-template-columns:30px 1fr 1fr 1fr 30px}
+ .mos-nav-links{gap:10px;font-size:9px}.mos-nav-inner{padding:8px 16px}
  input,select,textarea{font-size:16px!important}.mos-brand{font-size:13px}
- .pain-btn{width:44px;height:44px;font-size:.8rem}
+ .pain-btn{width:44px;height:44px;font-size:.8rem;min-height:44px}
  .add-set-btn,.del-set-btn,.rm-ex-btn,.day-tab{min-height:44px}
  .stepper{flex-wrap:wrap;gap:2px}
 }

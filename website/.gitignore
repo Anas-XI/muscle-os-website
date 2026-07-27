@@ -1,2 +1,17 @@
+# dependencies
+node_modules/
+worker/node_modules/
+
 # wrangler account cache
 node_modules/.cache/wrangler/
+.wrangler/
+worker/.wrangler/
+
+# environment
+.env
+.env.local
+.env.*.local
+
+# build output
+dist/
+build/
