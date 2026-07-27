@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muscle OS — Coach Program Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Inter,system-ui,sans-serif;background:#14151A;color:#FAFAF8;height:100vh;display:flex;overflow:hidden}
+
+/* ── Sidebar ── */
+#sidebar{width:360px;background:#1E2027;border-right:1px solid #2A2C33;display:flex;flex-direction:column;flex-shrink:0}
+#sidebar h2{padding:14px 18px;font-size:14px;font-family:Oswald,sans-serif;color:#8A8D96;border-bottom:1px solid #2A2C33;letter-spacing:.5px;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
+#sidebar h2 span{font-weight:400;font-family:Inter;font-size:11px;color:#5B5F68;text-transform:none;letter-spacing:0}
+#sidebar-tabs{display:flex;border-bottom:1px solid #2A2C33}
+#sidebar-tabs button{flex:1;padding:10px;background:none;border:none;color:#5B5F68;font-size:12px;font-family:Oswald,sans-serif;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;transition:all .15s;border-bottom:2px solid transparent}
+#sidebar-tabs button:hover{color:#8A8D96}
+#sidebar-tabs button.active{color:#F4C93B;border-bottom-color:#F4C93B}
+#sidebar-content{flex:1;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#2A2C33 transparent}
+
+/* ── Draft list ── */
+#draft-list{padding:10px;display:block}
+.draft-card{padding:12px 14px;border-radius:10px;cursor:pointer;margin-bottom:5px;transition:all .15s;border:1px solid transparent}
+.draft-card:hover{background:rgba(244,201,59,0.06)}
+.draft-card.active{background:#2A2C33;border-color:#F4C93B}
+.draft-card .name{font-size:13px;font-weight:500}
+.draft-card .meta{font-size:11px;color:#8A8D96;margin-top:2px;display:flex;gap:8px;flex-wrap:wrap}
+.draft-card .badge{display:inline-block;padding:1px 7px;border-radius:3px;font-size:10px;font-weight:500}
+.badge-draft{background:#5B5F68;color:#FAFAF8}
+.badge-review{background:#F4C93B22;color:#F4C93B;border:1px solid #F4C93B44}
+.badge-approved{background:#22C55E22;color:#22C55E;border:1px solid #22C55E44}
+.badge-exported{background:#6366F122;color:#818CF8;border:1px solid #818CF844}
+.draft-card .progress{font-size:10px;color:#5B5F68;margin-top:3px}
+.progress-bar{height:2px;background:#2A2C33;border-radius:2px;margin-top:3px;overflow:hidden}
+.progress-fill{height:100%;background:#F4C93B;border-radius:2px;transition:width .3s}
+.draft-card .safety-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px}
+.safety-high{background:#EF4444;box-shadow:0 0 6px #EF444488}
+.safety-medium{background:#F59E0B;box-shadow:0 0 6px #F59E0B88}
+.safety-low{background:#22C55E}
+
+/* ── Dashboard view ── */
+#dashboard-view{display:none;padding:16px}
+#dashboard-view.visible{display:block}
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.dash-card{background:#2A2C33;border-radius:10px;padding:14px;text-align:center}
+.dash-card .num{font-size:28px;font-weight:700;font-family:Oswald,sans-serif;color:#F4C93B}
+.dash-card .num.green{color:#22C55E}
+.dash-card .num.red{color:#EF4444}
+.dash-card .num.blue{color:#818CF8}
+.dash-card .label{font-size:11px;color:#8A8D96;margin-top:4px;text-transform:uppercase;letter-spacing:.3px}
+.dash-card .sub{font-size:10px;color:#5B5F68;margin-top:2px}
+.dash-section-title{font-size:12px;color:#8A8D96;font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.5px;margin:14px 0 8px}
+.safety-alert{display:flex;align-items:center;gap:8px;padding:8px 10px;background:#2A2C33;border-radius:8px;margin-bottom:4px;border-left:3px solid #EF4444;cursor:pointer;font-size:12px}
+.safety-alert:hover{background:#3A3C45}
+.safety-alert .client{font-weight:500}
+.safety-alert .detail{color:#8A8D96;font-size:11px}
+
+/* ── Sidebar actions ── */
+#sidebar-actions{padding:10px 14px;border-top:1px solid #2A2C33;display:flex;flex-direction:column;gap:6px}
+#sidebar-actions select{width:100%;background:#14151A;border:1.5px solid #2A2C33;border-radius:8px;padding:7px 10px;color:#FAFAF8;font-size:12px;outline:none;font-family:Inter}
+#sidebar-actions select:focus{border-color:#F4C93B}
+#sidebar-actions button{background:#2A2C33;color:#FAFAF8;border:none;padding:8px;border-radius:8px;cursor:pointer;font-size:12px;font-family:Oswald,sans-serif;letter-spacing:.5px;text-transform:uppercase;transition:all .15s}
+#sidebar-actions button:hover{background:#3A3C45}
+#sidebar-actions button.primary{background:#F4C93B;color:#14151A}
+#sidebar-actions button.primary:hover{background:#f5d35e}
+#sidebar-actions button.primary:disabled{background:#5B5F68;color:#8A8D96;cursor:not-allowed}
+#sidebar-actions button.danger{background:#EF4444;color:#FAFAF8}
+#sidebar-actions button.danger:hover{background:#DC2626}
+
+/* ── Main Panel ── */
+#main{flex:1;display:flex;flex-direction:column;min-width:0}
+#header{display:flex;align-items:center;justify-content:space-between;padding:12px 22px;border-bottom:1px solid #2A2C33;min-height:50px;flex-shrink:0;flex-wrap:wrap;gap:8px}
+#header .left{display:flex;align-items:center;gap:12px}
+#header .left h1{font-size:16px;font-family:Oswald,sans-serif;letter-spacing:.5px;text-transform:uppercase}
+#header .left .sub{font-size:11px;color:#8A8D96}
+#header-actions{display:flex;gap:6px;flex-wrap:wrap}
+.header-btn{padding:6px 14px;border-radius:6px;border:none;cursor:pointer;font-size:11px;font-family:Oswald,sans-serif;letter-spacing:.5px;text-transform:uppercase;transition:all .15s}
+.header-btn.export{background:#22C55E22;color:#22C55E;border:1px solid #22C55E44}
+.header-btn.export:hover{background:#22C55E33}
+.header-btn.export:disabled{background:#2A2C33;color:#5B5F68;border-color:#2A2C33;cursor:not-allowed}
+.header-btn.approve-all{background:#22C55E22;color:#22C55E;border:1px solid #22C55E44}
+.header-btn.approve-all:hover{background:#22C55E33}
+.header-btn.reject-all{background:#EF444422;color:#EF4444;border:1px solid #EF444444}
+.header-btn.reject-all:hover{background:#EF444433}
+.header-btn.reset-all{background:#5B5F6833;color:#8A8D96;border:1px solid transparent}
+.header-btn.reset-all:hover{background:#5B5F6855}
+.header-btn.regen{background:#2A2C33;color:#8A8D96;border:1px solid #3A3C45}
+.header-btn.regen:hover{background:#3A3C45}
+
+/* ── Content ── */
+#content{flex:1;overflow-y:auto;padding:16px 22px;scrollbar-width:thin;scrollbar-color:#2A2C33 transparent}
+.section-card{background:#1E2027;border:1px solid #2A2C33;border-radius:10px;margin-bottom:12px;overflow:hidden;transition:border-color .15s}
+.section-card.approved{border-color:#22C55E44}
+.section-card.edited{border-color:#F4C93B44}
+.section-card.rejected{border-color:#EF444444}
+.section-card.has-safety{border-left:3px solid #EF4444}
+.section-header{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;transition:background .15s}
+.section-header:hover{background:rgba(255,255,255,0.02)}
+.section-header .info{display:flex;align-items:center;gap:10px;min-width:0}
+.section-header .order{width:22px;height:22px;border-radius:5px;background:#2A2C33;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#8A8D96;flex-shrink:0}
+.section-header .title{font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.section-header .domain-tag{font-size:9px;padding:1px 5px;border-radius:3px;background:#2A2C33;color:#8A8D96;text-transform:uppercase;letter-spacing:.2px}
+.section-header .status-badge{font-size:10px;font-weight:500;padding:2px 7px;border-radius:3px;flex-shrink:0}
+.status-pending{background:#5B5F6833;color:#8A8D96}
+.status-approved{background:#22C55E22;color:#22C55E;border:1px solid #22C55E44}
+.status-rejected{background:#EF444422;color:#EF4444;border:1px solid #EF444444}
+.status-edited{background:#F4C93B22;color:#F4C93B;border:1px solid #F4C93B44}
+.safety-icon{display:inline-flex;align-items:center;gap:3px;font-size:10px;color:#EF4444;margin-left:6px}
+.section-header .arrow{font-size:12px;color:#5B5F68;transition:transform .2s;flex-shrink:0}
+.section-header .arrow.open{transform:rotate(180deg)}
+.section-body{padding:0 16px 14px;display:none}
+.section-body.open{display:block}
+
+/* ── Section editor tabs ── */
+.edit-tabs{display:flex;gap:4px;margin-bottom:8px;border-bottom:1px solid #2A2C33;padding-bottom:6px}
+.edit-tab{padding:4px 10px;border-radius:4px;background:none;border:none;color:#5B5F68;cursor:pointer;font-size:11px;transition:all .15s}
+.edit-tab:hover{color:#FAFAF8}
+.edit-tab.active{background:#2A2C33;color:#F4C93B}
+.section-content{background:#14151A;border:1px solid #2A2C33;border-radius:6px;padding:12px;font-size:12px;line-height:1.5;white-space:pre-wrap;word-wrap:break-word;max-height:350px;overflow-y:auto;font-family:JetBrains Mono,monospace;color:#D1D5DB}
+.section-content textarea{width:100%;min-height:180px;background:#14151A;border:none;color:#D1D5DB;font-family:JetBrains Mono,monospace;font-size:12px;line-height:1.5;resize:vertical;outline:none;padding:0}
+.section-content textarea:focus{color:#FAFAF8}
+
+/* ── Citations ── */
+.citations-toggle{font-size:11px;color:#F4C93B;cursor:pointer;margin-top:6px;user-select:none;display:inline-block}
+.citations-toggle:hover{text-decoration:underline}
+.citations-box{display:none;margin-top:6px;padding:8px 10px;background:#14151A;border:1px solid #2A2C33;border-radius:5px;font-size:10px;line-height:1.4}
+.citations-box.open{display:block}
+.citations-box .cit{color:#8A8D96;margin-bottom:3px}
+.citations-box .cit strong{color:#F4C93B;font-weight:500}
+
+/* ── Version history ── */
+.version-toggle{font-size:11px;color:#818CF8;cursor:pointer;margin-top:6px;user-select:none;display:inline-block;margin-left:12px}
+.version-toggle:hover{text-decoration:underline}
+.version-box{display:none;margin-top:6px;padding:8px 10px;background:#14151A;border:1px solid #3A3C45;border-radius:5px;font-size:10px;line-height:1.4}
+.version-box.open{display:block}
+.version-box .ver{color:#8A8D96;margin-bottom:3px;padding:4px 0;border-bottom:1px solid #2A2C33}
+.version-box .ver:last-child{border-bottom:none}
+.version-box .ver .ts{color:#5B5F68;font-size:9px}
+
+/* ── Section actions ── */
+.section-actions{display:flex;gap:4px;margin-top:10px;flex-wrap:wrap}
+.section-actions button{padding:5px 12px;border-radius:5px;border:none;cursor:pointer;font-size:10px;font-family:Oswald,sans-serif;letter-spacing:.4px;text-transform:uppercase;transition:all .15s}
+.btn-edit{background:#2A2C33;color:#FAFAF8}
+.btn-edit:hover{background:#3A3C45}
+.btn-edit.active{background:#F4C93B;color:#14151A}
+.btn-approve{background:#22C55E22;color:#22C55E;border:1px solid #22C55E44}
+.btn-approve:hover{background:#22C55E33}
+.btn-reject{background:#EF444422;color:#EF4444;border:1px solid #EF444444}
+.btn-reject:hover{background:#EF444433}
+.btn-revert{background:#5B5F6833;color:#8A8D96}
+.btn-revert:hover{background:#5B5F6855}
+.editor-notes-input{width:100%;background:#14151A;border:1px solid #2A2C33;border-radius:5px;padding:6px 8px;color:#8A8D96;font-size:11px;outline:none;margin-top:8px;font-family:Inter}
+.editor-notes-input:focus{border-color:#F4C93B;color:#FAFAF8}
+
+/* ── Notes timeline ── */
+.notes-section{margin-top:12px;padding-top:10px;border-top:1px solid #2A2C33}
+.notes-section .title{font-size:11px;color:#8A8D96;font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px}
+.note-item{padding:6px 8px;background:#2A2C33;border-radius:6px;margin-bottom:4px;font-size:11px}
+.note-item .author{color:#F4C93B;font-weight:500}
+.note-item .time{color:#5B5F68;font-size:10px}
+.note-item .text{color:#D1D5DB;margin-top:2px}
+.notes-input-group{display:flex;gap:6px;margin-top:6px}
+.notes-input-group input{flex:1;background:#14151A;border:1px solid #2A2C33;border-radius:5px;padding:6px 8px;color:#FAFAF8;font-size:11px;outline:none;font-family:Inter}
+.notes-input-group input:focus{border-color:#F4C93B}
+.notes-input-group button{background:#F4C93B;color:#14151A;border:none;padding:6px 12px;border-radius:5px;cursor:pointer;font-size:10px;font-family:Oswald,sans-serif;letter-spacing:.4px;text-transform:uppercase}
+
+/* ── Empty state ── */
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:#5B5F68;gap:14px;text-align:center;padding:40px}
+.empty-state h3{font-family:Oswald;font-size:18px;text-transform:uppercase;letter-spacing:.5px;color:#8A8D96}
+.empty-state p{font-size:13px;max-width:300px}
+
+/* ── Toast & modal ── */
+.toast{position:fixed;bottom:20px;right:20px;background:#2A2C33;border:1px solid #3A3C45;border-radius:8px;padding:10px 16px;font-size:12px;z-index:1000;animation:slideIn .3s;max-width:360px}
+.toast.success{border-color:#22C55E44}
+.toast.error{border-color:#EF444444}
+@keyframes slideIn{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:999;display:none;align-items:center;justify-content:center}
+.modal-overlay.visible{display:flex}
+.modal-box{background:#1E2027;border:1px solid #3A3C45;border-radius:12px;padding:24px;max-width:400px;width:90%}
+.modal-box h3{font-family:Oswald;font-size:16px;color:#FAFAF8;margin-bottom:8px}
+.modal-box p{font-size:12px;color:#8A8D96;margin-bottom:16px}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end}
+.modal-actions button{padding:6px 16px;border-radius:6px;border:none;cursor:pointer;font-size:11px;font-family:Oswald,sans-serif;letter-spacing:.4px;text-transform:uppercase}
+
+/* ── Archetype Bar ── */
+#archetype-bar{display:none;padding:8px 22px;background:#1E2027;border-bottom:1px solid #2A2C33;font-size:12px}
+#archetype-bar.visible{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+#archetype-bar .label{color:#8A8D96;font-size:11px}
+#archetype-bar .name{color:#F4C93B;font-weight:500}
+#archetype-bar .score{color:#5B5F68;font-size:11px}
+#archetype-bar .reason{color:#8A8D96;font-size:11px}
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <h2>Coach Portal <span id="draft-count"></span></h2>
+  <div id="sidebar-tabs">
+    <button class="active" onclick="switchSidebarTab('drafts')">Drafts</button>
+    <button onclick="switchSidebarTab('dashboard')">Dashboard</button>
+  </div>
+  <div id="sidebar-content">
+    <div id="dashboard-view">
+      <div class="dash-grid">
+        <div class="dash-card"><div class="num" id="dash-pending">0</div><div class="label">Pending Review</div></div>
+        <div class="dash-card"><div class="num green" id="dash-approved">0</div><div class="label">Ready to Export</div></div>
+        <div class="dash-card"><div class="num blue" id="dash-exported">0</div><div class="label">Exported</div></div>
+        <div class="dash-card"><div class="num" id="dash-rate">0%</div><div class="label">Approval Rate</div></div>
+      </div>
+      <div class="dash-section-title">Safety Alerts</div>
+      <div id="safety-alerts"><div style="color:#5B5F68;font-size:12px">No active safety alerts</div></div>
+    </div>
+    <div id="draft-list"></div>
+  </div>
+  <div id="sidebar-actions">
+    <select id="user-select" onchange="checkGenerateBtn()">
+      <option value="">— Select client —</option>
+    </select>
+    <button class="primary" id="gen-btn" onclick="generateDraft()" disabled>Generate New Draft</button>
+    <button onclick="refreshDrafts(); refreshDashboard()">↻ Refresh</button>
+  </div>
+</div>
+
+<div id="main">
+  <div id="header">
+    <div class="left">
+      <h1 id="page-title">Coach Program Builder</h1>
+      <div class="sub" id="page-sub">Select a draft</div>
+    </div>
+    <div id="header-actions"></div>
+  </div>
+  <div id="archetype-bar"></div>
+  <div id="content">
+    <div class="empty-state" id="empty-state">
+      <h3>Coach Program Builder</h3>
+      <p>Select a draft from the sidebar or generate a new program to begin review.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="confirm-modal">
+  <div class="modal-box">
+    <h3 id="modal-title">Confirm Action</h3>
+    <p id="modal-text">Are you sure?</p>
+    <div class="modal-actions">
+      <button style="background:#2A2C33;color:#FAFAF8" onclick="closeModal()">Cancel</button>
+      <button id="modal-confirm-btn" style="background:#EF4444;color:#FAFAF8">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let state = { drafts: [], profiles: [], activeDraftId: null, activeDraftData: null, expandedSections: {}, editMode: {} }
+
+async function api(method, path, body) {
+  const opts = { method, headers: {'Content-Type':'application/json'} }
+  if (body) opts.body = JSON.stringify(body)
+  const r = await fetch(path, opts)
+  if (!r.ok) { let e; try { e = await r.json() } catch(_) { e = {detail:r.statusText} }; throw new Error(e.detail || r.statusText) }
+  return r.json()
+}
+
+function toast(msg, type='success') {
+  const el = document.createElement('div'); el.className = `toast ${type}`; el.textContent = msg
+  document.body.appendChild(el); setTimeout(() => el.remove(), 3000)
+}
+
+let modalCallback = null
+function openModal(title, text, cb) {
+  document.getElementById('modal-title').textContent = title
+  document.getElementById('modal-text').textContent = text
+  document.getElementById('confirm-modal').classList.add('visible')
+  modalCallback = cb
+}
+function closeModal() { document.getElementById('confirm-modal').classList.remove('visible'); modalCallback = null }
+document.getElementById('modal-confirm-btn').onclick = () => { if (modalCallback) modalCallback(); closeModal() }
+
+async function init() {
+  await loadProfiles()
+  await refreshDrafts()
+  await refreshDashboard()
+}
+init()
+
+async function loadProfiles() {
+  try { state.profiles = await api('GET', '/api/profiles') } catch(e) { state.profiles = [] }
+  const sel = document.getElementById('user-select')
+  sel.innerHTML = '<option value="">— Select client —</option>' +
+    state.profiles.map(p => `<option value="${p.user_id}">${escHtml(p.name)} (${escHtml(p.goal || '—')})</option>`).join('')
+  checkGenerateBtn()
+}
+
+/* ── Sidebar tabs ── */
+function switchSidebarTab(tab) {
+  document.querySelectorAll('#sidebar-tabs button').forEach(b => b.classList.remove('active'))
+  document.querySelector(`#sidebar-tabs button[onclick*="${tab}"]`).classList.add('active')
+  document.getElementById('draft-list').style.display = tab === 'drafts' ? 'block' : 'none'
+  document.getElementById('dashboard-view').classList.toggle('visible', tab === 'dashboard')
+  if (tab === 'dashboard') refreshDashboard()
+}
+
+/* ── Dashboard ── */
+async function refreshDashboard() {
+  try {
+    const stats = await api('GET', '/api/coach/stats')
+    document.getElementById('dash-pending').textContent = stats.pending_review
+    document.getElementById('dash-approved').textContent = stats.fully_approved
+    document.getElementById('dash-exported').textContent = stats.exported
+    document.getElementById('dash-rate').textContent = `${stats.approval_rate}%`
+    document.getElementById('dash-rate').className = `num ${stats.approval_rate >= 80 ? 'green' : stats.approval_rate >= 50 ? '' : 'red'}`
+
+    const alerts = document.getElementById('safety-alerts')
+    if (stats.safety_flags && stats.safety_flags.length > 0) {
+      alerts.innerHTML = stats.safety_flags.map(sf =>
+        `<div class="safety-alert" onclick="selectDraft('${sf.draft_id}')">
+          <span class="safety-dot safety-high"></span>
+          <span class="client">${escHtml(sf.client_name)}</span>
+          <span class="detail">${sf.flags.length} flagged section(s)</span>
+        </div>`
+      ).join('')
+    } else {
+      alerts.innerHTML = '<div style="color:#5B5F68;font-size:12px">No active safety alerts</div>'
+    }
+  } catch(e) { /* silent */ }
+}
+
+/* ── Drafts ── */
+async function refreshDrafts() {
+  try { state.drafts = await api('GET', '/api/coach/drafts') } catch(e) { state.drafts = [] }
+  renderDrafts()
+}
+
+function renderDrafts() {
+  const el = document.getElementById('draft-list')
+  document.getElementById('draft-count').textContent = `(${state.drafts.length})`
+  if (state.drafts.length === 0) {
+    el.innerHTML = '<div class="empty-state" style="height:auto;padding:24px;font-size:12px"><p>No drafts yet.<br>Generate one from a client profile.</p></div>'
+    return
+  }
+  const statusLabels = { draft:'Draft', in_review:'Review', partially_approved:'Partial', fully_approved:'Ready', exported:'Exported' }
+  const statusBadges = { draft:'badge-draft', in_review:'badge-review', partially_approved:'badge-review', fully_approved:'badge-approved', exported:'badge-exported' }
+  el.innerHTML = state.drafts.map(d => {
+    const pct = d.section_count > 0 ? Math.round(d.approved_count / d.section_count * 100) : 0
+    const isActive = d.draft_id === state.activeDraftId
+    return `<div class="draft-card ${isActive?'active':''}" onclick="selectDraft('${d.draft_id}')">
+      <div class="name">${escHtml(d.client_name || d.user_id)} <span class="badge ${statusBadges[d.status]||'badge-draft'}">${statusLabels[d.status]||d.status}</span></div>
+      <div class="meta">
+        <span class="progress">${d.approved_count}/${d.section_count}</span>
+        <span>${d.created_at ? new Date(d.created_at).toLocaleDateString() : ''}</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+    </div>`
+  }).join('')
+}
+
+async function selectDraft(draftId) {
+  state.activeDraftId = draftId
+  try { state.activeDraftData = await api('GET', `/api/coach/draft/${draftId}`) } catch(e) { toast('Failed: '+e.message,'error'); return }
+  renderDrafts()
+  renderDraftDetail()
+}
+
+async function generateDraft() {
+  const userId = document.getElementById('user-select').value
+  if (!userId) return
+  const btn = document.getElementById('gen-btn'); btn.disabled = true; btn.textContent = 'Generating...'
+  try {
+    const draft = await api('POST', `/api/coach/generate/${userId}`)
+    toast(`Draft generated for ${draft.client_name || userId}`)
+    await refreshDrafts()
+    state.activeDraftId = draft.draft_id
+    state.activeDraftData = draft
+    renderDrafts(); renderDraftDetail()
+  } catch(e) { toast('Generation failed: '+e.message, 'error') }
+  btn.disabled = false; btn.textContent = 'Generate New Draft'
+}
+
+/* ── Draft detail ── */
+function renderDraftDetail() {
+  const d = state.activeDraftData
+  if (!d) return
+  const content = document.getElementById('content')
+  const header = document.getElementById('page-title')
+  const sub = document.getElementById('page-sub')
+  const headerActions = document.getElementById('header-actions')
+  document.getElementById('empty-state').style.display = 'none'
+  const approved = d.sections.filter(s => s.status === 'approved').length
+  const total = d.sections.length
+  const allApproved = approved === total
+  header.textContent = `${escHtml(d.client_name || d.user_id)} — Program Review`
+  sub.textContent = `${approved}/${total} approved`
+  headerActions.innerHTML = `
+    <button class="header-btn approve-all" onclick="bulkAction('approve_all')" title="Approve all sections">✓ Approve All</button>
+    <button class="header-btn reject-all" onclick="bulkAction('reject_all')" title="Reject all sections">✗ Reject All</button>
+    <button class="header-btn reset-all" onclick="bulkAction('reset_all')" title="Reset all to pending">↺ Reset All</button>
+    <button class="header-btn export" onclick="exportDraft()" ${allApproved?'':'disabled'}>Export PDF</button>`
+  const archBar = document.getElementById('archetype-bar')
+  if (d.archetype) {
+    archBar.className = 'visible'
+    archBar.innerHTML = `<span class="label">ARCHETYPE:</span><span class="name">${escHtml(d.archetype.archetype_name)}</span><span class="score">(${Math.round(d.archetype.match_score*100)}%)</span>`
+  } else { archBar.className = '' }
+  const sections = [...d.sections].sort((a,b) => a.order - b.order)
+  content.innerHTML = sections.map((s,i) => {
+    const isExpanded = state.expandedSections[s.section_id] !== false
+    const isEditMode = state.editMode[s.section_id]
+    const sClass = `${s.status==='approved'?'approved':s.status==='edited'?'edited':s.status==='rejected'?'rejected':''}`
+    const domainColor = {training:'#3B82F6',nutrition:'#22C55E',recovery:'#8B5CF6',safety:'#EF4444',adherence:'#F59E0B',assessment:'#8A8D96'}[s.domain]||'#8A8D96'
+    return `<div class="section-card ${sClass} ${d._safety?.includes(s.section_id)?'has-safety':''}">
+      <div class="section-header" onclick="toggleSection('${s.section_id}')">
+        <div class="info">
+          <div class="order">${s.order}</div>
+          <div style="min-width:0">
+            <div class="title">${escHtml(s.title)}</div>
+            <div style="display:flex;gap:5px;margin-top:3px;align-items:center">
+              <span class="domain-tag" style="color:${domainColor};border-color:${domainColor}44;background:${domainColor}22">${s.domain}</span>
+              <span class="status-badge status-${s.status}">${s.status}</span>
+            </div>
+          </div>
+        </div>
+        <div class="arrow ${isExpanded?'open':''}">▼</div>
+      </div>
+      <div class="section-body ${isExpanded?'open':''}">
+        <div class="edit-tabs">
+          <button class="edit-tab ${!isEditMode?'active':''}" onclick="setEditMode('${s.section_id}',false)">View</button>
+          <button class="edit-tab ${isEditMode?'active':''}" onclick="setEditMode('${s.section_id}',true)">Edit</button>
+        </div>
+        <div class="section-content">
+          ${isEditMode
+            ? `<textarea id="textarea-${s.section_id}" onchange="markEdited('${d.draft_id}','${s.section_id}')">${escHtml(s.content||'')}</textarea>`
+            : `<div id="view-${s.section_id}">${escHtml(s.content||'')}</div>`}
+        </div>
+        <div class="citations-toggle" onclick="toggleContent('citations-${s.section_id}')" id="cit-toggle-${s.section_id}">
+          📚 ${(s.citations||[]).length} vault citations</div>
+        <div class="citations-box" id="citations-${s.section_id}">
+          ${(s.citations||[]).map(c => `<div class="cit"><strong>${escHtml(c.vault_title)}</strong> — ${escHtml(c.vault_path)}</div>`).join('')||'<div class="cit" style="color:#5B5F68">No citations</div>'}
+        </div>
+        <div class="version-toggle" onclick="toggleContent('history-${s.section_id}')">📋 Version history</div>
+        <div class="version-box" id="history-${s.section_id}">
+          <div class="ver" style="color:#5B5F68">Loading...</div>
+        </div>
+        <div class="section-actions">
+          <button class="btn-approve" onclick="approveSection('${d.draft_id}','${s.section_id}')" ${s.status==='approved'?'disabled':''}>✓ Approve</button>
+          <button class="btn-reject" onclick="promptReject('${d.draft_id}','${s.section_id}')" ${s.status==='approved'?'disabled':''}>✗ Reject</button>
+          <button class="btn-revert" onclick="revertSection('${d.draft_id}','${s.section_id}')">↺ Revert</button>
+        </div>
+        <input class="editor-notes-input" placeholder="Private editor notes..." id="notes-${s.section_id}" value="${escHtml(s.editor_notes||'')}"
+          onchange="saveEditorNotes('${d.draft_id}','${s.section_id}',this.value)">
+        <div class="notes-section">
+          <div class="title">Coach Notes</div>
+          <div id="notes-list-${s.section_id}">${(d.notes||[]).filter(n=>n.text).slice(-3).map(n =>
+            `<div class="note-item"><span class="author">${escHtml(n.author)}</span> <span class="time">${new Date(n.timestamp).toLocaleString()}</span><div class="text">${escHtml(n.text)}</div></div>`
+          ).join('')||'<div style="color:#5B5F68;font-size:11px">No notes</div>'}</div>
+          <div class="notes-input-group">
+            <input placeholder="Add a note..." id="note-input-${s.section_id}" onkeydown="if(event.key==='Enter')addNote('${d.draft_id}','${s.section_id}')">
+            <button onclick="addNote('${d.draft_id}','${s.section_id}')">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>`
+  }).join('')
+}
+
+function escHtml(t) { if(!t)return ''; return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;') }
+function toggleSection(id) { state.expandedSections[id] = state.expandedSections[id] === false ? true : false; if(state.activeDraftData) renderDraftDetail() }
+function setEditMode(id, on) { state.editMode[id] = on; renderDraftDetail(); document.getElementById(`textarea-${id}`)?.focus() }
+function toggleContent(id) { document.getElementById(id)?.classList.toggle('open') }
+
+async function approveSection(draftId, sectionId) {
+  try { const r = await api('POST', `/api/coach/draft/${draftId}/section/${sectionId}/approve`); state.activeDraftData = r.draft; renderDraftDetail(); renderDrafts(); toast('Approved') }
+  catch(e) { toast('Failed: '+e.message, 'error') }
+}
+
+function promptReject(draftId, sectionId) {
+  openModal('Reject Section', 'Enter a reason for rejection (optional):', async () => {
+    try { const r = await api('POST', `/api/coach/draft/${draftId}/section/${sectionId}/reject`, {reason: 'Coach rejected'})
+      state.activeDraftData = r.draft; renderDraftDetail(); renderDrafts(); toast('Rejected') }
+    catch(e) { toast('Failed: '+e.message, 'error') }
+  })
+}
+
+async function markEdited(draftId, sectionId) {
+  const content = document.getElementById(`textarea-${sectionId}`)?.value
+  if (!content) return
+  try { await api('PUT', `/api/coach/draft/${draftId}/section/${sectionId}`, { content, status: 'edited' })
+    state.activeDraftData = await api('GET', `/api/coach/draft/${draftId}`); renderDrafts() }
+  catch(e) { toast('Save failed: '+e.message, 'error') }
+}
+
+async function revertSection(draftId, sectionId) {
+  const d = state.activeDraftData
+  const section = d.sections.find(s => s.section_id === sectionId)
+  if (!section) return
+  openModal('Revert Section', 'Revert to original content?', async () => {
+    try { await api('PUT', `/api/coach/draft/${draftId}/section/${sectionId}`, { content: section.original_content, status: 'pending' })
+      state.activeDraftData = await api('GET', `/api/coach/draft/${draftId}`); renderDraftDetail(); renderDrafts(); toast('Reverted') }
+    catch(e) { toast('Failed: '+e.message, 'error') }
+  })
+}
+
+async function bulkAction(action) {
+  if (!state.activeDraftId) return
+  const labels = {approve_all:'Approve all sections?', reject_all:'Reject all sections?', reset_all:'Reset all sections to pending?'}
+  openModal('Confirm', labels[action]||'Proceed?', async () => {
+    try { const r = await api('POST', `/api/coach/draft/${state.activeDraftId}/bulk`, {action})
+      state.activeDraftData = r.draft; renderDraftDetail(); renderDrafts(); toast(`${action.replace('_',' ')} done`) }
+    catch(e) { toast('Failed: '+e.message, 'error') }
+  })
+}
+
+async function saveEditorNotes(draftId, sectionId, notes) {
+  try { await api('PUT', `/api/coach/draft/${draftId}/section/${sectionId}`, { editor_notes: notes }) } catch(e) { /* silent */ }
+}
+
+async function addNote(draftId, sectionId) {
+  const input = document.getElementById(`note-input-${sectionId}`)
+  const text = input?.value?.trim()
+  if (!text) return
+  try { await api('POST', `/api/coach/draft/${draftId}/note`, { author: 'Coach', text })
+    state.activeDraftData = await api('GET', `/api/coach/draft/${draftId}`); renderDraftDetail(); input.value = ''; toast('Note added') }
+  catch(e) { toast('Failed: '+e.message, 'error') }
+}
+
+async function exportDraft() {
+  if (!state.activeDraftId) return
+  try {
+    const res = await api('POST', `/api/coach/draft/${state.activeDraftId}/export`)
+    const a = document.createElement('a'); a.href = `/api/coach/draft/${state.activeDraftId}/pdf`; a.download = res.filename; a.click()
+    await refreshDrafts(); toast(`PDF exported: ${res.filename}`)
+  } catch(e) { toast('Export failed: '+e.message, 'error') }
+}
+
+function checkGenerateBtn() { document.getElementById('gen-btn').disabled = !document.getElementById('user-select').value }
+</script>
+</body>
+</html>

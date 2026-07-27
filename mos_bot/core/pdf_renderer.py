@@ -19,13 +19,10 @@ class ProgramPDF(FPDF):
         self.add_page()
         self.set_fill_color(*ACCENT_COLOR)
         self.rect(0, 0, 210, 297, "F")
-
-        # Decorative accent bar
         self.set_fill_color(244, 201, 59)
         self.rect(0, 0, 210, 4, "F")
 
         self.set_y(55)
-        # Logo area
         self.set_font("Helvetica", "B", 32)
         self.set_text_color(255, 255, 255)
         self.cell(0, 15, "MUSCLE OS", align="C", new_x="LMARGIN", new_y="NEXT")
@@ -34,24 +31,21 @@ class ProgramPDF(FPDF):
         self.cell(0, 7, "AI-Native Fitness Coaching System", align="C", new_x="LMARGIN", new_y="NEXT")
         self.ln(15)
 
-        # Decorative divider
         self.set_draw_color(244, 201, 59)
         self.set_line_width(0.6)
         self.line(55, self.get_y(), 155, self.get_y())
         self.ln(20)
 
-        # Program title
         self.set_font("Helvetica", "B", 22)
         self.set_text_color(255, 255, 255)
-        self.multi_cell(0, 11, title, align="C", new_x="LMARGIN", new_y="NEXT")
+        self.multi_cell(0, 11, self._sanitize(title), align="C", new_x="LMARGIN", new_y="NEXT")
         self.ln(4)
 
         self.set_font("Helvetica", "", 13)
         self.set_text_color(244, 201, 59)
-        self.cell(0, 7, subtitle, align="C", new_x="LMARGIN", new_y="NEXT")
+        self.cell(0, 7, self._sanitize(subtitle), align="C", new_x="LMARGIN", new_y="NEXT")
         self.ln(35)
 
-        # Client info box
         self.set_draw_color(244, 201, 59)
         self.set_fill_color(30, 31, 38)
         self.rect(55, self.get_y(), 100, 30, "DF")
@@ -59,7 +53,7 @@ class ProgramPDF(FPDF):
         self.set_y(y_box + 4)
         self.set_font("Helvetica", "", 10)
         self.set_text_color(244, 201, 59)
-        self.cell(0, 7, f"Client: {client_name}", align="C", new_x="LMARGIN", new_y="NEXT")
+        self.cell(0, 7, f"Client: {self._sanitize(client_name)}", align="C", new_x="LMARGIN", new_y="NEXT")
         self.cell(0, 7, f"Date: {date_str}", align="C", new_x="LMARGIN", new_y="NEXT")
         self.set_y(y_box + 34)
 
@@ -68,7 +62,6 @@ class ProgramPDF(FPDF):
         self.set_text_color(244, 201, 59)
         self.cell(0, 5, "CONFIDENTIAL -- Personal Coaching Program", align="C", new_x="LMARGIN", new_y="NEXT")
 
-        # Bottom accent bar
         self.set_fill_color(244, 201, 59)
         self.rect(0, 293, 210, 4, "F")
 
@@ -217,9 +210,9 @@ def markdown_to_pdf(markdown: str, output_path: str, client_name: str = "") -> s
     today = datetime.now().strftime("%B %d, %Y")
     pdf.cover_page(
         title="Personal Coaching Program",
-        subtitle="Beginner -- Adherence-First (MEC+)",
+        subtitle=pdf._sanitize(subtitle),
         date_str=today,
-        client_name=client_name,
+        client_name=pdf._sanitize(client_name),
     )
 
     lines = markdown.split("\n")
@@ -361,6 +354,43 @@ def _render_table(pdf, lines):
         alt_fill = not alt_fill
 
 
+def _add_watermark(pdf_path: str, label: str = "DRAFT", color: tuple = (0.78, 0.78, 0.78)):
+    """Overlay a semi-transparent diagonal watermark on every page via pypdf."""
+    try:
+        from io import BytesIO
+        overlay_pdf = FPDF()
+        overlay_pdf.add_page()
+        overlay_pdf.set_font("Helvetica", "B", 48)
+        r, g, b = color
+        overlay_pdf.set_text_color(int(r * 255), int(g * 255), int(b * 255))
+        overlay_pdf.set_auto_page_break(auto=False)
+        cx, cy = 105, 148
+        overlay_pdf.set_xy(cx - 80, cy - 10)
+        overlay_pdf.cell(160, 20, label, align="C")
+        raw = overlay_pdf.output(dest="S")
+        if isinstance(raw, bytes):
+            raw_bytes = raw
+        elif isinstance(raw, bytearray):
+            raw_bytes = bytes(raw)
+        elif isinstance(raw, str):
+            raw_bytes = raw.encode("latin-1")
+        else:
+            raw_bytes = bytes(raw)
+        overlay_reader = PdfReader(BytesIO(raw_bytes))
+
+        reader = PdfReader(pdf_path)
+        writer = PdfWriter()
+        for page in reader.pages:
+            page.merge_page(overlay_reader.pages[0], over=False)
+            writer.add_page(page)
+        with open(pdf_path, "wb") as f:
+            writer.write(f)
+        return True
+    except Exception as e:
+        print(f"[PDF] Watermark failed: {e}")
+        return False
+
+
 def _embed_metadata(pdf_path: str, user_id: str, client_name: str = "", goal: str = ""):
     """Post-hoc metadata embedding via pypdf."""
     try:
@@ -391,4 +421,149 @@ def generate_program_pdf(markdown: str, user_id: str, client_name: str = "", goa
         return result
     except Exception as e:
         print(f"[PDF] Error: {e}")
+        return None
+
+
+def generate_coach_pdf(markdown: str, user_id: str, client_name: str = "",
+                       goal: str = "", coach_name: str = "",
+                       safety_flags: list = None) -> str:
+    """Generate a coach-approved PDF with professional branding, safety block, and signature."""
+    os.makedirs(PDFS_DIR, exist_ok=True)
+    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    path = os.path.join(PDFS_DIR, f"{user_id}_coach_final_{ts}.pdf")
+
+    try:
+        pdf = ProgramPDF()
+        pdf.alias_nb_pages()
+        pdf.set_auto_page_break(auto=True, margin=18)
+
+        today = datetime.now().strftime("%B %d, %Y")
+        clean_goal = goal.title() if goal else "Personalized"
+        subtitle = f"Coach-Approved Program -- {clean_goal}"
+        pdf.cover_page(
+            title="Personal Coaching Program",
+            subtitle=pdf._sanitize(subtitle),
+            date_str=today,
+            client_name=pdf._sanitize(client_name),
+        )
+
+        # Safety notes page
+        if safety_flags:
+            pdf.add_page()
+            pdf.set_fill_color(239, 68, 68)
+            pdf.rect(10, pdf.get_y(), 190, 3, "F")
+            pdf.ln(6)
+            pdf.set_font("Helvetica", "B", 18)
+            pdf.set_text_color(239, 68, 68)
+            pdf.cell(0, 10, "Safety Notes", new_x="LMARGIN", new_y="NEXT")
+            pdf.ln(4)
+            pdf.set_text_color(*TEXT_MED)
+            for flag in safety_flags:
+                pdf.set_font("Helvetica", "B", 9.5)
+                pdf.set_text_color(*TEXT_DARK)
+                pdf.cell(0, 6, pdf._sanitize(flag.get("section_title", "")), new_x="LMARGIN", new_y="NEXT")
+                pdf.set_font("Helvetica", "", 8.5)
+                for f in flag.get("flags", []):
+                    pdf.cell(0, 5, pdf._sanitize(f"  - {f}"), new_x="LMARGIN", new_y="NEXT")
+                pdf.ln(3)
+
+        # Parse markdown
+        lines = markdown.split("\n")
+        section_counter = 0
+        table_buffer = []
+        in_table = False
+        in_code = False
+        section_heading_pattern = re.compile(r"^## \d+\.")
+
+        for line in lines:
+            stripped = line.strip()
+            if stripped.startswith("```"):
+                in_code = not in_code
+                continue
+            if in_code:
+                continue
+            if "|" in stripped and stripped.count("|") > 2:
+                table_buffer.append(line)
+                in_table = True
+                continue
+            else:
+                if in_table and table_buffer:
+                    _render_table(pdf, table_buffer)
+                    table_buffer = []
+                    in_table = False
+            if not stripped:
+                continue
+            if stripped.startswith("# ") or stripped.startswith("## ") or stripped.startswith("### "):
+                level = stripped.count("#")
+                title = stripped.lstrip("#").strip()
+                is_section = bool(section_heading_pattern.match(stripped))
+                if is_section:
+                    section_counter += 1
+                    pdf.add_page()
+                    pdf.section_title(section_counter, title)
+                elif level <= 1:
+                    pass
+                elif level == 2:
+                    pdf.sub_heading(title)
+                else:
+                    pdf.set_font("Helvetica", "B", 9.5)
+                    pdf.set_text_color(*TEXT_DARK)
+                    pdf.cell(0, 5.5, pdf._sanitize(title), new_x="LMARGIN", new_y="NEXT")
+                    pdf.ln(1)
+            elif stripped.startswith("- ") or stripped.startswith("* "):
+                text = stripped[2:]
+                text = re.sub(r"\*\*(.*?)\*\*", r"\1", text)
+                pdf.bullet(text)
+            elif stripped.startswith("**") and stripped.endswith("**"):
+                pdf.sub_heading(stripped.strip("*"))
+            elif stripped.startswith("|"):
+                pass
+            else:
+                text = re.sub(r"\*\*(.*?)\*\*", r"\1", stripped)
+                pdf.body_text(text)
+
+        if in_table and table_buffer:
+            _render_table(pdf, table_buffer)
+
+        # Coach approval signature block
+        pdf.add_page()
+        pdf.set_fill_color(*ACCENT_COLOR)
+        pdf.rect(0, pdf.get_y(), 210, 3, "F")
+        pdf.ln(8)
+        pdf.set_font("Helvetica", "B", 16)
+        pdf.set_text_color(*ACCENT_COLOR)
+        pdf.cell(0, 10, "Coach Approval", align="C", new_x="LMARGIN", new_y="NEXT")
+        pdf.ln(8)
+
+        pdf.set_fill_color(*LIGHT_ACCENT)
+        pdf.rect(30, pdf.get_y(), 150, 50, "DF")
+        y_box = pdf.get_y()
+        pdf.set_y(y_box + 8)
+        pdf.set_font("Helvetica", "", 10)
+        pdf.set_text_color(*TEXT_DARK)
+        coach_label = coach_name if coach_name else "Muscle OS Coaching Staff"
+        pdf.cell(0, 7, f"Approved by: {coach_label}", align="C", new_x="LMARGIN", new_y="NEXT")
+        pdf.cell(0, 7, f"Date: {today}", align="C", new_x="LMARGIN", new_y="NEXT")
+        pdf.cell(0, 7, "Verified: All sections reviewed and approved", align="C", new_x="LMARGIN", new_y="NEXT")
+        pdf.set_y(y_box + 56)
+        pdf.ln(10)
+
+        pdf.set_font("Helvetica", "I", 8)
+        pdf.set_text_color(*TEXT_LIGHT)
+        pdf.multi_cell(0, 4,
+            "This program was generated by Muscle OS AI and reviewed by a qualified coach. "
+            "It is not a substitute for professional medical advice. Consult a physician before "
+            "beginning any exercise or nutrition program.",
+            align="C")
+        pdf.ln(8)
+        pdf.set_text_color(*TEXT_LIGHT)
+        pdf.cell(0, 4, pdf._sanitize(f"Muscle OS -- {today}"), align="C")
+
+        pdf.output(path)
+        _embed_metadata(path, user_id, client_name, goal)
+        return path
+    except Exception as e:
+        print(f"[Coach PDF] Error: {e}")
+        import traceback
+        traceback.print_exc()
         return None

@@ -1,0 +1,558 @@
+{
+  "draft_id": "live_test_adham_demo_20260727_002256",
+  "user_id": "live_test_adham",
+  "client_name": "Adham Elgamil",
+  "created_at": "2026-07-27T00:22:56.858771",
+  "updated_at": "2026-07-27T00:22:56.858780",
+  "status": "exported",
+  "sections": [
+    {
+      "section_id": "profile_summary",
+      "title": "Profile Summary",
+      "content": "**Client:** Adham Elgamil\n**Goal:** Gain Muscle\n**Stats:** Male, 22 yrs, 186.0cm, 92.0kg (BMI ~26.6)\n**Experience:** 1.5 years (Intermediate)\n**Training:** 5 days/week, 75min sessions\n**Sleep:** 7.5h | **Stress:** 6/10 | **Steps:** 7000\n**Injuries:** None\n**Gut Health:** good | **Medical:** None\n**Work Schedule:** Standard\n**Alcohol:** 0/week | **Supplements:** None\n**Triage:** GREEN | **Last Bloodwork:** Unknown",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "**Client:** Adham Elgamil\n**Goal:** Gain Muscle\n**Stats:** Male, 22 yrs, 186.0cm, 92.0kg (BMI ~26.6)\n**Experience:** 1.5 years (Intermediate)\n**Training:** 5 days/week, 75min sessions\n**Sleep:** 7.5h | **Stress:** 6/10 | **Steps:** 7000\n**Injuries:** None\n**Gut Health:** good | **Medical:** None\n**Work Schedule:** Standard\n**Alcohol:** 0/week | **Supplements:** None\n**Triage:** GREEN | **Last Bloodwork:** Unknown",
+      "order": 1,
+      "domain": "assessment"
+    },
+    {
+      "section_id": "constraint_analysis",
+      "title": "Constraint Analysis & Conflict Resolution",
+      "content": "- **MEDIUM [RECOVERY]:** Stress 6/10: monitor recovery\n- **MEDIUM [NUTRITION]:** Gut health: good — fiber progression, probiotic consideration\n  → Monitor: Gut health: good — fiber progression, probiotic consideration. No active conflicts.\n- **LOW [TRAINING]:** Intermediate: undulating periodization\n\n**Resolution Priority:** Safety > Medical > Injury > Recovery > Nutrition > Training > Adherence > Psychological > Lifestyle\n\n**Coach Note:** Adham's moderate stress levels (6/10) may impede his recovery, necessitating close monitoring to ensure he can handle his 5x/week, 75min training regimen. His good gut health provides a solid foundation for nutrient absorption, but he should prioritize fiber progression and consider probiotics to further support muscle growth. By managing stress and optimizing nutrition, Adham can effectively navigate his intermediate training phase with undulating periodization to achieve his muscle gain goals.",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "- **MEDIUM [RECOVERY]:** Stress 6/10: monitor recovery\n- **MEDIUM [NUTRITION]:** Gut health: good — fiber progression, probiotic consideration\n  → Monitor: Gut health: good — fiber progression, probiotic consideration. No active conflicts.\n- **LOW [TRAINING]:** Intermediate: undulating periodization\n\n**Resolution Priority:** Safety > Medical > Injury > Recovery > Nutrition > Training > Adherence > Psychological > Lifestyle",
+      "order": 2,
+      "domain": "safety"
+    },
+    {
+      "section_id": "archetype_match",
+      "title": "Archetype Match",
+      "content": "**Matched Archetype:** Busy Professional\n\n**Match Score:** 5%\n\n**Reasons for match:**\n\n\n**Coach Note:** As a 'Busy Professional', Adham's coaching approach will prioritize efficient and effective workouts, focusing on compound exercises and progressive overload to maximize muscle gain within his existing 5x/week, 75min training schedule. Given his high stress levels (6/10), stress management techniques and recovery strategies will also be emphasized to mitigate potential negative impacts on muscle growth. Additionally, nutrition planning will be tailored to support his busy lifestyle, with a focus on convenient, high-protein meal options.",
+      "citations": [
+        {
+          "vault_path": "07_PROFILES\\Busy Professional Profile.md",
+          "vault_title": "Busy Professional",
+          "snippet": "",
+          "relevance_score": 0.0,
+          "decision_id": "archetype_match"
+        }
+      ],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "**Matched Archetype:** Busy Professional\n\n**Match Score:** 5%\n\n**Reasons for match:**\n",
+      "order": 3,
+      "domain": "adherence"
+    },
+    {
+      "section_id": "pillar_focus",
+      "title": "Pillar Focus & Modifications",
+      "content": "## Pillar Focus & Modifications\n\n### Primary Pillars\n- **P2 - Training Maxing**\n\n### Secondary Pillars\n- Pillar 7\n- Pillar 3\n- P7 - Adherence Engineering\n- P8 - Individualization\n- P10 - Integration\n\n### Active Modifications\n- Apply fiber progression protocol, consider probiotic\n- Reduce training volume 30%, maintain protein and sleep\n- Long Length Emphasis\n- Volume Progression Cap\n- Adherence First\n\n**Coach Note:** For Adham Elgamil, the pillars of nutrition and training are most crucial for gaining muscle, as his 1.5 years of experience and 5x/week training schedule indicate a solid foundation to build upon. Given his relatively high stress level (6/10), ensuring adequate sleep (7.5h) and prioritizing recovery strategies will also be essential to support muscle growth. Additionally, optimizing his nutrition to meet his caloric needs for muscle gain will be vital, considering his height and weight.",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "## Pillar Focus & Modifications\n\n### Primary Pillars\n- **P2 - Training Maxing**\n\n### Secondary Pillars\n- Pillar 7\n- Pillar 3\n- P7 - Adherence Engineering\n- P8 - Individualization\n- P10 - Integration\n\n### Active Modifications\n- Apply fiber progression protocol, consider probiotic\n- Reduce training volume 30%, maintain protein and sleep\n- Long Length Emphasis\n- Volume Progression Cap\n- Adherence First",
+      "order": 4,
+      "domain": "training"
+    },
+    {
+      "section_id": "program_overview",
+      "title": "Program Overview",
+      "content": "**Protocol Focus:** Gain Muscle-focused programming with Intermediate-appropriate volume landmarks.\n**Training Split:** Ppl Ul\n**Schedule:** 5x/week, 75min sessions\n**Phasing:** Two-phase approach\n  - Phase 1 (Weeks 1-4): Accumulation & Movement Quality\n  - Phase 2 (Weeks 5+): Intensification & Progressive Overload\n\n**Evidence Base:** Informed by 20 decision rules from Muscle OS knowledge vault.\n\n**Coach Note:** For Adham Elgamil, the overall program strategy will focus on a calorie-surplus diet with a macronutrient balance of 25% protein, 40% carbohydrates, and 35% fat to support muscle growth. Given his 1.5 years of training experience, the workout routine will prioritize progressive overload with a split routine, targeting 3-4 sets per exercise and 8-12 reps to maximize hypertrophy. Additionally, the program will incorporate rest and recovery techniques to manage his moderate stress levels and ensure adequate recovery from 5 days of intense training per week.",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "**Protocol Focus:** Gain Muscle-focused programming with Intermediate-appropriate volume landmarks.\n**Training Split:** Ppl Ul\n**Schedule:** 5x/week, 75min sessions\n**Phasing:** Two-phase approach\n  - Phase 1 (Weeks 1-4): Accumulation & Movement Quality\n  - Phase 2 (Weeks 5+): Intensification & Progressive Overload\n\n**Evidence Base:** Informed by 20 decision rules from Muscle OS knowledge vault.",
+      "order": 5,
+      "domain": "training"
+    },
+    {
+      "section_id": "training_phase1",
+      "title": "Training: Phase 1 — Accumulation & Stability",
+      "content": "**Duration:** Weeks 1-4\n**Goal:** Accumulation & Movement Quality\n",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "**Duration:** Weeks 1-4\n**Goal:** Accumulation & Movement Quality\n",
+      "order": 6,
+      "domain": "training"
+    },
+    {
+      "section_id": "training_phase2",
+      "title": "Training: Phase 2 — Intensification & Progressive Overload",
+      "content": "**Duration:** Weeks 5+\n**Goal:** Intensification & Progressive Overload\n\n**Progression:** When RIR drops below 2 on all sets of a movement, increase weight 5-7.5% or add 1 set. Re-test MAV landmarks after 8 weeks.",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "**Duration:** Weeks 5+\n**Goal:** Intensification & Progressive Overload\n\n**Progression:** When RIR drops below 2 on all sets of a movement, increase weight 5-7.5% or add 1 set. Re-test MAV landmarks after 8 weeks.",
+      "order": 7,
+      "domain": "training"
+    },
+    {
+      "section_id": "warmup_cooldown",
+      "title": "Warm-Up & Cool-Down Protocol",
+      "content": "### Warm-Up Protocol\n5 min incline walk or bike (RPE 3-4)\nDynamic warm-up: leg swings, cat-cow, thoracic rotations, band pull-aparts\nMovement-specific warm-up: 2x10 reps at 50% working weight\nIPTA warm-up standard: 5-10 min general cardio → dynamic stretching → movement-specific warm-up at 40-60% working weight.\n\n3. Stress 2-3 → 4. Days recovered: 3 → 3. Total: 14/20 = **Optimal** - Lifestyle: Can train 3-4 days/wk. 45+ min sessions. Full gym. No injuries. Life demands low. No flags. - Adherence: N/A (no sessions to miss). No flag. - Archetype match: Training ≤6, no injury → **Beginner**\n\n**FAILURE DETECTION\n\n### Cool-Down Protocol\n5 min light cardio (RPE 2-3)\nStatic stretching for worked muscle groups: 30s holds\nOptional: foam rolling for tight areas",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "### Warm-Up Protocol\n5 min incline walk or bike (RPE 3-4)\nDynamic warm-up: leg swings, cat-cow, thoracic rotations, band pull-aparts\nMovement-specific warm-up: 2x10 reps at 50% working weight\nIPTA warm-up standard: 5-10 min general cardio → dynamic stretching → movement-specific warm-up at 40-60% working weight.\n\n3. Stress 2-3 → 4. Days recovered: 3 → 3. Total: 14/20 = **Optimal** - Lifestyle: Can train 3-4 days/wk. 45+ min sessions. Full gym. No injuries. Life demands low. No flags. - Adherence: N/A (no sessions to miss). No flag. - Archetype match: Training ≤6, no injury → **Beginner**\n\n**FAILURE DETECTION\n\n### Cool-Down Protocol\n5 min light cardio (RPE 2-3)\nStatic stretching for worked muscle groups: 30s holds\nOptional: foam rolling for tight areas",
+      "order": 8,
+      "domain": "training"
+    },
+    {
+      "section_id": "nutrition_plan",
+      "title": "Nutrition Plan",
+      "content": "**BMR:** 1978 kcal/day | **TDEE:** 3066 kcal/day\n\n| Target | Value |\n|---|---|\n| **Calories** | 3066 kcal |\n| **Protein** | 184g (2.0g/kg) |\n| **Carbs** | 391g |\n| **Fat** | 85g |\n| **Hydration** | 3.2L |\n\n**Meal Timing:** Per IPTA CNS: distribute protein across 3-5 meals at ≥0.4 g/kg per meal (minimum 20-30g) for optimal MPS. Post-exercise: consume 0.4 g/kg within 2 hours.\n\n**Special Notes:** Protein target is evidence-based: 1.6-2.2 g/kg/day (Schoenfeld). Older adults (65+): 1.6-2.4 g/kg/day.; Per ISSA: hand portion method — start standard, adjust by 1 unit after 2 weeks based on weight trend.; Per IPTA CNS: minimum 0.5 g/kg fat for hormone function. Increase to 0.8-1.0 g/kg for hormonal concerns or amenorrhea.; Per IPTA CNS: supplement tier — Tier 1 (strong evidence): creatine 5g/day, vitamin D 2000-4000 IU, omega-3 2-3g. Tier 2 (moderate): magnesium, B12, probiotics.",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "**BMR:** 1978 kcal/day | **TDEE:** 3066 kcal/day\n\n| Target | Value |\n|---|---|\n| **Calories** | 3066 kcal |\n| **Protein** | 184g (2.0g/kg) |\n| **Carbs** | 391g |\n| **Fat** | 85g |\n| **Hydration** | 3.2L |\n\n**Meal Timing:** Per IPTA CNS: distribute protein across 3-5 meals at ≥0.4 g/kg per meal (minimum 20-30g) for optimal MPS. Post-exercise: consume 0.4 g/kg within 2 hours.\n\n**Special Notes:** Protein target is evidence-based: 1.6-2.2 g/kg/day (Schoenfeld). Older adults (65+): 1.6-2.4 g/kg/day.; Per ISSA: hand portion method — start standard, adjust by 1 unit after 2 weeks based on weight trend.; Per IPTA CNS: minimum 0.5 g/kg fat for hormone function. Increase to 0.8-1.0 g/kg for hormonal concerns or amenorrhea.; Per IPTA CNS: supplement tier — Tier 1 (strong evidence): creatine 5g/day, vitamin D 2000-4000 IU, omega-3 2-3g. Tier 2 (moderate): magnesium, B12, probiotics.",
+      "order": 9,
+      "domain": "nutrition"
+    },
+    {
+      "section_id": "sleep_protocol",
+      "title": "Sleep Protocol",
+      "content": "- Target: 7.5-8h consistent bedtime ±30min\n- Morning light exposure: 10min outdoor light within 30min of waking\n- Screen curfew: No screens 60min pre-bed\n- Room temp: 17-19°C\n- Pre-bed: 30-40g casein + 200mg magnesium glycinate\n- No alcohol within 3h of bedtime",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "- Target: 7.5-8h consistent bedtime ±30min\n- Morning light exposure: 10min outdoor light within 30min of waking\n- Screen curfew: No screens 60min pre-bed\n- Room temp: 17-19°C\n- Pre-bed: 30-40g casein + 200mg magnesium glycinate\n- No alcohol within 3h of bedtime",
+      "order": 10,
+      "domain": "recovery"
+    },
+    {
+      "section_id": "supplements",
+      "title": "Supplement Recommendations",
+      "content": "| Supplement | Dose | Timing | Evidence |\n|---|---|---|---|---|\n| **Protein Powder** | To meet daily target | Post-training + before bed | Strong |\n| **Creatine Monohydrate** | 5g daily | Any time, consistent | Strong |\n| **Vitamin D3 + K2** | 2000-4000 IU | With largest meal | Strong if deficient |\n| **Omega-3 (EPA+DHA)** | 3g total | With meals | Strong |\n| **Magnesium Glycinate** | 200mg | Pre-bed | Moderate for sleep |\n\n**Gut Health:** Consider probiotic (10-20B CFU) + fiber progression (5g/week to 35-40g).",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "| Supplement | Dose | Timing | Evidence |\n|---|---|---|---|---|\n| **Protein Powder** | To meet daily target | Post-training + before bed | Strong |\n| **Creatine Monohydrate** | 5g daily | Any time, consistent | Strong |\n| **Vitamin D3 + K2** | 2000-4000 IU | With largest meal | Strong if deficient |\n| **Omega-3 (EPA+DHA)** | 3g total | With meals | Strong |\n| **Magnesium Glycinate** | 200mg | Pre-bed | Moderate for sleep |\n\n**Gut Health:** Consider probiotic (10-20B CFU) + fiber progression (5g/week to 35-40g).",
+      "order": 11,
+      "domain": "nutrition"
+    },
+    {
+      "section_id": "rehab_prehab",
+      "title": "Rehab & Prehab",
+      "content": "- **Shoulder Health:** Face pulls 3x15-20, 3x/week\n- **Core Stability:** Plank variations 3x45s, 3x/week\n- **Hip Mobility:** World's Greatest Stretch, 3x/side before training\n- **Posture:** Thoracic extensions, 10 reps, 2x/day\n\n**Coach Note:** Adham, given your 5x/week training schedule, I recommend incorporating exercises that strengthen your rotator cuff and scapular stabilizers to prevent shoulder injuries, such as lateral raises and rows. Additionally, consider adding 1-2 lower back exercises like Superman or bird dog to your routine to mitigate the risk of lower back strain. Focus on proper form and engage your core throughout these exercises.",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "- **Shoulder Health:** Face pulls 3x15-20, 3x/week\n- **Core Stability:** Plank variations 3x45s, 3x/week\n- **Hip Mobility:** World's Greatest Stretch, 3x/side before training\n- **Posture:** Thoracic extensions, 10 reps, 2x/day",
+      "order": 12,
+      "domain": "safety"
+    },
+    {
+      "section_id": "measurement_kpis",
+      "title": "Measurement KPIs",
+      "content": "| KPI | Frequency | Threshold | Action |\n|---|---|---|---|---|\n| **Weight Trend** | Daily (7-day avg) | >2% change/2wk | Adjust calories |\n| **Top Set Performance** | Every session | Decline 3+ weeks | Deload or check sleep |\n| **Waist** | Monthly | No change 6+ weeks | Reassess |\n| **Training Volume** | Weekly | Below MEV 2 weeks | Add sets |\n| **Readiness** | Pre-session | <6 consistently | Check recovery |",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "| KPI | Frequency | Threshold | Action |\n|---|---|---|---|---|\n| **Weight Trend** | Daily (7-day avg) | >2% change/2wk | Adjust calories |\n| **Top Set Performance** | Every session | Decline 3+ weeks | Deload or check sleep |\n| **Waist** | Monthly | No change 6+ weeks | Reassess |\n| **Training Volume** | Weekly | Below MEV 2 weeks | Add sets |\n| **Readiness** | Pre-session | <6 consistently | Check recovery |",
+      "order": 13,
+      "domain": "adherence"
+    },
+    {
+      "section_id": "adjustment_triggers",
+      "title": "Adjustment Triggers",
+      "content": "| Symptom | Action |\n|---|---|---|\n| Strength declining 3+ weeks | Deload (50% volume, maintain load) |\n| Weight not changing 4+ weeks | Adjust calories ±200 kcal, wait 2 weeks |\n| Sleep <6.5h consistently | Prioritize sleep before training changes |\n| Stress >7/10 for 2+ weeks | Reduce volume 30%, maintain protein |\n| Joint pain during exercise | Stop, substitute alternative |\n| Missed 2+ sessions in a row | MEC: 2x full-body, protein 1.6g/kg, 6.5h sleep |",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "| Symptom | Action |\n|---|---|---|\n| Strength declining 3+ weeks | Deload (50% volume, maintain load) |\n| Weight not changing 4+ weeks | Adjust calories ±200 kcal, wait 2 weeks |\n| Sleep <6.5h consistently | Prioritize sleep before training changes |\n| Stress >7/10 for 2+ weeks | Reduce volume 30%, maintain protein |\n| Joint pain during exercise | Stop, substitute alternative |\n| Missed 2+ sessions in a row | MEC: 2x full-body, protein 1.6g/kg, 6.5h sleep |",
+      "order": 14,
+      "domain": "adherence"
+    },
+    {
+      "section_id": "exercise_alternatives",
+      "title": "Exercise Alternatives",
+      "content": "| Primary | Alternative A | Alternative B |\n|---|---|---|\n| Barbell Back Squat | Goblet Squat | Leg Press |\n| Barbell Bench Press | Dumbbell Bench Press | Machine Chest Press |\n| Conventional Deadlift | Trap Bar Deadlift | Dumbbell RDL |\n| Pull-Up | Lat Pulldown | Seated Cable Row |\n| Overhead Press (Barbell) | Dumbbell Shoulder Press | Machine Shoulder Press |\n| Barbell Row | Chest Supported Row | Single-Arm DB Row |",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "| Primary | Alternative A | Alternative B |\n|---|---|---|\n| Barbell Back Squat | Goblet Squat | Leg Press |\n| Barbell Bench Press | Dumbbell Bench Press | Machine Chest Press |\n| Conventional Deadlift | Trap Bar Deadlift | Dumbbell RDL |\n| Pull-Up | Lat Pulldown | Seated Cable Row |\n| Overhead Press (Barbell) | Dumbbell Shoulder Press | Machine Shoulder Press |\n| Barbell Row | Chest Supported Row | Single-Arm DB Row |",
+      "order": 15,
+      "domain": "training"
+    },
+    {
+      "section_id": "week1_action",
+      "title": "Week 1 Action Plan",
+      "content": "- [ ] Complete first training session using the program\n- [ ] Track daily protein intake (target: 4-5 meals at ~30g protein each)\n- [ ] Sleep target: 8h, consistent bedtime\n- [ ] Hydration: 3.2L water minimum\n- [ ] 10min daily morning walk for light exposure",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "- [ ] Complete first training session using the program\n- [ ] Track daily protein intake (target: 4-5 meals at ~30g protein each)\n- [ ] Sleep target: 8h, consistent bedtime\n- [ ] Hydration: 3.2L water minimum\n- [ ] 10min daily morning walk for light exposure",
+      "order": 16,
+      "domain": "adherence"
+    },
+    {
+      "section_id": "vault_decisions",
+      "title": "Vault-Informed Decisions",
+      "content": "The following evidence-based insights influenced this program:\n\n- [Schoenfeld - Science and Development of Muscle Hypertrophy] Per Schoenfeld: longer rest (2-3 min) maintains mechanical tension across sets.\n- [Schoenfeld - Science and Development of Muscle Hypertrophy] Per Schoenfeld: prioritize exercises that train target muscles at long lengths under load.\n- [Schoenfeld - Science and Development of Muscle Hypertrophy] Per Schoenfeld: deload every 6-8 weeks preventatively — reduce volume 40-60% at same intensity.\n- [Schoenfeld - Science and Development of Muscle Hypertrophy] Per Schoenfeld: monitor overreaching — performance decline, mood disturbance, sleep disruption, elevated HR, illness frequency.\n- [Jeff Nippard - The Muscle Ladder] Per Nippard: 6-15 reps is the hypertrophy sweet spot — below 6 lacks metabolic stimulus.\n- [Jeff Nippard - The Muscle Ladder] Per Nippard: deload every 6-8 weeks preventatively — never wait for exhaustion symptoms.\n- [NSCA - Essentials of Strength Training and Conditioning] Per NSCA: load assignment by goal — strength ≥85% 1RM (2-6 reps), hypertrophy 67-85% 1RM (6-12 reps).\n- [NSCA - Essentials of Strength Training and Conditioning] Per NSCA: cap volume increase at 20-30% per mesocycle to prevent injury and systemic fatigue.\n- [NSCA - Essentials of Strength Training and Conditioning] Per NSCA: 3-tier fatigue — <2w acute (normal), 2-4w functional overreaching (expected supercompensation), >4w nonfunctional (medical).\n- [NSCA - Essentials of Strength Training and Conditioning] Per NSCA: 3+ criteria for >4 weeks — performance decline, fatigue, sleep/mood disruption, appetite loss, frequent illness → medical escalation.\n- [NSCA - Essentials of Strength Training and Conditioning] Per NSCA: standardized 4-phase warm-up protocol (15-20 min total).\n- [NSCA - Essentials of Strength Training and Conditioning] Per NSCA: detraining recovery guidelines — 1-2w off at 90%, 2-4w at 80%, 4-8w at 70%, 8+w at 50-60%.\n- [ACE - Personal Trainer Manual] Per ACE: first 2 weeks prioritize adherence over optimal — achievable > perfect.\n- [ACE - Personal Trainer Manual] Per ACE IFT model: verify pain-free ROM, neutral spine, and 15s single-leg balance before progressing intensity.\n- [IPTA - Certified Personal Trainer] Per IPTA: rep range by goal — power (1-5), strength (1-6), hypertrophy (6-12), endurance (12-20+).\n- [IPTA - Certified Personal Trainer] Per IPTA: rest by goal — strength 3-5 min, hypertrophy 30-90s, endurance 30-60s.\n- [IPTA - Certified Personal Trainer] Per IPTA: 3-phase warm-up — general cardio, dynamic mobility, movement-specific preparation.\n- [IPTA - Certified Personal Trainer] Per IPTA: 4-criteria movement screen gate before loaded exercise — ROM, squat, balance, hinge.\n- [IPTA - Certified Personal Trainer] Per IPTA: periodization by training status — beginner (linear), intermediate (undulating), advanced (block).\n- [IPTA - Bodybuilding Screen] Per IPTA Bodybuilding: recovery priority — sleep > protein > active > passive. Reduce volume first when recovery is compromised.\n\n**Key vault references:**\n- [Sleep Hygiene Protocol — Optimize Recovery Through Sleep] # Sleep Hygiene Protocol — Optimize Recovery Through Sleep\n\n**Purpose:** Provide actionable protocols for improving sleep quality and quantit\n- [Adherence First] # Adherence First\n\nConsistency dominates optimization. A protocol followed at 80% adherence for 12 months outperforms a perfect protocol followed at 40% for 8 weeks. Environment desi\n- [Adherence & Behavior Assessment — How Consistent Are You Really?] # Adherence & Behavior Assessment — How Consistent Are You Really?\n\n**Purpose:** Assess current adherence patterns, identify behavior\n",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "The following evidence-based insights influenced this program:\n\n- [Schoenfeld - Science and Development of Muscle Hypertrophy] Per Schoenfeld: longer rest (2-3 min) maintains mechanical tension across sets.\n- [Schoenfeld - Science and Development of Muscle Hypertrophy] Per Schoenfeld: prioritize exercises that train target muscles at long lengths under load.\n- [Schoenfeld - Science and Development of Muscle Hypertrophy] Per Schoenfeld: deload every 6-8 weeks preventatively — reduce volume 40-60% at same intensity.\n- [Schoenfeld - Science and Development of Muscle Hypertrophy] Per Schoenfeld: monitor overreaching — performance decline, mood disturbance, sleep disruption, elevated HR, illness frequency.\n- [Jeff Nippard - The Muscle Ladder] Per Nippard: 6-15 reps is the hypertrophy sweet spot — below 6 lacks metabolic stimulus.\n- [Jeff Nippard - The Muscle Ladder] Per Nippard: deload every 6-8 weeks preventatively — never wait for exhaustion symptoms.\n- [NSCA - Essentials of Strength Training and Conditioning] Per NSCA: load assignment by goal — strength ≥85% 1RM (2-6 reps), hypertrophy 67-85% 1RM (6-12 reps).\n- [NSCA - Essentials of Strength Training and Conditioning] Per NSCA: cap volume increase at 20-30% per mesocycle to prevent injury and systemic fatigue.\n- [NSCA - Essentials of Strength Training and Conditioning] Per NSCA: 3-tier fatigue — <2w acute (normal), 2-4w functional overreaching (expected supercompensation), >4w nonfunctional (medical).\n- [NSCA - Essentials of Strength Training and Conditioning] Per NSCA: 3+ criteria for >4 weeks — performance decline, fatigue, sleep/mood disruption, appetite loss, frequent illness → medical escalation.\n- [NSCA - Essentials of Strength Training and Conditioning] Per NSCA: standardized 4-phase warm-up protocol (15-20 min total).\n- [NSCA - Essentials of Strength Training and Conditioning] Per NSCA: detraining recovery guidelines — 1-2w off at 90%, 2-4w at 80%, 4-8w at 70%, 8+w at 50-60%.\n- [ACE - Personal Trainer Manual] Per ACE: first 2 weeks prioritize adherence over optimal — achievable > perfect.\n- [ACE - Personal Trainer Manual] Per ACE IFT model: verify pain-free ROM, neutral spine, and 15s single-leg balance before progressing intensity.\n- [IPTA - Certified Personal Trainer] Per IPTA: rep range by goal — power (1-5), strength (1-6), hypertrophy (6-12), endurance (12-20+).\n- [IPTA - Certified Personal Trainer] Per IPTA: rest by goal — strength 3-5 min, hypertrophy 30-90s, endurance 30-60s.\n- [IPTA - Certified Personal Trainer] Per IPTA: 3-phase warm-up — general cardio, dynamic mobility, movement-specific preparation.\n- [IPTA - Certified Personal Trainer] Per IPTA: 4-criteria movement screen gate before loaded exercise — ROM, squat, balance, hinge.\n- [IPTA - Certified Personal Trainer] Per IPTA: periodization by training status — beginner (linear), intermediate (undulating), advanced (block).\n- [IPTA - Bodybuilding Screen] Per IPTA Bodybuilding: recovery priority — sleep > protein > active > passive. Reduce volume first when recovery is compromised.\n\n**Key vault references:**\n- [Sleep Hygiene Protocol — Optimize Recovery Through Sleep] # Sleep Hygiene Protocol — Optimize Recovery Through Sleep\n\n**Purpose:** Provide actionable protocols for improving sleep quality and quantit\n- [Adherence First] # Adherence First\n\nConsistency dominates optimization. A protocol followed at 80% adherence for 12 months outperforms a perfect protocol followed at 40% for 8 weeks. Environment desi\n- [Adherence & Behavior Assessment — How Consistent Are You Really?] # Adherence & Behavior Assessment — How Consistent Are You Really?\n\n**Purpose:** Assess current adherence patterns, identify behavior\n",
+      "order": 17,
+      "domain": "training"
+    },
+    {
+      "section_id": "vault_sources",
+      "title": "Vault Sources",
+      "content": "**General**\n- [Progressive Overload Protocol — The Engine of All Progress](vault://04_PROTOCOLS/Progressive Overload Protocol) (relevance: 0.64)\n- [Muscle OS Pre-Release QA Audit Report](vault://00_META/Pre-Release QA Audit Report) (relevance: 0.61)\n- [Reality Check Engine — Expectation Calibration System](vault://05_SYSTEMS/Reality Check Engine) (relevance: 0.60)\n- [Muscle OS Intake Protocol — Know Where You Are](vault://05_SYSTEMS/Muscle OS Intake Protocol) (relevance: 0.59)\n- [Periodization Decision Protocol — Structuring Training Over Time](vault://04_PROTOCOLS/Periodization Decision Protocol) (relevance: 0.55)\n- [Behavioral Systems Layer — The Psychology of Self-Coaching](vault://05_SYSTEMS/Behavioral Systems Layer) (relevance: 0.52)\n- [The Muscle Ladder — Decision Rules](vault://08_EXTERNAL_KNOWLEDGE/Books/Jeff Nippard - The Muscle Ladder/04 Decision Rules) (relevance: 0.51)\n- [Section 2: Failure Simulation Library](vault://00_META/validation/02_failure_simulation) (relevance: 0.49)\n- [Talon Fitness — Sweets Tier List](vault://08_EXTERNAL_KNOWLEDGE/YouTube Channels/Talon Fitness/Talon_Transcript_Sweets_Tier_List) (relevance: 0.26)\n- [Habit & Streak Tracker — Build Consistency One Day at a Time](vault://04_TOOLS/Habit & Streak Tracker) (relevance: 0.21)\n- [Talon Fitness — Snacks Ranked — Nutrition Tier Lists](vault://08_EXTERNAL_KNOWLEDGE/YouTube Channels/Talon Fitness/Talon_Transcript_Snacks_Ranked) (relevance: 0.20)\n- [Talon Fitness — Fruits Ranked — Nutrition Tier Lists](vault://08_EXTERNAL_KNOWLEDGE/YouTube Channels/Talon Fitness/Talon_Transcript_Fruits_Ranked) (relevance: 0.20)\n- [Nutrition Strategy Decision Tree](vault://04_TOOLS/Decision Trees/Nutrition Strategy Decision Tree) (relevance: 0.61)\n- [Market Position Assessment — Muscle OS Diet Pillar](vault://00_META/Market Position Assessment) (relevance: 0.61)\n- [Protein Experiment](vault://04_TOOLS/Experiments/Protein Experiment) (relevance: 0.61)\n- [Bulking Decision Tree](vault://04_TOOLS/Decision Trees/Bulking Decision Tree) (relevance: 0.60)\n- [Diet — Gut Microbiome and Body Composition](vault://01_RESEARCH/Studies/Diet - Genton 2015 - Gut Microbiome and Body Composition) (relevance: 0.54)\n- [Fiber Progression Protocol — The Gut-First Approach to Carbohydrates](vault://04_PROTOCOLS/Fiber Progression Protocol) (relevance: 0.49)\n- [Diet — Protein Distribution](vault://01_RESEARCH/Studies/Diet - Morton 2016 - Protein Distribution) (relevance: 0.51)\n- [Whey Protein](vault://04_TOOLS/Food Database/Whey Protein) (relevance: 0.50)\n- [Sleep Hygiene Protocol — Optimize Recovery Through Sleep](vault://04_PROTOCOLS/Sleep Hygiene Protocol) (relevance: 0.71)\n- [Sleep Experiment](vault://04_TOOLS/Experiments/Sleep Experiment) (relevance: 0.62)\n- [Stress Management Protocol — Regulating Allostatic Load](vault://04_PROTOCOLS/Stress Management Protocol) (relevance: 0.60)\n- [High-Stress Professional Profile — Managing Allostatic Load as the Primary Variable](vault://07_PROFILES/High-Stress Professional Profile) (relevance: 0.59)\n- [Active Recovery & Stress-Recovery Balance Protocol — Managing Fatigue Across Domains](vault://04_PROTOCOLS/Active Recovery & Stress-Recovery Balance Protocol) (relevance: 0.58)\n- [Section 1: Validation Case Library](vault://00_META/validation/01_validation_cases) (relevance: 0.57)\n- [Adherence First](vault://03_PRINCIPLES/Adherence First) (relevance: 0.68)\n- [Adherence & Behavior Assessment — How Consistent Are You Really?](vault://03_ASSESSMENTS/Adherence & Behavior Assessment) (relevance: 0.66)\n\n**Pillar 1**\n- [Pillar 1 — Diet Maxing](vault://02_PILLARS/Pillar 1 - Diet Maxing) (relevance: 0.48)\n\n**Pillar 3**\n- [Pillar 3 — Sleep Maxing](vault://02_PILLARS/Pillar 3 - Sleep Maxing) (relevance: 0.64)\n\n**Pillar 7**\n- [Pillar 7 — Adherence Engineering](vault://02_PILLARS/Pillar 7 - Adherence Engineering) (relevance: 0.64)\n\n",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "**General**\n- [Progressive Overload Protocol — The Engine of All Progress](vault://04_PROTOCOLS/Progressive Overload Protocol) (relevance: 0.64)\n- [Muscle OS Pre-Release QA Audit Report](vault://00_META/Pre-Release QA Audit Report) (relevance: 0.61)\n- [Reality Check Engine — Expectation Calibration System](vault://05_SYSTEMS/Reality Check Engine) (relevance: 0.60)\n- [Muscle OS Intake Protocol — Know Where You Are](vault://05_SYSTEMS/Muscle OS Intake Protocol) (relevance: 0.59)\n- [Periodization Decision Protocol — Structuring Training Over Time](vault://04_PROTOCOLS/Periodization Decision Protocol) (relevance: 0.55)\n- [Behavioral Systems Layer — The Psychology of Self-Coaching](vault://05_SYSTEMS/Behavioral Systems Layer) (relevance: 0.52)\n- [The Muscle Ladder — Decision Rules](vault://08_EXTERNAL_KNOWLEDGE/Books/Jeff Nippard - The Muscle Ladder/04 Decision Rules) (relevance: 0.51)\n- [Section 2: Failure Simulation Library](vault://00_META/validation/02_failure_simulation) (relevance: 0.49)\n- [Talon Fitness — Sweets Tier List](vault://08_EXTERNAL_KNOWLEDGE/YouTube Channels/Talon Fitness/Talon_Transcript_Sweets_Tier_List) (relevance: 0.26)\n- [Habit & Streak Tracker — Build Consistency One Day at a Time](vault://04_TOOLS/Habit & Streak Tracker) (relevance: 0.21)\n- [Talon Fitness — Snacks Ranked — Nutrition Tier Lists](vault://08_EXTERNAL_KNOWLEDGE/YouTube Channels/Talon Fitness/Talon_Transcript_Snacks_Ranked) (relevance: 0.20)\n- [Talon Fitness — Fruits Ranked — Nutrition Tier Lists](vault://08_EXTERNAL_KNOWLEDGE/YouTube Channels/Talon Fitness/Talon_Transcript_Fruits_Ranked) (relevance: 0.20)\n- [Nutrition Strategy Decision Tree](vault://04_TOOLS/Decision Trees/Nutrition Strategy Decision Tree) (relevance: 0.61)\n- [Market Position Assessment — Muscle OS Diet Pillar](vault://00_META/Market Position Assessment) (relevance: 0.61)\n- [Protein Experiment](vault://04_TOOLS/Experiments/Protein Experiment) (relevance: 0.61)\n- [Bulking Decision Tree](vault://04_TOOLS/Decision Trees/Bulking Decision Tree) (relevance: 0.60)\n- [Diet — Gut Microbiome and Body Composition](vault://01_RESEARCH/Studies/Diet - Genton 2015 - Gut Microbiome and Body Composition) (relevance: 0.54)\n- [Fiber Progression Protocol — The Gut-First Approach to Carbohydrates](vault://04_PROTOCOLS/Fiber Progression Protocol) (relevance: 0.49)\n- [Diet — Protein Distribution](vault://01_RESEARCH/Studies/Diet - Morton 2016 - Protein Distribution) (relevance: 0.51)\n- [Whey Protein](vault://04_TOOLS/Food Database/Whey Protein) (relevance: 0.50)\n- [Sleep Hygiene Protocol — Optimize Recovery Through Sleep](vault://04_PROTOCOLS/Sleep Hygiene Protocol) (relevance: 0.71)\n- [Sleep Experiment](vault://04_TOOLS/Experiments/Sleep Experiment) (relevance: 0.62)\n- [Stress Management Protocol — Regulating Allostatic Load](vault://04_PROTOCOLS/Stress Management Protocol) (relevance: 0.60)\n- [High-Stress Professional Profile — Managing Allostatic Load as the Primary Variable](vault://07_PROFILES/High-Stress Professional Profile) (relevance: 0.59)\n- [Active Recovery & Stress-Recovery Balance Protocol — Managing Fatigue Across Domains](vault://04_PROTOCOLS/Active Recovery & Stress-Recovery Balance Protocol) (relevance: 0.58)\n- [Section 1: Validation Case Library](vault://00_META/validation/01_validation_cases) (relevance: 0.57)\n- [Adherence First](vault://03_PRINCIPLES/Adherence First) (relevance: 0.68)\n- [Adherence & Behavior Assessment — How Consistent Are You Really?](vault://03_ASSESSMENTS/Adherence & Behavior Assessment) (relevance: 0.66)\n\n**Pillar 1**\n- [Pillar 1 — Diet Maxing](vault://02_PILLARS/Pillar 1 - Diet Maxing) (relevance: 0.48)\n\n**Pillar 3**\n- [Pillar 3 — Sleep Maxing](vault://02_PILLARS/Pillar 3 - Sleep Maxing) (relevance: 0.64)\n\n**Pillar 7**\n- [Pillar 7 — Adherence Engineering](vault://02_PILLARS/Pillar 7 - Adherence Engineering) (relevance: 0.64)\n\n",
+      "order": 18,
+      "domain": "training"
+    }
+  ],
+  "archetype": {
+    "archetype_name": "Busy Professional",
+    "archetype_path": "07_PROFILES\\Busy Professional Profile.md",
+    "match_score": 0.05,
+    "match_reasons": [],
+    "archetype_snippets": []
+  },
+  "constraint_graph": {
+    "nodes": [
+      {
+        "id": "c1",
+        "category": "recovery",
+        "severity": "medium",
+        "description": "Stress 6/10: monitor recovery",
+        "source_field": "stress_level",
+        "conflicts_with": [],
+        "resolution": "",
+        "vault_references": []
+      },
+      {
+        "id": "c2",
+        "category": "nutrition",
+        "severity": "medium",
+        "description": "Gut health: good — fiber progression, probiotic consideration",
+        "source_field": "gut_health",
+        "conflicts_with": [
+          "nutrition_high_fiber_rapid",
+          "nutrition_aggressive_deficit"
+        ],
+        "resolution": "Monitor: Gut health: good — fiber progression, probiotic consideration. No active conflicts.",
+        "vault_references": []
+      },
+      {
+        "id": "c3",
+        "category": "training",
+        "severity": "low",
+        "description": "Intermediate: undulating periodization",
+        "source_field": "experience_years",
+        "conflicts_with": [],
+        "resolution": "",
+        "vault_references": []
+      }
+    ],
+    "resolved": false,
+    "resolution_priority": [
+      "safety",
+      "medical",
+      "injury",
+      "recovery",
+      "nutrition",
+      "training",
+      "adherence",
+      "psychological",
+      "lifestyle"
+    ]
+  },
+  "vault_sources_full": [
+    {
+      "title": "Progressive Overload Protocol — The Engine of All Progress",
+      "path": "04_PROTOCOLS\\Progressive Overload Protocol.md",
+      "score": 0.639,
+      "pillar": "",
+      "snippet": "| +2.5-5 kg per 8-16 weeks | A 2.5 kg PR is still a PR | **Critical:** If you are not progressing at these rates → something is wrong with your program, recovery, or effort. Do not accept slow progress at any level without investigating. --- ## Common Overload Mistakes\n\n| Mistake | Why It Fails | Fi"
+    },
+    {
+      "title": "Muscle OS Pre-Release QA Audit Report",
+      "path": "00_META\\Pre-Release QA Audit Report.md",
+      "score": 0.612,
+      "pillar": "",
+      "snippet": "3. Stress 2-3 → 4. Days recovered: 3 → 3. Total: 14/20 = **Optimal** - Lifestyle: Can train 3-4 days/wk. 45+ min sessions. Full gym. No injuries. Life demands low. No flags. - Adherence: N/A (no sessions to miss). No flag. - Archetype match: Training ≤6, no injury → **Beginner**\n\n**FAILURE DETECTION"
+    },
+    {
+      "title": "Reality Check Engine — Expectation Calibration System",
+      "path": "05_SYSTEMS\\Reality Check Engine.md",
+      "score": 0.603,
+      "pillar": "",
+      "snippet": "# Reality Check Engine — Expectation Calibration System\n\n**Most users quit not because the system failed, but because reality didn't match their expectations.** This engine prevents unrealistic expectations, premature program switching, and false plateau diagnoses.\n\n---\n\n## Expected Rate Tables\n\n###"
+    },
+    {
+      "title": "Muscle OS Intake Protocol — Know Where You Are",
+      "path": "05_SYSTEMS\\Muscle OS Intake Protocol.md",
+      "score": 0.593,
+      "pillar": "",
+      "snippet": "# Muscle OS Intake Protocol — Know Where You Are\n\n**BEFORE COMPLETING THIS INTAKE, you must complete the Safety Triage:** [[05_SYSTEMS/Muscle OS Safety Triage.md|Safety Triage]]. If you have any Red flags, do not proceed with this intake until a professional has cleared you.\n\nComplete this intake be"
+    },
+    {
+      "title": "Periodization Decision Protocol — Structuring Training Over Time",
+      "path": "04_PROTOCOLS\\Periodization Decision Protocol.md",
+      "score": 0.548,
+      "pillar": "",
+      "snippet": "# Periodization Decision Protocol — Structuring Training Over Time\n\n**Purpose:** Provide a framework for organizing training into logical blocks (periodization) to maximize long-term progress, prevent plateaus, and manage fatigue.\n\n---\n\n## Periodization Models\n\n### Linear Periodization (Classic)\n\n| "
+    },
+    {
+      "title": "Behavioral Systems Layer — The Psychology of Self-Coaching",
+      "path": "05_SYSTEMS\\Behavioral Systems Layer.md",
+      "score": 0.52,
+      "pillar": "",
+      "snippet": "weeks. Then normal - Reassess relationship with training: Does it feel different after the break? **Reassessment:** After the return protocol. Is training enjoyable again? If yes → you needed the break. If no → the goal or program may not align with your genuine interests ## Quick Reference: Behavio"
+    },
+    {
+      "title": "The Muscle Ladder — Decision Rules",
+      "path": "08_EXTERNAL_KNOWLEDGE\\Books\\Jeff Nippard - The Muscle Ladder\\04 Decision Rules.md",
+      "score": 0.505,
+      "pillar": "",
+      "snippet": "lasts 6-8 weeks minimum. Changing earlier prevents the adaptation from developing. ### Rule ML-PL-03: Deload Timing Deload every 6-8 weeks preventatively — never wait until you feel exhausted. Reactive deloading (waiting for symptoms) allows accumulated fatigue to impair training quality for 2-3 wee"
+    },
+    {
+      "title": "Section 2: Failure Simulation Library",
+      "path": "00_META\\validation\\02_failure_simulation.md",
+      "score": 0.493,
+      "pillar": "",
+      "snippet": "completely dropped out. The Quick Start Protocol assumes new or returning users but does not address the psychological barrier of returning after quitting. --- ## Scenario 14: Conflicting Goals (hypertrophy + endurance) **Situation:** User wants to build muscle AND improve 10K run time simultaneousl"
+    },
+    {
+      "title": "Talon Fitness — Sweets Tier List",
+      "path": "08_EXTERNAL_KNOWLEDGE\\YouTube Channels\\Talon Fitness\\Talon_Transcript_Sweets_Tier_List.md",
+      "score": 0.257,
+      "pillar": "",
+      "snippet": "# Talon Fitness — Sweets Tier List\n\n```tracking\nvideo_id: SjzkAsaFAek\nfetched: 2026-06-24\nlanguage: English (auto-generated)\ngenerated: True\n```\n\n## Transcript"
+    },
+    {
+      "title": "Habit & Streak Tracker — Build Consistency One Day at a Time",
+      "path": "04_TOOLS\\Habit & Streak Tracker.md",
+      "score": 0.212,
+      "pillar": "",
+      "snippet": "| Goal | Started | |---|-------|----------------------|------|---------| | 1 | ___ | ___ | ___ days | ___ | | 2 | ___ | ___ | ___ days | ___ | | 3 | ___ | ___ | ___ days | ___ | --- ## Monthly Tracker **Month:** ___________ **Focus:** ___________\n\n| Day | Habit 1 | Habit 2 | Habit 3 | Notes |\n|-----"
+    },
+    {
+      "title": "Talon Fitness — Snacks Ranked — Nutrition Tier Lists",
+      "path": "08_EXTERNAL_KNOWLEDGE\\YouTube Channels\\Talon Fitness\\Talon_Transcript_Snacks_Ranked.md",
+      "score": 0.202,
+      "pillar": "",
+      "snippet": "# Talon Fitness — Snacks Ranked — Nutrition Tier Lists\n\n```tracking\nvideo_id: t5PXJkihBgE\nfetched: 2026-06-24\nlanguage: English (auto-generated)\ngenerated: True\n```\n\n## Transcript"
+    },
+    {
+      "title": "Talon Fitness — Fruits Ranked — Nutrition Tier Lists",
+      "path": "08_EXTERNAL_KNOWLEDGE\\YouTube Channels\\Talon Fitness\\Talon_Transcript_Fruits_Ranked.md",
+      "score": 0.196,
+      "pillar": "",
+      "snippet": "# Talon Fitness — Fruits Ranked — Nutrition Tier Lists\n\n```tracking\nvideo_id: dnS1rrMPcQ0\nfetched: 2026-06-24\nlanguage: English (auto-generated)\ngenerated: True\n```\n\n## Transcript"
+    },
+    {
+      "title": "Nutrition Strategy Decision Tree",
+      "path": "04_TOOLS\\Decision Trees\\Nutrition Strategy Decision Tree.md",
+      "score": 0.614,
+      "pillar": "",
+      "snippet": "# Nutrition Strategy Decision Tree\n\nSelect the correct calorie target, protein intake, carb timing, and fat allocation based on goal, training age, and individual response.\n\n## Step 1: Set Calorie Target\n\n```\nQ: What is your primary goal?\n├── Fat Loss\n│   Q: Current deficit length?\n│   ├── <8 weeks "
+    },
+    {
+      "title": "Market Position Assessment — Muscle OS Diet Pillar",
+      "path": "00_META\\Market Position Assessment.md",
+      "score": 0.607,
+      "pillar": "",
+      "snippet": "# Market Position Assessment — Muscle OS Diet Pillar\n\nAssessment of the Muscle OS Diet Maxing pillar against existing diet coaching tools: RP Diet Coach, MacroFactor, Carbon Diet Coach, and the general bodybuilding/physique diet literature. Focuses on features where MOS differs, gaps where competito"
+    },
+    {
+      "title": "Protein Experiment",
+      "path": "04_TOOLS\\Experiments\\Protein Experiment.md",
+      "score": 0.607,
+      "pillar": "",
+      "snippet": "Title: Protein Intake Experiment — Finding Your Optimal Dose\n\n**Purpose:** Determine whether higher protein intake improves your recovery, performance, or body composition\n\n**Prerequisites:** Stable training program for 4+ weeks; current protein intake known\n\n**Hypothesis:** [Write: Increasing prote"
+    },
+    {
+      "title": "Bulking Decision Tree",
+      "path": "04_TOOLS\\Decision Trees\\Bulking Decision Tree.md",
+      "score": 0.6,
+      "pillar": "",
+      "snippet": "previous bulk was successful (muscle gained, fat gain within target), the next cycle can use the same surplus - If the previous bulk accumulated excessive fat, reduce starting surplus by 50–100 kcal in the next cycle For structured calorie step-down, see [[04_TOOLS/Experiments/Reverse Diet Experimen"
+    },
+    {
+      "title": "Diet — Gut Microbiome and Body Composition",
+      "path": "01_RESEARCH\\Studies\\Diet - Genton 2015 - Gut Microbiome and Body Composition.md",
+      "score": 0.542,
+      "pillar": "",
+      "snippet": "# Diet — Gut Microbiome and Body Composition\n**Authors:** Genton L, Cani PD, Schrenzel J\n**Year:** 2015\n**Journal:** Current Opinion in Clinical Nutrition and Metabolic Care\n**Key Finding:** Gut microbiota composition significantly affects nutrient partitioning, inflammation regulation, and metaboli"
+    },
+    {
+      "title": "Fiber Progression Protocol — The Gut-First Approach to Carbohydrates",
+      "path": "04_PROTOCOLS\\Fiber Progression Protocol.md",
+      "score": 0.493,
+      "pillar": "",
+      "snippet": "# Fiber Progression Protocol — The Gut-First Approach to Carbohydrates\n\n**Purpose:** Provide a structured, gradual fiber introduction protocol for users transitioning from low-fiber diets (<15 g/day). Preventing digestive distress is the priority — fiber must increase slowly enough for the gut micro"
+    },
+    {
+      "title": "Pillar 1 — Diet Maxing",
+      "path": "02_PILLARS\\Pillar 1 - Diet Maxing.md",
+      "score": 0.483,
+      "pillar": "Pillar 1",
+      "snippet": "extended deficits - Reverse diet protocol when transitioning from cut to maintenance/bulk - Time-restricted feeding (8-10 h window) as circadian alignment tool - Lean bulk protocol (200-400 kcal surplus, 12-16 week phases) - Mineral and vitamin supplementation only when dietary intake cannot meet ne"
+    },
+    {
+      "title": "Diet — Protein Distribution",
+      "path": "01_RESEARCH\\Studies\\Diet - Morton 2016 - Protein Distribution.md",
+      "score": 0.508,
+      "pillar": "",
+      "snippet": "# Diet — Protein Distribution\n**Authors:** Morton RW, McGlory C, Phillips SM\n**Year:** 2016\n**Journal:** Physiological Reports\n**Key Finding:** Distributing protein intake evenly across 4–5 meals at approximately 0.4 g/kg/meal produced superior total daily muscle protein synthesis (MPS) compared to "
+    },
+    {
+      "title": "Whey Protein",
+      "path": "04_TOOLS\\Food Database\\Whey Protein.md",
+      "score": 0.496,
+      "pillar": "",
+      "snippet": "---\nname: Whey Protein\ncategory: supplements\nkcal_per_100g: 395\nprotein_per_100g: 80\ncarbs_per_100g: 7\nfat_per_100g: 5\nfiber_per_100g: 0\nsugar_per_100g: 3\nvitamin_a_mcg: 0\nvitamin_c_mg: 0\nvitamin_d_mcg: 0\nvitamin_e_mg: 0\nvitamin_k_mcg: 0\nvitamin_b12_mcg: 1.5\nfolate_mcg: 0\ncalcium_mg: 120\niron_mg: 0."
+    },
+    {
+      "title": "Sleep Hygiene Protocol — Optimize Recovery Through Sleep",
+      "path": "04_PROTOCOLS\\Sleep Hygiene Protocol.md",
+      "score": 0.713,
+      "pillar": "",
+      "snippet": "# Sleep Hygiene Protocol — Optimize Recovery Through Sleep\n\n**Purpose:** Provide actionable protocols for improving sleep quality and quantity. Sleep is the single most powerful recovery tool — poor sleep sabotages diet, training, and health regardless of how well you execute everything else.\n\n---\n\n"
+    },
+    {
+      "title": "Pillar 3 — Sleep Maxing",
+      "path": "02_PILLARS\\Pillar 3 - Sleep Maxing.md",
+      "score": 0.638,
+      "pillar": "Pillar 3",
+      "snippet": "better recovery than any other single variable you could add to your program. ## 2. Sleep Architecture: The Blueprint of a Perfect Night Sleep is not a monolithic state. It cycles through four distinct stages across the night, each with a specific biological function and a different sensitivity to d"
+    },
+    {
+      "title": "Sleep Experiment",
+      "path": "04_TOOLS\\Experiments\\Sleep Experiment.md",
+      "score": 0.624,
+      "pillar": "",
+      "snippet": "Title: Sleep Extension Experiment — Quantifying Recovery Impact\n\n**Purpose:** Measure the effect of increased sleep duration on recovery, performance, and well-being\n\n**Prerequisites:** Current sleep duration is <7.5h average; can commit to 4-week intervention\n\n**Hypothesis:** [Write: Extending slee"
+    },
+    {
+      "title": "Stress Management Protocol — Regulating Allostatic Load",
+      "path": "04_PROTOCOLS\\Stress Management Protocol.md",
+      "score": 0.604,
+      "pillar": "",
+      "snippet": "Prioritize stress management. Consider coach escalation | **Important:** Do NOT reduce training load for stress unless you also add a stress management technique. Volume reduction alone without replacement does not fix the problem — it just reduces the training stimulus. --- ## Integration Points ##"
+    },
+    {
+      "title": "High-Stress Professional Profile — Managing Allostatic Load as the Primary Variable",
+      "path": "07_PROFILES\\High-Stress Professional Profile.md",
+      "score": 0.587,
+      "pillar": "",
+      "snippet": "# High-Stress Professional Profile — Managing Allostatic Load as the Primary Variable\n\nHigh-responsibility role (executive, healthcare, law, founder, emergency services) with chronic stress 7+/10, unpredictable schedule, and significant cognitive load that does not switch off. Traditional protocols "
+    },
+    {
+      "title": "Active Recovery & Stress-Recovery Balance Protocol — Managing Fatigue Across Domains",
+      "path": "04_PROTOCOLS\\Active Recovery & Stress-Recovery Balance Protocol.md",
+      "score": 0.581,
+      "pillar": "",
+      "snippet": "# Active Recovery & Stress-Recovery Balance Protocol — Managing Fatigue Across Domains\n\n**Purpose:** Provide protocols for active recovery between training sessions and for managing the balance between training stress and total life stress. Recovery is not just \"rest\" — it is an active process that "
+    },
+    {
+      "title": "Section 1: Validation Case Library",
+      "path": "00_META\\validation\\01_validation_cases.md",
+      "score": 0.567,
+      "pillar": "",
+      "snippet": "burnout relapse if recovery markers are respected. Slower than desired but safe. **Potential Failure Points:** (1) Ego pushes training volume despite warning signs. (2) Work stress spikes (uncontrollable). (3) Deloads become \"lazy\" → identity conflict. **Confidence Score:** 6/12. Recovery markers an"
+    },
+    {
+      "title": "Adherence First",
+      "path": "03_PRINCIPLES\\Adherence First.md",
+      "score": 0.68,
+      "pillar": "",
+      "snippet": "# Adherence First\n\nConsistency dominates optimization. A protocol followed at 80% adherence for 12 months outperforms a perfect protocol followed at 40% for 8 weeks. Environment design, habit formation, and minimum effective dose strategies are the highest-leverage tools for sustaining long-term exe"
+    },
+    {
+      "title": "Adherence & Behavior Assessment — How Consistent Are You Really?",
+      "path": "03_ASSESSMENTS\\Adherence & Behavior Assessment.md",
+      "score": 0.655,
+      "pillar": "",
+      "snippet": "# Adherence & Behavior Assessment — How Consistent Are You Really?\n\n**Purpose:** Assess current adherence patterns, identify behavioral barriers, and determine which interventions will most improve consistency.\n\n---\n\n## Section 1: Adherence Self-Assessment\n\nRate the last 4 weeks:\n\n| Domain | Never ("
+    },
+    {
+      "title": "Pillar 7 — Adherence Engineering",
+      "path": "02_PILLARS\\Pillar 7 - Adherence Engineering.md",
+      "score": 0.635,
+      "pillar": "Pillar 7",
+      "snippet": "adherence | Established | | Behavioral Economics Integration | 8 bias-to-feature mappings, 5 decision rules | Emerging | | Huberman Dopamine | Effort → dopamine release, cold exposure resilience | Emerging | | **Clear — Atomic Habits** | **Four Laws architecture, environment design, habit tracking, "
+    }
+  ],
+  "coach_id": "",
+  "coach_notes": "",
+  "exported_at": "2026-07-27T00:24:17.662194",
+  "export_path": "E:\\MoS\\mos_bot\\data\\pdfs\\live_test_adham_coach_approved_coach_final_20260727_002417.pdf",
+  "triage": {
+    "triage": "green",
+    "ed_items": [],
+    "blocked": false,
+    "block_reason": "",
+    "caution_note": "",
+    "modifiers": [
+      "gut_health_support",
+      "stress_management"
+    ]
+  },
+  "pillars": {
+    "primary_pillars": [
+      "P2 - Training Maxing"
+    ],
+    "secondary_pillars": [
+      "Pillar 7",
+      "Pillar 3",
+      "P7 - Adherence Engineering",
+      "P8 - Individualization",
+      "P10 - Integration"
+    ],
+    "gentle_entry": false,
+    "modifications": [
+      "gut_health_support",
+      "stress_management",
+      "long_length_emphasis",
+      "volume_progression_cap",
+      "adherence_first"
+    ]
+  },
+  "nutrition": {
+    "calories_target": 3066,
+    "protein_g": 184,
+    "carbs_g": 391,
+    "fat_g": 85,
+    "protein_per_kg": 2.0,
+    "meal_timing_notes": "Per IPTA CNS: distribute protein across 3-5 meals at ≥0.4 g/kg per meal (minimum 20-30g) for optimal MPS. Post-exercise: consume 0.4 g/kg within 2 hours.",
+    "hydration_target_l": 3.2,
+    "special_notes": "Protein target is evidence-based: 1.6-2.2 g/kg/day (Schoenfeld). Older adults (65+): 1.6-2.4 g/kg/day.; Per ISSA: hand portion method — start standard, adjust by 1 unit after 2 weeks based on weight trend.; Per IPTA CNS: minimum 0.5 g/kg fat for hormone function. Increase to 0.8-1.0 g/kg for hormonal concerns or amenorrhea.; Per IPTA CNS: supplement tier — Tier 1 (strong evidence): creatine 5g/day, vitamin D 2000-4000 IU, omega-3 2-3g. Tier 2 (moderate): magnesium, B12, probiotics."
+  },
+  "program": {
+    "split": "Ppl Ul",
+    "phases": [
+      {
+        "name": "Phase 1: Accumulation & Stability",
+        "duration": "Weeks 1-4",
+        "goal": "Accumulation & Movement Quality",
+        "sessions": [],
+        "progression_notes": ""
+      },
+      {
+        "name": "Phase 2: Intensification & Progressive Overload",
+        "duration": "Weeks 5+",
+        "goal": "Intensification & Progressive Overload",
+        "sessions": [],
+        "progression_notes": "When RIR drops below 2 on all sets of a movement, increase weight 5-7.5% or add 1 set. Re-test MAV landmarks after 8 weeks."
+      }
+    ],
+    "weekly_schedule": "Based on 5x/week schedule. Sessions alternated with rest days for recovery.",
+    "warm_up_protocol": "5 min incline walk or bike (RPE 3-4)\nDynamic warm-up: leg swings, cat-cow, thoracic rotations, band pull-aparts\nMovement-specific warm-up: 2x10 reps at 50% working weight\nIPTA warm-up standard: 5-10 min general cardio → dynamic stretching → movement-specific warm-up at 40-60% working weight.\n\n3. Stress 2-3 → 4. Days recovered: 3 → 3. Total: 14/20 = **Optimal** - Lifestyle: Can train 3-4 days/wk. 45+ min sessions. Full gym. No injuries. Life demands low. No flags. - Adherence: N/A (no sessions to miss). No flag. - Archetype match: Training ≤6, no injury → **Beginner**\n\n**FAILURE DETECTION",
+    "cool_down_protocol": "5 min light cardio (RPE 2-3)\nStatic stretching for worked muscle groups: 30s holds\nOptional: foam rolling for tight areas"
+  }
+}

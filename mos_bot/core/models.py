@@ -1,4 +1,4 @@
-from datetime import date as date_type
+from datetime import date as date_type, datetime
 from pydantic import BaseModel, Field
 from typing import Optional, List, Literal
 
@@ -162,3 +162,92 @@ class ProgramContent(BaseModel):
     vault_insights: List[str] = Field(default_factory=list)
     vault_context_raw: str = ""
     generated_at: str = ""
+
+
+# ── New models for coach pipeline ──
+
+
+class Citation(BaseModel):
+    """A vault citation backing a specific program decision."""
+    vault_path: str
+    vault_title: str
+    snippet: str = ""
+    relevance_score: float = 0.0
+    decision_id: str = ""  # e.g. "exercise_selection", "nutrition_protein_target"
+
+
+class ConstraintNode(BaseModel):
+    """A single constraint in the constraint graph."""
+    id: str
+    category: Literal["safety", "medical", "injury", "recovery", "lifestyle",
+                       "nutrition", "training", "adherence", "psychological"]
+    severity: Literal["critical", "high", "medium", "low"]
+    description: str
+    source_field: str = ""  # which profile field triggered this
+    conflicts_with: List[str] = Field(default_factory=list)
+    resolution: str = ""
+    vault_references: List[Citation] = Field(default_factory=list)
+
+
+class ConstraintGraph(BaseModel):
+    """Resolution graph for all client constraints."""
+    nodes: List[ConstraintNode] = Field(default_factory=list)
+    resolved: bool = False
+    resolution_priority: List[str] = Field(default_factory=lambda: [
+        "safety", "medical", "injury", "recovery",
+        "nutrition", "training", "adherence", "psychological", "lifestyle"
+    ])
+
+
+class ArchetypeMatch(BaseModel):
+    """Matched vault archetype for a client."""
+    archetype_name: str
+    archetype_path: str
+    match_score: float
+    match_reasons: List[str] = Field(default_factory=list)
+    archetype_snippets: List[str] = Field(default_factory=list)
+
+
+class ProgramSection(BaseModel):
+    """A single editable section of the coach-reviewed program."""
+    section_id: str
+    title: str
+    content: str  # Markdown content for this section
+    citations: List[Citation] = Field(default_factory=list)
+    status: Literal["pending", "approved", "rejected", "edited"] = "pending"
+    editor_notes: str = ""
+    original_content: str = ""
+    order: int = 0
+    domain: str = ""  # training, nutrition, recovery, safety, adherence
+
+
+class ProgramDraft(BaseModel):
+    """Full program draft with coach review state."""
+    draft_id: str
+    user_id: str
+    client_name: str = ""
+    created_at: str = Field(default_factory=lambda: datetime.now().isoformat())
+    updated_at: str = Field(default_factory=lambda: datetime.now().isoformat())
+    status: Literal["draft", "in_review", "partially_approved", "fully_approved", "exported"] = "draft"
+    sections: List[ProgramSection] = Field(default_factory=list)
+    archetype: Optional[ArchetypeMatch] = None
+    constraint_graph: Optional[ConstraintGraph] = None
+    vault_sources_full: List[VaultSource] = Field(default_factory=list)
+    coach_id: str = ""
+    coach_notes: str = ""
+    exported_at: str = ""
+    export_path: str = ""
+    # Deterministic data (preserved for re-generation)
+    triage: Optional[SafetyTriageResult] = None
+    pillars: Optional[PillarAssignment] = None
+    nutrition: Optional[NutritionPlan] = None
+    program: Optional[ProgramStructure] = None
+
+    def approval_percentage(self) -> float:
+        if not self.sections:
+            return 0.0
+        approved = sum(1 for s in self.sections if s.status == "approved")
+        return round(approved / len(self.sections) * 100, 1)
+
+    def all_approved(self) -> bool:
+        return all(s.status == "approved" for s in self.sections) if self.sections else False

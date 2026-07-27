@@ -39,6 +39,8 @@ from mos_bot.web.routers.arbitrate import router as arbitrate_router
 app.include_router(arbitrate_router)
 from mos_bot.web.routers.supplemental import router as supplemental_router
 app.include_router(supplemental_router)
+from mos_bot.web.routers.coach import router as coach_router, load_coach_html
+app.include_router(coach_router)
 
 INDEX_HTML: str | None = None
 
@@ -129,6 +131,11 @@ async def health():
 @app.get("/")
 async def index():
     return HTMLResponse(_load_html())
+
+
+@app.get("/coach")
+async def coach_page():
+    return HTMLResponse(load_coach_html())
 
 
 @app.get("/api/profile/{user_id}")

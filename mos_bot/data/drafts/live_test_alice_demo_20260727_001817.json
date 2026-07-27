@@ -1,0 +1,815 @@
+{
+  "draft_id": "live_test_alice_demo_20260727_001817",
+  "user_id": "live_test_alice",
+  "client_name": "Alice Johnson",
+  "created_at": "2026-07-27T00:18:17.983537",
+  "updated_at": "2026-07-27T00:18:17.983554",
+  "status": "fully_approved",
+  "sections": [
+    {
+      "section_id": "profile_summary",
+      "title": "Profile Summary",
+      "content": "**Client:** Alice Johnson\n**Goal:** Fat Loss\n**Stats:** Female, 30 yrs, 165.0cm, 72.0kg (BMI ~26.4)\n**Experience:** 2.0 years (Intermediate)\n**Training:** 4 days/week, 60min sessions\n**Sleep:** 7.5h | **Stress:** 5/10 | **Steps:** 7500\n**Injuries:** Old rotator cuff from 2022\n**Gut Health:** none | **Medical:** None\n**Work Schedule:** Standard\n**Alcohol:** 0/week | **Supplements:** creatine, protein\n**Triage:** GREEN | **Last Bloodwork:** Unknown",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "**Client:** Alice Johnson\n**Goal:** Fat Loss\n**Stats:** Female, 30 yrs, 165.0cm, 72.0kg (BMI ~26.4)\n**Experience:** 2.0 years (Intermediate)\n**Training:** 4 days/week, 60min sessions\n**Sleep:** 7.5h | **Stress:** 5/10 | **Steps:** 7500\n**Injuries:** Old rotator cuff from 2022\n**Gut Health:** none | **Medical:** None\n**Work Schedule:** Standard\n**Alcohol:** 0/week | **Supplements:** creatine, protein\n**Triage:** GREEN | **Last Bloodwork:** Unknown",
+      "order": 1,
+      "domain": "assessment"
+    },
+    {
+      "section_id": "constraint_analysis",
+      "title": "Constraint Analysis & Conflict Resolution",
+      "content": "- **HIGH [INJURY]:** Shoulder/rotator cuff: neutral grip, no behind-neck\n  → Injury modification active: Shoulder/rotator cuff: neutral grip, no behind-neck. Exercise selection adjusted.\n- **MEDIUM [RECOVERY]:** Stress 5/10: monitor recovery\n- **LOW [TRAINING]:** Intermediate: undulating periodization\n\n**Resolution Priority:** Safety > Medical > Injury > Recovery > Nutrition > Training > Adherence > Psychological > Lifestyle\n\n**Coach Note:** Alice's training is primarily constrained by her old rotator cuff injury, requiring exercise modifications to neutral grip and avoiding behind-neck movements to prevent exacerbation. Additionally, her moderate stress level of 5/10 necessitates careful monitoring of recovery to avoid overtraining and potential burnout. These two constraints will be carefully balanced to ensure a safe and effective fat loss program, with undulating periodization used to vary intensity and volume to support recovery and progress.",
+      "citations": [
+        {
+          "vault_path": "04_TOOLS\\Injury-Training Compatibility Matrix.md",
+          "vault_title": "Injury-Training Compatibility Matrix",
+          "snippet": "",
+          "relevance_score": 0.0,
+          "decision_id": "constraint_analysis"
+        },
+        {
+          "vault_path": "04_PROTOCOLS\\Rehab\\Shoulder Impingement.md",
+          "vault_title": "Shoulder Impingement — Self-Managed Rehab",
+          "snippet": "",
+          "relevance_score": 0.0,
+          "decision_id": "constraint_analysis"
+        },
+        {
+          "vault_path": "08_EXTERNAL_KNOWLEDGE\\Books\\Seeley's Anatomy and Physiology 2019\\07 Architecture & Decision Impact.md",
+          "vault_title": "Seeley's Anatomy & Physiology — Architecture & Decision Impact",
+          "snippet": "",
+          "relevance_score": 0.0,
+          "decision_id": "constraint_analysis"
+        },
+        {
+          "vault_path": "04_PROTOCOLS\\Injury Management Protocol.md",
+          "vault_title": "Injury Management Protocol — Central Hub",
+          "snippet": "",
+          "relevance_score": 0.0,
+          "decision_id": "constraint_analysis"
+        }
+      ],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "- **HIGH [INJURY]:** Shoulder/rotator cuff: neutral grip, no behind-neck\n  → Injury modification active: Shoulder/rotator cuff: neutral grip, no behind-neck. Exercise selection adjusted.\n- **MEDIUM [RECOVERY]:** Stress 5/10: monitor recovery\n- **LOW [TRAINING]:** Intermediate: undulating periodization\n\n**Resolution Priority:** Safety > Medical > Injury > Recovery > Nutrition > Training > Adherence > Psychological > Lifestyle",
+      "order": 2,
+      "domain": "safety"
+    },
+    {
+      "section_id": "archetype_match",
+      "title": "Archetype Match",
+      "content": "**Matched Archetype:** Intermediate Plateaued Lifter\n\n**Match Score:** 15%\n\n**Reasons for match:**\n- Experience (2.0yrs) matches intermediate pattern\n\n**Coach Note:** As an Intermediate Plateaued Lifter, Alice's coaching approach will focus on introducing progressive overload techniques and varying rep ranges to break through her current stagnation. Given her 2-year training experience, we'll also prioritize injury prevention and management, particularly for her old rotator cuff injury, by incorporating exercises that strengthen her shoulder stabilizers. Additionally, we'll explore nutritional adjustments to support her fat loss goal.",
+      "citations": [
+        {
+          "vault_path": "07_PROFILES\\Intermediate Plateaued Lifter Profile.md",
+          "vault_title": "Intermediate Plateaued Lifter",
+          "snippet": "",
+          "relevance_score": 0.0,
+          "decision_id": "archetype_match"
+        }
+      ],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "**Matched Archetype:** Intermediate Plateaued Lifter\n\n**Match Score:** 15%\n\n**Reasons for match:**\n- Experience (2.0yrs) matches intermediate pattern",
+      "order": 3,
+      "domain": "adherence"
+    },
+    {
+      "section_id": "pillar_focus",
+      "title": "Pillar Focus & Modifications",
+      "content": "## Pillar Focus & Modifications\n\n### Primary Pillars\n- **P1 - Diet Maxing**\n\n### Secondary Pillars\n- Pillar 7\n- Pillar 3\n- P4 - Recovery Maxing\n- P9 - Measurement and Feedback Systems\n- P6 - Fatigue Management\n- P7 - Adherence Engineering\n\n### Active Modifications\n- All exercises vetted against injury-training compatibility matrix\n- Avoid heavy overhead work, use supported variations\n- Use neutral grip pressing, avoid behind-neck movements\n- Reduce training volume 30%, maintain protein and sleep\n- Volume Progression Cap\n- Long Length Emphasis\n- Acl Prevention\n- Adherence First\n\n**Coach Note:** For Alice Johnson, the nutrition and recovery pillars are crucial for her fat loss goal, as her 4x/week, 60-minute training sessions already indicate a solid foundation in the exercise pillar. Given her old rotator cuff injury, prioritizing recovery through adequate sleep (which she's already achieving with 7.5 hours) and stress management (currently at 5/10) will be essential to prevent re-injury and support overall progress. Focusing on nutrition will also help optimize her fat loss results, considering her training experience and frequency.",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "## Pillar Focus & Modifications\n\n### Primary Pillars\n- **P1 - Diet Maxing**\n\n### Secondary Pillars\n- Pillar 7\n- Pillar 3\n- P4 - Recovery Maxing\n- P9 - Measurement and Feedback Systems\n- P6 - Fatigue Management\n- P7 - Adherence Engineering\n\n### Active Modifications\n- All exercises vetted against injury-training compatibility matrix\n- Avoid heavy overhead work, use supported variations\n- Use neutral grip pressing, avoid behind-neck movements\n- Reduce training volume 30%, maintain protein and sleep\n- Volume Progression Cap\n- Long Length Emphasis\n- Acl Prevention\n- Adherence First",
+      "order": 4,
+      "domain": "training"
+    },
+    {
+      "section_id": "program_overview",
+      "title": "Program Overview",
+      "content": "**Protocol Focus:** Fat Loss-focused programming with Intermediate-appropriate volume landmarks.\n**Training Split:** Upper/Lower Split\n**Schedule:** 4x/week, 60min sessions\n**Phasing:** Two-phase approach\n  - Phase 1 (Weeks 1-4): Accumulation & Movement Quality\n  - Phase 2 (Weeks 5+): Intensification & Progressive Overload\n\n**Evidence Base:** Informed by 21 decision rules from Muscle OS knowledge vault.\n\n**Coach Note:** For Alice Johnson, the overall program strategy will focus on a calorie-controlled diet with a moderate deficit, paired with a 4-day split resistance training program to maintain muscle mass while promoting fat loss. Given her 2 years of training experience, we'll incorporate progressive overload and varied rep ranges to challenge her muscles, while also considering her old rotator cuff injury with modified exercises to ensure safety. Additionally, we'll prioritize upper body exercises that avoid heavy overhead pressing to accommodate her injury.",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "**Protocol Focus:** Fat Loss-focused programming with Intermediate-appropriate volume landmarks.\n**Training Split:** Upper/Lower Split\n**Schedule:** 4x/week, 60min sessions\n**Phasing:** Two-phase approach\n  - Phase 1 (Weeks 1-4): Accumulation & Movement Quality\n  - Phase 2 (Weeks 5+): Intensification & Progressive Overload\n\n**Evidence Base:** Informed by 21 decision rules from Muscle OS knowledge vault.",
+      "order": 5,
+      "domain": "training"
+    },
+    {
+      "section_id": "training_phase1",
+      "title": "Training: Phase 1 — Accumulation & Stability",
+      "content": "**Duration:** Weeks 1-4\n**Goal:** Accumulation & Movement Quality\n\n### Upper A: Push/Pull Balance\n| Exercise | Sets | Reps | RIR | Notes |\n|---|---|---|---|---|\n| Dumbbell Bench Press (Neutral Grip) | 3 | 10-12 | 2 | Control tempo 2-0-2 [Shoulder-safe] |\n| Lat Pulldown (Neutral Grip) | 3 | 10-12 | 1-2 | Full stretch at top |\n| Seated Cable Row | 3 | 12-15 | 1-2 | Squeeze shoulder blades together |\n| DB Lateral Raise (Thumb Up) | 3 | 15-20 | 1 | Light weight, strict form [Shoulder-safe] |\n| Face Pull (Low Pulley) | 3 | 15-20 | 1 | External rotation focus |\n\n### Lower A: Compound/Glutes\n| Exercise | Sets | Reps | RIR | Notes |\n|---|---|---|---|---|\n| Goblet Squat | 3 | 10-12 | 2 | Depth control |\n| Dumbbell RDL | 3 | 12-15 | 2 | Soft knees, feel stretch |\n| Leg Press | 3 | 15-20 | 1 | High volume pump |\n| Walking Lunge | 3 | 10/leg | 2 | Control each rep |\n| Calf Raise (Standing) | 3 | 15-20 | 1 | Slow, full ROM |\n\n### Upper B: Volume Focus\n| Exercise | Sets | Reps | RIR | Notes |\n|---|---|---|---|---|\n| Machine Chest Press (Neutral Grip) | 3 | 12-15 | 2 | Controlled 3s negative [Shoulder-safe] |\n| Dumbbell Row (Single Arm) | 3 | 10-12/arm | 2 | Supported, full ROM |\n| Incline DB Press | 3 | 12-15 | 1-2 | Upper chest focus [Shoulder-safe] |\n| Cable Lateral Raise | 3 | 15-20 | 1 | Constant tension [Shoulder-safe] |\n| Triceps Pushdown + DB Curl SS | 2 | 12-15 | 1-2 | Superset for density |\n\n### Lower B: Unilateral Focus\n| Exercise | Sets | Reps | RIR | Notes |\n|---|---|---|---|---|\n| Bulgarian Split Squat | 3 | 10-12/leg | 2 | Stability focus |\n| Glute Bridge (Weighted) | 3 | 12-15 | 1-2 | Squeeze at top |\n| Hamstring Curl (Machine) | 3 | 12-15 | 1-2 | Controlled negative |\n| Hip Flexor Stretch Hold | 2 | 45s/side |  | Post-workout mobility |\n",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "**Duration:** Weeks 1-4\n**Goal:** Accumulation & Movement Quality\n\n### Upper A: Push/Pull Balance\n| Exercise | Sets | Reps | RIR | Notes |\n|---|---|---|---|---|\n| Dumbbell Bench Press (Neutral Grip) | 3 | 10-12 | 2 | Control tempo 2-0-2 [Shoulder-safe] |\n| Lat Pulldown (Neutral Grip) | 3 | 10-12 | 1-2 | Full stretch at top |\n| Seated Cable Row | 3 | 12-15 | 1-2 | Squeeze shoulder blades together |\n| DB Lateral Raise (Thumb Up) | 3 | 15-20 | 1 | Light weight, strict form [Shoulder-safe] |\n| Face Pull (Low Pulley) | 3 | 15-20 | 1 | External rotation focus |\n\n### Lower A: Compound/Glutes\n| Exercise | Sets | Reps | RIR | Notes |\n|---|---|---|---|---|\n| Goblet Squat | 3 | 10-12 | 2 | Depth control |\n| Dumbbell RDL | 3 | 12-15 | 2 | Soft knees, feel stretch |\n| Leg Press | 3 | 15-20 | 1 | High volume pump |\n| Walking Lunge | 3 | 10/leg | 2 | Control each rep |\n| Calf Raise (Standing) | 3 | 15-20 | 1 | Slow, full ROM |\n\n### Upper B: Volume Focus\n| Exercise | Sets | Reps | RIR | Notes |\n|---|---|---|---|---|\n| Machine Chest Press (Neutral Grip) | 3 | 12-15 | 2 | Controlled 3s negative [Shoulder-safe] |\n| Dumbbell Row (Single Arm) | 3 | 10-12/arm | 2 | Supported, full ROM |\n| Incline DB Press | 3 | 12-15 | 1-2 | Upper chest focus [Shoulder-safe] |\n| Cable Lateral Raise | 3 | 15-20 | 1 | Constant tension [Shoulder-safe] |\n| Triceps Pushdown + DB Curl SS | 2 | 12-15 | 1-2 | Superset for density |\n\n### Lower B: Unilateral Focus\n| Exercise | Sets | Reps | RIR | Notes |\n|---|---|---|---|---|\n| Bulgarian Split Squat | 3 | 10-12/leg | 2 | Stability focus |\n| Glute Bridge (Weighted) | 3 | 12-15 | 1-2 | Squeeze at top |\n| Hamstring Curl (Machine) | 3 | 12-15 | 1-2 | Controlled negative |\n| Hip Flexor Stretch Hold | 2 | 45s/side |  | Post-workout mobility |\n",
+      "order": 6,
+      "domain": "training"
+    },
+    {
+      "section_id": "training_phase2",
+      "title": "Training: Phase 2 — Intensification & Progressive Overload",
+      "content": "**Duration:** Weeks 5+\n**Goal:** Intensification & Progressive Overload\n\n**Progression:** When RIR drops below 2 on all sets of a movement, increase weight 5-7.5% or add 1 set. Re-test MAV landmarks after 8 weeks.",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "**Duration:** Weeks 5+\n**Goal:** Intensification & Progressive Overload\n\n**Progression:** When RIR drops below 2 on all sets of a movement, increase weight 5-7.5% or add 1 set. Re-test MAV landmarks after 8 weeks.",
+      "order": 7,
+      "domain": "training"
+    },
+    {
+      "section_id": "warmup_cooldown",
+      "title": "Warm-Up & Cool-Down Protocol",
+      "content": "### Warm-Up Protocol\n5 min incline walk or bike (RPE 3-4)\nDynamic warm-up: leg swings, cat-cow, thoracic rotations, band pull-aparts\nMovement-specific warm-up: 2x10 reps at 50% working weight\nIPTA warm-up standard: 5-10 min general cardio → dynamic stretching → movement-specific warm-up at 40-60% working weight.\n\n# Injury-Training Compatibility Matrix\n\nFor each injury, classifies all major training movements as **Safe (Green)**, **Modified (Yellow — with plane/ROM/load change)**, or **Contraindicated (Red)**. This extends the Default Exercise Pool injury overrides by providing a full-body training classifica\n\n### Cool-Down Protocol\n5 min light cardio (RPE 2-3)\nStatic stretching for worked muscle groups: 30s holds\nOptional: foam rolling for tight areas",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "### Warm-Up Protocol\n5 min incline walk or bike (RPE 3-4)\nDynamic warm-up: leg swings, cat-cow, thoracic rotations, band pull-aparts\nMovement-specific warm-up: 2x10 reps at 50% working weight\nIPTA warm-up standard: 5-10 min general cardio → dynamic stretching → movement-specific warm-up at 40-60% working weight.\n\n# Injury-Training Compatibility Matrix\n\nFor each injury, classifies all major training movements as **Safe (Green)**, **Modified (Yellow — with plane/ROM/load change)**, or **Contraindicated (Red)**. This extends the Default Exercise Pool injury overrides by providing a full-body training classifica\n\n### Cool-Down Protocol\n5 min light cardio (RPE 2-3)\nStatic stretching for worked muscle groups: 30s holds\nOptional: foam rolling for tight areas",
+      "order": 8,
+      "domain": "training"
+    },
+    {
+      "section_id": "nutrition_plan",
+      "title": "Nutrition Plan",
+      "content": "**BMR:** 1440 kcal/day | **TDEE:** 2088 kcal/day\n\n| Target | Value |\n|---|---|\n| **Calories** | 1670 kcal |\n| **Protein** | 144g (2.0g/kg) |\n| **Carbs** | 170g |\n| **Fat** | 46g |\n| **Hydration** | 2.5L |\n\n**Meal Timing:** Per IPTA CNS: distribute protein across 3-5 meals at ≥0.4 g/kg per meal (minimum 20-30g) for optimal MPS. Post-exercise: consume 0.4 g/kg within 2 hours.\n\n**Special Notes:** Protein target is evidence-based: 1.6-2.2 g/kg/day (Schoenfeld). Older adults (65+): 1.6-2.4 g/kg/day.; Per ISSA: hand portion method — start standard, adjust by 1 unit after 2 weeks based on weight trend.; Per IPTA CNS: sustainable deficit 300-500 kcal/day. Exceeding 750 kcal or 12 weeks requires medical supervision.; Per IPTA CNS: minimum 0.5 g/kg fat for hormone function. Increase to 0.8-1.0 g/kg for hormonal concerns or amenorrhea.; Per IPTA CNS: supplement tier — Tier 1 (strong evidence): creatine 5g/day, vitamin D 2000-4000 IU, omega-3 2-3g. Tier 2 (moderate): magnesium, B12, probiotics.",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "**BMR:** 1440 kcal/day | **TDEE:** 2088 kcal/day\n\n| Target | Value |\n|---|---|\n| **Calories** | 1670 kcal |\n| **Protein** | 144g (2.0g/kg) |\n| **Carbs** | 170g |\n| **Fat** | 46g |\n| **Hydration** | 2.5L |\n\n**Meal Timing:** Per IPTA CNS: distribute protein across 3-5 meals at ≥0.4 g/kg per meal (minimum 20-30g) for optimal MPS. Post-exercise: consume 0.4 g/kg within 2 hours.\n\n**Special Notes:** Protein target is evidence-based: 1.6-2.2 g/kg/day (Schoenfeld). Older adults (65+): 1.6-2.4 g/kg/day.; Per ISSA: hand portion method — start standard, adjust by 1 unit after 2 weeks based on weight trend.; Per IPTA CNS: sustainable deficit 300-500 kcal/day. Exceeding 750 kcal or 12 weeks requires medical supervision.; Per IPTA CNS: minimum 0.5 g/kg fat for hormone function. Increase to 0.8-1.0 g/kg for hormonal concerns or amenorrhea.; Per IPTA CNS: supplement tier — Tier 1 (strong evidence): creatine 5g/day, vitamin D 2000-4000 IU, omega-3 2-3g. Tier 2 (moderate): magnesium, B12, probiotics.",
+      "order": 9,
+      "domain": "nutrition"
+    },
+    {
+      "section_id": "sleep_protocol",
+      "title": "Sleep Protocol",
+      "content": "- Target: 7.5-8h consistent bedtime ±30min\n- Morning light exposure: 10min outdoor light within 30min of waking\n- Screen curfew: No screens 60min pre-bed\n- Room temp: 17-19°C\n- Pre-bed: 30-40g casein + 200mg magnesium glycinate\n- No alcohol within 3h of bedtime",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "- Target: 7.5-8h consistent bedtime ±30min\n- Morning light exposure: 10min outdoor light within 30min of waking\n- Screen curfew: No screens 60min pre-bed\n- Room temp: 17-19°C\n- Pre-bed: 30-40g casein + 200mg magnesium glycinate\n- No alcohol within 3h of bedtime",
+      "order": 10,
+      "domain": "recovery"
+    },
+    {
+      "section_id": "supplements",
+      "title": "Supplement Recommendations",
+      "content": "| Supplement | Dose | Timing | Evidence |\n|---|---|---|---|---|\n| **Protein Powder** | To meet daily target | Post-training + before bed | Strong |\n| **Creatine Monohydrate** | 5g daily | Any time, consistent | Strong |\n| **Vitamin D3 + K2** | 2000-4000 IU | With largest meal | Strong if deficient |\n| **Omega-3 (EPA+DHA)** | 3g total | With meals | Strong |\n| **Magnesium Glycinate** | 200mg | Pre-bed | Moderate for sleep |",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "| Supplement | Dose | Timing | Evidence |\n|---|---|---|---|---|\n| **Protein Powder** | To meet daily target | Post-training + before bed | Strong |\n| **Creatine Monohydrate** | 5g daily | Any time, consistent | Strong |\n| **Vitamin D3 + K2** | 2000-4000 IU | With largest meal | Strong if deficient |\n| **Omega-3 (EPA+DHA)** | 3g total | With meals | Strong |\n| **Magnesium Glycinate** | 200mg | Pre-bed | Moderate for sleep |",
+      "order": 11,
+      "domain": "nutrition"
+    },
+    {
+      "section_id": "rehab_prehab",
+      "title": "Rehab & Prehab",
+      "content": "**Shoulder:** Neutral grip pressing, face pulls, external rotation, YTWs. No behind-neck.\n\n\n\n**Coach Note:** To address the old rotator cuff injury, Alice should incorporate exercises that strengthen her shoulder stabilizers, such as lateral raises and reverse flys, 2-3 times a week. Additionally, she should focus on proper scapular positioning and engage in regular self-myofascial release techniques, like foam rolling, to reduce tension in her shoulder region. It's also essential to modify any heavy overhead presses or lifts to avoid exacerbating the injury.",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "**Shoulder:** Neutral grip pressing, face pulls, external rotation, YTWs. No behind-neck.\n\n",
+      "order": 12,
+      "domain": "safety"
+    },
+    {
+      "section_id": "measurement_kpis",
+      "title": "Measurement KPIs",
+      "content": "| KPI | Frequency | Threshold | Action |\n|---|---|---|---|---|\n| **Weight Trend** | Daily (7-day avg) | >2% change/2wk | Adjust calories |\n| **Top Set Performance** | Every session | Decline 3+ weeks | Deload or check sleep |\n| **Waist** | Monthly | No change 6+ weeks | Reassess |\n| **Training Volume** | Weekly | Below MEV 2 weeks | Add sets |\n| **Readiness** | Pre-session | <6 consistently | Check recovery |\n\n| **Adherence** | Weekly | <80% for 2 weeks | Simplify protocol |",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "| KPI | Frequency | Threshold | Action |\n|---|---|---|---|---|\n| **Weight Trend** | Daily (7-day avg) | >2% change/2wk | Adjust calories |\n| **Top Set Performance** | Every session | Decline 3+ weeks | Deload or check sleep |\n| **Waist** | Monthly | No change 6+ weeks | Reassess |\n| **Training Volume** | Weekly | Below MEV 2 weeks | Add sets |\n| **Readiness** | Pre-session | <6 consistently | Check recovery |\n\n| **Adherence** | Weekly | <80% for 2 weeks | Simplify protocol |",
+      "order": 13,
+      "domain": "adherence"
+    },
+    {
+      "section_id": "adjustment_triggers",
+      "title": "Adjustment Triggers",
+      "content": "| Symptom | Action |\n|---|---|---|\n| Strength declining 3+ weeks | Deload (50% volume, maintain load) |\n| Weight not changing 4+ weeks | Adjust calories ±200 kcal, wait 2 weeks |\n| Sleep <6.5h consistently | Prioritize sleep before training changes |\n| Stress >7/10 for 2+ weeks | Reduce volume 30%, maintain protein |\n| Joint pain during exercise | Stop, substitute alternative |\n| Missed 2+ sessions in a row | MEC: 2x full-body, protein 1.6g/kg, 6.5h sleep |",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "| Symptom | Action |\n|---|---|---|\n| Strength declining 3+ weeks | Deload (50% volume, maintain load) |\n| Weight not changing 4+ weeks | Adjust calories ±200 kcal, wait 2 weeks |\n| Sleep <6.5h consistently | Prioritize sleep before training changes |\n| Stress >7/10 for 2+ weeks | Reduce volume 30%, maintain protein |\n| Joint pain during exercise | Stop, substitute alternative |\n| Missed 2+ sessions in a row | MEC: 2x full-body, protein 1.6g/kg, 6.5h sleep |",
+      "order": 14,
+      "domain": "adherence"
+    },
+    {
+      "section_id": "exercise_alternatives",
+      "title": "Exercise Alternatives",
+      "content": "| Primary | Alternative A | Alternative B |\n|---|---|---|\n| Barbell Back Squat | Goblet Squat | Leg Press |\n| Barbell Bench Press | Dumbbell Bench Press | Machine Chest Press |\n| Conventional Deadlift | Trap Bar Deadlift | Dumbbell RDL |\n| Pull-Up | Lat Pulldown | Seated Cable Row |\n| Overhead Press (Barbell) | Dumbbell Shoulder Press | Machine Shoulder Press |\n| Barbell Row | Chest Supported Row | Single-Arm DB Row |",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "| Primary | Alternative A | Alternative B |\n|---|---|---|\n| Barbell Back Squat | Goblet Squat | Leg Press |\n| Barbell Bench Press | Dumbbell Bench Press | Machine Chest Press |\n| Conventional Deadlift | Trap Bar Deadlift | Dumbbell RDL |\n| Pull-Up | Lat Pulldown | Seated Cable Row |\n| Overhead Press (Barbell) | Dumbbell Shoulder Press | Machine Shoulder Press |\n| Barbell Row | Chest Supported Row | Single-Arm DB Row |",
+      "order": 15,
+      "domain": "training"
+    },
+    {
+      "section_id": "week1_action",
+      "title": "Week 1 Action Plan",
+      "content": "- [ ] Complete first training session using the program\n- [ ] Track daily protein intake (target: 4-5 meals at ~30g protein each)\n- [ ] Sleep target: 8h, consistent bedtime\n- [ ] Hydration: 2.5L water minimum\n- [ ] 10min daily morning walk for light exposure",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "- [ ] Complete first training session using the program\n- [ ] Track daily protein intake (target: 4-5 meals at ~30g protein each)\n- [ ] Sleep target: 8h, consistent bedtime\n- [ ] Hydration: 2.5L water minimum\n- [ ] 10min daily morning walk for light exposure",
+      "order": 16,
+      "domain": "adherence"
+    },
+    {
+      "section_id": "vault_decisions",
+      "title": "Vault-Informed Decisions",
+      "content": "The following evidence-based insights influenced this program:\n\n- [Schoenfeld - Science and Development of Muscle Hypertrophy] Per Schoenfeld: longer rest (2-3 min) maintains mechanical tension across sets.\n- [Schoenfeld - Science and Development of Muscle Hypertrophy] Per Schoenfeld: prioritize exercises that train target muscles at long lengths under load.\n- [Schoenfeld - Science and Development of Muscle Hypertrophy] Per Schoenfeld: deload every 6-8 weeks preventatively — reduce volume 40-60% at same intensity.\n- [Schoenfeld - Science and Development of Muscle Hypertrophy] Per Schoenfeld: monitor overreaching — performance decline, mood disturbance, sleep disruption, elevated HR, illness frequency.\n- [Jeff Nippard - The Muscle Ladder] Per Nippard: 6-15 reps is the hypertrophy sweet spot — below 6 lacks metabolic stimulus.\n- [Jeff Nippard - The Muscle Ladder] Per Nippard: deload every 6-8 weeks preventatively — never wait for exhaustion symptoms.\n- [NSCA - Essentials of Strength Training and Conditioning] Per NSCA: load assignment by goal — strength ≥85% 1RM (2-6 reps), hypertrophy 67-85% 1RM (6-12 reps).\n- [NSCA - Essentials of Strength Training and Conditioning] Per NSCA: cap volume increase at 20-30% per mesocycle to prevent injury and systemic fatigue.\n- [NSCA - Essentials of Strength Training and Conditioning] Per NSCA: 3-tier fatigue — <2w acute (normal), 2-4w functional overreaching (expected supercompensation), >4w nonfunctional (medical).\n- [NSCA - Essentials of Strength Training and Conditioning] Per NSCA: 3+ criteria for >4 weeks — performance decline, fatigue, sleep/mood disruption, appetite loss, frequent illness → medical escalation.\n- [NSCA - Essentials of Strength Training and Conditioning] Per NSCA: standardized 4-phase warm-up protocol (15-20 min total).\n- [NSCA - Essentials of Strength Training and Conditioning] Per NSCA: detraining recovery guidelines — 1-2w off at 90%, 2-4w at 80%, 4-8w at 70%, 8+w at 50-60%.\n- [NSCA - Essentials of Strength Training and Conditioning] Per NSCA: female ACL risk 2-8x higher — include landing mechanics, hamstring strength, plyometric progression.\n- [ACE - Personal Trainer Manual] Per ACE: first 2 weeks prioritize adherence over optimal — achievable > perfect.\n- [ACE - Personal Trainer Manual] Per ACE IFT model: verify pain-free ROM, neutral spine, and 15s single-leg balance before progressing intensity.\n- [IPTA - Certified Personal Trainer] Per IPTA: rep range by goal — power (1-5), strength (1-6), hypertrophy (6-12), endurance (12-20+).\n- [IPTA - Certified Personal Trainer] Per IPTA: rest by goal — strength 3-5 min, hypertrophy 30-90s, endurance 30-60s.\n- [IPTA - Certified Personal Trainer] Per IPTA: 3-phase warm-up — general cardio, dynamic mobility, movement-specific preparation.\n- [IPTA - Certified Personal Trainer] Per IPTA: 4-criteria movement screen gate before loaded exercise — ROM, squat, balance, hinge.\n- [IPTA - Certified Personal Trainer] Per IPTA: periodization by training status — beginner (linear), intermediate (undulating), advanced (block).\n- [IPTA - Bodybuilding Screen] Per IPTA Bodybuilding: recovery priority — sleep > protein > active > passive. Reduce volume first when recovery is compromised.\n\n**Key vault references:**\n- [Sleep Hygiene Protocol — Optimize Recovery Through Sleep] # Sleep Hygiene Protocol — Optimize Recovery Through Sleep\n\n**Purpose:** Provide actionable protocols for improving sleep quality and quantit\n- [Adherence First] # Adherence First\n\nConsistency dominates optimization. A protocol followed at 80% adherence for 12 months outperforms a perfect protocol followed at 40% for 8 weeks. Environment desi\n- [Talon Fitness — Contradictions] # Talon Fitness — Contradictions\n\nClaims from Talon Fitness that may conflict with existing MOS positions, or where MOS has no position.\n\n---\n\n## Confirmed Contradicti\n",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "The following evidence-based insights influenced this program:\n\n- [Schoenfeld - Science and Development of Muscle Hypertrophy] Per Schoenfeld: longer rest (2-3 min) maintains mechanical tension across sets.\n- [Schoenfeld - Science and Development of Muscle Hypertrophy] Per Schoenfeld: prioritize exercises that train target muscles at long lengths under load.\n- [Schoenfeld - Science and Development of Muscle Hypertrophy] Per Schoenfeld: deload every 6-8 weeks preventatively — reduce volume 40-60% at same intensity.\n- [Schoenfeld - Science and Development of Muscle Hypertrophy] Per Schoenfeld: monitor overreaching — performance decline, mood disturbance, sleep disruption, elevated HR, illness frequency.\n- [Jeff Nippard - The Muscle Ladder] Per Nippard: 6-15 reps is the hypertrophy sweet spot — below 6 lacks metabolic stimulus.\n- [Jeff Nippard - The Muscle Ladder] Per Nippard: deload every 6-8 weeks preventatively — never wait for exhaustion symptoms.\n- [NSCA - Essentials of Strength Training and Conditioning] Per NSCA: load assignment by goal — strength ≥85% 1RM (2-6 reps), hypertrophy 67-85% 1RM (6-12 reps).\n- [NSCA - Essentials of Strength Training and Conditioning] Per NSCA: cap volume increase at 20-30% per mesocycle to prevent injury and systemic fatigue.\n- [NSCA - Essentials of Strength Training and Conditioning] Per NSCA: 3-tier fatigue — <2w acute (normal), 2-4w functional overreaching (expected supercompensation), >4w nonfunctional (medical).\n- [NSCA - Essentials of Strength Training and Conditioning] Per NSCA: 3+ criteria for >4 weeks — performance decline, fatigue, sleep/mood disruption, appetite loss, frequent illness → medical escalation.\n- [NSCA - Essentials of Strength Training and Conditioning] Per NSCA: standardized 4-phase warm-up protocol (15-20 min total).\n- [NSCA - Essentials of Strength Training and Conditioning] Per NSCA: detraining recovery guidelines — 1-2w off at 90%, 2-4w at 80%, 4-8w at 70%, 8+w at 50-60%.\n- [NSCA - Essentials of Strength Training and Conditioning] Per NSCA: female ACL risk 2-8x higher — include landing mechanics, hamstring strength, plyometric progression.\n- [ACE - Personal Trainer Manual] Per ACE: first 2 weeks prioritize adherence over optimal — achievable > perfect.\n- [ACE - Personal Trainer Manual] Per ACE IFT model: verify pain-free ROM, neutral spine, and 15s single-leg balance before progressing intensity.\n- [IPTA - Certified Personal Trainer] Per IPTA: rep range by goal — power (1-5), strength (1-6), hypertrophy (6-12), endurance (12-20+).\n- [IPTA - Certified Personal Trainer] Per IPTA: rest by goal — strength 3-5 min, hypertrophy 30-90s, endurance 30-60s.\n- [IPTA - Certified Personal Trainer] Per IPTA: 3-phase warm-up — general cardio, dynamic mobility, movement-specific preparation.\n- [IPTA - Certified Personal Trainer] Per IPTA: 4-criteria movement screen gate before loaded exercise — ROM, squat, balance, hinge.\n- [IPTA - Certified Personal Trainer] Per IPTA: periodization by training status — beginner (linear), intermediate (undulating), advanced (block).\n- [IPTA - Bodybuilding Screen] Per IPTA Bodybuilding: recovery priority — sleep > protein > active > passive. Reduce volume first when recovery is compromised.\n\n**Key vault references:**\n- [Sleep Hygiene Protocol — Optimize Recovery Through Sleep] # Sleep Hygiene Protocol — Optimize Recovery Through Sleep\n\n**Purpose:** Provide actionable protocols for improving sleep quality and quantit\n- [Adherence First] # Adherence First\n\nConsistency dominates optimization. A protocol followed at 80% adherence for 12 months outperforms a perfect protocol followed at 40% for 8 weeks. Environment desi\n- [Talon Fitness — Contradictions] # Talon Fitness — Contradictions\n\nClaims from Talon Fitness that may conflict with existing MOS positions, or where MOS has no position.\n\n---\n\n## Confirmed Contradicti\n",
+      "order": 17,
+      "domain": "training"
+    },
+    {
+      "section_id": "vault_sources",
+      "title": "Vault Sources",
+      "content": "**General**\n- [Reality Check Engine — Expectation Calibration System](vault://05_SYSTEMS/Reality Check Engine) (relevance: 0.62)\n- [Section 1: Validation Case Library](vault://00_META/validation/01_validation_cases) (relevance: 0.60)\n- [Muscle OS Pre-Release QA Audit Report](vault://00_META/Pre-Release QA Audit Report) (relevance: 0.59)\n- [Injury-Training Compatibility Matrix](vault://04_TOOLS/Injury-Training Compatibility Matrix) (relevance: 0.56)\n- [Shoulder Impingement — Self-Managed Rehab](vault://04_PROTOCOLS/Rehab/Shoulder Impingement) (relevance: 0.52)\n- [Seeley's Anatomy & Physiology — Architecture & Decision Impact](vault://08_EXTERNAL_KNOWLEDGE/Books/Seeley's Anatomy and Physiology 2019/07 Architecture & Decision Impact) (relevance: 0.46)\n- [Periodization Decision Protocol — Structuring Training Over Time](vault://04_PROTOCOLS/Periodization Decision Protocol) (relevance: 0.55)\n- [Behavioral Systems Layer — The Psychology of Self-Coaching](vault://05_SYSTEMS/Behavioral Systems Layer) (relevance: 0.54)\n- [The Muscle Ladder — Decision Rules](vault://08_EXTERNAL_KNOWLEDGE/Books/Jeff Nippard - The Muscle Ladder/04 Decision Rules) (relevance: 0.52)\n- [Section 2: Failure Simulation Library](vault://00_META/validation/02_failure_simulation) (relevance: 0.51)\n- [Exercise Index](vault://04_TOOLS/Exercises/Exercise Index) (relevance: 0.37)\n- [Rounded Shoulders — Correction Protocol](vault://04_PROTOCOLS/Posture/Rounded Shoulders) (relevance: 0.31)\n- [Anterior Pelvic Tilt — Correction Protocol](vault://04_PROTOCOLS/Posture/Anterior Pelvic Tilt) (relevance: 0.30)\n- [Forward Head Posture — Correction Protocol](vault://04_PROTOCOLS/Posture/Forward Head Posture) (relevance: 0.28)\n- [Fat Loss Client — Sustainable Fat Reduction](vault://07_PROFILES/Fat Loss Client Profile) (relevance: 0.59)\n- [Fat Loss Plateau — Post-Diet Rebound Decision Tree](vault://04_TOOLS/Decision Trees/Fat Loss Plateau - Post-Diet Rebound) (relevance: 0.59)\n- [Whey Protein](vault://04_TOOLS/Food Database/Whey Protein) (relevance: 0.52)\n- [Diet — Protein Distribution](vault://01_RESEARCH/Studies/Diet - Morton 2016 - Protein Distribution) (relevance: 0.51)\n- [Protein Experiment](vault://04_TOOLS/Experiments/Protein Experiment) (relevance: 0.47)\n- [Talon Fitness — Contradictions](vault://08_EXTERNAL_KNOWLEDGE/YouTube Channels/Talon Fitness/06 Contradictions) (relevance: 0.66)\n- [Talon Fitness — Extracted Decisions](vault://08_EXTERNAL_KNOWLEDGE/YouTube Channels/Talon Fitness/03 Extracted Decisions) (relevance: 0.65)\n- [Supplement Decision Tree](vault://04_TOOLS/Decision Trees/Supplement Decision Tree) (relevance: 0.63)\n- [Supplement — Creatine](vault://01_RESEARCH/Supplements/Supplement - Creatine) (relevance: 0.61)\n- [Sleep Hygiene Protocol — Optimize Recovery Through Sleep](vault://04_PROTOCOLS/Sleep Hygiene Protocol) (relevance: 0.71)\n- [Sleep Experiment](vault://04_TOOLS/Experiments/Sleep Experiment) (relevance: 0.62)\n- [Stress Management Protocol — Regulating Allostatic Load](vault://04_PROTOCOLS/Stress Management Protocol) (relevance: 0.60)\n- [High-Stress Professional Profile — Managing Allostatic Load as the Primary Variable](vault://07_PROFILES/High-Stress Professional Profile) (relevance: 0.59)\n- [Active Recovery & Stress-Recovery Balance Protocol — Managing Fatigue Across Domains](vault://04_PROTOCOLS/Active Recovery & Stress-Recovery Balance Protocol) (relevance: 0.58)\n- [Injury Management Protocol — Central Hub](vault://04_PROTOCOLS/Injury Management Protocol) (relevance: 0.52)\n- [Adherence First](vault://03_PRINCIPLES/Adherence First) (relevance: 0.68)\n- [Adherence & Behavior Assessment — How Consistent Are You Really?](vault://03_ASSESSMENTS/Adherence & Behavior Assessment) (relevance: 0.66)\n\n**Pillar 1**\n- [Pillar 1 — Diet Maxing](vault://02_PILLARS/Pillar 1 - Diet Maxing) (relevance: 0.49)\n\n**Pillar 3**\n- [Pillar 3 — Sleep Maxing](vault://02_PILLARS/Pillar 3 - Sleep Maxing) (relevance: 0.64)\n\n**Pillar 7**\n- [Pillar 7 — Adherence Engineering](vault://02_PILLARS/Pillar 7 - Adherence Engineering) (relevance: 0.64)\n\n",
+      "citations": [],
+      "status": "approved",
+      "editor_notes": "",
+      "original_content": "**General**\n- [Reality Check Engine — Expectation Calibration System](vault://05_SYSTEMS/Reality Check Engine) (relevance: 0.62)\n- [Section 1: Validation Case Library](vault://00_META/validation/01_validation_cases) (relevance: 0.60)\n- [Muscle OS Pre-Release QA Audit Report](vault://00_META/Pre-Release QA Audit Report) (relevance: 0.59)\n- [Injury-Training Compatibility Matrix](vault://04_TOOLS/Injury-Training Compatibility Matrix) (relevance: 0.56)\n- [Shoulder Impingement — Self-Managed Rehab](vault://04_PROTOCOLS/Rehab/Shoulder Impingement) (relevance: 0.52)\n- [Seeley's Anatomy & Physiology — Architecture & Decision Impact](vault://08_EXTERNAL_KNOWLEDGE/Books/Seeley's Anatomy and Physiology 2019/07 Architecture & Decision Impact) (relevance: 0.46)\n- [Periodization Decision Protocol — Structuring Training Over Time](vault://04_PROTOCOLS/Periodization Decision Protocol) (relevance: 0.55)\n- [Behavioral Systems Layer — The Psychology of Self-Coaching](vault://05_SYSTEMS/Behavioral Systems Layer) (relevance: 0.54)\n- [The Muscle Ladder — Decision Rules](vault://08_EXTERNAL_KNOWLEDGE/Books/Jeff Nippard - The Muscle Ladder/04 Decision Rules) (relevance: 0.52)\n- [Section 2: Failure Simulation Library](vault://00_META/validation/02_failure_simulation) (relevance: 0.51)\n- [Exercise Index](vault://04_TOOLS/Exercises/Exercise Index) (relevance: 0.37)\n- [Rounded Shoulders — Correction Protocol](vault://04_PROTOCOLS/Posture/Rounded Shoulders) (relevance: 0.31)\n- [Anterior Pelvic Tilt — Correction Protocol](vault://04_PROTOCOLS/Posture/Anterior Pelvic Tilt) (relevance: 0.30)\n- [Forward Head Posture — Correction Protocol](vault://04_PROTOCOLS/Posture/Forward Head Posture) (relevance: 0.28)\n- [Fat Loss Client — Sustainable Fat Reduction](vault://07_PROFILES/Fat Loss Client Profile) (relevance: 0.59)\n- [Fat Loss Plateau — Post-Diet Rebound Decision Tree](vault://04_TOOLS/Decision Trees/Fat Loss Plateau - Post-Diet Rebound) (relevance: 0.59)\n- [Whey Protein](vault://04_TOOLS/Food Database/Whey Protein) (relevance: 0.52)\n- [Diet — Protein Distribution](vault://01_RESEARCH/Studies/Diet - Morton 2016 - Protein Distribution) (relevance: 0.51)\n- [Protein Experiment](vault://04_TOOLS/Experiments/Protein Experiment) (relevance: 0.47)\n- [Talon Fitness — Contradictions](vault://08_EXTERNAL_KNOWLEDGE/YouTube Channels/Talon Fitness/06 Contradictions) (relevance: 0.66)\n- [Talon Fitness — Extracted Decisions](vault://08_EXTERNAL_KNOWLEDGE/YouTube Channels/Talon Fitness/03 Extracted Decisions) (relevance: 0.65)\n- [Supplement Decision Tree](vault://04_TOOLS/Decision Trees/Supplement Decision Tree) (relevance: 0.63)\n- [Supplement — Creatine](vault://01_RESEARCH/Supplements/Supplement - Creatine) (relevance: 0.61)\n- [Sleep Hygiene Protocol — Optimize Recovery Through Sleep](vault://04_PROTOCOLS/Sleep Hygiene Protocol) (relevance: 0.71)\n- [Sleep Experiment](vault://04_TOOLS/Experiments/Sleep Experiment) (relevance: 0.62)\n- [Stress Management Protocol — Regulating Allostatic Load](vault://04_PROTOCOLS/Stress Management Protocol) (relevance: 0.60)\n- [High-Stress Professional Profile — Managing Allostatic Load as the Primary Variable](vault://07_PROFILES/High-Stress Professional Profile) (relevance: 0.59)\n- [Active Recovery & Stress-Recovery Balance Protocol — Managing Fatigue Across Domains](vault://04_PROTOCOLS/Active Recovery & Stress-Recovery Balance Protocol) (relevance: 0.58)\n- [Injury Management Protocol — Central Hub](vault://04_PROTOCOLS/Injury Management Protocol) (relevance: 0.52)\n- [Adherence First](vault://03_PRINCIPLES/Adherence First) (relevance: 0.68)\n- [Adherence & Behavior Assessment — How Consistent Are You Really?](vault://03_ASSESSMENTS/Adherence & Behavior Assessment) (relevance: 0.66)\n\n**Pillar 1**\n- [Pillar 1 — Diet Maxing](vault://02_PILLARS/Pillar 1 - Diet Maxing) (relevance: 0.49)\n\n**Pillar 3**\n- [Pillar 3 — Sleep Maxing](vault://02_PILLARS/Pillar 3 - Sleep Maxing) (relevance: 0.64)\n\n**Pillar 7**\n- [Pillar 7 — Adherence Engineering](vault://02_PILLARS/Pillar 7 - Adherence Engineering) (relevance: 0.64)\n\n",
+      "order": 18,
+      "domain": "training"
+    }
+  ],
+  "archetype": {
+    "archetype_name": "Intermediate Plateaued Lifter",
+    "archetype_path": "07_PROFILES\\Intermediate Plateaued Lifter Profile.md",
+    "match_score": 0.15,
+    "match_reasons": [
+      "Experience (2.0yrs) matches intermediate pattern"
+    ],
+    "archetype_snippets": []
+  },
+  "constraint_graph": {
+    "nodes": [
+      {
+        "id": "c1",
+        "category": "injury",
+        "severity": "high",
+        "description": "Shoulder/rotator cuff: neutral grip, no behind-neck",
+        "source_field": "injuries",
+        "conflicts_with": [
+          "training_heavy_overhead"
+        ],
+        "resolution": "Injury modification active: Shoulder/rotator cuff: neutral grip, no behind-neck. Exercise selection adjusted.",
+        "vault_references": []
+      },
+      {
+        "id": "c2",
+        "category": "recovery",
+        "severity": "medium",
+        "description": "Stress 5/10: monitor recovery",
+        "source_field": "stress_level",
+        "conflicts_with": [],
+        "resolution": "",
+        "vault_references": []
+      },
+      {
+        "id": "c3",
+        "category": "training",
+        "severity": "low",
+        "description": "Intermediate: undulating periodization",
+        "source_field": "experience_years",
+        "conflicts_with": [],
+        "resolution": "",
+        "vault_references": []
+      }
+    ],
+    "resolved": false,
+    "resolution_priority": [
+      "safety",
+      "medical",
+      "injury",
+      "recovery",
+      "nutrition",
+      "training",
+      "adherence",
+      "psychological",
+      "lifestyle"
+    ]
+  },
+  "vault_sources_full": [
+    {
+      "title": "Reality Check Engine — Expectation Calibration System",
+      "path": "05_SYSTEMS\\Reality Check Engine.md",
+      "score": 0.621,
+      "pillar": "",
+      "snippet": "| **Context:** - Recomp (simultaneous fat loss + muscle gain) is most effective for beginners and overweight individuals - For lean, advanced individuals, recomp is extremely slow — a bulk/cut cycle produces faster results - Waist measurement is a better recomp metric than scale weight --- ## Realit"
+    },
+    {
+      "title": "Section 1: Validation Case Library",
+      "path": "00_META\\validation\\01_validation_cases.md",
+      "score": 0.599,
+      "pillar": "",
+      "snippet": "# Section 1: Validation Case Library\n\n100+ real-world cases stress-testing the Muscle OS methodology across all user archetypes. Each case tests whether the system can correctly triage, diagnose, intervene, and recover.\n\nDistribution: 100 cases across 16 archetypes.\n\n---\n\n## Archetype: Beginners (8 "
+    },
+    {
+      "title": "Muscle OS Pre-Release QA Audit Report",
+      "path": "00_META\\Pre-Release QA Audit Report.md",
+      "score": 0.592,
+      "pillar": "",
+      "snippet": "→ 3. Exercises: 5-6 → 4. 10/15. Nutrition: tracking? Occasionally → 2. Protein: <1.6 → 2. Meals >30g: 1 → 2. 6/15. Diet history: >3 diet phases → YES. Recovery: sleep 7h → 4, quality 7 → 3, stress 5 → 3, recovered 2 days/wk → 2. 12/20 — Moderate.\n\n**Archetype:** Training 7-13 → Intermediate Plateaue"
+    },
+    {
+      "title": "Injury-Training Compatibility Matrix",
+      "path": "04_TOOLS\\Injury-Training Compatibility Matrix.md",
+      "score": 0.558,
+      "pillar": "",
+      "snippet": "# Injury-Training Compatibility Matrix\n\nFor each injury, classifies all major training movements as **Safe (Green)**, **Modified (Yellow — with plane/ROM/load change)**, or **Contraindicated (Red)**. This extends the Default Exercise Pool injury overrides by providing a full-body training classifica"
+    },
+    {
+      "title": "Shoulder Impingement — Self-Managed Rehab",
+      "path": "04_PROTOCOLS\\Rehab\\Shoulder Impingement.md",
+      "score": 0.517,
+      "pillar": "",
+      "snippet": "# Shoulder Impingement — Self-Managed Rehab\n\n*Also applies to: Subacromial pain syndrome, rotator cuff tendinopathy, shoulder bursitis*\n\n---\n\n**Evidence sources:** [[08_EXTERNAL_KNOWLEDGE/Books/Junqueira's Basic Histology 14ed/03 Extracted Concepts.md\\|Junqueira Ch 5,7,10]] (tissue healing hierarchy"
+    },
+    {
+      "title": "Seeley's Anatomy & Physiology — Architecture & Decision Impact",
+      "path": "08_EXTERNAL_KNOWLEDGE\\Books\\Seeley's Anatomy and Physiology 2019\\07 Architecture & Decision Impact.md",
+      "score": 0.464,
+      "pillar": "",
+      "snippet": "├── Identify moment arm length │ └── Longer moment arm = more muscle force required for same load ├── Identify strength curve (lever arm changes through ROM) │ └── Some exercises get easier/harder at specific joint angles └── Output: load modification recommendations based on leverage ``` --- ## Cro"
+    },
+    {
+      "title": "Periodization Decision Protocol — Structuring Training Over Time",
+      "path": "04_PROTOCOLS\\Periodization Decision Protocol.md",
+      "score": 0.554,
+      "pillar": "",
+      "snippet": "# Periodization Decision Protocol — Structuring Training Over Time\n\n**Purpose:** Provide a framework for organizing training into logical blocks (periodization) to maximize long-term progress, prevent plateaus, and manage fatigue.\n\n---\n\n## Periodization Models\n\n### Linear Periodization (Classic)\n\n| "
+    },
+    {
+      "title": "Behavioral Systems Layer — The Psychology of Self-Coaching",
+      "path": "05_SYSTEMS\\Behavioral Systems Layer.md",
+      "score": 0.535,
+      "pillar": "",
+      "snippet": "weeks. Then normal - Reassess relationship with training: Does it feel different after the break? **Reassessment:** After the return protocol. Is training enjoyable again? If yes → you needed the break. If no → the goal or program may not align with your genuine interests ## Quick Reference: Behavio"
+    },
+    {
+      "title": "The Muscle Ladder — Decision Rules",
+      "path": "08_EXTERNAL_KNOWLEDGE\\Books\\Jeff Nippard - The Muscle Ladder\\04 Decision Rules.md",
+      "score": 0.52,
+      "pillar": "",
+      "snippet": "lasts 6-8 weeks minimum. Changing earlier prevents the adaptation from developing. ### Rule ML-PL-03: Deload Timing Deload every 6-8 weeks preventatively — never wait until you feel exhausted. Reactive deloading (waiting for symptoms) allows accumulated fatigue to impair training quality for 2-3 wee"
+    },
+    {
+      "title": "Section 2: Failure Simulation Library",
+      "path": "00_META\\validation\\02_failure_simulation.md",
+      "score": 0.505,
+      "pillar": "",
+      "snippet": "completely dropped out. The Quick Start Protocol assumes new or returning users but does not address the psychological barrier of returning after quitting. --- ## Scenario 14: Conflicting Goals (hypertrophy + endurance) **Situation:** User wants to build muscle AND improve 10K run time simultaneousl"
+    },
+    {
+      "title": "Exercise Index",
+      "path": "04_TOOLS\\Exercises\\Exercise Index.md",
+      "score": 0.367,
+      "pillar": "",
+      "snippet": "[Barbell Front Raise](Shoulders/barbell-front-raise.md) | 6/10 | 🟡 Medium | Novice | ~ | | 9 | [Upright Row](Shoulders/upright-row.md) | 5/10 | 🔴 Low | Intermediate | ~ | | 10 | [Plate Front Raise](Shoulders/plate-front-raise.md) | 5/10 | 🟡 Medium | Novice | ~ | ## Quads [View All Quads Exercises](Q"
+    },
+    {
+      "title": "Rounded Shoulders — Correction Protocol",
+      "path": "04_PROTOCOLS\\Posture\\Rounded Shoulders.md",
+      "score": 0.313,
+      "pillar": "",
+      "snippet": "# Rounded Shoulders — Correction Protocol\n\n*Also applies to: Forward shoulders (mild), internally rotated shoulders, upper cross tightness (isolated)*\n\n---\n\n## What It Is\n\nThe shoulders sit forward of the mid-ribcage. The pectoralis major/minor and anterior deltoid are short/tight. The rhomboids, mi"
+    },
+    {
+      "title": "Anterior Pelvic Tilt — Correction Protocol",
+      "path": "04_PROTOCOLS\\Posture\\Anterior Pelvic Tilt.md",
+      "score": 0.297,
+      "pillar": "",
+      "snippet": "# Anterior Pelvic Tilt — Correction Protocol\n\n*Also applies to: Hyperlordosis, lumbar lordosis, \"duck butt\" posture, lower cross tightness*\n\n---\n\n## What It Is\n\nThe pelvis tilts forward (anteriorly), increasing the lumbar curve. The hip flexors (iliopsoas, rectus femoris) and lumbar erectors are sho"
+    },
+    {
+      "title": "Forward Head Posture — Correction Protocol",
+      "path": "04_PROTOCOLS\\Posture\\Forward Head Posture.md",
+      "score": 0.285,
+      "pillar": "",
+      "snippet": "# Forward Head Posture — Correction Protocol\n\n*Also applies to: Text neck, anterior head carriage, upper cervical extension*\n\n---\n\n## What It Is\n\nThe head sits forward of the shoulders (>1 inch from wall in wall test). The deep neck flexors (longus colli, longus capitis) are weak and lengthened. The"
+    },
+    {
+      "title": "Fat Loss Client — Sustainable Fat Reduction",
+      "path": "07_PROFILES\\Fat Loss Client Profile.md",
+      "score": 0.591,
+      "pillar": "",
+      "snippet": "# Fat Loss Client — Sustainable Fat Reduction\n\nSignificant body fat reduction goals (15+ kg to lose). The primary challenge is not knowledge but adherence over months of caloric deficit. Metabolic adaptation, hunger management, and psychological sustainability are the critical variables.\n\n**Constrai"
+    },
+    {
+      "title": "Fat Loss Plateau — Post-Diet Rebound Decision Tree",
+      "path": "04_TOOLS\\Decision Trees\\Fat Loss Plateau - Post-Diet Rebound.md",
+      "score": 0.589,
+      "pillar": "",
+      "snippet": "by 50-100 per week (reverse diet) toward true maintenance - Throughout: Protein at 2.0+ g/kg. Steps at 8,000-12,000/day. Weekly weigh-in + waist measure - If weight continues increasing at this reduced intake, medical workup needed (thyroid, fasting insulin, HbA1c) — the metabolic adaptation may be "
+    },
+    {
+      "title": "Whey Protein",
+      "path": "04_TOOLS\\Food Database\\Whey Protein.md",
+      "score": 0.52,
+      "pillar": "",
+      "snippet": "---\nname: Whey Protein\ncategory: supplements\nkcal_per_100g: 395\nprotein_per_100g: 80\ncarbs_per_100g: 7\nfat_per_100g: 5\nfiber_per_100g: 0\nsugar_per_100g: 3\nvitamin_a_mcg: 0\nvitamin_c_mg: 0\nvitamin_d_mcg: 0\nvitamin_e_mg: 0\nvitamin_k_mcg: 0\nvitamin_b12_mcg: 1.5\nfolate_mcg: 0\ncalcium_mg: 120\niron_mg: 0."
+    },
+    {
+      "title": "Diet — Protein Distribution",
+      "path": "01_RESEARCH\\Studies\\Diet - Morton 2016 - Protein Distribution.md",
+      "score": 0.511,
+      "pillar": "",
+      "snippet": "# Diet — Protein Distribution\n**Authors:** Morton RW, McGlory C, Phillips SM\n**Year:** 2016\n**Journal:** Physiological Reports\n**Key Finding:** Distributing protein intake evenly across 4–5 meals at approximately 0.4 g/kg/meal produced superior total daily muscle protein synthesis (MPS) compared to "
+    },
+    {
+      "title": "Pillar 1 — Diet Maxing",
+      "path": "02_PILLARS\\Pillar 1 - Diet Maxing.md",
+      "score": 0.493,
+      "pillar": "Pillar 1",
+      "snippet": "synthesis response — it's simply less efficient on a per-gram basis than a 35-40g animal-protein meal. Protein distribution across the day is a real, second-order lever on top of total daily intake — but total daily intake is the foundation. ### Leucine Content by Protein Source (approximate, per 10"
+    },
+    {
+      "title": "Protein Experiment",
+      "path": "04_TOOLS\\Experiments\\Protein Experiment.md",
+      "score": 0.472,
+      "pillar": "",
+      "snippet": "Title: Protein Intake Experiment — Finding Your Optimal Dose\n\n**Purpose:** Determine whether higher protein intake improves your recovery, performance, or body composition\n\n**Prerequisites:** Stable training program for 4+ weeks; current protein intake known\n\n**Hypothesis:** [Write: Increasing prote"
+    },
+    {
+      "title": "Talon Fitness — Contradictions",
+      "path": "08_EXTERNAL_KNOWLEDGE\\YouTube Channels\\Talon Fitness\\06 Contradictions.md",
+      "score": 0.658,
+      "pillar": "",
+      "snippet": "# Talon Fitness — Contradictions\n\nClaims from Talon Fitness that may conflict with existing MOS positions, or where MOS has no position.\n\n---\n\n## Confirmed Contradictions\n\n**None identified.**\n\nTalon Fitness covers only nutrition (Pillar 1 domain), and MOS Pillar 1 does not currently contain detaile"
+    },
+    {
+      "title": "Talon Fitness — Extracted Decisions",
+      "path": "08_EXTERNAL_KNOWLEDGE\\YouTube Channels\\Talon Fitness\\03 Extracted Decisions.md",
+      "score": 0.648,
+      "pillar": "",
+      "snippet": "# Talon Fitness — Extracted Decisions\n\nDecision rules extracted from processed transcripts, scored by impact on MOS.\n\n---\n\n## Decision Impact Scale\n\n| Score | Meaning |\n|-------|---------|\n| 0 | No decision impact |\n| 1-2 | Minor / Reference Only |\n| 3 | Candidate for integration |\n| 4-5 | High-impa"
+    },
+    {
+      "title": "Supplement Decision Tree",
+      "path": "04_TOOLS\\Decision Trees\\Supplement Decision Tree.md",
+      "score": 0.634,
+      "pillar": "",
+      "snippet": "# Supplement Decision Tree\n\nSelect which supplements to take based on goal, budget, tolerance, and evidence level.\n\n## Step 1: Core Foundation (Everyone)\n\nThese supplements have the strongest evidence across multiple outcomes. Consider these before any other supplement.\n\n```\nQ: Are you already takin"
+    },
+    {
+      "title": "Supplement — Creatine",
+      "path": "01_RESEARCH\\Supplements\\Supplement - Creatine.md",
+      "score": 0.614,
+      "pillar": "",
+      "snippet": "refuted by modern research. No meaningful interaction | Safe to take together | | Beta-alanine | Synergistic — supports different energy systems (ATP-PCr + buffering) | Excellent stack for high-intensity training | | Protein/Carbs post-workout | Slight uptake enhancement via insulin | Convenient, no"
+    },
+    {
+      "title": "Sleep Hygiene Protocol — Optimize Recovery Through Sleep",
+      "path": "04_PROTOCOLS\\Sleep Hygiene Protocol.md",
+      "score": 0.713,
+      "pillar": "",
+      "snippet": "# Sleep Hygiene Protocol — Optimize Recovery Through Sleep\n\n**Purpose:** Provide actionable protocols for improving sleep quality and quantity. Sleep is the single most powerful recovery tool — poor sleep sabotages diet, training, and health regardless of how well you execute everything else.\n\n---\n\n"
+    },
+    {
+      "title": "Pillar 3 — Sleep Maxing",
+      "path": "02_PILLARS\\Pillar 3 - Sleep Maxing.md",
+      "score": 0.638,
+      "pillar": "Pillar 3",
+      "snippet": "better recovery than any other single variable you could add to your program. ## 2. Sleep Architecture: The Blueprint of a Perfect Night Sleep is not a monolithic state. It cycles through four distinct stages across the night, each with a specific biological function and a different sensitivity to d"
+    },
+    {
+      "title": "Sleep Experiment",
+      "path": "04_TOOLS\\Experiments\\Sleep Experiment.md",
+      "score": 0.624,
+      "pillar": "",
+      "snippet": "Title: Sleep Extension Experiment — Quantifying Recovery Impact\n\n**Purpose:** Measure the effect of increased sleep duration on recovery, performance, and well-being\n\n**Prerequisites:** Current sleep duration is <7.5h average; can commit to 4-week intervention\n\n**Hypothesis:** [Write: Extending slee"
+    },
+    {
+      "title": "Stress Management Protocol — Regulating Allostatic Load",
+      "path": "04_PROTOCOLS\\Stress Management Protocol.md",
+      "score": 0.604,
+      "pillar": "",
+      "snippet": "Prioritize stress management. Consider coach escalation | **Important:** Do NOT reduce training load for stress unless you also add a stress management technique. Volume reduction alone without replacement does not fix the problem — it just reduces the training stimulus. --- ## Integration Points ##"
+    },
+    {
+      "title": "High-Stress Professional Profile — Managing Allostatic Load as the Primary Variable",
+      "path": "07_PROFILES\\High-Stress Professional Profile.md",
+      "score": 0.587,
+      "pillar": "",
+      "snippet": "# High-Stress Professional Profile — Managing Allostatic Load as the Primary Variable\n\nHigh-responsibility role (executive, healthcare, law, founder, emergency services) with chronic stress 7+/10, unpredictable schedule, and significant cognitive load that does not switch off. Traditional protocols "
+    },
+    {
+      "title": "Active Recovery & Stress-Recovery Balance Protocol — Managing Fatigue Across Domains",
+      "path": "04_PROTOCOLS\\Active Recovery & Stress-Recovery Balance Protocol.md",
+      "score": 0.581,
+      "pillar": "",
+      "snippet": "# Active Recovery & Stress-Recovery Balance Protocol — Managing Fatigue Across Domains\n\n**Purpose:** Provide protocols for active recovery between training sessions and for managing the balance between training stress and total life stress. Recovery is not just \"rest\" — it is an active process that "
+    },
+    {
+      "title": "Injury Management Protocol — Central Hub",
+      "path": "04_PROTOCOLS\\Injury Management Protocol.md",
+      "score": 0.521,
+      "pillar": "",
+      "snippet": "→ patellofemoral pain - **Always the same squat depth/hand position** → repetitive joint stress in the same ROM **How to prevent:** Regularly rotate exercise variations. Use the [[04_TOOLS/Default Exercise Pool.md|Default Exercise Pool]] to consciously choose different squat stances, press angles, a"
+    },
+    {
+      "title": "Adherence First",
+      "path": "03_PRINCIPLES\\Adherence First.md",
+      "score": 0.68,
+      "pillar": "",
+      "snippet": "# Adherence First\n\nConsistency dominates optimization. A protocol followed at 80% adherence for 12 months outperforms a perfect protocol followed at 40% for 8 weeks. Environment design, habit formation, and minimum effective dose strategies are the highest-leverage tools for sustaining long-term exe"
+    },
+    {
+      "title": "Adherence & Behavior Assessment — How Consistent Are You Really?",
+      "path": "03_ASSESSMENTS\\Adherence & Behavior Assessment.md",
+      "score": 0.655,
+      "pillar": "",
+      "snippet": "# Adherence & Behavior Assessment — How Consistent Are You Really?\n\n**Purpose:** Assess current adherence patterns, identify behavioral barriers, and determine which interventions will most improve consistency.\n\n---\n\n## Section 1: Adherence Self-Assessment\n\nRate the last 4 weeks:\n\n| Domain | Never ("
+    },
+    {
+      "title": "Pillar 7 — Adherence Engineering",
+      "path": "02_PILLARS\\Pillar 7 - Adherence Engineering.md",
+      "score": 0.635,
+      "pillar": "Pillar 7",
+      "snippet": "adherence | Established | | Behavioral Economics Integration | 8 bias-to-feature mappings, 5 decision rules | Emerging | | Huberman Dopamine | Effort → dopamine release, cold exposure resilience | Emerging | | **Clear — Atomic Habits** | **Four Laws architecture, environment design, habit tracking, "
+    }
+  ],
+  "coach_id": "",
+  "coach_notes": "",
+  "exported_at": "",
+  "export_path": "",
+  "triage": {
+    "triage": "green",
+    "ed_items": [],
+    "blocked": false,
+    "block_reason": "",
+    "caution_note": "",
+    "modifiers": [
+      "injury_aware",
+      "neck_care",
+      "shoulder_care",
+      "stress_management"
+    ]
+  },
+  "pillars": {
+    "primary_pillars": [
+      "P1 - Diet Maxing"
+    ],
+    "secondary_pillars": [
+      "Pillar 7",
+      "Pillar 3",
+      "P4 - Recovery Maxing",
+      "P9 - Measurement and Feedback Systems",
+      "P6 - Fatigue Management",
+      "P7 - Adherence Engineering"
+    ],
+    "gentle_entry": false,
+    "modifications": [
+      "injury_aware",
+      "neck_care",
+      "shoulder_care",
+      "stress_management",
+      "volume_progression_cap",
+      "long_length_emphasis",
+      "acl_prevention",
+      "adherence_first"
+    ]
+  },
+  "nutrition": {
+    "calories_target": 1670,
+    "protein_g": 144,
+    "carbs_g": 170,
+    "fat_g": 46,
+    "protein_per_kg": 2.0,
+    "meal_timing_notes": "Per IPTA CNS: distribute protein across 3-5 meals at ≥0.4 g/kg per meal (minimum 20-30g) for optimal MPS. Post-exercise: consume 0.4 g/kg within 2 hours.",
+    "hydration_target_l": 2.5,
+    "special_notes": "Protein target is evidence-based: 1.6-2.2 g/kg/day (Schoenfeld). Older adults (65+): 1.6-2.4 g/kg/day.; Per ISSA: hand portion method — start standard, adjust by 1 unit after 2 weeks based on weight trend.; Per IPTA CNS: sustainable deficit 300-500 kcal/day. Exceeding 750 kcal or 12 weeks requires medical supervision.; Per IPTA CNS: minimum 0.5 g/kg fat for hormone function. Increase to 0.8-1.0 g/kg for hormonal concerns or amenorrhea.; Per IPTA CNS: supplement tier — Tier 1 (strong evidence): creatine 5g/day, vitamin D 2000-4000 IU, omega-3 2-3g. Tier 2 (moderate): magnesium, B12, probiotics."
+  },
+  "program": {
+    "split": "Upper/Lower Split",
+    "phases": [
+      {
+        "name": "Phase 1: Accumulation & Stability",
+        "duration": "Weeks 1-4",
+        "goal": "Accumulation & Movement Quality",
+        "sessions": [
+          {
+            "day": "Upper A",
+            "focus": "Push/Pull Balance",
+            "exercises": [
+              {
+                "name": "Dumbbell Bench Press (Neutral Grip)",
+                "sets": 3,
+                "reps": "10-12",
+                "rir": "2",
+                "notes": "Control tempo 2-0-2 [Shoulder-safe]",
+                "weight": "",
+                "rest": "90s"
+              },
+              {
+                "name": "Lat Pulldown (Neutral Grip)",
+                "sets": 3,
+                "reps": "10-12",
+                "rir": "1-2",
+                "notes": "Full stretch at top",
+                "weight": "",
+                "rest": "90s"
+              },
+              {
+                "name": "Seated Cable Row",
+                "sets": 3,
+                "reps": "12-15",
+                "rir": "1-2",
+                "notes": "Squeeze shoulder blades together",
+                "weight": "",
+                "rest": "90s"
+              },
+              {
+                "name": "DB Lateral Raise (Thumb Up)",
+                "sets": 3,
+                "reps": "15-20",
+                "rir": "1",
+                "notes": "Light weight, strict form [Shoulder-safe]",
+                "weight": "",
+                "rest": "90s"
+              },
+              {
+                "name": "Face Pull (Low Pulley)",
+                "sets": 3,
+                "reps": "15-20",
+                "rir": "1",
+                "notes": "External rotation focus",
+                "weight": "",
+                "rest": "90s"
+              }
+            ],
+            "notes": ""
+          },
+          {
+            "day": "Lower A",
+            "focus": "Compound/Glutes",
+            "exercises": [
+              {
+                "name": "Goblet Squat",
+                "sets": 3,
+                "reps": "10-12",
+                "rir": "2",
+                "notes": "Depth control",
+                "weight": "",
+                "rest": "90s"
+              },
+              {
+                "name": "Dumbbell RDL",
+                "sets": 3,
+                "reps": "12-15",
+                "rir": "2",
+                "notes": "Soft knees, feel stretch",
+                "weight": "",
+                "rest": "90s"
+              },
+              {
+                "name": "Leg Press",
+                "sets": 3,
+                "reps": "15-20",
+                "rir": "1",
+                "notes": "High volume pump",
+                "weight": "",
+                "rest": "90s"
+              },
+              {
+                "name": "Walking Lunge",
+                "sets": 3,
+                "reps": "10/leg",
+                "rir": "2",
+                "notes": "Control each rep",
+                "weight": "",
+                "rest": "90s"
+              },
+              {
+                "name": "Calf Raise (Standing)",
+                "sets": 3,
+                "reps": "15-20",
+                "rir": "1",
+                "notes": "Slow, full ROM",
+                "weight": "",
+                "rest": "90s"
+              }
+            ],
+            "notes": ""
+          },
+          {
+            "day": "Upper B",
+            "focus": "Volume Focus",
+            "exercises": [
+              {
+                "name": "Machine Chest Press (Neutral Grip)",
+                "sets": 3,
+                "reps": "12-15",
+                "rir": "2",
+                "notes": "Controlled 3s negative [Shoulder-safe]",
+                "weight": "",
+                "rest": "90s"
+              },
+              {
+                "name": "Dumbbell Row (Single Arm)",
+                "sets": 3,
+                "reps": "10-12/arm",
+                "rir": "2",
+                "notes": "Supported, full ROM",
+                "weight": "",
+                "rest": "90s"
+              },
+              {
+                "name": "Incline DB Press",
+                "sets": 3,
+                "reps": "12-15",
+                "rir": "1-2",
+                "notes": "Upper chest focus [Shoulder-safe]",
+                "weight": "",
+                "rest": "90s"
+              },
+              {
+                "name": "Cable Lateral Raise",
+                "sets": 3,
+                "reps": "15-20",
+                "rir": "1",
+                "notes": "Constant tension [Shoulder-safe]",
+                "weight": "",
+                "rest": "90s"
+              },
+              {
+                "name": "Triceps Pushdown + DB Curl SS",
+                "sets": 2,
+                "reps": "12-15",
+                "rir": "1-2",
+                "notes": "Superset for density",
+                "weight": "",
+                "rest": "90s"
+              }
+            ],
+            "notes": ""
+          },
+          {
+            "day": "Lower B",
+            "focus": "Unilateral Focus",
+            "exercises": [
+              {
+                "name": "Bulgarian Split Squat",
+                "sets": 3,
+                "reps": "10-12/leg",
+                "rir": "2",
+                "notes": "Stability focus",
+                "weight": "",
+                "rest": "90s"
+              },
+              {
+                "name": "Glute Bridge (Weighted)",
+                "sets": 3,
+                "reps": "12-15",
+                "rir": "1-2",
+                "notes": "Squeeze at top",
+                "weight": "",
+                "rest": "90s"
+              },
+              {
+                "name": "Hamstring Curl (Machine)",
+                "sets": 3,
+                "reps": "12-15",
+                "rir": "1-2",
+                "notes": "Controlled negative",
+                "weight": "",
+                "rest": "90s"
+              },
+              {
+                "name": "Hip Flexor Stretch Hold",
+                "sets": 2,
+                "reps": "45s/side",
+                "rir": "",
+                "notes": "Post-workout mobility",
+                "weight": "",
+                "rest": "90s"
+              }
+            ],
+            "notes": ""
+          }
+        ],
+        "progression_notes": ""
+      },
+      {
+        "name": "Phase 2: Intensification & Progressive Overload",
+        "duration": "Weeks 5+",
+        "goal": "Intensification & Progressive Overload",
+        "sessions": [],
+        "progression_notes": "When RIR drops below 2 on all sets of a movement, increase weight 5-7.5% or add 1 set. Re-test MAV landmarks after 8 weeks."
+      }
+    ],
+    "weekly_schedule": "Based on 4x/week schedule. Sessions alternated with rest days for recovery.",
+    "warm_up_protocol": "5 min incline walk or bike (RPE 3-4)\nDynamic warm-up: leg swings, cat-cow, thoracic rotations, band pull-aparts\nMovement-specific warm-up: 2x10 reps at 50% working weight\nIPTA warm-up standard: 5-10 min general cardio → dynamic stretching → movement-specific warm-up at 40-60% working weight.\n\n# Injury-Training Compatibility Matrix\n\nFor each injury, classifies all major training movements as **Safe (Green)**, **Modified (Yellow — with plane/ROM/load change)**, or **Contraindicated (Red)**. This extends the Default Exercise Pool injury overrides by providing a full-body training classifica",
+    "cool_down_protocol": "5 min light cardio (RPE 2-3)\nStatic stretching for worked muscle groups: 30s holds\nOptional: foam rolling for tight areas"
+  }
+}
