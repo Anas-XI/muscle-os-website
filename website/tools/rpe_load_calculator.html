@@ -18,6 +18,18 @@ body{font-family:Georgia,'Times New Roman',Times,serif;background:#14151A;color:
 .step.active{background:#F4C93B;color:#14151A}
 .step.done{color:rgba(250,250,248,.5)}
 .step .num{display:inline-block;width:16px;height:16px;line-height:16px;border-radius:50%;font-size:.5rem;font-weight:700;text-align:center;margin-right:4px}
+.mos-menu-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px 4px;z-index:1001;flex-direction:column;gap:4px}
+.mos-menu-toggle span{display:block;width:22px;height:2px;background:#FAFAF8;border-radius:2px;transition:all .25s ease}
+.mos-menu-toggle.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+.mos-menu-toggle.open span:nth-child(2){opacity:0}
+.mos-menu-toggle.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+.mos-mobile-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:998}
+.mos-mobile-overlay.open{display:block}
+.mos-mobile-menu{position:fixed;top:0;right:-280px;width:260px;height:100vh;background:#1A1B22;z-index:999;padding:72px 24px 24px;transition:right .3s ease;border-left:1px solid #2C2E37;overflow-y:auto}
+.mos-mobile-menu.open{right:0}
+.mos-mobile-menu-inner{display:flex;flex-direction:column;gap:4px}
+.mos-mobile-menu-inner a{display:block;padding:14px 12px;color:#C7C9D0;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;transition:background .2s,color .2s;min-height:44px;line-height:44px}
+.mos-mobile-menu-inner a:hover,.mos-mobile-menu-inner a:active{background:rgba(244,201,59,.1);color:#F4C93B}
 .step.active .num{background:#14151A;color:#F4C93B}
 .step.done .num{background:rgba(250,250,248,.15);color:#FAFAF8}
 .step-content{display:none}
@@ -143,25 +155,23 @@ body{opacity:0;transition:opacity .4s ease}body.loaded{opacity:1}.mos-nav{transi
 .styled-table td{padding:8px 12px;border-bottom:1px solid rgba(250,250,248,.08)}
 .styled-table tbody tr:nth-child(even){background:rgba(250,250,248,.02)}
 .styled-table tbody tr:hover{background:rgba(244,201,59,.05)}
+@media(max-width:700px){.mos-nav-links{display:none}.mos-menu-toggle{display:flex}}
 @media(max-width:600px){
-  body{padding:20px 10px}
-  .header h1{font-size:1.6rem}
-  .card{padding:16px 12px}
-  .card-sm{padding:12px 10px}
-  .summary-dash{grid-template-columns:1fr}
-  .vol-row{grid-template-columns:60px 1fr 36px;font-size:.55rem}
-  .step{font-size:.5rem}
-  .step .num{width:14px;height:14px;line-height:14px;font-size:.45rem}
-  .suggest-val{font-size:1.2rem}
-  .set-row{grid-template-columns:30px 1fr 1fr 1fr 30px}
-  .set-log-header{grid-template-columns:30px 1fr 1fr 1fr 30px}
+ body{padding:20px 10px}.step{font-size:.6rem}.step .num{width:14px;height:14px;line-height:14px;font-size:.45rem}
+ .set-row{grid-template-columns:30px 1fr 1fr 1fr 30px}.set-log-header{grid-template-columns:30px 1fr 1fr 1fr 30px}
+ input,select,textarea{font-size:16px!important}.mos-brand{font-size:13px}
+ .pain-btn{width:44px;height:44px;font-size:.8rem}
+ .add-set-btn,.del-set-btn,.rm-ex-btn,.day-tab{min-height:44px}
+ .stepper{flex-wrap:wrap;gap:2px}
 }
 </style>
 <link rel="stylesheet" href="../assets/css/landing.css">
 <meta name="google-signin-client_id" content="22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com">
 </head>
 <body>
-<nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div></div></nav>
+<nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div> <button class="mos-menu-toggle" id="mosMenuToggle" aria-label="Menu"><span></span><span></span><span></span></button></div></nav>
+<div class="mos-mobile-overlay" id="mosMobileOverlay"></div>
+<div class="mos-mobile-menu" id="mosMobileMenu"><div class="mos-mobile-menu-inner"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div></div>
 <div id="googleGate">
   <div class="gate-card">
     <div class="gate-icon">&#128100;</div>
@@ -1430,6 +1440,9 @@ body{opacity:0;transition:opacity .4s ease}body.loaded{opacity:1}.mos-nav{transi
 <script src="../assets/js/site.js"></script>
 <script>
 MosAccess.requireGoogleAuth(null);
+</script>
+<script>
+(function(){var b=document.getElementById('mosMenuToggle'),m=document.getElementById('mosMobileMenu'),o=document.getElementById('mosMobileOverlay');if(!b||!m||!o)return;function c(){b.classList.remove('open');m.classList.remove('open');o.classList.remove('open')}b.addEventListener('click',function(){var is=m.classList.contains('open');if(is)c();else{b.classList.add('open');m.classList.add('open');o.classList.add('open')}});o.addEventListener('click',c);m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',c)})})();
 </script>
 </body>
 </html>

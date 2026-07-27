@@ -174,6 +174,18 @@ select option{background:#1E1E2A;color:#FAFAF8}
 .mos-nav-links{display:flex;gap:20px;font-size:11px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
 .mos-nav-links a{color:#C7C9D0;text-decoration:none;transition:color .2s}
 .mos-nav-links a:hover{color:#F4C93B}
+.mos-menu-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px 4px;z-index:1001;flex-direction:column;gap:4px}
+.mos-menu-toggle span{display:block;width:22px;height:2px;background:#FAFAF8;border-radius:2px;transition:all .25s ease}
+.mos-menu-toggle.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+.mos-menu-toggle.open span:nth-child(2){opacity:0}
+.mos-menu-toggle.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+.mos-mobile-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:998}
+.mos-mobile-overlay.open{display:block}
+.mos-mobile-menu{position:fixed;top:0;right:-280px;width:260px;height:100vh;background:#1A1B22;z-index:999;padding:72px 24px 24px;transition:right .3s ease;border-left:1px solid var(--line,#2C2E37);overflow-y:auto}
+.mos-mobile-menu.open{right:0}
+.mos-mobile-menu-inner{display:flex;flex-direction:column;gap:4px}
+.mos-mobile-menu-inner a{display:block;padding:14px 12px;color:#C7C9D0;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;transition:background .2s,color .2s;min-height:44px;line-height:44px}
+.mos-mobile-menu-inner a:hover,.mos-mobile-menu-inner a:active{background:rgba(244,201,59,.1);color:#F4C93B}
 @media(max-width:600px){.mos-nav-links{gap:10px;font-size:9px}.mos-nav-inner{padding:8px 16px}.mos-brand{font-size:12px}}
 body{opacity:0;transition:opacity .4s ease}body.loaded{opacity:1}.mos-nav{transition:transform .3s ease}.mos-nav.nav-hidden{transform:translateY(-100%)}
 @media print{.mos-nav{display:none!important}.mos-footer{display:none!important}}
@@ -235,6 +247,8 @@ body{opacity:0;transition:opacity .4s ease}body.loaded{opacity:1}.mos-nav{transi
 .rpe-guide .rg-table td:first-child{font-family:'JetBrains Mono',monospace;color:#F4C93B;font-weight:600}
 .rpe-guide .rg-tip{font-size:.55rem;color:rgba(250,250,248,.3);line-height:1.3;padding:6px 8px;background:rgba(244,201,59,.03);border-radius:5px;border-left:2px solid rgba(244,201,59,.15)}
 html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(244,201,59,.15)}
+html[dir="rtl"] .mos-mobile-menu{right:auto;left:-280px;border-left:none;border-right:1px solid #2C2E37}
+html[dir="rtl"] .mos-mobile-menu.open{left:0;right:auto}
 .fatigue-bar.checked{display:block}
 .fatigue-bar .fb-title{font-family:'Oswald',sans-serif;font-size:.65rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px}
 .fatigue-bar .fb-score{font-family:'JetBrains Mono',monospace;font-size:1.2rem;font-weight:700;line-height:1}
@@ -363,12 +377,19 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
 .ex-sel-chip:hover{border-color:rgba(250,250,248,.15);color:#FAFAF8}
 .ex-sel-chip.selected{background:rgba(244,201,59,.08);border-color:#F4C93B;color:#FAFAF8;font-weight:600}
 .ex-sel-chip.equip-tag{font-size:.4rem;background:rgba(33,150,243,.08);color:#2196F3;border-color:rgba(33,150,243,.12);padding:1px 4px;margin-left:2px;text-transform:uppercase;letter-spacing:.5px}
+@media(max-width:700px){
+ .mos-nav-links{display:none}.mos-menu-toggle{display:flex}
+}
 @media(max-width:600px){
  body{padding:20px 10px}.header h1{font-size:1.6rem}.card{padding:16px 12px}
  .form-row,.form-row-3{grid-template-columns:1fr}.welcome-grid{grid-template-columns:1fr}
- .priority-grid,.split-grid,.summary-dash{grid-template-columns:1fr}.step{font-size:.46rem}
+ .priority-grid,.split-grid,.summary-dash,.day-tabs{grid-template-columns:1fr}.step{font-size:.46rem}
  .vol-row{grid-template-columns:58px 1fr 34px;font-size:.52rem}.set-row{grid-template-columns:28px 1fr 1fr 1fr 26px}
  .set-log-header{grid-template-columns:28px 1fr 1fr 1fr 26px}.suggest-val{font-size:1.1rem}
+ input,select,textarea{font-size:16px!important}.mos-brand{font-size:13px}
+ .pain-btn{width:44px;height:44px;font-size:.75rem}
+ .add-set-btn,.del-set-btn,.rm-ex-btn,.day-tab{min-height:44px}
+ .stepper{flex-wrap:wrap;gap:2px}
 }
 </style>
 <link rel="stylesheet" href="../assets/css/overlay.css">
@@ -376,8 +397,10 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
 <meta name="google-signin-client_id" content="22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com">
 </head>
 <body>
-<nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div></div></nav>
-<div id="googleGate">
+<nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div><button class="mos-menu-toggle" id="mosMenuToggle" aria-label="Menu"><span></span><span></span><span></span></button></div></nav>
+<div class="mos-mobile-overlay" id="mosMobileOverlay"></div>
+<div class="mos-mobile-menu" id="mosMobileMenu"><div class="mos-mobile-menu-inner"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div></div>
+<div id="googleGate"
   <div class="gate-card">
     <div class="gate-icon">&#128100;</div>
     <h2>Sign in to continue</h2>
@@ -427,7 +450,8 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     <div class="sub-error" id="lndSubError">Invalid code. Try again or contact support.</div>
     <div class="sub-checkmark" id="lndSubCheck">&#10003; Access granted! Loading tool...</div>
   </div>
-  <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20subscribe%20to%20the%20Training%20Tool%20for%20300%20EGP/month" style="display:inline-block;margin-top:1rem;color:#4285f4;font-size:.85rem;text-decoration:underline" target="_blank" rel="noopener">Subscribe via WhatsApp &rarr;</a>
+  <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20subscribe%20to%20the%20Training%20Tool%20for%20300%20EGP/month" style="display:inline-block;margin-top:1rem;color:#4285f4;font-size:.85rem;text-decoration:underline" target="_blank" rel="noopener">Get Your Code via WhatsApp &rarr;</a>
+  <p style="margin:6px 0 0;font-size:11px;color:rgba(250,250,248,.35)">&#128274; No card details on this site — payment confirmed directly with your coach.</p>
 </div>
 </div>
 <div id="contentMain">
@@ -447,7 +471,8 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       <li>EN/AR bilingual interface</li>
       <li>Exportable PDF programs with full details</li>
     </ul>
-    <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20subscribe%20to%20the%20Training%20Tool%20for%20300%20EGP/month" class="sub-btn" target="_blank" rel="noopener">Subscribe via WhatsApp</a>
+    <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20subscribe%20to%20the%20Training%20Tool%20for%20300%20EGP/month" class="sub-btn" target="_blank" rel="noopener">Get Your Code via WhatsApp</a>
+    <p class="sub-privacy" style="margin:8px 0 0;font-size:11px;color:rgba(250,250,248,.35);text-align:center">&#128274; No card details on this site — payment confirmed directly with your coach.</p>
     <div class="sub-divider">Already have access?</div>
     <form class="sub-code-row" id="subForm" action="javascript:void(0)">
       <input type="text" class="sub-code-input" id="subCode" placeholder="Enter access code or email" autocomplete="off" inputmode="text">
@@ -2890,5 +2915,8 @@ if(lndVerify && lndInput){
 }
 </script>
 </div>
+<script>
+(function(){var b=document.getElementById('mosMenuToggle'),m=document.getElementById('mosMobileMenu'),o=document.getElementById('mosMobileOverlay');if(!b||!m||!o)return;function c(){b.classList.remove('open');m.classList.remove('open');o.classList.remove('open')}b.addEventListener('click',function(){var is=m.classList.contains('open');if(is)c();else{b.classList.add('open');m.classList.add('open');o.classList.add('open')}});o.addEventListener('click',c);m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',c)})})();
+</script>
 </body>
 </html>

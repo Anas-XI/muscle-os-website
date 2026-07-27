@@ -144,7 +144,7 @@ var prevBtn = document.getElementById('prevPage');
 var nextBtn = document.getElementById('nextPage');
 var zoomOutBtn = document.getElementById('zoomOut');
 var zoomInBtn = document.getElementById('zoomIn');
-var pdfDoc = null, pageNum = 1, scale = 1.2, pageRendering = false, pageNumPending = null;
+var pdfDoc = null, pageNum = 1, scale = 1.2, pageRendering = false;
 var dbOpen = null, authToken = null;
 
 filename.textContent = product.replace(/-/g,' ') || 'PDF Viewer';
@@ -262,11 +262,13 @@ function openPdf(data) {
   pdfjsLib.getDocument({ data: data }).promise.then(function(pdf) {
     pdfDoc = pdf;
     viewer.style.display = 'flex';
-    displayPage(1);
-    document.getElementById('viewerContainer').addEventListener('scroll', onScroll);
+    viewer.innerHTML = '';
     pageInfo.textContent = '1 / ' + pdf.numPages;
     prevBtn.disabled = true;
     nextBtn.disabled = pdf.numPages <= 1;
+    // Render all pages sequentially for continuous scroll
+    renderAllPages(1);
+    document.getElementById('viewerContainer').addEventListener('scroll', onScroll);
   }).catch(function(err) {
     loading.style.display = 'none';
     error.style.display = 'flex';
@@ -274,8 +276,8 @@ function openPdf(data) {
   });
 }
 
-function renderPage(num) {
-  pageRendering = true;
+function renderAllPages(num) {
+  if (num > pdfDoc.numPages) return;
   pdfDoc.getPage(num).then(function(page) {
     var viewport = page.getViewport({ scale: scale });
     var container = document.createElement('div');
@@ -286,40 +288,12 @@ function renderPage(num) {
     canvas.width = viewport.width;
     canvas.height = viewport.height;
     container.appendChild(canvas);
-    var existing = viewer.querySelectorAll('.page');
-    var inserted = false;
-    for (var i = 0; i < existing.length; i++) {
-      if (parseInt(existing[i].dataset.page) > num) {
-        viewer.insertBefore(container, existing[i]);
-        inserted = true; break;
-      }
-    }
-    if (!inserted) viewer.appendChild(container);
+    viewer.appendChild(container);
     page.render({ canvasContext: ctx, viewport: viewport }).promise.then(function() {
-      pageRendering = false;
-      if (pageNumPending !== null) { renderPage(pageNumPending); pageNumPending = null; }
+      // Render next page
+      renderAllPages(num + 1);
     });
   });
-}
-
-function queueRenderPage(num) {
-  if (pageRendering) { pageNumPending = num; return; }
-  renderPage(num);
-}
-
-function displayPage(num) {
-  pageNum = num;
-  var pages = viewer.querySelectorAll('.page');
-  pages.forEach(function(p) {
-    var n = parseInt(p.dataset.page);
-    p.style.display = (n >= num - 2 && n <= num + 4) ? 'block' : 'none';
-  });
-  for (var i = Math.max(1, num - 1); i <= Math.min(pdfDoc.numPages, num + 3); i++) {
-    if (!viewer.querySelector('.page[data-page="' + i + '"]')) queueRenderPage(i);
-  }
-  pageInfo.textContent = num + ' / ' + pdfDoc.numPages;
-  prevBtn.disabled = num <= 1;
-  nextBtn.disabled = num >= pdfDoc.numPages;
 }
 
 function onScroll() {
@@ -339,19 +313,18 @@ function onScroll() {
       pageInfo.textContent = n + ' / ' + pdfDoc.numPages;
       prevBtn.disabled = n <= 1;
       nextBtn.disabled = n >= pdfDoc.numPages;
-      displayPage(n);
     }
   }
 }
 
-prevBtn.addEventListener('click', function() { if (pageNum > 1) { pageNum--; displayPage(pageNum); var el = viewer.querySelector('.page[data-page="' + pageNum + '"]'); if (el) document.getElementById('viewerContainer').scrollTo({top: el.offsetTop - 20, behavior: 'smooth'}); } });
-nextBtn.addEventListener('click', function() { if (pageNum < pdfDoc.numPages) { pageNum++; displayPage(pageNum); var el = viewer.querySelector('.page[data-page="' + pageNum + '"]'); if (el) document.getElementById('viewerContainer').scrollTo({top: el.offsetTop - 20, behavior: 'smooth'}); } });
-zoomOutBtn.addEventListener('click', function() { scale = Math.max(0.4, scale - 0.2); zoomInfo.textContent = Math.round(scale * 100) + '%'; viewer.innerHTML = ''; pageNum = 1; displayPage(1); });
-zoomInBtn.addEventListener('click', function() { scale = Math.min(3, scale + 0.2); zoomInfo.textContent = Math.round(scale * 100) + '%'; viewer.innerHTML = ''; pageNum = 1; displayPage(1); });
+prevBtn.addEventListener('click', function() { if (pageNum > 1) { var el = viewer.querySelector('.page[data-page="' + (pageNum - 1) + '"]'); if (el) document.getElementById('viewerContainer').scrollTo({top: el.offsetTop - 20, behavior: 'smooth'}); } });
+nextBtn.addEventListener('click', function() { if (pageNum < pdfDoc.numPages) { var el = viewer.querySelector('.page[data-page="' + (pageNum + 1) + '"]'); if (el) document.getElementById('viewerContainer').scrollTo({top: el.offsetTop - 20, behavior: 'smooth'}); } });
+zoomOutBtn.addEventListener('click', function() { scale = Math.max(0.4, scale - 0.2); zoomInfo.textContent = Math.round(scale * 100) + '%'; viewer.innerHTML = ''; renderAllPages(1); pageInfo.textContent = '1 / ' + pdfDoc.numPages; pageNum = 1; prevBtn.disabled = true; nextBtn.disabled = pdfDoc.numPages <= 1; });
+zoomInBtn.addEventListener('click', function() { scale = Math.min(3, scale + 0.2); zoomInfo.textContent = Math.round(scale * 100) + '%'; viewer.innerHTML = ''; renderAllPages(1); pageInfo.textContent = '1 / ' + pdfDoc.numPages; pageNum = 1; prevBtn.disabled = true; nextBtn.disabled = pdfDoc.numPages <= 1; });
 
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'ArrowLeft' || e.key === 'PageUp') { if (pageNum > 1) { pageNum--; displayPage(pageNum); } }
-  else if (e.key === 'ArrowRight' || e.key === 'PageDown') { if (pageNum < pdfDoc.numPages) { pageNum++; displayPage(pageNum); } }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') { prevBtn.click(); }
+  else if (e.key === 'ArrowRight' || e.key === 'PageDown') { nextBtn.click(); }
   else if (e.key === '+' || e.key === '=') { zoomInBtn.click(); }
   else if (e.key === '-') { zoomOutBtn.click(); }
 });
