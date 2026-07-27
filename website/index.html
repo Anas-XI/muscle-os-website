@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google-signin-client_id" content="22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com">
+<meta name="description" content="Anas Mo'men — hypertrophy and powerlifting coach. AI-powered programming, biomechanics-based training, 700kg+ SBD total, 100+ clients coached since 2024.">
+<meta name="referrer" content="no-referrer-when-downgrade">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; frame-ancestors 'self'; base-uri 'self'">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <title data-i18n="page_title">Anas Mo'men — Hypertrophy &amp; Powerlifting Coach</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -543,7 +545,7 @@
       <span class="lt-btn active" data-lang="en" aria-pressed="true">EN</span>
       <span class="lt-btn" data-lang="ar" aria-pressed="false">AR</span>
     </div>
-    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
 <div class="mobile-overlay" id="mobileOverlay"></div>
@@ -557,15 +559,15 @@
   <a href="#contact" data-i18n="nav_contact">Contact</a>
   <a href="https://wa.me/201040796017" class="mobile-cta" target="_blank" rel="noopener" data-i18n="nav_whatsapp">Message on WhatsApp</a>
   <div class="mobile-lang">
-    <span class="lt-btn active" data-lang="en" aria-pressed="true" onclick="setLang('en')">EN</span>
-    <span class="lt-btn" data-lang="ar" aria-pressed="false" onclick="setLang('ar')">AR</span>
+    <span class="lt-btn active" data-lang="en" aria-pressed="true">EN</span>
+    <span class="lt-btn" data-lang="ar" aria-pressed="false">AR</span>
   </div>
 </div>
 
 <!-- HERO -->
 <section class="hero" id="top">
   <div class="hero-bg">
-    <img src="assets/hero.svg" alt="Muscle OS — AI-Powered Coaching" fetchpriority="high" data-i18n-alt="hero_img_alt" onerror="this.style.display='none';this.parentNode.querySelector('.img-fallback').style.display='block'" onload="this.setAttribute('loaded','')">
+    <img src="assets/hero.svg" alt="Muscle OS — AI-Powered Coaching" fetchpriority="high" data-i18n-alt="hero_img_alt" id="heroBg">
     <div class="img-fallback"></div>
   </div>
   <div class="hero-shard"></div>
@@ -590,7 +592,7 @@
       </div>
     </div>
     <div class="hero-image">
-      <img src="assets/img/tool-hero.jpg" alt="Training session" data-i18n-alt="hero_img_alt2" onerror="this.style.display='none'">
+      <img src="assets/img/tool-hero.jpg" alt="Training session" data-i18n-alt="hero_img_alt2" id="toolHero">
     </div>
   </div>
   <div class="scroll-cue" data-i18n="hero_scroll">Scroll</div>
@@ -600,7 +602,7 @@
 <section class="about section-pad reveal" id="about">
   <div class="wrap about-grid">
     <div class="about-photo-wrap">
-      <div class="about-photo"><img src="assets/img/coach.jpg" alt="Anas Mo'men in the gym" loading="lazy" data-i18n-alt="about_img_alt" onerror="this.style.display='none';this.parentNode.style.background='var(--ink)';this.parentNode.style.minHeight='320px';this.parentNode.style.display='flex';this.parentNode.style.alignItems='center';this.parentNode.style.justifyContent='center';this.parentNode.innerHTML='<div style=text-align:center;padding:40px><div style=font-size:48px;margin-bottom:8px>&#127947;</div><div style=font-size:11px;color:var(--gray);letter-spacing:.5px>Coach Anas</div></div>'"></div>
+      <div class="about-photo"><img src="assets/img/coach.jpg" alt="Anas Mo'men in the gym" loading="lazy" data-i18n-alt="about_img_alt" id="coachImg"></div>
     </div>
     <div>
       <div class="eyebrow" style="color:var(--yellow-dim);" data-i18n="about_eyebrow">About Your Coach</div>
@@ -1151,6 +1153,13 @@ document.addEventListener('DOMContentLoaded', function() {
       if (l !== currentLang) setLang(l);
     });
   });
+  // Mobile lang toggle (not inline onclick)
+  document.querySelectorAll('.mobile-lang .lt-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var l = this.getAttribute('data-lang');
+      if (l !== currentLang) setLang(l);
+    });
+  });
   // Mobile menu toggle
   var menuToggle = document.getElementById('menuToggle');
   var mobileMenu = document.getElementById('mobileMenu');
@@ -1158,19 +1167,41 @@ document.addEventListener('DOMContentLoaded', function() {
   if (menuToggle && mobileMenu && mobileOverlay) {
     function closeMenu() {
       menuToggle.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
       mobileMenu.classList.remove('open');
       mobileOverlay.classList.remove('open');
     }
     menuToggle.addEventListener('click', function() {
       var isOpen = mobileMenu.classList.contains('open');
       if (isOpen) closeMenu();
-      else { menuToggle.classList.add('open'); mobileMenu.classList.add('open'); mobileOverlay.classList.add('open'); }
+      else { menuToggle.classList.add('open'); menuToggle.setAttribute('aria-expanded', 'true'); mobileMenu.classList.add('open'); mobileOverlay.classList.add('open'); }
     });
     mobileOverlay.addEventListener('click', closeMenu);
     mobileMenu.querySelectorAll('a').forEach(function(a) {
       a.addEventListener('click', closeMenu);
     });
   }
+  // Image error fallbacks (security: not inline onerror)
+  document.querySelectorAll('img[data-i18n-alt]').forEach(function(img) {
+    img.addEventListener('error', function() {
+      this.style.display = 'none';
+      var fb = this.parentNode.querySelector('.img-fallback');
+      if (fb) { fb.style.display = 'block'; return; }
+      // about photo fallback
+      var p = this.parentNode;
+      if (p.classList.contains('about-photo')) {
+        p.style.background = 'var(--ink)';
+        p.style.minHeight = '320px';
+        p.style.display = 'flex';
+        p.style.alignItems = 'center';
+        p.style.justifyContent = 'center';
+        p.innerHTML = '<div style=text-align:center;padding:40px><div style=font-size:48px;margin-bottom:8px>&#127947;</div><div style=font-size:11px;color:var(--gray);letter-spacing:.5px>Coach Anas</div></div>';
+      }
+    });
+    img.addEventListener('load', function() {
+      if (this.id === 'heroBg') this.setAttribute('loaded', '');
+    });
+  });
   // Apply persisted language
   setLang(currentLang);
   // Page load entrance

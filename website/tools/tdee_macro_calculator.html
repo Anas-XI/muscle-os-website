@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' https://accounts.google.com https://*.googleapis.com">
 <title>TDEE & Macro Calculator — Precision Edition</title>
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
 <style>
@@ -138,7 +139,6 @@ html[dir="rtl"] .mos-mobile-menu.open{left:0;right:auto}
 .mos-mobile-menu-inner a:hover,.mos-mobile-menu-inner a:active{background:rgba(244,201,59,.1);color:#F4C93B}
 </style>
 <link rel="stylesheet" href="../assets/css/landing.css">
-<meta name="google-signin-client_id" content="22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com">
 </head>
 <body>
 <nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div><button class="mos-menu-toggle" id="mosMenuToggle" aria-label="Menu"><span></span><span></span><span></span></button></div></nav>
@@ -153,7 +153,7 @@ html[dir="rtl"] .mos-mobile-menu.open{left:0;right:auto}
   </div>
 </div>
 <div id="contentMain"><div class="container">
-  <button class="lang-toggle" onclick="toggleLang()" data-i18n="langBtn">🇸🇦 AR</button>
+  <button class="lang-toggle" id="langToggleBtn" data-i18n="langBtn">🇸🇦 AR</button>
   <div class="header">
     <h1 data-i18n="title">TDEE Calculator</h1>
     <p data-i18n="subtitle">Precision Edition — every factor that affects your metabolism</p>
@@ -893,6 +893,7 @@ html[dir="rtl"] .mos-mobile-menu.open{left:0;right:auto}
 <script src="../assets/js/site.js"></script>
 <script>
 MosAccess.requireGoogleAuth(null);
+document.getElementById('langToggleBtn')?.addEventListener('click', toggleLang);
 </script>
 <script>
 (function(){var b=document.getElementById('mosMenuToggle'),m=document.getElementById('mosMobileMenu'),o=document.getElementById('mosMobileOverlay');if(!b||!m||!o)return;function c(){b.classList.remove('open');m.classList.remove('open');o.classList.remove('open')}b.addEventListener('click',function(){var is=m.classList.contains('open');if(is)c();else{b.classList.add('open');m.classList.add('open');o.classList.add('open')}});o.addEventListener('click',c);m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',c)})})();

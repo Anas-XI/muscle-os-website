@@ -20,11 +20,6 @@
 
   function getProduct(id) { return CONFIG.products[id]; }
 
-  function getGoogleClientId() {
-    var meta = document.querySelector('meta[name="google-signin-client_id"]');
-    return meta ? meta.getAttribute('content') : '';
-  }
-
   /* ---- Check stored localStorage access ---- */
   function getStoredAccess(productId) {
     var p = getProduct(productId);
@@ -227,7 +222,7 @@
       }
 
       google.accounts.id.initialize({
-        client_id: getGoogleClientId() || 'NOT_CONFIGURED',
+        client_id: '22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com',
         callback: function(response) {
           var idToken = response.credential;
           fetch(CONFIG.apiBase + '/api/auth/google', {
