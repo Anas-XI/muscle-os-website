@@ -1,0 +1,41 @@
+name = "muscleos-access-control"
+main = "src/index.js"
+compatibility_date = "2025-07-26"
+
+# ── Default = Production (no custom route until muscleos.coach zone is added) ──
+[[kv_namespaces]]
+binding = "ACCESS_CODES"
+id = "94aabfeb105f4d95969c8f3f91f36649"
+
+[[durable_objects.bindings]]
+name = "CODE_COUNTER"
+class_name = "CodeCounter"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["CodeCounter"]
+
+# ── Staging (workers.dev) ──
+[env.staging]
+[[env.staging.kv_namespaces]]
+binding = "ACCESS_CODES"
+id = "1961751e32b94ca288f046c696b0fb51"
+[[env.staging.durable_objects.bindings]]
+name = "CODE_COUNTER"
+class_name = "CodeCounter"
+[[env.staging.migrations]]
+tag = "v1"
+new_sqlite_classes = ["CodeCounter"]
+
+# ── Production (custom domain) ──
+[env.production]
+route = { pattern = "api.muscleos.coach/*", zone_name = "muscleos.coach" }
+[[env.production.kv_namespaces]]
+binding = "ACCESS_CODES"
+id = "94aabfeb105f4d95969c8f3f91f36649"
+[[env.production.durable_objects.bindings]]
+name = "CODE_COUNTER"
+class_name = "CodeCounter"
+[[env.production.migrations]]
+tag = "v1"
+new_sqlite_classes = ["CodeCounter"]

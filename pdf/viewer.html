@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+<meta name="referrer" content="no-referrer-when-downgrade">
+<title>PDF Viewer — Muscle OS</title>
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column}
+.mos-nav{position:sticky;top:0;z-index:999;background:rgba(20,21,26,.95);backdrop-filter:blur(8px);border-bottom:1px solid #2C2E37;transition:transform .3s ease}
+.mos-nav-inner{max-width:1180px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
+.mos-brand{font-family:'Oswald',sans-serif;font-size:16px;font-weight:700;color:#F4C93B;text-decoration:none;letter-spacing:1px;text-transform:uppercase}
+.mos-brand span{font-weight:300;color:rgba(250,250,248,.35)}
+.mos-nav-links{display:flex;gap:20px;font-size:11px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
+.mos-nav-links a{color:#C7C9D0;text-decoration:none;transition:color .2s}
+.mos-nav-links a:hover{color:#F4C93B}
+@media(max-width:600px){.mos-nav-links{gap:10px;font-size:9px}.mos-nav-inner{padding:8px 16px}.mos-brand{font-size:12px}}
+.toolbar{display:flex;align-items:center;justify-content:center;gap:12px;padding:10px 16px;background:#1E1E2A;border-bottom:1px solid #2C2E37;flex-wrap:wrap;position:sticky;top:49px;z-index:99}
+.toolbar button{background:transparent;border:1px solid #454854;color:#FAFAF8;padding:10px 16px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;transition:all .2s;display:flex;align-items:center;gap:5px}
+.toolbar button:hover{background:#F4C93B;color:#14151A;border-color:#F4C93B}
+.toolbar button:disabled{opacity:.3;cursor:default;background:transparent;border-color:#454854;color:#FAFAF8}
+.toolbar .page-info{font-size:13px;color:#C7C9D0;font-family:'Inter',sans-serif;min-width:100px;text-align:center}
+.toolbar .zoom-info{font-size:12px;color:rgba(250,250,248,.45);min-width:50px;text-align:center;font-family:'Inter',sans-serif}
+.toolbar .sep{width:1px;height:20px;background:#2C2E37}
+.toolbar .filename{font-size:12px;color:rgba(250,250,248,.4);max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-right:auto}
+#viewerContainer{flex:1;overflow:auto;background:#0E0F13;display:flex;flex-direction:column;align-items:center;padding:20px 0}
+#viewer{display:flex;flex-direction:column;align-items:center;gap:12px;width:100%}
+#viewer .page{position:relative;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,.6);margin-bottom:8px}
+#viewer .page canvas{display:block;max-width:100%;height:auto!important}
+.loading{display:flex;align-items:center;justify-content:center;flex:1;flex-direction:column;gap:12px;color:rgba(250,250,248,.35)}
+.loading .spinner{width:32px;height:32px;border:3px solid #2C2E37;border-top-color:#F4C93B;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading p{font-size:13px}
+.error-state{display:flex;align-items:center;justify-content:center;flex:1;flex-direction:column;gap:16px;padding:40px;text-align:center}
+.error-state .icon{font-size:48px;opacity:.5}
+.error-state h2{font-size:18px;color:#FAFAF8}
+.error-state p{font-size:13px;color:rgba(250,250,248,.45);max-width:440px;line-height:1.6}
+.error-state a{color:#F4C93B}
+.mos-footer{border-top:1px solid #2C2E37;padding:20px 24px;text-align:center;font-size:11px;color:rgba(250,250,248,.3)}
+.mos-footer a{color:rgba(250,250,248,.5);text-decoration:none}
+.mos-footer a:hover{color:#F4C93B}
+@media(max-width:600px){.toolbar .filename{display:none}.toolbar{gap:6px;padding:8px 10px}.toolbar button{padding:5px 10px;font-size:11px}#viewerContainer{padding:12px 0}}
+.library{flex:1;padding:48px 24px 64px}
+.lib-wrap{max-width:760px;margin:0 auto}
+.lib-title{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;text-transform:uppercase;text-align:center;margin-bottom:6px}
+.lib-sub{text-align:center;color:rgba(250,250,248,.45);font-size:14px;margin-bottom:40px;line-height:1.5}
+.lib-section{margin-bottom:36px}
+.lib-section-title{font-family:'Oswald',sans-serif;font-size:18px;font-weight:600;text-transform:uppercase;color:#F4C93B;margin-bottom:14px;padding-bottom:4px;border-bottom:1px solid #2C2E37}
+.lib-price{font-size:12px;color:rgba(255,215,0,.5);font-family:'JetBrains Mono',monospace;margin-left:8px;font-weight:400}
+.lib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.lib-card{background:#1E2027;border:1px solid #2C2E37;border-radius:8px;padding:18px;text-decoration:none;display:flex;flex-direction:column;gap:6px;transition:border-color .2s,transform .2s}
+.lib-card:hover{border-color:#F4C93B;transform:translateY(-2px)}
+.lib-prod{border-color:rgba(255,215,0,.15);background:linear-gradient(135deg,#1E2027,rgba(255,215,0,.02))}
+.lib-prod:hover{border-color:#FFD700}
+.lib-badge{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:2px 6px;border-radius:3px;display:inline-block;width:fit-content}
+.badge-g{background:rgba(76,175,80,.15);color:#4CAF50}
+.badge-b{background:rgba(255,215,0,.15);color:#FFD700;border:1px solid rgba(255,215,0,.2)}
+.lib-name{font-family:'Oswald',sans-serif;font-size:15px;font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.3px}
+.lib-desc{font-size:12px;color:rgba(250,250,248,.4);line-height:1.5}
+.mos-nav.nav-hidden{transform:translateY(-100%)}
+body{opacity:0;transition:opacity .4s ease}
+body.loaded{opacity:1}
+
+</style>
+</head>
+<body>
+
+<nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div></div></nav>
+
+<div class="toolbar">
+  <span class="filename" id="filename"></span>
+  <button id="prevPage" disabled>&larr; Prev</button>
+  <span class="page-info" id="pageInfo">- / -</span>
+  <button id="nextPage" disabled>Next &rarr;</button>
+  <div class="sep"></div>
+  <button id="zoomOut">A-</button>
+  <span class="zoom-info" id="zoomInfo">100%</span>
+  <button id="zoomIn">A+</button>
+</div>
+
+<div id="viewerContainer">
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <p>Loading PDF...</p>
+  </div>
+  <div id="viewer" style="display:none"></div>
+  <div class="error-state" id="error" style="display:none">
+    <div class="icon">&#128196;</div>
+    <h2>Could not load PDF</h2>
+    <p id="errorMsg">The file was not found or could not be opened.</p>
+    <a href="../index.html">Back to Home</a>
+  </div>
+  <div class="library" id="library">
+    <div class="lib-wrap">
+      <h1 class="lib-title">PDF Library</h1>
+      <p class="lib-sub">Select a guide or book to view in the built-in PDF reader. Books require purchase; guides are free.</p>
+      <div class="lib-section">
+        <h2 class="lib-section-title">Free Guides</h2>
+        <div class="lib-grid">
+          <a class="lib-card" href="?product=consistency-workbook"><span class="lib-badge badge-g">Workbook</span><span class="lib-name">Consistency Workbook</span><span class="lib-desc">6-week guided workbook for building training &amp; nutrition habits.</span></a>
+          <a class="lib-card" href="?product=train-maxing-quick-start"><span class="lib-badge badge-g">Quick-Start</span><span class="lib-name">Train Maxing Quick Start</span><span class="lib-desc">Five steps to a structured, progressive programme.</span></a>
+          <a class="lib-card" href="?product=diet-maxing-quick-start"><span class="lib-badge badge-g">Quick-Start</span><span class="lib-name">Diet Maxing Quick Start</span><span class="lib-desc">Set calories, macros, and meal structure.</span></a>
+          <a class="lib-card" href="?product=deload-decision-tree"><span class="lib-badge badge-g">Decision Aid</span><span class="lib-name">Deload Decision Tree</span><span class="lib-desc">Visual flowchart for when and how to deload.</span></a>
+          <a class="lib-card" href="?product=plateau-decision-tree"><span class="lib-badge badge-g">Decision Aid</span><span class="lib-name">Plateau Decision Tree</span><span class="lib-desc">Diagnose stalled progress bottlenecks.</span></a>
+          <a class="lib-card" href="?product=recomp-cheat-sheet"><span class="lib-badge badge-g">Cheat Sheet</span><span class="lib-name">Recomp Protocol Cheat Sheet</span><span class="lib-desc">Quick reference for body recomposition.</span></a>
+        </div>
+      </div>
+      <div class="lib-section">
+        <h2 class="lib-section-title">Paid Books <span class="lib-price">500 EGP each</span></h2>
+        <div class="lib-grid">
+          <a class="lib-card lib-prod" href="?product=training-book"><span class="lib-badge badge-b">Book</span><span class="lib-name">Training &amp; Programming Book</span><span class="lib-desc">27 chapters — program design, periodisation, exercise selection.</span></a>
+          <a class="lib-card lib-prod" href="?product=nutrition-book"><span class="lib-badge badge-b">Book</span><span class="lib-name">Diet &amp; Nutrition Book</span><span class="lib-desc">33 chapters — energy balance, macros, meal timing.</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="mos-footer"><a href="https://muscleos.coach">muscleos.coach</a> — Coach Anas Mo'men</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+var API_BASE = 'https://muscleos-access-control.muscleos.workers.dev';
+var PAID_PRODUCTS = { 'training-book':'training_book', 'nutrition-book':'nutrition_book' };
+
+var params = new URLSearchParams(location.search);
+var product = params.get('file') || params.get('product') || '';
+var viewer = document.getElementById('viewer');
+var loading = document.getElementById('loading');
+var error = document.getElementById('error');
+var errorMsg = document.getElementById('errorMsg');
+var library = document.getElementById('library');
+var filename = document.getElementById('filename');
+var pageInfo = document.getElementById('pageInfo');
+var zoomInfo = document.getElementById('zoomInfo');
+var prevBtn = document.getElementById('prevPage');
+var nextBtn = document.getElementById('nextPage');
+var zoomOutBtn = document.getElementById('zoomOut');
+var zoomInBtn = document.getElementById('zoomIn');
+var pdfDoc = null, pageNum = 1, scale = 1.2, pageRendering = false;
+var dbOpen = null, authToken = null;
+
+filename.textContent = product.replace(/-/g,' ') || 'PDF Viewer';
+
+// ── Open IndexedDB cache ──
+function openDB() {
+  return new Promise(function(resolve, reject) {
+    if (dbOpen) return resolve(dbOpen);
+    var req = indexedDB.open('MuscleOS_PDF_Cache', 1);
+    req.onupgradeneeded = function(e) {
+      e.target.result.createObjectStore('pdfs', { keyPath: 'id' });
+    };
+    req.onsuccess = function(e) {
+      dbOpen = e.target.result;
+      resolve(dbOpen);
+    };
+    req.onerror = function() { reject(req.error); };
+  });
+}
+
+function getCached(id) {
+  return openDB().then(function(db) {
+    return new Promise(function(resolve) {
+      var tx = db.transaction('pdfs', 'readonly');
+      var req = tx.objectStore('pdfs').get(id);
+      req.onsuccess = function() { resolve(req.result ? req.result.data : null); };
+      req.onerror = function() { resolve(null); };
+    });
+  }).catch(function() { return null; });
+}
+
+function setCache(id, data) {
+  openDB().then(function(db) {
+    var tx = db.transaction('pdfs', 'readwrite');
+    tx.objectStore('pdfs').put({ id: id, data: data, ts: Date.now() });
+  }).catch(function() {});
+}
+
+// ── Load PDF data ──
+function loadPdf() {
+  if (!product) {
+    loading.style.display = 'none';
+    error.style.display = 'none';
+    viewer.style.display = 'none';
+    library.style.display = 'flex';
+    return;
+  }
+  library.style.display = 'none';
+
+  var isPaid = !!PAID_PRODUCTS[product];
+
+  // Try cache first (for offline)
+  getCached(product).then(function(cached) {
+    if (cached) {
+      openPdf(cached);
+      return;
+    }
+    // Not cached — fetch from Worker
+    var url = API_BASE + '/api/pdf/' + encodeURIComponent(product);
+    
+    if (isPaid) {
+      // Get JWT from localStorage (same keys as access-control.js)
+      var session = null;
+      try {
+        var key = product === 'training-book' ? 'mos_book_training' : 'mos_book_nutrition';
+        var raw = localStorage.getItem(key);
+        if (raw) session = JSON.parse(raw);
+      } catch(e) {}
+      
+      if (session && session.token) {
+        authToken = session.token;
+      } else {
+        loading.style.display = 'none';
+        error.style.display = 'flex';
+        errorMsg.textContent = 'Access denied. Please purchase this product to view the PDF.';
+        return;
+      }
+    }
+
+    var fetchOpts = { headers: {} };
+    if (authToken) fetchOpts.headers['Authorization'] = 'Bearer ' + authToken;
+
+    fetch(url, fetchOpts).then(function(resp) {
+      if (!resp.ok) {
+        loading.style.display = 'none';
+        if (resp.status === 401 || resp.status === 403) {
+          error.style.display = 'flex';
+          errorMsg.textContent = 'Access denied. Please verify your access code first.';
+        } else {
+          error.style.display = 'flex';
+          errorMsg.textContent = 'Failed to load PDF (error ' + resp.status + ').';
+        }
+        return null;
+      }
+      return resp.arrayBuffer();
+    }).then(function(buf) {
+      if (!buf) return;
+      // Cache for offline
+      setCache(product, buf);
+      openPdf(buf);
+    }).catch(function(err) {
+      // Network error — check cache again as fallback
+      getCached(product).then(function(cached) {
+        if (cached) { openPdf(cached); return; }
+        loading.style.display = 'none';
+        error.style.display = 'flex';
+        errorMsg.textContent = 'Could not connect. Check your internet connection and try again.';
+      });
+    });
+  });
+}
+
+function openPdf(data) {
+  loading.style.display = 'none';
+  pdfjsLib.getDocument({ data: data }).promise.then(function(pdf) {
+    pdfDoc = pdf;
+    viewer.style.display = 'flex';
+    viewer.innerHTML = '';
+    pageInfo.textContent = '1 / ' + pdf.numPages;
+    prevBtn.disabled = true;
+    nextBtn.disabled = pdf.numPages <= 1;
+    // Render all pages sequentially for continuous scroll
+    renderAllPages(1);
+    document.getElementById('viewerContainer').addEventListener('scroll', onScroll);
+  }).catch(function(err) {
+    loading.style.display = 'none';
+    error.style.display = 'flex';
+    errorMsg.textContent = err.message || 'Failed to render PDF.';
+  });
+}
+
+function renderAllPages(num) {
+  if (num > pdfDoc.numPages) return;
+  pdfDoc.getPage(num).then(function(page) {
+    var viewport = page.getViewport({ scale: scale });
+    var container = document.createElement('div');
+    container.className = 'page';
+    container.dataset.page = num;
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+    container.appendChild(canvas);
+    viewer.appendChild(container);
+    page.render({ canvasContext: ctx, viewport: viewport }).promise.then(function() {
+      // Render next page
+      renderAllPages(num + 1);
+    });
+  });
+}
+
+function onScroll() {
+  var pages = viewer.querySelectorAll('.page');
+  var container = document.getElementById('viewerContainer');
+  var mid = container.scrollTop + container.clientHeight / 2;
+  var closest = null, closestDist = Infinity;
+  pages.forEach(function(p) {
+    var offset = p.offsetTop - container.scrollTop;
+    var dist = Math.abs(offset + p.offsetHeight / 2 - container.clientHeight / 2);
+    if (dist < closestDist) { closestDist = dist; closest = p; }
+  });
+  if (closest) {
+    var n = parseInt(closest.dataset.page);
+    if (n !== pageNum) {
+      pageNum = n;
+      pageInfo.textContent = n + ' / ' + pdfDoc.numPages;
+      prevBtn.disabled = n <= 1;
+      nextBtn.disabled = n >= pdfDoc.numPages;
+    }
+  }
+}
+
+prevBtn.addEventListener('click', function() { if (pageNum > 1) { var el = viewer.querySelector('.page[data-page="' + (pageNum - 1) + '"]'); if (el) document.getElementById('viewerContainer').scrollTo({top: el.offsetTop - 20, behavior: 'smooth'}); } });
+nextBtn.addEventListener('click', function() { if (pageNum < pdfDoc.numPages) { var el = viewer.querySelector('.page[data-page="' + (pageNum + 1) + '"]'); if (el) document.getElementById('viewerContainer').scrollTo({top: el.offsetTop - 20, behavior: 'smooth'}); } });
+zoomOutBtn.addEventListener('click', function() { scale = Math.max(0.4, scale - 0.2); zoomInfo.textContent = Math.round(scale * 100) + '%'; viewer.innerHTML = ''; renderAllPages(1); pageInfo.textContent = '1 / ' + pdfDoc.numPages; pageNum = 1; prevBtn.disabled = true; nextBtn.disabled = pdfDoc.numPages <= 1; });
+zoomInBtn.addEventListener('click', function() { scale = Math.min(3, scale + 0.2); zoomInfo.textContent = Math.round(scale * 100) + '%'; viewer.innerHTML = ''; renderAllPages(1); pageInfo.textContent = '1 / ' + pdfDoc.numPages; pageNum = 1; prevBtn.disabled = true; nextBtn.disabled = pdfDoc.numPages <= 1; });
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') { prevBtn.click(); }
+  else if (e.key === 'ArrowRight' || e.key === 'PageDown') { nextBtn.click(); }
+  else if (e.key === '+' || e.key === '=') { zoomInBtn.click(); }
+  else if (e.key === '-') { zoomOutBtn.click(); }
+});
+
+loadPdf();
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

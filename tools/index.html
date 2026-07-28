@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+<title>Training & Nutrition Tools — Coach Anas Mo'men</title>
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#14151A;--ink-2:#1E2027;--ink-3:#26282F;--yellow:#F4C93B;--yellow-dim:#C9A227;--paper:#FAFAF8;--gray:#8A8D96;--line:#2C2E37}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--ink);color:#fff;line-height:1.5;min-height:100vh;display:flex;flex-direction:column;opacity:0;transition:opacity .4s ease}
+body.loaded{opacity:1}
+h1,h2,h3,h4,p,li,blockquote,figcaption{overflow-wrap:break-word;word-break:break-word}
+.display{font-family:'Oswald',sans-serif;text-transform:uppercase}
+.mono{font-family:'JetBrains Mono',monospace}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:860px;margin:0 auto;padding:0 24px;width:100%}
+::selection{background:var(--yellow);color:var(--ink)}
+header{background:rgba(20,21,26,.95);border-bottom:1px solid var(--line);transition:transform .3s ease}
+header.nav-hidden{transform:translateY(-100%)}
+.header-inner{max-width:1180px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+.brand{font-family:'Oswald',sans-serif;font-weight:700;font-size:16px;letter-spacing:.5px;text-transform:uppercase}
+.brand span{color:var(--yellow)}
+.nav-links{display:flex;gap:20px;font-size:12px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
+.nav-links a{color:#C7C9D0;transition:color .2s}
+.nav-links a:hover{color:var(--yellow)}
+main{flex:1;padding:60px 0}
+.page-title{font-family:'Oswald',sans-serif;font-size:clamp(28px,4vw,38px);font-weight:700;text-transform:uppercase;text-align:center;margin-bottom:8px}
+.page-sub{text-align:center;color:var(--gray);font-size:15px;margin-bottom:48px}
+.cat-title{font-family:'Oswald',sans-serif;font-size:20px;font-weight:600;text-transform:uppercase;color:var(--yellow);margin:32px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--yellow);display:inline-block}
+.cat-title .sub{font-size:12px;color:#FFD700;font-family:'JetBrains Mono',monospace;margin-left:8px;vertical-align:middle}
+.tool-grid{display:grid;gap:16px;margin-bottom:16px}
+.tool-card{background:var(--ink-2);border:1px solid var(--line);border-radius:8px;padding:24px;transition:border-color .2s,transform .2s;display:block}
+.tool-card:hover{border-color:var(--yellow);transform:translateY(-2px)}
+.tool-card .card-title{font-family:'Oswald',sans-serif;font-size:18px;font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.3px;margin-bottom:4px}
+.tool-card .card-title .pro-tag{font-size:10px;color:#FFD700;vertical-align:super;margin-left:4px;font-family:'JetBrains Mono',monospace}
+.tool-card .card-desc{font-size:14px;color:var(--gray);line-height:1.5;margin-bottom:8px}
+.tool-card .card-link{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--yellow)}
+.tool-card .card-badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:2px 8px;border-radius:3px;margin-bottom:8px}
+.badge-free{background:rgba(244,201,59,.15);color:var(--yellow)}
+.badge-pro{background:linear-gradient(135deg,rgba(255,215,0,.2),rgba(244,201,59,.1));color:#FFD700;border:1px solid rgba(255,215,0,.3)}
+.tool-card.pro-card{background:linear-gradient(135deg,var(--ink-2),rgba(255,215,0,.03));border-color:rgba(255,215,0,.2)}
+.tool-card.pro-card:hover{border-color:#FFD700}
+.card-price{font-size:12px;color:rgba(255,215,0,.6);margin-top:2px;font-family:'JetBrains Mono',monospace}
+footer{padding:24px;text-align:center;border-top:1px solid var(--line);font-size:12px;color:rgba(250,250,248,.4)}
+footer a{color:var(--yellow)}
+
+@media(max-width:560px){main{padding:40px 0 60px}.page-title{margin-bottom:4px}.page-sub{margin-bottom:32px;font-size:14px}}
+.menu-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px 4px;z-index:1001;flex-direction:column;gap:4px}
+.menu-toggle span{display:block;width:22px;height:2px;background:#FAFAF8;border-radius:2px;transition:all .25s ease}
+.menu-toggle.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+.menu-toggle.open span:nth-child(2){opacity:0}
+.menu-toggle.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+.mobile-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:998}
+.mobile-overlay.open{display:block}
+.mobile-menu{position:fixed;top:0;right:-280px;width:260px;height:100vh;background:#1A1B22;z-index:999;padding:72px 24px 24px;transition:right .3s ease;border-left:1px solid #2C2E37;overflow-y:auto}
+.mobile-menu.open{right:0}
+.mobile-menu-inner{display:flex;flex-direction:column;gap:4px}
+.mobile-menu-inner a{display:block;padding:14px 12px;color:#C7C9D0;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;transition:background .2s,color .2s;min-height:44px;line-height:44px}
+.mobile-menu-inner a:hover,.mobile-menu-inner a:active{background:rgba(244,201,59,.1);color:#F4C93B}
+@media(max-width:700px){.nav-links{display:none}.menu-toggle{display:flex}.brand{font-size:13px}input,select,textarea{font-size:16px!important}}
+[dir="rtl"] .mobile-menu{right:auto;left:-280px;border-left:none;border-right:1px solid #2C2E37}
+[dir="rtl"] .mobile-menu.open{left:0;right:auto}
+</style>
+</head>
+<body>
+
+<header>
+<div class="header-inner">
+<a href="../index.html" class="brand">ANAS MO'MEN <span>COACHING</span></a>
+<nav class="nav-links">
+<a href="../index.html">Home</a>
+<a href="../tools/">Tools</a>
+<a href="../knowledge-hub/">Knowledge Hub</a>
+<a href="../index.html#packages">Coaching</a>
+</nav>
+<button class="menu-toggle" id="menuToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+</div>
+<div class="mobile-overlay" id="mobileOverlay"></div>
+<div class="mobile-menu" id="mobileMenu"><div class="mobile-menu-inner"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div></div>
+</header>
+
+
+<main>
+<div class="wrap">
+<h1 class="page-title">Training &amp; Nutrition Tools</h1>
+<p class="page-sub">Free calculators plus subscription-powered pro tools. Everything works offline via localStorage.</p>
+
+<div class="cat-title">Pro Tools</div>
+<div class="tool-grid">
+<a class="tool-card pro-card" href="training_tool.html">
+<div class="badge badge-pro">PRO</div>
+<div class="card-title">Training Tool <span class="pro-tag">PRO</span></div>
+<div class="card-desc">Full training app: volume calculator, split selector, program generator, session logger, and progress tracking. Supports EN/AR bilingual interface with RPE/RIR guide.</div>
+<div class="card-price">300 EGP / month</div>
+<div class="card-link">Launch Tool &rarr;</div>
+</a>
+
+<a class="tool-card pro-card" href="tdee_adaptive_engine.html">
+<div class="badge badge-pro">PRO</div>
+<div class="card-title">TDEE Adaptive Engine <span class="pro-tag">PRO</span></div>
+<div class="card-desc">Log your daily weight and calories, and the engine auto-adjusts your estimated TDEE using rolling averages and trend analysis.</div>
+<div class="card-price">200 EGP / month</div>
+<div class="card-link">Launch Tool &rarr;</div>
+</a>
+</div>
+
+<div class="cat-title">Free Tools</div>
+<div class="tool-grid">
+<a class="tool-card" href="tdee_macro_calculator.html">
+<div class="badge badge-free">Free</div>
+<div class="card-title">TDEE &amp; Macro Calculator</div>
+<div class="card-desc">Calculate your maintenance calories, set a deficit or surplus, and get your daily protein, carbs, and fat targets for any goal.</div>
+<div class="card-link">Launch Tool &rarr;</div>
+</a>
+
+<a class="tool-card" href="volume_set_calculator.html">
+<div class="badge badge-free">Free</div>
+<div class="card-title">Volume &amp; Set Calculator</div>
+<div class="card-desc">Find your ideal weekly sets per muscle group based on experience level, goal, and training days. Includes per-session distribution.</div>
+<div class="card-link">Launch Tool &rarr;</div>
+</a>
+
+<a class="tool-card" href="rpe_load_calculator.html">
+<div class="badge badge-free">Free</div>
+<div class="card-title">RPE / Load Calculator</div>
+<div class="card-desc">Calculate your working weights from RPE, with load history tracking and a built-in RPE chart reference.</div>
+<div class="card-link">Launch Tool &rarr;</div>
+</a>
+
+<a class="tool-card" href="split_selector_quiz.html">
+<div class="badge badge-free">Free</div>
+<div class="card-title">Split Selector Quiz</div>
+<div class="card-desc">Answer 8 quick questions to find your ideal training split based on schedule, goals, and experience.</div>
+<div class="card-link">Launch Tool &rarr;</div>
+</a>
+</div>
+</div>
+</main>
+
+<footer>
+&copy; muscleos.coach &mdash; <a href="https://wa.me/201040796017">Start your coaching journey &rarr;</a>
+</footer>
+
+<script src="../assets/js/site.js"></script>
+<script>
+(function(){var b=document.getElementById('menuToggle'),m=document.getElementById('mobileMenu'),o=document.getElementById('mobileOverlay');if(!b||!m||!o)return;function c(){b.classList.remove('open');m.classList.remove('open');o.classList.remove('open')}b.addEventListener('click',function(){var is=m.classList.contains('open');if(is)c();else{b.classList.add('open');m.classList.add('open');o.classList.add('open')}});o.addEventListener('click',c);m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',c)})})();
+</script>
+</body>
+</html>

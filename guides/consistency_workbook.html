@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Consistency Workbook — Coach Anas Mo'men</title>
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Georgia,'Times New Roman',Times,serif; font-size: 11pt; color: #14151A; background: #FAFAF8; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+@page { size: A4; margin: 0; @bottom-center { content: counter(page); font-family: 'Courier New',Courier,monospace; font-size: 8pt; color: #aaa; } }
+@page :first { margin: 0; @top-center { content: none; } @bottom-center { content: none; } }
+
+h1 { font-family: Georgia,'Times New Roman',Times,serif; font-weight: 700; letter-spacing: 0.3px; }
+h2 { font-family: Georgia,'Times New Roman',Times,serif; font-weight: 600; letter-spacing: 0.3px; }
+h3 { font-family: Georgia,'Times New Roman',Times,serif; font-weight: 600; letter-spacing: 0.3px; }
+.mono { font-family: 'Courier New',Courier,monospace; }
+
+/* ---- Cover ---- */
+.cover { width: 210mm; height: 297mm; background: #14151A; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; page-break-after: always; position: relative; overflow: hidden; }
+.cover-title { font-size: 36pt; color: #F4C93B; line-height: 1.1; margin-bottom: 14pt; letter-spacing: 0.5px; }
+.cover-subtitle { font-family: Georgia,'Times New Roman',Times,serif; font-size: 11pt; color: rgba(244,201,59,0.7); margin-bottom: 28pt; font-weight: 300; letter-spacing: 0.5px; max-width: 70%; }
+.cover-divider { width: 50px; height: 2px; background: #F4C93B; margin-bottom: 28pt; opacity: 0.4; }
+.cover-author { font-family: Georgia,'Times New Roman',Times,serif; font-size: 10pt; color: #FAFAF8; letter-spacing: 2px; text-transform: uppercase; opacity: 0.5; }
+
+/* ---- Page ---- */
+.page { width: 210mm; min-height: 297mm; background: #FAFAF8; page-break-before: always; padding: 24pt 28pt; position: relative; }
+.page-inner { max-width: 100%; }
+.page-header { border-bottom: 1px solid #e0e0dd; padding-bottom: 6pt; margin-bottom: 18pt; display: flex; justify-content: space-between; align-items: flex-end; }
+.page-header h1 { font-size: 20pt; color: #14151A; }
+.page-header .page-label { font-family: 'Courier New',Courier,monospace; font-size: 8pt; color: #bbb; text-transform: uppercase; letter-spacing: 1px; }
+
+/* ---- Body Copy ---- */
+.page p { margin: 5pt 0 10pt; font-size: 10.5pt; line-height: 1.7; color: #333; }
+.page p.small { font-size: 9.5pt; color: #888; }
+
+/* ---- Fill-in Lines ---- */
+.fill-group { margin: 12pt 0; }
+.fill-row { display: flex; align-items: center; margin: 6pt 0; gap: 8pt; }
+.fill-label { font-size: 10pt; font-weight: 500; color: #14151A; min-width: 100pt; flex-shrink: 0; }
+.fill-line { flex: 1; border: none; border-bottom: 1.5px solid #ccc; background: transparent; font-family: Georgia,'Times New Roman',Times,serif; font-size: 10.5pt; padding: 3pt 0; outline: none; color: #14151A; }
+.fill-line:focus { border-bottom-color: #F4C93B; }
+.fill-line-lg { min-height: 40pt; border-bottom: 1.5px solid #ccc; padding: 4pt 0; font-family: Georgia,'Times New Roman',Times,serif; font-size: 10.5pt; outline: none; width: 100%; background: transparent; resize: none; }
+.fill-line-lg:focus { border-bottom-color: #F4C93B; }
+
+/* ---- Checkbox ---- */
+.chk { display: inline-flex; align-items: center; gap: 6pt; cursor: pointer; margin: 3pt 0; }
+.chk input[type="checkbox"] { width: 16px; height: 16px; accent-color: #14151A; cursor: pointer; flex-shrink: 0; }
+.chk-label { font-size: 10pt; color: #333; }
+
+/* ---- Checklist Grid ---- */
+.checklist { list-style: none; padding: 0; margin: 8pt 0; }
+.checklist li { padding: 5pt 0; border-bottom: 0.5px solid #f0f0ed; display: flex; align-items: flex-start; gap: 8pt; }
+.checklist li input[type="checkbox"] { width: 16px; height: 16px; accent-color: #14151A; margin-top: 3pt; flex-shrink: 0; }
+
+/* ---- Coach Quote ---- */
+.coach-quote { background: #14151A; color: #FAFAF8; padding: 10pt 14pt; margin: 12pt 0; font-size: 10pt; line-height: 1.6; border-radius: 2px; }
+.coach-quote strong { color: #F4C93B; }
+.coach-quote .attribution { font-family: 'Courier New',Courier,monospace; font-size: 8pt; color: rgba(255,255,255,0.4); margin-top: 4pt; }
+
+/* ---- Info Box ---- */
+.info-box { border-left: 3px solid #F4C93B; background: rgba(244,201,59,0.06); padding: 10pt 14pt; margin: 12pt 0; }
+.info-box p { font-size: 10pt; margin: 0; color: #555; }
+
+/* ---- Green Box (Positive) ---- */
+.positive-box { border: 1.5px solid #14151A; border-radius: 4px; padding: 12pt 14pt; margin: 12pt 0; background: #fff; }
+
+/* ---- Level Cards ---- */
+.level-card { border: 1px solid #e0e0dd; border-radius: 4px; padding: 10pt 12pt; margin: 6pt 0; background: #fff; }
+.level-card .level-num { font-family: Georgia,'Times New Roman',Times,serif; font-weight: 700; font-size: 16pt; color: #F4C93B; background: #14151A; display: inline-block; padding: 0 6pt; margin-bottom: 4pt; line-height: 1.4; }
+.level-card .level-title { font-family: Georgia,'Times New Roman',Times,serif; font-weight: 600; font-size: 12pt; color: #14151A; }
+.level-card p { font-size: 9.5pt; color: #555; margin: 3pt 0; }
+
+/* ---- Habit Stacking ---- */
+.habit-example { background: #f5f5f3; padding: 10pt 14pt; border-radius: 4px; margin: 10pt 0; }
+.habit-example .ex-label { font-family: 'Courier New',Courier,monospace; font-size: 8pt; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+.habit-example p { font-size: 10pt; margin: 2pt 0; }
+
+/* ---- Tracker ---- */
+.tracker-grid { width: 100%; border-collapse: collapse; margin: 8pt 0; }
+.tracker-grid th { background: #14151A; color: #F4C93B; font-family: Georgia,'Times New Roman',Times,serif; font-weight: 600; font-size: 9pt; text-transform: uppercase; letter-spacing: 0.5px; padding: 6pt 4pt; text-align: center; }
+.tracker-grid td { border: 0.5px solid #ddd; text-align: center; padding: 8pt 4pt; }
+.tracker-grid td input { width: 100%; border: none; text-align: center; font-family: Georgia,'Times New Roman',Times,serif; font-size: 10pt; background: transparent; outline: none; padding: 2pt; }
+.tracker-grid td.day-label { font-family: 'Courier New',Courier,monospace; font-size: 9pt; color: #888; font-weight: 500; }
+.tracker-habit-label { font-family: Georgia,'Times New Roman',Times,serif; font-weight: 600; font-size: 11pt; color: #14151A; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 2pt; }
+
+/* ---- Three-column ---- */
+.three-col { display: flex; gap: 10pt; margin: 8pt 0; }
+.three-col .col { flex: 1; }
+.reflect-label { font-family: Georgia,'Times New Roman',Times,serif; font-weight: 600; font-size: 9pt; color: #14151A; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 2pt; }
+.reflect-input { width: 100%; border: none; border-bottom: 1.5px solid #ddd; padding: 4pt 0; font-family: Georgia,'Times New Roman',Times,serif; font-size: 10pt; background: transparent; outline: none; resize: none; min-height: 40pt; }
+.reflect-input:focus { border-bottom-color: #F4C93B; }
+
+/* ---- Trigger Cards ---- */
+.trigger-table { width: 100%; border-collapse: collapse; margin: 8pt 0; font-size: 9.5pt; }
+.trigger-table th { background: #14151A; color: #F4C93B; font-family: Georgia,'Times New Roman',Times,serif; font-weight: 600; font-size: 9pt; text-transform: uppercase; letter-spacing: 0.5px; padding: 5pt 8pt; text-align: left; }
+.trigger-table td { padding: 6pt 8pt; border-bottom: 0.5px solid #e0e0dd; vertical-align: top; }
+.trigger-table tr:last-child td { border-bottom: 2px solid #F4C93B; }
+.trigger-table .trigger-cat { font-weight: 600; color: #14151A; }
+
+/* ---- Setback Steps ---- */
+.setback-step { display: flex; gap: 10pt; margin: 8pt 0; }
+.setback-step .step-num { font-family: Georgia,'Times New Roman',Times,serif; font-weight: 700; font-size: 18pt; color: #F4C93B; background: #14151A; width: 30pt; height: 30pt; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.setback-step .step-content { flex: 1; }
+.setback-step .step-content h3 { font-family: Georgia,'Times New Roman',Times,serif; font-weight: 600; font-size: 11pt; color: #14151A; margin-bottom: 2pt; }
+.setback-step .step-content p { font-size: 9.5pt; color: #555; margin: 0; }
+
+/* ---- NSV Log ---- */
+.nsv-entry { display: flex; gap: 10pt; margin: 6pt 0; padding: 6pt 0; border-bottom: 0.5px solid #f0f0ed; }
+.nsv-entry .nsv-date { font-family: 'Courier New',Courier,monospace; font-size: 9pt; color: #888; min-width: 50pt; }
+.nsv-entry .nsv-field { flex: 1; border: none; border-bottom: 1.5px solid #ddd; font-family: Georgia,'Times New Roman',Times,serif; font-size: 10pt; padding: 2pt 0; background: transparent; outline: none; }
+.nsv-entry .nsv-field:focus { border-bottom-color: #F4C93B; }
+
+/* ---- Upsell ---- */
+.upsell { margin-top: 20pt; padding: 14pt; background: #14151A; text-align: center; border-radius: 4px; }
+.upsell p { color: #FAFAF8; font-size: 10.5pt; margin: 4pt 0; }
+.upsell a { font-family: 'Courier New',Courier,monospace; font-size: 10pt; color: #F4C93B; text-decoration: none; display: inline-block; margin-top: 6pt; padding: 6pt 18pt; border: 1.5px solid #F4C93B; }
+.upsell a:hover { background: #F4C93B; color: #14151A; }
+
+/* ---- Footer ---- */
+.page-footer { position: absolute; bottom: 12pt; left: 28pt; right: 28pt; display: flex; justify-content: space-between; align-items: center; border-top: 0.5px solid #e0e0dd; padding-top: 6pt; }
+.page-footer span { font-size: 7.5pt; color: #bbb; }
+.page-footer a { font-family: 'Courier New',Courier,monospace; font-size: 7.5pt; color: #F4C93B; text-decoration: none; }
+.mos-nav{position:sticky;top:0;z-index:999;background:rgba(20,21,26,.95);backdrop-filter:blur(8px);border-bottom:1px solid #2C2E37;font-family:Georgia,'Times New Roman',Times,serif;transition:transform .3s ease}
+.mos-nav.nav-hidden{transform:translateY(-100%)}
+body{opacity:0;transition:opacity .4s ease}
+body.loaded{opacity:1}
+
+.mos-nav-inner{max-width:1180px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
+.mos-brand{font-family:Georgia,'Times New Roman',Times,serif;font-weight:700;font-size:15px;letter-spacing:.5px;text-transform:uppercase;color:#fff;text-decoration:none}
+.mos-brand span{color:#F4C93B}
+.mos-nav-links{display:flex;gap:20px;font-size:11px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
+.mos-nav-links a{color:#C7C9D0;text-decoration:none;transition:color .2s}
+.mos-nav-links a:hover{color:#F4C93B}
+@media(max-width:600px){.mos-nav-inner{padding:8px 16px}.mos-brand{font-size:12px}}
+@media print{.mos-nav{display:none!important}.mos-footer{display:none!important}}
+.mos-footer{padding:20px 24px;background:#14151A;border-top:1px solid #2C2E37;font-family:Georgia,'Times New Roman',Times,serif;text-align:center}
+.mos-footer-inner{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
+.mos-fbrand{font-family:Georgia,'Times New Roman',Times,serif;font-weight:700;font-size:13px;letter-spacing:.5px;text-transform:uppercase;color:#fff}
+.mos-fbrand span{color:#F4C93B}
+.mos-fnav a{color:rgba(250,250,248,.5);text-decoration:none;margin:0 8px;font-size:11px;font-weight:500}
+.mos-fnav a:hover{color:#F4C93B}
+.mos-fsocial a{color:#F4C93B;text-decoration:none;margin:0 8px;font-size:11px}
+.mos-fcopy{font-size:10px;color:rgba(250,250,248,.3);margin-top:6px}
+.guide-intro{background:#14151A;color:#FAFAF8;padding:14pt 18pt;margin:0 0 16pt 0;border-left:3px solid #F4C93B;border-radius:0 2px 2px 0;font-family:Georgia,'Times New Roman',Times,serif;font-size:10.5pt;line-height:1.65}
+.guide-intro strong{color:#F4C93B}
+.guide-intro .book-ref{display:block;margin-top:6pt;font-size:9pt;color:rgba(250,250,248,.5);font-style:italic;border-top:1px solid rgba(244,201,59,.15);padding-top:6pt}
+.book-callout{background:rgba(244,201,59,.06);border:1px solid rgba(244,201,59,.2);border-left:3px solid #F4C93B;border-radius:2px;padding:8pt 12pt;margin:12pt 0;font-family:Georgia,'Times New Roman',Times,serif;font-size:9.5pt;color:rgba(250,250,248,.7);line-height:1.5}
+.book-callout strong{color:#F4C93B}
+.guide-upsell{background:#14151A;margin:28pt 0 16pt;border-radius:4px;border:1px solid rgba(244,201,59,.25)}
+.guide-upsell-inner{padding:18pt 20pt;text-align:center}
+.guide-upsell h3{font-family:Georgia,'Times New Roman',Times,serif;font-size:16pt;font-weight:700;color:#F4C93B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8pt}
+.guide-upsell p{font-family:Georgia,'Times New Roman',Times,serif;font-size:10pt;color:rgba(250,250,248,.65);line-height:1.6;max-width:460px;margin:0 auto 14pt}
+.guide-upsell-cta{display:inline-block;background:#F4C93B;color:#14151A;font-family:Georgia,'Times New Roman',Times,serif;font-size:10pt;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:10pt 24pt;border-radius:3px;text-decoration:none;transition:opacity .2s}
+.guide-upsell-cta:hover{opacity:.85}
+.styled-table{width:100%;border-collapse:collapse;margin:10pt 0;font-family:Georgia,'Times New Roman',Times,serif;font-size:9.5pt}
+.styled-table thead{background:#F4C93B;color:#14151A}
+.styled-table th{padding:8pt 10pt;text-align:left;font-weight:700;text-transform:uppercase;letter-spacing:.5px;font-size:8.5pt}
+.styled-table td{padding:6pt 10pt;border-bottom:.5px solid rgba(250,250,248,.08)}
+.styled-table tbody tr:nth-child(even){background:rgba(250,250,248,.02)}
+.styled-table tbody tr:hover{background:rgba(244,201,59,.05)}
+@media(max-width:768px){
+.cover{width:100vw;height:auto;min-height:100vh;padding:40px 24px}
+.cover-title{font-size:clamp(24px,8vw,38pt)!important}
+.cover-subtitle{font-size:clamp(11px,3vw,12pt)!important}
+.cover-author{font-size:9px!important}
+.cover-edition{font-size:8px!important}
+.section{page-break-before:auto;min-height:auto;padding:20px 16px}
+.section-content{max-width:100%;overflow-x:hidden}
+.cheat{width:100vw;min-height:auto}
+.cheat-inner{padding:20px 16px;min-height:auto}
+.cheat-grid{grid-template-columns:1fr}
+body{font-size:clamp(10pt,3.5vw,11pt)}
+.section h1{font-size:clamp(18pt,5vw,22pt)}
+.section h2{font-size:clamp(13pt,4vw,15pt)}
+.section h3{font-size:clamp(11pt,3.5vw,12pt)}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.how-list li{padding-left:32px}
+.step-heading{font-size:clamp(10pt,3.5vw,12pt)}
+.upsell{padding:12px 14px}
+.coach-note{padding:10px 12px}
+}
+</style>
+</head>
+<body>
+<nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div></div></nav>
+<div style="background:#1E1E2A;border-bottom:1px solid #2C2E37;padding:8px 24px;text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:rgba(250,250,248,.5)"><span>Download or view as PDF: </span><a href="../pdf/viewer.html?product=consistency-workbook" style="color:#F4C93B;text-decoration:none;font-weight:600" target="_blank">Open PDF Reader &rarr;</a></div>
+<div class="guide-intro" style="max-width:170mm;margin:10px auto;">
+  <strong>The Consistency Workbook</strong> is built on a single insight: the problem is never information, it is doing it consistently enough for long enough to matter. This workbook replaces guilt and willpower with an addition-based habit system, a self-assessment to identify your pattern of inconsistency, and a structured six-week tracker to build momentum that lasts.
+  <span class="book-ref">This and related topics are covered in depth in the Diet &amp; Nutrition Book and the Training &amp; Programming Book.</span>
+</div>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<div class="cover">
+  <div class="cover-title">The Consistency<br>Workbook</div>
+  <div class="cover-subtitle">For people who already know what to do.</div>
+  <div class="cover-divider"></div>
+  <div class="cover-author">Coach Anas Mo'men</div>
+</div>
+
+<!-- ==================== PAGE 2: THIS ISN'T A DIET PLAN ==================== -->
+<div class="page">
+  <div class="page-header">
+    <h1>This Isn't a Diet Plan</h1>
+    <span class="page-label">Welcome</span>
+  </div>
+  <div class="page-inner">
+    <p>You already know what to eat. You've read the articles, followed the plans, maybe even seen results — once. The problem was never information. It was doing it consistently enough for long enough to matter.</p>
+    <p>This workbook will not tell you what to eat. It contains no calorie targets, no macro splits, no meal plans, no food lists. If that's what you're looking for, put this down and pick up the <strong>Diet Maxing Quick-Start Guide</strong> instead.</p>
+    <div class="coach-quote">
+      <strong>This won't tell you what to eat. It'll help you actually do it.</strong>
+      <div class="attribution">— Coach Anas Mo'men</div>
+    </div>
+    <p>What you will find inside:</p>
+    <ul style="margin:6pt 0 6pt 1.4em;font-size:10.5pt;color:#555;">
+      <li>A single rule that replaces guilt with momentum</li>
+      <li>A self-assessment to identify your specific pattern of inconsistency</li>
+      <li>A starting level that fits where you are right now</li>
+      <li>Weekly trackers that measure what matters (and it's not body weight)</li>
+      <li>A setback protocol that won't punish you for falling off</li>
+    </ul>
+    <p style="margin-top:14pt;">Work through this in order. Skip nothing. If you're tempted to jump ahead to the trackers, start at page 4 instead.</p>
+    <div class="book-callout">
+      <strong>Full habit design frameworks, behavioural change protocols, and the complete Gentle Entry Protocol in the Diet &amp; Nutrition Book.</strong>
+    </div>
+    <div class="info-box">
+      <p><strong>One request:</strong> Read the next page first. It's the most important page in this entire workbook.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>muscleos.coach</span>
+    <a href="https://wa.me/201040796017">Start your coaching journey now &rarr;</a>
+  </div>
+</div>
+
+<!-- ==================== PAGE 3: THE ONE RULE ==================== -->
+<div class="page">
+  <div class="page-header">
+    <h1>The One Rule</h1>
+    <span class="page-label">Foundation</span>
+  </div>
+  <div class="page-inner">
+    <p style="font-size:14pt;font-weight:600;color:#14151A;margin-bottom:14pt;">Add. Never subtract.</p>
+    <p>Every diet you've ever tried started with subtraction — fewer calories, less sugar, smaller portions, no carbs. Subtraction creates scarcity, and scarcity creates binges, guilt, and the all-or-nothing cycle that derails every attempt.</p>
+    <p>This workbook uses one rule instead:</p>
+    <div class="coach-quote">
+      <strong>You never remove anything. You only add.</strong>
+      <div class="attribution">— from the Gentle Entry Protocol</div>
+    </div>
+    <p>If you're eating fast food five times a week, the answer isn't "eat fast food zero times a week." The answer is <strong>add one home-cooked meal</strong>. If you're drinking two sodas a day, the answer isn't "cut soda." The answer is <strong>add one glass of water</strong> before the first soda.</p>
+    <p>Additions crowd out the old behavior naturally. No willpower required. No guilt when you "fail." Because you didn't remove anything — you just didn't add today. And you can try again tomorrow without the weight of another broken rule.</p>
+    <div class="positive-box">
+      <p style="font-size:10pt;margin:0;"><strong>Your one rule for this workbook:</strong> Every week, you add exactly one thing. That's it. Everything else stays as it is. Next week, you add another. By the end of six weeks, you've built six new habits — without a single day of deprivation.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>muscleos.coach</span>
+    <a href="https://wa.me/201040796017">Start your coaching journey now &rarr;</a>
+  </div>
+</div>
+
+<!-- ==================== PAGES 4-5: SELF-ASSESSMENT ==================== -->
+<div class="page">
+  <div class="page-header">
+    <h1>Self-Assessment</h1>
+    <span class="page-label">Page 1/2</span>
+  </div>
+  <div class="page-inner">
+    <p>Which pattern sounds most like you? Be honest — this is for you, not for anyone else. You can tick more than one.</p>
+
+    <div class="checklist">
+      <li><input type="checkbox" id="sa1"><label for="sa1"> <strong>All or nothing</strong> — You're either perfect or you've given up entirely. If one meal goes "off plan," the whole day is a write-off.</label></li>
+      <li><input type="checkbox" id="sa2"><label for="sa2"> <strong>The weekend derailment</strong> — Weekdays are clean. Friday night hits and it all falls apart. Monday you restart. Repeat.</label></li>
+      <li><input type="checkbox" id="sa3"><label for="sa3"> <strong>Knowledge without action</strong> — You know exactly what to do. You've read every article. You just don't do it. Not laziness — paralysis by analysis.</label></li>
+      <li><input type="checkbox" id="sa4"><label for="sa4"> <strong>Emotional eating</strong> — Stress, boredom, loneliness, anger — you eat. Not because you're hungry. Because it's the only coping mechanism that's always available.</label></li>
+      <li><input type="checkbox" id="sa5"><label for="sa5"> <strong>The start-stop cycle</strong> — You start strong every time. Two weeks in, you stop. No particular reason. You just lose momentum.</label></li>
+      <li><input type="checkbox" id="sa6"><label for="sa6"> <strong>Quiet quitting</strong> — You never explicitly give up. You just slowly do less. Skip one workout. Skip another. Then you're back to zero without making a decision.</label></li>
+    </div>
+
+    <p style="margin-top:14pt;"><strong>What this means for your workbook:</strong></p>
+    <div class="info-box">
+      <p><strong>All-or-nothing, Weekend derailment, Start-stop cycle</strong> — Focus on <strong>Level 1</strong> next page. The addiction mindset needs the gentlest possible start. Your tracker priority: <strong>consistency, no matter how small.</strong></p>
+    </div>
+    <div class="info-box" style="margin-top:6pt;">
+      <p><strong>Emotional eating</strong> — The trigger log and 10-minute rule (page 22) will be your most important tools. Your tracker priority: <strong>awareness before change.</strong></p>
+    </div>
+    <div class="info-box" style="margin-top:6pt;">
+      <p><strong>Knowledge without action, Quiet quitting</strong> — You need external structure more than information. Start at whichever level you honestly think you'll maintain. Your tracker priority: <strong>accountability.</strong></p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>muscleos.coach</span>
+    <a href="https://wa.me/201040796017">Start your coaching journey now &rarr;</a>
+  </div>
+</div>
+
+<div class="page">
+  <div class="page-header">
+    <h1>Your Triggers</h1>
+    <span class="page-label">Page 2/2</span>
+  </div>
+  <div class="page-inner">
+    <p>Fill this out after you've observed yourself for a few days. Don't guess — wait until you notice a pattern.</p>
+
+    <div class="fill-group">
+      <div class="fill-row">
+        <span class="fill-label">Situation</span>
+        <input class="fill-line" type="text" placeholder="e.g. after work, before bed, when alone">
+      </div>
+      <div class="fill-row">
+        <span class="fill-label">What I felt</span>
+        <input class="fill-line" type="text" placeholder="e.g. stressed, bored, anxious, tired">
+      </div>
+      <div class="fill-row">
+        <span class="fill-label">What I did</span>
+        <input class="fill-line" type="text" placeholder="e.g. ate, scrolled phone, skipped workout">
+      </div>
+      <div class="fill-row">
+        <span class="fill-label">What I actually needed</span>
+        <input class="fill-line" type="text" placeholder="e.g. rest, connection, a break, fun">
+      </div>
+    </div>
+
+    <p style="margin-top:16pt;"><strong>Patterns I notice (write after 3+ entries):</strong></p>
+    <textarea class="fill-line-lg" rows="4" placeholder="I notice that I tend to..."></textarea>
+  </div>
+  <div class="page-footer">
+    <span>muscleos.coach</span>
+    <a href="https://wa.me/201040796017">Start your coaching journey now &rarr;</a>
+  </div>
+</div>
+
+<!-- ==================== PAGE 6: YOUR STARTING POINT ==================== -->
+<div class="page">
+  <div class="page-header">
+    <h1>Your Starting Point</h1>
+    <span class="page-label">Pick a Level</span>
+  </div>
+  <div class="page-inner">
+    <p>Pick the level that honestly matches where you are right now — not where you wish you were. The goal is to stay consistent at your chosen level, not to advance as fast as possible.</p>
+
+    <div class="level-card">
+      <div><span class="level-num">One</span></div>
+      <div class="level-title">Awareness Only — "I just need to start"</div>
+      <p>No tracking. No rules. No targets. You add one thing per week from a simple list. The only metric is: did you do it? Training is whatever feels good, 20-40 minutes. No performance tracking. No bodyweight measurement.</p>
+      <p><strong>Duration:</strong> Minimum 4 weeks. Stay here until the addition feels automatic.</p>
+    </div>
+
+    <div class="level-card">
+      <div><span class="level-num">Two</span></div>
+      <div class="level-title">Gentle Structure — "I can handle some guidelines"</div>
+      <p>You keep the addition habit from Level 1, and add minimal structure: three meals with a protein source, a regular training schedule (track which exercises you do, not the weight), and optional snack timing. Still no calorie counting, no deficits, no banned foods.</p>
+      <p><strong>Duration:</strong> 4 weeks minimum before considering Level 3.</p>
+    </div>
+
+    <div class="level-card">
+      <div><span class="level-num">Three</span></div>
+      <div class="level-title">Full Structure — "I'm stable and I want more"</div>
+      <p>Full tracking: exercises, sets, reps, weight. Protein awareness (aim for 1.6 g/kg). Still no calorie deficit, no banned foods, no rules that can be "broken." If tracking triggers restriction thoughts, return to Level 2 immediately.</p>
+      <p><strong>Requires:</strong> 8+ consecutive weeks of consistency at Level 2 first.</p>
+    </div>
+
+    <div class="positive-box">
+      <p style="font-size:10pt;margin:0;"><strong>My chosen level:</strong> &nbsp;<input type="text" class="fill-line" style="display:inline;width:80pt;" placeholder="Level 1 / 2 / 3"></p>
+      <p style="font-size:10pt;margin:4pt 0 0;"><strong>I commit to staying here for:</strong> &nbsp;<input type="text" class="fill-line" style="display:inline;width:80pt;" placeholder="4 weeks"></p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>muscleos.coach</span>
+    <a href="https://wa.me/201040796017">Start your coaching journey now &rarr;</a>
+  </div>
+</div>
+
+<!-- ==================== PAGE 7: IDENTITY GOAL-SETTING ==================== -->
+<div class="page">
+  <div class="page-header">
+    <h1>Identity Goal-Setting</h1>
+    <span class="page-label">Who Are You Becoming?</span>
+  </div>
+  <div class="page-inner">
+    <p>Outcome goals ("lose 10 kg") don't sustain consistency. Identity goals ("become someone who trains") do. Because once you see yourself as that person, the behavior is just what that person does.</p>
+
+    <div class="coach-quote">
+      <strong>Don't ask what you want to achieve. Ask who you want to become.</strong>
+    </div>
+
+    <div class="fill-group" style="margin-top:14pt;">
+      <p><strong>Who do you want to become?</strong> (one sentence, present tense):</p>
+      <input class="fill-line" type="text" placeholder="e.g. I am someone who moves her body every day.">
+
+      <p style="margin-top:12pt;"><strong>What would that person do today?</strong> (one action):</p>
+      <input class="fill-line" type="text" placeholder="e.g. She would take a 15-minute walk after lunch.">
+
+      <p style="margin-top:12pt;"><strong>What would they do when they don't feel like it?</strong> (your non-negotiable minimum):</p>
+      <input class="fill-line" type="text" placeholder="e.g. They would do 5 minutes instead of skipping.">
+
+      <p style="margin-top:12pt;"><strong>What's one thing you can add today that this version of you would do?</strong></p>
+      <input class="fill-line" type="text" placeholder="e.g. Drink a glass of water before coffee.">
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>muscleos.coach</span>
+    <a href="https://wa.me/201040796017">Start your coaching journey now &rarr;</a>
+  </div>
+</div>
+
+<!-- ==================== PAGES 8-9: HABIT STACKING GUIDE ==================== -->
+<div class="page">
+  <div class="page-header">
+    <h1>Habit Stacking Guide</h1>
+    <span class="page-label">The Formula</span>
+  </div>
+  <div class="page-inner">
+    <p>New habits stick best when attached to existing routines. The formula:</p>
+    <div class="coach-quote">
+      <strong>After [existing habit], I will [new habit].</strong>
+    </div>
+
+    <p><strong>Worked example:</strong></p>
+    <div class="habit-example">
+      <div class="ex-label">Existing habit</div>
+      <p>I pour my morning coffee every day.</div>
+    </div>
+    <div class="habit-example" style="margin-top:4pt;">
+      <div class="ex-label">Stack</div>
+      <p><strong>After</strong> I pour my morning coffee, <strong>I will</strong> drink one full glass of water before taking the first sip.</p>
+    </div>
+    <div class="habit-example" style="margin-top:4pt;">
+      <div class="ex-label">Why it works</div>
+      <p>Coffee-making is automatic. No willpower required. The water addition rides on top of an existing loop.</p>
+    </div>
+
+    <div class="info-box">
+      <p><strong>Rule:</strong> The new habit must take less than 2 minutes. If it takes longer, break it into a smaller version. "Do one rep" instead of "complete a full workout." The micro-action builds the identity; the full workout comes naturally.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>muscleos.coach</span>
+    <a href="https://wa.me/201040796017">Start your coaching journey now &rarr;</a>
+  </div>
+</div>
+
+<div class="page">
+  <div class="page-header">
+    <h1>Your Habit Stack</h1>
+    <span class="page-label">Fill This In</span>
+  </div>
+  <div class="page-inner">
+    <p>Write your own habit stacks. Start with the most automatic part of your day.</p>
+
+    <div class="fill-group">
+      <p><strong>Existing habit 1</strong> (something you do every day without fail):</p>
+      <input class="fill-line" type="text" placeholder="e.g. Brush my teeth in the morning">
+      <p style="margin-top:4pt;"><strong>New habit to add:</strong></p>
+      <input class="fill-line" type="text" placeholder="e.g. Do 5 deep breaths">
+
+      <p style="margin-top:14pt;"><strong>Existing habit 2:</strong></p>
+      <input class="fill-line" type="text" placeholder="e.g. I sit down for lunch">
+      <p style="margin-top:4pt;"><strong>New habit to add:</strong></p>
+      <input class="fill-line" type="text" placeholder="e.g. Eat one vegetable serving first">
+
+      <p style="margin-top:14pt;"><strong>Existing habit 3:</strong></p>
+      <input class="fill-line" type="text" placeholder="e.g. I change out of work clothes">
+      <p style="margin-top:4pt;"><strong>New habit to add:</strong></p>
+      <input class="fill-line" type="text" placeholder="e.g. Put on training clothes">
+    </div>
+
+    <div class="positive-box" style="margin-top:14pt;">
+      <p style="font-size:10pt;margin:0;"><strong>Week 1 addition (from Habit Stack 1, 2, or 3 above):</strong></p>
+      <input class="fill-line" type="text" placeholder="The one thing you'll actually do this week">
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>muscleos.coach</span>
+    <a href="https://wa.me/201040796017">Start your coaching journey now &rarr;</a>
+  </div>
+</div>
+
+<!-- ==================== PAGES 10-21: WEEKLY TRACKERS (×6) ==================== -->
+<div class="page">
+  <div class="page-header">
+    <h1>Week 1 Tracker</h1>
+    <span class="page-label">Your Addition This Week</span>
+  </div>
+  <div class="page-inner">
+    <div class="positive-box">
+      <p style="font-size:10pt;margin:0;"><strong>My one addition this week:</strong></p>
+      <input class="fill-line" type="text" placeholder="e.g. Drink one glass of water before morning coffee">
+    </div>
+
+    <table class="tracker-grid">
+      <thead>
+        <tr><th style="width:14%;">Day</th><th>Did I do it?</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="day-label">Mon</td><td><input type="text" placeholder="&check;"></td><td><input type="text" placeholder="How did it feel?"></td></tr>
+        <tr><td class="day-label">Tue</td><td><input type="text" placeholder="&check;"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Wed</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Thu</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Fri</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Sat</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Sun</td><td><input type="text"></td><td><input type="text"></td></tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top:10pt;"><strong>What got in the way?</strong></p>
+    <textarea class="fill-line-lg" rows="2" placeholder="Be specific. No judgment. Just observe."></textarea>
+
+    <div class="three-col">
+      <div class="col">
+        <div class="reflect-label">Energy this week</div>
+        <input class="reflect-input" rows="1" style="min-height:auto;" placeholder="1-10">
+      </div>
+      <div class="col">
+        <div class="reflect-label">Mood this week</div>
+        <input class="reflect-input" rows="1" style="min-height:auto;" placeholder="1-10">
+      </div>
+      <div class="col">
+        <div class="reflect-label">I felt most consistent when&hellip;</div>
+        <input class="reflect-input" rows="1" style="min-height:auto;" placeholder="...">
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>muscleos.coach &middot; Week 1 of 6</span>
+    <a href="https://wa.me/201040796017">Start your coaching journey now &rarr;</a>
+  </div>
+</div>
+
+<div class="page">
+  <div class="page-header">
+    <h1>Week 2 Tracker</h1>
+    <span class="page-label">Adding Another Layer</span>
+  </div>
+  <div class="page-inner">
+    <div class="positive-box">
+      <p style="font-size:10pt;margin:0;"><strong>My one addition this week:</strong> (new or keep previous? Your call.)</p>
+      <input class="fill-line" type="text" placeholder="e.g. Add a vegetable to one meal">
+    </div>
+
+    <table class="tracker-grid">
+      <thead>
+        <tr><th style="width:14%;">Day</th><th>Did I do it?</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="day-label">Mon</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Tue</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Wed</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Thu</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Fri</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Sat</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Sun</td><td><input type="text"></td><td><input type="text"></td></tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top:10pt;"><strong>What got in the way?</strong></p>
+    <textarea class="fill-line-lg" rows="2" placeholder="Same observation. Different week."></textarea>
+
+    <div class="three-col">
+      <div class="col">
+        <div class="reflect-label">Energy</div>
+        <input class="reflect-input" style="min-height:auto;" placeholder="1-10">
+      </div>
+      <div class="col">
+        <div class="reflect-label">Mood</div>
+        <input class="reflect-input" style="min-height:auto;" placeholder="1-10">
+      </div>
+      <div class="col">
+        <div class="reflect-label">Compared to last week&hellip;</div>
+        <input class="reflect-input" style="min-height:auto;" placeholder="Better / Same / Harder">
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>muscleos.coach &middot; Week 2 of 6</span>
+    <a href="https://wa.me/201040796017">Start your coaching journey now &rarr;</a>
+  </div>
+</div>
+
+<div class="page">
+  <div class="page-header">
+    <h1>Week 3 Tracker</h1>
+    <span class="page-label">Building Momentum</span>
+  </div>
+  <div class="page-inner">
+    <div class="positive-box">
+      <p style="font-size:10pt;margin:0;"><strong>My one addition this week:</strong></p>
+      <input class="fill-line" type="text" placeholder="e.g. 15-minute walk after lunch">
+    </div>
+
+    <table class="tracker-grid">
+      <thead>
+        <tr><th style="width:14%;">Day</th><th>Did I do it?</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="day-label">Mon</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Tue</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Wed</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Thu</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Fri</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Sat</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Sun</td><td><input type="text"></td><td><input type="text"></td></tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top:10pt;"><strong>What got in the way?</strong></p>
+    <textarea class="fill-line-lg" rows="2" placeholder="Notice any patterns yet?"></textarea>
+
+    <div class="three-col">
+      <div class="col">
+        <div class="reflect-label">Energy</div>
+        <input class="reflect-input" style="min-height:auto;" placeholder="1-10">
+      </div>
+      <div class="col">
+        <div class="reflect-label">Mood</div>
+        <input class="reflect-input" style="min-height:auto;" placeholder="1-10">
+      </div>
+      <div class="col">
+        <div class="reflect-label">Am I still on my chosen level?</div>
+        <input class="reflect-input" style="min-height:auto;" placeholder="Yes / Considering a change">
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>muscleos.coach &middot; Week 3 of 6</span>
+    <a href="https://wa.me/201040796017">Start your coaching journey now &rarr;</a>
+  </div>
+</div>
+
+<div class="page">
+  <div class="page-header">
+    <h1>Week 4 Tracker</h1>
+    <span class="page-label">Halfway Checkpoint</span>
+  </div>
+  <div class="page-inner">
+    <div class="positive-box">
+      <p style="font-size:10pt;margin:0;"><strong>My one addition this week:</strong></p>
+      <input class="fill-line" type="text" placeholder="e.g. One workout session this week">
+    </div>
+
+    <table class="tracker-grid">
+      <thead>
+        <tr><th style="width:14%;">Day</th><th>Did I do it?</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="day-label">Mon</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Tue</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Wed</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Thu</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Fri</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Sat</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Sun</td><td><input type="text"></td><td><input type="text"></td></tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top:10pt;"><strong>Midpoint reflection — what's different from 4 weeks ago?</strong></p>
+    <textarea class="fill-line-lg" rows="2" placeholder="Think about energy, mood, how you talk to yourself, not just what you did."></textarea>
+
+    <div class="three-col">
+      <div class="col">
+        <div class="reflect-label">Energy</div>
+        <input class="reflect-input" style="min-height:auto;" placeholder="1-10">
+      </div>
+      <div class="col">
+        <div class="reflect-label">Mood</div>
+        <input class="reflect-input" style="min-height:auto;" placeholder="1-10">
+      </div>
+      <div class="col">
+        <div class="reflect-label">Rate your consistency</div>
+        <input class="reflect-input" style="min-height:auto;" placeholder="1-10">
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>muscleos.coach &middot; Week 4 of 6</span>
+    <a href="https://wa.me/201040796017">Start your coaching journey now &rarr;</a>
+  </div>
+</div>
+
+<div class="page">
+  <div class="page-header">
+    <h1>Week 5 Tracker</h1>
+    <span class="page-label">Reinforcing</span>
+  </div>
+  <div class="page-inner">
+    <div class="positive-box">
+      <p style="font-size:10pt;margin:0;"><strong>My one addition this week:</strong></p>
+      <input class="fill-line" type="text" placeholder="e.g. One glass of water with dinner">
+    </div>
+
+    <table class="tracker-grid">
+      <thead>
+        <tr><th style="width:14%;">Day</th><th>Did I do it?</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="day-label">Mon</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Tue</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Wed</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Thu</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Fri</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Sat</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Sun</td><td><input type="text"></td><td><input type="text"></td></tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top:10pt;"><strong>What got in the way?</strong></p>
+    <textarea class="fill-line-lg" rows="2" placeholder="By now you might see a clear pattern."></textarea>
+
+    <div class="three-col">
+      <div class="col">
+        <div class="reflect-label">Energy</div>
+        <input class="reflect-input" style="min-height:auto;" placeholder="1-10">
+      </div>
+      <div class="col">
+        <div class="reflect-label">Mood</div>
+        <input class="reflect-input" style="min-height:auto;" placeholder="1-10">
+      </div>
+      <div class="col">
+        <div class="reflect-label">Which addition felt easiest?</div>
+        <input class="reflect-input" style="min-height:auto;" placeholder="...">
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>muscleos.coach &middot; Week 5 of 6</span>
+    <a href="https://wa.me/201040796017">Start your coaching journey now &rarr;</a>
+  </div>
+</div>
+
+<div class="page">
+  <div class="page-header">
+    <h1>Week 6 Tracker</h1>
+    <span class="page-label">Final Week</span>
+  </div>
+  <div class="page-inner">
+    <div class="positive-box">
+      <p style="font-size:10pt;margin:0;"><strong>My one addition this week:</strong></p>
+      <input class="fill-line" type="text" placeholder="e.g. A 5-minute post-dinner walk">
+    </div>
+
+    <table class="tracker-grid">
+      <thead>
+        <tr><th style="width:14%;">Day</th><th>Did I do it?</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="day-label">Mon</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Tue</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Wed</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Thu</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Fri</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Sat</td><td><input type="text"></td><td><input type="text"></td></tr>
+        <tr><td class="day-label">Sun</td><td><input type="text"></td><td><input type="text"></td></tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top:10pt;"><strong>Six-week reflection — what has changed?</strong></p>
+    <textarea class="fill-line-lg" rows="3" placeholder="Look back at Week 1. What's different? Not just physically. How do you think about yourself now?"></textarea>
+  </div>
+  <div class="page-footer">
+    <span>muscleos.coach &middot; Week 6 of 6</span>
+    <a href="https://wa.me/201040796017">Start your coaching journey now &rarr;</a>
+  </div>
+</div>
+
+<!-- ==================== PAGE 22: THE 10-MINUTE RULE ==================== -->
+<div class="page">
+  <div class="page-header">
+    <h1>The 10-Minute Rule</h1>
+    <span class="page-label">Urge Management</span>
+  </div>
+  <div class="page-inner">
+    <p>When the urge to do the thing you're trying not to do arises — eat, skip a workout, scroll instead of sleep — use this five-step framework. It works for any urge, not just food.</p>
+
+    <div class="positive-box">
+      <p><strong>Step 1 — Notice</strong><br><span style="font-size:10pt;color:#555;">Say it: "I am having the urge to <input class="fill-line" type="text" style="display:inline;width:120pt;" placeholder="binge / skip / eat">." No judgment. No shame. Just noticing.</span></p>
+      <p style="margin-top:8pt;"><strong>Step 2 — Wait</strong><br><span style="font-size:10pt;color:#555;">Set a timer for 10 minutes. Do not act during this time.</span></p>
+      <p style="margin-top:8pt;"><strong>Step 3 — Do something else</strong><br><span style="font-size:10pt;color:#555;">Walk, text someone, shower, breathe (4-7-8 pattern), hold an ice cube, brush your teeth.</span></p>
+      <p style="margin-top:8pt;"><strong>Step 4 — After 10 minutes</strong><br><span style="font-size:10pt;color:#555;">Urge passed? Great. Continue.<br>Still there? Do the thing. No guilt. The 10 minutes built awareness, even if you acted.</span></p>
+      <p style="margin-top:8pt;"><strong>Step 5 — Record (optional)</strong></p>
+    </div>
+
+    <p style="margin-top:10pt;"><strong>My common triggers:</strong></p>
+    <table class="trigger-table">
+      <thead><tr><th>Trigger</th><th>My alternative action</th></tr></thead>
+      <tbody>
+        <tr><td class="trigger-cat">Stress</td><td><input class="fill-line" type="text" placeholder="e.g. 2 minutes of breathing"></td></tr>
+        <tr><td class="trigger-cat">Restriction</td><td><input class="fill-line" type="text" placeholder="e.g. Eat something pre-emptively"></td></tr>
+        <tr><td class="trigger-cat">Boredom</td><td><input class="fill-line" type="text" placeholder="e.g. Walk, call someone"></td></tr>
+        <tr><td class="trigger-cat">Social</td><td><input class="fill-line" type="text" placeholder="e.g. Anchor phrase"></td></tr>
+        <tr><td class="trigger-cat">Emotional</td><td><input class="fill-line" type="text" placeholder="e.g. Non-food comfort list"></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="page-footer">
+    <span>muscleos.coach</span>
+    <a href="https://wa.me/201040796017">Start your coaching journey now &rarr;</a>
+  </div>
+</div>
+
+<!-- ==================== PAGE 23: SETBACK PROTOCOL ==================== -->
+<div class="page">
+  <div class="page-header">
+    <h1>Setback Protocol</h1>
+    <span class="page-label">How to Restart</span>
+  </div>
+  <div class="page-inner">
+    <p>You will miss a day. You might miss a week. This is not failure — it's part of the cycle. The only real failure is letting the missed time turn into permanent stop.</p>
+
+    <div class="coach-quote">
+      <strong>Missing a day doesn't make you someone who gives up. Getting back up does.</strong>
+    </div>
+
+    <p><strong>When you miss:</strong></p>
+
+    <div class="setback-step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h3>Notice without judgement</h3>
+        <p>"I missed [X] days. That's information, not a verdict." Guilt keeps you stuck. Observation lets you adjust.</p>
+      </div>
+    </div>
+
+    <div class="setback-step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h3>Ask why (factually, not emotionally)</h3>
+        <p>Was it illness? Schedule chaos? Emotional overload? Or did the habit just not stick yet? The reason determines the fix.</p>
+      </div>
+    </div>
+
+    <div class="setback-step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h3>Shrink the habit, don't abandon it</h3>
+        <p>If you can't do the full addition, do a micro version. One bite of a vegetable. One glass of water. Five minutes of movement. The act of doing <em>something</em> reinforces the identity.</p>
+      </div>
+    </div>
+
+    <div class="setback-step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h3>Resume without compensation</h3>
+        <p>Do NOT try to "make up" for missed days. No extra workouts. No stricter eating. Compensation leads to burnout and the all-or-nothing cycle. Just continue from today.</p>
+      </div>
+    </div>
+
+    <div class="info-box" style="margin-top:10pt;">
+      <p><strong>If you've missed more than two weeks:</strong> Consider dropping down a level (e.g. Level 2 to Level 1). This is not failure — it's intelligent restarting. You'll advance faster from a level you can actually sustain.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>muscleos.coach</span>
+    <a href="https://wa.me/201040796017">Start your coaching journey now &rarr;</a>
+  </div>
+</div>
+
+<!-- ==================== PAGES 24-25: NON-SCALE VICTORIES ==================== -->
+<div class="page">
+  <div class="page-header">
+    <h1>Non-Scale Victories</h1>
+    <span class="page-label">What Actually Matters</span>
+  </div>
+  <div class="page-inner">
+    <p>Body weight tells you almost nothing about whether you're making progress. It shifts with hydration, hormones, meal timing, and a dozen other factors that have nothing to do with fat loss or fitness gains.</p>
+    <p>Track these instead. They're the real signals.</p>
+
+    <div class="positive-box">
+      <p style="font-size:10pt;margin:0;"><strong>Energy:</strong> Do you have more energy during the day?</p>
+    </div>
+    <div class="positive-box">
+      <p style="font-size:10pt;margin:0;"><strong>Sleep:</strong> Are you falling asleep faster? Waking less?</p>
+    </div>
+    <div class="positive-box">
+      <p style="font-size:10pt;margin:0;"><strong>Mood:</strong> Do you feel more stable, less reactive?</p>
+    </div>
+    <div class="positive-box">
+      <p style="font-size:10pt;margin:0;"><strong>Clothes fit:</strong> How do your clothes feel — not just "looser" but do you feel differently in them?</p>
+    </div>
+    <div class="positive-box">
+      <p style="font-size:10pt;margin:0;"><strong>Training:</strong> Can you do more than before? Even one more rep, one more minute?</p>
+    </div>
+    <div class="positive-box">
+      <p style="font-size:10pt;margin:0;"><strong>Relationship with food:</strong> Do you think about it less? Feel less guilt? Less anxiety? This is the most important metric of all.</p>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>muscleos.coach</span>
+    <a href="https://wa.me/201040796017">Start your coaching journey now &rarr;</a>
+  </div>
+</div>
+
+<div class="page">
+  <div class="page-header">
+    <h1>NSV Log</h1>
+    <span class="page-label">Ongoing Record</span>
+  </div>
+  <div class="page-inner">
+    <p>Write one entry per week. Just a line. Over time, this becomes the evidence that change is real — even when the scale says nothing.</p>
+    <div class="nsv-entry">
+      <div class="nsv-date">Week 1</div>
+      <input class="nsv-field" type="text" placeholder="e.g. I had more energy after lunch this week">
+    </div>
+    <div class="nsv-entry">
+      <div class="nsv-date">Week 2</div>
+      <input class="nsv-field" type="text" placeholder="...">
+    </div>
+    <div class="nsv-entry">
+      <div class="nsv-date">Week 3</div>
+      <input class="nsv-field" type="text" placeholder="...">
+    </div>
+    <div class="nsv-entry">
+      <div class="nsv-date">Week 4</div>
+      <input class="nsv-field" type="text" placeholder="...">
+    </div>
+    <div class="nsv-entry">
+      <div class="nsv-date">Week 5</div>
+      <input class="nsv-field" type="text" placeholder="...">
+    </div>
+    <div class="nsv-entry">
+      <div class="nsv-date">Week 6</div>
+      <input class="nsv-field" type="text" placeholder="...">
+    </div>
+    <div class="nsv-entry">
+      <div class="nsv-date">Week 7</div>
+      <input class="nsv-field" type="text" placeholder="...">
+    </div>
+    <div class="nsv-entry">
+      <div class="nsv-date">Week 8</div>
+      <input class="nsv-field" type="text" placeholder="...">
+    </div>
+    <div class="nsv-entry">
+      <div class="nsv-date">Week 9</div>
+      <input class="nsv-field" type="text" placeholder="...">
+    </div>
+    <div class="nsv-entry">
+      <div class="nsv-date">Week 10</div>
+      <input class="nsv-field" type="text" placeholder="...">
+    </div>
+    <div class="nsv-entry">
+      <div class="nsv-date">Week 11</div>
+      <input class="nsv-field" type="text" placeholder="...">
+    </div>
+    <div class="nsv-entry">
+      <div class="nsv-date">Week 12</div>
+      <input class="nsv-field" type="text" placeholder="...">
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>muscleos.coach</span>
+    <a href="https://wa.me/201040796017">Start your coaching journey now &rarr;</a>
+  </div>
+</div>
+
+<!-- ==================== PAGE 26: WHAT'S NEXT ==================== -->
+<div class="page">
+  <div class="page-header">
+    <h1>What's Next?</h1>
+    <span class="page-label">Your Next Step</span>
+  </div>
+  <div class="page-inner">
+    <p>You've completed six weeks of consistency work. That's more than most people ever do. Where you go from here depends on what you need next.</p>
+
+    <div class="positive-box">
+      <p style="font-size:11pt;margin:0;"><strong>If you need the "what":</strong></p>
+      <p style="font-size:10pt;color:#555;margin-top:4pt;">The <strong>Diet Maxing Quick-Start Guide</strong> gives you calories, macros, and meal structure — the information layer without the behavior layer. Use it now that you've built the consistency habit to actually follow it.</p>
+    </div>
+
+    <div class="positive-box">
+      <p style="font-size:11pt;margin:0;"><strong>If you need accountability:</strong></p>
+      <p style="font-size:10pt;color:#555;margin-top:4pt;">One-on-one coaching gives you someone to report to, adjust with, and not want to disappoint. This workbook is self-directed; coaching is guided. They work best together.</p>
+    </div>
+
+    <div class="positive-box">
+      <p style="font-size:11pt;margin:0;"><strong>If you want to run this workbook again:</strong></p>
+      <p style="font-size:10pt;color:#555;margin-top:4pt;">Six more weeks. New additions. Higher level. The template works at any stage.</p>
+    </div>
+
+    <div class="upsell">
+      <p style="font-size:12pt;font-weight:600;color:#F4C93B;">Ready for the next step?</p>
+      <p>Start your coaching journey now and let's build a plan that actually fits your life.</p>
+      <a href="https://wa.me/201040796017">Start your coaching journey now →</a>
+    </div>
+    <div class="guide-upsell">
+      <div class="guide-upsell-inner">
+        <h3>Ready to go deeper?</h3>
+        <p>This workbook gives you the behaviour layer. The full Training &amp; Programming Book and Diet &amp; Nutrition Book deliver 50+ chapters of periodisation, nutrition science, programme design, and evidence-based protocols — with 400+ scientific references across both volumes.</p>
+        <a href="../books/muscle_os_training_book.html" class="guide-upsell-cta">Get the Full Books &mdash; 500 EGP each &rarr;</a>
+      </div>
+    </div>
+  </div>
+  <footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo'men</div></footer>
+</div>
+
+<script src="../assets/js/site.js"></script>
+</body>
+</html>
