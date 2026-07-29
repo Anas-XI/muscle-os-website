@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Your Muscle OS access code — confirmed and ready to use.">
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev; img-src 'self' data:; frame-ancestors 'self'; base-uri 'self'">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<title>Access Code — Muscle OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;line-height:1.5;overflow-x:hidden;opacity:0;transition:opacity .6s ease}
+body.loaded{opacity:1}
+.wrap{max-width:540px;margin:0 auto;padding:0 20px}
+::selection{background:#F4C93B;color:#14151A}
+
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(20,21,26,.95);backdrop-filter:blur(8px);border-bottom:1px solid #2C2E37}
+.nav-inner{max-width:1180px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+.brand{font-family:'Oswald',sans-serif;font-weight:700;font-size:16px;letter-spacing:.5px;text-transform:uppercase}
+.brand span{color:#F4C93B}
+.nav-back{font-size:.7rem;color:rgba(250,250,248,.4);display:flex;align-items:center;gap:6px;transition:color .2s}
+.nav-back:hover{color:#F4C93B}
+
+.hero{padding-top:88px;padding-bottom:24px;text-align:center}
+.hero .eyebrow{font-size:.7rem;font-weight:700;color:#F4C93B;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:8px}
+.hero h1{font-family:'Oswald',sans-serif;font-size:clamp(24px,4.5vw,38px);font-weight:700;text-transform:uppercase;line-height:1.05}
+
+/* ── Status card ── */
+.status-card{background:#1E1E2A;border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:32px 24px;text-align:center}
+
+/* ── Loading / Pending ── */
+.spinner{display:inline-block;width:32px;height:32px;border:3px solid rgba(244,201,59,.15);border-top-color:#F4C93B;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.status-icon{font-size:2.6rem;margin-bottom:12px}
+.status-title{font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.status-title.pending{color:#F4C93B}
+.status-title.approved{color:#4CAF50}
+.status-title.rejected{color:#f44336}
+.status-desc{font-size:.82rem;color:rgba(250,250,248,.45);max-width:360px;margin:0 auto 6px;line-height:1.6}
+.status-hint{font-size:.68rem;color:rgba(250,250,248,.2);margin-top:4px}
+.status-hint .pulse{animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.2}50%{opacity:.5}}
+
+/* ── Code display ── */
+.code-display{background:rgba(20,21,26,.7);border:1.5px solid rgba(76,175,80,.25);border-radius:12px;padding:20px 16px;margin:16px 0}
+.code-display .code-label{font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:rgba(250,250,248,.3);margin-bottom:8px}
+.code-display .code-value{font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700;color:#4CAF50;letter-spacing:3px;word-break:break-all}
+.code-display .code-note{font-size:.65rem;color:rgba(250,250,248,.25);margin-top:10px;line-height:1.5}
+
+/* ── Buttons ── */
+.btn-group{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.btn{width:100%;padding:14px 0;border:none;border-radius:10px;font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;cursor:pointer;transition:opacity .2s,transform .15s;text-decoration:none;text-align:center;min-height:48px;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:#4CAF50;color:#fff}
+.btn-primary:hover{opacity:.9}
+.btn-whatsapp{background:#25D366;color:#fff}
+.btn-whatsapp:hover{opacity:.9}
+.btn-ghost{background:rgba(255,255,255,.06);color:#FAFAF8;font-family:'Inter',sans-serif;font-size:.78rem;letter-spacing:0;text-transform:none}
+.btn-ghost:hover{background:rgba(255,255,255,.1)}
+.btn-copy{background:#F4C93B;color:#14151A}
+.btn-copy:hover{opacity:.9}
+.btn-copy.copied{background:#4CAF50;color:#fff}
+
+/* ── Sections ── */
+.section{display:none;animation:fadeSlideIn .5s ease-out}
+.section.show{display:block}
+@keyframes fadeSlideIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── Rejected contact ── */
+.contact-info{background:rgba(244,67,54,.06);border:1px solid rgba(244,67,54,.15);border-radius:10px;padding:14px;margin-top:12px;font-size:.75rem;color:rgba(250,250,248,.5)}
+.contact-info strong{color:rgba(250,250,248,.7)}
+
+/* ── Footer ── */
+footer{padding:24px 0;text-align:center;border-top:1px solid rgba(255,255,255,.06);margin-top:40px}
+footer p{font-size:.65rem;color:rgba(250,250,248,.2)}
+
+/* ── Responsive ── */
+@media(max-width:480px){.status-card{padding:24px 16px}.code-display .code-value{font-size:1.2rem}}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">ANAS MO'MEN <span>COACHING</span></a>
+    <a href="order.html" class="nav-back">&larr; Back to Order</a>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow" id="statusEyebrow">Payment Status</div>
+    <h1 id="statusHeadline">Confirming Your Payment</h1>
+  </div>
+
+  <div class="status-card">
+    <!-- Loading / Pending -->
+    <div id="sectionPending" class="section show">
+      <div class="status-icon" id="pendingIcon">&#9203;</div>
+      <div class="status-title pending" id="pendingTitle">Waiting for Payment</div>
+      <div class="status-desc" id="pendingDesc">We're checking with the payment provider. This usually takes a few seconds.</div>
+      <div style="margin:16px 0"><div class="spinner"></div></div>
+      <div class="status-hint" id="pendingHint"><span class="pulse">Auto-refreshing every 10 seconds</span></div>
+    </div>
+
+    <!-- Approved -->
+    <div id="sectionApproved" class="section">
+      <div class="status-icon">&#9989;</div>
+      <div class="status-title approved" id="approvedTitle">Payment Confirmed!</div>
+      <div class="status-desc" id="approvedDesc">Your access code is ready. Use it to unlock your product.</div>
+
+      <div class="code-display">
+        <div class="code-label">Your Access Code</div>
+        <div class="code-value" id="accessCode">---</div>
+        <div class="code-note">Enter this code on the tool page to unlock access. The code has also been sent to your WhatsApp.</div>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-copy" id="copyBtn" onclick="copyCode()">Copy Code</button>
+        <a id="waBtn" href="#" target="_blank" rel="noopener" class="btn btn-whatsapp">Open WhatsApp</a>
+        <a id="toolLink" href="tools/training_tool.html" class="btn btn-ghost">Go to Training Tool</a>
+      </div>
+    </div>
+
+    <!-- Rejected -->
+    <div id="sectionRejected" class="section">
+      <div class="status-icon">&#10060;</div>
+      <div class="status-title rejected" id="rejectedTitle">Payment Not Confirmed</div>
+      <div class="status-desc" id="rejectedDesc">Your payment could not be verified. Please contact Anas for assistance.</div>
+      <a href="https://wa.me/201040796017" target="_blank" rel="noopener" class="btn btn-whatsapp" style="margin-top:12px">Contact on WhatsApp</a>
+      <div class="contact-info"><strong>Vodafone Cash:</strong> 01040796017 &middot; Message with your transaction reference</div>
+      <button class="btn btn-ghost" onclick="backToOrder()" style="margin-top:12px">Submit Another Order</button>
+    </div>
+
+    <!-- Error -->
+    <div id="sectionError" class="section">
+      <div class="status-icon">&#10069;</div>
+      <div class="status-title rejected" id="errorTitle">Order Not Found</div>
+      <div class="status-desc" id="errorDesc">We couldn't find an order with that ID. If you just paid, please wait a moment and refresh. Otherwise, contact Anas for help.</div>
+      <a href="https://wa.me/201040796017" target="_blank" rel="noopener" class="btn btn-whatsapp" style="margin-top:12px">Contact on WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; Anas Mo'men Coaching &middot; <a href="index.html" style="color:#F4C93B">Home</a></p>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  var API = 'https://muscleos-access-control.muscleos.workers.dev';
+  var POLL_INTERVAL = 10000;
+  var pollTimer = null;
+  var orderId = null;
+
+  function getOrderId() {
+    // 1. Try URL query param
+    var u = new URL(window.location.href);
+    var fromUrl = u.searchParams.get('orderId');
+    if (fromUrl) return fromUrl;
+    // 2. Try localStorage (set by order.html before redirect)
+    var fromLs = localStorage.getItem('mos_pending_order_id');
+    if (fromLs) return fromLs;
+    return null;
+  }
+
+  function showSection(id) {
+    document.getElementById('sectionPending').classList.remove('show');
+    document.getElementById('sectionApproved').classList.remove('show');
+    document.getElementById('sectionRejected').classList.remove('show');
+    document.getElementById('sectionError').classList.remove('show');
+    var el = document.getElementById(id);
+    if (el) el.classList.add('show');
+  }
+
+  function updateText(id, text) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = text;
+  }
+
+  function checkStatus() {
+    if (!orderId) {
+      showSection('sectionError');
+      updateText('errorTitle', 'No Order ID');
+      updateText('errorDesc', 'No order was found. Please make sure you reached this page after placing an order.');
+      return;
+    }
+
+    fetch(API + '/api/check-order-status', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ orderId: orderId })
+    }).then(function(r){
+      if (!r.ok) {
+        if (r.status === 404) throw new Error('not_found');
+        throw new Error('server_error');
+      }
+      return r.json();
+    }).then(function(data){
+      if (data.status === 'approved') {
+        handleApproved(data);
+      } else if (data.status === 'rejected') {
+        handleRejected();
+      } else {
+        // Still pending — keep polling
+        handlePending();
+      }
+    }).catch(function(err){
+      if (err.message === 'not_found') {
+        showSection('sectionError');
+      } else {
+        // Network error — keep trying
+        if (document.getElementById('sectionPending').classList.contains('show')) {
+          updateText('pendingDesc', 'Still waiting... Will keep checking.');
+        }
+        scheduleNext();
+      }
+    });
+  }
+
+  function handleApproved(data) {
+    if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+    showSection('sectionApproved');
+    document.getElementById('accessCode').textContent = data.code || '---';
+
+    // Set WhatsApp link with prefilled message
+    var waMsg = 'My payment went through! My code is: ' + (data.code || '') + ' — from ' + (data.customerName || '');
+    document.getElementById('waBtn').href = 'https://wa.me/201040796017?text=' + encodeURIComponent(waMsg);
+
+    // Set tool link
+    var links = {
+      training_tool: 'tools/training_tool.html',
+      tdee_adaptive_engine: 'tools/tdee_adaptive_engine.html',
+      both_tools: 'tools/training_tool.html',
+      training_book: 'books/muscle_os_training_book.html',
+      nutrition_book: 'books/muscle_os_nutrition_book.html',
+      both_books: 'knowledge-hub/index.html',
+      all_access: 'tools/training_tool.html',
+    };
+    var toolHref = links[data.product] || 'tools/training_tool.html';
+    document.getElementById('toolLink').href = toolHref;
+
+    // Clean up localStorage
+    localStorage.removeItem('mos_pending_order_id');
+
+    // Track event
+    if (window.mosTrackEvent) {
+      window.mosTrackEvent('payment_auto_approved', data.product, { order_id: orderId });
+    }
+
+    // Try copy to clipboard automatically
+    tryCopyCode(data.code);
+  }
+
+  function handleRejected() {
+    if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+    showSection('sectionRejected');
+    localStorage.removeItem('mos_pending_order_id');
+  }
+
+  function handlePending() {
+    if (!document.getElementById('sectionPending').classList.contains('show')) {
+      showSection('sectionPending');
+    }
+    updateText('pendingDesc', 'Payment received by provider. Waiting for confirmation...');
+    scheduleNext();
+  }
+
+  function scheduleNext() {
+    if (pollTimer) clearInterval(pollTimer);
+    pollTimer = setTimeout(checkStatus, POLL_INTERVAL);
+  }
+
+  // ── Copy code ──
+  window.copyCode = function() {
+    var code = document.getElementById('accessCode').textContent;
+    if (!code || code === '---') return;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(code).then(function(){
+        showCopied();
+      }).catch(function(){ fallbackCopy(code); });
+    } else {
+      fallbackCopy(code);
+    }
+  };
+
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); showCopied(); } catch(e) {}
+    document.body.removeChild(ta);
+  }
+
+  function showCopied() {
+    var btn = document.getElementById('copyBtn');
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(function(){ btn.textContent = 'Copy Code'; btn.classList.remove('copied'); }, 2000);
+  }
+
+  // Auto-try copy — only works first time on user gesture, so we try silently
+  function tryCopyCode(code) {
+    if (!code || code === '---') return;
+    // Only attempt if clipboard API is available
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(code).catch(function(){});
+    }
+  }
+
+  function backToOrder() {
+    localStorage.removeItem('mos_pending_order_id');
+    window.location.href = 'order.html';
+  }
+
+  // ── Init ──
+  document.addEventListener('DOMContentLoaded', function(){
+    requestAnimationFrame(function(){ document.body.classList.add('loaded'); });
+    orderId = getOrderId();
+    // If URL has orderId param, we know for sure; also set it in localStorage for persistence
+    var u = new URL(window.location.href);
+    var fromUrl = u.searchParams.get('orderId');
+    if (fromUrl) {
+      localStorage.setItem('mos_pending_order_id', fromUrl);
+    }
+    if (orderId) {
+      checkStatus();
+    } else {
+      showSection('sectionError');
+      updateText('errorTitle', 'No Order ID');
+      updateText('errorDesc', 'No order was found. If you just paid, please contact Anas on WhatsApp with your transaction reference.');
+    }
+  });
+
+  window.backToOrder = backToOrder;
+})();
+</script>
+</body>
+</html>

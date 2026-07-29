@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Purchase access to Muscle OS training tools, books, and bundles. Send payment via Vodafone Cash, then submit your order.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev; img-src 'self' data:; frame-ancestors 'self'; base-uri 'self'">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<title>Order — Muscle OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;line-height:1.5;overflow-x:hidden;opacity:0;transition:opacity .6s ease}
+body.loaded{opacity:1}
+h1,h2,h3,h4,p,li,blockquote{overflow-wrap:break-word;word-break:break-word}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:640px;margin:0 auto;padding:0 20px}
+::selection{background:#F4C93B;color:#14151A}
+
+/* ── Nav ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(20,21,26,.95);backdrop-filter:blur(8px);border-bottom:1px solid #2C2E37}
+.nav-inner{max-width:1180px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+.brand{font-family:'Oswald',sans-serif;font-weight:700;font-size:16px;letter-spacing:.5px;text-transform:uppercase}
+.brand span{color:#F4C93B}
+.nav-back{font-size:.7rem;color:rgba(250,250,248,.4);display:flex;align-items:center;gap:6px;transition:color .2s}
+.nav-back:hover{color:#F4C93B}
+
+/* ── Hero ── */
+.hero{padding-top:72px;padding-bottom:32px;text-align:center}
+.hero .eyebrow{font-size:.7rem;font-weight:700;color:#F4C93B;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:8px}
+.hero h1{font-family:'Oswald',sans-serif;font-size:clamp(28px,5vw,44px);font-weight:700;text-transform:uppercase;line-height:1.05;max-width:600px;margin:0 auto}
+.hero p{font-size:.88rem;color:rgba(250,250,248,.5);max-width:480px;margin:12px auto 0;line-height:1.6}
+
+/* ── Form card ── */
+.form-card{background:#1E1E2A;border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:28px 24px;margin-bottom:20px}
+.form-card .fc-title{font-family:'Oswald',sans-serif;font-size:.9rem;font-weight:600;text-transform:uppercase;letter-spacing:.3px;color:#F4C93B;margin-bottom:4px}
+.form-card .fc-sub{font-size:.72rem;color:rgba(250,250,248,.4);margin-bottom:16px}
+.manual-only{display:none}
+.manual-only.show{display:block}
+.online-only{display:none}
+.online-only.show{display:block}
+
+/* ── Payment method toggle ── */
+.pay-toggle{display:flex;gap:8px;margin-bottom:20px}
+.pay-toggle-btn{flex:1;padding:14px 10px;background:rgba(20,21,26,.5);border:1.5px solid rgba(250,250,248,.06);border-radius:12px;cursor:pointer;text-align:center;transition:all .2s;font-family:'Inter',sans-serif}
+.pay-toggle-btn:hover{border-color:rgba(244,201,59,.2)}
+.pay-toggle-btn.selected{border-color:#F4C93B;background:rgba(244,201,59,.08)}
+.pay-toggle-btn .pt-icon{display:block;font-size:1.3rem;margin-bottom:4px}
+.pay-toggle-btn .pt-label{display:block;font-size:.75rem;font-weight:600;color:#FAFAF8;text-transform:uppercase;letter-spacing:.3px}
+.pay-toggle-btn .pt-desc{display:block;font-size:.6rem;color:rgba(250,250,248,.3);margin-top:2px}
+@media(max-width:400px){.pay-toggle{flex-direction:column}.pay-toggle-btn{display:flex;align-items:center;gap:10px;text-align:left;padding:12px}.pay-toggle-btn .pt-icon{font-size:1.1rem;margin:0}}
+
+/* ── Payment info — highlighted ── */
+.payment-info{background:rgba(244,201,59,.06);border:1.5px solid rgba(244,201,59,.2);border-radius:12px;padding:16px 18px;margin-bottom:20px}
+.payment-info .pi-title{font-family:'Oswald',sans-serif;font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.3px;color:#F4C93B;margin-bottom:8px}
+.payment-info .pi-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(244,201,59,.06);font-size:.75rem}
+.payment-info .pi-row:last-child{border-bottom:none}
+.payment-info .pi-label{color:rgba(250,250,248,.4)}
+.payment-info .pi-value{font-family:'JetBrains Mono',monospace;color:#FAFAF8;font-weight:500}
+.payment-info .pi-note{font-size:.65rem;color:rgba(250,250,248,.3);margin-top:8px;font-style:italic}
+
+/* ── Product selector ── */
+.product-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.prod-opt{padding:12px 10px;background:rgba(20,21,26,.5);border:1.5px solid rgba(250,250,248,.06);border-radius:10px;cursor:pointer;transition:all .2s;text-align:center}
+.prod-opt:hover{border-color:rgba(244,201,59,.3)}
+.prod-opt.selected{border-color:#F4C93B;background:rgba(244,201,59,.08)}
+.prod-opt .po-name{font-family:'Oswald',sans-serif;font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.3px;color:#FAFAF8}
+.prod-opt .po-price{font-size:.62rem;color:#F4C93B;font-family:'JetBrains Mono',monospace;margin-top:2px}
+.prod-opt .po-desc{font-size:.6rem;color:rgba(250,250,248,.25);margin-top:1px}
+@media(max-width:480px){.product-grid{gap:6px}.prod-opt{padding:10px 6px}.prod-opt .po-name{font-size:.65rem}}
+
+/* ── Form fields ── */
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(250,250,248,.38);margin-bottom:5px}
+.form-group label .req{color:#f44336;margin-left:2px}
+.form-group .hint{font-size:.6rem;color:rgba(250,250,248,.25);margin-top:3px}
+input,select{width:100%;padding:11px 13px;background:rgba(20,21,26,.6);border:1.5px solid rgba(250,250,248,.07);border-radius:10px;color:#FAFAF8;font-family:'Inter',sans-serif;font-size:.85rem;outline:none;transition:border-color .2s}
+input:focus,select:focus{border-color:#F4C93B}
+select{cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 12 8'%3E%3Cpath fill='%23FAFAF8' opacity='0.5' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;padding-right:36px}
+select option{background:#1E1E2A;color:#FAFAF8}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pay-method-group{display:flex;gap:8px}
+.pay-method{flex:1;padding:10px 0;background:rgba(20,21,26,.5);border:1.5px solid rgba(250,250,248,.06);border-radius:10px;cursor:pointer;text-align:center;font-size:.72rem;font-weight:500;color:rgba(250,250,248,.4);transition:all .2s;font-family:'Inter',sans-serif}
+.pay-method:hover{border-color:rgba(244,201,59,.2)}
+.pay-method.selected{border-color:#F4C93B;color:#FAFAF8;background:rgba(244,201,59,.08)}
+.pay-method .pm-icon{display:block;font-size:1.1rem;margin-bottom:2px}
+
+/* ── Submit ── */
+.submit-btn{width:100%;padding:15px 0;background:#F4C93B;color:#14151A;border:none;border-radius:10px;font-family:'Oswald',sans-serif;font-size:.95rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;transition:opacity .2s,transform .15s;margin-top:4px;min-height:52px}
+.submit-btn:hover{opacity:.9}
+.submit-btn:active{transform:scale(.98)}
+.submit-btn:disabled{opacity:.3;cursor:default;transform:none}
+
+/* ── Error ── */
+.form-error{display:none;background:rgba(244,67,54,.08);border:1px solid rgba(244,67,54,.2);border-radius:8px;padding:10px 14px;font-size:.75rem;color:#f44336;margin-bottom:12px;text-align:center}
+.form-error.show{display:block}
+
+/* ── Confirmation screen ── */
+.confirm-screen{display:none;text-align:center;padding:40px 0}
+.confirm-screen.show{display:block;animation:fadeSlideIn .45s ease-out}
+.confirm-screen .cs-icon{font-size:3rem;margin-bottom:12px}
+.confirm-screen h2{font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:700;text-transform:uppercase;color:#4CAF50;margin-bottom:6px}
+.confirm-screen p{font-size:.85rem;color:rgba(250,250,248,.5);max-width:400px;margin:0 auto 8px;line-height:1.6}
+.confirm-screen .cs-order{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:rgba(250,250,248,.25);margin-top:12px}
+.confirm-screen .cs-wa{display:inline-flex;align-items:center;gap:8px;margin-top:20px;padding:12px 24px;background:#25D366;color:#fff;border-radius:8px;font-size:.8rem;font-weight:600;text-decoration:none;transition:opacity .2s}
+.confirm-screen .cs-wa:hover{opacity:.9}
+.confirm-screen .cs-back{display:block;margin-top:16px;font-size:.72rem;color:#F4C93B;font-weight:600;cursor:pointer;background:none;border:none;font-family:'Inter',sans-serif}
+
+@keyframes fadeSlideIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── Footer ── */
+footer{padding:24px 0;text-align:center;border-top:1px solid rgba(255,255,255,.06)}
+footer p{font-size:.65rem;color:rgba(250,250,248,.2)}
+
+/* ── Security note ── */
+.security-note{text-align:center;font-size:.65rem;color:rgba(250,250,248,.2);margin-top:16px}
+
+/* ── Mobile bottom bar ── */
+.mobile-bottom-bar{display:block;position:fixed;bottom:0;left:0;right:0;z-index:90;background:rgba(20,21,26,.97);backdrop-filter:blur(8px);border-top:1px solid #2C2E37;padding:8px 16px;padding-bottom:max(8px,env(safe-area-inset-bottom))}
+.mobile-bottom-bar .mbb-inner{display:flex;gap:8px;max-width:640px;margin:0 auto}
+.mobile-bottom-bar .mbb-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;border-radius:8px;font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.3px;border:none;cursor:pointer;min-height:44px;transition:all .2s}
+.mobile-bottom-bar .mbb-primary{background:#F4C93B;color:#14151A}
+.mobile-bottom-bar .mbb-primary:active{background:#fff;transform:scale(.98)}
+.mobile-bottom-bar .mbb-ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.12)}
+.mobile-bottom-bar .mbb-ghost:active{border-color:#F4C93B}
+body{padding-bottom:70px}
+
+/* ── Responsive ── */
+@media(min-width:640px){.form-card{padding:32px 28px}.product-grid{grid-template-columns:1fr 1fr 1fr}}
+input,select,textarea{font-size:16px!important}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<div class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">ANAS MO'MEN <span>COACHING</span></a>
+    <a href="index.html" class="nav-back">&larr; Back</a>
+  </div>
+</div>
+
+<div class="wrap" style="padding-top:72px">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="eyebrow">Self-Serve Order</div>
+    <h1>Get Your Access Code</h1>
+    <p>Pay online with card, or send via Vodafone Cash. Your access code is delivered instantly with online payment.</p>
+  </div>
+
+  <!-- Payment method toggle -->
+  <div class="pay-toggle">
+    <button class="pay-toggle-btn selected" data-method="online" onclick="selectPayMethod('online')">
+      <span class="pt-icon">&#128179;</span>
+      <span class="pt-label">Pay Online</span>
+      <span class="pt-desc">Card — instant delivery</span>
+    </button>
+    <button class="pay-toggle-btn" data-method="manual" onclick="selectPayMethod('manual')">
+      <span class="pt-icon">&#128176;</span>
+      <span class="pt-label">Manual Transfer</span>
+      <span class="pt-desc">Vodafone Cash — 1-12 hrs</span>
+    </button>
+  </div>
+
+  <!-- Payment Info (manual only) -->
+  <div class="payment-info" id="paymentInfoManual">
+    <div class="pi-title">Send Payment To</div>
+    <div class="pi-row">
+      <span class="pi-label">Vodafone Cash</span>
+      <span class="pi-value">01040796017</span>
+    </div>
+    <div class="pi-note">After sending payment, fill the form below with the transaction reference number.</div>
+  </div>
+
+  <!-- Form -->
+  <div class="form-card" id="orderFormCard">
+    <div class="fc-title">Order Details</div>
+    <div class="fc-sub">Select your product and fill in your details</div>
+
+    <div id="formError" class="form-error"></div>
+
+    <!-- Product selector -->
+    <div class="form-group">
+      <label>Choose Product <span class="req">*</span></label>
+      <div class="product-grid" id="productGrid">
+        <div class="prod-opt" data-product="training_tool" onclick="selectProduct(this)">
+          <div class="po-name">Training Tool</div>
+          <div class="po-price">300 EGP / mo</div>
+          <div class="po-desc">Full training app</div>
+        </div>
+        <div class="prod-opt" data-product="tdee_adaptive_engine" onclick="selectProduct(this)">
+          <div class="po-name">TDEE Engine</div>
+          <div class="po-price">200 EGP / mo</div>
+          <div class="po-desc">Adaptive calorie tracker</div>
+        </div>
+        <div class="prod-opt" data-product="both_tools" onclick="selectProduct(this)">
+          <div class="po-name">Both Tools</div>
+          <div class="po-price">400 EGP / mo</div>
+          <div class="po-desc">Save 100 EGP / mo</div>
+        </div>
+        <div class="prod-opt" data-product="training_book" onclick="selectProduct(this)">
+          <div class="po-name">Training Book</div>
+          <div class="po-price">500 EGP</div>
+          <div class="po-desc">One-time, lifetime</div>
+        </div>
+        <div class="prod-opt" data-product="nutrition_book" onclick="selectProduct(this)">
+          <div class="po-name">Nutrition Book</div>
+          <div class="po-price">500 EGP</div>
+          <div class="po-desc">One-time, lifetime</div>
+        </div>
+        <div class="prod-opt" data-product="both_books" onclick="selectProduct(this)">
+          <div class="po-name">Both Books</div>
+          <div class="po-price">800 EGP</div>
+          <div class="po-desc">Save 200 EGP</div>
+        </div>
+        <div class="prod-opt" data-product="all_access" onclick="selectProduct(this)" style="grid-column:1/-1">
+          <div class="po-name">All Access</div>
+          <div class="po-price">Contact for pricing</div>
+          <div class="po-desc">Everything — tools + books</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Name -->
+    <div class="form-group">
+      <label>Your Name <span class="req">*</span></label>
+      <input type="text" id="customerName" placeholder="e.g. Ahmed Hassan" autocomplete="name">
+    </div>
+
+    <!-- WhatsApp number -->
+    <div class="form-group">
+      <label>WhatsApp Number <span class="req">*</span></label>
+      <input type="tel" id="whatsappNumber" placeholder="e.g. +201234567890" autocomplete="tel">
+      <div class="hint">Include country code. We'll send your code here.</div>
+    </div>
+
+    <!-- Email (optional) -->
+    <div class="form-group">
+      <label>Email <span style="color:rgba(250,250,248,.25);font-weight:400">(optional — backup delivery)</span></label>
+      <input type="email" id="email" placeholder="ahmed@example.com" autocomplete="email">
+    </div>
+
+    <!-- Payment reference (manual only) -->
+    <div class="form-group manual-only" id="paymentRefGroup">
+      <label>Transaction Reference <span class="req">*</span></label>
+      <input type="text" id="paymentRef" placeholder="e.g. 123456789 or transaction ID" autocomplete="off">
+      <div class="hint">The reference number from your Vodafone Cash transfer.</div>
+    </div>
+    <!-- Online payment note (shown when paying online) -->
+    <div class="form-group online-only" id="onlineNote">
+      <div style="background:rgba(244,201,59,.06);border:1px solid rgba(244,201,59,.12);border-radius:8px;padding:12px;font-size:.72rem;color:rgba(250,250,248,.5);text-align:center">
+        You'll be redirected to Paymob to complete your payment. Your access code will appear automatically after successful payment.
+      </div>
+    </div>
+
+    <div id="submitError" class="form-error"></div>
+    <button id="submitBtn" class="submit-btn" onclick="submitOrder()">Submit Order</button>
+  </div>
+
+  <!-- Confirmation (shown after manual submit) -->
+  <div class="confirm-screen" id="confirmScreen">
+    <div class="cs-icon" id="csIcon">✅</div>
+    <h2 id="csTitle">Order Submitted</h2>
+    <p id="csDesc">Thank you! Your order has been received. Anas will confirm payment and send your access code via WhatsApp within a few hours — usually much faster.</p>
+    <p id="csHint" style="font-size:.78rem;color:rgba(250,250,248,.35)">Keep an eye on your WhatsApp messages.</p>
+    <div class="cs-order" id="orderIdDisplay"></div>
+    <a id="csWaBtn" href="https://wa.me/201040796017" target="_blank" rel="noopener" class="cs-wa" data-wa-tag="order_confirmed_wa">Message Anas on WhatsApp</a>
+    <button class="cs-back" onclick="resetForm()">Submit Another Order</button>
+  </div>
+
+</div>
+
+<!-- Security note -->
+<p class="security-note">&#128274; No card details processed on this site — payment and codes confirmed directly via WhatsApp.</p>
+
+<footer>
+  <p>&copy; Anas Mo'men Coaching &middot; <a href="index.html" style="color:#F4C93B">Home</a></p>
+</footer>
+
+<!-- Mobile bottom bar -->
+<div class="mobile-bottom-bar">
+  <div class="mbb-inner">
+    <a href="index.html" class="mbb-btn mbb-primary">Home</a>
+    <a href="https://wa.me/201040796017" target="_blank" rel="noopener" class="mbb-btn mbb-ghost" data-wa-tag="order_mbb_wa">WhatsApp</a>
+  </div>
+</div>
+
+<script src="assets/tracking.js"></script>
+
+<script>
+(function(){
+  'use strict';
+
+  var API = 'https://muscleos-access-control.muscleos.workers.dev';
+  var selectedProduct = null;
+  var payMethod = null; // 'online' or 'manual'
+
+  // ── Product selector ──
+  window.selectProduct = function(el) {
+    document.querySelectorAll('.prod-opt').forEach(function(o){ o.classList.remove('selected'); });
+    el.classList.add('selected');
+    selectedProduct = el.getAttribute('data-product');
+    updatePayToggle();
+  };
+
+  // ── Payment method toggle ──
+  window.selectPayMethod = function(method) {
+    payMethod = method;
+    document.querySelectorAll('.pay-toggle-btn').forEach(function(b){ b.classList.remove('selected'); });
+    document.querySelector('.pay-toggle-btn[data-method="' + method + '"]').classList.add('selected');
+    // Show/hide manual-only and online-only fields
+    document.getElementById('paymentInfoManual').style.display = method === 'manual' ? 'block' : 'none';
+    var refGroup = document.getElementById('paymentRefGroup');
+    if (method === 'manual') { refGroup.classList.add('show'); } else { refGroup.classList.remove('show'); }
+    var onlineNote = document.getElementById('onlineNote');
+    if (method === 'online') { onlineNote.classList.add('show'); } else { onlineNote.classList.remove('show'); }
+    updateSubmitBtn();
+  };
+
+  function updatePayToggle() {
+    // Auto-select online if no method chosen yet
+    if (!payMethod) {
+      var u = new URL(window.location.href);
+      if (u.searchParams.get('manual') === '1') {
+        selectPayMethod('manual');
+      } else {
+        selectPayMethod('online');
+      }
+    }
+  }
+
+  function updateSubmitBtn() {
+    var btn = document.getElementById('submitBtn');
+    if (payMethod === 'online') {
+      btn.textContent = 'Continue to Payment';
+    } else {
+      btn.textContent = 'Submit Order';
+    }
+  }
+
+  // ── Price map for button ──
+  var PRODUCT_PRICES = {
+    training_tool: 300, tdee_adaptive_engine: 200, both_tools: 400,
+    training_book: 500, nutrition_book: 500, both_books: 800,
+  };
+
+  // ── Error helpers ──
+  function showError(msg) {
+    var el = document.getElementById('submitError');
+    el.textContent = msg;
+    el.classList.add('show');
+  }
+  function hideError() {
+    document.getElementById('submitError').classList.remove('show');
+  }
+
+  function validatePhone(phone) {
+    return /^\+?\d{7,15}$/.test(phone.replace(/[-\s()]/g, ''));
+  }
+  function validateEmail(email) {
+    if (!email) return true;
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  function getCommonFields() {
+    var name = document.getElementById('customerName').value.trim();
+    if (!name) { showError('Please enter your name.'); document.getElementById('customerName').focus(); return null; }
+    var phone = document.getElementById('whatsappNumber').value.trim();
+    if (!phone || !validatePhone(phone)) { showError('Please enter a valid WhatsApp number with country code (e.g. +201234567890).'); document.getElementById('whatsappNumber').focus(); return null; }
+    var email = document.getElementById('email').value.trim();
+    if (email && !validateEmail(email)) { showError('Please enter a valid email address, or leave blank.'); document.getElementById('email').focus(); return null; }
+    return { name: name, phone: phone, email: email || null };
+  }
+
+  // ── Submit ──
+  window.submitOrder = function() {
+    hideError();
+
+    if (!selectedProduct) { showError('Please select a product.'); return; }
+    if (!payMethod) { showError('Please select a payment method.'); return; }
+
+    var fields = getCommonFields();
+    if (!fields) return;
+
+    if (payMethod === 'manual') {
+      submitManual(fields);
+    } else {
+      submitOnline(fields);
+    }
+  };
+
+  function submitManual(fields) {
+    var ref = document.getElementById('paymentRef').value.trim();
+    if (!ref) { showError('Please enter the transaction reference from your payment.'); document.getElementById('paymentRef').focus(); return; }
+
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+
+    var body = {
+      product: selectedProduct, customerName: fields.name,
+      whatsappNumber: fields.phone, email: fields.email,
+      paymentMethod: 'vodafone_cash', paymentRef: ref,
+      lang: document.documentElement.lang || 'ar'
+    };
+
+    fetch(API + '/api/create-order', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    }).then(function(r){
+      if (!r.ok) return r.json().then(function(d){ throw new Error(d.error || 'Server error'); });
+      return r.json();
+    }).then(function(data){
+      document.getElementById('orderFormCard').style.display = 'none';
+      document.getElementById('paymentInfoManual').style.display = 'none';
+      document.getElementById('confirmScreen').classList.add('show');
+      document.getElementById('orderIdDisplay').textContent = 'Order ID: ' + data.orderId;
+      if (window.mosTrackEvent) {
+        window.mosTrackEvent('order_submitted', selectedProduct, { order_id: data.orderId });
+      }
+    }).catch(function(err){
+      showError(err.message || 'Network error. Please try again or message Anas on WhatsApp.');
+      btn.disabled = false;
+      btn.textContent = 'Submit Order';
+    });
+  }
+
+  function submitOnline(fields) {
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Creating Order...';
+
+    var body = {
+      product: selectedProduct, customerName: fields.name,
+      whatsappNumber: fields.phone, email: fields.email,
+      paymentMethod: 'online', paymentRef: 'paymob-' + Date.now(),
+      lang: document.documentElement.lang || 'ar'
+    };
+
+    // Step 1: Create order
+    fetch(API + '/api/create-order', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    }).then(function(r){
+      if (!r.ok) return r.json().then(function(d){ throw new Error(d.error || 'Server error'); });
+      return r.json();
+    }).then(function(data){
+      var orderId = data.orderId;
+      btn.textContent = 'Redirecting to Payment...';
+
+      // Store orderId for success page
+      localStorage.setItem('mos_pending_order_id', orderId);
+
+      // Track
+      if (window.mosTrackEvent) {
+        window.mosTrackEvent('order_submitted', selectedProduct, { order_id: orderId, method: 'online' });
+      }
+
+      // Step 2: Create payment link
+      return fetch(API + '/api/create-payment-link', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orderId: orderId })
+      }).then(function(r2){
+        if (!r2.ok) return r2.json().then(function(d){ throw new Error(d.error || 'Failed to create payment link'); });
+        return r2.json().then(function(payData){
+          // Redirect to Paymob
+          window.location.href = payData.paymentUrl;
+        });
+      });
+    }).catch(function(err){
+      showError(err.message || 'Network error. Please try again or choose Manual Transfer.');
+      btn.disabled = false;
+      updateSubmitBtn();
+      localStorage.removeItem('mos_pending_order_id');
+    });
+  }
+
+  window.resetForm = function() {
+    document.getElementById('confirmScreen').classList.remove('show');
+    document.getElementById('orderFormCard').style.display = 'block';
+    document.getElementById('paymentInfoManual').style.display = 'block';
+    document.getElementById('submitBtn').disabled = false;
+    updateSubmitBtn();
+    document.getElementById('paymentRef').value = '';
+  };
+
+  // ── Init ──
+  document.addEventListener('DOMContentLoaded', function(){
+    requestAnimationFrame(function(){ document.body.classList.add('loaded'); });
+    updatePayToggle();
+  });
+})();
+</script>
+</body>
+</html>
