@@ -10,14 +10,16 @@
  *   5. Deploy → New deployment → Web app
  *        - Execute as: Me
  *        - Who has access: Anyone
- *   6. Copy the /exec URL
- *   7. Paste it into website/assets/tracking.js as FUNNEL_WEBHOOK_URL
- *   8. Set EVENTS_KEY below to a secret string, set the same in tracking.js
+ *   6. Copy the /exec URL and add ?key=YOUR_EVENTS_KEY (e.g. https://script.google.com/.../exec?key=YourKey)
+ *   7. Paste the full URL (with ?key=) into website/assets/tracking.js as FUNNEL_WEBHOOK_URL
+ *   8. Set EVENTS_KEY below to the same secret string
  *   9. Set ANALYTICS_KEY below to a different secret string, use same in admin/analytics.html
+ *      The analytics URL also needs ?key=ANALYTICS_KEY appended.
  *   10. (Optional) Triggers → Add Trigger → sendWeeklySummaryEmail → time-driven → weekly
  */
 
 // ─── Anas: pick two different secret strings ───
+// Then deploy and include ?key=SECRET in both webhook URLs (query param).
 var EVENTS_KEY = 'YOUR_EVENTS_KEY_HERE';
 var ANALYTICS_KEY = 'YOUR_ANALYTICS_KEY_HERE';
 
@@ -35,9 +37,19 @@ var FUNNEL_TAGS = {
 // ═══════════════════════════════════════════════════════════════════
 
 function doPost(e) {
+  // Query param validation: ?key=SECRET (required when EVENTS_KEY is non-empty)
+  if (EVENTS_KEY) {
+    var qKey = e && e.parameter && e.parameter.key;
+    if (!qKey || qKey !== EVENTS_KEY) {
+      return ContentService
+        .createTextOutput(JSON.stringify({status: 'rejected', error: 'unauthorized'}))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+  }
+
   var data = JSON.parse(e.postData.contents);
 
-  // Validate events key (only if EVENTS_KEY is set — empty = no enforcement)
+  // Body validation (backward compat — only checked when EVENTS_KEY is set)
   if (EVENTS_KEY && data.events_key !== EVENTS_KEY) {
     return ContentService
       .createTextOutput(JSON.stringify({status: 'rejected', error: 'invalid_key'}))
