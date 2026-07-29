@@ -1,7 +1,28 @@
 (function(){
+  // ── Config ──────────────────────────────────────────
+  var FUNNEL_WEBHOOK_URL = ''; // ← Anas pastes his Apps Script /exec URL here
+
+  // ── Constants ───────────────────────────────────────
   var KEY = 'mos_funnel_log';
   var MAX = 500;
+  var SID_KEY = 'mos_session_id';
 
+  // ── Session ID (persistent per visitor) ─────────────
+  function getSessionId() {
+    var sid = localStorage.getItem(SID_KEY);
+    if (!sid) {
+      sid = Math.random().toString(36).slice(2, 10) + Math.random().toString(36).slice(2, 10);
+      localStorage.setItem(SID_KEY, sid);
+    }
+    return sid;
+  }
+
+  // ── Helpers ─────────────────────────────────────────
+  function now() { return new Date().toISOString(); }
+
+  function getPage() { return window.location.pathname.replace(/\/+$/,'') || '/'; }
+
+  // ── localStorage log (existing, unchanged) ──────────
   function log(entry) {
     try {
       var arr = JSON.parse(localStorage.getItem(KEY) || '[]');
@@ -11,14 +32,35 @@
     } catch(e) {}
   }
 
-  function now() { return new Date().toISOString(); }
+  // ── Webhook POST (additive, never blocks) ───────────
+  function webhookSend(data) {
+    if (!FUNNEL_WEBHOOK_URL) return;
+    try {
+      var body = JSON.stringify({
+        page: data.page || '',
+        event_type: data.action || '',
+        tag: data.tag || '',
+        referrer: data.referrer || document.referrer || '',
+        session_id: getSessionId()
+      });
+      fetch(FUNNEL_WEBHOOK_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: body
+      });
+    } catch(e) { /* fire-and-forget, never throw */ }
+  }
 
-  function getPage() { return window.location.pathname.replace(/\/+$/,'') || '/'; }
+  // ── Deduplication guard ─────────────────────────────
+  if (window.__mosTrackedThisLoad) return;
+  window.__mosTrackedThisLoad = true;
 
-  // Pageview log
-  log({ page: getPage(), action: 'pageview', referrer: document.referrer || '', timestamp: now() });
+  // ── Pageview event ──────────────────────────────────
+  var pageviewEntry = { page: getPage(), action: 'pageview', referrer: document.referrer || '', timestamp: now() };
+  log(pageviewEntry);
+  webhookSend(pageviewEntry);
 
-  // Click tracking for WhatsApp links
+  // ── Click tracking for WhatsApp links ───────────────
   document.addEventListener('click', function(e) {
     var a = e.target.closest('a');
     if (!a) return;
@@ -34,16 +76,18 @@
       textParam = amp > -1 ? after.substring(0, amp) : after;
     }
 
-    log({
+    var entry = {
       page: getPage(),
       action: 'whatsapp_click',
       tag: tag || textParam || 'generic',
       text: decodeURIComponent(textParam).substring(0, 200),
       timestamp: now()
-    });
+    };
+    log(entry);
+    webhookSend(entry);
   });
 
-  // Export function
+  // ── Export function (for manual review) ─────────────
   window.mosExportFunnelLog = function() {
     try {
       var data = JSON.parse(localStorage.getItem(KEY) || '[]');
