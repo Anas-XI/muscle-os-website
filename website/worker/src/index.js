@@ -633,6 +633,13 @@ async function handlePaymobCallback(request, env) {
 // ── POST /api/create-payment-link (creates Paymob payment URL) ────
 
 async function handleCreatePaymentLink(request, env) {
+  const rateLimited = await checkRateLimit(request, env, 5);
+  if (rateLimited) return json({ error: 'rate_limited' }, 429, env, request);
+
+  if (!env.PAYMOB_API_KEY || !env.PAYMOB_INTEGRATION_ID || !env.PAYMOB_IFRAME_ID) {
+    return json({ error: 'payment_provider_not_configured' }, 503, env, request);
+  }
+
   let body;
   try { body = await request.json(); } catch (e) {
     return json({ error: 'invalid_json' }, 400, env, request);

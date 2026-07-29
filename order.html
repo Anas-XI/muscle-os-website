@@ -466,7 +466,12 @@ input,select,textarea{font-size:16px!important}
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ orderId: orderId })
       }).then(function(r2){
-        if (!r2.ok) return r2.json().then(function(d){ throw new Error(d.error || 'Failed to create payment link'); });
+        if (!r2.ok) return r2.json().then(function(d){
+          if (d.error === 'payment_provider_not_configured') {
+            throw new Error('Online payment is not set up yet. Please use Manual Transfer or message Anas on WhatsApp.');
+          }
+          throw new Error(d.error || 'Failed to create payment link');
+        });
         return r2.json().then(function(payData){
           // Redirect to Paymob
           window.location.href = payData.paymentUrl;
