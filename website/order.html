@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Purchase access to Muscle OS training tools, books, and bundles. Send payment via InstaPay or Vodafone Cash, then submit your order.">
+<meta name="description" content="Purchase access to Muscle OS training tools, books, and bundles. Send payment via Vodafone Cash, then submit your order.">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev; img-src 'self' data:; frame-ancestors 'self'; base-uri 'self'">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <title>Order — Muscle OS</title>
@@ -136,19 +136,15 @@ input,select,textarea{font-size:16px!important}
   <div class="hero">
     <div class="eyebrow">Self-Serve Order</div>
     <h1>Get Your Access Code</h1>
-    <p>Send payment via InstaPay or Vodafone Cash, then submit this form with your reference number. Your code will be delivered within a few hours — usually much faster.</p>
+    <p>Send payment via Vodafone Cash, then submit this form with your reference number. Your code will be delivered within a few hours — usually much faster.</p>
   </div>
 
-  <!-- Payment Info (placeholders — Anas replaces with real numbers) -->
+  <!-- Payment Info -->
   <div class="payment-info">
     <div class="pi-title">Send Payment To</div>
     <div class="pi-row">
-      <span class="pi-label">InstaPay</span>
-      <span class="pi-value"><!-- ANAS: REPLACE WITH REAL INSTAPAY NUMBER -->[Your InstaPay Number]</span>
-    </div>
-    <div class="pi-row">
       <span class="pi-label">Vodafone Cash</span>
-      <span class="pi-value"><!-- ANAS: REPLACE WITH REAL VODAFONE CASH NUMBER -->[Your Vodafone Cash Number]</span>
+      <span class="pi-value">01040796017</span>
     </div>
     <div class="pi-note">After sending payment, fill the form below with the transaction reference number.</div>
   </div>
@@ -221,27 +217,11 @@ input,select,textarea{font-size:16px!important}
       <input type="email" id="email" placeholder="ahmed@example.com" autocomplete="email">
     </div>
 
-    <!-- Payment method -->
-    <div class="form-group">
-      <label>Payment Method <span class="req">*</span></label>
-      <div class="pay-method-group">
-        <div class="pay-method selected" data-method="instapay" onclick="selectMethod(this)">
-          <span class="pm-icon">🏦</span> InstaPay
-        </div>
-        <div class="pay-method" data-method="vodafone_cash" onclick="selectMethod(this)">
-          <span class="pm-icon">📱</span> Vodafone Cash
-        </div>
-        <div class="pay-method" data-method="other" onclick="selectMethod(this)">
-          <span class="pm-icon">💳</span> Other
-        </div>
-      </div>
-    </div>
-
     <!-- Payment reference -->
     <div class="form-group">
       <label>Transaction Reference <span class="req">*</span></label>
       <input type="text" id="paymentRef" placeholder="e.g. 123456789 or transaction ID" autocomplete="off">
-      <div class="hint">The reference number from your InstaPay or Vodafone Cash transfer.</div>
+      <div class="hint">The reference number from your Vodafone Cash transfer.</div>
     </div>
 
     <div id="submitError" class="form-error"></div>
@@ -284,20 +264,11 @@ input,select,textarea{font-size:16px!important}
 
   var API = 'https://muscleos-access-control.muscleos.workers.dev';
   var selectedProduct = null;
-  var selectedMethod = 'instapay';
-
   // Product selector
   window.selectProduct = function(el) {
     document.querySelectorAll('.prod-opt').forEach(function(o){ o.classList.remove('selected'); });
     el.classList.add('selected');
     selectedProduct = el.getAttribute('data-product');
-  };
-
-  // Payment method selector
-  window.selectMethod = function(el) {
-    document.querySelectorAll('.pay-method').forEach(function(o){ o.classList.remove('selected'); });
-    el.classList.add('selected');
-    selectedMethod = el.getAttribute('data-method');
   };
 
   function showError(msg) {
@@ -364,7 +335,7 @@ input,select,textarea{font-size:16px!important}
       customerName: name,
       whatsappNumber: phone,
       email: email || null,
-      paymentMethod: selectedMethod,
+      paymentMethod: 'vodafone_cash',
       paymentRef: ref,
       lang: document.documentElement.lang || 'ar'
     };
