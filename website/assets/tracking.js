@@ -1,6 +1,7 @@
 (function(){
   // ── Config ──────────────────────────────────────────
   var FUNNEL_WEBHOOK_URL = ''; // ← Anas pastes his Apps Script /exec URL here
+  var EVENTS_KEY = '';         // ← Anas sets same string as EVENTS_KEY in the Apps Script
 
   // ── Constants ───────────────────────────────────────
   var KEY = 'mos_funnel_log';
@@ -41,7 +42,8 @@
         event_type: data.action || '',
         tag: data.tag || '',
         referrer: data.referrer || document.referrer || '',
-        session_id: getSessionId()
+        session_id: getSessionId(),
+        events_key: EVENTS_KEY
       });
       fetch(FUNNEL_WEBHOOK_URL, {
         method: 'POST',

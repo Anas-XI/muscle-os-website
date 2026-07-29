@@ -355,14 +355,17 @@ TAGS: tdee_subscribe_top, tdee_subscribe_bottom, footer_wa
 | `BB-` | Both Books | `BB-F4H7J9L2N5` |
 | `MA-` | All Access | `MA-G5K8M2P7T1` |
 
-### 5.5 Static Access Codes (fallback)
+### 5.5 Static Access Codes (fallback — bounded to 48h)
 
-`assets/data/access-codes.json` stores SHA-256 hashed codes. Used only if Worker KV is unreachable. 5 pre-hashed codes for:
-- Master (all products, 30 days)
-- Training Tool (30 days)
-- TDEE Engine (30 days)
-- Training Book (lifetime)
-- Nutrition Book (lifetime)
+`assets/data/access-codes.json` stores SHA-256 hashed codes. Used **only** when the Cloudflare Worker is unreachable, via local SHA-256 verification in `access-control.js`.
+
+**Fallback grants exactly 48 hours of access** regardless of the product's normal duration (30-day subscription or lifetime book). This is intentional:
+- Forces reconciliation: once the Worker recovers, the 48h window expires quickly, and the customer re-verifies with their code against the live Worker for real tracked access
+- Fallback access is marked with `data.fallback = true`, which tells `revalidateAccess` to skip the server check (the token doesn't exist server-side) and rely on the 48h expiry
+
+**Fallback usage is logged** to `localStorage('mos_fallback_usage_log')` and flushed to `POST /api/log-fallback-usage` on page load. This gives visibility into how often the fallback path is hit — if frequent, investigate Worker reliability.
+
+**Rotate monthly** via `node scripts/rotate-fallback-codes.js`.
 
 ---
 
@@ -405,8 +408,9 @@ Custom events are sent via `window.mosTrackEvent(action, tag, extra)`, exposed b
 2. (Optional) Add a second sheet tab named `Pending Orders` with headers: `timestamp | order_id | customer_name | product | payment_method | payment_ref | whatsapp | email | status`
 3. Extensions → Apps Script → paste `docs/apps-script-webhook.gs`
 4. Deploy as Web App (Execute as: Me, Access: Anyone)
-5. Copy `/exec` URL → paste into `assets/tracking.js` line 3
-6. (Optional) On the Pending Orders tab: Tools → Notification rules → "When a new row is added → Email" to get real-time alerts.
+5. Copy `/exec` URL → paste into `assets/tracking.js` as `FUNNEL_WEBHOOK_URL`
+6. Set `EVENTS_KEY` in the Apps Script (under `// ─── Anas: pick a secret string ───`) and paste the **same value** into `assets/tracking.js` as `EVENTS_KEY`. This prevents unauthorized POSTs to your webhook from anyone who discovers the URL. If either side is left blank, no validation occurs (backward compatible).
+7. (Optional) On the Pending Orders tab: Tools → Notification rules → "When a new row is added → Email" to get real-time alerts.
 
 ### 6.5 Export (Manual Review)
 
@@ -454,6 +458,7 @@ const TR = {
 | `/api/check-token` | POST | Revalidate stored JWT | — |
 | `/api/issue-code` | POST | Admin: create new code | `X-Admin-Key` |
 | `/api/revoke-code` | POST | Admin: revoke code | `X-Admin-Key` |
+| `/api/log-fallback-usage` | POST | Log local fallback code use | Rate-limited (20/300s) |
 | `/api/create-order` | POST | Submit self-serve order | Rate-limited (5/300s) |
 | `/api/pending-orders` | POST | List pending orders | `X-Admin-Key` |
 | `/api/approve-order` | POST | Approve order + auto-issue code | `X-Admin-Key` |
@@ -595,7 +600,17 @@ Plain-text summary sent via `MailApp.sendEmail()` (runs under Anas's Google acco
 
 **Content:** Same data as the dashboard — funnel breakdown, top pages/tags, order approval rate, week-over-week deltas.
 
-### 9.6 Hash Utility (`scripts/hash-code.js`)
+### 9.6 Rotate Fallback Codes (`scripts/rotate-fallback-codes.js`)
+
+Generates 5 fresh static codes, hashes them, and rewrites `assets/data/access-codes.json`.
+
+```bash
+node scripts/rotate-fallback-codes.js
+```
+
+Run this **monthly**. The plaintext codes are printed to console — save them in your password manager or personal notes so you can share them with customers during a Worker outage.
+
+### 9.7 Hash Utility (`scripts/hash-code.js`)
 
 ```bash
 node scripts/hash-code.js <plaintext>  # → SHA-256 hash for access-codes.json

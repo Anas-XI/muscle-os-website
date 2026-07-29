@@ -96,6 +96,10 @@ export default {
     if (url.pathname === '/api/revoke-code' && request.method === 'POST') {
       return handleRevokeCode(request, env);
     }
+    // ---- Fallback usage logging (rate-limited, no admin key needed) ----
+    if (url.pathname === '/api/log-fallback-usage' && request.method === 'POST') {
+      return handleLogFallbackUsage(request, env);
+    }
     // ---- Order management ----
     if (url.pathname === '/api/create-order' && request.method === 'POST') {
       return handleCreateOrder(request, env);
@@ -311,6 +315,26 @@ async function handleRevokeCode(request, env) {
   await stub.fetch('http://do/revoke', { method: 'POST', headers: { 'Content-Type': 'application/json' } });
   await logAttempt(env, normalized, 'admin:revoke', true);
   return json({ success: true, code: normalized, revoked: true }, 200, env, request);
+}
+
+// ── POST /api/log-fallback-usage (rate-limited, no admin key) ────
+
+async function handleLogFallbackUsage(request, env) {
+  const limited = await checkRateLimit(request, env, 20);
+  if (limited) return json({ error: 'rate_limited' }, 429, env, request);
+  let body;
+  try { body = await request.json(); } catch (e) {
+    return json({ error: 'invalid_json' }, 400, env, request);
+  }
+  const { entries } = body;
+  if (!Array.isArray(entries) || entries.length === 0) {
+    return json({ error: 'no_entries' }, 400, env, request);
+  }
+  for (const entry of entries) {
+    const key = `fallback:${Date.now()}:${crypto.randomUUID()}`;
+    await env.ACCESS_CODES.put(key, JSON.stringify(entry), { expirationTtl: 2592000 });
+  }
+  return json({ status: 'ok', logged: entries.length }, 200, env, request);
 }
 
 // ── Product helpers ──────────────────────────────────────────────

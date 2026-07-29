@@ -12,13 +12,14 @@
  *        - Who has access: Anyone
  *   6. Copy the /exec URL
  *   7. Paste it into website/assets/tracking.js as FUNNEL_WEBHOOK_URL
- *   8. Set ANALYTICS_KEY below to a secret string, then use the same string
- *      when opening admin/analytics.html
- *   9. (Optional) Triggers → Add Trigger → sendWeeklySummaryEmail → time-driven → weekly
+ *   8. Set EVENTS_KEY below to a secret string, set the same in tracking.js
+ *   9. Set ANALYTICS_KEY below to a different secret string, use same in admin/analytics.html
+ *   10. (Optional) Triggers → Add Trigger → sendWeeklySummaryEmail → time-driven → weekly
  */
 
-// ─── Anas: Pick any string, keep it secret, use same in admin/analytics.html ───
-var ANALYTICS_KEY = 'YOUR_SECRET_HERE';
+// ─── Anas: pick two different secret strings ───
+var EVENTS_KEY = 'YOUR_EVENTS_KEY_HERE';
+var ANALYTICS_KEY = 'YOUR_ANALYTICS_KEY_HERE';
 
 // ─── Funnel stage tag groupings (mirrors DOCUMENTATION.md §11) ───
 var FUNNEL_TAGS = {
@@ -34,8 +35,16 @@ var FUNNEL_TAGS = {
 // ═══════════════════════════════════════════════════════════════════
 
 function doPost(e) {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   var data = JSON.parse(e.postData.contents);
+
+  // Validate events key (only if EVENTS_KEY is set — empty = no enforcement)
+  if (EVENTS_KEY && data.events_key !== EVENTS_KEY) {
+    return ContentService
+      .createTextOutput(JSON.stringify({status: 'rejected', error: 'invalid_key'}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
 
   // If this is an order event, log to the "Pending Orders" sheet tab
   if (data.event_type === 'order_submitted' || data.event_type === 'order_created') {
@@ -93,7 +102,6 @@ function doPost(e) {
 // ═══════════════════════════════════════════════════════════════════
 
 function doGet(e) {
-  // Authenticate
   var key = e && e.parameter && e.parameter.key;
   if (!key || key !== ANALYTICS_KEY) {
     return ContentService
@@ -125,8 +133,8 @@ function computeSummary() {
   var headers = eventsVals.shift() || [];
 
   // Categorize by date range
-  var thisWeek = [];    // last 7 days
-  var prevWeek = [];    // 7-14 days ago
+  var thisWeek = [];
+  var prevWeek = [];
 
   eventsVals.forEach(function(row) {
     var ts = new Date(row[0]);
@@ -143,17 +151,6 @@ function computeSummary() {
     if (FUNNEL_TAGS.middle.indexOf(tag) !== -1) return 'middle';
     if (FUNNEL_TAGS.bottom.indexOf(tag) !== -1) return 'bottom';
     return null;
-  }
-
-  function countByField(rows, eventType, field) {
-    var map = {};
-    rows.forEach(function(r) {
-      if (r[2] === eventType) {
-        var val = r[field] || 'unknown';
-        map[val] = (map[val] || 0) + 1;
-      }
-    });
-    return map;
   }
 
   function asSortedArray(map) {
@@ -185,11 +182,23 @@ function computeSummary() {
   var totalWa = twWaClicks.length;
 
   // ── 2. Top pages (last 7 days pageviews) ──
-  var pageCounts = countByField(thisWeek, 'pageview', 1);
+  var pageCounts = {};
+  thisWeek.forEach(function(r) {
+    if (r[2] === 'pageview') {
+      var p = r[1] || '/';
+      pageCounts[p] = (pageCounts[p] || 0) + 1;
+    }
+  });
   var topPages = topN(pageCounts, 5);
 
   // ── 3. Top WhatsApp tags (last 7 days) ──
-  var tagCounts = countByField(thisWeek, 'whatsapp_click', 3);
+  var tagCounts = {};
+  thisWeek.forEach(function(r) {
+    if (r[2] === 'whatsapp_click') {
+      var t = r[3] || 'unknown';
+      tagCounts[t] = (tagCounts[t] || 0) + 1;
+    }
+  });
   var topTags = topN(tagCounts, 5);
 
   // ── 4. Order funnel ──
@@ -199,7 +208,6 @@ function computeSummary() {
   var approvalRate = orderSubmitted > 0
     ? Math.round(orderApproved / (orderApproved + orderRejected) * 100) : 0;
 
-  // Rejection reasons breakdown
   var rejections = {};
   thisWeek.forEach(function(r) {
     if (r[2] === 'order_rejected' && r[3]) {
@@ -225,7 +233,6 @@ function computeSummary() {
     };
   }
 
-  // ── Build result ──
   var hasPrevData = prevWeek.length > 0;
 
   return {
@@ -273,40 +280,26 @@ function sendWeeklySummaryEmail() {
     return arrow + ' ' + Math.abs(t) + '%';
   }
 
-  // Build email body
   var body = 'Muscle OS — Weekly Summary (' + dateStr + ')\n';
   body += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n';
-
-  // Glance
   body += '📊 THIS WEEK AT A GLANCE\n';
   body += '  Pageviews:       ' + summary.trends.pageviews.current + '  (' + pctDisplay(summary.trends.pageviews.percentChange) + ' vs last week)\n';
   body += '  WhatsApp clicks: ' + summary.trends.whatsappClicks.current + '  (' + pctDisplay(summary.trends.whatsappClicks.percentChange) + ')\n';
   body += '  Orders:          ' + summary.trends.ordersSubmitted.current + '  (' + pctDisplay(summary.trends.ordersSubmitted.percentChange) + ')\n\n';
-
-  // Funnel
   body += '🔁 FUNNEL STAGE BREAKDOWN (WhatsApp clicks)\n';
   ['top','middle','bottom'].forEach(function(stage) {
     var s = summary.funnel[stage];
     body += '  ' + stageEmoji(stage) + ' ' + stage.charAt(0).toUpperCase() + stage.slice(1) + ': ' + s.count + ' (' + s.stagePct + '%)\n';
   });
-  body += '\n';
-
-  // Top pages
-  body += '📄 TOP PAGES\n';
+  body += '\n📄 TOP PAGES\n';
   summary.topPages.forEach(function(p, i) {
     body += '  ' + (i+1) + '. ' + (p.page || '/') + ' — ' + p.views + ' views\n';
   });
-  body += '\n';
-
-  // Top tags
-  body += '🔗 TOP WHATSAPP TAGS\n';
+  body += '\n🔗 TOP WHATSAPP TAGS\n';
   summary.topTags.forEach(function(t, i) {
     body += '  ' + (i+1) + '. ' + t.tag + ' — ' + t.clicks + ' clicks\n';
   });
-  body += '\n';
-
-  // Orders
-  body += '🛒 ORDER FUNNEL\n';
+  body += '\n🛒 ORDER FUNNEL\n';
   body += '  Submitted: ' + summary.orders.submitted + '\n';
   body += '  Approved:  ' + summary.orders.approved + '\n';
   body += '  Rejected:  ' + summary.orders.rejected + '\n';
@@ -321,7 +314,6 @@ function sendWeeklySummaryEmail() {
   }
   body += '\n';
 
-  // ── Send ──
   var recipient = Session.getActiveUser().getEmail();
   MailApp.sendEmail({
     to: recipient,
