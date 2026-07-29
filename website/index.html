@@ -540,7 +540,7 @@
       <a href="#packages" data-i18n="nav_packages">Packages</a>
       <a href="#contact" data-i18n="nav_contact">Contact</a>
     </nav>
-    <a class="nav-cta" href="https://wa.me/201040796017" target="_blank" rel="noopener" data-i18n="nav_whatsapp">Message on WhatsApp</a>
+    <a class="nav-cta" href="https://wa.me/201040796017" target="_blank" rel="noopener" data-wa-tag="nav_whatsapp" data-i18n="nav_whatsapp">Message on WhatsApp</a>
     <div class="lang-toggle">
       <span class="lt-btn active" data-lang="en" aria-pressed="true">EN</span>
       <span class="lt-btn" data-lang="ar" aria-pressed="false">AR</span>
@@ -557,7 +557,7 @@
   <a href="#knowledge-hub" data-i18n="nav_knowledge">Knowledge Hub</a>
   <a href="#packages" data-i18n="nav_packages">Packages</a>
   <a href="#contact" data-i18n="nav_contact">Contact</a>
-  <a href="https://wa.me/201040796017" class="mobile-cta" target="_blank" rel="noopener" data-i18n="nav_whatsapp">Message on WhatsApp</a>
+  <a href="https://wa.me/201040796017" class="mobile-cta" target="_blank" rel="noopener" data-wa-tag="nav_whatsapp_mobile" data-i18n="nav_whatsapp">Message on WhatsApp</a>
   <div class="mobile-lang">
     <span class="lt-btn active" data-lang="en" aria-pressed="true">EN</span>
     <span class="lt-btn" data-lang="ar" aria-pressed="false">AR</span>
@@ -581,7 +581,7 @@
         template with your name pasted on it.
       </p>
       <div class="hero-ctas">
-        <a href="https://wa.me/201040796017" class="btn btn-primary" target="_blank" rel="noopener" data-i18n="hero_cta1">Start Coaching — WhatsApp</a>
+        <a href="https://wa.me/201040796017" class="btn btn-primary" target="_blank" rel="noopener" data-wa-tag="hero_cta_main" data-i18n="hero_cta1">Start Coaching — WhatsApp</a>
         <a href="#packages" class="btn btn-ghost" data-i18n="hero_cta2">View Packages</a>
       </div>
       <div class="hero-stats">
@@ -703,7 +703,7 @@
       <p data-i18n="mosextra2_desc"><strong style="color:#4CAF50">Buy the Training Bundle</strong> (500 EGP) — get <strong style="color:#F4C93B">50% off the Training Tool</strong> for your first month (150 EGP instead of 300).<br><br>
       <strong style="color:#4CAF50">Buy the Nutrition Bundle</strong> (500 EGP) — get <strong style="color:#F4C93B">50% off the TDEE Adaptive Engine</strong> for your first month (100 EGP instead of 200).<br><br>
       Message on WhatsApp to claim. Limited to one per client.</p>
-      <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20claim%20a%20bundle%20cross-sell%20offer" class="extra-cta" data-i18n="mosextra2_cta">Claim Your Offer &rarr;</a>
+      <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20claim%20a%20bundle%20cross-sell%20offer" class="extra-cta" data-wa-tag="cross_sell_offer" data-i18n="mosextra2_cta">Claim Your Offer &rarr;</a>
     </div>
   </div>
 </section>
@@ -749,7 +749,7 @@
       <p class="gate-sub" data-i18n="to_gate_sub">Sign in if you already have access, or subscribe on WhatsApp to get started.</p>
       <div class="gate-btns">
         <a href="tools/training_tool.html" class="gate-btn gate-btn-primary" data-i18n="to_gate_btn1">Sign In &amp; Start Training</a>
-        <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20subscribe%20to%20a%20tool" class="gate-btn gate-btn-ghost" target="_blank" rel="noopener" data-i18n="to_gate_btn2">Subscribe on WhatsApp</a>
+        <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20subscribe%20to%20a%20tool" class="gate-btn gate-btn-ghost" target="_blank" rel="noopener" data-wa-tag="tools_gate" data-i18n="to_gate_btn2">Subscribe on WhatsApp</a>
       </div>
       <p style="margin:14px 0 0;font-size:12px;color:var(--gray);text-align:center" data-i18n="privacy_note">&#128274; No card details processed on this site — payment and codes confirmed directly via WhatsApp.</p>
     </div>
@@ -763,7 +763,7 @@
     <h2 class="section-title" style="margin:0 auto" data-i18n="fb_title">Help improve the tools</h2>
     <p class="section-intro" style="margin:16px auto 0" data-i18n="fb_sub">Subscriber of the Training Tool or TDEE Engine? Your input shapes every update. Tell us what works, what doesn't, and what you'd like to see next.</p>
     <div style="margin-top:28px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
-      <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20have%20feedback%20about%20the%20tools" class="btn btn-primary" target="_blank" rel="noopener" data-i18n="fb_wa">Send Feedback on WhatsApp</a>
+      <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20have%20feedback%20about%20the%20tools" class="btn btn-primary" target="_blank" rel="noopener" data-wa-tag="feedback" data-i18n="fb_wa">Send Feedback on WhatsApp</a>
       <a href="mailto:anas@anasmoamen.com?subject=Tool%20Feedback" class="btn btn-ghost" data-i18n="fb_email">Send via Email</a>
     </div>
   </div>
@@ -863,6 +863,20 @@
   </div>
 </div>
 
+<!-- SOCIAL PROOF — placeholder, ungate when real testimonials exist -->
+<section class="section-pad reveal" id="social-proof" style="display:none">
+  <div class="wrap" style="text-align:center">
+    <div class="eyebrow" data-i18n="social_eyebrow">Client Results</div>
+    <h2 class="section-title" data-i18n="social_title">Real Transformations</h2>
+    <p class="section-intro" data-i18n="social_intro">Replace this with real client before/after photos and testimonials when available.</p>
+    <div class="testimonial-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:32px">
+      <div class="testimonial-card" style="background:var(--surface);border-radius:16px;padding:24px;border:1px solid var(--border)">[Testimonial 1 — name, result, photo]</div>
+      <div class="testimonial-card" style="background:var(--surface);border-radius:16px;padding:24px;border:1px solid var(--border)">[Testimonial 2 — name, result, photo]</div>
+      <div class="testimonial-card" style="background:var(--surface);border-radius:16px;padding:24px;border:1px solid var(--border)">[Testimonial 3 — name, result, photo]</div>
+    </div>
+  </div>
+</section>
+
 <!-- PACKAGES -->
 <section class="packages section-pad reveal" id="packages">
   <div class="wrap">
@@ -884,7 +898,7 @@
           <div class="pkg-feature"><span class="check">✓</span><span class="txt" data-i18n="pkg_f4">Direct messaging access between check-ins</span></div>
           <div class="pkg-feature"><span class="check">✓</span><span class="txt" data-i18n="pkg_f5">50% off all tools during subscription</span></div>
         </div>
-        <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%27m%20interested%20in%20the%20Standard%20package." class="pkg-cta" target="_blank" rel="noopener" data-i18n="pkg_std_cta">Start with Standard</a>
+        <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%27m%20interested%20in%20the%20Standard%20package." class="pkg-cta" target="_blank" rel="noopener" data-wa-tag="pkg_standard" data-gated="true" data-i18n="pkg_std_cta">Start with Standard</a>
       </div>
 
       <div class="pkg-card">
@@ -903,13 +917,14 @@
           <div class="pkg-feature"><span class="check">✓</span><span class="txt" data-i18n="pkg_g5">Early access to Muscle OS features</span></div>
           <div class="pkg-feature"><span class="check">✓</span><span class="txt" data-i18n="pkg_g6">50% off all tools during subscription</span></div>
         </div>
-        <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%27m%20interested%20in%20the%20Premium%20package." class="pkg-cta" target="_blank" rel="noopener" data-i18n="pkg_prem_cta">Start with Premium</a>
+        <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%27m%20interested%20in%20the%20Premium%20package." class="pkg-cta" target="_blank" rel="noopener" data-wa-tag="pkg_premium" data-gated="true" data-i18n="pkg_prem_cta">Start with Premium</a>
       </div>
     </div>
     <p class="pkg-note" data-i18n="pkg_note">Prices in EGP. Monthly billing or 3-month plan.</p>
     <p class="pkg-recommend" data-i18n="pkg_recommend" style="text-align:center;color:var(--yellow);font-size:13px;margin-top:4px">New to structured coaching? <strong>Standard</strong> covers everything most people need — upgrade anytime.</p>
   </div>
 </section>
+<!-- SCARCITY: ungate when real capacity numbers exist. Add data-wa-tag="pkg_standard" and data-wa-tag="pkg_premium" to package CTAs above. -->
 
 <!-- CONTACT -->
 <section class="contact section-pad reveal" id="contact">
@@ -918,7 +933,7 @@
       <h2 data-i18n="contact_title">Ready to train with a coach who delivers?</h2>
       <p class="lead" data-i18n="contact_sub">Limited coaching slots — programming built around you, not the other way around. Message me directly and let's talk about your goals.</p>
       <div class="contact-ctas">
-        <a href="https://wa.me/201040796017" class="btn btn-dark" target="_blank" rel="noopener" data-i18n="contact_wa">Message on WhatsApp</a>
+        <a href="https://wa.me/201040796017" class="btn btn-dark" target="_blank" rel="noopener" data-wa-tag="contact_wa" data-i18n="contact_wa">Message on WhatsApp</a>
         <a href="mailto:anas@anasmoamen.com" class="btn btn-outline-dark" data-i18n="contact_email">Email Me</a>
         <a href="https://instagram.com/anas_moamen1" class="btn btn-outline-dark" target="_blank" rel="noopener">@anas_moamen1</a>
       </div>
@@ -933,7 +948,7 @@
     <div class="footer-links">
       <a href="tel:01040796017">01040796017</a>
       <a href="https://instagram.com/anas_moamen1" target="_blank" rel="noopener">@anas_moamen1</a>
-      <a href="https://wa.me/201040796017" target="_blank" rel="noopener" data-i18n="footer_wa">WhatsApp</a>
+      <a href="https://wa.me/201040796017" target="_blank" rel="noopener" data-wa-tag="footer_wa" data-i18n="footer_wa">WhatsApp</a>
     </div>
   </div>
 </footer>
@@ -1255,7 +1270,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- Mobile bottom sticky CTA bar -->
 <div class="mobile-bottom-bar" id="mobileBottomBar">
   <div class="mbb-inner">
-    <a href="https://wa.me/201040796017" target="_blank" rel="noopener" class="mbb-btn mbb-primary" data-i18n="mbb_book">Chat on WhatsApp</a>
+    <a href="https://wa.me/201040796017" target="_blank" rel="noopener" class="mbb-btn mbb-primary" data-wa-tag="mbb_book" data-i18n="mbb_book">Chat on WhatsApp</a>
     <a href="#tools" class="mbb-btn mbb-ghost" data-i18n="mbb_tools">Explore Tools</a>
   </div>
 </div>
@@ -1280,5 +1295,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }, { passive: true });
 })();
 </script>
+<script src="assets/tracking.js"></script>
 </body>
 </html>
