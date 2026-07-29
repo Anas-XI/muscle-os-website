@@ -2,7 +2,7 @@
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0:6C63FF,100:3B82F6&height=130&section=header&text=Muscle%20OS%20Website&fontSize=40&fontAlignY=30" />
 </div>
 
-<h1 align="center">🌐 Muscle OS — Coaching Website</h1>
+<h1 align="center">Muscle OS — Coaching Website</h1>
 
 <p align="center">
   <strong>Bilingual (EN/AR) fitness coaching platform — Tools, Guides, Books, and AI Coach</strong>
