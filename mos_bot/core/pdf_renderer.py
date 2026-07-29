@@ -208,6 +208,7 @@ def markdown_to_pdf(markdown: str, output_path: str, client_name: str = "") -> s
     pdf.set_auto_page_break(auto=True, margin=18)
 
     today = datetime.now().strftime("%B %d, %Y")
+    subtitle = f"Program for {client_name}" if client_name else "AI-Generated Program"
     pdf.cover_page(
         title="Personal Coaching Program",
         subtitle=pdf._sanitize(subtitle),
