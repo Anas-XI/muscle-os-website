@@ -737,6 +737,7 @@ Secrets to set (`npx wrangler secret put`):
 - `PAYMOB_INTEGRATION_ID` — Paymob integration ID (integer, from Paymob dashboard → Integrations)
 - `PAYMOB_IFRAME_ID` — Paymob iframe ID (string, from Paymob dashboard → Accept → Iframes)
 - `PAYMOB_HMAC_SECRET` — Paymob HMAC secret (from Paymob dashboard → Settings → Account Info → HMAC Secret)
+- `SITE_BASE_URL` — Site base URL (e.g. `https://muscleos.is-a.dev`); reserved for future WhatsApp Business API return URLs
 
 **Paymob setup steps:**
 1. Create account at https://accept.paymob.com
@@ -744,7 +745,7 @@ Secrets to set (`npx wrangler secret put`):
 3. Create an iframe in Accept → Iframes
 4. Set the iframe's return URL to `https://muscleos.is-a.dev/order-success.html`
 5. Configure the webhook endpoint to POST to `https://muscleos-access-control.muscleos.workers.dev/api/paymob-callback`
-6. Set the 4 Paymob secrets above via `npx wrangler secret put`
+6. Set the Paymob secrets and SITE_BASE_URL via `npx wrangler secret put`
 7. For production (custom domain), the webhook URL becomes `https://api.muscleos.coach/api/paymob-callback`
 
 ---

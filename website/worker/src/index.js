@@ -609,19 +609,19 @@ async function handleRejectOrder(request, env) {
 async function handlePaymobCallback(request, env) {
   let body;
   try { body = await request.json(); } catch (e) {
-    return json({ error: 'invalid_json' }, 400, env, request);
+    return json({ status: 'ignored', reason: 'invalid_json' }, 200, env, request);
   }
   const obj = body.obj || body;
   if (!(await verifyPaymobHmac(obj, env.PAYMOB_HMAC_SECRET || ''))) {
-    return json({ error: 'invalid_hmac' }, 401, env, request);
+    return json({ status: 'ignored', reason: 'invalid_hmac' }, 200, env, request);
   }
   if (obj.success !== true || obj.pending === true || obj.is_voided === true || obj.is_refunded === true) {
     return json({ status: 'ignored', reason: 'not_successful' }, 200, env, request);
   }
   const ourOrderId = obj.merchant_order_id;
-  if (!ourOrderId) return json({ error: 'no_merchant_order_id' }, 400, env, request);
+  if (!ourOrderId) return json({ status: 'ignored', reason: 'no_merchant_order_id' }, 200, env, request);
   const order = await env.PENDING_ORDERS.get(`order:${ourOrderId}`, 'json');
-  if (!order) return json({ error: 'order_not_found' }, 404, env, request);
+  if (!order) return json({ status: 'ignored', reason: 'order_not_found' }, 200, env, request);
   if (order.status !== 'pending') {
     return json({ status: 'already_resolved', currentStatus: order.status }, 200, env, request);
   }
