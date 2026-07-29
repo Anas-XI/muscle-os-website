@@ -409,8 +409,8 @@ Custom events are sent via `window.mosTrackEvent(action, tag, extra)`, exposed b
 2. (Optional) Add a second sheet tab named `Pending Orders` with headers: `timestamp | order_id | customer_name | product | payment_method | payment_ref | whatsapp | email | status`
 3. Extensions → Apps Script → paste `docs/apps-script-webhook.gs`
 4. Deploy as Web App (Execute as: Me, Access: Anyone)
-5. Copy `/exec` URL → paste into `assets/tracking.js` as `FUNNEL_WEBHOOK_URL`
-6. Set `EVENTS_KEY` in the Apps Script (under `// ─── Anas: pick a secret string ───`) and paste the **same value** into `assets/tracking.js` as `EVENTS_KEY`. This prevents unauthorized POSTs to your webhook from anyone who discovers the URL. If either side is left blank, no validation occurs (backward compatible).
+5. Copy `/exec` URL and append `?key=YOUR_SECRET` — the full URL becomes `https://script.google.com/.../exec?key=YourEventsKey`
+6. Set `EVENTS_KEY` in the Apps Script (under `// ─── Anas: pick a secret string ───`) to the **same value**. Paste the full URL (with `?key=...`) into `assets/tracking.js` as `FUNNEL_WEBHOOK_URL`. The query param check prevents unauthorized POSTs from anyone who discovers the URL. If `EVENTS_KEY` is left as the placeholder, validation is skipped.
 7. (Optional) On the Pending Orders tab: Tools → Notification rules → "When a new row is added → Email" to get real-time alerts.
 
 ### 6.5 Export (Manual Review)
