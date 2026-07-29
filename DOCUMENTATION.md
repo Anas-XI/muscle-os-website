@@ -114,8 +114,8 @@
 │   │   └── tool-hero.jpg       Hero background
 │   └── favicon.svg
 │
-├── worker/
-│   ├── src/index.js            Cloudflare Worker (548 lines, 8 endpoints + DO)
+├── website/worker/
+│   ├── src/index.js            Cloudflare Worker (972 lines, 14 endpoints + DO)
 │   ├── wrangler.toml           Worker config (staging + production)
 │   ├── package.json
 │   └── package-lock.json
@@ -125,8 +125,7 @@
 │   ├── generate-codes.js       Node: batch generate + seed to KV
 │   └── hash-code.js            SHA-256 hashing utility
 │
-└── docs/
-    └── apps-script-webhook.gs  Google Apps Script for funnel sheet logging
+└── (external) ../docs/apps-script-webhook.gs  Google Apps Script for funnel sheet logging
 ```
 
 ---
@@ -407,7 +406,7 @@ Custom events are sent via `window.mosTrackEvent(action, tag, extra)`, exposed b
 
 1. Create Google Sheet with headers: `timestamp | page | event_type | tag | referrer | session_id`
 2. (Optional) Add a second sheet tab named `Pending Orders` with headers: `timestamp | order_id | customer_name | product | payment_method | payment_ref | whatsapp | email | status`
-3. Extensions → Apps Script → paste `docs/apps-script-webhook.gs`
+3. Extensions → Apps Script → paste `../docs/apps-script-webhook.gs`
 4. Deploy as Web App (Execute as: Me, Access: Anyone)
 5. Copy `/exec` URL and append `?key=YOUR_SECRET` — the full URL becomes `https://script.google.com/.../exec?key=YourEventsKey`
 6. Set `EVENTS_KEY` in the Apps Script (under `// ─── Anas: pick a secret string ───`) to the **same value**. Paste the full URL (with `?key=...`) into `assets/tracking.js` as `FUNNEL_WEBHOOK_URL`. The query param check prevents unauthorized POSTs from anyone who discovers the URL. If `EVENTS_KEY` is left as the placeholder, validation is skipped.
@@ -662,7 +661,7 @@ Mobile-first dashboard for glanceable funnel and order stats.
 3. Renders: this week at a glance (pageviews, WA clicks, orders with % change vs prior week), funnel stage breakdown (top/middle/bottom as stacked bars), top 5 pages, top 5 WhatsApp tags, order funnel (submitted → approved → rejected with approval rate)
 4. Manual refresh button in the bottom bar
 
-**Setup:** Set the `ANALYTICS_URL` constant in `admin/analytics.html` to your Apps Script `/exec` URL (same as `FUNNEL_WEBHOOK_URL` in `tracking.js`). Then set `ANALYTICS_KEY` in `docs/apps-script-webhook.gs` to a secret string — use the same string when first opening the dashboard.
+**Setup:** Set the `ANALYTICS_URL` constant in `admin/analytics.html` to your Apps Script `/exec?key=ANALYTICS_KEY` URL. Then set `ANALYTICS_KEY` in `../docs/apps-script-webhook.gs` to a secret string — use the same string when first opening the dashboard.
 
 ### 9.5 Weekly Email Digest (`sendWeeklySummaryEmail` in Apps Script)
 
@@ -898,7 +897,7 @@ Access-Control-Allow-Origin: (dynamically set)
 | tdee_macro_calculator.html | 62 KB | 903 | ★★★ |
 | tdee_adaptive_engine.html | 58 KB | 1028 | ★★★ |
 | consistency_workbook.html | 57 KB | 998 | ★★★ |
-| worker/src/index.js | 22 KB | 548 | ★★★★★ |
+| website/worker/src/index.js | 36 KB | 972 | ★★★★★ |
 | pdf/viewer.html | 18 KB | 337 | ★★★ |
 | volume_set_calculator.html | 26 KB | 393 | ★★ |
 | split_selector_quiz.html | 24 KB | 364 | ★★ |
