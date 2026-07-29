@@ -7,6 +7,10 @@ compatibility_date = "2025-07-26"
 binding = "ACCESS_CODES"
 id = "94aabfeb105f4d95969c8f3f91f36649"
 
+[[kv_namespaces]]
+binding = "PENDING_ORDERS"
+id = "PENDING_ORDERS_PLACEHOLDER_ID"
+
 [[durable_objects.bindings]]
 name = "CODE_COUNTER"
 class_name = "CodeCounter"
@@ -20,6 +24,9 @@ new_sqlite_classes = ["CodeCounter"]
 [[env.staging.kv_namespaces]]
 binding = "ACCESS_CODES"
 id = "1961751e32b94ca288f046c696b0fb51"
+[[env.staging.kv_namespaces]]
+binding = "PENDING_ORDERS"
+id = "PENDING_ORDERS_STAGING_PLACEHOLDER_ID"
 [[env.staging.durable_objects.bindings]]
 name = "CODE_COUNTER"
 class_name = "CodeCounter"
@@ -33,6 +40,9 @@ route = { pattern = "api.muscleos.coach/*", zone_name = "muscleos.coach" }
 [[env.production.kv_namespaces]]
 binding = "ACCESS_CODES"
 id = "94aabfeb105f4d95969c8f3f91f36649"
+[[env.production.kv_namespaces]]
+binding = "PENDING_ORDERS"
+id = "PENDING_ORDERS_PLACEHOLDER_ID"
 [[env.production.durable_objects.bindings]]
 name = "CODE_COUNTER"
 class_name = "CodeCounter"

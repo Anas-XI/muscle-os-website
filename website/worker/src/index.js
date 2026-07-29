@@ -1,8 +1,9 @@
 /**
- * Cloudflare Worker — server-side code verification + PDF proxy
+ * Cloudflare Worker — server-side code verification + PDF proxy + order management
  * 
  * Phase B: replaces client-side manifest check with JWTs
  * Phase C: secure PDF serving with JWT validation
+ * Phase D: self-serve order + one-tap approval flow
  * 
  * KV namespace: ACCESS_CODES
  * Keys: code:<UPPERCASED_CODE> → { products, plan, durationDays, expiresAt, maxUses, uses }
@@ -10,11 +11,39 @@
  *       ratelimit:<IP>          → count (TTL 300s)
  *       log:<ts>:<uuid>         → { code, productId, success, ts } (TTL 30d)
  *       
+ * KV namespace: PENDING_ORDERS
+ * Keys: order:<uuid> → { id, product, customerName, whatsappNumber, email, paymentRef,
+ *                        paymentMethod, lang, status, createdAt, resolvedAt, resolvedBy,
+ *                        rejectionReason, issuedCode }
+ *       
  * PDF product IDs (for JWT productId matching):
  *   training_book  → requires JWT with productId='training_book' or plan='master'
  *   nutrition_book → requires JWT with productId='nutrition_book' or plan='master'
  *   (guides are free — served without JWT)
  */
+
+// ── Product configuration for auto code generation ──
+const PRODUCT_CONFIG = {
+  training_tool:        { prefix: 'TR', products: ['training_tool'], durationDays: 30, plan: 'single_product' },
+  tdee_adaptive_engine: { prefix: 'TD', products: ['tdee_adaptive_engine'], durationDays: 30, plan: 'single_product' },
+  both_tools:           { prefix: 'TB', products: ['training_tool', 'tdee_adaptive_engine'], durationDays: 30, plan: 'single_product' },
+  training_book:        { prefix: 'BK', products: ['training_book'], durationDays: 0, plan: 'single_product' },
+  nutrition_book:       { prefix: 'BN', products: ['nutrition_book'], durationDays: 0, plan: 'single_product' },
+  both_books:           { prefix: 'BB', products: ['training_book', 'nutrition_book'], durationDays: 0, plan: 'single_product' },
+  all_access:           { prefix: 'MA', products: 'all', durationDays: 30, plan: 'master' },
+};
+const VALID_PRODUCTS = Object.keys(PRODUCT_CONFIG);
+const ORDER_TTL_SECONDS = 172800; // 48 hours
+
+const PRODUCT_NAMES = {
+  training_tool:        { en: 'Training Tool', ar: 'أداة التدريب' },
+  tdee_adaptive_engine: { en: 'TDEE Adaptive Engine', ar: 'محرك TDEE التكيفي' },
+  both_tools:           { en: 'Training Tools Bundle', ar: 'حزمة أدوات التدريب' },
+  training_book:        { en: 'Training Book', ar: 'كتاب التدريب' },
+  nutrition_book:       { en: 'Nutrition Book', ar: 'كتاب التغذية' },
+  both_books:           { en: 'Books Bundle', ar: 'حزمة الكتب' },
+  all_access:           { en: 'All Access', ar: 'الوصول الكامل' },
+};
 
 import { SignJWT, jwtVerify, createRemoteJWKSet } from 'jose';
 
@@ -66,6 +95,19 @@ export default {
     // ---- Revoke endpoint ----
     if (url.pathname === '/api/revoke-code' && request.method === 'POST') {
       return handleRevokeCode(request, env);
+    }
+    // ---- Order management ----
+    if (url.pathname === '/api/create-order' && request.method === 'POST') {
+      return handleCreateOrder(request, env);
+    }
+    if (url.pathname === '/api/pending-orders' && request.method === 'POST') {
+      return handlePendingOrders(request, env);
+    }
+    if (url.pathname === '/api/approve-order' && request.method === 'POST') {
+      return handleApproveOrder(request, env);
+    }
+    if (url.pathname === '/api/reject-order' && request.method === 'POST') {
+      return handleRejectOrder(request, env);
     }
     // ---- Google Auth ----
     if (url.pathname === '/api/auth/google' && request.method === 'POST') {
@@ -269,6 +311,212 @@ async function handleRevokeCode(request, env) {
   await stub.fetch('http://do/revoke', { method: 'POST', headers: { 'Content-Type': 'application/json' } });
   await logAttempt(env, normalized, 'admin:revoke', true);
   return json({ success: true, code: normalized, revoked: true }, 200, env, request);
+}
+
+// ── Product helpers ──────────────────────────────────────────────
+
+function generateOrderCode(prefix) {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let result = '';
+  const array = new Uint8Array(10);
+  crypto.getRandomValues(array);
+  for (let i = 0; i < 10; i++) {
+    result += chars[array[i] % chars.length];
+  }
+  return `${prefix}-${result}`;
+}
+
+async function issueCodeForProduct(product, env) {
+  const cfg = PRODUCT_CONFIG[product];
+  if (!cfg) throw new Error('invalid_product');
+  const code = generateOrderCode(cfg.prefix);
+  const record = {
+    products: cfg.products,
+    plan: cfg.plan || 'single_product',
+    durationDays: cfg.durationDays != null ? cfg.durationDays : 30,
+    uses: 0,
+  };
+  await env.ACCESS_CODES.put(`code:${code}`, JSON.stringify(record));
+  const doId = env.CODE_COUNTER.idFromName(code);
+  const stub = env.CODE_COUNTER.get(doId);
+  await stub.fetch('http://do/initialize', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(record),
+  });
+  return code;
+}
+
+function buildWaMessage(name, product, code, lang) {
+  const pn = PRODUCT_NAMES[product];
+  if (!pn) return `Your code is: ${code}`;
+  if (lang === 'ar') {
+    return `مرحباً ${name}! كود ${pn.ar} الخاص بك هو: ${code} — استمتع 💪`;
+  }
+  return `Hi ${name}! Your ${pn.en} code is: ${code} — Enjoy 💪`;
+}
+
+// ── POST /api/create-order (public, rate-limited) ────────────────
+
+async function handleCreateOrder(request, env) {
+  const rateLimited = await checkRateLimit(request, env, 5);
+  if (rateLimited) return json({ error: 'rate_limited' }, 429, env, request);
+
+  let body;
+  try { body = await request.json(); } catch (e) {
+    return json({ error: 'invalid_json' }, 400, env, request);
+  }
+
+  const { product, customerName, whatsappNumber, email, paymentRef, paymentMethod, lang } = body;
+
+  // Validate required fields
+  if (!product || !VALID_PRODUCTS.includes(product)) {
+    return json({ error: 'invalid_product' }, 400, env, request);
+  }
+  if (!customerName || customerName.trim().length < 1) {
+    return json({ error: 'missing_customer_name' }, 400, env, request);
+  }
+  if (!whatsappNumber || !/^\+?\d{7,15}$/.test(whatsappNumber.replace(/[-\s()]/g, ''))) {
+    return json({ error: 'invalid_whatsapp_number' }, 400, env, request);
+  }
+  if (!paymentRef || paymentRef.trim().length < 1) {
+    return json({ error: 'missing_payment_ref' }, 400, env, request);
+  }
+
+  const validMethods = ['instapay', 'vodafone_cash', 'other'];
+  if (paymentMethod && !validMethods.includes(paymentMethod)) {
+    return json({ error: 'invalid_payment_method' }, 400, env, request);
+  }
+
+  const orderId = crypto.randomUUID();
+  const now = new Date().toISOString();
+  const order = {
+    id: orderId,
+    product,
+    customerName: customerName.trim(),
+    whatsappNumber: whatsappNumber.trim(),
+    email: email ? email.trim() : null,
+    paymentRef: paymentRef.trim(),
+    paymentMethod: paymentMethod || 'other',
+    lang: lang === 'en' ? 'en' : 'ar',
+    status: 'pending',
+    createdAt: now,
+    resolvedAt: null,
+    resolvedBy: null,
+    rejectionReason: null,
+    issuedCode: null,
+  };
+
+  await env.PENDING_ORDERS.put(`order:${orderId}`, JSON.stringify(order), { expirationTtl: ORDER_TTL_SECONDS });
+  return json({ status: 'ok', orderId }, 200, env, request);
+}
+
+// ── POST /api/pending-orders (admin-key protected) ───────────────
+
+async function handlePendingOrders(request, env) {
+  const authHeader = request.headers.get('X-Admin-Key');
+  const key = env.ADMIN_KEY || '';
+  if (!authHeader || !timingSafeEqual(authHeader, key)) {
+    return json({ error: 'unauthorized' }, 401, env, request);
+  }
+
+  const listResult = await env.PENDING_ORDERS.list({ prefix: 'order:' });
+  const orders = [];
+  for (const entry of listResult.keys) {
+    const order = await env.PENDING_ORDERS.get(entry.name, 'json');
+    if (order && order.status === 'pending') {
+      orders.push(order);
+    }
+  }
+  orders.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+  return json({ orders }, 200, env, request);
+}
+
+// ── POST /api/approve-order (admin-key protected) ────────────────
+
+async function handleApproveOrder(request, env) {
+  const authHeader = request.headers.get('X-Admin-Key');
+  const key = env.ADMIN_KEY || '';
+  if (!authHeader || !timingSafeEqual(authHeader, key)) {
+    return json({ error: 'unauthorized' }, 401, env, request);
+  }
+
+  let body;
+  try { body = await request.json(); } catch (e) {
+    return json({ error: 'invalid_json' }, 400, env, request);
+  }
+  const { orderId } = body;
+  if (!orderId) {
+    return json({ error: 'missing_order_id' }, 400, env, request);
+  }
+
+  const order = await env.PENDING_ORDERS.get(`order:${orderId}`, 'json');
+  if (!order) {
+    return json({ error: 'order_not_found' }, 404, env, request);
+  }
+  if (order.status !== 'pending') {
+    return json({ error: 'order_not_pending', status: order.status }, 400, env, request);
+  }
+
+  // Generate and issue code
+  const code = await issueCodeForProduct(order.product, env);
+
+  // Update order
+  order.status = 'approved';
+  order.resolvedAt = new Date().toISOString();
+  order.resolvedBy = 'admin';
+  order.issuedCode = code;
+  await env.PENDING_ORDERS.put(`order:${orderId}`, JSON.stringify(order), { expirationTtl: ORDER_TTL_SECONDS });
+
+  const prefilledMessage = buildWaMessage(order.customerName, order.product, code, order.lang);
+  return json({
+    status: 'ok',
+    code,
+    whatsappNumber: order.whatsappNumber,
+    prefilledMessage,
+    lang: order.lang,
+    customerName: order.customerName,
+    product: order.product,
+  }, 200, env, request);
+}
+
+// ── POST /api/reject-order (admin-key protected) ─────────────────
+
+async function handleRejectOrder(request, env) {
+  const authHeader = request.headers.get('X-Admin-Key');
+  const key = env.ADMIN_KEY || '';
+  if (!authHeader || !timingSafeEqual(authHeader, key)) {
+    return json({ error: 'unauthorized' }, 401, env, request);
+  }
+
+  let body;
+  try { body = await request.json(); } catch (e) {
+    return json({ error: 'invalid_json' }, 400, env, request);
+  }
+  const { orderId, reason } = body;
+  if (!orderId) {
+    return json({ error: 'missing_order_id' }, 400, env, request);
+  }
+  const validReasons = ['didnt_pay', 'suspicious', 'duplicate', 'other'];
+  if (!reason || !validReasons.includes(reason)) {
+    return json({ error: 'invalid_reason' }, 400, env, request);
+  }
+
+  const order = await env.PENDING_ORDERS.get(`order:${orderId}`, 'json');
+  if (!order) {
+    return json({ error: 'order_not_found' }, 404, env, request);
+  }
+  if (order.status !== 'pending') {
+    return json({ error: 'order_not_pending', status: order.status }, 400, env, request);
+  }
+
+  order.status = 'rejected';
+  order.resolvedAt = new Date().toISOString();
+  order.resolvedBy = 'admin';
+  order.rejectionReason = reason;
+  await env.PENDING_ORDERS.put(`order:${orderId}`, JSON.stringify(order), { expirationTtl: ORDER_TTL_SECONDS });
+
+  return json({ status: 'ok', orderId }, 200, env, request);
 }
 
 async function handleGoogleAuth(request, env) {

@@ -3,7 +3,7 @@
  *
  * Setup:
  *   1. Create a new Google Sheet named "Muscle OS Funnel Log"
- *   2. Add a header row:  timestamp | page | event_type | tag | referrer | session_id
+ *   2. Add header row: timestamp | page | event_type | tag | referrer | session_id
  *   3. Extensions → Apps Script → paste this file → save
  *   4. Deploy → New deployment → Web app
  *        - Execute as: Me
@@ -11,20 +11,35 @@
  *   5. Copy the /exec URL
  *   6. Paste it into website/assets/tracking.js as FUNNEL_WEBHOOK_URL
  *
- * Test the deployed URL from a browser console:
- *   fetch('YOUR_URL_HERE', {
- *     method: 'POST',
- *     mode: 'no-cors',
- *     body: JSON.stringify({ page:'/test', event_type:'pageview', tag:'', referrer:'', session_id:'test-123' })
- *   });
- *
- * The sheet should show a new row. If empty rows appear, check that the
- * header row exactly matches the column order used in appendRow() below.
+ * For Pending Orders notifications:
+ *   7. Add a second sheet tab named "Pending Orders"
+ *   8. Add header row: timestamp | order_id | customer_name | product | payment_method | payment_ref | whatsapp | email | status
+ *   (See DOCUMENTATION.md for manual Google Sheets notification setup)
  */
 
 function doPost(e) {
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   var data = JSON.parse(e.postData.contents);
+
+  // If this is an order event, log to the "Pending Orders" sheet tab
+  if (data.event_type === 'order_submitted' || data.event_type === 'order_created') {
+    var ordersSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Pending Orders');
+    if (ordersSheet) {
+      ordersSheet.appendRow([
+        new Date(),
+        data.order_id || '',
+        data.customer_name || '',
+        data.product || '',
+        data.payment_method || '',
+        data.payment_ref || '',
+        data.whatsapp || '',
+        data.email || '',
+        'pending'
+      ]);
+    }
+  }
+
+  // Log main funnel event
   sheet.appendRow([
     new Date(),
     data.page || '',
@@ -33,6 +48,7 @@ function doPost(e) {
     data.referrer || '',
     data.session_id || ''
   ]);
+
   return ContentService
     .createTextOutput(JSON.stringify({status: 'ok'}))
     .setMimeType(ContentService.MimeType.JSON);

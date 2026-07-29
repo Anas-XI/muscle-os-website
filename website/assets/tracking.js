@@ -105,6 +105,16 @@
     } catch(e) { console.warn('Export failed', e); }
   };
 
+  // ── Public event API for custom events (orders, approvals, etc.) ──
+  window.mosTrackEvent = function(action, tag, extra) {
+    var entry = { page: getPage(), action: action, tag: tag || '', timestamp: now() };
+    if (extra) {
+      for (var k in extra) { if (extra.hasOwnProperty(k)) entry[k] = extra[k]; }
+    }
+    log(entry);
+    webhookSend({ page: getPage(), action: action, tag: tag || '' });
+  };
+
   // Hidden export trigger: triple-tap the brand text
   var brandTimer = 0, brandClicks = 0;
   document.addEventListener('click', function(e) {

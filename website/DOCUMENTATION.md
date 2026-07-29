@@ -62,6 +62,10 @@
 ```
 /
 ├── index.html                  LANDING PAGE (bilingual, sales funnel, 10 sections)
+├── order.html                  SELF-SERVE ORDER PAGE (product selector, payment info, form)
+│
+├── admin/
+│   └── orders.html             ADMIN APPROVAL PAGE (mobile-first, tap Approve/Reject, wa.me send)
 │
 ├── tools/
 │   ├── index.html              Tools listing (6 cards)
@@ -381,6 +385,11 @@ EVENT
 |-------|----------|-------------|
 | Page load | `pageview` | `page`, `event_type`, `referrer`, `session_id` |
 | WhatsApp click | `whatsapp_click` | `page`, `event_type`, `tag`, `referrer`, `session_id` |
+| Order submitted | `order_submitted` | `page`, `tag`, `order_id`, `product`, `extra` (via `mosTrackEvent`) |
+| Order approved | `order_approved` | `page`, `tag`, `order_id`, `product`, `extra` (via `mosTrackEvent`) |
+| Order rejected | `order_rejected` | `page`, `tag`, `order_id`, `extra` (via `mosTrackEvent`) |
+
+Custom events are sent via `window.mosTrackEvent(action, tag, extra)`, exposed by `tracking.js`. The third `extra` argument is an optional object merged as top-level payload keys.
 
 ### 6.3 Session Tracking
 
@@ -392,9 +401,11 @@ EVENT
 ### 6.4 Webhook Setup (One-Time Manual Step)
 
 1. Create Google Sheet with headers: `timestamp | page | event_type | tag | referrer | session_id`
-2. Extensions → Apps Script → paste `docs/apps-script-webhook.gs`
-3. Deploy as Web App (Execute as: Me, Access: Anyone)
-4. Copy `/exec` URL → paste into `assets/tracking.js` line 3
+2. (Optional) Add a second sheet tab named `Pending Orders` with headers: `timestamp | order_id | customer_name | product | payment_method | payment_ref | whatsapp | email | status`
+3. Extensions → Apps Script → paste `docs/apps-script-webhook.gs`
+4. Deploy as Web App (Execute as: Me, Access: Anyone)
+5. Copy `/exec` URL → paste into `assets/tracking.js` line 3
+6. (Optional) On the Pending Orders tab: Tools → Notification rules → "When a new row is added → Email" to get real-time alerts.
 
 ### 6.5 Export (Manual Review)
 
@@ -442,6 +453,10 @@ const TR = {
 | `/api/check-token` | POST | Revalidate stored JWT | — |
 | `/api/issue-code` | POST | Admin: create new code | `X-Admin-Key` |
 | `/api/revoke-code` | POST | Admin: revoke code | `X-Admin-Key` |
+| `/api/create-order` | POST | Submit self-serve order | Rate-limited (5/300s) |
+| `/api/pending-orders` | POST | List pending orders | `X-Admin-Key` |
+| `/api/approve-order` | POST | Approve order + auto-issue code | `X-Admin-Key` |
+| `/api/reject-order` | POST | Reject order with reason | `X-Admin-Key` |
 | `/api/auth/google` | POST | Google Sign-In token exchange | Google JWKS |
 | `/api/check-session` | POST | Validate Google session JWT | — |
 | `/api/refresh-session` | POST | Refresh 7-day session JWT | — |
@@ -455,9 +470,60 @@ const TR = {
 | | `pdf:<filename>` | PDF binary data (base64) |
 | | `log:<ts>:<uuid>` | Attempt logs (30d TTL) |
 | | `ratelimit:<IP>` | Rate limit counters (300s TTL) |
+| **KV: PENDING_ORDERS** | `order:<uuid>` | Order records (48h TTL) |
 | **Durable Object: CODE_COUNTER** | (per-code) | Atomic usage counter (eliminates TOCTOU) |
 
-### 8.3 Security
+### 8.3 Order Flow — Self-Serve + One-Tap Approval
+
+```
+CUSTOMER                            WORKER                           ADMIN
+   │                                   │                               │
+   ├── Sends payment to Anas via ──────┤                               │
+   │   InstaPay / Vodafone Cash        │                               │
+   │                                   │                               │
+   ├── Submits order (order.html) ─────▶ POST /api/create-order        │
+   │                                   ├── Validate fields             │
+   │                                   ├── Store in PENDING_ORDERS KV  │
+   │                                   │   (48h TTL)                   │
+   │                                   ├── Return order ID             │
+   │◀──────────────────────────────────┘                               │
+   │                                                                   │
+   │                                             Opens admin/orders.html
+   │                                             Enters admin key (sessionStorage)
+   │                                             Sees pending order card
+   │                                             │
+   │                                             ├── Taps Approve ──────▶
+   │                                             │   POST /api/approve-order
+   │                                             │   ├── Generates code
+   │                                             │   ├── Writes to ACCESS_CODES KV
+   │                                             │   ├── Initializes DO
+   │                                             │   ├── Updates order status
+   │                                             │   └── Returns code + wa.me link
+   │                                             │
+   │                                             ├── Taps "Send via WhatsApp"
+   │                                             │   Opens wa.me with prefilled message
+   │                                             │
+   │                                             └── Or taps Reject, selects reason
+   │                                                 POST /api/reject-order
+   │
+   ◀── Receives code on WhatsApp ──────────────────── (Anas taps Send)
+```
+
+### 8.4 Product Configuration (auto code generation)
+
+When Anas approves an order, the Worker generates a code based on the product:
+
+| Product | Prefix | Products Array | Duration | Plan |
+|---------|--------|---------------|----------|------|
+| `training_tool` | `TR-` | `['training_tool']` | 30 days | `single_product` |
+| `tdee_adaptive_engine` | `TD-` | `['tdee_adaptive_engine']` | 30 days | `single_product` |
+| `both_tools` | `TB-` | `['training_tool', 'tdee_adaptive_engine']` | 30 days | `single_product` |
+| `training_book` | `BK-` | `['training_book']` | Lifetime | `single_product` |
+| `nutrition_book` | `BN-` | `['nutrition_book']` | Lifetime | `single_product` |
+| `both_books` | `BB-` | `['training_book', 'nutrition_book']` | Lifetime | `single_product` |
+| `all_access` | `MA-` | `'all'` | 30 days | `master` |
+
+### 8.5 Security
 
 - JWT: HS256 with `JWT_SECRET`, issuer `muscleos-access-control`, audience `muscleos-website`
 - Admin: `X-Admin-Key` header, constant-time comparison via `timingSafeEqual()`
@@ -491,7 +557,20 @@ node scripts/coach-admin.js list                         # List all codes
 node scripts/coach-admin.js revoke BK-XZWY5YU78H4Q       # Revoke code
 ```
 
-### 9.3 Hash Utility (`scripts/hash-code.js`)
+### 9.3 Order Approval Page (`admin/orders.html`)
+
+Mobile-first admin page for one-tap order approval.
+
+**Flow:**
+1. Anas enters admin key (password-style input, stored in `sessionStorage`)
+2. Page fetches `POST /api/pending-orders` every 30s
+3. Each pending order shows as a card: product, customer name, payment ref, time waiting (>24h highlighted)
+4. **Approve**: calls `/api/approve-order`, auto-generates a code, shows approval panel with:
+   - Generated code (copyable)
+   - "Send via WhatsApp" button → opens `wa.me/number?text=<prefilled message>` with code, product name, and access instructions in the customer's language
+5. **Reject**: selects reason (`didnt_pay`, `suspicious`, `duplicate`, `other`) → confirms → calls `/api/reject-order`
+
+### 9.4 Hash Utility (`scripts/hash-code.js`)
 
 ```bash
 node scripts/hash-code.js <plaintext>  # → SHA-256 hash for access-codes.json
