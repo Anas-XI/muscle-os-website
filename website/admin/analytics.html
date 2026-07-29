@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://script.google.com; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'">
+<title>Muscle OS — Analytics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px}
+body{font-family:'Inter',sans-serif;background:#0D0E12;color:#FAFAF8;line-height:1.5;min-height:100vh;padding:0;overflow-x:hidden}
+img{max-width:100%;display:block}
+h1,h2,h3,h4,p{overflow-wrap:break-word;word-break:break-word}
+::selection{background:#F4C93B;color:#14151A}
+
+.wrap{max-width:600px;margin:0 auto;padding:0 16px}
+
+/* ── Login screen ── */
+.login-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;padding:32px 16px}
+.login-screen h2{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:#F4C93B;margin-bottom:4px}
+.login-screen .login-desc{font-size:.78rem;color:rgba(250,250,248,.4);margin-bottom:20px;text-align:center;max-width:300px}
+.login-input{width:100%;max-width:320px;padding:14px 16px;background:rgba(30,30,42,.8);border:1.5px solid rgba(250,250,248,.1);border-radius:10px;color:#FAFAF8;font-family:'Inter',sans-serif;font-size:.95rem;outline:none;transition:border-color .2s;text-align:center}
+.login-input:focus{border-color:#F4C93B}
+.login-btn{width:100%;max-width:320px;margin-top:12px;padding:14px 0;background:#F4C93B;color:#14151A;border:none;border-radius:10px;font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;transition:opacity .2s;min-height:48px}
+.login-btn:hover{opacity:.9}
+.login-btn:active{transform:scale(.98)}
+.login-error{display:none;margin-top:10px;font-size:.78rem;color:#f44336;font-weight:500;text-align:center}
+.login-hint{font-size:.65rem;color:rgba(250,250,248,.25);margin-top:16px;text-align:center;max-width:300px}
+
+/* ── Header ── */
+.header{padding:20px 16px 12px;text-align:center;border-bottom:1px solid rgba(255,255,255,.06)}
+.header h1{font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#F4C93B}
+.header .sub{font-size:.65rem;color:rgba(250,250,248,.3);margin-top:2px;font-weight:400}
+
+/* ── Section cards ── */
+.card{background:#1A1C24;border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:16px;margin-bottom:12px}
+.card-title{font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:#F4C93B;margin-bottom:12px}
+
+/* ── Glance row ── */
+.glance-row{display:flex;gap:8px;margin-bottom:14px}
+.glance-box{flex:1;background:rgba(13,14,18,.5);border:1px solid rgba(255,255,255,.04);border-radius:10px;padding:12px 8px;text-align:center}
+.glance-box .gb-val{font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:700;color:#FAFAF8;line-height:1.2}
+.glance-box .gb-label{font-size:.6rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.35);margin-top:2px;font-weight:500}
+.glance-box .gb-trend{font-size:.6rem;font-weight:600;margin-top:4px}
+.glance-box .gb-trend.up{color:#4CAF50}
+.glance-box .gb-trend.down{color:#f44336}
+.glance-box .gb-trend.flat{color:rgba(250,250,248,.2)}
+.glance-box .gb-trend.na{color:rgba(250,250,248,.2);font-style:italic}
+
+/* ── Funnel bars ── */
+.funnel-section{margin-top:4px}
+.funnel-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.funnel-row .fr-label{font-size:.72rem;font-weight:500;color:rgba(250,250,248,.6);width:60px;flex-shrink:0}
+.funnel-row .fr-track{flex:1;height:22px;background:rgba(255,255,255,.04);border-radius:6px;overflow:hidden;display:flex}
+.funnel-row .fr-fill{height:100%;border-radius:6px;transition:width .4s ease;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:#14151A;min-width:0}
+.funnel-row .fr-top{background:#F4C93B}
+.funnel-row .fr-mid{background:#e8a83a}
+.funnel-row .fr-bot{background:#c48a30}
+.funnel-row .fr-count{font-size:.65rem;font-weight:600;color:rgba(250,250,248,.3);width:36px;text-align:right;flex-shrink:0}
+
+/* ── Ranked lists ── */
+.rank-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.03)}
+.rank-item:last-child{border-bottom:none}
+.rank-item .ri-label{font-size:.78rem;color:rgba(250,250,248,.7);font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:70%}
+.rank-item .ri-count{font-size:.75rem;font-weight:600;color:rgba(250,250,248,.2);font-family:'Courier New',monospace}
+
+/* ── Order funnel ── */
+.order-flow{display:flex;align-items:center;gap:4px;margin-bottom:12px}
+.order-step{flex:1;text-align:center;padding:10px 4px;border-radius:8px}
+.order-step .os-val{font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:700}
+.order-step .os-label{font-size:.6rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.35);margin-top:2px}
+.order-step.os-sub{background:rgba(33,150,243,.08)}
+.order-step.os-sub .os-val{color:#2196F3}
+.order-step.os-app{background:rgba(76,175,80,.08)}
+.order-step.os-app .os-val{color:#4CAF50}
+.order-step.os-rej{background:rgba(244,67,54,.08)}
+.order-step.os-rej .os-val{color:#f44336}
+.order-arrow{color:rgba(250,250,248,.1);font-size:.7rem;flex-shrink:0}
+.approval-rate-callout{text-align:center;padding:10px;background:rgba(76,175,80,.06);border-radius:8px;margin-bottom:10px}
+.approval-rate-callout .ar-big{font-family:'Oswald',sans-serif;font-size:1.4rem;font-weight:700;color:#4CAF50}
+.approval-rate-callout .ar-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.3);margin-top:2px}
+
+.rejection-list{margin-top:8px}
+.rej-item{display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:.72rem;border-bottom:1px solid rgba(255,255,255,.03)}
+.rej-item:last-child{border-bottom:none}
+.rej-item .rj-reason{color:rgba(250,250,248,.5)}
+.rej-item .rj-count{font-weight:600;color:rgba(250,250,248,.3)}
+
+/* ── Footer refresh ── */
+.refresh-bar{position:fixed;bottom:0;left:0;right:0;z-index:100;padding:10px 16px;padding-bottom:max(10px,env(safe-area-inset-bottom));background:rgba(13,14,18,.95);backdrop-filter:blur(8px);border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between}
+.refresh-bar .rb-label{font-size:.65rem;color:rgba(250,250,248,.35)}
+.refresh-bar .rb-btn{font-size:.65rem;color:#F4C93B;font-weight:600;background:none;border:none;cursor:pointer;padding:4px 8px;min-height:36px}
+
+/* ── Loading ── */
+.loading{text-align:center;padding:48px 0;color:rgba(250,250,248,.3);font-size:.8rem}
+.loading .spinner{display:inline-block;width:24px;height:24px;border:2.5px solid rgba(244,201,59,.15);border-top-color:#F4C93B;border-radius:50%;animation:spin .7s linear infinite;margin-bottom:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── Empty state ── */
+.empty-state{text-align:center;padding:48px 0;color:rgba(250,250,248,.2);font-size:.82rem}
+.empty-state .empty-icon{font-size:2rem;margin-bottom:8px;opacity:.4}
+
+/* ── Error state ── */
+.error-state{display:none;text-align:center;padding:48px 16px}
+.error-state .err-msg{font-size:.82rem;color:#f44336;margin-bottom:12px}
+.error-state .err-btn{background:none;border:1px solid rgba(244,67,54,.3);color:#f44336;padding:10px 24px;border-radius:8px;font-family:'Inter',sans-serif;font-size:.78rem;cursor:pointer;min-height:44px}
+
+/* ── Misc ── */
+.section-divider{border:none;border-top:1px solid rgba(255,255,255,.04);margin:14px 0}
+.no-data{font-size:.7rem;color:rgba(250,250,248,.2);text-align:center;padding:16px 0;font-style:italic}
+@media(min-width:480px){.header{padding:24px 16px}.header h1{font-size:1.3rem}}
+input,select,textarea{font-size:16px!important}
+</style>
+</head>
+<body>
+
+<!-- Login Screen -->
+<div id="loginScreen" class="login-screen">
+  <h2>📊 Analytics</h2>
+  <p class="login-desc">Enter the analytics key to view funnel data.</p>
+  <input type="password" id="keyInput" class="login-input" placeholder="Enter analytics key" autocomplete="off" enterkeyhint="go">
+  <button id="loginBtn" class="login-btn">Unlock Dashboard</button>
+  <div id="loginError" class="login-error">Invalid key. Try again.</div>
+  <p class="login-hint">The key is stored in sessionStorage and clears when you close this tab. Set it in the Apps Script ANALYTICS_KEY constant.</p>
+</div>
+
+<!-- Dashboard (hidden until logged in) -->
+<div id="dashboard" style="display:none">
+  <div class="header">
+    <h1>📊 Analytics Dashboard</h1>
+    <div class="sub">Last 7 days — <span id="lastUpdated"></span></div>
+  </div>
+
+  <div class="wrap" style="padding-top:16px;padding-bottom:80px">
+
+    <div id="loadingIndicator" class="loading"><div class="spinner"></div>Loading data...</div>
+    <div id="errorState" class="error-state">
+      <div class="err-msg" id="errorMsg">Failed to load analytics data.</div>
+      <button class="err-btn" onclick="loadData()">Retry</button>
+    </div>
+
+    <div id="dashboardContent" style="display:none">
+
+      <!-- This Week At A Glance -->
+      <div class="card">
+        <div class="card-title">This Week at a Glance</div>
+        <div class="glance-row" id="glanceRow"></div>
+      </div>
+
+      <!-- Funnel Stage Breakdown -->
+      <div class="card">
+        <div class="card-title">Funnel Stage (WhatsApp Clicks)</div>
+        <div class="funnel-section" id="funnelSection"></div>
+        <div class="no-data" id="funnelEmpty" style="display:none">No WhatsApp clicks this week</div>
+      </div>
+
+      <!-- Top Pages -->
+      <div class="card">
+        <div class="card-title">Top Pages</div>
+        <div id="topPagesSection"></div>
+        <div class="no-data" id="pagesEmpty" style="display:none">No pageview data this week</div>
+      </div>
+
+      <!-- Top WhatsApp Tags -->
+      <div class="card">
+        <div class="card-title">Top WhatsApp Tags</div>
+        <div id="topTagsSection"></div>
+        <div class="no-data" id="tagsEmpty" style="display:none">No WhatsApp clicks this week</div>
+      </div>
+
+      <!-- Order Funnel -->
+      <div class="card">
+        <div class="card-title">Order Funnel</div>
+        <div id="orderFunnelSection"></div>
+        <div class="no-data" id="ordersEmpty" style="display:none">No orders this week</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="refresh-bar">
+    <span class="rb-label">Manual refresh</span>
+    <button class="rb-btn" onclick="loadData()">Refresh</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  // ─── Anas: paste your Apps Script /exec URL here (same as FUNNEL_WEBHOOK_URL in tracking.js) ───
+  var ANALYTICS_URL = 'YOUR_APPS_SCRIPT_WEBHOOK_URL';
+
+  function getKey() { return sessionStorage.getItem('mos_analytics_key'); }
+  function setKey(k) { sessionStorage.setItem('mos_analytics_key', k); }
+
+  var loginScreen = document.getElementById('loginScreen');
+  var dashboard = document.getElementById('dashboard');
+  var loginBtn = document.getElementById('loginBtn');
+  var keyInput = document.getElementById('keyInput');
+  var loginError = document.getElementById('loginError');
+
+  // Auto-login if key already in sessionStorage
+  var storedKey = getKey();
+  if (storedKey) {
+    loginScreen.style.display = 'none';
+    dashboard.style.display = 'block';
+    loadData();
+  }
+
+  loginBtn.addEventListener('click', function() {
+    var k = keyInput.value.trim();
+    if (!k) return;
+    setKey(k);
+    loginScreen.style.display = 'none';
+    dashboard.style.display = 'block';
+    loadData();
+  });
+
+  keyInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') loginBtn.click();
+  });
+
+  window.loadData = function() {
+    var loading = document.getElementById('loadingIndicator');
+    var content = document.getElementById('dashboardContent');
+    var errorState = document.getElementById('errorState');
+    var errorMsg = document.getElementById('errorMsg');
+
+    loading.style.display = 'block';
+    content.style.display = 'none';
+    errorState.style.display = 'none';
+
+    var key = getKey();
+    if (!key) {
+      loading.style.display = 'none';
+      dashboard.style.display = 'none';
+      loginScreen.style.display = 'flex';
+      return;
+    }
+
+    var url = ANALYTICS_URL + '?key=' + encodeURIComponent(key);
+
+    fetch(url)
+      .then(function(res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function(data) {
+        loading.style.display = 'none';
+        if (data.error) {
+          if (data.error === 'unauthorized') {
+            showError('Invalid analytics key. Clear sessionStorage and try again.');
+          } else {
+            showError(data.error);
+          }
+          return;
+        }
+        renderAll(data);
+        content.style.display = 'block';
+      })
+      .catch(function(err) {
+        loading.style.display = 'none';
+        showError('Failed to load data: ' + err.message);
+      });
+  };
+
+  function showError(msg) {
+    var errorState = document.getElementById('errorState');
+    var errorMsg = document.getElementById('errorMsg');
+    errorMsg.textContent = msg;
+    errorState.style.display = 'block';
+  }
+
+  function escHtml(s) {
+    return String(s).replace(/[&<>"']/g, function(c){
+      return '&#' + c.charCodeAt(0) + ';';
+    });
+  }
+
+  // ── Render all sections ──
+  function renderAll(data) {
+    // Update timestamp
+    var lu = document.getElementById('lastUpdated');
+    if (data.lastComputed) {
+      var d = new Date(data.lastComputed);
+      lu.textContent = d.toLocaleString('en-US', {month:'short', day:'numeric', hour:'2-digit', minute:'2-digit'});
+    }
+
+    // 1. Glance
+    renderGlance(data.trends);
+
+    // 2. Funnel
+    renderFunnel(data.funnel);
+
+    // 3. Top pages
+    renderRankedList('topPagesSection', 'pagesEmpty', data.topPages, 'page', 'views');
+
+    // 4. Top tags
+    renderRankedList('topTagsSection', 'tagsEmpty', data.topTags, 'tag', 'clicks');
+
+    // 5. Orders
+    renderOrders(data.orders);
+  }
+
+  // ── 1. Glance row ──
+  function renderGlance(trends) {
+    var el = document.getElementById('glanceRow');
+    var items = [
+      { label: 'Pageviews', trend: trends.pageviews },
+      { label: 'WA Clicks', trend: trends.whatsappClicks },
+      { label: 'Orders', trend: trends.ordersSubmitted }
+    ];
+
+    var html = '';
+    items.forEach(function(item) {
+      var val = item.trend.current;
+      var pct = item.trend.percentChange;
+      var trendHtml = '';
+
+      if (pct === null || pct === undefined) {
+        trendHtml = '<div class="gb-trend na">no prior data</div>';
+      } else if (pct === 0) {
+        trendHtml = '<div class="gb-trend flat">— 0%</div>';
+      } else if (pct > 0) {
+        trendHtml = '<div class="gb-trend up">▲ ' + pct + '%</div>';
+      } else {
+        trendHtml = '<div class="gb-trend down">▼ ' + Math.abs(pct) + '%</div>';
+      }
+
+      html += '<div class="glance-box">'
+        + '<div class="gb-val">' + val + '</div>'
+        + '<div class="gb-label">' + item.label + '</div>'
+        + trendHtml
+        + '</div>';
+    });
+    el.innerHTML = html;
+  }
+
+  // ── 2. Funnel bars ──
+  function renderFunnel(funnel) {
+    var el = document.getElementById('funnelSection');
+    var empty = document.getElementById('funnelEmpty');
+    var stages = ['top', 'middle', 'bottom'];
+    var labels = { top: 'Top', middle: 'Middle', bottom: 'Bottom' };
+    var classes = { top: 'fr-top', middle: 'fr-mid', bottom: 'fr-bot' };
+
+    var total = funnel.top.count + funnel.middle.count + funnel.bottom.count;
+    if (total === 0) {
+      el.innerHTML = '';
+      empty.style.display = 'block';
+      return;
+    }
+    empty.style.display = 'none';
+
+    var html = '';
+    stages.forEach(function(stage) {
+      var s = funnel[stage];
+      var pct = total > 0 ? Math.round(s.count / total * 100) : 0;
+      html += '<div class="funnel-row">'
+        + '<span class="fr-label">' + labels[stage] + '</span>'
+        + '<div class="fr-track"><div class="fr-fill ' + classes[stage] + '" style="width:' + pct + '%">' + (pct >= 15 ? pct + '%' : '') + '</div></div>'
+        + '<span class="fr-count">' + s.count + '</span>'
+        + '</div>';
+    });
+    el.innerHTML = html;
+  }
+
+  // ── 3/4. Ranked list ──
+  function renderRankedList(containerId, emptyId, items, keyField, countField) {
+    var el = document.getElementById(containerId);
+    var empty = document.getElementById(emptyId);
+
+    if (!items || items.length === 0) {
+      el.innerHTML = '';
+      empty.style.display = 'block';
+      return;
+    }
+    empty.style.display = 'none';
+
+    var html = '';
+    items.forEach(function(item) {
+      var label = escHtml(item[keyField] || '/');
+      var count = item[countField];
+      html += '<div class="rank-item">'
+        + '<span class="ri-label">' + label + '</span>'
+        + '<span class="ri-count">' + count + '</span>'
+        + '</div>';
+    });
+    el.innerHTML = html;
+  }
+
+  // ── 5. Order funnel ──
+  function renderOrders(orders) {
+    var el = document.getElementById('orderFunnelSection');
+    var empty = document.getElementById('ordersEmpty');
+
+    if (!orders || orders.submitted === 0 && orders.approved === 0 && orders.rejected === 0) {
+      el.innerHTML = '';
+      empty.style.display = 'block';
+      return;
+    }
+    empty.style.display = 'none';
+
+    var html = '';
+
+    // Funnel steps
+    html += '<div class="order-flow">'
+      + '<div class="order-step os-sub"><div class="os-val">' + orders.submitted + '</div><div class="os-label">Submitted</div></div>'
+      + '<span class="order-arrow">▶</span>'
+      + '<div class="order-step os-app"><div class="os-val">' + orders.approved + '</div><div class="os-label">Approved</div></div>'
+      + '<span class="order-arrow">▶</span>'
+      + '<div class="order-step os-rej"><div class="os-val">' + orders.rejected + '</div><div class="os-label">Rejected</div></div>'
+      + '</div>';
+
+    // Approval rate callout
+    html += '<div class="approval-rate-callout">'
+      + '<div class="ar-big">' + orders.approvalRate + '%</div>'
+      + '<div class="ar-label">Approval Rate</div>'
+      + '</div>';
+
+    // Rejection reasons
+    var reasons = orders.rejectionReasons;
+    if (reasons && Object.keys(reasons).length > 0) {
+      html += '<div class="rejection-list">';
+      for (var reason in reasons) {
+        if (reasons.hasOwnProperty(reason)) {
+          html += '<div class="rej-item">'
+            + '<span class="rj-reason">' + escHtml(reason) + '</span>'
+            + '<span class="rj-count">' + reasons[reason] + '</span>'
+            + '</div>';
+        }
+      }
+      html += '</div>';
+    }
+
+    el.innerHTML = html;
+  }
+})();
+</script>
+</body>
+</html>

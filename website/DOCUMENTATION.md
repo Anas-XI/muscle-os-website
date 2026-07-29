@@ -65,7 +65,8 @@
 ├── order.html                  SELF-SERVE ORDER PAGE (product selector, payment info, form)
 │
 ├── admin/
-│   └── orders.html             ADMIN APPROVAL PAGE (mobile-first, tap Approve/Reject, wa.me send)
+│   ├── orders.html             ADMIN APPROVAL PAGE (mobile-first, tap Approve/Reject, wa.me send)
+│   └── analytics.html          ANALYTICS DASHBOARD (key-gated, funnel + order stats from Sheet)
 │
 ├── tools/
 │   ├── index.html              Tools listing (6 cards)
@@ -570,7 +571,31 @@ Mobile-first admin page for one-tap order approval.
    - "Send via WhatsApp" button → opens `wa.me/number?text=<prefilled message>` with code, product name, and access instructions in the customer's language
 5. **Reject**: selects reason (`didnt_pay`, `suspicious`, `duplicate`, `other`) → confirms → calls `/api/reject-order`
 
-### 9.4 Hash Utility (`scripts/hash-code.js`)
+### 9.4 Analytics Dashboard (`admin/analytics.html`)
+
+Mobile-first dashboard for glanceable funnel and order stats.
+
+**Flow:**
+1. Anas enters the analytics key (same secret set in `ANALYTICS_KEY` constant in the Apps Script)
+2. Page fetches aggregated JSON from the Apps Script `doGet` endpoint
+3. Renders: this week at a glance (pageviews, WA clicks, orders with % change vs prior week), funnel stage breakdown (top/middle/bottom as stacked bars), top 5 pages, top 5 WhatsApp tags, order funnel (submitted → approved → rejected with approval rate)
+4. Manual refresh button in the bottom bar
+
+**Setup:** Set the `ANALYTICS_URL` constant in `admin/analytics.html` to your Apps Script `/exec` URL (same as `FUNNEL_WEBHOOK_URL` in `tracking.js`). Then set `ANALYTICS_KEY` in `docs/apps-script-webhook.gs` to a secret string — use the same string when first opening the dashboard.
+
+### 9.5 Weekly Email Digest (`sendWeeklySummaryEmail` in Apps Script)
+
+Plain-text summary sent via `MailApp.sendEmail()` (runs under Anas's Google account, no extra API keys needed).
+
+**Setup (manual):** In the Apps Script editor:
+1. Triggers (clock icon in sidebar) → Add Trigger
+2. Choose function: `sendWeeklySummaryEmail`
+3. Choose deployment: Head
+4. Event source: Time-driven → Week timer → Pick day and time (Monday morning recommended)
+
+**Content:** Same data as the dashboard — funnel breakdown, top pages/tags, order approval rate, week-over-week deltas.
+
+### 9.6 Hash Utility (`scripts/hash-code.js`)
 
 ```bash
 node scripts/hash-code.js <plaintext>  # → SHA-256 hash for access-codes.json
