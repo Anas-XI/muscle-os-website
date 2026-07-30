@@ -3181,9 +3181,9 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       document.getElementById('cardioHistCard').style.display='block';
       var wc=weeklyCardio();
       var ch='<div style="font-size:.6rem;color:rgba(250,250,248,.35);line-height:1.5">';
-      ch+='This week: <strong>'+wc.sessions+'</strong> sessions · <strong>'+wc.minutes+'</strong> min';
+      ch+=_('hist_this_week')+': <strong>'+wc.sessions+'</strong> '+_('cardio_sessions')+' · <strong>'+wc.minutes+'</strong> min';
       if(wc.detail)Object.keys(wc.detail).sort(function(a,b){return wc.detail[b]-wc.detail[a]}).forEach(function(t){ch+='<br> <span style="font-size:.52rem;color:rgba(250,250,248,.2)">'+t+': '+wc.detail[t]+' min</span>';});
-      ch+='<br><br><div style="font-size:.5rem;color:rgba(250,250,248,.15)">Total logged sessions: '+cl.length+'</div></div>';
+      ch+='<br><br><div style="font-size:.5rem;color:rgba(250,250,248,.15)">'+_('hist_total_logged')+': '+cl.length+'</div></div>';
       document.getElementById('cardioHistContent').innerHTML=ch;
     } else {document.getElementById('cardioHistCard').style.display='none';}
 
@@ -3200,13 +3200,13 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       });
       ft+='</div>';
       var avg=dates.reduce(function(s,d){return s+fatigueScore(fl[d]).score},0)/dates.length;
-      ft+='<div style="font-size:.55rem;color:rgba(250,250,248,.2);margin-top:4px">7-day avg fatigue: <strong>'+(avg.toFixed(1))+'</strong> — '+(avg>=7.5?'Green (low fatigue)':avg>=5?'Yellow (moderate)':'Red (high fatigue — consider deload)')+'</div>';
+      ft+='<div style="font-size:.55rem;color:rgba(250,250,248,.2);margin-top:4px">'+_('hist_7day_fatigue')+': <strong>'+(avg.toFixed(1))+'</strong> — '+(avg>=7.5?_('hist_fatigue_green'):avg>=5?_('hist_fatigue_yellow'):_('hist_fatigue_red'))+'</div>';
       document.getElementById('fatigueTrend').innerHTML=ft;
     } else {document.getElementById('fatigueHistCard').style.display='none';}
   }
 
   function renderChart(ex){
-    var hist=loadHist(),entries=hist[ex];if(!entries||entries.length<2){document.getElementById('histChart').innerHTML='<p style="font-size:.6rem;color:rgba(250,250,248,.15);padding:20px;text-align:center">Need at least 2 sessions for a chart.</p>';return;}
+    var hist=loadHist(),entries=hist[ex];if(!entries||entries.length<2){document.getElementById('histChart').innerHTML='<p style="font-size:.6rem;color:rgba(250,250,248,.15);padding:20px;text-align:center">'+_('chart_need_sessions')+'</p>';return;}
     var sorted=entries.slice().sort(function(a,b){return a.date<b.date?-1:1}).slice(-8);
     var maxE=sorted.reduce(function(m,x){return Math.max(m,x.e1RM)},0);
     var html='<div class="hc-row">';
