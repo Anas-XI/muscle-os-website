@@ -1014,6 +1014,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       chart_need_sessions:'Need at least 2 sessions for a chart.',
       // Alerts
       alert_gen_program:'Generate a program first.',
+      meso_complete_alert:'🎉 Mesocycle complete! Check History for summary.',
       alert_enter_minutes:'Enter duration in minutes.',
       alert_meas_saved:'Measurements saved.',
       alert_photo_large:'Photo too large. Please crop or resize under ~100 KB.',
@@ -1283,6 +1284,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       chart_need_sessions:'يلزم جلستان على الأقل للرسم البياني.',
       // Alerts
       alert_gen_program:'قم بإنشاء برنامج أولاً.',
+      meso_complete_alert:'🎉 اكتملت الدورة التدريبية! تحقق من التاريخ للملخص.',
       alert_enter_minutes:'أدخل المدة بالدقائق.',
       alert_meas_saved:'تم حفظ القياسات.',
       alert_photo_large:'الصورة كبيرة جداً. يرجى قص أو تصغير الحجم إلى أقل من 100 كيلوبايت.',
@@ -2322,7 +2324,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       mh.push({id:mp.id,type:mp.type,weeks:mp.weeks,start:mp.startDate,end:mp.endDate,summary:mp.summary});
       ss(K.MH,mh);
       ss(K.MA,null);
-      alert('🎉 Mesocycle complete! Check History for summary.');
+      alert(_('meso_complete_alert'));
       renderMesoCalendar();
       return;
     }
@@ -3095,7 +3097,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
   function renderHistory(){
     var logs=ls(K.LG,{}),hist=loadHist(),vt=ls(K.VT,{}),goal=(ls(K.VI,{})).goal||'hypertrophy',age=(ls(K.VI,{})).ta||'intermediate';
     var today=new Date(),ws=new Date(today);ws.setDate(today.getDate()-today.getDay());
-    document.getElementById('histWeekLabel').textContent='— Week of '+ws.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+    document.getElementById('histWeekLabel').textContent='— '+_('hist_week_of')+' '+ws.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
 
     renderCompliance();
     renderMeasHistory();
@@ -3110,11 +3112,11 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     document.getElementById('histVolBars').innerHTML=html;
 
     // Exercise select for chart
-    var sel=document.getElementById('histExSelect');sel.innerHTML='<option value="">Select exercise...</option>';
+    var sel=document.getElementById('histExSelect');sel.innerHTML='<option value="">'+_('hist_select_ex')+'</option>';
     var allEx=[];Object.keys(hist).forEach(function(k){if(hist[k].length>1)allEx.push(k);});
     allEx.sort().forEach(function(k){var o=document.createElement('option');o.value=k;o.textContent=k;sel.appendChild(o);});
     if(allEx.length){sel.value=allEx[0];renderChart(allEx[0]);}
-    else{document.getElementById('histChart').innerHTML='<p style="font-size:.6rem;color:rgba(250,250,248,.15);padding:20px;text-align:center">Log more sessions to see e1RM progression.</p>';}
+    else{document.getElementById('histChart').innerHTML='<p style="font-size:.6rem;color:rgba(250,250,248,.15);padding:20px;text-align:center">'+_('hist_log_more')+'</p>';}
     sel.addEventListener('change',function(){if(this.value)renderChart(this.value);});
 
     // PRs
@@ -3127,7 +3129,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     prs.sort(function(a,b){return b.best.e1-a.best.e1});
     var phtml='';
     if(prs.length){phtml='<table class="pr-table"><thead><tr><th>Exercise</th><th>Best Set</th><th>e1RM</th><th>Date</th></tr></thead><tbody>';prs.slice(0,20).forEach(function(p){var d=hist[p.ex].reduce(function(m,x){var e=x.e1RM||est1RM(x.w,x.r,x.rpe);return e>(m.e1||0)?{d:x.date,e:e}:m;},{d:'',e:0});phtml+='<tr><td><strong>'+p.ex+'</strong></td><td>'+p.best.w+' kg × '+p.best.r+' @ '+p.best.rpe+'</td><td>'+Math.round(p.best.e1)+' kg</td><td style="font-size:.5rem">'+(d.d||'')+'</td></tr>';});phtml+='</tbody></table>';}
-    else phtml='<p style="font-size:.6rem;color:rgba(250,250,248,.15);padding:10px;text-align:center">Log some sessions to see PRs.</p>';
+    else phtml='<p style="font-size:.6rem;color:rgba(250,250,248,.15);padding:10px;text-align:center">'+_('hist_log_pr')+'</p>';
     document.getElementById('prTable').innerHTML=phtml;
 
     // Rehab / Injury log
@@ -3141,14 +3143,14 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
           var protocol=rehabForExercise(ex,pf);
           rh+='<div style="padding:4px 0;border-bottom:1px solid rgba(250,250,248,.02)"><strong>'+(pf[ex]==='red'?'🔴':'🟡')+' '+ex+'</strong> → ';
           rh+=protocol?protocol.name+' <span style="font-size:.5rem;color:rgba(250,250,248,.2)">('+protocol.icon+')</span>':'—';
-          rh+=' · <a href="https://wa.me/201040796017?text='+encodeURIComponent('Hi Coach Anas, I need help with my '+ex+' injury ('+(protocol?protocol.name:ex)+'). Please advise.')+'" target="_blank" style="color:#F4C93B;font-size:.5rem">Book consultation</a></div>';
+          rh+=' · <a href="https://wa.me/201040796017?text='+encodeURIComponent('Hi Coach Anas, I need help with my '+ex+' injury ('+(protocol?protocol.name:ex)+'). Please advise.')+'" target="_blank" style="color:#F4C93B;font-size:.5rem">'+_('hist_book_consult')+'</a></div>';
         }
       });
       rh+='</div>';
       document.getElementById('rehabHistContent').innerHTML=rh;
       // Consultation button
       document.getElementById('rehabConsultHist').style.display='block';
-      document.getElementById('rehabConsultHist').innerHTML='<a class="consult-cta" href="https://wa.me/201040796017?text='+encodeURIComponent('Hi Coach Anas, I need a free consultation about my injuries. Please advise.')+'" target="_blank">📅 Book Free Injury Consultation</a>';
+      document.getElementById('rehabConsultHist').innerHTML='<a class="consult-cta" href="https://wa.me/201040796017?text='+encodeURIComponent('Hi Coach Anas, I need a free consultation about my injuries. Please advise.')+'" target="_blank">📅 '+_('hist_book_injury')+'</a>';
     } else {
       document.getElementById('rehabHistCard').style.display='none';
     }
@@ -3158,19 +3160,19 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     // ACWR
     var acwr=calculateACWR();
     if(acwr.ratio>0){
-      document.getElementById('acwrHist').innerHTML='<div class="section-header">ACWR <span class="section-sub">— Acute:Chronic Workload Ratio</span></div>'+
+      document.getElementById('acwrHist').innerHTML='<div class="section-header">'+_('acwr_ratio')+' <span class="section-sub">'+_('acwr_history_title')+'</span></div>'+
         '<div style="display:flex;align-items:center;gap:8px;padding:6px 0"><span class="acwr-val" style="color:'+acwr.color+';font-size:1rem">'+acwr.ratio.toFixed(2)+'</span>'+
         '<span style="font-size:.55rem;color:'+acwr.color+';font-weight:600">'+acwr.risk+'</span></div>'+
-        '<div style="font-size:.5rem;color:rgba(250,250,248,.15)">Acute (7d): '+acwr.acute.toFixed(0)+' kg · Chronic (28d avg): '+acwr.chronic.toFixed(0)+' kg/week</div>';
+        '<div style="font-size:.5rem;color:rgba(250,250,248,.15)">'+_('acwr_acute')+': '+acwr.acute.toFixed(0)+' kg · '+_('acwr_chronic')+': '+acwr.chronic.toFixed(0)+' kg/week</div>';
     }
 
     // Deload history
     var dt=dlTracker();
     var dhtml='<div style="font-size:.6rem;color:rgba(250,250,248,.35);line-height:1.5">';
-    if(dt.lastDeload)dhtml+='Last deload: <strong>'+dt.lastDeload+'</strong><br>';
-    dhtml+='Sessions tracked: <strong>'+(dt.sessions||0)+'</strong><br>';
-    dhtml+='Deload interval: <strong>'+deloadInterval(age)+' weeks</strong> ('+age+')<br>';
-    dhtml+='Consecutive RPE overshoots: <strong>'+(dt.overshoots||0)+'</strong></div>';
+    if(dt.lastDeload)dhtml+=_('hist_last_deload')+': <strong>'+dt.lastDeload+'</strong><br>';
+    dhtml+=_('hist_sessions_tracked')+': <strong>'+(dt.sessions||0)+'</strong><br>';
+    dhtml+=_('hist_deload_interval')+': <strong>'+deloadInterval(age)+' '+_('meso_weeks')+'</strong> ('+age+')<br>';
+    dhtml+=_('hist_rpe_overshoots')+': <strong>'+(dt.overshoots||0)+'</strong></div>';
     document.getElementById('deloadHistory').innerHTML=dhtml;
 
     // Cardio history
