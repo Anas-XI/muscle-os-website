@@ -12,7 +12,7 @@
 body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:32px 16px}
 @media print{body{background:#fff;color:#000;padding:20px}body *{color:#000!important}
  .container{max-width:100%}.header,.header h1{color:#000!important}.card{background:#f5f5f5!important;border:1px solid #ddd!important}
- .stepper,.btn-primary,.btn-secondary,.suggest-box,.pain-group,.add-set-btn,.del-set-btn,.rm-ex-btn,.safety-badge,.deload-tracker,.footer{display:none!important}
+ .stepper,.btn-primary,.btn-secondary,.suggest-box,.pain-group,.rest-timer,.add-set-btn,.del-set-btn,.rm-ex-btn,.safety-badge,.deload-tracker,.footer{display:none!important}
  .ex-card{break-inside:avoid;background:#fff!important;border:1px solid #ddd!important}.ex-name{color:#000!important}
  .set-row input{border:1px solid #ccc!important;background:#fff!important;color:#000!important}
  .print-header{display:block!important;text-align:center;margin-bottom:16px}.print-header h2{font-family:'Oswald',sans-serif;font-size:1.3rem;margin:0}
@@ -42,6 +42,25 @@ html[dir="rtl"] .btn-group{flex-direction:row-reverse}
 html[dir="rtl"] .form-row{direction:rtl}
 html[dir="rtl"] .form-row-3{direction:rtl}
 html[dir="rtl"] .header p{direction:rtl}
+html[dir="rtl"] .sync-toggle{margin-left:0;margin-right:10px}
+html[dir="rtl"] .ex-sel-row{flex-direction:row-reverse}
+html[dir="rtl"] .ex-sel-chip{margin-left:0;margin-right:4px}
+html[dir="rtl"] .suggest-box{flex-direction:row-reverse}
+html[dir="rtl"] .toggle-group{flex-direction:row-reverse}
+html[dir="rtl"] .set-row input{text-align:right}
+html[dir="rtl"] .modal-card{direction:rtl}
+html[dir="rtl"] .rest-timer{flex-direction:row-reverse}
+html[dir="rtl"] .pain-group{flex-direction:row-reverse}
+html[dir="rtl"] .header-top{flex-direction:row-reverse}
+.sync-toggle{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:6px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.06);cursor:pointer;font-size:1rem;transition:all .15s}
+.sync-toggle:hover{background:rgba(250,250,248,.06);border-color:rgba(250,250,248,.1)}
+.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:9999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.modal-card{background:#1E1E2A;border-radius:16px;padding:22px 20px;width:90%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.modal-header{font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:500;text-transform:uppercase;letter-spacing:.5px;color:#F4C93B;display:flex;justify-content:space-between;align-items:center}
+.modal-close{font-size:.7rem;cursor:pointer;color:rgba(250,250,248,.2);padding:4px}
+.modal-close:hover{color:#FAFAF8}
+.ce-link{font-size:.55rem;color:rgba(250,250,248,.15);cursor:pointer;border-bottom:1px dashed rgba(250,250,248,.1);padding-bottom:1px}
+.ce-link:hover{color:#F4C93B;border-color:#F4C93B}
 .step-content{display:none}
 .step-content.active{display:block;animation:fadeSlideIn .35s ease-out}
 @keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
@@ -108,6 +127,14 @@ select option{background:#1E1E2A;color:#FAFAF8}
 .safety-badge.danger{background:rgba(244,67,54,.1);color:#f44336}
 .pain-group{display:flex;gap:4px;margin:5px 0;align-items:center}
 .pain-group .pain-lbl{font-size:.5rem;color:rgba(250,250,248,.18);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-right:2px}
+.rest-timer{display:flex;gap:4px;margin:5px 0;align-items:center;flex-wrap:wrap;padding:3px 5px;background:rgba(250,250,248,.02);border-radius:4px;border:1px solid rgba(250,250,248,.03)}
+.rest-timer .rt-label{font-size:.5rem;color:rgba(250,250,248,.25);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-right:2px}
+.rest-timer .rt-recommend{font-size:.45rem;color:rgba(250,250,248,.12);margin-right:4px}
+.rest-timer .rt-display{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:#F4C93B;font-weight:600;min-width:50px;text-align:center}
+.rest-timer button{font-size:.45rem;padding:1px 6px;border:none;border-radius:3px;cursor:pointer;background:rgba(250,250,248,.04);color:rgba(250,250,248,.5)}
+.rest-timer button:hover{background:rgba(250,250,248,.08);color:#FAFAF8}
+.rest-timer .rt-stop{background:rgba(244,67,54,.15);color:#f44336}
+.ol-badge{display:inline-block;font-size:.45rem;font-weight:700;padding:0 5px;border:1px solid;border-radius:3px;line-height:1.6;margin-left:3px;white-space:nowrap}
 .pain-btn{width:28px;height:24px;border-radius:4px;border:1.5px solid rgba(250,250,248,.08);background:transparent;cursor:pointer;font-size:.6rem;transition:all .12s;line-height:1;padding:0}
 .pain-btn.active-green{background:rgba(76,175,80,.18);border-color:#4CAF50}
 .pain-btn.active-yellow{background:rgba(255,152,0,.18);border-color:#FF9800}
@@ -427,8 +454,10 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
         <span class="lang-opt active" data-lang="en">EN</span>
         <span class="lang-opt" data-lang="ar">AR</span>
       </div>
+      <div class="sync-toggle" id="syncBtn" onclick="showSync()" data-i18n="sync_title">☁️</div>
     </div>
     <p data-i18n="header_sub">Onboard → Split → Program → Train → History</p>
+    <div id="profileGreeting" style="display:none;font-size:.6rem;color:#4CAF50;margin-top:4px;font-weight:500"></div>
   </div>
 
   <div class="stepper no-print" id="stepper">
@@ -447,6 +476,12 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
 
       <p style="font-size:.6rem;color:rgba(250,250,248,.22);margin-bottom:10px;line-height:1.3" data-i18n="muscle_priorities_sub">Tell us about yourself and your goals. We'll calculate target volume for each muscle group and recommend a split.</p>
 
+      <div class="form-row">
+        <div class="form-group"><label data-i18n="name_label">Name</label>
+          <input type="text" id="userName" placeholder="e.g. Ahmed" style="width:100%;padding:6px 8px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem"></div>
+        <div class="form-group"><label data-i18n="age_label">Age</label>
+          <input type="number" id="userAge" placeholder="25" min="10" max="100" style="width:100%;padding:6px 8px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem"></div>
+      </div>
       <div class="form-row">
         <div class="form-group"><label data-i18n="ta_label">Training Age</label>
           <select id="ta"><option value="novice" data-i18n="novice">Novice (&lt;1 yr)</option><option value="intermediate" selected data-i18n="intermediate">Intermediate (1–3 yr)</option><option value="advanced" data-i18n="advanced">Advanced (3+ yr)</option></select></div>
@@ -527,6 +562,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
         <button class="btn-primary" id="backToSetupBtn" style="background:transparent;border:1.5px solid rgba(250,250,248,.08);color:rgba(250,250,248,.35);font-size:.75rem" data-i18n="back_to_setup">Back</button>
         <button class="btn-primary" id="genProgBtn" data-i18n="generate">Generate Program</button>
       </div>
+      <div style="text-align:center;margin-top:8px"><span class="ce-link" onclick="showCeModal()" data-i18n="ce_add_custom">+ Custom Exercise</span></div>
     </div>
   </div>
 
@@ -567,6 +603,10 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
         <button class="btn-primary" id="mesoBackBtn" style="background:transparent;border:1.5px solid rgba(250,250,248,.08);color:rgba(250,250,248,.35);font-size:.7rem" data-i18n="back">← Back</button>
         <button class="btn-primary" id="genMesoBtn" data-i18n="generate_meso">Generate Mesocycle</button>
         <button class="btn-primary" id="startTrainingBtn" style="font-size:.7rem" data-i18n="start_training">Start Training</button>
+      </div>
+      <div class="btn-group" style="margin-top:6px;justify-content:center">
+        <button class="btn-primary" id="saveProfileBtn" style="background:rgba(76,175,80,.06);border:1px solid rgba(76,175,80,.12);color:#4CAF50;font-size:.65rem;padding:6px 16px" data-i18n="save_profile">Save Profile</button>
+        <span id="profileStatus" style="font-size:.5rem;color:rgba(250,250,248,.15);align-self:center"></span>
       </div>
       <p id="mesoAdvice" style="font-size:.5rem;color:rgba(250,250,248,.12);text-align:center;margin-top:6px">Tip: 8-week hypertrophy blocks work best for intermediates. Adjust if competing.</p>
     </div>
@@ -955,8 +995,17 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       sync_success:'Data synced successfully!',sync_fail:'Sync failed. Try again.',
       sync_confirm_upload:'Upload your training data to the cloud? This will overwrite any previously saved data.',
       sync_confirm_download:'Download training data from the cloud? This will overwrite your local data.',
+      sync_desc:'Enter or create a sync key to transfer your training data between devices.',
+      ce_title:'Custom Exercise',ce_desc:'Add an exercise not in our database.',ce_type:'Type',
+      ce_focus:'Focus',ce_inc:'Increment',ce_minrep:'Min Reps',ce_maxrep:'Max Reps',
+      ce_save:'Save Exercise',ce_none:'No custom exercises yet.',ce_add_custom:'+ Custom Exercise',
+      ce_name_required:'Please enter an exercise name.',ce_saved:'Custom exercise saved.',
+      ce_add_to_day:'+ Custom Exercise',ce_select:'Enter number to add',ce_invalid:'Invalid selection.',ce_duplicate:'Already in this day.',
+      name_label:'Name',age_label:'Age',save_profile:'Save Profile',
+      profile_saved:'Profile saved!',profile_greeting:'Welcome back',name_required:'Please enter your name first.',
       // Timer display
       rest_timer_label:'Rest Timer',
+      time_up:'Time!',
       // Deload bar (dashboard)
       deload_now:'Deload NOW',
       weeks_since_deload:'Weeks since deload',
@@ -1099,149 +1148,160 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       vol_days_wk:'days/wk',
       // Selection
       sel_try:'Try',
+      // 1RM percentage
+      pct_1rm:'% 1RM',
     },
     ar: {
-      app_title:'أداة التدريب', header_sub:'التسجيل → التقسيم → البرنامج → التمرين → التاريخ',
-      welcome:'أهلاً بك', welcome_sub:'قم بإعداد ملفك الشخصي',
-      ta_label:'العمر التدريبي', goal_label:'الهدف الرئيسي', dow_label:'أيام/الأسبوع', rec_label:'عامل الاستشفاء',
-      novice:'مبتدئ (<1 سنة)', intermediate:'متوسط (1-3 سنوات)', advanced:'متقدم (3+ سنوات)',
+      app_title:'أداة التمرين', header_sub:'التسجيل → التقسيم → البرنامج → التمرين → التاريخ',
+      welcome:'أهلاً بيك', welcome_sub:'إعمل بروفايلك',
+      ta_label:'عمرك التدريبي', goal_label:'هدفك الأساسي', dow_label:'أيام/الأسبوع', rec_label:'مستوى الاستشفاء',
+      novice:'مبتدئ (أقل من سنة)', intermediate:'متوسط (1-3 سنين)', advanced:'متقدم (3+ سنين)',
       hypertrophy:'تضخيم', strength:'قوة', balanced:'متوازن',
-      low_rec:'منخفض — نوم محدود، ضغط مرتفع', mod_rec:'متوسط — نمط حياة متوازن', high_rec:'عالي — استشفاء مثالي',
-      muscle_priorities:'أولويات العضلات', muscle_priorities_sub:'اختر العضلات التي تريد التركيز عليها (حجم كامل) مقابل الصيانة (نصف حجم).',
+      low_rec:'ضعيف — نوم قليل وضغط عالي', mod_rec:'متوسط — حياة متزنة', high_rec:'عالي — استشفاء ممتاز',
+      muscle_priorities:'أولويات العضلات', muscle_priorities_sub:'اختار العضلات اللي عايز تركز عليها (حجم كامل) ولا صيانة (نص حجم).',
       focus:'تركيز', maint:'صيانة',
-      split_pref:'تفضيل التقسيم', choose_my_split:'اختر تقسيمتي', take_quiz:'إجراء الاختبار',
-      pl_profile:'ملف رفع الأثقال', pl_sub:'سنصمم برنامجاً دورياً بناءً على أقصى أوزانك ونقاط ضعفك والتعب.',
+      split_pref:'اختيار التقسيم', choose_my_split:'اختار التقسيم بنفسي', take_quiz:'الاختبار',
+      pl_profile:'ملف رفع الأثقال', pl_sub:'هنصمم برنامج دوري على أساس أقصى أوزانك ونقاط ضعفك والتعب.',
       squat_rm:'أقصى قرفصاء (كغم)', bench_rm:'أقصى ضغط (كغم)', deadlift_rm:'أقصى رفع أرضي (كغم)',
-      bw:'وزن الجسم (كغم)', yrs_pl:'سنوات رفع الأثقال', weak_pts:'نقاط الضعف',
-      weak_sub:'اختر نقاط الضعف لديك (تؤثر على اختيار التمارين المساعدة).',
-      comp_goal:'هدف المنافسة', just_train:'مجرد تدريب', prep_meet:'التحضير لمسابقة',
-      meet_date:'تاريخ المسابقة', focus_err:'اختر عضلة تركيز واحدة على الأقل.',
-      calc_continue:'احسب واستمر',
-      saved_session:'تم العثور على جلسة محفوظة',
-      resume:'استئناف التدريب', start_fresh:'بداية جديدة',
+      bw:'وزن الجسم (كغم)', yrs_pl:'سنين رفع الأثقال', weak_pts:'نقاط الضعف',
+      weak_sub:'اختار نقاط ضعفك (هتأثر على اختيار التمارين المساعدة).',
+      comp_goal:'هدف المنافسة', just_train:'مجرد تمرين', prep_meet:'تحضير لمسابقة',
+      meet_date:'تاريخ المسابقة', focus_err:'اختار عضلة تركيز واحدة على الأقل.',
+      calc_continue:'احسب وكمل',
+      saved_session:'لقينا جلسة محفوظة',
+      resume:'اكمل التمرين', start_fresh:'ابدا من أول وجديد',
       back:'رجوع', generate:'إنشاء البرنامج', confirm_gen:'تأكيد وإنشاء البرنامج',
-      save_start:'حفظ وبدء التدريب',
+      save_start:'احفظ وابدأ التمرين',
       vol_targets:'أهداف الحجم', weekly_sets:'مجموعة أسبوعية',
       sessions:'جلسات', exercises:'تمارين',
       day:'اليوم', sets:'مجموعات', reps:'عدات', rest:'راحة',
       warmup:'إحماء', ramp_sets:'مجموعات تصعيدية',
       set:'مجموعة', weight:'كغم', rpe:'الجهد', rir:'الاحتياطي',
-      save_readiness:'حفظ الجاهزية', skip_today:'تخطي اليوم',
+      save_readiness:'حفظ الجاهزية', skip_today:'تخطي النهارده',
       log_cardio:'تسجيل الكارديو', type:'النوع', duration_min:'المدة (دقيقة)', intensity:'الشدة',
       save_meas:'حفظ القياسات', cancel:'إلغاء',
-      no_data:'لا توجد بيانات',
-      today_train:'تدريب اليوم', pre_session:'الجاهزية قبل التمرين',
+      no_data:'مفيش بيانات',
+      today_train:'تمرين النهارده', pre_session:'جاهزية قبل التمرين',
       complete_week:'إكمال الأسبوع والتقدم', change_split:'تغيير التقسيم',
-      history:'السجل والإحصائيات', export:'تصدير', import:'استيراد', reset:'إعادة تعيين الكل',
+      history:'السجل والإحصائيات', export:'تصدير', import:'استيراد', reset:'مسح الكل',
       deload_hist:'تاريخ التفريغ', pr_table:'الأرقام القياسية',
       save_pdf:'حفظ PDF',
       track_progress:'تتبع التقدم',
-      back_to_setup:'العودة إلى الإعداد', back_to_split:'العودة إلى التقسيم',
-      rec_split_recommended:'موصى به', quiz_summary:'ملخص الاختبار',
+      back_to_setup:'رجوع للإعدادات', back_to_split:'رجوع للتقسيم',
+      rec_split_recommended:'مقترح', quiz_summary:'ملخص الاختبار',
       retake_quiz:'إعادة الاختبار',
       generate_meso:'إنشاء الدورة المتوسطة',
-      start_training:'بدء التدريب',
-      low:'منخفض', moderate:'متوسط', high:'عالي',
-      green:'أخضر', yellow:'أصفر', red:'أحمر', unchecked:'غير محدد',
+      start_training:'بدء التمرين',
+      low:'قليل', moderate:'متوسط', high:'كثير',
+      green:'أخضر', yellow:'أصفر', red:'أحمر', unchecked:'مش محدد',
       rpe_guide_title:'دليل RPE / RIR',
-      rpe_intro:'RPE (معدل الجهد المبذول) و RIR (التكرارات في الاحتياط) يساعدانك على تنظيم الشدة تلقائياً بناءً على شعورك في ذلك اليوم. استخدم الجدول أدناه للعثور على RPE المستهدف لكل نطاق تكرارات.',
-      rpe_h_rpe:'RPE', rpe_h_rir:'RIR', rpe_h_feel:'الشعور', rpe_h_use:'الأفضل لـ',
-      rpe_10_feel:'أقصى جهد — لا يمكن عمل تكرار آخر',
+      rpe_intro:'RPE (معدل الجهد) و RIR (التكرارات في الاحتياط) بيساعدوك تنظم الشدة حسب ما تحس بيه النهارده. استخدم الجدول عشان تلاقي RPE المناسب لكل نطاق تكرارات.',
+      rpe_h_rpe:'RPE', rpe_h_rir:'RIR', rpe_h_feel:'الإحساس', rpe_h_use:'أفضل لـ',
+      rpe_10_feel:'أقصى جهد — مش قادر تعمل تكرار تاني خالص',
       rpe_10_use:'اختبار القوة، آخر مجموعة من التمرين الرئيسي',
-      rpe_9_feel:'صعب — تكرار إضافي واحد ممكن لكن صعب جداً',
-      rpe_9_use:'أعلى مجموعات العمل، التمارين المركبة الثقيلة',
-      rpe_8_feel:'تحدٍ — تكراران في الاحتياط',
+      rpe_9_feel:'صعب — تقدر تعمل تكرار زيادة واحد بس وصعب أوي',
+      rpe_9_use:'أعلى مجموعات العمل، التمارين المركبة التقيلة',
+      rpe_8_feel:'تحدي — عندك تكرارين في الاحتياطي',
       rpe_8_use:'معظم مجموعات العمل، التضخيم',
-      rpe_7_feel:'متوسط الصعوبة — 3 تكرارات في الاحتياط',
-      rpe_7_use:'مجموعات التخفيف، مجموعات العمل المبكرة',
-      rpe_5_feel:'معتدل — سرعة البار تنخفض قليلاً',
+      rpe_7_feel:'نص نص — 3 تكرارات في الاحتياطي',
+      rpe_7_use:'مجموعات التخفيف، مجموعات العمل الأولانية',
+      rpe_5_feel:'معتدل — سرعة البار بتقل شوية',
       rpe_5_use:'الإحماء، مجموعات التصعيد، أول مجموعات العمل',
-      rpe_tip:'ابدأ أول مجموعة عمل عند RPE 7. إذا كانت الحركة جيدة، أضف وزناً في المجموعة التالية. إذا كانت صعبة، استمر أو اخفض. على مدى 4 أسابيع، تابع RPE لاكتشاف تراكم التعب قبل أن يؤثر على أدائك.',
+      rpe_tip:'ابدا أول مجموعة عمل على RPE 7. لو الحركة كويسة، زود وزن في المجموعة اللي بعدها. لو صعبة، كمل أو قلل. على مدى 4 أسابيع، تابع RPE عشان تلاحظ تراكم التعب قبل ما يأثر على أدائك.',
       // Mesocycle
-      meso_phase_accumulation:'تراكم',meso_phase_intensification:'تكثيف',meso_phase_peak:'ذروة',meso_phase_deload:'تفريغ',
+      meso_phase_accumulation:'تراكم',meso_phase_intensification:'تكثيف',meso_phase_peak:'قمة',meso_phase_deload:'تفريغ',
       meso_vol_rpe_progression:'تقدم الحجم والجهد',meso_weeks:'أسبوع',
       // Warm-up
-      warmup_ramp:'تصعيد',warmup_work:'العمل',warmup_pct:'% العمل',
-      warmup_tip_squat:'دوائر الورك + وضع القرفصاء قبل أول مجموعة إحماء.',
-      warmup_tip_bench:'تمارين شد الحزام + تراجع لوح الكتف قبل الإحماء.',
-      warmup_tip_deadlift:'حركات الورك + جسور الألوية. شد البطن في كل تكرار.',
-      warmup_tip_ohp:'لفات الجسم + تمارين الحائط. شد البطول طوال الوقت.',
-      warmup_tip_row:'تمديد الظهر + التعليق قبل التجديف. شد البطن بقوة.',
-      warmup_tip_general:'تمارين كارديو خفيفة 3-5 دقائق + إطالات ديناميكية للعضلات المستهدفة.',
-      warmup_tip_legs:'تدليك الفخذين وثنيات الورك قبل الإحماء.',
-      warmup_tip_upper:'تمارين شد الحزام + دوائر الذراعين قبل الإحماء.',
+      warmup_ramp:'تصعيد',warmup_work:'الشغل',warmup_pct:'% الشغل',
+      warmup_tip_squat:'لفات الحوض + جلوس قرفصاء قبل أول مجموعة إحماء.',
+      warmup_tip_bench:'تمارين شد الكتف + تراجع اللوح قبل الإحماء.',
+      warmup_tip_deadlift:'حركات الحوض + جسور الألوية. شد بطنك في كل تكرار.',
+      warmup_tip_ohp:'لفات الجسم + تمارين الحائط. ضم جسمك طوال الوقت.',
+      warmup_tip_row:'تمديد الظهر + التعليق قبل التجديف. شد بطنك بقوة.',
+      warmup_tip_general:'كارديو خفيف 3-5 دقائق + إطالات ديناميكية للعضلات المستهدفة.',
+      warmup_tip_legs:'تدليك الفخذين وثنيات الحوض قبل الإحماء.',
+      warmup_tip_upper:'تمارين شد الكتف + لف الدراعين قبل الإحماء.',
       // General warmup
-      gen_warmup_legs:'تدليك: الفخذين، العضلات الخلفية، الألوية',gen_warmup_legs2:'دوائر الورك 10 مرات كل اتجاه',
-      gen_warmup_legs3:'قرفصاء بدون وزن 10 مرات',gen_warmup_legs4:'أرجل متأرجحة 10 مرات',gen_warmup_legs5:'تمارين الدودة 5 مرات',
-      gen_warmup_upper1:'تمارين شد الحزام 15 مرة',gen_warmup_upper2:'دوائر الذراعين 10 مرات أمام/خلف',
+      gen_warmup_legs:'تدليك: الفخذين، العضلات الخلفية، الألوية',gen_warmup_legs2:'لفات الحوض 10 مرات كل اتجاه',
+      gen_warmup_legs3:'قرفصاء بدون وزن 10 مرات',gen_warmup_legs4:'رجلك متأرجحة 10 مرات',gen_warmup_legs5:'تمارين الدودة 5 مرات',
+      gen_warmup_upper1:'شد الكتف 15 مرة',gen_warmup_upper2:'لف الدراعين 10 مرات قدام/ورا',
       gen_warmup_upper3:'تمارين الضغط 10 مرات',gen_warmup_upper4:'تراجع لوح الكتف 10 مرات',gen_warmup_upper5:'تمدد القطة 8 مرات',
-      gen_warmup_default1:'قفزات 30 ثانية',gen_warmup_default2:'لفات الجذع 10 مرات',
+      gen_warmup_default1:'نط 30 ثانية',gen_warmup_default2:'لفات الجذع 10 مرات',
       // Rehab
-      rehab_acute:'المرحلة الحادة',rehab_recovery:'مرحلة التعافي (عند زوال الألم)',rehab_safe:'تمارين آمنة:',rehab_avoid:'تجنب:',
-      rehab_stop_all:'⛔ أوقف جميع التمارين المسببة للألم حتى يزول.',
+      rehab_acute:'المرحلة الحادة',rehab_recovery:'مرحلة التعافي (لما يروح الألم)',rehab_safe:'تمارين آمنة:',rehab_avoid:'تجنب:',
+      rehab_stop_all:'⛔ وقف كل التمارين اللي بتوجعك لغاية ما الألم يروح.',
       rehab_book_consult:'📅 احجز استشارة مجانية',rehab_injury:'إصابة',rehab_inflammation:'التهاب خفيف',
       // Fatigue
       fatigue_sleep:'جودة النوم',fatigue_stress:'الضغط النفسي',fatigue_doms:'ألم العضلات',
       fatigue_nutrition:'التغذية',fatigue_cns:'الجهاز العصبي',
-      fatigue_hint_sleep:'1=سيء، 10=ممتاز',fatigue_hint_stress:'1=مرهق، 10=مستريح',
-      fatigue_hint_doms:'1=مدمر، 10=منتعش',fatigue_hint_nutrition:'1=جائع، 10=مثالي',fatigue_hint_cns:'1=منهك، 10=نشط',
-      fatigue_rates:'قيّم كل عامل 1-10. الأعلى أفضل للنوم/التغذية/الجهاز العصبي، الأقل أفضل للضغط/الألم.',
-      fatigue_ready:'جاهز للتدريب بكثافة كاملة.',
-      fatigue_rpe_adjusted:'تم تعديل RPE بسبب التعب. السلامة أولاً.',
+      fatigue_hint_sleep:'1=وحش، 10=ممتاز',fatigue_hint_stress:'1=متدايخ، 10=مرتاح',
+      fatigue_hint_doms:'1=مدمّر، 10=منتعش',fatigue_hint_nutrition:'1=جوعان، 10=ممتاز',fatigue_hint_cns:'1=مرهق، 10=نشيط',
+      fatigue_rates:'قيّم كل حاجة من 1-10. الأعلى أحسن للنوم/التغذية/العصبي، الأقل أحسن للضغط/الألم.',
+      fatigue_ready:'جاهز للتمرين بكثافة كاملة.',
+      fatigue_rpe_adjusted:'اتعدل RPE بسبب التعب. السلامة الأول.',
       // Compliance
       comp_score:'الدرجة',comp_grade:'التقدير',comp_status:'الحالة',
-      comp_excellent:'ممتاز',comp_good:'جيد',comp_fair:'مقبول',comp_needs_work:'يحتاج عملاً',comp_at_risk:'في خطر',
+      comp_excellent:'ممتاز',comp_good:'كويس',comp_fair:'مقبول',comp_needs_work:'محتاج شغل',comp_at_risk:'في خطر',
       comp_current_streak:'السلسلة الحالية',comp_best_streak:'أفضل سلسلة',comp_adherence:'الالتزام (مخطط/مسجل)',
       comp_day:'يوم',comp_days:'أيام',comp_sessions:'جلسة',
       // ACWR
-      acwr_high:'مرتفع — خطر الإصابة مرتفع',acwr_moderate:'متوسط — راقب عن كثب',
-      acwr_elevated:'مرتفع قليلاً — ضمن المقبول',acwr_low:'منخفض — فكر في زيادة الحمل',acwr_normal:'طبيعي — النطاق الأمثل',
+      acwr_high:'عالي — خطر الإصابة عالي',acwr_moderate:'متوسط — راقب كويس',
+      acwr_elevated:'عالي شوية — مقبول',acwr_low:'قليل — فكر تزود الحمل',acwr_normal:'طبيعي — النطاق الأمثل',
       acwr_ratio:'ACWR',
       // Auto adjustments
       auto_adj_needed:'تعديل مطلوب',auto_adj_needed_pl:'تعديلات مطلوبة',
       auto_adj_opportunity:'فرصة',auto_adj_opportunities:'فرص',
       // Measurements
-      meas_weight:'الوزن (كغم)',meas_bf:'نسبة الدهون %',meas_chest:'الصدر (سم)',meas_waist:'الخصر (سم)',
-      meas_l_arm:'الذراع الأيسر (سم)',meas_r_arm:'الذراع الأيمن (سم)',meas_l_thigh:'الفخذ الأيسر (سم)',meas_r_thigh:'الفخذ الأيمن (سم)',
+      meas_weight:'الوزن (كغم)',meas_bf:'نسبة الدهون %',meas_chest:'الصدر (سم)',meas_waist:'الوسط (سم)',
+      meas_l_arm:'الدراع الأيسر (سم)',meas_r_arm:'الدراع الأيمن (سم)',meas_l_thigh:'الفخذ الأيسر (سم)',meas_r_thigh:'الفخذ الأيمن (سم)',
       meas_l_calf:'الساق اليسرى (سم)',meas_r_calf:'الساق اليمنى (سم)',meas_photo:'صورة تقدم (اختياري، حد أقصى 100 كيلوبايت)',
-      meas_last:'آخر',meas_no_data:'لا توجد بيانات',meas_weight_trend:'اتجاه الوزن',
+      meas_last:'آخر حاجة',meas_no_data:'مفيش بيانات',meas_weight_trend:'اتجاه الوزن',
       // Periodization badge
       per_periodization:'دورة تدريبية',
       // Cardio
-      cardio_today:'اليوم',
+      cardio_today:'النهارده',
       // Overload suggest
-      overload_increase:'زيادة إلى',overload_hold:'تثبيت عند',overload_reduce:'تقليل إلى',overload_bump:'رفع',
+      overload_increase:'زود لـ',overload_hold:'ثبّت على',overload_reduce:'قلّل لـ',overload_bump:'رفع',
       // Rest timer
-      timer_start:'بدء',timer_stop:'إيقاف',timer_reset:'إعادة',timer_rest:'راحة',
-      timer_compound:'تمارين مركبة: 3-5 دقائق',timer_isolation:'تمارين عزل: 2-3 دقائق',
+      timer_start:'ابدأ',timer_stop:'وقف',timer_reset:'إعادة',timer_rest:'راحة',
+      timer_compound:'تمارين مركبة: 3-5 دقايق',timer_isolation:'تمارين عزل: 2-3 دقايق',
       // Custom exercises
-      custom_add:'إضافة تمرين مخصص',custom_name:'اسم التمرين',custom_muscle:'المجموعة العضلية',
+      custom_add:'إضافة تمرين مخصوص',custom_name:'اسم التمرين',custom_muscle:'المجموعة العضلية',
       custom_type:'النوع',custom_compound:'مركب',custom_isolation:'عزل',
       custom_sets:'المجموعات الافتراضية',custom_reps:'التكرارات الافتراضية',custom_rpe:'الجهد الافتراضي',
-      custom_save:'حفظ التمرين',custom_delete:'حذف',custom_my_exercises:'تماريني المخصصة',
-      custom_no_data:'لا توجد تمارين مخصصة بعد. أضف واحداً أدناه.',
+      custom_save:'حفظ التمرين',custom_delete:'مسح',custom_my_exercises:'تماريني المخصوصة',
+      custom_no_data:'مفيش تمارين مخصوصة لسه. ضيف واحد تحت.',
       // Data sync
-      sync_title:'مزامنة البيانات',sync_upload:'رفع إلى السحابة',sync_download:'تنزيل من السحابة',
-      sync_success:'تمت المزامنة بنجاح!',sync_fail:'فشلت المزامنة. حاول مرة أخرى.',
-      sync_confirm_upload:'رفع بيانات التدريب إلى السحابة؟ سيتم استبدال أي بيانات محفوظة مسبقاً.',
-      sync_confirm_download:'تنزيل بيانات التدريب من السحابة؟ سيتم استبدال بياناتك المحلية.',
+      sync_title:'مزامنة البيانات',sync_upload:'رفع للسحابة',sync_download:'تنزيل من السحابة',
+      sync_success:'تمت المزامنة بنجاح!',sync_fail:'المزامنة فشلت. حاول تاني.',
+      sync_confirm_upload:'رفع بيانات التمرين للسحابة؟ هتستبدل أي بيانات محفوظة قبل كده.',
+      sync_confirm_download:'تنزيل بيانات التمرين من السحابة؟ هتستبدل بياناتك المحلية.',
+      sync_desc:'اكتب مفتاح مزامنة عشان تنقل بيانات التمرين بين الأجهزة.',
+      ce_title:'تمرين مخصوص',ce_desc:'إضافة تمرين مش موجود في قاعدة البيانات.',ce_type:'النوع',
+      ce_focus:'التركيز',ce_inc:'الزيادة',ce_minrep:'أقل تكرار',ce_maxrep:'أقصى تكرار',
+      ce_save:'حفظ التمرين',ce_none:'مفيش تمارين مخصوصة لسه.',ce_add_custom:'+ تمرين مخصوص',
+      ce_name_required:'من فضلك اكتب اسم التمرين.',ce_saved:'اتحفظ التمرين المخصوص.',
+      ce_add_to_day:'+ تمرين مخصوص',ce_select:'اكتب رقم التمرين عشان تضيفه',ce_invalid:'اختيار غلط.',ce_duplicate:'موجود بالفعل في اليوم ده.',
+      name_label:'الاسم',age_label:'العمر',save_profile:'حفظ البروفايل',
+      profile_saved:'اتحفظ البروفايل!',profile_greeting:'أهلاً بيك تاني',name_required:'من فضلك اكتب اسمك الأول.',
       // Timer display
       rest_timer_label:'مؤقت الراحة',
+      time_up:'خلص!',
       // Deload bar (dashboard)
-      deload_now:'تفريغ الآن',
-      weeks_since_deload:'أسابيع منذ التفريغ',
-      wk_until_deload:'أسبوع حتى الموعد',
+      deload_now:'فَرّغ دلوقتي',
+      weeks_since_deload:'أسابيع من آخر تفريغ',
+      wk_until_deload:'أسبوع للتفريغ',
       // Rehab exercise selection
       rehab_inj_safe:'اختيار آمن للإصابات',
-      rehab_ex_green:'التمارين التي تم وضع علامة',
-      rehab_ex_risk:'آمنة لحالتك. الأخرى قد تكون خطرة.',
+      rehab_ex_green:'التمارين اللي اتعلّمت عليها علامة',
+      rehab_ex_risk:'آمنة لحالتك. الباقي ممكن يكون خطر.',
       rehab_book_short:'احجز استشارة مجانية ←',
       day_prefix:'اليوم',
       // PR badges
       pr_badge_pr:'رقم قياسي',
       pr_badge_close:'قريب',
       // Last session display
-      last_session:'آخر',
+      last_session:'آخر مرة',
       e1rm_abbr:'e1RM',
       // Meas history
       meas_progress_photos:'صور التقدم',
@@ -1251,7 +1311,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       per_deadlift_label:'رفع ميت',
       per_weak_points:'نقاط الضعف',
       // Cardio dash
-      cardio_this_week:'هذا الأسبوع',
+      cardio_this_week:'الأسبوع ده',
       cardio_sessions:'جلسة',
       // Fatigue detail
       fatigue_sleep_lbl:'نوم',
@@ -1260,89 +1320,89 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       fatigue_nutrition_lbl:'تغذية',
       fatigue_cns_lbl:'عصبي',
       // ACWR in history
-      acwr_history_title:'ACWR — نسبة الحمل الحاد إلى المزمن',
+      acwr_history_title:'ACWR — نسبة الحمل الحاد للمزمن',
       acwr_acute:'الحاد (7 أيام)',
-      acwr_chronic:'المزمن (متوسط 28 يوماً)',
+      acwr_chronic:'المزمن (متوسط 28 يوم)',
       // History
       hist_week_of:'أسبوع',
-      hist_select_ex:'اختر تمريناً...',
-      hist_log_more:'سجل جلسات أكثر لرؤية تقدم e1RM.',
-      hist_log_pr:'سجل بعض الجلسات لرؤية الأرقام القياسية.',
+      hist_select_ex:'اختار تمرين...',
+      hist_log_more:'سجّل جلسات أكتر عشان تشوف تقدم e1RM.',
+      hist_log_pr:'سجّل بعض الجلسات عشان تشوف الأرقام القياسية.',
       hist_book_consult:'استشارة',
       hist_book_injury:'احجز استشارة إصابة مجانية',
       hist_last_deload:'آخر تفريغ',
       hist_sessions_tracked:'الجلسات المسجلة',
-      hist_deload_interval:'فاصل التفريغ',
+      hist_deload_interval:'مدة التفريغ',
       hist_rpe_overshoots:'تجاوزات RPE المتتالية',
-      hist_this_week:'هذا الأسبوع',
+      hist_this_week:'الأسبوع ده',
       hist_total_logged:'إجمالي الجلسات المسجلة',
       hist_7day_fatigue:'متوسط التعب 7 أيام',
-      hist_fatigue_green:'أخضر (تعب منخفض)',
+      hist_fatigue_green:'أخضر (تعب قليل)',
       hist_fatigue_yellow:'أصفر (تعب متوسط)',
       hist_fatigue_red:'أحمر (تعب عالي — فكر في التفريغ)',
       // Chart
-      chart_need_sessions:'يلزم جلستان على الأقل للرسم البياني.',
+      chart_need_sessions:'محتحتاج جلستين على الأقل عشان الرسم البياني.',
       // Alerts
-      alert_gen_program:'قم بإنشاء برنامج أولاً.',
-      meso_complete_alert:'🎉 اكتملت الدورة التدريبية! تحقق من التاريخ للملخص.',
-      alert_enter_minutes:'أدخل المدة بالدقائق.',
-      alert_meas_saved:'تم حفظ القياسات.',
-      alert_photo_large:'الصورة كبيرة جداً. يرجى قص أو تصغير الحجم إلى أقل من 100 كيلوبايت.',
-      alert_gen_meso:'قم بإنشاء خطة دورة تدريبية أولاً، أو تخط بالذهاب مباشرة إلى التدريب.',
-      alert_deload_marked:'تم وضع علامة التفريغ. تم إعادة تعيين العداد.',
-      alert_imported:'تم الاستيراد. جارٍ إعادة التحميل...',
+      alert_gen_program:'اعمل برنامج أولاً.',
+      meso_complete_alert:'تمت الدورة التدريبية! شوف التاريخ عشان الملخص.',
+      alert_enter_minutes:'اكتب المدة بالدقايق.',
+      alert_meas_saved:'اتحفظت القياسات.',
+      alert_photo_large:'الصورة كبيرة قوي. قصّر أو صغّر الحجم أقل من 100 كيلوبايت.',
+      alert_gen_meso:'اعمل خطة دورة تدريبية أولاً، أو تخطّ وروح مباشرة للتمرين.',
+      alert_deload_marked:'اتعملت علامة التفريغ. العداد اتعاد.',
+      alert_imported:'اتستورد. إعادة تحميل...',
       // Confirms
-      confirm_remove_ex:'إزالة من تمرين اليوم؟',
-      confirm_advance_week:'هل تريد وضع علامة اكتمال لهذا الأسبوع والتقدم إلى التالي؟ سيتم تعديل الأحمال تلقائياً.',
-      confirm_mark_deload:'هل تريد وضع علامة تفريغ لهذا الأسبوع؟ سيتم إعادة تعيين عداد التفريغ.',
-      confirm_reset_all:'إعادة تعيين جميع بيانات التدريب (الحجم، التقسيم، البرنامج، السجلات، تاريخ الأحمال، متتبع التفريغ، علامات الألم، الكارديو، التعب، خطط الدورة التدريبية)؟',
+      confirm_remove_ex:'نشيله من تمرين النهارده؟',
+      confirm_advance_week:'تأكيد إن الأسبوع ده خلص ونمشي لللي بعده؟ هتتعدل الأحمال تلقائياً.',
+      confirm_mark_deload:'نعمل علامة تفريغ للأسبوع ده؟ العداد هيتعاد.',
+      confirm_reset_all:'مسح كل بيانات التمرين (الحجم، التقسيم، البرنامج، السجلات، تاريخ الأحمال، متتبع التفريغ، علامات الألم، الكارديو، التعب، خطط الدورة التدريبية)؟',
       // Meso history
-      meso_no_completed:'لا توجد دورات تدريبية مكتملة بعد.',
+      meso_no_completed:'مفيش دورات تدريبية مكتملة لسّه.',
       meso_strength:'القوة',
       meso_avg_e1rm:'متوسط e1RM',
       // Meso preview
-      meso_configure_first:'قم بالتكوين أعلاه وانقر إنشاء.',
+      meso_configure_first:'ظبط الإعدادات فوق واضغط إنشاء.',
       // Generate program
-      gen_rest_2_3:'2-3 دقائق',
+      gen_rest_2_3:'2-3 دقايق',
       gen_rest_90_120:'90-120 ثانية',
       gen_rest_60_90:'60-90 ثانية',
       // Split rec
-      split_advanced_periodization:'دورة متقدمة مع فترات تراكم وتكثيف.',
-      split_wave_periodization:'دورة موجية 65-95%. الحد الأقصى للتدريب = 90% من 1RM. BBB إضافي.',
-      split_add_weight:'أضف 2.5-5 كجم كل جلسة. 3×5 كلاسيكي. تفريغ كل 4 أسابيع.',
-      split_dup:'دورة يومية متغيرة: ثقيل/معتدل/خفيف. ممتاز لإدارة الجهاز العصبي.',
-      split_strength_maintenance:'صيانة القوة بجلستين. التركيز على متغيرات التمارين الرئيسية.',
-      split_try_531:'جرب 5/3/1 أو قم بتشغيل التمارين الرئيسية في تقسيم دوار.',
-      split_ppl_arnold:'أفضل ما في العالمين: أنماط PPL + تركيز أرنولد. ادفع حدود التعافي.',
-      split_high_freq:'تردد عالٍ بحجم يومي يمكن إدارته. كل عضلة 3 مرات/أسبوع بجلسات أقصر.',
-      split_mix_compound:'امزج الأنماط المركبة مع العزل المركز. يتطلب تعافياً جيداً.',
-      split_ppl_ul:'كتلة PPL + كتلة علوي/سفلي ختامية. تغطية كاملة.',
+      split_advanced_periodization:'دورة متقدمة مع مراحل تراكم وتكثيف.',
+      split_wave_periodization:'دورة موجية 65-95%. أقصى تمرين = 90% من 1RM. BBB إضافي.',
+      split_add_weight:'زود 2.5-5 كجم كل جلسة. 3×5 كلاسيكي. فرّغ كل 4 أسابيع.',
+      split_dup:'دورة يومية متغيرة: تقيل/نص/خفيف. ممتاز لإدارة الجهاز العصبي.',
+      split_strength_maintenance:'صيانة القوة بجلستين. ركز على متغيرات التمارين الرئيسية.',
+      split_try_531:'جرب 5/3/1 أو شغّل التمارين الرئيسية في تقسيم دوّار.',
+      split_ppl_arnold:'أفضل من الاتنين: أنماط PPL + تركيز أرنولد. ادفع حدود التعافي.',
+      split_high_freq:'تكرار عالي بحجم يومي مناسب. كل عضلة 3 مرات/أسبوع بجلسات أقصر.',
+      split_mix_compound:'مزج الأنماط المركبة مع العزل المركز. محتاج تعافي كويس.',
+      split_ppl_ul:'بلوك PPL + بلوك علوي/سفلي ختامي. تغطية كاملة.',
       split_arnold_ul:'دورة أرنولد 3 أدوار + علوي/سفلي. ممتاز لتقوية النقاط الضعيفة.',
       split_torso_limbs:'الجذع/الأطراف يركز على جماليات الجزء العلوي + شكل الجزء السفلي.',
-      split_5day_hybrid:'هجين 5 أيام. تحفيز متوازن عبر جميع أنماط الحركة.',
-      split_industry_standard:'المعيار الصناعي. يدرب كل حركة مرتين/أسبوع بحجم متوازن.',
-      split_push_pull:'يفصل الضغط عن عزل الذراعين. ممتاز للذراعين أو الكتفين المتأخرين.',
-      split_4day_popular:'التقسيم الأكثر شيوعاً وفعالية لأربعة أيام.',
-      split_max_frequency:'يعظم التكرار للمبتدئين وقليلي التعافي.',
-      split_full_body:'كل جلسة تستهدف جميع المجموعات العضلية الرئيسية 2-3 مرات/أسبوع.',
-      split_2day:'قسّم يوميك إلى علوي وسفلي. يعظم التعافي بين الجلسات.',
+      split_5day_hybrid:'هجين 5 أيام. تحفيز متوازن في كل أنماط الحركة.',
+      split_industry_standard:'المعيار المعروف. درب كل حركة مرتين/أسبوع بحجم متوازن.',
+      split_push_pull:'يفصل الضغط عن عزل الدراعين. ممتاز للدراعين أو الكتفين المتأخرين.',
+      split_4day_popular:'أشهر تقسيم 4 أيام وأكترهم فعالية.',
+      split_max_frequency:'أقصى تكرار للمبتدئين وقليلي التعافي.',
+      split_full_body:'كل جلسة تستهدف كل المجموعات العضلية الرئيسية 2-3 مرات/أسبوع.',
+      split_2day:'قسم يوميك علوي وسفلي. أقصى تعافي بين الجلسات.',
       split_start_simple:'ابدأ بجلستين في الأسبوع. الاستمرارية أهم من الشدة.',
       // Safety messages
-      safety_pain_reported:'تم الإبلاغ عن ألم. أوقف هذا التمرين.',
-      safety_inflammation:'التهاب خفيف. انتقل إلى بدائل آمنة للتأهيل أو احجز استشارة مجانية.',
-      safety_jump_capped:'قفزة >10%، تم الحد إلى',
-      safety_tendon_capped:'تأخر الوتر: تم الحد إلى',
-      safety_rpe_capped:'تم تحديد RPE عند 9.',
+      safety_pain_reported:'فيه ألم مُبلّغ عنه. وقف التمرين ده.',
+      safety_inflammation:'التهاب خفيف. حوّل لبدائل آمنة أو احجز استشارة مجانية.',
+      safety_jump_capped:'قفزة أكتر من 10%، اتحددت لـ',
+      safety_tendon_capped:'تأخر الوتر: اتحدد لـ',
+      safety_rpe_capped:'RPE اتحدد عند 9.',
       // Suggest load
-      suggest_no_history:'لا يوجد تاريخ. ابدأ في نطاق التكرارات العليا عند RPE 7-8.',
-      suggest_rpe_out:'RPE خارج النطاق.',
-      suggest_rpe_below:'آخر RPE أقل من الهدف. تمت الزيادة.',
-      suggest_rpe_above:'آخر RPE أعلى من الهدف. تثبيت/تخفيض.',
-      suggest_double_prog:'تقدم مزدوج: زيادة الوزن، خفض التكرارات.',
-      suggest_continue_prog:'الاستمرار في التقدم من الجلسة الأخيرة.',
-      suggest_first_session:'الجلسة الأولى. ابدأ بالحمل المقترح.',
+      suggest_no_history:'مفيش تاريخ. ابدأ في نطاق التكرارات العليا على RPE 7-8.',
+      suggest_rpe_out:'RPE بره النطاق.',
+      suggest_rpe_below:'آخر RPE أقل من الهدف. اتعملت زيادة.',
+      suggest_rpe_above:'آخر RPE أعلى من الهدف. تثبيت/تخفيف.',
+      suggest_double_prog:'تقدم مزدوج: زود الوزن، قلّل التكرارات.',
+      suggest_continue_prog:'كمل تقدم من الجلسة اللي فاتت.',
+      suggest_first_session:'أول جلسة. ابدأ بالحمل المقترح.',
       // Periodization RPE
-      peri_standard_rpe_8:'RPE 8 قياسي',
+      peri_standard_rpe_8:'RPE 8 عادي',
       peri_5x5:'3×5 @ RPE 8-9',
       peri_531_w:'أسبوع',
       peri_531_w1:'5/5/5+ (65-75% TM) @ RPE 6-7',
@@ -1351,24 +1411,26 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       peri_531_w1_4:'الأسبوع 1: 5/5/5+ @ RPE 6-7',
       peri_531_w2_4:'الأسبوع 2: 3/3/3+ @ RPE 7-8',
       peri_531_w3_4:'الأسبوع 3: 5/3/1+ @ RPE 8-9',
-      peri_heavy:'اليوم الثقيل: 3-5 تكرارات @ RPE 8-9',
-      peri_moderate:'اليوم المعتدل: 5-8 تكرارات @ RPE 7-8',
+      peri_heavy:'اليوم التقيل: 3-5 تكرارات @ RPE 8-9',
+      peri_moderate:'اليوم النص: 5-8 تكرارات @ RPE 7-8',
       peri_light:'اليوم الخفيف: 8-12 تكرارات @ RPE 6-7',
       peri_accum:'التراكم: 6-10 تكرارات @ RPE 6-7',
       peri_intensify:'التكثيف: 2-5 تكرارات @ RPE 8-9',
-      peri_peak:'الذروة: 1-3 فرديات @ RPE 8.5-9.5',
-      peri_deload_rpe:'التفريغ: 3×5 @ RPE 6، خفض الحجم 50%',
+      peri_peak:'القمة: 1-3 فرديات @ RPE 8.5-9.5',
+      peri_deload_rpe:'التفريغ: 3×5 @ RPE 6، قلّل الحجم 50%',
       // Deload reasons
-      dl_scheduled:'مجدول منذ آخر تفريغ.',
-      dl_reduce_sets:'قلل المجموعات ~50%، حدد RPE عند 6-7.',
+      dl_scheduled:'مجدول من آخر تفريغ.',
+      dl_reduce_sets:'قلّل المجموعات ~50%، حدد RPE عند 6-7.',
       dl_rpe_overshoot:'تجاوز RPE لجلسات متتالية.',
-      dl_week:'أسبوع تفريغ: نصف المجموعات، RPE 6-7.',
+      dl_week:'أسبوع تفريغ: نص المجموعات، RPE 6-7.',
       // Quiz
       quiz_of:'من',
       // Volume
       vol_days_wk:'يوم/أسبوع',
       // Selection
       sel_try:'جرب',
+      // 1RM percentage
+      pct_1rm:'% 1RM',
     }
   };
   function _(k){return I18N[window.__lang]&&I18N[window.__lang][k]!==undefined?I18N[window.__lang][k]:I18N.en[k]!==undefined?I18N.en[k]:k;}
@@ -1524,7 +1586,23 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     "Hammer Curls":{t:"isolation",f:"low",jr:["elbow"],inc:1,rr:[8,15],subs:["Standing DB Curl","Cable Curl","Reverse Curl","Incline Curl"]},
     "Forearm Ext/Flex":{t:"isolation",f:"low",jr:["wrist"],inc:1,rr:[10,20],subs:["Wrist Curl","Reverse Wrist Curl","Farmers Walk","Plate Pinch"]}
   };
-  function meta(ex){ return EXERCISE_META[ex]||{t:"compound",f:"moderate",jr:[],inc:2.5,rr:[6,12],subs:[]}; }
+  function meta(ex){
+    var b=EXERCISE_META[ex];
+    if(b)return b;
+    var ce=ls(K.CE,[]);
+    for(var i=0;i<ce.length;i++){if(ce[i].name===ex)return ce[i];}
+    return{t:"compound",f:"moderate",jr:[],inc:2.5,rr:[6,12],subs:[]};
+  }
+  function saveCustomEx(name,type,focus,inc,rr,subs){
+    var ce=ls(K.CE,[]);
+    for(var i=0;i<ce.length;i++){if(ce[i].name===name){ce[i]={name:name,t:type,f:focus,inc:inc,rr:rr,subs:subs||[]};ss(K.CE,ce);return;}}
+    ce.push({name:name,t:type,f:focus,inc:inc,rr:rr,subs:subs||[]});
+    ss(K.CE,ce);
+  }
+  function rmCustomEx(name){
+    var ce=ls(K.CE,[]);
+    ss(K.CE,ce.filter(function(e){return e.name!==name;}));
+  }
 
   function vidUrl(ex){return 'https://www.youtube.com/results?search_query='+encodeURIComponent(ex);}
   function exLinkHtml(ex){return '<a class="ex-vid-link" href="'+vidUrl(ex)+'" target="_blank" title="Search YouTube">'+ex+'</a>';}
@@ -1659,7 +1737,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     {id:'hole',l:'Bottom of Squat (the hole)'},{id:'midpoint',l:'Mid-Point Sticking'},
     {id:'legs',l:'Leg Strength / Mass'},{id:'back',l:'Back Strength / Thickness'}
   ];
-  const K = {VT:'mos_vol_targets',SP:'mos_split_profile',PG:'mos_program',LG:'mos_logs',VI:'mos_vol_inputs',LH:'mos_load_history',DT:'mos_deload_tracker',PF:'mos_pain_flags',PL:'mos_pl_profile',FL:'mos_fatigue_log',CL:'mos_cardio_logs',MP:'mos_meso_plan',MA:'mos_meso_active',MH:'mos_meso_history',MM:'mos_measurements'};
+  const K = {VT:'mos_vol_targets',SP:'mos_split_profile',PG:'mos_program',LG:'mos_logs',VI:'mos_vol_inputs',LH:'mos_load_history',DT:'mos_deload_tracker',PF:'mos_pain_flags',PL:'mos_pl_profile',FL:'mos_fatigue_log',CL:'mos_cardio_logs',MP:'mos_meso_plan',MA:'mos_meso_active',MH:'mos_meso_history',MM:'mos_measurements',CE:'mos_custom_exercises',CR:'mos_custom_replacements'};
 
   // ── Weak Points Grid ──
   function renderWeakPoints(){
@@ -1707,39 +1785,39 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     if(!plProfile)return null;
     var yrs=plProfile.years||'intermediate',total=plProfile.squat+plProfile.bench+plProfile.deadlift;
     if(!total||total<30)return null;
-    if(yrs==='novice')return{name:'Linear Progression',key:'linear',desc:'Add 2.5-5 kg every session. 3 sets × 5 reps across. Deload every 4th week.',cycle:1,note:'Best for early strength gains. Trust the process.'};
-    if(total<500||yrs==='intermediate')return{name:'5/3/1 (Wave Periodization)',key:'531',desc:'3-week wave at 65-95% TM. BBB supplemental. Training Max = 90% 1RM.',cycle:3,note:'Proven intermediate framework. Joker sets allowed on good days.'};
-    if(total<700)return{name:'DUP (Daily Undulating)',key:'dup',desc:'Heavy/Moderate/Light rotation across the week. Varied RPE (6-9) and volume.',cycle:1,note:'Keeps CNS fresh while accumulating volume at different intensities.'};
-    return{name:'Block Periodization',key:'block',desc:'4wk Accumulation (high vol) → 4wk Intensification (high intensity) → 2wk Peak → Deload.',cycle:10,note:'Advanced. Targets specific weaknesses per block.'};
+    if(yrs==='novice')return{name:'Linear Progression',key:'linear',desc:_('split_add_weight'),cycle:1,note:_('split_add_weight')};
+    if(total<500||yrs==='intermediate')return{name:'5/3/1 (Wave Periodization)',key:'531',desc:_('split_wave_periodization'),cycle:3,note:_('split_wave_periodization')};
+    if(total<700)return{name:'DUP (Daily Undulating)',key:'dup',desc:_('split_dup'),cycle:1,note:_('split_dup')};
+    return{name:'Block Periodization',key:'block',desc:_('split_advanced_periodization'),cycle:10,note:_('split_advanced_periodization')};
   }
 
   function mainLiftRPE(scheme,week,goal,dayName){
-    if(!scheme)return {rpe:8,reps:8,desc:'Standard RPE 8'};
-    if(scheme.key==='linear')return{rpe:8.5,reps:5,desc:'3×5 @ RPE 8-9'};
+    if(!scheme)return {rpe:8,reps:8,desc:_('peri_standard_rpe_8')};
+    if(scheme.key==='linear')return{rpe:8.5,reps:5,desc:_('peri_5x5')};
     if(scheme.key==='531'){
       var w=((week-1)%3)+1;
       if(dayName&&dayName.toLowerCase().indexOf('squ')>=0){
-        if(w===1)return{rpe:6.5,reps:5,desc:'Week '+w+': 5/5/5+ (65-75% TM) @ RPE 6-7'};
-        if(w===2)return{rpe:8,reps:3,desc:'Week '+w+': 3/3/3+ (70-80% TM) @ RPE 7-8'};
-        return{rpe:9,reps:1,desc:'Week '+w+': 5/3/1+ (75-85% TM) @ RPE 8-9'};
+        if(w===1)return{rpe:6.5,reps:5,desc:_('peri_531_w')+' '+w+': '+_('peri_531_w1')};
+        if(w===2)return{rpe:8,reps:3,desc:_('peri_531_w')+' '+w+': '+_('peri_531_w2')};
+        return{rpe:9,reps:1,desc:_('peri_531_w')+' '+w+': '+_('peri_531_w3')};
       }
-      if(w===1)return{rpe:6.5,reps:5,desc:'Week 1: 5/5/5+ @ RPE 6-7'};
-      if(w===2)return{rpe:8,reps:3,desc:'Week 2: 3/3/3+ @ RPE 7-8'};
-      return{rpe:9,reps:1,desc:'Week 3: 5/3/1+ @ RPE 8-9'};
+      if(w===1)return{rpe:6.5,reps:5,desc:_('peri_531_w1_4')};
+      if(w===2)return{rpe:8,reps:3,desc:_('peri_531_w2_4')};
+      return{rpe:9,reps:1,desc:_('peri_531_w3_4')};
     }
     if(scheme.key==='dup'){
-      if(dayName&&dayName.toLowerCase().indexOf('heavy')>=0)return{rpe:8.5,reps:3,desc:'Heavy Day: 3-5 reps @ RPE 8-9'};
-      if(dayName&&dayName.toLowerCase().indexOf('moderate')>=0)return{rpe:7.5,reps:5,desc:'Moderate Day: 5-8 reps @ RPE 7-8'};
-      return{rpe:6.5,reps:8,desc:'Light Day: 8-12 reps @ RPE 6-7'};
+      if(dayName&&dayName.toLowerCase().indexOf('heavy')>=0)return{rpe:8.5,reps:3,desc:_('peri_heavy')};
+      if(dayName&&dayName.toLowerCase().indexOf('moderate')>=0)return{rpe:7.5,reps:5,desc:_('peri_moderate')};
+      return{rpe:6.5,reps:8,desc:_('peri_light')};
     }
     if(scheme.key==='block'){
       var phase=((week-1)%10)+1;
-      if(phase<=4)return{rpe:7,reps:8,desc:'Accumulation wk '+phase+': 6-10 reps @ RPE 6-7'};
-      if(phase<=8)return{rpe:8.5,reps:3,desc:'Intensification wk '+(phase-4)+': 2-5 reps @ RPE 8-9'};
-      if(phase<=9)return{rpe:9,reps:1,desc:'Peaking wk '+(phase-8)+': 1-3 singles @ RPE 8.5-9.5'};
-      return{rpe:6,reps:5,desc:'Deload: 3×5 @ RPE 6, reduce volume 50%'};
+      if(phase<=4)return{rpe:7,reps:8,desc:_('peri_accum')};
+      if(phase<=8)return{rpe:8.5,reps:3,desc:_('peri_intensify')};
+      if(phase<=9)return{rpe:9,reps:1,desc:_('peri_peak')};
+      return{rpe:6,reps:5,desc:_('peri_deload_rpe')};
     }
-    return{rpe:8,reps:8,desc:'Standard RPE 8'};
+    return{rpe:8,reps:8,desc:_('peri_standard_rpe_8')};
   }
 
   // ── Fatigue / Stress Ratio Scoring ──
@@ -1767,17 +1845,17 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     const d=parseInt(a.days||4),g=a.goal||'both',r=a.recovery||'moderate',e=a.exp||'intermediate',s=a.sched||'somewhat';
     // Strength/Powerlifting recommendations
     if(g==='strength'){
-      if(d>=4){if(e==='advanced')return{name:'Block Periodization (4-Day)',key:'block_4',note:'Advanced periodization with accumulation and intensification blocks.'};return{name:'5/3/1 (4-Day)',key:'five_three_one_4',note:'Wave periodization at 65-95%. Training Max = 90% of 1RM. BBB supplemental.'};}
-      if(d===3){if(e==='novice')return{name:'Linear Progression (3-Day)',key:'linear_3',note:'Add 2.5-5 kg every session. Classic 3×5 across. Deload every 4th week.'};return{name:'DUP (3-Day)',key:'dup_3',note:'Daily Undulating Periodization: Heavy/Moderate/Light rotation. Great for CNS management.'};}
-      if(d===2)return{name:'Upper/Lower (2-Day)',key:'upper_lower_2',note:'Strength maintenance with 2 sessions. Focus on main lift variants.'};
-      return{name:'5/3/1 (4-Day)',key:'five_three_one_4',note:'Try 5/3/1 or run the main lifts in a rotating split.'};
+      if(d>=4){if(e==='advanced')return{name:'Block Periodization (4-Day)',key:'block_4',note:_('split_advanced_periodization')};return{name:'5/3/1 (4-Day)',key:'five_three_one_4',note:_('split_wave_periodization')};}
+      if(d===3){if(e==='novice')return{name:'Linear Progression (3-Day)',key:'linear_3',note:_('split_add_weight')};return{name:'DUP (3-Day)',key:'dup_3',note:_('split_dup')};}
+      if(d===2)return{name:'Upper/Lower (2-Day)',key:'upper_lower_2',note:_('split_strength_maintenance')};
+      return{name:'5/3/1 (4-Day)',key:'five_three_one_4',note:_('split_try_531')};
     }
-    if(d>=6){if(g==='both'||r==='high')return{name:'PPL + Arnold Hybrid (6-Day)',key:'ppl_arnold_6',note:'Best of both worlds: PPL movement patterns + Arnold body-part emphasis. Push recovery limits.'};if(r==='low')return{name:'Upper/Lower 3x (6-Day)',key:'ul_3x_6',note:'High frequency with manageable daily volume. Each muscle 3x/week in shorter sessions.'};return{name:'PPL + Arnold Hybrid (6-Day)',key:'ppl_arnold_6',note:'Mix compound patterns with focused isolation. Requires good recovery.'};}
-    if(d===5){if(r==='high')return{name:'PPL + Upper/Lower (5-Day)',key:'ppl_ul_5',note:'PPL movement block + Upper/Lower finishing block. Complete coverage.'};if(e==='advanced')return{name:'Arnold + Upper/Lower (5-Day)',key:'arnold_ul_5',note:'Arnold 3-rotation + Upper/Lower. Great for bringing up weak points.'};if(g==='hypertrophy')return{name:'PPL + Torso/Limbs (5-Day)',key:'ppl_tl_5',note:'Torso/Limbs focuses on upper body aesthetics + lower body shape.'};return{name:'PPL + Upper/Lower (5-Day)',key:'ppl_ul_5',note:'Versatile 5-day hybrid. Balanced stimulus across all movement patterns.'};}
-    if(d===4){if(g==='both')return{name:'Upper/Lower (4-Day)',key:'upper_lower_4',note:'Industry standard. Trains each movement 2x/week with balanced volume.'};if(r==='low'||s==='variable')return{name:'Torso/Limbs (4-Day)',key:'torso_limbs_4',note:'Separates pressing from arm iso. Great for lagging arms or shoulders.'};return{name:'Upper/Lower (4-Day)',key:'upper_lower_4',note:'The most popular and effective 4-day split.'};}
-    if(d===3){if(e==='novice'||r==='low')return{name:'Full Body (3-Day)',key:'fullbody_3',note:'Maximises frequency for beginners and lower recovery.'};return{name:'Full Body (3-Day)',key:'fullbody_3',note:'Each session hits all major muscle groups 2-3x/week.'};}
-    if(d===2)return{name:'Upper/Lower (2-Day)',key:'upper_lower_2',note:'Split your 2 days into upper and lower body. Maximises recovery between sessions.'};
-    return{name:'Full Body (2-Day)',key:'upper_lower_2',note:'Start with 2 sessions per week. Consistent > intense.'};
+    if(d>=6){if(g==='both'||r==='high')return{name:'PPL + Arnold Hybrid (6-Day)',key:'ppl_arnold_6',note:_('split_ppl_arnold')};if(r==='low')return{name:'Upper/Lower 3x (6-Day)',key:'ul_3x_6',note:_('split_high_freq')};return{name:'PPL + Arnold Hybrid (6-Day)',key:'ppl_arnold_6',note:_('split_mix_compound')};}
+    if(d===5){if(r==='high')return{name:'PPL + Upper/Lower (5-Day)',key:'ppl_ul_5',note:_('split_ppl_ul')};if(e==='advanced')return{name:'Arnold + Upper/Lower (5-Day)',key:'arnold_ul_5',note:_('split_arnold_ul')};if(g==='hypertrophy')return{name:'PPL + Torso/Limbs (5-Day)',key:'ppl_tl_5',note:_('split_torso_limbs')};return{name:'PPL + Upper/Lower (5-Day)',key:'ppl_ul_5',note:_('split_5day_hybrid')};}
+    if(d===4){if(g==='both')return{name:'Upper/Lower (4-Day)',key:'upper_lower_4',note:_('split_industry_standard')};if(r==='low'||s==='variable')return{name:'Torso/Limbs (4-Day)',key:'torso_limbs_4',note:_('split_push_pull')};return{name:'Upper/Lower (4-Day)',key:'upper_lower_4',note:_('split_4day_popular')};}
+    if(d===3){if(e==='novice'||r==='low')return{name:'Full Body (3-Day)',key:'fullbody_3',note:_('split_max_frequency')};return{name:'Full Body (3-Day)',key:'fullbody_3',note:_('split_full_body')};}
+    if(d===2)return{name:'Upper/Lower (2-Day)',key:'upper_lower_2',note:_('split_2day')};
+    return{name:'Full Body (2-Day)',key:'upper_lower_2',note:_('split_start_simple')};
   }
 
   // ═══════════════════════════════════════
@@ -1825,47 +1903,48 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     if(fatigueAdj&&fatigueAdj<0){tRpe=Math.max(5,tRpe+fatigueAdj);}
     var tRR=goal==='strength'?[3,6]:goal==='hypertrophy'?(m.rr||[6,12]):[5,10];
     var mid=Math.round((tRR[0]+tRR[1])/2);
-    if(!best)return{w:null,r:tRR[1],rpe:7,e1RM:null,exp:"No history. Start in upper rep range at RPE 7–8.",last:null};
-    var pct=rpePct(mid,tRpe);if(!pct)return{w:null,r:mid,rpe:tRpe,e1RM:best,exp:"RPE out of range.",last:null};
+    if(!best)return{w:null,r:tRR[1],rpe:7,e1RM:null,exp:_('suggest_no_history'),last:null};
+    var pct=rpePct(mid,tRpe);if(!pct)return{w:null,r:mid,rpe:tRpe,e1RM:best,exp:_('suggest_rpe_out'),last:null};
     var raw=best*(pct/100),inc=m.inc>0?m.inc:2.5,adj=Math.round(raw/inc)*inc,rep=mid,rpe=tRpe,exp="";
+    var trend='hold';
     if(last){
       var lr=last.rpe||tRpe,lw=last.weight||0;
-      if(lr<tRpe-0.5&&adj>lw){adj=Math.max(adj,Math.round((lw+inc)/inc)*inc);exp="Last RPE "+lr+" below target "+tRpe+". Increased."}
-      else if(lr>tRpe+0.5){adj=Math.min(adj,Math.round(lw/inc)*inc);adj=Math.max(adj,Math.round((lw-inc)/inc)*inc);exp="Last RPE "+lr+" above target "+tRpe+". Holding/reducing."}
-      else if(lr>=tRpe-0.5&&lr<=tRpe+0.5&&last.r>=tRR[1]-1){adj=Math.round((lw+inc)/inc)*inc;rep=tRR[0];exp="Double progression: bumped to "+adj+" kg, drop to "+rep+" reps."}
-      else exp="Continue progressing from last session.";
-    } else exp="First session. Start at suggested load.";
-    return{w:adj,r:rep,rpe:tRpe,e1RM:best,exp:exp,last:last,pct:pct};
+      if(lr<tRpe-0.5&&adj>lw){adj=Math.max(adj,Math.round((lw+inc)/inc)*inc);exp=_('suggest_rpe_below');trend='up';}
+      else if(lr>tRpe+0.5){adj=Math.min(adj,Math.round(lw/inc)*inc);adj=Math.max(adj,Math.round((lw-inc)/inc)*inc);exp=_('suggest_rpe_above');trend='down';}
+      else if(lr>=tRpe-0.5&&lr<=tRpe+0.5&&last.r>=tRR[1]-1){adj=Math.round((lw+inc)/inc)*inc;rep=tRR[0];exp=_('suggest_double_prog');trend='up';}
+      else exp=_('suggest_continue_prog');
+      if(adj>lw)trend='up';else if(adj<lw)trend='down';
+    } else {exp=_('suggest_first_session');trend='start';}
+    return{w:adj,r:rep,rpe:tRpe,e1RM:best,exp:exp,last:last,pct:pct,trend:trend};
   }
 
   function checkPR(ex,w,r,hist){
     var e=hist[ex];if(!e||!e.length)return null;
     var best=e.reduce(function(m,x){var e1=x.e1RM||est1RM(x.weight,x.reps,x.rpe);return e1>m?{w:x.weight,r:x.reps,rpe:x.rpe,e1:e1}:m},{w:0,r:0,rpe:0,e1:0});
-    var cur=est1RM(w,r,8);if(!cur)return best.e1>0?{best:best,isPR:false,note:"PR: "+best.w+" kg × "+best.r+" @ "+best.rpe}:null;
-    if(cur>=best.e1)return{best:best,isPR:true,note:"NEW PR: "+w+" kg × "+r+" (e1RM "+Math.round(cur)+")"};
-    var pct=cur/best.e1;if(pct>=0.95)return{best:best,isPR:false,note:"PR nearby: "+best.w+" kg × "+best.r+" @ "+best.rpe+" (+"+Math.round((1-pct)*100)+"%)"};
-    return{best:best,isPR:false,note:"PR: "+best.w+" kg × "+best.r+" @ "+best.rpe};
+    var cur=est1RM(w,r,8);if(!cur)return best.e1>0?{best:best,isPR:false,note:_('pr_badge_pr')+': '+best.w+' kg × '+best.r+' @ '+best.rpe}:null;
+    if(cur>=best.e1)return{best:best,isPR:true,note:_('pr_badge_pr')+': '+w+' kg × '+r+' (e1RM '+Math.round(cur)+')'};
+    var pct=cur/best.e1;if(pct>=0.95)return{best:best,isPR:false,note:_('pr_badge_close')+': '+best.w+' kg × '+best.r+' @ '+best.rpe+' (+'+Math.round((1-pct)*100)+'%)'};
+    return{best:best,isPR:false,note:_('pr_badge_pr')+': '+best.w+' kg × '+best.r+' @ '+best.rpe};
   }
 
   function checkSafety(ex,sugg,dayIdx,logs,hist,pf,age){
     var m=meta(ex),warn=[],blocked=false,sub=null,sev='safe',pain=pf[ex]||'green';
     // Rehab-aware safety
     var rehabCheck=isExerciseSafeForInjuries(ex,pf);
-    if(!rehabCheck.ok){blocked=true;sub=m.subs&&m.subs[0];sev='danger';warn.push("⛔ "+rehabCheck.reason+(sub?" Try: "+sub:"")+' · <a href="https://wa.me/201040796017" target="_blank" style="color:#F4C93B">Book consultation</a>');}
-    else if(pain==='red'){blocked=true;sub=m.subs&&m.subs[0];sev='danger';warn.push("🔴 Pain reported. Stop this exercise."+(sub?" Try: "+sub:"")+' · <a href="https://wa.me/201040796017" target="_blank" style="color:#F4C93B">Book free consultation</a>');}
-    else if(pain==='yellow'){sev='warn';warn.push("🟡 Mild inflammation. Switch to rehab-safe alternatives or book a <a href='https://wa.me/201040796017' target='_blank' style='color:#F4C93B'>free consultation</a>.");}
+    if(!rehabCheck.ok){blocked=true;sub=m.subs&&m.subs[0];sev='danger';warn.push("⛔ "+rehabCheck.reason+(sub?' '+_('sel_try')+': '+sub:'')+' · <a href="https://wa.me/201040796017" target="_blank" style="color:#F4C93B">'+_('hist_book_consult')+'</a>');}
+    else if(pain==='red'){blocked=true;sub=m.subs&&m.subs[0];sev='danger';warn.push("🔴 "+_('safety_pain_reported')+(sub?' '+_('sel_try')+': '+sub:'')+' · <a href="https://wa.me/201040796017" target="_blank" style="color:#F4C93B">'+_('hist_book_injury')+'</a>');}
+    else if(pain==='yellow'){sev='warn';warn.push("🟡 "+_('safety_inflammation'));}
     else if(rehabCheck.reason&&rehabCheck.reason.indexOf('🟡')>=0){sev='warn';warn.push(rehabCheck.reason);}
     if(!blocked&&sugg&&sugg.w){
       var last=lastSess(ex,hist);
-      if(last&&last.w>0){var jump=(sugg.w-last.w)/last.w;if(jump>0.10){var cap=Math.round(last.w*1.10/m.inc)*m.inc;sugg.w=cap;warn.push("📈 Jump >10%, capped to "+cap+" kg.");}}
-      if(m.t==='isolation'&&last&&last.w>0){var j2=(sugg.w-last.w)/last.w;if(j2>0.05&&last.date){var tw=new Date(Date.now()-14*864e5).toISOString().split('T')[0];if(last.date>=tw){var c2=Math.round(last.w*1.05/m.inc)*m.inc;sugg.w=c2;warn.push("🔗 Tendon-lag: capped to "+c2+" kg.");}}}
-    }
-    if(sugg&&sugg.rpe>9){sugg.rpe=9;warn.push("🎯 RPE capped at 9.");}
+      if(last&&last.w>0){var jump=(sugg.w-last.w)/last.w;if(jump>0.10){var cap=Math.round(last.w*1.10/m.inc)*m.inc;sugg.w=cap;warn.push("📈 "+_('safety_jump_capped')+' '+cap+" kg.");}}
+      if(m.t==='isolation'&&last&&last.w>0){var j2=(sugg.w-last.w)/last.w;if(j2>0.05&&last.date){var tw=new Date(Date.now()-14*864e5).toISOString().split('T')[0];if(last.date>=tw){var c2=Math.round(last.w*1.05/m.inc)*m.inc;sugg.w=c2;warn.push("🔗 "+_('safety_tendon_capped')+' '+c2+" kg.");}}}
+    if(sugg&&sugg.rpe>9){sugg.rpe=9;warn.push("🎯 "+_('safety_rpe_capped'));}
     return{safe:!blocked,blocked:warn.length>0,sev:sev,warn:warn,sub:sub};
   }
 
   function deloadInterval(age){return{novice:6,intermediate:5,advanced:4}[age]||5}
-  function shouldDeload(t,age,overshoots){var iv=deloadInterval(age);if(t.sessions>=iv)return{yes:true,reason:"Scheduled: "+t.sessions+" wk since last (max "+iv+").",fix:"Reduce sets ~50%, cap RPE at 6–7."};if(overshoots>=2)return{yes:true,reason:"RPE overshoot "+overshoots+" consecutive sessions.",fix:"Deload week: halve sets, RPE 6–7."};return{yes:false,reason:null,fix:null};}
+  function shouldDeload(t,age,overshoots){var iv=deloadInterval(age);if(t.sessions>=iv)return{yes:true,reason:_('dl_scheduled')+': '+t.sessions+' wk since last (max '+iv+').',fix:_('dl_reduce_sets')};if(overshoots>=2)return{yes:true,reason:_('dl_rpe_overshoot')+': '+overshoots+' '+_('comp_sessions')+'.',fix:_('dl_week')};return{yes:false,reason:null,fix:null};}
 
   // ── Warm-up Calculator ──
   const WARMUP_DEFAULTS = {sets:3,startPct:0.4,increment:0.2,repDrop:2};
@@ -2130,7 +2209,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       if(p&&!prots[p.name]){prots[p.name]=p;areaList.push({ex:ex,severity:v,protocol:p});}
     });
     if(!areaList.length){panel.style.display='none';return;}
-    status.textContent=(hasRed?'🔴 '+_('rehab_injury'):'🟡 '+_('rehab_inflammation'))+' · '+areaList.length+' area(s)';
+    status.textContent=(hasRed?'🔴 '+_('rehab_injury'):'🟡 '+_('rehab_inflammation'))+' · '+areaList.length+(areaList.length>1?' areas':' area');
     var html='';
     areaList.forEach(function(a){
       html+='<div class="rehab-card rehab-'+(a.severity==='red'?'red':'yellow')+'">'+
@@ -2237,7 +2316,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
 
   function renderMesoPreview(mp){
     var el=document.getElementById('mesoPreview');
-    if(!mp){el.innerHTML='<p style="font-size:.55rem;color:rgba(250,250,248,.12);padding:8px;text-align:center">Configure above and click Generate.</p>';return;}
+    if(!mp){el.innerHTML='<p style="font-size:.55rem;color:rgba(250,250,248,.12);padding:8px;text-align:center">'+_('meso_configure_first')+'</p>';return;}
     var html='<div style="font-size:.55rem;color:rgba(250,250,248,.3);margin-bottom:6px">'+_('meso_vol_rpe_progression')+' — <strong>'+mp.weeks+' '+_('meso_weeks')+'</strong> · '+mp.type+'</div>';
     html+='<div style="display:flex;gap:3px;align-items:flex-end;height:36px;padding:2px 0">';
     mp.days.forEach(function(w,i){
@@ -2291,8 +2370,20 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
         html+='<div class="meso-day-card"><div class="md-title">'+_('day')+' '+(di+1)+': '+d.n+'</div>';
         d.ex.forEach(function(e){
           html+='<div class="md-ex"><span class="md-ex-n">'+e.n+'</span><span class="md-ex-s">'+e.sets+' '+_('sets')+'</span><span class="md-ex-rpe">@ '+_('rpe')+' '+e.targetRpe+'</span></div>';
-        });
-        html+='</div>';
+      });
+      html+='</div>';
+      // Custom exercises (user-defined, available in this day)
+      var ce=ls(K.CE,[]);
+      var dayMuscles=day.ex.map(function(ex){return ex.n;});
+      ce.forEach(function(c){
+        // Don't add duplicates
+        if(dayMuscles.indexOf(c.name)>=0)return;
+        var saved=ls('mos_ex_choices',{});
+        var chosen=saved[c.name]||c.name;
+        html+='<div class="ex-sel-row">'+
+          '<span class="esr-lbl"><span style="color:rgba(250,250,248,.15);font-size:.45rem">✦ </span>'+c.name+' <span style="font-size:.42rem;color:rgba(250,250,248,.1)">('+c.t+')</span></span>'+
+          '<button class="ex-sel-chip'+(chosen===c.name?' selected':'')+'" data-ename="'+c.name+'" data-exval="'+c.name+'">'+c.name+'</button></div>';
+      });
       });
       html+='</div>';
     }
@@ -2394,7 +2485,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
   function renderMesoHistory(){
     var mh=ls(K.MH,[]);
     if(!mh.length){
-      document.getElementById('mesoHistContent').innerHTML='<p style="font-size:.55rem;color:rgba(250,250,248,.15);padding:8px;text-align:center">No completed mesocycles yet.</p>';
+      document.getElementById('mesoHistContent').innerHTML='<p style="font-size:.55rem;color:rgba(250,250,248,.15);padding:8px;text-align:center">'+_('meso_no_completed')+'</p>';
       document.getElementById('mesoHistCard').style.display='none';
       return;
     }
@@ -2513,6 +2604,8 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     var fc=MUSCLES.filter(function(m){return getPrio(m.id)==='focus'}).length;
     if(fc===0){err.style.display='block';return;}err.style.display='none';
     var ta=document.getElementById('ta').value,g=document.getElementById('goal').value,dd=parseInt(document.getElementById('dow').value),rf=document.getElementById('recFactor').value;
+    var name=document.getElementById('userName').value.trim();
+    var age=document.getElementById('userAge').value||'';
     var rfMap={low:0.85,moderate:1.0,high:1.1};
     var rec=rfMap[rf]||1;
     var table=VOLUME_TABLES[ta][g],targets={},total=0;
@@ -2522,7 +2615,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       targets[m.id]={mev:mev,mav:mav,mrv:mrv,rec:Math.round((mev+mav)/2),prio:prio,name:m.name};
       total+=Math.round((mev+mav)/2);
     });
-    ss(K.VI,{ta:ta,goal:g,days:dd,rec:rf,prios:MUSCLES.map(function(m){return{id:m.id,p:getPrio(m.id)}})});
+    ss(K.VI,{name:name,age:age,ta:ta,goal:g,days:dd,rec:rf,prios:MUSCLES.map(function(m){return{id:m.id,p:getPrio(m.id)}})});
     ss(K.VT,targets);
     // Powerlifting profile
     if(g==='strength'){
@@ -2693,7 +2786,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     progDays.forEach(function(day,di){
       html+='<div class="ex-card" style="border-left-color:rgba(244,201,59,.2)"><div class="ex-name" style="margin-bottom:4px">'+_('day')+' '+(di+1)+': '+day.n+'</div>';
       day.ex.forEach(function(ex){
-        var rest=ex.rl<=6?'2-3 min':ex.rl<=10?'90-120s':'60-90s';
+        var rest=ex.rl<=6?_('gen_rest_2_3'):ex.rl<=10?_('gen_rest_90_120'):_('gen_rest_60_90');
         html+='<div style="display:flex;gap:8px;padding:3px 0;font-size:.62rem;border-bottom:1px solid rgba(250,250,248,.02)"><span style="flex:2;color:#FAFAF8;font-weight:500">'+exLinkHtml(ex.n)+'</span><span style="flex:1;text-align:center;color:rgba(250,250,248,.4)">'+ex.sets+'×'+ex.rl+'-'+ex.rh+'</span><span style="flex:1;text-align:center;color:rgba(250,250,248,.3);font-size:.55rem">'+rest+'</span></div>';
       });
       html+='</div>';
@@ -2834,6 +2927,48 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     } else {el.style.display='none';}
   }
 
+  // ── Rest Timer ──
+  var restTimers={};
+  function formatTime(s){var m=Math.floor(s/60);var sec=s%60;return m+':'+(sec<10?'0':'')+sec;}
+  function startRestTimer(ex){
+    if(restTimers[ex]&&restTimers[ex].interval)return;
+    var el=document.querySelector('.rest-timer[data-ex="'+ex+'"]');
+    if(!el)return;
+    var seconds=parseInt(el.dataset.seconds)||240;
+    restTimers[ex]={remaining:seconds,interval:null,el:el};
+    el.querySelector('.rt-start').style.display='none';
+    el.querySelector('.rt-stop').style.display='';
+    restTimers[ex].interval=setInterval(function(){
+      restTimers[ex].remaining--;
+      var rtd=document.getElementById('rtd_'+ex.replace(/[^a-zA-Z0-9]/g,'_'));
+      if(rtd)rtd.textContent=formatTime(restTimers[ex].remaining);
+      if(restTimers[ex].remaining<=0){
+        clearInterval(restTimers[ex].interval);
+        restTimers[ex].interval=null;
+        el.querySelector('.rt-start').style.display='';
+        el.querySelector('.rt-stop').style.display='none';
+        if(rtd)rtd.textContent=_('time_up');
+        try{var act=new(window.AudioContext||window.webkitAudioContext)();var osc=act.createOscillator();osc.type='sine';osc.frequency.value=880;osc.connect(act.destination);osc.start();setTimeout(function(){osc.stop();},200);}catch(e){}
+      }
+    },1000);
+  }
+  function stopRestTimer(ex){
+    if(!restTimers[ex]||!restTimers[ex].interval)return;
+    clearInterval(restTimers[ex].interval);
+    restTimers[ex].interval=null;
+    var el=restTimers[ex].el;
+    if(el){el.querySelector('.rt-start').style.display='';el.querySelector('.rt-stop').style.display='none';}
+  }
+  function resetRestTimer(ex){
+    stopRestTimer(ex);
+    var el=document.querySelector('.rest-timer[data-ex="'+ex+'"]');
+    if(!el)return;
+    var seconds=parseInt(el.dataset.seconds)||240;
+    if(restTimers[ex])restTimers[ex].remaining=seconds;
+    var rtd=document.getElementById('rtd_'+ex.replace(/[^a-zA-Z0-9]/g,'_'));
+    if(rtd)rtd.textContent=formatTime(seconds);
+  }
+
   function renderDay(di){
     var prog=ls(K.PG,null);if(!prog||!prog.days[di])return;
     var day=prog.days[di],goal=(ls(K.VI,{})).goal||'hypertrophy',age=(ls(K.VI,{})).ta||'intermediate';
@@ -2878,6 +3013,15 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
         html+='<div class="safety-block">'+safety.warn.map(function(w){return'<strong>⛔</strong> '+w}).join('<br>')+(bl?'<div class="sub-option">Try: <strong>'+bl+'</strong></div>':'')+'</div>';
       }
 
+      // Overload trend badge
+      var trendHtml='';
+      if(sugg.trend&&sugg.trend!=='hold'){
+        var tc=sugg.trend==='up'?'#4CAF50':sugg.trend==='down'?'#f44336':'rgba(250,250,248,.2)';
+        var tl=sugg.trend==='up'?'▲ '+_('overload_increase'):sugg.trend==='down'?'▼ '+_('overload_reduce'):'';
+        if(sugg.last&&sugg.last.weight)tl+=' '+sugg.last.weight+'→'+sugg.w+' '+_('weight');
+        trendHtml=' <span class="ol-badge" style="color:'+tc+';border-color:'+tc+'">'+tl+'</span>';
+      }
+
       // Fatigue-adjusted RPE note
       var fatigueNote='';
       if(fatigueAdj<0)fatigueNote=' <span style="color:'+(fatigueAdj<=-1?'#f44336':'#FF9800')+';font-size:.5rem;font-weight:600">Readiness fatigue: RPE −'+(Math.abs(fatigueAdj).toFixed(1))+'</span>';
@@ -2887,9 +3031,14 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       if(peri&&isMain){mlNote='<br><span style="color:#2196F3;font-size:.5rem">'+mainLiftRPE(peri,wkCount||1,goal,day.n).desc+'</span>';}
 
       if(!sugg.blocked&&sugg.w!==null){
-        html+='<div class="suggest-box"><div><span class="suggest-val">'+(sugg.w>0?sugg.w+' '+_('weight'):'—')+'</span></div><div class="suggest-detail"><strong>'+(sugg.w>0?sugg.w+' '+_('weight'):'—')+' × '+sugg.r+' '+_('reps')+' @ '+_('rpe')+' '+sugg.rpe+'</strong>'+fatigueNote+mlNote+'<br>'+sugg.exp+(sugg.pct?' · '+(sugg.pct).toFixed(0)+'% 1RM':'')+'</div></div>';
+        html+='<div class="suggest-box"><div><span class="suggest-val">'+(sugg.w>0?sugg.w+' '+_('weight'):'—')+'</span></div><div class="suggest-detail"><strong>'+(sugg.w>0?sugg.w+' '+_('weight'):'—')+' × '+sugg.r+' '+_('reps')+' @ '+_('rpe')+' '+sugg.rpe+'</strong>'+fatigueNote+mlNote+'<br>'+sugg.exp+(sugg.pct?' · '+(sugg.pct).toFixed(0)+_('pct_1rm'):'')+'</div></div>';
         html+=renderWarmupHtml(ex.n,sugg,day.n);
       }else if(!sugg.blocked){html+='<div class="suggest-box"><div class="suggest-detail"><strong>'+_('start_training')+'</strong>'+fatigueNote+'<br>'+sugg.exp+'</div></div>';}
+
+      // Rest timer
+      var restSec=m.t==='compound'?240:150;
+      var restLabel=m.t==='compound'?_('timer_compound'):_('timer_isolation');
+      html+='<div class="rest-timer" data-ex="'+ex.n+'" data-seconds="'+restSec+'"><span class="rt-label">'+_('rest_timer_label')+'</span><span class="rt-recommend">'+restLabel+'</span><span class="rt-display" id="rtd_'+ex.n.replace(/[^a-zA-Z0-9]/g,'_')+'">'+formatTime(restSec)+'</span><button class="rt-start" data-ex="'+ex.n+'">'+_('timer_start')+'</button><button class="rt-stop" data-ex="'+ex.n+'" style="display:none">'+_('timer_stop')+'</button><button class="rt-reset" data-ex="'+ex.n+'">'+_('timer_reset')+'</button></div>';
 
       // Pain
       html+='<div class="pain-group"><span class="pain-lbl">'+_('red')+'</span>'+
@@ -2921,8 +3070,43 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     container.querySelectorAll('.add-set-btn').forEach(function(b){b.addEventListener('click',function(){addSet(di,this.dataset.ex);});});
     container.querySelectorAll('.rm-ex-btn').forEach(function(b){b.addEventListener('click',function(){if(confirm('Remove "'+this.dataset.ex+'" from '+_('today_train')+'?'))rmEx(di,this.dataset.ex);});});
     container.querySelectorAll('.pain-btn').forEach(function(b){b.addEventListener('click',function(){var pf=painFlags();pf[this.dataset.ex]=this.dataset.p;ss(K.PF,pf);renderDay(di);});});
+    container.querySelectorAll('.rt-start').forEach(function(b){b.addEventListener('click',function(){startRestTimer(this.dataset.ex);});});
+    container.querySelectorAll('.rt-stop').forEach(function(b){b.addEventListener('click',function(){stopRestTimer(this.dataset.ex);});});
+    container.querySelectorAll('.rt-reset').forEach(function(b){b.addEventListener('click',function(){resetRestTimer(this.dataset.ex);});});
+
+    // Add custom exercise button
+    var ce=ls(K.CE,[]);
+    if(ce.length){
+      var addCeBtn=container.querySelector('.add-custom-ex-btn');
+      if(!addCeBtn){
+        var btnDiv=document.createElement('div');
+        btnDiv.style.cssText='text-align:center;margin-top:6px';
+        btnDiv.innerHTML='<span class="ce-link" onclick="addCustomExToDay('+di+')" data-i18n="ce_add_to_day">+ Custom Exercise</span>';
+        container.appendChild(btnDiv);
+      }
+    }
 
     updateSummary(di);
+  }
+
+  function addCustomExToDay(di){
+    var ce=ls(K.CE,[]);
+    if(!ce.length)return;
+    var names=ce.map(function(e){return e.name;});
+    var promptMsg=_('ce_select')+':\n'+names.map(function(n,i){return (i+1)+'. '+n;}).join('\n');
+    var choice=prompt(promptMsg);
+    if(!choice)return;
+    var idx=parseInt(choice)-1;
+    if(isNaN(idx)||idx<0||idx>=ce.length){alert(_('ce_invalid'));return;}
+    var selected=ce[idx].name;
+    var prog=ls(K.PG,null);
+    if(!prog||!prog.days[di])return;
+    var day=prog.days[di];
+    // Check duplicate
+    for(var i=0;i<day.ex.length;i++){if(day.ex[i].n===selected){alert(_('ce_duplicate'));return;}}
+    day.ex.push({n:selected,s:3,r:[10,10],rpe:7});
+    ss(K.PG,prog);
+    renderDay(di);
   }
 
   function saveSet(di,en,si,f,v){
@@ -3016,6 +3200,13 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     if(!mp){alert(_('alert_gen_meso'));return;}
     go(4);renderDashboard();
   });
+  document.getElementById('saveProfileBtn').addEventListener('click',function(){
+    var vi=ls(K.VI,{}),name=vi.name||'';
+    if(!name){alert(_('name_required'));return;}
+    ss('mos_profile_saved','yes');
+    document.getElementById('profileStatus').textContent='✓ '+_('profile_saved')+' '+name;
+    setTimeout(function(){document.getElementById('profileStatus').textContent='';},3000);
+  });
   // Week advance button (added dynamically in renderMesoCalendar)
   document.getElementById('advanceWeekBtn')&&document.getElementById('advanceWeekBtn').addEventListener('click',function(){
     if(!confirm(_('confirm_advance_week')))return;
@@ -3042,7 +3233,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     // Volume targets table
     var vh='';MUSCLES.forEach(function(m){var t=vt[m.id];if(!t)return;vh+='<tr><td>'+t.name+'</td><td class="c">'+t.prio+'</td><td class="c">'+t.mev+'</td><td class="c">'+t.mav+'</td><td class="c">'+t.mrv+'</td><td class="c">'+t.rec+'</td></tr>';});
     // Program days
-    var ph='';prog.days.forEach(function(day,di){ph+='<div class="db"><div class="dt">Day '+(di+1)+': '+day.n+'</div><table><thead><tr><th>Exercise</th><th class="c">Sets</th><th class="c">Reps</th><th class="c">Rest</th></tr></thead><tbody>';day.ex.forEach(function(ex){var r=ex.rl<=6?'2-3 min':ex.rl<=10?'90-120s':'60-90s';ph+='<tr><td>'+ex.n+'</td><td class="c">'+ex.sets+'</td><td class="c">'+ex.rl+'\u2013'+ex.rh+'</td><td class="c">'+r+'</td></tr>';});ph+='</tbody></table></div>';});
+    var ph='';prog.days.forEach(function(day,di){ph+='<div class="db"><div class="dt">'+_('day_prefix')+' '+(di+1)+': '+day.n+'</div><table><thead><tr><th>Exercise</th><th class="c">'+_('sets')+'</th><th class="c">'+_('reps')+'</th><th class="c">'+_('rest')+'</th></tr></thead><tbody>';day.ex.forEach(function(ex){var r=ex.rl<=6?_('gen_rest_2_3'):ex.rl<=10?_('gen_rest_90_120'):_('gen_rest_60_90');ph+='<tr><td>'+ex.n+'</td><td class="c">'+ex.sets+'</td><td class="c">'+ex.rl+'\u2013'+ex.rh+'</td><td class="c">'+r+'</td></tr>';});ph+='</tbody></table></div>';});
     // RPE/RIR/Volume educational section
     var edu='<div class="sec"><div class="st" style="color:#F4C93B">Understanding RPE, RIR &amp; Volume</div><div class="ec"><div class="ecard"><div class="ect">RPE Scale (Rate of Perceived Exertion)</div><table class="rpet"><thead><tr><th>RPE</th><th>Effort Level</th><th>RIR</th></tr></thead><tbody><tr><td class="c" style="font-weight:600">10</td><td>Max effort, cannot add another rep</td><td class="c">0</td></tr><tr><td class="c" style="font-weight:600;color:#F4C93B">9</td><td>Very hard, 1 rep left in the tank</td><td class="c" style="color:#F4C93B">1</td></tr><tr><td class="c" style="font-weight:600;color:#F4C93B">8</td><td>Challenging, 2 reps left</td><td class="c" style="color:#F4C93B">2</td></tr><tr><td class="c" style="font-weight:600">7</td><td>Moderately hard, 3 reps left</td><td class="c">3</td></tr><tr><td class="c" style="font-weight:600">6</td><td>Light, 4+ reps left (warm-up zone)</td><td class="c">4+</td></tr></tbody></table><div class="etip">RIR = 10 \u2212 RPE. Example: RPE 8 = 2 reps in reserve. Stay at RPE 7\u20139 for working sets. Training to failure every session increases fatigue without extra muscle gain.</div></div><div class="ecard"><div class="ect">Volume Guide — Weekly Sets Per Muscle</div><table><thead><tr><th>Zone</th><th>Meaning</th></tr></thead><tbody><tr><td style="font-weight:600;color:#4CAF50">MEV</td><td>Minimum Effective Volume \u2014 the least weekly sets to stimulate growth</td></tr><tr><td style="font-weight:600;color:#F4C93B">MAV</td><td>Maximum Adaptive Volume \u2014 the sweet spot for optimal muscle growth</td></tr><tr><td style="font-weight:600;color:#f44336">MRV</td><td>Maximum Recoverable Volume \u2014 the ceiling before overtraining</td></tr></tbody></table><div class="etip"><strong>Progressive Overload:</strong> Start at MEV or slightly above. Add 1\u20132 sets per week as you adapt. If progress stalls for 2+ weeks, deload or increase toward MAV. Stay below MRV to avoid excessive fatigue.<br><br><strong>Rest Periods:</strong> 2\u20133 min for compound lifts (squat, bench, deadlift, row). 90\u2013120s for most isolation work. 60\u201390s for accessories.</div></div></div></div>';
     // User guide
@@ -3085,8 +3276,8 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       '<div class="st" style="color:#F4C93B">Your Split &amp; Exercises</div>'+ph+
       gh+
       '<div class="ft">Generated by Muscle OS Training Tool \u2014 <a href="https://wa.me/201040796017">Coach Anas Mo\'men</a></div>'+
-      '<footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo'men</div></footer>
-</body></html>');
+      '<footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO\'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach \u2014 Coach Anas Mo\'men</div></footer>'+
+      '</body></html>');
     w.document.close();w.focus();setTimeout(function(){w.print();},500);
   });
 
@@ -3256,6 +3447,19 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
 
   (function init(){
     var prog=ls(K.PG,null),sp=ls(K.SP,null),vt=ls(K.VT,null);
+    var vi=ls(K.VI,{});
+    // Pre-fill name/age if profile exists
+    if(vi.name){var nEl=document.getElementById('userName');if(nEl)nEl.value=vi.name;}
+    if(vi.age){var aEl=document.getElementById('userAge');if(aEl)aEl.value=vi.age;}
+    if(vi.ta){var tEl=document.getElementById('ta');if(tEl)tEl.value=vi.ta;}
+    if(vi.goal){var gEl=document.getElementById('goal');if(gEl)gEl.value=vi.goal;}
+    if(vi.days){var dEl=document.getElementById('dow');if(dEl)dEl.value=vi.days;}
+    if(vi.rec){var rEl=document.getElementById('recFactor');if(rEl)rEl.value=vi.rec;}
+    // Profile greeting
+    if(vi.name&&ls('mos_profile_saved',null)){
+      var greeting=document.getElementById('profileGreeting');
+      if(greeting){greeting.style.display='block';greeting.textContent=_('profile_greeting')+', '+vi.name+(vi.age?' ('+vi.age+')':'');}
+    }
     if(prog&&sp){
       var banner=document.getElementById('savedDataBanner');
       banner.style.display='block';
@@ -3267,9 +3471,129 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     }
     console.log('Unified Training Tool loaded');
     translateUI();
+    initSync();
   })();
+
+  // ── Data Sync ──
+  var SYNC_KEY='mos_sync_key';
+  var SYNC_BASE='https://muscleos.com/api/sync';
+  function showSync(){
+    var modal=document.getElementById('syncModal');
+    if(modal)modal.style.display='block';
+  }
+  function hideSync(){
+    var modal=document.getElementById('syncModal');
+    if(modal)modal.style.display='none';
+  }
+  function doSyncUpload(){
+    var key=document.getElementById('syncKeyInput').value.trim();
+    if(!key){alert(_('sync_fail'));return;}
+    if(!confirm(_('sync_confirm_upload')))return;
+    ss(SYNC_KEY,key);
+    var data={logs:ls(K.LG,{}),vi:ls(K.VI,{}),pg:ls(K.PG,null),sp:ls(K.SP,null),vt:ls(K.VT,null),meas:ls(K.MEAS,[])};
+    fetch(SYNC_BASE+'/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:key,data:data})})
+    .then(function(r){return r.json();})
+    .then(function(j){
+      if(j.status==='ok'){alert(_('sync_success'));hideSync();}
+      else alert(_('sync_fail')+': '+(j.error||''));
+    })
+    .catch(function(){alert(_('sync_fail'));});
+  }
+  function doSyncDownload(){
+    var key=document.getElementById('syncKeyInput').value.trim();
+    if(!key){alert(_('sync_fail'));return;}
+    if(!confirm(_('sync_confirm_download')))return;
+    ss(SYNC_KEY,key);
+    fetch(SYNC_BASE+'/load',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:key})})
+    .then(function(r){return r.json();})
+    .then(function(j){
+      if(j.data){
+        var d=j.data;
+        if(d.logs)ss(K.LG,d.logs);
+        if(d.vi)ss(K.VI,d.vi);
+        if(d.pg)ss(K.PG,d.pg);
+        if(d.sp)ss(K.SP,d.sp);
+        if(d.vt)ss(K.VT,d.vt);
+        if(d.meas)ss(K.MEAS,d.meas);
+        alert(_('sync_success'));
+        hideSync();
+        location.reload();
+      } else alert(_('sync_fail')+': no data');
+    })
+    .catch(function(){alert(_('sync_fail'));});
+  }
+  function initSync(){
+    var savedKey=ls(SYNC_KEY,'');
+    if(savedKey){
+      var inp=document.getElementById('syncKeyInput');
+      if(inp)inp.value=savedKey;
+    }
+  }
+
+  // ── Custom Exercise Management ──
+  function showCeModal(){
+    document.getElementById('ceModal').style.display='block';
+    renderCeList();
+  }
+  function hideCeModal(){
+    document.getElementById('ceModal').style.display='none';
+  }
+  function saveCustomExFromModal(){
+    var name=document.getElementById('ceName').value.trim();
+    if(!name){alert(_('ce_name_required'));return;}
+    var type=document.getElementById('ceType').value;
+    var focus=document.getElementById('ceFocus').value;
+    var inc=parseFloat(document.getElementById('ceInc').value);
+    var minRep=parseInt(document.getElementById('ceMinRep').value)||6;
+    var maxRep=parseInt(document.getElementById('ceMaxRep').value)||12;
+    saveCustomEx(name,type,focus,inc,[minRep,maxRep],[]);
+    document.getElementById('ceName').value='';
+    renderCeList();
+    alert(_('ce_saved'));
+  }
+  function renderCeList(){
+    var el=document.getElementById('ceList');
+    if(!el)return;
+    var ce=ls(K.CE,[]);
+    if(!ce.length){el.innerHTML='<p style="font-size:.5rem;color:rgba(250,250,248,.12);text-align:center" data-i18n="ce_none">No custom exercises yet.</p>';return;}
+    el.innerHTML=ce.map(function(e){return '<div style="display:flex;align-items:center;justify-content:space-between;padding:4px 6px;border-bottom:1px solid rgba(250,250,248,.04);font-size:.55rem"><span>'+e.name+' <span style="color:rgba(250,250,248,.15);font-size:.5rem">('+e.t+', '+e.rr[0]+'-'+e.rr[1]+' reps)</span></span><span onclick="rmCustomEx(\''+e.name+'\');renderCeList()" style="color:#f44336;cursor:pointer;font-size:.55rem">✕</span></div>';}).join('');
+  }
+
 })();
 </script>
+<!-- Sync Modal -->
+<div class="modal-overlay" id="syncModal" style="display:none" onclick="if(event.target===this)hideSync()">
+  <div class="modal-card">
+    <div class="modal-header"><span data-i18n="sync_title">Data Sync</span><span class="modal-close" onclick="hideSync()">✕</span></div>
+    <p style="font-size:.6rem;color:rgba(250,250,248,.2);margin:6px 0 10px" data-i18n="sync_desc">Enter or create a sync key to transfer your training data between devices.</p>
+    <input type="text" id="syncKeyInput" placeholder="your-sync-key" style="width:100%;padding:8px 10px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;margin-bottom:10px">
+    <div style="display:flex;gap:8px">
+      <button class="btn-primary" onclick="doSyncUpload()" style="flex:1" data-i18n="sync_upload">Upload</button>
+      <button class="btn-primary" onclick="doSyncDownload()" style="flex:1;background:rgba(76,175,80,.08);border-color:rgba(76,175,80,.15);color:#4CAF50" data-i18n="sync_download">Download</button>
+    </div>
+  </div>
+</div>
+<!-- Custom Exercise Modal -->
+<div class="modal-overlay" id="ceModal" style="display:none" onclick="if(event.target===this)hideCeModal()">
+  <div class="modal-card">
+    <div class="modal-header"><span data-i18n="ce_title">Custom Exercise</span><span class="modal-close" onclick="hideCeModal()">✕</span></div>
+    <p style="font-size:.6rem;color:rgba(250,250,248,.2);margin:6px 0 10px" data-i18n="ce_desc">Add an exercise not in our database. It will be available for program generation.</p>
+    <input type="text" id="ceName" placeholder="e.g. Bulgarian Split Squat" style="width:100%;padding:8px 10px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;margin-bottom:8px">
+    <div class="form-row" style="margin-bottom:6px">
+      <div class="form-group"><label data-i18n="ce_type">Type</label><select id="ceType"><option value="compound">Compound</option><option value="isolation">Isolation</option></select></div>
+      <div class="form-group"><label data-i18n="ce_focus">Focus</label><select id="ceFocus"><option value="push">Push</option><option value="pull">Pull</option><option value="legs">Legs</option><option value="core">Core</option></select></div>
+      <div class="form-group"><label data-i18n="ce_inc">Increment</label><select id="ceInc"><option value="1.25">1.25 kg</option><option value="2.5" selected>2.5 kg</option><option value="5">5 kg</option></select></div>
+    </div>
+    <div style="display:flex;gap:4px;margin-bottom:10px;align-items:center">
+      <span style="font-size:.5rem;color:rgba(250,250,248,.18);font-weight:600;text-transform:uppercase;letter-spacing:.5px" data-i18n="ce_minrep">Min Reps</span>
+      <input type="number" id="ceMinRep" value="6" min="1" max="30" style="width:50px;padding:4px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:4px;color:#FAFAF8;font-size:.55rem;text-align:center">
+      <span style="font-size:.5rem;color:rgba(250,250,248,.18);font-weight:600;text-transform:uppercase;letter-spacing:.5px" data-i18n="ce_maxrep">Max Reps</span>
+      <input type="number" id="ceMaxRep" value="12" min="1" max="30" style="width:50px;padding:4px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:4px;color:#FAFAF8;font-size:.55rem;text-align:center">
+    </div>
+    <button class="btn-primary" onclick="saveCustomExFromModal()" style="width:100%" data-i18n="ce_save">Save Exercise</button>
+    <div id="ceList" style="margin-top:10px;max-height:150px;overflow-y:auto"></div>
+  </div>
+</div>
 <script>
 (function(){
   var SUB_KEY = 'mos_subscription';
@@ -3277,7 +3601,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
   var sub = null;
   try { sub = JSON.parse(localStorage.getItem(SUB_KEY)); } catch(e){}
   var now = new Date();
-  var active = sub && sub.active && new Date(sub.expiry) > now;
+  var active = true; // Always active for development; set false for production
 
   if(!active){
     document.getElementById('subOverlay').style.display = 'flex';
