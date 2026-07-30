@@ -24,20 +24,34 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Oswald', sans-serif; font-weight: 600; li
 @page :first { margin: 0; @top-center { content: none; } @bottom-center { content: none; } }
 @page cover { @top-center { content: none; } @bottom-center { content: none; } }
 @page toc { @top-center { content: none; } @bottom-center { content: none; } }
+@page domain-divider { @top-center { content: none; } @bottom-center { content: none; } }
 body { string-set: doctitle ""; }
 h1 { string-set: doctitle content(); }
 
 /* ---- Cover ---- */
-.cover { page: cover; width: 210mm; height: 297mm; margin: 0; background: #14151A; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; page-break-after: always; position: relative; overflow: hidden; }
-.cover-title { font-family: 'Oswald', sans-serif; font-size: 32pt; font-weight: 700; color: #F4C93B; line-height: 1.15; margin-bottom: 16pt; letter-spacing: 0.5px; }
-.cover-subtitle { font-family: 'JetBrains Mono', monospace; font-size: 11pt; font-weight: 400; color: #F4C93B; margin-bottom: 28pt; letter-spacing: 1px; opacity: 0.85; }
-.cover-divider { width: 50px; height: 2px; background: #F4C93B; margin-bottom: 28pt; opacity: 0.5; }
-.cover-author { font-family: 'Inter', sans-serif; font-size: 10pt; color: #FAFAF8; margin-bottom: 4pt; letter-spacing: 2px; text-transform: uppercase; opacity: 0.6; }
+.cover { width: 210mm; height: 297mm; margin: 0; background: #14151A; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; page-break-after: always; }
+.cover-accent-top { position: absolute; top: 0; left: 0; right: 0; height: 4px; background: #F4C93B; }
+.cover-accent-bottom { position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: #F4C93B; }
+.cover-corner { position: absolute; width: 18mm; height: 18mm; }
+.cover-corner-tl { top: 12mm; left: 12mm; border-top: 1px solid rgba(244,201,59,0.12); border-left: 1px solid rgba(244,201,59,0.12); }
+.cover-corner-tr { top: 12mm; right: 12mm; border-top: 1px solid rgba(244,201,59,0.12); border-right: 1px solid rgba(244,201,59,0.12); }
+.cover-corner-bl { bottom: 12mm; left: 12mm; border-bottom: 1px solid rgba(244,201,59,0.12); border-left: 1px solid rgba(244,201,59,0.12); }
+.cover-corner-br { bottom: 12mm; right: 12mm; border-bottom: 1px solid rgba(244,201,59,0.12); border-right: 1px solid rgba(244,201,59,0.12); }
+.cover-label { font-family: 'Oswald', sans-serif; font-size: 16pt; color: rgba(244,201,59,0.5); letter-spacing: 8px; text-transform: uppercase; margin-bottom: 8pt; }
+.cover-pillar { font-family: 'Oswald', sans-serif; font-size: 9pt; color: rgba(244,201,59,0.45); letter-spacing: 5px; text-transform: uppercase; margin-bottom: 8pt; border: 1px solid rgba(244,201,59,0.12); padding: 3px 14px; display: inline-block; }
+.cover-diamond { font-size: 7pt; color: #F4C93B; opacity: 0.3; margin-bottom: 20pt; }
+.cover-title { font-family: 'Oswald', sans-serif; font-size: 24pt; font-weight: 700; color: #F4C93B; line-height: 1.15; margin-bottom: 6pt; letter-spacing: 0.5px; }
+.cover-tagline { font-family: 'Inter', sans-serif; font-size: 9pt; font-weight: 400; color: #FAFAF8; opacity: 0.45; letter-spacing: 0; line-height: 1.4; margin-bottom: 0; }
+.cover-author-main { font-family: 'Inter', sans-serif; font-size: 10pt; color: #FAFAF8; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.55; margin: 0; }
+.cover-divider { width: 60px; height: 2px; background: #F4C93B; margin-bottom: 14pt; opacity: 0.5; }
+.cover-subtitle { font-family: 'Inter', sans-serif; font-size: 10pt; font-weight: 400; color: #FAFAF8; margin-bottom: 0; opacity: 0.5; letter-spacing: 0; line-height: 1.5; }
+.cover-bottom { position: absolute; bottom: 22mm; left: 0; right: 0; text-align: center; }
+.cover-line { width: 28px; height: 1px; background: rgba(244,201,59,0.25); margin: 8pt auto; }
+.cover-author { font-family: 'Inter', sans-serif; font-size: 10pt; color: #FAFAF8; margin-bottom: 2pt; letter-spacing: 2px; text-transform: uppercase; opacity: 0.6; }
 .cover-edition { font-family: 'Inter', sans-serif; font-size: 9pt; color: #FAFAF8; opacity: 0.4; letter-spacing: 1px; }
-.cover-label { font-family: 'Oswald', sans-serif; font-size: 14pt; color: rgba(244,201,59,0.4); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 20pt; }
 
 /* ---- TOC ---- */
-.toc-page { page: toc; page-break-after: always; }
+.toc-page { page-break-before: always; }
 .toc-page h2 { font-family: 'Oswald', sans-serif; font-size: 22pt; font-weight: 700; color: #14151A; margin-bottom: 0.8cm; text-align: center; letter-spacing: 0.5px; text-transform: uppercase; }
 .toc { list-style: none; padding: 0; margin: 0; }
 .toc li { margin: 3px 0; font-size: 10.5pt; }
@@ -128,7 +142,7 @@ pre, table, figure, img, svg, blockquote { max-width: 100%; box-sizing: border-b
 /* ---- Chapter Summary ---- */
 .chapter-summary { border: 1.5px solid #14151A; padding: 14px 18px; margin: 0.6cm 0; background: #FAFAF8; page-break-inside: avoid; }
 .chapter-summary .summary-title { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 10pt; color: #FAF8F8; background: #14151A; display: inline-block; padding: 2px 10px; margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase; }
-.chapter-summary p { margin: 4px 0; font-size: 10.5pt; color: #333; }
+.chapter-summary p { margin: 4px 0; font-size: 10.5pt; color: #14151A; }
 
 /* ---- Case Study ---- */
 .case-study { border: 2px solid #14151A; padding: 16px 20px; margin: 0.8cm 0; background: #FAFAF8; page-break-inside: avoid; }
@@ -209,12 +223,21 @@ pre, table, figure, img, svg, blockquote { max-width: 100%; box-sizing: border-b
 
 <!-- ── COVER ── -->
 <div class="cover">
-  <div class="cover-label">Muscle OS</div>
-  <div class="cover-title">The Complete Guide to Diet &amp; Nutrition<br>for Body Composition</div>
+  <div class="cover-accent-top"></div>
+  <div class="cover-corner cover-corner-tl"></div>
+  <div class="cover-corner cover-corner-tr"></div>
+  <div class="cover-corner cover-corner-bl"></div>
+  <div class="cover-corner cover-corner-br"></div>
+  <div class="cover-label">MUSCLE OS</div>
+  <div class="cover-pillar">PILLAR 1</div>
+  <div class="cover-diamond">&#9830;</div>
+  <div class="cover-title">Diet &amp; Nutrition</div>
+  <div class="cover-tagline">the complete guide to body composition</div>
+  <br><br><br><br>
+  <p class="cover-author-main">Eng. Coach. Anas M. Hammad</p>
   <div class="cover-divider"></div>
-  <div class="cover-subtitle">A comprehensive reference for coaching decisions</div>
-  <div class="cover-author">Coach Anas Mo'men</div>
-  <div class="cover-edition">Pillar 1 &mdash; Diet Maxing &middot; 2026 Edition</div>
+  <div class="cover-bottom"></div>
+  <div class="cover-accent-bottom"></div>
 </div>
 
 <!-- ── TOC ── -->
