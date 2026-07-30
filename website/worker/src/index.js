@@ -143,6 +143,17 @@ export default {
     if (url.pathname === '/api/check-order-status' && request.method === 'POST') {
       return handleCheckOrderStatus(request, env);
     }
+    // ---- Data sync (training tool) ----
+    if (url.pathname === '/api/sync/save' && request.method === 'POST') {
+      return handleSyncSave(request, env);
+    }
+    if (url.pathname === '/api/sync/load' && request.method === 'POST') {
+      return handleSyncLoad(request, env);
+    }
+    // ---- Expiry reminders (admin) ----
+    if (url.pathname === '/api/expiring-codes' && request.method === 'POST') {
+      return handleExpiringCodes(request, env);
+    }
     return json({ error: 'not_found' }, 404, env, request);
   }
 };
@@ -225,10 +236,15 @@ async function handleVerify(request, env) {
 
   await logAttempt(env, normalized, productId, true);
 
+  const now = Date.now();
+  const expTime = expiresAt.getTime();
+  const daysRemaining = expTime > now ? Math.ceil((expTime - now) / 86400000) : 0;
+
   return json({
     valid: true,
     token,
     expiresAt: expiresAt.toISOString(),
+    daysRemaining,
     plan: doResult.plan,
     durationDays: doResult.durationDays || 30
   }, 200, env, request);
@@ -412,6 +428,23 @@ async function approveOrderLogic(orderId, order, env, source = 'auto') {
   order.issuedCode = code;
   order.generatedCode = code;
   await env.PENDING_ORDERS.put(`order:${orderId}`, JSON.stringify(order), { expirationTtl: ORDER_TTL_SECONDS });
+  // Store customer contact alongside the code for expiry reminders
+  const cfg = PRODUCT_CONFIG[order.product];
+  const expiresAt = cfg && cfg.durationDays > 0
+    ? new Date(Date.now() + cfg.durationDays * 86400000).toISOString()
+    : null;
+  const metaKey = `code:meta:${code}`;
+  const codeMeta = {
+    customerName: order.customerName,
+    whatsappNumber: order.whatsappNumber,
+    email: order.email,
+    product: order.product,
+    lang: order.lang || 'ar',
+    issuedAt: new Date().toISOString(),
+    expiresAt,
+    durationDays: cfg ? cfg.durationDays : 30,
+  };
+  await env.ACCESS_CODES.put(metaKey, JSON.stringify(codeMeta), { expirationTtl: 7776000 });
   const prefilledMessage = buildWaMessage(order.customerName, order.product, code, order.lang);
   return {
     status: 'ok', code, whatsappNumber: order.whatsappNumber,
@@ -695,6 +728,58 @@ async function handleCheckOrderStatus(request, env) {
   }, 200, env, request);
 }
 
+// ── POST /api/expiring-codes (admin-key protected) ────────────────
+async function handleExpiringCodes(request, env) {
+  const authHeader = request.headers.get('X-Admin-Key');
+  const key = env.ADMIN_KEY || '';
+  if (!authHeader || !timingSafeEqual(authHeader, key)) {
+    return json({ error: 'unauthorized' }, 401, env, request);
+  }
+  let body;
+  try { body = await request.json(); } catch (e) {
+    return json({ error: 'invalid_json' }, 400, env, request);
+  }
+  const { days } = body;
+  const withinDays = (typeof days === 'number' && days > 0) ? days : 7;
+  const now = Date.now();
+  const expiryThreshold = now + withinDays * 86400000;
+
+  // List all code:meta: keys to find expiring codes
+  const listResult = await env.ACCESS_CODES.list({ prefix: 'code:meta:' });
+  const expiring = [];
+
+  for (const entry of listResult.keys) {
+    const meta = await env.ACCESS_CODES.get(entry.name, 'json');
+    if (!meta || !meta.expiresAt) continue;
+    const expTime = new Date(meta.expiresAt).getTime();
+    if (expTime > now && expTime <= expiryThreshold) {
+      const code = entry.name.replace('code:meta:', '');
+      const daysRemaining = Math.ceil((expTime - now) / 86400000);
+      const waLink = meta.whatsappNumber
+        ? `https://wa.me/${meta.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
+            meta.lang === 'ar'
+              ? `مرحباً ${meta.customerName}! باقي ${daysRemaining} أيام على انتهاء اشتراكك. جدد الآن 💪`
+              : `Hi ${meta.customerName}! Your subscription expires in ${daysRemaining} days. Renew now 💪`
+          )}`
+        : null;
+      expiring.push({
+        code,
+        customerName: meta.customerName,
+        whatsappNumber: meta.whatsappNumber,
+        email: meta.email,
+        product: meta.product,
+        lang: meta.lang,
+        expiresAt: meta.expiresAt,
+        daysRemaining,
+        whatsappLink: waLink,
+      });
+    }
+  }
+
+  expiring.sort((a, b) => a.daysRemaining - b.daysRemaining);
+  return json({ expiring, count: expiring.length, checkedWithin: withinDays }, 200, env, request);
+}
+
 async function handleGoogleAuth(request, env) {
   if (!env.GOOGLE_CLIENT_ID) {
     return json({ valid: false, error: 'google_auth_not_configured' }, 501, env, request);
@@ -846,6 +931,44 @@ async function handlePdfProxy(request, env, url) {
 }
 
 // In-memory sliding-window rate limiter (no TOCTOU race, per-isolate)
+// ── Data sync (training tool) ──
+async function handleSyncSave(request, env) {
+  const rateLimited = await checkRateLimit(request, env, 30);
+  if (rateLimited) return json({ error: 'rate_limited' }, 429, env, request);
+  let body;
+  try { body = await request.json(); } catch (e) {
+    return json({ error: 'invalid_json' }, 400, env, request);
+  }
+  const { key, data } = body;
+  if (!key || key.length < 4) return json({ error: 'invalid_key' }, 400, env, request);
+  if (!data) return json({ error: 'missing_data' }, 400, env, request);
+  const payloadSize = new TextEncoder().encode(JSON.stringify(data)).length;
+  if (payloadSize > 1_000_000) return json({ error: 'data_too_large' }, 413, env, request);
+  const sanitized = key.replace(/[^a-zA-Z0-9_-]/g, '').toLowerCase();
+  if (sanitized.length < 4) return json({ error: 'invalid_key' }, 400, env, request);
+  await env.ACCESS_CODES.put(`sync:${sanitized}:data`, JSON.stringify(data), { expirationTtl: 7776000 });
+  return json({ status: 'ok' }, 200, env, request);
+}
+
+async function handleSyncLoad(request, env) {
+  const rateLimited = await checkRateLimit(request, env, 60);
+  if (rateLimited) return json({ error: 'rate_limited' }, 429, env, request);
+  let body;
+  try { body = await request.json(); } catch (e) {
+    return json({ error: 'invalid_json' }, 400, env, request);
+  }
+  const { key } = body;
+  if (!key || key.length < 4) return json({ error: 'invalid_key' }, 400, env, request);
+  const sanitized = key.replace(/[^a-zA-Z0-9_-]/g, '').toLowerCase();
+  const raw = await env.ACCESS_CODES.get(`sync:${sanitized}:data`);
+  if (!raw) return json({ data: null }, 200, env, request);
+  try {
+    return json({ data: JSON.parse(raw) }, 200, env, request);
+  } catch (e) {
+    return json({ error: 'corrupt_data' }, 500, env, request);
+  }
+}
+
 async function checkRateLimit(request, env, maxRequests = 10) {
   const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
   const now = Date.now();

@@ -130,7 +130,10 @@
     }).then(function(r){ return r.json(); }).then(function(data){
       if (!data.valid) return { valid: false, reason: data.error };
       saveAccess(productId, code, data.plan, data.durationDays, data.token, false);
-      return { valid: true, plan: data.plan, durationDays: data.durationDays };
+      if (data.daysRemaining != null && data.daysRemaining <= 7) {
+        MosAccess.showExpiryWarning(productId, data.daysRemaining);
+      }
+      return { valid: true, plan: data.plan, durationDays: data.durationDays, daysRemaining: data.daysRemaining };
     }).catch(function(){
       // Worker unreachable — fall back to local verification
       return verifyLocal(code, productId);
@@ -228,6 +231,13 @@
       return this.checkAccess(productId).then(function(access){
         if (access) {
           if (overlay) overlay.classList.remove('visible');
+          // Show expiry warning if stored access is running out
+          if (!access.fallback && access.expiry) {
+            var daysLeft = Math.ceil((new Date(access.expiry) - Date.now()) / 86400000);
+            if (daysLeft <= 7) {
+              MosAccess.showExpiryWarning(productId, daysLeft);
+            }
+          }
           return access;
         }
         if (overlay) {
@@ -270,6 +280,29 @@
         verifyBtn.addEventListener('click', doVerify);
         verifyBtn.addEventListener('touchend', function(e){ e.preventDefault(); doVerify(); });
       }
+    },
+
+    /** Show an expiry warning banner in the page */
+    showExpiryWarning: function(productId, daysRemaining) {
+      var banner = document.getElementById('mosExpiryBanner');
+      if (banner) return;
+      var label = getProduct(productId);
+      var pn = label ? label.label : productId;
+      var msg = daysRemaining <= 0
+        ? 'Your ' + pn + ' access has expired. Renew your subscription.'
+        : 'Your ' + pn + ' subscription expires in ' + daysRemaining + ' day' + (daysRemaining !== 1 ? 's' : '') + '.';
+      var btn = daysRemaining > 0
+        ? '<a href="../pricing.html" style="background:#14151A;color:#FAFAF8;padding:8px 16px;border-radius:6px;text-decoration:none;font-weight:600;font-size:.8rem">Renew now</a>'
+        : '<a href="../pricing.html" style="background:#14151A;color:#FAFAF8;padding:8px 16px;border-radius:6px;text-decoration:none;font-weight:600;font-size:.8rem">Subscribe</a>';
+      var div = document.createElement('div');
+      div.id = 'mosExpiryBanner';
+      div.style.cssText = 'position:fixed;bottom:0;left:0;right:0;z-index:9999;background:' +
+        (daysRemaining <= 1 ? '#f44336' : '#FF9800') +
+        ';color:#fff;padding:12px 16px;text-align:center;font-size:.85rem;font-weight:500;' +
+        'display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap';
+      div.innerHTML = '<span>' + msg + '</span>' + btn +
+        '<button onclick="this.parentElement.remove()" style="background:none;border:none;color:rgba(255,255,255,.7);font-size:1.2rem;cursor:pointer;padding:0 4px">✕</button>';
+      document.body.appendChild(div);
     },
 
     /** Revoke access */
