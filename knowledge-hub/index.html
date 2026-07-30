@@ -3,23 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'">
 <title>Knowledge Hub — Coach Anas Mo'men</title>
-<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#14151A;--ink-2:#1E2027;--ink-3:#26282F;--yellow:#F4C93B;--yellow-dim:#C9A227;--paper:#FAFAF8;--gray:#8A8D96;--line:#2C2E37}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',sans-serif;background:var(--ink);color:#fff;line-height:1.5;min-height:100vh;display:flex;flex-direction:column;opacity:0;transition:opacity .4s ease}
-body.loaded{opacity:1}
-h1,h2,h3,h4,p,li,blockquote,figcaption{overflow-wrap:break-word;word-break:break-word}
+body{font-family:'Inter',sans-serif;background:var(--ink);color:#fff;line-height:1.5;min-height:100vh;display:flex;flex-direction:column}
 a{color:inherit;text-decoration:none}
 .wrap{max-width:860px;margin:0 auto;padding:0 24px;width:100%}
 ::selection{background:var(--yellow);color:var(--ink)}
-header{background:rgba(20,21,26,.95);border-bottom:1px solid var(--line);transition:transform .3s ease}
-header.nav-hidden{transform:translateY(-100%)}
+header{background:rgba(20,21,26,.95);border-bottom:1px solid var(--line)}
 .header-inner{max-width:1180px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
 .brand{font-family:'Oswald',sans-serif;font-weight:700;font-size:16px;letter-spacing:.5px;text-transform:uppercase}
 .brand span{color:var(--yellow)}
@@ -31,15 +26,11 @@ main{flex:1;padding:60px 0}
 .page-sub{text-align:center;color:var(--gray);font-size:15px;margin-bottom:48px}
 .section-head{font-family:'Oswald',sans-serif;font-size:20px;font-weight:600;text-transform:uppercase;color:var(--yellow);margin:32px 0 16px;padding-bottom:6px;border-bottom:2px solid var(--yellow);display:inline-block}
 .card-grid{display:grid;gap:16px;margin-bottom:24px}
-.card{background:var(--ink-2);border:1px solid var(--line);border-radius:8px;padding:24px;transition:border-color .2s,transform .2s}
+.card{background:var(--ink-2);border:1px solid var(--line);border-radius:8px;padding:24px;transition:border-color .2s,transform .2s;display:block}
 .card:hover{border-color:var(--yellow);transform:translateY(-2px)}
 .card .card-title{font-family:'Oswald',sans-serif;font-size:18px;font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.3px;margin-bottom:4px}
 .card .card-desc{font-size:14px;color:var(--gray);line-height:1.5;margin-bottom:8px}
-.card .card-links{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-.card .card-link{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--yellow);transition:color .2s}
-.card .card-link:hover{color:#fff}
-.card .card-link-pdf{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(250,250,248,.35);transition:color .2s}
-.card .card-link-pdf:hover{color:var(--yellow)}
+.card .card-link{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--yellow)}
 .card .card-badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:2px 8px;border-radius:3px;margin-bottom:8px}
 .badge-book{background:rgba(255,215,0,.15);color:#FFD700;border:1px solid rgba(255,215,0,.2)}
 .badge-guide{background:rgba(76,175,80,.15);color:#4CAF50}
@@ -48,8 +39,6 @@ main{flex:1;padding:60px 0}
 .card.prod-card:hover{border-color:#FFD700}
 footer{padding:24px;text-align:center;border-top:1px solid var(--line);font-size:12px;color:rgba(250,250,248,.4)}
 footer a{color:var(--yellow)}
-
-@media(max-width:560px){main{padding:40px 0 60px}.page-title{margin-bottom:4px}.page-sub{margin-bottom:32px;font-size:14px}}
 </style>
 </head>
 <body>
@@ -60,13 +49,11 @@ footer a{color:var(--yellow)}
 <nav class="nav-links">
 <a href="../index.html">Home</a>
 <a href="../tools/">Tools</a>
-<a href="../knowledge-hub/">Knowledge Hub</a>
+<a href="../knowledge-hub/" style="color:var(--yellow)">Knowledge Hub</a>
 <a href="../index.html#packages">Coaching</a>
 </nav>
-
 </div>
 </header>
-
 
 <main>
 <div class="wrap">
@@ -75,90 +62,66 @@ footer a{color:var(--yellow)}
 
 <div class="section-head">Reference Books <span style="font-size:12px;color:#FFD700;font-family:'JetBrains Mono',monospace;vertical-align:middle">— 500 EGP one-time</span></div>
 <div class="card-grid">
-<div class="card prod-card">
+<a class="card prod-card" href="../books/muscle_os_training_book.html">
 <div class="badge badge-book">Book</div>
 <div class="card-title">Training &amp; Programming Book</div>
 <div class="card-desc">27 chapters — program design, periodisation, exercise selection, volume, intensity, frequency, fatigue management, autoregulation. 200+ references.</div>
 <div class="card-price">500 EGP &middot; one-time purchase</div>
-<div class="card-links">
-<a class="card-link" href="../books/muscle_os_training_book.html">Purchase &amp; Read &rarr;</a>
-<a class="card-link-pdf" href="../pdf/viewer.html?product=training-book">View PDF &rarr;</a>
-</div>
-</div>
+<div class="card-link">Purchase &amp; Read &rarr;</div>
+</a>
 
-<div class="card prod-card">
+<a class="card prod-card" href="../books/muscle_os_nutrition_book.html">
 <div class="badge badge-book">Book</div>
 <div class="card-title">Diet &amp; Nutrition Book</div>
 <div class="card-desc">33 chapters — energy balance, macros, micronutrients, meal timing, supplements, diet phases, adherence psychology. 200+ references.</div>
 <div class="card-price">500 EGP &middot; one-time purchase</div>
-<div class="card-links">
-<a class="card-link" href="../books/muscle_os_nutrition_book.html">Purchase &amp; Read &rarr;</a>
-<a class="card-link-pdf" href="../pdf/viewer.html?product=nutrition-book">View PDF &rarr;</a>
-</div>
-</div>
+<div class="card-link">Purchase &amp; Read &rarr;</div>
+</a>
 </div>
 
 <div class="section-head">Free Guides &amp; Worksheets</div>
 <div class="card-grid">
-<div class="card">
+<a class="card" href="../guides/train_maxing_quick_start.html">
 <div class="badge badge-guide">Quick-Start</div>
 <div class="card-title">Train Maxing Quick Start</div>
 <div class="card-desc">Five steps to a structured, progressive programme — pick your split, set volume, track overload, deload.</div>
-<div class="card-links">
-<a class="card-link" href="../guides/train_maxing_quick_start.html">Open Guide &rarr;</a>
-<a class="card-link-pdf" href="../pdf/viewer.html?product=train-maxing-quick-start">View PDF &rarr;</a>
-</div>
-</div>
+<div class="card-link">Open Guide &rarr;</div>
+</a>
 
-<div class="card">
+<a class="card" href="../guides/diet_maxing_quick_start.html">
 <div class="badge badge-guide">Quick-Start</div>
 <div class="card-title">Diet Maxing Quick Start</div>
 <div class="card-desc">Set calories, macros, and meal structure for fat loss, maintenance, or muscle gain — adherence-first approach.</div>
-<div class="card-links">
-<a class="card-link" href="../guides/diet_maxing_quick_start.html">Open Guide &rarr;</a>
-<a class="card-link-pdf" href="../pdf/viewer.html?product=diet-maxing-quick-start">View PDF &rarr;</a>
-</div>
-</div>
+<div class="card-link">Open Guide &rarr;</div>
+</a>
 
-<div class="card">
+<a class="card" href="../guides/deload_decision_tree.html">
 <div class="badge badge-guide">Decision Aid</div>
 <div class="card-title">Deload Decision Tree</div>
 <div class="card-desc">Visual flowchart for when and how to deload — time-based, performance-based, and symptom-based triggers.</div>
-<div class="card-links">
-<a class="card-link" href="../guides/deload_decision_tree.html">Open Guide &rarr;</a>
-<a class="card-link-pdf" href="../pdf/viewer.html?product=deload-decision-tree">View PDF &rarr;</a>
-</div>
-</div>
+<div class="card-link">Open Guide &rarr;</div>
+</a>
 
-<div class="card">
+<a class="card" href="../guides/plateau_decision_tree.html">
 <div class="badge badge-guide">Decision Aid</div>
 <div class="card-title">Plateau Decision Tree</div>
 <div class="card-desc">Stalled progress? Walk through nutrition, training, and recovery variables to diagnose the bottleneck.</div>
-<div class="card-links">
-<a class="card-link" href="../guides/plateau_decision_tree.html">Open Guide &rarr;</a>
-<a class="card-link-pdf" href="../pdf/viewer.html?product=plateau-decision-tree">View PDF &rarr;</a>
-</div>
-</div>
+<div class="card-link">Open Guide &rarr;</div>
+</a>
 
-<div class="card">
+<a class="card" href="../guides/recomp_protocol_cheat_sheet.html">
 <div class="badge badge-guide">Cheat Sheet</div>
 <div class="card-title">Recomp Protocol Cheat Sheet</div>
 <div class="card-desc">Quick reference for body recomposition — calorie targets, macros, training adjustment, timeline expectations.</div>
-<div class="card-links">
-<a class="card-link" href="../guides/recomp_protocol_cheat_sheet.html">Open Guide &rarr;</a>
-<a class="card-link-pdf" href="../pdf/viewer.html?product=recomp-cheat-sheet">View PDF &rarr;</a>
-</div>
-</div>
+<div class="card-link">Open Guide &rarr;</div>
+</a>
 
-<div class="card">
+<a class="card" href="../guides/consistency_workbook.html">
 <div class="badge badge-guide">Workbook</div>
 <div class="card-title">Consistency Workbook</div>
 <div class="card-desc">6-week guided workbook for building training and nutrition habits that stick — daily logs, weekly reviews, reflection prompts.</div>
-<div class="card-links">
-<a class="card-link" href="../guides/consistency_workbook.html">Open Workbook &rarr;</a>
-<a class="card-link-pdf" href="../pdf/viewer.html?product=consistency-workbook">View PDF &rarr;</a>
-</div>
-</div>
+<div class="card-link">Open Workbook &rarr;</div>
+</a>
 </div>
 </div>
 </main>
@@ -167,6 +130,5 @@ footer a{color:var(--yellow)}
 &copy; muscleos.coach &mdash; <a href="https://wa.me/201040796017">Start your coaching journey &rarr;</a>
 </footer>
 
-<script src="../assets/js/site.js"></script>
 </body>
 </html>

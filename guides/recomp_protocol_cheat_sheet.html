@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Recomposition Protocol — Cheat Sheet</title>
-<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
 
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -56,18 +55,14 @@ body { font-family: Georgia,'Times New Roman',Times,serif; font-size: 10pt; line
 .footer { background: #14151A; padding: 10px 24px; display: flex; justify-content: space-between; align-items: center; }
 .footer span { font-size: 7.5pt; color: rgba(255,255,255,0.4); }
 .footer a { font-family: 'Courier New',Courier,monospace; font-size: 8pt; color: #F4C93B; text-decoration: none; }
-.mos-nav{position:sticky;top:0;z-index:999;background:rgba(20,21,26,.95);backdrop-filter:blur(8px);border-bottom:1px solid #2C2E37;font-family:Georgia,'Times New Roman',Times,serif;transition:transform .3s ease}
-.mos-nav.nav-hidden{transform:translateY(-100%)}
-body{opacity:0;transition:opacity .4s ease}
-body.loaded{opacity:1}
-
+.mos-nav{position:sticky;top:0;z-index:999;background:rgba(20,21,26,.95);backdrop-filter:blur(8px);border-bottom:1px solid #2C2E37;font-family:Georgia,'Times New Roman',Times,serif}
 .mos-nav-inner{max-width:1180px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
 .mos-brand{font-family:Georgia,'Times New Roman',Times,serif;font-weight:700;font-size:15px;letter-spacing:.5px;text-transform:uppercase;color:#fff;text-decoration:none}
 .mos-brand span{color:#F4C93B}
 .mos-nav-links{display:flex;gap:20px;font-size:11px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
 .mos-nav-links a{color:#C7C9D0;text-decoration:none;transition:color .2s}
 .mos-nav-links a:hover{color:#F4C93B}
-@media(max-width:600px){.mos-nav-inner{padding:8px 16px}.mos-brand{font-size:12px}}
+@media(max-width:600px){.mos-nav-links{gap:10px;font-size:9px}.mos-nav-inner{padding:8px 16px}.mos-brand{font-size:12px}}
 @media print{.mos-nav{display:none!important}.mos-footer{display:none!important}}
 .mos-footer{padding:20px 24px;background:#14151A;border-top:1px solid #2C2E37;font-family:Georgia,'Times New Roman',Times,serif;text-align:center}
 .mos-footer-inner{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
@@ -94,32 +89,10 @@ body.loaded{opacity:1}
 .styled-table td{padding:6pt 10pt;border-bottom:.5px solid rgba(250,250,248,.08)}
 .styled-table tbody tr:nth-child(even){background:rgba(250,250,248,.02)}
 .styled-table tbody tr:hover{background:rgba(244,201,59,.05)}
-@media(max-width:768px){
-.cover{width:100vw;height:auto;min-height:100vh;padding:40px 24px}
-.cover-title{font-size:clamp(24px,8vw,38pt)!important}
-.cover-subtitle{font-size:clamp(11px,3vw,12pt)!important}
-.cover-author{font-size:9px!important}
-.cover-edition{font-size:8px!important}
-.section{page-break-before:auto;min-height:auto;padding:20px 16px}
-.section-content{max-width:100%;overflow-x:hidden}
-.cheat{width:100vw;min-height:auto}
-.cheat-inner{padding:20px 16px;min-height:auto}
-.cheat-grid{grid-template-columns:1fr}
-body{font-size:clamp(10pt,3.5vw,11pt)}
-.section h1{font-size:clamp(18pt,5vw,22pt)}
-.section h2{font-size:clamp(13pt,4vw,15pt)}
-.section h3{font-size:clamp(11pt,3.5vw,12pt)}
-.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.how-list li{padding-left:32px}
-.step-heading{font-size:clamp(10pt,3.5vw,12pt)}
-.upsell{padding:12px 14px}
-.coach-note{padding:10px 12px}
-}
 </style>
 </head>
 <body>
-<nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div></div></nav>
-<div style="background:#1E1E2A;border-bottom:1px solid #2C2E37;padding:8px 24px;text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:rgba(250,250,248,.5)"><span>Download or view as PDF: </span><a href="../pdf/viewer.html?product=recomp-protocol-cheat-sheet" style="color:#F4C93B;text-decoration:none;font-weight:600" target="_blank">Open PDF Reader &rarr;</a></div>
+<nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a><a href="../index.html#packages">Coaching</a></div></div></nav>
 <div class="guide-intro" style="margin:10px 20px;max-width:170mm;">
   <strong>Body recomposition</strong> — losing fat and building muscle simultaneously — is possible under specific conditions: sufficient body fat, appropriate training status, and precise nutritional timing. This cheat sheet outlines the eligibility criteria, protocol targets, and checkpoint system for running an effective recomp phase.
   <span class="book-ref">This and related topics are covered in depth in the Training &amp; Programming Book and the Diet &amp; Nutrition Book.</span>
@@ -214,8 +187,7 @@ body{font-size:clamp(10pt,3.5vw,11pt)}
       <a href="../books/muscle_os_training_book.html" class="guide-upsell-cta">Get the Full Book &mdash; 500 EGP &rarr;</a>
     </div>
   </div>
-  <footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo'men</div></footer>
+  <footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo'men</div></footer>
 </div>
-<script src="../assets/js/site.js"></script>
 </body>
 </html>

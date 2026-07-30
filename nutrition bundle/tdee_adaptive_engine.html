@@ -3,16 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' https://accounts.google.com https://*.googleapis.com">
 <title>Adaptive TDEE & Macro Engine — by Coach Anas Mo'men</title>
-<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:32px 16px}
-h1,h2,h3,h4,p,li,blockquote,figcaption{overflow-wrap:break-word;word-break:break-word}
 .container{width:100%;max-width:720px}
 .header{text-align:center;margin-bottom:24px}
 .header h1{font-family:'Oswald',sans-serif;font-size:2.2rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:1px;line-height:1.1}
@@ -118,125 +115,22 @@ select option{background:#1E1E2A;color:#FAFAF8}
 .modal h3{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
 .modal p{font-size:.78rem;line-height:1.5;color:rgba(250,250,248,.5);margin-bottom:14px}
 
-.mos-nav{position:sticky;top:0;z-index:999;background:rgba(20,21,26,.95);backdrop-filter:blur(8px);border-bottom:1px solid #2C2E37;font-family:'Inter',sans-serif}
-.mos-nav-inner{max-width:1180px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
-.mos-brand{font-family:'Oswald',sans-serif;font-weight:700;font-size:15px;letter-spacing:.5px;text-transform:uppercase;color:#fff;text-decoration:none}
-.mos-brand span{color:#F4C93B}
-.mos-nav-links{display:flex;gap:20px;font-size:11px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
-.mos-nav-links a{color:#C7C9D0;text-decoration:none;transition:color .2s}
-.mos-nav-links a:hover{color:#F4C93B}
-@media(max-width:700px){.mos-nav-links{display:none}.mos-menu-toggle{display:flex}}
-@media(max-width:600px){.mos-nav-inner{padding:8px 16px}.mos-brand{font-size:13px}input,select,textarea{font-size:16px!important}.sex-btn,.btn-primary,.btn-secondary,.mos-menu-toggle{min-height:44px}}
-body{opacity:0;transition:opacity .4s ease}body.loaded{opacity:1}.mos-nav{transition:transform .3s ease}.mos-nav.nav-hidden{transform:translateY(-100%)}
-@media print{.mos-nav{display:none!important}.mos-footer{display:none!important}}
-.mos-footer{padding:20px 24px;background:#14151A;border-top:1px solid #2C2E37;font-family:'Inter',sans-serif;text-align:center}
-.mos-footer-inner{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
-.mos-fbrand{font-family:'Oswald',sans-serif;font-weight:700;font-size:13px;letter-spacing:.5px;text-transform:uppercase;color:#fff}
-.mos-fbrand span{color:#F4C93B}
-.mos-fnav a{color:rgba(250,250,248,.5);text-decoration:none;margin:0 8px;font-size:11px;font-weight:500}
-.mos-fnav a:hover{color:#F4C93B}
-.mos-fsocial a{color:#F4C93B;text-decoration:none;margin:0 8px;font-size:11px}
-.mos-fcopy{font-size:10px;color:rgba(250,250,248,.3);margin-top:6px}
+.footer{text-align:center;margin-top:24px;font-size:.65rem;color:rgba(250,250,248,.2);font-weight:300}
+.footer a{color:#F4C93B;text-decoration:none;font-weight:500}
+.footer a:hover{text-decoration:underline}
 .wa-link{font-family:'JetBrains Mono',monospace;color:#F4C93B;text-decoration:none}
 @media(max-width:580px){
- .calc-grid,.form-row,.form-row-3{grid-template-columns:1fr}.card{padding:16px 12px}
- }
-.mos-menu-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px 4px;z-index:1001;flex-direction:column;gap:4px}
-.mos-menu-toggle span{display:block;width:22px;height:2px;background:#FAFAF8;border-radius:2px;transition:all .25s ease}
-.mos-menu-toggle.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
-.mos-menu-toggle.open span:nth-child(2){opacity:0}
-.mos-menu-toggle.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
-.mos-mobile-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:998}
-.mos-mobile-overlay.open{display:block}
-.mos-mobile-menu{position:fixed;top:0;right:-280px;width:260px;height:100vh;background:#1A1B22;z-index:999;padding:72px 24px 24px;transition:right .3s ease;border-left:1px solid #2C2E37;overflow-y:auto}
-.mos-mobile-menu.open{right:0}
-.mos-mobile-menu-inner{display:flex;flex-direction:column;gap:4px}
-.mos-mobile-menu-inner a{display:block;padding:14px 12px;color:#C7C9D0;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;transition:background .2s,color .2s;min-height:44px;line-height:44px}
-.mos-mobile-menu-inner a:hover,.mos-mobile-menu-inner a:active{background:rgba(244,201,59,.1);color:#F4C93B}
+  body{padding:20px 12px}
+  .header h1{font-size:1.8rem}
+  .card{padding:18px 14px}
+  .form-row,.form-row-3{grid-template-columns:1fr}
+  .dash-grid{grid-template-columns:1fr}
+  .dash-macro-grid{grid-template-columns:1fr}
+  .dash-val{font-size:1.3rem}
+}
 </style>
-<link rel="stylesheet" href="../assets/css/overlay.css">
-<link rel="stylesheet" href="../assets/css/landing.css">
 </head>
 <body>
-<nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div><button class="mos-menu-toggle" id="mosMenuToggle" aria-label="Menu"><span></span><span></span><span></span></button></div></nav>
-<div class="mos-mobile-overlay" id="mosMobileOverlay"></div>
-<div class="mos-mobile-menu" id="mosMobileMenu"><div class="mos-mobile-menu-inner"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div></div>
-<div id="googleGate">
-  <div class="gate-card">
-    <div class="gate-icon">&#128100;</div>
-    <h2>Sign in to continue</h2>
-    <p>Use your Google account to access Muscle OS tools and books.</p>
-    <div id="googleSignIn"></div>
-    <div class="guest-link" onclick="MosAccess.requireGoogleAuth('tdee_adaptive_engine', function(){})">Skip for now</div>
-  </div>
-</div>
-<div class="sub-overlay" id="subOverlay">
-  <div class="sub-modal">
-    <div class="lock-icon">&#128274;</div>
-    <h2>Pro Tool</h2>
-    <div class="sub-price">200 EGP / month</div>
-    <p class="sub-desc">This tool requires an active subscription. Subscribe now or enter your access code if you already have one.</p>
-    <ul class="sub-features">
-      <li>Daily weight logging with trend-weight calculation</li>
-      <li>Auto-adjusted TDEE using 7/14/28-day rolling averages</li>
-      <li>Calorie recommendations for deficit, maintenance, or surplus</li>
-      <li>Weight trend chart with moving averages</li>
-      <li>Data export &amp; import for backup</li>
-      <li>No ads, no limits — unlimited daily entries</li>
-    </ul>
-    <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20subscribe%20to%20the%20TDEE%20Adaptive%20Engine%20for%20200%20EGP/month" class="sub-btn" target="_blank" rel="noopener" data-wa-tag="tdee_subscribe_top">Get Your Code via WhatsApp</a>
-    <p class="sub-privacy" style="margin:8px 0 0;font-size:11px;color:rgba(250,250,248,.35);text-align:center">&#128274; No card details on this site — payment confirmed directly with your coach.</p>
-    <div class="sub-divider">Already have access?</div>
-    <form class="sub-code-row" id="subForm" action="javascript:void(0)">
-      <input type="text" class="sub-code-input" id="subCode" placeholder="Enter access code or email" autocomplete="off" inputmode="text">
-      <button type="submit" class="sub-verify-btn" id="subVerify" aria-label="Verify access code">Verify</button>
-    </form>
-    <div class="sub-error" id="subError">Invalid code. Please check and try again.</div>
-    <div class="sub-success" id="subSuccess">Access granted! Reloading tool...</div>
-  </div>
-</div>
-<div id="contentLanding" class="content-landing">
-  <div class="lnd-hero">
-    <h1>Adaptive TDEE Engine</h1>
-    <p>Your weight trends, recalculated. This tool replaces static calorie formulas with real-time TDEE estimation based on your actual daily weight and intake data.</p>
-  </div>
-  <div class="lnd-section">
-    <h2>Quick-Start Guide</h2>
-    <div class="lnd-quickstart">
-      <ol>
-        <li><strong>Log your weight</strong> — Enter your daily weight each morning. Consistency matters more than precision.</li>
-        <li><strong>Log your calories</strong> — Track daily intake from your food log (MyFitnessPal, Cronometer, or manual).</li>
-        <li><strong>Wait 7 days</strong> — After 7 consecutive days, the engine computes your first TDEE estimate using the trend-weight algorithm.</li>
-        <li><strong>Adjust based on goal</strong> — Set deficit (fat loss), maintenance, or surplus. The engine gives you a calorie target.</li>
-        <li><strong>Review trend charts</strong> — Visualize your weight trend, moving averages, and TDEE changes over time.</li>
-        <li><strong>Export data</strong> — Download your full history as CSV for your own analysis.</li>
-      </ol>
-    </div>
-  </div>
-  <div class="lnd-section">
-    <h2>What You Get</h2>
-    <div class="lnd-features">
-      <div class="lnd-feat-card"><h4>Trend-Weight Algorithm</h4><p>Removes daily water-weight noise using a 7-day rolling average so you see real fat-loss or gain trends.</p></div>
-      <div class="lnd-feat-card"><h4>Auto-Recalibration</h4><p>TDEE recalculates every 2 weeks as your weight changes — no need to guess or re-enter data.</p></div>
-      <div class="lnd-feat-card"><h4>Goal-Based Targets</h4><p>Deficit, surplus, or maintenance — the engine gives you a daily calorie target based on your selected goal rate of change.</p></div>
-      <div class="lnd-feat-card"><h4>Visual Charts</h4><p>Interactive weight trend and TDEE charts help you see the bigger picture at a glance.</p></div>
-      <div class="lnd-feat-card"><h4>Data Import/Export</h4><p>Import from spreadsheet or export your history as CSV. Your data stays yours.</p></div>
-    </div>
-  </div>
-  <div class="lnd-subscribe" id="lndSubscribe">
-    <h3>Unlock the Adaptive TDEE Engine</h3>
-    <p>200 EGP / month. Subscribe via WhatsApp to get your access code, then enter it below.</p>
-    <div class="sub-code-area">
-      <input type="text" class="sub-code-input" id="lndSubCode" placeholder="Enter your access code">
-      <button class="sub-verify-btn" id="lndSubVerify">Verify Code</button>
-      <div class="sub-error" id="lndSubError">Invalid code. Try again or contact support.</div>
-      <div class="sub-checkmark" id="lndSubCheck">&#10003; Access granted! Loading tool...</div>
-    </div>
-    <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20subscribe%20to%20the%20TDEE%20Adaptive%20Engine%20for%20200%20EGP/month" style="display:inline-block;margin-top:1rem;color:#4285f4;font-size:.85rem;text-decoration:underline" target="_blank" rel="noopener" data-wa-tag="tdee_subscribe_bottom">Get Your Code via WhatsApp &rarr;</a>
-    <p style="margin:6px 0 0;font-size:11px;color:rgba(250,250,248,.35)">&#128274; No card details on this site — payment confirmed directly with your coach.</p>
-  </div>
-</div>
-<div id="contentMain">
 <div class="container">
   <div class="header">
     <h1>Adaptive TDEE Engine</h1>
@@ -381,10 +275,15 @@ body{opacity:0;transition:opacity .4s ease}body.loaded{opacity:1}.mos-nav{transi
       <div id="dash-history" class="tab-content"></div>
       <div id="dash-edit" class="tab-content"></div>
     </div>
+    <div class="footer">
+      <a href="https://wa.me/201040796017">Start your coaching journey now →</a>
+    </div>
   </div>
 
+  <div class="footer">
+    Free tool by Coach Anas Mo'men — <a href="https://wa.me/201040796017">Start your coaching journey now</a>
+  </div>
 </div>
-<footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017" data-wa-tag="footer_wa">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo'men</div></footer>
 
 <script>
 (function(){
@@ -990,39 +889,6 @@ body{opacity:0;transition:opacity .4s ease}body.loaded{opacity:1}.mos-nav{transi
 
   console.log('Adaptive TDEE Engine loaded. Data stored in localStorage under key: '+STORAGE_KEY);
 })();
-
-</div><!-- /contentMain -->
-
-<script src="https://accounts.google.com/gsi/client" async defer onload="if(window.mosGoogleInit)mosGoogleInit()"></script>
-<script src="../assets/js/access-control.js"></script>
-<script src="../assets/js/site.js"></script>
-<script>
-MosAccess.requireGoogleAuth('tdee_adaptive_engine', function(ready){
-  MosAccess.initOverlay('tdee_adaptive_engine');
-  if(ready){
-    MosAccess.checkOrShow('tdee_adaptive_engine');
-  }
-});
-var lndVerify = document.getElementById('lndSubVerify');
-var lndInput = document.getElementById('lndSubCode');
-if(lndVerify && lndInput){
-  lndVerify.addEventListener('click', function(){
-    var code = lndInput.value.trim();
-    if(!code){ document.getElementById('lndSubError').style.display='block'; return; }
-    MosAccess.verifyCode(code, 'tdee_adaptive_engine').then(function(res){
-      if(res.valid){
-        document.getElementById('lndSubError').style.display='none';
-        document.getElementById('lndSubCheck').style.display='block';
-        setTimeout(function(){ location.reload(); }, 1500);
-      } else {
-        document.getElementById('lndSubError').style.display='block';
-      }
-    });
-  });
-}
-<script>
-(function(){var b=document.getElementById('mosMenuToggle'),m=document.getElementById('mosMobileMenu'),o=document.getElementById('mosMobileOverlay');if(!b||!m||!o)return;function c(){b.classList.remove('open');m.classList.remove('open');o.classList.remove('open')}b.addEventListener('click',function(){var is=m.classList.contains('open');if(is)c();else{b.classList.add('open');m.classList.add('open');o.classList.add('open')}});o.addEventListener('click',c);m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',c)})})();
 </script>
-<script src="../assets/tracking.js"></script>
 </body>
 </html>

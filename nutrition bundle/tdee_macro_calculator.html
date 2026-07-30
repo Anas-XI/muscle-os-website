@@ -4,32 +4,35 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TDEE & Macro Calculator — Precision Edition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Georgia,'Times New Roman',Times,serif;background:#14151A;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 16px;line-height:1.7}
+body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 16px}
 .container{width:100%;max-width:640px}
 .header{text-align:center;margin-bottom:28px}
-.header h1{font-family:Georgia,'Times New Roman',Times,serif;font-size:2.4rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:1px;line-height:1.1}
+.header h1{font-family:'Oswald',sans-serif;font-size:2.4rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:1px;line-height:1.1}
 .header p{font-size:.8rem;color:rgba(250,250,248,.5);margin-top:4px;font-weight:300;letter-spacing:.5px}
 .card{background: #1E1E2A; border-radius: 16px; padding: 24px 22px; }
-.section-header{font-family:Georgia,'Times New Roman',Times,serif;font-size:.9rem;font-weight:500;text-transform:uppercase;letter-spacing:.5px;color:#F4C93B;border-bottom:1px solid rgba(250,250,248,.07);padding-bottom:5px;margin:20px 0 12px}
+.section-header{font-family:'Oswald',sans-serif;font-size:.9rem;font-weight:500;text-transform:uppercase;letter-spacing:.5px;color:#F4C93B;border-bottom:1px solid rgba(250,250,248,.07);padding-bottom:5px;margin:20px 0 12px}
 .section-header:first-of-type{margin-top:0}
-.section-sub{font-size:.6rem;color:rgba(250,250,248,.35);font-weight:400;text-transform:none;letter-spacing:0;font-family:Georgia,'Times New Roman',Times,serif}
+.section-sub{font-size:.6rem;color:rgba(250,250,248,.35);font-weight:400;text-transform:none;letter-spacing:0;font-family:'Inter',sans-serif}
 .form-group{margin-bottom:14px}
 .form-group:last-of-type{margin-bottom:0}
 .form-group label{display:block;font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(250,250,248,.45);margin-bottom:5px}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
 .sex-group{display:flex;gap:8px}
-.sex-btn{flex:1;padding:9px 0;border:1.5px solid rgba(250,250,248,.12);border-radius:8px;background:transparent;color:#FAFAF8;font-family:Georgia,'Times New Roman',Times,serif;font-size:.82rem;font-weight:500;cursor:pointer;transition:all .2s;text-align:center}
+.sex-btn{flex:1;padding:9px 0;border:1.5px solid rgba(250,250,248,.12);border-radius:8px;background:transparent;color:#FAFAF8;font-family:'Inter',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;transition:all .2s;text-align:center}
 .sex-btn:hover{border-color:rgba(250,250,248,.25)}
 .sex-btn.active{background:#F4C93B;color:#14151A;border-color:#F4C93B;font-weight:600}
-input,select{width:100%;padding:9px 11px;background:rgba(20,21,26,.6);border:1.5px solid rgba(250,250,248,.1);border-radius:8px;color:#FAFAF8;font-family:'Courier New',Courier,monospace;font-size:.85rem;outline:none;transition:border-color .2s}
+input,select{width:100%;padding:9px 11px;background:rgba(20,21,26,.6);border:1.5px solid rgba(250,250,248,.1);border-radius:8px;color:#FAFAF8;font-family:'JetBrains Mono',monospace;font-size:.85rem;outline:none;transition:border-color .2s}
 input:focus,select:focus{border-color:#F4C93B}
-select{font-family:Georgia,'Times New Roman',Times,serif;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 12 8'%3E%3Cpath fill='%23FAFAF8' opacity='0.5' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;padding-right:32px}
+select{font-family:'Inter',sans-serif;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 12 8'%3E%3Cpath fill='%23FAFAF8' opacity='0.5' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;padding-right:32px}
 select option{background:#1E1E2A;color:#FAFAF8}
 .tip{font-size:.6rem;color:rgba(250,250,248,.25);margin-top:3px;font-style:italic}
-.btn-calc{width:100%;margin-top:20px;padding:14px 0;background:#F4C93B;color:#14151A;border:none;border-radius:10px;font-family:Georgia,'Times New Roman',Times,serif;font-size:1.05rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;transition:opacity .2s,transform .15s}
+.btn-calc{width:100%;margin-top:20px;padding:14px 0;background:#F4C93B;color:#14151A;border:none;border-radius:10px;font-family:'Oswald',sans-serif;font-size:1.05rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;transition:opacity .2s,transform .15s}
 .btn-calc:hover{opacity:.9}
 .btn-calc:active{transform:scale(.98)}
 .error{display:none;color:#F4C93B;font-size:.75rem;text-align:center;margin-top:10px;font-weight:500}
@@ -38,69 +41,40 @@ select option{background:#1E1E2A;color:#FAFAF8}
 .results-card{background:#1E1E2A;border-radius:16px;border-top:3px solid #F4C93B;padding:24px 22px}
 .cal-section{text-align:center;margin-bottom:20px}
 .cal-label{font-size:.65rem;text-transform:uppercase;letter-spacing:1.5px;color:rgba(250,250,248,.4);font-weight:600}
-.cal-val{font-family:'Courier New',Courier,monospace;font-size:2.8rem;font-weight:700;color:#F4C93B;line-height:1.1;margin-top:2px}
+.cal-val{font-family:'JetBrains Mono',monospace;font-size:2.8rem;font-weight:700;color:#F4C93B;line-height:1.1;margin-top:2px}
 .cal-unit{font-size:.8rem;color:rgba(250,250,248,.3);font-weight:300}
 .break-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px}
 .break-item{text-align:center;padding:8px 4px;border-radius:8px;background:rgba(20,21,26,.4)}
-.break-val{font-family:'Courier New',Courier,monospace;font-size:.95rem;font-weight:600;color:#FAFAF8}
+.break-val{font-family:'JetBrains Mono',monospace;font-size:.95rem;font-weight:600;color:#FAFAF8}
 .break-lbl{font-size:.55rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.3);margin-top:2px;font-weight:500}
 .breakdown-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(250,250,248,.05);font-size:.74rem}
 .breakdown-row:last-child{border-bottom:none}
 .breakdown-row .lbl{color:rgba(250,250,248,.45);text-transform:none;letter-spacing:0;font-size:.74rem}
-.breakdown-row .val{font-family:'Courier New',Courier,monospace;color:#FAFAF8}
+.breakdown-row .val{font-family:'JetBrains Mono',monospace;color:#FAFAF8}
 .macro-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:16px}
 .macro-item{text-align:center;padding:10px 6px;border-radius:10px;background:rgba(20,21,26,.4)}
-.macro-val{font-family:'Courier New',Courier,monospace;font-size:1.2rem;font-weight:600;color:#FAFAF8}
+.macro-val{font-family:'JetBrains Mono',monospace;font-size:1.2rem;font-weight:600;color:#FAFAF8}
 .macro-lbl{font-size:.6rem;text-transform:uppercase;letter-spacing:1px;color:rgba(250,250,248,.35);margin-top:2px;font-weight:500}
 .bar-section{margin-top:4px}
 .bar-title{font-size:.6rem;text-transform:uppercase;letter-spacing:1.2px;color:rgba(250,250,248,.35);margin-bottom:6px;font-weight:500}
 .bar-track{display:flex;height:26px;border-radius:6px;overflow:hidden}
-.bar-seg{display:flex;align-items:center;justify-content:center;font-family:'Courier New',Courier,monospace;font-size:.6rem;font-weight:600;color:#14151A;transition:width .4s ease}
+.bar-seg{display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:600;color:#14151A;transition:width .4s ease}
 .bar-p{background:#F4C93B}
 .bar-f{background:#e8a83a}
 .bar-c{background:#c48a30}
 .bar-legend{display:flex;justify-content:center;gap:16px;margin-top:6px}
 .bar-leg-item{display:flex;align-items:center;gap:4px;font-size:.6rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.35);font-weight:500}
 .bar-dot{width:7px;height:7px;border-radius:2px}
-.mos-nav{position:sticky;top:0;z-index:999;background:rgba(20,21,26,.95);backdrop-filter:blur(8px);border-bottom:1px solid #2C2E37;font-family:Georgia,'Times New Roman',Times,serif}
-.mos-nav-inner{max-width:1180px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
-.mos-brand{font-family:Georgia,'Times New Roman',Times,serif;font-weight:700;font-size:15px;letter-spacing:.5px;text-transform:uppercase;color:#fff;text-decoration:none}
-.mos-brand span{color:#F4C93B}
-.mos-nav-links{display:flex;gap:20px;font-size:11px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
-.mos-nav-links a{color:#C7C9D0;text-decoration:none;transition:color .2s}
-.mos-nav-links a:hover{color:#F4C93B}
-@media(max-width:600px){.mos-nav-links{gap:10px;font-size:9px}.mos-nav-inner{padding:8px 16px}.mos-brand{font-size:12px}}
-@media print{.mos-nav{display:none!important}.mos-footer{display:none!important}}
-.mos-footer{padding:20px 24px;background:#14151A;border-top:1px solid #2C2E37;font-family:Georgia,'Times New Roman',Times,serif;text-align:center}
-.mos-footer-inner{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
-.mos-fbrand{font-family:Georgia,'Times New Roman',Times,serif;font-weight:700;font-size:13px;letter-spacing:.5px;text-transform:uppercase;color:#fff}
-.mos-fbrand span{color:#F4C93B}
-.mos-fnav a{color:rgba(250,250,248,.5);text-decoration:none;margin:0 8px;font-size:11px;font-weight:500}
-.mos-fnav a:hover{color:#F4C93B}
-.mos-fsocial a{color:#F4C93B;text-decoration:none;margin:0 8px;font-size:11px}
-.mos-fcopy{font-size:10px;color:rgba(250,250,248,.3);margin-top:6px}
-.lang-toggle{position:fixed;top:14px;right:14px;z-index:999;background:rgba(30,30,42,.85);border:1px solid rgba(250,250,248,.12);color:#FAFAF8;font-family:Georgia,'Times New Roman',Times,serif;font-size:.72rem;font-weight:500;padding:6px 14px;border-radius:7px;cursor:pointer;backdrop-filter:blur(4px);transition:background .2s;letter-spacing:.3px}
+.footer{text-align:center;margin-top:24px;font-size:.68rem;color:rgba(250,250,248,.25);font-weight:300}
+.footer a{color:#F4C93B;text-decoration:none;font-weight:500}
+.footer a:hover{text-decoration:underline}
+.lang-toggle{position:fixed;top:14px;right:14px;z-index:999;background:rgba(30,30,42,.85);border:1px solid rgba(250,250,248,.12);color:#FAFAF8;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:500;padding:6px 14px;border-radius:7px;cursor:pointer;backdrop-filter:blur(4px);transition:background .2s;letter-spacing:.3px}
 .lang-toggle:hover{background:rgba(244,201,59,.15);border-color:rgba(244,201,59,.3);color:#F4C93B}
 html[dir="rtl"] .lang-toggle{right:auto;left:14px}
 html[dir="rtl"] .header{text-align:center}
 html[dir="rtl"] .sex-group,html[dir="rtl"] .bar-legend{direction:ltr}
 html[dir="rtl"] select{background-position:left 11px center;padding-right:11px;padding-left:32px}
 .num-highlight{color:#F4C93B}
-.concept-box{background:rgba(244,201,59,.08);border-left:3px solid #F4C93B;border-radius:8px;padding:16px 20px;margin-bottom:20px;font-family:Georgia,'Times New Roman',Times,serif;font-size:.85rem;line-height:1.7;color:rgba(250,250,248,.85)}
-.concept-box strong{color:#F4C93B}
-.concept-box .book-ref{display:block;margin-top:8px;font-size:.75rem;color:rgba(250,250,248,.5);font-style:italic;border-top:1px solid rgba(244,201,59,.15);padding-top:8px}
-.concept-box .book-ref a{color:#F4C93B;font-weight:600;text-decoration:none}
-.upsell-box{background:#1E1E2A;border:1px solid rgba(244,201,59,.3);border-radius:12px;padding:24px;margin-top:24px;text-align:center}
-.upsell-box h3{font-family:Georgia,'Times New Roman',Times,serif;font-size:1.1rem;font-weight:700;color:#F4C93B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
-.upsell-box p{font-family:Georgia,'Times New Roman',Times,serif;font-size:.82rem;color:rgba(250,250,248,.7);line-height:1.6;margin-bottom:16px;max-width:480px;margin-left:auto;margin-right:auto}
-.upsell-cta{display:inline-block;background:#F4C93B;color:#14151A;font-family:Georgia,'Times New Roman',Times,serif;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:12px 28px;border-radius:6px;text-decoration:none;transition:opacity .2s}
-.upsell-cta:hover{opacity:.85}
-.styled-table{width:100%;border-collapse:collapse;margin:12px 0;font-family:Georgia,'Times New Roman',Times,serif;font-size:.82rem}
-.styled-table thead{background:#F4C93B;color:#14151A}
-.styled-table th{padding:10px 12px;text-align:left;font-weight:700;text-transform:uppercase;letter-spacing:.5px;font-size:.7rem}
-.styled-table td{padding:8px 12px;border-bottom:1px solid rgba(250,250,248,.08)}
-.styled-table tbody tr:nth-child(even){background:rgba(250,250,248,.02)}
-.styled-table tbody tr:hover{background:rgba(244,201,59,.05)}
 @media(max-width:580px){
   body{padding:24px 12px}
   .header h1{font-size:2rem}
@@ -127,16 +101,11 @@ html[dir="rtl"] select{background-position:left 11px center;padding-right:11px;p
 </style>
 </head>
 <body>
-<nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a><a href="../index.html#packages">Coaching</a></div></div></nav>
 <div class="container">
   <button class="lang-toggle" onclick="toggleLang()" data-i18n="langBtn">🇸🇦 AR</button>
   <div class="header">
     <h1 data-i18n="title">TDEE Calculator</h1>
     <p data-i18n="subtitle">Precision Edition — every factor that affects your metabolism</p>
-  </div>
-  <div class="concept-box">
-    <strong>What is TDEE?</strong> TDEE (Total Daily Energy Expenditure) is the total number of calories your body burns each day — including your BMR (basal metabolic rate), NEAT (non-exercise activity thermogenesis), EAT (exercise activity thermogenesis), and TEF (thermic effect of food). Understanding your TDEE is the foundation of any nutrition plan, whether your goal is fat loss, muscle gain, or maintenance.
-    <span class="book-ref">This concept is covered in depth in the <a href="../books/muscle_os_nutrition_book.html">Diet &amp; Nutrition Book</a> (28 chapters, 200+ references).</span>
   </div>
   <div class="card" id="formCard">
 
@@ -507,13 +476,10 @@ html[dir="rtl"] select{background-position:left 11px center;padding-right:11px;p
       </div>
     </div>
   </div>
+  <div class="footer">
+    <span data-i18n="footer">Free tool by Coach Anas Mo'men — </span><a href="https://wa.me/201040796017" data-i18n="footerLink">Start your coaching journey now</a>
+  </div>
 </div>
-<div class="upsell-box">
-  <h3>Want the full picture?</h3>
-  <p>This free calculator gives you a snapshot. The full Diet &amp; Nutrition Book covers calorie cycling, macro periodisation, metabolic adaptation, refeeds, and nutrient timing across 28 chapters with 200+ scientific references.</p>
-  <a class="upsell-cta" href="../books/muscle_os_nutrition_book.html">Get the Full Book — 500 EGP &rarr;</a>
-</div>
-<footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo'men</div></footer>
 <script>
 (function() {
   const I18N = {

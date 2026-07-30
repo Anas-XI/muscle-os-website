@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'">
+<title>Muscle OS — Order Approval</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px}
+body{font-family:'Inter',sans-serif;background:#0D0E12;color:#FAFAF8;line-height:1.5;min-height:100vh;padding:0;overflow-x:hidden}
+img{max-width:100%;display:block}
+h1,h2,h3,h4,p{overflow-wrap:break-word;word-break:break-word}
+::selection{background:#F4C93B;color:#14151A}
+
+.wrap{max-width:600px;margin:0 auto;padding:0 16px}
+
+/* ── Header ── */
+.header{padding:20px 16px 12px;text-align:center;border-bottom:1px solid rgba(255,255,255,.06)}
+.header h1{font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#F4C93B}
+.header .sub{font-size:.7rem;color:rgba(250,250,248,.35);margin-top:2px;font-weight:400}
+.header .sub .count{color:#F4C93B;font-weight:600}
+
+/* ── Login screen ── */
+.login-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;padding:32px 16px}
+.login-screen h2{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:#F4C93B;margin-bottom:4px}
+.login-screen .login-desc{font-size:.78rem;color:rgba(250,250,248,.4);margin-bottom:20px;text-align:center;max-width:300px}
+.login-input{width:100%;max-width:320px;padding:14px 16px;background:rgba(30,30,42,.8);border:1.5px solid rgba(250,250,248,.1);border-radius:10px;color:#FAFAF8;font-family:'Inter',sans-serif;font-size:.95rem;outline:none;transition:border-color .2s;text-align:center}
+.login-input:focus{border-color:#F4C93B}
+.login-btn{width:100%;max-width:320px;margin-top:12px;padding:14px 0;background:#F4C93B;color:#14151A;border:none;border-radius:10px;font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;transition:opacity .2s,transform .15s;min-height:48px}
+.login-btn:hover{opacity:.9}
+.login-btn:active{transform:scale(.98)}
+.login-error{display:none;margin-top:10px;font-size:.78rem;color:#f44336;font-weight:500;text-align:center}
+.login-hint{font-size:.65rem;color:rgba(250,250,248,.25);margin-top:16px;text-align:center;max-width:300px}
+
+/* ── Order cards ── */
+.order-list{display:flex;flex-direction:column;gap:12px;padding:16px 0 80px}
+.order-card{background:#1A1C24;border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:16px;transition:border-color .2s,opacity .3s}
+.order-card.old{border-color:rgba(244,201,59,.25);background:linear-gradient(135deg,#1A1C24,rgba(244,201,59,.04))}
+.order-card.resolving{opacity:.5;pointer-events:none}
+.order-card .oc-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.order-card .oc-product{font-family:'Oswald',sans-serif;font-size:.82rem;font-weight:600;text-transform:uppercase;letter-spacing:.3px;color:#F4C93B}
+.order-card .oc-time{font-size:.62rem;color:rgba(250,250,248,.3);font-family:'JetBrains Mono',monospace;white-space:nowrap}
+.order-card .oc-time.urgent{color:#f44336;font-weight:600}
+.order-card .oc-name{font-size:.85rem;font-weight:600;color:#FAFAF8;margin-bottom:2px}
+.order-card .oc-detail{font-size:.7rem;color:rgba(250,250,248,.4);margin-bottom:1px}
+.order-card .oc-detail strong{color:rgba(250,250,248,.6);font-weight:500}
+.order-card .oc-detail .ref{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:#F4C93B}
+.order-card .oc-tags{display:flex;gap:6px;margin:6px 0 10px;flex-wrap:wrap}
+.order-card .oc-tag{font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;padding:2px 8px;border-radius:4px}
+.order-card .oc-tag.method-instapay{background:rgba(33,150,243,.15);color:#2196F3}
+.order-card .oc-tag.method-vodafone_cash{background:rgba(76,175,80,.15);color:#4CAF50}
+.order-card .oc-tag.method-other{background:rgba(158,158,158,.15);color:#BDBDBD}
+.order-card .oc-tag.lang-ar{background:rgba(244,201,59,.12);color:#F4C93B}
+.order-card .oc-tag.old-warn{background:rgba(244,67,54,.12);color:#f44336}
+.order-card .oc-btns{display:flex;gap:8px}
+.order-card .oc-btn{flex:1;padding:12px 0;border:none;border-radius:8px;font-family:'Inter',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;transition:opacity .2s,transform .15s;min-height:48px;display:flex;align-items:center;justify-content:center;gap:6px}
+.order-card .oc-btn:active{transform:scale(.97)}
+.order-card .oc-btn-approve{background:#4CAF50;color:#fff}
+.order-card .oc-btn-approve:hover{opacity:.9}
+.order-card .oc-btn-reject{background:rgba(255,255,255,.08);color:#FAFAF8}
+.order-card .oc-btn-reject:hover{background:rgba(244,67,54,.2)}
+.order-card .oc-btn:disabled{opacity:.3;cursor:default;transform:none}
+
+/* ── Reject reason dropdown (shown inline after tapping Reject) ── */
+.reject-panel{display:none;margin-top:8px;padding:10px;background:rgba(244,67,54,.08);border:1px solid rgba(244,67,54,.2);border-radius:8px}
+.reject-panel.open{display:block}
+.reject-panel select{width:100%;padding:10px;background:rgba(20,21,26,.8);border:1px solid rgba(244,67,54,.3);border-radius:8px;color:#FAFAF8;font-family:'Inter',sans-serif;font-size:.78rem;outline:none;margin-bottom:8px}
+.reject-panel select:focus{border-color:#f44336}
+.reject-panel .rp-btns{display:flex;gap:8px}
+.reject-panel .rp-btn{flex:1;padding:10px 0;border-radius:8px;font-family:'Inter',sans-serif;font-size:.75rem;font-weight:600;cursor:pointer;border:none;min-height:44px}
+.reject-panel .rp-confirm{background:#f44336;color:#fff}
+.reject-panel .rp-cancel{background:rgba(255,255,255,.06);color:rgba(250,250,248,.5)}
+
+/* ── Approval result ── */
+.approval-result{display:none;background:rgba(76,175,80,.08);border:1px solid rgba(76,175,80,.25);border-radius:10px;padding:14px;margin-top:8px}
+.approval-result.open{display:block}
+.approval-result .ar-code{font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:600;color:#4CAF50;text-align:center;margin-bottom:6px;word-break:break-all}
+.approval-result .ar-msg{font-size:.72rem;color:rgba(250,250,248,.6);text-align:center;margin-bottom:10px;line-height:1.5}
+.approval-result .ar-wa-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px 0;background:#25D366;color:#fff;border:none;border-radius:8px;font-family:'Inter',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;text-decoration:none;transition:opacity .2s;min-height:48px}
+.approval-result .ar-wa-btn:hover{opacity:.9}
+
+/* ── Loading ── */
+.loading{text-align:center;padding:32px 0;color:rgba(250,250,248,.3);font-size:.8rem}
+.loading .spinner{display:inline-block;width:24px;height:24px;border:2.5px solid rgba(244,201,59,.15);border-top-color:#F4C93B;border-radius:50%;animation:spin .7s linear infinite;margin-bottom:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── Empty state ── */
+.empty-state{text-align:center;padding:48px 0;color:rgba(250,250,248,.2);font-size:.82rem}
+.empty-state .empty-icon{font-size:2rem;margin-bottom:8px;opacity:.4}
+
+/* ── Refresh indicator ── */
+.refresh-bar{position:fixed;bottom:0;left:0;right:0;z-index:100;padding:10px 16px;padding-bottom:max(10px,env(safe-area-inset-bottom));background:rgba(13,14,18,.95);backdrop-filter:blur(8px);border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between}
+.refresh-bar .rb-label{font-size:.65rem;color:rgba(250,250,248,.35)}
+.refresh-bar .rb-btn{font-size:.65rem;color:#F4C93B;font-weight:600;background:none;border:none;cursor:pointer;padding:4px 8px;min-height:36px}
+
+/* ── Toast ── */
+.toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:200;padding:10px 20px;border-radius:8px;font-size:.78rem;font-weight:600;max-width:90%;text-align:center;display:none;animation:fadeSlideIn .3s ease-out}
+.toast.show{display:block}
+.toast.success{background:#4CAF50;color:#fff}
+.toast.error{background:#f44336;color:#fff}
+@keyframes fadeSlideIn{from{opacity:0;transform:translateX(-50%) translateY(-10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+/* ── Responsive ── */
+@media(min-width:480px){.header{padding:24px 16px}.header h1{font-size:1.3rem}}
+input,select,textarea{font-size:16px!important}
+</style>
+</head>
+<body>
+
+<div id="toast" class="toast"></div>
+
+<!-- Login Screen -->
+<div id="loginScreen" class="login-screen">
+  <h2>🔐 Admin Access</h2>
+  <p class="login-desc">Enter the admin key to approve or reject pending orders.</p>
+  <input type="password" id="adminKeyInput" class="login-input" placeholder="Enter admin key" autocomplete="off" enterkeyhint="go">
+  <button id="loginBtn" class="login-btn">Unlock Orders</button>
+  <div id="loginError" class="login-error">Invalid key. Try again.</div>
+  <p class="login-hint">The key is stored in sessionStorage and clears when you close this tab.</p>
+</div>
+
+<!-- Main Dashboard (hidden until logged in) -->
+<div id="dashboard" style="display:none">
+  <div class="header">
+    <h1>⏳ Pending Orders</h1>
+    <div class="sub"><span id="orderCount" class="count">0</span> waiting for approval</div>
+  </div>
+
+  <div class="wrap">
+    <div id="loadingIndicator" class="loading"><div class="spinner"></div>Loading orders...</div>
+    <div id="emptyState" class="empty-state" style="display:none">
+      <div class="empty-icon">✅</div>
+      <div>No pending orders</div>
+    </div>
+    <div id="orderList" class="order-list"></div>
+  </div>
+
+  <div class="refresh-bar">
+    <span class="rb-label">Auto-refresh every 30s</span>
+    <button id="refreshBtn" class="rb-btn">Refresh Now</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  var API = 'https://muscleos-access-control.muscleos.workers.dev';
+  var POLL_INTERVAL = 30000;
+  var pollTimer = null;
+
+  var toastEl = document.getElementById('toast');
+  function showToast(msg, type) {
+    toastEl.textContent = msg;
+    toastEl.className = 'toast show ' + (type || 'success');
+    clearTimeout(toastEl._hide);
+    toastEl._hide = setTimeout(function(){ toastEl.className = 'toast'; }, 3000);
+  }
+
+  function getKey() { return sessionStorage.getItem('mos_admin_key'); }
+  function setKey(k) { sessionStorage.setItem('mos_admin_key', k); }
+
+  function timeAgo(iso) {
+    var diff = Date.now() - new Date(iso).getTime();
+    var mins = Math.floor(diff / 60000);
+    if (mins < 1) return 'just now';
+    if (mins < 60) return mins + 'm ago';
+    var hrs = Math.floor(mins / 60);
+    mins = mins % 60;
+    if (hrs < 24) return hrs + 'h ' + mins + 'm ago';
+    var days = Math.floor(hrs / 24);
+    return days + 'd ago';
+  }
+
+  function isUrgent(iso) {
+    return (Date.now() - new Date(iso).getTime()) > 86400000;
+  }
+
+  function productLabel(product) {
+    var labels = {
+      training_tool: 'Training Tool',
+      tdee_adaptive_engine: 'TDEE Engine',
+      both_tools: 'Both Tools',
+      training_book: 'Training Book',
+      nutrition_book: 'Nutrition Book',
+      both_books: 'Both Books',
+      all_access: 'All Access'
+    };
+    return labels[product] || product;
+  }
+
+  function methodLabel(m) {
+    return { instapay: 'InstaPay', vodafone_cash: 'Vodafone Cash', other: 'Other' }[m] || m;
+  }
+
+  function escHtml(s) { return String(s).replace(/[&<>"']/g, function(c){
+    return '&#' + c.charCodeAt(0) + ';';
+  }); }
+
+  function renderOrders(orders) {
+    var list = document.getElementById('orderList');
+    var count = document.getElementById('orderCount');
+    var empty = document.getElementById('emptyState');
+    var loading = document.getElementById('loadingIndicator');
+
+    loading.style.display = 'none';
+    count.textContent = orders.length;
+
+    if (orders.length === 0) {
+      list.innerHTML = '';
+      empty.style.display = 'block';
+      return;
+    }
+    empty.style.display = 'none';
+
+    list.innerHTML = orders.map(function(o){
+      var urgent = isUrgent(o.createdAt);
+      var timeStr = timeAgo(o.createdAt);
+      return '<div class="order-card' + (urgent ? ' old' : '') + '" data-order-id="' + escHtml(o.id) + '">' +
+        '<div class="oc-header">' +
+          '<div class="oc-product">' + escHtml(productLabel(o.product)) + '</div>' +
+          '<div class="oc-time' + (urgent ? ' urgent' : '') + '">' + escHtml(timeStr) + '</div>' +
+        '</div>' +
+        '<div class="oc-name">' + escHtml(o.customerName) + '</div>' +
+        '<div class="oc-detail"><strong>Phone:</strong> ' + escHtml(o.whatsappNumber) + '</div>' +
+        (o.email ? '<div class="oc-detail"><strong>Email:</strong> ' + escHtml(o.email) + '</div>' : '') +
+        '<div class="oc-detail"><strong>Payment Ref:</strong> <span class="ref">' + escHtml(o.paymentRef) + '</span></div>' +
+        '<div class="oc-tags">' +
+          '<span class="oc-tag method-' + escHtml(o.paymentMethod) + '">' + escHtml(methodLabel(o.paymentMethod)) + '</span>' +
+          '<span class="oc-tag lang-' + escHtml(o.lang) + '">' + (o.lang === 'ar' ? 'AR' : 'EN') + '</span>' +
+          (urgent ? '<span class="oc-tag old-warn">24h+</span>' : '') +
+        '</div>' +
+        '<div class="oc-btns">' +
+          '<button class="oc-btn oc-btn-approve" onclick="approveOrder(\'' + escHtml(o.id) + '\', this)">Approve</button>' +
+          '<button class="oc-btn oc-btn-reject" onclick="showReject(\'' + escHtml(o.id) + '\', this)">Reject</button>' +
+        '</div>' +
+        '<div class="reject-panel" id="rp-' + escHtml(o.id) + '">' +
+          '<select id="rs-' + escHtml(o.id) + '">' +
+            '<option value="didnt_pay">Didn\'t Pay</option>' +
+            '<option value="suspicious">Suspicious</option>' +
+            '<option value="duplicate">Duplicate</option>' +
+            '<option value="other">Other</option>' +
+          '</select>' +
+          '<div class="rp-btns">' +
+            '<button class="rp-btn rp-confirm" onclick="rejectOrder(\'' + escHtml(o.id) + '\', this)">Confirm Reject</button>' +
+            '<button class="rp-btn rp-cancel" onclick="hideReject(\'' + escHtml(o.id) + '\')">Cancel</button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="approval-result" id="ar-' + escHtml(o.id) + '"></div>' +
+      '</div>';
+    }).join('');
+  }
+
+  function fetchOrders() {
+    var key = getKey();
+    if (!key) return;
+    var list = document.getElementById('orderList');
+    var loading = document.getElementById('loadingIndicator');
+    var empty = document.getElementById('emptyState');
+
+    fetch(API + '/api/pending-orders', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Key': key }
+    }).then(function(r){
+      if (r.status === 401) {
+        sessionStorage.removeItem('mos_admin_key');
+        showToast('Session expired. Re-enter admin key.', 'error');
+        location.reload();
+        return null;
+      }
+      return r.json();
+    }).then(function(data){
+      if (data && data.orders) {
+        renderOrders(data.orders);
+      }
+    }).catch(function(){
+      showToast('Network error fetching orders', 'error');
+      loading.style.display = 'none';
+    });
+  }
+
+  window.approveOrder = function(orderId, btn) {
+    var card = btn.closest('.order-card');
+    card.classList.add('resolving');
+    btn.disabled = true;
+    var key = getKey();
+
+    fetch(API + '/api/approve-order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Key': key },
+      body: JSON.stringify({ orderId: orderId })
+    }).then(function(r){ return r.json(); }).then(function(data){
+      if (data.status === 'ok') {
+        var resultPanel = document.getElementById('ar-' + orderId);
+        var waUrl = 'https://wa.me/' + encodeURIComponent(data.whatsappNumber) + '?text=' + encodeURIComponent(data.prefilledMessage);
+        resultPanel.innerHTML =
+          '<div class="ar-code">' + escHtml(data.code) + '</div>' +
+          '<div class="ar-msg">' + escHtml(data.prefilledMessage.substring(0, 120)) + (data.prefilledMessage.length > 120 ? '…' : '') + '</div>' +
+          '<a href="' + escHtml(waUrl) + '" target="_blank" rel="noopener" class="ar-wa-btn">Send via WhatsApp</a>';
+        resultPanel.className = 'approval-result open';
+        card.classList.remove('resolving');
+
+        // Track event
+        if (window.mosTrackEvent) {
+          window.mosTrackEvent('order_approved', data.product, { order_id: orderId });
+        }
+      } else if (data.currentStatus === 'approved') {
+        showToast('Already approved (auto-approved by Paymob)', 'success');
+        card.style.display = 'none';
+      } else {
+        showToast(data.error || 'Approval failed', 'error');
+        card.classList.remove('resolving');
+        btn.disabled = false;
+      }
+    }).catch(function(){
+      showToast('Network error', 'error');
+      card.classList.remove('resolving');
+      btn.disabled = false;
+    });
+  };
+
+  window.showReject = function(orderId) {
+    var panel = document.getElementById('rp-' + orderId);
+    panel.classList.add('open');
+  };
+
+  window.hideReject = function(orderId) {
+    var panel = document.getElementById('rp-' + orderId);
+    panel.classList.remove('open');
+  };
+
+  window.rejectOrder = function(orderId, btn) {
+    var card = btn.closest('.order-card');
+    var select = document.getElementById('rs-' + orderId);
+    var reason = select.value;
+    card.classList.add('resolving');
+    var key = getKey();
+
+    fetch(API + '/api/reject-order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Key': key },
+      body: JSON.stringify({ orderId: orderId, reason: reason })
+    }).then(function(r){ return r.json(); }).then(function(data){
+      if (data.status === 'ok') {
+        showToast('Order rejected', 'success');
+        fetchOrders();
+        if (window.mosTrackEvent) {
+          window.mosTrackEvent('order_rejected', reason, { order_id: orderId });
+        }
+      } else {
+        showToast(data.error || 'Rejection failed', 'error');
+        card.classList.remove('resolving');
+      }
+    }).catch(function(){
+      showToast('Network error', 'error');
+      card.classList.remove('resolving');
+    });
+  };
+
+  // ── Login ──
+  document.getElementById('loginBtn').addEventListener('click', function(){
+    var input = document.getElementById('adminKeyInput');
+    var key = input.value.trim();
+    if (!key) return;
+    setKey(key);
+
+    // Test the key by fetching orders
+    fetch(API + '/api/pending-orders', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Key': key }
+    }).then(function(r){
+      if (r.status === 401) {
+        document.getElementById('loginError').style.display = 'block';
+        sessionStorage.removeItem('mos_admin_key');
+        return null;
+      }
+      return r.json();
+    }).then(function(data){
+      if (data) {
+        document.getElementById('loginError').style.display = 'none';
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        renderOrders(data.orders || []);
+        startPolling();
+      }
+    }).catch(function(){
+      document.getElementById('loginError').textContent = 'Network error. Check connection.';
+      document.getElementById('loginError').style.display = 'block';
+      sessionStorage.removeItem('mos_admin_key');
+    });
+  });
+
+  // Enter key on input
+  document.getElementById('adminKeyInput').addEventListener('keydown', function(e){
+    if (e.key === 'Enter') document.getElementById('loginBtn').click();
+  });
+
+  // Refresh button
+  document.getElementById('refreshBtn').addEventListener('click', function(){
+    fetchOrders();
+  });
+
+  function startPolling() {
+    if (pollTimer) clearInterval(pollTimer);
+    pollTimer = setInterval(fetchOrders, POLL_INTERVAL);
+  }
+
+  // ── Auto-login if key exists in sessionStorage ──
+  var savedKey = getKey();
+  if (savedKey) {
+    document.getElementById('adminKeyInput').value = savedKey;
+    document.getElementById('loginBtn').click();
+  }
+})();
+</script>
+</body>
+</html>

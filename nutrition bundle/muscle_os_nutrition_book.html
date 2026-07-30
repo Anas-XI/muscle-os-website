@@ -24,34 +24,20 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Oswald', sans-serif; font-weight: 600; li
 @page :first { margin: 0; @top-center { content: none; } @bottom-center { content: none; } }
 @page cover { @top-center { content: none; } @bottom-center { content: none; } }
 @page toc { @top-center { content: none; } @bottom-center { content: none; } }
-@page domain-divider { @top-center { content: none; } @bottom-center { content: none; } }
 body { string-set: doctitle ""; }
 h1 { string-set: doctitle content(); }
 
 /* ---- Cover ---- */
-.cover { width: 210mm; height: 297mm; margin: 0; background: #14151A; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; page-break-after: always; }
-.cover-accent-top { position: absolute; top: 0; left: 0; right: 0; height: 4px; background: #F4C93B; }
-.cover-accent-bottom { position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: #F4C93B; }
-.cover-corner { position: absolute; width: 18mm; height: 18mm; }
-.cover-corner-tl { top: 12mm; left: 12mm; border-top: 1px solid rgba(244,201,59,0.12); border-left: 1px solid rgba(244,201,59,0.12); }
-.cover-corner-tr { top: 12mm; right: 12mm; border-top: 1px solid rgba(244,201,59,0.12); border-right: 1px solid rgba(244,201,59,0.12); }
-.cover-corner-bl { bottom: 12mm; left: 12mm; border-bottom: 1px solid rgba(244,201,59,0.12); border-left: 1px solid rgba(244,201,59,0.12); }
-.cover-corner-br { bottom: 12mm; right: 12mm; border-bottom: 1px solid rgba(244,201,59,0.12); border-right: 1px solid rgba(244,201,59,0.12); }
-.cover-label { font-family: 'Oswald', sans-serif; font-size: 16pt; color: rgba(244,201,59,0.5); letter-spacing: 8px; text-transform: uppercase; margin-bottom: 8pt; }
-.cover-pillar { font-family: 'Oswald', sans-serif; font-size: 9pt; color: rgba(244,201,59,0.45); letter-spacing: 5px; text-transform: uppercase; margin-bottom: 8pt; border: 1px solid rgba(244,201,59,0.12); padding: 3px 14px; display: inline-block; }
-.cover-diamond { font-size: 7pt; color: #F4C93B; opacity: 0.3; margin-bottom: 20pt; }
-.cover-title { font-family: 'Oswald', sans-serif; font-size: 24pt; font-weight: 700; color: #F4C93B; line-height: 1.15; margin-bottom: 6pt; letter-spacing: 0.5px; }
-.cover-tagline { font-family: 'Inter', sans-serif; font-size: 9pt; font-weight: 400; color: #FAFAF8; opacity: 0.45; letter-spacing: 0; line-height: 1.4; margin-bottom: 0; }
-.cover-author-main { font-family: 'Inter', sans-serif; font-size: 10pt; color: #FAFAF8; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.55; margin: 0; }
-.cover-divider { width: 60px; height: 2px; background: #F4C93B; margin-bottom: 14pt; opacity: 0.5; }
-.cover-subtitle { font-family: 'Inter', sans-serif; font-size: 10pt; font-weight: 400; color: #FAFAF8; margin-bottom: 0; opacity: 0.5; letter-spacing: 0; line-height: 1.5; }
-.cover-bottom { position: absolute; bottom: 22mm; left: 0; right: 0; text-align: center; }
-.cover-line { width: 28px; height: 1px; background: rgba(244,201,59,0.25); margin: 8pt auto; }
-.cover-author { font-family: 'Inter', sans-serif; font-size: 10pt; color: #FAFAF8; margin-bottom: 2pt; letter-spacing: 2px; text-transform: uppercase; opacity: 0.6; }
+.cover { page: cover; width: 210mm; height: 297mm; margin: 0; background: #14151A; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; page-break-after: always; position: relative; overflow: hidden; }
+.cover-title { font-family: 'Oswald', sans-serif; font-size: 32pt; font-weight: 700; color: #F4C93B; line-height: 1.15; margin-bottom: 16pt; letter-spacing: 0.5px; }
+.cover-subtitle { font-family: 'JetBrains Mono', monospace; font-size: 11pt; font-weight: 400; color: #F4C93B; margin-bottom: 28pt; letter-spacing: 1px; opacity: 0.85; }
+.cover-divider { width: 50px; height: 2px; background: #F4C93B; margin-bottom: 28pt; opacity: 0.5; }
+.cover-author { font-family: 'Inter', sans-serif; font-size: 10pt; color: #FAFAF8; margin-bottom: 4pt; letter-spacing: 2px; text-transform: uppercase; opacity: 0.6; }
 .cover-edition { font-family: 'Inter', sans-serif; font-size: 9pt; color: #FAFAF8; opacity: 0.4; letter-spacing: 1px; }
+.cover-label { font-family: 'Oswald', sans-serif; font-size: 14pt; color: rgba(244,201,59,0.4); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 20pt; }
 
 /* ---- TOC ---- */
-.toc-page { page-break-before: always; }
+.toc-page { page: toc; page-break-after: always; }
 .toc-page h2 { font-family: 'Oswald', sans-serif; font-size: 22pt; font-weight: 700; color: #14151A; margin-bottom: 0.8cm; text-align: center; letter-spacing: 0.5px; text-transform: uppercase; }
 .toc { list-style: none; padding: 0; margin: 0; }
 .toc li { margin: 3px 0; font-size: 10.5pt; }
@@ -142,7 +128,7 @@ pre, table, figure, img, svg, blockquote { max-width: 100%; box-sizing: border-b
 /* ---- Chapter Summary ---- */
 .chapter-summary { border: 1.5px solid #14151A; padding: 14px 18px; margin: 0.6cm 0; background: #FAFAF8; page-break-inside: avoid; }
 .chapter-summary .summary-title { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 10pt; color: #FAF8F8; background: #14151A; display: inline-block; padding: 2px 10px; margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase; }
-.chapter-summary p { margin: 4px 0; font-size: 10.5pt; color: #14151A; }
+.chapter-summary p { margin: 4px 0; font-size: 10.5pt; color: #333; }
 
 /* ---- Case Study ---- */
 .case-study { border: 2px solid #14151A; padding: 16px 20px; margin: 0.8cm 0; background: #FAFAF8; page-break-inside: avoid; }
@@ -153,91 +139,18 @@ pre, table, figure, img, svg, blockquote { max-width: 100%; box-sizing: border-b
 
 /* ---- Page footer (CTA) ---- */
 .page-footer { display: none; }
-.mos-nav{position:sticky;top:0;z-index:999;background:rgba(20,21,26,.95);backdrop-filter:blur(8px);border-bottom:1px solid #2C2E37;font-family:'Inter',sans-serif}
-.mos-nav-inner{max-width:1180px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
-.mos-brand{font-family:'Oswald',sans-serif;font-weight:700;font-size:15px;letter-spacing:.5px;text-transform:uppercase;color:#fff;text-decoration:none}
-.mos-brand span{color:#F4C93B}
-.mos-nav-links{display:flex;gap:20px;font-size:11px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
-.mos-nav-links a{color:#C7C9D0;text-decoration:none;transition:color .2s}
-.mos-nav-links a:hover{color:#F4C93B}
-@media(max-width:600px){.mos-nav-links{gap:10px;font-size:9px}.mos-nav-inner{padding:8px 16px}.mos-brand{font-size:12px}}
-@media print{.mos-nav{display:none!important}.mos-footer{display:none!important}}
-.mos-footer{padding:20px 24px;background:#14151A;border-top:1px solid #2C2E37;font-family:'Inter',sans-serif;text-align:center}
-.mos-footer-inner{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
-.mos-fbrand{font-family:'Oswald',sans-serif;font-weight:700;font-size:13px;letter-spacing:.5px;text-transform:uppercase;color:#fff}
-.mos-fbrand span{color:#F4C93B}
-.mos-fnav a{color:rgba(250,250,248,.5);text-decoration:none;margin:0 8px;font-size:11px;font-weight:500}
-.mos-fnav a:hover{color:#F4C93B}
-.mos-fsocial a{color:#F4C93B;text-decoration:none;margin:0 8px;font-size:11px}
-.mos-fcopy{font-size:10px;color:rgba(250,250,248,.3);margin-top:6px}
-/* Purchase overlay */
-.po-overlay{position:fixed;inset:0;z-index:9999;background:rgba(20,21,26,.97);display:flex;align-items:center;justify-content:center;padding:24px}
-.po-modal{max-width:520px;width:100%;background:#1E1E2A;border:1px solid #2C2E37;border-radius:16px;padding:40px 32px;text-align:center}
-.po-modal .po-icon{font-size:48px;margin-bottom:8px}
-.po-modal h2{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;color:#F4C93B;text-transform:uppercase;margin-bottom:4px;letter-spacing:.5px}
-.po-modal .po-price{font-family:'JetBrains Mono',monospace;font-size:14px;color:rgba(255,215,0,.6);margin-bottom:20px}
-.po-modal .po-desc{font-size:14px;color:#8A8D96;line-height:1.6;margin-bottom:24px}
-.po-features{text-align:left;margin-bottom:24px;padding:0;list-style:none}
-.po-features li{padding:6px 0 6px 24px;position:relative;font-size:13px;color:#C7C9D0;border-bottom:1px solid rgba(255,255,255,.04)}
-.po-features li::before{content:"\2713";color:#F4C93B;position:absolute;left:0;font-weight:700}
-.po-btn{display:inline-block;background:#F4C93B;color:#14151A;font-weight:700;font-size:14px;padding:14px 32px;border-radius:8px;text-decoration:none;text-transform:uppercase;letter-spacing:.5px;margin-bottom:16px;width:100%;text-align:center}
-.po-btn:hover{background:#fff}
-.po-divider{display:flex;align-items:center;gap:12px;margin:16px 0;color:#5B5F68;font-size:11px;text-transform:uppercase;letter-spacing:1px}
-.po-divider::before,.po-divider::after{content:"";flex:1;height:1px;background:#2C2E37}
-.po-code-row{display:flex;gap:8px}
-.po-code-input{flex:1;padding:10px 14px;background:#14151A;border:1px solid #2C2E37;border-radius:6px;color:#fff;font-family:'JetBrains Mono',monospace;font-size:13px;outline:none}
-.po-code-input:focus{border-color:#F4C93B}
-.po-verify-btn{padding:10px 20px;background:transparent;border:1px solid #F4C93B;color:#F4C93B;border-radius:6px;cursor:pointer;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
-.po-verify-btn:hover{background:rgba(244,201,59,.1)}
-.po-error{font-size:12px;color:#f44336;margin-top:6px;display:none}
-.po-success{font-size:12px;color:#4CAF50;margin-top:6px;display:none}
-@media print{.po-overlay{display:none!important}}
 </style>
 </head>
 <body>
-<div class="po-overlay" id="poOverlay">
-  <div class="po-modal">
-    <div class="po-icon">&#128274;</div>
-    <h2>Diet &amp; Nutrition Book</h2>
-    <div class="po-price">500 EGP &middot; one-time purchase</div>
-    <p class="po-desc">Purchase this book to unlock the full 33-chapter reference with 200+ scientific references. One payment, lifetime access.</p>
-    <ul class="po-features">
-      <li>Energy balance &amp; calorie requirements</li>
-      <li>Macronutrient &amp; micronutrient guidelines</li>
-      <li>Meal timing &amp; supplementation strategies</li>
-      <li>Diet phases: cut, bulk, recomp, reverse</li>
-      <li>Adherence psychology &amp; habit design</li>
-      <li>Printable PDF-optimised layout</li>
-    </ul>
-    <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20purchase%20the%20Nutrition%20Book%20for%20500%20EGP" class="po-btn" target="_blank" rel="noopener">Buy via WhatsApp</a>
-    <div class="po-divider">Already purchased?</div>
-    <div class="po-code-row">
-      <input type="text" class="po-code-input" id="poCode" placeholder="Enter your access code" autocomplete="off">
-      <button class="po-verify-btn" id="poVerify">Unlock</button>
-    </div>
-    <div class="po-error" id="poError">Invalid code. Please check and try again.</div>
-    <div class="po-success" id="poSuccess">Access granted! Loading book...</div>
-  </div>
-</div>
-<nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a><a href="../index.html#packages">Coaching</a></div></div></nav>
 
 <!-- ── COVER ── -->
 <div class="cover">
-  <div class="cover-accent-top"></div>
-  <div class="cover-corner cover-corner-tl"></div>
-  <div class="cover-corner cover-corner-tr"></div>
-  <div class="cover-corner cover-corner-bl"></div>
-  <div class="cover-corner cover-corner-br"></div>
-  <div class="cover-label">MUSCLE OS</div>
-  <div class="cover-pillar">PILLAR 1</div>
-  <div class="cover-diamond">&#9830;</div>
-  <div class="cover-title">Diet &amp; Nutrition</div>
-  <div class="cover-tagline">the complete guide to body composition</div>
-  <br><br><br><br>
-  <p class="cover-author-main">Eng. Coach. Anas M. Hammad</p>
+  <div class="cover-label">Muscle OS</div>
+  <div class="cover-title">The Complete Guide to Diet &amp; Nutrition<br>for Body Composition</div>
   <div class="cover-divider"></div>
-  <div class="cover-bottom"></div>
-  <div class="cover-accent-bottom"></div>
+  <div class="cover-subtitle">A comprehensive reference for coaching decisions</div>
+  <div class="cover-author">Coach Anas Mo'men</div>
+  <div class="cover-edition">Pillar 1 &mdash; Diet Maxing &middot; 2026 Edition</div>
 </div>
 
 <!-- ── TOC ── -->
@@ -1462,33 +1375,5 @@ pre, table, figure, img, svg, blockquote { max-width: 100%; box-sizing: border-b
   <li id="ref-10">Mountjoy, M., Sundgot-Borgen, J., Burke, L., et al. (2014). The IOC consensus statement: beyond the Female Athlete Triad&mdash;Relative Energy Deficiency in Sport (RED-S). <i>British Journal of Sports Medicine</i>, 48(7), 491&ndash;497.</li>
 </ol>
 
-<footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo'men</div></footer>
-<script>
-(function(){
-  var KEY = 'mos_book_nutrition';
-  var EMAIL_CODE = 'ANASSTEM2025@GMAIL.COM';
-  var data = null;
-  try { data = JSON.parse(localStorage.getItem(KEY)); } catch(e){}
-  if(data && data.active){
-    document.getElementById('poOverlay').style.display = 'none';
-  } else {
-    document.getElementById('poOverlay').style.display = 'flex';
-    document.getElementById('poVerify').addEventListener('click', function(){
-      var code = document.getElementById('poCode').value.trim().toUpperCase();
-      if(code && (code.length >= 6 || code === EMAIL_CODE)){
-        localStorage.setItem(KEY, JSON.stringify({ active: true, book: 'nutrition', code: code }));
-        document.getElementById('poError').style.display = 'none';
-        document.getElementById('poSuccess').style.display = 'block';
-        setTimeout(function(){ location.reload(); }, 1500);
-      } else {
-        document.getElementById('poError').style.display = 'block';
-      }
-    });
-    document.getElementById('poCode').addEventListener('keydown', function(e){
-      if(e.key === 'Enter') document.getElementById('poVerify').click();
-    });
-  }
-})();
-</script>
 </body>
 </html>
