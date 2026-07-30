@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adaptive TDEE & Macro Engine — by Coach Anas Mo'men</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:32px 16px}
+.container{width:100%;max-width:720px}
+.header{text-align:center;margin-bottom:24px}
+.header h1{font-family:'Oswald',sans-serif;font-size:2.2rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:1px;line-height:1.1}
+.header p{font-size:.78rem;color:rgba(250,250,248,.45);margin-top:4px;font-weight:300;letter-spacing:.5px}
+.header .badge{display:inline-block;background:rgba(244,201,59,.12);color:#F4C93B;font-size:.55rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;padding:3px 10px;border-radius:4px;margin-top:6px;border:1px solid rgba(244,201,59,.2)}
+.card{background:#1E1E2A;border-radius:16px;padding:24px 22px}
+.card+.card{margin-top:16px}
+.tab-bar{display:flex;gap:2px;background:rgba(20,21,26,.4);border-radius:10px;padding:3px;margin-bottom:20px}
+.tab{flex:1;text-align:center;padding:8px 6px;border-radius:8px;font-family:'Inter',sans-serif;font-size:.7rem;font-weight:500;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.3);cursor:pointer;transition:all .2s;border:none;background:transparent}
+.tab:hover{color:rgba(250,250,248,.5)}
+.tab.active{background:#F4C93B;color:#14151A;font-weight:600}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.section-header{font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:500;text-transform:uppercase;letter-spacing:.5px;color:#F4C93B;border-bottom:1px solid rgba(250,250,248,.07);padding-bottom:5px;margin:18px 0 10px}
+.section-header:first-of-type{margin-top:0}
+.section-sub{font-size:.58rem;color:rgba(250,250,248,.3);font-weight:400;text-transform:none;letter-spacing:0;font-family:'Inter',sans-serif}
+.form-group{margin-bottom:12px}
+.form-group label{display:block;font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(250,250,248,.4);margin-bottom:4px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.sex-group{display:flex;gap:8px}
+.sex-btn{flex:1;padding:8px 0;border:1.5px solid rgba(250,250,248,.1);border-radius:8px;background:transparent;color:#FAFAF8;font-family:'Inter',sans-serif;font-size:.8rem;font-weight:500;cursor:pointer;transition:all .2s;text-align:center}
+.sex-btn:hover{border-color:rgba(250,250,248,.2)}
+.sex-btn.active{background:#F4C93B;color:#14151A;border-color:#F4C93B;font-weight:600}
+input,select{width:100%;padding:8px 10px;background:rgba(20,21,26,.6);border:1.5px solid rgba(250,250,248,.08);border-radius:8px;color:#FAFAF8;font-family:'JetBrains Mono',monospace;font-size:.82rem;outline:none;transition:border-color .2s}
+input:focus,select:focus{border-color:#F4C93B}
+select{font-family:'Inter',sans-serif;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 12 8'%3E%3Cpath fill='%23FAFAF8' opacity='0.5' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;padding-right:32px}
+select option{background:#1E1E2A;color:#FAFAF8}
+.tip{font-size:.58rem;color:rgba(250,250,248,.22);margin-top:2px;font-style:italic}
+.check-group{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.check-item{display:flex;align-items:center;gap:6px;padding:5px 10px;background:rgba(20,21,26,.4);border:1.5px solid rgba(250,250,248,.06);border-radius:6px;cursor:pointer;font-size:.72rem;color:rgba(250,250,248,.5);transition:all .2s}
+.check-item:hover{border-color:rgba(250,250,248,.15)}
+.check-item.selected{border-color:#F4C93B;background:rgba(244,201,59,.06);color:#FAFAF8}
+.check-item input[type="checkbox"]{accent-color:#F4C93B;width:auto;margin:0}
+.btn-primary{width:100%;margin-top:16px;padding:13px 0;background:#F4C93B;color:#14151A;border:none;border-radius:10px;font-family:'Oswald',sans-serif;font-size:1rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;transition:opacity .2s,transform .15s}
+.btn-primary:hover{opacity:.9}
+.btn-primary:active{transform:scale(.98)}
+.btn-secondary{width:100%;margin-top:10px;padding:10px 0;background:transparent;border:1.5px solid rgba(250,250,248,.1);border-radius:10px;color:rgba(250,250,248,.5);font-family:'Inter',sans-serif;font-size:.78rem;font-weight:500;cursor:pointer;transition:all .2s}
+.btn-secondary:hover{border-color:rgba(250,250,248,.2);color:#FAFAF8}
+.error{display:none;color:#F4C93B;font-size:.72rem;text-align:center;margin-top:8px;font-weight:500}
+.animate-in{animation:fadeSlideIn .45s ease-out}
+@keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ---- Dashboard ---- */
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.dash-card{background:rgba(20,21,26,.4);border-radius:10px;padding:12px 14px;text-align:center}
+.dash-label{font-size:.5rem;text-transform:uppercase;letter-spacing:1.5px;color:rgba(250,250,248,.35);font-weight:600;margin-bottom:2px}
+.dash-val{font-family:'JetBrains Mono',monospace;font-size:1.6rem;font-weight:700;color:#F4C93B;line-height:1.1}
+.dash-sub{font-size:.6rem;color:rgba(250,250,248,.25);margin-top:1px}
+.dash-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(250,250,248,.04);font-size:.72rem}
+.dash-row:last-child{border-bottom:none}
+.dash-row .l{color:rgba(250,250,248,.4)}
+.dash-row .v{font-family:'JetBrains Mono',monospace;color:#FAFAF8;font-weight:500}
+.dash-macro-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:14px 0}
+.dash-macro{text-align:center;padding:8px 4px;border-radius:8px;background:rgba(20,21,26,.4)}
+.dash-macro-val{font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:600;color:#FAFAF8}
+.dash-macro-lbl{font-size:.55rem;text-transform:uppercase;letter-spacing:1px;color:rgba(250,250,248,.3);margin-top:1px;font-weight:500}
+.bar-track{display:flex;height:22px;border-radius:6px;overflow:hidden;margin:6px 0}
+.bar-seg{display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.55rem;font-weight:600;color:#14151A;transition:width .4s ease}
+.bar-p{background:#F4C93B}
+.bar-f{background:#e8a83a}
+.bar-c{background:#c48a30}
+.bar-legend{display:flex;justify-content:center;gap:12px;margin-bottom:10px}
+.bar-leg-item{display:flex;align-items:center;gap:4px;font-size:.55rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.3);font-weight:500}
+.bar-dot{width:7px;height:7px;border-radius:2px}
+
+/* ---- Rationale block ---- */
+.rationale{background:rgba(244,201,59,.04);border:1px solid rgba(244,201,59,.12);border-radius:10px;padding:12px 14px;margin:14px 0;font-size:.74rem;line-height:1.6;color:rgba(250,250,248,.65)}
+.rationale strong{color:#FAFAF8;font-weight:600}
+.rationale .r-title{font-family:'Oswald',sans-serif;font-size:.75rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+
+/* ---- Weight log ---- */
+.weight-input-row{display:flex;gap:8px;margin-bottom:10px}
+.weight-input-row input{flex:1}
+.weight-input-row button{width:auto;padding:8px 16px;background:#F4C93B;color:#14151A;border:none;border-radius:8px;font-family:'Oswald',sans-serif;font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;cursor:pointer;transition:opacity .2s;white-space:nowrap}
+.weight-input-row button:hover{opacity:.85}
+.weight-log{max-height:220px;overflow-y:auto}
+.weight-entry{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(250,250,248,.03);font-size:.72rem}
+.weight-entry .d{color:rgba(250,250,248,.25)}
+.weight-entry .w{font-family:'JetBrains Mono',monospace;color:#FAFAF8;font-weight:500}
+
+/* ---- Status banner ---- */
+.status-banner{border-radius:10px;padding:12px 14px;margin-bottom:14px;font-size:.74rem;line-height:1.5}
+.status-ok{background:rgba(76,175,80,.08);border:1px solid rgba(76,175,80,.15);color:rgba(250,250,248,.6)}
+.status-warn{background:rgba(244,201,59,.08);border:1px solid rgba(244,201,59,.15);color:rgba(250,250,248,.6)}
+.status-adjust{background:rgba(244,67,54,.08);border:1px solid rgba(244,67,54,.15);color:rgba(250,250,248,.6)}
+.status-banner strong{color:#FAFAF8}
+.status-banner .s-icon{font-family:'JetBrains Mono',monospace;font-size:.7rem;font-weight:700;margin-right:4px}
+
+/* ---- History ---- */
+.hist-entry{padding:8px 0;border-bottom:1px solid rgba(250,250,248,.04);font-size:.72rem;line-height:1.5}
+.hist-entry:last-child{border-bottom:none}
+.hist-entry .h-date{font-family:'JetBrains Mono',monospace;color:rgba(250,250,248,.25);font-size:.62rem}
+.hist-entry .h-reason{color:rgba(250,250,248,.5);margin-top:2px}
+.hist-entry .h-change{font-family:'JetBrains Mono',monospace;font-weight:600}
+.hist-up{color:#4CAF50}
+.hist-down{color:#f44336}
+
+/* ---- Adherence check modal ---- */
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:100;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.show{display:flex}
+.modal{background:#1E1E2A;border-radius:16px;padding:24px;max-width:480px;width:100%;max-height:80vh;overflow-y:auto}
+.modal h3{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.modal p{font-size:.78rem;line-height:1.5;color:rgba(250,250,248,.5);margin-bottom:14px}
+
+.footer{text-align:center;margin-top:24px;font-size:.65rem;color:rgba(250,250,248,.2);font-weight:300}
+.footer a{color:#F4C93B;text-decoration:none;font-weight:500}
+.footer a:hover{text-decoration:underline}
+.wa-link{font-family:'JetBrains Mono',monospace;color:#F4C93B;text-decoration:none}
+@media(max-width:580px){
+  body{padding:20px 12px}
+  .header h1{font-size:1.8rem}
+  .card{padding:18px 14px}
+  .form-row,.form-row-3{grid-template-columns:1fr}
+  .dash-grid{grid-template-columns:1fr}
+  .dash-macro-grid{grid-template-columns:1fr}
+  .dash-val{font-size:1.3rem}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>Adaptive TDEE Engine</h1>
+    <p>Your numbers, recalculated from real data — not a static formula</p>
+    <span class="badge">Recalibrates every 2 weeks from your weight trend</span>
+  </div>
+
+  <div id="profileView">
+    <div class="card">
+      <div class="tab-bar">
+        <button class="tab active" data-tab="tab-setup">Setup</button>
+        <button class="tab" data-tab="tab-weight">Weight Log</button>
+        <button class="tab" data-tab="tab-history">History</button>
+      </div>
+
+      <div id="tab-setup" class="tab-content active">
+        <div class="section-header">Basic Info</div>
+        <div class="form-group">
+          <label>Sex</label>
+          <div class="sex-group">
+            <button type="button" class="sex-btn" data-sex="male">Male</button>
+            <button type="button" class="sex-btn" data-sex="female">Female</button>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Weight (kg)</label><input type="number" id="weight" min="0" step="0.1" placeholder="e.g. 80"></div>
+          <div class="form-group"><label>Height (cm)</label><input type="number" id="height" min="0" step="0.1" placeholder="e.g. 175"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Age</label><input type="number" id="age" min="0" step="1" placeholder="e.g. 30"></div>
+          <div class="form-group"><label>Body Fat %</label>
+            <select id="bf"><option value="">Don't know (use Mifflin-St Jeor)</option>
+            <option value="6">6% — Pro bodybuilder</option><option value="8">8% — Very lean</option>
+            <option value="10">10% — Lean</option><option value="12">12% — Athletic</option>
+            <option value="15">15% — Fit</option><option value="18">18% — Average fit</option>
+            <option value="20">20% — Average</option><option value="25">25% — Overweight</option>
+            <option value="30">30%+ — Obese range</option></select>
+            <div class="tip">If known, enables Katch-McArdle for 300+ kcal accuracy improvement</div></div>
+        </div>
+
+        <div class="section-header">Training &amp; Lifestyle <span class="section-sub">— drives activity estimate</span></div>
+        <div class="form-group"><label>Training Age</label>
+          <select id="trainingAge"><option value="novice">Novice (under 1 year)</option>
+          <option value="intermediate" selected>Intermediate (1–3 years)</option>
+          <option value="advanced">Advanced (3+ years)</option></select></div>
+        <div class="form-row">
+          <div class="form-group"><label>Training Days / Week</label>
+            <select id="trainDays"><option value="0">0</option><option value="1">1</option><option value="2">2</option>
+            <option value="3" selected>3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select></div>
+          <div class="form-group"><label>Session Length (min)</label>
+            <select id="sessionLen"><option value="30">30</option><option value="45">45</option>
+            <option value="60" selected>60</option><option value="75">75</option><option value="90">90</option>
+            <option value="105">105</option><option value="120">120</option></select></div>
+        </div>
+        <div class="form-group"><label>Occupation Activity</label>
+          <select id="occupation"><option value="bed">Bedridden</option><option value="desk" selected>Desk job</option>
+          <option value="light">Light movement (teacher, retail)</option>
+          <option value="moderate">Moderate (nurse, on feet)</option>
+          <option value="active">Active (construction, warehouse)</option></select>
+          <div class="tip">This is the #1 most over-estimated input in free calculators — be honest</div></div>
+        <div class="form-row">
+          <div class="form-group"><label>Daily Steps</label>
+            <select id="steps"><option value="0">&lt; 3,000</option><option value="1">3k–5k</option>
+            <option value="2" selected>5k–7.5k</option><option value="3">7.5k–10k</option>
+            <option value="4">10k–12.5k</option><option value="5">12.5k–15k</option><option value="6">15k+</option></select></div>
+          <div class="form-group"><label>Sleep Quality</label>
+            <select id="sleep"><option value="poor">Poor (&lt;6h, restless)</option>
+            <option value="fair">Fair (6-7h)</option><option value="good" selected>Good (7-8h)</option>
+            <option value="excellent">Excellent (8h+)</option></select></div>
+        </div>
+
+        <div class="section-header">Diet &amp; Physiology <span class="section-sub">— metabolic modifiers</span></div>
+        <div class="form-row">
+          <div class="form-group"><label>Dietary Pattern</label>
+            <select id="dietPattern"><option value="omnivore" selected>Omnivore</option>
+            <option value="vegetarian">Vegetarian</option><option value="vegan">Vegan</option>
+            <option value="other">Other / flexible</option></select>
+            <div class="tip">Affects protein target — plant-based needs 15-25% more</div></div>
+          <div class="form-group"><label>Chronic Dieting History</label>
+            <select id="chronicDiet"><option value="no">No (normal metabolic function)</option>
+            <option value="yes">Yes (3+ of last 6 months in deficit)</option></select>
+            <div class="tip">Prolonged deficits lower RMR by 10-15% beyond weight-loss alone</div></div>
+        </div>
+        <div class="form-group" id="cycleGroup">
+          <label>Menstrual Cycle (females only)</label>
+          <div class="form-row">
+            <div class="form-group"><label>Regular Cycle?</label>
+              <select id="cycleRegular"><option value="">Prefer not to say</option>
+              <option value="yes">Yes, regular (21-35 days)</option>
+              <option value="no">No, irregular / absent</option></select></div>
+            <div class="form-group"><label>Current Phase</label>
+              <select id="cyclePhase"><option value="">Not tracking</option>
+              <option value="follicular">Follicular (days 1-14)</option>
+              <option value="luteal">Luteal (days 15-28)</option></select>
+              <div class="tip">Luteal phase increases REE by 5-10% — ignoring this causes false plateaus</div></div>
+          </div>
+        </div>
+
+        <div class="section-header">Goal</div>
+        <div class="form-group"><label>What's Your Goal?</label>
+          <select id="goal"><option value="">Select goal</option>
+          <option value="aggressive_loss">Aggressive Fat Loss</option>
+          <option value="moderate_loss">Moderate Fat Loss</option>
+          <option value="recomp">Recomp</option>
+          <option value="maintenance" selected>Maintenance</option>
+          <option value="lean_gain">Lean Gain</option>
+          <option value="aggressive_gain">Aggressive Muscle Gain</option></select></div>
+
+        <div class="error" id="errorMsg">Please fill all required fields</div>
+        <button class="btn-primary" id="calcBtn">Calculate &amp; Start Tracking</button>
+        <button class="btn-secondary" id="loadProfileBtn" style="display:none;">Load saved profile</button>
+      </div>
+
+      <div id="tab-weight" class="tab-content">
+        <div class="section-header">Log Your Weight <span class="section-sub">— 3-5x per week drives accuracy</span></div>
+        <div class="weight-input-row">
+          <input type="number" id="weightInput" step="0.1" placeholder="Enter weight (kg)">
+          <button id="logWeightBtn">Log</button>
+        </div>
+        <div class="section-header" style="margin-top:16px">Recent Entries</div>
+        <div class="weight-log" id="weightLog"></div>
+      </div>
+
+      <div id="tab-history" class="tab-content">
+        <div class="section-header">Adjustment History</div>
+        <div id="adjustmentHistory"><p style="font-size:.78rem;color:rgba(250,250,248,.3);text-align:center;padding:20px 0">No adjustments yet. Complete 2 weeks of weight logging to trigger the first recalibration.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="dashboardView" style="display:none">
+    <div class="card" id="dashStatus"></div>
+    <div class="card">
+      <div class="tab-bar">
+        <button class="tab active" data-tab="dash-numbers">Numbers</button>
+        <button class="tab" data-tab="dash-weight">Log Weight</button>
+        <button class="tab" data-tab="dash-history">History</button>
+        <button class="tab" data-tab="dash-edit">Edit Profile</button>
+      </div>
+      <div id="dash-numbers" class="tab-content active"></div>
+      <div id="dash-weight" class="tab-content"></div>
+      <div id="dash-history" class="tab-content"></div>
+      <div id="dash-edit" class="tab-content"></div>
+    </div>
+    <div class="footer">
+      <a href="https://wa.me/201040796017">Start your coaching journey now →</a>
+    </div>
+  </div>
+
+  <div class="footer">
+    Free tool by Coach Anas Mo'men — <a href="https://wa.me/201040796017">Start your coaching journey now</a>
+  </div>
+</div>
+
+<script>
+(function(){
+  const STORAGE_KEY = 'muscle_os_adaptive_tdee';
+
+  // ─── Data model ───
+  function emptyStore(){
+    return {profile:null,dashboard:null,weights:[],adjustments:[],created:null};
+  }
+
+  function loadStore(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(raw){
+        const d = JSON.parse(raw);
+        if(d && typeof d === 'object') return {...emptyStore(), ...d};
+      }
+    }catch(e){}
+    return emptyStore();
+  }
+
+  function saveStore(store){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
+  }
+
+  // ─── Constants ───
+  const OCC_MULT = {bed:0.05, desk:0.12, light:0.20, moderate:0.30, active:0.42};
+  const STEP_CALS = [-60,0,70,160,260,360,480];
+  const SLEEP_FACTOR = {poor:.95, fair:.98, good:1.0, excellent:1.02};
+  const CHRONIC_ADJUST = {no:1.0, yes:0.92};
+  const CYCLE_ADJUST = {follicular:1.0, luteal:1.07};
+
+  const PROTEIN_TARGETS = {
+    omnivore: {aggressive_loss:2.3, moderate_loss:2.0, recomp:2.0, maintenance:1.8, lean_gain:1.8, aggressive_gain:1.6},
+    vegetarian: {aggressive_loss:2.6, moderate_loss:2.3, recomp:2.3, maintenance:2.1, lean_gain:2.1, aggressive_gain:1.9},
+    vegan: {aggressive_loss:2.7, moderate_loss:2.4, recomp:2.4, maintenance:2.2, lean_gain:2.2, aggressive_gain:2.0},
+    other: {aggressive_loss:2.3, moderate_loss:2.0, recomp:2.0, maintenance:1.8, lean_gain:1.8, aggressive_gain:1.6}
+  };
+
+  const GOAL_MULT = {
+    aggressive_loss:0.75, moderate_loss:0.80, recomp:0.95,
+    maintenance:1.0, lean_gain:1.05, aggressive_gain:1.15
+  };
+
+  const GOAL_LABELS = {
+    aggressive_loss:'Aggressive Fat Loss', moderate_loss:'Moderate Fat Loss',
+    recomp:'Recomp', maintenance:'Maintenance',
+    lean_gain:'Lean Gain', aggressive_gain:'Aggressive Muscle Gain'
+  };
+
+  const TRAIN_MET = {novice:{rt:4.0,min:30,max:60},intermediate:{rt:5.0,min:30,max:75},advanced:{rt:5.5,min:45,max:90}};
+
+  // ─── Calculation Engine ───
+  function calcBMR(sex, w, h, a, bf){
+    if(bf && parseFloat(bf)>0){
+      const lbm = w*(1-parseFloat(bf)/100);
+      return {value:Math.round(370+21.6*lbm), method:'Katch-McArdle'};
+    }
+    const bmr = sex==='male' ? 10*w+6.25*h-5*a+5 : 10*w+6.25*h-5*a-161;
+    return {value:Math.round(bmr), method:'Mifflin-St Jeor'};
+  }
+
+  function calcTDEE(sex, w, h, a, bf, trainingAge, trainDays, sessionLen, occ, stepsIdx, sleep, dietPattern, goalVal, chronicDiet, cyclePhase){
+    const bmr = calcBMR(sex, w, h, a, bf);
+    const sleepF = SLEEP_FACTOR[sleep] || 1;
+    const chronicF = CHRONIC_ADJUST[chronicDiet] || 1;
+    const cycleF = (sex==='female' && cyclePhase) ? (CYCLE_ADJUST[cyclePhase]||1) : 1;
+
+    // Occupation NEAT
+    const occMult = OCC_MULT[occ] || 0.12;
+    const neatOcc = Math.round(bmr.value * occMult);
+    const stepsCals = Math.round(STEP_CALS[parseInt(stepsIdx)] || 0);
+    const neatTotal = neatOcc + stepsCals;
+
+    // Exercise EAT
+    const trainMet = TRAIN_MET[trainingAge] || TRAIN_MET.intermediate;
+    const eatPerSession = trainMet.rt * 3.5 * w / 200 * sessionLen;
+    const eatWeekly = Math.round(eatPerSession * trainDays);
+    const dailyEat = Math.round(eatWeekly / 7);
+
+    // Baseline
+    const rawBaseline = bmr.value + neatTotal;
+    const baselineAdj = Math.round(rawBaseline * sleepF * chronicF * cycleF);
+    const bioAdj = Math.round(rawBaseline * (sleepF * chronicF * cycleF - 1));
+
+    // TDEE
+    const tdee = baselineAdj + dailyEat;
+
+    // Goal
+    const goalMult = GOAL_MULT[goalVal] || 1;
+    let goalCal = Math.round(tdee * goalMult);
+
+    // Safety cap based on BF%
+    let capApplied = false;
+    if(bf && parseFloat(bf)>0){
+      const bfPct = parseFloat(bf);
+      if(goalVal === 'aggressive_loss' && bfPct < 15){
+        goalCal = Math.round(tdee * 0.85);
+        capApplied = true;
+      }
+      if(goalVal === 'recomp' && bfPct < 10 && trainingAge !== 'novice'){
+        goalCal = Math.round(tdee * 1.03);
+        capApplied = true;
+      }
+      if(goalVal === 'aggressive_gain' && bfPct > 25){
+        goalCal = Math.round(tdee * 1.08);
+        capApplied = true;
+      }
+    }
+
+    // Macros
+    const proteinG = PROTEIN_TARGETS[dietPattern] ? PROTEIN_TARGETS[dietPattern][goalVal] || 1.8 : 1.8;
+    const pG = Math.round(proteinG * w);
+
+    const isFL = goalVal==='aggressive_loss'||goalVal==='moderate_loss';
+    const fatMin = isFL ? 0.6 : 0.8;
+    const fatPct = isFL ? 0.20 : 0.25;
+    const fG = Math.round(Math.max(fatMin * w, goalCal * fatPct / 9));
+
+    const cCal = goalCal - (pG*4) - (fG*9);
+    const cG = Math.round(Math.max(0, cCal/4));
+
+    return {
+      bmr: bmr.value,
+      bmrMethod: bmr.method,
+      neat: neatTotal,
+      eat: dailyEat,
+      bioAdj: bioAdj,
+      tdee: tdee,
+      goalCal: goalCal,
+      protein: pG,
+      fat: fG,
+      carbs: cG,
+      pctProtein: Math.round(pG*4/goalCal*100),
+      pctFat: Math.round(fG*9/goalCal*100),
+      pctCarbs: Math.round(cG*4/goalCal*100),
+      safetyCapped: capApplied
+    };
+  }
+
+  // ─── Recalibration ───
+  function calcWeightTrend(weights){
+    if(!weights || weights.length < 5) return null;
+    const sorted = [...weights].sort((a,b)=>new Date(a.date)-new Date(b.date));
+    const recent = sorted.slice(-14); // last 14 entries max
+    if(recent.length < 5) return null;
+
+    // Simple linear regression: weight ~ day
+    const n = recent.length;
+    const indices = recent.map((_,i)=>i);
+    const vals = recent.map(e=>e.weight);
+
+    const sumX = indices.reduce((s,x)=>s+x,0);
+    const sumY = vals.reduce((s,y)=>s+y,0);
+    const sumXY = indices.reduce((s,x,i)=>s+x*vals[i],0);
+    const sumX2 = indices.reduce((s,x)=>s+x*x,0);
+
+    const slope = (n*sumXY - sumX*sumY) / (n*sumX2 - sumX*sumX);
+    // slope = kg per entry (approximately kg per day if logging ~daily)
+
+    const avgInterval = recent.length>1 ? (new Date(recent[recent.length-1].date)-new Date(recent[0].date))/(recent.length-1)/86400000 : 1;
+    const dailyTrend = slope / Math.max(avgInterval, 0.5);
+
+    return {
+      dailyTrend: dailyTrend, // kg/day, negative = losing
+      weeklyTrend: dailyTrend * 7,
+      slope: slope,
+      avgInterval: avgInterval,
+      direction: dailyTrend < -0.01 ? 'losing' : (dailyTrend > 0.01 ? 'gaining' : 'stable'),
+      confidence: recent.length >= 10 ? 'high' : (recent.length >= 7 ? 'moderate' : 'low')
+    };
+  }
+
+  function recalibrate(store){
+    const p = store.profile;
+    if(!p) return null;
+    const trend = calcWeightTrend(store.weights);
+    if(!trend) return null;
+
+    // Current TDEE
+    const r = calcTDEE(p.sex,p.weight,p.height,p.age,p.bf,p.trainingAge,
+      p.trainDays,p.sessionLen,p.occupation,p.steps,p.sleep,p.dietPattern,
+      p.goal,p.chronicDiet,p.cyclePhase);
+
+    // If trend is stable (±100g/week), no adjustment needed
+    if(Math.abs(trend.weeklyTrend) < 0.1){
+      return {adjusted:false, reason:'Your weight is stable — your current target appears accurate.', trend:trend, results:r};
+    }
+
+    // Estimate implied actual TDEE from weight trend
+    // 1 kg ≈ 7700 kcal
+    const kcalPerKg = 7700;
+    const dailySurplusDeficit = trend.dailyTrend * kcalPerKg;
+    const impliedTDEE = Math.round(r.goalCal - dailySurplusDeficit);
+
+    // Only adjust if implied differs by more than 150 kcal (filters noise)
+    const diff = impliedTDEE - r.tdee;
+    if(Math.abs(diff) < 150){
+      return {adjusted:false, reason:'Weight trend is within the normal fluctuation range. No adjustment needed yet. Keep logging.', trend:trend, results:r};
+    }
+
+    // Calculate new target
+    const goalMult = GOAL_MULT[p.goal] || 1;
+    let newTarget = Math.round(impliedTDEE * goalMult);
+
+    // Safety cap (same rules as initial calc)
+    if(p.bf && parseFloat(p.bf)>0){
+      const bfPct = parseFloat(p.bf);
+      if(p.goal==='aggressive_loss' && bfPct<15) newTarget = Math.round(impliedTDEE*0.85);
+      if(p.goal==='recomp' && bfPct<10 && p.trainingAge!=='novice') newTarget = Math.round(impliedTDEE*1.03);
+      if(p.goal==='aggressive_gain' && bfPct>25) newTarget = Math.round(impliedTDEE*1.08);
+    }
+
+    // Adjust macros for new target
+    const proteinG = PROTEIN_TARGETS[p.dietPattern] ? PROTEIN_TARGETS[p.dietPattern][p.goal] || 1.8 : 1.8;
+    const pG = Math.round(proteinG * p.weight);
+    const isFL = p.goal==='aggressive_loss'||p.goal==='moderate_loss';
+    const fG = Math.round(Math.max((isFL?0.6:0.8)*p.weight, newTarget*(isFL?0.20:0.25)/9));
+    const cCal = newTarget - (pG*4) - (fG*9);
+    const cG = Math.round(Math.max(0, cCal/4));
+
+    return {
+      adjusted:true,
+      oldCal: r,
+      newCal: {
+        tdee: impliedTDEE,
+        goalCal: newTarget,
+        protein: pG,
+        fat: fG,
+        carbs: cG,
+        pctProtein: Math.round(pG*4/newTarget*100),
+        pctFat: Math.round(fG*9/newTarget*100),
+        pctCarbs: Math.round(cG*4/newTarget*100)
+      },
+      diff: diff,
+      reason: buildAdjustReason(trend, r, impliedTDEE, diff, p),
+      trend: trend,
+      results: r
+    };
+  }
+
+  function buildAdjustReason(trend, r, impliedTDEE, diff, p){
+    const dir = trend.direction === 'losing' ? 'losing' : 'gaining';
+    const rate = Math.abs(trend.weeklyTrend).toFixed(2);
+    const expectedRate = p.goal==='aggressive_loss' ? '0.7-1.0%' : (p.goal==='moderate_loss' ? '0.5-0.7%' : (p.goal==='lean_gain'||p.goal==='aggressive_gain' ? '0.5-1.5% per month' : 'stable'));
+
+    let lines = [];
+    lines.push('Based on your logged weight trend over the last 2 weeks:');
+    lines.push('');
+    lines.push('• Actual trend: '+dir+' ~'+rate+' kg/week');
+    lines.push('• Expected for your goal ('+GOAL_LABELS[p.goal]+'): ~'+expectedRate);
+
+    if(Math.abs(diff) >= 150){
+      const adjDir = diff > 0 ? 'higher' : 'lower';
+      lines.push('');
+      lines.push('Your actual weight change suggests your true maintenance is ~'+Math.abs(Math.round(diff/50)*50)+' kcal '+adjDir+' than the initial estimate.');
+      lines.push('Adjusting your target by ~'+Math.abs(Math.round((impliedTDEE-r.tdee)*GOAL_MULT[p.goal]/50)*50)+' kcal/day.');
+      lines.push('');
+      lines.push('This is normal — no formula is perfect for everyone. Real data always beats a static calculation.');
+    } else {
+      lines.push('');
+      lines.push('Your trend is close to the expected range. No adjustment needed this cycle.');
+    }
+
+    if(trend.confidence === 'low'){
+      lines.push('');
+      lines.push('Note: This adjustment is based on limited data ('+store.weights.length+' entries over '+
+        Math.round(trend.avgInterval*store.weights.length)+' days). Log 3-5x/week for higher confidence.');
+    }
+
+    return lines.join('\n');
+  }
+
+  // ─── UI ───
+  let store = loadStore();
+  let selectedSex = null;
+
+  function sexInit(){
+    document.querySelectorAll('.sex-btn').forEach(b=>{
+      b.addEventListener('click',function(){
+        document.querySelectorAll('.sex-btn').forEach(x=>x.classList.remove('active'));
+        this.classList.add('active'); selectedSex=this.dataset.sex;
+        document.getElementById('cycleGroup').style.display=selectedSex==='female'?'block':'none';
+      });
+    });
+  }
+
+  function showTab(container, tabId){
+    container.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+    container.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    const content = document.getElementById(tabId);
+    if(content) content.classList.add('active');
+    container.querySelectorAll('.tab[data-tab="'+tabId+'"]').forEach(t=>t.classList.add('active'));
+  }
+
+  function renderDashboard(){
+    const p = store.profile;
+    if(!p) return;
+    const r = calcTDEE(p.sex, p.weight, p.height, p.age, p.bf, p.trainingAge,
+      p.trainDays, p.sessionLen, p.occupation, p.steps, p.sleep, p.dietPattern,
+      p.goal, p.chronicDiet, p.cyclePhase);
+
+    const trend = calcWeightTrend(store.weights);
+    let adjustment = null;
+    if(trend && store.weights.length >= 5){
+      adjustment = recalibrate(store);
+    }
+
+    // Status banner
+    const statusEl = document.getElementById('dashStatus');
+    let statusHtml = '';
+    if(adjustment && adjustment.adjusted){
+      statusHtml = '<div class="status-banner status-adjust animate-in"><strong><span class="s-icon">&#9888;</span> Adjustment Suggested</strong><br>'+adjustment.reason.replace(/\n/g,'<br>')+'</div>';
+      // Auto-save adjustment
+      if(!store.adjustments.some(a=>Math.abs(new Date()-new Date(a.date))<86400000)){
+        store.adjustments.push({
+          date: new Date().toISOString(),
+          oldTDEE: r.tdee,
+          newTDEE: adjustment.newCal.tdee,
+          oldGoal: r.goalCal,
+          newGoal: adjustment.newCal.goalCal,
+          reason: adjustment.reason.split('\n')[4] || 'Adjusted based on weight trend'
+        });
+        saveStore(store);
+      }
+    } else if(trend && trend.confidence === 'low'){
+      statusHtml = '<div class="status-banner status-warn animate-in"><strong>Building Accuracy</strong><br>You have '+store.weights.length+' weight entries. Log 3-5x per week. First recalibration triggers after ~2 weeks of data (minimum 5 entries).</div>';
+    } else if(trend && Math.abs(trend.weeklyTrend) < 0.15){
+      statusHtml = '<div class="status-banner status-ok animate-in"><strong>On Track</strong><br>Your weight is stable or moving as expected at '+Math.abs(trend.weeklyTrend).toFixed(2)+' kg/week. No adjustment needed.</div>';
+    } else if(trend){
+      statusHtml = '<div class="status-banner status-ok animate-in"><strong>Tracking Active</strong><br>'+trend.direction+' at '+Math.abs(trend.weeklyTrend).toFixed(2)+' kg/week over '+store.weights.length+' entries.</div>';
+    } else {
+      statusHtml = '<div class="status-banner status-warn animate-in"><strong>Start Logging</strong><br>Log your weight 3-5x/week in the "Log Weight" tab. After ~2 weeks, the engine will recalibrate your numbers from real data.</div>';
+    }
+    statusEl.innerHTML = statusHtml;
+
+    // Numbers tab
+    const targetCal = (adjustment && adjustment.adjusted) ? adjustment.newCal.goalCal : r.goalCal;
+    const targetTDEE = (adjustment && adjustment.adjusted) ? adjustment.newCal.tdee : r.tdee;
+    const protein = (adjustment && adjustment.adjusted) ? adjustment.newCal.protein : r.protein;
+    const fat = (adjustment && adjustment.adjusted) ? adjustment.newCal.fat : r.fat;
+    const carbs = (adjustment && adjustment.adjusted) ? adjustment.newCal.carbs : r.carbs;
+    const pP = (adjustment && adjustment.adjusted) ? adjustment.newCal.pctProtein : r.pctProtein;
+    const fP = (adjustment && adjustment.adjusted) ? adjustment.newCal.pctFat : r.pctFat;
+    const cP = (adjustment && adjustment.adjusted) ? adjustment.newCal.pctCarbs : r.pctCarbs;
+
+    let numbersHtml = '<div class="dash-grid">' +
+      '<div class="dash-card"><div class="dash-label">Goal Calories</div><div class="dash-val">'+targetCal.toLocaleString()+'</div><div class="dash-sub">kcal/day</div></div>' +
+      '<div class="dash-card"><div class="dash-label">Estimated TDEE</div><div class="dash-val">'+targetTDEE+'</div><div class="dash-sub">'+r.bmrMethod+'</div></div>' +
+      '</div>';
+
+    numbersHtml += '<div class="dash-macro-grid">' +
+      '<div class="dash-macro"><div class="dash-macro-val">'+protein+'</div><div class="dash-macro-lbl">Protein (g)</div></div>' +
+      '<div class="dash-macro"><div class="dash-macro-val">'+fat+'</div><div class="dash-macro-lbl">Fat (g)</div></div>' +
+      '<div class="dash-macro"><div class="dash-macro-val">'+carbs+'</div><div class="dash-macro-lbl">Carbs (g)</div></div>' +
+      '</div>';
+
+    numbersHtml += '<div class="bar-track">' +
+      '<div class="bar-seg bar-p" style="width:'+pP+'%">'+pP+'%</div>' +
+      '<div class="bar-seg bar-f" style="width:'+fP+'%">'+fP+'%</div>' +
+      '<div class="bar-seg bar-c" style="width:'+cP+'%">'+cP+'%</div>' +
+      '</div>' +
+      '<div class="bar-legend">' +
+      '<span class="bar-leg-item"><span class="bar-dot" style="background:#F4C93B"></span>Protein</span>' +
+      '<span class="bar-leg-item"><span class="bar-dot" style="background:#e8a83a"></span>Fat</span>' +
+      '<span class="bar-leg-item"><span class="bar-dot" style="background:#c48a30"></span>Carbs</span>' +
+      '</div>';
+
+    // Detailed breakdown
+    numbersHtml += '<div class="section-header" style="margin-top:10px">Breakdown</div>' +
+      '<div class="dash-row"><span class="l">BMR ('+r.bmrMethod+')</span><span class="v">'+r.bmr.toLocaleString()+' kcal</span></div>' +
+      '<div class="dash-row"><span class="l">NEAT (occupation + steps)</span><span class="v">'+r.neat+' kcal</span></div>' +
+      '<div class="dash-row"><span class="l">EAT (training)</span><span class="v">'+r.eat+' kcal</span></div>' +
+      '<div class="dash-row"><span class="l">Bio adjustment</span><span class="v">'+(r.bioAdj>=0?'+':'')+r.bioAdj+' kcal</span></div>';
+
+    if(r.safetyCapped){
+      numbersHtml += '<div class="dash-row"><span class="l">Safety cap (BF% too low for this goal)</span><span class="v" style="color:#F4C93B">Active</span></div>';
+    }
+
+    const cycleLabel = p.cyclePhase === 'luteal' ? ' (luteal +7%)' : '';
+    numbersHtml += '<div class="dash-row"><span class="l">Goal adjustment'+cycleLabel+'</span><span class="v">'+GOAL_LABELS[p.goal]+'</span></div>';
+
+    // Rationale
+    const allGood = !(adjustment && adjustment.adjusted);
+    numbersHtml += '<div class="rationale"><div class="r-title">Why These Numbers?</div>' +
+      '<strong>'+(allGood ? 'Initial estimate based on your profile' : 'Adjusted from real data')+'</strong><br>' +
+      'Your BMR was calculated using <strong>'+r.bmrMethod+'</strong> ' +
+      (r.bmrMethod==='Katch-McArdle' ? 'because you provided body fat % (most accurate method).' : '(standard formula, ~200-300 kcal uncertainty without body fat %).') +
+      '<br>Activity estimated from: <strong>'+p.occupation+'</strong> occupation + <strong>'+p.steps+'</strong> steps range + <strong>'+p.trainDays+'×'+p.sessionLen+'min</strong> training.' +
+      '<br>Goal: <strong>'+GOAL_LABELS[p.goal]+'</strong> — applying <strong>'+(GOAL_MULT[p.goal]>1?'+'+(Math.round((GOAL_MULT[p.goal]-1)*100)):(Math.round((1-GOAL_MULT[p.goal])*100)))+'%</strong> adjustment from estimated TDEE.' +
+      (p.chronicDiet==='yes' ? '<br>Chronic dieting flag applied: <strong>-8% metabolic adaptation adjustment</strong>.' : '') +
+      (p.cyclePhase==='luteal' ? '<br>Luteal phase applied: <strong>+7% REE adjustment</strong>.' : '') +
+      (r.safetyCapped ? '<br><strong>Safety cap:</strong> Your goal was adjusted because aggressive targets are not appropriate at your current body fat level.' : '') +
+      '</div>';
+
+    document.getElementById('dash-numbers').innerHTML = numbersHtml;
+
+    // Weight tab in dashboard
+    document.getElementById('dash-weight').innerHTML = renderWeightTab();
+
+    // History tab in dashboard
+    document.getElementById('dash-history').innerHTML = renderHistory();
+
+    // Edit tab
+    document.getElementById('dash-edit').innerHTML = '<div class="section-header">Edit Profile</div><p style="font-size:.72rem;color:rgba(250,250,248,.4);margin-bottom:12px;line-height:1.5;">Changing your profile will reset the recalibration cycle (current weight log is preserved).</p><button class="btn-secondary" id="backToProfile">Edit Profile Settings</button><div style="margin-top:14px;border-top:1px solid rgba(250,250,248,.06);padding-top:14px"><div class="section-header" style="margin-top:0">Data Management</div><div style="display:flex;gap:8px"><button class="btn-secondary" id="exportTdeeBtn" style="flex:1;text-align:center">⬇ Export All Data</button><button class="btn-secondary" id="importTdeeBtn" style="flex:1;text-align:center">⬆ Import Data</button></div></div><input type="file" id="tdeeImportInput" accept=".json" style="display:none">';
+    document.getElementById('backToProfile').addEventListener('click', function(){
+      document.getElementById('dashboardView').style.display = 'none';
+      document.getElementById('profileView').style.display = 'block';
+    });
+    document.getElementById('exportTdeeBtn').addEventListener('click', exportTdeeData);
+    document.getElementById('importTdeeBtn').addEventListener('click', function(){ document.getElementById('tdeeImportInput').click(); });
+    document.getElementById('tdeeImportInput').addEventListener('change', function(){
+      if(this.files && this.files[0]) importTdeeData(this.files[0]);
+      this.value = '';
+    });
+
+    document.getElementById('dashboardView').style.display = 'block';
+    document.getElementById('profileView').style.display = 'none';
+  }
+
+  function renderWeightTab(){
+    let html = '<div class="weight-input-row">' +
+      '<input type="number" id="dashWeightInput" step="0.1" placeholder="Enter weight (kg)">' +
+      '<button id="dashLogBtn">Log</button></div>' +
+      '<div class="section-header">Recent Entries</div><div class="weight-log" id="dashWeightLog"></div>';
+
+    // Defer rendering after DOM insert
+    return html;
+  }
+
+  function renderHistory(){
+    if(!store.adjustments || store.adjustments.length === 0){
+      return '<div class="section-header">Adjustment History</div><p style="font-size:.78rem;color:rgba(250,250,248,.3);text-align:center;padding:20px 0">No adjustments yet. Keep logging weight for 2+ weeks.</p>';
+    }
+    let html = '<div class="section-header">Adjustment History</div>';
+    [...store.adjustments].reverse().forEach(a => {
+      const diff = a.newGoal - a.oldGoal;
+      const cls = diff > 0 ? 'hist-up' : 'hist-down';
+      const sign = diff > 0 ? '+' : '';
+      const d = new Date(a.date);
+      html += '<div class="hist-entry">' +
+        '<div class="h-date">'+d.toLocaleDateString()+'</div>' +
+        '<div class="h-reason">'+a.reason+'</div>' +
+        '<div class="h-change '+cls+'">'+a.oldGoal+' &rarr; '+a.newGoal+' kcal ('+sign+diff+')</div></div>';
+    });
+    return html;
+  }
+
+  function renderWeightEntries(){
+    const containers = ['weightLog', 'dashWeightLog'];
+    containers.forEach(id => {
+      const el = document.getElementById(id);
+      if(!el) return;
+      if(!store.weights || store.weights.length === 0){
+        el.innerHTML = '<p style="font-size:.72rem;color:rgba(250,250,248,.2);text-align:center;padding:14px 0">No entries yet. Log your weight above.</p>';
+        return;
+      }
+      const sorted = [...store.weights].sort((a,b)=>new Date(b.date)-new Date(a.date));
+      el.innerHTML = sorted.slice(0,20).map(e =>
+        '<div class="weight-entry"><span class="d">'+new Date(e.date).toLocaleDateString()+'</span><span class="w">'+e.weight.toFixed(1)+' kg</span></div>'
+      ).join('');
+    });
+  }
+
+  function logWeight(val){
+    if(isNaN(val) || val <= 0) return;
+    store.weights.push({date:new Date().toISOString().split('T')[0], weight:Math.round(val*10)/10});
+    saveStore(store);
+    renderWeightEntries();
+    if(document.getElementById('dashboardView').style.display !== 'none'){
+      const dashEl = document.getElementById('dashStatus');
+      if(dashEl){
+        const trend = calcWeightTrend(store.weights);
+        dashEl.innerHTML = '<div class="status-banner status-ok animate-in"><strong>Weight Logged</strong><br>'+(trend?'Current trend: '+trend.direction+' at '+Math.abs(trend.weeklyTrend).toFixed(2)+' kg/week ('+store.weights.length+' entries).':'You have '+store.weights.length+' entries. Keep logging!')+'</div>';
+      }
+    }
+  }
+
+  // ─── Initialize ───
+  sexInit();
+
+  // Show female-cycle group only if female selected
+  document.getElementById('cycleGroup').style.display = 'none';
+
+  // Load profile if exists
+  if(store.profile){
+    document.getElementById('loadProfileBtn').style.display = 'block';
+    document.getElementById('loadProfileBtn').textContent = 'Load saved profile (recalibrated '+(store.adjustments.length>0?store.adjustments.length+'x':'0x')+')';
+  }
+
+  document.getElementById('loadProfileBtn').addEventListener('click', function(){
+    if(store.profile) renderDashboard();
+  });
+
+  // Tabs in profile view
+  document.querySelectorAll('#profileView .tab').forEach(tab => {
+    tab.addEventListener('click', function(){
+      showTab(document.getElementById('profileView'), this.dataset.tab);
+    });
+  });
+
+  // Tabs in dashboard
+  document.addEventListener('click', function(e){
+    if(e.target.classList.contains('tab') && e.target.closest('#dashboardView')){
+      showTab(document.getElementById('dashboardView'), e.target.dataset.tab);
+    }
+  });
+
+  // Log weight buttons
+  document.getElementById('logWeightBtn').addEventListener('click', function(){
+    logWeight(parseFloat(document.getElementById('weightInput').value));
+    document.getElementById('weightInput').value = '';
+  });
+
+  document.addEventListener('click', function(e){
+    if(e.target.id === 'dashLogBtn'){
+      logWeight(parseFloat(document.getElementById('dashWeightInput').value));
+      document.getElementById('dashWeightInput').value = '';
+    }
+  });
+
+  // Calculate
+  document.getElementById('calcBtn').addEventListener('click', function(){
+    const err = document.getElementById('errorMsg');
+    const w = parseFloat(document.getElementById('weight').value);
+    const h = parseFloat(document.getElementById('height').value);
+    const a = parseFloat(document.getElementById('age').value);
+    const goal = document.getElementById('goal').value;
+
+    if(!selectedSex||isNaN(w)||w<=0||isNaN(h)||h<=0||isNaN(a)||a<=0||!goal){
+      err.style.display='block'; return;
+    }
+    err.style.display='none';
+
+    store = loadStore();
+    store.profile = {
+      sex: selectedSex,
+      weight: w,
+      height: h,
+      age: a,
+      bf: document.getElementById('bf').value,
+      trainingAge: document.getElementById('trainingAge').value,
+      trainDays: parseInt(document.getElementById('trainDays').value),
+      sessionLen: parseInt(document.getElementById('sessionLen').value),
+      occupation: document.getElementById('occupation').value,
+      steps: document.getElementById('steps').value,
+      sleep: document.getElementById('sleep').value,
+      dietPattern: document.getElementById('dietPattern').value,
+      chronicDiet: document.getElementById('chronicDiet').value,
+      cycleRegular: document.getElementById('cycleRegular').value,
+      cyclePhase: document.getElementById('cyclePhase').value,
+      goal: goal
+    };
+    if(!store.created) store.created = new Date().toISOString();
+    saveStore(store);
+    renderDashboard();
+  });
+
+  // Load existing weight log data into profile view
+  renderWeightEntries();
+
+  // Enter key to log weight
+  document.getElementById('weightInput').addEventListener('keydown', function(e){
+    if(e.key === 'Enter') document.getElementById('logWeightBtn').click();
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' && document.getElementById('dashWeightInput')){
+      const btn = document.getElementById('dashLogBtn');
+      if(btn) btn.click();
+    }
+  });
+
+  // ─── Export / Import ───
+  window.exportTdeeData = function(){
+    const data = {};
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw) data[STORAGE_KEY] = JSON.parse(raw);
+    const blob = new Blob([JSON.stringify({exported:new Date().toISOString(), data:data}, null, 2)], {type:'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'muscle_os_tdee_data_' + new Date().toISOString().split('T')[0] + '.json';
+    a.click();
+  };
+
+  window.importTdeeData = function(file){
+    const reader = new FileReader();
+    reader.onload = function(e){
+      try {
+        const parsed = JSON.parse(e.target.result);
+        if(!parsed.data || typeof parsed.data !== 'object') throw new Error('Invalid format');
+        const imported = parsed.data;
+        if(imported[STORAGE_KEY] === undefined) throw new Error('No TDEE data found in file');
+        if(!confirm('Import will overwrite all current TDEE tracking data. Continue?')) return;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(imported[STORAGE_KEY]));
+        alert('Data imported successfully. Reloading...');
+        location.reload();
+      } catch(err){
+        alert('Import failed: '+err.message);
+      }
+    };
+    reader.readAsText(file);
+  };
+
+  console.log('Adaptive TDEE Engine loaded. Data stored in localStorage under key: '+STORAGE_KEY);
+})();
+</script>
+</body>
+</html>

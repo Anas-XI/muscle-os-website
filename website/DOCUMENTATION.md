@@ -62,7 +62,8 @@
 ```
 /
 ├── index.html                  LANDING PAGE (bilingual, sales funnel, 10 sections)
-├── order.html                  SELF-SERVE ORDER PAGE (product selector, payment info, form)
+├── order.html                  SELF-SERVE ORDER PAGE (product selector, Pay Online / Manual Transfer)
+├── order-success.html          PAYMENT SUCCESS PAGE (auto-polls, shows code when approved)
 │
 ├── admin/
 │   ├── orders.html             ADMIN APPROVAL PAGE (mobile-first, tap Approve/Reject, wa.me send)
@@ -113,8 +114,8 @@
 │   │   └── tool-hero.jpg       Hero background
 │   └── favicon.svg
 │
-├── worker/
-│   ├── src/index.js            Cloudflare Worker (548 lines, 8 endpoints + DO)
+├── website/worker/
+│   ├── src/index.js            Cloudflare Worker (972 lines, 14 endpoints + DO)
 │   ├── wrangler.toml           Worker config (staging + production)
 │   ├── package.json
 │   └── package-lock.json
@@ -124,8 +125,7 @@
 │   ├── generate-codes.js       Node: batch generate + seed to KV
 │   └── hash-code.js            SHA-256 hashing utility
 │
-└── docs/
-    └── apps-script-webhook.gs  Google Apps Script for funnel sheet logging
+└── (external) ../docs/apps-script-webhook.gs  Google Apps Script for funnel sheet logging
 ```
 
 ---
@@ -406,10 +406,10 @@ Custom events are sent via `window.mosTrackEvent(action, tag, extra)`, exposed b
 
 1. Create Google Sheet with headers: `timestamp | page | event_type | tag | referrer | session_id`
 2. (Optional) Add a second sheet tab named `Pending Orders` with headers: `timestamp | order_id | customer_name | product | payment_method | payment_ref | whatsapp | email | status`
-3. Extensions → Apps Script → paste `docs/apps-script-webhook.gs`
+3. Extensions → Apps Script → paste `../docs/apps-script-webhook.gs`
 4. Deploy as Web App (Execute as: Me, Access: Anyone)
-5. Copy `/exec` URL → paste into `assets/tracking.js` as `FUNNEL_WEBHOOK_URL`
-6. Set `EVENTS_KEY` in the Apps Script (under `// ─── Anas: pick a secret string ───`) and paste the **same value** into `assets/tracking.js` as `EVENTS_KEY`. This prevents unauthorized POSTs to your webhook from anyone who discovers the URL. If either side is left blank, no validation occurs (backward compatible).
+5. Copy `/exec` URL and append `?key=YOUR_SECRET` — the full URL becomes `https://script.google.com/.../exec?key=YourEventsKey`
+6. Set `EVENTS_KEY` in the Apps Script (under `// ─── Anas: pick a secret string ───`) to the **same value**. Paste the full URL (with `?key=...`) into `assets/tracking.js` as `FUNNEL_WEBHOOK_URL`. The query param check prevents unauthorized POSTs from anyone who discovers the URL. If `EVENTS_KEY` is left as the placeholder, validation is skipped.
 7. (Optional) On the Pending Orders tab: Tools → Notification rules → "When a new row is added → Email" to get real-time alerts.
 
 ### 6.5 Export (Manual Review)
@@ -463,6 +463,9 @@ const TR = {
 | `/api/pending-orders` | POST | List pending orders | `X-Admin-Key` |
 | `/api/approve-order` | POST | Approve order + auto-issue code | `X-Admin-Key` |
 | `/api/reject-order` | POST | Reject order with reason | `X-Admin-Key` |
+| `/api/create-payment-link` | POST | Create Paymob payment URL for an order | Rate-limited |
+| `/api/paymob-callback` | POST | Paymob webhook — auto-approve on successful payment | HMAC-verified |
+| `/api/check-order-status` | POST | Check order status + get code if approved | — |
 | `/api/auth/google` | POST | Google Sign-In token exchange | Google JWKS |
 | `/api/check-session` | POST | Validate Google session JWT | — |
 | `/api/refresh-session` | POST | Refresh 7-day session JWT | — |
@@ -480,6 +483,8 @@ const TR = {
 | **Durable Object: CODE_COUNTER** | (per-code) | Atomic usage counter (eliminates TOCTOU) |
 
 ### 8.3 Order Flow — Self-Serve + One-Tap Approval
+
+#### Manual Transfer (Vodafone Cash / InstaPay)
 
 ```
 CUSTOMER                            WORKER                           ADMIN
@@ -514,6 +519,76 @@ CUSTOMER                            WORKER                           ADMIN
    │
    ◀── Receives code on WhatsApp ──────────────────── (Anas taps Send)
 ```
+
+#### Online Payment (Card via Paymob) — Auto-Approval
+
+```
+CUSTOMER                     WORKER                        PAYMOB
+   │                            │                            │
+   ├── Fills form on ───────────┤                            │
+   │   order.html               │                            │
+   │   (Pay Online selected)    │                            │
+   │                            │                            │
+   ├── POST /api/create-order ──▶                            │
+   │                            ├── Validate, store order    │
+   │                            ├── Return orderId           │
+   │◀───────────────────────────┘                            │
+   │                            │                            │
+   ├── POST /api/create-payment-link                        │
+   │   (with orderId) ─────────▶                            │
+   │                            ├── paymobAuthToken() ──────▶│
+   │                            │       POST /api/auth/tokens│
+   │                            │◀─── token ────────────────│
+   │                            │                            │
+   │                            ├── paymobCreateOrder() ────▶│
+   │                            │       POST /api/ecommerce/orders
+   │                            │◀─── order_id ─────────────│
+   │                            │                            │
+   │                            ├── paymobPaymentKey() ─────▶│
+   │                            │       POST /api/acceptance/│
+   │                            │       payment_keys         │
+   │                            │◀─── payment_token ────────│
+   │                            │                            │
+   │◀─── { paymentUrl } ────────┘                            │
+   │                            │                            │
+   ├── Redirects browser ───────┴──────────────▶ Paymob iframe
+   │   to paymentUrl                                 │
+   │                                                 ├── User pays
+   │                                                 │
+   │◀── Paymob redirects to ─────────────────────────┘
+   │    order-success.html?orderId=...
+   │    (reads orderId from localStorage)
+   │
+   │                            │                            │
+   │                            ◀── Paymob webhook POST ──────
+   │                            │    /api/paymob-callback
+   │                            ├── verifyPaymobHmac()
+   │                            ├── Look up order by
+   │                            │   merchant_order_id
+   │                            ├── approveOrderLogic()
+   │                            │   ├── issueCodeForProduct()
+   │                            │   ├── Write to ACCESS_CODES
+   │                            │   ├── Initialize DO
+   │                            │   └── Update order status
+   │                            │         → 'approved'
+   │                            ├── Return 200 OK ───────────▶
+   │                            │
+   ├── Polls POST /api/ ───────▶│
+   │   check-order-status       ├── Returns status='approved'
+   │   every 10s                │   + code
+   │◀───────────────────────────┘
+   │
+   ├── Shows code on screen
+   ├── Auto-copies to clipboard
+   └── WhatsApp confirmation sent
+```
+
+**Important notes:**
+- The success page (`order-success.html`) stores the `orderId` in `localStorage` before redirecting to Paymob, so it can be read after the redirect regardless of Paymob's static return URL
+- The Paymob webhook URL is `https://muscleos-access-control.muscleos.workers.dev/api/paymob-callback` (must be configured in Paymob dashboard)
+- The iframe return URL in Paymob dashboard should be set to `https://muscleos.is-a.dev/order-success.html`
+- If the webhook fires before the user is redirected, the success page shows the code immediately
+- For testing, add `?manual=1` to `order.html` URL to use the manual Vodafone Cash flow
 
 ### 8.4 Product Configuration (auto code generation)
 
@@ -586,7 +661,7 @@ Mobile-first dashboard for glanceable funnel and order stats.
 3. Renders: this week at a glance (pageviews, WA clicks, orders with % change vs prior week), funnel stage breakdown (top/middle/bottom as stacked bars), top 5 pages, top 5 WhatsApp tags, order funnel (submitted → approved → rejected with approval rate)
 4. Manual refresh button in the bottom bar
 
-**Setup:** Set the `ANALYTICS_URL` constant in `admin/analytics.html` to your Apps Script `/exec` URL (same as `FUNNEL_WEBHOOK_URL` in `tracking.js`). Then set `ANALYTICS_KEY` in `docs/apps-script-webhook.gs` to a secret string — use the same string when first opening the dashboard.
+**Setup:** Set the `ANALYTICS_URL` constant in `admin/analytics.html` to your Apps Script `/exec?key=ANALYTICS_KEY` URL. Then set `ANALYTICS_KEY` in `../docs/apps-script-webhook.gs` to a secret string — use the same string when first opening the dashboard.
 
 ### 9.5 Weekly Email Digest (`sendWeeklySummaryEmail` in Apps Script)
 
@@ -652,11 +727,25 @@ Environment config in `wrangler.toml`:
 - **Staging**: `muscleos-access-control.<sub>.workers.dev`
 - **Production**: `api.muscleos.coach` (custom domain on muscleos.coach zone)
 
-Secrets to set:
+Secrets to set (`npx wrangler secret put`):
 - `ADMIN_KEY` — shared secret for admin API
 - `JWT_SECRET` — HS256 signing key
 - `CORS_ORIGIN` — allowed origin (fallback to GitHub Pages + custom domain)
 - `GOOGLE_CLIENT_ID` — for Google Sign-In
+- `PAYMOB_API_KEY` — Paymob API key (from Paymob dashboard → Settings → Account Info → API Key)
+- `PAYMOB_INTEGRATION_ID` — Paymob integration ID (integer, from Paymob dashboard → Integrations)
+- `PAYMOB_IFRAME_ID` — Paymob iframe ID (string, from Paymob dashboard → Accept → Iframes)
+- `PAYMOB_HMAC_SECRET` — Paymob HMAC secret (from Paymob dashboard → Settings → Account Info → HMAC Secret)
+- `SITE_BASE_URL` — Site base URL (e.g. `https://muscleos.is-a.dev`); reserved for future WhatsApp Business API return URLs
+
+**Paymob setup steps:**
+1. Create account at https://accept.paymob.com
+2. Activate card integration (Visa/Mastercard) in Integrations tab
+3. Create an iframe in Accept → Iframes
+4. Set the iframe's return URL to `https://muscleos.is-a.dev/order-success.html`
+5. Configure the webhook endpoint to POST to `https://muscleos-access-control.muscleos.workers.dev/api/paymob-callback`
+6. Set the Paymob secrets and SITE_BASE_URL via `npx wrangler secret put`
+7. For production (custom domain), the webhook URL becomes `https://api.muscleos.coach/api/paymob-callback`
 
 ---
 
@@ -808,7 +897,7 @@ Access-Control-Allow-Origin: (dynamically set)
 | tdee_macro_calculator.html | 62 KB | 903 | ★★★ |
 | tdee_adaptive_engine.html | 58 KB | 1028 | ★★★ |
 | consistency_workbook.html | 57 KB | 998 | ★★★ |
-| worker/src/index.js | 22 KB | 548 | ★★★★★ |
+| website/worker/src/index.js | 36 KB | 972 | ★★★★★ |
 | pdf/viewer.html | 18 KB | 337 | ★★★ |
 | volume_set_calculator.html | 26 KB | 393 | ★★ |
 | split_selector_quiz.html | 24 KB | 364 | ★★ |

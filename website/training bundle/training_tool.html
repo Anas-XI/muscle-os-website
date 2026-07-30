@@ -166,23 +166,6 @@ select option{background:#1E1E2A;color:#FAFAF8}
 .safety-block strong{color:#f44336}
 .sub-option{font-size:.55rem;color:rgba(250,250,248,0.3);margin-top:3px;font-style:italic}
 .explanation{font-size:.55rem;color:rgba(250,250,248,.3);margin-top:3px;line-height:1.2}
-.mos-nav{position:sticky;top:0;z-index:999;background:rgba(20,21,26,.95);backdrop-filter:blur(8px);border-bottom:1px solid #2C2E37;font-family:'Inter',sans-serif}
-.mos-nav-inner{max-width:1180px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
-.mos-brand{font-family:'Oswald',sans-serif;font-weight:700;font-size:15px;letter-spacing:.5px;text-transform:uppercase;color:#fff;text-decoration:none}
-.mos-brand span{color:#F4C93B}
-.mos-nav-links{display:flex;gap:20px;font-size:11px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
-.mos-nav-links a{color:#C7C9D0;text-decoration:none;transition:color .2s}
-.mos-nav-links a:hover{color:#F4C93B}
-@media(max-width:600px){.mos-nav-links{gap:10px;font-size:9px}.mos-nav-inner{padding:8px 16px}.mos-brand{font-size:12px}}
-@media print{.mos-nav{display:none!important}.mos-footer{display:none!important}}
-.mos-footer{padding:20px 24px;background:#14151A;border-top:1px solid #2C2E37;font-family:'Inter',sans-serif;text-align:center}
-.mos-footer-inner{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
-.mos-fbrand{font-family:'Oswald',sans-serif;font-weight:700;font-size:13px;letter-spacing:.5px;text-transform:uppercase;color:#fff}
-.mos-fbrand span{color:#F4C93B}
-.mos-fnav a{color:rgba(250,250,248,.5);text-decoration:none;margin:0 8px;font-size:11px;font-weight:500}
-.mos-fnav a:hover{color:#F4C93B}
-.mos-fsocial a{color:#F4C93B;text-decoration:none;margin:0 8px;font-size:11px}
-.mos-fcopy{font-size:10px;color:rgba(250,250,248,.3);margin-top:6px}
 .footer{text-align:center;margin-top:24px;font-size:.58rem;color:rgba(250,250,248,.15);font-weight:300}
 .footer a{color:#F4C93B;text-decoration:none;font-weight:500}
 .footer a:hover{text-decoration:underline}
@@ -368,56 +351,9 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
  .vol-row{grid-template-columns:58px 1fr 34px;font-size:.52rem}.set-row{grid-template-columns:28px 1fr 1fr 1fr 26px}
  .set-log-header{grid-template-columns:28px 1fr 1fr 1fr 26px}.suggest-val{font-size:1.1rem}
 }
-/* Subscription paywall */
-.sub-overlay{position:fixed;inset:0;z-index:9999;background:rgba(20,21,26,.97);display:flex;align-items:center;justify-content:center;padding:24px}
-.sub-modal{max-width:520px;width:100%;background:#1E1E2A;border:1px solid #2C2E37;border-radius:16px;padding:40px 32px;text-align:center}
-.sub-modal .lock-icon{font-size:48px;margin-bottom:8px}
-.sub-modal h2{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;color:#F4C93B;text-transform:uppercase;margin-bottom:4px;letter-spacing:.5px}
-.sub-modal .sub-price{font-family:'JetBrains Mono',monospace;font-size:14px;color:rgba(255,215,0,.6);margin-bottom:20px}
-.sub-modal .sub-desc{font-size:14px;color:#8A8D96;line-height:1.6;margin-bottom:24px}
-.sub-features{text-align:left;margin-bottom:24px;padding:0;list-style:none}
-.sub-features li{padding:6px 0 6px 24px;position:relative;font-size:13px;color:#C7C9D0;border-bottom:1px solid rgba(255,255,255,.04)}
-.sub-features li::before{content:"\2713";color:#F4C93B;position:absolute;left:0;font-weight:700}
-.sub-btn{display:inline-block;background:#F4C93B;color:#14151A;font-weight:700;font-size:14px;padding:14px 32px;border-radius:8px;text-decoration:none;text-transform:uppercase;letter-spacing:.5px;margin-bottom:16px;width:100%;text-align:center}
-.sub-btn:hover{background:#fff}
-.sub-divider{display:flex;align-items:center;gap:12px;margin:16px 0;color:#5B5F68;font-size:11px;text-transform:uppercase;letter-spacing:1px}
-.sub-divider::before,.sub-divider::after{content:"";flex:1;height:1px;background:#2C2E37}
-.sub-code-row{display:flex;gap:8px}
-.sub-code-input{flex:1;padding:10px 14px;background:#14151A;border:1px solid #2C2E37;border-radius:6px;color:#fff;font-family:'JetBrains Mono',monospace;font-size:13px;outline:none}
-.sub-code-input:focus{border-color:#F4C93B}
-.sub-verify-btn{padding:10px 20px;background:transparent;border:1px solid #F4C93B;color:#F4C93B;border-radius:6px;cursor:pointer;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
-.sub-verify-btn:hover{background:rgba(244,201,59,.1)}
-.sub-error{font-size:12px;color:#f44336;margin-top:6px;display:none}
-.sub-success{font-size:12px;color:#4CAF50;margin-top:6px;display:none}
 </style>
 </head>
 <body>
-<nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a><a href="../index.html#packages">Coaching</a></div></div></nav>
-<div class="sub-overlay" id="subOverlay">
-  <div class="sub-modal">
-    <div class="lock-icon">&#128274;</div>
-    <h2>Pro Tool</h2>
-    <div class="sub-price">300 EGP / month</div>
-    <p class="sub-desc">This tool requires an active subscription. Subscribe now or enter your access code if you already have one.</p>
-    <ul class="sub-features">
-      <li>Full training program generator with auto-periodization</li>
-      <li>Session logger with e1RM progression tracking</li>
-      <li>Volume targets with MEV/MAV/MRV per muscle group</li>
-      <li>RPE/RIR-based load calculator integration</li>
-      <li>Deload tracking &amp; fatigue management</li>
-      <li>EN/AR bilingual interface</li>
-      <li>Exportable PDF programs with full details</li>
-    </ul>
-    <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20subscribe%20to%20the%20Training%20Tool%20for%20200%20EGP/month" class="sub-btn" target="_blank" rel="noopener">Subscribe via WhatsApp</a>
-    <div class="sub-divider">Already have access?</div>
-    <div class="sub-code-row">
-      <input type="text" class="sub-code-input" id="subCode" placeholder="Enter your access code" autocomplete="off">
-      <button class="sub-verify-btn" id="subVerify">Verify</button>
-    </div>
-    <div class="sub-error" id="subError">Invalid code. Please check and try again.</div>
-    <div class="sub-success" id="subSuccess">Access granted! Reloading tool...</div>
-  </div>
-</div>
 <div class="print-header"><h2>Training Log</h2><p id="printInfo"></p></div>
 <div class="container">
   <div class="header no-print">
@@ -887,76 +823,6 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       rpe_5_feel:'Moderate — bar speed slows slightly',
       rpe_5_use:'Warm-up, ramp sets, first work sets',
       rpe_tip:'Start your first working set at RPE 7. If it moves well, add weight next set. If it\'s a grind, stay or back off. Over 4 weeks, track your RPE to spot accumulating fatigue before it hurts performance.',
-      // Mesocycle
-      meso_phase_accumulation:'Accumulation',meso_phase_intensification:'Intensification',meso_phase_peak:'Peak',meso_phase_deload:'Deload',
-      meso_vol_rpe_progression:'Volume & RPE Progression',meso_weeks:'weeks',
-      // Warm-up
-      warmup_ramp:'Ramp',warmup_work:'WORK',warmup_pct:'% Work',
-      warmup_tip_squat:'Hip circles + goblet squat hold before first warm-up set.',
-      warmup_tip_bench:'Band pull-aparts + scapular retraction before warm-ups.',
-      warmup_tip_deadlift:'Hip CARs + glute bridges. Reset brace each rep.',
-      warmup_tip_ohp:'L-Twists + wall slides. Core braced throughout.',
-      warmup_tip_row:'Cat-cow + dead hang before rowing. Brace hard.',
-      warmup_tip_general:'Light cardio 3-5 min + dynamic stretches for target muscles.',
-      warmup_tip_legs:'Foam roll quads + hip flexors before warm-up sets.',
-      warmup_tip_upper:'Band pull-aparts + arm circles before warm-up sets.',
-      // General warmup
-      gen_warmup_legs:'Foam roll: quads, hams, glutes',gen_warmup_legs2:'Hip circles x10 each direction',
-      gen_warmup_legs3:'Bodyweight squats x10',gen_warmup_legs4:'Leg swings x10/side',gen_warmup_legs5:'Inchworms x5',
-      gen_warmup_upper1:'Band pull-aparts x15',gen_warmup_upper2:'Arm circles x10 fwd/back',
-      gen_warmup_upper3:'Push-ups x10',gen_warmup_upper4:'Scapular retractions x10',gen_warmup_upper5:'Cat-cow x8',
-      gen_warmup_default1:'Jumping jacks 30s',gen_warmup_default2:'Torso twists x10/side',
-      // Rehab
-      rehab_acute:'Acute Phase',rehab_recovery:'Recovery Phase (when pain-free)',rehab_safe:'Safe exercises:',rehab_avoid:'Avoid:',
-      rehab_stop_all:'Stop all aggravating exercises until pain subsides.',
-      rehab_book_consult:'Book Free Consultation',rehab_injury:'Injury',rehab_inflammation:'Mild Inflammation',
-      // Fatigue
-      fatigue_sleep:'Sleep Quality',fatigue_stress:'Life Stress',fatigue_doms:'DOMS / Soreness',
-      fatigue_nutrition:'Nutrition / Fuel',fatigue_cns:'CNS Fatigue',
-      fatigue_hint_sleep:'1=awful, 10=perfect',fatigue_hint_stress:'1=overwhelmed, 10=relaxed',
-      fatigue_hint_doms:'1=destroyed, 10=fresh',fatigue_hint_nutrition:'1=starved, 10=optimal',fatigue_hint_cns:'1=flat/burned, 10=electric',
-      fatigue_rates:'Rate each factor 1-10. Higher = better for sleep/nutrition/CNS, lower = better for stress/doms.',
-      fatigue_ready:'Ready to train at full intensity.',
-      fatigue_rpe_adjusted:'RPE adjusted due to fatigue. Safety first.',
-      // Compliance
-      comp_score:'Score',comp_grade:'Grade',comp_status:'Status',
-      comp_excellent:'Excellent',comp_good:'Good',comp_fair:'Fair',comp_needs_work:'Needs Work',comp_at_risk:'At Risk',
-      comp_current_streak:'Current Streak',comp_best_streak:'Best Streak',comp_adherence:'Adherence (planned/logged)',
-      comp_day:'day',comp_days:'days',comp_sessions:'sessions',
-      // ACWR
-      acwr_high:'HIGH — injury risk elevated',acwr_moderate:'MODERATE — monitor closely',
-      acwr_elevated:'ELEVATED — within acceptable',acwr_low:'LOW — consider increasing load',acwr_normal:'NORMAL — optimal range',
-      acwr_ratio:'ACWR',
-      // Auto adjustments
-      auto_adj_needed:'adjustment needed',auto_adj_needed_pl:'adjustments needed',
-      auto_adj_opportunity:'opportunity',auto_adj_opportunities:'opportunities',
-      // Measurements
-      meas_weight:'Weight (kg)',meas_bf:'Body Fat %',meas_chest:'Chest (cm)',meas_waist:'Waist (cm)',
-      meas_l_arm:'Left Arm (cm)',meas_r_arm:'Right Arm (cm)',meas_l_thigh:'Left Thigh (cm)',meas_r_thigh:'Right Thigh (cm)',
-      meas_l_calf:'Left Calf (cm)',meas_r_calf:'Right Calf (cm)',meas_photo:'Progress Photo (optional, max ~100KB)',
-      meas_last:'Last',meas_no_data:'No data',meas_weight_trend:'Weight Trend',
-      // Periodization badge
-      per_periodization:'Periodization',
-      // Cardio
-      cardio_today:'today',
-      // Overload suggest
-      overload_increase:'Increase to',overload_hold:'Hold at',overload_reduce:'Reduce to',overload_bump:'Bumped',
-      // Rest timer
-      timer_start:'Start',timer_stop:'Stop',timer_reset:'Reset',timer_rest:'Rest',
-      timer_compound:'Compound: 3\u20135 min',timer_isolation:'Isolation: 2\u20133 min',
-      // Custom exercises
-      custom_add:'Add Custom Exercise',custom_name:'Exercise Name',custom_muscle:'Muscle Group',
-      custom_type:'Type',custom_compound:'Compound',custom_isolation:'Isolation',
-      custom_sets:'Default Sets',custom_reps:'Default Reps',custom_rpe:'Default RPE',
-      custom_save:'Save Exercise',custom_delete:'Delete',custom_my_exercises:'My Custom Exercises',
-      custom_no_data:'No custom exercises yet. Add one below.',
-      // Data sync
-      sync_title:'Data Sync',sync_upload:'Upload to Cloud',sync_download:'Download from Cloud',
-      sync_success:'Data synced successfully!',sync_fail:'Sync failed. Try again.',
-      sync_confirm_upload:'Upload your training data to the cloud? This will overwrite any previously saved data.',
-      sync_confirm_download:'Download training data from the cloud? This will overwrite your local data.',
-      // Timer display
-      rest_timer_label:'Rest Timer',
     },
     ar: {
       app_title:'أداة التدريب', header_sub:'التسجيل → التقسيم → البرنامج → التمرين → التاريخ',
@@ -1015,76 +881,6 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       rpe_5_feel:'معتدل — سرعة البار تنخفض قليلاً',
       rpe_5_use:'الإحماء، مجموعات التصعيد، أول مجموعات العمل',
       rpe_tip:'ابدأ أول مجموعة عمل عند RPE 7. إذا كانت الحركة جيدة، أضف وزناً في المجموعة التالية. إذا كانت صعبة، استمر أو اخفض. على مدى 4 أسابيع، تابع RPE لاكتشاف تراكم التعب قبل أن يؤثر على أدائك.',
-      // Mesocycle
-      meso_phase_accumulation:'تراكم',meso_phase_intensification:'تكثيف',meso_phase_peak:'ذروة',meso_phase_deload:'تفريغ',
-      meso_vol_rpe_progression:'تقدم الحجم والجهد',meso_weeks:'أسبوع',
-      // Warm-up
-      warmup_ramp:'تصعيد',warmup_work:'العمل',warmup_pct:'% العمل',
-      warmup_tip_squat:'دوائر الورك + وضع القرفصاء قبل أول مجموعة إحماء.',
-      warmup_tip_bench:'تمارين شد الحزام + تراجع لوح الكتف قبل الإحماء.',
-      warmup_tip_deadlift:'حركات الورك + جسور الألوية. شد البطن في كل تكرار.',
-      warmup_tip_ohp:'لفات الجسم + تمارين الحائط. شد البطول طوال الوقت.',
-      warmup_tip_row:'تمديد الظهر + التعليق قبل التجديف. شد البطن بقوة.',
-      warmup_tip_general:'تمارين كارديو خفيفة 3-5 دقائق + إطالات ديناميكية للعضلات المستهدفة.',
-      warmup_tip_legs:'تدليك الفخذين وثنيات الورك قبل الإحماء.',
-      warmup_tip_upper:'تمارين شد الحزام + دوائر الذراعين قبل الإحماء.',
-      // General warmup
-      gen_warmup_legs:'تدليك: الفخذين، العضلات الخلفية، الألوية',gen_warmup_legs2:'دوائر الورك 10 مرات كل اتجاه',
-      gen_warmup_legs3:'قرفصاء بدون وزن 10 مرات',gen_warmup_legs4:'أرجل متأرجحة 10 مرات',gen_warmup_legs5:'تمارين الدودة 5 مرات',
-      gen_warmup_upper1:'تمارين شد الحزام 15 مرة',gen_warmup_upper2:'دوائر الذراعين 10 مرات أمام/خلف',
-      gen_warmup_upper3:'تمارين الضغط 10 مرات',gen_warmup_upper4:'تراجع لوح الكتف 10 مرات',gen_warmup_upper5:'تمدد القطة 8 مرات',
-      gen_warmup_default1:'قفزات 30 ثانية',gen_warmup_default2:'لفات الجذع 10 مرات',
-      // Rehab
-      rehab_acute:'المرحلة الحادة',rehab_recovery:'مرحلة التعافي (عند زوال الألم)',rehab_safe:'تمارين آمنة:',rehab_avoid:'تجنب:',
-      rehab_stop_all:'⛔ أوقف جميع التمارين المسببة للألم حتى يزول.',
-      rehab_book_consult:'📅 احجز استشارة مجانية',rehab_injury:'إصابة',rehab_inflammation:'التهاب خفيف',
-      // Fatigue
-      fatigue_sleep:'جودة النوم',fatigue_stress:'الضغط النفسي',fatigue_doms:'ألم العضلات',
-      fatigue_nutrition:'التغذية',fatigue_cns:'الجهاز العصبي',
-      fatigue_hint_sleep:'1=سيء، 10=ممتاز',fatigue_hint_stress:'1=مرهق، 10=مستريح',
-      fatigue_hint_doms:'1=مدمر، 10=منتعش',fatigue_hint_nutrition:'1=جائع، 10=مثالي',fatigue_hint_cns:'1=منهك، 10=نشط',
-      fatigue_rates:'قيّم كل عامل 1-10. الأعلى أفضل للنوم/التغذية/الجهاز العصبي، الأقل أفضل للضغط/الألم.',
-      fatigue_ready:'جاهز للتدريب بكثافة كاملة.',
-      fatigue_rpe_adjusted:'تم تعديل RPE بسبب التعب. السلامة أولاً.',
-      // Compliance
-      comp_score:'الدرجة',comp_grade:'التقدير',comp_status:'الحالة',
-      comp_excellent:'ممتاز',comp_good:'جيد',comp_fair:'مقبول',comp_needs_work:'يحتاج عملاً',comp_at_risk:'في خطر',
-      comp_current_streak:'السلسلة الحالية',comp_best_streak:'أفضل سلسلة',comp_adherence:'الالتزام (مخطط/مسجل)',
-      comp_day:'يوم',comp_days:'أيام',comp_sessions:'جلسة',
-      // ACWR
-      acwr_high:'مرتفع — خطر الإصابة مرتفع',acwr_moderate:'متوسط — راقب عن كثب',
-      acwr_elevated:'مرتفع قليلاً — ضمن المقبول',acwr_low:'منخفض — فكر في زيادة الحمل',acwr_normal:'طبيعي — النطاق الأمثل',
-      acwr_ratio:'ACWR',
-      // Auto adjustments
-      auto_adj_needed:'تعديل مطلوب',auto_adj_needed_pl:'تعديلات مطلوبة',
-      auto_adj_opportunity:'فرصة',auto_adj_opportunities:'فرص',
-      // Measurements
-      meas_weight:'الوزن (كغم)',meas_bf:'نسبة الدهون %',meas_chest:'الصدر (سم)',meas_waist:'الخصر (سم)',
-      meas_l_arm:'الذراع الأيسر (سم)',meas_r_arm:'الذراع الأيمن (سم)',meas_l_thigh:'الفخذ الأيسر (سم)',meas_r_thigh:'الفخذ الأيمن (سم)',
-      meas_l_calf:'الساق اليسرى (سم)',meas_r_calf:'الساق اليمنى (سم)',meas_photo:'صورة تقدم (اختياري، حد أقصى 100 كيلوبايت)',
-      meas_last:'آخر',meas_no_data:'لا توجد بيانات',meas_weight_trend:'اتجاه الوزن',
-      // Periodization badge
-      per_periodization:'دورة تدريبية',
-      // Cardio
-      cardio_today:'اليوم',
-      // Overload suggest
-      overload_increase:'زيادة إلى',overload_hold:'تثبيت عند',overload_reduce:'تقليل إلى',overload_bump:'رفع',
-      // Rest timer
-      timer_start:'بدء',timer_stop:'إيقاف',timer_reset:'إعادة',timer_rest:'راحة',
-      timer_compound:'تمارين مركبة: 3-5 دقائق',timer_isolation:'تمارين عزل: 2-3 دقائق',
-      // Custom exercises
-      custom_add:'إضافة تمرين مخصص',custom_name:'اسم التمرين',custom_muscle:'المجموعة العضلية',
-      custom_type:'النوع',custom_compound:'مركب',custom_isolation:'عزل',
-      custom_sets:'المجموعات الافتراضية',custom_reps:'التكرارات الافتراضية',custom_rpe:'الجهد الافتراضي',
-      custom_save:'حفظ التمرين',custom_delete:'حذف',custom_my_exercises:'تماريني المخصصة',
-      custom_no_data:'لا توجد تمارين مخصصة بعد. أضف واحداً أدناه.',
-      // Data sync
-      sync_title:'مزامنة البيانات',sync_upload:'رفع إلى السحابة',sync_download:'تنزيل من السحابة',
-      sync_success:'تمت المزامنة بنجاح!',sync_fail:'فشلت المزامنة. حاول مرة أخرى.',
-      sync_confirm_upload:'رفع بيانات التدريب إلى السحابة؟ سيتم استبدال أي بيانات محفوظة مسبقاً.',
-      sync_confirm_download:'تنزيل بيانات التدريب من السحابة؟ سيتم استبدال بياناتك المحلية.',
-      // Timer display
-      rest_timer_label:'مؤقت الراحة',
     }
   };
   function _(k){return I18N[window.__lang]&&I18N[window.__lang][k]!==undefined?I18N[window.__lang][k]:I18N.en[k]!==undefined?I18N.en[k]:k;}
@@ -1505,30 +1301,6 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
   function dlTracker(){return ls(K.DT,{lastDeload:null,sessions:0,overshoots:0})}
   function painFlags(){return ls(K.PF,{})}
 
-  function checkDeloadOvershoot(){
-    var dt=dlTracker(),logs=ls(K.LG,{}),td=new Date().toISOString().split('T')[0],dl=logs[td];
-    if(!dl){return;}
-    var hasHighRpe=false;
-    Object.keys(dl).forEach(function(eid){
-      (dl[eid].sets||[]).forEach(function(s){
-        if(s&&s.rpe&&parseFloat(s.rpe)>=9&&parseFloat(s.w)>0)hasHighRpe=true;
-      });
-    });
-    var prevOvershoots=dt.overshoots||0;
-    if(hasHighRpe){dt.overshoots=prevOvershoots+1;}
-    else if(prevOvershoots>0){dt.overshoots=Math.max(0,prevOvershoots-1);}
-    if(prevOvershoots!==dt.overshoots)ss(K.DT,dt);
-  }
-
-  function trackTrainingSession(td){
-    var dt=dlTracker(),last=dt.lastSessionDate||null;
-    if(last!==td){
-      dt.sessions=(dt.sessions||0)+1;
-      dt.lastSessionDate=td;
-      ss(K.DT,dt);
-    }
-  }
-
   // ── Engine ──
   function bestE1RM(ex,h){var e=h[ex];if(!e||!e.length)return null;var c=new Date(Date.now()-60*864e5).toISOString().split('T')[0];var r=e.filter(function(x){return x.date>=c&&x.e1RM>0});if(!r.length)return null;return r.reduce(function(m,x){return x.e1RM>m?x.e1RM:m},0)}
   function lastSess(ex,h){var e=h[ex];if(!e||!e.length)return null;return e.slice().sort(function(a,b){return a.date<b.date?1:-1})[0]}
@@ -1614,32 +1386,32 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       '<span class="wu-icon">🔥</span><span class="wu-label">'+_('warmup')+'</span>'+
       '<span class="wu-count">'+warmupSets+' '+_('ramp_sets')+'</span>'+
       '<span class="wu-arrow">▼</span></div><div class="wu-body">'+
-      '<div class="wu-row wu-head"><span>'+_('set')+'</span><span>'+_('weight')+'</span><span>'+_('reps')+'</span><span>'+_('warmup_pct')+'</span></div>';
+      '<div class="wu-row wu-head"><span>'+_('set')+'</span><span>'+_('weight')+'</span><span>'+_('reps')+'</span><span>% Work</span></div>';
     warmups.forEach(function(w){
-      html+='<div class="wu-row"><span>'+(w.label.indexOf('Ramp')>=0?_('warmup_ramp')+' '+(w.set):w.label)+'</span><span class="wu-weight">'+(w.weight>0?w.weight+' '+_('weight'):'Bar')+'</span><span>'+w.reps+'</span><span>'+w.pct+'%</span></div>';
+      html+='<div class="wu-row"><span>'+w.label+'</span><span class="wu-weight">'+(w.weight>0?w.weight+' '+_('weight'):'Bar')+'</span><span>'+w.reps+'</span><span>'+w.pct+'%</span></div>';
     });
-    html+='<div class="wu-row wu-work"><span>'+_('warmup_work')+'</span><span class="wu-weight" style="color:#F4C93B">'+sugg.w+' '+_('weight')+'</span><span>'+sugg.r+'</span><span>100%</span></div>';
+    html+='<div class="wu-row wu-work"><span>WORK</span><span class="wu-weight" style="color:#F4C93B">'+sugg.w+' '+_('weight')+'</span><span>'+sugg.r+'</span><span>100%</span></div>';
     html+='<p class="wu-tip">'+warmupTip(exName,dayName)+'</p></div></div>';
     return html;
   }
   function warmupTip(exName,dayName){
     var tips={
-      'Barbell Squat':_('warmup_tip_squat'),
-      'Bench Press':_('warmup_tip_bench'),
-      'Deadlift Variation':_('warmup_tip_deadlift'),
-      'Overhead Press':_('warmup_tip_ohp'),
-      'Barbell Row':_('warmup_tip_row')
+      'Barbell Squat':'Hip circles + goblet squat hold before first warm-up set.',
+      'Bench Press':'Band pull-aparts + scapular retraction before warm-ups.',
+      'Deadlift Variation':'Hip CARs + glute bridges. Reset brace each rep.',
+      'Overhead Press':'L-Twists + wall slides. Core braced throughout.',
+      'Barbell Row':'Cat-cow + dead hang before rowing. Brace hard.'
     };
     for(var k in tips){if(exName.indexOf(k)>=0)return tips[k];}
-    if(dayName&&dayName.toLowerCase().indexOf('leg')>=0)return _('warmup_tip_legs');
-    if(dayName&&dayName.toLowerCase().indexOf('upper')>=0)return _('warmup_tip_upper');
-    return _('warmup_tip_general');
+    if(dayName&&dayName.toLowerCase().indexOf('leg')>=0)return 'Foam roll quads + hip flexors before warm-up sets.';
+    if(dayName&&dayName.toLowerCase().indexOf('upper')>=0)return 'Band pull-aparts + arm circles before warm-up sets.';
+    return 'Light cardio 3-5 min + dynamic stretches for target muscles.';
   }
   function renderGeneralWarmup(dayName){
     var gen=[],dn=(dayName||'').toLowerCase();
-    if(dn.indexOf('leg')>=0||dn.indexOf('lower')>=0||dn.indexOf('quad')>=0||dn.indexOf('glute')>=0)gen.push(_('gen_warmup_legs'), _('gen_warmup_legs2'), _('gen_warmup_legs3'), _('gen_warmup_legs4'), _('gen_warmup_legs5'));
-    else if(dn.indexOf('upper')>=0||dn.indexOf('chest')>=0||dn.indexOf('back')>=0||dn.indexOf('shoulder')>=0||dn.indexOf('arm')>=0||dn.indexOf('push')>=0||dn.indexOf('pull')>=0)gen.push(_('gen_warmup_upper1'), _('gen_warmup_upper2'), _('gen_warmup_upper3'), _('gen_warmup_upper4'), _('gen_warmup_upper5'));
-    else gen.push(_('gen_warmup_default1'), _('gen_warmup_upper2'), _('gen_warmup_legs3'), _('gen_warmup_default2'), _('gen_warmup_upper5'));
+    if(dn.indexOf('leg')>=0||dn.indexOf('lower')>=0||dn.indexOf('quad')>=0||dn.indexOf('glute')>=0)gen.push('Foam roll: quads, hams, glutes', 'Hip circles x10 each direction', 'Bodyweight squats x10', 'Leg swings x10/side', 'Inchworms x5');
+    else if(dn.indexOf('upper')>=0||dn.indexOf('chest')>=0||dn.indexOf('back')>=0||dn.indexOf('shoulder')>=0||dn.indexOf('arm')>=0||dn.indexOf('push')>=0||dn.indexOf('pull')>=0)gen.push('Band pull-aparts x15', 'Arm circles x10 fwd/back', 'Push-ups x10', 'Scapular retractions x10', 'Cat-cow x8');
+    else gen.push('Jumping jacks 30s', 'Arm circles x10', 'Bodyweight squats x10', 'Torso twists x10/side', 'Cat-cow x8');
     var html='<div class="gen-warmup"><div class="gw-header">'+_('warmup')+'</div><div class="gw-list">'+gen.map(function(g){return'<span>'+g+'</span>'}).join('')+'</div></div>';
     return html;
   }
@@ -1697,9 +1469,9 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     document.getElementById('compGrade').style.color=comp.color;
     document.getElementById('compLabel').textContent=comp.label;
     document.getElementById('compLabel').style.color=comp.color;
-    document.getElementById('compStreak').textContent=comp.streak+' '+(comp.streak!==1?_('comp_days'):_('comp_day'));
-    document.getElementById('compBestStreak').textContent=comp.longestStreak+' '+_('comp_days');
-    document.getElementById('compAdherence').textContent=comp.adherence.overall+'% ('+comp.adherence.totalLogged+'/'+comp.adherence.totalPlanned+' '+_('comp_sessions')+')';
+    document.getElementById('compStreak').textContent=comp.streak+' day'+(comp.streak!==1?'s':'');
+    document.getElementById('compBestStreak').textContent=comp.longestStreak;
+    document.getElementById('compAdherence').textContent=comp.adherence.overall+'% ('+comp.adherence.totalLogged+'/'+comp.adherence.totalPlanned+' sessions)';
     // Weekly mini chart
     var wh='<div style="display:flex;gap:3px;align-items:flex-end;height:30px;padding:2px 0;margin-top:4px">';
     comp.adherence.weeks.slice(-6).forEach(function(w){
@@ -1751,8 +1523,8 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     card.style.display='block';
     var warns=adj.filter(function(a){return a.severity==='warn'}),infos=adj.filter(function(a){return a.severity==='info'});
     var html='';
-    if(warns.length)html+='<div style="margin-bottom:2px"><span style="color:#f44336;font-weight:600;text-transform:uppercase;font-size:.42rem;letter-spacing:.5px">⚠ '+warns.length+' '+(warns.length>1?_('auto_adj_needed_pl'):_('auto_adj_needed'))+'</span></div>';
-    if(infos.length)html+='<div style="margin-bottom:2px"><span style="color:#4CAF50;font-weight:600;text-transform:uppercase;font-size:.42rem;letter-spacing:.5px">✓ '+infos.length+' '+(infos.length>1?_('auto_adj_opportunities'):_('auto_adj_opportunity'))+'</span></div>';
+    if(warns.length)html+='<div style="margin-bottom:2px"><span style="color:#f44336;font-weight:600;text-transform:uppercase;font-size:.42rem;letter-spacing:.5px">⚠ '+warns.length+' adjustment'+(warns.length>1?'s':'')+' needed</span></div>';
+    if(infos.length)html+='<div style="margin-bottom:2px"><span style="color:#4CAF50;font-weight:600;text-transform:uppercase;font-size:.42rem;letter-spacing:.5px">✓ '+infos.length+' opportunity'+(infos.length>1?'ies':'y')+'</span></div>';
     html+='<div style="display:flex;flex-direction:column;gap:2px;margin-top:2px">';
     adj.slice(0,5).forEach(function(a){
       var c=a.severity==='warn'?'#f44336':'#F4C93B';
@@ -1787,7 +1559,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
   }
   function renderMeasBadge(){
     var lm=latestMeasurements();
-    document.getElementById('measBadge').textContent=lm?_('meas_last')+': '+lm.date:_('meas_no_data');
+    document.getElementById('measBadge').textContent=lm?'Last: '+lm.date:'No data';
   }
   function renderMeasHistory(){
     var ms=getMeasurements(),card=document.getElementById('measHistCard'),content=document.getElementById('measHistContent');
@@ -1795,11 +1567,10 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     card.style.display='block';
     var html='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;margin-bottom:6px">';
     var last=ms[ms.length-1],first=ms[0];
-    var labels={weight:_('meas_weight').split(' (')[0],bf:'Body Fat',chest:_('meas_chest').split(' (')[0]};
     var fields=[
-      {id:'weight',label:labels.weight,val:last.weight,u:'kg',diff:last.weight&&first.weight?' '+((last.weight-first.weight)>0?'+':'')+(last.weight-first.weight).toFixed(1):''},
-      {id:'bf',label:labels.bf,val:last.bf,u:'%',diff:last.bf&&first.bf?' '+((last.bf-first.bf)>0?'+':'')+(last.bf-first.bf).toFixed(1):''},
-      {id:'chest',label:labels.chest,val:last.chest,u:'cm',diff:last.chest&&first.chest?' '+((last.chest-first.chest)>0?'+':'')+(last.chest-first.chest).toFixed(1):''}
+      {id:'weight',label:'Weight',val:last.weight,u:'kg',diff:last.weight&&first.weight?' '+((last.weight-first.weight)>0?'+':'')+(last.weight-first.weight).toFixed(1):''},
+      {id:'bf',label:'Body Fat',val:last.bf,u:'%',diff:last.bf&&first.bf?' '+((last.bf-first.bf)>0?'+':'')+(last.bf-first.bf).toFixed(1):''},
+      {id:'chest',label:'Chest',val:last.chest,u:'cm',diff:last.chest&&first.chest?' '+((last.chest-first.chest)>0?'+':'')+(last.chest-first.chest).toFixed(1):''}
     ];
     fields.forEach(function(f){
       html+='<div style="text-align:center;background:rgba(250,250,248,.01);border-radius:6px;padding:4px"><div style="font-size:.65rem;font-weight:600;font-family:JetBrains Mono,monospace">'+(f.val||'—')+'<span style="font-size:.4rem;color:rgba(250,250,248,.1)"> '+f.u+'</span></div><div style="font-size:.4rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.1)">'+f.label+'</div>';
@@ -1813,7 +1584,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       var maxW=weightData.reduce(function(m,x){return Math.max(m,x.weight)},0);
       var minW=weightData.reduce(function(m,x){return Math.min(m,x.weight)},0);
       var range=Math.max(maxW-minW,1);
-      html+='<div style="font-size:.4rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.1);margin-bottom:2px">'+_('meas_weight_trend')+'</div>';
+      html+='<div style="font-size:.4rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.1);margin-bottom:2px">Weight Trend</div>';
       html+='<div style="display:flex;align-items:flex-end;gap:3px;height:35px;padding:2px 0">';
       weightData.forEach(function(m){
         var h=(m.weight-minW)/range*30;
@@ -1846,24 +1617,24 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       if(p&&!prots[p.name]){prots[p.name]=p;areaList.push({ex:ex,severity:v,protocol:p});}
     });
     if(!areaList.length){panel.style.display='none';return;}
-    status.textContent=(hasRed?'🔴 '+_('rehab_injury'):'🟡 '+_('rehab_inflammation'))+' · '+areaList.length+' area(s)';
+    status.textContent=(hasRed?'🔴 Injury':'🟡 Mild Inflammation')+' · '+areaList.length+' area(s)';
     var html='';
     areaList.forEach(function(a){
       html+='<div class="rehab-card rehab-'+(a.severity==='red'?'red':'yellow')+'">'+
         '<div class="rc-header"><span>'+a.protocol.icon+' '+a.protocol.name+'</span><span class="rc-severity '+(a.severity==='red'?'danger':'warn')+'">'+a.severity.toUpperCase()+'</span></div>'+
-        '<div class="rehab-phase"><div class="rp-label">⚠ '+_('rehab_acute')+'</div><div class="rp-text">'+
-        (a.severity==='red'?a.protocol.acute:'🟡 '+_('rehab_inflammation')+'. '+a.protocol.acute)+'</div></div>';
+        '<div class="rehab-phase"><div class="rp-label">⚠ Acute Phase</div><div class="rp-text">'+
+        (a.severity==='red'?a.protocol.acute:'🟡 Mild inflammation detected. '+a.protocol.acute)+'</div></div>';
       // Show recovery phase only for yellow
-      if(a.severity!=='red')html+='<div class="rehab-phase"><div class="rp-label">✅ '+_('rehab_recovery')+'</div><div class="rp-text">'+a.protocol.recovery+'</div></div>'+
-        '<div class="rehab-ex-list"><span style="font-size:.48rem;color:rgba(250,250,248,.15);margin-right:4px">'+_('rehab_safe')+'</span>'+
+      if(a.severity!=='red')html+='<div class="rehab-phase"><div class="rp-label">✅ Recovery Phase (when pain-free)</div><div class="rp-text">'+a.protocol.recovery+'</div></div>'+
+        '<div class="rehab-ex-list"><span style="font-size:.48rem;color:rgba(250,250,248,.15);margin-right:4px">Safe exercises:</span>'+
         a.protocol.safe.slice(0,5).map(function(e){return'<span class="rel-safe">'+e+'</span>'}).join('')+'</div>'+
-        '<div class="rehab-ex-list"><span style="font-size:.48rem;color:rgba(250,250,248,.15);margin-right:4px">'+_('rehab_avoid')+'</span>'+
+        '<div class="rehab-ex-list"><span style="font-size:.48rem;color:rgba(250,250,248,.15);margin-right:4px">Avoid:</span>'+
         a.protocol.avoid.slice(0,5).map(function(e){return'<span class="rel-avoid">'+e+'</span>'}).join('')+'</div>';
-      else html+='<div style="font-size:.6rem;color:#f44336;padding:4px 0;font-weight:600">⛔ '+_('rehab_stop_all')+'</div>';
+      else html+='<div style="font-size:.6rem;color:#f44336;padding:4px 0;font-weight:600">⛔ Stop all aggravating exercises until pain subsides.</div>';
       html+='</div>';
     });
     // Consultation CTA
-    html+='<a class="consult-cta" href="https://wa.me/201040796017?text='+encodeURIComponent('Hi Coach Anas, I need a free consultation for my injury ('+areaList.map(function(a){return a.protocol.name+' ('+a.severity+')'}).join(', ')+'). Please advise.')+'" target="_blank">📅 '+_('rehab_book_consult')+'</a>';
+    html+='<a class="consult-cta" href="https://wa.me/201040796017?text='+encodeURIComponent('Hi Coach Anas, I need a free consultation for my injury ('+areaList.map(function(a){return a.protocol.name+' ('+a.severity+')'}).join(', ')+'). Please advise.')+'" target="_blank">📅 Book Free Consultation</a>';
     content.innerHTML=html;
   }
   // Check if an exercise is safe given current injuries
@@ -1954,20 +1725,20 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
   function renderMesoPreview(mp){
     var el=document.getElementById('mesoPreview');
     if(!mp){el.innerHTML='<p style="font-size:.55rem;color:rgba(250,250,248,.12);padding:8px;text-align:center">Configure above and click Generate.</p>';return;}
-    var html='<div style="font-size:.55rem;color:rgba(250,250,248,.3);margin-bottom:6px">'+_('meso_vol_rpe_progression')+' — <strong>'+mp.weeks+' '+_('meso_weeks')+'</strong> · '+mp.type+'</div>';
+    var html='<div style="font-size:.55rem;color:rgba(250,250,248,.3);margin-bottom:6px">Volume &amp; RPE Progression — <strong>'+mp.weeks+' weeks</strong> · '+mp.type+'</div>';
     html+='<div style="display:flex;gap:3px;align-items:flex-end;height:36px;padding:2px 0">';
     mp.days.forEach(function(w,i){
       var totalSets=w.days.reduce(function(s,d){return s+d.ex.reduce(function(a,e){return a+e.sets},0)},0);
       var h=Math.min(totalSets*2,36);
       var c=w.phase==='deload'?'#FF9800':w.phase==='peak'?'#f44336':w.phase==='intensification'?'#2196F3':'#4CAF50';
-      html+='<div style="flex:1;display:flex;flex-direction:column;align-items:center"><div title="Week '+(i+1)+': '+totalSets+' '+_('sets')+' · '+_(w.phase==='deload'?'meso_phase_deload':w.phase==='peak'?'meso_phase_peak':w.phase==='intensification'?'meso_phase_intensification':'meso_phase_accumulation')+'" style="width:100%;height:'+Math.max(h,4)+'px;background:'+c+';border-radius:2px;opacity:'+(w.phase==='deload'?'.6':'.8')+';position:relative">'+
+      html+='<div style="flex:1;display:flex;flex-direction:column;align-items:center"><div title="Week '+(i+1)+': '+totalSets+' sets · '+w.phase+'" style="width:100%;height:'+Math.max(h,4)+'px;background:'+c+';border-radius:2px;opacity:'+(w.phase==='deload'?'.6':'.8')+';position:relative">'+
         '<span style="position:absolute;bottom:-13px;font-size:.4rem;color:rgba(250,250,248,.15);left:50%;transform:translateX(-50%)">'+(i+1)+'</span></div></div>';
     });
     html+='</div><div style="display:flex;gap:8px;margin-top:8px;font-size:.45rem;color:rgba(250,250,248,.15);flex-wrap:wrap">'+
-      '<span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#4CAF50;vertical-align:middle;margin-right:2px"></span> '+_('meso_phase_accumulation')+'</span>'+
-      '<span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#2196F3;vertical-align:middle;margin-right:2px"></span> '+_('meso_phase_intensification')+'</span>'+
-      '<span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#f44336;vertical-align:middle;margin-right:2px"></span> '+_('meso_phase_peak')+'</span>'+
-      '<span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#FF9800;vertical-align:middle;margin-right:2px"></span> '+_('meso_phase_deload')+'</span></div>';
+      '<span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#4CAF50;vertical-align:middle;margin-right:2px"></span> Accumulation</span>'+
+      '<span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#2196F3;vertical-align:middle;margin-right:2px"></span> Intensification</span>'+
+      '<span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#f44336;vertical-align:middle;margin-right:2px"></span> Peak</span>'+
+      '<span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#FF9800;vertical-align:middle;margin-right:2px"></span> Deload</span></div>';
     el.innerHTML=html;
   }
 
@@ -2145,7 +1916,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     })});
     var avgChronic=chronic/4||1;
     var ratio=Math.round((acute/avgChronic)*100)/100;
-    var risk=ratio>1.5?_('acwr_high'):ratio>1.3?_('acwr_moderate'):ratio>1?_('acwr_elevated'):ratio<0.8?_('acwr_low'):_('acwr_normal');
+    var risk=ratio>1.5?'HIGH — injury risk elevated':ratio>1.3?'MODERATE — monitor closely':ratio>1?'ELEVATED — within acceptable':ratio<0.8?'LOW — consider increasing load':'NORMAL — optimal range';
     var color=ratio>1.5?'#f44336':ratio>1.3?'#FF9800':ratio>1?'#F4C93B':'#4CAF50';
     return{ratio:ratio,risk:risk,color:color,acute:acute,chronic:avgChronic};
   }
@@ -2490,7 +2261,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       bar.style.display='block';bar.className='fatigue-bar';
       document.getElementById('fatigueScore').textContent='\u2014';
       document.getElementById('fatigueLabel').textContent=_('unchecked');
-      document.getElementById('fatigueDetail').textContent=_('fatigue_rates');
+      document.getElementById('fatigueDetail').textContent='Rate each factor 1-10. Higher = better for sleep/nutrition/CNS, lower = better for stress/doms.';
       document.getElementById('fatigueAdjust').textContent='';
       renderFatigueForm(null);
       return;
@@ -2500,7 +2271,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     document.getElementById('fatigueScore').textContent=fs.score.toFixed(1);
     document.getElementById('fatigueLabel').textContent=fs.label;
     document.getElementById('fatigueDetail').textContent='Sleep: '+fCheck.sleep+' · Stress: '+fCheck.stress+' · DOMS: '+fCheck.doms+' · Nutrition: '+fCheck.nutrition+' · CNS: '+fCheck.cns;
-    document.getElementById('fatigueAdjust').textContent=fs.adjust<0?(_('fatigue_rpe_adjusted')) : _('fatigue_ready');
+    document.getElementById('fatigueAdjust').textContent=fs.adjust<0?'RPE adjusted: \u2212'+Math.abs(fs.adjust).toFixed(1)+' due to fatigue. Safety first.' : 'Ready to train at full intensity.';
     renderFatigueForm(fCheck);
   }
 
@@ -2508,8 +2279,8 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     var grid=document.getElementById('fatigueGrid');
     if(!grid)return;
     var fields=['sleep','stress','doms','nutrition','cns'];
-    var labels={sleep:_('fatigue_sleep'),stress:_('fatigue_stress'),doms:_('fatigue_doms'),nutrition:_('fatigue_nutrition'),cns:_('fatigue_cns')};
-    var hints={sleep:_('fatigue_hint_sleep'),stress:_('fatigue_hint_stress'),doms:_('fatigue_hint_doms'),nutrition:_('fatigue_hint_nutrition'),cns:_('fatigue_hint_cns')};
+    var labels={sleep:'Sleep Quality',stress:'Life Stress',doms:'DOMS / Soreness',nutrition:'Nutrition / Fuel',cns:'CNS Fatigue'};
+    var hints={sleep:'1=awful, 10=perfect',stress:'1=overwhelmed, 10=relaxed',doms:'1=destroyed, 10=fresh',nutrition:'1=starved, 10=optimal',cns:'1=flat/burned, 10=electric'};
     var def=defaultFatigue();
     grid.innerHTML=fields.map(function(k){
       var v=f&&f[k]!==undefined?f[k]:def[k];
@@ -2546,7 +2317,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       el.style.borderColor=acwr.color;
       el.innerHTML='<span class="acwr-val" style="color:'+acwr.color+'">'+acwr.ratio.toFixed(2)+'</span>'+
         '<span class="acwr-risk" style="color:'+acwr.color+'">'+acwr.risk.split(' — ')[0]+'</span>'+
-        '<span style="font-size:.45rem;color:rgba(250,250,248,.15);margin-left:auto">'+_('acwr_ratio')+'</span>';
+        '<span style="font-size:.45rem;color:rgba(250,250,248,.15);margin-left:auto">ACWR</span>';
     } else {el.style.display='none';}
   }
 
@@ -2646,7 +2417,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     if(!logs[td])logs[td]={};if(!logs[td][eid])logs[td][eid]={sets:[]};if(!logs[td][eid].sets[si])logs[td][eid].sets[si]={w:'',r:'',rpe:''};
     logs[td][eid].sets[si][f]=v;ss(K.LG,logs);
     var s=logs[td][eid].sets[si];
-    if(s.w&&s.r&&s.rpe&&parseFloat(s.w)>0&&parseInt(s.r)>0&&parseFloat(s.rpe)>0){var h=loadHist(),e=est1RM(parseFloat(s.w),parseInt(s.r),parseFloat(s.rpe));if(e){if(!h[en])h[en]=[];var dup=h[en].some(function(x){return x.date===td&&x.w===parseFloat(s.w)&&x.r===parseInt(s.r)});if(!dup){h[en].push({date:td,w:parseFloat(s.w),r:parseInt(s.r),rpe:parseFloat(s.rpe),e1RM:e,day:day?day.n:''});saveHist(h);trackTrainingSession(td);checkDeloadOvershoot();renderDay(di);}}}
+    if(s.w&&s.r&&s.rpe&&parseFloat(s.w)>0&&parseInt(s.r)>0&&parseFloat(s.rpe)>0){var h=loadHist(),e=est1RM(parseFloat(s.w),parseInt(s.r),parseFloat(s.rpe));if(e){if(!h[en])h[en]=[];var dup=h[en].some(function(x){return x.date===td&&x.w===parseFloat(s.w)&&x.r===parseInt(s.r)});if(!dup){h[en].push({date:td,w:parseFloat(s.w),r:parseInt(s.r),rpe:parseFloat(s.rpe),e1RM:e,day:day?day.n:''});saveHist(h);renderDay(di);}}}
     updateSummary(di);
   }
 
@@ -2801,8 +2572,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       '<div class="st" style="color:#F4C93B">Your Split &amp; Exercises</div>'+ph+
       gh+
       '<div class="ft">Generated by Muscle OS Training Tool \u2014 <a href="https://wa.me/201040796017">Coach Anas Mo\'men</a></div>'+
-      '<footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo'men</div></footer>
-</body></html>');
+      '</body></html>');
     w.document.close();w.focus();setTimeout(function(){w.print();},500);
   });
 
@@ -2984,41 +2754,6 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     console.log('Unified Training Tool loaded');
     translateUI();
   })();
-})();
-</script>
-<script>
-(function(){
-  var SUB_KEY = 'mos_subscription';
-  var EMAIL_CODE = 'ANASSTEM2025@GMAIL.COM';
-  var sub = null;
-  try { sub = JSON.parse(localStorage.getItem(SUB_KEY)); } catch(e){}
-  var now = new Date();
-  var active = sub && sub.active && new Date(sub.expiry) > now;
-
-  if(!active){
-    document.getElementById('subOverlay').style.display = 'flex';
-    document.getElementById('subVerify').addEventListener('click', function(){
-      var code = document.getElementById('subCode').value.trim().toUpperCase();
-      if(code && (code.length >= 6 || code === EMAIL_CODE)){
-        var expiry = new Date();
-        expiry.setMonth(expiry.getMonth() + 1);
-        localStorage.setItem(SUB_KEY, JSON.stringify({
-          active: true,
-          plan: 'pro_training',
-          expiry: expiry.toISOString().split('T')[0],
-          code: code
-        }));
-        document.getElementById('subError').style.display = 'none';
-        document.getElementById('subSuccess').style.display = 'block';
-        setTimeout(function(){ location.reload(); }, 1500);
-      } else {
-        document.getElementById('subError').style.display = 'block';
-      }
-    });
-    document.getElementById('subCode').addEventListener('keydown', function(e){
-      if(e.key === 'Enter') document.getElementById('subVerify').click();
-    });
-  }
 })();
 </script>
 </body>

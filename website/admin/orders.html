@@ -308,6 +308,9 @@ input,select,textarea{font-size:16px!important}
         if (window.mosTrackEvent) {
           window.mosTrackEvent('order_approved', data.product, { order_id: orderId });
         }
+      } else if (data.currentStatus === 'approved') {
+        showToast('Already approved (auto-approved by Paymob)', 'success');
+        card.style.display = 'none';
       } else {
         showToast(data.error || 'Approval failed', 'error');
         card.classList.remove('resolving');

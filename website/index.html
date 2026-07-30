@@ -1,16 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Anas Mo'men — hypertrophy and powerlifting coach. AI-powered programming, biomechanics-based training, 700kg+ SBD total, 100+ clients coached since 2024.">
-<meta name="referrer" content="no-referrer-when-downgrade">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; frame-ancestors 'self'; base-uri 'self'">
-<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-<title data-i18n="page_title">Anas Mo'men — Hypertrophy &amp; Powerlifting Coach</title>
+<title>Anas Mo'men — Hypertrophy & Powerlifting Coach</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Tajawal:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --ink: #14151A;
@@ -25,50 +21,21 @@
     --line-light: #E4E1D8;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
-  html { scroll-behavior:smooth; scroll-padding-top:72px; }
+  html { scroll-behavior:smooth; }
   body {
     font-family:'Inter',Arial,sans-serif;
     background:var(--ink);
     color:#fff;
     line-height:1.5;
-    overflow-x:hidden;
-    opacity:0; transition:opacity .6s ease;
   }
-  body.loaded { opacity:1; }
-  /* Hero entrance */
-  .hero-content .kicker,.hero-content h1,.hero-content .hero-sub,.hero-content .hero-ctas,.hero-stats{opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
-  body.loaded .hero-content .kicker{opacity:1;transform:translateY(0);transition-delay:.2s}
-  body.loaded .hero-content h1{opacity:1;transform:translateY(0);transition-delay:.35s}
-  body.loaded .hero-content .hero-sub{opacity:1;transform:translateY(0);transition-delay:.5s}
-  body.loaded .hero-content .hero-ctas{opacity:1;transform:translateY(0);transition-delay:.65s}
-  body.loaded .hero-stats{opacity:1;transform:translateY(0);transition-delay:.8s}
-  body.loaded .hero-image{opacity:1;transform:translateY(0) scale(1);transition-delay:.45s}
-  .hero-image{opacity:0;transform:translateY(30px) scale(.97);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1)}
-  .  display { font-family:'Oswald',sans-serif; text-transform:uppercase; }
+  .display { font-family:'Oswald',sans-serif; text-transform:uppercase; }
   .mono { font-family:'JetBrains Mono',monospace; }
   img { max-width:100%; display:block; }
   a { color:inherit; text-decoration:none; }
   .wrap { max-width:1180px; margin:0 auto; padding:0 24px; }
   section { position:relative; }
-  h1,h2,h3,h4,p,li,blockquote,figcaption { overflow-wrap:break-word; word-break:break-word; }
 
   ::selection { background:var(--yellow); color:var(--ink); }
-
-  /* Scroll-reveal */
-  .reveal { opacity:0; transform:translateY(32px); transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1); }
-  .reveal.visible { opacity:1; transform:translateY(0); }
-  .reveal-delay-1 { transition-delay:.1s; }
-  .reveal-delay-2 { transition-delay:.2s; }
-  .reveal-delay-3 { transition-delay:.3s; }
-  .reveal-delay-4 { transition-delay:.4s; }
-  .reveal-delay-5 { transition-delay:.5s; }
-  .reveal-delay-6 { transition-delay:.6s; }
-  .reveal-scale { opacity:0; transform:scale(.96); transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1); }
-  .reveal-scale.visible { opacity:1; transform:scale(1); }
-  .reveal-left { opacity:0; transform:translateX(-24px); transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1); }
-  .reveal-left.visible { opacity:1; transform:translateX(0); }
-  .reveal-right { opacity:0; transform:translateX(24px); transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1); }
-  .reveal-right.visible { opacity:1; transform:translateX(0); }
 
   /* ---------- NAV ---------- */
   header {
@@ -76,10 +43,7 @@
     background:rgba(20,21,26,0.92);
     backdrop-filter:blur(8px);
     border-bottom:1px solid var(--line);
-    transition:transform .3s ease, background .3s;
   }
-  header.scrolled { background:rgba(20,21,26,0.98); }
-  header.nav-hidden { transform:translateY(-100%); }
   .nav-inner {
     max-width:1180px; margin:0 auto; padding:16px 24px;
     display:flex; align-items:center; justify-content:space-between;
@@ -87,44 +51,16 @@
   .brand { font-family:'Oswald',sans-serif; font-weight:700; font-size:18px; letter-spacing:0.5px; text-transform:uppercase; }
   .brand span { color:var(--yellow); }
   .nav-links { display:flex; gap:32px; font-size:13px; font-weight:600; letter-spacing:0.3px; text-transform:uppercase; }
-  .nav-links a { color:#C7C9D0; transition:color .25s; position:relative; }
-  .nav-links a::after { content:""; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:var(--yellow); transition:width .3s cubic-bezier(.22,1,.36,1); border-radius:1px; }
+  .nav-links a { color:#C7C9D0; transition:color .2s; }
   .nav-links a:hover { color:var(--yellow); }
-  .nav-links a:hover::after { width:100%; }
   .nav-cta {
     background:var(--yellow); color:var(--ink); font-weight:700; font-size:13px;
     padding:10px 20px; border-radius:3px; text-transform:uppercase; letter-spacing:0.4px;
-    display:flex; align-items:center; gap:7px; transition:background .2s;
+    display:flex; align-items:center; gap:7px;
   }
   .nav-cta:hover { background:#fff; }
-  /* Mobile slide-out menu */
-  .mobile-menu { position:fixed; top:0; right:-100%; width:min(320px,85vw); height:100%; z-index:200; background:var(--ink-2); border-left:1px solid var(--line); padding:88px 28px 32px; display:flex; flex-direction:column; gap:6px; transition:right .35s cubic-bezier(.22,1,.36,1); overflow-y:auto; }
-  .mobile-menu.open { right:0; }
-  .mobile-menu a { display:block; padding:14px 12px; font-size:15px; font-weight:600; color:#C7C9D0; text-transform:uppercase; letter-spacing:.5px; border-radius:6px; transition:all .15s; min-height:48px; display:flex; align-items:center; }
-  .mobile-menu a:hover { background:rgba(255,255,255,.04); color:var(--yellow); }
-  .mobile-menu .mobile-cta { margin-top:12px; background:var(--yellow); color:var(--ink); text-align:center; font-weight:700; border-radius:4px; }
-  .mobile-menu .mobile-cta:hover { background:#fff; color:var(--ink); }
-  .mobile-menu .mobile-lang { display:flex; gap:6px; margin-top:auto; padding-top:20px; border-top:1px solid var(--line); }
-  .mobile-menu .mobile-lang .lt-btn { flex:1; font-size:13px; font-weight:700; padding:10px; border-radius:4px; background:transparent; color:var(--gray); border:1px solid var(--line); cursor:pointer; text-align:center; min-height:44px; display:flex; align-items:center; justify-content:center; }
-  .mobile-menu .mobile-lang .lt-btn.active { background:var(--yellow); color:var(--ink); border-color:var(--yellow); }
-  .mobile-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.6); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px); z-index:150; display:none; }
-  .mobile-overlay.open { display:block; }
-  .menu-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:8px; min-width:48px; min-height:48px; align-items:center; justify-content:center; }
-  .menu-toggle span { display:block; width:24px; height:2.5px; background:#FAFAF8; border-radius:2px; transition:all .3s cubic-bezier(.22,1,.36,1); }
-  .menu-toggle.open span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
-  .menu-toggle.open span:nth-child(2) { opacity:0; }
-  .menu-toggle.open span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
-
-  /* Sticky mobile bottom CTA bar */
-  .mobile-bottom-bar { display:none; position:fixed; bottom:0; left:0; right:0; z-index:90; background:rgba(20,21,26,.97); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-top:1px solid var(--line); padding:10px 16px; padding-bottom:max(10px,env(safe-area-inset-bottom)); }
-  .mobile-bottom-bar .mbb-inner { display:flex; gap:8px; max-width:500px; margin:0 auto; }
-  .mobile-bottom-bar .mbb-btn { flex:1; display:flex; align-items:center; justify-content:center; gap:8px; padding:14px 12px; border-radius:4px; font-weight:700; font-size:14px; text-transform:uppercase; letter-spacing:.3px; border:none; cursor:pointer; transition:all .2s; min-height:48px; }
-  .mobile-bottom-bar .mbb-primary { background:var(--yellow); color:var(--ink); }
-  .mobile-bottom-bar .mbb-primary:active { background:#fff; transform:scale(.98); }
-  .mobile-bottom-bar .mbb-ghost { background:transparent; color:#fff; border:1.5px solid #454854; }
-  .mobile-bottom-bar .mbb-ghost:active { border-color:var(--yellow); color:var(--yellow); }
-  .mobile-bottom-bar { transition:transform .3s cubic-bezier(.22,1,.36,1); }
-  .mobile-bottom-bar a { text-decoration:none; color:inherit; }
+  .menu-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; }
+  .menu-toggle span { width:24px; height:2px; background:#fff; display:block; }
 
   /* ---------- HERO ---------- */
   .hero {
@@ -138,12 +74,6 @@
     position:absolute; inset:0; z-index:0;
   }
   .hero-bg img { width:100%; height:100%; object-fit:cover; object-position:center 15%; }
-  .hero-bg img[src="assets/hero.svg"]:not([loaded]) { opacity:0; }
-  .hero-bg .img-fallback {
-    position:absolute; inset:0;
-    background:linear-gradient(135deg, var(--ink) 0%, var(--ink-2) 50%, rgba(244,201,59,.08) 100%);
-    display:none;
-  }
   .hero-bg::after {
     content:"";
     position:absolute; inset:0;
@@ -155,11 +85,7 @@
     transform:skewX(-12deg) translateX(15%);
     z-index:1;
   }
-  .hero-content { position:relative; z-index:2; width:100%; padding-bottom:80px; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:end; }
-  .hero-text { display:flex; flex-direction:column; }
-  .hero-image { position:relative; height:100%; min-height:420px; display:flex; align-items:flex-end; justify-content:center; }
-  .hero-image img { width:100%; height:auto; max-height:600px; object-fit:contain; object-position:bottom center; border-radius:12px; box-shadow:0 20px 60px rgba(0,0,0,.5); }
-  @media(max-width:768px){ .hero-content { grid-template-columns:1fr; gap:30px; } .hero-image { display:none; } }
+  .hero-content { position:relative; z-index:2; width:100%; padding-bottom:80px; }
   .kicker {
     display:inline-block; font-size:13px; font-weight:700; color:var(--yellow);
     letter-spacing:3px; text-transform:uppercase; margin-bottom:16px;
@@ -179,15 +105,13 @@
   .btn {
     display:inline-flex; align-items:center; gap:9px;
     padding:15px 28px; border-radius:3px; font-weight:700; font-size:14px;
-    letter-spacing:0.3px; text-transform:uppercase; transition:all .25s cubic-bezier(.22,1,.36,1);
+    letter-spacing:0.3px; text-transform:uppercase; transition:all .2s;
     cursor:pointer; border:none;
   }
   .btn-primary { background:var(--yellow); color:var(--ink); }
-  .btn-primary:hover { background:#fff; transform:translateY(-2px); box-shadow:0 4px 14px rgba(244,201,59,.25); }
-  .btn-primary:active { transform:scale(.97); background:#e8c234; }
+  .btn-primary:hover { background:#fff; transform:translateY(-1px); }
   .btn-ghost { background:transparent; color:#fff; border:1.5px solid #454854; }
   .btn-ghost:hover { border-color:var(--yellow); color:var(--yellow); }
-  .btn-ghost:active { transform:scale(.97); border-color:var(--yellow-dim); color:var(--yellow-dim); }
 
   .hero-stats {
     margin-top:52px; display:flex; gap:0; border-top:1px solid var(--line);
@@ -335,33 +259,6 @@
   .footer-links { display:flex; gap:22px; font-size:12.5px; color:var(--gray); }
   .footer-links a:hover { color:var(--yellow); }
 
-  /* ---------- TOOL OVERVIEW (pre-tools gate) ---------- */
-  .tool-overview { background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%); position:relative; overflow:hidden; }
-  .tool-overview::before { content:""; position:absolute; top:-200px; right:-200px; width:500px; height:500px; background:radial-gradient(circle,rgba(244,201,59,0.06) 0%,transparent 70%); pointer-events:none; }
-  .tool-overview .to-title { font-family:'Oswald',sans-serif; font-size:clamp(26px,3.6vw,40px); font-weight:700; text-transform:uppercase; line-height:1.05; margin-bottom:12px; }
-  .tool-overview .to-sub { color:var(--gray); font-size:15px; max-width:580px; line-height:1.7; margin-bottom:48px; }
-  .tool-detail { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:48px; }
-  .tool-detail-card { background:var(--ink-3); border:1px solid var(--line); border-radius:8px; padding:32px; transition:border-color .25s,transform .3s cubic-bezier(.22,1,.36,1); }
-  .tool-detail-card:hover { border-color:var(--yellow); transform:translateY(-3px); }
-  .tool-detail-card .td-badge { display:inline-block; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1px; padding:2px 8px; border-radius:3px; margin-bottom:12px; background:rgba(244,201,59,0.15); color:var(--yellow); }
-  .tool-detail-card h3 { font-family:'Oswald',sans-serif; font-size:19px; font-weight:600; text-transform:uppercase; color:#fff; margin-bottom:8px; }
-  .tool-detail-card .td-desc { font-size:13.5px; color:var(--gray); line-height:1.65; margin-bottom:16px; }
-  .tool-detail-card .td-list { display:flex; flex-direction:column; gap:8px; margin-bottom:18px; }
-  .tool-detail-card .td-list-item { display:flex; gap:10px; align-items:flex-start; font-size:13px; color:#C7C9D0; }
-  .tool-detail-card .td-list-item .td-bullet { width:5px; height:5px; background:var(--yellow); margin-top:7px; flex-shrink:0; border-radius:1px; }
-  .tool-detail-card .td-price { font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--gray); margin-top:auto; }
-  .tool-detail-card .td-price strong { color:var(--yellow); font-size:16px; }
-  .tool-gate { text-align:center; padding:40px 0 0 0; border-top:1px solid var(--line); }
-  .tool-gate .gate-title { font-family:'Oswald',sans-serif; font-size:22px; font-weight:600; text-transform:uppercase; color:#fff; margin-bottom:8px; }
-  .tool-gate .gate-sub { font-size:14px; color:var(--gray); margin-bottom:24px; }
-  .tool-gate .gate-btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
-  .gate-btn { display:inline-flex; align-items:center; gap:9px; padding:15px 32px; border-radius:3px; font-weight:700; font-size:14px; letter-spacing:0.3px; text-transform:uppercase; transition:all .25s cubic-bezier(.22,1,.36,1); text-decoration:none; }
-  .gate-btn-primary { background:var(--yellow); color:var(--ink); }
-  .gate-btn-primary:hover { background:#fff; transform:translateY(-2px); box-shadow:0 4px 14px rgba(244,201,59,.25); }
-  .gate-btn-ghost { background:transparent; color:#fff; border:1.5px solid #454854; }
-  .gate-btn-ghost:hover { border-color:var(--yellow); color:var(--yellow); }
-  @media(max-width:640px){ .tool-detail { grid-template-columns:1fr; } }
-
   /* ---------- RESOURCES ---------- */
   .resources-section{padding:100px 0;background:var(--ink-2)}
   .resources-section h2{font-family:'Oswald',sans-serif;font-size:clamp(28px,4vw,42px);font-weight:700;text-transform:uppercase;text-align:center;color:#fff;margin-bottom:8px}
@@ -369,8 +266,8 @@
   .resource-category{margin-bottom:40px}
   .resource-category h3{font-family:'Oswald',sans-serif;font-size:20px;font-weight:600;text-transform:uppercase;color:var(--yellow);margin-bottom:16px;padding-bottom:6px;border-bottom:2px solid var(--yellow);display:inline-block}
   .resource-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  .resource-card{background:var(--ink-3);border:1px solid var(--line);border-radius:8px;padding:20px;transition:border-color .25s,transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s ease;text-decoration:none;display:block}
-  .resource-card:hover{border-color:var(--yellow);transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+  .resource-card{background:var(--ink-3);border:1px solid var(--line);border-radius:8px;padding:20px;transition:border-color .2s,transform .2s;text-decoration:none;display:block}
+  .resource-card:hover{border-color:var(--yellow);transform:translateY(-2px)}
   .resource-card .rc-title{font-family:'Oswald',sans-serif;font-size:16px;font-weight:600;color:#fff;margin-bottom:4px;text-transform:uppercase;letter-spacing:.3px}
   .resource-card .rc-desc{font-size:13px;color:var(--gray);line-height:1.5}
   .resource-card .rc-badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:2px 8px;border-radius:3px;margin-bottom:8px}
@@ -381,300 +278,175 @@
   .resource-card.pro-card .rc-title::after{content:" PRO";font-size:10px;color:#FFD700;vertical-align:super;margin-left:4px;font-family:'JetBrains Mono',monospace}
   .rc-price{font-size:11px;color:rgba(255,215,0,.6);margin-top:2px;font-family:'JetBrains Mono',monospace}
   .mos-extras{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px}
-  .mos-extra-card{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:8px;padding:24px;transition:border-color .25s,transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s ease}
-  .mos-extra-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.25)}
+  .mos-extra-card{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:8px;padding:24px;transition:border-color .2s}
   .mos-extra-card:hover{border-color:var(--yellow)}
   .mos-extra-card .extra-icon{font-size:24px;margin-bottom:8px}
   .mos-extra-card h4{font-family:'Oswald',sans-serif;font-size:16px;font-weight:600;text-transform:uppercase;color:#fff;margin-bottom:4px;letter-spacing:.3px}
   .mos-extra-card p{font-size:13px;color:var(--gray);line-height:1.5;margin:0}
   .mos-extra-card .extra-cta{display:inline-block;margin-top:12px;font-size:12px;font-weight:600;color:var(--yellow);text-decoration:none;font-family:'JetBrains Mono',monospace}
   .mos-extra-card .extra-cta:hover{text-decoration:underline}
+  @media(max-width:768px){.mos-extras{grid-template-columns:1fr}}
   .rc-badge-guide{background:rgba(76,175,80,.15);color:#4CAF50}
   .rc-badge-book{background:rgba(33,150,243,.15);color:#2196F3}
+  @media(max-width:768px){.resource-grid{grid-template-columns:1fr}}
   .hub-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:640px;margin:0 auto}
-  .hub-card{background:var(--ink-3);border:1px solid var(--line);border-radius:8px;padding:28px;transition:border-color .25s,transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s ease;text-decoration:none;display:block}
-  .hub-card:hover{border-color:var(--yellow);transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+  .hub-card{background:var(--ink-3);border:1px solid var(--line);border-radius:8px;padding:28px;transition:border-color .2s,transform .2s;text-decoration:none;display:block}
+  .hub-card:hover{border-color:var(--yellow);transform:translateY(-2px)}
   .hub-card .hub-title{font-family:'Oswald',sans-serif;font-size:17px;font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px}
   .hub-card .hub-desc{font-size:13px;color:var(--gray);line-height:1.5;margin-bottom:10px}
   .hub-card .hub-link{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--yellow)}
   .hub-cta-wrap{text-align:center;margin-top:36px}
+  @media(max-width:560px){.hub-grid{grid-template-columns:1fr}}
+
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:860px) {
+    .nav-links { display:none; }
+    .menu-toggle { display:flex; }
+    .about-grid, .mos-grid { grid-template-columns:1fr; }
+    .service-grid { grid-template-columns:1fr; }
+    .pkg-grid { grid-template-columns:1fr; }
+    .pkg-card.featured { transform:none; }
     .about-facts { grid-template-columns:1fr 1fr; }
+
     .section-pad { padding:72px 0; }
     .hero { min-height:92vh; }
-    .nav-links { gap:14px; font-size:11px; }
-    .hero-content h1 { font-size:clamp(30px,11vw,84px); }
   }
-  @media (max-width:700px) {
-    .nav-links, .nav-cta, .lang-toggle { display:none; }
-    .menu-toggle { display:flex; }
-    .brand { font-size:15px; }
-    .hero-content h1 { font-size:clamp(28px,13vw,52px); }
-    .hero { min-height:85vh; padding-top:60px; }
-    .hero-content { padding-bottom:40px; }
-    .hero-sub { font-size:15px; max-width:100%; line-height:1.6; }
-    .hero-ctas { gap:10px; flex-direction:column; }
-    .hero-ctas .btn { justify-content:center; }
-    .btn { padding:14px 20px; font-size:13px; min-height:48px; }
-    input,select,textarea { font-size:16px!important; }
-    .hero-stats { margin-top:32px; display:grid; grid-template-columns:1fr 1fr; gap:8px; border-top:none; max-width:100%; }
-    .hstat { padding:12px 0 0 0; border-right:none; flex:unset; }
-    .hstat .num { font-size:20px; }
-    .hstat .lbl { font-size:10px; }
-    .service-grid { grid-template-columns:1fr; }
-    .service-card { padding:24px 18px; border-width:1px; }
-    .service-card h3 { font-size:16px; }
-    .service-card:active { transform:scale(.99); }
-    .about-grid { grid-template-columns:1fr; gap:32px; }
-    .about-photo-wrap { padding-right:0; padding-bottom:12px; }
-    [dir="rtl"] .about-photo-wrap { padding-left:0; }
-    .about-photo::before { top:12px; left:12px; right:-12px; bottom:-12px; }
-    .mos-grid { grid-template-columns:1fr; gap:32px; }
-    .pkg-grid { grid-template-columns:1fr; gap:16px; }
-    .pkg-card.featured { transform:none; }
-    .pkg-card { padding:24px 18px; }
-    .pkg-price .amount { font-size:30px; }
-    .hub-grid { grid-template-columns:1fr; }
-    .resource-grid { grid-template-columns:1fr; }
-    .mos-extras { grid-template-columns:1fr; }
-    .how-it-works div[style*="grid-template-columns:repeat(3"] { grid-template-columns:1fr!important; gap:24px!important; }
-    .tool-detail-card { padding:24px 18px; }
-    .wrap { padding:0 20px; }
-    .mobile-bottom-bar { display:block; }
-    body { padding-bottom:76px; }
-  }
-  @media (max-width:560px) {
-    .brand { font-size:13px; }
-    .nav-inner { padding:12px 16px; }
-    .hero-content h1 { font-size:clamp(24px,10vw,42px); }
-    .hero-sub { font-size:13px; }
-    .hero-stats { gap:6px; }
-    .hstat .num { font-size:18px; }
-    .hstat .lbl { font-size:9px; letter-spacing:.5px; }
-    .btn { padding:10px 16px; font-size:11px; min-height:44px; }
-    .section-title { font-size:clamp(24px,8vw,30px)!important; }
-    .eyebrow { font-size:11px; }
-    .about-copy p { font-size:14px; }
-    .about-facts { grid-template-columns:1fr; }
-    .service-card { padding:20px 14px; }
-    .service-card h3 { font-size:15px; }
-    .service-card p { font-size:13px; }
-    .contact-ctas { flex-direction:column; align-items:stretch; }
-    .contact-ctas .btn { justify-content:center; padding:14px; }
-    .footer-inner { flex-direction:column; text-align:center; }
-    .gate-btn { padding:12px 20px; min-height:44px; }
-    .mos p.lead { font-size:14px; }
-    .mos-visual { padding:20px; font-size:11px; }
-    .resources-section { padding:60px 0; }
-    .resource-card { padding:16px; }
-    .hub-card { padding:20px; }
-  }
-  @media (max-width:400px) {
-    .wrap { padding:0 14px; }
-    .brand { font-size:11px; letter-spacing:0; }
-    .nav-inner { padding:10px 12px; }
-    .hero-content h1 { font-size:clamp(20px,9vw,32px); }
-    .hero-sub { font-size:12px; }
-    .kicker { font-size:11px; letter-spacing:1.5px; }
-    .btn { padding:8px 12px; font-size:10px; min-height:40px; }
-    .hero-stats { gap:4px; }
-    .hstat .num { font-size:16px; }
-    .hstat .lbl { font-size:8px; letter-spacing:0; }
-    .section-pad { padding:48px 0; }
-    .pkg-card { padding:18px 14px; }
-    .mobile-bottom-bar { padding:6px 10px; }
-    .mobile-bottom-bar .mbb-btn { padding:10px 8px; font-size:12px; min-height:40px; }
-  }
-
-  /* ---------- BILINGUAL (EN/AR) ---------- */
-  .lang-toggle { display:flex; align-items:center; gap:4px; margin-left:12px; cursor:pointer; user-select:none; flex-shrink:0; }
-  .lang-toggle .lt-btn { font-size:11px; font-weight:700; padding:4px 8px; border-radius:3px; background:transparent; color:var(--gray); border:1px solid var(--line); cursor:pointer; transition:all .2s; letter-spacing:.5px; }
-  .lang-toggle .lt-btn.active { background:var(--yellow); color:var(--ink); border-color:var(--yellow); }
-  .lang-toggle .lt-btn:hover:not(.active) { color:#fff; border-color:#fff; }
-  @media(max-width:640px){ .lang-toggle .lt-btn { font-size:10px; padding:3px 6px; } }
-
-  /* RTL overrides */
-  [dir="rtl"] body { font-family:'Tajawal','Inter',sans-serif; }
-  [dir="rtl"] .display, [dir="rtl"] .brand, [dir="rtl"] .fbrand, [dir="rtl"] .kicker, [dir="rtl"] .eyebrow, [dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4, [dir="rtl"] .nav-links, [dir="rtl"] .section-title, [dir="rtl"] .to-title, [dir="rtl"] .gate-title, [dir="rtl"] .pkg-name, [dir="rtl"] .rc-title, [dir="rtl"] .hub-title, [dir="rtl"] .mos-tag { font-family:'Tajawal','Oswald',sans-serif; }
-  [dir="rtl"] .kicker, [dir="rtl"] .eyebrow { border-left:none; border-right:3px solid var(--yellow); padding-left:0; padding-right:10px; }
-  [dir="rtl"] .fact { border-left:none; border-right:3px solid var(--yellow-dim); padding-left:0; padding-right:14px; }
-  [dir="rtl"] .hstat { padding:18px 0 0 20px; border-right:none; border-left:1px solid var(--line); }
-  [dir="rtl"] .hstat:last-child { border-left:none; }
-  [dir="rtl"] .mos-visual { direction:ltr; text-align:left; font-family:'JetBrains Mono',monospace; }
-  [dir="rtl"] .about-photo::before { left:-16px; right:16px; }
-  [dir="rtl"] .pkg-badge { left:auto; right:28px; }
-  [dir="rtl"] .pkg-badge.best-value { left:28px; right:auto; }
-  [dir="rtl"] .about-photo-wrap { padding-right:0; padding-left:16px; }
-  [dir="rtl"] .tool-detail-card .td-list-item { flex-direction:row-reverse; }
-  [dir="rtl"] .tool-detail-card .td-list-item .td-bullet { margin-top:7px; }
-  [dir="rtl"] .hero h1 { line-height:1.1; }
-  [dir="rtl"] .mobile-menu { right:auto; left:-320px; }
-  [dir="rtl"] .mobile-menu.open { left:0; right:auto; }
-  [dir="rtl"] .mobile-menu { border-left:none; border-right:1px solid var(--line); }
-  [dir="rtl"] .mobile-bottom-bar .mbb-inner { flex-direction:row-reverse; }
-
-  /* Skip link */
-  .skip-link { position:absolute; top:-100%; left:0; z-index:1000; background:var(--yellow); color:var(--ink); padding:8px 16px; font-weight:700; font-size:14px; text-decoration:none; }
-  .skip-link:focus { top:0; }
-  /* Focus-visible */
-  a:focus-visible, button:focus-visible, .btn:focus-visible, .gate-btn:focus-visible, .lang-toggle .lt-btn:focus-visible, .nav-cta:focus-visible, .skip-link:focus-visible { outline:2px solid var(--yellow); outline-offset:2px; border-radius:2px; }
-  /* Screen-reader only */
-  .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
 </style>
 </head>
 <body>
 
-<a href="#top" class="skip-link" data-i18n="skip_link">Skip to content</a>
-<div id="announcer" aria-live="polite" class="sr-only"></div>
-
 <header>
   <div class="nav-inner">
-    <div class="brand" data-i18n="nav_brand">ANAS MO'MEN <span>COACHING</span></div>
-    <nav class="nav-links" aria-label="Main navigation">
-      <a href="#about" data-i18n="nav_about">About</a>
-      <a href="#services" data-i18n="nav_services">Services</a>
-      <a href="#mos" data-i18n="nav_muscleos">Muscle OS</a>
-      <a href="#tool-overview" data-i18n="nav_tools">Tools</a>
-      <a href="#knowledge-hub" data-i18n="nav_knowledge">Knowledge Hub</a>
-      <a href="#packages" data-i18n="nav_packages">Packages</a>
-      <a href="#contact" data-i18n="nav_contact">Contact</a>
+    <div class="brand">ANAS MO'MEN <span>COACHING</span></div>
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#mos">Muscle OS</a>
+      <a href="#tools">Tools</a>
+      <a href="#knowledge-hub">Knowledge Hub</a>
+      <a href="#packages">Packages</a>
+      <a href="#contact">Contact</a>
     </nav>
-    <a class="nav-cta" href="https://wa.me/201040796017" target="_blank" rel="noopener" data-wa-tag="nav_whatsapp" data-i18n="nav_whatsapp">Message on WhatsApp</a>
-    <div class="lang-toggle">
-      <span class="lt-btn active" data-lang="en" aria-pressed="true">EN</span>
-      <span class="lt-btn" data-lang="ar" aria-pressed="false">AR</span>
-    </div>
-    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <a class="nav-cta" href="https://wa.me/201040796017" target="_blank" rel="noopener">Message on WhatsApp</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </header>
-<div class="mobile-overlay" id="mobileOverlay"></div>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#about" data-i18n="nav_about">About</a>
-  <a href="#services" data-i18n="nav_services">Services</a>
-  <a href="#mos" data-i18n="nav_muscleos">Muscle OS</a>
-  <a href="#tool-overview" data-i18n="nav_tools">Tools</a>
-  <a href="#knowledge-hub" data-i18n="nav_knowledge">Knowledge Hub</a>
-  <a href="#packages" data-i18n="nav_packages">Packages</a>
-  <a href="#contact" data-i18n="nav_contact">Contact</a>
-  <a href="https://wa.me/201040796017" class="mobile-cta" target="_blank" rel="noopener" data-wa-tag="nav_whatsapp_mobile" data-i18n="nav_whatsapp">Message on WhatsApp</a>
-  <div class="mobile-lang">
-    <span class="lt-btn active" data-lang="en" aria-pressed="true">EN</span>
-    <span class="lt-btn" data-lang="ar" aria-pressed="false">AR</span>
-  </div>
+
+<!-- MOBILE MENU -->
+<div id="mobileMenu" style="display:none; position:fixed; inset:0; z-index:99; background:var(--ink); padding:100px 24px 24px; flex-direction:column; gap:26px;">
+  <a href="#about" class="mobile-link display" style="font-size:22px;">About</a>
+  <a href="#services" class="mobile-link display" style="font-size:22px;">Services</a>
+  <a href="#mos" class="mobile-link display" style="font-size:22px;">Muscle OS</a>
+  <a href="#tools" class="mobile-link display" style="font-size:22px;">Tools</a>
+  <a href="#knowledge-hub" class="mobile-link display" style="font-size:22px;">Knowledge Hub</a>
+  <a href="#packages" class="mobile-link display" style="font-size:22px;">Packages</a>
+  <a href="#contact" class="mobile-link display" style="font-size:22px;">Contact</a>
+  <a href="https://wa.me/201040796017" class="btn btn-primary" style="margin-top:10px; width:fit-content;">Message on WhatsApp</a>
 </div>
 
 <!-- HERO -->
 <section class="hero" id="top">
-  <div class="hero-bg">
-    <img src="assets/hero.svg" alt="Muscle OS — AI-Powered Coaching" fetchpriority="high" data-i18n-alt="hero_img_alt" id="heroBg">
-    <div class="img-fallback"></div>
-  </div>
+  <div class="hero-bg"><img src="assets/hero.jpg" alt="Anas Mo'men training"></div>
   <div class="hero-shard"></div>
   <div class="wrap hero-content">
-    <div class="hero-text">
-      <div class="kicker" data-i18n="hero_kicker">Hypertrophy &amp; Powerlifting Coaching</div>
-      <h1 data-i18n="hero_title">Stop Guessing.<br>Start <span class="accent">Progressing.</span></h1>
-      <p class="hero-sub" data-i18n="hero_sub">
-        Coached by <b>Anas Mo'men</b> — a competitive powerlifter with a <b>700kg+ total</b>, <b>6+ years</b> of
-        experience, training from real experience under the bar. Programming built on biomechanics and data, not a
-        template with your name pasted on it.
-      </p>
-      <div class="hero-ctas">
-        <a href="https://wa.me/201040796017" class="btn btn-primary" target="_blank" rel="noopener" data-wa-tag="hero_cta_main" data-i18n="hero_cta1">Start Coaching — WhatsApp</a>
-        <a href="#packages" class="btn btn-ghost" data-i18n="hero_cta2">View Packages</a>
-      </div>
-      <div class="hero-stats">
-        <div class="hstat"><div class="num mono">700kg+</div><div class="lbl" data-i18n="hero_stat1_lbl">SBD Total</div></div>
-        <div class="hstat"><div class="num mono">82kg</div><div class="lbl" data-i18n="hero_stat2_lbl">Bodyweight</div></div>
-        <div class="hstat"><div class="num mono">100+</div><div class="lbl" data-i18n="hero_stat3_lbl">Clients Coached</div></div>
-        <div class="hstat"><div class="num mono">2024</div><div class="lbl" data-i18n="hero_stat4_lbl">Coaching Since</div></div>
-      </div>
+    <div class="kicker">Hypertrophy &amp; Powerlifting Coaching</div>
+    <h1>Stop Guessing.<br>Start <span class="accent">Progressing.</span></h1>
+    <p class="hero-sub">
+      Coached by <b>Anas Mo'men</b> — a competitive powerlifter with a <b>700kg+ total</b>, training and
+      coaching from real experience under the bar. Programming built on biomechanics and data, not a
+      template with your name pasted on it.
+    </p>
+    <div class="hero-ctas">
+      <a href="https://wa.me/201040796017" class="btn btn-primary" target="_blank" rel="noopener">Start Coaching — WhatsApp</a>
+      <a href="#packages" class="btn btn-ghost">View Packages</a>
     </div>
-    <div class="hero-image">
-      <img src="assets/img/tool-hero.jpg" alt="Training session" data-i18n-alt="hero_img_alt2" id="toolHero">
+    <div class="hero-stats">
+      <div class="hstat"><div class="num mono">700kg+</div><div class="lbl">SBD Total</div></div>
+      <div class="hstat"><div class="num mono">82kg</div><div class="lbl">Bodyweight</div></div>
+      <div class="hstat"><div class="num mono">100+</div><div class="lbl">Clients Coached</div></div>
+      <div class="hstat"><div class="num mono">2024</div><div class="lbl">Coaching Since</div></div>
     </div>
   </div>
-  <div class="scroll-cue" data-i18n="hero_scroll">Scroll</div>
+  <div class="scroll-cue">Scroll</div>
 </section>
 
 <!-- ABOUT -->
-<section class="about section-pad reveal" id="about">
+<section class="about section-pad" id="about">
   <div class="wrap about-grid">
     <div class="about-photo-wrap">
-      <div class="about-photo"><img src="assets/img/coach.jpg" alt="Anas Mo'men in the gym" loading="lazy" data-i18n-alt="about_img_alt" id="coachImg"></div>
+      <div class="about-photo"><img src="assets/portrait.png" alt="Anas Mo'men in the gym"></div>
     </div>
     <div>
-      <div class="eyebrow" style="color:var(--yellow-dim);" data-i18n="about_eyebrow">About Your Coach</div>
-      <h2 class="section-title" style="color:var(--ink);" data-i18n="about_title">Trained under the bar.<br>Engineered on paper.</h2>
+      <div class="eyebrow" style="color:var(--yellow-dim);">About Your Coach</div>
+      <h2 class="section-title" style="color:var(--ink);">Trained under the bar.<br>Engineered on paper.</h2>
       <div class="about-copy" style="margin-top:22px;">
-        <p data-i18n="about_p1">Most online coaches sell a program. I coach from a different starting point: I'm a <b>competitive powerlifter</b> with a total exceeding <b>700kg at ~82kg bodyweight</b>, with <b>6+ years of experience</b> — I've taken over <b>100 clients</b> through hypertrophy, strength, and physique goals since 2024.</p>
-        <p data-i18n="about_p2">I'm also finishing a degree in <b>Mechatronics Engineering</b> — which shows up directly in how I coach. Every program is built on biomechanics and adjusted against real performance data, not a fixed template. I'm currently building <b>Muscle OS</b>, an AI-powered coaching platform, because I refuse to let a client's progress depend on guesswork.</p>
+        <p>Most online coaches sell a program. I coach from a different starting point: I'm a <b>competitive powerlifter</b> with a total exceeding <b>700kg at ~82kg bodyweight</b>, and I've taken over <b>100 clients</b> through hypertrophy, strength, and physique goals since 2024.</p>
+        <p>I'm also finishing a degree in <b>Mechatronics Engineering</b> — which shows up directly in how I coach. Every program is built on biomechanics and adjusted against real performance data, not a fixed template. I'm currently building <b>Muscle OS</b>, an AI-powered coaching platform, because I refuse to let a client's progress depend on guesswork.</p>
       </div>
       <div class="about-facts">
-        <div class="fact"><div class="fnum mono">700kg+</div><div class="flbl" data-i18n="about_fact1">Competitive SBD Total</div></div>
-        <div class="fact"><div class="fnum mono">100+</div><div class="flbl" data-i18n="about_fact2">Clients Coached</div></div>
-        <div class="fact"><div class="fnum mono">2030</div><div class="flbl" data-i18n="about_fact3">Mechatronics Eng. Grad</div></div>
-        <div class="fact"><div class="fnum mono">PT</div><div class="flbl" data-i18n="about_fact4">Certification In Progress</div></div>
+        <div class="fact"><div class="fnum mono">700kg+</div><div class="flbl">Competitive SBD Total</div></div>
+        <div class="fact"><div class="fnum mono">100+</div><div class="flbl">Clients Coached</div></div>
+        <div class="fact"><div class="fnum mono">2030</div><div class="flbl">Mechatronics Eng. Grad</div></div>
+        <div class="fact"><div class="fnum mono">PT</div><div class="flbl">Certification In Progress</div></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- SERVICES -->
-<section class="services section-pad reveal" id="services">
+<section class="services section-pad" id="services">
   <div class="wrap">
-    <div class="eyebrow" data-i18n="services_eyebrow">What I Coach</div>
-    <h2 class="section-title" data-i18n="services_title">Programming built on<br>evidence, not trend.</h2>
-    <p class="section-intro" data-i18n="services_intro">Every service below runs through the same standard: biomechanics-aware, data-driven, adjusted continuously against how you actually respond — not a static plan you get once and follow blind.</p>
+    <div class="eyebrow">What I Coach</div>
+    <h2 class="section-title">Programming built on<br>evidence, not trend.</h2>
+    <p class="section-intro">Every service below runs through the same standard: biomechanics-aware, data-driven, adjusted continuously against how you actually respond — not a static plan you get once and follow blind.</p>
   </div>
   <div class="wrap">
     <div class="service-grid">
-      <div class="service-card reveal reveal-delay-1">
+      <div class="service-card">
         <div class="snum">01</div>
-        <h3 data-i18n="svc1_title">Hypertrophy Programming</h3>
-        <p data-i18n="svc1_desc">Structured muscle-building splits tailored to your recovery capacity, training age, and equipment access.</p>
+        <h3>Hypertrophy Programming</h3>
+        <p>Structured muscle-building splits tailored to your recovery capacity, training age, and equipment access.</p>
       </div>
-      <div class="service-card reveal reveal-delay-2">
+      <div class="service-card">
         <div class="snum">02</div>
-        <h3 data-i18n="svc2_title">Powerlifting Coaching</h3>
-        <p data-i18n="svc2_desc">Competition-focused periodization for squat, bench, and deadlift — built from someone who competes, not just programs.</p>
+        <h3>Powerlifting Coaching</h3>
+        <p>Competition-focused periodization for squat, bench, and deadlift — built from someone who competes, not just programs.</p>
       </div>
-      <div class="service-card reveal reveal-delay-3">
+      <div class="service-card">
         <div class="snum">03</div>
-        <h3 data-i18n="svc3_title">Biomechanics Assessment</h3>
-        <p data-i18n="svc3_desc">Movement patterns and leverages factored into every program so exercise selection actually fits your body.</p>
+        <h3>Biomechanics Assessment</h3>
+        <p>Movement patterns and leverages factored into every program so exercise selection actually fits your body.</p>
       </div>
-      <div class="service-card reveal reveal-delay-4">
+      <div class="service-card">
         <div class="snum">04</div>
-        <h3 data-i18n="svc4_title">Nutrition &amp; Carb Cycling</h3>
-        <p data-i18n="svc4_desc">Physiological reasoning behind every target — calories, macros, and timing explained, not just prescribed.</p>
+        <h3>Nutrition &amp; Carb Cycling</h3>
+        <p>Physiological reasoning behind every target — calories, macros, and timing explained, not just prescribed.</p>
       </div>
-      <div class="service-card reveal reveal-delay-5">
+      <div class="service-card">
         <div class="snum">05</div>
-        <h3 data-i18n="svc5_title">Progress Tracking &amp; Data</h3>
-        <p data-i18n="svc5_desc">Continuous adjustment based on real performance numbers, not a rigid four-week block regardless of how you're responding.</p>
+        <h3>Progress Tracking &amp; Data</h3>
+        <p>Continuous adjustment based on real performance numbers, not a rigid four-week block regardless of how you're responding.</p>
       </div>
-      <div class="service-card reveal reveal-delay-6">
+      <div class="service-card">
         <div class="snum">06</div>
-        <h3 data-i18n="svc6_title">Client Management</h3>
-        <p data-i18n="svc6_desc">Direct, responsive coaching relationship — questions get answered, programs get adjusted, nothing sits stagnant.</p>
+        <h3>Client Management</h3>
+        <p>Direct, responsive coaching relationship — questions get answered, programs get adjusted, nothing sits stagnant.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- MUSCLE OS -->
-<section class="mos section-pad reveal" id="mos">
+<section class="mos section-pad" id="mos">
   <div class="wrap mos-grid">
     <div>
-      <div class="mos-tag" data-i18n="mos_tag">Founder &amp; Lead Engineer</div>
-      <h2 data-i18n="mos_title">Muscle OS — coaching backed by an actual system, not a spreadsheet.</h2>
-      <p class="lead" data-i18n="mos_lead">Most coaches manage clients from memory and a notes app. I'm building the infrastructure myself — because rigor shouldn't stop at the whiteboard.</p>
+      <div class="mos-tag">Founder &amp; Lead Engineer</div>
+      <h2>Muscle OS — coaching backed by an actual system, not a spreadsheet.</h2>
+      <p class="lead">Most coaches manage clients from memory and a notes app. I'm building the infrastructure myself — because rigor shouldn't stop at the whiteboard.</p>
       <div class="mos-list">
-        <div class="mos-list-item"><div class="bullet"></div><p data-i18n="mos_b1">An AI-powered multi-channel coaching platform (web, mobile, Telegram) engineered to scale personalized programming without losing quality.</p></div>
-        <div class="mos-list-item"><div class="bullet"></div><p data-i18n="mos_b2">A safety arbitration system that hard-gates every coaching decision against injury risk and client-specific health constraints.</p></div>
-        <div class="mos-list-item"><div class="bullet"></div><p data-i18n="mos_b3">Every line of code exists to make client results more consistent — not to replace the coaching relationship.</p></div>
+        <div class="mos-list-item"><div class="bullet"></div><p>An AI-powered multi-channel coaching platform (web, mobile, Telegram) engineered to scale personalized programming without losing quality.</p></div>
+        <div class="mos-list-item"><div class="bullet"></div><p>A safety arbitration system that hard-gates every coaching decision against injury risk and client-specific health constraints.</p></div>
+        <div class="mos-list-item"><div class="bullet"></div><p>Every line of code exists to make client results more consistent — not to replace the coaching relationship.</p></div>
       </div>
     </div>
     <div class="mos-visual">
@@ -693,612 +465,176 @@
   <div class="wrap mos-extras">
     <div class="mos-extra-card">
       <div class="extra-icon">&#9733;</div>
-      <h4 data-i18n="mosextra1_title">Early Access for Premium Clients</h4>
-      <p data-i18n="mosextra1_desc">Premium coaching clients get first access to every new Muscle OS feature before public release — including AI-powered program adjustments, automated check-in analysis, and the client dashboard.</p>
-      <a href="#packages" class="extra-cta" data-i18n="mosextra1_cta">Upgrade to Premium &rarr;</a>
+      <h4>Early Access for Premium Clients</h4>
+      <p>Premium coaching clients get first access to every new Muscle OS feature before public release — including AI-powered program adjustments, automated check-in analysis, and the client dashboard.</p>
+      <a href="#packages" class="extra-cta">Upgrade to Premium &rarr;</a>
     </div>
     <div class="mos-extra-card" style="border-color:rgba(76,175,80,.3);background:linear-gradient(135deg,rgba(20,21,26,1),rgba(76,175,80,.04))">
       <div class="extra-icon">&#9889;</div>
-      <h4 data-i18n="mosextra2_title">Bundle Cross-Sell Offers</h4>
-      <p data-i18n="mosextra2_desc"><strong style="color:#4CAF50">Buy the Training Bundle</strong> (500 EGP) — get <strong style="color:#F4C93B">50% off the Training Tool</strong> for your first month (150 EGP instead of 300).<br><br>
+      <h4>Bundle Cross-Sell Offers</h4>
+      <p><strong style="color:#4CAF50">Buy the Training Bundle</strong> (500 EGP) — get <strong style="color:#F4C93B">50% off the Training Tool</strong> for your first month (150 EGP instead of 300).<br><br>
       <strong style="color:#4CAF50">Buy the Nutrition Bundle</strong> (500 EGP) — get <strong style="color:#F4C93B">50% off the TDEE Adaptive Engine</strong> for your first month (100 EGP instead of 200).<br><br>
       Message on WhatsApp to claim. Limited to one per client.</p>
-      <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20claim%20a%20bundle%20cross-sell%20offer" class="extra-cta" data-wa-tag="cross_sell_offer" data-i18n="mosextra2_cta">Claim Your Offer &rarr;</a>
-    </div>
-  </div>
-</section>
-
-<!-- TOOL OVERVIEW -->
-<section class="tool-overview section-pad reveal" id="tool-overview">
-  <div class="wrap">
-    <div class="eyebrow" data-i18n="to_eyebrow">What You Get</div>
-    <h2 class="to-title" data-i18n="to_title">Every tool, broken down —<br>so you know exactly what you're using.</h2>
-    <p class="to-sub" data-i18n="to_sub">Below is everything each tool does, what it gives you, and how it works. No blind boxes — pick what fits your goal and use it immediately.</p>
-
-    <div class="tool-detail">
-      <div class="tool-detail-card reveal reveal-delay-1">
-        <div class="td-badge" data-i18n="tt_badge">PRO &middot; 300 EGP / mo</div>
-        <h3 data-i18n="tt_title">Training Tool</h3>
-        <p class="td-desc" data-i18n="tt_desc">A full training application that generates, logs, and tracks your programs. Built for lifters who want structure without paying a full coach every month.</p>
-        <div class="td-list">
-          <div class="td-list-item"><div class="td-bullet"></div><span data-i18n="tt_f1"><b>Volume Calculator</b> — set your total weekly sets per muscle group based on your training age and recovery capacity</span></div>
-          <div class="td-list-item"><div class="td-bullet"></div><span data-i18n="tt_f2"><b>Split Selector</b> — choose from PPL, Upper/Lower, Full Body, Push/Pull/Legs, or custom with auto-set-recommendations</span></div>
-          <div class="td-list-item"><div class="td-bullet"></div><span data-i18n="tt_f3"><b>Program Generator</b> — produces a full weekly program with exercise selection, sets, reps, and RPE targets</span></div>
-          <div class="td-list-item"><div class="td-bullet"></div><span data-i18n="tt_f4"><b>Session Logger</b> — log each workout with weight, reps, RPE, and notes; view your history per exercise</span></div>
-          <div class="td-list-item"><div class="td-bullet"></div><span data-i18n="tt_f5"><b>Progress Tracking</b> — graphs for estimated 1RM progression per lift, volume over time, and bodyweight trends</span></div>
-          <div class="td-list-item"><div class="td-bullet"></div><span data-i18n="tt_f6"><b>Bilingual Interface</b> — full English / Arabic toggle for all screens and outputs</span></div>
-        </div>
-      </div>
-
-      <div class="tool-detail-card reveal reveal-delay-2">
-        <div class="td-badge" data-i18n="tdee_badge">PRO &middot; 200 EGP / mo</div>
-        <h3 data-i18n="tdee_title">TDEE Adaptive Engine</h3>
-        <p class="td-desc" data-i18n="tdee_desc">Stop guessing your maintenance calories. Log what you eat and weigh yourself daily — the engine calculates your real TDEE and adjusts automatically.</p>
-        <div class="td-list">
-          <div class="td-list-item"><div class="td-bullet"></div><span data-i18n="tdee_f1"><b>Daily Log</b> — enter weight and calories once per day; takes 30 seconds</span></div>
-          <div class="td-list-item"><div class="td-bullet"></div><span data-i18n="tdee_f2"><b>Adaptive TDEE</b> — the engine uses a rolling average + trend analysis to calculate your actual expenditure, not a formula estimate</span></div>
-          <div class="td-list-item"><div class="td-bullet"></div><span data-i18n="tdee_f3"><b>Trend Graph</b> — see your weight trend vs daily weigh-ins with a smoothed line, and TDEE changes over time</span></div>
-          <div class="td-list-item"><div class="td-bullet"></div><span data-i18n="tdee_f4"><b>Surplus / Deficit View</b> — compares actual intake vs calculated TDEE so you know exactly where your surplus or deficit is</span></div>
-          <div class="td-list-item"><div class="td-bullet"></div><span data-i18n="tdee_f5"><b>Export Data</b> — download your log as CSV for your own analysis or to share with your coach</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="tool-gate reveal">
-      <div class="gate-title" data-i18n="to_gate_title">Ready to use these tools?</div>
-      <p class="gate-sub" data-i18n="to_gate_sub">Sign in if you already have access, or subscribe on WhatsApp to get started.</p>
-      <div class="gate-btns">
-        <a href="tools/training_tool.html" class="gate-btn gate-btn-primary" data-i18n="to_gate_btn1">Sign In &amp; Start Training</a>
-        <a href="order.html" class="gate-btn gate-btn-ghost" data-i18n="to_gate_btn3" style="border-color:rgba(244,201,59,.3);color:var(--yellow)">Buy Online</a>
-        <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20subscribe%20to%20a%20tool" class="gate-btn gate-btn-ghost" target="_blank" rel="noopener" data-wa-tag="tools_gate" data-i18n="to_gate_btn2">Subscribe on WhatsApp</a>
-      </div>
-      <p style="margin:14px 0 0;font-size:12px;color:var(--gray);text-align:center" data-i18n="privacy_note">&#128274; No card details processed on this site — payment and codes confirmed directly via WhatsApp.</p>
-    </div>
-  </div>
-</section>
-
-<!-- TOOL FEEDBACK -->
-<section class="feedback-section section-pad reveal" id="feedback" style="background:var(--ink-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
-  <div class="wrap" style="text-align:center;max-width:640px">
-    <div class="eyebrow" data-i18n="fb_eyebrow">Your Feedback</div>
-    <h2 class="section-title" style="margin:0 auto" data-i18n="fb_title">Help improve the tools</h2>
-    <p class="section-intro" style="margin:16px auto 0" data-i18n="fb_sub">Subscriber of the Training Tool or TDEE Engine? Your input shapes every update. Tell us what works, what doesn't, and what you'd like to see next.</p>
-    <div style="margin-top:28px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
-      <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20have%20feedback%20about%20the%20tools" class="btn btn-primary" target="_blank" rel="noopener" data-wa-tag="feedback" data-i18n="fb_wa">Send Feedback on WhatsApp</a>
-      <a href="mailto:anas@anasmoamen.com?subject=Tool%20Feedback" class="btn btn-ghost" data-i18n="fb_email">Send via Email</a>
+      <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20claim%20a%20bundle%20cross-sell%20offer" class="extra-cta">Claim Your Offer &rarr;</a>
     </div>
   </div>
 </section>
 
 <!-- TOOLS & RESOURCES -->
-<section class="resources-section reveal" id="tools">
+<section class="resources-section" id="tools">
   <div class="wrap">
-    <h2 data-i18n="tr_title">TOOLS &amp; BUNDLES</h2>
-    <p class="subtitle" data-i18n="tr_sub">Professional training tools and bundled resources to level up your coaching.</p>
+    <h2>TOOLS &amp; BUNDLES</h2>
+    <p class="subtitle">Professional training tools and bundled resources to level up your coaching.</p>
 
-      <div class="resource-category">
-      <h3 data-i18n="tr_protitle">PRO TOOLS <span style="font-size:12px;color:#FFD700;font-family:'JetBrains Mono',monospace;vertical-align:middle">— Subscription</span></h3>
+    <div class="resource-category">
+      <h3>PRO TOOLS <span style="font-size:12px;color:#FFD700;font-family:'JetBrains Mono',monospace;vertical-align:middle">— Subscription</span></h3>
       <div class="resource-grid">
         <a href="tools/training_tool.html" class="resource-card pro-card">
-          <div class="rc-badge rc-badge-pro" data-i18n="tr_probadge">PRO</div>
-          <div class="rc-title" data-i18n="tr_tt">Training Tool</div>
-          <div class="rc-desc" data-i18n="tr_ttdesc">Full training app: volume calculator, split selector, program generator, session logger &amp; progress tracking with EN/AR bilingual interface.</div>
-          <div class="rc-price" data-i18n="tr_ttprice">300 EGP / month</div>
+          <div class="rc-badge rc-badge-pro">PRO</div>
+          <div class="rc-title">Training Tool</div>
+          <div class="rc-desc">Full training app: volume calculator, split selector, program generator, session logger &amp; progress tracking with EN/AR bilingual interface.</div>
+          <div class="rc-price">300 EGP / month</div>
         </a>
         <a href="tools/tdee_adaptive_engine.html" class="resource-card pro-card">
-          <div class="rc-badge rc-badge-pro" data-i18n="tr_probadge2">PRO</div>
-          <div class="rc-title" data-i18n="tr_tdeet">TDEE Adaptive Engine</div>
-          <div class="rc-desc" data-i18n="tr_tdeedesc">Log daily weight &amp; calories — the engine auto-adjusts your TDEE using rolling averages &amp; trend analysis.</div>
-          <div class="rc-price" data-i18n="tr_tdeeprice">200 EGP / month</div>
+          <div class="rc-badge rc-badge-pro">PRO</div>
+          <div class="rc-title">TDEE Adaptive Engine</div>
+          <div class="rc-desc">Log daily weight &amp; calories — the engine auto-adjusts your TDEE using rolling averages &amp; trend analysis.</div>
+          <div class="rc-price">200 EGP / month</div>
         </a>
       </div>
     </div>
 
     <div class="resource-category">
-      <h3 data-i18n="tr_bundletitle">BUNDLES <span style="font-size:12px;color:#4CAF50;font-family:'JetBrains Mono',monospace;vertical-align:middle">— 500 EGP one-time</span></h3>
+      <h3>BUNDLES <span style="font-size:12px;color:#4CAF50;font-family:'JetBrains Mono',monospace;vertical-align:middle">— 500 EGP one-time</span></h3>
       <div class="resource-grid">
         <a href="books/muscle_os_training_book.html" class="resource-card" style="border-color:rgba(76,175,80,.3);background:linear-gradient(135deg,var(--ink-3),rgba(76,175,80,.05))">
-          <div class="rc-badge" style="background:rgba(76,175,80,.15);color:#4CAF50" data-i18n="tr_bundlebadge">Bundle</div>
-          <div class="rc-title" data-i18n="tr_bt">Training Bundle</div>
-          <div class="rc-desc" data-i18n="tr_btdesc">Training &amp; Programming Book + Volume Calculator, RPE Calculator, Split Quiz. Plus 50% off the Training Tool for 1 month.</div>
-          <div class="rc-price" data-i18n="tr_btprice">500 EGP &middot; includes 3 free tools</div>
+          <div class="rc-badge" style="background:rgba(76,175,80,.15);color:#4CAF50">Bundle</div>
+          <div class="rc-title">Training Bundle</div>
+          <div class="rc-desc">Training &amp; Programming Book + Volume Calculator, RPE Calculator, Split Quiz. Plus 50% off the Training Tool for 1 month.</div>
+          <div class="rc-price">500 EGP &middot; includes 3 free tools</div>
         </a>
         <a href="books/muscle_os_nutrition_book.html" class="resource-card" style="border-color:rgba(76,175,80,.3);background:linear-gradient(135deg,var(--ink-3),rgba(76,175,80,.05))">
-          <div class="rc-badge" style="background:rgba(76,175,80,.15);color:#4CAF50" data-i18n="tr_nbadge">Bundle</div>
-          <div class="rc-title" data-i18n="tr_nt">Nutrition Bundle</div>
-          <div class="rc-desc" data-i18n="tr_ntdesc">Diet &amp; Nutrition Book + TDEE &amp; Macro Calculator. Plus 50% off the TDEE Adaptive Engine for 1 month.</div>
-          <div class="rc-price" data-i18n="tr_ntprice">500 EGP &middot; includes free calculator</div>
+          <div class="rc-badge" style="background:rgba(76,175,80,.15);color:#4CAF50">Bundle</div>
+          <div class="rc-title">Nutrition Bundle</div>
+          <div class="rc-desc">Diet &amp; Nutrition Book + TDEE &amp; Macro Calculator. Plus 50% off the TDEE Adaptive Engine for 1 month.</div>
+          <div class="rc-price">500 EGP &middot; includes free calculator</div>
         </a>
       </div>
+    </div>
+
+
     </div>
   </div>
 </section>
 
 <!-- KNOWLEDGE HUB -->
-<section class="resources-section reveal" id="knowledge-hub">
+<section class="resources-section" id="knowledge-hub">
   <div class="wrap">
-    <div class="eyebrow" data-i18n="kh_eyebrow">Knowledge Hub</div>
-    <h2 data-i18n="kh_title">Books, Guides &amp; Reference</h2>
-    <p class="subtitle" data-i18n="kh_sub">Full reference books and quick-start guides — from foundational science to daily application.</p>
+    <div class="eyebrow">Knowledge Hub</div>
+    <h2>Books, Guides &amp; Reference</h2>
+    <p class="subtitle">Full reference books and quick-start guides — from foundational science to daily application.</p>
     <div class="hub-grid">
       <a href="knowledge-hub/" class="hub-card">
-        <div class="hub-title" data-i18n="kh_ref_title">Reference Books</div>
-        <div class="hub-desc" data-i18n="kh_ref_desc">Training &amp; Programming Book, Diet &amp; Nutrition Book — 27 and 33 chapters each, 200+ scientific references.</div>
-        <div class="hub-link" data-i18n="kh_ref_link">Browse &amp; Buy Books &rarr;</div>
+        <div class="hub-title">Reference Books</div>
+        <div class="hub-desc">Training &amp; Programming Book, Diet &amp; Nutrition Book — 27 and 33 chapters each, 200+ scientific references.</div>
+        <div class="hub-link">Browse Books &rarr;</div>
       </a>
       <a href="knowledge-hub/" class="hub-card">
-        <div class="hub-title" data-i18n="kh_guide_title">Free Guides &amp; Worksheets</div>
-        <div class="hub-desc" data-i18n="kh_guide_desc">Quick-start guides, decision trees, cheat sheets, and a 6-week consistency workbook — all available as HTML or PDF.</div>
-        <div class="hub-link" data-i18n="kh_guide_link">Open Guides &rarr;</div>
+        <div class="hub-title">Free Guides &amp; Worksheets</div>
+        <div class="hub-desc">Quick-start guides, decision trees, cheat sheets, and a 6-week consistency workbook.</div>
+        <div class="hub-link">Open Guides &rarr;</div>
       </a>
     </div>
     <div class="hub-cta-wrap">
-      <a href="order.html" class="nav-cta" style="display:inline-flex" data-i18n="kh_order">Buy Books Online &rarr;</a>
-      <a href="pdf/viewer.html" class="nav-cta" style="display:inline-flex;margin-left:12px" data-i18n="kh_pdf">PDF Library &rarr;</a>
-      <a href="knowledge-hub/" class="nav-cta" style="display:inline-flex;margin-left:12px" data-i18n="kh_explore">Explore Full Knowledge Hub &rarr;</a>
-    </div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<div class="how-it-works reveal" style="background:var(--ink-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:60px 0">
-  <div class="wrap" style="text-align:center">
-    <div class="eyebrow" data-i18n="hiw_eyebrow">How It Works</div>
-    <h2 class="section-title" style="margin:0 auto" data-i18n="hiw_title">From message to results in 3 steps</h2>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:40px;max-width:800px;margin-left:auto;margin-right:auto">
-      <div style="text-align:center">
-        <div style="width:48px;height:48px;background:var(--yellow);color:var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:18px;margin:0 auto 12px">1</div>
-        <h4 style="font-family:'Oswald',sans-serif;text-transform:uppercase;font-size:15px;color:#fff;margin-bottom:4px" data-i18n="hiw_step1">Message on WhatsApp</h4>
-        <p style="font-size:13px;color:var(--gray);line-height:1.6" data-i18n="hiw_step1_desc">Tell me your goal — I'll reply personally with the right option for you.</p>
-      </div>
-      <div style="text-align:center">
-        <div style="width:48px;height:48px;background:var(--yellow);color:var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:18px;margin:0 auto 12px">2</div>
-        <h4 style="font-family:'Oswald',sans-serif;text-transform:uppercase;font-size:15px;color:#fff;margin-bottom:4px" data-i18n="hiw_step2">Get Your Code</h4>
-        <p style="font-size:13px;color:var(--gray);line-height:1.6" data-i18n="hiw_step2_desc">Payment confirmed directly with me — no card forms, no third-party fees.</p>
-      </div>
-      <div style="text-align:center">
-        <div style="width:48px;height:48px;background:var(--yellow);color:var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:18px;margin:0 auto 12px">3</div>
-        <h4 style="font-family:'Oswald',sans-serif;text-transform:uppercase;font-size:15px;color:#fff;margin-bottom:4px" data-i18n="hiw_step3">Instant Access</h4>
-        <p style="font-size:13px;color:var(--gray);line-height:1.6" data-i18n="hiw_step3_desc">Enter your code and start training, tracking, or reading immediately.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- SOCIAL PROOF — placeholder, ungate when real testimonials exist -->
-<section class="section-pad reveal" id="social-proof" style="display:none">
-  <div class="wrap" style="text-align:center">
-    <div class="eyebrow" data-i18n="social_eyebrow">Client Results</div>
-    <h2 class="section-title" data-i18n="social_title">Real Transformations</h2>
-    <p class="section-intro" data-i18n="social_intro">Replace this with real client before/after photos and testimonials when available.</p>
-    <div class="testimonial-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:32px">
-      <div class="testimonial-card" style="background:var(--surface);border-radius:16px;padding:24px;border:1px solid var(--border)">[Testimonial 1 — name, result, photo]</div>
-      <div class="testimonial-card" style="background:var(--surface);border-radius:16px;padding:24px;border:1px solid var(--border)">[Testimonial 2 — name, result, photo]</div>
-      <div class="testimonial-card" style="background:var(--surface);border-radius:16px;padding:24px;border:1px solid var(--border)">[Testimonial 3 — name, result, photo]</div>
+      <a href="knowledge-hub/" class="nav-cta" style="display:inline-flex">Explore Full Knowledge Hub &rarr;</a>
     </div>
   </div>
 </section>
 
 <!-- PACKAGES -->
-<section class="packages section-pad reveal" id="packages">
+<section class="packages section-pad" id="packages">
   <div class="wrap">
-    <div class="eyebrow" data-i18n="pkg_eyebrow">Coaching Packages</div>
-    <h2 class="section-title" data-i18n="pkg_title">Pick the level of<br>support you need.</h2>
+    <div class="eyebrow">Coaching Packages</div>
+    <h2 class="section-title">Pick the level of<br>support you need.</h2>
     <div class="pkg-grid">
       <div class="pkg-card featured">
-        <div class="pkg-badge" data-i18n="pkg_std_badge">Most Popular</div>
-        <div class="pkg-name" data-i18n="pkg_std_name">Standard</div>
-        <div class="pkg-tagline" data-i18n="pkg_std_tag">Coached</div>
-        <div class="pkg-price"><span class="amount mono">600</span><span class="cur">EGP</span><span class="per" data-i18n="per_month">/ month</span>
-        <span class="term-save" data-i18n="pkg_std_save">Save 300 EGP — pay 1,500 for 3 months</span></div>
-        <div class="pkg-term"><div class="term-label" data-i18n="pkg_3mo">3-Month Plan</div><div class="term-price">1,500 EGP</div><div class="term-note" data-i18n="pkg_std_save2">Save 300 EGP (1,800 value)</div></div>
+        <div class="pkg-badge">Most Popular</div>
+        <div class="pkg-name">Standard</div>
+        <div class="pkg-tagline">Coached</div>
+        <div class="pkg-price"><span class="amount mono">600</span><span class="cur">EGP</span><span class="per">/ month</span>
+        <span class="term-save">Save 300 EGP — pay 1,500 for 3 months</span></div>
+        <div class="pkg-term"><div class="term-label">3-Month Plan</div><div class="term-price">1,500 EGP</div><div class="term-note">Save 300 EGP (1,800 value)</div></div>
         <div class="pkg-divider"></div>
         <div class="pkg-features">
-          <div class="pkg-feature"><span class="check">✓</span><span class="txt" data-i18n="pkg_f1">Weekly check-ins &amp; progress review</span></div>
-          <div class="pkg-feature"><span class="check">✓</span><span class="txt" data-i18n="pkg_f2">Real-time program adjustments</span></div>
-          <div class="pkg-feature"><span class="check">✓</span><span class="txt" data-i18n="pkg_f3">Basic nutrition guidance (macros/calories)</span></div>
-          <div class="pkg-feature"><span class="check">✓</span><span class="txt" data-i18n="pkg_f4">Direct messaging access between check-ins</span></div>
-          <div class="pkg-feature"><span class="check">✓</span><span class="txt" data-i18n="pkg_f5">50% off all tools during subscription</span></div>
+          
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt">Weekly check-ins &amp; progress review</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt">Real-time program adjustments</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt">Basic nutrition guidance (macros/calories)</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt">Direct messaging access between check-ins</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt">50% off all tools during subscription</span></div>
         </div>
-        <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%27m%20interested%20in%20the%20Standard%20package." class="pkg-cta" target="_blank" rel="noopener" data-wa-tag="pkg_standard" data-gated="true" data-i18n="pkg_std_cta">Start with Standard</a>
+        <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%27m%20interested%20in%20the%20Standard%20package." class="pkg-cta" target="_blank" rel="noopener">Start with Standard</a>
       </div>
 
       <div class="pkg-card">
-        <div class="pkg-badge best-value" data-i18n="pkg_prem_badge">Best Value</div>
-        <div class="pkg-name" data-i18n="pkg_prem_name">Premium</div>
-        <div class="pkg-tagline" data-i18n="pkg_prem_tag">Full Coaching</div>
-        <div class="pkg-price"><span class="amount mono">1000</span><span class="cur">EGP</span><span class="per" data-i18n="per_month2">/ month</span>
-        <span class="term-save" data-i18n="pkg_prem_save">Save 500 EGP — pay 2,500 for 3 months</span></div>
-        <div class="pkg-term"><div class="term-label" data-i18n="pkg_3mo2">3-Month Plan</div><div class="term-price">2,500 EGP</div><div class="term-note" data-i18n="pkg_prem_save2">Save 500 EGP (3,000 value)</div></div>
+        <div class="pkg-badge best-value">Best Value</div>
+        <div class="pkg-name">Premium</div>
+        <div class="pkg-tagline">Full Coaching</div>
+        <div class="pkg-price"><span class="amount mono">1000</span><span class="cur">EGP</span><span class="per">/ month</span>
+        <span class="term-save">Save 500 EGP — pay 2,500 for 3 months</span></div>
+        <div class="pkg-term"><div class="term-label">3-Month Plan</div><div class="term-price">2,500 EGP</div><div class="term-note">Save 500 EGP (3,000 value)</div></div>
         <div class="pkg-divider"></div>
         <div class="pkg-features">
-          <div class="pkg-feature"><span class="check">✓</span><span class="txt" data-i18n="pkg_g1">Everything in Standard</span></div>
-          <div class="pkg-feature"><span class="check">✓</span><span class="txt" data-i18n="pkg_g2">Personalized nutrition &amp; carb cycling protocol</span></div>
-          <div class="pkg-feature"><span class="check">✓</span><span class="txt" data-i18n="pkg_g3">Priority response time</span></div>
-          <div class="pkg-feature"><span class="check">✓</span><span class="txt" data-i18n="pkg_g4">Periodic video call check-ins</span></div>
-          <div class="pkg-feature"><span class="check">✓</span><span class="txt" data-i18n="pkg_g5">Early access to Muscle OS features</span></div>
-          <div class="pkg-feature"><span class="check">✓</span><span class="txt" data-i18n="pkg_g6">50% off all tools during subscription</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt">Everything in Standard</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt">Personalized nutrition &amp; carb cycling protocol</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt">Priority response time</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt">Periodic video call check-ins</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt">Early access to Muscle OS features</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span class="txt">50% off all tools during subscription</span></div>
         </div>
-        <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%27m%20interested%20in%20the%20Premium%20package." class="pkg-cta" target="_blank" rel="noopener" data-wa-tag="pkg_premium" data-gated="true" data-i18n="pkg_prem_cta">Start with Premium</a>
+        <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%27m%20interested%20in%20the%20Premium%20package." class="pkg-cta" target="_blank" rel="noopener">Start with Premium</a>
       </div>
     </div>
-    <p class="pkg-note" data-i18n="pkg_note">Prices in EGP. Monthly billing or 3-month plan.</p>
-    <p class="pkg-recommend" data-i18n="pkg_recommend" style="text-align:center;color:var(--yellow);font-size:13px;margin-top:4px">New to structured coaching? <strong>Standard</strong> covers everything most people need — upgrade anytime.</p>
+    <p class="pkg-note">Prices in EGP. Monthly billing or 3-month plan. </p>
   </div>
 </section>
-<!-- SCARCITY: ungate when real capacity numbers exist. Add data-wa-tag="pkg_standard" and data-wa-tag="pkg_premium" to package CTAs above. -->
 
 <!-- CONTACT -->
-<section class="contact section-pad reveal" id="contact">
+<section class="contact section-pad" id="contact">
   <div class="wrap contact-inner">
     <div>
-      <h2 data-i18n="contact_title">Ready to train with a coach who delivers?</h2>
-      <p class="lead" data-i18n="contact_sub">Limited coaching slots — programming built around you, not the other way around. Message me directly and let's talk about your goals.</p>
+      <h2>Ready to train with a coach who delivers?</h2>
+      <p class="lead">Limited coaching slots — programming built around you, not the other way around. Message me directly and let's talk about your goals.</p>
       <div class="contact-ctas">
-        <a href="https://wa.me/201040796017" class="btn btn-dark" target="_blank" rel="noopener" data-wa-tag="contact_wa" data-i18n="contact_wa">Message on WhatsApp</a>
-        <a href="mailto:anas@anasmoamen.com" class="btn btn-outline-dark" data-i18n="contact_email">Email Me</a>
+        <a href="https://wa.me/201040796017" class="btn btn-dark" target="_blank" rel="noopener">Message on WhatsApp</a>
         <a href="https://instagram.com/anas_moamen1" class="btn btn-outline-dark" target="_blank" rel="noopener">@anas_moamen1</a>
       </div>
-      <p class="privacy-note" data-i18n="privacy_note" style="margin:16px 0 0;font-size:12px;color:var(--gray);text-align:center">&#128274; No card details processed on this site — payment and codes confirmed directly via WhatsApp.</p>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap footer-inner">
-    <div class="fbrand" data-i18n="footer_brand">ANAS MO'MEN <span>COACHING</span></div>
+    <div class="fbrand">ANAS MO'MEN <span>COACHING</span></div>
     <div class="footer-links">
       <a href="tel:01040796017">01040796017</a>
       <a href="https://instagram.com/anas_moamen1" target="_blank" rel="noopener">@anas_moamen1</a>
-      <a href="https://wa.me/201040796017" target="_blank" rel="noopener" data-wa-tag="footer_wa" data-i18n="footer_wa">WhatsApp</a>
+      <a href="https://wa.me/201040796017" target="_blank" rel="noopener">WhatsApp</a>
     </div>
   </div>
 </footer>
 
 <script>
-// ── Bilingual EN/AR translations ──
-const TR = {
-  page_title: { en:'Anas Mo\'men — Hypertrophy & Powerlifting Coach', ar:'أنس مؤمن — تدريب تضخيم عضلي ورفع أثقال' },
-  hero_img_alt: { en:'Muscle OS — AI-Powered Coaching', ar:'نظام العضلات — تدريب بالذكاء الاصطناعي' },
-  hero_img_alt2: { en:'Training session', ar:'جلسة تدريب' },
-  about_img_alt: { en:'Anas Mo\'men in the gym', ar:'أنس مؤمن في الجيم' },
-  nav_brand: { en:'ANAS MO\'MEN <span>COACHING</span>', ar:'أنس مؤمن <span>تدريب</span>' },
-  nav_about: { en:'About', ar:'عني' },
-  nav_services: { en:'Services', ar:'الخدمات' },
-  nav_muscleos: { en:'Muscle OS', ar:'نظام العضلات' },
-  nav_tools: { en:'Tools', ar:'الأدوات' },
-  nav_knowledge: { en:'Knowledge Hub', ar:'المكتبة' },
-  nav_packages: { en:'Packages', ar:'الباقات' },
-  nav_contact: { en:'Contact', ar:'تواصل' },
-  nav_whatsapp: { en:'Message on WhatsApp', ar:'راسلني على واتساب' },
-  hero_kicker: { en:'Hypertrophy &amp; Powerlifting Coaching', ar:'تدريب تضخيم عضلي ورفع أثقال' },
-  hero_title: { en:'Stop Guessing.<br>Start <span class=accent>Progressing.</span>', ar:'توقف عن التخمين.<br>ابدأ <span class=accent>التقدم.</span>' },
-  hero_sub: { en:'Coached by <b>Anas Mo\'men</b> — a competitive powerlifter with a <b>700kg+ total</b>, <b>6+ years</b> of experience, training from real experience under the bar. Programming built on biomechanics and data, not a template with your name pasted on it.', ar:'يُدربك <b>أنس مؤمن</b> — رافع أثقال تنافسي بمجموع <b>أكثر من 700 كجم</b>، <b>أكثر من 6 سنوات</b> خبرة، تدريب وتوجيه من خبرة حقيقية تحت البار. البرامج مبنية على الميكانيكا الحيوية والبيانات، وليس قالباً باسمك.' },
-  hero_cta1: { en:'Start Coaching — WhatsApp', ar:'ابدأ التدريب — واتساب' },
-  hero_cta2: { en:'View Packages', ar:'عرض الباقات' },
-  hero_stat1_lbl: { en:'SBD Total', ar:'المجموع الكلي' },
-  hero_stat2_lbl: { en:'Bodyweight', ar:'وزن الجسم' },
-  hero_stat3_lbl: { en:'Clients Coached', ar:'عملاء دربتهم' },
-  hero_stat4_lbl: { en:'Coaching Since', ar:'تدريب منذ' },
-  hero_scroll: { en:'Scroll', ar:'اسفل' },
-  about_eyebrow: { en:'About Your Coach', ar:'عن المدرب' },
-  about_title: { en:'Trained under the bar.<br>Engineered on paper.', ar:'مُدرَّب تحت البار.<br>مُهندَس على الورق.' },
-  about_p1: { en:'Most online coaches sell a program. I coach from a different starting point: I\'m a <b>competitive powerlifter</b> with a total exceeding <b>700kg at ~82kg bodyweight</b>, with <b>6+ years of experience</b> — I\'ve taken over <b>100 clients</b> through hypertrophy, strength, and physique goals since 2024.', ar:'معظم المدربين أونلاين يبيعون برنامجاً. أنا أدرب من نقطة بداية مختلفة: أنا <b>رافع أثقال تنافسي</b> بمجموع يتجاوز <b>700 كجم عند وزن ~82 كجم</b>، مع <b>أكثر من 6 سنوات خبرة</b> — دربت أكثر من <b>100 عميل</b> في أهداف التضخيم والقوة وتشكيل الجسم منذ 2024.' },
-  about_p2: { en:'I\'m also finishing a degree in <b>Mechatronics Engineering</b> — which shows up directly in how I coach. Every program is built on biomechanics and adjusted against real performance data, not a fixed template. I\'m currently building <b>Muscle OS</b>, an AI-powered coaching platform, because I refuse to let a client\'s progress depend on guesswork.', ar:'أيضاً أنهي درجتي في <b>هندسة الميكاترونكس</b> — وهذا يظهر مباشرة في طريقة تدريبي. كل برنامج مبني على الميكانيكا الحيوية ويُعدَّل بناءً على بيانات الأداء الحقيقية، وليس قالباً ثابتاً. أقوم حالياً ببناء <b>نظام العضلات</b>، منصة تدريب بالذكاء الاصطناعي، لأنني أرفض أن يعتمد تقدم العميل على التخمين.' },
-  about_fact1: { en:'Competitive SBD Total', ar:'مجموع تنافسي كلي' },
-  about_fact2: { en:'Clients Coached', ar:'عملاء دربتهم' },
-  about_fact3: { en:'Mechatronics Eng. Grad', ar:'مهندس ميكاترونكس' },
-  about_fact4: { en:'Certification In Progress', ar:'شهادة تدريب قيد الإنجاز' },
-  services_eyebrow: { en:'What I Coach', ar:'ماذا أقدم' },
-  services_title: { en:'Programming built on<br>evidence, not trend.', ar:'برامج مبنية على<br>الأدلة، لا الموضة.' },
-  services_intro: { en:'Every service below runs through the same standard: biomechanics-aware, data-driven, adjusted continuously against how you actually respond — not a static plan you get once and follow blind.', ar:'كل خدمة أدناه تخضع لنفس المعيار: مراعاة الميكانيكا الحيوية، مدعومة بالبيانات، تُعدَّل باستمرار حسب استجابتك الفعلية — ليست خطة ثابتة تأخذها مرة وتتبعها بشكل أعمى.' },
-  svc1_title: { en:'Hypertrophy Programming', ar:'برمجة التضخيم العضلي' },
-  svc1_desc: { en:'Structured muscle-building splits tailored to your recovery capacity, training age, and equipment access.', ar:'تقسيمات مبنية على بناء العضلات بما يناسب قدرتك على التعافي، عمرك التدريبي، والأجهزة المتاحة.' },
-  svc2_title: { en:'Powerlifting Coaching', ar:'تدريب رفع الأثقال' },
-  svc2_desc: { en:'Competition-focused periodization for squat, bench, and deadlift — built from someone who competes, not just programs.', ar:'دورات تدريبية تنافسية للقرفصاء، الضغط، والرفعة الميتة — من شخص ينافس، لا يبرمج فقط.' },
-  svc3_title: { en:'Biomechanics Assessment', ar:'تقييم الميكانيكا الحيوية' },
-  svc3_desc: { en:'Movement patterns and leverages factored into every program so exercise selection actually fits your body.', ar:'أنماط الحركة والعوامل الميكانيكية مدمجة في كل برنامج لتناسب اختيار التمرين جسمك فعلياً.' },
-  svc4_title: { en:'Nutrition &amp; Carb Cycling', ar:'التغذية وتدوير الكربوهيدرات' },
-  svc4_desc: { en:'Physiological reasoning behind every target — calories, macros, and timing explained, not just prescribed.', ar:'المنطق الفسيولوجي وراء كل هدف — السعرات، المغذيات، والتوقيت موضح، ليس مجرد وصفة.' },
-  svc5_title: { en:'Progress Tracking &amp; Data', ar:'تتبع التقدم والبيانات' },
-  svc5_desc: { en:'Continuous adjustment based on real performance numbers, not a rigid four-week block regardless of how you\'re responding.', ar:'تعديل مستمر بناءً على أرقام الأداء الحقيقية، ليس كتلة جامدة مدتها أربعة أسابيع بغض النظر عن استجابتك.' },
-  svc6_title: { en:'Client Management', ar:'إدارة العملاء' },
-  svc6_desc: { en:'Direct, responsive coaching relationship — questions get answered, programs get adjusted, nothing sits stagnant.', ar:'علاقة تدريب مباشرة وسريعة الاستجابة — الأسئلة تُجاب، البرامج تُعدَّل، لا شيء يبقى راكداً.' },
-  mos_tag: { en:'Founder &amp; Lead Engineer', ar:'المؤسس والمهندس الرئيسي' },
-  mos_title: { en:'Muscle OS — coaching backed by an actual system, not a spreadsheet.', ar:'نظام العضلات — تدريب مدعوم بنظام فعلي، ليس جدول بيانات.' },
-  mos_lead: { en:'Most coaches manage clients from memory and a notes app. I\'m building the infrastructure myself — because rigor shouldn\'t stop at the whiteboard.', ar:'معظم المدربين يديرون العملاء من الذاكرة وتطبيق ملاحظات. أنا أبني البنية التحتية بنفسي — لأن الدقة لا يجب أن تتوقف عند السبورة.' },
-  mos_b1: { en:'An AI-powered multi-channel coaching platform (web, mobile, Telegram) engineered to scale personalized programming without losing quality.', ar:'منصة تدريب متعددة القنوات مدعومة بالذكاء الاصطناعي (ويب، موبايل، تلغرام) صُممت لتوسيع نطاق البرامج المخصصة دون فقدان الجودة.' },
-  mos_b2: { en:'A safety arbitration system that hard-gates every coaching decision against injury risk and client-specific health constraints.', ar:'نظام تحكيم أمان يمنع كل قرار تدريبي بناءً على خطر الإصابة والقيود الصحية الخاصة بالعميل.' },
-  mos_b3: { en:'Every line of code exists to make client results more consistent — not to replace the coaching relationship.', ar:'كل سطر من الكود موجود لجعل نتائج العملاء أكثر اتساقاً — وليس لاستبدال علاقة التدريب.' },
-  mosextra1_title: { en:'Early Access for Premium Clients', ar:'وصول مبكر للعملاء المميزين' },
-  mosextra1_desc: { en:'Premium coaching clients get first access to every new Muscle OS feature before public release — including AI-powered program adjustments, automated check-in analysis, and the client dashboard.', ar:'عملاء التدريب المميزين يحصلون على أول وصول لكل ميزة جديدة في نظام العضلات قبل الإصدار العام — بما في ذلك تعديلات البرامج بالذكاء الاصطناعي، تحليل المتابعة الآلي، ولوحة تحكم العميل.' },
-  mosextra1_cta: { en:'Upgrade to Premium &rarr;', ar:'ترقية إلى المميزة &rarr;' },
-  mosextra2_title: { en:'Bundle Cross-Sell Offers', ar:'عروض الباقات المشتركة' },
-  mosextra2_desc: { en:'<strong style=color:#4CAF50>Buy the Training Bundle</strong> (500 EGP) — get <strong style=color:#F4C93B>50% off the Training Tool</strong> for your first month (150 EGP instead of 300).<br><br><strong style=color:#4CAF50>Buy the Nutrition Bundle</strong> (500 EGP) — get <strong style=color:#F4C93B>50% off the TDEE Adaptive Engine</strong> for your first month (100 EGP instead of 200).<br><br>Message on WhatsApp to claim. Limited to one per client.', ar:'<strong style=color:#4CAF50>اشتر حزمة التدريب</strong> (500 ج.م) — احصل على <strong style=color:#F4C93B>خصم 50% على أداة التدريب</strong> للشهر الأول (150 ج.م بدلاً من 300).<br><br><strong style=color:#4CAF50>اشتر حزمة التغذية</strong> (500 ج.م) — احصل على <strong style=color:#F4C93B>خصم 50% على محرك TDEE</strong> للشهر الأول (100 ج.م بدلاً من 200).<br><br>راسلنا على واتساب للحصول على العرض. عرض محدود لكل عميل.' },
-  mosextra2_cta: { en:'Claim Your Offer &rarr;', ar:'احصل على عرضك &rarr;' },
-  to_eyebrow: { en:'What You Get', ar:'ماذا ستحصل' },
-  to_title: { en:'Every tool, broken down —<br>so you know exactly what you\'re using.', ar:'كل أداة، موضحة بالتفصيل —<br>لتعرف بالضبط ما تستخدم.' },
-  to_sub: { en:'Below is everything each tool does, what it gives you, and how it works. No blind boxes — pick what fits your goal and use it immediately.', ar:'أدناه كل ما تفعله كل أداة، ما تقدمه لك، وكيف تعمل. لا صناديق عمياء — اختر ما يناسب هدفك واستخدمه فوراً.' },
-  tt_badge: { en:'PRO &middot; 300 EGP / mo', ar:'احترافية &middot; 300 ج.م / شهر' },
-  tt_title: { en:'Training Tool', ar:'أداة التدريب' },
-  tt_desc: { en:'A full training application that generates, logs, and tracks your programs. Built for lifters who want structure without paying a full coach every month.', ar:'تطبيق تدريب كامل يُنشئ، يُسجل، ويتتبع برامجك. صُمم للرياضيين الذين يريدون تنظيماً دون دفع مرتب مدرب كامل كل شهر.' },
-  tt_f1: { en:'<b>Volume Calculator</b> — set your total weekly sets per muscle group based on your training age and recovery capacity', ar:'<b>حاسبة الحجم</b> — حدد مجموعاتك الأسبوعية لكل مجموعة عضلية بناءً على عمرك التدريبي وقدرتك على التعافي' },
-  tt_f2: { en:'<b>Split Selector</b> — choose from PPL, Upper/Lower, Full Body, Push/Pull/Legs, or custom with auto-set-recommendations', ar:'<b>محدد التقسيم</b> — اختر من PPL، أعلى/أسفل، كامل الجسم، دفع/سحب/أرجل، أو مخصص مع توصيات تلقائية' },
-  tt_f3: { en:'<b>Program Generator</b> — produces a full weekly program with exercise selection, sets, reps, and RPE targets', ar:'<b>مولد البرامج</b> — يُنتج برنامجاً أسبوعياً كاملاً مع اختيار التمارين، المجموعات، التكرارات، وأهداف RPE' },
-  tt_f4: { en:'<b>Session Logger</b> — log each workout with weight, reps, RPE, and notes; view your history per exercise', ar:'<b>مسجل الجلسات</b> — سجل كل تمرين مع الوزن، التكرارات، RPE، والملاحظات؛ اعرض تاريخك لكل تمرين' },
-  tt_f5: { en:'<b>Progress Tracking</b> — graphs for estimated 1RM progression per lift, volume over time, and bodyweight trends', ar:'<b>تتبع التقدم</b> — رسوم بيانية لتطور 1RM المقدر لكل حركة، الحجم بمرور الوقت، واتجاهات وزن الجسم' },
-  tt_f6: { en:'<b>Bilingual Interface</b> — full English / Arabic toggle for all screens and outputs', ar:'<b>واجهة ثنائية اللغة</b> — تبديل كامل بين الإنجليزية والعربية لجميع الشاشات والمخرجات' },
-  tdee_badge: { en:'PRO &middot; 200 EGP / mo', ar:'احترافية &middot; 200 ج.م / شهر' },
-  tdee_title: { en:'TDEE Adaptive Engine', ar:'محرك TDEE التكيفي' },
-  tdee_desc: { en:'Stop guessing your maintenance calories. Log what you eat and weigh yourself daily — the engine calculates your real TDEE and adjusts automatically.', ar:'توقف عن تخمين سعراتك الحافظة. سجل ما تأكله ووزنك يومياً — المحرك يحسب TDEE الحقيقي ويعدله تلقائياً.' },
-  tdee_f1: { en:'<b>Daily Log</b> — enter weight and calories once per day; takes 30 seconds', ar:'<b>تسجيل يومي</b> — أدخل الوزن والسعرات مرة يومياً؛ يستغرق 30 ثانية' },
-  tdee_f2: { en:'<b>Adaptive TDEE</b> — the engine uses a rolling average + trend analysis to calculate your actual expenditure, not a formula estimate', ar:'<b>TDEE تكيفي</b> — المحرك يستخدم متوسط متحرك + تحليل اتجاه لحساب إنفاقك الفعلي، ليس تقديراً بمعادلة' },
-  tdee_f3: { en:'<b>Trend Graph</b> — see your weight trend vs daily weigh-ins with a smoothed line, and TDEE changes over time', ar:'<b>رسم بياني للاتجاه</b> — شاهد اتجاه وزنك مقابل قياساتك اليومية بخط منعم، وتغيرات TDEE مع الوقت' },
-  tdee_f4: { en:'<b>Surplus / Deficit View</b> — compares actual intake vs calculated TDEE so you know exactly where your surplus or deficit is', ar:'<b>عرض الفائض/العجز</b> — يقارن السعرات الفعلية مع TDEE المحسوب لتعرف بالضبط أين فائضك أو عجزك' },
-  tdee_f5: { en:'<b>Export Data</b> — download your log as CSV for your own analysis or to share with your coach', ar:'<b>تصدير البيانات</b> — حمل سجلك كـ CSV لتحليلك الخاص أو لمشاركته مع مدربك' },
-  to_gate_title: { en:'Ready to use these tools?', ar:'مستعد لاستخدام الأدوات؟' },
-  to_gate_sub: { en:'Sign in if you already have access, or subscribe on WhatsApp to get started.', ar:'سجل الدخول إذا كان لديك وصول، أو اشترك عبر واتساب للبدء.' },
-  to_gate_btn1: { en:'Sign In &amp; Start Training', ar:'تسجيل الدخول وبدء التدريب' },
-  to_gate_btn2: { en:'Subscribe on WhatsApp', ar:'اشترك عبر واتساب' },
-  to_gate_btn3: { en:'Buy Online', ar:'اشتر أونلاين' },
-  tr_title: { en:'TOOLS &amp; BUNDLES', ar:'الأدوات والحزم' },
-  tr_sub: { en:'Professional training tools and bundled resources to level up your coaching.', ar:'أدوات تدريب احترافية وموارد مجمعة للارتقاء بتدريبك.' },
-  tr_protitle: { en:'PRO TOOLS <span style=font-size:12px;color:#FFD700;font-family:JetBrains\\ Mono,monospace;vertical-align:middle>— Subscription</span>', ar:'أدوات احترافية <span style=font-size:12px;color:#FFD700;font-family:JetBrains\\ Mono,monospace;vertical-align:middle>— اشتراك</span>' },
-  tr_probadge: { en:'PRO', ar:'احترافية' },
-  tr_tt: { en:'Training Tool', ar:'أداة التدريب' },
-  tr_ttdesc: { en:'Full training app: volume calculator, split selector, program generator, session logger &amp; progress tracking with EN/AR bilingual interface.', ar:'تطبيق تدريب كامل: حاسبة الحجم، محدد التقسيم، مولد البرامج، مسجل الجلسات وتتبع التقدم بواجهة ثنائية اللغة.' },
-  tr_ttprice: { en:'300 EGP / month', ar:'300 ج.م / شهر' },
-  tr_probadge2: { en:'PRO', ar:'احترافية' },
-  tr_tdeet: { en:'TDEE Adaptive Engine', ar:'محرك TDEE التكيفي' },
-  tr_tdeedesc: { en:'Log daily weight &amp; calories — the engine auto-adjusts your TDEE using rolling averages &amp; trend analysis.', ar:'سجل الوزن والسعرات يومياً — المحرك يعدل TDEE تلقائياً باستخدام المتوسطات المتحركة وتحليل الاتجاه.' },
-  tr_tdeeprice: { en:'200 EGP / month', ar:'200 ج.م / شهر' },
-  tr_bundletitle: { en:'BUNDLES <span style=font-size:12px;color:#4CAF50;font-family:JetBrains\\ Mono,monospace;vertical-align:middle>— 500 EGP one-time</span>', ar:'حزم <span style=font-size:12px;color:#4CAF50;font-family:JetBrains\\ Mono,monospace;vertical-align:middle>— 500 ج.م مرة واحدة</span>' },
-  tr_bundlebadge: { en:'Bundle', ar:'حزمة' },
-  tr_bt: { en:'Training Bundle', ar:'حزمة التدريب' },
-  tr_btdesc: { en:'Training &amp; Programming Book + Volume Calculator, RPE Calculator, Split Quiz. Plus 50% off the Training Tool for 1 month.', ar:'كتاب التدريب والبرمجة + حاسبة الحجم، حاسبة RPE، اختبار التقسيم. بالإضافة إلى خصم 50% على أداة التدريب لشهر واحد.' },
-  tr_btprice: { en:'500 EGP &middot; includes 3 free tools', ar:'500 ج.م &middot; تشمل 3 أدوات مجانية' },
-  tr_nbadge: { en:'Bundle', ar:'حزمة' },
-  tr_nt: { en:'Nutrition Bundle', ar:'حزمة التغذية' },
-  tr_ntdesc: { en:'Diet &amp; Nutrition Book + TDEE &amp; Macro Calculator. Plus 50% off the TDEE Adaptive Engine for 1 month.', ar:'كتاب الحمية والتغذية + حاسبة TDEE والمغذيات. بالإضافة إلى خصم 50% على محرك TDEE التكيفي لشهر واحد.' },
-  tr_ntprice: { en:'500 EGP &middot; includes free calculator', ar:'500 ج.م &middot; تشمل حاسبة مجانية' },
-  kh_eyebrow: { en:'Knowledge Hub', ar:'المكتبة المعرفية' },
-  kh_title: { en:'Books, Guides &amp; Reference', ar:'كتب، أدلة ومراجع' },
-  kh_sub: { en:'Full reference books and quick-start guides — from foundational science to daily application.', ar:'كتب مرجعية كاملة وأدلة بداية سريعة — من العلوم الأساسية إلى التطبيق اليومي.' },
-  kh_ref_title: { en:'Reference Books', ar:'الكتب المرجعية' },
-  kh_ref_desc: { en:'Training &amp; Programming Book, Diet &amp; Nutrition Book — 27 and 33 chapters each, 200+ scientific references.', ar:'كتاب التدريب والبرمجة، كتاب الحمية والتغذية — 27 و 33 فصلاً لكل منهما، أكثر من 200 مرجع علمي.' },
-  kh_ref_link: { en:'Browse &amp; Buy Books &rarr;', ar:'تصفح واشترِ الكتب &rarr;' },
-  kh_guide_title: { en:'Free Guides &amp; Worksheets', ar:'أدلة ورق عمل مجانية' },
-  kh_guide_desc: { en:'Quick-start guides, decision trees, cheat sheets, and a 6-week consistency workbook — all available as HTML or PDF.', ar:'أدلة بداية سريعة، أشجار قرار، أوراق غش، وكراسة اتساق 6 أسابيع — كلها متاحة كـ HTML أو PDF.' },
-  kh_guide_link: { en:'Open Guides &rarr;', ar:'افتح الأدلة &rarr;' },
-  kh_order: { en:'Buy Books Online &rarr;', ar:'اشترِ الكتب أونلاين &rarr;' },
-  kh_pdf: { en:'PDF Library &rarr;', ar:'مكتبة PDF &rarr;' },
-  kh_explore: { en:'Explore Full Knowledge Hub &rarr;', ar:'استكشف المكتبة الكاملة &rarr;' },
-  pkg_eyebrow: { en:'Coaching Packages', ar:'باقات التدريب' },
-  pkg_title: { en:'Pick the level of<br>support you need.', ar:'اختر مستوى<br>الدعم الذي تحتاجه.' },
-  pkg_std_badge: { en:'Most Popular', ar:'الأكثر طلباً' },
-  pkg_std_name: { en:'Standard', ar:'قياسية' },
-  pkg_std_tag: { en:'Coached', ar:'مدرب' },
-  per_month: { en:'/ month', ar:'/ شهرياً' },
-  pkg_std_save: { en:'Save 300 EGP — pay 1,500 for 3 months', ar:'وفر 300 ج.م — ادفع 1,500 لمدة 3 أشهر' },
-  pkg_3mo: { en:'3-Month Plan', ar:'خطة 3 أشهر' },
-  pkg_std_save2: { en:'Save 300 EGP (1,800 value)', ar:'وفر 300 ج.م (قيمة 1,800)' },
-  pkg_f1: { en:'Weekly check-ins &amp; progress review', ar:'متابعة أسبوعية ومراجعة التقدم' },
-  pkg_f2: { en:'Real-time program adjustments', ar:'تعديلات فورية للبرنامج' },
-  pkg_f3: { en:'Basic nutrition guidance (macros/calories)', ar:'إرشادات تغذية أساسية (مغذيات/سعرات)' },
-  pkg_f4: { en:'Direct messaging access between check-ins', ar:'إمكانية مراسلة مباشرة بين المتابعات' },
-  pkg_f5: { en:'50% off all tools during subscription', ar:'خصم 50% على جميع الأدوات أثناء الاشتراك' },
-  pkg_std_cta: { en:'Start with Standard', ar:'ابدأ بالقياسية' },
-  pkg_prem_badge: { en:'Best Value', ar:'أفضل قيمة' },
-  pkg_prem_name: { en:'Premium', ar:'مميزة' },
-  pkg_prem_tag: { en:'Full Coaching', ar:'تدريب كامل' },
-  per_month2: { en:'/ month', ar:'/ شهرياً' },
-  pkg_prem_save: { en:'Save 500 EGP — pay 2,500 for 3 months', ar:'وفر 500 ج.م — ادفع 2,500 لمدة 3 أشهر' },
-  pkg_3mo2: { en:'3-Month Plan', ar:'خطة 3 أشهر' },
-  pkg_prem_save2: { en:'Save 500 EGP (3,000 value)', ar:'وفر 500 ج.م (قيمة 3,000)' },
-  pkg_g1: { en:'Everything in Standard', ar:'كل ما في القياسية' },
-  pkg_g2: { en:'Personalized nutrition &amp; carb cycling protocol', ar:'تغذية شخصية وبروتوكول تدوير الكربوهيدرات' },
-  pkg_g3: { en:'Priority response time', ar:'وقت استجابة أولوية' },
-  pkg_g4: { en:'Periodic video call check-ins', ar:'متابعات دورية بمكالمات فيديو' },
-  pkg_g5: { en:'Early access to Muscle OS features', ar:'وصول مبكر لميزات نظام العضلات' },
-  pkg_g6: { en:'50% off all tools during subscription', ar:'خصم 50% على جميع الأدوات أثناء الاشتراك' },
-  pkg_prem_cta: { en:'Start with Premium', ar:'ابدأ بالمميزة' },
-  pkg_note: { en:'Prices in EGP. Monthly billing or 3-month plan.', ar:'الأسعار بالجنيه المصري. فاتورة شهرية أو خطة 3 أشهر.' },
-  contact_title: { en:'Ready to train with a coach who delivers?', ar:'مستعد للتدرب مع مدرب يلتزم بما يعد به؟' },
-  contact_sub: { en:'Limited coaching slots — programming built around you, not the other way around. Message me directly and let\'s talk about your goals.', ar:'أماكن محدودة — البرنامج مبني حولك، لا العكس. راسلني مباشرة ودعنا نتحدث عن أهدافك.' },
-  contact_wa: { en:'Message on WhatsApp', ar:'راسلني على واتساب' },
-  footer_brand: { en:'ANAS MO\'MEN <span>COACHING</span>', ar:'أنس مؤمن <span>تدريب</span>' },
-  footer_wa: { en:'WhatsApp', ar:'واتساب' },
-  skip_link: { en:'Skip to content', ar:'تخطى إلى المحتوى' },
-  fb_eyebrow: { en:'Your Feedback', ar:'رأيك' },
-  fb_title: { en:'Help improve the tools', ar:'ساعدنا في تحسين الأدوات' },
-  fb_sub: { en:'Subscriber of the Training Tool or TDEE Engine? Your input shapes every update. Tell us what works, what doesn\'t, and what you\'d like to see next.', ar:'مشترك في أداة التدريب أو محرك TDEE؟ رأيك يُشكل كل تحديث. أخبرنا ما يعمل، ما لا يعمل، وما تود رؤيته في المستقبل.' },
-  fb_wa: { en:'Send Feedback on WhatsApp', ar:'أرسل رأيك على واتساب' },
-  fb_email: { en:'Send via Email', ar:'أرسل عبر البريد' },
-  contact_email: { en:'Email Me', ar:'راسلني عبر البريد' },
-  privacy_note: { en:'No card details processed on this site — payment and codes confirmed directly via WhatsApp.', ar:'لا تتم معالجة بيانات البطاقة على هذا الموقع — الدفع والأكواد يتم تأكيدها مباشرة عبر واتساب.' },
-  hiw_eyebrow: { en:'How It Works', ar:'كيف يعمل' },
-  hiw_title: { en:'From message to results in 3 steps', ar:'من الرسالة إلى النتائج في 3 خطوات' },
-  hiw_step1: { en:'Message on WhatsApp', ar:'راسلني على واتساب' },
-  hiw_step1_desc: { en:'Tell me your goal — I\'ll reply personally with the right option for you.', ar:'أخبرني بهدفك — سأرد شخصياً بالخيار المناسب لك.' },
-  hiw_step2: { en:'Get Your Code', ar:'احصل على الكود' },
-  hiw_step2_desc: { en:'Payment confirmed directly with me — no card forms, no third-party fees.', ar:'الدفع يتم تأكيده معي مباشرة — لا نماذج بطاقات، لا رسوم طرف ثالث.' },
-  hiw_step3: { en:'Instant Access', ar:'وصول فوري' },
-  hiw_step3_desc: { en:'Enter your code and start training, tracking, or reading immediately.', ar:'أدخل الكود وابدأ التدريب، التتبع، أو القراءة فوراً.' },
-  pkg_recommend: { en:'New to structured coaching? <strong>Standard</strong> covers everything most people need — upgrade anytime.', ar:'جديد في التدريب المنظم؟ <strong>القياسية</strong> تغطي كل ما يحتاجه معظم الناس — يمكنك الترقية في أي وقت.' },
-  mbb_book: { en:'Chat on WhatsApp', ar:'تحدث على واتساب' },
-  mbb_tools: { en:'Explore Tools', ar:'استعرض الأدوات' }
-};
-
-// ── Language switching ──
-let currentLang = localStorage.getItem('mos_lang') || 'en';
-
-function setLang(lang) {
-  currentLang = lang;
-  localStorage.setItem('mos_lang', lang);
-  // Set html dir
-  document.documentElement.lang = lang === 'ar' ? 'ar' : 'en';
-  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-  // Update toggle buttons (both header and mobile menu)
-  document.querySelectorAll('.lang-toggle .lt-btn, .mobile-lang .lt-btn').forEach(function(btn) {
-    var isActive = btn.getAttribute('data-lang') === lang;
-    btn.classList.toggle('active', isActive);
-    btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mobileMenu.style.display === 'flex';
+    mobileMenu.style.display = isOpen ? 'none' : 'flex';
   });
-  // Announce language change
-  var announcer = document.getElementById('announcer');
-  if (announcer) announcer.textContent = lang === 'ar' ? 'تم التبديل إلى العربية' : 'Switched to English';
-  // Translate all data-i18n elements
-  document.querySelectorAll('[data-i18n]').forEach(function(el) {
-    var key = el.getAttribute('data-i18n');
-    if (TR[key] && TR[key][lang]) {
-      el.innerHTML = TR[key][lang];
-    }
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => { mobileMenu.style.display = 'none'; });
   });
-  // Translate data-i18n-alt
-  document.querySelectorAll('[data-i18n-alt]').forEach(function(el) {
-    var key = el.getAttribute('data-i18n-alt');
-    if (TR[key] && TR[key][lang]) {
-      el.setAttribute('alt', TR[key][lang].replace(/<[^>]*>/g, ''));
-    }
-  });
-}
-
-// ── Init on DOM ready ──
-document.addEventListener('DOMContentLoaded', function() {
-  // Language toggle click
-  document.querySelectorAll('.lang-toggle .lt-btn').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var l = this.getAttribute('data-lang');
-      if (l !== currentLang) setLang(l);
-    });
-  });
-  // Mobile lang toggle (not inline onclick)
-  document.querySelectorAll('.mobile-lang .lt-btn').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var l = this.getAttribute('data-lang');
-      if (l !== currentLang) setLang(l);
-    });
-  });
-  // Mobile menu toggle
-  var menuToggle = document.getElementById('menuToggle');
-  var mobileMenu = document.getElementById('mobileMenu');
-  var mobileOverlay = document.getElementById('mobileOverlay');
-  if (menuToggle && mobileMenu && mobileOverlay) {
-    function closeMenu() {
-      menuToggle.classList.remove('open');
-      menuToggle.setAttribute('aria-expanded', 'false');
-      mobileMenu.classList.remove('open');
-      mobileOverlay.classList.remove('open');
-    }
-    menuToggle.addEventListener('click', function() {
-      var isOpen = mobileMenu.classList.contains('open');
-      if (isOpen) closeMenu();
-      else { menuToggle.classList.add('open'); menuToggle.setAttribute('aria-expanded', 'true'); mobileMenu.classList.add('open'); mobileOverlay.classList.add('open'); }
-    });
-    mobileOverlay.addEventListener('click', closeMenu);
-    mobileMenu.querySelectorAll('a').forEach(function(a) {
-      a.addEventListener('click', closeMenu);
-    });
-  }
-  // Image error fallbacks (security: not inline onerror)
-  document.querySelectorAll('img[data-i18n-alt]').forEach(function(img) {
-    img.addEventListener('error', function() {
-      this.style.display = 'none';
-      var fb = this.parentNode.querySelector('.img-fallback');
-      if (fb) { fb.style.display = 'block'; return; }
-      // about photo fallback
-      var p = this.parentNode;
-      if (p.classList.contains('about-photo')) {
-        p.style.background = 'var(--ink)';
-        p.style.minHeight = '320px';
-        p.style.display = 'flex';
-        p.style.alignItems = 'center';
-        p.style.justifyContent = 'center';
-        p.innerHTML = '<div style=text-align:center;padding:40px><div style=font-size:48px;margin-bottom:8px>&#127947;</div><div style=font-size:11px;color:var(--gray);letter-spacing:.5px>Coach Anas</div></div>';
-      }
-    });
-    img.addEventListener('load', function() {
-      if (this.id === 'heroBg') this.setAttribute('loaded', '');
-    });
-  });
-  // Apply persisted language
-  setLang(currentLang);
-  // Page load entrance
-  requestAnimationFrame(function() {
-    document.body.classList.add('loaded');
-  });
-  // Scroll-reveal
-  if ('IntersectionObserver' in window) {
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right').forEach(function(el) {
-      observer.observe(el);
-    });
-  } else {
-    document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right').forEach(function(el) {
-      el.classList.add('visible');
-    });
-  }
-  // Nav hide/show on scroll + active link
-  var header = document.querySelector('header');
-  var navLinks = document.querySelectorAll('.nav-links a');
-  var sections = document.querySelectorAll('section[id]');
-  var lastScroll = 0;
-  window.addEventListener('scroll', function() {
-    var cur = window.scrollY;
-    // scrolled class for background
-    header.classList.toggle('scrolled', cur > 60);
-    // nav hide on scroll down, show on scroll up
-    if (cur > lastScroll && cur > 100) header.classList.add('nav-hidden');
-    else header.classList.remove('nav-hidden');
-    lastScroll = cur;
-    // active nav link + aria-current
-    var current = '';
-    sections.forEach(function(s) { if (cur >= s.offsetTop - 150) current = s.id; });
-    navLinks.forEach(function(a) {
-      var isCurrent = a.getAttribute('href') === '#' + current;
-      a.style.color = isCurrent ? 'var(--yellow)' : '';
-      if (isCurrent) a.setAttribute('aria-current', 'page');
-      else a.removeAttribute('aria-current');
-    });
-  }, { passive: true });
-});
 </script>
 
-<!-- Mobile bottom sticky CTA bar -->
-<div class="mobile-bottom-bar" id="mobileBottomBar">
-  <div class="mbb-inner">
-    <a href="https://wa.me/201040796017" target="_blank" rel="noopener" class="mbb-btn mbb-primary" data-wa-tag="mbb_book" data-i18n="mbb_book">Chat on WhatsApp</a>
-    <a href="#tools" class="mbb-btn mbb-ghost" data-i18n="mbb_tools">Explore Tools</a>
-  </div>
-</div>
-
-<script>
-(function(){
-  var bar = document.getElementById('mobileBottomBar');
-  if(!bar) return;
-  var ticking = false;
-  var lastScroll = 0;
-  window.addEventListener('scroll', function(){
-    if(!ticking){
-      window.requestAnimationFrame(function(){
-        var cur = window.scrollY;
-        if(cur > lastScroll && cur > 200) bar.style.transform = 'translateY(100%)';
-        else bar.style.transform = 'translateY(0)';
-        lastScroll = cur;
-        ticking = false;
-      });
-      ticking = true;
-    }
-  }, { passive: true });
-})();
-</script>
-<script src="assets/tracking.js"></script>
 </body>
 </html>

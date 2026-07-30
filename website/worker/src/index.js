@@ -45,6 +45,16 @@ const PRODUCT_NAMES = {
   all_access:           { en: 'All Access', ar: 'الوصول الكامل' },
 };
 
+// ── Payment provider configuration ──
+const PRODUCT_PRICES = {
+  training_tool:        { amountCents: 30000 },
+  tdee_adaptive_engine: { amountCents: 20000 },
+  both_tools:           { amountCents: 40000 },
+  training_book:        { amountCents: 50000 },
+  nutrition_book:       { amountCents: 50000 },
+  both_books:           { amountCents: 80000 },
+};
+
 import { SignJWT, jwtVerify, createRemoteJWKSet } from 'jose';
 
 const encoder = new TextEncoder();
@@ -122,6 +132,16 @@ export default {
     }
     if (url.pathname === '/api/refresh-session' && request.method === 'POST') {
       return handleRefreshSession(request, env);
+    }
+    // ---- Payment endpoints ----
+    if (url.pathname === '/api/create-payment-link' && request.method === 'POST') {
+      return handleCreatePaymentLink(request, env);
+    }
+    if (url.pathname === '/api/paymob-callback' && request.method === 'POST') {
+      return handlePaymobCallback(request, env);
+    }
+    if (url.pathname === '/api/check-order-status' && request.method === 'POST') {
+      return handleCheckOrderStatus(request, env);
     }
     return json({ error: 'not_found' }, 404, env, request);
   }
@@ -380,6 +400,74 @@ function buildWaMessage(name, product, code, lang) {
   return `Hi ${name}! Your ${pn.en} code is: ${code} — Enjoy 💪`;
 }
 
+// ── Shared approval logic (used by admin approve + auto-callback) ──
+async function approveOrderLogic(orderId, order, env, source = 'auto') {
+  if (order.status !== 'pending') {
+    return { status: 'error', error: 'order_not_pending', currentStatus: order.status };
+  }
+  const code = await issueCodeForProduct(order.product, env);
+  order.status = 'approved';
+  order.resolvedAt = new Date().toISOString();
+  order.resolvedBy = source === 'admin' ? 'admin' : 'paymob';
+  order.issuedCode = code;
+  order.generatedCode = code;
+  await env.PENDING_ORDERS.put(`order:${orderId}`, JSON.stringify(order), { expirationTtl: ORDER_TTL_SECONDS });
+  const prefilledMessage = buildWaMessage(order.customerName, order.product, code, order.lang);
+  return {
+    status: 'ok', code, whatsappNumber: order.whatsappNumber,
+    prefilledMessage, lang: order.lang, customerName: order.customerName, product: order.product,
+  };
+}
+
+// ── Paymob payment provider helpers ──
+
+async function paymobAuthToken(apiKey) {
+  const res = await fetch('https://accept.paymob.com/api/auth/tokens', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ api_key: apiKey }),
+  });
+  if (!res.ok) { const t = await res.text(); throw new Error(`Paymob auth failed (${res.status}): ${t}`); }
+  const data = await res.json();
+  if (!data.token) throw new Error(`Paymob auth no token: ${JSON.stringify(data)}`);
+  return data.token;
+}
+
+async function paymobCreateOrder(token, amountCents, merchantOrderId) {
+  const res = await fetch('https://accept.paymob.com/api/ecommerce/orders', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ auth_token: token, amount_cents: amountCents, currency: 'EGP', merchant_order_id: merchantOrderId, items: [] }),
+  });
+  if (!res.ok) { const t = await res.text(); throw new Error(`Paymob order failed (${res.status}): ${t}`); }
+  return res.json();
+}
+
+async function paymobPaymentKey(token, amountCents, paymobOrderId, integrationId, billingData) {
+  const res = await fetch('https://accept.paymob.com/api/acceptance/payment_keys', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ auth_token: token, amount_cents: amountCents, currency: 'EGP', order_id: paymobOrderId, integration_id: parseInt(integrationId), billing_data: billingData, lock_order_when_paid: true }),
+  });
+  if (!res.ok) { const t = await res.text(); throw new Error(`Paymob payment key failed (${res.status}): ${t}`); }
+  return res.json();
+}
+
+async function verifyPaymobHmac(obj, hmacSecret) {
+  const fields = ['amount_cents','created_at','currency','error_occured','has_insurance','id','integration_id','is_3d_secure','is_auth','is_capture','is_refunded','is_standalone_payment','is_voided','order','owner','pending','source_data_pan','source_data_sub_type','source_data_type','success','txn_response_code'];
+  const concatStr = fields.map(f => {
+    let v = obj[f];
+    if (v === null || v === undefined) return '';
+    if (f === 'order' && typeof v === 'object') v = v.id || '';
+    return String(v);
+  }).join('');
+  const provided = obj.hmac;
+  if (!provided) return false;
+  const keyData = encoder.encode(hmacSecret);
+  const data = encoder.encode(concatStr);
+  const key = await crypto.subtle.importKey('raw', keyData, { name: 'HMAC', hash: 'SHA-512' }, false, ['sign']);
+  const sig = await crypto.subtle.sign('HMAC', key, data);
+  const computed = Array.from(new Uint8Array(sig)).map(b => b.toString(16).padStart(2, '0')).join('');
+  return computed === provided.toLowerCase();
+}
+
 // ── POST /api/create-order (public, rate-limited) ────────────────
 
 async function handleCreateOrder(request, env) {
@@ -464,44 +552,17 @@ async function handleApproveOrder(request, env) {
   if (!authHeader || !timingSafeEqual(authHeader, key)) {
     return json({ error: 'unauthorized' }, 401, env, request);
   }
-
   let body;
   try { body = await request.json(); } catch (e) {
     return json({ error: 'invalid_json' }, 400, env, request);
   }
   const { orderId } = body;
-  if (!orderId) {
-    return json({ error: 'missing_order_id' }, 400, env, request);
-  }
-
+  if (!orderId) return json({ error: 'missing_order_id' }, 400, env, request);
   const order = await env.PENDING_ORDERS.get(`order:${orderId}`, 'json');
-  if (!order) {
-    return json({ error: 'order_not_found' }, 404, env, request);
-  }
-  if (order.status !== 'pending') {
-    return json({ error: 'order_not_pending', status: order.status }, 400, env, request);
-  }
-
-  // Generate and issue code
-  const code = await issueCodeForProduct(order.product, env);
-
-  // Update order
-  order.status = 'approved';
-  order.resolvedAt = new Date().toISOString();
-  order.resolvedBy = 'admin';
-  order.issuedCode = code;
-  await env.PENDING_ORDERS.put(`order:${orderId}`, JSON.stringify(order), { expirationTtl: ORDER_TTL_SECONDS });
-
-  const prefilledMessage = buildWaMessage(order.customerName, order.product, code, order.lang);
-  return json({
-    status: 'ok',
-    code,
-    whatsappNumber: order.whatsappNumber,
-    prefilledMessage,
-    lang: order.lang,
-    customerName: order.customerName,
-    product: order.product,
-  }, 200, env, request);
+  if (!order) return json({ error: 'order_not_found' }, 404, env, request);
+  const result = await approveOrderLogic(orderId, order, env, 'admin');
+  if (result.status === 'error') return json(result, 400, env, request);
+  return json(result, 200, env, request);
 }
 
 // ── POST /api/reject-order (admin-key protected) ─────────────────
@@ -541,6 +602,97 @@ async function handleRejectOrder(request, env) {
   await env.PENDING_ORDERS.put(`order:${orderId}`, JSON.stringify(order), { expirationTtl: ORDER_TTL_SECONDS });
 
   return json({ status: 'ok', orderId }, 200, env, request);
+}
+
+// ── POST /api/paymob-callback (Paymob webhook, HMAC-verified) ─────
+
+async function handlePaymobCallback(request, env) {
+  let body;
+  try { body = await request.json(); } catch (e) {
+    return json({ status: 'ignored', reason: 'invalid_json' }, 200, env, request);
+  }
+  const obj = body.obj || body;
+  if (!(await verifyPaymobHmac(obj, env.PAYMOB_HMAC_SECRET || ''))) {
+    return json({ status: 'ignored', reason: 'invalid_hmac' }, 200, env, request);
+  }
+  if (obj.success !== true || obj.pending === true || obj.is_voided === true || obj.is_refunded === true) {
+    return json({ status: 'ignored', reason: 'not_successful' }, 200, env, request);
+  }
+  const ourOrderId = obj.merchant_order_id;
+  if (!ourOrderId) return json({ status: 'ignored', reason: 'no_merchant_order_id' }, 200, env, request);
+  const order = await env.PENDING_ORDERS.get(`order:${ourOrderId}`, 'json');
+  if (!order) return json({ status: 'ignored', reason: 'order_not_found' }, 200, env, request);
+  if (order.status !== 'pending') {
+    return json({ status: 'already_resolved', currentStatus: order.status }, 200, env, request);
+  }
+  const result = await approveOrderLogic(ourOrderId, order, env, 'paymob');
+  if (result.status === 'error') return json(result, 500, env, request);
+  return json({ status: 'approved', code: result.code }, 200, env, request);
+}
+
+// ── POST /api/create-payment-link (creates Paymob payment URL) ────
+
+async function handleCreatePaymentLink(request, env) {
+  const rateLimited = await checkRateLimit(request, env, 5);
+  if (rateLimited) return json({ error: 'rate_limited' }, 429, env, request);
+
+  if (!env.PAYMOB_API_KEY || !env.PAYMOB_INTEGRATION_ID || !env.PAYMOB_IFRAME_ID) {
+    return json({ error: 'payment_provider_not_configured' }, 503, env, request);
+  }
+
+  let body;
+  try { body = await request.json(); } catch (e) {
+    return json({ error: 'invalid_json' }, 400, env, request);
+  }
+  const { orderId } = body;
+  if (!orderId) return json({ error: 'missing_order_id' }, 400, env, request);
+  const order = await env.PENDING_ORDERS.get(`order:${orderId}`, 'json');
+  if (!order) return json({ error: 'order_not_found' }, 404, env, request);
+  if (order.status !== 'pending') {
+    return json({ error: 'order_already_resolved', status: order.status }, 400, env, request);
+  }
+  const price = PRODUCT_PRICES[order.product];
+  if (!price) return json({ error: 'product_not_available_for_online_payment' }, 400, env, request);
+  try {
+    const token = await paymobAuthToken(env.PAYMOB_API_KEY);
+    const pmOrder = await paymobCreateOrder(token, price.amountCents, orderId);
+    const billingData = {
+      apartment: 'N/A', email: order.email || 'noemail@example.com',
+      floor: 'N/A', first_name: (order.customerName || '').split(' ')[0] || 'Customer',
+      street: 'N/A', building: 'N/A', phone_number: order.whatsappNumber || '+200000000000',
+      shipping_method: 'PKG', postal_code: 'N/A', city: 'N/A',
+      country: 'EG', last_name: (order.customerName || '').split(' ').slice(1).join(' ') || '.', state: 'N/A',
+    };
+    const pk = await paymobPaymentKey(token, price.amountCents, pmOrder.id, env.PAYMOB_INTEGRATION_ID, billingData);
+    order.paymobOrderId = pmOrder.id;
+    order.paymobPaymentToken = pk.token;
+    await env.PENDING_ORDERS.put(`order:${orderId}`, JSON.stringify(order), { expirationTtl: ORDER_TTL_SECONDS });
+    return json({
+      paymentToken: pk.token,
+      paymentUrl: `https://accept.paymob.com/api/acceptance/iframes/${env.PAYMOB_IFRAME_ID}?payment_token=${pk.token}`,
+    }, 200, env, request);
+  } catch (err) {
+    return json({ error: err.message }, 502, env, request);
+  }
+}
+
+// ── POST /api/check-order-status (public — returns status + code if approved) ──
+
+async function handleCheckOrderStatus(request, env) {
+  let body;
+  try { body = await request.json(); } catch (e) {
+    return json({ error: 'invalid_json' }, 400, env, request);
+  }
+  const { orderId } = body;
+  if (!orderId) return json({ error: 'missing_order_id' }, 400, env, request);
+  const order = await env.PENDING_ORDERS.get(`order:${orderId}`, 'json');
+  if (!order) return json({ error: 'order_not_found' }, 404, env, request);
+  return json({
+    status: order.status,
+    code: order.issuedCode || order.generatedCode || null,
+    product: order.product,
+    customerName: order.customerName,
+  }, 200, env, request);
 }
 
 async function handleGoogleAuth(request, env) {

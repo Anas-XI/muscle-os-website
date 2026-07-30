@@ -1,17 +1,53 @@
-# dependencies
-node_modules/
-worker/node_modules/
-
-# wrangler account cache
-node_modules/.cache/wrangler/
-.wrangler/
-worker/.wrangler/
-
-# environment
+# Environment
 .env
-.env.local
-.env.*.local
 
-# build output
-dist/
-build/
+# Vault (497MB — too large for git, deploy separately)
+Muscle Operating System/
+
+# Node
+node_modules/
+
+# Frontend app (separate project)
+# Separate projects (pushed to own repos)
+muscle-os-alpha/
+mos-mobile/
+elitefit-master/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+*.log
+
+# Bot data
+mos_bot/data/users/
+mos_bot/data/checkins/
+mos_bot/data/analytics/
+mos_bot/data/feedback/
+mos_bot/data/pdfs/
+mos_bot/data/programs/
+mos_bot/data/vault_index/
+
+# Wrangler local state
+.wrangler/
+
+# Generated files
+bot_err.txt
+bot_log.txt
+bot_output.log
+*.pdf
+test_e2e_pipeline.py
+
+# Auto-installed agent skills (reproducible via npx skills add)
+.agents/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+.claude/
+
+# OS
+Thumbs.db
+.DS_Store
