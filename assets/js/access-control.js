@@ -4,24 +4,9 @@
  * Include this script on any paywalled page, then:
  *   MosAccess.checkOrShow('training_tool')
  *     .then(access => { if (access) { /* init tool */ } });
- *
- * Fallback path (intentional resilience):
- *   When the Cloudflare Worker is unreachable, verification falls back to
- *   local SHA-256 matching against access-codes.json. Fallback grants
- *   EXACTLY 48 HOURS of access regardless of the product's normal duration
- *   (30-day subscription or lifetime book). This forces reconciliation:
- *   once the Worker recovers, the customer's next revalidation attempt
- *   will confirm the token server-side, or the short window expires and
- *   they re-verify properly for full tracked access.
- *
- *   Fallback usage is logged to localStorage (mos_fallback_usage_log)
- *   and flushed to the Worker on the next successful check-token call
- *   or page load, giving visibility into how often this path is hit.
  */
 (function(){
   'use strict';
-
-  var FALLBACK_EXPIRY_HOURS = 48; // intentional — see doc block above
 
   var CONFIG = {
     apiBase: 'https://muscleos-access-control.muscleos.workers.dev',
@@ -34,52 +19,6 @@
   };
 
   function getProduct(id) { return CONFIG.products[id]; }
-
-  /* ---- SHA-256 via Web Crypto API (used by local fallback) ---- */
-  function sha256(str) {
-    var buf = new TextEncoder().encode(str.trim().toUpperCase());
-    return crypto.subtle.digest('SHA-256', buf).then(function(hash) {
-      return Array.from(new Uint8Array(hash)).map(function(b) {
-        return b.toString(16).padStart(2, '0');
-      }).join('');
-    });
-  }
-
-  /* ---- Fallback usage log queue ---- */
-  function logFallbackUsage(productId, code) {
-    try {
-      var arr = JSON.parse(localStorage.getItem('mos_fallback_usage_log') || '[]');
-      arr.push({
-        productId: productId,
-        codePrefix: (code || 'unknown').substring(0, 6),
-        ts: new Date().toISOString(),
-        flushed: false
-      });
-      if (arr.length > 50) arr = arr.slice(arr.length - 50);
-      localStorage.setItem('mos_fallback_usage_log', JSON.stringify(arr));
-    } catch(e) {}
-  }
-
-  /* ---- Flush fallback usage log to Worker ---- */
-  function flushFallbackLog() {
-    try {
-      var arr = JSON.parse(localStorage.getItem('mos_fallback_usage_log') || '[]');
-      var pending = arr.filter(function(e) { return !e.flushed; });
-      if (pending.length === 0) return;
-      fetch(CONFIG.apiBase + '/api/log-fallback-usage', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ entries: pending })
-      }).then(function(r) {
-        if (r.ok) {
-          // Mark all as flushed
-          var all = JSON.parse(localStorage.getItem('mos_fallback_usage_log') || '[]');
-          all.forEach(function(e) { e.flushed = true; });
-          localStorage.setItem('mos_fallback_usage_log', JSON.stringify(all));
-        }
-      }).catch(function() { /* skip — will retry next time */ });
-    } catch(e) {}
-  }
 
   /* ---- Check stored localStorage access ---- */
   function getStoredAccess(productId) {
@@ -97,23 +36,15 @@
   }
 
   /* ---- Save access to localStorage (token-backed) ---- */
-  function saveAccess(productId, code, plan, durationDays, token, isFallback) {
+  function saveAccess(productId, code, plan, durationDays, token) {
     var p = getProduct(productId);
     if (!p) return;
-    var data = { active: true, code: code, plan: plan, token: token || '' };
-    if (isFallback) {
-      // Fallback: grant exactly 48h regardless of product duration
+    var data = { active: true, code: code, plan: plan, token: token };
+    var dd = durationDays != null ? durationDays : p.durationDays;
+    if (dd > 0) {
       var expiry = new Date();
-      expiry.setHours(expiry.getHours() + FALLBACK_EXPIRY_HOURS);
-      data.expiry = expiry.toISOString();
-      data.fallback = true; // mark so revalidation can detect
-    } else {
-      var dd = durationDays != null ? durationDays : p.durationDays;
-      if (dd > 0) {
-        var expiry = new Date();
-        expiry.setDate(expiry.getDate() + dd);
-        data.expiry = expiry.toISOString().split('T')[0];
-      }
+      expiry.setDate(expiry.getDate() + dd);
+      data.expiry = expiry.toISOString().split('T')[0];
     }
     if (productId.indexOf('book') !== -1) {
       data.book = productId === 'training_book' ? 'training' : 'nutrition';
@@ -121,7 +52,7 @@
     localStorage.setItem(p.key, JSON.stringify(data));
   }
 
-  /* ---- Verify code via Cloudflare Worker (falls back to local on network error) ---- */
+  /* ---- Verify code via Cloudflare Worker ---- */
   function verifyRemote(code, productId) {
     return fetch(CONFIG.apiBase + '/api/verify-code', {
       method: 'POST',
@@ -129,49 +60,17 @@
       body: JSON.stringify({ code: code, productId: productId })
     }).then(function(r){ return r.json(); }).then(function(data){
       if (!data.valid) return { valid: false, reason: data.error };
-      saveAccess(productId, code, data.plan, data.durationDays, data.token, false);
-      if (data.daysRemaining != null && data.daysRemaining <= 7) {
-        MosAccess.showExpiryWarning(productId, data.daysRemaining);
-      }
-      return { valid: true, plan: data.plan, durationDays: data.durationDays, daysRemaining: data.daysRemaining };
+      saveAccess(productId, code, data.plan, data.durationDays, data.token);
+      return { valid: true, plan: data.plan, durationDays: data.durationDays };
     }).catch(function(){
-      // Worker unreachable — fall back to local verification
-      return verifyLocal(code, productId);
+      return { valid: false, reason: 'network_error' };
     });
-  }
-
-  /* ---- Verify code locally against access-codes.json (fallback) ---- */
-  function verifyLocal(code, productId) {
-    return fetch('assets/data/access-codes.json?' + Date.now())
-      .then(function(r) { return r.json(); })
-      .then(function(db) {
-        if (!db || !db.hashes) return { valid: false, reason: 'no_fallback_data' };
-        return sha256(code).then(function(hash) {
-          var match = db.hashes[hash];
-          if (!match) return { valid: false, reason: 'invalid_code' };
-          // Check product eligibility
-          if (match.productId !== 'all' && match.productId.indexOf(productId) === -1) {
-            return { valid: false, reason: 'product_mismatch' };
-          }
-          // Fallback-matched: grant 48h access (bounded intentionally)
-          saveAccess(productId, code, match.plan, null, '', true);
-          logFallbackUsage(productId, code);
-          return { valid: true, plan: match.plan, durationDays: 2, fallback: true };
-        });
-      })
-      .catch(function() {
-        return { valid: false, reason: 'network_error' };
-      });
   }
 
   /* ---- Revalidate stored token server-side ---- */
   function revalidateAccess(productId) {
     var stored = getStoredAccess(productId);
     if (!stored || !stored.token) return Promise.resolve(null);
-    // If access was granted via fallback, skip server revalidation
-    // (the fallback token won't exist on the server — let the short
-    // 48h expiry handle reconciliation naturally)
-    if (stored.fallback) return Promise.resolve(stored);
     return fetch(CONFIG.apiBase + '/api/check-token', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -189,7 +88,7 @@
     /** Product configuration */
     config: CONFIG,
 
-    /** Verify a code against the Worker backend (or local fallback) */
+    /** Verify a code against the Worker backend */
     verifyCode: function(code, productId) {
       return verifyRemote(code, productId);
     },
@@ -231,13 +130,6 @@
       return this.checkAccess(productId).then(function(access){
         if (access) {
           if (overlay) overlay.classList.remove('visible');
-          // Show expiry warning if stored access is running out
-          if (!access.fallback && access.expiry) {
-            var daysLeft = Math.ceil((new Date(access.expiry) - Date.now()) / 86400000);
-            if (daysLeft <= 7) {
-              MosAccess.showExpiryWarning(productId, daysLeft);
-            }
-          }
           return access;
         }
         if (overlay) {
@@ -280,29 +172,6 @@
         verifyBtn.addEventListener('click', doVerify);
         verifyBtn.addEventListener('touchend', function(e){ e.preventDefault(); doVerify(); });
       }
-    },
-
-    /** Show an expiry warning banner in the page */
-    showExpiryWarning: function(productId, daysRemaining) {
-      var banner = document.getElementById('mosExpiryBanner');
-      if (banner) return;
-      var label = getProduct(productId);
-      var pn = label ? label.label : productId;
-      var msg = daysRemaining <= 0
-        ? 'Your ' + pn + ' access has expired. Renew your subscription.'
-        : 'Your ' + pn + ' subscription expires in ' + daysRemaining + ' day' + (daysRemaining !== 1 ? 's' : '') + '.';
-      var btn = daysRemaining > 0
-        ? '<a href="../pricing.html" style="background:#14151A;color:#FAFAF8;padding:8px 16px;border-radius:6px;text-decoration:none;font-weight:600;font-size:.8rem">Renew now</a>'
-        : '<a href="../pricing.html" style="background:#14151A;color:#FAFAF8;padding:8px 16px;border-radius:6px;text-decoration:none;font-weight:600;font-size:.8rem">Subscribe</a>';
-      var div = document.createElement('div');
-      div.id = 'mosExpiryBanner';
-      div.style.cssText = 'position:fixed;bottom:0;left:0;right:0;z-index:9999;background:' +
-        (daysRemaining <= 1 ? '#f44336' : '#FF9800') +
-        ';color:#fff;padding:12px 16px;text-align:center;font-size:.85rem;font-weight:500;' +
-        'display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap';
-      div.innerHTML = '<span>' + msg + '</span>' + btn +
-        '<button onclick="this.parentElement.remove()" style="background:none;border:none;color:rgba(255,255,255,.7);font-size:1.2rem;cursor:pointer;padding:0 4px">✕</button>';
-      document.body.appendChild(div);
     },
 
     /** Revoke access */
@@ -428,9 +297,6 @@
       });
     }
   };
-
-  // Flush any pending fallback usage log entries on page load
-  setTimeout(flushFallbackLog, 1000);
 })();
 
 /* ── Global Google callback (for async GIS load) ── */

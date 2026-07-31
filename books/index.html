@@ -3,32 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reference Books — Coach Anas Mo'men | Muscle OS</title>
-  <meta name="description" content="Reference books by Coach Anas Mo'men — comprehensive science-based guides to training, nutrition, and hormonal optimization for body composition.">
-  <meta property="og:title" content="Reference Books — Coach Anas Mo'men | Muscle OS">
-  <meta property="og:description" content="Reference books by Coach Anas Mo'men — comprehensive science-based guides to training, nutrition, and hormonal optimization for body composition.">
-  <meta property="og:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="1200">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://muscleos.is-a.dev/books/index.html">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Reference Books — Coach Anas Mo'men | Muscle OS">
-  <meta name="twitter:description" content="Reference books by Coach Anas Mo'men — comprehensive science-based guides to training, nutrition, and hormonal optimization for body composition.">
-  <meta name="twitter:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+<title>Reference Books — Coach Anas Mo'men</title>
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#14151A;--ink-2:#1E2027;--ink-3:#26282F;--yellow:#F4C93B;--yellow-dim:#C9A227;--paper:#FAFAF8;--gray:#8A8D96;--line:#2C2E37}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',sans-serif;background:var(--ink);color:#fff;line-height:1.5;min-height:100vh;display:flex;flex-direction:column}
+body{font-family:'Inter',sans-serif;background:var(--ink);color:#fff;line-height:1.5;min-height:100vh;display:flex;flex-direction:column;opacity:0;transition:opacity .4s ease}
+body.loaded{opacity:1}
+h1,h2,h3,h4,p,li,blockquote,figcaption{overflow-wrap:break-word;word-break:break-word}
 .display{font-family:'Oswald',sans-serif;text-transform:uppercase}
 .mono{font-family:'JetBrains Mono',monospace}
 a{color:inherit;text-decoration:none}
 .wrap{max-width:860px;margin:0 auto;padding:0 24px;width:100%}
 ::selection{background:var(--yellow);color:var(--ink)}
-header{background:rgba(20,21,26,.95);border-bottom:1px solid var(--line)}
+header{background:rgba(20,21,26,.95);border-bottom:1px solid var(--line);transition:transform .3s ease}
+header.nav-hidden{transform:translateY(-100%)}
 .header-inner{max-width:1180px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
 .brand{font-family:'Oswald',sans-serif;font-weight:700;font-size:16px;letter-spacing:.5px;text-transform:uppercase}
 .brand span{color:var(--yellow)}
@@ -48,6 +41,8 @@ main{flex:1;padding:60px 0}
 .book-card .card-badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:2px 8px;border-radius:3px;margin-bottom:8px;background:rgba(33,150,243,.15);color:#2196F3}
 footer{padding:24px;text-align:center;border-top:1px solid var(--line);font-size:12px;color:rgba(250,250,248,.4)}
 footer a{color:var(--yellow)}
+
+@media(max-width:560px){main{padding:40px 0 60px}.page-title{margin-bottom:4px}.page-sub{margin-bottom:32px;font-size:14px}}
 </style>
 </head>
 <body>
@@ -55,84 +50,36 @@ footer a{color:var(--yellow)}
 <header>
 <div class="header-inner">
 <a href="../index.html" class="brand">ANAS MO'MEN <span>COACHING</span></a>
-<nav class="nav-links">
-<a href="../index.html">Home</a>
-<a href="../tools/">Tools</a>
-<a href="../knowledge-hub/" style="color:var(--yellow)">Knowledge Hub</a>
-<a href="../index.html#packages">Coaching</a>
-</nav>
-</div>
+    <nav class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="../tools/">Tools</a>
+      <a href="../knowledge-hub/">Knowledge Hub</a>
+      <a href="../index.html#packages">Coaching</a>
+    </nav>
+    
+  </div>
 </header>
+
 
 <main>
 <div class="wrap">
 <h1 class="page-title">Complete Reference Books</h1>
-<p class="page-sub">Evidence-based, comprehensive guides — each 500 EGP, one-time purchase.</p>
+<p class="page-sub">Evidence-based, comprehensive guides to training and nutrition — each 500 EGP, one-time purchase.</p>
 
 <div class="book-grid">
+<a class="book-card" href="muscle_os_training_book.html">
+<div class="card-badge">Training</div>
+<div class="card-title">The Complete Guide to Training &amp; Programming</div>
+<div class="card-desc">27 chapters covering program design, periodisation, exercise selection, volume, intensity, frequency, fatigue management, autoregulation, and special populations. 200+ references.</div>
+<div class="card-link">500 EGP &middot; Purchase &rarr;</div>
+</a>
 
 <a class="book-card" href="muscle_os_nutrition_book.html">
-<div class="card-badge">P1 &middot; Nutrition</div>
-<div class="card-title">Diet &amp; Nutrition</div>
-<div class="card-desc">33 chapters — energy balance, macros, micronutrients, meal timing, supplements, diet phases, adherence psychology. 200+ references.</div>
+<div class="card-badge">Nutrition</div>
+<div class="card-title">The Complete Guide to Diet &amp; Nutrition for Body Composition</div>
+<div class="card-desc">33 chapters covering energy balance, macros, micronutrients, meal timing, supplements, diet phases, adherence psychology, and special populations. 200+ references.</div>
 <div class="card-link">500 EGP &middot; Purchase &rarr;</div>
 </a>
-
-<a class="book-card" href="muscle_os_training_book.html">
-<div class="card-badge">P2 &middot; Training</div>
-<div class="card-title">Training &amp; Programming</div>
-<div class="card-desc">27 chapters — program design, periodisation, exercise selection, volume, intensity, frequency, fatigue management, autoregulation. 200+ references.</div>
-<div class="card-link">500 EGP &middot; Purchase &rarr;</div>
-</a>
-
-<a class="book-card" href="muscle_os_strength.html">
-<div class="card-badge">P3 &middot; Strength</div>
-<div class="card-title">Strength Maxing</div>
-<div class="card-desc">24 chapters — neural adaptations, periodisation for strength, squat/bench/deadlift programming, peaking, meet prep, plateau diagnosis. 200+ references.</div>
-<div class="card-link">500 EGP &middot; Purchase &rarr;</div>
-</a>
-
-<a class="book-card" href="muscle_os_recovery.html">
-<div class="card-badge">P4 &middot; Recovery</div>
-<div class="card-title">Recovery &amp; Fatigue Management</div>
-<div class="card-desc">24 chapters — autonomic nervous system, inflammation, stress hormones, active recovery, cold/heat therapy, HRV, deload protocols. 200+ references.</div>
-<div class="card-link">500 EGP &middot; Purchase &rarr;</div>
-</a>
-
-<a class="book-card" href="muscle_os_sleep.html">
-<div class="card-badge">P5 &middot; Sleep</div>
-<div class="card-title">Sleep Optimization</div>
-<div class="card-desc">25 chapters — circadian biology, sleep architecture, light management, supplements, chronotype, shift work, sleep disorder screening. 200+ references.</div>
-<div class="card-link">500 EGP &middot; Purchase &rarr;</div>
-</a>
-
-<a class="book-card" href="muscle_os_hormonal_book.html">
-<div class="card-badge">P6 &middot; Hormones</div>
-<div class="card-title">Hormonal Optimization</div>
-<div class="card-desc">25 chapters — steroid hormone physiology, testosterone, cortisol, thyroid, female hormones, biomarkers, endocrine-informed programming. 200+ references.</div>
-<div class="card-link">500 EGP &middot; Purchase &rarr;</div>
-</a>
-
-</div>
-
-<h2 style="font-family:'Oswald',sans-serif;font-size:20px;font-weight:600;text-transform:uppercase;color:var(--yellow);margin:40px 0 16px;padding-bottom:6px;border-bottom:2px solid var(--yellow);display:inline-block">Bundles <span style="font-size:12px;color:#4CAF50;font-family:'JetBrains Mono',monospace;vertical-align:middle">— save up to 50%</span></h2>
-
-<div class="book-grid">
-
-<a class="book-card" href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20purchase%20the%20Foundations%20Bundle%20(P1%20Diet%20%2B%20P2%20Training)%20for%20750%20EGP" target="_blank" rel="noopener" style="border-color:rgba(255,215,0,.3)">
-<div class="card-badge" style="background:rgba(76,175,80,.15);color:#4CAF50">Bundle &middot; Save 250 EGP</div>
-<div class="card-title">Foundations Bundle</div>
-<div class="card-desc"><strong>P1 Diet &amp; Nutrition</strong> + <strong>P2 Training &amp; Programming</strong> — the two essential pillars for any lifter. Buy together and save.</div>
-<div class="card-link">750 EGP &middot; instead of 1,000 EGP &rarr;</div>
-</a>
-
-<a class="book-card" href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20purchase%20the%20Complete%20Muscle%20OS%20Bundle%20(all%206%20books)%20for%201500%20EGP" target="_blank" rel="noopener" style="border-color:#FFD700">
-<div class="card-badge" style="background:rgba(255,215,0,.2);color:#FFD700">Bundle &middot; Save 1,500 EGP</div>
-<div class="card-title">Complete Muscle OS Collection</div>
-<div class="card-desc"><strong>All 6 books (P1–P6)</strong> — every pillar of the Muscle OS system. Half price per book when you buy the full collection.</div>
-<div class="card-link">1,500 EGP &middot; instead of 3,000 EGP &rarr;</div>
-</a>
-
 </div>
 </div>
 </main>
@@ -141,5 +88,6 @@ footer a{color:var(--yellow)}
 &copy; muscleos.coach &mdash; <a href="https://wa.me/201040796017">Start your coaching journey &rarr;</a>
 </footer>
 
+<script src="../assets/js/site.js"></script>
 </body>
 </html>

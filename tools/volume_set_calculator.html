@@ -3,22 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Volume & Set Calculator — Coach Anas Mo'men | Muscle OS</title>
-  <meta name="description" content="Training volume & set calculator by Coach Anas Mo'men. Calculate optimal sets per muscle group based on your experience level and goals.">
-  <meta property="og:title" content="Volume & Set Calculator — Coach Anas Mo'men | Muscle OS">
-  <meta property="og:description" content="Training volume & set calculator by Coach Anas Mo'men. Calculate optimal sets per muscle group based on your experience level and goals.">
-  <meta property="og:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="1200">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://muscleos.is-a.dev/tools/volume_set_calculator.html">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Volume & Set Calculator — Coach Anas Mo'men | Muscle OS">
-  <meta name="twitter:description" content="Training volume & set calculator by Coach Anas Mo'men. Calculate optimal sets per muscle group based on your experience level and goals.">
-  <meta name="twitter:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' https://accounts.google.com https://*.googleapis.com">
+<title>Volume & Set Calculator — Train Maxing by Coach Anas Mo'men</title>
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Georgia,'Times New Roman',Times,serif;background:#14151A;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 16px;line-height:1.7}
+h1,h2,h3,h4,p,li,blockquote,figcaption{overflow-wrap:break-word;word-break:break-word}
 .container{width:100%;max-width:720px}
 .header{text-align:center;margin-bottom:28px}
 .header h1{font-family:Georgia,'Times New Roman',Times,serif;font-size:2.4rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:1px;line-height:1.1}
@@ -79,7 +70,7 @@ select option{background:#1E1E2A;color:#FAFAF8}
 .upsell-box p{font-family:Georgia,'Times New Roman',Times,serif;font-size:.82rem;color:rgba(250,250,248,.7);line-height:1.6;margin-bottom:16px;max-width:480px;margin-left:auto;margin-right:auto}
 .upsell-cta{display:inline-block;background:#F4C93B;color:#14151A;font-family:Georgia,'Times New Roman',Times,serif;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:12px 28px;border-radius:6px;text-decoration:none;transition:opacity .2s}
 .upsell-cta:hover{opacity:.85}
-.styled-table{width:100%;border-collapse:collapse;margin:12px 0;font-family:Georgia,'Times New Roman',Times,serif;font-size:.82rem}
+.styled-table{width:100%;border-collapse:collapse;margin:12px 0;font-family:Georgia,'Times New Roman',Times,serif;font-size:.82rem;overflow-x:auto;display:block}
 .styled-table thead{background:#F4C93B;color:#14151A}
 .styled-table th{padding:10px 12px;text-align:left;font-weight:700;text-transform:uppercase;letter-spacing:.5px;font-size:.7rem}
 .styled-table td{padding:8px 12px;border-bottom:1px solid rgba(250,250,248,.08)}
@@ -92,7 +83,8 @@ select option{background:#1E1E2A;color:#FAFAF8}
 .mos-nav-links{display:flex;gap:20px;font-size:11px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
 .mos-nav-links a{color:#C7C9D0;text-decoration:none;transition:color .2s}
 .mos-nav-links a:hover{color:#F4C93B}
-@media(max-width:600px){.mos-nav-links{gap:10px;font-size:9px}.mos-nav-inner{padding:8px 16px}.mos-brand{font-size:12px}}
+@media(max-width:700px){.mos-nav-links{display:none}.mos-menu-toggle{display:flex}}@media(max-width:600px){.mos-nav-inner{padding:8px 16px}.mos-brand{font-size:13px}input,select,textarea{font-size:16px!important}.btn-calc,.mos-menu-toggle{min-height:44px}}
+body{opacity:0;transition:opacity .4s ease}body.loaded{opacity:1}.mos-nav{transition:transform .3s ease}.mos-nav.nav-hidden{transform:translateY(-100%)}
 @media print{.mos-nav{display:none!important}.mos-footer{display:none!important}}
 .mos-footer{padding:20px 24px;background:#14151A;border-top:1px solid #2C2E37;font-family:Georgia,'Times New Roman',Times,serif;text-align:center}
 .mos-footer-inner{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
@@ -102,19 +94,38 @@ select option{background:#1E1E2A;color:#FAFAF8}
 .mos-fnav a:hover{color:#F4C93B}
 .mos-fsocial a{color:#F4C93B;text-decoration:none;margin:0 8px;font-size:11px}
 .mos-fcopy{font-size:10px;color:rgba(250,250,248,.3);margin-top:6px}
-@media(max-width:600px){
-  body{padding:24px 12px}
-  .header h1{font-size:2rem}
-  .card{padding:18px 14px}
-  .form-row,.form-row-3{grid-template-columns:1fr}
-  .muscle-grid{grid-template-columns:1fr}
-  .cal-val{font-size:2.3rem}
-}
+@media(max-width:580px){
+ .calc-grid,.card-grid,.form-row{grid-template-columns:1fr}.card{padding:16px 12px}
+ }
+.mos-menu-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px 4px;z-index:1001;flex-direction:column;gap:4px}
+.mos-menu-toggle span{display:block;width:22px;height:2px;background:#FAFAF8;border-radius:2px;transition:all .25s ease}
+.mos-menu-toggle.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+.mos-menu-toggle.open span:nth-child(2){opacity:0}
+.mos-menu-toggle.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+.mos-mobile-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:998}
+.mos-mobile-overlay.open{display:block}
+.mos-mobile-menu{position:fixed;top:0;right:-280px;width:260px;height:100vh;background:#1A1B22;z-index:999;padding:72px 24px 24px;transition:right .3s ease;border-left:1px solid #2C2E37;overflow-y:auto}
+.mos-mobile-menu.open{right:0}
+.mos-mobile-menu-inner{display:flex;flex-direction:column;gap:4px}
+.mos-mobile-menu-inner a{display:block;padding:14px 12px;color:#C7C9D0;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;transition:background .2s,color .2s;min-height:44px;line-height:44px}
+.mos-mobile-menu-inner a:hover,.mos-mobile-menu-inner a:active{background:rgba(244,201,59,.1);color:#F4C93B}
 </style>
+<link rel="stylesheet" href="../assets/css/landing.css">
 </head>
 <body>
-<nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a><a href="../index.html#packages">Coaching</a></div></div></nav>
-<div class="container">
+<nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div><button class="mos-menu-toggle" id="mosMenuToggle" aria-label="Menu"><span></span><span></span><span></span></button></div></nav>
+<div class="mos-mobile-overlay" id="mosMobileOverlay"></div>
+<div class="mos-mobile-menu" id="mosMobileMenu"><div class="mos-mobile-menu-inner"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div></div>
+<div style="background:#1E1E2A;border-bottom:1px solid #2C2E37;padding:8px 24px;text-align:center;font-family:'Inter',sans-serif;font-size:12px;color:rgba(250,250,248,.5)"><span>Download printable version: </span><a href="../pdf/viewer.html?product=volume-set-calculator" style="color:#F4C93B;text-decoration:none;font-weight:600" target="_blank">Open PDF Reader &rarr;</a></div>
+<div id="googleGate">
+  <div class="gate-card">
+    <div class="gate-icon">&#128100;</div>
+    <h2>Sign in to continue</h2>
+    <p>Use your Google account to access free Muscle OS tools.</p>
+    <div id="googleSignIn"></div>
+  </div>
+</div>
+<div id="contentMain"><div class="container">
   <div class="header">
     <h1>Volume & Set Calculator</h1>
     <p>Find your optimal weekly sets per muscle group</p>
@@ -186,13 +197,13 @@ select option{background:#1E1E2A;color:#FAFAF8}
       <div class="rec-note" id="recNote"></div>
     </div>
   </div>
-</div>
+</div></div>
 <div class="upsell-box">
   <h3>Want the full picture?</h3>
   <p>This free calculator gives you a snapshot. The full Training &amp; Programming Book covers progressive overload, periodisation, exercise selection, fatigue management, and autoregulation across 27 chapters with 200+ scientific references.</p>
   <a class="upsell-cta" href="../books/muscle_os_training_book.html">Get the Full Book — 500 EGP &rarr;</a>
 </div>
-<footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo'men</div></footer>
+<footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo'men</div></footer>
 
 <script>
 (function(){
@@ -367,6 +378,15 @@ select option{background:#1E1E2A;color:#FAFAF8}
     res.scrollIntoView({behavior:'smooth',block:'start'});
   });
 })();
+</script>
+<script src="https://accounts.google.com/gsi/client" async defer onload="if(window.mosGoogleInit)mosGoogleInit()"></script>
+<script src="../assets/js/access-control.js"></script>
+<script src="../assets/js/site.js"></script>
+<script>
+MosAccess.requireGoogleAuth(null);
+</script>
+<script>
+(function(){var b=document.getElementById('mosMenuToggle'),m=document.getElementById('mosMobileMenu'),o=document.getElementById('mosMobileOverlay');if(!b||!m||!o)return;function c(){b.classList.remove('open');m.classList.remove('open');o.classList.remove('open')}b.addEventListener('click',function(){var is=m.classList.contains('open');if(is)c();else{b.classList.add('open');m.classList.add('open');o.classList.add('open')}});o.addEventListener('click',c);m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',c)})})();
 </script>
 </body>
 </html>
