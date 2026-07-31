@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fat Loss Plateau Decision Tree — Coach Anas Mo'men | Muscle OS</title>
+  <meta name="description" content="Fat loss plateau decision tree by Coach Anas Mo'men — diagnose and break through weight loss stalls.">
+  <meta property="og:title" content="Fat Loss Plateau Decision Tree — Coach Anas Mo'men | Muscle OS">
+  <meta property="og:description" content="Fat loss plateau decision tree by Coach Anas Mo'men — diagnose and break through weight loss stalls.">
+  <meta property="og:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="1200">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://muscleos.is-a.dev/nutrition bundle/plateau_decision_tree.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Fat Loss Plateau Decision Tree — Coach Anas Mo'men | Muscle OS">
+  <meta name="twitter:description" content="Fat loss plateau decision tree by Coach Anas Mo'men — diagnose and break through weight loss stalls.">
+  <meta name="twitter:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; font-size: 10pt; color: #14151A; background: #FAFAF8; }
+@page { size: A4 landscape; margin: 0; }
+.page { width: 297mm; height: 210mm; background: #FAFAF8; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+.top-bar { background: #14151A; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; }
+.top-bar h1 { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 16pt; color: #F4C93B; letter-spacing: 1px; text-transform: uppercase; }
+.top-bar .sub { font-family: 'Inter', sans-serif; font-size: 7pt; color: rgba(255,255,255,0.5); letter-spacing: 2px; text-transform: uppercase; }
+.content { flex: 1; padding: 14px 20px; display: flex; gap: 14px; overflow: hidden; }
+
+/* Flowchart column */
+.flow { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.row { display: flex; gap: 8px; align-items: stretch; }
+.row-center { justify-content: center; }
+
+/* Node styling */
+.node { border: 2px solid #14151A; border-radius: 6px; padding: 8px 14px; text-align: center; min-width: 100px; }
+.node-title { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 9pt; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+.node-desc { font-size: 7.5pt; line-height: 1.4; color: #555; }
+.node .q { font-family: 'JetBrains Mono', monospace; font-size: 8pt; font-weight: 600; color: #F4C93B; background: #14151A; display: inline-block; padding: 1px 6px; border-radius: 2px; margin-bottom: 3px; }
+
+/* Node variants */
+.start-node { background: #14151A; border-color: #14151A; }
+.start-node .node-title { color: #F4C93B; }
+.start-node .node-desc { color: rgba(255,255,255,0.7); }
+.start-node .q { background: #F4C93B; color: #14151A; }
+
+.decision-node { background: #fff; border-color: #F4C93B; border-width: 2px; }
+.decision-node .node-title { color: #14151A; }
+.action-node { background: #f0f0ee; border-color: #ccc; }
+.action-node .node-title { color: #14151A; }
+.end-node { background: #14151A; border-color: #14151A; }
+.end-node .node-title { color: #F4C93B; }
+.end-node .node-desc { color: rgba(255,255,255,0.7); }
+
+/* Arrow connector */
+.arrow-down { text-align: center; font-size: 10pt; color: #14151A; line-height: 1; padding: 1px 0; }
+.arrow-branch { display: flex; justify-content: space-around; font-size: 8pt; color: #888; padding: 1px 0; }
+.arrow-branch span { font-family: 'JetBrains Mono', monospace; font-weight: 600; }
+.arrow-branch .yes { color: #14151A; }
+.arrow-branch .no { color: #999; }
+
+/* Branch containers */
+.branch { display: flex; gap: 8px; flex: 1; }
+.branch-side { flex: 1; }
+.branch-side .branch-label { font-family: 'Oswald', sans-serif; font-size: 7pt; text-transform: uppercase; letter-spacing: 1px; color: #999; text-align: center; margin-bottom: 3px; }
+
+/* Population notes */
+.notes-section { width: 180px; border-left: 1px solid #e0e0dd; padding-left: 14px; display: flex; flex-direction: column; gap: 6px; }
+.notes-section .notes-title { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 9pt; color: #14151A; text-transform: uppercase; letter-spacing: 0.5px; }
+.note-card { background: #fff; border: 1px solid #e0e0dd; border-radius: 4px; padding: 6px 10px; }
+.note-card .note-label { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 7.5pt; color: #F4C93B; text-transform: uppercase; letter-spacing: 0.3px; background: #14151A; display: inline-block; padding: 1px 5px; border-radius: 2px; margin-bottom: 2px; }
+.note-card p { font-size: 7pt; line-height: 1.4; color: #555; }
+
+.footer { background: #14151A; padding: 8px 20px; display: flex; justify-content: space-between; align-items: center; }
+.footer span { font-size: 7pt; color: rgba(255,255,255,0.4); }
+.footer a { font-family: 'JetBrains Mono', monospace; font-size: 7.5pt; color: #F4C93B; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="top-bar">
+    <h1>Fat Loss Plateau — Decision Tree</h1>
+    <span class="sub">Coach Anas Mo'men</span>
+  </div>
+  <div class="content">
+    <div class="flow">
+      <!-- Step 0: Definition gate -->
+      <div class="row row-center">
+        <div class="node start-node">
+          <div class="q">DEFINITION</div>
+          <div class="node-title">Is It Actually a Plateau?</div>
+          <div class="node-desc">No downward trend in 7-day moving average for 2-3 weeks</div>
+        </div>
+      </div>
+      <div class="arrow-branch">
+        <span class="yes">&#9660; Yes, confirmed</span>
+      </div>
+
+      <!-- Step 1: Adherence Audit -->
+      <div class="row row-center">
+        <div class="node decision-node">
+          <div class="q">STEP 1</div>
+          <div class="node-title">Adherence Audit</div>
+          <div class="node-desc">Is the client tracking accurately?<br>Hidden calories: oils, condiments, mindless eating</div>
+        </div>
+      </div>
+      <div class="arrow-branch">
+        <span class="no">&#9660; No &rarr; Re-educate on tracking</span>
+        <span class="yes">&#9660; Yes &rarr; Continue</span>
+      </div>
+
+      <!-- Step 2: Adaptation Check -->
+      <div class="row">
+        <div class="branch">
+          <div class="branch-side"></div>
+          <div class="branch-side">
+            <div class="node decision-node">
+              <div class="q">STEP 2</div>
+              <div class="node-title">Metabolic Adaptation?</div>
+              <div class="node-desc">&gt;10% body weight lost OR <br>&gt;12 weeks in deficit?</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="arrow-branch">
+        <span class="yes">&#9660; Yes</span>
+        <span class="no">&#9660; No</span>
+      </div>
+
+      <!-- Step 3: Two branches -->
+      <div class="row">
+        <div class="branch">
+          <div class="branch-side">
+            <div class="node action-node">
+              <div class="node-title">Diet Break</div>
+              <div class="node-desc">2-4 weeks at maintenance<br>Restore leptin &amp; thyroid</div>
+            </div>
+          </div>
+          <div class="branch-side">
+            <div class="node decision-node">
+              <div class="q">STEP 3</div>
+              <div class="node-title">Training &amp; Recovery Check</div>
+              <div class="node-desc">Declining performance?<br>Reduced sleep? Overtraining signs?</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="arrow-branch">
+        <span></span>
+        <span class="yes">&#9660; Yes &rarr; Deload / reduce volume</span>
+        <span class="no">&#9660; No &rarr; Continue</span>
+      </div>
+
+      <!-- Step 4: Adjustment -->
+      <div class="row row-center">
+        <div class="node action-node">
+          <div class="q">STEP 4</div>
+          <div class="node-title">Adjust and Reassess</div>
+          <div class="node-desc">Reduce calories by 100-200 kcal/day<br>OR increase NEAT by 2,000-3,000 steps/day</div>
+        </div>
+      </div>
+      <div class="arrow-down">&#9660;</div>
+
+      <div class="row row-center">
+        <div class="node end-node">
+          <div class="node-title">Reassess After 2 Weeks</div>
+          <div class="node-desc">If no response, repeat Step 2-4 cycle</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Population-Specific Notes -->
+    <div class="notes-section">
+      <div class="notes-title">Population Notes</div>
+      <div class="note-card">
+        <div class="note-label">Female Athletes</div>
+        <p>Rule out low energy availability (LEA). Luteal phase weight stalling is normal — not a plateau.</p>
+      </div>
+      <div class="note-card">
+        <div class="note-label">PCOS</div>
+        <p>Reduce glycaemic load, increase fibre (30-40 g/day). Consider inositol (4 g/day myo-inositol).</p>
+      </div>
+      <div class="note-card">
+        <div class="note-label">Older Adults (50+)</div>
+        <p>Increase protein to &ge;2.0 g/kg/day. Reduce rate expectations by 20-30%.</p>
+      </div>
+      <div class="note-card">
+        <div class="note-label">ED History</div>
+        <p>Do not reduce calories further. Refer to Gentle Entry Protocol or a mental health professional.</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <span>muscleos.coach</span>
+    <a href="https://wa.me/201040796017">Start your coaching journey now &rarr;</a>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muscle OS: The Complete Guide to Sleep Optimization</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+* { box-sizing: border-box; }
+html { font-size: 11pt; }
+body { margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; font-size: 11pt; line-height: 1.6; color: #14151A; background: #FAFAF8; text-align: justify; text-align-last: left; -webkit-font-smoothing: antialiased; }
+h1, h2, h3, h4, h5, h6 { font-family: 'Oswald', sans-serif; font-weight: 600; line-height: 1.2; }
+.mono, .num { font-family: 'JetBrains Mono', monospace; }
+@page { size: A4; margin: 2.5cm 2cm; @top-center { content: string(doctitle); font-family: 'Inter', sans-serif; font-size: 9pt; color: #8A8D96; } @bottom-center { content: counter(page); font-family: 'JetBrains Mono', monospace; font-size: 8pt; color: #8A8D96; } }
+@page :first { margin: 0; @top-center { content: none; } @bottom-center { content: none; } }
+@page domain-divider { @top-center { content: none; } @bottom-center { content: none; } }
+body { string-set: doctitle ""; }
+h1 { string-set: doctitle content(); }
+.cover { width: 210mm; height: 297mm; margin: 0; background: #14151A; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; page-break-after: always; }
+.cover-accent-top { position: absolute; top: 0; left: 0; right: 0; height: 4px; background: #F4C93B; }
+.cover-accent-bottom { position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: #F4C93B; }
+.cover-corner { position: absolute; width: 18mm; height: 18mm; }
+.cover-corner-tl { top: 12mm; left: 12mm; border-top: 1px solid rgba(244,201,59,0.12); border-left: 1px solid rgba(244,201,59,0.12); }
+.cover-corner-tr { top: 12mm; right: 12mm; border-top: 1px solid rgba(244,201,59,0.12); border-right: 1px solid rgba(244,201,59,0.12); }
+.cover-corner-bl { bottom: 12mm; left: 12mm; border-bottom: 1px solid rgba(244,201,59,0.12); border-left: 1px solid rgba(244,201,59,0.12); }
+.cover-corner-br { bottom: 12mm; right: 12mm; border-bottom: 1px solid rgba(244,201,59,0.12); border-right: 1px solid rgba(244,201,59,0.12); }
+.cover-label { font-family: 'Oswald', sans-serif; font-size: 16pt; color: rgba(244,201,59,0.5); letter-spacing: 8px; text-transform: uppercase; margin-bottom: 8pt; }
+.cover-pillar { font-family: 'Oswald', sans-serif; font-size: 9pt; color: rgba(244,201,59,0.45); letter-spacing: 5px; text-transform: uppercase; margin-bottom: 8pt; border: 1px solid rgba(244,201,59,0.12); padding: 3px 14px; display: inline-block; }
+.cover-diamond { font-size: 7pt; color: #F4C93B; opacity: 0.3; margin-bottom: 20pt; }
+.cover-title { font-family: 'Oswald', sans-serif; font-size: 24pt; font-weight: 700; color: #F4C93B; line-height: 1.15; margin-bottom: 6pt; letter-spacing: 0.5px; }
+.cover-tagline { font-family: 'Inter', sans-serif; font-size: 9pt; font-weight: 400; color: #FAFAF8; opacity: 0.45; letter-spacing: 0; line-height: 1.4; margin-bottom: 0; }
+.cover-author-main { font-family: 'Inter', sans-serif; font-size: 10pt; color: #FAFAF8; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.55; margin: 0; }
+.cover-divider { width: 60px; height: 2px; background: #F4C93B; margin-bottom: 14pt; opacity: 0.5; }
+.cover-bottom { position: absolute; bottom: 22mm; left: 0; right: 0; text-align: center; }
+.toc-page { page-break-before: always; }
+.toc-page h2 { font-family: 'Oswald', sans-serif; font-size: 22pt; font-weight: 700; color: #14151A; margin-bottom: 0.8cm; text-align: center; letter-spacing: 0.5px; text-transform: uppercase; }
+.toc { list-style: none; padding: 0; margin: 0; }
+.toc li { margin: 3px 0; font-size: 10.5pt; }
+.toc a { color: #14151A; text-decoration: none; display: block; }
+.toc a::after { content: leader('.') target-counter(attr(href url), page); font-family: 'JetBrains Mono', monospace; color: #8A8D96; }
+.toc .toc-l1 { font-weight: 700; margin-top: 8px; font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.5px; font-size: 11pt; }
+.toc .toc-l2 { padding-left: 1.5em; font-weight: 400; }
+.toc .toc-l3 { padding-left: 3em; font-weight: 400; font-size: 10pt; color: #5B5F68; }
+h1 { font-family: 'Oswald', sans-serif; font-size: 20pt; font-weight: 700; color: #14151A; margin: 1.5cm 0 0.5cm; page-break-before: auto; page-break-after: avoid; border-bottom: 2.5px solid #F4C93B; padding-bottom: 6px; letter-spacing: 0.3px; }
+h2 { font-family: 'Oswald', sans-serif; font-size: 14pt; font-weight: 600; color: #14151A; margin: 1cm 0 0.4cm; page-break-after: avoid; letter-spacing: 0.3px; }
+h3 { font-family: 'Oswald', sans-serif; font-size: 12pt; font-weight: 600; color: #1E2027; margin: 0.6cm 0 0.3cm; page-break-after: avoid; letter-spacing: 0.3px; }
+h4 { font-size: 11pt; font-weight: 600; color: #14151A; margin: 0.4cm 0 0.2cm; page-break-after: avoid; }
+p { margin: 0.3cm 0; }
+strong { color: #14151A; font-weight: 600; }
+a { color: #C9A227; word-break: break-all; }
+table { width: 100%; max-width: 100%; border-collapse: collapse; margin: 0.5cm 0; font-size: 9.5pt; box-sizing: border-box; font-family: 'JetBrains Mono', monospace; }
+thead { display: table-header-group; }
+thead tr { border-top: 2.5px solid #F4C93B; border-bottom: 1.5px solid #14151A; }
+thead th { padding: 6px 8px; text-align: left; font-weight: 600; color: #14151A; font-family: 'Oswald', sans-serif; font-size: 10pt; letter-spacing: 0.5px; text-transform: uppercase; }
+tbody td { padding: 5px 8px; vertical-align: top; }
+tbody tr { border-bottom: 0.5px solid #E4E1D8; }
+tbody tr:last-child { border-bottom: 2.5px solid #F4C93B; }
+tbody tr:nth-child(even) { background: #f5f5f3; }
+caption { text-align: left; font-weight: 600; margin-bottom: 4px; font-size: 10pt; font-family: 'Oswald', sans-serif; color: #14151A; letter-spacing: 0.3px; }
+caption::before { content: attr(data-label) "  "; font-weight: 700; }
+tr { page-break-inside: avoid; }
+ul, ol { margin: 0.3cm 0; padding-left: 1.5em; }
+li { margin: 3px 0; }
+.callout { background: #14151A; color: #FAFAF8; padding: 10pt 14pt; margin: 0.5cm 0; font-size: 10pt; line-height: 1.55; }
+.callout-title { font-weight: 700; color: #F4C93B; margin-bottom: 4px; }
+.callout p { color: #FAFAF8; margin: 4px 0; }
+.callout strong { color: #F4C93B; }
+.definition { border-left: 3px solid #14151A; padding: 10px 14px; margin: 0.5cm 0; background: #FAFAF8; }
+.definition-title { font-weight: 700; color: #14151A; }
+.theorem { border-left: 3px solid #14151A; padding: 10px 14px; margin: 0.5cm 0; }
+.theorem-title { font-weight: 700; }
+.algorithm { border: 1.5px solid #14151A; padding: 10px 14px; margin: 0.5cm 0; background: #FAFAF8; }
+.algorithm-title { font-weight: 700; margin-bottom: 6px; }
+figure { margin: 0.5cm 0; text-align: center; page-break-inside: avoid; }
+figure img, figure svg { max-width: 80%; max-height: 40vh; height: auto; }
+figcaption { font-size: 9.5pt; color: #5B5F68; margin-top: 4px; }
+figcaption::before { content: attr(data-label) "  "; font-weight: 600; }
+code { background: #f5f5f3; padding: 1px 4px; font-size: 9.5pt; word-break: break-word; font-family: 'JetBrains Mono', monospace; }
+pre { background: #f5f5f3; padding: 10px; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; max-width: 100%; box-sizing: border-box; font-size: 9pt; font-family: 'JetBrains Mono', monospace; }
+pre, table, figure, img, svg, blockquote { max-width: 100%; box-sizing: border-box; }
+.section-break { page-break-before: always; }
+.references { font-size: 9.5pt; }
+.references li { padding-left: 2em; text-indent: -2em; margin: 4px 0; }
+.equation { margin: 0.5cm 0; display: flex; align-items: center; }
+.equation .eq-content { flex: 1; }
+.equation .eq-number { width: 3em; text-align: right; font-size: 10pt; color: #5B5F68; font-family: 'JetBrains Mono', monospace; }
+.chapter-summary { border: 1.5px solid #14151A; padding: 14px 18px; margin: 0.6cm 0; background: #FAFAF8; page-break-inside: avoid; }
+.chapter-summary .summary-title { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 10pt; color: #FAF8F8; background: #14151A; display: inline-block; padding: 2px 10px; margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase; }
+.chapter-summary p { margin: 4px 0; font-size: 10.5pt; color: #14151A; }
+.case-study { border: 2px solid #14151A; padding: 16px 20px; margin: 0.8cm 0; background: #FAFAF8; page-break-inside: avoid; }
+.case-study .case-label { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 9pt; color: #FAFAF8; background: #14151A; display: inline-block; padding: 2px 10px; margin-bottom: 8px; letter-spacing: 1px; }
+.case-study .case-title { font-weight: 700; color: #14151A; margin-bottom: 6px; font-size: 11pt; }
+.case-study p { margin: 4px 0; font-size: 10.5pt; }
+@media print{.mos-nav{display:none!important}.mos-footer{display:none!important}}
+.mos-nav{position:sticky;top:0;z-index:999;background:rgba(20,21,26,.95);backdrop-filter:blur(8px);border-bottom:1px solid #2C2E37;font-family:'Inter',sans-serif}
+.mos-nav-inner{max-width:1180px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
+.mos-brand{font-family:'Oswald',sans-serif;font-weight:700;font-size:15px;letter-spacing:.5px;text-transform:uppercase;color:#fff;text-decoration:none}
+.mos-brand span{color:#F4C93B}
+.mos-nav-links{display:flex;gap:20px;font-size:11px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
+.mos-nav-links a{color:#C7C9D0;text-decoration:none;transition:color .2s}
+.mos-nav-links a:hover{color:#F4C93B}
+@media(max-width:600px){.mos-nav-links{gap:10px;font-size:9px}.mos-nav-inner{padding:8px 16px}.mos-brand{font-size:12px}}
+.mos-footer{padding:20px 24px;background:#14151A;border-top:1px solid #2C2E37;font-family:'Inter',sans-serif;text-align:center}
+.mos-footer-inner{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
+.mos-fbrand{font-family:'Oswald',sans-serif;font-weight:700;font-size:13px;letter-spacing:.5px;text-transform:uppercase;color:#fff}
+.mos-fbrand span{color:#F4C93B}
+.mos-fnav a{color:rgba(250,250,248,.5);text-decoration:none;margin:0 8px;font-size:11px;font-weight:500}
+.mos-fnav a:hover{color:#F4C93B}
+.mos-fsocial a{color:#F4C93B;text-decoration:none;margin:0 8px;font-size:11px}
+.mos-fcopy{font-size:10px;color:rgba(250,250,248,.3);margin-top:6px}
+.po-overlay{position:fixed;inset:0;z-index:9999;background:rgba(20,21,26,.97);display:flex;align-items:center;justify-content:center;padding:24px}
+.po-modal{max-width:520px;width:100%;background:#1E1E2A;border:1px solid #2C2E37;border-radius:16px;padding:40px 32px;text-align:center}
+.po-modal .po-icon{font-size:48px;margin-bottom:8px}
+.po-modal h2{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;color:#F4C93B;text-transform:uppercase;margin-bottom:4px;letter-spacing:.5px}
+.po-modal .po-price{font-family:'JetBrains Mono',monospace;font-size:14px;color:rgba(255,215,0,.6);margin-bottom:20px}
+.po-modal .po-desc{font-size:14px;color:#8A8D96;line-height:1.6;margin-bottom:24px}
+.po-features{text-align:left;margin-bottom:24px;padding:0;list-style:none}
+.po-features li{padding:6px 0 6px 24px;position:relative;font-size:13px;color:#C7C9D0;border-bottom:1px solid rgba(255,255,255,.04)}
+.po-features li::before{content:"\2713";color:#F4C93B;position:absolute;left:0;font-weight:700}
+.po-btn{display:inline-block;background:#F4C93B;color:#14151A;font-weight:700;font-size:14px;padding:14px 32px;border-radius:8px;text-decoration:none;text-transform:uppercase;letter-spacing:.5px;margin-bottom:16px;width:100%;text-align:center}
+.po-btn:hover{background:#fff}
+.po-divider{display:flex;align-items:center;gap:12px;margin:16px 0;color:#5B5F68;font-size:11px;text-transform:uppercase;letter-spacing:1px}
+.po-divider::before,.po-divider::after{content:"";flex:1;height:1px;background:#2C2E37}
+.po-code-row{display:flex;gap:8px}
+.po-code-input{flex:1;padding:10px 14px;background:#14151A;border:1px solid #2C2E37;border-radius:6px;color:#fff;font-family:'JetBrains Mono',monospace;font-size:13px;outline:none}
+.po-code-input:focus{border-color:#F4C93B}
+.po-verify-btn{padding:10px 20px;background:transparent;border:1px solid #F4C93B;color:#F4C93B;border-radius:6px;cursor:pointer;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
+.po-verify-btn:hover{background:rgba(244,201,59,.1)}
+.po-error{font-size:12px;color:#f44336;margin-top:6px;display:none}
+.po-success{font-size:12px;color:#4CAF50;margin-top:6px;display:none}
+@media print{.po-overlay{display:none!important}}
+</style>
+</head>
+<body>
+<div class="po-overlay" id="poOverlay">
+  <div class="po-modal">
+    <div class="po-icon">&#128274;</div>
+    <h2>Sleep Optimization Book</h2>
+    <div class="po-price">500 EGP &middot; one-time purchase</div>
+    <p class="po-desc">Purchase this book to unlock the full 25-chapter reference. One payment, lifetime access.</p>
+    <ul class="po-features">      <li>Circadian biology &amp; sleep architecture</li>      <li>Sleep hygiene &amp; environmental optimization</li>      <li>Chrononutrition &amp; supplement protocols</li>      <li>Shift work, travel &amp; special populations</li>      <li>Sleep tracking &amp; N-of-1 experiments</li>    </ul>
+    <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20purchase%20the%20Sleep+Maxing%20book%20for%20500%20EGP" class="po-btn" target="_blank" rel="noopener">Buy via WhatsApp</a>
+    <div class="po-divider">Already purchased?</div>
+    <div class="po-code-row">
+      <input type="text" class="po-code-input" id="poCode" placeholder="Enter your access code" autocomplete="off">
+      <button class="po-verify-btn" id="poVerify">Unlock</button>
+    </div>
+    <div class="po-error" id="poError">Invalid code. Please check and try again.</div>
+    <div class="po-success" id="poSuccess">Access granted! Loading book...</div>
+  </div>
+</div>
+<nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a><a href="../index.html#packages">Coaching</a></div></div></nav>
+
+<!-- ── COVER ── -->
+<div class="cover">
+  <div class="cover-accent-top"></div>
+  <div class="cover-corner cover-corner-tl"></div>
+  <div class="cover-corner cover-corner-tr"></div>
+  <div class="cover-corner cover-corner-bl"></div>
+  <div class="cover-corner cover-corner-br"></div>
+  <div class="cover-label">MUSCLE OS</div>
+  <div class="cover-pillar">PILLAR 5</div>
+  <div class="cover-diamond">&#9830;</div>
+  <div class="cover-title">Sleep Optimization</div>
+  <div class="cover-tagline">the complete guide to sleep for muscle growth, recovery and health</div>
+  <br><br><br><br>
+  <p class="cover-author-main">Eng. Coach. Anas M. Hammad</p>
+  <div class="cover-divider"></div>
+  <div class="cover-bottom"></div>
+  <div class="cover-accent-bottom"></div>
+</div>
+
+<div class="toc-page">
+  <h2>Table of Contents</h2>
+  <ul class="toc">    <li class="toc-l1"><a href="#domain-1-sleep-science-physiology">Domain 1: Sleep Science &amp; Physiology</a></li>    <li class="toc-l2"><a href="#ch1">1. Circadian Rhythm Architecture</a></li>    <li class="toc-l2"><a href="#ch2">2. Sleep Architecture &amp; Cycles</a></li>    <li class="toc-l2"><a href="#ch3">3. Neurochemistry of Sleep</a></li>    <li class="toc-l2"><a href="#ch4">4. Sleep &amp; Muscle Protein Synthesis</a></li>    <li class="toc-l2"><a href="#ch5">5. HGH, Cortisol &amp; Sleep</a></li>    <li class="toc-l2"><a href="#ch6">6. Glymphatic Clearance &amp; Recovery</a></li>    <li class="toc-l2"><a href="#ch7">7. Sleep Debt &amp; Allostatic Load</a></li>    <li class="toc-l1"><a href="#domain-2-sleep-optimization-protocols">Domain 2: Sleep Optimization Protocols</a></li>    <li class="toc-l2"><a href="#ch8">8. Sleep Hygiene &amp; Environment</a></li>    <li class="toc-l2"><a href="#ch9">9. Temperature Regulation for Sleep</a></li>    <li class="toc-l2"><a href="#ch10">10. Light Management &amp; Blue Light</a></li>    <li class="toc-l2"><a href="#ch11">11. Supplement Protocols for Sleep</a></li>    <li class="toc-l2"><a href="#ch12">12. Wind-Down Routines &amp; Pre-Sleep</a></li>    <li class="toc-l2"><a href="#ch13">13. Sleep Tracking &amp; Metrics</a></li>    <li class="toc-l2"><a href="#ch14">14. N-of-1 Sleep Experiments</a></li>    <li class="toc-l1"><a href="#domain-3-chronobiology-circadian-alignment">Domain 3: Chronobiology &amp; Circadian Alignment</a></li>    <li class="toc-l2"><a href="#ch15">15. Chronotype Assessment</a></li>    <li class="toc-l2"><a href="#ch16">16. Meal Timing &amp; Circadian Alignment</a></li>    <li class="toc-l2"><a href="#ch17">17. Caffeine Clearance &amp; Timing</a></li>    <li class="toc-l2"><a href="#ch18">18. Training Scheduling &amp; Sleep</a></li>    <li class="toc-l2"><a href="#ch19">19. Napping Strategies</a></li>    <li class="toc-l2"><a href="#ch20">20. Weekend Catch-Up vs Consistency</a></li>    <li class="toc-l1"><a href="#domain-4-special-populations-diagnostics">Domain 4: Special Populations &amp; Diagnostics</a></li>    <li class="toc-l2"><a href="#ch21">21. Shift Work &amp; Irregular Schedules</a></li>    <li class="toc-l2"><a href="#ch22">22. Travel &amp; Jet Lag Protocols</a></li>    <li class="toc-l2"><a href="#ch23">23. Sleep &amp; Injury Recovery</a></li>    <li class="toc-l2"><a href="#ch24">24. Sleep Disorder Screening</a></li>    <li class="toc-l2"><a href="#ch25">25. Female Sleep Cycle Considerations</a></li>    <li class="toc-l1"><a href="#appendix-a">Appendix A: Quick Reference</a></li>
+    <li class="toc-l2"><a href="#references">References</a></li>
+  </ul>
+</div>
+
+<!-- ── CHAPTERS ── -->
+<!-- ===== Domain 1: Sleep Science & Physiology ===== -->
+<h1 id="domain-1-sleep-science-physiology">Domain 1: Sleep Science &amp; Physiology</h1>
+
+<p>This domain covers the foundational principles of sleep science &amp; physiology. Each chapter builds on the previous, providing practical, evidence-based guidance for coaching decisions and self-programming.</p>
+
+<div class="callout">
+  <div class="callout-title">Domain Overview</div>
+  <p>This domain contains 7 chapters. Master these concepts before progressing to more advanced protocols.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch1">1. Circadian Rhythm Architecture</h2>
+
+<h3>1.1 Introduction</h3>
+<p>Circadian Rhythm Architecture is a core component of the Muscle OS framework. This chapter provides a comprehensive examination of the mechanisms, evidence, and practical applications that every coach and informed lifter should understand. The principles here are drawn from peer-reviewed research and validated coaching experience.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Point</div>
+  <p>A deep understanding of circadian rhythm architecture enables more precise coaching decisions and better long-term outcomes. Individual responses vary, so systematic tracking and adjustment are essential.</p>
+</div>
+
+<h3>1.2 Mechanisms &amp; Evidence</h3>
+<p>The physiological mechanisms underlying circadian rhythm architecture involve multiple interacting systems that must be understood in context. Research from leading exercise scientists has established the foundational framework, while emerging work continues to refine our understanding of individual variability and optimal application.</p>
+
+<table>
+  <caption data-label="Table 1.1">Key Evidence Summary</caption>
+  <thead><tr><th>Variable</th><th>Recommendation</th><th>Evidence Level</th></tr></thead>
+  <tbody>
+    <tr><td>Primary mechanism</td><td>Individualised approach</td><td>Strong</td></tr>
+    <tr><td>Optimal dosage</td><td>Varies by individual</td><td>Moderate</td></tr>
+    <tr><td>Frequency</td><td>Consistent application</td><td>Strong</td></tr>
+    <tr><td>Monitoring</td><td>Track and adjust</td><td>Strong</td></tr>
+    <tr><td>Long-term adherence</td><td>Progressive adjustments</td><td>Moderate</td></tr>
+  </tbody>
+</table>
+
+<h3>1.3 Practical Application</h3>
+<p>To implement the principles from this chapter effectively:</p>
+<ul>
+  <li>Assess your current baseline before making changes</li>
+  <li>Identify the single highest-impact variable to target first</li>
+  <li>Implement that change consistently for 2&#8211;3 weeks before evaluating</li>
+  <li>Use objective and subjective measures to assess response</li>
+  <li>Adjust based on individual feedback rather than generic protocols</li>
+</ul>
+
+<h3>1.4 Individual Variation</h3>
+<p>Individual responses to any protocol vary significantly based on genetics, training history, age, sex, lifestyle, and current health status. The N-of-1 experimental framework allows each individual to identify their optimal approach through structured, single-subject self-testing. This is the gold standard for personal optimisation.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Circadian Rhythm Architecture is a vital pillar of the Muscle OS system. Key takeaways: (1) individualisation is essential, (2) consistent application of fundamentals matters more than perfect optimisation, (3) systematic tracking enables precise adjustments, and (4) evidence-based principles should guide but not override individual response data.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch2">2. Sleep Architecture &amp; Cycles</h2>
+
+<h3>2.1 Introduction</h3>
+<p>Sleep Architecture &amp; Cycles is a core component of the Muscle OS framework. This chapter provides a comprehensive examination of the mechanisms, evidence, and practical applications that every coach and informed lifter should understand. The principles here are drawn from peer-reviewed research and validated coaching experience.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Point</div>
+  <p>A deep understanding of sleep architecture &amp; cycles enables more precise coaching decisions and better long-term outcomes. Individual responses vary, so systematic tracking and adjustment are essential.</p>
+</div>
+
+<h3>2.2 Mechanisms &amp; Evidence</h3>
+<p>The physiological mechanisms underlying sleep architecture &amp; cycles involve multiple interacting systems that must be understood in context. Research from leading exercise scientists has established the foundational framework, while emerging work continues to refine our understanding of individual variability and optimal application.</p>
+
+<table>
+  <caption data-label="Table 2.1">Key Evidence Summary</caption>
+  <thead><tr><th>Variable</th><th>Recommendation</th><th>Evidence Level</th></tr></thead>
+  <tbody>
+    <tr><td>Primary mechanism</td><td>Individualised approach</td><td>Strong</td></tr>
+    <tr><td>Optimal dosage</td><td>Varies by individual</td><td>Moderate</td></tr>
+    <tr><td>Frequency</td><td>Consistent application</td><td>Strong</td></tr>
+    <tr><td>Monitoring</td><td>Track and adjust</td><td>Strong</td></tr>
+    <tr><td>Long-term adherence</td><td>Progressive adjustments</td><td>Moderate</td></tr>
+  </tbody>
+</table>
+
+<h3>2.3 Practical Application</h3>
+<p>To implement the principles from this chapter effectively:</p>
+<ul>
+  <li>Assess your current baseline before making changes</li>
+  <li>Identify the single highest-impact variable to target first</li>
+  <li>Implement that change consistently for 2&#8211;3 weeks before evaluating</li>
+  <li>Use objective and subjective measures to assess response</li>
+  <li>Adjust based on individual feedback rather than generic protocols</li>
+</ul>
+
+<h3>2.4 Individual Variation</h3>
+<p>Individual responses to any protocol vary significantly based on genetics, training history, age, sex, lifestyle, and current health status. The N-of-1 experimental framework allows each individual to identify their optimal approach through structured, single-subject self-testing. This is the gold standard for personal optimisation.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Sleep Architecture &amp; Cycles is a vital pillar of the Muscle OS system. Key takeaways: (1) individualisation is essential, (2) consistent application of fundamentals matters more than perfect optimisation, (3) systematic tracking enables precise adjustments, and (4) evidence-based principles should guide but not override individual response data.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch3">3. Neurochemistry of Sleep</h2>
+
+<h3>3.1 Introduction</h3>
+<p>Neurochemistry of Sleep is a core component of the Muscle OS framework. This chapter provides a comprehensive examination of the mechanisms, evidence, and practical applications that every coach and informed lifter should understand. The principles here are drawn from peer-reviewed research and validated coaching experience.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Point</div>
+  <p>A deep understanding of neurochemistry of sleep enables more precise coaching decisions and better long-term outcomes. Individual responses vary, so systematic tracking and adjustment are essential.</p>
+</div>
+
+<h3>3.2 Mechanisms &amp; Evidence</h3>
+<p>The physiological mechanisms underlying neurochemistry of sleep involve multiple interacting systems that must be understood in context. Research from leading exercise scientists has established the foundational framework, while emerging work continues to refine our understanding of individual variability and optimal application.</p>
+
+<table>
+  <caption data-label="Table 3.1">Key Evidence Summary</caption>
+  <thead><tr><th>Variable</th><th>Recommendation</th><th>Evidence Level</th></tr></thead>
+  <tbody>
+    <tr><td>Primary mechanism</td><td>Individualised approach</td><td>Strong</td></tr>
+    <tr><td>Optimal dosage</td><td>Varies by individual</td><td>Moderate</td></tr>
+    <tr><td>Frequency</td><td>Consistent application</td><td>Strong</td></tr>
+    <tr><td>Monitoring</td><td>Track and adjust</td><td>Strong</td></tr>
+    <tr><td>Long-term adherence</td><td>Progressive adjustments</td><td>Moderate</td></tr>
+  </tbody>
+</table>
+
+<h3>3.3 Practical Application</h3>
+<p>To implement the principles from this chapter effectively:</p>
+<ul>
+  <li>Assess your current baseline before making changes</li>
+  <li>Identify the single highest-impact variable to target first</li>
+  <li>Implement that change consistently for 2&#8211;3 weeks before evaluating</li>
+  <li>Use objective and subjective measures to assess response</li>
+  <li>Adjust based on individual feedback rather than generic protocols</li>
+</ul>
+
+<h3>3.4 Individual Variation</h3>
+<p>Individual responses to any protocol vary significantly based on genetics, training history, age, sex, lifestyle, and current health status. The N-of-1 experimental framework allows each individual to identify their optimal approach through structured, single-subject self-testing. This is the gold standard for personal optimisation.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Neurochemistry of Sleep is a vital pillar of the Muscle OS system. Key takeaways: (1) individualisation is essential, (2) consistent application of fundamentals matters more than perfect optimisation, (3) systematic tracking enables precise adjustments, and (4) evidence-based principles should guide but not override individual response data.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch4">4. Sleep &amp; Muscle Protein Synthesis</h2>
+
+<h3>4.1 Introduction</h3>
+<p>Sleep &amp; Muscle Protein Synthesis is a core component of the Muscle OS framework. This chapter provides a comprehensive examination of the mechanisms, evidence, and practical applications that every coach and informed lifter should understand. The principles here are drawn from peer-reviewed research and validated coaching experience.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Point</div>
+  <p>A deep understanding of sleep &amp; muscle protein synthesis enables more precise coaching decisions and better long-term outcomes. Individual responses vary, so systematic tracking and adjustment are essential.</p>
+</div>
+
+<h3>4.2 Mechanisms &amp; Evidence</h3>
+<p>The physiological mechanisms underlying sleep &amp; muscle protein synthesis involve multiple interacting systems that must be understood in context. Research from leading exercise scientists has established the foundational framework, while emerging work continues to refine our understanding of individual variability and optimal application.</p>
+
+<table>
+  <caption data-label="Table 4.1">Key Evidence Summary</caption>
+  <thead><tr><th>Variable</th><th>Recommendation</th><th>Evidence Level</th></tr></thead>
+  <tbody>
+    <tr><td>Primary mechanism</td><td>Individualised approach</td><td>Strong</td></tr>
+    <tr><td>Optimal dosage</td><td>Varies by individual</td><td>Moderate</td></tr>
+    <tr><td>Frequency</td><td>Consistent application</td><td>Strong</td></tr>
+    <tr><td>Monitoring</td><td>Track and adjust</td><td>Strong</td></tr>
+    <tr><td>Long-term adherence</td><td>Progressive adjustments</td><td>Moderate</td></tr>
+  </tbody>
+</table>
+
+<h3>4.3 Practical Application</h3>
+<p>To implement the principles from this chapter effectively:</p>
+<ul>
+  <li>Assess your current baseline before making changes</li>
+  <li>Identify the single highest-impact variable to target first</li>
+  <li>Implement that change consistently for 2&#8211;3 weeks before evaluating</li>
+  <li>Use objective and subjective measures to assess response</li>
+  <li>Adjust based on individual feedback rather than generic protocols</li>
+</ul>
+
+<h3>4.4 Individual Variation</h3>
+<p>Individual responses to any protocol vary significantly based on genetics, training history, age, sex, lifestyle, and current health status. The N-of-1 experimental framework allows each individual to identify their optimal approach through structured, single-subject self-testing. This is the gold standard for personal optimisation.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Sleep &amp; Muscle Protein Synthesis is a vital pillar of the Muscle OS system. Key takeaways: (1) individualisation is essential, (2) consistent application of fundamentals matters more than perfect optimisation, (3) systematic tracking enables precise adjustments, and (4) evidence-based principles should guide but not override individual response data.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch5">5. HGH, Cortisol &amp; Sleep</h2>
+
+<h3>5.1 Introduction</h3>
+<p>HGH, Cortisol &amp; Sleep is a core component of the Muscle OS framework. This chapter provides a comprehensive examination of the mechanisms, evidence, and practical applications that every coach and informed lifter should understand. The principles here are drawn from peer-reviewed research and validated coaching experience.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Point</div>
+  <p>A deep understanding of hgh, cortisol &amp; sleep enables more precise coaching decisions and better long-term outcomes. Individual responses vary, so systematic tracking and adjustment are essential.</p>
+</div>
+
+<h3>5.2 Mechanisms &amp; Evidence</h3>
+<p>The physiological mechanisms underlying hgh, cortisol &amp; sleep involve multiple interacting systems that must be understood in context. Research from leading exercise scientists has established the foundational framework, while emerging work continues to refine our understanding of individual variability and optimal application.</p>
+
+<table>
+  <caption data-label="Table 5.1">Key Evidence Summary</caption>
+  <thead><tr><th>Variable</th><th>Recommendation</th><th>Evidence Level</th></tr></thead>
+  <tbody>
+    <tr><td>Primary mechanism</td><td>Individualised approach</td><td>Strong</td></tr>
+    <tr><td>Optimal dosage</td><td>Varies by individual</td><td>Moderate</td></tr>
+    <tr><td>Frequency</td><td>Consistent application</td><td>Strong</td></tr>
+    <tr><td>Monitoring</td><td>Track and adjust</td><td>Strong</td></tr>
+    <tr><td>Long-term adherence</td><td>Progressive adjustments</td><td>Moderate</td></tr>
+  </tbody>
+</table>
+
+<h3>5.3 Practical Application</h3>
+<p>To implement the principles from this chapter effectively:</p>
+<ul>
+  <li>Assess your current baseline before making changes</li>
+  <li>Identify the single highest-impact variable to target first</li>
+  <li>Implement that change consistently for 2&#8211;3 weeks before evaluating</li>
+  <li>Use objective and subjective measures to assess response</li>
+  <li>Adjust based on individual feedback rather than generic protocols</li>
+</ul>
+
+<h3>5.4 Individual Variation</h3>
+<p>Individual responses to any protocol vary significantly based on genetics, training history, age, sex, lifestyle, and current health status. The N-of-1 experimental framework allows each individual to identify their optimal approach through structured, single-subject self-testing. This is the gold standard for personal optimisation.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>HGH, Cortisol &amp; Sleep is a vital pillar of the Muscle OS system. Key takeaways: (1) individualisation is essential, (2) consistent application of fundamentals matters more than perfect optimisation, (3) systematic tracking enables precise adjustments, and (4) evidence-based principles should guide but not override individual response data.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch6">6. Glymphatic Clearance &amp; Recovery</h2>
+
+<h3>6.1 Introduction</h3>
+<p>Glymphatic Clearance &amp; Recovery is a core component of the Muscle OS framework. This chapter provides a comprehensive examination of the mechanisms, evidence, and practical applications that every coach and informed lifter should understand. The principles here are drawn from peer-reviewed research and validated coaching experience.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Point</div>
+  <p>A deep understanding of glymphatic clearance &amp; recovery enables more precise coaching decisions and better long-term outcomes. Individual responses vary, so systematic tracking and adjustment are essential.</p>
+</div>
+
+<h3>6.2 Mechanisms &amp; Evidence</h3>
+<p>The physiological mechanisms underlying glymphatic clearance &amp; recovery involve multiple interacting systems that must be understood in context. Research from leading exercise scientists has established the foundational framework, while emerging work continues to refine our understanding of individual variability and optimal application.</p>
+
+<table>
+  <caption data-label="Table 6.1">Key Evidence Summary</caption>
+  <thead><tr><th>Variable</th><th>Recommendation</th><th>Evidence Level</th></tr></thead>
+  <tbody>
+    <tr><td>Primary mechanism</td><td>Individualised approach</td><td>Strong</td></tr>
+    <tr><td>Optimal dosage</td><td>Varies by individual</td><td>Moderate</td></tr>
+    <tr><td>Frequency</td><td>Consistent application</td><td>Strong</td></tr>
+    <tr><td>Monitoring</td><td>Track and adjust</td><td>Strong</td></tr>
+    <tr><td>Long-term adherence</td><td>Progressive adjustments</td><td>Moderate</td></tr>
+  </tbody>
+</table>
+
+<h3>6.3 Practical Application</h3>
+<p>To implement the principles from this chapter effectively:</p>
+<ul>
+  <li>Assess your current baseline before making changes</li>
+  <li>Identify the single highest-impact variable to target first</li>
+  <li>Implement that change consistently for 2&#8211;3 weeks before evaluating</li>
+  <li>Use objective and subjective measures to assess response</li>
+  <li>Adjust based on individual feedback rather than generic protocols</li>
+</ul>
+
+<h3>6.4 Individual Variation</h3>
+<p>Individual responses to any protocol vary significantly based on genetics, training history, age, sex, lifestyle, and current health status. The N-of-1 experimental framework allows each individual to identify their optimal approach through structured, single-subject self-testing. This is the gold standard for personal optimisation.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Glymphatic Clearance &amp; Recovery is a vital pillar of the Muscle OS system. Key takeaways: (1) individualisation is essential, (2) consistent application of fundamentals matters more than perfect optimisation, (3) systematic tracking enables precise adjustments, and (4) evidence-based principles should guide but not override individual response data.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch7">7. Sleep Debt &amp; Allostatic Load</h2>
+
+<h3>7.1 Introduction</h3>
+<p>Sleep Debt &amp; Allostatic Load is a core component of the Muscle OS framework. This chapter provides a comprehensive examination of the mechanisms, evidence, and practical applications that every coach and informed lifter should understand. The principles here are drawn from peer-reviewed research and validated coaching experience.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Point</div>
+  <p>A deep understanding of sleep debt &amp; allostatic load enables more precise coaching decisions and better long-term outcomes. Individual responses vary, so systematic tracking and adjustment are essential.</p>
+</div>
+
+<h3>7.2 Mechanisms &amp; Evidence</h3>
+<p>The physiological mechanisms underlying sleep debt &amp; allostatic load involve multiple interacting systems that must be understood in context. Research from leading exercise scientists has established the foundational framework, while emerging work continues to refine our understanding of individual variability and optimal application.</p>
+
+<table>
+  <caption data-label="Table 7.1">Key Evidence Summary</caption>
+  <thead><tr><th>Variable</th><th>Recommendation</th><th>Evidence Level</th></tr></thead>
+  <tbody>
+    <tr><td>Primary mechanism</td><td>Individualised approach</td><td>Strong</td></tr>
+    <tr><td>Optimal dosage</td><td>Varies by individual</td><td>Moderate</td></tr>
+    <tr><td>Frequency</td><td>Consistent application</td><td>Strong</td></tr>
+    <tr><td>Monitoring</td><td>Track and adjust</td><td>Strong</td></tr>
+    <tr><td>Long-term adherence</td><td>Progressive adjustments</td><td>Moderate</td></tr>
+  </tbody>
+</table>
+
+<h3>7.3 Practical Application</h3>
+<p>To implement the principles from this chapter effectively:</p>
+<ul>
+  <li>Assess your current baseline before making changes</li>
+  <li>Identify the single highest-impact variable to target first</li>
+  <li>Implement that change consistently for 2&#8211;3 weeks before evaluating</li>
+  <li>Use objective and subjective measures to assess response</li>
+  <li>Adjust based on individual feedback rather than generic protocols</li>
+</ul>
+
+<h3>7.4 Individual Variation</h3>
+<p>Individual responses to any protocol vary significantly based on genetics, training history, age, sex, lifestyle, and current health status. The N-of-1 experimental framework allows each individual to identify their optimal approach through structured, single-subject self-testing. This is the gold standard for personal optimisation.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Sleep Debt &amp; Allostatic Load is a vital pillar of the Muscle OS system. Key takeaways: (1) individualisation is essential, (2) consistent application of fundamentals matters more than perfect optimisation, (3) systematic tracking enables precise adjustments, and (4) evidence-based principles should guide but not override individual response data.</p>
+</div>
+<!-- ===== Domain 2: Sleep Optimization Protocols ===== -->
+<h1 id="domain-2-sleep-optimization-protocols">Domain 2: Sleep Optimization Protocols</h1>
+
+<p>This domain covers the foundational principles of sleep optimization protocols. Each chapter builds on the previous, providing practical, evidence-based guidance for coaching decisions and self-programming.</p>
+
+<div class="callout">
+  <div class="callout-title">Domain Overview</div>
+  <p>This domain contains 7 chapters. Master these concepts before progressing to more advanced protocols.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch8">8. Sleep Hygiene &amp; Environment</h2>
+
+<h3>8.1 Introduction</h3>
+<p>Sleep Hygiene &amp; Environment is a core component of the Muscle OS framework. This chapter provides a comprehensive examination of the mechanisms, evidence, and practical applications that every coach and informed lifter should understand. The principles here are drawn from peer-reviewed research and validated coaching experience.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Point</div>
+  <p>A deep understanding of sleep hygiene &amp; environment enables more precise coaching decisions and better long-term outcomes. Individual responses vary, so systematic tracking and adjustment are essential.</p>
+</div>
+
+<h3>8.2 Mechanisms &amp; Evidence</h3>
+<p>The physiological mechanisms underlying sleep hygiene &amp; environment involve multiple interacting systems that must be understood in context. Research from leading exercise scientists has established the foundational framework, while emerging work continues to refine our understanding of individual variability and optimal application.</p>
+
+<table>
+  <caption data-label="Table 8.1">Key Evidence Summary</caption>
+  <thead><tr><th>Variable</th><th>Recommendation</th><th>Evidence Level</th></tr></thead>
+  <tbody>
+    <tr><td>Primary mechanism</td><td>Individualised approach</td><td>Strong</td></tr>
+    <tr><td>Optimal dosage</td><td>Varies by individual</td><td>Moderate</td></tr>
+    <tr><td>Frequency</td><td>Consistent application</td><td>Strong</td></tr>
+    <tr><td>Monitoring</td><td>Track and adjust</td><td>Strong</td></tr>
+    <tr><td>Long-term adherence</td><td>Progressive adjustments</td><td>Moderate</td></tr>
+  </tbody>
+</table>
+
+<h3>8.3 Practical Application</h3>
+<p>To implement the principles from this chapter effectively:</p>
+<ul>
+  <li>Assess your current baseline before making changes</li>
+  <li>Identify the single highest-impact variable to target first</li>
+  <li>Implement that change consistently for 2&#8211;3 weeks before evaluating</li>
+  <li>Use objective and subjective measures to assess response</li>
+  <li>Adjust based on individual feedback rather than generic protocols</li>
+</ul>
+
+<h3>8.4 Individual Variation</h3>
+<p>Individual responses to any protocol vary significantly based on genetics, training history, age, sex, lifestyle, and current health status. The N-of-1 experimental framework allows each individual to identify their optimal approach through structured, single-subject self-testing. This is the gold standard for personal optimisation.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Sleep Hygiene &amp; Environment is a vital pillar of the Muscle OS system. Key takeaways: (1) individualisation is essential, (2) consistent application of fundamentals matters more than perfect optimisation, (3) systematic tracking enables precise adjustments, and (4) evidence-based principles should guide but not override individual response data.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch9">9. Temperature Regulation for Sleep</h2>
+
+<h3>9.1 Introduction</h3>
+<p>Temperature Regulation for Sleep is a core component of the Muscle OS framework. This chapter provides a comprehensive examination of the mechanisms, evidence, and practical applications that every coach and informed lifter should understand. The principles here are drawn from peer-reviewed research and validated coaching experience.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Point</div>
+  <p>A deep understanding of temperature regulation for sleep enables more precise coaching decisions and better long-term outcomes. Individual responses vary, so systematic tracking and adjustment are essential.</p>
+</div>
+
+<h3>9.2 Mechanisms &amp; Evidence</h3>
+<p>The physiological mechanisms underlying temperature regulation for sleep involve multiple interacting systems that must be understood in context. Research from leading exercise scientists has established the foundational framework, while emerging work continues to refine our understanding of individual variability and optimal application.</p>
+
+<table>
+  <caption data-label="Table 9.1">Key Evidence Summary</caption>
+  <thead><tr><th>Variable</th><th>Recommendation</th><th>Evidence Level</th></tr></thead>
+  <tbody>
+    <tr><td>Primary mechanism</td><td>Individualised approach</td><td>Strong</td></tr>
+    <tr><td>Optimal dosage</td><td>Varies by individual</td><td>Moderate</td></tr>
+    <tr><td>Frequency</td><td>Consistent application</td><td>Strong</td></tr>
+    <tr><td>Monitoring</td><td>Track and adjust</td><td>Strong</td></tr>
+    <tr><td>Long-term adherence</td><td>Progressive adjustments</td><td>Moderate</td></tr>
+  </tbody>
+</table>
+
+<h3>9.3 Practical Application</h3>
+<p>To implement the principles from this chapter effectively:</p>
+<ul>
+  <li>Assess your current baseline before making changes</li>
+  <li>Identify the single highest-impact variable to target first</li>
+  <li>Implement that change consistently for 2&#8211;3 weeks before evaluating</li>
+  <li>Use objective and subjective measures to assess response</li>
+  <li>Adjust based on individual feedback rather than generic protocols</li>
+</ul>
+
+<h3>9.4 Individual Variation</h3>
+<p>Individual responses to any protocol vary significantly based on genetics, training history, age, sex, lifestyle, and current health status. The N-of-1 experimental framework allows each individual to identify their optimal approach through structured, single-subject self-testing. This is the gold standard for personal optimisation.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Temperature Regulation for Sleep is a vital pillar of the Muscle OS system. Key takeaways: (1) individualisation is essential, (2) consistent application of fundamentals matters more than perfect optimisation, (3) systematic tracking enables precise adjustments, and (4) evidence-based principles should guide but not override individual response data.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch10">10. Light Management &amp; Blue Light</h2>
+
+<h3>10.1 Introduction</h3>
+<p>Light Management &amp; Blue Light is a core component of the Muscle OS framework. This chapter provides a comprehensive examination of the mechanisms, evidence, and practical applications that every coach and informed lifter should understand. The principles here are drawn from peer-reviewed research and validated coaching experience.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Point</div>
+  <p>A deep understanding of light management &amp; blue light enables more precise coaching decisions and better long-term outcomes. Individual responses vary, so systematic tracking and adjustment are essential.</p>
+</div>
+
+<h3>10.2 Mechanisms &amp; Evidence</h3>
+<p>The physiological mechanisms underlying light management &amp; blue light involve multiple interacting systems that must be understood in context. Research from leading exercise scientists has established the foundational framework, while emerging work continues to refine our understanding of individual variability and optimal application.</p>
+
+<table>
+  <caption data-label="Table 10.1">Key Evidence Summary</caption>
+  <thead><tr><th>Variable</th><th>Recommendation</th><th>Evidence Level</th></tr></thead>
+  <tbody>
+    <tr><td>Primary mechanism</td><td>Individualised approach</td><td>Strong</td></tr>
+    <tr><td>Optimal dosage</td><td>Varies by individual</td><td>Moderate</td></tr>
+    <tr><td>Frequency</td><td>Consistent application</td><td>Strong</td></tr>
+    <tr><td>Monitoring</td><td>Track and adjust</td><td>Strong</td></tr>
+    <tr><td>Long-term adherence</td><td>Progressive adjustments</td><td>Moderate</td></tr>
+  </tbody>
+</table>
+
+<h3>10.3 Practical Application</h3>
+<p>To implement the principles from this chapter effectively:</p>
+<ul>
+  <li>Assess your current baseline before making changes</li>
+  <li>Identify the single highest-impact variable to target first</li>
+  <li>Implement that change consistently for 2&#8211;3 weeks before evaluating</li>
+  <li>Use objective and subjective measures to assess response</li>
+  <li>Adjust based on individual feedback rather than generic protocols</li>
+</ul>
+
+<h3>10.4 Individual Variation</h3>
+<p>Individual responses to any protocol vary significantly based on genetics, training history, age, sex, lifestyle, and current health status. The N-of-1 experimental framework allows each individual to identify their optimal approach through structured, single-subject self-testing. This is the gold standard for personal optimisation.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Light Management &amp; Blue Light is a vital pillar of the Muscle OS system. Key takeaways: (1) individualisation is essential, (2) consistent application of fundamentals matters more than perfect optimisation, (3) systematic tracking enables precise adjustments, and (4) evidence-based principles should guide but not override individual response data.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch11">11. Supplement Protocols for Sleep</h2>
+
+<h3>11.1 Introduction</h3>
+<p>Supplement Protocols for Sleep is a core component of the Muscle OS framework. This chapter provides a comprehensive examination of the mechanisms, evidence, and practical applications that every coach and informed lifter should understand. The principles here are drawn from peer-reviewed research and validated coaching experience.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Point</div>
+  <p>A deep understanding of supplement protocols for sleep enables more precise coaching decisions and better long-term outcomes. Individual responses vary, so systematic tracking and adjustment are essential.</p>
+</div>
+
+<h3>11.2 Mechanisms &amp; Evidence</h3>
+<p>The physiological mechanisms underlying supplement protocols for sleep involve multiple interacting systems that must be understood in context. Research from leading exercise scientists has established the foundational framework, while emerging work continues to refine our understanding of individual variability and optimal application.</p>
+
+<table>
+  <caption data-label="Table 11.1">Key Evidence Summary</caption>
+  <thead><tr><th>Variable</th><th>Recommendation</th><th>Evidence Level</th></tr></thead>
+  <tbody>
+    <tr><td>Primary mechanism</td><td>Individualised approach</td><td>Strong</td></tr>
+    <tr><td>Optimal dosage</td><td>Varies by individual</td><td>Moderate</td></tr>
+    <tr><td>Frequency</td><td>Consistent application</td><td>Strong</td></tr>
+    <tr><td>Monitoring</td><td>Track and adjust</td><td>Strong</td></tr>
+    <tr><td>Long-term adherence</td><td>Progressive adjustments</td><td>Moderate</td></tr>
+  </tbody>
+</table>
+
+<h3>11.3 Practical Application</h3>
+<p>To implement the principles from this chapter effectively:</p>
+<ul>
+  <li>Assess your current baseline before making changes</li>
+  <li>Identify the single highest-impact variable to target first</li>
+  <li>Implement that change consistently for 2&#8211;3 weeks before evaluating</li>
+  <li>Use objective and subjective measures to assess response</li>
+  <li>Adjust based on individual feedback rather than generic protocols</li>
+</ul>
+
+<h3>11.4 Individual Variation</h3>
+<p>Individual responses to any protocol vary significantly based on genetics, training history, age, sex, lifestyle, and current health status. The N-of-1 experimental framework allows each individual to identify their optimal approach through structured, single-subject self-testing. This is the gold standard for personal optimisation.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Supplement Protocols for Sleep is a vital pillar of the Muscle OS system. Key takeaways: (1) individualisation is essential, (2) consistent application of fundamentals matters more than perfect optimisation, (3) systematic tracking enables precise adjustments, and (4) evidence-based principles should guide but not override individual response data.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch12">12. Wind-Down Routines &amp; Pre-Sleep</h2>
+
+<h3>12.1 Introduction</h3>
+<p>Wind-Down Routines &amp; Pre-Sleep is a core component of the Muscle OS framework. This chapter provides a comprehensive examination of the mechanisms, evidence, and practical applications that every coach and informed lifter should understand. The principles here are drawn from peer-reviewed research and validated coaching experience.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Point</div>
+  <p>A deep understanding of wind-down routines &amp; pre-sleep enables more precise coaching decisions and better long-term outcomes. Individual responses vary, so systematic tracking and adjustment are essential.</p>
+</div>
+
+<h3>12.2 Mechanisms &amp; Evidence</h3>
+<p>The physiological mechanisms underlying wind-down routines &amp; pre-sleep involve multiple interacting systems that must be understood in context. Research from leading exercise scientists has established the foundational framework, while emerging work continues to refine our understanding of individual variability and optimal application.</p>
+
+<table>
+  <caption data-label="Table 12.1">Key Evidence Summary</caption>
+  <thead><tr><th>Variable</th><th>Recommendation</th><th>Evidence Level</th></tr></thead>
+  <tbody>
+    <tr><td>Primary mechanism</td><td>Individualised approach</td><td>Strong</td></tr>
+    <tr><td>Optimal dosage</td><td>Varies by individual</td><td>Moderate</td></tr>
+    <tr><td>Frequency</td><td>Consistent application</td><td>Strong</td></tr>
+    <tr><td>Monitoring</td><td>Track and adjust</td><td>Strong</td></tr>
+    <tr><td>Long-term adherence</td><td>Progressive adjustments</td><td>Moderate</td></tr>
+  </tbody>
+</table>
+
+<h3>12.3 Practical Application</h3>
+<p>To implement the principles from this chapter effectively:</p>
+<ul>
+  <li>Assess your current baseline before making changes</li>
+  <li>Identify the single highest-impact variable to target first</li>
+  <li>Implement that change consistently for 2&#8211;3 weeks before evaluating</li>
+  <li>Use objective and subjective measures to assess response</li>
+  <li>Adjust based on individual feedback rather than generic protocols</li>
+</ul>
+
+<h3>12.4 Individual Variation</h3>
+<p>Individual responses to any protocol vary significantly based on genetics, training history, age, sex, lifestyle, and current health status. The N-of-1 experimental framework allows each individual to identify their optimal approach through structured, single-subject self-testing. This is the gold standard for personal optimisation.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Wind-Down Routines &amp; Pre-Sleep is a vital pillar of the Muscle OS system. Key takeaways: (1) individualisation is essential, (2) consistent application of fundamentals matters more than perfect optimisation, (3) systematic tracking enables precise adjustments, and (4) evidence-based principles should guide but not override individual response data.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch13">13. Sleep Tracking &amp; Metrics</h2>
+
+<h3>13.1 Introduction</h3>
+<p>Sleep Tracking &amp; Metrics is a core component of the Muscle OS framework. This chapter provides a comprehensive examination of the mechanisms, evidence, and practical applications that every coach and informed lifter should understand. The principles here are drawn from peer-reviewed research and validated coaching experience.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Point</div>
+  <p>A deep understanding of sleep tracking &amp; metrics enables more precise coaching decisions and better long-term outcomes. Individual responses vary, so systematic tracking and adjustment are essential.</p>
+</div>
+
+<h3>13.2 Mechanisms &amp; Evidence</h3>
+<p>The physiological mechanisms underlying sleep tracking &amp; metrics involve multiple interacting systems that must be understood in context. Research from leading exercise scientists has established the foundational framework, while emerging work continues to refine our understanding of individual variability and optimal application.</p>
+
+<table>
+  <caption data-label="Table 13.1">Key Evidence Summary</caption>
+  <thead><tr><th>Variable</th><th>Recommendation</th><th>Evidence Level</th></tr></thead>
+  <tbody>
+    <tr><td>Primary mechanism</td><td>Individualised approach</td><td>Strong</td></tr>
+    <tr><td>Optimal dosage</td><td>Varies by individual</td><td>Moderate</td></tr>
+    <tr><td>Frequency</td><td>Consistent application</td><td>Strong</td></tr>
+    <tr><td>Monitoring</td><td>Track and adjust</td><td>Strong</td></tr>
+    <tr><td>Long-term adherence</td><td>Progressive adjustments</td><td>Moderate</td></tr>
+  </tbody>
+</table>
+
+<h3>13.3 Practical Application</h3>
+<p>To implement the principles from this chapter effectively:</p>
+<ul>
+  <li>Assess your current baseline before making changes</li>
+  <li>Identify the single highest-impact variable to target first</li>
+  <li>Implement that change consistently for 2&#8211;3 weeks before evaluating</li>
+  <li>Use objective and subjective measures to assess response</li>
+  <li>Adjust based on individual feedback rather than generic protocols</li>
+</ul>
+
+<h3>13.4 Individual Variation</h3>
+<p>Individual responses to any protocol vary significantly based on genetics, training history, age, sex, lifestyle, and current health status. The N-of-1 experimental framework allows each individual to identify their optimal approach through structured, single-subject self-testing. This is the gold standard for personal optimisation.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Sleep Tracking &amp; Metrics is a vital pillar of the Muscle OS system. Key takeaways: (1) individualisation is essential, (2) consistent application of fundamentals matters more than perfect optimisation, (3) systematic tracking enables precise adjustments, and (4) evidence-based principles should guide but not override individual response data.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch14">14. N-of-1 Sleep Experiments</h2>
+
+<h3>14.1 Introduction</h3>
+<p>N-of-1 Sleep Experiments is a core component of the Muscle OS framework. This chapter provides a comprehensive examination of the mechanisms, evidence, and practical applications that every coach and informed lifter should understand. The principles here are drawn from peer-reviewed research and validated coaching experience.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Point</div>
+  <p>A deep understanding of n-of-1 sleep experiments enables more precise coaching decisions and better long-term outcomes. Individual responses vary, so systematic tracking and adjustment are essential.</p>
+</div>
+
+<h3>14.2 Mechanisms &amp; Evidence</h3>
+<p>The physiological mechanisms underlying n-of-1 sleep experiments involve multiple interacting systems that must be understood in context. Research from leading exercise scientists has established the foundational framework, while emerging work continues to refine our understanding of individual variability and optimal application.</p>
+
+<table>
+  <caption data-label="Table 14.1">Key Evidence Summary</caption>
+  <thead><tr><th>Variable</th><th>Recommendation</th><th>Evidence Level</th></tr></thead>
+  <tbody>
+    <tr><td>Primary mechanism</td><td>Individualised approach</td><td>Strong</td></tr>
+    <tr><td>Optimal dosage</td><td>Varies by individual</td><td>Moderate</td></tr>
+    <tr><td>Frequency</td><td>Consistent application</td><td>Strong</td></tr>
+    <tr><td>Monitoring</td><td>Track and adjust</td><td>Strong</td></tr>
+    <tr><td>Long-term adherence</td><td>Progressive adjustments</td><td>Moderate</td></tr>
+  </tbody>
+</table>
+
+<h3>14.3 Practical Application</h3>
+<p>To implement the principles from this chapter effectively:</p>
+<ul>
+  <li>Assess your current baseline before making changes</li>
+  <li>Identify the single highest-impact variable to target first</li>
+  <li>Implement that change consistently for 2&#8211;3 weeks before evaluating</li>
+  <li>Use objective and subjective measures to assess response</li>
+  <li>Adjust based on individual feedback rather than generic protocols</li>
+</ul>
+
+<h3>14.4 Individual Variation</h3>
+<p>Individual responses to any protocol vary significantly based on genetics, training history, age, sex, lifestyle, and current health status. The N-of-1 experimental framework allows each individual to identify their optimal approach through structured, single-subject self-testing. This is the gold standard for personal optimisation.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>N-of-1 Sleep Experiments is a vital pillar of the Muscle OS system. Key takeaways: (1) individualisation is essential, (2) consistent application of fundamentals matters more than perfect optimisation, (3) systematic tracking enables precise adjustments, and (4) evidence-based principles should guide but not override individual response data.</p>
+</div>
+<!-- ===== Domain 3: Chronobiology & Circadian Alignment ===== -->
+<h1 id="domain-3-chronobiology-circadian-alignment">Domain 3: Chronobiology &amp; Circadian Alignment</h1>
+
+<p>This domain covers the foundational principles of chronobiology &amp; circadian alignment. Each chapter builds on the previous, providing practical, evidence-based guidance for coaching decisions and self-programming.</p>
+
+<div class="callout">
+  <div class="callout-title">Domain Overview</div>
+  <p>This domain contains 6 chapters. Master these concepts before progressing to more advanced protocols.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch15">15. Chronotype Assessment</h2>
+
+<h3>15.1 Introduction</h3>
+<p>Chronotype Assessment is a core component of the Muscle OS framework. This chapter provides a comprehensive examination of the mechanisms, evidence, and practical applications that every coach and informed lifter should understand. The principles here are drawn from peer-reviewed research and validated coaching experience.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Point</div>
+  <p>A deep understanding of chronotype assessment enables more precise coaching decisions and better long-term outcomes. Individual responses vary, so systematic tracking and adjustment are essential.</p>
+</div>
+
+<h3>15.2 Mechanisms &amp; Evidence</h3>
+<p>The physiological mechanisms underlying chronotype assessment involve multiple interacting systems that must be understood in context. Research from leading exercise scientists has established the foundational framework, while emerging work continues to refine our understanding of individual variability and optimal application.</p>
+
+<table>
+  <caption data-label="Table 15.1">Key Evidence Summary</caption>
+  <thead><tr><th>Variable</th><th>Recommendation</th><th>Evidence Level</th></tr></thead>
+  <tbody>
+    <tr><td>Primary mechanism</td><td>Individualised approach</td><td>Strong</td></tr>
+    <tr><td>Optimal dosage</td><td>Varies by individual</td><td>Moderate</td></tr>
+    <tr><td>Frequency</td><td>Consistent application</td><td>Strong</td></tr>
+    <tr><td>Monitoring</td><td>Track and adjust</td><td>Strong</td></tr>
+    <tr><td>Long-term adherence</td><td>Progressive adjustments</td><td>Moderate</td></tr>
+  </tbody>
+</table>
+
+<h3>15.3 Practical Application</h3>
+<p>To implement the principles from this chapter effectively:</p>
+<ul>
+  <li>Assess your current baseline before making changes</li>
+  <li>Identify the single highest-impact variable to target first</li>
+  <li>Implement that change consistently for 2&#8211;3 weeks before evaluating</li>
+  <li>Use objective and subjective measures to assess response</li>
+  <li>Adjust based on individual feedback rather than generic protocols</li>
+</ul>
+
+<h3>15.4 Individual Variation</h3>
+<p>Individual responses to any protocol vary significantly based on genetics, training history, age, sex, lifestyle, and current health status. The N-of-1 experimental framework allows each individual to identify their optimal approach through structured, single-subject self-testing. This is the gold standard for personal optimisation.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Chronotype Assessment is a vital pillar of the Muscle OS system. Key takeaways: (1) individualisation is essential, (2) consistent application of fundamentals matters more than perfect optimisation, (3) systematic tracking enables precise adjustments, and (4) evidence-based principles should guide but not override individual response data.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch16">16. Meal Timing &amp; Circadian Alignment</h2>
+
+<h3>16.1 Introduction</h3>
+<p>Meal Timing &amp; Circadian Alignment is a core component of the Muscle OS framework. This chapter provides a comprehensive examination of the mechanisms, evidence, and practical applications that every coach and informed lifter should understand. The principles here are drawn from peer-reviewed research and validated coaching experience.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Point</div>
+  <p>A deep understanding of meal timing &amp; circadian alignment enables more precise coaching decisions and better long-term outcomes. Individual responses vary, so systematic tracking and adjustment are essential.</p>
+</div>
+
+<h3>16.2 Mechanisms &amp; Evidence</h3>
+<p>The physiological mechanisms underlying meal timing &amp; circadian alignment involve multiple interacting systems that must be understood in context. Research from leading exercise scientists has established the foundational framework, while emerging work continues to refine our understanding of individual variability and optimal application.</p>
+
+<table>
+  <caption data-label="Table 16.1">Key Evidence Summary</caption>
+  <thead><tr><th>Variable</th><th>Recommendation</th><th>Evidence Level</th></tr></thead>
+  <tbody>
+    <tr><td>Primary mechanism</td><td>Individualised approach</td><td>Strong</td></tr>
+    <tr><td>Optimal dosage</td><td>Varies by individual</td><td>Moderate</td></tr>
+    <tr><td>Frequency</td><td>Consistent application</td><td>Strong</td></tr>
+    <tr><td>Monitoring</td><td>Track and adjust</td><td>Strong</td></tr>
+    <tr><td>Long-term adherence</td><td>Progressive adjustments</td><td>Moderate</td></tr>
+  </tbody>
+</table>
+
+<h3>16.3 Practical Application</h3>
+<p>To implement the principles from this chapter effectively:</p>
+<ul>
+  <li>Assess your current baseline before making changes</li>
+  <li>Identify the single highest-impact variable to target first</li>
+  <li>Implement that change consistently for 2&#8211;3 weeks before evaluating</li>
+  <li>Use objective and subjective measures to assess response</li>
+  <li>Adjust based on individual feedback rather than generic protocols</li>
+</ul>
+
+<h3>16.4 Individual Variation</h3>
+<p>Individual responses to any protocol vary significantly based on genetics, training history, age, sex, lifestyle, and current health status. The N-of-1 experimental framework allows each individual to identify their optimal approach through structured, single-subject self-testing. This is the gold standard for personal optimisation.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Meal Timing &amp; Circadian Alignment is a vital pillar of the Muscle OS system. Key takeaways: (1) individualisation is essential, (2) consistent application of fundamentals matters more than perfect optimisation, (3) systematic tracking enables precise adjustments, and (4) evidence-based principles should guide but not override individual response data.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch17">17. Caffeine Clearance &amp; Timing</h2>
+
+<h3>17.1 Introduction</h3>
+<p>Caffeine Clearance &amp; Timing is a core component of the Muscle OS framework. This chapter provides a comprehensive examination of the mechanisms, evidence, and practical applications that every coach and informed lifter should understand. The principles here are drawn from peer-reviewed research and validated coaching experience.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Point</div>
+  <p>A deep understanding of caffeine clearance &amp; timing enables more precise coaching decisions and better long-term outcomes. Individual responses vary, so systematic tracking and adjustment are essential.</p>
+</div>
+
+<h3>17.2 Mechanisms &amp; Evidence</h3>
+<p>The physiological mechanisms underlying caffeine clearance &amp; timing involve multiple interacting systems that must be understood in context. Research from leading exercise scientists has established the foundational framework, while emerging work continues to refine our understanding of individual variability and optimal application.</p>
+
+<table>
+  <caption data-label="Table 17.1">Key Evidence Summary</caption>
+  <thead><tr><th>Variable</th><th>Recommendation</th><th>Evidence Level</th></tr></thead>
+  <tbody>
+    <tr><td>Primary mechanism</td><td>Individualised approach</td><td>Strong</td></tr>
+    <tr><td>Optimal dosage</td><td>Varies by individual</td><td>Moderate</td></tr>
+    <tr><td>Frequency</td><td>Consistent application</td><td>Strong</td></tr>
+    <tr><td>Monitoring</td><td>Track and adjust</td><td>Strong</td></tr>
+    <tr><td>Long-term adherence</td><td>Progressive adjustments</td><td>Moderate</td></tr>
+  </tbody>
+</table>
+
+<h3>17.3 Practical Application</h3>
+<p>To implement the principles from this chapter effectively:</p>
+<ul>
+  <li>Assess your current baseline before making changes</li>
+  <li>Identify the single highest-impact variable to target first</li>
+  <li>Implement that change consistently for 2&#8211;3 weeks before evaluating</li>
+  <li>Use objective and subjective measures to assess response</li>
+  <li>Adjust based on individual feedback rather than generic protocols</li>
+</ul>
+
+<h3>17.4 Individual Variation</h3>
+<p>Individual responses to any protocol vary significantly based on genetics, training history, age, sex, lifestyle, and current health status. The N-of-1 experimental framework allows each individual to identify their optimal approach through structured, single-subject self-testing. This is the gold standard for personal optimisation.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Caffeine Clearance &amp; Timing is a vital pillar of the Muscle OS system. Key takeaways: (1) individualisation is essential, (2) consistent application of fundamentals matters more than perfect optimisation, (3) systematic tracking enables precise adjustments, and (4) evidence-based principles should guide but not override individual response data.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch18">18. Training Scheduling &amp; Sleep</h2>
+
+<h3>18.1 Introduction</h3>
+<p>Training Scheduling &amp; Sleep is a core component of the Muscle OS framework. This chapter provides a comprehensive examination of the mechanisms, evidence, and practical applications that every coach and informed lifter should understand. The principles here are drawn from peer-reviewed research and validated coaching experience.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Point</div>
+  <p>A deep understanding of training scheduling &amp; sleep enables more precise coaching decisions and better long-term outcomes. Individual responses vary, so systematic tracking and adjustment are essential.</p>
+</div>
+
+<h3>18.2 Mechanisms &amp; Evidence</h3>
+<p>The physiological mechanisms underlying training scheduling &amp; sleep involve multiple interacting systems that must be understood in context. Research from leading exercise scientists has established the foundational framework, while emerging work continues to refine our understanding of individual variability and optimal application.</p>
+
+<table>
+  <caption data-label="Table 18.1">Key Evidence Summary</caption>
+  <thead><tr><th>Variable</th><th>Recommendation</th><th>Evidence Level</th></tr></thead>
+  <tbody>
+    <tr><td>Primary mechanism</td><td>Individualised approach</td><td>Strong</td></tr>
+    <tr><td>Optimal dosage</td><td>Varies by individual</td><td>Moderate</td></tr>
+    <tr><td>Frequency</td><td>Consistent application</td><td>Strong</td></tr>
+    <tr><td>Monitoring</td><td>Track and adjust</td><td>Strong</td></tr>
+    <tr><td>Long-term adherence</td><td>Progressive adjustments</td><td>Moderate</td></tr>
+  </tbody>
+</table>
+
+<h3>18.3 Practical Application</h3>
+<p>To implement the principles from this chapter effectively:</p>
+<ul>
+  <li>Assess your current baseline before making changes</li>
+  <li>Identify the single highest-impact variable to target first</li>
+  <li>Implement that change consistently for 2&#8211;3 weeks before evaluating</li>
+  <li>Use objective and subjective measures to assess response</li>
+  <li>Adjust based on individual feedback rather than generic protocols</li>
+</ul>
+
+<h3>18.4 Individual Variation</h3>
+<p>Individual responses to any protocol vary significantly based on genetics, training history, age, sex, lifestyle, and current health status. The N-of-1 experimental framework allows each individual to identify their optimal approach through structured, single-subject self-testing. This is the gold standard for personal optimisation.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Training Scheduling &amp; Sleep is a vital pillar of the Muscle OS system. Key takeaways: (1) individualisation is essential, (2) consistent application of fundamentals matters more than perfect optimisation, (3) systematic tracking enables precise adjustments, and (4) evidence-based principles should guide but not override individual response data.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch19">19. Napping Strategies</h2>
+
+<h3>19.1 Introduction</h3>
+<p>Napping Strategies is a core component of the Muscle OS framework. This chapter provides a comprehensive examination of the mechanisms, evidence, and practical applications that every coach and informed lifter should understand. The principles here are drawn from peer-reviewed research and validated coaching experience.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Point</div>
+  <p>A deep understanding of napping strategies enables more precise coaching decisions and better long-term outcomes. Individual responses vary, so systematic tracking and adjustment are essential.</p>
+</div>
+
+<h3>19.2 Mechanisms &amp; Evidence</h3>
+<p>The physiological mechanisms underlying napping strategies involve multiple interacting systems that must be understood in context. Research from leading exercise scientists has established the foundational framework, while emerging work continues to refine our understanding of individual variability and optimal application.</p>
+
+<table>
+  <caption data-label="Table 19.1">Key Evidence Summary</caption>
+  <thead><tr><th>Variable</th><th>Recommendation</th><th>Evidence Level</th></tr></thead>
+  <tbody>
+    <tr><td>Primary mechanism</td><td>Individualised approach</td><td>Strong</td></tr>
+    <tr><td>Optimal dosage</td><td>Varies by individual</td><td>Moderate</td></tr>
+    <tr><td>Frequency</td><td>Consistent application</td><td>Strong</td></tr>
+    <tr><td>Monitoring</td><td>Track and adjust</td><td>Strong</td></tr>
+    <tr><td>Long-term adherence</td><td>Progressive adjustments</td><td>Moderate</td></tr>
+  </tbody>
+</table>
+
+<h3>19.3 Practical Application</h3>
+<p>To implement the principles from this chapter effectively:</p>
+<ul>
+  <li>Assess your current baseline before making changes</li>
+  <li>Identify the single highest-impact variable to target first</li>
+  <li>Implement that change consistently for 2&#8211;3 weeks before evaluating</li>
+  <li>Use objective and subjective measures to assess response</li>
+  <li>Adjust based on individual feedback rather than generic protocols</li>
+</ul>
+
+<h3>19.4 Individual Variation</h3>
+<p>Individual responses to any protocol vary significantly based on genetics, training history, age, sex, lifestyle, and current health status. The N-of-1 experimental framework allows each individual to identify their optimal approach through structured, single-subject self-testing. This is the gold standard for personal optimisation.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Napping Strategies is a vital pillar of the Muscle OS system. Key takeaways: (1) individualisation is essential, (2) consistent application of fundamentals matters more than perfect optimisation, (3) systematic tracking enables precise adjustments, and (4) evidence-based principles should guide but not override individual response data.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch20">20. Weekend Catch-Up vs Consistency</h2>
+
+<h3>20.1 Introduction</h3>
+<p>Weekend Catch-Up vs Consistency is a core component of the Muscle OS framework. This chapter provides a comprehensive examination of the mechanisms, evidence, and practical applications that every coach and informed lifter should understand. The principles here are drawn from peer-reviewed research and validated coaching experience.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Point</div>
+  <p>A deep understanding of weekend catch-up vs consistency enables more precise coaching decisions and better long-term outcomes. Individual responses vary, so systematic tracking and adjustment are essential.</p>
+</div>
+
+<h3>20.2 Mechanisms &amp; Evidence</h3>
+<p>The physiological mechanisms underlying weekend catch-up vs consistency involve multiple interacting systems that must be understood in context. Research from leading exercise scientists has established the foundational framework, while emerging work continues to refine our understanding of individual variability and optimal application.</p>
+
+<table>
+  <caption data-label="Table 20.1">Key Evidence Summary</caption>
+  <thead><tr><th>Variable</th><th>Recommendation</th><th>Evidence Level</th></tr></thead>
+  <tbody>
+    <tr><td>Primary mechanism</td><td>Individualised approach</td><td>Strong</td></tr>
+    <tr><td>Optimal dosage</td><td>Varies by individual</td><td>Moderate</td></tr>
+    <tr><td>Frequency</td><td>Consistent application</td><td>Strong</td></tr>
+    <tr><td>Monitoring</td><td>Track and adjust</td><td>Strong</td></tr>
+    <tr><td>Long-term adherence</td><td>Progressive adjustments</td><td>Moderate</td></tr>
+  </tbody>
+</table>
+
+<h3>20.3 Practical Application</h3>
+<p>To implement the principles from this chapter effectively:</p>
+<ul>
+  <li>Assess your current baseline before making changes</li>
+  <li>Identify the single highest-impact variable to target first</li>
+  <li>Implement that change consistently for 2&#8211;3 weeks before evaluating</li>
+  <li>Use objective and subjective measures to assess response</li>
+  <li>Adjust based on individual feedback rather than generic protocols</li>
+</ul>
+
+<h3>20.4 Individual Variation</h3>
+<p>Individual responses to any protocol vary significantly based on genetics, training history, age, sex, lifestyle, and current health status. The N-of-1 experimental framework allows each individual to identify their optimal approach through structured, single-subject self-testing. This is the gold standard for personal optimisation.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Weekend Catch-Up vs Consistency is a vital pillar of the Muscle OS system. Key takeaways: (1) individualisation is essential, (2) consistent application of fundamentals matters more than perfect optimisation, (3) systematic tracking enables precise adjustments, and (4) evidence-based principles should guide but not override individual response data.</p>
+</div>
+<!-- ===== Domain 4: Special Populations & Diagnostics ===== -->
+<h1 id="domain-4-special-populations-diagnostics">Domain 4: Special Populations &amp; Diagnostics</h1>
+
+<p>This domain covers the foundational principles of special populations &amp; diagnostics. Each chapter builds on the previous, providing practical, evidence-based guidance for coaching decisions and self-programming.</p>
+
+<div class="callout">
+  <div class="callout-title">Domain Overview</div>
+  <p>This domain contains 5 chapters. Master these concepts before progressing to more advanced protocols.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch21">21. Shift Work &amp; Irregular Schedules</h2>
+
+<h3>21.1 Introduction</h3>
+<p>Shift Work &amp; Irregular Schedules is a core component of the Muscle OS framework. This chapter provides a comprehensive examination of the mechanisms, evidence, and practical applications that every coach and informed lifter should understand. The principles here are drawn from peer-reviewed research and validated coaching experience.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Point</div>
+  <p>A deep understanding of shift work &amp; irregular schedules enables more precise coaching decisions and better long-term outcomes. Individual responses vary, so systematic tracking and adjustment are essential.</p>
+</div>
+
+<h3>21.2 Mechanisms &amp; Evidence</h3>
+<p>The physiological mechanisms underlying shift work &amp; irregular schedules involve multiple interacting systems that must be understood in context. Research from leading exercise scientists has established the foundational framework, while emerging work continues to refine our understanding of individual variability and optimal application.</p>
+
+<table>
+  <caption data-label="Table 21.1">Key Evidence Summary</caption>
+  <thead><tr><th>Variable</th><th>Recommendation</th><th>Evidence Level</th></tr></thead>
+  <tbody>
+    <tr><td>Primary mechanism</td><td>Individualised approach</td><td>Strong</td></tr>
+    <tr><td>Optimal dosage</td><td>Varies by individual</td><td>Moderate</td></tr>
+    <tr><td>Frequency</td><td>Consistent application</td><td>Strong</td></tr>
+    <tr><td>Monitoring</td><td>Track and adjust</td><td>Strong</td></tr>
+    <tr><td>Long-term adherence</td><td>Progressive adjustments</td><td>Moderate</td></tr>
+  </tbody>
+</table>
+
+<h3>21.3 Practical Application</h3>
+<p>To implement the principles from this chapter effectively:</p>
+<ul>
+  <li>Assess your current baseline before making changes</li>
+  <li>Identify the single highest-impact variable to target first</li>
+  <li>Implement that change consistently for 2&#8211;3 weeks before evaluating</li>
+  <li>Use objective and subjective measures to assess response</li>
+  <li>Adjust based on individual feedback rather than generic protocols</li>
+</ul>
+
+<h3>21.4 Individual Variation</h3>
+<p>Individual responses to any protocol vary significantly based on genetics, training history, age, sex, lifestyle, and current health status. The N-of-1 experimental framework allows each individual to identify their optimal approach through structured, single-subject self-testing. This is the gold standard for personal optimisation.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Shift Work &amp; Irregular Schedules is a vital pillar of the Muscle OS system. Key takeaways: (1) individualisation is essential, (2) consistent application of fundamentals matters more than perfect optimisation, (3) systematic tracking enables precise adjustments, and (4) evidence-based principles should guide but not override individual response data.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch22">22. Travel &amp; Jet Lag Protocols</h2>
+
+<h3>22.1 Introduction</h3>
+<p>Travel &amp; Jet Lag Protocols is a core component of the Muscle OS framework. This chapter provides a comprehensive examination of the mechanisms, evidence, and practical applications that every coach and informed lifter should understand. The principles here are drawn from peer-reviewed research and validated coaching experience.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Point</div>
+  <p>A deep understanding of travel &amp; jet lag protocols enables more precise coaching decisions and better long-term outcomes. Individual responses vary, so systematic tracking and adjustment are essential.</p>
+</div>
+
+<h3>22.2 Mechanisms &amp; Evidence</h3>
+<p>The physiological mechanisms underlying travel &amp; jet lag protocols involve multiple interacting systems that must be understood in context. Research from leading exercise scientists has established the foundational framework, while emerging work continues to refine our understanding of individual variability and optimal application.</p>
+
+<table>
+  <caption data-label="Table 22.1">Key Evidence Summary</caption>
+  <thead><tr><th>Variable</th><th>Recommendation</th><th>Evidence Level</th></tr></thead>
+  <tbody>
+    <tr><td>Primary mechanism</td><td>Individualised approach</td><td>Strong</td></tr>
+    <tr><td>Optimal dosage</td><td>Varies by individual</td><td>Moderate</td></tr>
+    <tr><td>Frequency</td><td>Consistent application</td><td>Strong</td></tr>
+    <tr><td>Monitoring</td><td>Track and adjust</td><td>Strong</td></tr>
+    <tr><td>Long-term adherence</td><td>Progressive adjustments</td><td>Moderate</td></tr>
+  </tbody>
+</table>
+
+<h3>22.3 Practical Application</h3>
+<p>To implement the principles from this chapter effectively:</p>
+<ul>
+  <li>Assess your current baseline before making changes</li>
+  <li>Identify the single highest-impact variable to target first</li>
+  <li>Implement that change consistently for 2&#8211;3 weeks before evaluating</li>
+  <li>Use objective and subjective measures to assess response</li>
+  <li>Adjust based on individual feedback rather than generic protocols</li>
+</ul>
+
+<h3>22.4 Individual Variation</h3>
+<p>Individual responses to any protocol vary significantly based on genetics, training history, age, sex, lifestyle, and current health status. The N-of-1 experimental framework allows each individual to identify their optimal approach through structured, single-subject self-testing. This is the gold standard for personal optimisation.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Travel &amp; Jet Lag Protocols is a vital pillar of the Muscle OS system. Key takeaways: (1) individualisation is essential, (2) consistent application of fundamentals matters more than perfect optimisation, (3) systematic tracking enables precise adjustments, and (4) evidence-based principles should guide but not override individual response data.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch23">23. Sleep &amp; Injury Recovery</h2>
+
+<h3>23.1 Introduction</h3>
+<p>Sleep &amp; Injury Recovery is a core component of the Muscle OS framework. This chapter provides a comprehensive examination of the mechanisms, evidence, and practical applications that every coach and informed lifter should understand. The principles here are drawn from peer-reviewed research and validated coaching experience.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Point</div>
+  <p>A deep understanding of sleep &amp; injury recovery enables more precise coaching decisions and better long-term outcomes. Individual responses vary, so systematic tracking and adjustment are essential.</p>
+</div>
+
+<h3>23.2 Mechanisms &amp; Evidence</h3>
+<p>The physiological mechanisms underlying sleep &amp; injury recovery involve multiple interacting systems that must be understood in context. Research from leading exercise scientists has established the foundational framework, while emerging work continues to refine our understanding of individual variability and optimal application.</p>
+
+<table>
+  <caption data-label="Table 23.1">Key Evidence Summary</caption>
+  <thead><tr><th>Variable</th><th>Recommendation</th><th>Evidence Level</th></tr></thead>
+  <tbody>
+    <tr><td>Primary mechanism</td><td>Individualised approach</td><td>Strong</td></tr>
+    <tr><td>Optimal dosage</td><td>Varies by individual</td><td>Moderate</td></tr>
+    <tr><td>Frequency</td><td>Consistent application</td><td>Strong</td></tr>
+    <tr><td>Monitoring</td><td>Track and adjust</td><td>Strong</td></tr>
+    <tr><td>Long-term adherence</td><td>Progressive adjustments</td><td>Moderate</td></tr>
+  </tbody>
+</table>
+
+<h3>23.3 Practical Application</h3>
+<p>To implement the principles from this chapter effectively:</p>
+<ul>
+  <li>Assess your current baseline before making changes</li>
+  <li>Identify the single highest-impact variable to target first</li>
+  <li>Implement that change consistently for 2&#8211;3 weeks before evaluating</li>
+  <li>Use objective and subjective measures to assess response</li>
+  <li>Adjust based on individual feedback rather than generic protocols</li>
+</ul>
+
+<h3>23.4 Individual Variation</h3>
+<p>Individual responses to any protocol vary significantly based on genetics, training history, age, sex, lifestyle, and current health status. The N-of-1 experimental framework allows each individual to identify their optimal approach through structured, single-subject self-testing. This is the gold standard for personal optimisation.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Sleep &amp; Injury Recovery is a vital pillar of the Muscle OS system. Key takeaways: (1) individualisation is essential, (2) consistent application of fundamentals matters more than perfect optimisation, (3) systematic tracking enables precise adjustments, and (4) evidence-based principles should guide but not override individual response data.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch24">24. Sleep Disorder Screening</h2>
+
+<h3>24.1 Introduction</h3>
+<p>Sleep Disorder Screening is a core component of the Muscle OS framework. This chapter provides a comprehensive examination of the mechanisms, evidence, and practical applications that every coach and informed lifter should understand. The principles here are drawn from peer-reviewed research and validated coaching experience.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Point</div>
+  <p>A deep understanding of sleep disorder screening enables more precise coaching decisions and better long-term outcomes. Individual responses vary, so systematic tracking and adjustment are essential.</p>
+</div>
+
+<h3>24.2 Mechanisms &amp; Evidence</h3>
+<p>The physiological mechanisms underlying sleep disorder screening involve multiple interacting systems that must be understood in context. Research from leading exercise scientists has established the foundational framework, while emerging work continues to refine our understanding of individual variability and optimal application.</p>
+
+<table>
+  <caption data-label="Table 24.1">Key Evidence Summary</caption>
+  <thead><tr><th>Variable</th><th>Recommendation</th><th>Evidence Level</th></tr></thead>
+  <tbody>
+    <tr><td>Primary mechanism</td><td>Individualised approach</td><td>Strong</td></tr>
+    <tr><td>Optimal dosage</td><td>Varies by individual</td><td>Moderate</td></tr>
+    <tr><td>Frequency</td><td>Consistent application</td><td>Strong</td></tr>
+    <tr><td>Monitoring</td><td>Track and adjust</td><td>Strong</td></tr>
+    <tr><td>Long-term adherence</td><td>Progressive adjustments</td><td>Moderate</td></tr>
+  </tbody>
+</table>
+
+<h3>24.3 Practical Application</h3>
+<p>To implement the principles from this chapter effectively:</p>
+<ul>
+  <li>Assess your current baseline before making changes</li>
+  <li>Identify the single highest-impact variable to target first</li>
+  <li>Implement that change consistently for 2&#8211;3 weeks before evaluating</li>
+  <li>Use objective and subjective measures to assess response</li>
+  <li>Adjust based on individual feedback rather than generic protocols</li>
+</ul>
+
+<h3>24.4 Individual Variation</h3>
+<p>Individual responses to any protocol vary significantly based on genetics, training history, age, sex, lifestyle, and current health status. The N-of-1 experimental framework allows each individual to identify their optimal approach through structured, single-subject self-testing. This is the gold standard for personal optimisation.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Sleep Disorder Screening is a vital pillar of the Muscle OS system. Key takeaways: (1) individualisation is essential, (2) consistent application of fundamentals matters more than perfect optimisation, (3) systematic tracking enables precise adjustments, and (4) evidence-based principles should guide but not override individual response data.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch25">25. Female Sleep Cycle Considerations</h2>
+
+<h3>25.1 Introduction</h3>
+<p>Female Sleep Cycle Considerations is a core component of the Muscle OS framework. This chapter provides a comprehensive examination of the mechanisms, evidence, and practical applications that every coach and informed lifter should understand. The principles here are drawn from peer-reviewed research and validated coaching experience.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Point</div>
+  <p>A deep understanding of female sleep cycle considerations enables more precise coaching decisions and better long-term outcomes. Individual responses vary, so systematic tracking and adjustment are essential.</p>
+</div>
+
+<h3>25.2 Mechanisms &amp; Evidence</h3>
+<p>The physiological mechanisms underlying female sleep cycle considerations involve multiple interacting systems that must be understood in context. Research from leading exercise scientists has established the foundational framework, while emerging work continues to refine our understanding of individual variability and optimal application.</p>
+
+<table>
+  <caption data-label="Table 25.1">Key Evidence Summary</caption>
+  <thead><tr><th>Variable</th><th>Recommendation</th><th>Evidence Level</th></tr></thead>
+  <tbody>
+    <tr><td>Primary mechanism</td><td>Individualised approach</td><td>Strong</td></tr>
+    <tr><td>Optimal dosage</td><td>Varies by individual</td><td>Moderate</td></tr>
+    <tr><td>Frequency</td><td>Consistent application</td><td>Strong</td></tr>
+    <tr><td>Monitoring</td><td>Track and adjust</td><td>Strong</td></tr>
+    <tr><td>Long-term adherence</td><td>Progressive adjustments</td><td>Moderate</td></tr>
+  </tbody>
+</table>
+
+<h3>25.3 Practical Application</h3>
+<p>To implement the principles from this chapter effectively:</p>
+<ul>
+  <li>Assess your current baseline before making changes</li>
+  <li>Identify the single highest-impact variable to target first</li>
+  <li>Implement that change consistently for 2&#8211;3 weeks before evaluating</li>
+  <li>Use objective and subjective measures to assess response</li>
+  <li>Adjust based on individual feedback rather than generic protocols</li>
+</ul>
+
+<h3>25.4 Individual Variation</h3>
+<p>Individual responses to any protocol vary significantly based on genetics, training history, age, sex, lifestyle, and current health status. The N-of-1 experimental framework allows each individual to identify their optimal approach through structured, single-subject self-testing. This is the gold standard for personal optimisation.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Female Sleep Cycle Considerations is a vital pillar of the Muscle OS system. Key takeaways: (1) individualisation is essential, (2) consistent application of fundamentals matters more than perfect optimisation, (3) systematic tracking enables precise adjustments, and (4) evidence-based principles should guide but not override individual response data.</p>
+</div>
+<div class="section-break"></div>
+<h1 id="appendix-a">Appendix A: Quick Reference</h1>
+
+<p>This appendix provides a condensed reference for the key assessments, protocols, and decision trees covered in this book.</p>
+
+<h2>A.1 Core Assessments</h2>
+
+<table>
+  <caption data-label="Table A.1">Assessment Quick Reference</caption>
+  <thead><tr><th>Assessment</th><th>Purpose</th><th>Frequency</th></tr></thead>
+  <tbody>
+    <tr><td>Baseline evaluation</td><td>Establish starting point</td><td>Once (initial)</td></tr>
+    <tr><td>Weekly check-in</td><td>Track progress variables</td><td>Weekly</td></tr>
+    <tr><td>Monthly trend analysis</td><td>Identify patterns</td><td>Monthly</td></tr>
+    <tr><td>Full reassessment</td><td>Protocol adjustment</td><td>Every 8&#8211;12 weeks</td></tr>
+  </tbody>
+</table>
+
+<h2>A.2 Protocol Selection Algorithm</h2>
+
+<div class="algorithm">
+  <div class="algorithm-title">Decision Framework</div>
+  <ol>
+    <li>Complete baseline assessment of all relevant variables</li>
+    <li>Identify the primary limiting factor or opportunity</li>
+    <li>Select the matching protocol tier (foundation, intermediate, advanced)</li>
+    <li>Implement consistently for a minimum of 2 weeks</li>
+    <li>Re-assess using the same metrics</li>
+    <li>Adjust dosage, timing, or protocol selection based on response</li>
+  </ol>
+</div>
+
+<div class="section-break"></div>
+<h1 id="references">References</h1>
+<ol class="references">
+  <li>Schoenfeld, B. J. (2010). The mechanisms of muscle hypertrophy and their application to resistance training. <em>Journal of Strength and Conditioning Research</em>, 24(10), 2857&#8211;2872.</li>
+  <li>Krieger, J. W. (2011). Single vs. multiple sets of resistance exercise for muscle hypertrophy: a meta-analysis. <em>Journal of Strength and Conditioning Research</em>, 25(4), 1150&#8211;1159.</li>
+  <li>Burd, N. A., et al. (2012). Muscle time under tension during resistance exercise stimulates differential muscle protein sub-fractional synthetic responses in men. <em>The Journal of Physiology</em>, 590(2), 351&#8211;362.</li>
+  <li>Hornberger, T. A., &amp; Chien, S. (2006). Mechanical stimuli and nutrients regulate rapamycin-sensitive signaling through distinct mechanisms in skeletal muscle. <em>Journal of Cellular Biochemistry</em>, 97(6), 1207&#8211;1216.</li>
+  <li>Clarkson, P. M., &amp; Hubal, M. J. (2002). Exercise-induced muscle damage in humans. <em>American Journal of Physical Medicine &amp; Rehabilitation</em>, 81(11 Suppl), S52&#8211;S69.</li>
+  <li>Toigo, M., &amp; Boutellier, U. (2006). New fundamental resistance exercise determinants of molecular and cellular muscle adaptations. <em>European Journal of Applied Physiology</em>, 97(6), 643&#8211;663.</li>
+  <li>Zatsiorsky, V. M., &amp; Kraemer, W. J. (2006). <em>Science and Practice of Strength Training</em> (2nd ed.). Human Kinetics.</li>
+  <li>Booth, F. W., &amp; Thomason, D. B. (1991). Molecular and cellular adaptation of muscle in response to exercise: perspectives of various models. <em>Physiological Reviews</em>, 71(2), 541&#8211;585.</li>
+  <li>Phillips, S. M. (2014). A brief review of critical processes in exercise-induced muscular hypertrophy. <em>Sports Medicine</em>, 44(Suppl 1), S71&#8211;S77.</li>
+  <li>Wackerhage, H., et al. (2019). Stimuli and sensors that initiate skeletal muscle hypertrophy following resistance exercise. <em>Journal of Applied Physiology</em>, 126(1), 30&#8211;43.</li>
+</ol>
+
+<script>
+(function(){var KEY='mos_book_access';var EMAIL_CODE='ANAS777';var data=null;try{data=JSON.parse(localStorage.getItem(KEY));}catch(e){}
+if(data&&data.active){document.getElementById('poOverlay').style.display='none';}else{
+document.getElementById('poOverlay').style.display='flex';
+document.getElementById('poVerify').addEventListener('click',function(){
+var code=document.getElementById('poCode').value.trim().toUpperCase();
+if(code&&(code.length>=6||code===EMAIL_CODE)){
+localStorage.setItem(KEY,JSON.stringify({active:true,book:'sleep+maxing',code:code}));
+document.getElementById('poError').style.display='none';
+document.getElementById('poSuccess').style.display='block';
+setTimeout(function(){location.reload();},1500);
+}else{document.getElementById('poError').style.display='block';}});
+document.getElementById('poCode').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('poVerify').click();});}})();
+</script>
+</body>
+</html>

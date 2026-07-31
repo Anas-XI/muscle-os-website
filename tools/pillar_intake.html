@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pillar Intake — Muscle OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:24px 16px}
+.container{width:100%;max-width:820px}
+.header{text-align:center;margin-bottom:16px}
+.header h1{font-family:'Oswald',sans-serif;font-size:1.8rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:1px}
+.header p{font-size:.7rem;color:rgba(250,250,248,.35);margin-top:4px}
+.stepper{display:flex;gap:0;background:rgba(20,21,26,.4);border-radius:10px;padding:3px;margin-bottom:16px}
+.step{flex:1;text-align:center;padding:8px 3px;font-size:.52rem;font-weight:600;text-transform:uppercase;letter-spacing:.3px;color:rgba(250,250,248,.2);cursor:pointer;transition:all .2s;border-radius:8px}
+.step:hover{color:rgba(250,250,248,.4)}
+.step.active{background:#F4C93B;color:#14151A}
+.step.done{color:rgba(250,250,248,.45)}
+.step .num{display:inline-block;width:15px;height:15px;line-height:15px;border-radius:50%;font-size:.45rem;font-weight:700;text-align:center;margin-right:3px}
+.step.active .num{background:#14151A;color:#F4C93B}
+.step.done .num{background:rgba(250,250,248,.12);color:#FAFAF8}
+.step-content{display:none;animation:fadeSlideIn .35s ease-out}
+.step-content.active{display:block}
+@keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card{background:#1E1E2A;border-radius:16px;padding:20px;margin-bottom:14px}
+.card-title{font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:500;text-transform:uppercase;letter-spacing:.5px;color:#F4C93B;border-bottom:1px solid rgba(250,250,248,.07);padding-bottom:6px;margin-bottom:14px}
+.form-group{margin-bottom:12px}
+.form-group label{display:block;font-size:.55rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(250,250,248,.38);margin-bottom:4px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+input,select,textarea{width:100%;padding:9px 11px;background:rgba(20,21,26,.6);border:1.5px solid rgba(250,250,248,.07);border-radius:8px;color:#FAFAF8;font-family:'JetBrains Mono',monospace;font-size:.78rem;outline:none;transition:border-color .2s}
+input:focus,select:focus{border-color:#F4C93B}
+textarea{font-family:'Inter',sans-serif;resize:vertical;min-height:50px}
+select{font-family:'Inter',sans-serif;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 12 8'%3E%3Cpath fill='%23FAFAF8' opacity='0.5' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;padding-right:32px}
+select option{background:#1E1E2A;color:#FAFAF8}
+
+/* Pillar Cards */
+.pillar-card{background:rgba(20,21,26,.35);border-radius:12px;padding:14px 16px;margin-bottom:10px;border:1.5px solid rgba(250,250,248,.04);transition:border-color .2s}
+.pillar-card:hover{border-color:rgba(250,250,248,.1)}
+.pillar-card .p-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.pillar-card .p-name{font-family:'Oswald',sans-serif;font-size:.7rem;font-weight:600;color:#FAFAF8;text-transform:uppercase;letter-spacing:.4px}
+.pillar-card .p-code{font-size:.45rem;color:rgba(250,250,248,.2);font-weight:600;letter-spacing:1px;margin-left:6px}
+.pillar-card .p-desc{font-size:.55rem;color:rgba(250,250,248,.3);margin-bottom:8px;line-height:1.3}
+.slider-row{display:grid;grid-template-columns:1fr 2fr 1fr;gap:10px;align-items:center}
+.slider-label{font-size:.5rem;font-weight:600;text-transform:uppercase;letter-spacing:.8px;text-align:center}
+.slider-label.current{color:rgba(250,250,248,.3)}
+.slider-label.desired{color:#F4C93B}
+.slider-wrap{position:relative;padding:4px 0}
+.slider-wrap input[type=range]{width:100%;height:4px;-webkit-appearance:none;appearance:none;background:rgba(250,250,248,.1);border-radius:4px;outline:none;cursor:pointer}
+.slider-wrap input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:#F4C93B;cursor:pointer;border:2px solid #1E1E2A;transition:transform .15s}
+.slider-wrap input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
+.slider-wrap input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:#F4C93B;cursor:pointer;border:2px solid #1E1E2A}
+.slider-value{font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:700;text-align:center;min-width:20px}
+.slider-value.current{color:rgba(250,250,248,.55)}
+.slider-value.desired{color:#F4C93B}
+.gap-bar{height:4px;border-radius:3px;margin:4px auto 0;transition:all .3s;background:rgba(250,250,248,.05);max-width:120px}
+.gap-bar.high{background:#F4C93B;width:100%}
+.gap-bar.medium{background:rgba(244,201,59,.45);width:60%}
+.gap-bar.low{background:rgba(250,250,248,.1);width:30%}
+.gap-bar.zero{background:rgba(76,175,80,.3);width:15%}
+.gap-label{font-size:.45rem;text-align:right;padding-right:2px;margin-top:2px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.gap-label.high{color:#F4C93B}
+.gap-label.medium{color:rgba(244,201,59,.55)}
+.gap-label.low{color:rgba(250,250,248,.15)}
+.gap-label.zero{color:rgba(76,175,80,.4)}
+
+/* Buttons */
+.btn-group{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.btn-primary{padding:12px 0;background:#F4C93B;color:#14151A;border:none;border-radius:10px;font-family:'Oswald',sans-serif;font-size:.9rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;transition:opacity .2s,transform .15s;flex:1;min-width:140px}
+.btn-primary:hover{opacity:.9}
+.btn-primary:active{transform:scale(.98)}
+.btn-primary:disabled{opacity:.3;cursor:default}
+.btn-secondary{padding:10px 20px;background:transparent;border:1.5px solid rgba(250,250,248,.08);border-radius:8px;color:rgba(250,250,248,.45);font-family:'Inter',sans-serif;font-size:.65rem;font-weight:500;cursor:pointer;transition:all .2s}
+.btn-secondary:hover{border-color:rgba(250,250,248,.18);color:#FAFAF8}
+
+/* Results */
+.result-box{display:none;background:#1E1E2A;border-radius:16px;padding:24px 20px;margin-top:14px;text-align:center;border:1.5px solid rgba(244,201,59,.15)}
+.result-box.show{display:block;animation:fadeSlideIn .4s ease-out}
+.result-box .rb-icon{font-size:2.5rem;margin-bottom:8px}
+.result-box .rb-title{font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:.5px}
+.result-box .rb-detail{font-size:.65rem;color:rgba(250,250,248,.35);margin-top:6px;line-height:1.5}
+.result-box .rb-pillars{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:10px}
+.result-box .rb-pill{background:rgba(244,201,59,.06);border:1px solid rgba(244,201,59,.12);border-radius:6px;padding:4px 10px;font-size:.55rem;font-weight:600;color:#F4C93B}
+.result-box .rb-pill.sec{background:rgba(250,250,248,.03);border-color:rgba(250,250,248,.06);color:rgba(250,250,248,.4)}
+.result-box .rb-error{color:#f44336;font-size:.7rem;margin-top:10px}
+
+/* Summary review */
+.review-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+.review-item{padding:8px 10px;background:rgba(20,21,26,.25);border-radius:8px}
+.review-item .ri-label{font-size:.45rem;text-transform:uppercase;letter-spacing:.8px;color:rgba(250,250,248,.2);font-weight:600}
+.review-item .ri-value{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#FAFAF8;margin-top:2px}
+.review-section{margin-bottom:12px}
+.review-section .rs-title{font-family:'Oswald',sans-serif;font-size:.65rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px;border-bottom:1px solid rgba(250,250,248,.04);padding-bottom:3px}
+
+/* Loading */
+.loading{display:none;text-align:center;padding:30px 0}
+.loading.show{display:block}
+.spinner{width:32px;height:32px;border:3px solid rgba(244,201,59,.15);border-top-color:#F4C93B;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 10px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading .lt{font-size:.65rem;color:rgba(250,250,248,.3)}
+.loading .ld{font-size:.5rem;color:rgba(250,250,248,.15);margin-top:3px}
+
+.footer{text-align:center;margin-top:20px;font-size:.55rem;color:rgba(250,250,248,.12)}
+.footer a{color:#F4C93B;text-decoration:none;font-weight:500}
+
+@media(max-width:600px){
+  .form-row,.form-row-3{grid-template-columns:1fr}
+  .slider-row{grid-template-columns:40px 1fr 40px;gap:6px}
+  .review-grid{grid-template-columns:1fr}
+  .pillar-card{padding:12px}
+  .step{font-size:.45rem;padding:6px 2px}
+  .step .num{width:12px;height:12px;line-height:12px;font-size:.4rem;margin-right:2px}
+}
+</style>
+</head>
+<body>
+
+<div class="container" id="app">
+  <div class="header">
+    <h1>Muscle OS</h1>
+    <p>Pillar-Based Program Intake — powered by vault science</p>
+  </div>
+
+  <div class="stepper">
+    <div class="step active" data-step="1"><span class="num">1</span> Basics</div>
+    <div class="step" data-step="2"><span class="num">2</span> Training</div>
+    <div class="step" data-step="3"><span class="num">3</span> Pillars</div>
+    <div class="step" data-step="4"><span class="num">4</span> Review</div>
+  </div>
+
+  <!-- STEP 1: Basic Info -->
+  <div class="step-content active" data-step="1">
+    <div class="card">
+      <div class="card-title">Client Information</div>
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="name" placeholder="e.g. John Doe" value="">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Age</label>
+          <input type="number" id="age" placeholder="30" min="16" max="99" value="30">
+        </div>
+        <div class="form-group">
+          <label>Sex</label>
+          <select id="sex"><option value="male">Male</option><option value="female">Female</option></select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Body Weight</label>
+          <input type="text" id="bodyweight" placeholder="e.g. 80 kg or 176 lb" value="80 kg">
+        </div>
+        <div class="form-group">
+          <label>Height</label>
+          <input type="text" id="height" placeholder="e.g. 175 cm or 5'9" value="175 cm">
+        </div>
+      </div>
+    </div>
+    <div class="btn-group">
+      <div style="flex:1"></div>
+      <button class="btn-primary" onclick="goStep(2)">Next →</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: Training & Goals -->
+  <div class="step-content" data-step="2">
+    <div class="card">
+      <div class="card-title">Goals &amp; Training Background</div>
+      <div class="form-group">
+        <label>Primary Goal</label>
+        <select id="goal">
+          <option value="muscle">Build Muscle (Hypertrophy)</option>
+          <option value="fat_loss">Fat Loss</option>
+          <option value="strength">Get Stronger</option>
+          <option value="recomp">Body Recomposition</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Training Experience</label>
+          <select id="experience">
+            <option value="beginner">Less than 1 year</option>
+            <option value="intermediate" selected>1-3 years</option>
+            <option value="advanced">3+ years</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Training Days / Week</label>
+          <select id="training_days">
+            <option value="1-2">1-2 days</option>
+            <option value="3-4" selected>3-4 days</option>
+            <option value="5+">5+ days</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Session Length</label>
+          <select id="session_length">
+            <option value="under45">Under 45 min</option>
+            <option value="45-75" selected>45-75 min</option>
+            <option value="75-100">75-100 min</option>
+            <option value="over100">100+ min</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Current Split</label>
+          <select id="current_split">
+            <option value="">None / not sure</option>
+            <option value="full_body">Full Body</option>
+            <option value="upper_lower">Upper / Lower</option>
+            <option value="push_pull_legs">Push / Pull / Legs</option>
+            <option value="bro_split">Body Part Split</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Injuries or Limitations (comma-separated, optional)</label>
+        <textarea id="injuries" placeholder="e.g. knee pain, lower back tightness"></textarea>
+      </div>
+    </div>
+    <div class="btn-group">
+      <button class="btn-secondary" onclick="goStep(1)">← Back</button>
+      <button class="btn-primary" onclick="goStep(3)">Next →</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: Pillar Sliders -->
+  <div class="step-content" data-step="3">
+    <div class="card">
+      <div class="card-title">Pillar Assessment</div>
+      <p style="font-size:.6rem;color:rgba(250,250,248,.3);margin-bottom:12px;line-height:1.4">
+        For each pillar, rate where you are <strong>currently</strong> (left) and where you
+        <strong>want to be</strong> (right). The gap tells us what to prioritise.
+      </p>
+      <div id="pillarContainer"></div>
+    </div>
+    <div class="btn-group">
+      <button class="btn-secondary" onclick="goStep(2)">← Back</button>
+      <button class="btn-primary" onclick="goStep(4)">Review →</button>
+    </div>
+  </div>
+
+  <!-- STEP 4: Review & Generate -->
+  <div class="step-content" data-step="4">
+    <div class="card">
+      <div class="card-title">Review &amp; Generate Program</div>
+      <div class="review-section">
+        <div class="rs-title">Client</div>
+        <div class="review-grid" id="reviewClient"></div>
+      </div>
+      <div class="review-section">
+        <div class="rs-title">Pillar Gaps (highest first)</div>
+        <div id="reviewPillars"></div>
+      </div>
+    </div>
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+      <div class="lt">Generating your program...</div>
+      <div class="ld">Querying vault, applying book engine rules, and rendering PDF</div>
+    </div>
+    <div class="result-box" id="resultBox">
+      <div class="rb-icon">✅</div>
+      <div class="rb-title" id="resultTitle">Program Generated</div>
+      <div class="rb-detail" id="resultDetail"></div>
+      <div class="rb-pillars" id="resultPillars"></div>
+      <div style="margin-top:14px">
+        <a id="downloadLink" class="btn-primary" style="display:inline-block;padding:10px 28px;text-decoration:none;font-size:.8rem" href="#">Download PDF</a>
+      </div>
+      <div class="rb-error" id="resultError"></div>
+    </div>
+    <div class="btn-group">
+      <button class="btn-secondary" onclick="goStep(3)">← Back</button>
+      <button class="btn-primary" id="generateBtn" onclick="generateProgram()">Generate Program</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    Muscle OS — Pillar Intake Tool &bull; Data processed locally
+  </div>
+</div>
+
+<script>
+const PILLARS = [
+  { code:"P1", name:"P1 - Diet Maxing", desc:"How optimised is your nutrition for your goals? (calories, macros, food quality, meal timing)" },
+  { code:"P2", name:"P2 - Training Maxing", desc:"How effective is your training? (progressive overload, exercise selection, periodisation)" },
+  { code:"P3", name:"P3 - Sleep Maxing", desc:"How consistent and restorative is your sleep? (duration, quality, schedule, hygiene)" },
+  { code:"P4", name:"P4 - Recovery Maxing", desc:"How well does your body recover between sessions? (deloads, mobility, stress management)" },
+  { code:"P5", name:"P5 - Strength Maxing", desc:"How focused are you on building strength? (intensity, heavy compounds, peaking protocols)" },
+  { code:"P6", name:"P6 - Fatigue Management", desc:"How well do you manage accumulated fatigue? (volume balance, CNS recovery, auto-regulation)" },
+  { code:"P7", name:"P7 - Adherence Engineering", desc:"How consistent are you with your routine? (habit systems, barriers, accountability)" },
+  { code:"P8", name:"P8 - Individualization", desc:"How well does your program fit your unique context? (schedule, preferences, lifestyle)" },
+  { code:"P9", name:"P9 - Measurement and Feedback Systems", desc:"How well do you track progress? (metrics, data-driven adjustments, feedback loops)" },
+  { code:"P10", name:"P10 - Integration", desc:"How well do all elements work together? (training + nutrition + recovery synergy)" },
+];
+
+let currentStep = 1;
+
+function initPillars() {
+  const container = document.getElementById('pillarContainer');
+  PILLARS.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'pillar-card';
+    div.innerHTML = `
+      <div class="p-header">
+        <div><span class="p-name">${p.name}</span></div>
+      </div>
+      <div class="p-desc">${p.desc}</div>
+      <div class="slider-row">
+        <div class="slider-label current">Current</div>
+        <div class="slider-wrap">
+          <input type="range" min="1" max="10" value="5" class="s-current" data-pillar="${p.code}" oninput="updatePillar('${p.code}')">
+          <input type="range" min="1" max="10" value="5" class="s-desired" data-pillar="${p.code}" oninput="updatePillar('${p.code}')">
+        </div>
+        <div class="slider-label desired">Desired</div>
+      </div>
+      <div class="slider-row" style="margin-top:2px">
+        <div class="slider-value current" id="curVal_${p.code}">5</div>
+        <div style="text-align:center">
+          <span class="gap-label" id="gapLabel_${p.code}">gap 0</span>
+          <div class="gap-bar" id="gap_${p.code}"></div>
+        </div>
+        <div class="slider-value desired" id="desVal_${p.code}">5</div>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function updatePillar(code) {
+  const cur = parseInt(document.querySelector(`.s-current[data-pillar="${code}"]`).value);
+  const des = parseInt(document.querySelector(`.s-desired[data-pillar="${code}"]`).value);
+  const gap = des - cur;
+
+  document.getElementById(`curVal_${code}`).textContent = cur;
+  document.getElementById(`desVal_${code}`).textContent = des;
+
+  const gapBar = document.getElementById(`gap_${code}`);
+  const gapLabel = document.getElementById(`gapLabel_${code}`);
+  const pct = Math.min(100, Math.max(0, (gap / 9) * 100));
+
+  gapBar.className = 'gap-bar';
+  gapLabel.className = 'gap-label';
+
+  if (gap >= 4) {
+    gapBar.classList.add('high');
+    gapLabel.classList.add('high');
+    gapLabel.textContent = `priority ${gap}`;
+  } else if (gap >= 2) {
+    gapBar.classList.add('medium');
+    gapLabel.classList.add('medium');
+    gapLabel.textContent = `moderate ${gap}`;
+  } else if (gap > 0) {
+    gapBar.classList.add('low');
+    gapLabel.classList.add('low');
+    gapLabel.textContent = `minor ${gap}`;
+  } else {
+    gapLabel.classList.add('zero');
+    gapLabel.textContent = gap === 0 ? 'maintain' : 'already set';
+  }
+}
+
+function goStep(n) {
+  currentStep = n;
+  document.querySelectorAll('.step').forEach(el => {
+    const s = parseInt(el.dataset.step);
+    el.classList.toggle('active', s === n);
+    el.classList.toggle('done', s < n);
+  });
+  document.querySelectorAll('.step-content').forEach(el => {
+    el.classList.toggle('active', parseInt(el.dataset.step) === n);
+  });
+  if (n === 4) buildReview();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function buildReview() {
+  const name = document.getElementById('name').value || 'Client';
+  const goalEl = document.getElementById('goal');
+  const goal = goalEl.options[goalEl.selectedIndex].text;
+  const bw = document.getElementById('bodyweight').value;
+  const ht = document.getElementById('height').value;
+  const age = document.getElementById('age').value;
+
+  document.getElementById('reviewClient').innerHTML = `
+    <div class="review-item"><div class="ri-label">Name</div><div class="ri-value">${name}</div></div>
+    <div class="review-item"><div class="ri-label">Goal</div><div class="ri-value">${goal}</div></div>
+    <div class="review-item"><div class="ri-label">Weight / Height</div><div class="ri-value">${bw} / ${ht}</div></div>
+    <div class="review-item"><div class="ri-label">Age</div><div class="ri-value">${age} yrs</div></div>
+  `;
+
+  const gaps = [];
+  PILLARS.forEach(p => {
+    const cur = parseInt(document.querySelector(`.s-current[data-pillar="${p.code}"]`).value);
+    const des = parseInt(document.querySelector(`.s-desired[data-pillar="${p.code}"]`).value);
+    gaps.push({code:p.code, name:p.name, cur, des, gap: des - cur});
+  });
+  gaps.sort((a,b) => b.gap - a.gap);
+
+  const container = document.getElementById('reviewPillars');
+  container.innerHTML = gaps.map(g => {
+    const cls = g.gap >= 4 ? 'high' : g.gap >= 2 ? 'medium' : g.gap > 0 ? 'low' : 'zero';
+    const lbl = g.gap >= 4 ? 'Priority' : g.gap >= 2 ? 'Moderate' : g.gap > 0 ? 'Minor' : g.gap === 0 ? 'Maintain' : 'Already set';
+    return `<div style="display:flex;justify-content:space-between;padding:3px 6px;background:rgba(20,21,26,.2);border-radius:5px;margin-bottom:3px;font-size:.6rem">
+      <span style="color:#FAFAF8;font-weight:500">${g.name}</span>
+      <span style="display:flex;gap:8px">
+        <span style="color:rgba(250,250,248,.3)">${g.cur} → ${g.des}</span>
+        <span style="color:${g.gap >= 4 ? '#F4C93B' : g.gap >= 2 ? 'rgba(244,201,59,.6)' : 'rgba(250,250,248,.2)'};font-weight:600">${lbl} (${g.gap})</span>
+      </span>
+    </div>`;
+  }).join('');
+}
+
+async function generateProgram() {
+  const btn = document.getElementById('generateBtn');
+  const loading = document.getElementById('loading');
+  const resultBox = document.getElementById('resultBox');
+  const resultError = document.getElementById('resultError');
+
+  btn.disabled = true;
+  loading.classList.add('show');
+  resultBox.classList.remove('show');
+  resultError.textContent = '';
+
+  const pillarData = {};
+  PILLARS.forEach(p => {
+    const cur = parseInt(document.querySelector(`.s-current[data-pillar="${p.code}"]`).value);
+    const des = parseInt(document.querySelector(`.s-desired[data-pillar="${p.code}"]`).value);
+    pillarData[p.name] = {current: cur, desired: des};
+  });
+
+  const payload = {
+    name: document.getElementById('name').value || 'Client',
+    age: parseInt(document.getElementById('age').value) || 30,
+    sex: document.getElementById('sex').value,
+    bodyweight: document.getElementById('bodyweight').value || '70 kg',
+    height: document.getElementById('height').value || '175 cm',
+    goal: document.getElementById('goal').value,
+    experience: document.getElementById('experience').value,
+    training_days: document.getElementById('training_days').value,
+    session_length: document.getElementById('session_length').value,
+    current_split: document.getElementById('current_split').value,
+    injuries: document.getElementById('injuries').value,
+    pillars: pillarData,
+  };
+
+  try {
+    const res = await fetch('/generate', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    loading.classList.remove('show');
+
+    if (data.success) {
+      document.getElementById('resultTitle').textContent = `Program ready for ${data.client_name}`;
+      document.getElementById('resultDetail').innerHTML = `
+        Generated at ${new Date().toLocaleString()}<br>
+        Primary pillars: ${data.pillars.primary.join(', ')}
+      `;
+      const pillContainer = document.getElementById('resultPillars');
+      pillContainer.innerHTML = data.pillars.primary.map(p =>
+        `<span class="rb-pill">${p}</span>`
+      ).join('') + data.pillars.secondary.map(p =>
+        `<span class="rb-pill sec">${p}</span>`
+      ).join('');
+      document.getElementById('downloadLink').href = data.pdf_path;
+      resultBox.classList.add('show');
+    } else {
+      resultError.textContent = data.error || 'Unknown error';
+      resultBox.classList.add('show');
+    }
+  } catch (err) {
+    loading.classList.remove('show');
+    resultError.textContent = 'Connection failed. Is the server running?';
+    resultBox.classList.add('show');
+  }
+
+  btn.disabled = false;
+}
+
+initPillars();
+</script>
+</body>
+</html>

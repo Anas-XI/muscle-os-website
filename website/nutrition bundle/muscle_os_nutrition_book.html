@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muscle OS Nutrition Book — Diet & Body Composition Guide</title>
+  <meta name="description" content="Muscle OS Nutrition Book by Coach Anas Mo'men — complete guide to diet and nutrition for body composition.">
+  <meta property="og:title" content="Muscle OS Nutrition Book — Diet & Body Composition Guide">
+  <meta property="og:description" content="Muscle OS Nutrition Book by Coach Anas Mo'men — complete guide to diet and nutrition for body composition.">
+  <meta property="og:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="1200">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://muscleos.is-a.dev/nutrition bundle/muscle_os_nutrition_book.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Muscle OS Nutrition Book — Diet & Body Composition Guide">
+  <meta name="twitter:description" content="Muscle OS Nutrition Book by Coach Anas Mo'men — complete guide to diet and nutrition for body composition.">
+  <meta name="twitter:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+/* ---- Reset & Base ---- */
+* { box-sizing: border-box; }
+html { font-size: 11pt; }
+body { margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; font-size: 11pt; line-height: 1.6; color: #14151A; background: #FAFAF8; text-align: justify; text-align-last: left; -webkit-font-smoothing: antialiased; }
+
+/* ---- Fonts ---- */
+h1, h2, h3, h4, h5, h6 { font-family: 'Oswald', sans-serif; font-weight: 600; line-height: 1.2; }
+.mono, .num { font-family: 'JetBrains Mono', monospace; }
+
+/* ---- Page Setup ---- */
+@page { size: A4; margin: 2.5cm 2cm; @top-center { content: string(doctitle); font-family: 'Inter', sans-serif; font-size: 9pt; color: #8A8D96; } @bottom-center { content: counter(page); font-family: 'JetBrains Mono', monospace; font-size: 8pt; color: #8A8D96; } }
+@page :first { margin: 0; @top-center { content: none; } @bottom-center { content: none; } }
+@page cover { @top-center { content: none; } @bottom-center { content: none; } }
+@page toc { @top-center { content: none; } @bottom-center { content: none; } }
+body { string-set: doctitle ""; }
+h1 { string-set: doctitle content(); }
+
+/* ---- Cover ---- */
+.cover { page: cover; width: 210mm; height: 297mm; margin: 0; background: #14151A; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; page-break-after: always; position: relative; overflow: hidden; }
+.cover-title { font-family: 'Oswald', sans-serif; font-size: 32pt; font-weight: 700; color: #F4C93B; line-height: 1.15; margin-bottom: 16pt; letter-spacing: 0.5px; }
+.cover-subtitle { font-family: 'JetBrains Mono', monospace; font-size: 11pt; font-weight: 400; color: #F4C93B; margin-bottom: 28pt; letter-spacing: 1px; opacity: 0.85; }
+.cover-divider { width: 50px; height: 2px; background: #F4C93B; margin-bottom: 28pt; opacity: 0.5; }
+.cover-author { font-family: 'Inter', sans-serif; font-size: 10pt; color: #FAFAF8; margin-bottom: 4pt; letter-spacing: 2px; text-transform: uppercase; opacity: 0.6; }
+.cover-edition { font-family: 'Inter', sans-serif; font-size: 9pt; color: #FAFAF8; opacity: 0.4; letter-spacing: 1px; }
+.cover-label { font-family: 'Oswald', sans-serif; font-size: 14pt; color: rgba(244,201,59,0.4); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 20pt; }
+
+/* ---- TOC ---- */
+.toc-page { page: toc; page-break-after: always; }
+.toc-page h2 { font-family: 'Oswald', sans-serif; font-size: 22pt; font-weight: 700; color: #14151A; margin-bottom: 0.8cm; text-align: center; letter-spacing: 0.5px; text-transform: uppercase; }
+.toc { list-style: none; padding: 0; margin: 0; }
+.toc li { margin: 3px 0; font-size: 10.5pt; }
+.toc a { color: #14151A; text-decoration: none; display: block; }
+.toc a::after { content: leader('.') target-counter(attr(href url), page); font-family: 'JetBrains Mono', monospace; color: #8A8D96; }
+.toc .toc-l1 { font-weight: 700; margin-top: 8px; font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.5px; font-size: 11pt; }
+.toc .toc-l2 { padding-left: 1.5em; font-weight: 400; }
+.toc .toc-l3 { padding-left: 3em; font-weight: 400; font-size: 10pt; color: #5B5F68; }
+
+/* ---- Headings ---- */
+h1 { font-family: 'Oswald', sans-serif; font-size: 20pt; font-weight: 700; color: #14151A; margin: 1.5cm 0 0.5cm; page-break-before: auto; page-break-after: avoid; border-bottom: 2.5px solid #F4C93B; padding-bottom: 6px; letter-spacing: 0.3px; }
+h1:first-of-type { page-break-before: auto; }
+h2 { font-family: 'Oswald', sans-serif; font-size: 14pt; font-weight: 600; color: #14151A; margin: 1cm 0 0.4cm; page-break-after: avoid; letter-spacing: 0.3px; }
+h3 { font-family: 'Oswald', sans-serif; font-size: 12pt; font-weight: 600; color: #1E2027; margin: 0.6cm 0 0.3cm; page-break-after: avoid; letter-spacing: 0.3px; }
+h4 { font-size: 11pt; font-weight: 600; color: #14151A; margin: 0.4cm 0 0.2cm; page-break-after: avoid; }
+
+/* ---- Content ---- */
+p { margin: 0.3cm 0; }
+strong { color: #14151A; font-weight: 600; }
+a { color: #C9A227; word-break: break-all; }
+
+/* ---- Tables (Three-line, yellow/ink brand) ---- */
+table { width: 100%; max-width: 100%; border-collapse: collapse; margin: 0.5cm 0; font-size: 9.5pt; box-sizing: border-box; font-family: 'JetBrains Mono', monospace; }
+thead { display: table-header-group; }
+thead tr { border-top: 2.5px solid #F4C93B; border-bottom: 1.5px solid #14151A; }
+thead th { padding: 6px 8px; text-align: left; font-weight: 600; color: #14151A; font-family: 'Oswald', sans-serif; font-size: 10pt; letter-spacing: 0.5px; text-transform: uppercase; }
+tbody td { padding: 5px 8px; vertical-align: top; }
+tbody tr { border-bottom: 0.5px solid #E4E1D8; }
+tbody tr:last-child { border-bottom: 2.5px solid #F4C93B; }
+tbody tr:nth-child(even) { background: #f5f5f3; }
+caption { text-align: left; font-weight: 600; margin-bottom: 4px; font-size: 10pt; font-family: 'Oswald', sans-serif; color: #14151A; letter-spacing: 0.3px; }
+caption::before { content: attr(data-label) "  "; font-weight: 700; }
+tr { page-break-inside: avoid; }
+td.mono, .table-mono td { font-family: 'JetBrains Mono', monospace; }
+
+/* ---- Tables: numeric columns via data attribute ---- */
+td[data-num], th[data-num] { font-family: 'JetBrains Mono', monospace; }
+
+/* ---- Lists ---- */
+ul, ol { margin: 0.3cm 0; padding-left: 1.5em; }
+li { margin: 3px 0; }
+
+/* ---- Blockquotes & callouts ---- */
+.callout { background: #14151A; color: #FAFAF8; padding: 10pt 14pt; margin: 0.5cm 0; font-size: 10pt; line-height: 1.55; }
+.callout-title { font-weight: 700; color: #F4C93B; margin-bottom: 4px; }
+.callout p { color: #FAFAF8; margin: 4px 0; }
+.callout strong { color: #F4C93B; }
+.definition { border-left: 3px solid #14151A; padding: 10px 14px; margin: 0.5cm 0; background: #FAFAF8; }
+.definition-title { font-weight: 700; color: #14151A; }
+.theorem { border-left: 3px solid #14151A; padding: 10px 14px; margin: 0.5cm 0; }
+.theorem-title { font-weight: 700; }
+.theorem-content { font-style: italic; }
+.algorithm { border: 1.5px solid #14151A; padding: 10px 14px; margin: 0.5cm 0; background: #FAFAF8; }
+.algorithm-title { font-weight: 700; margin-bottom: 6px; }
+
+/* ---- Figures ---- */
+figure { margin: 0.5cm 0; text-align: center; page-break-inside: avoid; }
+figure img, figure svg { max-width: 80%; max-height: 40vh; height: auto; }
+figcaption { font-size: 9.5pt; color: #5B5F68; margin-top: 4px; }
+figcaption::before { content: attr(data-label) "  "; font-weight: 600; }
+
+/* ---- Code ---- */
+code { background: #f5f5f3; padding: 1px 4px; font-size: 9.5pt; word-break: break-word; font-family: 'JetBrains Mono', monospace; }
+pre { background: #f5f5f3; padding: 10px; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; max-width: 100%; box-sizing: border-box; font-size: 9pt; font-family: 'JetBrains Mono', monospace; }
+
+/* ---- Overflow prevention ---- */
+pre, table, figure, img, svg, blockquote { max-width: 100%; box-sizing: border-box; }
+
+/* ---- Section break ---- */
+.section-break { page-break-before: always; }
+
+/* ---- References ---- */
+.references { font-size: 9.5pt; }
+.references li { padding-left: 2em; text-indent: -2em; margin: 4px 0; }
+
+/* ---- Equation numbering ---- */
+.equation { margin: 0.5cm 0; display: flex; align-items: center; }
+.equation .eq-content { flex: 1; }
+.equation .eq-number { width: 3em; text-align: right; font-size: 10pt; color: #5B5F68; font-family: 'JetBrains Mono', monospace; }
+
+/* ---- Mermaid ---- */
+.mermaid { text-align: center; margin: 0.5cm 0; max-width: 100%; }
+.mermaid svg { max-width: 100%; height: auto; }
+
+/* ---- Appendix ---- */
+.appendix { }
+
+/* ---- Chapter Summary ---- */
+.chapter-summary { border: 1.5px solid #14151A; padding: 14px 18px; margin: 0.6cm 0; background: #FAFAF8; page-break-inside: avoid; }
+.chapter-summary .summary-title { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 10pt; color: #FAF8F8; background: #14151A; display: inline-block; padding: 2px 10px; margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase; }
+.chapter-summary p { margin: 4px 0; font-size: 10.5pt; color: #333; }
+
+/* ---- Case Study ---- */
+.case-study { border: 2px solid #14151A; padding: 16px 20px; margin: 0.8cm 0; background: #FAFAF8; page-break-inside: avoid; }
+.case-study .case-label { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 9pt; color: #FAFAF8; background: #14151A; display: inline-block; padding: 2px 10px; margin-bottom: 8px; letter-spacing: 1px; }
+.case-study .case-title { font-weight: 700; color: #14151A; margin-bottom: 6px; font-size: 11pt; }
+.case-study p { margin: 4px 0; font-size: 10.5pt; }
+.case-study p strong { color: #14151A; }
+
+/* ---- Page footer (CTA) ---- */
+.page-footer { display: none; }
+</style>
+</head>
+<body>
+
+<!-- ── COVER ── -->
+<div class="cover">
+  <div class="cover-label">Muscle OS</div>
+  <div class="cover-title">The Complete Guide to Diet &amp; Nutrition<br>for Body Composition</div>
+  <div class="cover-divider"></div>
+  <div class="cover-subtitle">A comprehensive reference for coaching decisions</div>
+  <div class="cover-author">Coach Anas Mo'men</div>
+  <div class="cover-edition">Pillar 1 &mdash; Diet Maxing &middot; 2026 Edition</div>
+</div>
+
+<!-- ── TOC ── -->
+<div class="toc-page">
+  <h2>Table of Contents</h2>
+  <ul class="toc">
+    <li class="toc-l1"><a href="#domain1">Domain 1: Nutritional Foundations</a></li>
+    <li class="toc-l2"><a href="#ch1">1. Energy Balance &amp; Energy Availability</a></li>
+    <li class="toc-l2"><a href="#ch2">2. The P-Ratio &amp; Nutrient Partitioning</a></li>
+    <li class="toc-l2"><a href="#ch3">3. Protein Sufficiency &amp; the Leucine Threshold</a></li>
+    <li class="toc-l2"><a href="#ch4">4. Carbohydrate &amp; Glycogen Regulation</a></li>
+    <li class="toc-l2"><a href="#ch5">5. Dietary Fat &amp; Hormonal Health</a></li>
+    <li class="toc-l1"><a href="#domain2">Domain 2: Nutrient Protocols &amp; Supplementation</a></li>
+    <li class="toc-l2"><a href="#ch6">6. Protein: Total Intake, Distribution, and Timing</a></li>
+    <li class="toc-l2"><a href="#ch7">7. Carbohydrates: Timing, Periodisation, and Compartments</a></li>
+    <li class="toc-l2"><a href="#ch8">8. Fats: Essential Fatty Acids and Meal Design</a></li>
+    <li class="toc-l2"><a href="#ch9">9. Vitamin D &amp; Calcium</a></li>
+    <li class="toc-l2"><a href="#ch10">10. Magnesium</a></li>
+    <li class="toc-l2"><a href="#ch11">11. Zinc &amp; Iron</a></li>
+    <li class="toc-l2"><a href="#ch12">12. B-Complex &amp; Energy Metabolism</a></li>
+    <li class="toc-l2"><a href="#ch13">13. Electrolytes &amp; Hydration</a></li>
+    <li class="toc-l2"><a href="#ch14">14. Antioxidant Network &amp; Polyphenols</a></li>
+    <li class="toc-l2"><a href="#ch15">15. Tier 1: High-Confidence Supplements</a></li>
+    <li class="toc-l2"><a href="#ch16">16. Tier 2: Conditionally Effective Supplements</a></li>
+    <li class="toc-l2"><a href="#ch17">17. Tier 3: Emerging &amp; Contextual Supplements</a></li>
+    <li class="toc-l1"><a href="#domain3">Domain 3: Applied Protocols &amp; Food Reference</a></li>
+    <li class="toc-l2"><a href="#ch18">18. Calorie &amp; Macronutrient Calculator</a></li>
+    <li class="toc-l2"><a href="#ch19">19. Meal Structure Library</a></li>
+    <li class="toc-l2"><a href="#ch20">20. Hydration Protocol</a></li>
+    <li class="toc-l2"><a href="#ch21">21. Body Recomposition Protocol</a></li>
+    <li class="toc-l2"><a href="#ch22">22. Fat Loss Plateau Decision Tree</a></li>
+    <li class="toc-l2"><a href="#ch23">23. Gentle Entry Protocol for ED Risk</a></li>
+    <li class="toc-l2"><a href="#ch24">24. Intermittent Fasting Decision Protocol</a></li>
+    <li class="toc-l2"><a href="#ch25">25. Plant-Based Nutrition Guide</a></li>
+    <li class="toc-l2"><a href="#ch26">26. Complete Nutrition Assessment</a></li>
+    <li class="toc-l2"><a href="#ch29">29. Protein Sources</a></li>
+    <li class="toc-l2"><a href="#ch30">30. Carbohydrate Sources</a></li>
+    <li class="toc-l2"><a href="#ch31">31. Fat Sources</a></li>
+    <li class="toc-l2"><a href="#ch32">32. Vegetables &amp; Fruits</a></li>
+    <li class="toc-l2"><a href="#ch33">33. Complete Nutrition Reference Tables</a></li>
+    <li class="toc-l1"><a href="#domain4">Domain 4: Special Populations &amp; Coaching</a></li>
+    <li class="toc-l2"><a href="#ch27">27. Female Physiology &amp; Nutrition</a></li>
+    <li class="toc-l2"><a href="#ch28">28. Gut Health, Digestion &amp; the Microbiome</a></li>
+    <li class="toc-l1"><a href="#appendix-a">Appendix A: Deficiency Screening &amp; Supplement Protocols</a></li>
+    <li class="toc-l2"><a href="#appendix-b">Appendix B: Nutrient Timing Quick Reference</a></li>
+    <li class="toc-l2"><a href="#references">References</a></li>
+  </ul>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!-- DOMAIN 1: NUTRITIONAL FOUNDATIONS                              -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+
+<h1 id="domain1">Domain 1: Nutritional Foundations</h1>
+
+<h2 id="ch1">1. Energy Balance &amp; Energy Availability</h2>
+
+<h3>1.1 The First Law Applied to Body Composition</h3>
+<p>Energy balance is the application of the first law of thermodynamics to living systems: changes in body energy stores equal energy intake minus energy expenditure. This forms the non-negotiable foundation of any body composition intervention. No nutritional strategy can bypass this fundamental equation; it merely shifts the composition of what is gained or lost.</p>
+
+<div class="callout">
+  <div class="callout-title">Key Distinction</div>
+  <p>Energy balance determines <strong>whether</strong> weight changes. The P-Ratio determines <strong>what</strong> that weight change is made of (fat vs. lean mass). Both must be managed simultaneously.</p>
+</div>
+
+<h3>1.2 Total Daily Energy Expenditure</h3>
+<p>TDEE is the sum of four components:</p>
+<table>
+  <caption data-label="Table 1.1">Components of Total Daily Energy Expenditure</caption>
+  <thead><tr><th>Component</th><th>Description</th><th>Typical % of TDEE</th></tr></thead>
+  <tbody>
+    <tr><td>Basal Metabolic Rate (BMR)</td><td>Energy required for basic physiological functions at rest</td><td>60&ndash;75%</td></tr>
+    <tr><td>Thermic Effect of Food (TEF)</td><td>Energy cost of digestion, absorption, and nutrient storage</td><td>8&ndash;12%</td></tr>
+    <tr><td>Non-Exercise Activity Thermogenesis (NEAT)</td><td>Energy from all non-exercise movement (fidgeting, walking, posture)</td><td>15&ndash;30%</td></tr>
+    <tr><td>Exercise Activity Thermogenesis (EAT)</td><td>Energy from deliberate exercise</td><td>5&ndash;15%</td></tr>
+  </tbody>
+</table>
+
+<h3>1.3 Energy Availability vs. Energy Balance</h3>
+<p>Energy availability (EA) separates physiological health from thermodynamics. EA is defined as dietary energy remaining for physiological functions after subtracting the energy cost of exercise:</p>
+
+<div class="equation">
+  <div class="eq-content">$$\text{EA} = \frac{\text{Energy Intake (kcal)} - \text{Exercise Energy Expenditure (kcal)}}{\text{kg Fat-Free Mass}}$$</div>
+</div>
+
+<table>
+  <caption data-label="Table 1.2">Energy Availability Zones</caption>
+  <thead><tr><th>Zone</th><th>Value (kcal/kg FFM/day)</th><th>Physiological Impact</th></tr></thead>
+  <tbody>
+    <tr><td>Optimal</td><td>&gt;45</td><td>Full physiological function, optimal hormonal health</td></tr>
+    <tr><td>Reduced</td><td>30&ndash;45</td><td>Possible menstrual disruption, metabolic adaptation begins</td></tr>
+    <tr><td>Low</td><td>&lt;30</td><td>Physiological suppression, hormonal dysfunction, LEA syndrome</td></tr>
+  </tbody>
+</table>
+
+<h3>1.4 Metabolic Adaptation</h3>
+<p>Prolonged caloric restriction triggers metabolic compensation: reduced NEAT, reduced TEF, reduced activity in the sympathetic nervous system, and hormonal downregulation (leptin, T3, testosterone). This is not metabolic damage&mdash;it is adaptive thermogenesis. Expect a 10&ndash;15% reduction in TDEE beyond what is predicted by weight loss alone. Reversal requires a structured reverse-dieting approach (typically 50&ndash;100 kcal increases per week over 4&ndash;12 weeks).</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Energy balance determines whether weight changes; the P-Ratio determines what that change is made of. A coach must understand the four TDEE components (BMR, TEF, NEAT, EAT) and distinguish energy balance from energy availability. Metabolic adaptation is a compensatory response, not damage — expect a 10&ndash;15% TDEE reduction beyond weight-loss predictions. Before adjusting calories, audit tracking accuracy and confirm the deficit is truly being followed.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch2">2. The P-Ratio &amp; Nutrient Partitioning</h2>
+
+<h3>2.1 Defining the P-Ratio</h3>
+<p>The P-Ratio (Protein-to-Fat partitioning ratio) describes the proportion of an energy imbalance that is deposited as or mobilised from lean mass versus fat mass. In a surplus, it determines how much weight gain is muscle versus fat. In a deficit, it determines how much weight loss is fat versus muscle. Forbes (1987) established the canonical equation describing the relationship between body fat percentage and the P-Ratio.</p>
+
+<h3>2.2 The Five Determinants of the P-Ratio</h3>
+<table>
+  <caption data-label="Table 2.1">Determinants of Nutrient Partitioning</caption>
+  <thead><tr><th>Determinant</th><th>Mechanism</th><th>Effect on P-Ratio</th></tr></thead>
+  <tbody>
+    <tr><td>Protein intake</td><td>Leucine signalling via mTOR, substrate provision</td><td>Higher protein improves lean mass retention/gain</td></tr>
+    <tr><td>Training stimulus</td><td>MPS elevation, GLUT4 translocation, insulin sensitivity</td><td>Strong training signal partitions nutrients toward muscle</td></tr>
+    <tr><td>Sleep &amp; recovery</td><td>Cortisol regulation, GH pulsatility, glycogen resynthesis</td><td>Poor sleep worsens partitioning</td></tr>
+    <tr><td>Metabolic adaptation</td><td>Reduced NEAT, T3 suppression, leptin decline</td><td>Chronic deficit worsens partitioning</td></tr>
+    <tr><td>Allostatic load</td><td>HPA axis activation, cortisol elevation</td><td>High stress impairs lean mass retention</td></tr>
+  </tbody>
+</table>
+
+<h3>2.3 Energy Flux: The Partitioning Advantage</h3>
+<p>Energy flux refers to the rate at which energy flows through the system (high intake + high expenditure vs. low intake + low expenditure at the same energy balance). Higher flux states (e.g., eating more and exercising more to maintain weight) produce superior partitioning outcomes compared to lower flux states at the same energy balance. This is mediated by improved insulin sensitivity, higher MPS rates, and greater substrate cycling.</p>
+
+<div class="callout">
+  <div class="callout-title">Practical Application</div>
+  <p>For a client maintaining at 2,500 kcal, prefer 3,000 kcal intake + 500 kcal exercise over 2,000 kcal intake + 0 kcal exercise. Both produce the same energy balance, but the higher-flux state produces better body composition outcomes.</p>
+</div>
+
+<h3>2.4 Nutrient Sublimation</h3>
+<p>When energy surplus exceeds the storage capacity of muscle glycogen, intramuscular triglyceride, and adipose tissue, the body activates disposal pathways: diet-induced thermogenesis (DIT), de novo lipogenesis (DNL), and substrate cycling (futile cycles). This "metabolic overflow valve" limits net energy storage but at a metabolic cost. The effectiveness of sublimation varies by individual and is influenced by insulin sensitivity, training status, and genetic factors.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>The P-Ratio determines whether a calorie surplus builds muscle or fat, and whether a deficit spares muscle while losing fat. The five key determinants are protein intake, training stimulus, sleep, metabolic adaptation, and allostatic load. Higher energy flux (high intake plus high expenditure) produces superior partitioning at the same energy balance. Coach action: prioritise protein, training, and sleep before manipulating calories.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch3">3. Protein Sufficiency &amp; the Leucine Threshold</h2>
+
+<h3>3.1 The Molecular Cascade</h3>
+<p>Dietary protein stimulates muscle protein synthesis (MPS) through a well-characterised molecular cascade. Leucine, the key branched-chain amino acid, activates mTORC1 via the Rag GTPase pathway. This requires a minimum leucine concentration per meal&mdash;the leucine threshold&mdash;below which no meaningful MPS stimulation occurs, regardless of total daily protein intake.</p>
+
+<h3>3.2 The Leucine Threshold</h3>
+<table>
+  <caption data-label="Table 3.1">Leucine Thresholds by Population</caption>
+  <thead><tr><th>Population</th><th>Leucine per Meal</th><th>Equivalent Protein per Meal</th></tr></thead>
+  <tbody>
+    <tr><td>Young adults (18&ndash;35)</td><td>2&ndash;3 g</td><td>20&ndash;25 g high-quality protein</td></tr>
+    <tr><td>Middle-aged (35&ndash;60)</td><td>2.5&ndash;3 g</td><td>25&ndash;30 g high-quality protein</td></tr>
+    <tr><td>Older adults (60+)</td><td>3&ndash;4 g</td><td>30&ndash;40 g high-quality protein</td></tr>
+  </tbody>
+</table>
+
+<h3>3.3 Key Evidence</h3>
+<p>Morton et al. (2018), in a meta-analysis of 49 RCTs (n = 1,863), demonstrated that protein intake for lean mass gains plateaus at approximately 1.6 g/kg/day (95% CI extends to 2.2 g/kg/day). This is the foundational evidence for protein target setting. Pasiakos et al. (2015) showed that during caloric deficit, protein requirements increase: &ge;2.0 g/kg/day (and up to 2.4 g/kg/day) is recommended for fat loss phases to preserve fat-free mass.</p>
+
+<p>Morton et al. (2016) demonstrated that even distribution of protein across 4&ndash;5 meals at approximately 0.4 g/kg/meal produces superior MPS compared to skewed distribution. Aragon &amp; Schoenfeld (2013) established that the post-exercise "anabolic window" is measured in hours, not minutes; total daily intake dominates over precise timing.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Each meal must reach the leucine threshold (2&ndash;4 g leucine depending on age) to stimulate muscle protein synthesis. Total daily protein plateaus at 1.6 g/kg/day for gains, rising to 2.0&ndash;2.4 g/kg/day in a deficit. Even distribution across 4&ndash;5 meals at 0.4 g/kg/meal outperforms skewed intake. Coach action: ensure every meal contains at least 20&ndash;40 g of high-quality protein, and prioritise total daily intake over precise timing.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch4">4. Carbohydrate &amp; Glycogen Regulation</h2>
+
+<h3>4.1 The Two-Compartment Glycogen System</h3>
+<p>The body stores glycogen in two compartments. Muscle glycogen (300&ndash;500 g total) serves as the primary fuel for high-intensity contractions and is compartmentalised into distinct pools associated with different subcellular regions. Liver glycogen (approximately 100&ndash;120 g) maintains blood glucose primarily for central nervous system function. These compartments are regulated independently and have different refuelling dynamics.</p>
+
+<h3>4.2 GLUT4 Translocation: The Insulin-Independent Pathway</h3>
+<p>GLUT4 is the insulin-responsive glucose transporter that mediates glucose entry into muscle cells. Critically, there are two pathways for GLUT4 translocation:</p>
+<ol>
+  <li><strong>Insulin-dependent pathway</strong> (IRS1/PI3K/Akt/AS160) &mdash; responds to carbohydrate feeding and insulin release</li>
+  <li><strong>Contraction-dependent pathway</strong> (AMPK, CaMKII, NOX) &mdash; responds to muscle contraction during exercise, independently of insulin, creating a 24&ndash;48 hour post-training window of enhanced glucose disposal</li>
+</ol>
+
+<h3>4.3 The AMPK-mTOR Seesaw</h3>
+<p>The AMPK-mTOR relationship represents the master catabolic-anabolic kinase antagonism. AMPK activates in low-energy states (exercise, caloric deficit), suppressing mTORC1 via TSC2 and Raptor phosphorylation to conserve resources. Conversely, mTORC1 activation (feeding, growth signalling) suppresses AMPK. This creates a temporal separation that athletes exploit through nutrient timing: training in the AMPK-dominant state (fasted or low-carb), then feeding to shift to the mTOR-dominant state for recovery.</p>
+
+<h3>4.4 Carbohydrate Periodisation</h3>
+<p>Strategic carbohydrate timing exploits three principles: (1) training-day loading around workout windows to maximise performance and glycogen refuelling, (2) rest-day reduction to improve insulin sensitivity and fat oxidation, and (3) targeted refeeds during extended deficit phases to maintain leptin, thyroid function, and training performance. Glycogen compartments respond to depletion patterns: muscle glycogen is replenished by local substrate availability; liver glycogen is prioritised by systemic glucose demand.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Carbohydrates fuel high-intensity training via muscle and liver glycogen, regulated independently with different refuelling dynamics. GLUT4 translocation occurs through both insulin-dependent and contraction-dependent pathways, creating a 24&ndash;48 hour post-training window of enhanced glucose disposal. Strategic periodisation — loading around training, reducing on rest days — optimises performance and insulin sensitivity. Coach action: align carbohydrate intake with training demand, not arbitrary meal timing.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch5">5. Dietary Fat &amp; Hormonal Health</h2>
+
+<h3>5.1 Essential Fatty Acids</h3>
+<p>Dietary fat is not merely a calorie source; it provides essential fatty acids (linoleic acid, alpha-linolenic acid) that cannot be synthesised endogenously and serves as the structural precursor for all steroid hormones, including testosterone, oestrogen, and cortisol. A minimum of 0.5&ndash;0.8 g/kg/day of dietary fat is required to maintain hormonal homeostasis. Below this threshold, testosterone suppression and menstrual disruption are predictable outcomes.</p>
+
+<h3>5.2 Fat Types and Metabolic Effects</h3>
+<table>
+  <caption data-label="Table 5.1">Dietary Fat Classifications</caption>
+  <thead><tr><th>Type</th><th>Sources</th><th>Metabolic Role</th></tr></thead>
+  <tbody>
+    <tr><td>Saturated fat</td><td>Animal fats, coconut oil, dairy</td><td>Precursor to steroid hormones; limit to &lt;10% of total calories</td></tr>
+    <tr><td>Monounsaturated fat (MUFA)</td><td>Olive oil, avocado, nuts</td><td>Improves lipid profile; anti-inflammatory</td></tr>
+    <tr><td>Polyunsaturated fat (PUFA)</td><td>Fish oil, flaxseed, walnuts</td><td>Essential: source of omega-3 and omega-6 fatty acids</td></tr>
+    <tr><td>Trans fat</td><td>Industrial hydrogenation</td><td>Pro-inflammatory; no known benefit; minimise entirely</td></tr>
+  </tbody>
+</table>
+
+<h3>5.3 Omega-3 to Omega-6 Ratio</h3>
+<p>Modern diets are characterised by an excessive omega-6 to omega-3 ratio (15:1 to 20:1, versus the evolutionary ratio of approximately 1:1). Elevated omega-6 intake promotes a pro-inflammatory eicosanoid profile through arachidonic acid cascade. Correcting this balance through increased EPA/DHA intake (from fatty fish or supplementation) improves membrane fluidity, resolvin synthesis, and muscle protein synthesis responses to feeding.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Dietary fat provides essential fatty acids and is the structural precursor for steroid hormones including testosterone. A minimum of 0.5&ndash;0.8 g/kg/day is required to maintain hormonal homeostasis. The modern omega-6 to omega-3 imbalance (15:1&ndash;20:1 versus the evolutionary 1:1) promotes inflammation and should be corrected through increased EPA/DHA intake. Coach action: never drop fat below 0.5 g/kg/day, prioritise omega-3 sources, and educate clients on fat types rather than fearing dietary fat.</p>
+</div>
+
+<div class="case-study">
+  <div class="case-label">COACHING APPLICATION</div>
+  <div class="case-title">Domain 1 Case Study: Breaking Through a Fat Loss Plateau</div>
+  <p><strong>Scenario:</strong> A 32-year-old male client, 85 kg, 15% body fat, has been training for 2 years. He wants to improve body composition but is stuck eating 2,200 kcal/day and not losing weight. He trains 4x/week.</p>
+  <p><strong>Assessment:</strong> Calculate his TDEE using the Mifflin-St Jeor equation. His estimated BMR is ~1,800 kcal. With moderate activity (1.55), TDEE ≈ 2,790 kcal. He is eating well below this yet not losing weight — suggesting metabolic adaptation from chronic undereating or inaccurate tracking.</p>
+  <p><strong>Intervention:</strong> (1) Audit food tracking accuracy — hidden oils, condiments, and portion size drift are common. (2) Increase to 2,400 kcal for 2 weeks as a "metabolic reset" while maintaining protein at 2.0 g/kg (170 g/day). (3) Add 8,000 steps/day NEAT target. (4) Reassess after 2 weeks: weight trend, energy levels, training performance.</p>
+  <p><strong>Key Takeaway:</strong> Energy balance is foundational, but metabolic adaptation and tracking accuracy must be assessed before assuming a deficit is insufficient. The P-Ratio improves when protein is adequate and training stimulus is maintained.</p>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!-- DOMAIN 2: NUTRIENT PROTOCOLS & SUPPLEMENTATION                 -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+
+<h1 id="domain2">Domain 2: Nutrient Protocols &amp; Supplementation</h1>
+
+<h2 id="ch6">6. Protein: Total Intake, Distribution, and Timing</h2>
+
+<h3>6.1 Total Daily Protein Targets</h3>
+<table>
+  <caption data-label="Table 6.1">Protein Recommendations by Goal</caption>
+  <thead><tr><th>Goal</th><th>Protein (g/kg/day)</th><th>Evidence Base</th></tr></thead>
+  <tbody>
+    <tr><td>Hypertrophy / maintenance</td><td>1.6&ndash;2.2</td><td>Morton et al. (2018)</td></tr>
+    <tr><td>Fat loss (caloric deficit)</td><td>2.0&ndash;2.4</td><td>Pasiakos et al. (2015)</td></tr>
+    <tr><td>Plant-based athlete</td><td>1.8&ndash;2.6</td><td>Reduced leucine content, lower digestibility</td></tr>
+    <tr><td>Older adult (60+)</td><td>1.8&ndash;2.4</td><td>Anabolic resistance, higher leucine threshold</td></tr>
+    <tr><td>Gentle entry / ED risk</td><td>1.2&ndash;1.6</td><td>Avoid fixation; focus on addition, not restriction</td></tr>
+  </tbody>
+</table>
+
+<h3>6.2 Per-Meal Dosing: The Leucine Distribution Model</h3>
+<p>Total protein must be distributed across meals to achieve the leucine threshold at each feeding. The optimal pattern is 3&ndash;5 meals at 0.4&ndash;0.55 g/kg/meal. Skewed distribution (e.g., 70% of daily protein in one meal) produces inferior MPS over 24 hours compared to even distribution, even when total intake is equated.</p>
+
+<h3>6.3 Pre-Sleep Protein</h3>
+<p>Casein (30&ndash;50 g) consumed 30&ndash;60 minutes before sleep elevates MPS throughout the nocturnal fast, improves overnight whole-body protein balance, and augments the adaptive response to training. The gel-formation property of casein produces a sustained 4&ndash;6 hour amino acid release profile, superior to whey's rapid spike-and-decline kinetics for this specific context. This is particularly relevant during caloric deficit or in older adults.</p>
+
+<h3>6.4 Protein Quality and Leucine Content</h3>
+<table>
+  <caption data-label="Table 6.2">Leucine Content of Common Protein Sources (per 100 g)</caption>
+  <thead><tr><th>Source</th><th>Protein (g)</th><th>Leucine (g)</th><th>Leucine per 25 g Protein</th></tr></thead>
+  <tbody>
+    <tr><td>Whey protein isolate</td><td>90</td><td>10.9</td><td>3.0 g</td></tr>
+    <tr><td>Chicken breast</td><td>31</td><td>2.6</td><td>2.1 g</td></tr>
+    <tr><td>Lean beef</td><td>26</td><td>2.1</td><td>2.0 g</td></tr>
+    <tr><td>Eggs (whole, 100 g)</td><td>13</td><td>1.1</td><td>2.1 g</td></tr>
+    <tr><td>Greek yogurt</td><td>10</td><td>0.9</td><td>2.3 g</td></tr>
+    <tr><td>Tofu (firm)</td><td>8</td><td>0.6</td><td>1.9 g</td></tr>
+    <tr><td>Tempeh</td><td>19</td><td>1.4</td><td>1.8 g</td></tr>
+    <tr><td>Lentils (cooked)</td><td>9</td><td>0.6</td><td>1.7 g</td></tr>
+    <tr><td>Soy protein isolate</td><td>88</td><td>7.5</td><td>2.1 g</td></tr>
+  </tbody>
+</table>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Total daily protein intake is the highest-priority variable, with targets of 1.6&ndash;2.2 g/kg for maintenance and 2.0&ndash;2.4 g/kg during caloric deficit. Distribution across meals is the secondary priority: aim for 0.4&ndash;0.55 g/kg per meal across 3&ndash;5 feedings to hit the leucine threshold at each meal. Pre-sleep casein (30&ndash;50 g) provides a sustained amino acid release throughout the nocturnal fast, making it a useful tool during deficits or in older adults. Timing beyond pre-sleep is a distant third priority &mdash; total intake and leucine distribution drive the majority of the adaptive response.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch7">7. Carbohydrates: Timing, Periodisation, and Compartments</h2>
+
+<h3>7.1 Carbohydrate Recommendations by Goal</h3>
+<table>
+  <caption data-label="Table 7.1">Carbohydrate Intake by Activity Level and Goal</caption>
+  <thead><tr><th>Context</th><th>g/kg/day</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td>Strength athlete (maintenance)</td><td>4&ndash;6</td><td>Training volume-dependent; higher on leg days</td></tr>
+    <tr><td>General hypertrophy</td><td>3&ndash;5</td><td>Moderate; adjust based on recovery and performance</td></tr>
+    <tr><td>Fat loss (low-moderate activity)</td><td>2&ndash;3</td><td>Prioritise around training window</td></tr>
+    <tr><td>Fat loss (high activity)</td><td>2.5&ndash;4</td><td>Preserve training performance; deficit in non-training meals</td></tr>
+    <tr><td>Ketogenic / very low carb</td><td>&lt;0.5</td><td>Context-dependent; requires electrolyte management</td></tr>
+  </tbody>
+</table>
+
+<h3>7.2 Training-Day Carbohydrate Periodisation</h3>
+<p>Strategic carbohydrate timing follows the principle of "training demand, not arbitrary schedule." On training days, concentrate carbohydrates in the pre-training, intra-training, and post-training windows to maximise performance and glycogen resynthesis. On rest days, reduce carbohydrate load to improve insulin sensitivity and reliance on fat oxidation. This does not mean zero carbohydrate on rest days; it means reducing the amount and prioritising lower-glycaemic sources.</p>
+
+<h3>7.3 The Post-Training Glycogen Window</h3>
+<p>Muscle glycogen resynthesis occurs most rapidly in the 30&ndash;120 minute post-training window, driven by contraction-mediated GLUT4 translocation (which remains elevated for 24&ndash;48 hours). High-glycaemic carbohydrates (0.8&ndash;1.2 g/kg immediately post-training, then every 2 hours) optimise depletion-driven glycogen resynthesis. Adding protein (0.3&ndash;0.4 g/kg) to this window enhances glycogen storage through insulin potentiation in addition to supporting MPS.</p>
+
+<h3>7.4 CPT1 and Mitochondrial Fat Oxidation</h3>
+<p>The carnitine palmitoyltransferase 1 (CPT1) system controls the rate-limiting step for mitochondrial fatty acid oxidation. Malonyl-CoA, produced from glucose metabolism, inhibits CPT1&mdash;creating the carbohydrate-fat crosstalk: when carbohydrate availability is high, fat oxidation is suppressed. Practical application: training in low-glycogen conditions (e.g., fasted morning cardio, or the final sets of a high-volume session) shifts reliance toward fat oxidation through reduced malonyl-CoA inhibition.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Carbohydrate intake should be periodised around training demand: higher on training days to support performance and glycogen resynthesis, lower on rest days to improve insulin sensitivity. The post-training glycogen window (30&ndash;120 minutes) benefits from 0.8&ndash;1.2 g/kg of high-glycaemic carbohydrates, with added protein for enhanced glycogen storage and MPS support. Malonyl-CoA inhibition of CPT1 explains why fat oxidation is suppressed when carbohydrate availability is high. The key coaching takeaway is that carbohydrates are not to be feared &mdash; they are performance-supporting nutrients that should align intake with energy expenditure.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch8">8. Fats: Essential Fatty Acids and Meal Design</h2>
+
+<h3>8.1 Fat Recommendations by Goal</h3>
+<table>
+  <caption data-label="Table 8.1">Dietary Fat Intake Guidelines</caption>
+  <thead><tr><th>Context</th><th>g/kg/day</th><th>Minimum</th></tr></thead>
+  <tbody>
+    <tr><td>Maintenance / hypertrophy</td><td>0.8&ndash;1.2</td><td>0.5 g/kg/day</td></tr>
+    <tr><td>Fat loss</td><td>0.6&ndash;1.0</td><td>0.5 g/kg/day</td></tr>
+    <tr><td>Female athlete</td><td>0.8&ndash;1.2</td><td>0.6 g/kg/day (higher minimum due to hormonal considerations)</td></tr>
+    <tr><td>Low-carb / ketogenic</td><td>1.5&ndash;2.5</td><td>Fill remaining calories after protein allocation</td></tr>
+  </tbody>
+</table>
+
+<h3>8.2 Fat-Soluble Vitamin Absorption</h3>
+<p>Dietary fat is required for the absorption of vitamins A, D, E, and K. Clients on very-low-fat diets (&lt;20% of calories from fat) risk deficiency in these vitamins regardless of intake. Including a source of fat (at least 5&ndash;10 g) with meals containing fat-soluble vitamins or carotenoid-rich vegetables significantly improves absorption.</p>
+
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Fat intake should meet a minimum of 0.5 g/kg/day (0.6 g/kg for female athletes) to support hormonal health, with higher intakes of 0.8&ndash;1.2 g/kg for maintenance or hypertrophy phases. The minimum thresholds are non-negotiable &mdash; dropping below them compromises testosterone production, menstrual cycle regularity, and fat-soluble vitamin absorption. Beyond the minimum, fat quality (unsaturated over saturated) is more important than precise quantity. Clients on very-low-fat diets risk deficiencies in vitamins A, D, E, and K regardless of intake.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch9">9. Vitamin D &amp; Calcium</h2>
+
+<h3>9.1 Physiological Roles</h3>
+<p>Vitamin D functions as a steroid hormone with receptors throughout the body. Beyond calcium homeostasis, it modulates testosterone synthesis (via upregulation of CYP11A and CYP17A in Leydig cells), immune function (regulating antimicrobial peptide expression), glucose metabolism (improving insulin sensitivity through VDR-mediated transcription), and inflammation through NF-kB pathway suppression. The vitamin D receptor (VDR) is expressed in skeletal muscle tissue, where it regulates myoblast proliferation and differentiation.</p>
+
+<h3>9.2 Athlete-Specific Protocol</h3>
+<table>
+  <caption data-label="Table 9.1">Vitamin D Protocol for Athletes</caption>
+  <thead><tr><th>Parameter</th><th>Recommendation</th></tr></thead>
+  <tbody>
+    <tr><td>Testing</td><td>Serum 25(OH)D; optimal range 50&ndash;80 ng/mL</td></tr>
+    <tr><td>General maintenance</td><td>1,000&ndash;2,000 IU/day</td></tr>
+    <tr><td>Deficiency correction</td><td>5,000 IU/day or 50,000 IU/week for 8 weeks</td></tr>
+    <tr><td>Food sources</td><td>Fatty fish (salmon 600 IU/100g), egg yolk (40 IU), UV-exposed mushrooms</td></tr>
+    <tr><td>Co-factors</td><td>Vitamin K2 (100&ndash;200 mcg/day), magnesium (to activate VDR)</td></tr>
+  </tbody>
+</table>
+
+<h3>9.3 Calcium</h3>
+<p>While vitamin D controls calcium absorption, calcium itself plays direct roles in muscle contraction (excitation-contraction coupling via troponin C), bone mineral density (peak bone mass development is critical in adolescence and early adulthood), and fat metabolism (dietary calcium modulates adipocyte lipid metabolism through calcitriol suppression). Athlete RDA: 1,000&ndash;1,300 mg/day, with dairy, fortified plant milks, leafy greens, and tinned fish (with bones) as primary sources.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Vitamin D is the most commonly indicated supplement for athletes, with an optimal serum range of 50&ndash;80 ng/mL (25(OH)D). Testing before high-dose supplementation is ideal, but 1,000&ndash;2,000 IU/day is safe as a general maintenance dose for most adults. Vitamin D receptors are expressed in skeletal muscle, where they regulate myoblast proliferation and differentiation, linking vitamin D status directly to muscle health. Calcium (1,000&ndash;1,300 mg/day) supports muscle contraction, bone mineral density, and fat metabolism, with dairy and fortified plant milks as the primary sources.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch10">10. Magnesium</h2>
+
+<h3>10.1 Physiological Roles</h3>
+<p>Magnesium is a required co-factor for over 300 enzymatic reactions. In the athletic context, it is critical for: ATP production (Mg-ATP complex is the biologically active form), GLUT4 translocation (insulin signalling requires magnesium), muscle relaxation (antagonises calcium at the sarcomere, preventing cramping), HPA axis regulation (modulates cortisol clearance), GABA modulation (promotes sleep quality through NMDA receptor antagonism), and testosterone synthesis (involved in the steroidogenic pathway).</p>
+
+<h3>10.2 Athlete Protocol</h3>
+<table>
+  <caption data-label="Table 10.1">Magnesium Supplementation Guide</caption>
+  <thead><tr><th>Form</th><th>Absorption</th><th>Best For</th><th>Dose</th></tr></thead>
+  <tbody>
+    <tr><td>Magnesium glycinate</td><td>High</td><td>Sleep, stress, general deficiency</td><td>200&ndash;400 mg elemental Mg</td></tr>
+    <tr><td>Magnesium malate</td><td>High</td><td>Energy, muscle pain</td><td>200&ndash;400 mg elemental Mg</td></tr>
+    <tr><td>Magnesium citrate</td><td>Moderate</td><td>General use, constipation</td><td>200&ndash;400 mg elemental Mg</td></tr>
+    <tr><td>Magnesium oxide</td><td>Low</td><td>Avoid &mdash; poorly absorbed</td><td>&mdash;</td></tr>
+    <tr><td>Magnesium L-threonate</td><td>High</td><td>Cognitive effects, BBB penetration</td><td>144&ndash;200 mg elemental Mg</td></tr>
+  </tbody>
+</table>
+
+<h3>10.3 Deficiency Screening</h3>
+<p>Clinical magnesium deficiency is underdiagnosed because serum magnesium is tightly regulated and does not reflect total body stores. Red flags include: nocturnal muscle cramps, restless legs, anxiety/sleep disruption, insulin resistance, and chronic constipation. During caloric deficit or high training volume, magnesium requirements increase. Food sources: pumpkin seeds (262 mg/30 g), almonds (80 mg/30 g), spinach (87 mg/cup cooked), dark chocolate (64 mg/30 g).</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Magnesium is a co-factor for over 300 enzymatic reactions and is critical for ATP production, GLUT4 translocation, muscle relaxation, sleep quality, and testosterone synthesis. Magnesium glycinate (200&ndash;400 mg elemental Mg before bed) is the most versatile form, ideal for clients reporting sleep disruption, anxiety, nocturnal cramps, or high training volume. Serum magnesium is unreliable; RBC magnesium testing provides a more accurate reflection of total body stores. Athletes in caloric deficit or under high training volume are at elevated risk of subclinical deficiency.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch11">11. Zinc &amp; Iron</h2>
+
+<h3>11.1 Zinc</h3>
+<p>Zinc plays a foundational role in testosterone synthesis (required for the steroidogenic acute regulatory protein and 17-hydroxylase activities), IGF-1 signalling (zinc finger proteins are essential for IGF-1 receptor function), antioxidant defence (co-factor for superoxide dismutase), protein synthesis (required for ribosomal function and mRNA stability), and immune function (T-cell maturation and function). Athlete RDA: 11&ndash;15 mg/day. Overtraining and high sweat losses increase requirements.</p>
+
+<h3>11.2 Iron</h3>
+<p>Iron is essential for oxygen transport (haemoglobin), aerobic energy production (cytochrome c oxidase in the electron transport chain), myoglobin synthesis (oxygen storage in muscle), and neurotransmitter synthesis. Athlete requirements are elevated due to foot-strike haemolysis, sweat losses, GI bleeding, and increased erythropoiesis. Female athletes are at particular risk due to menstrual losses (additional 1&ndash;2 mg/day).</p>
+
+<div class="callout">
+  <div class="callout-title">Critical: Iron Supplementation Requires Testing</div>
+  <p>Iron supplementation without confirmed deficiency is dangerous due to the risk of iron overload (haemochromatosis). Test ferritin (optimal 50&ndash;150 ng/mL for athletes), serum iron, TIBC, and transferrin saturation before supplementing. Iron absorption is enhanced by vitamin C and inhibited by calcium, tannins (tea), and phytates (grains, legumes).</p>
+</div>
+
+<h3>11.3 Zinc-Iron-Copper Interaction</h3>
+<p>Zinc and iron compete for absorption through the divalent metal transporter (DMT1). High-dose zinc supplementation (&gt;40 mg/day) can suppress copper absorption, leading to copper deficiency. When supplementing zinc long-term (&gt;3 months), include 1&ndash;2 mg copper per 15&ndash;30 mg zinc. Iron should be taken separately from zinc and calcium (morning and evening, or with different meals).</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Zinc supports testosterone synthesis, IGF-1 signalling, and immune function, with an athlete RDA of 11&ndash;15 mg/day. Iron is essential for oxygen transport and aerobic energy production, with female athletes at particular risk due to menstrual losses. Iron supplementation must not be initiated without testing ferritin and full iron studies first, as iron overload (haemochromatosis) is a serious risk. Long-term zinc supplementation (&gt;40 mg/day for &gt;3 months) requires copper co-supplementation (1&ndash;2 mg copper per 15&ndash;30 mg zinc) due to DMT1 transport competition.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch12">12. B-Complex &amp; Energy Metabolism</h2>
+
+<p>The B-complex vitamins function primarily as co-enzymes in energy metabolism. Each plays a specific role in the metabolic pathways that convert dietary energy into usable ATP:</p>
+
+<table>
+  <caption data-label="Table 12.1">B-Vitamin Functions in Athletic Context</caption>
+  <thead><tr><th>Vitamin</th><th>Active Form</th><th>Metabolic Role</th><th>Athlete RDA</th></tr></thead>
+  <tbody>
+    <tr><td>B1 (Thiamine)</td><td>TPP</td><td>Pyruvate dehydrogenase (glucose to acetyl-CoA), branched-chain amino acid metabolism</td><td>1.5&ndash;2.0 mg</td></tr>
+    <tr><td>B2 (Riboflavin)</td><td>FAD/FMN</td><td>Electron transport chain (Complex I and II), fatty acid oxidation</td><td>1.5&ndash;2.0 mg</td></tr>
+    <tr><td>B3 (Niacin)</td><td>NAD/NADP</td><td>Redox reactions in glycolysis, TCA cycle, electron transport chain</td><td>16&ndash;20 mg</td></tr>
+    <tr><td>B5 (Pantothenic acid)</td><td>CoA</td><td>Acetyl-CoA formation (TCA cycle entry), fatty acid synthesis/oxidation</td><td>5&ndash;10 mg</td></tr>
+    <tr><td>B6 (Pyridoxine)</td><td>PLP</td><td>Glycogen phosphorylase (glycogen breakdown), amino acid transamination</td><td>2&ndash;3 mg</td></tr>
+    <tr><td>B7 (Biotin)</td><td>&mdash;</td><td>Carboxylation reactions in gluconeogenesis, fatty acid synthesis</td><td>30&ndash;100 mcg</td></tr>
+    <tr><td>B9 (Folate)</td><td>THF</td><td>Amino acid metabolism, red blood cell production, homocysteine regulation</td><td>400&ndash;800 mcg DFE</td></tr>
+    <tr><td>B12 (Cobalamin)</td><td>MeCbl, AdoCbl</td><td>Methionine synthesis (methylation), succinyl-CoA (fatty acid metabolism)</td><td>2.5&ndash;5.0 mcg</td></tr>
+  </tbody>
+</table>
+
+<p>During caloric deficit or high-volume training, B-vitamin requirements increase because energy flux through these pathways is elevated relative to intake. Vegans and vegetarians are at particular risk for B12 deficiency, which requires supplementation regardless of diet quality.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>B-vitamins are co-enzymes in energy metabolism. Vegans need B12 supplementation. Caloric deficit increases B-vitamin requirements. Food-first approach before supplementing.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch13">13. Electrolytes &amp; Hydration</h2>
+
+<h3>13.1 Daily Hydration Targets</h3>
+<table>
+  <caption data-label="Table 13.1">Hydration Requirements by Activity Level</caption>
+  <thead><tr><th>Activity Level</th><th>Daily Water Target (L)</th></tr></thead>
+  <tbody>
+    <tr><td>Sedentary</td><td>2.0&ndash;2.5</td></tr>
+    <tr><td>Moderately active (3&ndash;5 hrs/week)</td><td>2.5&ndash;3.5</td></tr>
+    <tr><td>Very active (6&ndash;10 hrs/week)</td><td>3.5&ndash;5.0</td></tr>
+    <tr><td>Extreme (10+ hrs/week, outdoor heat)</td><td>5.0&ndash;7.0+</td></tr>
+  </tbody>
+</table>
+
+<h3>13.2 Training Hydration Protocol</h3>
+<p><strong>Pre-training</strong> (2 hours before): 500&ndash;600 mL water. <strong>Intra-training</strong>: 200&ndash;300 mL every 15&ndash;20 minutes. Sessions exceeding 60 minutes in warm conditions require electrolyte replacement: 300&ndash;600 mg sodium, 150&ndash;300 mg potassium, 30&ndash;60 mg magnesium per litre of fluid. <strong>Post-training</strong>: 1.25&ndash;1.5 L per kg of body weight lost during exercise.</p>
+
+<h3>13.3 Hydration Status Assessment</h3>
+<p>Urine colour is a practical daily screening tool: pale straw indicates euhydration; dark amber (reminiscent of apple juice) indicates dehydration and requires immediate increased fluid intake. Additional indicators: thirst (a late signal; do not rely on it), skin turgor, tear production, and cognitive function. A morning body weight decrease of &gt;2% from baseline suggests hypohydration.</p>
+
+<h3>13.4 Electrolyte Balance</h3>
+<p>Each electrolyte plays a distinct role in athletic performance: <strong>Sodium</strong> (3&ndash;5 g/day) is the primary extracellular cation, critical for fluid balance and nerve conduction. Losses of 500&ndash;1,500 mg per hour of intense exercise are typical. <strong>Potassium</strong> (3.5&ndash;5 g/day) is the primary intracellular cation, involved in muscle contraction and glycogen storage. <strong>Calcium</strong> (1,000&ndash;1,300 mg/day) triggers muscle contraction through excitation-contraction coupling. <strong>Magnesium</strong> (400&ndash;600 mg/day for athletes) is required for muscle relaxation and ATP function.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Hydration targets scale with activity. Electrolyte replacement matters for sessions &gt;60 min. Urine colour is the best practical screening tool. Sodium is the primary electrolyte lost in sweat.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch14">14. Antioxidant Network &amp; Polyphenols</h2>
+
+<h3>14.1 The Nrf2-Keap1 System</h3>
+<p>The nuclear factor erythroid 2-related factor 2 (Nrf2) is the master regulator of the antioxidant response. Under baseline conditions, Nrf2 is bound to Kelch-like ECH-associated protein 1 (Keap1) in the cytoplasm, targeting it for degradation. Oxidative stress or Nrf2-activating compounds cause Keap1 dissociation, allowing Nrf2 to translocate to the nucleus and activate antioxidant response elements (AREs), upregulating glutathione peroxidase (GPX), superoxide dismutase (SOD), catalase, and haem oxygenase-1 (HO-1).</p>
+
+<h3>14.2 The Training Adaptation Paradox</h3>
+<p>Exercise-induced reactive oxygen species (ROS) are necessary signalling molecules for training adaptations, including mitochondrial biogenesis and antioxidant enzyme upregulation. High-dose antioxidant supplementation (particularly vitamins C and E) blunts or abolishes these adaptations. The practical solution is food-first antioxidant intake: whole foods provide co-ordinated antioxidant networks at physiological doses that do not suppress training adaptations, unlike megadose supplements.</p>
+
+<h3>14.3 Food Sources of Nrf2 Activators</h3>
+<p>Sulforaphane (broccoli sprouts, broccoli), curcumin (turmeric, requires piperine for absorption), EGCG (green tea), resveratrol (grapes, red wine), quercetin (onions, apples, berries), and hydroxytyrosol (olive oil) activate Nrf2 signalling. Timing these foods post-training may optimise the balance between adaptive signalling and recovery.</p>
+
+<h3>14.4 Vitamins C and E</h3>
+<p>Despite their reputation as antioxidants, high-dose vitamin C (1,000+ mg/day) and vitamin E (400+ IU/day) supplements have been shown to attenuate the training-induced increase in VO2max, insulin sensitivity, and muscle protein synthesis. This does not mean these vitamins are harmful; it means that food sources deliver them in the context of the full phytochemical network, at doses that do not excessively suppress training adaptations.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Exercise-induced ROS are necessary for training adaptations. High-dose antioxidant supplements (C, E) blunt adaptations. Food-first antioxidant intake from whole foods is superior. Nrf2 activators like sulforaphane support the antioxidant network without suppressing adaptation.</p>
+</div>
+
+<h2 id="ch15">15. Tier 1: High-Confidence Supplements</h2>
+<p>Tier 1 supplements have consistent, reproducible evidence across multiple meta-analyses demonstrating efficacy for body composition or performance outcomes with a favourable safety profile.</p>
+
+<h3>15.1 Creatine Monohydrate</h3>
+<table>
+  <caption data-label="Table 15.1">Creatine Protocol</caption>
+  <thead><tr><th>Parameter</th><th>Recommendation</th></tr></thead>
+  <tbody>
+    <tr><td>Dosing (loading)</td><td>20 g/day (4 x 5 g) for 5&ndash;7 days</td></tr>
+    <tr><td>Dosing (maintenance)</td><td>3&ndash;5 g/day indefinitely</td></tr>
+    <tr><td>Form</td><td>Creatine monohydrate (not HCl, ethyl ester, or other forms)</td></tr>
+    <tr><td>Timing</td><td>Post-training (insulin-dependent uptake); any time if daily</td></tr>
+    <tr><td>Onset</td><td>5&ndash;7 days (loading) or 3&ndash;4 weeks (maintenance only)</td></tr>
+    <tr><td>Safety</td><td>Extensive record; safe at recommended doses for long-term use</td></tr>
+  </tbody>
+</table>
+
+<h3>15.2 Protein Supplements</h3>
+<p>Whey protein concentrate (WPC) is the standard for general use because it is cost-effective with a complete amino acid profile and high leucine content. Whey protein isolate (WPI) removes more lactose and fat, suitable for those with lactose sensitivity. Casein is preferred for pre-sleep due to its sustained-release profile. Plant-based blends (pea + rice, or soy isolate) can achieve equivalent amino acid profiles when the total dose is increased by 15&ndash;25% to compensate for reduced leucine content and digestibility. Third-party testing (Informed Sport, NSF Certified for Sport) is recommended.</p>
+
+<h3>15.3 Omega-3 Fatty Acids (EPA/DHA)</h3>
+<table>
+  <caption data-label="Table 15.2">Omega-3 Protocol</caption>
+  <thead><tr><th>Parameter</th><th>Recommendation</th></tr></thead>
+  <tbody>
+    <tr><td>Dosing (general)</td><td>1.5&ndash;2.0 g/day EPA+DHA</td></tr>
+    <tr><td>Dosing (therapeutic, high inflammation)</td><td>3&ndash;4 g/day EPA+DHA</td></tr>
+    <tr><td>Form preference</td><td>rTG (re-esterified triglyceride) for best absorption</td></tr>
+    <tr><td>Ratio</td><td>EPA:DHA should be at least 1.5:1</td></tr>
+    <tr><td>Timing</td><td>With a fat-containing meal for absorption</td></tr>
+    <tr><td>Onset</td><td>4&ndash;12 weeks for membrane incorporation</td></tr>
+    <tr><td>Safety</td><td>Mild blood thinning; discontinue 1 week prior to surgery</td></tr>
+  </tbody>
+</table>
+
+<h3>15.4 Vitamin D</h3>
+<p>Already covered in detail in Chapter 9. Supplementation is strongly recommended during winter months or for individuals with limited sun exposure. Testing before supplementation is ideal but not always practical; 1,000&ndash;2,000 IU/day as a maintenance dose is safe for almost all adults.</p>
+
+<h3>15.5 Magnesium</h3>
+<p>Already covered in detail in Chapter 10. Supplementation with magnesium glycinate (200&ndash;400 mg elemental Mg before bed) is recommended for clients reporting sleep disruption, anxiety, nocturnal cramps, or high training volume. Athletes in caloric deficit are at elevated risk of subclinical deficiency.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Creatine monohydrate (3-5 g/day) has the strongest evidence of any supplement. Protein supplements are convenient but food is equivalent. Omega-3s (1.5-2 g EPA+DHA/day) support inflammation and recovery. Vitamin D and magnesium are Tier 1 due to widespread deficiency risk.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch16">16. Tier 2: Conditionally Effective Supplements</h2>
+
+<h3>16.1 Caffeine</h3>
+<table>
+  <caption data-label="Table 16.1">Caffeine Protocol</caption>
+  <thead><tr><th>Parameter</th><th>Recommendation</th></tr></thead>
+  <tbody>
+    <tr><td>Dosing</td><td>3&ndash;6 mg/kg body weight, 30&ndash;60 minutes pre-training</td></tr>
+    <tr><td>Form</td><td>Anhydrous caffeine (powder/capsule) or black coffee (1&ndash;2 cups)</td></tr>
+    <tr><td>Genetics</td><td>CYP1A2 slow metabolisers (approximately 50% of population) benefit less and experience more side effects</td></tr>
+    <tr><td>Tolerance</td><td>Significant; cycle 2 weeks on / 1 week off or reduce daily intake</td></tr>
+    <tr><td>Stack</td><td>Synergistic with 200&ndash;400 mg L-theanine (reduces jitters, improves focus)</td></tr>
+    <tr><td>Sleep impact</td><td>Avoid after 2&ndash;4 PM depending on individual sensitivity; half-life 3&ndash;7 hours</td></tr>
+  </tbody>
+</table>
+
+<h3>16.2 Beta-Alanine</h3>
+<p>Mechanism: Carnosine synthesis, which buffers hydrogen ions (H+) during high-intensity exercise, delaying muscular fatigue. Dosing: 4.8&ndash;6.4 g/day for 4&ndash;6 weeks (loading), then 1.2&ndash;2.4 g/day maintenance. Side effect: harmless paresthesia (skin tingling) due to Mas-related G-protein coupled receptor member D (MRGPRD) activation; mitigated by split dosing (1.6 g doses across 3&ndash;4 meals) or sustained-release formulations. Effective for 1&ndash;4 minute high-intensity efforts. Stacked with creatine for additive benefits.</p>
+
+<h3>16.3 Citrulline Malate</h3>
+<p>Mechanism: Nitric oxide precursor via arginine conversion, enhancing vasodilation, blood flow, and ammonia clearance. Dosing: 6&ndash;8 g, 60&ndash;90 minutes pre-training. Effective for increasing repetitions in subsequent sets (especially in high-volume training) and reducing perceived exertion. Less effective in well-trained individuals with already-efficient blood flow. Stacked with creatine and beta-alanine for comprehensive training supplementation.</p>
+
+<h3>16.4 Casein (Pre-Sleep)</h3>
+<p>Covered in Chapter 6.3. The protocol: 30&ndash;50 g casein 30&ndash;60 minutes before sleep. Options: micellar casein powder, cottage cheese, Greek yogurt (strained), or a protein blend with casein-dominant profile.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Caffeine (3-6 mg/kg pre-training) is effective but tolerance develops. Beta-alanine (4.8-6.4 g/day loading) buffers H+ for high-intensity work. Citrulline malate (6-8 g pre-training) improves blood flow. Casein pre-sleep (30-50 g) supports overnight MPS.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch17">17. Tier 3: Emerging &amp; Contextual Supplements</h2>
+
+<h3>17.1 Ashwagandha (Withania somnifera)</h3>
+<p>Mechanism: HPA axis modulation via cortisol reduction. Dosing: KSM-66 extract 300&ndash;600 mg/day, or Sensoril 125&ndash;250 mg/day. Cycling: 8&ndash;12 weeks on, 2&ndash;4 weeks off. Effective primarily for individuals with elevated baseline cortisol (high stress, sleep deprivation, overtraining). Stack with magnesium glycinate. Evidence tier: moderate for stress reduction; weak for direct muscle gain or fat loss.</p>
+
+<h3>17.2 HMB (Beta-Hydroxy Beta-Methylbutyrate)</h3>
+<p>A leucine metabolite that inhibits ubiquitin-proteasome proteolysis and may activate mTOR. Dosing: 3 g/day (1 g with three meals). Context-dependent: most effective in untrained individuals initiating training, in caloric deficit for preserving lean mass, and in older adults with anabolic resistance. Limited benefit in well-trained individuals with adequate protein intake.</p>
+
+<h3>17.3 Boron</h3>
+<p>Mechanism: Reduces sex hormone-binding globulin (SHBG), increasing free testosterone. Dosing: 3&ndash;6 mg/day. Evidence tier: Tier 3 exploratory. Small effect sizes; most useful when SHBG is known to be elevated. Food sources: avocados, almonds, raisins, chickpeas. Caution: narrow therapeutic window; avoid exceeding 10 mg/day.</p>
+
+<h3>17.4 Supplement Decision Framework</h3>
+<div class="algorithm">
+  <div class="algorithm-title">When to Recommend a Supplement</div>
+  <ol>
+    <li><strong>Risk assessment:</strong> Is there a confirmed or likely deficiency? (Vitamin D, Magnesium, B12 for vegans)</li>
+    <li><strong>Evidence threshold:</strong> Does the supplement have Tier 1 or Tier 2 evidence for the specific goal?</li>
+    <li><strong>Cost-benefit:</strong> Is the cost justified relative to the expected effect size?</li>
+    <li><strong>Third-party verification:</strong> Does the product have Informed Sport, NSF, or USP certification?</li>
+    <li><strong>Baseline diet:</strong> Has diet been optimised first? Supplements do not compensate for poor nutrition.</li>
+    <li><strong>Stack check:</strong> Are there known interactions with other supplements or medications?</li>
+  </ol>
+</div>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Ashwagandha reduces cortisol in stressed individuals. HMB is context-dependent (untrained, deficit, elderly). Boron may reduce SHBG. Apply the supplement decision framework: deficiency first, then evidence tier, then cost-benefit, then third-party verification.</p>
+</div>
+
+<div class="case-study">
+  <div class="case-label">COACHING APPLICATION</div>
+  <div class="case-title">Supplement Audit and Macronutrient Restructure</div>
+  <p><strong>Scenario:</strong> A 28-year-old female client, 65 kg, trains 5x/week (3 resistance + 2 HIIT). She reports fatigue, poor recovery, and irritability. She takes vitamin C (1,000 mg), iron (self-prescribed 65 mg), and BCAAs. She eats approximately 1,800 kcal/day with 80 g protein, 220 g carbs, 55 g fat.</p>
+  <p><strong>Assessment:</strong> Protein is severely insufficient (1.2 g/kg vs. 1.6-2.2 target). Iron supplementation without testing is risky. BCAAs provide no advantage over complete protein. Vitamin C at this dose may blunt training adaptations. Omega-3 intake is low (no fish, no supplement).</p>
+  <p><strong>Intervention:</strong> (1) Increase protein to 110-130 g/day (1.7-2.0 g/kg) by redistributing calories from carbs, keeping total intake stable. (2) Replace BCAAs with whey protein &mdash; same cost, complete amino acid profile. (3) Stop iron until ferritin is tested. (4) Add omega-3 (2 g EPA+DHA/day) and magnesium glycinate (200 mg before bed). (5) Move vitamin C to post-training only, or get it from food. (6) Reassess energy, recovery, and sleep after 3 weeks.</p>
+  <p><strong>Key Takeaway:</strong> Macronutrient fundamentals (total protein) must be optimised before supplements can provide marginal benefit. Testing before supplementing iron prevents iatrogenic harm. Supplement stacks need regular auditing for interactions and evidence strength.</p>
+</div>
+
+<div class="section-break"></div>
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!-- DOMAIN 3: APPLIED PROTOCOLS & FOOD REFERENCE                   -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+
+<h1 id="domain3">Domain 3: Applied Protocols &amp; Food Reference</h1>
+
+<h2 id="ch18">18. Calorie &amp; Macronutrient Calculator</h2>
+
+<h3>18.1 BMR Estimation (Mifflin-St Jeor)</h3>
+<div class="equation">
+  <div class="eq-content">$$\text{Male: BMR} = 10 \times \text{weight (kg)} + 6.25 \times \text{height (cm)} - 5 \times \text{age (y)} + 5$$</div>
+</div>
+<div class="equation">
+  <div class="eq-content">$$\text{Female: BMR} = 10 \times \text{weight (kg)} + 6.25 \times \text{height (cm)} - 5 \times \text{age (y)} - 161$$</div>
+</div>
+
+<h3>18.2 TDEE Activity Multipliers</h3>
+<table>
+  <caption data-label="Table 18.1">Activity Level Adjustments</caption>
+  <thead><tr><th>Activity Level</th><th>Multiplier</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>Sedentary</td><td>1.2</td><td>Desk job, minimal movement</td></tr>
+    <tr><td>Light activity</td><td>1.375</td><td>1&ndash;3 days/week structured exercise</td></tr>
+    <tr><td>Moderate activity</td><td>1.55</td><td>3&ndash;5 days/week structured exercise</td></tr>
+    <tr><td>Very active</td><td>1.725</td><td>6&ndash;7 days/week, intense training</td></tr>
+    <tr><td>Extreme</td><td>1.9</td><td>Twice-daily training, physical labour</td></tr>
+  </tbody>
+</table>
+
+<h3>18.3 Calorie Targets by Goal</h3>
+<table>
+  <caption data-label="Table 18.2">Calorie Adjustment by Goal</caption>
+  <thead><tr><th>Goal</th><th>Adjustment from TDEE</th><th>Rate of Change</th></tr></thead>
+  <tbody>
+    <tr><td>Fat loss (aggressive)</td><td>&minus;25&ndash;30%</td><td>0.7&ndash;1.0% body weight/week</td></tr>
+    <tr><td>Fat loss (moderate)</td><td>&minus;15&ndash;25%</td><td>0.5&ndash;0.7% body weight/week</td></tr>
+    <tr><td>Recomp (body recomposition)</td><td>&minus;100&ndash;300 kcal deficit</td><td>0.3&ndash;0.5% body weight/week (if weight change occurs)</td></tr>
+    <tr><td>Lean gain / maintenance</td><td>TDEE to +5%</td><td>&lt;0.5% body weight/month</td></tr>
+    <tr><td>Muscle gain (aggressive)</td><td>+10&ndash;20%</td><td>0.5&ndash;1.5% body weight/month</td></tr>
+  </tbody>
+</table>
+
+<h3>18.4 Macronutrient Distribution</h3>
+<table>
+  <caption data-label="Table 18.3">Macronutrient Calculation Logic</caption>
+  <thead><tr><th>Step</th><th>Calculation</th></tr></thead>
+  <tbody>
+    <tr><td>1. Protein</td><td>Goal-based g/kg/day (Table 6.1). Multiply by body weight (kg).</td></tr>
+    <tr><td>2. Fat</td><td>Minimum 0.5&ndash;0.8 g/kg/day (Table 8.1). Higher for female athletes and low-carb contexts.</td></tr>
+    <tr><td>3. Carbohydrate</td><td>Remaining calories after protein and fat allocation.</td></tr>
+    <tr><td>4. Adjustment</td><td>Reassess after 2&ndash;4 weeks based on actual rate of change and subjective feedback.</td></tr>
+  </tbody>
+</table>
+
+<h3>18.5 Two-Week Adjustment Rule</h3>
+<p>When the rate of weight change is less than half the target rate over two consecutive weeks, adjust calories by 100&ndash;200 kcal/day in the direction of the goal (reduce for faster loss; increase for faster gain). When weight loss exceeds 1% of body weight per week for two consecutive weeks, increase calories by 100&ndash;200 kcal/day to avoid excessive metabolic adaptation. Scale weight should be interpreted with context: glycogen depletion, sodium intake, menstrual cycle phase, and creatine loading all cause water weight fluctuations of 1&ndash;3 kg.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Mifflin-St Jeor is the most accurate BMR equation for most populations. Start at 15–25% deficit for fat loss, +10–20% for muscle gain. Protein is set first, then fat minimums, then carbs fill the remainder. The 2-week adjustment rule prevents overreaction to water-weight fluctuations.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch19">19. Meal Structure Library</h2>
+
+<h3>19.1 Meal Structure Templates</h3>
+<table>
+  <caption data-label="Table 19.1">Meal Structure Options</caption>
+  <thead><tr><th>Pattern</th><th>Structure</th><th>Best For</th></tr></thead>
+  <tbody>
+    <tr><td>3 meals</td><td>Breakfast ~30%, Lunch ~35%, Dinner ~35%</td><td>Standard schedule, family meals</td></tr>
+    <tr><td>4 meals</td><td>Meals at 0, 4, 8, 11 hours post-wake</td><td>Protein distribution optimisation</td></tr>
+    <tr><td>2 meals + snacks</td><td>2 main meals + flexible snacks</td><td>Adherence preference</td></tr>
+    <tr><td>16:8 IF (2 meals)</td><td>Feeding window 12&ndash;8 PM, 2 meals</td><td>Adherence, insulin sensitivity (context-dependent)</td></tr>
+  </tbody>
+</table>
+
+<h3>19.2 Sample Meal Templates (per meal, ~700&ndash;800 kcal)</h3>
+<table>
+  <caption data-label="Table 19.2">Meal Template Examples</caption>
+  <thead><tr><th>Template</th><th>Components</th><th>Protein (g)</th><th>Carbs (g)</th><th>Fat (g)</th></tr></thead>
+  <tbody>
+    <tr><td>Chicken + Rice + Broccoli</td><td>200 g chicken breast, 200 g rice (cooked), 150 g broccoli, 10 g olive oil</td><td>50</td><td>65</td><td>15</td></tr>
+    <tr><td>Eggs + Oats + Fruit</td><td>4 whole eggs, 80 g oats, 200 g berries, 200 ml milk</td><td>35</td><td>65</td><td>20</td></tr>
+    <tr><td>Salmon + Sweet Potato + Greens</td><td>180 g salmon, 250 g sweet potato, 100 g spinach, 10 g butter</td><td>40</td><td>55</td><td>18</td></tr>
+    <tr><td>Beef Stir-Fry + Rice</td><td>180 g lean beef, 200 g rice (cooked), mixed vegetables, soy sauce</td><td>45</td><td>65</td><td>12</td></tr>
+    <tr><td>Tofu Veggie Bowl</td><td>200 g firm tofu, 150 g quinoa (cooked), 100 g edamame, mixed vegetables</td><td>35</td><td>55</td><td>14</td></tr>
+  </tbody>
+</table>
+
+<h3>19.3 Hand-Portion Guide (When Tracking Is Not Possible)</h3>
+<table>
+  <caption data-label="Table 19.3">Hand-Portion Reference</caption>
+  <thead><tr><th>Portion</th><th>Approximate Serving</th><th>Protein/Carbs/Fat</th></tr></thead>
+  <tbody>
+    <tr><td>1 palm (protein)</td><td>20&ndash;30 g protein (chicken, fish, meat, tofu)</td><td>Protein</td></tr>
+    <tr><td>1 cupped hand (carbs)</td><td>20&ndash;30 g carbs (rice, oats, pasta, potato)</td><td>Carbs</td></tr>
+    <tr><td>1 thumb (fat)</td><td>10&ndash;15 g fat (oil, butter, nut butter, avocado)</td><td>Fat</td></tr>
+    <tr><td>1 fist (vegetables)</td><td>Approximately 1 cup (broccoli, spinach, peppers)</td><td>Fibre &amp; micronutrients</td></tr>
+  </tbody>
+</table>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Meal structure should fit the client's lifestyle first, not a prescribed template. Hand portions are a practical alternative to tracking. Four meals optimise protein distribution but 3 meals works if per-meal leucine threshold is met. The best meal plan is the one the client can adhere to.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch20">20. Hydration Protocol</h2>
+
+<h3>20.1 Daily Schedule</h3>
+<table>
+  <caption data-label="Table 20.1">Daily Hydration Schedule (3 L Target)</caption>
+  <thead><tr><th>Time</th><th>Volume</th><th>Purpose</th></tr></thead>
+  <tbody>
+    <tr><td>Upon waking</td><td>500 mL</td><td>Replenish overnight losses</td></tr>
+    <tr><td>Mid-morning</td><td>500 mL</td><td>Maintain hydration</td></tr>
+    <tr><td>Lunch</td><td>500 mL</td><td>Meal accompaniment</td></tr>
+    <tr><td>Pre-training (2 hrs before)</td><td>500&ndash;600 mL</td><td>Ensure training euhydration</td></tr>
+    <tr><td>Intra-training (if applicable)</td><td>200&ndash;300 mL every 15 min</td><td>Sweat replacement</td></tr>
+    <tr><td>Post-training</td><td>500&ndash;1,000 mL</td><td>Rehydrate from losses</td></tr>
+    <tr><td>Evening</td><td>500 mL</td><td>Before-cutoff hydration</td></tr>
+  </tbody>
+</table>
+
+<h3>20.2 Electrolyte Additions by Context</h3>
+<p>Plain water is sufficient for sessions under 60 minutes at moderate intensity. For longer sessions, warm conditions, or high-sweat individuals, add: 300&ndash;600 mg sodium, 30&ndash;60 mg magnesium per litre. Commercial electrolyte products should be checked for sugar content (which may be unwanted in fat loss contexts). A simple alternative: 1 g salt (approximately 390 mg sodium) + water.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Total daily water = 2–5+ L depending on activity. Hydration protocol should be scheduled, not ad hoc. Electrolytes become critical in sessions >60 min or hot environments. Urine colour is the best daily screening tool.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch21">21. Body Recomposition Protocol</h2>
+
+<h3>21.1 Eligibility Criteria</h3>
+<p>Body recomposition (simultaneous fat loss and muscle gain) requires specific conditions: the individual must have a body fat percentage above approximately 15% (male) or 25% (female) AND be a training novice or returning detrained individual. Experienced trainees below these body fat thresholds should expect minimal recomposition and instead pursue targeted surplus or deficit phases.</p>
+
+<h3>21.2 Recomp Nutrition Protocol</h3>
+<div class="algorithm">
+  <div class="algorithm-title">Recomp Macronutrient Protocol</div>
+  <ol>
+    <li><strong>Calories:</strong> 100&ndash;300 kcal below maintenance (small deficit)</li>
+    <li><strong>Protein:</strong> 2.0&ndash;2.4 g/kg/day (elevated to support MPS during deficit)</li>
+    <li><strong>Fat:</strong> 0.8&ndash;1.0 g/kg/day (minimum floor for hormonal health)</li>
+    <li><strong>Carbohydrate:</strong> Remaining calories; concentrate around training windows</li>
+    <li><strong>Training:</strong> Progressive resistance training 3&ndash;5 days/week, sufficient volume for MPS stimulus</li>
+    <li><strong>Rate expectation:</strong> 0.3&ndash;0.5% body weight loss per week (if any); waist measurement and visual changes more useful than weight</li>
+  </ol>
+</div>
+
+<h3>21.3 Rate of Progress and When to Switch</h3>
+<p>Recomp is slower than dedicated bulking or cutting phases. After 8&ndash;12 weeks, assess: if body weight is stable but waist measurement is decreasing and performance is stable or increasing, continue. If no changes in any metric for 4 consecutive weeks, transition to a dedicated surplus or deficit phase. The recomp has a limited lifespan in a given individual; once the hormonal and metabolic conditions that permit it shift (lower body fat, higher training age), it ceases to be effective.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Body recomposition requires specific conditions — body fat >15% (men) or >25% (women) combined with novice or returning trainee status. Expect slow progress at 0.3–0.5% body weight loss per week if any change occurs. Recomp has a limited lifespan; transition to a dedicated surplus or deficit phase after 8–12 weeks if no progress is observed.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch22">22. Fat Loss Plateau Decision Tree</h2>
+
+<h3>22.1 Primary Weight Trend Assessment</h3>
+<p>Before diagnosing a plateau, confirm it exists. Use a 7&ndash;14 day rolling average of daily weigh-ins. A "plateau" is defined as no downward trend in the moving average over 2&ndash;3 weeks while maintaining adherence. Week-to-week fluctuations of 1&ndash;2 kg are normal and do not constitute a plateau.</p>
+
+<h3>22.2 Decision Tree</h3>
+<div class="algorithm">
+  <div class="algorithm-title">Fat Loss Plateau Diagnostic Protocol</div>
+  <ol>
+    <li><strong>Adherence audit:</strong> Is the client tracking accurately? (Hidden calories: cooking oils, condiments, mindless eating, "free foods" that are not free). &rarr; If no, re-educate on tracking. &rarr; If yes, proceed.</li>
+    <li><strong>Weight trend confirmed?</strong> 3+ weeks with no downward trend in 7-day moving average. &rarr; If no, continue current plan with patience. &rarr; If yes, proceed.</li>
+    <li><strong>Metabolic adaptation check:</strong> Has the client lost &gt;10% of starting body weight? Has the deficit been maintained for &gt;12 weeks? &rarr; If yes, consider diet break (2&ndash;4 weeks at maintenance) or reverse diet.</li>
+    <li><strong>Strength/recovery cross-check:</strong> Is training performance declining? Is sleep quality reduced? Are there signs of overreaching? &rarr; If yes, reduce training volume by 10&ndash;20% or add a deload week.</li>
+    <li><strong>Adjustment:</strong> Reduce calories by 100&ndash;200 kcal/day OR increase NEAT (steps, daily movement) by 2,000&ndash;3,000 steps/day. Reassess after 2 weeks.</li>
+  </ol>
+</div>
+
+<h3>22.3 Population-Specific Triage</h3>
+<ul>
+  <li><strong>Female athletes:</strong> Rule out low energy availability (see Chapter 27). Weight stabilisation during the luteal phase is normal and not a plateau.</li>
+  <li><strong>PCOS:</strong> Reduce carbohydrate load; increase fibre; consider inositol supplementation (4 g/day myo-inositol + 400 mcg folic acid).</li>
+  <li><strong>Older adults (50+):</strong> Protein increases to &ge;2.0 g/kg/day; rate expectations reduced by 20&ndash;30%.</li>
+  <li><strong>ED history / disordered eating:</strong> Do not reduce calories further. Refer to Gentle Entry Protocol (Chapter 23) or a mental health professional.</li>
+</ul>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Confirm a plateau with a 7–14 day rolling average before intervening. Rule out tracking drift first — hidden calories from oils, condiments, and mindless eating are the most common cause. Metabolic adaptation occurs after >12 weeks or >10% body weight loss, warranting a diet break of 2–4 weeks at maintenance to restore leptin and thyroid function. Adjust by 100–200 kcal and reassess after 2 weeks.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch23">23. Gentle Entry Protocol for ED Risk</h2>
+
+<h3>23.1 Principle: Add Never Subtract</h3>
+<p>The Gentle Entry Protocol is designed for clients with eating disorder history, ED screening flags, or high fixation risk. The programme avoids any form of restriction, tracking, or deficit. The core principle is addition, not subtraction: instead of removing foods, we add foods that improve overall nutritional quality.</p>
+
+<h3>23.2 Three Levels of Entry</h3>
+<table>
+  <caption data-label="Table 23.1">Gentle Entry Levels</caption>
+  <thead><tr><th>Level</th><th>Approach</th><th>Duration</th></tr></thead>
+  <tbody>
+    <tr><td>Level 1: Awareness Only</td><td>No dietary changes. Daily protein target awareness only. "Just notice what you eat."</td><td>2&ndash;4 weeks</td></tr>
+    <tr><td>Level 2: Gentle Structure</td><td>Add 1 serving protein to existing meals. Add 1 serving vegetables. No removals, no tracking.</td><td>4&ndash;8 weeks</td></tr>
+    <tr><td>Level 3: Full Protocol Entry</td><td>Introduce hand-portion guidance only (no tracking numbers). Structured meal times without restriction.</td><td>As tolerated</td></tr>
+  </tbody>
+</table>
+
+<h3>23.3 The 10-Minute Rule for Binge Urges</h3>
+<p>When a binge urge arises, wait 10 minutes before acting. Use the time to identify the trigger (emotional, restrictive, environmental). After 10 minutes, if the urge persists, eat a planned portion. This creates a boundary between impulse and action without creating restriction guilt.</p>
+
+<h3>23.4 Professional Integration</h3>
+<p>Any client with active ED symptoms, diagnosed eating disorder, or significant ED screening flags should be working with a registered dietitian or therapist alongside the coaching programme. The coach's role is supportive and in-context, not therapeutic.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>"Add never subtract" is the guiding principle for ED-risk clients. Level 1 (awareness only) should be maintained for 2–4 weeks before any dietary changes are introduced. The 10-minute rule creates a boundary between impulse and action without generating restriction guilt. The coach's role is supportive, not therapeutic — refer to a dietitian or therapist when active ED flags are present.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch24">24. Intermittent Fasting Decision Protocol</h2>
+
+<h3>24.1 When IF Works and When It Fails</h3>
+<p>Intermittent fasting (IF) is a meal-timing strategy, not a calorie-control strategy. It works when it improves adherence by reducing decision fatigue or naturally limiting the eating window. It fails when the compressed feeding window leads to overeating (due to extreme hunger), under-recovery (due to insufficient per-meal protein), or energy crashes.</p>
+
+<h3>24.2 Decision Tree</h3>
+<div class="algorithm">
+  <div class="algorithm-title">IF Eligibility Assessment</div>
+  <ol>
+    <li><strong>Contraindications:</strong> Past or present eating disorder, female athlete with menstrual disruption, Type 1 diabetes, pregnancy/lactation, underweight (BMI &lt; 18.5). &rarr; If any, do not recommend IF.</li>
+    <li><strong>GOAL:</strong> Is the goal weight loss? IF is a tool for adherence, not a direct metabolic advantage. If the client expects IF to "boost metabolism," educate and redirect.</li>
+    <li><strong>Recovery check:</strong> Can the client consume &ge;0.4 g/kg protein within the first post-fasting meal? Can training performance be maintained?</li>
+    <li><strong>Trial protocol:</strong> 14:10 (14-hour fast, 10-hour eating window) for 2 weeks, then assess: sleep, hunger, training performance, adherence. If positive, proceed. If negative, switch to 12:12 or abandon.</li>
+  </ol>
+</div>
+
+<h3>24.3 Fasted Training Considerations</h3>
+<p>Training in a fasted state shifts substrate utilisation toward fat oxidation (reduced malonyl-CoA inhibition of CPT1). However, this does not produce superior body composition outcomes over fed training when total daily intake is equated. Fasted training may impair performance in high-intensity or high-volume sessions. Practical compromise: fasted low-intensity cardio or accessory work; fed high-intensity main lifts.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>IF is an adherence tool, not a metabolic advantage. Contraindications include ED history, female athletes with menstrual disruption, and underweight individuals. Start with a 14:10 protocol and assess after 2 weeks. Fasted training does not produce superior body composition outcomes when total daily intake is equated.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch25">25. Plant-Based Nutrition Guide</h2>
+
+<h3>25.1 Protein Quality and Quantity</h3>
+<p>Plant proteins have lower leucine content and reduced digestibility (PDCAAS scores: soy 0.92&ndash;1.0, pea 0.69&ndash;0.89, rice 0.50&ndash;0.60, wheat 0.42&ndash;0.50). To compensate, increase total protein intake by 15&ndash;25% beyond omnivore recommendations. Complementary protein pairing (e.g., rice + beans, pea + rice) ensures complete amino acid profiles across the day, though the "complementarity within meals" dogma has been relaxed; total daily amino acid profile is the relevant metric.</p>
+
+<h3>25.2 Critical Micronutrients for Plant-Based Athletes</h3>
+<table>
+  <caption data-label="Table 25.1">Plant-Based Athlete Supplement Considerations</caption>
+  <thead><tr><th>Nutrient</th><th>Risk Level</th><th>Recommendation</th></tr></thead>
+  <tbody>
+    <tr><td>Vitamin B12</td><td>Critical &mdash; deficiency inevitable without supplementation</td><td>&ge;50 mcg/day (cyanocobalamin) or 2,000 mcg once/week</td></tr>
+    <tr><td>Iron</td><td>High &mdash; non-haem iron absorption 5&ndash;15% vs. haem iron 25%</td><td>Pair with vitamin C; avoid tea/coffee within 1 hour; test ferritin annually</td></tr>
+    <tr><td>Zinc</td><td>Moderate &mdash; phytates reduce absorption by 30&ndash;50%</td><td>Soak/sprout legumes and grains; supplement if deficient (15&ndash;30 mg/day)</td></tr>
+    <tr><td>Calcium</td><td>Variable &mdash; depends on fortified food intake</td><td>Fortified plant milks (300&ndash;450 mg per serving), calcium-set tofu</td></tr>
+    <tr><td>Vitamin D</td><td>Moderate &mdash; reduced sun exposure, vegan D2 vs. D3</td><td>1,000&ndash;2,000 IU/day; choose plant-based D3 (lichen-derived)</td></tr>
+    <tr><td>Omega-3 DHA/EPA</td><td>Moderate &mdash; ALA to DHA conversion &lt;5%</td><td>Algal DHA/EPA supplement (200&ndash;500 mg/day)</td></tr>
+    <tr><td>Iodine</td><td>Moderate &mdash; seaweed is unreliable source</td><td>Iodised salt or 150 mcg/day supplement</td></tr>
+  </tbody>
+</table>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Plant-based athletes need 15–25% more total protein to compensate for lower leucine content and reduced digestibility. B12 supplementation is mandatory for vegans. Iron and zinc require attention due to reduced bioavailability from phytates. Pairing complementary proteins across the day is sufficient — within-meal complementarity is not required.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch26">26. Complete Nutrition Assessment</h2>
+
+<p>A structured nutrition assessment should be conducted at programme intake and reassessed after each phase (typically every 4&ndash;6 weeks). The assessment covers seven domains:</p>
+
+<h3>26.1 Eating Patterns</h3>
+<ul>
+  <li>Number of meals per day; typical timing; consistency from day to day</li>
+  <li>Eating window (first to last calorie); largest meal of the day</li>
+  <li>Training-nutrition interaction: pre/intra/post training eating habits</li>
+  <li>Night eating: frequency of eating within 2 hours of sleep</li>
+</ul>
+
+<h3>26.2 Protein Assessment</h3>
+<table>
+  <caption data-label="Table 26.1">Protein Gap Identification</caption>
+  <thead><tr><th>Question</th><th>Assessment</th></tr></thead>
+  <tbody>
+    <tr><td>Total daily protein (estimate in g/kg)?</td><td>Compare to target from Table 6.1</td></tr>
+    <tr><td>Protein per meal (estimate in g)?</td><td>&lt;20 g signals insufficient leucine threshold</td></tr>
+    <tr><td>Primary protein sources?</td><td>Quality and leucine content assessment</td></tr>
+    <tr><td>Post-training protein timing?</td><td>Within 2&ndash;4 hours of training</td></tr>
+    <tr><td>Pre-sleep protein consumed?</td><td>30&ndash;50 g casein or equivalent recommended</td></tr>
+  </tbody>
+</table>
+
+<h3>26.3 Vegetable &amp; Fibre Assessment</h3>
+<ul>
+  <li>Current daily vegetable servings (target: 3&ndash;5 servings)</li>
+  <li>Current daily fibre intake (target: 25&ndash;35 g/day for men, 21&ndash;28 g/day for women in deficit)</li>
+  <li>Variety: variety of colourful vegetables across the week (different polyphenol profiles)</li>
+  <li>Fermented food intake (target: 1&ndash;3 servings/week for microbiome diversity)</li>
+</ul>
+
+<h3>26.4 Hydration Assessment</h3>
+<ul>
+  <li>Daily water intake (litres); compare to Table 13.1 targets</li>
+  <li>Urine colour throughout the day (pale straw = good)</li>
+  <li>Training hydration habits (pre/intra/post)</li>
+  <li>Caffeine intake (diuretic? tolerance-adjusted? cycle pattern?)</li>
+  <li>Alcohol intake (frequency, volume, timing relative to training)</li>
+</ul>
+
+<h3>26.5 Eating Behaviour Screening</h3>
+<ul>
+  <li>Relationship with food: guilt, anxiety, or distress around eating</li>
+  <li>Dietary restraint: rigid rules vs. flexible boundaries</li>
+  <li>Binge eating: frequency, triggers, compensatory behaviours</li>
+  <li>Food tracking attitude: tool or obsession?</li>
+  <li>Body image: realistic goals vs. dysmorphic concern</li>
+</ul>
+
+<h3>26.6 Supplement Use Audit</h3>
+<ul>
+  <li>Current supplement list (with doses and brands)</li>
+  <li>Third-party testing status (Informed Sport, NSF)</li>
+  <li>Perceived benefits vs. actual effects</li>
+  <li>Budget allocation for supplements</li>
+  <li>Stack interaction check</li>
+</ul>
+
+<h3>26.7 Nutrition Priority Matrix</h3>
+<p>Based on the assessment, prioritise interventions in order of impact:</p>
+<ol>
+  <li><strong>Total protein</strong> &mdash; bring to 1.6&ndash;2.2 g/kg/day (first priority, highest impact)</li>
+  <li><strong>Protein distribution</strong> &mdash; even across 3&ndash;5 meals (second priority)</li>
+  <li><strong>Calorie targeting</strong> &mdash; establish appropriate deficit/surplus (third priority)</li>
+  <li><strong>Fibre &amp; vegetables</strong> &mdash; food quality, satiety, micronutrients (fourth priority)</li>
+  <li><strong>Hydration</strong> &mdash; daily and training-specific (fifth priority)</li>
+  <li><strong>Nutrient timing</strong> &mdash; training windows, pre-sleep (sixth priority)</li>
+  <li><strong>Supplements</strong> &mdash; targeted, evidence-based additions (last priority, after food is optimised)</li>
+</ol>
+
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>The 7-domain assessment covers eating patterns, protein, fibre, hydration, eating behaviour, supplements, and a priority matrix. Always prioritise protein first — it has the highest impact on body composition outcomes. The assessment should be repeated every 4–6 weeks.</p>
+</div>
+<div class="section-break"></div>
+<div class="case-study">
+  <div class="case-label">COACHING APPLICATION</div>
+  <div class="case-title">Fat Loss Plateau in an Intermediate Client</div>
+  <p><strong>Scenario:</strong> A 40-year-old male client, 92 kg, 22% body fat, has been following a 2,200 kcal protocol for 10 weeks. He lost 6 kg in weeks 1-6 but has seen no weight trend change in the past 4 weeks. He trains 4x/week (resistance), steps have dropped from 8,000 to 5,000/day due to work stress, and sleep has declined to 6 hours/night.</p>
+  <p><strong>Assessment:</strong> (1) Confirmed plateau — 4 weeks with no downward trend in 7-day moving average. (2) Tracking audit reveals no hidden calories. (3) >10% body weight lost (6.5%) approaching the metabolic adaptation threshold. (4) NEAT has dropped 40% — this is the most likely driver of the plateau. (5) Reduced sleep is elevating cortisol, further impairing fat oxidation and recovery.</p>
+  <p><strong>Intervention:</strong> (1) Reverse diet to 2,500 kcal for 2-week diet break to restore leptin and thyroid signalling. (2) Target 8,000+ steps/day as a non-negotiable NEAT baseline. (3) Sleep hygiene protocol: no screens 60 min before bed, magnesium glycinate 200 mg, target 7.5+ hours. (4) Maintain protein at 2.0 g/kg (184 g/day). (5) After 2-week diet break, resume deficit at 2,300 kcal. (6) Reassess after 3 weeks on the new deficit.</p>
+  <p><strong>Key Takeaway:</strong> Plateaus are rarely about needing a larger deficit. Metabolic adaptation, NEAT drift, and sleep quality must be assessed first. A diet break often restores the conditions for fat loss more effectively than further calorie reduction.</p>
+</div>
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!-- DOMAIN 4: SPECIAL POPULATIONS & COACHING                       -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+
+<h1 id="domain4">Domain 4: Special Populations &amp; Coaching</h1>
+
+<h2 id="ch27">27. Female Physiology &amp; Nutrition</h2>
+
+<h3>27.1 The Menstrual Cycle and Energy Metabolism</h3>
+<p>The menstrual cycle creates predictable physiological fluctuations that affect nutrition and training. Oestrogen and progesterone modulate substrate metabolism, appetite, hydration status, and thermoregulation across the cycle. Understanding these changes prevents misinterpreting normal cycle-driven fluctuations as stalls or regressions.</p>
+
+<table>
+  <caption data-label="Table 27.1">Nutritional Considerations Across the Menstrual Cycle</caption>
+  <thead><tr><th>Phase</th><th>Days (28-day cycle)</th><th>Metabolic Changes</th><th>Nutritional Adjustments</th></tr></thead>
+  <tbody>
+    <tr><td>Early Follicular (menses)</td><td>1&ndash;5</td><td>Low oestrogen, low progesterone; increased insulin sensitivity</td><td>Standard carbohydrate utilisation; potentially lower appetite</td></tr>
+    <tr><td>Late Follicular</td><td>6&ndash;14</td><td>Rising oestrogen; improved insulin sensitivity; peak muscle recovery</td><td>Optimal window for high training volumes; standard nutrition</td></tr>
+    <tr><td>Luteal</td><td>15&ndash;28</td><td>High progesterone; reduced insulin sensitivity; increased REE by 5&ndash;10%; increased sodium/water retention (1&ndash;3 kg apparent weight gain); increased core temperature</td><td>May benefit from slightly higher carbohydrate intake; increase magnesium and iron; expect 1&ndash;3 kg scale increase (water, not fat); increase fluid intake; prioritise sleep</td></tr>
+  </tbody>
+</table>
+
+<h3>27.2 Fat Loss Rate Adjustments for Females</h3>
+<p>Expected fat loss rates are lower for females than males due to lower resting energy expenditure relative to body size, hormonal differences in fat mobilisation (higher alpha-2 adrenergic receptor density in gluteofemoral adipose tissue), and the metabolic cost of the menstrual cycle. Recommended rates: 0.5&ndash;0.7% of body weight per week (vs. 0.7&ndash;1.0% for males). Scale weight should never be interpreted during the luteal phase without accounting for water retention.</p>
+
+<h3>27.3 Low Energy Availability (LEA) and REDs</h3>
+<p>Female athletes are at elevated risk of Relative Energy Deficiency in Sport (REDs). LEA occurs when energy intake is insufficient to support both training demands and normal physiological functions. Consequences include menstrual disruption (functional hypothalamic amenorrhea), bone mineral density loss, impaired immune function, cardiovascular dysfunction, and psychological impairment. <strong>Protocol:</strong> Increase intake by 200&ndash;500 kcal/day; reduce exercise energy expenditure if necessary; aim for EA &gt;45 kcal/kg FFM/day. Return of menses may take 3&ndash;12+ months even after energy restoration.</p>
+
+<h3>27.4 PCOS-Specific Nutrition</h3>
+<p>Polycystic ovary syndrome is characterised by insulin resistance, hyperandrogenism, and anovulation. Nutrition approach: reduce glycaemic load (not necessarily total carbohydrate), increase fibre (30&ndash;40 g/day), emphasise monounsaturated fats, and ensure adequate protein. Supplement considerations: myo-inositol (4 g/day) + D-chiro-inositol (400 mcg/day) in physiologic ratio 40:1; vitamin D (if deficient); omega-3s (1.5&ndash;3 g EPA+DHA/day). Weight loss of 5&ndash;10% can restore ovulation in many cases.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Female clients require adjusted fat loss expectations (0.5-0.7%/week vs 0.7-1.0% for males). The luteal phase causes 1-3 kg water retention — do not interpret scale weight during this phase. Low energy availability (LEA) is the most critical condition to screen for. PCOS clients benefit from lower glycaemic load and higher fibre. Menstrual cycle awareness helps distinguish normal fluctuations from true plateaus.</p>
+</div>
+
+<div class="section-break"></div>
+<h2 id="ch28">28. Gut Health, Digestion &amp; the Microbiome</h2>
+
+<h3>28.1 The Microbiome and Nutrient Partitioning</h3>
+<p>The gut microbiome influences body composition through multiple mechanisms: energy harvest (certain bacterial phyla extract more calories from indigestible fibre), nutrient partitioning (the Firmicutes:Bacteroidetes ratio is elevated in obesity), inflammation (LPS from gram-negative bacteria triggers systemic inflammation and insulin resistance), and appetite regulation (gut-derived peptides: GLP-1, PYY, ghrelin).</p>
+
+<h3>28.2 Fibre: The Three Types</h3>
+<table>
+  <caption data-label="Table 28.1">Fibre Types and Their Roles</caption>
+  <thead><tr><th>Type</th><th>Mechanism</th><th>Sources</th><th>Daily Target</th></tr></thead>
+  <tbody>
+    <tr><td>Soluble fibre</td><td>Forms gel; slows gastric emptying; binds bile acids; lowers cholesterol; improves glycaemic control</td><td>Oats, barley, psyllium, apples, carrots, beans</td><td>10&ndash;15 g/day</td></tr>
+    <tr><td>Insoluble fibre</td><td>Increases stool bulk; promotes bowel regularity; reduces transit time</td><td>Wheat bran, nuts, vegetables, whole grains</td><td>10&ndash;15 g/day</td></tr>
+    <tr><td>Prebiotic fibre</td><td>Fermentable by gut bacteria; produces short-chain fatty acids (SCFAs: butyrate, propionate, acetate); feeds beneficial bacteria</td><td>Garlic, onions, leeks, asparagus, bananas, oats, chicory root (inulin)</td><td>5&ndash;10 g/day (introduce gradually to avoid bloating)</td></tr>
+  </tbody>
+</table>
+
+<h3>28.3 Fibre Progression Protocol</h3>
+<p>Introduce fibre gradually to minimise bloating and digestive discomfort: <strong>Level 1</strong> (Week 1&ndash;2): target 15 g/day (add 1&ndash;2 servings of vegetables or fruit). <strong>Level 2</strong> (Week 3&ndash;4): target 20&ndash;25 g/day (add legumes or whole grains). <strong>Level 3</strong> (Week 5+): target 25&ndash;35 g/day (full diversity). Water intake must increase proportionally (approximately 1 L per 10 g fibre) to prevent constipation. Troubleshooting: persistent bloating suggests insufficient water, too-rapid progression, or a specific FODMAP sensitivity.</p>
+
+<h3>28.4 Fermented Foods</h3>
+<p>Regular consumption of fermented foods (kefir, yogurt, sauerkraut, kimchi, kombucha) increases gut microbiome diversity and reduces inflammatory markers. Target: 1&ndash;3 servings per week minimum. The diversity of bacterial strains matters more than the quantity of any single food.</p>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>The microbiome influences body composition through energy harvest, inflammation, and appetite regulation. Fibre intake should progress slowly (15→25→35 g/day over 5+ weeks) to minimise digestive discomfort. All three fibre types (soluble, insoluble, prebiotic) are necessary. Fermented foods (1-3 servings/week) improve microbiome diversity. Water must increase proportionally with fibre.</p>
+</div>
+
+<h2 id="ch29">29. Protein Sources</h2>
+
+<table>
+  <caption data-label="Table 29.1">Common Protein Sources (per 100 g as prepared)</caption>
+  <thead><tr><th>Food</th><th>Calories</th><th>Protein (g)</th><th>Carbs (g)</th><th>Fat (g)</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td>Chicken breast (skinless, grilled)</td><td>165</td><td>31</td><td>0</td><td>3.6</td><td>Leanest common protein; versatile</td></tr>
+    <tr><td>Lean beef (sirloin, grilled)</td><td>206</td><td>26</td><td>0</td><td>10.6</td><td>Rich in zinc, iron, B12; choose 90%+ lean</td></tr>
+    <tr><td>Salmon (Atlantic, wild)</td><td>208</td><td>20</td><td>0</td><td>13.4</td><td>Omega-3 EPA+DHA, vitamin D</td></tr>
+    <tr><td>Tuna (canned in water)</td><td>116</td><td>25</td><td>0</td><td>0.8</td><td>Convenient; limit to 2&ndash;3 servings/week (mercury)</td></tr>
+    <tr><td>Whole eggs</td><td>155</td><td>13</td><td>1.1</td><td>11</td><td>Complete protein; choline; yolk contains most micronutrients</td></tr>
+    <tr><td>Egg whites</td><td>52</td><td>11</td><td>0.7</td><td>0.2</td><td>Pure protein; low calorie</td></tr>
+    <tr><td>Greek yogurt (plain, nonfat)</td><td>59</td><td>10</td><td>3.6</td><td>0.4</td><td>High protein:density ratio; casein-dominant</td></tr>
+    <tr><td>Cottage cheese (1%)</td><td>72</td><td>11</td><td>3.0</td><td>1.0</td><td>Casein-rich; excellent pre-sleep option</td></tr>
+    <tr><td>Whey protein isolate</td><td>400</td><td>90</td><td>4.0</td><td>1.5</td><td>Per 100 g powder; ~25 g protein per 28 g scoop</td></tr>
+    <tr><td>Casein (micellar)</td><td>380</td><td>85</td><td>5.0</td><td>1.0</td><td>Sustained release 4&ndash;6 h; pre-sleep</td></tr>
+    <tr><td>Tofu (firm, calcium-set)</td><td>78</td><td>8</td><td>2.0</td><td>4.5</td><td>Complete protein; calcium-rich; versatile</td></tr>
+    <tr><td>Tempeh</td><td>195</td><td>19</td><td>9.0</td><td>11</td><td>Fermented soy; higher protein than tofu</td></tr>
+    <tr><td>Seitan</td><td>150</td><td>24</td><td>8.0</td><td>2.0</td><td>Wheat gluten; high protein, low fat; incomplete alone</td></tr>
+    <tr><td>Lentils (cooked)</td><td>116</td><td>9</td><td>20</td><td>0.4</td><td>Protein + fibre + iron; pair with grains</td></tr>
+    <tr><td>Chickpeas (cooked)</td><td>139</td><td>7.6</td><td>27</td><td>2.6</td><td>Protein + fibre; versatile in meals</td></tr>
+  </tbody>
+</table>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Protein sources table reference. Prioritise variety across animal and plant sources. Leucine density per serving is the key quality metric for muscle protein synthesis.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch30">30. Carbohydrate Sources</h2>
+
+<table>
+  <caption data-label="Table 30.1">Common Carbohydrate Sources (per 100 g as prepared)</caption>
+  <thead><tr><th>Food</th><th>Calories</th><th>Carbs (g)</th><th>Protein (g)</th><th>Fat (g)</th><th>Fibre (g)</th></tr></thead>
+  <tbody>
+    <tr><td>White rice (cooked)</td><td>130</td><td>28</td><td>2.7</td><td>0.3</td><td>0.4</td></tr>
+    <tr><td>Brown rice (cooked)</td><td>123</td><td>26</td><td>2.7</td><td>1.0</td><td>1.6</td></tr>
+    <tr><td>Oats (rolled, cooked)</td><td>71</td><td>12</td><td>2.5</td><td>1.4</td><td>1.7</td></tr>
+    <tr><td>Potato (white, baked, flesh)</td><td>93</td><td>21</td><td>2.5</td><td>0.1</td><td>2.2</td></tr>
+    <tr><td>Sweet potato (baked, flesh)</td><td>90</td><td>21</td><td>2.0</td><td>0.1</td><td>3.3</td></tr>
+    <tr><td>Whole wheat pasta (cooked)</td><td>131</td><td>25</td><td>5.0</td><td>0.5</td><td>3.0</td></tr>
+    <tr><td>Quinoa (cooked)</td><td>120</td><td>21</td><td>4.4</td><td>1.9</td><td>2.8</td></tr>
+    <tr><td>Banana (medium, 118 g)</td><td>105</td><td>27</td><td>1.3</td><td>0.4</td><td>3.1</td></tr>
+    <tr><td>Whole wheat bread (1 slice, ~30 g)</td><td>80</td><td>14</td><td>3.5</td><td>1.0</td><td>2.0</td></tr>
+  </tbody>
+</table>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Carbohydrate sources table reference. Choose based on training context — higher GI around training, lower GI at non-training meals. Prioritise whole-food carbohydrate sources for micronutrient density.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch31">31. Fat Sources</h2>
+
+<table>
+  <caption data-label="Table 31.1">Common Fat Sources</caption>
+  <thead><tr><th>Food</th><th>Serving</th><th>Calories</th><th>Total Fat (g)</th><th>MUFA (g)</th><th>PUFA (g)</th><th>SFA (g)</th></tr></thead>
+  <tbody>
+    <tr><td>Olive oil (extra virgin)</td><td>1 tbsp (15 mL)</td><td>119</td><td>13.5</td><td>10.0</td><td>1.5</td><td>1.9</td></tr>
+    <tr><td>Almonds</td><td>30 g</td><td>170</td><td>15</td><td>9.5</td><td>3.5</td><td>1.1</td></tr>
+    <tr><td>Avocado</td><td>100 g (half)</td><td>160</td><td>15</td><td>10.0</td><td>1.8</td><td>2.1</td></tr>
+    <tr><td>Peanut butter (natural)</td><td>2 tbsp (32 g)</td><td>190</td><td>16</td><td>7.5</td><td>4.5</td><td>3.3</td></tr>
+    <tr><td>Mixed nuts</td><td>30 g</td><td>180</td><td>16</td><td>7.5</td><td>5.5</td><td>1.7</td></tr>
+    <tr><td>Butter</td><td>1 tbsp (14 g)</td><td>102</td><td>11.5</td><td>3.3</td><td>0.4</td><td>7.2</td></tr>
+    <tr><td>Flaxseed (ground)</td><td>1 tbsp (7 g)</td><td>37</td><td>3.0</td><td>0.6</td><td>2.2 (ALA)</td><td>0.3</td></tr>
+  </tbody>
+</table>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Fat sources table reference. Prioritise MUFA and PUFA sources, including omega-3-rich foods regularly. SFA from whole food sources is acceptable within <10% of total calories.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch32">32. Vegetables &amp; Fruits</h2>
+
+<table>
+  <caption data-label="Table 32.1">Vegetable and Fruit Nutrient Density</caption>
+  <thead><tr><th>Food</th><th>Serving</th><th>Calories</th><th>Fibre (g)</th><th>Key Micronutrients</th></tr></thead>
+  <tbody>
+    <tr><td>Broccoli</td><td>100 g</td><td>34</td><td>2.6</td><td>Vit C, K, folate; sulforaphane (Nrf2 activator)</td></tr>
+    <tr><td>Spinach</td><td>100 g</td><td>23</td><td>2.2</td><td>Iron, magnesium, vit K, vit A; oxalates moderate</td></tr>
+    <tr><td>Bell peppers (red)</td><td>100 g</td><td>31</td><td>2.1</td><td>Vit C (190% RDA), vit A, B6</td></tr>
+    <tr><td>Tomatoes</td><td>100 g</td><td>18</td><td>1.2</td><td>Lycopene, vit C, potassium; cooked = more bioavailable lycopene</td></tr>
+    <tr><td>Carrots</td><td>100 g</td><td>41</td><td>2.8</td><td>Beta-carotene (vit A precursor), vit K, potassium</td></tr>
+    <tr><td>Blueberries</td><td>100 g</td><td>57</td><td>2.4</td><td>Anthocyanins, vit C, vit K; antioxidant</td></tr>
+    <tr><td>Banana</td><td>100 g</td><td>89</td><td>2.6</td><td>Potassium, vit B6, vit C; carb-dense fruit</td></tr>
+    <tr><td>Apple</td><td>100 g (medium)</td><td>52</td><td>2.4</td><td>Vit C, quercetin; pectin (soluble fibre)</td></tr>
+  </tbody>
+</table>
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Vegetable and fruit reference table. Target 3–5 servings of vegetables and 2–3 servings of fruit daily. Variety across colours ensures a diverse polyphenol profile and broad micronutrient coverage.</p>
+</div>
+<div class="section-break"></div>
+<h2 id="ch33">33. Complete Nutrition Reference Tables</h2>
+
+<h3>33.1 Mineral Reference Table (Athlete RDA)</h3>
+<table>
+  <caption data-label="Table 33.1">Key Minerals for Athletic Performance</caption>
+  <thead><tr><th>Mineral</th><th>Athlete RDA</th><th>Top Food Sources</th><th>Supplement if...</th></tr></thead>
+  <tbody>
+    <tr><td>Sodium</td><td>3&ndash;5 g/day</td><td>Table salt, pickled foods, sports drinks, bone broth</td><td>Heavy sweater, training &gt;2 hrs in heat</td></tr>
+    <tr><td>Potassium</td><td>3.5&ndash;5 g/day</td><td>Banana, potato, spinach, avocado, coconut water, beans</td><td>Low fruit/vegetable intake, diuretic use</td></tr>
+    <tr><td>Magnesium</td><td>400&ndash;600 mg/day</td><td>Pumpkin seeds, almonds, spinach, dark chocolate, beans</td><td>Cramps, poor sleep, high stress, deficit phase</td></tr>
+    <tr><td>Calcium</td><td>1,000&ndash;1,300 mg/day</td><td>Dairy, fortified plant milk, calcium-set tofu, sardines, kale</td><td>Low dairy intake, female athlete, &lt;600 mg/day from food</td></tr>
+    <tr><td>Zinc</td><td>11&ndash;15 mg/day</td><td>Oysters, beef, pumpkin seeds, lentils, cashews</td><td>Low red meat intake, vegetarian/vegan, high training volume</td></tr>
+    <tr><td>Iron</td><td>8&ndash;18 mg/day</td><td>Red meat, spinach, lentils, fortified cereals, liver</td><td>Only after testing ferritin; female athletes at higher risk</td></tr>
+    <tr><td>Iodine</td><td>150 mcg/day</td><td>Iodised salt, seaweed, fish, dairy</td><td>Vegan, no iodised salt, no sea vegetables</td></tr>
+    <tr><td>Selenium</td><td>55&ndash;70 mcg/day</td><td>Brazil nut (1 nut = ~100 mcg), tuna, sardines, eggs</td><td>Vegan in low-selenium region</td></tr>
+  </tbody>
+</table>
+
+<h3>33.2 Vitamin Reference Table (Athlete RDA)</h3>
+<table>
+  <caption data-label="Table 33.2">Key Vitamins for Athletic Performance</caption>
+  <thead><tr><th>Vitamin</th><th>Athlete RDA</th><th>Top Food Sources</th><th>Supplement if...</th></tr></thead>
+  <tbody>
+    <tr><td>Vitamin D</td><td>1,000&ndash;2,000 IU/day</td><td>Salmon, UV mushrooms, fortified milk, egg yolks</td><td>Low sun exposure, winter, deficiency likely</td></tr>
+    <tr><td>B12</td><td>2.5&ndash;5 mcg/day</td><td>Meat, fish, dairy, eggs; NOT in plants</td><td>Vegan or vegetarian mandatory</td></tr>
+    <tr><td>Folate (B9)</td><td>400&ndash;800 mcg DFE</td><td>Leafy greens, legumes, asparagus, fortified grains</td><td>Pregnancy, low vegetable intake, MTHFR variant</td></tr>
+    <tr><td>Vitamin C</td><td>100&ndash;200 mg/day</td><td>Citrus, bell peppers, kiwi, broccoli, strawberries</td><td>Low fruit/vegetable intake; avoid megadoses near training</td></tr>
+    <tr><td>Vitamin K2</td><td>100&ndash;200 mcg/day</td><td>Natto, liver, cheese, egg yolks, sauerkraut</td><td>With vitamin D supplementation (synergistic)</td></tr>
+  </tbody>
+</table>
+
+
+<div class="chapter-summary">
+  <div class="summary-title">Chapter Summary</div>
+  <p>Complete reference tables for minerals and vitamins. Use as a quick-reference guide when building meal plans and assessing client intake patterns. Refer to the athlete-specific RDAs when evaluating supplementation decisions.</p>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!-- APPENDICES                                                     -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+
+<div class="section-break"></div>
+<div class="case-study">
+  <div class="case-label">COACHING APPLICATION</div>
+  <div class="case-title">Female Client with Suspected LEA</div>
+  <p><strong>Scenario:</strong> A 26-year-old female client, 58 kg, has been training for a physique competition for 16 weeks. She is on 1,600 kcal/day, trains 6x/week (2x/day on 3 days), does 45 min fasted LISS 5x/week. She reports absent menstruation for 3 months, waking at 3 AM unable to fall back asleep, cravings, and irritable mood. Her protein intake is 120 g/day (2.1 g/kg), carbs 140 g, fat 35 g.</p>
+  <p><strong>Assessment:</strong> Classic REDs presentation — menstrual disruption (functional hypothalamic amenorrhea), sleep disturbance, mood changes, and cravings. Fat intake at 0.6 g/kg is at the minimum boundary but may be insufficient given her extreme energy expenditure. Estimated energy availability is approximately 25 kcal/kg FFM/day — well below the 45 kcal/kg FFM/day threshold. Gut health is likely compromised due to chronic low intake and high training volume.</p>
+  <p><strong>Intervention:</strong> (1) Immediate protocol change: increase calories to 1,900 kcal/day (add 300 kcal from carbs and fat). (2) Increase fat to 0.8 g/kg (46 g/day) to support hormonal health. (3) Reduce training load: eliminate fasted cardio, reduce to 5x/week single sessions. (4) Add magnesium glycinate (200 mg before bed) for sleep. (5) Educate on REDs — return of menses may take 3-12 months even after energy restoration. (6) Recommend referral to a sports dietitian and gynaecologist. (7) Reassess energy, sleep, and menstrual status after 4 weeks.</p>
+  <p><strong>Key Takeaway:</strong> Low energy availability is the most serious nutrition condition a coach will encounter in female clients. Performance and body composition goals must be deprioritised until physiological health is restored. Coaches must recognise when their scope has been exceeded and refer appropriately.</p>
+</div>
+
+<h1 id="appendix-a">Appendix A: Deficiency Screening &amp; Supplement Protocols</h1>
+
+<h2>A.1 Micronutrient Deficiency Decision Framework</h2>
+<table>
+  <caption data-label="Table A.1">Deficiency Screening and Supplement Decisions</caption>
+  <thead><tr><th>Nutrient</th><th>Red Flags (Symptoms &amp; Risk Factors)</th><th>Testing</th><th>Supplement Protocol</th><th>Food Sources</th></tr></thead>
+  <tbody>
+    <tr><td>Vitamin D</td><td>Low sun exposure, winter, dark skin, BMI &gt;30, gut malabsorption, muscle weakness, fatigue, frequent illness</td><td>Serum 25(OH)D: target 50&ndash;80 ng/mL</td><td>Deficient: 5,000 IU/day or 50,000 IU/week x 8 wk; Maintenance: 1,000&ndash;2,000 IU/day</td><td>Salmon, UV mushrooms, fortified foods, egg yolks</td></tr>
+    <tr><td>Magnesium</td><td>Nocturnal cramps, restless legs, anxiety, poor sleep, constipation, high exercise volume, alcohol use, diabetes</td><td>RBC magnesium (serum is unreliable)</td><td>200&ndash;400 mg elemental Mg/day (glycinate for sleep, malate for energy)</td><td>Pumpkin seeds, almonds, spinach, dark chocolate, beans</td></tr>
+    <tr><td>Zinc</td><td>Low red meat intake, vegetarian/vegan, frequent infections, poor wound healing, acne, low testosterone symptoms</td><td>Serum zinc (fasting)</td><td>15&ndash;30 mg/day zinc (picolinate or glycinate); add 1&ndash;2 mg copper if &gt;15 mg Zn for &gt;3 months</td><td>Oysters, beef, pumpkin seeds, lentils, cashews</td></tr>
+    <tr><td>Iron</td><td>Female athlete, vegetarian/vegan, heavy menstruation, fatigue, pallor, exercise intolerance</td><td>Ferritin, serum Fe, TIBC, transferrin saturation (essential before supplementing)</td><td>Only if low: 18&ndash;65 mg elemental Fe/day with vit C; separate from Ca, Zn, tea, coffee</td><td>Red meat, liver, spinach, lentils, fortified cereals</td></tr>
+    <tr><td>B12</td><td>Vegan/vegetarian, older adult, metformin use, fatigue, neurological symptoms</td><td>Serum B12, homocysteine, MMA</td><td>Vegan: &ge;50 mcg/day or 2,000 mcg/week; Deficiency: 1,000 mcg/day initially</td><td>Only animal foods; fortified foods for vegans</td></tr>
+    <tr><td>Omega-3 (EPA/DHA)</td><td>Low fish intake (&lt;2 servings/week), vegan, high inflammation, joint pain</td><td>Omega-3 index (% EPA+DHA in RBC membranes)</td><td>1.5&ndash;4 g/day EPA+DHA (rTG form preferred)</td><td>Fatty fish (salmon, mackerel, sardines); algal oil (vegan)</td></tr>
+  </tbody>
+</table>
+
+<h2>A.2 Supplement Stack Interactions</h2>
+<table>
+  <caption data-label="Table A.2">Known Supplement Interactions</caption>
+  <thead><tr><th>Supplements</th><th>Interaction</th><th>Management</th></tr></thead>
+  <tbody>
+    <tr><td>Zinc + Iron + Calcium</td><td>Competitive absorption via DMT1</td><td>Separate by &ge;4 hours; take Zn with protein, Fe with vit C, Ca with meal</td></tr>
+    <tr><td>Calcium + Iron</td><td>Calcium inhibits non-haem iron absorption</td><td>Take iron separate from calcium-rich meals/supplements</td></tr>
+    <tr><td>Magnesium + Zinc</td><td>Synergistic for testosterone; Mg required for Zn absorption</td><td>Can be taken together; optimal for evening</td></tr>
+    <tr><td>Vitamin D + K2 + Mg</td><td>K2 directs Ca to bone; Mg activates VDR; synergistic trio</td><td>Take together with a meal containing fat</td></tr>
+    <tr><td>Creatine + Caffeine</td><td>Debated interaction; caffeine may blunt creatine uptake acutely</td><td>Separate by &ge;2 hours or ignore (effect is small and inconsistent)</td></tr>
+    <tr><td>Omega-3 + Blood thinners</td><td>Additive anticoagulant effect at high doses (&gt;3 g/day)</td><td>Monitor; inform physician before surgery</td></tr>
+    <tr><td>Zinc (high dose, &gt;40 mg/day) + Copper</td><td>Zinc induces metallothionein, which binds Cu and reduces absorption</td><td>Supplement 1&ndash;2 mg Cu per 15&ndash;30 mg Zn long-term</td></tr>
+  </tbody>
+</table>
+
+<h2>A.3 Supplement Verification</h2>
+<p>Only recommend supplements with third-party testing certification. The primary certifying bodies are:</p>
+<ul>
+  <li><strong>Informed Sport</strong> &mdash; Gold standard for athletes; batch-tested for banned substances</li>
+  <li><strong>NSF Certified for Sport</strong> &mdash; Similar to Informed Sport; widely recognised</li>
+  <li><strong>USP Verified</strong> &mdash; Tests for purity, potency, and manufacturing quality (does not test for banned substances)</li>
+  <li><strong>ConsumerLab.com</strong> &mdash; Independent testing; subscription required for full access</li>
+</ul>
+
+<h1 id="appendix-b">Appendix B: Nutrient Timing Quick Reference</h1>
+
+<table>
+  <caption data-label="Table B.1">Nutrient Timing Summary</caption>
+  <thead><tr><th>Timing</th><th>Recommendation</th><th>Rationale</th></tr></thead>
+  <tbody>
+    <tr><td>Pre-training (2&ndash;3 hours before)</td><td>Mixed meal: protein (20&ndash;40 g), carbs (0.5&ndash;1 g/kg), low fat</td><td>Amino acid availability during training; glycogen top-up; gastric emptying complete</td></tr>
+    <tr><td>Pre-training (30&ndash;60 min before)</td><td>Small: 15&ndash;30 g carbs + 10&ndash;15 g protein (if needed)</td><td>Blood glucose maintenance; blunts cortisol response</td></tr>
+    <tr><td>Intra-training (&gt;90 min sessions)</td><td>30&ndash;60 g carbs/hour + electrolytes in water</td><td>Blood glucose maintenance; performance preservation in long sessions</td></tr>
+    <tr><td>Post-training (0&ndash;2 hours)</td><td>Protein: 0.3&ndash;0.5 g/kg; Carbs: 0.5&ndash;1.0 g/kg if glycogen-depleted</td><td>MPS elevation; glycogen resynthesis; the "anabolic window" is wider than advertised (hours, not minutes)</td></tr>
+    <tr><td>Pre-sleep (30&ndash;60 min before)</td><td>30&ndash;50 g casein or equivalent (cottage cheese, Greek yogurt)</td><td>Sustained amino acid release through the nocturnal fast (4&ndash;6 h)</td></tr>
+    <tr><td>Between meals (general)</td><td>&ge;0.4 g/kg/meal spacing 3&ndash;5 hours apart</td><td>Leucine threshold attainment per feeding; 3&ndash;5 meals optimal for MPS</td></tr>
+  </tbody>
+</table>
+
+<h1 id="references">References</h1>
+
+<ol class="references">
+  <li id="ref-1">Morton, R. W., Murphy, K. T., McKellar, S. R., et al. (2018). A systematic review, meta-analysis and meta-regression of the effect of protein supplementation on resistance training-induced gains in muscle mass and strength in healthy adults. <i>British Journal of Sports Medicine</i>, 52(6), 376&ndash;384.</li>
+  <li id="ref-2">Morton, R. W., McGlory, C., &amp; Phillips, S. M. (2016). Nutritional interventions to augment resistance training-induced skeletal muscle hypertrophy. <i>Frontiers in Physiology</i>, 6, 369.</li>
+  <li id="ref-3">Pasiakos, S. M., McLellan, T. M., &amp; Lieberman, H. R. (2015). The effects of protein supplements on muscle mass, strength, and aerobic and anaerobic power in healthy adults: a systematic review. <i>Sports Medicine</i>, 45(1), 111&ndash;131.</li>
+  <li id="ref-4">Aragon, A. A., &amp; Schoenfeld, B. J. (2013). Nutrient timing revisited: is there a post-exercise anabolic window? <i>Journal of the International Society of Sports Nutrition</i>, 10(1), 5.</li>
+  <li id="ref-5">Schoenfeld, B. J., Aragon, A. A., &amp; Krieger, J. W. (2013). The effect of protein timing on muscle strength and hypertrophy: a meta-analysis. <i>Journal of the International Society of Sports Nutrition</i>, 10(1), 53.</li>
+  <li id="ref-6">Genton, L., Cani, P. D., &amp; Schrenzel, J. (2015). Gut microbiota and body composition. <i>Current Opinion in Clinical Nutrition and Metabolic Care</i>, 18(1), 53&ndash;58.</li>
+  <li id="ref-7">Forbes, G. B. (1987). Lean body mass-body fat interrelationships in humans. <i>Nutrition Reviews</i>, 45(8), 225&ndash;231.</li>
+  <li id="ref-8">Phillips, S. M., Chevalier, S., &amp; Leidy, H. J. (2016). Protein requirements beyond the RDA: a new paradigm for physically active adults. <i>Applied Physiology, Nutrition, and Metabolism</i>, 41(5), 579&ndash;581.</li>
+  <li id="ref-9">Loucks, A. B. (2004). Energy availability and infertility. <i>Current Opinion in Endocrinology &amp; Diabetes</i>, 11(5), 283&ndash;288.</li>
+  <li id="ref-10">Mountjoy, M., Sundgot-Borgen, J., Burke, L., et al. (2014). The IOC consensus statement: beyond the Female Athlete Triad&mdash;Relative Energy Deficiency in Sport (RED-S). <i>British Journal of Sports Medicine</i>, 48(7), 491&ndash;497.</li>
+</ol>
+
+</body>
+</html>
