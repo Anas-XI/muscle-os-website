@@ -1942,6 +1942,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     if(sugg&&sugg.rpe>9){sugg.rpe=9;warn.push("🎯 "+_('safety_rpe_capped'));}
     return{safe:!blocked,blocked:warn.length>0,sev:sev,warn:warn,sub:sub};
   }
+  }
 
   function deloadInterval(age){return{novice:6,intermediate:5,advanced:4}[age]||5}
   function shouldDeload(t,age,overshoots){var iv=deloadInterval(age);if(t.sessions>=iv)return{yes:true,reason:_('dl_scheduled')+': '+t.sessions+' wk since last (max '+iv+').',fix:_('dl_reduce_sets')};if(overshoots>=2)return{yes:true,reason:_('dl_rpe_overshoot')+': '+overshoots+' '+_('comp_sessions')+'.',fix:_('dl_week')};return{yes:false,reason:null,fix:null};}
@@ -3477,8 +3478,8 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
 
   // ── Data Sync ──
   var SYNC_KEY='mos_sync_key';
-  var SYNC_BASE='https://muscleos.com/api/sync';
-  var API_BASE='https://muscleos.com/api';
+  var SYNC_BASE='https://muscleos-access-control.muscleos.workers.dev/api/sync';
+  var API_BASE='https://muscleos-access-control.muscleos.workers.dev/api';
   function notifyCoach(type, data){
     try{
       fetch(API_BASE+'/notify-coach',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:type,data:data})})
