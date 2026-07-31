@@ -396,7 +396,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
  .set-log-header{grid-template-columns:28px 1fr 1fr 1fr 26px}.suggest-val{font-size:1.1rem}
 }
 /* Subscription paywall */
-.sub-overlay{position:fixed;inset:0;z-index:9999;background:rgba(20,21,26,.97);display:flex;align-items:center;justify-content:center;padding:24px}
+.sub-overlay{position:fixed;inset:0;z-index:9999;background:rgba(20,21,26,.97);display:none;align-items:center;justify-content:center;padding:24px}
 .sub-modal{max-width:520px;width:100%;background:#1E1E2A;border:1px solid #2C2E37;border-radius:16px;padding:40px 32px;text-align:center}
 .sub-modal .lock-icon{font-size:48px;margin-bottom:8px}
 .sub-modal h2{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;color:#F4C93B;text-transform:uppercase;margin-bottom:4px;letter-spacing:.5px}
@@ -3606,16 +3606,21 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
 (function(){
   var SUB_KEY = 'mos_subscription';
   var EMAIL_CODE = 'ANASSTEM2025@GMAIL.COM';
+  var API_BASE = 'https://muscleos-access-control.muscleos.workers.dev';
   var sub = null;
   try { sub = JSON.parse(localStorage.getItem(SUB_KEY)); } catch(e){}
-  var now = new Date();
-  var active = true; // Always active for development; set false for production
+  var active = !!(sub && sub.active && new Date(sub.expiry + 'T23:59:59') > new Date());
 
   if(!active){
     document.getElementById('subOverlay').style.display = 'flex';
     document.getElementById('subVerify').addEventListener('click', function(){
+      var btn = document.getElementById('subVerify');
       var code = document.getElementById('subCode').value.trim().toUpperCase();
-      if(code && (code.length >= 6 || code === EMAIL_CODE)){
+      if(!code){
+        document.getElementById('subError').style.display = 'block';
+        return;
+      }
+      if(code === EMAIL_CODE){
         var expiry = new Date();
         expiry.setMonth(expiry.getMonth() + 1);
         localStorage.setItem(SUB_KEY, JSON.stringify({
@@ -3626,14 +3631,41 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
         }));
         document.getElementById('subError').style.display = 'none';
         document.getElementById('subSuccess').style.display = 'block';
-        (function(){try{
-          var vi=ls(K.VI,{});
-          notifyCoach('subscription',{name:vi.name||'User',code:code,plan:'pro_training',expiry:expiry.toISOString().split('T')[0]});
-        }catch(e){}})();
         setTimeout(function(){ location.reload(); }, 1500);
-      } else {
-        document.getElementById('subError').style.display = 'block';
+        return;
       }
+      btn.disabled = true;
+      btn.textContent = 'Checking...';
+      fetch(API_BASE + '/api/verify-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: code, productId: 'training_tool' })
+      }).then(function(r){ return r.json(); }).then(function(data){
+        if(data && data.valid){
+          localStorage.setItem(SUB_KEY, JSON.stringify({
+            active: true,
+            plan: data.plan || 'pro_training',
+            expiry: (data.expiresAt || '').slice(0, 10),
+            token: data.token || '',
+            code: code
+          }));
+          document.getElementById('subError').style.display = 'none';
+          document.getElementById('subSuccess').style.display = 'block';
+          (function(){try{
+            var vi=ls(K.VI,{});
+            notifyCoach('subscription',{name:vi.name||'User',code:code,plan:data.plan||'pro_training',expiry:(data.expiresAt||'').slice(0,10)});
+          }catch(e){}})();
+          setTimeout(function(){ location.reload(); }, 1500);
+        } else {
+          document.getElementById('subError').style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = 'Verify';
+        }
+      }).catch(function(){
+        document.getElementById('subError').style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Verify';
+      });
     });
     document.getElementById('subCode').addEventListener('keydown', function(e){
       if(e.key === 'Enter') document.getElementById('subVerify').click();
