@@ -154,6 +154,10 @@ export default {
     if (url.pathname === '/api/expiring-codes' && request.method === 'POST') {
       return handleExpiringCodes(request, env);
     }
+    // ---- WhatsApp coach notification ----
+    if (url.pathname === '/api/notify-coach' && request.method === 'POST') {
+      return handleNotifyCoach(request, env);
+    }
     return json({ error: 'not_found' }, 404, env, request);
   }
 };
@@ -966,6 +970,66 @@ async function handleSyncLoad(request, env) {
     return json({ data: JSON.parse(raw) }, 200, env, request);
   } catch (e) {
     return json({ error: 'corrupt_data' }, 500, env, request);
+  }
+}
+
+// ── POST /api/notify-coach (sends WhatsApp to coach via Meta Cloud API) ──
+async function handleNotifyCoach(request, env) {
+  const rateLimited = await checkRateLimit(request, env, 10);
+  if (rateLimited) return json({ error: 'rate_limited' }, 429, env, request);
+
+  let body;
+  try { body = await request.json(); } catch (e) {
+    return json({ error: 'invalid_json' }, 400, env, request);
+  }
+
+  const phoneNumberId = env.WHATSAPP_PHONE_NUMBER_ID;
+  const accessToken = env.WHATSAPP_ACCESS_TOKEN;
+  const coachNumber = env.COACH_WHATSAPP || '201040796017';
+
+  if (!phoneNumberId || !accessToken) {
+    return json({ error: 'whatsapp_not_configured' }, 503, env, request);
+  }
+
+  const { type, data } = body;
+  let messageBody;
+
+  switch (type) {
+    case 'onboarding':
+      messageBody = `🆕 Onboarding Complete\n━━━━━━━━━━━━━━━\nName: ${data.name || '—'}\nAge: ${data.age || '—'}\nGoal: ${data.goal || '—'}\nDays/Week: ${data.days || '—'}\nTime: ${new Date().toLocaleString('en-EG')}`;
+      break;
+    case 'subscription':
+      messageBody = `✅ Subscription Activated\n━━━━━━━━━━━━━━━\nName: ${data.name || '—'}\nCode: ${data.code || '—'}\nPlan: ${data.plan || 'pro_training'}\nExpires: ${data.expiry || '—'}\nTime: ${new Date().toLocaleString('en-EG')}`;
+      break;
+    case 'checkin':
+      messageBody = `📊 Check-In Submitted\n━━━━━━━━━━━━━━━\nName: ${data.name || '—'}\nWeight: ${data.weight || '—'}\nReadiness: ${data.readiness || '—'}\nAdherence: ${data.adherence || '—'}\nTime: ${new Date().toLocaleString('en-EG')}`;
+      break;
+    default:
+      messageBody = `🔔 Coach Notification\n━━━━━━━━━━━━━━━\nType: ${type}\nData: ${JSON.stringify(data)}\nTime: ${new Date().toLocaleString('en-EG')}`;
+  }
+
+  try {
+    const resp = await fetch(`https://graph.facebook.com/v21.0/${phoneNumberId}/messages`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        messaging_product: 'whatsapp',
+        to: coachNumber,
+        type: 'text',
+        text: { body: messageBody },
+      }),
+    });
+
+    const result = await resp.json();
+    if (!resp.ok) {
+      return json({ error: 'whatsapp_api_error', details: result }, 502, env, request);
+    }
+    return json({ status: 'ok', messageId: result.messages?.[0]?.id }, 200, env, request);
+  } catch (err) {
+    return json({ error: err.message }, 502, env, request);
   }
 }
 
