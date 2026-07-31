@@ -110,6 +110,12 @@ select option{background:#1E1E2A;color:#FAFAF8}
 .day-tab:hover{border-color:rgba(250,250,248,.12);color:#FAFAF8}
 .day-tab.active{background:#F4C93B;color:#14151A;border-color:#F4C93B;font-weight:600}
 .day-tab .logged-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:#4CAF50;margin-left:4px;vertical-align:middle}
+.day-tab.rest{border-style:dashed;border-color:rgba(250,250,248,.14);color:rgba(250,250,248,.3)}
+.day-tab.rest.active{background:rgba(250,250,248,.08);color:rgba(250,250,248,.55);border-color:rgba(250,250,248,.2);font-weight:600}
+.rest-badge{display:inline-block;margin-left:4px;padding:1px 5px;border-radius:4px;background:rgba(250,250,248,.06);border:1px dashed rgba(250,250,248,.2);color:rgba(250,250,248,.45);font-size:.45rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;vertical-align:middle}
+.rest-card{background:rgba(250,250,248,.02);border:1.5px dashed rgba(250,250,248,.14);border-radius:10px;padding:14px;margin-bottom:10px;text-align:center}
+.rest-card .rc-title{font-size:.72rem;font-weight:700;color:rgba(250,250,248,.55);letter-spacing:.1em;text-transform:uppercase}
+.rest-card .rc-tip{font-size:.58rem;color:rgba(250,250,248,.38);line-height:1.4;margin-top:5px}
 .ex-card{background:rgba(20,21,26,.3);border-radius:12px;padding:12px 14px;margin-bottom:10px;border-left:3px solid rgba(250,250,248,.04)}
 .ex-card.pain-yellow{border-left-color:#FF9800}
 .ex-card.pain-red{border-left-color:#f44336}
@@ -911,6 +917,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       retake_quiz:'Retake Quiz',
       generate_meso:'Generate Mesocycle',
       start_training:'Start Training',
+      rest_day:'Rest Day',rest_day_recover:'Recovery & regeneration — no training today',rest_tip_1:'Sleep 7–9 hours — muscle grows while you rest',rest_tip_2:'Walk 6–10k steps for blood flow and recovery',rest_tip_3:'Hydrate well and hit your daily protein target',rest_tip_4:'Optional: light mobility or stretching (15–20 min)',
       low:'Low', moderate:'Moderate', high:'High',
       green:'GREEN', yellow:'YELLOW', red:'RED', unchecked:'UNCHECKED',
       rpe_guide_title:'RPE / RIR Guide',
@@ -1192,6 +1199,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       retake_quiz:'إعادة الاختبار',
       generate_meso:'إنشاء الدورة المتوسطة',
       start_training:'بدء التمرين',
+      rest_day:'يوم راحة',rest_day_recover:'استشفاء وتجديد — لا تدريب اليوم',rest_tip_1:'نم 7–9 ساعات — العضلات تنمو أثناء الراحة',rest_tip_2:'امشِ 6–10 آلاف خطوة لتحسين الدورة الدموية',rest_tip_3:'اشرب كمية كافية من الماء وحقق هدفك اليومي من البروتين',rest_tip_4:'اختياري: حركة خفيفة أو إطالة (15–20 دقيقة)',
       low:'قليل', moderate:'متوسط', high:'كثير',
       green:'أخضر', yellow:'أصفر', red:'أحمر', unchecked:'مش محدد',
       rpe_guide_title:'دليل RPE / RIR',
@@ -1676,6 +1684,21 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       {n:'Shoulders & Arms',ex:cp(SPLITS.arnold_3r.days[2])},
       {n:'Torso',ex:cp(SPLITS.torso_limbs_4.days[0])},
       {n:'Limbs',ex:cp(SPLITS.torso_limbs_4.days[1])}
+    ]};
+    // Rest-day splits (scheduled recovery slots)
+    SPLITS.ppl_rest_ul_6={name:'PPL + Rest + UL (6-Day)',d:6,days:[
+      {n:'Push',ex:cp(SPLITS.ppl_6.days[0])},
+      {n:'Pull',ex:cp(SPLITS.ppl_6.days[1])},
+      {n:'Legs',ex:cp(SPLITS.ppl_6.days[2])},
+      {n:'Rest',restDay:true},
+      {n:'Upper',ex:cp(SPLITS.upper_lower_4.days[0])},
+      {n:'Lower',ex:cp(SPLITS.upper_lower_4.days[1])}
+    ]};
+    SPLITS.arnold_rest_4={name:'Arnold + Rest (4-Day)',d:4,days:[
+      {n:'Chest & Back',ex:cp(SPLITS.arnold_3r.days[0])},
+      {n:'Legs',ex:cp(SPLITS.arnold_3r.days[1])},
+      {n:'Shoulders & Arms',ex:cp(SPLITS.arnold_3r.days[2])},
+      {n:'Rest',restDay:true}
     ]};
     // 6-day hybrids
     SPLITS.ppl_arnold_6={name:'PPL + Arnold Hybrid (6-Day)',d:6,days:[
@@ -2286,6 +2309,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       // RPE ramp: 6 → 9 across weeks
       var rpeBase=isDeload?6:(6+Math.floor((w-1)/((maxWeeks-1||1)/3)));
       var weekDays=prog.days.map(function(day){
+        if(day.restDay)return{n:day.n,restDay:true,ex:[]};
         return {n:day.n,ex:day.ex.map(function(ex){
           var sets=isDeload?Math.max(1,Math.round(ex.sets*0.5)):Math.max(1,Math.round(ex.sets*volFactor));
           var targetRpe=isDeload?6:Math.min(rpeBase+Math.round(Math.random()*0.5),9.5);
@@ -2367,6 +2391,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     if(cwData){
       html+='<div class="meso-week-detail"><div class="section-header">'+_('day')+' '+cw+' Detail — '+cwData.phase+'</div>';
       cwData.days.forEach(function(d,di){
+        if(d.restDay){html+='<div class="meso-day-card" style="border-color:rgba(250,250,248,.08);background:rgba(250,250,248,.02)"><div class="md-title" style="color:rgba(250,250,248,.35)">'+_('day')+' '+(di+1)+': '+d.n+' — '+_('rest_day')+'</div></div>';return;}
         html+='<div class="meso-day-card"><div class="md-title">'+_('day')+' '+(di+1)+': '+d.n+'</div>';
         d.ex.forEach(function(e){
           html+='<div class="md-ex"><span class="md-ex-n">'+e.n+'</span><span class="md-ex-s">'+e.sets+' '+_('sets')+'</span><span class="md-ex-rpe">@ '+_('rpe')+' '+e.targetRpe+'</span></div>';
@@ -2647,7 +2672,8 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       if(g!=='strength'&&s.g==='strength')return;
       var card=document.createElement('div');card.className='split-card';card.dataset.key=k;
       var plTag=s.g==='strength'?' <span style="background:rgba(33,150,243,.1);color:#2196F3;font-size:.4rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;padding:1px 4px;border-radius:3px;margin-left:4px">PL</span>':'';
-      card.innerHTML='<div class="s-name">'+s.name+plTag+'</div><div class="s-detail">'+s.days.length+' '+_('sessions')+'</div>';
+      var sRest=(s.days||[]).filter(function(x){return x.restDay;}).length;
+      card.innerHTML='<div class="s-name">'+s.name+plTag+(sRest?'<span class="rest-badge">'+sRest+' '+_('rest_day')+'</span>':'')+'</div><div class="s-detail">'+s.days.length+' '+_('sessions')+'</div>';
       card.addEventListener('click',function(){grid.querySelectorAll('.split-card').forEach(function(c){c.classList.remove('selected')});this.classList.add('selected');splitKey=k;});
       grid.appendChild(card);if(!first)first=k;if(k===splitKey)quizSel=card;
     });
@@ -2703,6 +2729,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       '. '+_('rehab_ex_green')+' <span class="rel-safe">green</span> '+_('rehab_ex_risk')+
       ' <a href="https://wa.me/201040796017" target="_blank" style="color:#F4C93B">'+_('rehab_book_short')+'</a></div></div>';
     split.days.forEach(function(day,di){
+      if(day.restDay){html+='<div class="ex-sel-day" style="opacity:.45"><div class="esd-title">'+_('day_prefix')+' '+(di+1)+': '+day.n+' — '+_('rest_day')+'</div></div>';return;}
       html+='<div class="ex-sel-day"><div class="esd-title">'+_('day_prefix')+' '+(di+1)+': '+day.n+'</div>';
       day.ex.forEach(function(ex){
         var m=meta(ex.n),subs=m.subs||[],alt1=subs[0]||null,alt2=subs[1]||null;
@@ -2759,10 +2786,11 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     if(!ls('mos_week_count',null))ss('mos_week_count',1);
     // Implied volume from split defaults
     var implied={};MUSCLES.forEach(function(m){implied[m.id]=0});
-    split.days.forEach(function(day){day.ex.forEach(function(ex){if(implied[ex.p]!==undefined)implied[ex.p]+=ex.s;ex.se.forEach(function(sec){if(implied[sec]!==undefined)implied[sec]+=ex.s*0.5;});});});
+    split.days.forEach(function(day){if(day.restDay)return;day.ex.forEach(function(ex){if(implied[ex.p]!==undefined)implied[ex.p]+=ex.s;ex.se.forEach(function(sec){if(implied[sec]!==undefined)implied[sec]+=ex.s*0.5;});});});
     var scales={};MUSCLES.forEach(function(m){var t=targets[m.id]?targets[m.id].rec:implied[m.id];scales[m.id]=t/(implied[m.id]||1);});
 
     var progDays=split.days.map(function(day){
+      if(day.restDay)return{n:day.n,restDay:true,ex:[]};
       var exs=day.ex.map(function(ex){
         var chosenName=exChoices[ex.n]||ex.n;
         var ws=scales[ex.p]||1,ts=1;ex.se.forEach(function(sec){ws+=(scales[sec]||1)*0.5;ts+=0.5;});
@@ -2784,6 +2812,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
 
     var html='';
     progDays.forEach(function(day,di){
+      if(day.restDay){html+='<div class="rest-card" style="margin:4px 0 10px"><div class="rc-title">'+_('rest_day')+'</div><div class="rc-tip">'+_('rest_day_recover')+'</div></div>';return;}
       html+='<div class="ex-card" style="border-left-color:rgba(244,201,59,.2)"><div class="ex-name" style="margin-bottom:4px">'+_('day')+' '+(di+1)+': '+day.n+'</div>';
       day.ex.forEach(function(ex){
         var rest=ex.rl<=6?_('gen_rest_2_3'):ex.rl<=10?_('gen_rest_90_120'):_('gen_rest_60_90');
@@ -2816,11 +2845,14 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     var tabs=document.getElementById('dayTabs'),logs=ls(K.LG,{});
     tabs.innerHTML='';
     prog.days.forEach(function(day,di){
-      var b=document.createElement('button');b.className='day-tab'+(di===dayIdx?' active':'');
+      var b=document.createElement('button');b.className='day-tab'+(day.restDay?' rest':'')+(di===dayIdx?' active':'');
       b.textContent=_('day')+' '+(di+1)+': '+day.n;
-      var hasLog=false,wa=new Date(Date.now()-7*864e5).toISOString().split('T')[0];
-      Object.keys(logs).forEach(function(ds){if(ds<wa)return;Object.keys(logs[ds]).forEach(function(eid){if(eid.startsWith(day.n+'__')&&logs[ds][eid].sets&&logs[ds][eid].sets.some(function(s){return s&&s.weight&&parseFloat(s.weight)>0}))hasLog=true;});});
-      if(hasLog)b.innerHTML+='<span class="logged-dot"></span>';
+      var hasLog=false;
+      if(!day.restDay){
+        var wa=new Date(Date.now()-7*864e5).toISOString().split('T')[0];
+        Object.keys(logs).forEach(function(ds){if(ds<wa)return;Object.keys(logs[ds]).forEach(function(eid){if(eid.startsWith(day.n+'__')&&logs[ds][eid].sets&&logs[ds][eid].sets.some(function(s){return s&&s.weight&&parseFloat(s.weight)>0}))hasLog=true;});});
+        if(hasLog)b.innerHTML+='<span class="logged-dot"></span>';
+      }
       (function(i){b.addEventListener('click',function(){tabs.querySelectorAll('.day-tab').forEach(function(x){x.classList.remove('active')});b.classList.add('active');dayIdx=i;renderDay(i);});})(di);
       tabs.appendChild(b);
     });
@@ -2977,6 +3009,16 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     var fatigueAdj=fs?fs.adjust:0;
     var peri=ls('mos_periodization',null),wkCount=ls('mos_week_count',1);
     var container=document.getElementById('exCards'),html='';
+
+    if(day.restDay){
+      container.innerHTML='<div class="rest-card"><div class="rc-title">'+_('rest_day')+'</div><div class="rc-tip">'+_('rest_day_recover')+'</div>'+
+        '<div class="rc-tip">• '+_('rest_tip_1')+'</div>'+
+        '<div class="rc-tip">• '+_('rest_tip_2')+'</div>'+
+        '<div class="rc-tip">• '+_('rest_tip_3')+'</div>'+
+        '<div class="rc-tip">• '+_('rest_tip_4')+'</div></div>';
+      updateSummary(di);
+      return;
+    }
 
     // General warm-up for this day
     html+=renderGeneralWarmup(day.n);
@@ -3232,7 +3274,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     // Volume targets table
     var vh='';MUSCLES.forEach(function(m){var t=vt[m.id];if(!t)return;vh+='<tr><td>'+t.name+'</td><td class="c">'+t.prio+'</td><td class="c">'+t.mev+'</td><td class="c">'+t.mav+'</td><td class="c">'+t.mrv+'</td><td class="c">'+t.rec+'</td></tr>';});
     // Program days
-    var ph='';prog.days.forEach(function(day,di){ph+='<div class="db"><div class="dt">'+_('day_prefix')+' '+(di+1)+': '+day.n+'</div><table><thead><tr><th>Exercise</th><th class="c">'+_('sets')+'</th><th class="c">'+_('reps')+'</th><th class="c">'+_('rest')+'</th></tr></thead><tbody>';day.ex.forEach(function(ex){var r=ex.rl<=6?_('gen_rest_2_3'):ex.rl<=10?_('gen_rest_90_120'):_('gen_rest_60_90');ph+='<tr><td>'+ex.n+'</td><td class="c">'+ex.sets+'</td><td class="c">'+ex.rl+'\u2013'+ex.rh+'</td><td class="c">'+r+'</td></tr>';});ph+='</tbody></table></div>';});
+    var ph='';prog.days.forEach(function(day,di){ph+='<div class="db"><div class="dt">'+_('day_prefix')+' '+(di+1)+': '+day.n+'</div><table><thead><tr><th>Exercise</th><th class="c">'+_('sets')+'</th><th class="c">'+_('reps')+'</th><th class="c">'+_('rest')+'</th></tr></thead><tbody>';if(day.restDay){ph+='<tr><td colspan="4" style="text-align:center;color:rgba(250,250,248,.25)">'+_('rest_day')+' - '+_('rest_day_recover')+'</td></tr>';}else{day.ex.forEach(function(ex){var r=ex.rl<=6?_('gen_rest_2_3'):ex.rl<=10?_('gen_rest_90_120'):_('gen_rest_60_90');ph+='<tr><td>'+ex.n+'</td><td class="c">'+ex.sets+'</td><td class="c">'+ex.rl+'\u2013'+ex.rh+'</td><td class="c">'+r+'</td></tr>';});}ph+='</tbody></table></div>';});
     // RPE/RIR/Volume educational section
     var edu='<div class="sec"><div class="st" style="color:#F4C93B">Understanding RPE, RIR &amp; Volume</div><div class="ec"><div class="ecard"><div class="ect">RPE Scale (Rate of Perceived Exertion)</div><table class="rpet"><thead><tr><th>RPE</th><th>Effort Level</th><th>RIR</th></tr></thead><tbody><tr><td class="c" style="font-weight:600">10</td><td>Max effort, cannot add another rep</td><td class="c">0</td></tr><tr><td class="c" style="font-weight:600;color:#F4C93B">9</td><td>Very hard, 1 rep left in the tank</td><td class="c" style="color:#F4C93B">1</td></tr><tr><td class="c" style="font-weight:600;color:#F4C93B">8</td><td>Challenging, 2 reps left</td><td class="c" style="color:#F4C93B">2</td></tr><tr><td class="c" style="font-weight:600">7</td><td>Moderately hard, 3 reps left</td><td class="c">3</td></tr><tr><td class="c" style="font-weight:600">6</td><td>Light, 4+ reps left (warm-up zone)</td><td class="c">4+</td></tr></tbody></table><div class="etip">RIR = 10 \u2212 RPE. Example: RPE 8 = 2 reps in reserve. Stay at RPE 7\u20139 for working sets. Training to failure every session increases fatigue without extra muscle gain.</div></div><div class="ecard"><div class="ect">Volume Guide — Weekly Sets Per Muscle</div><table><thead><tr><th>Zone</th><th>Meaning</th></tr></thead><tbody><tr><td style="font-weight:600;color:#4CAF50">MEV</td><td>Minimum Effective Volume \u2014 the least weekly sets to stimulate growth</td></tr><tr><td style="font-weight:600;color:#F4C93B">MAV</td><td>Maximum Adaptive Volume \u2014 the sweet spot for optimal muscle growth</td></tr><tr><td style="font-weight:600;color:#f44336">MRV</td><td>Maximum Recoverable Volume \u2014 the ceiling before overtraining</td></tr></tbody></table><div class="etip"><strong>Progressive Overload:</strong> Start at MEV or slightly above. Add 1\u20132 sets per week as you adapt. If progress stalls for 2+ weeks, deload or increase toward MAV. Stay below MRV to avoid excessive fatigue.<br><br><strong>Rest Periods:</strong> 2\u20133 min for compound lifts (squat, bench, deadlift, row). 90\u2013120s for most isolation work. 60\u201390s for accessories.</div></div></div></div>';
     // User guide
