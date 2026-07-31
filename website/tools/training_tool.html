@@ -12,7 +12,7 @@
 body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:32px 16px}
 @media print{body{background:#fff;color:#000;padding:20px}body *{color:#000!important}
  .container{max-width:100%}.header,.header h1{color:#000!important}.card{background:#f5f5f5!important;border:1px solid #ddd!important}
- .stepper,.btn-primary,.btn-secondary,.suggest-box,.pain-group,.rest-timer,.add-set-btn,.del-set-btn,.rm-ex-btn,.safety-badge,.deload-tracker,.footer{display:none!important}
+ .stepper,.btn-primary,.btn-secondary,.suggest-box,.pain-group,.rest-timer,.add-set-btn,.del-set-btn,.rm-ex-btn,.sw-ex-btn,.swap-panel,.safety-badge,.deload-tracker,.footer{display:none!important}
  .ex-card{break-inside:avoid;background:#fff!important;border:1px solid #ddd!important}.ex-name{color:#000!important}
  .set-row input{border:1px solid #ccc!important;background:#fff!important;color:#000!important}
  .print-header{display:block!important;text-align:center;margin-bottom:16px}.print-header h2{font-family:'Oswald',sans-serif;font-size:1.3rem;margin:0}
@@ -156,6 +156,16 @@ select option{background:#1E1E2A;color:#FAFAF8}
 .del-set-btn:hover{color:#f44336}
 .rm-ex-btn{background:transparent;border:1px solid rgba(244,67,54,.1);border-radius:3px;color:rgba(244,67,54,.35);font-size:.45rem;font-weight:600;text-transform:uppercase;letter-spacing:.4px;cursor:pointer;padding:2px 5px;font-family:'Inter',sans-serif}
 .rm-ex-btn:hover{background:rgba(244,67,54,.05);color:#f44336}
+.sw-ex-btn{background:transparent;border:1px solid rgba(33,150,243,.15);border-radius:3px;color:rgba(33,150,243,.45);font-size:.45rem;font-weight:600;text-transform:uppercase;letter-spacing:.4px;cursor:pointer;padding:2px 5px;font-family:'Inter',sans-serif}
+.sw-ex-btn:hover{background:rgba(33,150,243,.06);color:#2196F3}
+.swap-panel{display:none;margin:5px 0 8px;padding:6px 8px;background:rgba(33,150,243,.04);border:1px solid rgba(33,150,243,.12);border-radius:6px}
+.swap-panel.open{display:block}
+.swap-panel .swp-title{font-size:.5rem;color:rgba(33,150,243,.6);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.swap-panel .swp-hint{font-size:.45rem;color:rgba(250,250,248,.25);margin-bottom:4px;line-height:1.3}
+.swap-chip{display:inline-block;background:transparent;border:1px solid rgba(33,150,243,.25);color:rgba(250,250,248,.6);border-radius:4px;padding:2px 8px;font-size:.5rem;cursor:pointer;margin:2px;font-family:'Inter',sans-serif}
+.swap-chip:hover{background:rgba(33,150,243,.1);color:#FAFAF8}
+.swap-chip.original{color:#F4C93B;border-color:rgba(244,201,59,.3)}
+.swap-chip.original:hover{background:rgba(244,201,59,.08)}
 .vol-row{display:grid;grid-template-columns:72px 1fr 72px;gap:8px;align-items:center;padding:4px 0;font-size:.58rem}
 .vol-row .vol-label{color:rgba(250,250,248,.45);font-weight:500;text-align:right;white-space:nowrap;font-size:.55rem}
 .vol-bar-wrap{position:relative;height:16px;background:rgba(20,21,26,.45);border-radius:8px;overflow:hidden}
@@ -1011,7 +1021,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       name_label:'Name',age_label:'Age',save_profile:'Save Profile',
       profile_saved:'Profile saved!',profile_greeting:'Welcome back',name_required:'Please enter your name first.',
       // Timer display
-      rest_timer_label:'Rest Timer',
+      rest_timer_label:'Rest Timer',swap_btn:'Swap',swap_title:'Swap Exercise',swap_hint:'Alternatives for the same muscles — sets, reps & RPE carry over.',swap_back:'Back to original',
       time_up:'Time!',
       // Deload bar (dashboard)
       deload_now:'Deload NOW',
@@ -1293,7 +1303,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       name_label:'الاسم',age_label:'العمر',save_profile:'حفظ البروفايل',
       profile_saved:'اتحفظ البروفايل!',profile_greeting:'أهلاً بيك تاني',name_required:'من فضلك اكتب اسمك الأول.',
       // Timer display
-      rest_timer_label:'مؤقت الراحة',
+      rest_timer_label:'مؤقت الراحة',swap_btn:'تبديل',swap_title:'تبديل التمرين',swap_hint:'بدائل لنفس العضلات — المجموعات والتكرارات وRPE هتنتقل تلقائيًا.',swap_back:'الرجوع للأصلي',
       time_up:'خلص!',
       // Deload bar (dashboard)
       deload_now:'فَرّغ دلوقتي',
@@ -3043,6 +3053,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
       html+='<div class="'+cc+'" id="'+sid+'">'+
         '<div class="ex-title"><span class="ex-name">'+(ei+1)+'. '+exLinkHtml(ex.n)+'</span>'+prHtml+perHtml+
         '<span class="safety-badge '+safety.sev+'">'+(safety.sev==='safe'?'\u2713 '+_('green'):safety.sev==='warn'?'\u26A0 '+_('yellow'):'\u2715 '+_('red'))+'</span>'+
+        '<button class="sw-ex-btn" data-ex="'+ex.n+'" title="'+_('swap_title')+'">⇄ '+_('swap_btn')+'</button>'+
         '<span class="rm-ex-btn" data-ex="'+ex.n+'">✕</span></div>';
 
       var last=sugg.last;
@@ -3088,6 +3099,15 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
         '<button class="pain-btn'+(pfc==='yellow'?' active-yellow':'')+'" data-ex="'+ex.n+'" data-p="yellow">🟡</button>'+
         '<button class="pain-btn'+(pfc==='red'?' active-red':'')+'" data-ex="'+ex.n+'" data-p="red">🔴</button></div>';
 
+      // Swap panel (alternatives for the same muscles)
+      var msubs=(m&&m.subs)||[],ceList=ls(K.CE,[]),sp=ls(K.SP,null),spSplit=sp&&SPLITS[sp.key];
+      var orig=spSplit&&spSplit.days[di]&&spSplit.days[di].ex[ei]?spSplit.days[di].ex[ei].n:null;
+      var swapChips='';
+      if(orig&&orig!==ex.n)swapChips+='<button class="swap-chip original" data-di="'+di+'" data-idx="'+ei+'" data-ex="'+ex.n+'" data-to="'+orig+'">↩ '+_('swap_back')+' ('+orig+')</button>';
+      msubs.forEach(function(s){if(s!==ex.n)swapChips+='<button class="swap-chip" data-di="'+di+'" data-idx="'+ei+'" data-ex="'+ex.n+'" data-to="'+s+'">'+s+'</button>';});
+      ceList.forEach(function(c){if(c.name!==ex.n&&(c.f===ex.p||ex.se.indexOf(c.f)>=0))swapChips+='<button class="swap-chip" data-di="'+di+'" data-idx="'+ei+'" data-ex="'+ex.n+'" data-to="'+c.name+'">'+c.name+'</button>';});
+      if(swapChips)html+='<div class="swap-panel"><div class="swp-title">'+_('swap_title')+'</div><div class="swp-hint">'+_('swap_hint')+'</div>'+swapChips+'</div>';
+
       // Logger
       var eid=day.n+'__'+ex.n,dl=logs[today]&&logs[today][eid]?logs[today][eid]:null;
       var sets=(dl&&dl.sets&&dl.sets.length)?dl.sets:[{w:'',r:'',rpe:''},{w:'',r:'',rpe:''},{w:'',r:'',rpe:''}];
@@ -3111,6 +3131,8 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
     container.querySelectorAll('.del-set-btn').forEach(function(b){b.addEventListener('click',function(){delSet(di,this.dataset.ex,parseInt(this.dataset.set));});});
     container.querySelectorAll('.add-set-btn').forEach(function(b){b.addEventListener('click',function(){addSet(di,this.dataset.ex);});});
     container.querySelectorAll('.rm-ex-btn').forEach(function(b){b.addEventListener('click',function(){if(confirm('Remove "'+this.dataset.ex+'" from '+_('today_train')+'?'))rmEx(di,this.dataset.ex);});});
+    container.querySelectorAll('.sw-ex-btn').forEach(function(b){b.addEventListener('click',function(){var p=b.parentElement.parentElement.querySelector('.swap-panel');if(p)p.classList.toggle('open');});});
+    container.querySelectorAll('.swap-chip').forEach(function(chip){chip.addEventListener('click',function(){swapEx(parseInt(chip.dataset.di),parseInt(chip.dataset.idx),chip.dataset.ex,chip.dataset.to);});});
     container.querySelectorAll('.pain-btn').forEach(function(b){b.addEventListener('click',function(){var pf=painFlags();pf[this.dataset.ex]=this.dataset.p;ss(K.PF,pf);renderDay(di);});});
     container.querySelectorAll('.rt-start').forEach(function(b){b.addEventListener('click',function(){startRestTimer(this.dataset.ex);});});
     container.querySelectorAll('.rt-stop').forEach(function(b){b.addEventListener('click',function(){stopRestTimer(this.dataset.ex);});});
@@ -3163,6 +3185,22 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid rgba(
   function delSet(di,en,si){var logs=ls(K.LG,{}),td=new Date().toISOString().split('T')[0],prog=ls(K.PG,null),day=prog&&prog.days[di]?prog.days[di]:null,eid=day?day.n+'__'+en:en;if(logs[td]&&logs[td][eid]){logs[td][eid].sets.splice(si,1);if(!logs[td][eid].sets.length)delete logs[td][eid];if(!Object.keys(logs[td][eid]||{}).length)delete logs[td][eid];ss(K.LG,logs);}renderDay(di);}
   function addSet(di,en){var logs=ls(K.LG,{}),td=new Date().toISOString().split('T')[0],prog=ls(K.PG,null),day=prog&&prog.days[di]?prog.days[di]:null,eid=day?day.n+'__'+en:en;if(!logs[td])logs[td]={};if(!logs[td][eid])logs[td][eid]={sets:[]};logs[td][eid].sets.push({w:'',r:'',rpe:''});ss(K.LG,logs);renderDay(di);}
   function rmEx(di,en){var logs=ls(K.LG,{}),td=new Date().toISOString().split('T')[0],prog=ls(K.PG,null),day=prog&&prog.days[di]?prog.days[di]:null,eid=day?day.n+'__'+en:en;if(logs[td]&&logs[td][eid]){delete logs[td][eid];if(!Object.keys(logs[td]).length)delete logs[td];ss(K.LG,logs);}renderDay(di);}
+  function swapEx(di,idx,oldName,newName){
+    if(!oldName||!newName||oldName===newName)return;
+    var prog=ls(K.PG,null);if(!prog||!prog.days[di])return;
+    var day=prog.days[di],ex=day.ex[idx];if(!ex)return;
+    var sp=ls(K.SP,null),orig=null;
+    if(sp&&SPLITS[sp.key]&&SPLITS[sp.key].days[di]&&SPLITS[sp.key].days[di].ex[idx])orig=SPLITS[sp.key].days[di].ex[idx].n;
+    ex.n=newName;ss(K.PG,prog);
+    var choices=ls('mos_ex_choices',{});
+    if(orig){if(newName===orig)delete choices[orig];else choices[orig]=newName;}
+    else if(choices[oldName]===newName)delete choices[oldName];
+    ss('mos_ex_choices',choices);
+    var logs=ls(K.LG,{}),td=new Date().toISOString().split('T')[0];
+    var oldEid=day.n+'__'+oldName,newEid=day.n+'__'+newName;
+    if(logs[td]&&logs[td][oldEid]){logs[td][newEid]=logs[td][oldEid];delete logs[td][oldEid];if(!Object.keys(logs[td]).length)delete logs[td];ss(K.LG,logs);}
+    renderDay(di);updateSummary(di);
+  }
 
   function updateSummary(di){
     var logs=ls(K.LG,{}),td=new Date().toISOString().split('T')[0],dl=logs[td]||{};
