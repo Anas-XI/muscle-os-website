@@ -220,3 +220,23 @@
 - GOTCHA: seeding Bench Press yellow flags BOTH shoulder AND elbow (Bench Press jr = shoulder+elbow) → Wrist Curl also prepended — correct per spec, use shoulder-only exercise (Lateral Raise) for clean assertions
 - GOTCHA: regenerate from step3 uses #backToSplitBtn; from step4 uses #changeSplitBtn (test helper handles both)
 - Regression green: F5 21/21, F6 26/26, F7 25/25, F8 20/20, F11 18/18, F12 11/11, F13 13/13, F14 12/12; bracecheck2 1537/1537; check_parse OK
+
+---
+# Session State - P4 personalized weekly coach note - COMPLETE
+
+## Status: Rule-based weekly recap card on History. Deployed origin + public main/master, live-verified.
+
+## What changed (tools/training_tool.html)
+- New Coach's Note card as first card of step5 (History), filled by coachNote() in renderHistory; derived from existing storage only (K.LG, K.LH, K.SP/K.PG, K.PF, K.DT, K.VI) - no new storage keys
+- coachNote(): 14-day rolling window (adhFrom d-13..d0); sessions = distinct dates with >=1 non-warmup logged set; expected = trainDays x 2 (split non-rest days x 2 weeks); pct = min(100, round(sess/expected*100)); tone good>=80 / ok>=50 / warn<50 with tone icon (💪/🙂/⚠️) + color
+- Total sets: all non-warmup sets in window
+- Main lifts (MAIN_LIFTS = Barbell Squat, Bench Press, Deadlift Variation) intersected with program exercises; delta = best e1RM current week (d-6..d0) minus best e1RM previous week (d-13..d-7) via bestE1RMIn(); skip lifts missing either window; formatted 'Bench Press +5 kg'
+- Sentence 3: pain flags (red/yellow list, capped 3) > deload due (shouldDeload) > next-week tip (cn_next_good/ok/warn by tone)
+- Empty (no sessions in window or no split) -> cn_empty 'Start logging' variant
+- i18n: coach_note, cn_adh (placeholders {a}/{b}/{pct}), cn_sets ({n}), cn_pr ({ex}), cn_pain ({n}/{list}), cn_deload, cn_next, cn_next_good/ok/warn, cn_empty (en+ar)
+
+## Tests
+- f16_coach_note_test.js (NEW, 12/12): empty -> start-logging variant; seeded 5 sessions over 14 days + bench 120->125 e1RM + squat flat -> '5 of 6', '83%', 'Total: 5', 'Bench Press +5', 💪 tone, next-week tip; pain flag -> pain sentence replaces tip; i18n keys exist in both en+ar source blocks (each key counted >=2 occurrences)
+- GOTCHA: I18N is IIFE-scoped var, not window-visible - i18n assertion parses the source file instead
+- GOTCHA: mainLifts exists only inside exCtx; coachNote defines its own MAIN_LIFTS
+- Regression green: F5 21/21, F6 26/26, F7 25/25, F8 20/20, F11 18/18, F12 11/11, F13 13/13, F14 12/12, F15 17/17; bracecheck2 1559/1559; check_parse OK
