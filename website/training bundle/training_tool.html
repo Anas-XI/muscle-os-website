@@ -157,6 +157,12 @@ select option{background:#1E1E2A;color:var(--text)}
 .ex-card .ex-name{font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:600;color:var(--text);text-transform:uppercase;letter-spacing:.4px}
 .ex-card .ex-meta{font-size:.55rem;color:var(--text-muted);margin-bottom:4px}
 .suggest-box{background:var(--accent-soft);border:1px solid var(--accent-soft2);border-radius:8px;padding:8px 12px;margin:5px 0 8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.fat-light-banner{background:rgba(244,201,59,.08);border:1px solid rgba(244,201,59,.25);border-radius:8px;padding:8px 12px;margin-bottom:10px;display:flex;flex-direction:column;gap:4px;align-items:flex-start}
+.fat-light-banner .flb-title{color:#F4C93B;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.fat-light-banner .flb-desc{font-size:.55rem;color:rgba(250,250,248,.6);line-height:1.4}
+.flb-btns{display:flex;gap:6px;margin-top:2px}
+.fat-light-btn{background:var(--input-bg);border:1px solid var(--line);color:var(--text);border-radius:6px;font-size:.6rem;padding:5px 10px;cursor:pointer;font-weight:600;transition:all .2s}
+.fat-light-btn:hover{border-color:var(--accent-line);color:var(--accent)}
 .suggest-val{font-family:'JetBrains Mono',monospace;font-size:1.3rem;font-weight:700;color:var(--accent);line-height:1}
 .suggest-detail{font-size:.6rem;color:var(--text-soft);line-height:1.3}
 .suggest-detail strong{color:var(--text)}
@@ -1139,6 +1145,9 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       fatigue_rates:'Rate each factor 1-10. Higher = better for sleep/nutrition/CNS, lower = better for stress/doms.',
       fatigue_ready:'Ready to train at full intensity.',
       fatigue_rpe_adjusted:'RPE adjusted due to fatigue. Safety first.',
+      fat_light_title:'High fatigue — lighter option available',
+      fat_light_desc:'Readiness is red today. Take a lighter session: suggested loads at 80% and one fewer set per exercise.',
+      fat_light_btn:'Light Day',fat_planned_btn:'Proceed as Planned',
       // Compliance
       comp_score:'Score',comp_grade:'Grade',comp_status:'Status',
       comp_excellent:'Excellent',comp_good:'Good',comp_fair:'Fair',comp_needs_work:'Needs Work',comp_at_risk:'At Risk',
@@ -1445,6 +1454,9 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       fatigue_rates:'قيّم كل حاجة من 1-10. الأعلى أحسن للنوم/التغذية/العصبي، الأقل أحسن للضغط/الألم.',
       fatigue_ready:'جاهز للتمرين بكثافة كاملة.',
       fatigue_rpe_adjusted:'اتعدل RPE بسبب التعب. السلامة الأول.',
+      fat_light_title:'تعب عالي — في خيار أخف',
+      fat_light_desc:'الجاهزية حمراء النهارده. خد جلسة أخف: أوزان مقترحة 80% ومجموعة أقل في كل تمرين.',
+      fat_light_btn:'يوم خفيف',fat_planned_btn:'كمّل زي ما هو',
       // Compliance
       comp_score:'الدرجة',comp_grade:'التقدير',comp_status:'الحالة',
       comp_excellent:'ممتاز',comp_good:'كويس',comp_fair:'مقبول',comp_needs_work:'محتاج شغل',comp_at_risk:'في خطر',
@@ -2949,7 +2961,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
   // ═══════════════════════════════════════
 
   var step=1,dayIdx=0,splitKey='upper_lower_4',quizMode=false,quizQ=0,quizA={};
-  var makeupDays={},missedSkip=false;
+  var makeupDays={},missedSkip=false,lightDays={},lightProceed={};
   function go(n){step=n;document.querySelectorAll('.step-content').forEach(function(s){s.classList.remove('active')});var el=document.getElementById('step'+n);if(el)el.classList.add('active');document.querySelectorAll('.step').forEach(function(s){var sn=parseInt(s.dataset.step);s.classList.remove('active','done');if(sn===n)s.classList.add('active');else if(sn<n)s.classList.add('done');});window.scrollTo(0,0);}
   document.querySelectorAll('.step').forEach(function(s){s.addEventListener('click',function(){var n=parseInt(this.dataset.step);if(n<=step)go(n);})});
 
@@ -3779,6 +3791,10 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
     var fatigueAdj=fs?fs.adjust:0;
     var peri=ls('mos_periodization',null),wkCount=ls('mos_week_count',1);
     var m=meta(ex.n),sugg=rehabSuggest(ex.n,goal,age,hist,pf,fatigueAdj);
+    if(lightDays[di]&&sugg&&sugg.w!==null&&sugg.w>0){
+      var lInc=m.inc>0?m.inc:2.5;
+      sugg.w=Math.max(lInc,Math.round(sugg.w*0.8/lInc)*lInc);
+    }
     var safety=checkSafety(ex.n,sugg,di,logs,hist,pf,age);
     var pfc=pf[ex.n]||'green';
     var cc=pfc==='red'?'ex-card pain-red':pfc==='yellow'?'ex-card pain-yellow':'ex-card';
@@ -3846,7 +3862,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
         }
       });
     }else{
-      var padEmpty=makeupDays[di]?Math.max(1,(ex.sets||3)-1):3;
+      var padEmpty=(makeupDays[di]||lightDays[di])?Math.max(1,(ex.sets||3)-1):3;
       for(var i2=0;i2<padEmpty;i2++)sets.push({w:'',r:'',rpe:''});
     }
     var h='<div class="set-log-area"><div class="set-log-header"><span></span><span>'+_('weight')+'</span><span>'+_('reps')+'</span><span>'+_('rpe')+'</span><span></span></div><div class="set-rows-'+('c_'+di+'_'+ex.n).replace(/[^a-zA-Z0-9]/g,'_')+'">';
@@ -3979,6 +3995,13 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
     // General warm-up for this day
     html+=renderGeneralWarmup(day.n);
 
+    if(fs&&fs.adjust<=-1&&!lightDays[di]&&!lightProceed[di]){
+      html+='<div class="fat-light-banner"><span class="flb-title">'+_('fat_light_title')+'</span>'+
+        '<span class="flb-desc">'+_('fat_light_desc')+'</span>'+
+        '<div class="flb-btns"><button class="fat-light-btn" data-di="'+di+'" data-light="1">'+_('fat_light_btn')+'</button>'+
+        '<button class="fat-light-btn" data-di="'+di+'" data-light="0">'+_('fat_planned_btn')+'</button></div></div>';
+    }
+
     var ssOn=!!ls(K.SU,{})[di];
     if(ssOn){
       buildAntagonistPairs(day.ex).forEach(function(pair){
@@ -3999,6 +4022,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
     container.querySelectorAll('.sw-ex-btn').forEach(function(b){b.addEventListener('click',function(){var p=b.parentElement.parentElement.querySelector('.swap-panel');if(p)p.classList.toggle('open');});});
     container.querySelectorAll('.swap-chip').forEach(function(chip){chip.addEventListener('click',function(){swapEx(parseInt(chip.dataset.di),parseInt(chip.dataset.idx),chip.dataset.ex,chip.dataset.to);});});
     container.querySelectorAll('.pain-btn').forEach(function(b){b.addEventListener('click',function(){var pf=painFlags();pf[this.dataset.ex]=this.dataset.p;ss(K.PF,pf);renderDay(di);});});
+    container.querySelectorAll('.fat-light-btn').forEach(function(b){b.addEventListener('click',function(){var i=parseInt(this.dataset.di);if(this.dataset.light==='1')lightDays[i]=true;else lightProceed[i]=true;renderDay(i);});});
     container.querySelectorAll('.rt-start').forEach(function(b){b.addEventListener('click',function(){startRestTimer(this.dataset.ex);});});
     container.querySelectorAll('.rt-stop').forEach(function(b){b.addEventListener('click',function(){stopRestTimer(this.dataset.ex);});});
     container.querySelectorAll('.rt-reset').forEach(function(b){b.addEventListener('click',function(){resetRestTimer(this.dataset.ex);});});
