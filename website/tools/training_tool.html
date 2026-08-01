@@ -924,6 +924,10 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
   <!-- Screen 5: History & Stats -->
   <div class="step-content" id="step5">
     <div class="card">
+      <div class="section-header"><span data-i18n="coach_note">Coach's Note</span></div>
+      <div id="coachNote" style="font-size:.6rem;line-height:1.6;padding:4px 0"></div>
+    </div>
+    <div class="card">
       <div class="section-header"><span data-i18n="track_progress">Volume Dashboard</span> <span class="section-sub" id="histWeekLabel"></span></div>
       <p style="font-size:.55rem;color:rgba(250,250,248,.18);margin-bottom:6px;line-height:1.2">Logged sets this week (yellow bar) vs MEV–MAV–MRV (green to red).</p>
       <div id="histVolBars"></div>
@@ -1240,6 +1244,17 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       acwr_chronic:'Chronic (28d avg)',
       // History
       hist_week_of:'Week of',
+      coach_note:"Coach's Note",
+      cn_adh:'You logged {a} of {b} sessions ({pct}%) in the last 2 weeks.',
+      cn_sets:'Total: {n} sets.',
+      cn_pr:'{ex} e1RM {d} kg',
+      cn_pain:'Pain flags active: {n} exercises ({list}).',
+      cn_deload:'Deload due — plan a light week.',
+      cn_next:'Next week',
+      cn_next_good:'keep the trend — add 2.5 kg on lifts that moved up.',
+      cn_next_ok:'one more session closes the gap.',
+      cn_next_warn:'prioritize recovery (sleep + protein), then get back on track.',
+      cn_empty:'Start logging sessions — your first coach note appears after 2+ sessions.',
       hist_select_ex:'Select exercise...',
       hist_log_more:'Log more sessions to see e1RM progression.',
       hist_log_pr:'Log some sessions to see PRs.',
@@ -1549,6 +1564,17 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       acwr_chronic:'المزمن (متوسط 28 يوم)',
       // History
       hist_week_of:'أسبوع',
+      coach_note:'ملاحظة الكوتش',
+      cn_adh:'سجّلت {a} من {b} جلسة ({pct}%) في آخر أسبوعين.',
+      cn_sets:'الإجمالي: {n} مجموعة.',
+      cn_pr:'{ex} e1RM {d} كجم',
+      cn_pain:'تنبيهات ألم نشطة: {n} تمرين ({list}).',
+      cn_deload:'موعد التفريغ حان — خصّص أسبوعاً خفيفاً.',
+      cn_next:'الأسبوع الجاي',
+      cn_next_good:'حافظ على التقدم — زوّد 2.5 كجم في التمارين اللي تحسّنت.',
+      cn_next_ok:'جلسة واحدة زيادة تقفل الفجوة.',
+      cn_next_warn:'اعطِ الأولوية للتعافي (نوم + بروتين)، وبعدين ارجع على المسار.',
+      cn_empty:'ابدأ تسجيل الجلسات — أول ملاحظة كوتش تظهر بعد جلسة-جلسات.',
       hist_select_ex:'اختار تمرين...',
       hist_log_more:'سجّل جلسات أكتر عشان تشوف تقدم e1RM.',
       hist_log_pr:'سجّل بعض الجلسات عشان تشوف الأرقام القياسية.',
@@ -4379,10 +4405,57 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
   //  SCREEN 5: HISTORY & STATS
   // ═══════════════════════════════════════
 
+  var MAIN_LIFTS=['Barbell Squat','Bench Press','Deadlift Variation'];
+  function bestE1RMIn(ex,h,from,to){var e=h[ex];if(!e||!e.length)return null;var r=e.filter(function(x){return x.date>=from&&x.date<=to&&x.e1RM>0});if(!r.length)return null;return r.reduce(function(m,x){return x.e1RM>m?x.e1RM:m},0);}
+  function coachNote(){
+    var logs=ls(K.LG,{}),hist=loadHist(),pf=painFlags(),sp=ls(K.SP,null);
+    var vi=ls(K.VI,{}),age=vi.ta||'intermediate';
+    var today=new Date();today.setHours(0,0,0,0);
+    var dISO=function(offset){var d=new Date(today);d.setDate(today.getDate()-offset);return d.toISOString().split('T')[0];};
+    var adhFrom=dISO(13),adhTo=dISO(0),curFrom=dISO(6),curTo=dISO(0),prevFrom=dISO(13),prevTo=dISO(7);
+    var sessDates={},totalSets=0;
+    Object.keys(logs).forEach(function(d){
+      if(d<adhFrom||d>adhTo)return;
+      Object.keys(logs[d]).forEach(function(eid){
+        (logs[d][eid].sets||[]).forEach(function(x){if(x&&x.w&&parseFloat(x.w)>0&&!x.wu){sessDates[d]=true;totalSets++;}});
+      });
+    });
+    var sess=Object.keys(sessDates).length;
+    var trainDays=0;
+    if(sp&&SPLITS[sp.key])SPLITS[sp.key].days.forEach(function(day){if(!day.restDay)trainDays++;});
+    if(sess===0||!trainDays)return '<span style="color:rgba(250,250,248,.15)">'+_('cn_empty')+'</span>';
+    var expected=trainDays*2,pct=Math.min(100,Math.round(sess/expected*100));
+    var tone=pct>=80?'good':pct>=50?'ok':'warn';
+    var toneIcon=tone==='good'?'💪':tone==='ok'?'🙂':'⚠️';
+    var toneColor=tone==='good'?'#81C784':tone==='ok'?'#F4C93B':'#f44336';
+    var prog=ls(K.PG,null),progLifts={};
+    if(prog)prog.days.forEach(function(day){(day.ex||[]).forEach(function(ex){if(MAIN_LIFTS.indexOf(ex.n)>=0)progLifts[ex.n]=true;});});
+    var lifts=[];
+    Object.keys(progLifts).forEach(function(ex){
+      var cur=bestE1RMIn(ex,hist,curFrom,curTo),prev=bestE1RMIn(ex,hist,prevFrom,prevTo);
+      if(cur===null||prev===null)return;
+      var delta=Math.round((cur-prev)*2)/2;
+      lifts.push(ex+' '+(delta>0?'+':'')+delta+' '+_('weight'));
+    });
+    var s1=_('cn_adh').replace('{a}',sess).replace('{b}',expected).replace('{pct}',pct)+' '+_('cn_sets').replace('{n}',totalSets);
+    var s2=lifts.length?_('cn_pr').replace('{ex}',lifts.join(' · ')):'';
+    var flagged=Object.keys(pf||{}).filter(function(k){return pf[k]==='red'||pf[k]==='yellow';});
+    var s3='';
+    if(flagged.length){
+      s3=_('cn_pain').replace('{n}',flagged.length).replace('{list}',flagged.slice(0,3).join(', ')+(flagged.length>3?'…':''));
+    }else{
+      var dt=dlTracker(),dc=shouldDeload(dt,age,dt.overshoots||0);
+      if(dc.yes)s3=_('cn_deload');
+      else s3=_('cn_next')+': '+_('cn_next_'+tone);
+    }
+    var parts=[s1,s2,s3].filter(function(x){return x;});
+    return '<span style="color:'+toneColor+';font-weight:700">'+toneIcon+'</span> '+parts.join('<br>');
+  }
   function renderHistory(){
     var logs=ls(K.LG,{}),hist=loadHist(),vt=ls(K.VT,{}),goal=(ls(K.VI,{})).goal||'hypertrophy',age=(ls(K.VI,{})).ta||'intermediate';
     var today=new Date(),ws=new Date(today);ws.setDate(today.getDate()-today.getDay());
     document.getElementById('histWeekLabel').textContent='— '+_('hist_week_of')+' '+ws.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+    document.getElementById('coachNote').innerHTML=coachNote();
 
     renderCompliance();
     renderMeasHistory();
