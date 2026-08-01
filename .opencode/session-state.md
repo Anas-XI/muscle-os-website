@@ -1,4 +1,4 @@
-# Session State — Training Tool G-batch (F6–F9) — COMPLETE
+﻿# Session State — Training Tool G-batch (F6–F9) — COMPLETE
 
 ## Status: F1–F5 + exercise pools + F6–F9 done, ALL DEPLOYED LIVE.
 ## Deployed: root master 3becfc2 (origin muscle-os-bot) · public main 64c3840 · public master bfe868f (GH Pages workflow trigger: push to master, artifact = website/ subdir, pages via actions/deploy-pages). Live verified with cache-buster: sessionTimerChip / notifToggle / exportIcsBtn / syncPwInput / BEGIN:VEVENT all present at https://anas-xi.github.io/muscle-os-website/tools/training_tool.html
@@ -56,7 +56,7 @@
 
 ---
 
-# Session State � Google-bound one-time activation codes � COMPLETE
+# Session State � Google-bound one-time activation codes � COMPLETE
 
 ## Status: Google sign-in + one-time account-bound codes shipped to both tools + worker, DEPLOYED LIVE.
 ## Deployed: worker Version 78726225-2d4d-4821-971b-ba9379c1e43c at https://muscleos-access-control.muscleos.workers.dev (live-verified below); Pages deploys via playbook below.
@@ -96,3 +96,27 @@
 2. Root repo: git add the 8 tool copies + website/worker/src/index.js + new test files (f8b_auth_worker_test.mjs, f10_google_auth_test.js, f10b_tdee_auth_test.js) + .opencode/session-state.md -> commit -> rebase onto origin/muscle-os-bot? NO: push origin master directly (branch name is master, remote muscle-os-bot tracks origin/master); then worktrees public/main + public/master: copy tools -> commit -> push HEAD:main / HEAD:master
 3. Worker: npx wrangler deploy from website/worker (top-level env), verify version id, live-verify endpoints, delete test keys
 4. Verify live Pages with cache-buster query (googleSignInBtn / authStep1 / authStep2 / subSignOut present)
+---
+# Session State — Superset antagonist pairing — COMPLETE
+
+## Status: Superset mode now pairs OPPOSITE (antagonist) muscle groups. Deployed to origin + public main/master. Live-verified on Pages.
+
+## What changed (tools/training_tool.html only, no worker changes)
+- New pairing engine before renderDay: SS_ANTAGONIST (chest<->back, biceps<->triceps, quads<->hamstrings, glutes->hamstrings), SS_POOL_ORDER, poolOf(ex) (registry name -> custom f -> ex.p), shoulderKind(ex) (rear delt vs front/mid via /rear|face pull|reverse pec|bent-over|wide row/i), ssCanPair(a,b) (shoulder+shoulder only if opposite kinds), buildAntagonistPairs(exs) (greedy first-available partner by SS_POOL_ORDER; leftovers same-pool pair, else singles; returns [{e,i}] preserving ORIGINAL day.ex indexes)
+- renderDay superset branch: buildAntagonistPairs(day.ex).forEach — pairs render via buildSupersetExCard(pair[0].e, pair[1].e, pair[0].i, pair[1].i, di, day), singles via buildNormalExCard(e, i, di, day). Index preservation critical: swapEx + data-eid depend on original indexes.
+- Test hooks: window.__ssBuildPairs, window.__ssPoolOf
+- Example (fullbody_3 Session A): (Barbell Squat, Leg Curl), (Bench Press, Barbell Row); Lateral Raise + Triceps Pushdown = singles (no partner)
+- 3 sample splits have no antagonist partners for some exercises (e.g. Triceps Pushdown without biceps in same day) -> those render as normal cards — expected
+
+## Tests
+- f11_antagonist_superset_test.js (NEW, 18/18): unit engine checks (chest+back, legs+arms, shoulder rear/front, same-pool leftovers, cross-muscle singles, custom ex never pairs, poolOf); full bootstrap -> toggle superset -> 2 ss cards + 2 normal on fullbody day 1; every pair antagonist (chest+back present, quads+hamstrings present); singles = shoulders+triceps; A/B logging eids; toggle off restores 6 normal cards; no console errors
+- f5_superset_test.js updated (21/21): expected pair count now from __ssBuildPairs on actual program; DOM eid check against rendered pair names; ex-name DOM text includes trailing ▶ (video link) — clean must strip it
+- Regression: F1 7/7, F6 pools 26/26, F6 session timer 20/20, F7 20/20, F8 20/20, F9 16/16; bracecheck2 1501/1501; check_parse OK
+- Test fixture gotchas: unit-test exercise names MUST exist in EXERCISE_POOLS (registry names: 'Incline Chest Press' NOT 'Incline Press'); ex-name text in DOM has trailing ▶
+
+## Deployed
+- root master 39a11c9 pushed origin muscle-os-bot (487c63c..39a11c9)
+- public main 6ff1c20 (14df3e5..6ff1c20), public master 5d70d8d (20ecf0b..5d70d8d)
+- **GOTCHA (cost one extra deploy cycle)**: the public repo mirrors the root repo — it has BOTH root-level copies (tools/, training bundle/) AND website/-prefixed copies. The Pages workflow (.github/workflows/deploy-website.yml) filters on `website/**` and uploads artifact path `website` — so ONLY the `website/` copies are deployed. First worktree commit updated only root-level copies -> no workflow run. Fixed with follow-up commits 6e1e631 (main) + 514c264 (master) syncing website/tools/ + website/training bundle/ -> run 30696939950 succeeded -> live-verified SS_ANTAGONIST + buildAntagonistPairs(day.ex) at https://anas-xi.github.io/muscle-os-website/tools/training_tool.html?v=ss5
+- **Rule going forward**: in the PUBLIC repo worktrees always update 4 copies per tool (tools/, website/tools/, training bundle/, website/training bundle/) — same as root repo; the website/ copies are what actually ships to Pages.
+- Worktrees: wt-main (checked out main) + wt-master (local alias pub-master for public/master, push 'HEAD:master') — both removed, pub-master alias deleted
