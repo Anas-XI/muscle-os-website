@@ -31,22 +31,6 @@
   --accent-line:rgba(244,201,59,.35);
   --overlay:rgba(0,0,0,.7);
 }
-html[data-theme="light"]{
-  --bg:#F2F3F5;
-  --card:#FFFFFF;
-  --card2:#E9EBEE;
-  --text:#14151A;
-  --text-soft:rgba(20,21,26,.7);
-  --text-dim:rgba(20,21,26,.5);
-  --text-muted:rgba(20,21,26,.3);
-  --text-faint:rgba(20,21,26,.15);
-  --line:rgba(20,21,26,.1);
-  --line-strong:rgba(20,21,26,.16);
-  --fill:rgba(20,21,26,.05);
-  --input-bg:#FFFFFF;
-  --input-line:rgba(20,21,26,.15);
-  --overlay:rgba(0,0,0,.45);
-}
 html[data-accent="green"]{--accent:#4CAF50;--accent2:#388E3C;--accent-soft:rgba(76,175,80,.12);--accent-soft2:rgba(76,175,80,.2);--accent-line:rgba(76,175,80,.4)}
 html[data-accent="cyan"]{--accent:#2196F3;--accent2:#1565C0;--accent-soft:rgba(33,150,243,.12);--accent-soft2:rgba(33,150,243,.2);--accent-line:rgba(33,150,243,.4)}
 html[data-accent="purple"]{--accent:#9C27B0;--accent2:#6A1B9A;--accent-soft:rgba(156,39,176,.14);--accent-soft2:rgba(156,39,176,.24);--accent-line:rgba(156,39,176,.4)}
@@ -77,9 +61,6 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .lang-toggle{display:flex;background:var(--input-bg);border-radius:6px;padding:2px;border:1px solid var(--line);margin-left:10px}
 .lang-opt{padding:3px 8px;font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;cursor:pointer;border-radius:4px;color:var(--text-dim);transition:all .2s;font-family:'Inter',sans-serif;user-select:none}
   .lang-opt.active{background:var(--accent);color:var(--bg)}
-  .theme-wrap{display:flex;align-items:center;gap:6px;margin-left:6px}
-  .theme-toggle{background:var(--input-bg);border:1px solid var(--line);border-radius:6px;color:var(--text);font-size:.7rem;padding:4px 8px;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;line-height:1}
-  .theme-toggle:hover{border-color:var(--accent-line);color:var(--accent)}
   .acc-picker{display:flex;gap:3px;background:var(--input-bg);border:1px solid var(--line);border-radius:6px;padding:3px}
   .acc-swatch{width:12px;height:12px;border-radius:50%;cursor:pointer;opacity:.45;transition:all .2s;border:1px solid transparent;box-sizing:border-box}
   .acc-swatch:hover{opacity:.9;transform:scale(1.15)}
@@ -90,7 +71,6 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 html[dir="rtl"]{direction:rtl}
 html[dir="rtl"] select{background-position:left 11px center;padding-right:10px;padding-left:32px}
   html[dir="rtl"] .lang-toggle{margin-left:0;margin-right:10px}
-  html[dir="rtl"] .theme-wrap{margin-left:0;margin-right:6px}
 html[dir="rtl"] .step .num{margin-right:0;margin-left:3px}
 html[dir="rtl"] .btn-group{flex-direction:row-reverse}
 html[dir="rtl"] .form-row{direction:rtl}
@@ -609,14 +589,11 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
         <span class="lang-opt active" data-lang="en">EN</span>
         <span class="lang-opt" data-lang="ar">AR</span>
       </div>
-      <div class="theme-wrap no-print">
-        <div class="acc-picker" id="accPicker">
-          <span class="acc-swatch" data-acc="yellow" style="background:#F4C93B"></span>
-          <span class="acc-swatch" data-acc="green" style="background:#4CAF50"></span>
-          <span class="acc-swatch" data-acc="cyan" style="background:#2196F3"></span>
-          <span class="acc-swatch" data-acc="purple" style="background:#9C27B0"></span>
-        </div>
-        <button class="theme-toggle" id="themeBtn">🌙</button>
+      <div class="acc-picker no-print" id="accPicker">
+        <span class="acc-swatch" data-acc="yellow" style="background:#F4C93B"></span>
+        <span class="acc-swatch" data-acc="green" style="background:#4CAF50"></span>
+        <span class="acc-swatch" data-acc="cyan" style="background:#2196F3"></span>
+        <span class="acc-swatch" data-acc="purple" style="background:#9C27B0"></span>
       </div>
       <button class="install-btn no-print" id="installBtn" style="display:none">📲</button>
       <div class="sync-toggle" id="syncBtn" onclick="showSync()" data-i18n="sync_title">☁️</div>
@@ -1084,7 +1061,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       saved_session:'Saved Session Found',
       resume:'Resume Training', start_fresh:'Start Fresh',
       back:'Back', generate:'Build My Program', confirm_gen:'Lock In My Program',
-      theme_dark:'🌙 Dark mode', theme_light:'☀️ Light mode', accent:'Accent color', install_app:'Install app',
+      accent:'Accent color', install_app:'Install app',
       save_start:'Save & Start Training',
       vol_targets:'Volume Targets', weekly_sets:'weekly sets',
       sessions:'sessions', exercises:'exercises',
@@ -1390,7 +1367,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       saved_session:'لقينا جلسة محفوظة',
       resume:'اكمل التمرين', start_fresh:'ابدا من أول وجديد',
       back:'رجوع', generate:'ابنِ برنامجي', confirm_gen:'أكّد برنامجي',
-      theme_dark:'🌙 الوضع الداكن', theme_light:'☀️ الوضع الفاتح', accent:'لون التمييز', install_app:'ثبّت التطبيق',
+      accent:'لون التمييز', install_app:'ثبّت التطبيق',
       save_start:'احفظ وابدأ التمرين',
       vol_targets:'أهداف الحجم', weekly_sets:'مجموعة أسبوعية',
       sessions:'جلسات', exercises:'تمارين',
@@ -1691,13 +1668,6 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
     document.querySelector('.lang-opt[data-lang="'+window.__lang+'"]')&&document.querySelector('.lang-opt[data-lang="'+window.__lang+'"]').classList.add('active');
   }
   window.toggleLang=toggleLang;
-  function applyTheme(theme){
-    document.documentElement.setAttribute('data-theme',theme);
-    localStorage.setItem('mos_theme',theme);
-    var btn=document.getElementById('themeBtn');
-    if(btn){btn.textContent=theme==='dark'?'🌙':'☀️';btn.title=_('theme_'+theme);}
-  }
-  window.applyTheme=applyTheme;
   function applyAccent(acc){
     acc=acc||'yellow';
     if(acc!=='yellow')document.documentElement.setAttribute('data-accent',acc);
@@ -1708,16 +1678,11 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
   }
   window.applyAccent=applyAccent;
   function initTheme(){
-    var saved=localStorage.getItem('mos_theme');
-    var theme=saved||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
-    applyTheme(theme);
+    document.documentElement.setAttribute('data-theme','dark');
+    localStorage.setItem('mos_theme','dark');
     applyAccent(localStorage.getItem('mos_accent')||'yellow');
     var sws=document.querySelectorAll('.acc-swatch');
     for(var i=0;i<sws.length;i++)sws[i].addEventListener('click',function(){applyAccent(this.dataset.acc);});
-    var tbtn=document.getElementById('themeBtn');
-    if(tbtn)tbtn.addEventListener('click',function(){
-      applyTheme(document.documentElement.getAttribute('data-theme')==='light'?'dark':'light');
-    });
   }
   window.initTheme=initTheme;
   var deferredPrompt=null;
@@ -1750,8 +1715,6 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
     document.querySelectorAll('[data-i18n]').forEach(function(el){el.textContent=_(el.dataset.i18n);});
     document.querySelectorAll('[data-i18n-ph]').forEach(function(el){el.placeholder=_(el.dataset.i18nPh);});
     document.querySelectorAll('[data-i18n-val]').forEach(function(el){el.value=_(el.dataset.i18nVal);});
-    var tbtn=document.getElementById('themeBtn');
-    if(tbtn){var th=document.documentElement.getAttribute('data-theme')||'dark';tbtn.title=_('theme_'+th);}
     var ap=document.getElementById('accPicker');
     if(ap)ap.title=_('accent');
     var ibtn=document.getElementById('installBtn');
