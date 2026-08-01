@@ -463,6 +463,8 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid var(-
 .esr-lbl .ex-vid-link{font-size:.6rem}
 .ex-sel-chip:hover{border-color:var(--line-strong);color:var(--text)}
 .ex-sel-chip.selected{background:var(--accent-soft);border-color:var(--accent);color:var(--text);font-weight:600}
+.ex-sel-chip.pref-top{border-color:var(--accent);color:var(--accent)}
+.ex-sel-chip .pref-star{font-size:.45rem;margin-right:1px}
 .ex-sel-chip.equip-tag{font-size:.4rem;background:rgba(33,150,243,.08);color:#2196F3;border-color:rgba(33,150,243,.12);padding:1px 4px;margin-left:2px;text-transform:uppercase;letter-spacing:.5px}
 .ex-sel-more{padding:2px 6px;border-radius:3px;border:1px dashed var(--line-strong);font-size:.45rem;cursor:pointer;font-family:'Inter',sans-serif;background:transparent;color:var(--text-muted)}
 .ex-sel-more:hover{color:var(--accent);border-color:var(--accent)}
@@ -1119,7 +1121,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       missed_title:'Missed: {name} ({days} days ago) — condensed option',missed_condensed_btn:'Do condensed',missed_skip:'Skip',missed_chip:'⚡ Makeup day',
       // Supersets
       superset_on:'Superset ON',superset_off:'Superset',superset_a:'A',superset_b:'B',
-      show_all:'Show all',show_less:'Show fewer',
+      show_all:'Show all',show_less:'Show fewer',pref_fav:'Favorite',
       warmup_tip_bench:'Band pull-aparts + scapular retraction before warm-ups.',
       warmup_tip_deadlift:'Hip CARs + glute bridges. Reset brace each rep.',
       warmup_tip_ohp:'L-Twists + wall slides. Core braced throughout.',
@@ -1428,7 +1430,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       missed_title:'فات: {name} (منذ {days} يوم) — خيار مختصر',missed_condensed_btn:'تمرين مختصر',missed_skip:'تخطي',missed_chip:'⚡ يوم تعويضي',
       // Supersets
       superset_on:'سوبرست مفعل',superset_off:'سوبرست',superset_a:'أ',superset_b:'ب',
-      show_all:'عرض الكل',show_less:'عرض أقل',
+      show_all:'عرض الكل',show_less:'عرض أقل',pref_fav:'المفضل',
       warmup_tip_bench:'تمارين شد الكتف + تراجع اللوح قبل الإحماء.',
       warmup_tip_deadlift:'حركات الحوض + جسور الألوية. شد بطنك في كل تكرار.',
       warmup_tip_ohp:'لفات الجسم + تمارين الحائط. ضم جسمك طوال الوقت.',
@@ -3116,6 +3118,15 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
   //  EXERCISE SELECTION (Screen 2.5)
   // ═══════════════════════════════════════
 
+  var pendingExChoices={};
+  function prefTop(exName){
+    var prefs=ls('mos_pref',{})[exName];
+    if(!prefs)return null;
+    var top=null,topC=0;
+    Object.keys(prefs).forEach(function(n){if(prefs[n]>topC){topC=prefs[n];top=n;}});
+    return topC>0?top:null;
+  }
+
   function showExSelection(k){
     var split=SPLITS[k];if(!split)return;
     var pf=painFlags();
@@ -3140,7 +3151,15 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
         var list=pool.slice();
         if(list.indexOf(ex.n)<0)list.unshift(ex.n);
         var saved=ls('mos_ex_choices',{});
-        var chosen=saved[ex.n]||ex.n;
+        var prefObj=ls('mos_pref',{})[ex.n]||{};
+        var top=prefTop(ex.n);
+        var chosen=saved[ex.n]||pendingExChoices[ex.n]||top||ex.n;
+        if(list.indexOf(chosen)<0)list.unshift(chosen);
+        var hasPref=false;Object.keys(prefObj).forEach(function(n){if(prefObj[n]>0)hasPref=true;});
+        if(hasPref){
+          list.sort(function(a,b){var ca=prefObj[a]||0,cb=prefObj[b]||0;if(cb!==ca)return cb-ca;return a<b?-1:a>b?1:0;});
+          if(list.indexOf(chosen)>0){list.splice(list.indexOf(chosen),1);list.unshift(chosen);}
+        }
         var safety=isExerciseSafeForInjuries(ex.n,pf0);
         var exClass=pf0&&pf0[ex.n]==='red'?'rehab-ex-blocked':(!safety.ok?'rehab-ex-blocked':(safety.reason&&safety.reason.indexOf('🟡')>=0?'rehab-ex-safe':''));
         html+='<div class="ex-sel-row '+exClass+'" data-muscle="'+ex.p+'">'+
@@ -3148,9 +3167,10 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
         var shown=0,hidden=[];
         list.forEach(function(name){
           var s=isExerciseSafeForInjuries(name,pf0);
-          var chipCls='ex-sel-chip'+(chosen===name?' selected':'')+((!s.ok||(pf0&&pf0[name]==='red'))?' rehab-ex-blocked':'')+(s.reason&&s.reason.indexOf('🟡')>=0?' rehab-ex-safe':'');
+          var isTop=name===top&&top;
+          var chipCls='ex-sel-chip'+(chosen===name?' selected':'')+((!s.ok||(pf0&&pf0[name]==='red'))?' rehab-ex-blocked':'')+(s.reason&&s.reason.indexOf('🟡')>=0?' rehab-ex-safe':'')+(isTop?' pref-top':'');
           var eq=equipTag(name);
-          var chip='<button class="'+chipCls+'" data-ename="'+ex.n+'" data-exval="'+name+'" title="'+name+'">'+name+(eq?'<span class="equip-tag">'+eq+'</span>':'')+'</button>';
+          var chip='<button class="'+chipCls+'" data-ename="'+ex.n+'" data-exval="'+name+'" title="'+name+'">'+(isTop?'<span class="pref-star">★ </span>':'')+name+(eq?'<span class="equip-tag">'+eq+'</span>':'')+'</button>';
           if(shown<6){html+=chip;shown++;}
           else hidden.push(chip);
         });
@@ -3169,9 +3189,24 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
     // Wire chip clicks
     document.querySelectorAll('#exSelContent .ex-sel-chip').forEach(function(chip){
       chip.addEventListener('click',function(){
-        var en=this.dataset.ename;
-        this.closest('.ex-sel-row').querySelectorAll('.ex-sel-chip').forEach(function(c){c.classList.remove('selected');});
+        var en=this.dataset.ename,val=this.dataset.exval;
+        var pref=ls('mos_pref',{});
+        if(!pref[en])pref[en]={};
+        pref[en][val]=(pref[en][val]||0)+1;
+        ss('mos_pref',pref);
+        pendingExChoices[en]=val;
+        var row=this.closest('.ex-sel-row');
+        row.querySelectorAll('.ex-sel-chip').forEach(function(c){c.classList.remove('selected');});
         this.classList.add('selected');
+        var first=row.querySelector('.ex-sel-chip');
+        if(first&&first!==this)row.insertBefore(this,first);
+        var top=prefTop(en);
+        row.querySelectorAll('.ex-sel-chip .pref-star').forEach(function(s){s.remove();});
+        row.querySelectorAll('.ex-sel-chip').forEach(function(c){
+          var isTop=c.dataset.exval===top&&top;
+          c.classList.toggle('pref-top',isTop);
+          if(isTop&&!c.querySelector('.pref-star')){var sp=document.createElement('span');sp.className='pref-star';sp.textContent='★ ';c.insertBefore(sp,c.firstChild);}
+        });
       });
     });
     // Wire Show all / Show fewer expanders
@@ -3195,6 +3230,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       if(selected)choices[en]=selected.dataset.exval;
     });
     ss('mos_ex_choices',choices);
+    pendingExChoices={};
     document.getElementById('exSelPanel').classList.remove('show');
     document.getElementById('splitBtnGroup').style.display='flex';
     document.getElementById('splitGrid').style.display='grid';
@@ -3221,7 +3257,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
     var progDays=split.days.map(function(day){
       if(day.restDay)return{n:day.n,restDay:true,ex:[]};
       var exs=day.ex.map(function(ex){
-        var chosenName=exChoices[ex.n]||ex.n;
+        var chosenName=exChoices[ex.n]||prefTop(ex.n)||ex.n;
         var ws=scales[ex.p]||1,ts=1;ex.se.forEach(function(sec){ws+=(scales[sec]||1)*0.5;ts+=0.5;});
         var scale=ws/ts,ns=Math.max(1,Math.min(MAX,Math.round(ex.s*scale)));
         var rl=goal==='strength'?4:goal==='hypertrophy'?8:6,rh=goal==='strength'?6:goal==='hypertrophy'?12:10;
@@ -4115,6 +4151,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
     if(orig){if(newName===orig)delete choices[orig];else choices[orig]=newName;}
     else if(choices[oldName]===newName)delete choices[oldName];
     ss('mos_ex_choices',choices);
+    if(orig){var pref=ls('mos_pref',{});if(!pref[orig])pref[orig]={};pref[orig][newName]=(pref[orig][newName]||0)+1;ss('mos_pref',pref);}
     var logs=ls(K.LG,{}),td=new Date().toISOString().split('T')[0];
     var oldEid=day.n+'__'+oldName,newEid=day.n+'__'+newName;
     if(logs[td]&&logs[td][oldEid]){logs[td][newEid]=logs[td][oldEid];delete logs[td][oldEid];if(!Object.keys(logs[td]).length)delete logs[td];ss(K.LG,logs);}
@@ -4473,7 +4510,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
   // ═══════════════════════════════════════
 
   document.getElementById('exportBtn').addEventListener('click',function(){
-    var allKeys=Object.values(K).concat(['mos_periodization','mos_week_count','mos_ex_choices']);
+    var allKeys=Object.values(K).concat(['mos_periodization','mos_week_count','mos_ex_choices','mos_pref']);
     var data={};allKeys.forEach(function(k){var v=localStorage.getItem(k);if(v)data[k]=JSON.parse(v);});
     var b=new Blob([JSON.stringify({exported:new Date().toISOString(),ver:4,data:data},null,2)],{type:'application/json'});
     var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='muscle_os_data_'+new Date().toISOString().split('T')[0]+'.json';a.click();
@@ -4481,11 +4518,11 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
   document.getElementById('importBtn').addEventListener('click',function(){document.getElementById('importFile').click()});
   document.getElementById('importFile').addEventListener('change',function(){
     if(!this.files||!this.files[0])return;
-    var r=new FileReader();r.onload=function(e){try{var p=JSON.parse(e.target.result),d=p.data||p;if(!d||typeof d!=='object')throw Error('Invalid');var allKeys=Object.values(K).concat(['mos_periodization','mos_week_count','mos_ex_choices']);var ok=false;allKeys.forEach(function(k){if(d[k]!==undefined){localStorage.setItem(k,JSON.stringify(d[k]));ok=true;}});      if(!ok)throw Error('No recognized data');alert(_('alert_imported'));location.reload();}catch(err){alert('Import failed: '+err.message);}};r.readAsText(this.files[0]);this.value='';
+    var r=new FileReader();r.onload=function(e){try{var p=JSON.parse(e.target.result),d=p.data||p;if(!d||typeof d!=='object')throw Error('Invalid');var allKeys=Object.values(K).concat(['mos_periodization','mos_week_count','mos_ex_choices','mos_pref']);var ok=false;allKeys.forEach(function(k){if(d[k]!==undefined){localStorage.setItem(k,JSON.stringify(d[k]));ok=true;}});      if(!ok)throw Error('No recognized data');alert(_('alert_imported'));location.reload();}catch(err){alert('Import failed: '+err.message);}};r.readAsText(this.files[0]);this.value='';
   });
   document.getElementById('resetBtn').addEventListener('click',function(){
     if(!confirm(_('confirm_reset_all')))return;
-    var allKeys=Object.values(K).concat(['mos_periodization','mos_week_count','mos_ex_choices']);
+    var allKeys=Object.values(K).concat(['mos_periodization','mos_week_count','mos_ex_choices','mos_pref']);
     allKeys.forEach(function(k){localStorage.removeItem(k)});
     go(1);renderPriorities();
   });
@@ -4540,7 +4577,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
     }catch(e){}
   }
   function syncPayload(){
-    var allKeys=Object.values(K).concat(['mos_periodization','mos_week_count','mos_ex_choices']);
+    var allKeys=Object.values(K).concat(['mos_periodization','mos_week_count','mos_ex_choices','mos_pref']);
     var data={};allKeys.forEach(function(k){var v=localStorage.getItem(k);if(v)data[k]=JSON.parse(v);});
     return data;
   }
