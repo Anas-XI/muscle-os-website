@@ -195,3 +195,28 @@
 - workflow run 30701759110 succeeded
 - Live-verified at https://anas-xi.github.io/muscle-os-website/tools/training_tool.html?v=p2 (prefTop, pref-star, hasPref sort, swap bump, i18n en+ar)
 - Worktrees removed, pub-master alias deleted
+
+---
+# Session State - P3 auto prehab insertion - COMPLETE
+
+## Status: Pain-flagged joints get prehab exercises prepended in generated programs. Deployed origin + public main/master, live-verified.
+
+## What changed (tools/training_tool.html)
+- New EXERCISE_META entries (prehab:true, low f, rr 10-20, inc 1): Band Pull-Apart (jr shoulder), Terminal Knee Extension (jr knee), Bird Dog (jr hip+spine), Dead Bug (jr spine); elbow maps to existing Wrist Curl
+- PREHAB_MAP = shoulder→Band Pull-Apart, elbow→Wrist Curl, knee→Terminal Knee Extension, hip→Bird Dog, spine→Dead Bug
+- generateProgram: after building progDays, getInjuredJoints(painFlags()) → for each yellow/red joint in PREHAB_MAP, prepend 1 prehab ex {n, sets:2, rl:12, rh:20, p:'prehab', se:[], orig:null, prehab:true, prehabJoint:j, targetRpe:4} to every non-rest day that uses that joint, unless day already has that joint's prehab; te/ts recompute after insertion
+- Day.ex entries now carry orig (split slot name) — fixes swap-back orig lookup for exercises shifted by prepended prehab; exCtx + swapEx prefer ex.orig, fall back to old SPLITS lookup for legacy programs
+- createMesocycle copies orig/prehab/prehabJoint through to meso exercises
+- exCtx: prehab exs get fixed suggest {w:null, r:15, rpe:4, exp:prehab_reason} (no weight, "Start Training" box, RPE 4); card title gets .prehab-chip with ⚠ prehab_lbl + reason tooltip
+- isExerciseSafeForInjures: prehab meta exs short-circuit ok:true (never blocked by flags)
+- poolOf('prehab' p) → null → prehab cards never superset-paired, render alone first
+- i18n prehab_lbl ('⚠ Prehab' / '⚠ تأهيل'), prehab_reason (en+ar)
+
+## Bugs fixed
+- getInjuredJoints: `if(pf[ex]==='yellow'&&!joints[j])` referenced undefined loop var j → ReferenceError whenever any yellow pain flag existed (latent bug, predates P3; now iterates jrs like the red branch)
+
+## Tests
+- f15_prehab_test.js (NEW, 17/17): baseline no-prehab, shoulder yellow → Band Pull-Apart prepended first with prehab:true/prehabJoint/sets 2/targetRpe 4, exactly one per shoulder-using day, no wrong prehab exs, chip + reason on rendered card, red flag → prehab still prepended + flagged card still rehab-blocked (⛔ danger), clearing flags removes prehab and restores original first ex
+- GOTCHA: seeding Bench Press yellow flags BOTH shoulder AND elbow (Bench Press jr = shoulder+elbow) → Wrist Curl also prepended — correct per spec, use shoulder-only exercise (Lateral Raise) for clean assertions
+- GOTCHA: regenerate from step3 uses #backToSplitBtn; from step4 uses #changeSplitBtn (test helper handles both)
+- Regression green: F5 21/21, F6 26/26, F7 25/25, F8 20/20, F11 18/18, F12 11/11, F13 13/13, F14 12/12; bracecheck2 1537/1537; check_parse OK
