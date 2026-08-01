@@ -120,3 +120,25 @@
 - **GOTCHA (cost one extra deploy cycle)**: the public repo mirrors the root repo — it has BOTH root-level copies (tools/, training bundle/) AND website/-prefixed copies. The Pages workflow (.github/workflows/deploy-website.yml) filters on `website/**` and uploads artifact path `website` — so ONLY the `website/` copies are deployed. First worktree commit updated only root-level copies -> no workflow run. Fixed with follow-up commits 6e1e631 (main) + 514c264 (master) syncing website/tools/ + website/training bundle/ -> run 30696939950 succeeded -> live-verified SS_ANTAGONIST + buildAntagonistPairs(day.ex) at https://anas-xi.github.io/muscle-os-website/tools/training_tool.html?v=ss5
 - **Rule going forward**: in the PUBLIC repo worktrees always update 4 copies per tool (tools/, website/tools/, training bundle/, website/training bundle/) — same as root repo; the website/ copies are what actually ships to Pages.
 - Worktrees: wt-main (checked out main) + wt-master (local alias pub-master for public/master, push 'HEAD:master') — both removed, pub-master alias deleted
+---
+# Session State — Dark-only theme — COMPLETE
+
+## Status: Light theme removed from training tool; dark-only. Deployed origin + public main/master, live-verified.
+
+## What changed (tools/training_tool.html only — TDEE tool has NO theme system, already dark-only)
+- Removed html[data-theme="light"] CSS block (dark :root vars are now the only theme)
+- Removed #themeBtn toggle button + .theme-wrap/.theme-toggle CSS + RTL rule; acc-picker (accent colors) stays as direct header child — accent system untouched
+- JS: applyTheme removed; initTheme forces data-theme='dark' + persists mos_theme='dark' (ignores saved 'light' AND prefers-color-scheme); translateUI themeBtn title block removed
+- i18n keys theme_dark/theme_light removed (en + ar); remaining references: only initTheme's setAttribute + localStorage write (intentional)
+- Old users with mos_theme='light' saved get forced dark on load
+
+## Tests
+- f12_dark_only_theme_test.js (NEW, 11/11): no #themeBtn/.theme-wrap/.theme-toggle; data-theme=dark + mos_theme=dark even with saved 'light'; body bg #14151A / text #FAFAF8; acc-picker present with 4 swatches; accent switch works (green) + resets (yellow); no console errors
+- Regression green: F5 21/21, F11 18/18, F8 20/20, F7 session timer 20/20, F10 google auth 29/29; bracecheck2 1497/1497; check_parse OK
+
+## Deployed
+- root master 168a02f pushed origin muscle-os-bot (e24c132..168a02f)
+- public main b314230 (6e1e631..b314230), public master a70d831 (514c264..a70d831)
+- Applied the 4-copies rule (tools/, website/tools/, training bundle/, website/training bundle/) in BOTH worktrees — workflow run 30697207095 succeeded
+- Live-verified: no themeBtn, no data-theme="light" CSS, initTheme dark forced at https://anas-xi.github.io/muscle-os-website/tools/training_tool.html?v=dark1
+- Worktrees removed, pub-master alias deleted
