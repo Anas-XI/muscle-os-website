@@ -3941,6 +3941,59 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       '</div>';
   }
 
+  // ── Antagonist superset pairing (opposite muscle groups) ──
+  var SS_ANTAGONIST={
+    chest:'back',back:'chest',
+    biceps:'triceps',triceps:'biceps',
+    quads:'hamstrings',hamstrings:'quads',
+    glutes:'hamstrings'
+  };
+  var SS_POOL_ORDER=['chest','back','shoulders','quads','hamstrings','glutes','biceps','triceps','calves','traps','forearms','abs'];
+  function poolOf(ex){
+    for(var i=0;i<SS_POOL_ORDER.length;i++){
+      if(EXERCISE_POOLS[SS_POOL_ORDER[i]].indexOf(ex.n)>=0)return SS_POOL_ORDER[i];
+    }
+    var ce=ls(K.CE,[]);
+    for(var j=0;j<ce.length;j++){if(ce[j].name===ex.n&&ce[j].f&&EXERCISE_POOLS[ce[j].f])return ce[j].f;}
+    var p=ex.p||ex.f;
+    if(p&&EXERCISE_POOLS[p])return p;
+    return null;
+  }
+  function shoulderKind(ex){
+    return /rear|face pull|reverse pec|bent-over|wide row/i.test(ex)?'rear':'frontmid';
+  }
+  function ssCanPair(a,b){
+    var pa=poolOf(a),pb=poolOf(b);
+    if(!pa||!pb)return false;
+    if(pa==='shoulders'&&pb==='shoulders')return shoulderKind(a.n)!==shoulderKind(b.n);
+    return SS_ANTAGONIST[pa]===pb;
+  }
+  function buildAntagonistPairs(exs){
+    var used=[],i;
+    for(i=0;i<exs.length;i++)used.push(false);
+    var pairs=[];
+    for(i=0;i<exs.length;i++){
+      if(used[i])continue;
+      var j2=-1;
+      for(var j=i+1;j<exs.length;j++){
+        if(!used[j]&&ssCanPair(exs[i],exs[j])){j2=j;break;}
+      }
+      if(j2>=0){pairs.push([{e:exs[i],i:i},{e:exs[j2],i:j2}]);used[i]=used[j2]=true;}
+    }
+    var rest=[];
+    for(var k=0;k<exs.length;k++)if(!used[k])rest.push({e:exs[k],i:k});
+    var r=0;
+    while(r<rest.length){
+      var a=rest[r++],b=rest[r++];
+      if(b&&poolOf(a.e)&&poolOf(a.e)===poolOf(b.e))pairs.push([a,b]);
+      else if(b){pairs.push([a]);pairs.push([b]);}
+      else pairs.push([a]);
+    }
+    return pairs;
+  }
+  window.__ssBuildPairs=buildAntagonistPairs;
+  window.__ssPoolOf=poolOf;
+
   function renderDay(di){
     var prog=ls(K.PG,null);if(!prog||!prog.days[di])return;
     var day=prog.days[di],goal=(ls(K.VI,{})).goal||'hypertrophy',age=(ls(K.VI,{})).ta||'intermediate';
@@ -3965,11 +4018,10 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
 
     var ssOn=!!ls(K.SU,{})[di];
     if(ssOn){
-      for(var pk=0;pk<day.ex.length;pk+=2){
-        var exA=day.ex[pk],exB=day.ex[pk+1];
-        if(!exB){html+=buildNormalExCard(exA,pk,di,day);continue;}
-        html+=buildSupersetExCard(exA,exB,pk,pk+1,di,day);
-      }
+      buildAntagonistPairs(day.ex).forEach(function(pair){
+        if(pair.length===2)html+=buildSupersetExCard(pair[0].e,pair[1].e,pair[0].i,pair[1].i,di,day);
+        else html+=buildNormalExCard(pair[0].e,pair[0].i,di,day);
+      });
     }else{
       day.ex.forEach(function(ex,ei){html+=buildNormalExCard(ex,ei,di,day);});
     }
