@@ -246,6 +246,15 @@ select option{background:#1E1E2A;color:var(--text)}
 .summary-val{font-family:'JetBrains Mono',monospace;font-size:1.2rem;font-weight:700;color:var(--accent);line-height:1.1}
 .summary-lbl{font-size:.45rem;text-transform:uppercase;letter-spacing:1.2px;color:var(--text-muted);font-weight:600;margin-top:2px}
 .deload-bar{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--accent-soft);border:1px solid var(--accent-soft);border-radius:8px;margin-bottom:10px;gap:6px;flex-wrap:wrap}
+.session-chip{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 10px;background:rgba(250,250,248,.02);border:1px solid rgba(250,250,248,.06);border-radius:8px;margin-bottom:10px}
+.session-chip.running{border-color:rgba(244,201,59,.35);background:rgba(244,201,59,.06)}
+.session-chip .st-display{font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;color:var(--accent);letter-spacing:1px}
+.session-chip .st-toggle{background:var(--accent);color:#0A0A0F;border:none;border-radius:6px;padding:4px 12px;font-size:.6rem;font-weight:700;cursor:pointer}
+.session-chip.running .st-toggle{background:#f44336;color:#fff}
+.notif-row{display:flex;margin-bottom:10px}
+.notif-toggle{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:rgba(250,250,248,.02);border:1px solid rgba(250,250,248,.06);border-radius:8px;color:rgba(250,250,248,.35);font-size:.55rem;cursor:pointer;transition:all .15s}
+.notif-toggle.on{border-color:rgba(244,201,59,.35);background:rgba(244,201,59,.06);color:var(--accent)}
+html[dir="rtl"] .session-chip .st-display{direction:ltr;unicode-bidi:embed}
 .deload-bar .db-lbl{font-size:.55rem;color:var(--text-muted);font-weight:500;text-transform:uppercase;letter-spacing:.4px}
 .deload-bar .db-val{font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:700;color:var(--accent)}
 .deload-bar .db-warn{font-size:.5rem;color:#FF9800;font-weight:600;text-transform:uppercase}
@@ -764,6 +773,18 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
     <div class="card">
       <div class="section-header" id="dashHeader" data-i18n="today_train">Today's Training</div>
 
+      <div id="sessionTimerChip" class="session-chip">
+        <span class="st-display" id="sessionTimerDisplay">00:00:00</span>
+        <button class="st-toggle" id="sessionTimerToggle" data-i18n="session_start">Start</button>
+      </div>
+
+      <div class="notif-row">
+        <button id="notifToggle" class="notif-toggle" onclick="toggleNotif()">
+          <span id="notifToggleIcon">🔔</span>
+          <span id="notifToggleLabel">Training reminders off</span>
+        </button>
+      </div>
+
       <div id="weekRow" class="week-row"></div>
 
       <div id="dashProfile" class="recap-box" style="display:none"></div>
@@ -893,6 +914,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       <div class="btn-group">
         <button class="btn-primary" id="changeSplitBtn" style="background:transparent;border:1.5px solid rgba(250,250,248,.08);color:rgba(250,250,248,.35);font-size:.65rem;padding:8px 0;flex:.5" data-i18n="change_split">Change Split</button>
         <button class="btn-primary" id="savePdfBtn" style="background:rgba(244,201,59,.06);border:1px solid rgba(244,201,59,.15);color:#F4C93B;font-size:.65rem;padding:8px 0;flex:.5" data-i18n="save_pdf">Save PDF</button>
+        <button class="btn-primary" id="exportIcsBtn" style="background:rgba(33,150,243,.06);border:1px solid rgba(33,150,243,.12);color:#2196F3;font-size:.65rem;padding:8px 0;flex:.5" data-i18n="export_cal">Export Calendar</button>
         <button class="btn-primary" id="goToHistBtn" style="font-size:.65rem;padding:8px 0;flex:.5" data-i18n="history">History &amp; Stats</button>
       </div>
       <div class="btn-group" style="margin-top:6px">
@@ -910,6 +932,11 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       <div class="section-header"><span data-i18n="track_progress">Volume Dashboard</span> <span class="section-sub" id="histWeekLabel"></span></div>
       <p style="font-size:.55rem;color:rgba(250,250,248,.18);margin-bottom:6px;line-height:1.2">Logged sets this week (yellow bar) vs MEV–MAV–MRV (green to red).</p>
       <div id="histVolBars"></div>
+    </div>
+    <div class="card">
+      <div class="section-header" id="histSessionsHeader"></div>
+      <div id="histSessions" style="font-size:.55rem;color:rgba(250,250,248,.35);padding:6px 0;line-height:1.4">—</div>
+      <div id="histSessionsBars" style="display:flex;align-items:flex-end;gap:3px;height:48px;margin-top:4px"></div>
     </div>
     <div class="card">
       <div class="section-header" data-i18n="track_progress">e1RM Progression <span class="section-sub">— last 8 sessions</span></div>
@@ -1064,6 +1091,9 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       history:'History & Stats', export:'Export', import:'Import', reset:'Reset All',
       deload_hist:'Deload History', pr_table:'Personal Records',
       save_pdf:'Save PDF',
+      export_cal:'Export Calendar',
+      session_timer:'Session timer', session_start:'Start', session_stop:'Stop', session_len:'avg session', sets_per_hour:'sets/hour',
+      notif_on:'Training reminders on', notif_off:'Training reminders off', notif_title:'Training Day', notif_body:'Push is on deck', notif_denied:'Notifications are blocked — allow them in your browser settings.',
       track_progress:'Track Progress',
       back_to_setup:'Back to Setup', back_to_split:'Back to Split', share_program:'📤 Share Program', share_copied:'Program text copied — share it anywhere!',
       rec_split_recommended:'Recommended', quiz_summary:'Quiz Summary',
@@ -1162,7 +1192,8 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       sync_success:'Data synced successfully!',sync_fail:'Sync failed. Try again.',
       sync_confirm_upload:'Upload your training data to the cloud? This will overwrite any previously saved data.',
       sync_confirm_download:'Download training data from the cloud? This will overwrite your local data.',
-      sync_desc:'Enter or create a sync key to transfer your training data between devices.',
+      sync_desc:'Enter or create a sync ID to transfer your training data between devices.',
+      sync_push:'Push',sync_pull:'Pull',sync_done:'Synced',sync_last:'Last synced',sync_pw:'Passphrase',sync_pw_ph:'optional',
       ce_title:'Custom Exercise',ce_desc:'Add an exercise not in our database.',ce_type:'Type',
       ce_focus:'Focus',ce_inc:'Increment',ce_minrep:'Min Reps',ce_maxrep:'Max Reps',
       ce_save:'Save Exercise',ce_none:'No custom exercises yet.',ce_add_custom:'+ Custom Exercise',
@@ -1354,6 +1385,9 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       history:'السجل والإحصائيات', export:'تصدير', import:'استيراد', reset:'مسح الكل',
       deload_hist:'تاريخ التفريغ', pr_table:'الأرقام القياسية',
       save_pdf:'حفظ PDF',
+      export_cal:'تصدير التقويم',
+      session_timer:'مؤقت الجلسة', session_start:'بدء', session_stop:'إيقاف', session_len:'متوسط الجلسة', sets_per_hour:'مجموعات/ساعة',
+      notif_on:'تذكيرات التمرين مفعلة', notif_off:'تذكيرات التمرين متوقفة', notif_title:'يوم تمرين', notif_body:'تمرين الدفع على الأبواب', notif_denied:'الإشعارات محظورة — اسمح بها من إعدادات المتصفح.',
       track_progress:'تتبع التقدم',
       back_to_setup:'رجوع للإعدادات', back_to_split:'رجوع للتقسيم', share_program:'📤 شارك البرنامج', share_copied:'اتنسخ نص البرنامج — شاركه في أي مكان!',
       rec_split_recommended:'مقترح', quiz_summary:'ملخص الاختبار',
@@ -1452,7 +1486,8 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       sync_success:'تمت المزامنة بنجاح!',sync_fail:'المزامنة فشلت. حاول تاني.',
       sync_confirm_upload:'رفع بيانات التمرين للسحابة؟ هتستبدل أي بيانات محفوظة قبل كده.',
       sync_confirm_download:'تنزيل بيانات التمرين من السحابة؟ هتستبدل بياناتك المحلية.',
-      sync_desc:'اكتب مفتاح مزامنة عشان تنقل بيانات التمرين بين الأجهزة.',
+      sync_desc:'اكتب معرف مزامنة عشان تنقل بيانات التمرين بين الأجهزة.',
+      sync_push:'رفع',sync_pull:'سحب',sync_done:'تمت المزامنة',sync_last:'آخر مزامنة',sync_pw:'كلمة المرور',sync_pw_ph:'اختياري',
       ce_title:'تمرين مخصوص',ce_desc:'إضافة تمرين مش موجود في قاعدة البيانات.',ce_type:'النوع',
       ce_focus:'التركيز',ce_inc:'الزيادة',ce_minrep:'أقل تكرار',ce_maxrep:'أقصى تكرار',
       ce_save:'حفظ التمرين',ce_none:'مفيش تمارين مخصوصة لسه.',ce_add_custom:'+ تمرين مخصوص',
@@ -2119,7 +2154,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
     {id:'hole',l:'Bottom of Squat (the hole)'},{id:'midpoint',l:'Mid-Point Sticking'},
     {id:'legs',l:'Leg Strength / Mass'},{id:'back',l:'Back Strength / Thickness'}
   ];
-  const K = {VT:'mos_vol_targets',SP:'mos_split_profile',PG:'mos_program',LG:'mos_logs',VI:'mos_vol_inputs',LH:'mos_load_history',DT:'mos_deload_tracker',PF:'mos_pain_flags',PL:'mos_pl_profile',FL:'mos_fatigue_log',CL:'mos_cardio_logs',MP:'mos_meso_plan',MA:'mos_meso_active',MH:'mos_meso_history',MM:'mos_measurements',CE:'mos_custom_exercises',CR:'mos_custom_replacements',SU:'mos_supersets'};
+  const K = {VT:'mos_vol_targets',SP:'mos_split_profile',PG:'mos_program',LG:'mos_logs',VI:'mos_vol_inputs',LH:'mos_load_history',DT:'mos_deload_tracker',PF:'mos_pain_flags',PL:'mos_pl_profile',FL:'mos_fatigue_log',CL:'mos_cardio_logs',MP:'mos_meso_plan',MA:'mos_meso_active',MH:'mos_meso_history',MM:'mos_measurements',CE:'mos_custom_exercises',CR:'mos_custom_replacements',SU:'mos_supersets',SS:'mos_sessions'};
 
   // ── Weak Points Grid ──
   function renderWeakPoints(){
@@ -3374,6 +3409,123 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
     if(lbl)lbl.textContent=on?_('superset_on'):_('superset_off');
   }
 
+  // ── Session timer + pace (F6) ──
+  var SESSION_TIMER={running:false,startTs:0,elapsed:0,tick:null};
+  function fmtClock(sec){var h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),s=Math.floor(sec%60);return (h<10?'0':'')+h+':'+(m<10?'0':'')+m+':'+(s<10?'0':'')+s;}
+  function sessSetCount(){
+    var t=new Date().toISOString().split('T')[0],logs=ls(K.LG,{})[t]||{},n=0;
+    Object.keys(logs).forEach(function(eid){logs[eid].sets.forEach(function(x){if(x&&!x.wu&&parseFloat(x.weight||x.w)>0)n++;});});
+    return n;
+  }
+  function sessionTimerToggle(){
+    var disp=document.getElementById('sessionTimerDisplay'),btn=document.getElementById('sessionTimerToggle'),chip=document.getElementById('sessionTimerChip');
+    if(!SESSION_TIMER.running){
+      SESSION_TIMER.running=true;SESSION_TIMER.startTs=Date.now();SESSION_TIMER.elapsed=0;
+      disp.textContent='00:00:00';
+      SESSION_TIMER.tick=setInterval(function(){if(step===4)disp.textContent=fmtClock(SESSION_TIMER.elapsed+Math.floor((Date.now()-SESSION_TIMER.startTs)/1000));},1000);
+      btn.textContent=_('session_stop');chip.classList.add('running');
+    }else{
+      SESSION_TIMER.elapsed+=Math.floor((Date.now()-SESSION_TIMER.startTs)/1000);
+      clearInterval(SESSION_TIMER.tick);SESSION_TIMER.tick=null;SESSION_TIMER.running=false;
+      var rec={date:new Date().toISOString().split('T')[0],durationSec:SESSION_TIMER.elapsed,sets:sessSetCount()};
+      var all=ls(K.SS,[]);all.push(rec);if(all.length>200)all=all.slice(-200);ss(K.SS,all);
+      btn.textContent=_('session_start');chip.classList.remove('running');
+    }
+  }
+  (function(){var stBtn=document.getElementById('sessionTimerToggle');if(stBtn)stBtn.addEventListener('click',sessionTimerToggle);})();
+
+  // ── Training-day notifications (F8) ──
+  function todayIsTrainingDay(){
+    var prog=ls(K.PG,null);if(!prog||!prog.days)return false;
+    var logs=ls(K.LG,{}),today=new Date().toISOString().split('T')[0];
+    var trainDays=[];prog.days.forEach(function(d,i){if(!d.restDay)trainDays.push(i);});
+    if(!trainDays.length)return false;
+    var lastDone={idx:-1,date:null};
+    trainDays.forEach(function(di){
+      var d=dayLoggedDate(prog.days[di].n,logs);
+      if(d&&(!lastDone.date||d>lastDone.date))lastDone={idx:di,date:d};
+    });
+    if(!lastDone.date)return true;
+    if(lastDone.date===today)return false;
+    var pos=trainDays.indexOf(lastDone.idx);
+    var expIdx=trainDays[(pos+1)%trainDays.length];
+    return dayLoggedDate(prog.days[expIdx].n,logs)!==today;
+  }
+  function updateNotifToggle(){
+    var lbl=document.getElementById('notifToggleLabel'),btn=document.getElementById('notifToggle');
+    var on=!!ls('mos_notif_on',false);
+    if(lbl)lbl.textContent=on?_('notif_on'):_('notif_off');
+    if(btn)btn.classList.toggle('on',on);
+  }
+  function toggleNotif(){
+    var on=!!ls('mos_notif_on',false);
+    if(on){ss('mos_notif_on',false);}
+    else{
+      if(!('Notification' in window)){alert(_('notif_denied'));return;}
+      if(Notification.permission==='default'){
+        Notification.requestPermission().then(function(p){
+          if(p==='granted'){ss('mos_notif_on',true);updateNotifToggle();checkNotif();}
+          else alert(_('notif_denied'));
+        });
+        return;
+      }
+      if(Notification.permission==='granted'){ss('mos_notif_on',true);}
+      else{alert(_('notif_denied'));return;}
+    }
+    updateNotifToggle();
+    checkNotif();
+  }
+  function checkNotif(){
+    try{
+      if(!ls('mos_notif_on',false))return;
+      if(!('Notification' in window)||Notification.permission!=='granted')return;
+      if(!todayIsTrainingDay())return;
+      var h=new Date().getHours(),th=parseInt(ls('mos_notif_hour','17'),10);
+      if(h<th)return;
+      var today=new Date().toISOString().split('T')[0];
+      if(ls('mos_notif_last','')===today)return;
+      try{new Notification(_('notif_title'),{body:_('notif_body'),icon:'icons/icon-192.png'});}catch(e){}
+      ss('mos_notif_last',today);
+    }catch(e){}
+  }
+  window.__notifCheck=checkNotif;window.toggleNotif=toggleNotif;window.updateNotifToggle=updateNotifToggle;
+  setInterval(checkNotif,60000);
+
+  // ── ICS calendar export (F9) ──
+  function icsFmt(d){
+    var p=function(x){return ('0'+x).slice(-2);};
+    return ''+d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'T'+p(d.getHours())+p(d.getMinutes())+'00';
+  }
+  function exportIcs(){
+    var prog=ls(K.PG,null);if(!prog||!prog.days){alert(_('sync_fail'));return;}
+    var today=new Date();today.setHours(17,0,0,0);
+    var lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Muscle OS//Training Tool//EN','CALSCALE:GREGORIAN','METHOD:PUBLISH'];
+    var uid=Date.now();
+    prog.days.forEach(function(day,i){
+      if(day.restDay)return;
+      var start=new Date(today);start.setDate(today.getDate()+i);
+      var end=new Date(start.getTime()+3600000);
+      var summary='Muscle OS: '+day.n;
+      var desc=day.ex.map(function(e){return e.n;}).join(', ');
+      lines.push('BEGIN:VEVENT');
+      lines.push('UID:'+uid+'-'+i+'@muscle-os');
+      lines.push('DTSTAMP:'+icsFmt(new Date()));
+      lines.push('DTSTART;TZID=Africa/Cairo:'+icsFmt(start));
+      lines.push('DTEND;TZID=Africa/Cairo:'+icsFmt(end));
+      lines.push('RRULE:FREQ=WEEKLY');
+      lines.push('SUMMARY:'+summary);
+      if(desc)lines.push('DESCRIPTION:'+desc);
+      lines.push('END:VEVENT');
+    });
+    lines.push('END:VCALENDAR');
+    var blob=new Blob([lines.join('\r\n')],{type:'text/calendar;charset=utf-8'});
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download='muscle_os_program.ics';
+    document.body.appendChild(a);a.click();setTimeout(function(){document.body.removeChild(a);},100);
+  }
+  window.exportIcs=exportIcs;
+
   function renderDashboard(){
     var prog=ls(K.PG,null),sp=ls(K.SP,null),vi=ls(K.VI,{});
     if(!prog||!sp){go(1);return;}
@@ -3382,6 +3534,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
 
     updateMakeupChip();
     updateSupersetToggle();
+    updateNotifToggle();
     document.getElementById('dashProfile').innerHTML='<div class="rb-title">'+_('generate')+'</div><strong>'+prog.splitName+'</strong> · '+age+' · '+goal+' · '+prog.totalSets+' sets/wk';
     document.getElementById('dashProfile').style.display='block';
     renderWeekRow();
@@ -4032,6 +4185,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
   });
 
   // ── PDF ──
+  document.getElementById('exportIcsBtn').addEventListener('click',exportIcs);
   document.getElementById('savePdfBtn').addEventListener('click',function(){
     var prog=ls(K.PG,null),vi=ls(K.VI,{}),vt=ls(K.VT,{}),sp=ls(K.SP,null);
     if(!prog||!sp){alert(_('alert_gen_program'));return;}
@@ -4108,6 +4262,22 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       html+='<div class="vol-row"><span class="vol-label">'+m.name+'</span><div class="vol-bar-wrap"><div class="vol-bar-mev" style="width:'+(t.mev/mx*100)+'%"></div><div class="vol-bar-mav" style="left:'+(t.mev/mx*100)+'%;width:'+((t.mav-t.mev)/mx*100)+'%"></div><div class="vol-bar-mrv" style="left:'+(t.mrv/mx*100)+'%"></div><div class="vol-bar-logged'+(over?' over':'')+'" style="width:'+(logged/mx*100)+'%"></div></div><div class="vol-num">'+(over?'<span style="color:#f44336;font-weight:600">'+logged+'</span>':'<span class="logged-num">'+logged+'</span>')+'<br><span style="font-size:.42rem;color:rgba(250,250,248,.1)">'+t.mev+'-'+t.mav+'</span></div></div>';
     });
     document.getElementById('histVolBars').innerHTML=html;
+
+    // Session pace (F6)
+    var sess=ls(K.SS,[]);
+    var shEl=document.getElementById('histSessions'),sbEl=document.getElementById('histSessionsBars');
+    if(sess.length){
+      var totD=sess.reduce(function(a,x){return a+(x.durationSec||0)},0),totS=sess.reduce(function(a,x){return a+(x.sets||0)},0);
+      var avgS=totD/Math.max(sess.length,1),sph=totD/3600>0?(totS/(totD/3600)):0;
+      document.getElementById('histSessionsHeader').innerHTML=_('session_timer')+' <span class="section-sub">'+_('session_len')+'</span>';
+      shEl.innerHTML='<strong>'+sess.length+'</strong> '+_('history')+' · '+_('session_len')+' <strong>'+fmtClock(Math.round(avgS))+'</strong> · <strong>'+sph.toFixed(1)+'</strong> '+_('sets_per_hour');
+      var last14=sess.slice(-14),mx=Math.max.apply(null,last14.map(function(x){return x.durationSec}).concat([1]));
+      sbEl.innerHTML=last14.map(function(x){var h=Math.max(3,Math.round(x.durationSec/mx*46));return '<div title="'+x.date+' — '+fmtClock(x.durationSec)+'" style="width:12px;height:'+h+'px;background:rgba(244,201,59,.45);border-radius:2px"></div>'}).join('');
+    } else {
+      document.getElementById('histSessionsHeader').innerHTML=_('session_timer');
+      shEl.innerHTML='<span style="color:rgba(250,250,248,.15)">'+_('hist_log_more')+'</span>';
+      sbEl.innerHTML='';
+    }
 
     // Exercise select for chart
     var sel=document.getElementById('histExSelect');sel.innerHTML='<option value="">'+_('hist_select_ex')+'</option>';
@@ -4281,10 +4451,14 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
     initTheme();
     initInstall();
     initSync();
+    updateNotifToggle();
+    checkNotif();
   })();
 
   // ── Data Sync ──
   var SYNC_KEY='mos_sync_key';
+  var SYNC_PW='mos_sync_pw';
+  var SYNC_LAST='mos_sync_last';
   var SYNC_BASE='https://muscleos-access-control.muscleos.workers.dev/api/sync';
   var API_BASE='https://muscleos-access-control.muscleos.workers.dev/api';
   function notifyCoach(type, data){
@@ -4293,8 +4467,32 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       .catch(function(){});
     }catch(e){}
   }
+  function syncPayload(){
+    var allKeys=Object.values(K).concat(['mos_periodization','mos_week_count','mos_ex_choices']);
+    var data={};allKeys.forEach(function(k){var v=localStorage.getItem(k);if(v)data[k]=JSON.parse(v);});
+    return data;
+  }
+  function genSyncId(){
+    var id=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():'sync-'+Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+    var inp=document.getElementById('syncKeyInput');
+    if(inp)inp.value=id;
+    ss(SYNC_KEY,id);
+  }
   function showSync(){
     var modal=document.getElementById('syncModal');
+    var inp=document.getElementById('syncKeyInput');
+    if(inp&&!inp.value.trim()){
+      var saved=ls(SYNC_KEY,'');
+      if(!saved){
+        saved=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():'sync-'+Date.now().toString(36);
+        ss(SYNC_KEY,saved);
+      }
+      inp.value=saved;
+    }
+    var pw=document.getElementById('syncPwInput');
+    if(pw&&!pw.value)pw.value=ls(SYNC_PW,'');
+    var lastRow=document.getElementById('syncLastRow'),lt=ls(SYNC_LAST,'');
+    if(lastRow&&lt){lastRow.style.display='block';document.getElementById('syncLastTs').textContent=new Date(lt).toLocaleString();}
     if(modal)modal.style.display='block';
   }
   function hideSync(){
@@ -4303,38 +4501,37 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
   }
   function doSyncUpload(){
     var key=document.getElementById('syncKeyInput').value.trim();
-    if(!key){alert(_('sync_fail'));return;}
+    var pw=document.getElementById('syncPwInput').value.trim();
+    if(!key||key.length<4){alert(_('sync_fail'));return;}
     if(!confirm(_('sync_confirm_upload')))return;
-    ss(SYNC_KEY,key);
-    var data={logs:ls(K.LG,{}),vi:ls(K.VI,{}),pg:ls(K.PG,null),sp:ls(K.SP,null),vt:ls(K.VT,null),meas:ls(K.MEAS,[])};
-    fetch(SYNC_BASE+'/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:key,data:data})})
+    ss(SYNC_KEY,key);ss(SYNC_PW,pw);
+    fetch(SYNC_BASE+'/'+encodeURIComponent(key),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pw:pw,data:syncPayload()})})
     .then(function(r){return r.json();})
     .then(function(j){
-      if(j.status==='ok'){alert(_('sync_success'));hideSync();}
+      if(j.status==='ok'){ss(SYNC_LAST,new Date().toISOString());alert(_('sync_done'));hideSync();}
       else alert(_('sync_fail')+': '+(j.error||''));
     })
     .catch(function(){alert(_('sync_fail'));});
   }
   function doSyncDownload(){
     var key=document.getElementById('syncKeyInput').value.trim();
-    if(!key){alert(_('sync_fail'));return;}
+    var pw=document.getElementById('syncPwInput').value.trim();
+    if(!key||key.length<4){alert(_('sync_fail'));return;}
     if(!confirm(_('sync_confirm_download')))return;
-    ss(SYNC_KEY,key);
-    fetch(SYNC_BASE+'/load',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:key})})
+    ss(SYNC_KEY,key);ss(SYNC_PW,pw);
+    fetch(SYNC_BASE+'/'+encodeURIComponent(key)+'?pw='+encodeURIComponent(pw))
     .then(function(r){return r.json();})
     .then(function(j){
       if(j.data){
-        var d=j.data;
-        if(d.logs)ss(K.LG,d.logs);
-        if(d.vi)ss(K.VI,d.vi);
-        if(d.pg)ss(K.PG,d.pg);
-        if(d.sp)ss(K.SP,d.sp);
-        if(d.vt)ss(K.VT,d.vt);
-        if(d.meas)ss(K.MEAS,d.meas);
-        alert(_('sync_success'));
+        var size=new TextEncoder().encode(JSON.stringify(j.data)).length;
+        if(size>1048576){alert(_('sync_fail'));return;}
+        Object.keys(j.data).forEach(function(k){localStorage.setItem(k,JSON.stringify(j.data[k]));});
+        ss(SYNC_LAST,new Date().toISOString());
+        alert(_('sync_done'));
         hideSync();
         location.reload();
-      } else alert(_('sync_fail')+': no data');
+      } else if(j.error){alert(_('sync_fail')+': '+j.error);}
+      else alert(_('sync_fail')+': no data');
     })
     .catch(function(){alert(_('sync_fail'));});
   }
@@ -4345,6 +4542,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       if(inp)inp.value=savedKey;
     }
   }
+  window.showSync=showSync;window.hideSync=hideSync;window.doSyncUpload=doSyncUpload;window.doSyncDownload=doSyncDownload;window.genSyncId=genSyncId;
 
   // ── Custom Exercise Management ──
   function showCeModal(){
@@ -4381,11 +4579,18 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
 <div class="modal-overlay" id="syncModal" style="display:none" onclick="if(event.target===this)hideSync()">
   <div class="modal-card">
     <div class="modal-header"><span data-i18n="sync_title">Data Sync</span><span class="modal-close" onclick="hideSync()">✕</span></div>
-    <p style="font-size:.6rem;color:rgba(250,250,248,.2);margin:6px 0 10px" data-i18n="sync_desc">Enter or create a sync key to transfer your training data between devices.</p>
-    <input type="text" id="syncKeyInput" placeholder="your-sync-key" style="width:100%;padding:8px 10px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;margin-bottom:10px">
+    <p style="font-size:.6rem;color:rgba(250,250,248,.2);margin:6px 0 10px" data-i18n="sync_desc">Enter or create a sync ID to transfer your training data between devices.</p>
+    <label style="font-size:.5rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.25);display:block;margin-bottom:4px">Sync ID</label>
+    <div style="display:flex;gap:6px">
+      <input type="text" id="syncKeyInput" placeholder="e.g. 8f3a-9c2b" style="flex:1;min-width:0;padding:8px 10px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;margin-bottom:10px">
+      <button onclick="genSyncId()" title="New ID" style="background:rgba(33,150,243,.1);border:1px solid rgba(33,150,243,.25);color:#2196F3;border-radius:6px;padding:0 10px;font-size:.7rem;cursor:pointer;margin-bottom:10px">↻</button>
+    </div>
+    <label style="font-size:.5rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.25);display:block;margin-bottom:4px" data-i18n="sync_pw">Passphrase</label>
+    <input type="password" id="syncPwInput" placeholder="optional" style="width:100%;padding:8px 10px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;margin-bottom:10px">
+    <div id="syncLastRow" style="font-size:.5rem;color:rgba(250,250,248,.25);margin-bottom:10px;display:none"><span data-i18n="sync_last">Last synced</span>: <span id="syncLastTs"></span></div>
     <div style="display:flex;gap:8px">
-      <button class="btn-primary" onclick="doSyncUpload()" style="flex:1" data-i18n="sync_upload">Upload</button>
-      <button class="btn-primary" onclick="doSyncDownload()" style="flex:1;background:rgba(76,175,80,.08);border-color:rgba(76,175,80,.15);color:#4CAF50" data-i18n="sync_download">Download</button>
+      <button class="btn-primary" onclick="doSyncUpload()" style="flex:1" data-i18n="sync_push">Push</button>
+      <button class="btn-primary" onclick="doSyncDownload()" style="flex:1;background:rgba(76,175,80,.08);border-color:rgba(76,175,80,.15);color:#4CAF50" data-i18n="sync_pull">Pull</button>
     </div>
   </div>
 </div>
