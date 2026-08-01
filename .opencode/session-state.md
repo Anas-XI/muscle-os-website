@@ -168,3 +168,30 @@
 - workflow run 30698748211 succeeded
 - Live-verified at https://anas-xi.github.io/muscle-os-website/tools/training_tool.html?v=p1 (lightDays decl, banner CSS, i18n en+ar, 80pct rounding, padEmpty)
 - Worktrees removed, pub-master alias deleted
+
+---
+# Session State - P2 exercise preferences - COMPLETE
+
+## Status: mos_pref preference learning shipped. Deployed origin + public main/master, live-verified.
+
+## What changed (tools/training_tool.html)
+- New key mos_pref = {origName: {chosenName: count}}; helpers pendingExChoices + prefTop(exName)
+- showExSelection: chosen = saved choice || pending || top pref || default; chips sort by pref count desc ONLY when prefs exist (hasPref guard keeps curated pool order for first-time users); top pref chip gets star span + .pref-top class
+- Chip click: bumps mos_pref count + IN-PLACE DOM update (move chip to row front, select, re-mark star) - NO full re-render so show-all expansion and scroll position survive
+- generateProgram default: exChoices[ex.n] || prefTop(ex.n) || ex.n
+- swapEx: also bumps mos_pref[orig][newName]
+- Export/import/reset/sync key lists now include mos_pref (4 places)
+- i18n pref_fav (en 'Favorite' / ar 'المفضل')
+
+## Tests
+- f14_pref_test.js (NEW, 12/12): chip click bumps pref, chosen moves to front + star, program uses chosen, reopen shows saved first, no-explicit-choice defaults to top pref, swap bumps pref
+- GOTCHA: initial version re-rendered the panel on chip click - broke F6 (expansion state lost, Leg Press click failed) and caused scroll jumps; switched to in-place DOM mutation. Also hadPref guard prevents alphabetical reorder of the curated pool when no prefs exist (F6 assumed Leg Press visible 4th chip)
+- GOTCHA: backToSplitBtn2 second click in test failed because panel was already closed (button inside hidden panel) - wrong flow, not a code bug
+- Regression green: F6 26/26, F5 21/21, F11 18/18, F12 11/11, F13 13/13, F8 20/20, F7 20/20; bracecheck2 1523/1523; check_parse OK
+
+## Deployed
+- root master 2eb4244 pushed origin muscle-os-bot (c25c05b..2eb4244)
+- public main cb12682 (7a5129a..cb12682), public master 5f22410 (9435f67..5f22410) - 4 copies rule in both worktrees
+- workflow run 30701759110 succeeded
+- Live-verified at https://anas-xi.github.io/muscle-os-website/tools/training_tool.html?v=p2 (prefTop, pref-star, hasPref sort, swap bump, i18n en+ar)
+- Worktrees removed, pub-master alias deleted
