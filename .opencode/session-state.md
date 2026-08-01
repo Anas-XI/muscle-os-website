@@ -53,3 +53,46 @@
 ## Test files
 - `E:\MoS\.opencode\skills\pdf\f1_timer_test.js` â€¦ `f6_pool_test.js` (F1â€“F5+pools), `f7_session_test.js` (F6), `f7_sync_test.js` (F7 tool, route-mocked), `f7_sync_worker_test.mjs` (F7 worker unit, in-memory KV mock, imports file:///E:/MoS/website/worker/src/index.js), `f8_notif_test.js`, `f9_ics_test.js` (download via #startTrainingBtn â†’ step 4; saveProgBtn needed to unhide recap buttons)
 - Temp dir `C:\Users\anass\AppData\Local\Temp\opencode\`: bracecheck2.js, check_parse.js, vids_test.js, swap_test.js, a8_rtl_test.js, a7_share_test.js, a5_theme_test.js, a1_pwa_test.js, loadtest_training.js
+
+---
+
+# Session State — Google-bound one-time activation codes — COMPLETE
+
+## Status: Google sign-in + one-time account-bound codes shipped to both tools + worker, DEPLOYED LIVE.
+## Deployed: worker Version 78726225-2d4d-4821-971b-ba9379c1e43c at https://muscleos-access-control.muscleos.workers.dev (live-verified below); Pages deploys via playbook below.
+
+## What changed
+
+### Worker (website/worker/src/index.js)
+- handleVerify now accepts optional `session` (Google session JWT from /api/auth/google, validated with jwtVerify, type must be 'session' and email present, else 401 invalid_session)
+- One-account binding: first successful activation with a session writes KV `code:<CODE>:binding` = {email, expiresAt, plan, ts} (TTL 90d)
+- Different-account reuse -> 403 code_used_by_other (logged, no use consumed)
+- Same-account re-activation -> idempotent 200 grant from stored expiresAt, NO re-consumption (uses DO /inspect + lazy KV migration if DO record missing; revoked/wrong_product/expired still rejected)
+- Sessionless (legacy) path unchanged: no binding written; maxUses=1 enforcement still 401 code_exhausted
+- CodeCounter DO gained POST /inspect (returns {record|null}, no mutation)
+
+### Tools (training_tool.html + tdee_adaptive_engine.html, all 4 deploy copies each)
+- GIS script added in <head>; overlay reworked to two steps: step1 = Google sign-in button (#googleSignInBtn, client_id 22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com), step2 = code row (+#authWelcome, #subSignOut)
+- Session stored in localStorage `mos_google_session` (same key as access-control.js MosAccess); validated via /api/check-session on load; sign-out clears it
+- verify-code request now includes session when present; new errors surfaced: code_used_by_other / code_exhausted / invalid_session / network
+- Owner email ANASSTEM2025@GMAIL.COM -> instant 30-day grant on Google sign-in (no verify-code call)
+- TDEE tool: closed the old hole where ANY >=6-char code granted access locally with no server check
+- i18n keys added (en+ar): sub_auth_step1, sub_auth_welcome, sub_auth_switch, sub_verify, sub_checking, sub_err_invalid, sub_err_used_by_other, sub_err_exhausted, sub_err_network, sub_err_session, sub_google_failed
+
+## Tests
+- f8b_auth_worker_test.mjs (new, 24/24): binding write, idempotent same-account, 403 code_used_by_other, legacy no-binding, one-time maxUses=1 (A reactivates ok, B blocked by binding), sessionless exhaustion, invalid/tampered session, wrong claim type, expired binding -> code_expired, lazy-migration reactivation, revoked bound code. Mints session JWTs with node:crypto (no deps); mock DO mirrors CodeCounter checks
+- f10_google_auth_test.js (new, 29/29, Playwright, GIS mock via addInitScript + route-mocked worker API): overlay/step1/step2 flow, sign-in -> session stored, valid code grants + carries session, stored-session resume, sign-out, bound/exhausted error messages, DEAD session -> step1 + cleared, owner instant grant (no verify-code call), legacy verify has no session field
+- f10b_tdee_auth_test.js (new, 10/10): same flow on TDEE + 6-char garbage code rejected (hole closed)
+- Regression green: F6 pools 26/26, F6 timer 20/20, F7 sync 25/25, F8 20/20, F9 16/16; bracecheck2 1486/1486 (training), 153/153 (TDEE); check_parse OK both
+
+## Live verification (worker, 2026-08-01)
+- Seeded one-time code via wrangler kv key put --path (JSON file, avoids CLI quoting issue)
+- 1) sessionless use 1 -> 200 valid + JWT + 30d  2) use 2 -> 401 code_exhausted  3) garbage session -> 401 invalid_session  4) unknown code -> 401 invalid_code
+- Test key deleted after verification
+- NOTE: full Google-bound path (real /api/auth/google token) can only be verified in-browser with a real Google account
+
+## Deploy playbook (this session)
+1. Copy tools/training_tool.html + tools/tdee_adaptive_engine.html to their 3 deploy copies each (website/tools, training bundle, website/training bundle; website/nutrition bundle, nutrition bundle), verify byte-equal
+2. Root repo: git add the 8 tool copies + website/worker/src/index.js + new test files (f8b_auth_worker_test.mjs, f10_google_auth_test.js, f10b_tdee_auth_test.js) + .opencode/session-state.md -> commit -> rebase onto origin/muscle-os-bot? NO: push origin master directly (branch name is master, remote muscle-os-bot tracks origin/master); then worktrees public/main + public/master: copy tools -> commit -> push HEAD:main / HEAD:master
+3. Worker: npx wrangler deploy from website/worker (top-level env), verify version id, live-verify endpoints, delete test keys
+4. Verify live Pages with cache-buster query (googleSignInBtn / authStep1 / authStep2 / subSignOut present)

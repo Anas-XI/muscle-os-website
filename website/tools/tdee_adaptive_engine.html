@@ -3,28 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' https://accounts.google.com https://*.googleapis.com">
-<title>Adaptive TDEE Engine — Coach Anas Mo'men | Muscle OS</title>
-  <meta name="description" content="Adaptive TDEE & macro engine by Coach Anas Mo'men. Track your weight trends and get dynamically adjusting calorie and macro targets.">
-  <meta property="og:title" content="Adaptive TDEE Engine — Coach Anas Mo'men | Muscle OS">
-  <meta property="og:description" content="Adaptive TDEE & macro engine by Coach Anas Mo'men. Track your weight trends and get dynamically adjusting calorie and macro targets.">
-  <meta property="og:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="1200">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://muscleos.is-a.dev/tools/tdee_adaptive_engine.html">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Adaptive TDEE Engine — Coach Anas Mo'men | Muscle OS">
-  <meta name="twitter:description" content="Adaptive TDEE & macro engine by Coach Anas Mo'men. Track your weight trends and get dynamically adjusting calorie and macro targets.">
-  <meta name="twitter:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
-<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<title>Adaptive TDEE & Macro Engine — by Coach Anas Mo'men</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:32px 16px}
-h1,h2,h3,h4,p,li,blockquote,figcaption{overflow-wrap:break-word;word-break:break-word}
 .container{width:100%;max-width:720px}
 .header{text-align:center;margin-bottom:24px}
 .header h1{font-family:'Oswald',sans-serif;font-size:2.2rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:1px;line-height:1.1}
@@ -137,9 +122,7 @@ select option{background:#1E1E2A;color:#FAFAF8}
 .mos-nav-links{display:flex;gap:20px;font-size:11px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
 .mos-nav-links a{color:#C7C9D0;text-decoration:none;transition:color .2s}
 .mos-nav-links a:hover{color:#F4C93B}
-@media(max-width:700px){.mos-nav-links{display:none}.mos-menu-toggle{display:flex}}
-@media(max-width:600px){.mos-nav-inner{padding:8px 16px}.mos-brand{font-size:13px}input,select,textarea{font-size:16px!important}.sex-btn,.btn-primary,.btn-secondary,.mos-menu-toggle{min-height:44px}}
-body{opacity:0;transition:opacity .4s ease}body.loaded{opacity:1}.mos-nav{transition:transform .3s ease}.mos-nav.nav-hidden{transform:translateY(-100%)}
+@media(max-width:600px){.mos-nav-links{gap:10px;font-size:9px}.mos-nav-inner{padding:8px 16px}.mos-brand{font-size:12px}}
 @media print{.mos-nav{display:none!important}.mos-footer{display:none!important}}
 .mos-footer{padding:20px 24px;background:#14151A;border-top:1px solid #2C2E37;font-family:'Inter',sans-serif;text-align:center}
 .mos-footer-inner{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
@@ -151,37 +134,40 @@ body{opacity:0;transition:opacity .4s ease}body.loaded{opacity:1}.mos-nav{transi
 .mos-fcopy{font-size:10px;color:rgba(250,250,248,.3);margin-top:6px}
 .wa-link{font-family:'JetBrains Mono',monospace;color:#F4C93B;text-decoration:none}
 @media(max-width:580px){
- .calc-grid,.form-row,.form-row-3{grid-template-columns:1fr}.card{padding:16px 12px}
- }
-.mos-menu-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px 4px;z-index:1001;flex-direction:column;gap:4px}
-.mos-menu-toggle span{display:block;width:22px;height:2px;background:#FAFAF8;border-radius:2px;transition:all .25s ease}
-.mos-menu-toggle.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
-.mos-menu-toggle.open span:nth-child(2){opacity:0}
-.mos-menu-toggle.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
-.mos-mobile-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:998}
-.mos-mobile-overlay.open{display:block}
-.mos-mobile-menu{position:fixed;top:0;right:-280px;width:260px;height:100vh;background:#1A1B22;z-index:999;padding:72px 24px 24px;transition:right .3s ease;border-left:1px solid #2C2E37;overflow-y:auto}
-.mos-mobile-menu.open{right:0}
-.mos-mobile-menu-inner{display:flex;flex-direction:column;gap:4px}
-.mos-mobile-menu-inner a{display:block;padding:14px 12px;color:#C7C9D0;text-decoration:none;font-size:14px;font-weight:500;border-radius:8px;transition:background .2s,color .2s;min-height:44px;line-height:44px}
-.mos-mobile-menu-inner a:hover,.mos-mobile-menu-inner a:active{background:rgba(244,201,59,.1);color:#F4C93B}
+  body{padding:20px 12px}
+  .header h1{font-size:1.8rem}
+  .card{padding:18px 14px}
+  .form-row,.form-row-3{grid-template-columns:1fr}
+  .dash-grid{grid-template-columns:1fr}
+  .dash-macro-grid{grid-template-columns:1fr}
+  .dash-val{font-size:1.3rem}
+}
+/* Subscription paywall */
+.sub-overlay{position:fixed;inset:0;z-index:9999;background:rgba(20,21,26,.97);display:flex;align-items:center;justify-content:center;padding:24px}
+.sub-modal{max-width:520px;width:100%;background:#1E1E2A;border:1px solid #2C2E37;border-radius:16px;padding:40px 32px;text-align:center}
+.sub-modal .lock-icon{font-size:48px;margin-bottom:8px}
+.sub-modal h2{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;color:#F4C93B;text-transform:uppercase;margin-bottom:4px;letter-spacing:.5px}
+.sub-modal .sub-price{font-family:'JetBrains Mono',monospace;font-size:14px;color:rgba(255,215,0,.6);margin-bottom:20px}
+.sub-modal .sub-desc{font-size:14px;color:#8A8D96;line-height:1.6;margin-bottom:24px}
+.sub-features{text-align:left;margin-bottom:24px;padding:0;list-style:none}
+.sub-features li{padding:6px 0 6px 24px;position:relative;font-size:13px;color:#C7C9D0;border-bottom:1px solid rgba(255,255,255,.04)}
+.sub-features li::before{content:"\2713";color:#F4C93B;position:absolute;left:0;font-weight:700}
+.sub-btn{display:inline-block;background:#F4C93B;color:#14151A;font-weight:700;font-size:14px;padding:14px 32px;border-radius:8px;text-decoration:none;text-transform:uppercase;letter-spacing:.5px;margin-bottom:16px;width:100%;text-align:center}
+.sub-btn:hover{background:#fff}
+.sub-divider{display:flex;align-items:center;gap:12px;margin:16px 0;color:#5B5F68;font-size:11px;text-transform:uppercase;letter-spacing:1px}
+.sub-divider::before,.sub-divider::after{content:"";flex:1;height:1px;background:#2C2E37}
+.sub-code-row{display:flex;gap:8px}
+.sub-code-input{flex:1;padding:10px 14px;background:#14151A;border:1px solid #2C2E37;border-radius:6px;color:#fff;font-family:'JetBrains Mono',monospace;font-size:13px;outline:none}
+.sub-code-input:focus{border-color:#F4C93B}
+.sub-verify-btn{padding:10px 20px;background:transparent;border:1px solid #F4C93B;color:#F4C93B;border-radius:6px;cursor:pointer;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
+.sub-verify-btn:hover{background:rgba(244,201,59,.1)}
+.sub-error{font-size:12px;color:#f44336;margin-top:6px;display:none}
+.sub-success{font-size:12px;color:#4CAF50;margin-top:6px;display:none}
 </style>
-<link rel="stylesheet" href="../assets/css/overlay.css">
-<link rel="stylesheet" href="../assets/css/landing.css">
+<script async defer src="https://accounts.google.com/gsi/client"></script>
 </head>
 <body>
-<nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div><button class="mos-menu-toggle" id="mosMenuToggle" aria-label="Menu"><span></span><span></span><span></span></button></div></nav>
-<div class="mos-mobile-overlay" id="mosMobileOverlay"></div>
-<div class="mos-mobile-menu" id="mosMobileMenu"><div class="mos-mobile-menu-inner"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div></div>
-<div id="googleGate">
-  <div class="gate-card">
-    <div class="gate-icon">&#128100;</div>
-    <h2>Sign in to continue</h2>
-    <p>Use your Google account to access Muscle OS tools and books.</p>
-    <div id="googleSignIn"></div>
-    <div class="guest-link" onclick="MosAccess.requireGoogleAuth('tdee_adaptive_engine', function(){})">Skip for now</div>
-  </div>
-</div>
+<nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a><a href="../index.html#packages">Coaching</a></div></div></nav>
 <div class="sub-overlay" id="subOverlay">
   <div class="sub-modal">
     <div class="lock-icon">&#128274;</div>
@@ -196,59 +182,24 @@ body{opacity:0;transition:opacity .4s ease}body.loaded{opacity:1}.mos-nav{transi
       <li>Data export &amp; import for backup</li>
       <li>No ads, no limits — unlimited daily entries</li>
     </ul>
-    <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20subscribe%20to%20the%20TDEE%20Adaptive%20Engine%20for%20200%20EGP/month" class="sub-btn" target="_blank" rel="noopener" data-wa-tag="tdee_subscribe_top">Get Your Code via WhatsApp</a>
-    <p class="sub-privacy" style="margin:8px 0 0;font-size:11px;color:rgba(250,250,248,.35);text-align:center">&#128274; No card details on this site — payment confirmed directly with your coach.</p>
-    <div class="sub-divider">Already have access?</div>
-    <form class="sub-code-row" id="subForm" action="javascript:void(0)">
-      <input type="text" class="sub-code-input" id="subCode" placeholder="Enter access code or email" autocomplete="off" inputmode="text">
-      <button type="submit" class="sub-verify-btn" id="subVerify" aria-label="Verify access code">Verify</button>
-    </form>
-    <div class="sub-error" id="subError">Invalid code. Please check and try again.</div>
-    <div class="sub-success" id="subSuccess">Access granted! Reloading tool...</div>
+    <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20subscribe%20to%20the%20TDEE%20Adaptive%20Engine%20for%20200%20EGP/month" class="sub-btn" target="_blank" rel="noopener">Subscribe via WhatsApp</a>
+    <div class="sub-divider">Sign in with Google to continue</div>
+    <div id="authStep1">
+      <div id="googleSignInBtn" style="display:flex;justify-content:center"></div>
+      <div class="sub-error" id="authStep1Error" style="display:none">Google sign-in failed. Please try again.</div>
+    </div>
+    <div id="authStep2" style="display:none">
+      <div class="sub-divider"><span id="authWelcome"></span></div>
+      <div class="sub-code-row">
+        <input type="text" class="sub-code-input" id="subCode" placeholder="Enter your access code" autocomplete="off">
+        <button class="sub-verify-btn" id="subVerify">Verify</button>
+      </div>
+      <div style="text-align:center;margin-top:6px"><a href="#" id="subSignOut" style="font-size:.5rem;color:rgba(250,250,248,.3)">Not you? Switch account</a></div>
+      <div class="sub-error" id="subError">Invalid code. Please check and try again.</div>
+      <div class="sub-success" id="subSuccess">Access granted! Reloading tool...</div>
+    </div>
   </div>
 </div>
-<div id="contentLanding" class="content-landing">
-  <div class="lnd-hero">
-    <h1>Adaptive TDEE Engine</h1>
-    <p>Your weight trends, recalculated. This tool replaces static calorie formulas with real-time TDEE estimation based on your actual daily weight and intake data.</p>
-  </div>
-  <div class="lnd-section">
-    <h2>Quick-Start Guide</h2>
-    <div class="lnd-quickstart">
-      <ol>
-        <li><strong>Log your weight</strong> — Enter your daily weight each morning. Consistency matters more than precision.</li>
-        <li><strong>Log your calories</strong> — Track daily intake from your food log (MyFitnessPal, Cronometer, or manual).</li>
-        <li><strong>Wait 7 days</strong> — After 7 consecutive days, the engine computes your first TDEE estimate using the trend-weight algorithm.</li>
-        <li><strong>Adjust based on goal</strong> — Set deficit (fat loss), maintenance, or surplus. The engine gives you a calorie target.</li>
-        <li><strong>Review trend charts</strong> — Visualize your weight trend, moving averages, and TDEE changes over time.</li>
-        <li><strong>Export data</strong> — Download your full history as CSV for your own analysis.</li>
-      </ol>
-    </div>
-  </div>
-  <div class="lnd-section">
-    <h2>What You Get</h2>
-    <div class="lnd-features">
-      <div class="lnd-feat-card"><h4>Trend-Weight Algorithm</h4><p>Removes daily water-weight noise using a 7-day rolling average so you see real fat-loss or gain trends.</p></div>
-      <div class="lnd-feat-card"><h4>Auto-Recalibration</h4><p>TDEE recalculates every 2 weeks as your weight changes — no need to guess or re-enter data.</p></div>
-      <div class="lnd-feat-card"><h4>Goal-Based Targets</h4><p>Deficit, surplus, or maintenance — the engine gives you a daily calorie target based on your selected goal rate of change.</p></div>
-      <div class="lnd-feat-card"><h4>Visual Charts</h4><p>Interactive weight trend and TDEE charts help you see the bigger picture at a glance.</p></div>
-      <div class="lnd-feat-card"><h4>Data Import/Export</h4><p>Import from spreadsheet or export your history as CSV. Your data stays yours.</p></div>
-    </div>
-  </div>
-  <div class="lnd-subscribe" id="lndSubscribe">
-    <h3>Unlock the Adaptive TDEE Engine</h3>
-    <p>200 EGP / month. Subscribe via WhatsApp to get your access code, then enter it below.</p>
-    <div class="sub-code-area">
-      <input type="text" class="sub-code-input" id="lndSubCode" placeholder="Enter your access code">
-      <button class="sub-verify-btn" id="lndSubVerify">Verify Code</button>
-      <div class="sub-error" id="lndSubError">Invalid code. Try again or contact support.</div>
-      <div class="sub-checkmark" id="lndSubCheck">&#10003; Access granted! Loading tool...</div>
-    </div>
-    <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20subscribe%20to%20the%20TDEE%20Adaptive%20Engine%20for%20200%20EGP/month" style="display:inline-block;margin-top:1rem;color:#4285f4;font-size:.85rem;text-decoration:underline" target="_blank" rel="noopener" data-wa-tag="tdee_subscribe_bottom">Get Your Code via WhatsApp &rarr;</a>
-    <p style="margin:6px 0 0;font-size:11px;color:rgba(250,250,248,.35)">&#128274; No card details on this site — payment confirmed directly with your coach.</p>
-  </div>
-</div>
-<div id="contentMain">
 <div class="container">
   <div class="header">
     <h1>Adaptive TDEE Engine</h1>
@@ -396,7 +347,7 @@ body{opacity:0;transition:opacity .4s ease}body.loaded{opacity:1}.mos-nav{transi
   </div>
 
 </div>
-<footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017" data-wa-tag="footer_wa">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo'men</div></footer>
+<footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo'men</div></footer>
 
 <script>
 (function(){
@@ -1003,38 +954,153 @@ body{opacity:0;transition:opacity .4s ease}body.loaded{opacity:1}.mos-nav{transi
   console.log('Adaptive TDEE Engine loaded. Data stored in localStorage under key: '+STORAGE_KEY);
 })();
 
-</div><!-- /contentMain -->
+(function(){
+  var SUB_KEY = 'mos_subscription';
+  var GS_KEY = 'mos_google_session';
+  var OWNER_EMAIL = 'ANASSTEM2025@GMAIL.COM';
+  var API_BASE = 'https://muscleos-access-control.muscleos.workers.dev';
+  var GOOGLE_CLIENT_ID = '22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com';
+  var sub = null;
+  try { sub = JSON.parse(localStorage.getItem(SUB_KEY)); } catch(e){}
+  var active = !!(sub && sub.active && new Date(sub.expiry + 'T23:59:59') > new Date());
 
-<script src="https://accounts.google.com/gsi/client" async defer onload="if(window.mosGoogleInit)mosGoogleInit()"></script>
-<script src="../assets/js/access-control.js"></script>
-<script src="../assets/js/site.js"></script>
-<script>
-MosAccess.requireGoogleAuth('tdee_adaptive_engine', function(ready){
-  MosAccess.initOverlay('tdee_adaptive_engine');
-  if(ready){
-    MosAccess.checkOrShow('tdee_adaptive_engine');
+  function getGs(){ try { var g = JSON.parse(localStorage.getItem(GS_KEY)); return (g && g.session) ? g : null; } catch(e){ return null; } }
+  function showStep(n){
+    document.getElementById('authStep1').style.display = n === 1 ? 'block' : 'none';
+    document.getElementById('authStep2').style.display = n === 2 ? 'block' : 'none';
   }
-});
-var lndVerify = document.getElementById('lndSubVerify');
-var lndInput = document.getElementById('lndSubCode');
-if(lndVerify && lndInput){
-  lndVerify.addEventListener('click', function(){
-    var code = lndInput.value.trim();
-    if(!code){ document.getElementById('lndSubError').style.display='block'; return; }
-    MosAccess.verifyCode(code, 'tdee_adaptive_engine').then(function(res){
-      if(res.valid){
-        document.getElementById('lndSubError').style.display='none';
-        document.getElementById('lndSubCheck').style.display='block';
-        setTimeout(function(){ location.reload(); }, 1500);
+  function showErr(id, msg){ var el = document.getElementById(id); el.style.display = 'block'; el.textContent = msg; }
+  function setSub(plan, expiry, token, code, email){
+    localStorage.setItem(SUB_KEY, JSON.stringify({ active: true, plan: plan, expiry: expiry, token: token || '', code: code, email: email || '' }));
+  }
+  function grantAndReload(plan, expiry, token, code, email){
+    setSub(plan, expiry, token, code, email);
+    showStep(2);
+    document.getElementById('subError').style.display = 'none';
+    document.getElementById('subSuccess').style.display = 'block';
+    setTimeout(function(){ location.reload(); }, 1500);
+  }
+  function verifyCode(code, email, btn){
+    btn.disabled = true;
+    btn.textContent = 'Checking...';
+    var gs = getGs();
+    fetch(API_BASE + '/api/verify-code', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code: code, productId: 'tdee_adaptive_engine', session: gs ? gs.session : undefined })
+    }).then(function(r){ return r.json(); }).then(function(data){
+      if(data && data.valid){
+        grantAndReload(data.plan || 'pro_tdee', (data.expiresAt || '').slice(0, 10), data.token || '', code, email);
       } else {
-        document.getElementById('lndSubError').style.display='block';
+        var msg = 'Invalid code. Please check and try again.';
+        if(data && data.error === 'code_used_by_other') msg = 'This code is already linked to another account.';
+        if(data && data.error === 'code_exhausted') msg = 'This code has already been used.';
+        if(data && data.error === 'invalid_session'){
+          localStorage.removeItem(GS_KEY);
+          showStep(1);
+          msg = 'Session expired. Please sign in again.';
+          initGsi();
+        }
+        showErr('subError', msg);
+        btn.disabled = false;
+        btn.textContent = 'Verify';
+      }
+    }).catch(function(){
+      showErr('subError', 'Network error. Please try again.');
+      btn.disabled = false;
+      btn.textContent = 'Verify';
+    });
+  }
+  function finishGoogle(data){
+    localStorage.setItem(GS_KEY, JSON.stringify({ session: data.session, email: data.email, name: data.name || '', ts: Date.now() }));
+    if(data.email.toUpperCase() === OWNER_EMAIL){
+      var expiry = new Date(); expiry.setMonth(expiry.getMonth() + 1);
+      grantAndReload('pro_tdee', expiry.toISOString().split('T')[0], '', 'OWNER', data.email);
+      return;
+    }
+    document.getElementById('authWelcome').textContent = 'Signed in as ' + (data.name || data.email);
+    showStep(2);
+  }
+  function initGsi(){
+    var host = document.getElementById('googleSignInBtn');
+    if(!host || host.getAttribute('data-gsi')) return;
+    host.setAttribute('data-gsi', '1');
+    if(typeof google === 'undefined' || !google.accounts || !google.accounts.id){ setTimeout(initGsi, 300); return; }
+    google.accounts.id.initialize({
+      client_id: GOOGLE_CLIENT_ID,
+      callback: function(resp){
+        if(!resp || !resp.credential){ showErr('authStep1Error', 'Google sign-in failed. Please try again.'); return; }
+        fetch(API_BASE + '/api/auth/google', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: resp.credential })
+        }).then(function(r){ return r.json(); }).then(function(data){
+          if(data && data.valid) finishGoogle(data);
+          else showErr('authStep1Error', 'Google sign-in failed. Please try again.');
+        }).catch(function(){
+          showErr('authStep1Error', 'Network error. Please try again.');
+        });
       }
     });
-  });
-}
-<script>
-(function(){var b=document.getElementById('mosMenuToggle'),m=document.getElementById('mosMobileMenu'),o=document.getElementById('mosMobileOverlay');if(!b||!m||!o)return;function c(){b.classList.remove('open');m.classList.remove('open');o.classList.remove('open')}b.addEventListener('click',function(){var is=m.classList.contains('open');if(is)c();else{b.classList.add('open');m.classList.add('open');o.classList.add('open')}});o.addEventListener('click',c);m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',c)})})();
+    google.accounts.id.renderButton(host, { theme: 'outline', size: 'large', width: 280 });
+  }
+
+  if(!active){
+    document.getElementById('subOverlay').style.display = 'flex';
+    var gs = getGs();
+    var started = false;
+    function start(){
+      if(started) return;
+      started = true;
+      if(gs){
+        fetch(API_BASE + '/api/check-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ session: gs.session })
+        }).then(function(r){ return r.json(); }).then(function(data){
+          if(data && data.valid){
+            document.getElementById('authWelcome').textContent = 'Signed in as ' + (gs.name || gs.email);
+            showStep(2);
+          } else {
+            localStorage.removeItem(GS_KEY);
+            showStep(1);
+            initGsi();
+          }
+        }).catch(function(){
+          document.getElementById('authWelcome').textContent = 'Signed in as ' + (gs.name || gs.email);
+          showStep(2);
+        });
+      } else {
+        showStep(1);
+        initGsi();
+      }
+    }
+    start();
+
+    document.getElementById('subVerify').addEventListener('click', function(){
+      var btn = document.getElementById('subVerify');
+      var code = document.getElementById('subCode').value.trim().toUpperCase();
+      if(!code){ showErr('subError', 'Invalid code. Please check and try again.'); return; }
+      var g = getGs();
+      var email = g ? g.email : '';
+      if(email.toUpperCase() === OWNER_EMAIL){
+        var expiry = new Date(); expiry.setMonth(expiry.getMonth() + 1);
+        grantAndReload('pro_tdee', expiry.toISOString().split('T')[0], '', 'OWNER', email);
+        return;
+      }
+      verifyCode(code, email, btn);
+    });
+    document.getElementById('subCode').addEventListener('keydown', function(e){
+      if(e.key === 'Enter') document.getElementById('subVerify').click();
+    });
+    document.getElementById('subSignOut').addEventListener('click', function(e){
+      e.preventDefault();
+      localStorage.removeItem(GS_KEY);
+      showStep(1);
+      initGsi();
+    });
+  }
+})();
 </script>
-<script src="../assets/tracking.js"></script>
 </body>
 </html>
