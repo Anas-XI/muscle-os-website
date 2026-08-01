@@ -167,6 +167,7 @@ select option{background:#1E1E2A;color:var(--text)}
 .suggest-detail{font-size:.6rem;color:var(--text-soft);line-height:1.3}
 .suggest-detail strong{color:var(--text)}
 .pr-badge{display:inline-block;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent-soft2);border-radius:4px;padding:1px 6px;font-size:.45rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-left:4px}
+.prehab-chip{display:inline-block;background:rgba(76,175,80,.12);color:#81C784;border:1px solid rgba(76,175,80,.35);border-radius:4px;padding:1px 6px;font-size:.45rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-left:4px;cursor:help}
 .safety-badge{display:inline-flex;align-items:center;gap:3px;padding:2px 6px;border-radius:3px;font-size:.45rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
 .safety-badge.safe{background:rgba(76,175,80,.1);color:#4CAF50}
 .safety-badge.warn{background:rgba(255,152,0,.1);color:#FF9800}
@@ -1121,7 +1122,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       missed_title:'Missed: {name} ({days} days ago) — condensed option',missed_condensed_btn:'Do condensed',missed_skip:'Skip',missed_chip:'⚡ Makeup day',
       // Supersets
       superset_on:'Superset ON',superset_off:'Superset',superset_a:'A',superset_b:'B',
-      show_all:'Show all',show_less:'Show fewer',pref_fav:'Favorite',
+      show_all:'Show all',show_less:'Show fewer',pref_fav:'Favorite',prehab_lbl:'⚠ Prehab',prehab_reason:'Prehab: low-intensity joint recovery work. Keep RPE ~4, light weight, full range of motion.',
       warmup_tip_bench:'Band pull-aparts + scapular retraction before warm-ups.',
       warmup_tip_deadlift:'Hip CARs + glute bridges. Reset brace each rep.',
       warmup_tip_ohp:'L-Twists + wall slides. Core braced throughout.',
@@ -1430,7 +1431,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       missed_title:'فات: {name} (منذ {days} يوم) — خيار مختصر',missed_condensed_btn:'تمرين مختصر',missed_skip:'تخطي',missed_chip:'⚡ يوم تعويضي',
       // Supersets
       superset_on:'سوبرست مفعل',superset_off:'سوبرست',superset_a:'أ',superset_b:'ب',
-      show_all:'عرض الكل',show_less:'عرض أقل',pref_fav:'المفضل',
+      show_all:'عرض الكل',show_less:'عرض أقل',pref_fav:'المفضل',prehab_lbl:'⚠ تأهيل',prehab_reason:'تأهيل: عمل تعافٍ خفيف للمفصل المصاب. أبقِ الجهد ~4، وزن خفيف، ومدى حركة كامل.',
       warmup_tip_bench:'تمارين شد الكتف + تراجع اللوح قبل الإحماء.',
       warmup_tip_deadlift:'حركات الحوض + جسور الألوية. شد بطنك في كل تكرار.',
       warmup_tip_ohp:'لفات الجسم + تمارين الحائط. ضم جسمك طوال الوقت.',
@@ -1807,7 +1808,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
     Object.keys(pf||{}).forEach(function(ex){
       var jrs=jointsForExercise(ex);
       if(pf[ex]==='red')jrs.forEach(function(j){if(j)joints[j]='red';});
-      if(pf[ex]==='yellow'&&!joints[j])joints[j]=joints[j]||'yellow';
+      if(pf[ex]==='yellow')jrs.forEach(function(j){if(j&&!joints[j])joints[j]='yellow';});
     });
     return joints;
   }
@@ -1869,6 +1870,11 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
     "Vertical Shrugs":{t:"isolation",f:"low",jr:["trap"],inc:5,rr:[8,15],subs:["Barbell Shrugs","Dumbbell Shrugs","Farmers Walk","Face Pull"]},
     "Hammer Curls":{t:"isolation",f:"low",jr:["elbow"],inc:1,rr:[8,15],subs:["Standing DB Curl","Cable Curl","Reverse Curl","Incline Curl"]},
     "Forearm Ext/Flex":{t:"isolation",f:"low",jr:["wrist"],inc:1,rr:[10,20],subs:["Wrist Curl","Reverse Wrist Curl","Farmers Walk","Plate Pinch"]},
+    // ── Prehab (P3) ──
+    "Band Pull-Apart":{t:"isolation",f:"low",jr:["shoulder"],inc:1,rr:[10,20],subs:[],prehab:true},
+    "Terminal Knee Extension":{t:"isolation",f:"low",jr:["knee"],inc:1,rr:[12,20],subs:[],prehab:true},
+    "Bird Dog":{t:"isolation",f:"low",jr:["hip","spine"],inc:1,rr:[10,20],subs:[],prehab:true},
+    "Dead Bug":{t:"isolation",f:"low",jr:["spine"],inc:1,rr:[8,15],subs:[],prehab:true},
     // ── Pool expansion (quads) ──
     "Front Squat":{t:"compound",f:"high",jr:["knee","spine","hip"],inc:2.5,rr:[6,12],subs:["Barbell Squat","Leg Press","Goblet Squat","Hack Squat"]},
     "Leg Press":{t:"compound",f:"moderate",jr:["knee","hip"],inc:2.5,rr:[6,15],subs:["Barbell Squat","Hack Squat","Bulgarian Split Squat","Goblet Squat"]},
@@ -2659,6 +2665,8 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
   // Check if an exercise is safe given current injuries
   function isExerciseSafeForInjuries(ex,pf){
     if(!pf)return{ok:true,reason:null};
+    var pm=EXERCISE_META[ex];
+    if(pm&&pm.prehab)return{ok:true,reason:null};
     if(pf[ex]==='red')return{ok:false,reason:'This exercise is flagged RED (pain). Stop using it.'};
     var jrs=jointsForExercise(ex);
     if(!jrs.length)return{ok:true,reason:null};
@@ -2717,7 +2725,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
         return {n:day.n,ex:day.ex.map(function(ex){
           var sets=isDeload?Math.max(1,Math.round(ex.sets*0.5)):Math.max(1,Math.round(ex.sets*volFactor));
           var targetRpe=isDeload?6:Math.min(rpeBase+Math.round(Math.random()*0.5),9.5);
-          return {n:ex.n,sets:sets,rl:ex.rl,rh:ex.rh,p:ex.p,se:ex.se,targetRpe:targetRpe};
+          return {n:ex.n,sets:sets,rl:ex.rl,rh:ex.rh,p:ex.p,se:ex.se,targetRpe:targetRpe,orig:ex.orig||null,prehab:ex.prehab||false,prehabJoint:ex.prehabJoint||null};
         })};
       });
       mesoDays.push({week:w,phase:phase,days:weekDays,completed:false,logs:{}});
@@ -3261,9 +3269,23 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
         var ws=scales[ex.p]||1,ts=1;ex.se.forEach(function(sec){ws+=(scales[sec]||1)*0.5;ts+=0.5;});
         var scale=ws/ts,ns=Math.max(1,Math.min(MAX,Math.round(ex.s*scale)));
         var rl=goal==='strength'?4:goal==='hypertrophy'?8:6,rh=goal==='strength'?6:goal==='hypertrophy'?12:10;
-        return{n:chosenName,sets:ns,rl:rl,rh:rh,p:ex.p,se:ex.se||[]};
+        return{n:chosenName,sets:ns,rl:rl,rh:rh,p:ex.p,se:ex.se||[],orig:ex.n};
       });
       return{n:day.n,ex:exs};
+    });
+    // P3: auto prehab insertion for pain-flagged joints
+    var PREHAB_MAP={shoulder:'Band Pull-Apart',elbow:'Wrist Curl',knee:'Terminal Knee Extension',hip:'Bird Dog',spine:'Dead Bug'};
+    var injJoints=getInjuredJoints(painFlags());
+    Object.keys(PREHAB_MAP).forEach(function(j){
+      if(injJoints[j]!=='yellow'&&injJoints[j]!=='red')return;
+      progDays.forEach(function(day){
+        if(day.restDay)return;
+        var uses=false;day.ex.forEach(function(ex){if(jointsForExercise(ex.n).indexOf(j)>=0)uses=true;});
+        if(!uses)return;
+        var has=day.ex.some(function(e){return e.prehab&&e.prehabJoint===j;});
+        if(has)return;
+        day.ex.unshift({n:PREHAB_MAP[j],sets:2,rl:12,rh:20,p:'prehab',se:[],orig:null,prehab:true,prehabJoint:j,targetRpe:4});
+      });
     });
     var te=progDays.reduce(function(s,d){return s+d.ex.length},0),ts=progDays.reduce(function(s,d){return s+d.ex.reduce(function(a,e){return a+e.sets},0)},0);
     var prog={date:new Date().toISOString().split('T')[0],splitName:split.name,days:progDays,totalSets:ts,totalEx:te};
@@ -3827,6 +3849,9 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
     var fatigueAdj=fs?fs.adjust:0;
     var peri=ls('mos_periodization',null),wkCount=ls('mos_week_count',1);
     var m=meta(ex.n),sugg=rehabSuggest(ex.n,goal,age,hist,pf,fatigueAdj);
+    if(ex.prehab){
+      sugg={w:null,r:m.rr?m.rr[1]:15,rpe:4,e1RM:null,exp:_('prehab_reason'),last:null,blocked:false};
+    }
     if(lightDays[di]&&sugg&&sugg.w!==null&&sugg.w>0){
       var lInc=m.inc>0?m.inc:2.5;
       sugg.w=Math.max(lInc,Math.round(sugg.w*0.8/lInc)*lInc);
@@ -3858,11 +3883,11 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       suggestHtml='<div class="suggest-box"><div><span class="suggest-val" onclick="showPlateCalculator('+sugg.w+',event)" style="cursor:pointer" title="'+_('plate_title')+'">'+(sugg.w>0?sugg.w+' '+_('weight'):'—')+'</span></div><div class="suggest-detail"><strong>'+(sugg.w>0?sugg.w+' '+_('weight'):'—')+' × '+sugg.r+' '+_('reps')+' @ '+_('rpe')+' '+sugg.rpe+'</strong>'+fatigueNote+mlNote+'<br>'+sugg.exp+(sugg.pct?' · '+(sugg.pct).toFixed(0)+_('pct_1rm'):'')+'</div></div>';
       suggestHtml+=renderWarmupHtml(ex.n,sugg,day.n);
     }else if(!sugg.blocked){suggestHtml='<div class="suggest-box"><div class="suggest-detail"><strong>'+_('start_training')+'</strong>'+fatigueNote+'<br>'+sugg.exp+'</div></div>';}
-    var titleInnerHtml='<span class="ex-name">'+(ei+1)+'. '+exLinkHtml(ex.n)+'</span>'+prHtml+perHtml+
+    var titleInnerHtml='<span class="ex-name">'+(ei+1)+'. '+exLinkHtml(ex.n)+'</span>'+prHtml+(ex.prehab?' <span class="prehab-chip" title="'+_('prehab_reason')+'">'+_('prehab_lbl')+'</span>':'')+perHtml+
       '<span class="safety-badge '+safety.sev+'">'+(safety.sev==='safe'?'\u2713 '+_('green'):safety.sev==='warn'?'\u26A0 '+_('yellow'):'\u2715 '+_('red'))+'</span>'+
       '<span class="rm-ex-btn" data-ex="'+ex.n+'">✕</span>';
     var msubs=(m&&m.subs)||[],ceList=ls(K.CE,[]),sp=ls(K.SP,null),spSplit=sp&&SPLITS[sp.key];
-    var orig=spSplit&&spSplit.days[di]&&spSplit.days[di].ex[ei]?spSplit.days[di].ex[ei].n:null;
+    var orig=ex.prehab?null:(ex.orig||(spSplit&&spSplit.days[di]&&spSplit.days[di].ex[ei]?spSplit.days[di].ex[ei].n:null));
     var swapChips='';
     if(orig&&orig!==ex.n)swapChips+='<button class="swap-chip original" data-di="'+di+'" data-idx="'+ei+'" data-ex="'+ex.n+'" data-to="'+orig+'">↩ '+_('swap_back')+' ('+orig+')</button>';
     msubs.forEach(function(s){if(s!==ex.n)swapChips+='<button class="swap-chip" data-di="'+di+'" data-idx="'+ei+'" data-ex="'+ex.n+'" data-to="'+s+'">'+s+'</button>';});
@@ -4144,8 +4169,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
     if(!oldName||!newName||oldName===newName)return;
     var prog=ls(K.PG,null);if(!prog||!prog.days[di])return;
     var day=prog.days[di],ex=day.ex[idx];if(!ex)return;
-    var sp=ls(K.SP,null),orig=null;
-    if(sp&&SPLITS[sp.key]&&SPLITS[sp.key].days[di]&&SPLITS[sp.key].days[di].ex[idx])orig=SPLITS[sp.key].days[di].ex[idx].n;
+    var sp=ls(K.SP,null),orig=ex.prehab?null:(ex.orig||(sp&&SPLITS[sp.key]&&SPLITS[sp.key].days[di]&&SPLITS[sp.key].days[di].ex[idx]?SPLITS[sp.key].days[di].ex[idx].n:null));
     ex.n=newName;ss(K.PG,prog);
     var choices=ls('mos_ex_choices',{});
     if(orig){if(newName===orig)delete choices[orig];else choices[orig]=newName;}
