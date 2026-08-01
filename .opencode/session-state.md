@@ -142,3 +142,29 @@
 - Applied the 4-copies rule (tools/, website/tools/, training bundle/, website/training bundle/) in BOTH worktrees — workflow run 30697207095 succeeded
 - Live-verified: no themeBtn, no data-theme="light" CSS, initTheme dark forced at https://anas-xi.github.io/muscle-os-website/tools/training_tool.html?v=dark1
 - Worktrees removed, pub-master alias deleted
+
+---
+# Session State - P1 recovery-based light day - COMPLETE
+
+## Status: Red-fatigue banner + Light Day/Proceed flow shipped. Deployed origin + public main/master, live-verified.
+
+## What changed (tools/training_tool.html)
+- CSS .fat-light-banner/.flb-*/.fat-light-btn after .suggest-box; i18n fat_light_title/fat_light_desc/fat_light_btn/fat_planned_btn (en+ar)
+- Session-local flags: var makeupDays={},missedSkip=false,lightDays={},lightProceed={}
+- renderDay: when getTodayFatigue() fatigueScore <= -1 (RED) and neither flag set -> banner before warmup; buttons set lightDays[di]/lightProceed[di] then renderDay(i)
+- Light Day: exCtx weights 80% rounded to m.inc (default 2.5), rows = max(1, ex.sets-1); Proceed: no change
+- setLoggerHTML padEmpty now (makeupDays[di]||lightDays[di]) -> light-day rows logged as done
+- Superset cards get light weights via exCtx but keep full set rows (light -1 set not applied to superset cards by design)
+
+## Tests
+- f13_light_day_test.js (NEW, 13/13): banner on RED, weights ~0.8 ratio, -1 set, Proceed keeps 100%/3-row default, per-day isolation, tab round-trip persistence, no console errors
+- GOTCHA: bestE1RM() filters entries on stored e1RM field (x.e1RM>0) - seeded history must include e1RM or "No history" fallback shows
+- GOTCHA: normal (non-makeup/light) padEmpty default is 3 rows, NOT ex.sets - tests must expect 3
+- Regression green: F5 21/21, F11 18/18, F12 11/11, F6 26/26, F8 20/20
+
+## Deployed
+- root master 1ceb385 pushed origin muscle-os-bot (fabce43..1ceb385)
+- public main 7a5129a (b314230..7a5129a), public master 9435f67 (a70d831..9435f67) - 4 copies rule in both worktrees
+- workflow run 30698748211 succeeded
+- Live-verified at https://anas-xi.github.io/muscle-os-website/tools/training_tool.html?v=p1 (lightDays decl, banner CSS, i18n en+ar, 80pct rounding, padEmpty)
+- Worktrees removed, pub-master alias deleted
