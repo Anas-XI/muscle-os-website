@@ -150,6 +150,13 @@ export default {
     if (url.pathname === '/api/sync/load' && request.method === 'POST') {
       return handleSyncLoad(request, env);
     }
+    // ---- Data sync v2 (passphrase-guarded, key in path) ----
+    if (url.pathname.startsWith('/api/sync/') && request.method === 'POST') {
+      return handleSyncPush(request, env, url);
+    }
+    if (url.pathname.startsWith('/api/sync/') && request.method === 'GET') {
+      return handleSyncPull(request, env, url);
+    }
     // ---- Expiry reminders (admin) ----
     if (url.pathname === '/api/expiring-codes' && request.method === 'POST') {
       return handleExpiringCodes(request, env);
@@ -968,6 +975,64 @@ async function handleSyncLoad(request, env) {
   if (!raw) return json({ data: null }, 200, env, request);
   try {
     return json({ data: JSON.parse(raw) }, 200, env, request);
+  } catch (e) {
+    return json({ error: 'corrupt_data' }, 500, env, request);
+  }
+}
+
+async function sha256Hex(s) {
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s || ''));
+  return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+function syncKeyFromPath(url) {
+  return url.pathname.replace('/api/sync/', '').replace(/[^a-zA-Z0-9_-]/g, '').toLowerCase();
+}
+
+// ── POST /api/sync/:key (passphrase-guarded push) ──
+async function handleSyncPush(request, env, url) {
+  const rateLimited = await checkRateLimit(request, env, 30);
+  if (rateLimited) return json({ error: 'rate_limited' }, 429, env, request);
+  const key = syncKeyFromPath(url);
+  if (key.length < 4 || key.length > 64) return json({ error: 'invalid_key' }, 400, env, request);
+  let body;
+  try { body = await request.json(); } catch (e) {
+    return json({ error: 'invalid_json' }, 400, env, request);
+  }
+  const { pw, data } = body;
+  if (!data) return json({ error: 'missing_data' }, 400, env, request);
+  const payloadSize = new TextEncoder().encode(JSON.stringify(data)).length;
+  if (payloadSize > 1_000_000) return json({ error: 'data_too_large' }, 413, env, request);
+  const meta = await env.ACCESS_CODES.get(`sync:${key}:meta`, 'json');
+  const pwHash = pw ? await sha256Hex(pw) : null;
+  if (meta && meta.pwHash) {
+    if (!pwHash || !timingSafeEqual(pwHash, meta.pwHash)) {
+      return json({ error: 'bad_passphrase' }, 401, env, request);
+    }
+  }
+  await env.ACCESS_CODES.put(`sync:${key}:data`, JSON.stringify(data), { expirationTtl: 7776000 });
+  await env.ACCESS_CODES.put(`sync:${key}:meta`, JSON.stringify({ pwHash, ts: Date.now() }), { expirationTtl: 7776000 });
+  return json({ status: 'ok', ts: Date.now() }, 200, env, request);
+}
+
+// ── GET /api/sync/:key?pw= (passphrase-guarded pull) ──
+async function handleSyncPull(request, env, url) {
+  const rateLimited = await checkRateLimit(request, env, 60);
+  if (rateLimited) return json({ error: 'rate_limited' }, 429, env, request);
+  const key = syncKeyFromPath(url);
+  if (key.length < 4 || key.length > 64) return json({ error: 'invalid_key' }, 400, env, request);
+  const pw = url.searchParams.get('pw') || '';
+  const meta = await env.ACCESS_CODES.get(`sync:${key}:meta`, 'json');
+  if (meta && meta.pwHash) {
+    const pwHash = pw ? await sha256Hex(pw) : null;
+    if (!pwHash || !timingSafeEqual(pwHash, meta.pwHash)) {
+      return json({ error: 'bad_passphrase' }, 401, env, request);
+    }
+  }
+  const raw = await env.ACCESS_CODES.get(`sync:${key}:data`);
+  if (!raw) return json({ data: null, ts: meta ? meta.ts : null }, 200, env, request);
+  try {
+    return json({ data: JSON.parse(raw), ts: meta ? meta.ts : null }, 200, env, request);
   } catch (e) {
     return json({ error: 'corrupt_data' }, 500, env, request);
   }
