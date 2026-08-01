@@ -240,3 +240,22 @@
 - GOTCHA: I18N is IIFE-scoped var, not window-visible - i18n assertion parses the source file instead
 - GOTCHA: mainLifts exists only inside exCtx; coachNote defines its own MAIN_LIFTS
 - Regression green: F5 21/21, F6 26/26, F7 25/25, F8 20/20, F11 18/18, F12 11/11, F13 13/13, F14 12/12, F15 17/17; bracecheck2 1559/1559; check_parse OK
+
+---
+# Session State - P5 body-trend feedback nudge - COMPLETE
+
+## Status: Measurements drive a dismissable dashboard nudge. Deployed origin + public main/master, live-verified.
+
+## What changed (tools/training_tool.html)
+- New #nudgeBar (flex bar + #nudgeText + #nudgeDismissBtn) after #missedBanner on step4; .nudge-bar yellow (rgba orange border), .note variant blue; dismiss button styled
+- bodyTrendNudge(): K.MM entries filtered to weight; first vs last weight; span (dates) must be >=14 days; hypertrophy goal + pct <= -2% -> yellow nudge_hypertrophy_down; strength goal + weekly pct > 1% -> note nudge_strength_up
+- renderNudge(): skips when mos_nudge_dismiss === today (date-only, ss() JSON round-trip via ls); renders tone class + text; called from renderDashboard
+- Dismiss click: ss('mos_nudge_dismiss', today) + hide bar (no re-render needed; stays gone through re-renders same day)
+- BUG FIX: backToDashBtn handler only did go(4) without renderDashboard -> stale dashboard returning from History (nudge/fatigue/session state stale); now go(4)+renderDashboard()
+- i18n: nudge_hypertrophy_down, nudge_strength_up (en+ar)
+
+## Tests
+- f17_nudge_test.js (NEW, 12/12): no measurements -> hidden; 3 declining weights over 14 days -> yellow nudge + text; dismiss -> hidden + mos_nudge_dismiss=today; re-render -> still gone; strength goal + 3.5kg gain over 14 days -> note variant + verify-surplus text; span <14 days -> no nudge; no console errors
+- GOTCHA: backToDashBtn didn't re-render dashboard (only go(4)) - nudge test caught it; fixed in app (also benefits F16 flow)
+- GOTCHA: ss() JSON-stringifies - mos_nudge_dismiss raw value is '"date"'; test must JSON.parse before comparing
+- Regression green: F5 21/21, F6 26/26, F7 25/25, F8 20/20, F11 18/18, F12 11/11, F13 13/13, F14 12/12, F15 17/17, F16 12/12; bracecheck2 1569/1569; check_parse OK
