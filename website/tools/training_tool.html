@@ -233,6 +233,12 @@ select option{background:#1E1E2A;color:var(--text)}
 .summary-val{font-family:'JetBrains Mono',monospace;font-size:1.2rem;font-weight:700;color:var(--accent);line-height:1.1}
 .summary-lbl{font-size:.45rem;text-transform:uppercase;letter-spacing:1.2px;color:var(--text-muted);font-weight:600;margin-top:2px}
 .deload-bar{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--accent-soft);border:1px solid var(--accent-soft);border-radius:8px;margin-bottom:10px;gap:6px;flex-wrap:wrap}
+.nudge-bar{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:rgba(255,152,0,.08);border:1px solid rgba(255,152,0,.3);border-radius:8px;margin-bottom:10px;gap:6px;flex-wrap:wrap}
+.nudge-bar.note{background:rgba(33,150,243,.08);border-color:rgba(33,150,243,.3)}
+.nudge-text{font-size:.6rem;color:#FFB74D;line-height:1.5;flex:1;min-width:200px}
+.nudge-bar.note .nudge-text{color:#64B5F6}
+.nudge-dismiss{background:transparent;border:none;color:rgba(250,250,248,.3);font-size:.7rem;cursor:pointer;padding:0 4px}
+.nudge-dismiss:hover{color:rgba(250,250,248,.8)}
 .session-chip{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 10px;background:rgba(250,250,248,.02);border:1px solid rgba(250,250,248,.06);border-radius:8px;margin-bottom:10px}
 .session-chip.running{border-color:rgba(244,201,59,.35);background:rgba(244,201,59,.06)}
 .session-chip .st-display{font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;color:var(--accent);letter-spacing:1px}
@@ -794,6 +800,11 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
         </div>
       </div>
 
+      <div id="nudgeBar" class="nudge-bar" style="display:none">
+        <div class="nudge-text" id="nudgeText"></div>
+        <button class="nudge-dismiss" id="nudgeDismissBtn" title="Dismiss">✕</button>
+      </div>
+
       <div id="fatigueBar" class="fatigue-bar">
         <div class="fb-title" data-i18n="pre_session">Pre-Session Readiness</div>
         <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
@@ -1172,6 +1183,8 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       meas_l_arm:'Left Arm (cm)',meas_r_arm:'Right Arm (cm)',meas_l_thigh:'Left Thigh (cm)',meas_r_thigh:'Right Thigh (cm)',
       meas_l_calf:'Left Calf (cm)',meas_r_calf:'Right Calf (cm)',meas_photo:'Progress Photo (optional, max ~100KB)',
       meas_last:'Last',meas_no_data:'No data',meas_weight_trend:'Weight Trend',
+      nudge_hypertrophy_down:'Weight trending down — consider +200 kcal/day',
+      nudge_strength_up:'Weight up >1%/week — verify surplus sizing.',
       // Periodization badge
       per_periodization:'Periodization',
       // Cardio
@@ -1492,6 +1505,8 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       meas_l_arm:'الدراع الأيسر (سم)',meas_r_arm:'الدراع الأيمن (سم)',meas_l_thigh:'الفخذ الأيسر (سم)',meas_r_thigh:'الفخذ الأيمن (سم)',
       meas_l_calf:'الساق اليسرى (سم)',meas_r_calf:'الساق اليمنى (سم)',meas_photo:'صورة تقدم (اختياري، حد أقصى 100 كيلوبايت)',
       meas_last:'آخر حاجة',meas_no_data:'مفيش بيانات',meas_weight_trend:'اتجاه الوزن',
+      nudge_hypertrophy_down:'الوزن نازل — فكّر في +200 سعرة/يوم',
+      nudge_strength_up:'الوزن زايد >1%/أسبوع — راجع حجم الفائض.',
       // Periodization badge
       per_periodization:'دورة تدريبية',
       // Cardio
@@ -2593,6 +2608,36 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
     ss(K.MM,ms);
   }
   function latestMeasurements(){var ms=getMeasurements();return ms.length?ms[ms.length-1]:null;}
+  var NUDGE_DISMISS='mos_nudge_dismiss';
+  function bodyTrendNudge(){
+    var vi=ls(K.VI,{}),goal=vi.goal||'hypertrophy';
+    var ms=getMeasurements().filter(function(m){return m.weight;});
+    if(ms.length<2)return null;
+    var first=ms[0],last=ms[ms.length-1];
+    var days=(new Date(last.date)-new Date(first.date))/864e5;
+    if(days<14)return null;
+    var pct=(last.weight-first.weight)/first.weight*100;
+    if(goal==='hypertrophy'&&pct<=-2)return{tone:'yellow',msg:_('nudge_hypertrophy_down')};
+    if(goal==='strength'){
+      var weeks=days/7,weekly=pct/weeks;
+      if(weekly>1)return{tone:'note',msg:_('nudge_strength_up')};
+    }
+    return null;
+  }
+  function renderNudge(){
+    var el=document.getElementById('nudgeBar');
+    var today=new Date().toISOString().split('T')[0];
+    if(ls(NUDGE_DISMISS,null)===today){el.style.display='none';return;}
+    var n=bodyTrendNudge();
+    if(!n){el.style.display='none';return;}
+    document.getElementById('nudgeText').textContent=n.msg;
+    el.classList.toggle('note',n.tone==='note');
+    el.style.display='flex';
+  }
+  document.getElementById('nudgeDismissBtn').addEventListener('click',function(){
+    ss(NUDGE_DISMISS,new Date().toISOString().split('T')[0]);
+    document.getElementById('nudgeBar').style.display='none';
+  });
   function calculateWeightChange(){
     var ms=getMeasurements();if(ms.length<2)return null;
     var first=ms[0],last=ms[ms.length-1];
@@ -3627,6 +3672,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
     updateMakeupChip();
     updateSupersetToggle();
     updateNotifToggle();
+    renderNudge();
     document.getElementById('dashProfile').innerHTML='<div class="rb-title">'+_('generate')+'</div><strong>'+prog.splitName+'</strong> · '+age+' · '+goal+' · '+prog.totalSets+' sets/wk';
     document.getElementById('dashProfile').style.display='block';
     renderWeekRow();
@@ -4594,7 +4640,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
     document.getElementById('histChart').innerHTML=html;
   }
 
-  document.getElementById('backToDashBtn').addEventListener('click',function(){go(4);});
+  document.getElementById('backToDashBtn').addEventListener('click',function(){go(4);renderDashboard();});
   document.getElementById('markDeloadBtn').addEventListener('click',function(){
     if(!confirm(_('confirm_mark_deload')))return;
     var dt=dlTracker();dt.lastDeload=new Date().toISOString().split('T')[0];dt.sessions=0;dt.overshoots=0;ss(K.DT,dt);
