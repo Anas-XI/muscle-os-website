@@ -65,14 +65,16 @@ const CLIENT_ID = '22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleus
   const overlayDisplay = async () => page.evaluate(() => document.getElementById('subOverlay').style.display);
   const stepDisplay = async (id) => page.evaluate((i) => document.getElementById(i).style.display, id);
 
-  // ── T1: fresh load (no session, no sub) → overlay + step 1, GIS initialized ──
+  // ── T1: fresh load (no session, no sub) → overlay with code box + Google both visible ──
   await page.goto(PAGE_URL, { waitUntil: 'domcontentloaded' });
   await page.waitForTimeout(1200);
   check('T1 overlay shown', (await overlayDisplay()) === 'flex');
-  check('T1 step1 visible', (await stepDisplay('authStep1')) === 'block');
-  check('T1 step2 hidden', (await stepDisplay('authStep2')) === 'none');
+  check('T1 code box visible immediately (no Google needed)', (await stepDisplay('authStep2')) === 'block');
+  check('T1 Google option also visible', (await stepDisplay('authStep1')) === 'block');
   check('T1 GIS configured with client_id', await page.evaluate(() => window.__gsiCfg && window.__gsiCfg.client_id) === CLIENT_ID);
   check('T1 renderButton called', await page.evaluate(() => document.getElementById('googleSignInBtn').getAttribute('data-rendered')) === '1');
+  check('T1 signed-in row hidden', await page.evaluate(() => document.getElementById('authWelcomeRow').style.display) === 'none');
+  check('T1 switch link hidden', await page.evaluate(() => document.getElementById('subSignOut').style.display) === 'none');
 
   // ── T2: Google sign-in → step 2 with welcome, session stored ──
   await page.evaluate(() => window.__gsiCfg.callback({ credential: 'FAKE_CRED' }));
@@ -105,11 +107,16 @@ const CLIENT_ID = '22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleus
   await page.waitForFunction(() => document.getElementById('authStep2').style.display === 'block');
   check('T4 returns to step 2 with stored session', true);
   check('T4 welcome shows stored name', await page.evaluate(() => document.getElementById('authWelcome').textContent) === 'Signed in as Test User');
+  check('T4 signed-in row shown when linked', await page.evaluate(() => document.getElementById('authWelcomeRow').style.display) === 'block');
+  check('T4 code box still visible when linked', (await stepDisplay('authStep2')) === 'block');
 
-  // ── T5: sign out → back to step 1, session cleared ──
+  // ── T5: sign out → session cleared, both sections stay visible ──
   await page.click('#subSignOut');
   await page.waitForFunction(() => document.getElementById('authStep1').style.display === 'block');
-  check('T5 step1 visible after sign-out', true);
+  check('T5 Google option visible after sign-out', (await stepDisplay('authStep1')) === 'block');
+  check('T5 code box still visible after sign-out', (await stepDisplay('authStep2')) === 'block');
+  check('T5 welcome row hidden after sign-out', await page.evaluate(() => document.getElementById('authWelcomeRow').style.display) === 'none');
+  check('T5 switch link hidden after sign-out', await page.evaluate(() => document.getElementById('subSignOut').style.display) === 'none');
   check('T5 session cleared', (await getLS(GS_KEY)) === null);
 
   // ── T6: bound-to-other error message ──
@@ -132,6 +139,7 @@ const CLIENT_ID = '22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleus
   await page.waitForFunction(() => document.getElementById('authStep1').style.display === 'block');
   check('T8 invalid session -> step1', true);
   check('T8 invalid session cleared from storage', (await getLS(GS_KEY)) === null);
+  check('T8 welcome row hidden', await page.evaluate(() => document.getElementById('authWelcomeRow').style.display) === 'none');
 
   // ── T9: owner email → instant grant, no verify-code call ──
   const vcBefore = apiCalls.filter(c => c.url.endsWith('/api/verify-code')).length;
