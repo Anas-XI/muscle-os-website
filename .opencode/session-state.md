@@ -1,4 +1,38 @@
-﻿# Session State — Midnight-only live deploys + codes validity rules — COMPLETE
+﻿# Session State — Sample-books funnel SHIPPED (midnight deploy will publish) — COMPLETE
+
+## Status: Quiz → free samples → book funnel fully wired. Pushed to root master d7f19f8 and public main 6ddd998. Live at next 00:00 Morocco cron (workflow 320801512).
+## Deployed: root master d7f19f8 (origin muscle-os-bot) · public main 6ddd998 · public master still e54042b (first midnight merge pending).
+
+## What shipped
+- 6 books (`E:\MoS\books\muscle_os_*.html`) got Personalise callouts (`.personalise` CSS: dark #14151A card, 4px #F4C93B left border, `\25C8` mark, yellow strong) — mirrored into `website/books/`.
+- 6 free sample books `books/sample_*.html` (A4 PDF-styled, first chapter each, P1–P6) — NEW, in root + `website/books/` + PDFs.
+- Combined sample `muscle_os_sample.html` → `muscle_os_sample.pdf` (11 pages, 411KB) — link target of samples hub "Download Combined PDF".
+- `website/quiz/index.html` rewritten → "Which Book Should You Read First?" (3-question branching, 6-book map w/ anchors `../samples/#diet|training|strength|recovery|sleep|hormones`, bundle WhatsApp CTA 1500 EGP).
+- `website/samples/index.html` rewritten → "Free Samples" (6 cards w/ matching anchor ids + combined PDF + WhatsApp bundle link).
+- `website/knowledge-hub/index.html` cards updated to match new quiz/samples.
+- ALL 13 book/sample PDFs now TRACKED in git (was `*.pdf` ignore): added `!books/*.pdf` + `!website/books/*.pdf` negations to root `.gitignore`, `!books/*.pdf` to `website/.gitignore`. PDFs never tracked before → live site downloads would have 404'd.
+
+## Verification results
+- Anchor ids diet/training/strength/recovery/sleep/hormones exist in samples page — quiz deep links work.
+- PDF conversions (paged.polyfill + html_to_pdf.js): nutrition 81p/1.5MB · training 98p/1.7MB · hormonal 83p/1.4MB · recovery 80p · sleep 83p · strength 80p · combined sample 11p. Blank pages at TOC/part dividers are intentional section breaks.
+- PDFs regenerated 8/3 because the 7/30 ones predated the personalise pass (books HTML modified 8/3 00:57).
+- `website/books/index.html` was accidentally clobbered by bulk copy (root version lacks OG tags) → restored from git + synced improved version back to root `books/index.html`.
+
+## Funnel layout on live site (paths under /books/ and /samples/)
+- `/samples/` → downloads `/books/sample_*.pdf` + `/books/muscle_os_sample.pdf`, "View Full Book" → `/books/muscle_os_*.html`
+- `/quiz/` → recommends one of 6 books → same book HTMLs + `/samples/#anchor`
+- OG meta (title/desc/image https://muscleos.is-a.dev/assets/img/coach.jpg, twitter cards) on every page — caught public repo up on earlier OG upgrades too (guides/tools/bundles).
+
+## Gotchas (repeat)
+- PS 5.1 `Get-Content` reads UTF-8 as ANSI → em-dash shows as `�?"`; file is fine (check with [System.IO.File]::ReadAllText UTF8).
+- Robocopy temp-clone push: line-ending warnings are noise (autocrlf=true normalizes); empty-diff `M` entries (workflow.yml/LICENSE) are mode/EOL-only, harmless.
+- Never bare-`git` from `E:\MoS\website` (stray .git) — always `git -C E:\MoS`.
+- Sitemap.xml + access-codes.json also rode along in the public push (previously committed to root, public was behind).
+- `codes/` dropbox + `tools/FEATURE_PROMPTS.md` remain untracked in root (intentional — sensitive).
+
+---
+
+# Session State — Midnight-only live deploys + codes validity rules — COMPLETE
 
 ## Status: Live site now deploys ONLY at midnight (00:00 Morocco = 23:00 UTC) via scheduled GitHub Actions on Anas-XI/muscle-os-website main. Realtime push-trigger removed. Codes: 30d-from-activation (subscription), lifetime (books), survive any update.
 ## Deployed: root master 3fbe5a0 (origin muscle-os-bot) · public main 93f02d1 (workflow 320801512 "Deploy Website to GitHub Pages (midnight only)" active) · master branch untouched until first midnight merge.
