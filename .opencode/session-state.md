@@ -1,5 +1,47 @@
-﻿# Session State — Training Tool G-batch (F6–F9) — COMPLETE
+﻿# Session State — Bulk Access Codes: 1000 per product, seeded + live — COMPLETE
 
+## Status: 6000 new codes (6 products) generated, seeded to worker KV, hashes merged into fallback json, deployed live. Previous 1000 TR codes confirmed still working.
+## Deployed: root master 04e8439 (origin muscle-os-bot) · public main bb7da72 · public master e54042b · website run 30767830993 success · worker redeployed (Version de34f8fa-1b20-40f2-9f65-e4b5d3be6539) with lifetime-durationDays response fix · live access-codes.json 200 / 1,105,046 bytes.
+
+## Products (1000 codes each, all in KV `code:<CODE>` → {products, plan, durationDays, uses:0}, no maxUses — binding protects; plan/prefix/duration per worker PRODUCT_CONFIG)
+- TR training_tool 30d — EXISTING batch (2026-07-31, already seeded; re-verified live: TR-X32BUNF9E2 valid)
+- TD tdee_adaptive_engine 30d · TB both_tools 30d · BK training_book LIFETIME · BN nutrition_book LIFETIME · BB both_books LIFETIME · MA all_access 30d master
+- Charset matches existing batches: `ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789`, `PREFIX-XXXXXXXXXX` (10 chars)
+
+## Deliverables (E:\MoS\codes\ — untracked, not in any repo)
+- `<product>_codes_1000.csv` × 6 (format identical to existing training_tool CSV: Index,Code,Product,Plan,Duration (days),Status,Generated,Expires)
+- `<product>_codes_sheet.html` × 6 (A4 landscape printable → print-to-PDF like training_tool_codes_1000.pdf)
+- `all_products_codes_2026-08-03.txt` (WhatsApp copy-paste sections)
+- `kv-seed-2026-08-03.json` (6000 entries, wrangler kv bulk put format) — SENSITIVE, keep out of git
+- `fallback-hashes-2026-08-03.json` (6000 SHA-256 → merged into website/assets/data/access-codes.json; old 5 hashes preserved; file now 1.1MB)
+
+## Scripts
+- NEW `website/scripts/bulk-generate-codes.js` — `node scripts/bulk-generate-codes.js` (flags: --no-merge, --count N); regenerates CSVs/sheets/txt/kv-seed/hashes; merges hashes into access-codes.json preserving existing
+- FIXED `website/scripts/rotate-fallback-codes.js` — now MERGES monthly codes into access-codes.json instead of rewriting (was wiping the 6000 bulk hashes)
+- FIXED `website/worker/src/index.js` — `durationDays: doResult.durationDays || 30` → `!= null ? ... : 30` (two spots: plain verify ~line 360 + binding re-activation ~line 273). Bug: lifetime book codes reported dur=30 → client saved 30-day local expiry → books re-locked after 30d despite lifetime JWT. Deployed.
+
+## Seeding gotchas (repeat of session-state KV note)
+- `wrangler kv bulk put --namespace-id <id>` WITHOUT --remote warns "Resource location: local" and STOPPED at 3603/6000 — ALWAYS pass `--remote` (second run: Success 6000/6000, exit 0)
+- `wrangler kv key list` paginates at 1000 keys/page — count per prefix, not `--prefix code:`
+- PowerShell `1>` redirects write UTF-16 + BOM → node reads need 'utf16le' + strip \uFEFF; ConvertFrom-Json on mixed stderr/stdout gives bogus counts (use node)
+- KV key list/get lag behind writes (BN showed 603 until propagation; key get resolves definitive truth: BN-V332OI8R4X found, BB/MA needed run 2)
+- Never invented codes for tests — read from CSVs (TB-FIUN9YS9UJ, BB-0IVXFVS30D came from files)
+
+## Live verification matrix (POST /api/verify-code, prod worker)
+- BK-028UJRZDSL training_book → valid dur=0 exp=2099-12-31 (fix confirmed)
+- BN-V332OI8R4X nutrition_book → valid dur=0 lifetime
+- TR-X32BUNF9E2 training_tool (OLD batch) → valid dur=30
+- TD-PUPFWZ2LSJ → valid 30d · MA-R9YZQAFVY9 → valid master 30d
+- TB-FIUN9YS9UJ → valid for BOTH training_tool + tdee_adaptive_engine
+- BB-0IVXFVS30D → valid for BOTH training_book + nutrition_book (dur=0)
+- KV prefix counts after seeding: TR 1000 · TD 1000 · TB 1000 · BK 1000 · BN 1000 · BB 1000 · MA 1000 (BB/MA via re-run; first run partial)
+
+## Notes
+- STRAY GIT REPO: `E:\MoS\website\.git` exists (old snapshot repo tracking mos_bot/, website/ nested copies, mostly D). NEVER run bare `git` from E:\MoS\website — always `git -C E:\MoS`. Flagged to user; not deleted (destructive, unrelated).
+- JWT_SECRET unchanged this session (old session's fresh key) — session tokens fine.
+- No maxUses on bulk codes: one-account binding blocks sharing; revoke via /api/revoke-code if needed.
+
+# Session State — Training Tool G-batch (F6–F9) — COMPLETE
 ## Status: F1–F5 + exercise pools + F6–F9 done, ALL DEPLOYED LIVE.
 ## Deployed: root master 3becfc2 (origin muscle-os-bot) · public main 64c3840 · public master bfe868f (GH Pages workflow trigger: push to master, artifact = website/ subdir, pages via actions/deploy-pages). Live verified with cache-buster: sessionTimerChip / notifToggle / exportIcsBtn / syncPwInput / BEGIN:VEVENT all present at https://anas-xi.github.io/muscle-os-website/tools/training_tool.html
 
