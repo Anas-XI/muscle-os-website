@@ -140,9 +140,17 @@
     });
   }
 
+  var ACCESS_DATA_URL = (function(){
+    try {
+      var src = document.currentScript && document.currentScript.src;
+      if (src && src.indexOf('/assets/js/') !== -1) return src.split('/assets/js/')[0] + '/assets/data/access-codes.json';
+    } catch(e) {}
+    return 'assets/data/access-codes.json';
+  })();
+
   /* ---- Verify code locally against access-codes.json (fallback) ---- */
   function verifyLocal(code, productId) {
-    return fetch('assets/data/access-codes.json?' + Date.now())
+    return fetch(ACCESS_DATA_URL + '?' + Date.now())
       .then(function(r) { return r.json(); })
       .then(function(db) {
         if (!db || !db.hashes) return { valid: false, reason: 'no_fallback_data' };
