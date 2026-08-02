@@ -405,6 +405,46 @@ Books and tools already shared the gold/ink palette, but typography was split: I
 - Live-verified ?v=: 14 URLs — all 200, Georgia=False, InterLink=True (6 guides + 4 tools root, 1 bundle each family, plus tdee_macro + consistency under website/ = served via root paths)
 - Worktrees removed, pub-main deleted
 
+# Session State — Auth: All Tools Google-Gated; Paid Tools Code-Verified — COMPLETE
+
+## Status: auth live end-to-end. All 6 tools + shared JS + codes JSON live-verified 200 with ?v=3bbf421 (gsi script, googleGate overlay, access-control.js ref present in served HTML; requireGoogleAuth + document.currentScript self-locate present in served JS).
+## Deployed: root master 3bbf421 (origin muscle-os-bot) · public main 30f2c53 · public master 9298bd7 · website run 30766214918 success · worker Version ID da8d2d1c-81f8-49c1-9c64-d9b70955da6e on default env, JWT_SECRET set on all 3 envs.
+
+## Completed
+
+### Scope (user decision): ALL tools require Google sign-in; purchase-code verification only for paid tools (training_tool, tdee_adaptive_engine).
+
+### Root cause fixed: worker deployed WITHOUT Google config
+- `POST /api/auth/google` returned 501 `google_auth_not_configured` → worker had no GOOGLE_CLIENT_ID.
+- Fix: `website/worker/wrangler.toml` gained `[vars] GOOGLE_CLIENT_ID = "22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com"` (public by design; must match the GIS client in pages). JWT_SECRET (96 hex, generated fresh) via `wrangler secret put` on default/staging/production.
+
+### 4 free tools gated (rpe_load_calculator, volume_set_calculator, split_selector_quiz, tdee_macro_calculator)
+- Head: `<script async defer src="https://accounts.google.com/gsi/client">` (same GIS client as paid tools).
+- After `<body>`: `#googleGate` fixed overlay (.gate-card, .gate-error).
+- Gate CSS appended before `</style>`.
+- Before `</body>`: `<script src="../assets/js/access-control.js">` + IIFE `MosAccess.requireGoogleAuth(null, cb)` → cb(ok) hides overlay.
+- Paid tools (training_tool, tdee_adaptive_engine) untouched — existing Google gate + verifyCode() + owner bypass OWNER_EMAIL intact.
+
+### Shared module fix (`website/assets/js/access-control.js`)
+- Local fallback path was `fetch('assets/data/access-codes.json')` which resolves under `/tools/` → 404. `ACCESS_DATA_URL` now self-locates via `document.currentScript.src` (dir of the JS → `/assets/data/access-codes.json`); absolute fallback only for `/pdf/viewer.html` (own inline JWT logic unchanged).
+
+### Worker endpoint matrix (default env, verified live)
+- `auth/google` garbage token → 401 invalid_google_token; `{}` → 400 missing_token
+- `check-session` garbage → 401 invalid_session
+- `verify-code` garbage code → 401 invalid_code; fake session → 401 invalid_session (session-aware)
+- OPTIONS preflight → 200; index.html + all 6 tools + access-control.js + access-codes.json → 200 (curl -sI with ?v=3bbf421; earlier IWR 404s were stale cache — use curl.exe)
+
+## User test checklist (handed off; cannot be done headless)
+1. Open a free tool (e.g. /tools/rpe_load_calculator.html) → Google button → pick account → gate opens
+2. Paid tool → sign in → enter purchase code → opens; reopen = still open
+3. Owner email (ANASSTEM2025@GMAIL.COM) → instant open, no code
+4. staging + production worker endpoints also configured (same secrets/vars)
+
+## Gotchas
+- JWT_SECRET is brand-new → any tokens minted before this deploy are invalid (check-session 401 expected).
+- GH Pages artifact-based deploys: `/repos/.../pages` status:null is normal; verify via artifact download (`gh run download <run> -n github-pages`) or live curl.
+- `gh api .../artifacts/<id>/zip` needs binary-safe download (curl.exe / gh run download) — PowerShell `>` corrupts binary zips.
+
 # Session State — PDF Viewer Overhaul — COMPLETE
 
 ## Status: viewer.html rewritten + DEPLOYED LIVE.
