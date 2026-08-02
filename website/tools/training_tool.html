@@ -302,6 +302,15 @@ html[dir="rtl"] .session-chip .st-display{direction:ltr;unicode-bidi:embed}
 .sess-len-chip.selected{border-color:var(--accent);background:var(--accent-soft)}
 .sess-len-chip.selected strong{color:var(--accent)}
 .opt-badge{font-size:.4rem;color:#2196F3;border:1px solid rgba(33,150,243,.35);background:rgba(33,150,243,.08);padding:1px 5px;border-radius:8px;margin-left:6px;vertical-align:middle;text-transform:uppercase;letter-spacing:.4px}
+.plateau-card{margin:8px 0;padding:10px 12px;border-radius:10px;border:1.5px solid rgba(244,201,59,.25);background:rgba(244,201,59,.04)}
+.plateau-card .pc-title{font-size:.6rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.plateau-card .pc-body{font-size:.55rem;color:rgba(250,250,248,.75);margin-bottom:8px;line-height:1.4}
+.plateau-card .pc-actions{display:flex;gap:6px;flex-wrap:wrap}
+.pc-btn{padding:5px 10px;border-radius:6px;border:1.5px solid rgba(250,250,248,.12);background:transparent;color:rgba(250,250,248,.8);font-size:.55rem;cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif}
+.pc-btn:hover{border-color:var(--line-strong)}
+.pc-btn.swap{color:#2196F3;border-color:rgba(33,150,243,.35)}
+.pc-btn.intense{color:#4CAF50;border-color:rgba(76,175,80,.35)}
+.pc-btn.deload{color:#FF9800;border-color:rgba(255,152,0,.35)}
 .quiz-container{display:none;margin-top:8px}
 .quiz-container.show{display:block}
 .q-num{font-size:.55rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
@@ -820,6 +829,8 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
         <button class="nudge-dismiss" id="nudgeDismissBtn" title="Dismiss">✕</button>
       </div>
 
+      <div id="plateauCard" class="plateau-card" style="display:none"></div>
+
       <div id="fatigueBar" class="fatigue-bar">
         <div class="fb-title" data-i18n="pre_session">Pre-Session Readiness</div>
         <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
@@ -1201,6 +1212,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       nudge_hypertrophy_down:'Weight trending down — consider +200 kcal/day',
       nudge_strength_up:'Weight up >1%/week — verify surplus sizing.',
       sess_len:'Session Length',sess_45:'min',sess_60:'min',sess_90:'min',sess_optional:'optional',sess_suggest_ss:'supersets suggested',
+      plateau_title:'Plateau detected',plateau_body:'<2.5% e1RM gain over last 3 sessions at RPE {rpe}',plateau_swap:'⇄ Swap Exercise',plateau_intense:'⚡ Intensification Block',plateau_deload:'⏸ Deload',
       // Periodization badge
       per_periodization:'Periodization',
       // Cardio
@@ -1524,6 +1536,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       nudge_hypertrophy_down:'الوزن نازل — فكّر في +200 سعرة/يوم',
       nudge_strength_up:'الوزن زايد >1%/أسبوع — راجع حجم الفائض.',
       sess_len:'مدة الجلسة',sess_45:'دقيقة',sess_60:'دقيقة',sess_90:'دقيقة',sess_optional:'اختياري',sess_suggest_ss:'مجموعات مزدوجة مقترحة',
+      plateau_title:'ثبات في التقدم',plateau_body:'مكاسب أقل من 2.5% في آخر 3 جلسات عند RPE {rpe}',plateau_swap:'⇄ استبدال التمرين',plateau_intense:'⚡ بلوك تكثيف',plateau_deload:'⏸ ديلود',
       // Periodization badge
       per_periodization:'دورة تدريبية',
       // Cardio
@@ -2565,6 +2578,72 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
   }
 
   // ── Auto Program Adjustment ──
+  var MAIN_LIFTS=['Barbell Squat','Bench Press','Deadlift Variation','Squat','Deadlift'];
+  // P7: plateau detection -> auto-meso suggestion
+  function detectPlateaus(){
+    var hist=loadHist(),prog=ls(K.PG,null);
+    if(!prog||!prog.days)return[];
+    var present=[],res=[];
+    prog.days.forEach(function(d){
+      if(d.restDay)return;
+      d.ex.forEach(function(e){if(MAIN_LIFTS.indexOf(e.n)>=0&&present.indexOf(e.n)<0)present.push(e.n);});
+    });
+    present.forEach(function(ex){
+      var entries=(hist[ex]||[]).slice().sort(function(a,b){return a.date<b.date?-1:1;});
+      var sessions=[];
+      entries.forEach(function(en){
+        var last=sessions.length?sessions[sessions.length-1]:null;
+        if(last&&last.date===en.date){if((en.e1RM||0)>last.e1rm)last.e1rm=en.e1RM;if((en.rpe||0)>last.rpe)last.rpe=en.rpe;}
+        else sessions.push({date:en.date,e1rm:en.e1RM||0,rpe:en.rpe||0});
+      });
+      if(sessions.length<3)return;
+      var last3=sessions.slice(-3);
+      var start=last3[0].e1rm,cur=last3[2].e1rm;
+      var gain=start>0?(cur-start)/start*100:100;
+      if(gain<2.5&&last3[2].rpe>=8){
+        var di=-1,idx=-1;
+        prog.days.forEach(function(d,i){if(di>=0||d.restDay)return;d.ex.forEach(function(e,j){if(di<0&&e.n===ex){di=i;idx=j;}});});
+        res.push({ex:ex,di:di,idx:idx,gain:gain,cur:cur,rpe:last3[2].rpe});
+      }
+    });
+    return res;
+  }
+  function renderPlateaus(){
+    var card=document.getElementById('plateauCard');
+    var pl=detectPlateaus();
+    if(!pl.length){card.style.display='none';return;}
+    var html='<div class="pc-title">⚠ '+_('plateau_title')+'</div>';
+    pl.forEach(function(p){
+      html+='<div class="pc-body" style="margin-top:'+(html.indexOf('pc-body')>=0?'6px':'0')+'"><strong style="color:#FAFAF8">'+exLinkHtml(p.ex)+'</strong> — '+_('plateau_body').replace('{gain}',p.gain.toFixed(1)).replace('{rpe}',p.rpe)+'</div>'+
+        '<div class="pc-actions">'+
+        '<button class="pc-btn swap" data-action="swap" data-ex="'+p.ex+'">'+_('plateau_swap')+'</button>'+
+        '<button class="pc-btn intense" data-action="intense" data-ex="'+p.ex+'">'+_('plateau_intense')+'</button>'+
+        '<button class="pc-btn deload" data-action="deload" data-ex="'+p.ex+'">'+_('plateau_deload')+'</button></div>';
+    });
+    card.innerHTML=html;
+    card.style.display='block';
+  }
+  document.getElementById('plateauCard').addEventListener('click',function(ev){
+    var b=ev.target.closest('.pc-btn');if(!b)return;
+    var ex=b.dataset.ex;
+    if(b.dataset.action==='swap'){
+      var p=null;detectPlateaus().forEach(function(x){if(x.ex===ex)p=x;});
+      if(!p||p.di<0)return;
+      dayIdx=p.di;renderDay(p.di);updateMakeupChip();updateSupersetToggle();
+      var sid=('c_'+p.di+'_'+ex).replace(/[^a-zA-Z0-9]/g,'_');
+      var card=document.getElementById(sid);
+      if(card){var sw=card.querySelector('.sw-ex-btn');if(sw)sw.click();setTimeout(function(){card.scrollIntoView({behavior:'smooth',block:'center'});},50);}
+    }else if(b.dataset.action==='intense'){
+      document.getElementById('mesoType').value='strength';
+      document.getElementById('mesoWeeks').value='10';
+      go(35);renderMesoConfig();
+    }else if(b.dataset.action==='deload'){
+      var dt=dlTracker();dt.lastDeload=new Date().toISOString().split('T')[0];dt.sessions=0;dt.overshoots=0;ss(K.DT,dt);
+      alert(_('alert_deload_marked'));
+      renderDashboard();
+    }
+  });
+
   function genAutoAdjustments(){
     var logs=ls(K.LG,{}),hist=loadHist(),adj=[];
     var today=new Date(),cutoff=new Date(today);cutoff.setDate(cutoff.getDate()-7);
@@ -3729,6 +3808,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
     updateSupersetToggle();
     updateNotifToggle();
     renderNudge();
+    renderPlateaus();
     document.getElementById('dashProfile').innerHTML='<div class="rb-title">'+_('generate')+'</div><strong>'+prog.splitName+'</strong> · '+age+' · '+goal+' · '+prog.totalSets+' sets/wk';
     document.getElementById('dashProfile').style.display='block';
     renderWeekRow();
@@ -3991,7 +4071,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
     var pr=null;
     if(sugg&&sugg.w&&sugg.r)pr=checkPR(ex.n,sugg.w,sugg.r,hist);
     var prHtml=pr?pr.isPR?' <span class="pr-badge" style="color:#F4C93B;border-color:#F4C93B">'+_('pr_badge_pr')+'</span>':pr.note.includes('nearby')?' <span class="pr-badge" style="color:#FF9800;border-color:rgba(255,152,0,.3)">'+_('pr_badge_close')+'</span>':'':'';
-    var mainLifts=['Barbell Squat','Bench Press','Deadlift Variation','Squat','Deadlift'];var isMain=mainLifts.indexOf(ex.n)>=0;
+    var isMain=MAIN_LIFTS.indexOf(ex.n)>=0;
     var perHtml='';
     if(peri&&isMain){mainLiftRPE(peri,wkCount||1,goal,day.n);perHtml=' <span class="per-badge">'+peri.name+'</span>';}
     var last=sugg.last;
