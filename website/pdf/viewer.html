@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; worker-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev; img-src 'self' data: blob:; object-src 'none'">
 <meta name="referrer" content="no-referrer-when-downgrade">
 <title>PDF Viewer — Muscle OS by Coach Anas Mo'men</title>
   <meta name="description" content="Secure PDF viewer for Muscle OS training programs, nutrition guides, and reference books by Coach Anas Mo'men.">
@@ -24,7 +24,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column}
+body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
 .mos-nav{position:sticky;top:0;z-index:999;background:rgba(20,21,26,.95);backdrop-filter:blur(8px);border-bottom:1px solid #2C2E37;transition:transform .3s ease}
 .mos-nav-inner{max-width:1180px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
 .mos-brand{font-family:'Oswald',sans-serif;font-size:16px;font-weight:700;color:#F4C93B;text-decoration:none;letter-spacing:1px;text-transform:uppercase}
@@ -41,10 +41,10 @@ body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:
 .toolbar .zoom-info{font-size:12px;color:rgba(250,250,248,.45);min-width:50px;text-align:center;font-family:'Inter',sans-serif}
 .toolbar .sep{width:1px;height:20px;background:#2C2E37}
 .toolbar .filename{font-size:12px;color:rgba(250,250,248,.4);max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-right:auto}
-#viewerContainer{flex:1;overflow:auto;background:#0E0F13;display:flex;flex-direction:column;align-items:center;padding:20px 0}
+#viewerContainer{flex:1;overflow:auto;background:#0E0F13;display:flex;flex-direction:column;align-items:center;padding:20px 0;position:relative;-webkit-overflow-scrolling:touch}
 #viewer{display:flex;flex-direction:column;align-items:center;gap:12px;width:100%}
-#viewer .page{position:relative;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,.6);margin-bottom:8px}
-#viewer .page canvas{display:block;max-width:100%;height:auto!important}
+#viewer .page{position:relative;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,.6);margin-bottom:8px;display:flex;align-items:flex-start;justify-content:center;overflow:hidden}
+#viewer .page canvas{display:block;width:100%;height:100%}
 .loading{display:flex;align-items:center;justify-content:center;flex:1;flex-direction:column;gap:12px;color:rgba(250,250,248,.35)}
 .loading .spinner{width:32px;height:32px;border:3px solid #2C2E37;border-top-color:#F4C93B;border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -57,7 +57,7 @@ body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:
 .mos-footer{border-top:1px solid #2C2E37;padding:20px 24px;text-align:center;font-size:11px;color:rgba(250,250,248,.3)}
 .mos-footer a{color:rgba(250,250,248,.5);text-decoration:none}
 .mos-footer a:hover{color:#F4C93B}
-@media(max-width:600px){.toolbar .filename{display:none}.toolbar{gap:6px;padding:8px 10px}.toolbar button{padding:5px 10px;font-size:11px}#viewerContainer{padding:12px 0}}
+@media(max-width:600px){.mos-nav{position:static}.toolbar{top:0}.toolbar .filename{display:none}.toolbar{gap:6px;padding:8px 10px}.toolbar button{padding:5px 10px;font-size:11px}.toolbar .sep{display:none}.toolbar .page-info{min-width:52px;font-size:12px}#viewerContainer{padding:12px 0}}
 .library{flex:1;padding:48px 24px 64px}
 .lib-wrap{max-width:760px;margin:0 auto}
 .lib-title{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;text-transform:uppercase;text-align:center;margin-bottom:6px}
@@ -157,7 +157,10 @@ var prevBtn = document.getElementById('prevPage');
 var nextBtn = document.getElementById('nextPage');
 var zoomOutBtn = document.getElementById('zoomOut');
 var zoomInBtn = document.getElementById('zoomIn');
-var pdfDoc = null, pageNum = 1, scale = 1.2, pageRendering = false;
+var pdfDoc = null, pageNum = 1, scale = 1, fitScale = 1, baseW = 595, baseH = 842, zoomGen = 0;
+var DPR = Math.min(window.devicePixelRatio || 1, 2);
+var renderedPages = {}, io = null, resizeTimer = null;
+var viewerContainer = document.getElementById('viewerContainer');
 var dbOpen = null, authToken = null;
 
 filename.textContent = product.replace(/-/g,' ') || 'PDF Viewer';
@@ -279,8 +282,15 @@ function openPdf(data) {
     pageInfo.textContent = '1 / ' + pdf.numPages;
     prevBtn.disabled = true;
     nextBtn.disabled = pdf.numPages <= 1;
-    // Render all pages sequentially for continuous scroll
-    renderAllPages(1);
+    pdf.getPage(1).then(function(first) {
+      var base = first.getViewport({ scale: 1 });
+      baseW = base.width;
+      baseH = base.height;
+      buildPlaceholders();
+      applyZoom();
+      setupObserver();
+      renderNearby();
+    });
     document.getElementById('viewerContainer').addEventListener('scroll', onScroll);
   }).catch(function(err) {
     loading.style.display = 'none';
@@ -289,24 +299,86 @@ function openPdf(data) {
   });
 }
 
-function renderAllPages(num) {
-  if (num > pdfDoc.numPages) return;
-  pdfDoc.getPage(num).then(function(page) {
-    var viewport = page.getViewport({ scale: scale });
-    var container = document.createElement('div');
-    container.className = 'page';
-    container.dataset.page = num;
-    var canvas = document.createElement('canvas');
-    var ctx = canvas.getContext('2d');
-    canvas.width = viewport.width;
-    canvas.height = viewport.height;
-    container.appendChild(canvas);
-    viewer.appendChild(container);
-    page.render({ canvasContext: ctx, viewport: viewport }).promise.then(function() {
-      // Render next page
-      renderAllPages(num + 1);
+function computeFitScale() {
+  var avail = viewer.clientWidth || viewerContainer.clientWidth;
+  var fit = avail / baseW;
+  return Math.max(0.25, Math.min(fit, 4));
+}
+
+function buildPlaceholders() {
+  viewer.innerHTML = '';
+  var cssScale = fitScale * scale;
+  for (var n = 1; n <= pdfDoc.numPages; n++) {
+    var div = document.createElement('div');
+    div.className = 'page';
+    div.dataset.page = n;
+    div.style.width = Math.round(baseW * cssScale) + 'px';
+    div.style.aspectRatio = baseW + ' / ' + baseH;
+    viewer.appendChild(div);
+  }
+}
+
+function setupObserver() {
+  if (io) io.disconnect();
+  if (!('IntersectionObserver' in window)) return;
+  io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) renderPage(parseInt(e.target.dataset.page));
     });
+  }, { root: viewerContainer, rootMargin: '400px 0px' });
+  viewer.querySelectorAll('.page').forEach(function(p) { io.observe(p); });
+}
+
+function renderNearby() {
+  if (!pdfDoc) return;
+  var top = viewerContainer.scrollTop - viewerContainer.clientHeight;
+  var bottom = viewerContainer.scrollTop + 2 * viewerContainer.clientHeight;
+  viewer.querySelectorAll('.page').forEach(function(p) {
+    var t = p.offsetTop;
+    if (t + p.offsetHeight >= top && t <= bottom) renderPage(parseInt(p.dataset.page));
   });
+}
+
+function renderPage(n) {
+  if (!pdfDoc || renderedPages[n]) return;
+  var el = viewer.querySelector('.page[data-page="' + n + '"]');
+  if (!el) return;
+  var gen = zoomGen;
+  pdfDoc.getPage(n).then(function(page) {
+    if (!el.parentNode || gen !== zoomGen) return;
+    var base = page.getViewport({ scale: 1 });
+    var cssScale = fitScale * scale;
+    var vp = page.getViewport({ scale: cssScale * DPR });
+    var canvas = document.createElement('canvas');
+    canvas.width = Math.floor(vp.width);
+    canvas.height = Math.floor(vp.height);
+    el.innerHTML = '';
+    el.appendChild(canvas);
+    el.style.width = Math.round(base.width * cssScale) + 'px';
+    el.style.aspectRatio = base.width + ' / ' + base.height;
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
+    page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise.then(function() {
+      if (gen !== zoomGen) return;
+      renderedPages[n] = true;
+    }).catch(function() {});
+  });
+}
+
+function applyZoom() {
+  if (!pdfDoc) return;
+  zoomGen++;
+  fitScale = computeFitScale();
+  var cssScale = fitScale * scale;
+  viewer.querySelectorAll('.page').forEach(function(p) {
+    p.style.width = Math.round(baseW * cssScale) + 'px';
+  });
+  zoomInfo.textContent = Math.round(scale * 100) + '%';
+  renderedPages = {};
+  viewer.querySelectorAll('.page').forEach(function(p) {
+    if (p.querySelector('canvas')) p.innerHTML = '';
+  });
+  renderNearby();
 }
 
 function onScroll() {
@@ -315,8 +387,7 @@ function onScroll() {
   var mid = container.scrollTop + container.clientHeight / 2;
   var closest = null, closestDist = Infinity;
   pages.forEach(function(p) {
-    var offset = p.offsetTop - container.scrollTop;
-    var dist = Math.abs(offset + p.offsetHeight / 2 - container.clientHeight / 2);
+    var dist = Math.abs(p.offsetTop + p.offsetHeight / 2 - mid);
     if (dist < closestDist) { closestDist = dist; closest = p; }
   });
   if (closest) {
@@ -330,10 +401,15 @@ function onScroll() {
   }
 }
 
-prevBtn.addEventListener('click', function() { if (pageNum > 1) { var el = viewer.querySelector('.page[data-page="' + (pageNum - 1) + '"]'); if (el) document.getElementById('viewerContainer').scrollTo({top: el.offsetTop - 20, behavior: 'smooth'}); } });
-nextBtn.addEventListener('click', function() { if (pageNum < pdfDoc.numPages) { var el = viewer.querySelector('.page[data-page="' + (pageNum + 1) + '"]'); if (el) document.getElementById('viewerContainer').scrollTo({top: el.offsetTop - 20, behavior: 'smooth'}); } });
-zoomOutBtn.addEventListener('click', function() { scale = Math.max(0.4, scale - 0.2); zoomInfo.textContent = Math.round(scale * 100) + '%'; viewer.innerHTML = ''; renderAllPages(1); pageInfo.textContent = '1 / ' + pdfDoc.numPages; pageNum = 1; prevBtn.disabled = true; nextBtn.disabled = pdfDoc.numPages <= 1; });
-zoomInBtn.addEventListener('click', function() { scale = Math.min(3, scale + 0.2); zoomInfo.textContent = Math.round(scale * 100) + '%'; viewer.innerHTML = ''; renderAllPages(1); pageInfo.textContent = '1 / ' + pdfDoc.numPages; pageNum = 1; prevBtn.disabled = true; nextBtn.disabled = pdfDoc.numPages <= 1; });
+prevBtn.addEventListener('click', function() { if (pageNum > 1) { var el = viewer.querySelector('.page[data-page="' + (pageNum - 1) + '"]'); if (el) viewerContainer.scrollTo({top: el.offsetTop - 20, behavior: 'smooth'}); } });
+nextBtn.addEventListener('click', function() { if (pageNum < pdfDoc.numPages) { var el = viewer.querySelector('.page[data-page="' + (pageNum + 1) + '"]'); if (el) viewerContainer.scrollTo({top: el.offsetTop - 20, behavior: 'smooth'}); } });
+zoomOutBtn.addEventListener('click', function() { scale = Math.max(0.4, +(scale - 0.2).toFixed(2)); applyZoom(); });
+zoomInBtn.addEventListener('click', function() { scale = Math.min(4, +(scale + 0.2).toFixed(2)); applyZoom(); });
+
+window.addEventListener('resize', function() {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(function() { applyZoom(); }, 250);
+});
 
 document.addEventListener('keydown', function(e) {
   if (e.key === 'ArrowLeft' || e.key === 'PageUp') { prevBtn.click(); }
