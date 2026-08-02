@@ -346,3 +346,37 @@ User: "also fix the subscription to tools show the box where user can put his co
 - Live-verified `?v=` on both pages: code-first divider, Google-alternative divider, i18n keys, new showStep logic all present
 - Worktrees removed, pub-main branch deleted
 
+---
+# Session State - Code saved per Google account (auto-restore) - COMPLETE
+
+## Status: Bound access codes are indexed per account on the worker; Google sign-in (or a valid stored session) auto-restores the subscription without re-entering the code. Worker + Pages deployed, live-verified.
+
+## Why
+After the code-first overlay, a returning user with a Google-bound code still had to re-enter the code on a fresh device/cleared storage. "Save code per account": sign in with Google → subscription restored automatically.
+
+## Worker (website/worker/src/index.js — deployed Version 06bd9635-a41e-4a05-b8ad-6e7ef5255541)
+- New per-account index `email:<LOWERED_EMAIL>:subs` → `[{code, plan, products, expiresAt, ts}]` (TTL 90d): `addAccountSub()` upserts by code on first binding AND on same-account re-activation; `getAccountSubs()` filters expired + sorts by expiry desc
+- `/api/auth/google` and `/api/check-session` responses now include `subscriptions` (active account-bound subs, never raw user input — computed server-side from the session JWT email)
+- `CodeCounter /verify` response now includes `products` (needed by the index; lazy-migration retry copies it too)
+- Sessionless activations are NOT indexed (legacy maxUses=1 codes stay unbound)
+
+## Tools (training_tool.html + tdee_adaptive_engine.html, all 4 deploy copies each)
+- `pickAccountSub(subs)`: first sub with `products==='all'` (master) or array containing the tool's PRODUCT_ID (server sorts by expiry desc → longest-valid first)
+- `finishGoogle()`: owner instant-grant first, then restore — `grantAndReload(..., quiet=true)` (quiet skips the coach WhatsApp re-notify); account with no bound code → `showStep(2)` + new `.sub-nolink` hint (`sub_no_link`, en+ar)
+- `start()` (stored session): check-session now returns subscriptions → same auto-restore on load; invalid session / sign-out / verify error paths hide the hint
+- `#subNoLink` element added under the code row in both overlays (tdee's was missed on first pass — caught by live marker check, fixed in follow-up commit)
+- tdee: also removed leftover duplicate `subError`/`subSuccess` + stray `</div>` from the previous restructure (invalid nesting, invisible but unclean)
+
+## Tests
+- f8b_auth_worker_test.mjs 33/33 (+12 index write incl. sessionless-not-indexed, +13 check-session subs, +14 dedupe on re-activation, +15 expired filter, +16 master/'all')
+- f10_google_auth_test.js 46/46 (+T11 sign-in auto-restore no verify-code call, +T12 no-link hint shown/hidden on sign-out, +T13 stored-session restore on load); f10b_tdee_auth_test.js 13/13 (+T5 restore)
+- Full local regression 22/22 suites green; bracecheck2 1608/1608 + 158/158; check_parse OK
+
+## Deployed
+- worker: wrangler deploy → Version 06bd9635 (live smoke: endpoints respond, missing_session/missing_fields 400s intact)
+- root master 1c456ea (feat) + 806b169 (fix subNoLink on tdee) pushed origin muscle-os-bot
+- public main 2cb1b5d + cde8caa, public master eb2f0ec + 500c889 — 4 copies rule both worktrees
+- website runs 30747505584 + 30747580697 success; live-verified `?v=`: subNoLink element + pickAccountSub + restore logic on both pages
+- Worktrees removed, pub-main deleted
+
+
