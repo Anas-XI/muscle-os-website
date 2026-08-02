@@ -295,6 +295,13 @@ html[dir="rtl"] .session-chip .st-display{direction:ltr;unicode-bidi:embed}
 .toggle-opt{flex:1;text-align:center;padding:7px 8px;border-radius:6px;font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;cursor:pointer;color:var(--text-muted);transition:all .2s;font-family:'Inter',sans-serif}
 .toggle-opt.active{background:var(--accent);color:var(--bg)}
 .toggle-opt:hover:not(.active){color:var(--text-dim)}
+.sess-len-grid{display:flex;gap:8px;margin-bottom:10px}
+.sess-len-chip{flex:1;display:flex;align-items:center;justify-content:center;gap:4px;padding:9px 8px;border-radius:8px;border:1.5px solid var(--line);background:var(--input-bg);color:var(--text-muted);font-size:.6rem;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif}
+.sess-len-chip strong{font-size:.8rem;color:var(--text)}
+.sess-len-chip:hover{border-color:var(--line-strong)}
+.sess-len-chip.selected{border-color:var(--accent);background:var(--accent-soft)}
+.sess-len-chip.selected strong{color:var(--accent)}
+.opt-badge{font-size:.4rem;color:#2196F3;border:1px solid rgba(33,150,243,.35);background:rgba(33,150,243,.08);padding:1px 5px;border-radius:8px;margin-left:6px;vertical-align:middle;text-transform:uppercase;letter-spacing:.4px}
 .quiz-container{display:none;margin-top:8px}
 .quiz-container.show{display:block}
 .q-num{font-size:.55rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
@@ -704,6 +711,14 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       <div class="section-header" data-i18n="split_pref">Select Your Split</div>
       <p style="font-size:.55rem;color:rgba(250,250,248,.2);margin-bottom:8px;line-height:1.2">Based on <strong id="dowDisplay">4 days/week</strong>.</p>
       <div class="split-grid" id="splitGrid"></div>
+
+      <div class="section-header" data-i18n="sess_len">Session Length</div>
+      <p style="font-size:.55rem;color:rgba(250,250,248,.2);margin-bottom:8px;line-height:1.2">45 min: capped 4 exercises + supersets suggested · 90 min: one optional exercise per day (not counted in compliance).</p>
+      <div class="sess-len-grid" id="sessLenGrid">
+        <button class="sess-len-chip" data-len="45"><strong>45</strong> <span data-i18n="sess_45">min</span></button>
+        <button class="sess-len-chip selected" data-len="60"><strong>60</strong> <span data-i18n="sess_60">min</span></button>
+        <button class="sess-len-chip" data-len="90"><strong>90</strong> <span data-i18n="sess_90">min</span></button>
+      </div>
 
       <div id="splitErr" style="display:none;color:#F4C93B;font-size:.65rem;text-align:center;margin-top:6px" data-i18n="focus_err">Select a split to continue.</div>
       <div class="ex-sel-panel" id="exSelPanel">
@@ -1185,6 +1200,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       meas_last:'Last',meas_no_data:'No data',meas_weight_trend:'Weight Trend',
       nudge_hypertrophy_down:'Weight trending down — consider +200 kcal/day',
       nudge_strength_up:'Weight up >1%/week — verify surplus sizing.',
+      sess_len:'Session Length',sess_45:'min',sess_60:'min',sess_90:'min',sess_optional:'optional',sess_suggest_ss:'supersets suggested',
       // Periodization badge
       per_periodization:'Periodization',
       // Cardio
@@ -1507,6 +1523,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
       meas_last:'آخر حاجة',meas_no_data:'مفيش بيانات',meas_weight_trend:'اتجاه الوزن',
       nudge_hypertrophy_down:'الوزن نازل — فكّر في +200 سعرة/يوم',
       nudge_strength_up:'الوزن زايد >1%/أسبوع — راجع حجم الفائض.',
+      sess_len:'مدة الجلسة',sess_45:'دقيقة',sess_60:'دقيقة',sess_90:'دقيقة',sess_optional:'اختياري',sess_suggest_ss:'مجموعات مزدوجة مقترحة',
       // Periodization badge
       per_periodization:'دورة تدريبية',
       // Cardio
@@ -2796,7 +2813,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
         return {n:day.n,ex:day.ex.map(function(ex){
           var sets=isDeload?Math.max(1,Math.round(ex.sets*0.5)):Math.max(1,Math.round(ex.sets*volFactor));
           var targetRpe=isDeload?6:Math.min(rpeBase+Math.round(Math.random()*0.5),9.5);
-          return {n:ex.n,sets:sets,rl:ex.rl,rh:ex.rh,p:ex.p,se:ex.se,targetRpe:targetRpe,orig:ex.orig||null,prehab:ex.prehab||false,prehabJoint:ex.prehabJoint||null};
+          return {n:ex.n,sets:sets,rl:ex.rl,rh:ex.rh,p:ex.p,se:ex.se,targetRpe:targetRpe,orig:ex.orig||null,prehab:ex.prehab||false,prehabJoint:ex.prehabJoint||null,optional:ex.optional||false};
         })};
       });
       mesoDays.push({week:w,phase:phase,days:weekDays,completed:false,logs:{}});
@@ -2877,7 +2894,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
         if(d.restDay){html+='<div class="meso-day-card" style="border-color:rgba(250,250,248,.08);background:rgba(250,250,248,.02)"><div class="md-title" style="color:rgba(250,250,248,.35)">'+_('day')+' '+(di+1)+': '+d.n+' — '+_('rest_day')+'</div></div>';return;}
         html+='<div class="meso-day-card"><div class="md-title">'+_('day')+' '+(di+1)+': '+d.n+'</div>';
         d.ex.forEach(function(e){
-          html+='<div class="md-ex"><span class="md-ex-n">'+e.n+'</span><span class="md-ex-s">'+e.sets+' '+_('sets')+'</span><span class="md-ex-rpe">@ '+_('rpe')+' '+e.targetRpe+'</span></div>';
+          html+='<div class="md-ex"><span class="md-ex-n">'+e.n+(e.optional?' <span class="opt-badge">'+_('sess_optional')+'</span>':'')+'</span><span class="md-ex-s">'+e.sets+' '+_('sets')+'</span><span class="md-ex-rpe">@ '+_('rpe')+' '+e.targetRpe+'</span></div>';
       });
       html+='</div>';
       // Custom exercises (user-defined, available in this day)
@@ -3035,7 +3052,8 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
 
   // ── Volume Tracking ──
   function findMuscle(ex){var prog=ls(K.PG,null);if(prog)for(var di in prog.days)for(var ei in prog.days[di].ex){if(prog.days[di].ex[ei].n===ex)return prog.days[di].ex[ei].p;}for(var k in SPLITS)for(var d in SPLITS[k].days)for(var e in SPLITS[k].days[d].ex){var x=SPLITS[k].days[d].ex[e];if(x.n===ex)return x.p;}return null;}
-  function weeklyVol(logs){var v={};MUSCLES.forEach(function(m){v[m.id]=0});var wa=new Date(Date.now()-7*864e5).toISOString().split('T')[0],td=new Date().toISOString().split('T')[0];Object.keys(logs).forEach(function(ds){if(ds<wa||ds>td)return;Object.keys(logs[ds]).forEach(function(eid){var s=logs[ds][eid].sets||[],en=eid.split('__')[1]||eid,pm=findMuscle(en);if(pm&&v[pm]!==undefined)v[pm]+=s.filter(function    (x){return x&&(x.weight||x.w)&&parseFloat(x.weight||x.w)>0}).length;});});return v;}
+  function weeklyVol(logs){var v={};MUSCLES.forEach(function(m){v[m.id]=0});var wa=new Date(Date.now()-7*864e5).toISOString().split('T')[0],td=new Date().toISOString().split('T')[0];var prog=ls(K.PG,null);Object.keys(logs).forEach(function(ds){if(ds<wa||ds>td)return;Object.keys(logs[ds]).forEach(function(eid){var s=logs[ds][eid].sets||[],en=eid.split('__')[1]||eid,pm=findMuscle(en);if(!pm||v[pm]===undefined)return;if(prog&&prog.days.some(function(d){return d.ex.some(function(e){return e.optional&&e.n===en});}))return;v[pm]+=s.filter(function(x){return x&&(x.weight||x.w)&&parseFloat(x.weight||x.w)>0}).length;});});return v;}
+  window.__weeklyVol=weeklyVol;
 
   // ═══════════════════════════════════════
   //  UI STATE
@@ -3192,6 +3210,22 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
     document.getElementById('splitBtnGroup').style.display='flex';
     document.getElementById('splitGrid').style.display='grid';
   });
+
+  // P6: session length chips
+  document.getElementById('sessLenGrid').addEventListener('click',function(ev){
+    var btn=ev.target.closest('.sess-len-chip');
+    if(!btn)return;
+    var len=parseInt(btn.dataset.len,10);
+    ss('mos_sess_len',len);
+    document.querySelectorAll('#sessLenGrid .sess-len-chip').forEach(function(c){c.classList.remove('selected');});
+    btn.classList.add('selected');
+  });
+  (function(){
+    var stored=parseInt(ls('mos_sess_len',60),10)||60;
+    document.querySelectorAll('#sessLenGrid .sess-len-chip').forEach(function(c){
+      c.classList.toggle('selected',parseInt(c.dataset.len,10)===stored);
+    });
+  })();
 
   // ═══════════════════════════════════════
   //  EXERCISE SELECTION (Screen 2.5)
@@ -3358,23 +3392,45 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
         day.ex.unshift({n:PREHAB_MAP[j],sets:2,rl:12,rh:20,p:'prehab',se:[],orig:null,prehab:true,prehabJoint:j,targetRpe:4});
       });
     });
+    // P6: time-based program variants
+    var sessLen=parseInt(ls('mos_sess_len',60),10)||60;
+    if(sessLen===45){
+      progDays.forEach(function(day){
+        if(day.restDay)return;
+        if(day.ex.length>4)day.ex=day.ex.slice(0,4);
+        day.ssSuggested=true;
+      });
+    }else if(sessLen>=90){
+      progDays.forEach(function(day){
+        if(day.restDay)return;
+        var names={};day.ex.forEach(function(e){names[e.n]=1;});
+        for(var i=0;i<day.ex.length;i++){
+          var pool=poolOf(day.ex[i]);if(!pool)continue;
+          var cand=EXERCISE_POOLS[pool].filter(function(n){return !names[n]&&isExerciseSafeForInjuries(n,painFlags());})[0];
+          if(!cand)continue;
+          day.ex.push({n:cand,sets:Math.max(2,day.ex[i].sets-1),rl:day.ex[i].rl,rh:day.ex[i].rh,p:day.ex[i].p,se:day.ex[i].se||[],orig:null,optional:true});
+          break;
+        }
+      });
+    }
     var te=progDays.reduce(function(s,d){return s+d.ex.length},0),ts=progDays.reduce(function(s,d){return s+d.ex.reduce(function(a,e){return a+e.sets},0)},0);
-    var prog={date:new Date().toISOString().split('T')[0],splitName:split.name,days:progDays,totalSets:ts,totalEx:te};
+    var prog={date:new Date().toISOString().split('T')[0],splitName:split.name,days:progDays,totalSets:ts,totalEx:te,sessLen:sessLen};
     ss(K.SP,{key:k,name:split.name,d:split.d});
     ss(K.PG,prog);
 
     document.getElementById('progSets').textContent=ts;
     document.getElementById('progExs').textContent=te;
     document.getElementById('progDays').textContent=progDays.length;
-    document.getElementById('progRecap').innerHTML='<div class="rb-title">'+_('generate')+'</div><strong>'+split.name+'</strong> · '+ts+' '+_('weekly_sets')+' · '+te+' '+_('exercises');
+    document.getElementById('progRecap').innerHTML='<div class="rb-title">'+_('generate')+'</div><strong>'+split.name+'</strong> · '+ts+' '+_('weekly_sets')+' · '+te+' '+_('exercises')+' · '+sessLen+' min';
 
     var html='';
     progDays.forEach(function(day,di){
       if(day.restDay){html+='<div class="rest-card" style="margin:4px 0 10px"><div class="rc-title">'+_('rest_day')+'</div><div class="rc-tip">'+_('rest_day_recover')+'</div></div>';return;}
       html+='<div class="ex-card" style="border-left-color:rgba(244,201,59,.2)"><div class="ex-name" style="margin-bottom:4px">'+_('day')+' '+(di+1)+': '+day.n+'</div>';
+      if(day.ssSuggested)html+='<div style="font-size:.5rem;color:#F4C93B;margin-bottom:4px">⚡ '+_('sess_suggest_ss')+'</div>';
       day.ex.forEach(function(ex){
         var rest=ex.rl<=6?_('gen_rest_2_3'):ex.rl<=10?_('gen_rest_90_120'):_('gen_rest_60_90');
-        html+='<div style="display:flex;gap:8px;padding:3px 0;font-size:.62rem;border-bottom:1px solid rgba(250,250,248,.02)"><span style="flex:2;color:#FAFAF8;font-weight:500">'+exLinkHtml(ex.n)+'</span><span style="flex:1;text-align:center;color:rgba(250,250,248,.4)">'+ex.sets+'×'+ex.rl+'-'+ex.rh+'</span><span style="flex:1;text-align:center;color:rgba(250,250,248,.3);font-size:.55rem">'+rest+'</span></div>';
+        html+='<div style="display:flex;gap:8px;padding:3px 0;font-size:.62rem;border-bottom:1px solid rgba(250,250,248,.02)"><span style="flex:2;color:#FAFAF8;font-weight:500">'+exLinkHtml(ex.n)+(ex.optional?' <span class="opt-badge">'+_('sess_optional')+'</span>':'')+'</span><span style="flex:1;text-align:center;color:rgba(250,250,248,.4)">'+ex.sets+'×'+ex.rl+'-'+ex.rh+'</span><span style="flex:1;text-align:center;color:rgba(250,250,248,.3);font-size:.55rem">'+rest+'</span></div>';
       });
       html+='</div>';
     });
@@ -4021,6 +4077,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
     var today=new Date().toISOString().split('T')[0];
     var html='<div class="'+c.cc+'" id="'+c.sid+'">'+
       '<div class="ex-title">'+c.titleInnerHtml+
+      (ex.optional?'<span class="opt-badge">'+_('sess_optional')+'</span>':'')+
       '<button class="sw-ex-btn" data-ex="'+ex.n+'" title="'+_('swap_title')+'">⇄ '+_('swap_btn')+'</button></div>'+
       c.metaHtml+c.prNoteHtml+c.safetyHtml+c.suggestHtml+
       restTimerHTML(ex,c.restSec,c.restLabel)+
@@ -4127,6 +4184,7 @@ html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
 
     // General warm-up for this day
     html+=renderGeneralWarmup(day.n);
+    if(day.ssSuggested)html+='<div style="font-size:.5rem;color:#F4C93B;text-align:center;margin:2px 0 6px">⚡ '+_('sess_suggest_ss')+'</div>';
 
     if(fs&&fs.adjust<=-1&&!lightDays[di]&&!lightProceed[di]){
       html+='<div class="fat-light-banner"><span class="flb-title">'+_('fat_light_title')+'</span>'+
