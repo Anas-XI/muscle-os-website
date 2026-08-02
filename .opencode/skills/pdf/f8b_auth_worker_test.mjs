@@ -41,7 +41,7 @@ function makeDoCounter(doRecords, kv) {
             if (r.maxUses && (r.uses || 0) >= r.maxUses) return err('code_exhausted', 401);
             r.uses = (r.uses || 0) + 1;
             doRecords.set(id.name, r);
-            return new Response(JSON.stringify({ valid: true, uses: r.uses, plan: r.plan, durationDays: r.durationDays || 30 }), { status: 200 });
+            return new Response(JSON.stringify({ valid: true, uses: r.uses, plan: r.plan, durationDays: r.durationDays || 30, products: r.products }), { status: 200 });
           }
           return new Response('Not found', { status: 404 });
         }
@@ -195,6 +195,78 @@ const B = mintSession('other@gmail.com');
   kv.set('code:TRBND11:binding', JSON.stringify({ email: 'user@gmail.com', expiresAt: new Date(Date.now() + 30 * 86400000).toISOString(), plan: 'single_product', ts: Date.now() }));
   let r = await post('/api/verify-code', { code: 'trbnd11', productId: 'training_tool', session: A }, env);
   check('11. revoked bound code -> 401 code_revoked', r.status === 401 && (await r.json()).error === 'code_revoked');
+}
+
+// 12. First activation with session writes the per-account index (email:<email>:subs)
+{
+  const { env, kv, doRecords } = makeEnv();
+  seed(doRecords, 'TRBND12', { ...TR });
+  let r = await post('/api/verify-code', { code: 'trbnd12', productId: 'training_tool', session: A }, env);
+  check('12. activation with session -> 200 valid', r.status === 200);
+  const idx = JSON.parse(kv.get('email:user@gmail.com:subs'));
+  check('12. account index written with code+plan+products+expiresAt',
+    Array.isArray(idx) && idx.length === 1 && idx[0].code === 'TRBND12' &&
+    idx[0].plan === 'single_product' && Array.isArray(idx[0].products) &&
+    idx[0].products.includes('training_tool') && !!idx[0].expiresAt);
+  seed(doRecords, 'TRBND12L', { ...TR });
+  await post('/api/verify-code', { code: 'trbnd12l', productId: 'training_tool' }, env);
+  const idx2 = JSON.parse(kv.get('email:user@gmail.com:subs'));
+  check('12. sessionless activation NOT indexed (still 1 entry)', idx2.length === 1 && idx2[0].code === 'TRBND12');
+}
+
+// 13. check-session returns the account's active subscriptions
+{
+  const { env, kv, doRecords } = makeEnv();
+  seed(doRecords, 'TRBND13', { ...TR });
+  await post('/api/verify-code', { code: 'trbnd13', productId: 'training_tool', session: A }, env);
+  let r = await post('/api/check-session', { session: A }, env);
+  let j = await r.json();
+  check('13. check-session valid', r.status === 200 && j.valid === true && j.email === 'user@gmail.com');
+  check('13. subscriptions include bound code',
+    Array.isArray(j.subscriptions) && j.subscriptions.length === 1 &&
+    j.subscriptions[0].code === 'TRBND13' && j.subscriptions[0].products.includes('training_tool'));
+  let rB = await post('/api/check-session', { session: B }, env);
+  let jB = await rB.json();
+  check('13. other account -> empty subscriptions', Array.isArray(jB.subscriptions) && jB.subscriptions.length === 0);
+}
+
+// 14. Re-activation refreshes the index without duplicating the entry
+{
+  const { env, kv, doRecords } = makeEnv();
+  seed(doRecords, 'TRBND14', { ...TR });
+  await post('/api/verify-code', { code: 'trbnd14', productId: 'training_tool', session: A }, env);
+  await post('/api/verify-code', { code: 'trbnd14', productId: 'training_tool', session: A }, env);
+  const idx = JSON.parse(kv.get('email:user@gmail.com:subs'));
+  check('14. re-activation keeps single index entry', Array.isArray(idx) && idx.length === 1 && idx[0].code === 'TRBND14');
+}
+
+// 15. Expired index entries are filtered out of check-session
+{
+  const { env, kv, doRecords } = makeEnv();
+  seed(doRecords, 'TRBND15', { ...TR });
+  kv.set('email:user@gmail.com:subs', JSON.stringify([
+    { code: 'TREXPIRED', plan: 'single_product', products: ['training_tool'], expiresAt: new Date(Date.now() - 86400000).toISOString(), ts: Date.now() },
+    { code: 'TRBND15', plan: 'single_product', products: ['training_tool'], expiresAt: new Date(Date.now() + 10 * 86400000).toISOString(), ts: Date.now() }
+  ]));
+  let r = await post('/api/check-session', { session: A }, env);
+  let j = await r.json();
+  check('15. expired filtered, active kept', Array.isArray(j.subscriptions) && j.subscriptions.length === 1 && j.subscriptions[0].code === 'TRBND15');
+}
+
+// 16. Revoked bound code still listed? No — revoked codes are rejected at verify; index restore only cares about active expiry
+{
+  const { env, kv, doRecords } = makeEnv();
+  seed(doRecords, 'TRBND16', { ...TR });
+  kv.set('email:user@gmail.com:subs', JSON.stringify([
+    { code: 'TRBND16', plan: 'single_product', products: ['training_tool'], expiresAt: new Date(Date.now() + 5 * 86400000).toISOString(), ts: Date.now() }
+  ]));
+  // master-plan ('all') subscription also restorable for any product
+  kv.set('email:other@gmail.com:subs', JSON.stringify([
+    { code: 'TRMASTER', plan: 'master', products: 'all', expiresAt: new Date(Date.now() + 5 * 86400000).toISOString(), ts: Date.now() }
+  ]));
+  let r = await post('/api/check-session', { session: B }, env);
+  let j = await r.json();
+  check('16. master/all subscription returned for any product', Array.isArray(j.subscriptions) && j.subscriptions[0].products === 'all');
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);

@@ -20,6 +20,7 @@ const CLIENT_ID = '22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleus
     googleEmail: 'user@gmail.com',
     googleName: 'Test User',
     googleSession: 'SESSION_JWT_1',
+    subs: null, // account-bound subscriptions returned by the worker
     verify: (body) => {
       if (body.code === 'TDBAD6') return { valid: false, error: 'invalid_code' };
       return { valid: true, plan: 'single_product', expiresAt: new Date(Date.now() + 30 * 86400000).toISOString(), token: 'TOK_' + body.code };
@@ -46,9 +47,9 @@ const CLIENT_ID = '22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleus
     apiCalls.push({ url: req.url(), body });
     let resp;
     if (req.url().endsWith('/api/auth/google')) {
-      resp = { valid: true, session: cfg.googleSession, email: cfg.googleEmail, name: cfg.googleName };
+      resp = { valid: true, session: cfg.googleSession, email: cfg.googleEmail, name: cfg.googleName, subscriptions: cfg.subs || [] };
     } else if (req.url().endsWith('/api/check-session')) {
-      resp = { valid: true, email: cfg.googleEmail, name: cfg.googleName };
+      resp = { valid: true, email: cfg.googleEmail, name: cfg.googleName, subscriptions: cfg.subs || [] };
     } else if (req.url().endsWith('/api/verify-code')) {
       resp = cfg.verify(body);
     } else {
@@ -101,6 +102,28 @@ const CLIENT_ID = '22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleus
   });
   check('T4 6-char garbage code rejected (hole closed)', stillInactive === true);
   check('T4 error visible', true);
+
+  // T5: bound code saved per account → Google sign-in auto-restores (no code entry)
+  const RESTORE_CODE = { code: 'TDRESTORE', plan: 'single_product', products: ['tdee_adaptive_engine'], expiresAt: new Date(Date.now() + 30 * 86400000).toISOString() };
+  cfg.subs = [RESTORE_CODE];
+  cfg.googleEmail = 'subuser@gmail.com';
+  cfg.googleName = 'Sub User';
+  cfg.googleSession = 'SESSION_SUBUSER';
+  await page.evaluate((k) => localStorage.removeItem(k), 'mos_subscription');
+  await page.evaluate((k) => localStorage.removeItem(k), 'mos_google_session');
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await page.waitForFunction(() => document.getElementById('authStep1').style.display === 'block');
+  const vcBeforeRestore = apiCalls.filter(c => c.url.endsWith('/api/verify-code')).length;
+  await page.evaluate(() => window.__gsiCfg.callback({ credential: 'RESTORE_CRED' }));
+  await page.waitForFunction(() => {
+    const s = JSON.parse(localStorage.getItem('mos_subscription') || 'null');
+    return s && s.active;
+  });
+  const subR = JSON.parse(await getLS('mos_subscription'));
+  check('T5 auto-restore grants with bound code', subR.active === true && subR.code === 'TDRESTORE' && subR.email === 'subuser@gmail.com');
+  check('T5 no verify-code call on restore', apiCalls.filter(c => c.url.endsWith('/api/verify-code')).length === vcBeforeRestore);
+  await page.waitForTimeout(1800);
+  check('T5 overlay hidden after restore reload', await page.evaluate(() => document.getElementById('subOverlay').style.display) !== 'flex');
 
   check('No page errors', errors.length === 0);
   if (errors.length) console.log('  errors:', errors);

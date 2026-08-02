@@ -251,6 +251,7 @@ async function handleVerify(request, env) {
         await logAttempt(env, normalized, productId, false);
         return json({ valid: false, error: 'code_expired' }, 401, env, request);
       }
+      await addAccountSub(env, email, { code: normalized, plan: record.plan, products: record.products, expiresAt: expiresAt.toISOString() });
       const secret = await getSecret(env);
       const token = await new SignJWT({ productId, plan: record.plan, codePrefix: normalized.substring(0, 4) })
         .setProtectedHeader({ alg: 'HS256' })
@@ -306,6 +307,7 @@ async function handleVerify(request, env) {
           doResult.valid = true;
           doResult.plan = retryResult.plan;
           doResult.durationDays = retryResult.durationDays;
+          doResult.products = retryResult.products || kvRecord.products;
         } else {
           await logAttempt(env, normalized, productId, false);
           return json({ valid: false, error: retryResult.error }, retryResp.status, env, request);
@@ -342,6 +344,7 @@ async function handleVerify(request, env) {
     await env.ACCESS_CODES.put(`code:${normalized}:binding`, JSON.stringify({
       email, expiresAt: expiresAt.toISOString(), plan: doResult.plan, ts: Date.now()
     }), { expirationTtl: 7776000 });
+    await addAccountSub(env, email, { code: normalized, plan: doResult.plan, products: doResult.products, expiresAt: expiresAt.toISOString() });
   }
 
   const now = Date.now();
@@ -916,7 +919,7 @@ async function handleGoogleAuth(request, env) {
       .setSubject(email)
       .setExpirationTime(Math.floor(Date.now() / 1000) + 604800)
       .sign(secret);
-    return json({ valid: true, session: sessionToken, email, name: payload.name || '' }, 200, env, request);
+    return json({ valid: true, session: sessionToken, email, name: payload.name || '', subscriptions: await getAccountSubs(env, email) }, 200, env, request);
   } catch (e) {
     return json({ valid: false, error: 'invalid_google_token' }, 401, env, request);
   }
@@ -936,7 +939,7 @@ async function handleCheckSession(request, env) {
       issuer: 'muscleos-access-control',
     });
     if (payload.type !== 'session') return json({ valid: false }, 403, env, request);
-    return json({ valid: true, email: payload.email, name: payload.name }, 200, env, request);
+    return json({ valid: true, email: payload.email, name: payload.name, subscriptions: await getAccountSubs(env, payload.email) }, 200, env, request);
   } catch (e) {
     return json({ valid: false, error: 'invalid_session' }, 401, env, request);
   }
@@ -1217,6 +1220,29 @@ async function logAttempt(env, code, productId, success) {
     { expirationTtl: 2592000 });
 }
 
+// ── Per-account subscription index (Google sign-in restore) ──
+// Key: email:<LOWERED_EMAIL>:subs → [{ code, plan, products, expiresAt, ts }] (TTL 90d)
+// Lets a returning Google account restore its bound codes without re-entering them.
+async function addAccountSub(env, email, entry) {
+  const key = `email:${(email || '').toLowerCase()}:subs`;
+  let existing = [];
+  try { const raw = await env.ACCESS_CODES.get(key, 'json'); if (Array.isArray(raw)) existing = raw; } catch (e) {}
+  const rest = existing.filter(s => s && s.code !== entry.code);
+  rest.push({ code: entry.code, plan: entry.plan, products: entry.products, expiresAt: entry.expiresAt, ts: Date.now() });
+  await env.ACCESS_CODES.put(key, JSON.stringify(rest), { expirationTtl: 7776000 });
+}
+
+async function getAccountSubs(env, email) {
+  if (!email) return [];
+  let list = [];
+  try { const raw = await env.ACCESS_CODES.get(`email:${email.toLowerCase()}:subs`, 'json'); if (Array.isArray(raw)) list = raw; } catch (e) {}
+  const now = Date.now();
+  return list
+    .filter(s => s && s.expiresAt && new Date(s.expiresAt).getTime() > now)
+    .map(s => ({ code: s.code, plan: s.plan, products: s.products, expiresAt: s.expiresAt }))
+    .sort((a, b) => new Date(b.expiresAt) - new Date(a.expiresAt));
+}
+
 /** Constant-time string comparison to prevent timing attacks */
 function timingSafeEqual(a, b) {
   if (typeof a !== 'string' || typeof b !== 'string') return false;
@@ -1284,7 +1310,7 @@ export class CodeCounter {
     }
     record.uses = (record.uses || 0) + 1;
     await this.state.storage.put('record', record);
-    return new Response(JSON.stringify({ valid: true, uses: record.uses, plan: record.plan, durationDays: record.durationDays }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+    return new Response(JSON.stringify({ valid: true, uses: record.uses, plan: record.plan, durationDays: record.durationDays, products: record.products }), { status: 200, headers: { 'Content-Type': 'application/json' } });
   }
   async handleInitialize(request) {
     let record;

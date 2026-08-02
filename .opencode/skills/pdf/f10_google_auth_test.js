@@ -20,6 +20,7 @@ const CLIENT_ID = '22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleus
     googleEmail: 'user@gmail.com',
     googleName: 'Test User',
     googleSession: 'SESSION_JWT_1',
+    subs: null, // account-bound subscriptions returned by the worker
     verify: (body) => {
       if (body.code === 'TRBOUND') return { valid: false, error: 'code_used_by_other' };
       if (body.code === 'TRDONE') return { valid: false, error: 'code_exhausted' };
@@ -49,9 +50,9 @@ const CLIENT_ID = '22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleus
     apiCalls.push({ url: req.url(), body });
     let resp;
     if (req.url().endsWith('/api/auth/google')) {
-      resp = { valid: true, session: cfg.googleSession, email: cfg.googleEmail, name: cfg.googleName };
+      resp = { valid: true, session: cfg.googleSession, email: cfg.googleEmail, name: cfg.googleName, subscriptions: cfg.subs || [] };
     } else if (req.url().endsWith('/api/check-session')) {
-      resp = body.session === 'DEAD' ? { valid: false } : { valid: true, email: cfg.googleEmail, name: cfg.googleName };
+      resp = body.session === 'DEAD' ? { valid: false } : { valid: true, email: cfg.googleEmail, name: cfg.googleName, subscriptions: cfg.subs || [] };
     } else if (req.url().endsWith('/api/verify-code')) {
       resp = cfg.verify(body);
     } else {
@@ -175,6 +176,58 @@ const CLIENT_ID = '22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleus
   const lastVc = apiCalls.filter(c => c.url.endsWith('/api/verify-code')).pop();
   check('T10 legacy verify has no session field', lastVc && lastVc.body.session === undefined);
   check('T10 legacy grant works', (await overlayDisplay()) === 'flex' && await page.evaluate(() => document.getElementById('subSuccess').style.display) === 'block');
+
+  // ── T11: bound code saved per account → Google sign-in auto-restores (no code entry) ──
+  const RESTORE_CODE = { code: 'TRRESTORE', plan: 'single_product', products: ['training_tool'], expiresAt: new Date(Date.now() + 30 * 86400000).toISOString() };
+  cfg.googleEmail = 'subuser@gmail.com';
+  cfg.googleName = 'Sub User';
+  cfg.googleSession = 'SESSION_SUBUSER';
+  cfg.subs = [RESTORE_CODE];
+  await page.evaluate((k) => localStorage.removeItem(k), SUB_KEY);
+  await page.evaluate((k) => localStorage.removeItem(k), GS_KEY);
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await page.waitForFunction(() => document.getElementById('authStep1').style.display === 'block');
+  const vcBeforeRestore = apiCalls.filter(c => c.url.endsWith('/api/verify-code')).length;
+  await page.evaluate(() => window.__gsiCfg.callback({ credential: 'RESTORE_CRED' }));
+  await page.waitForFunction(() => {
+    const s = JSON.parse(localStorage.getItem('mos_subscription') || 'null');
+    return s && s.active;
+  });
+  const subR = JSON.parse(await getLS(SUB_KEY));
+  check('T11 auto-restore grants with bound code', subR.active === true && subR.code === 'TRRESTORE' && subR.email === 'subuser@gmail.com');
+  check('T11 no verify-code call on restore', apiCalls.filter(c => c.url.endsWith('/api/verify-code')).length === vcBeforeRestore);
+  await page.waitForTimeout(1800);
+  check('T11 overlay hidden after restore reload', (await overlayDisplay()) !== 'flex');
+
+  // ── T12: account with no bound code → hint shown, no grant ──
+  cfg.subs = [];
+  await page.evaluate((k) => localStorage.removeItem(k), SUB_KEY);
+  await page.evaluate((k) => localStorage.removeItem(k), GS_KEY);
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await page.waitForFunction(() => document.getElementById('authStep1').style.display === 'block');
+  await page.evaluate(() => window.__gsiCfg.callback({ credential: 'NOLINK_CRED' }));
+  await page.waitForFunction(() => document.getElementById('subNoLink').style.display === 'block');
+  check('T12 no-link hint visible', true);
+  check('T12 no grant without bound code', (await getLS(SUB_KEY)) === null);
+  await page.evaluate(() => document.getElementById('subSignOut').click());
+  await page.waitForFunction(() => document.getElementById('subNoLink').style.display === 'none');
+  check('T12 hint hidden after sign-out', true);
+
+  // ── T13: stored session + bound code → auto-restore on load (no sign-in click) ──
+  cfg.googleEmail = 'subuser@gmail.com';
+  cfg.subs = [RESTORE_CODE];
+  await page.evaluate(() => {
+    localStorage.setItem('mos_google_session', JSON.stringify({ session: 'SESSION_SUBUSER', email: 'subuser@gmail.com', name: 'Sub User', ts: Date.now() }));
+  });
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await page.waitForFunction(() => {
+    const s = JSON.parse(localStorage.getItem('mos_subscription') || 'null');
+    return s && s.active && s.code === 'TRRESTORE';
+  });
+  check('T13 stored-session restore grants on load', true);
+  await page.waitForTimeout(1800);
+  check('T13 overlay hidden after restore', (await overlayDisplay()) !== 'flex');
+  check('T13 restore fires no verify-code call', apiCalls.filter(c => c.url.endsWith('/api/verify-code')).length === vcBeforeRestore);
 
   // ── Console errors ──
   check('No page errors', errors.length === 0);
