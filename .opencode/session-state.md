@@ -379,4 +379,31 @@ After the code-first overlay, a returning user with a Google-bound code still ha
 - website runs 30747505584 + 30747580697 success; live-verified `?v=`: subNoLink element + pickAccountSub + restore logic on both pages
 - Worktrees removed, pub-main deleted
 
+---
+# Session State - Theme symmetry across books, demos, decision trees - COMPLETE
+
+## Status: Single brand font (Inter) across every public page. Books/tools/guides all share palette #14151A/#F4C93B/#FAFAF8. Deployed to Pages (main + master), live-verified.
+
+## Why
+Books and tools already shared the gold/ink palette, but typography was split: Inter (books, training_tool, tdee_adaptive, pillar_intake) vs Georgia (both decision trees, 4 more guides, tdee_macro, rpe, volume_set, split_selector). User approved: two families (print light / app dark), Inter everywhere, full scope.
+
+## What changed (20 files, root + website/ mirrors)
+- Georgia -> 'Inter',sans-serif in: guides/deload_decision_tree, guides/plateau_decision_tree, guides/train_maxing_quick_start, guides/consistency_workbook, guides/diet_maxing_quick_start, guides/recomp_protocol_cheat_sheet, tools/tdee_macro_calculator, tools/rpe_load_calculator, tools/volume_set_calculator, tools/split_selector_quiz + the same 10 under website/
+- Added Google Fonts Inter link (`Inter:wght@300;400;500;600;700`) to every converted page (none had loaded Inter before — without it the new stack would fall back to generic sans-serif)
+- Bundles (training bundle/, nutrition bundle/) were ALREADY Inter (newer Oswald/JetBrains template) — no change needed; verified in place
+- Bugfix: consistency_workbook.html line 399 had `<p>...</div>` (invalid — p closed with div) — fixed to </p>, divs now 218/218, ps 91/91
+- Theme audit result: books (6 + 7 samples), tools (7), guides (6) all on shared palette + Inter; only leftover Georgia is codes/codes_sheet.html (internal admin, untracked, NOT deployed)
+
+## Verify notes
+- bracecheck2/check_parse only apply to scripted pages; guides are pure static HTML (no JS) — verified via CSS-brace count + div open/close balance + tag regex instead
+- Deploy workflow publishes ONLY website/ (artifact path: "website") — live URLs are /tools/, /guides/, /training bundle/, /nutrition bundle/; nested /website/ paths 404 BY DESIGN (never existed live)
+
+## Deployed
+- root muscle-os-bot: 1571fe0 (guides+website/guides), ebe7032 (tools) pushed
+- public main: 2f5c5b4; public master: 1ef3d73 (20 files each; FEATURE_PROMPTS.md kept out of both)
+- website run 30751067933 success
+- Live-verified ?v=: 14 URLs — all 200, Georgia=False, InterLink=True (6 guides + 4 tools root, 1 bundle each family, plus tdee_macro + consistency under website/ = served via root paths)
+- Worktrees removed, pub-main deleted
+
+
 
