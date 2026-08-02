@@ -163,6 +163,7 @@ select option{background:#1E1E2A;color:#FAFAF8}
 .sub-verify-btn:hover{background:rgba(244,201,59,.1)}
 .sub-error{font-size:12px;color:#f44336;margin-top:6px;display:none}
 .sub-success{font-size:12px;color:#4CAF50;margin-top:6px;display:none}
+.sub-nolink{font-size:12px;color:#b3a06b;margin-top:6px;display:none}
 </style>
 <script async defer src="https://accounts.google.com/gsi/client"></script>
 </head>
@@ -198,9 +199,6 @@ select option{background:#1E1E2A;color:#FAFAF8}
       <div id="googleSignInBtn" style="display:flex;justify-content:center"></div>
       <div class="sub-error" id="authStep1Error" style="display:none">Google sign-in failed. Please try again.</div>
       <div style="text-align:center;margin-top:6px"><a href="#" id="subSignOut" style="display:none;font-size:.5rem;color:rgba(250,250,248,.3)">Not you? Switch account</a></div>
-    </div>
-      <div class="sub-error" id="subError">Invalid code. Please check and try again.</div>
-      <div class="sub-success" id="subSuccess">Access granted! Reloading tool...</div>
     </div>
   </div>
 </div>
@@ -964,6 +962,7 @@ select option{background:#1E1E2A;color:#FAFAF8}
   var OWNER_EMAIL = 'ANASSTEM2025@GMAIL.COM';
   var API_BASE = 'https://muscleos-access-control.muscleos.workers.dev';
   var GOOGLE_CLIENT_ID = '22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com';
+  var PRODUCT_ID = 'tdee_adaptive_engine';
   var sub = null;
   try { sub = JSON.parse(localStorage.getItem(SUB_KEY)); } catch(e){}
   var active = !!(sub && sub.active && new Date(sub.expiry + 'T23:59:59') > new Date());
@@ -978,14 +977,30 @@ select option{background:#1E1E2A;color:#FAFAF8}
     document.getElementById('subSignOut').style.display = linked ? 'inline' : 'none';
   }
   function showErr(id, msg){ var el = document.getElementById(id); el.style.display = 'block'; el.textContent = msg; }
+  function showNoLink(show){
+    var el = document.getElementById('subNoLink');
+    if(el) el.style.display = show ? 'block' : 'none';
+  }
+  function pickAccountSub(subs){
+    // Worker returns active account-bound subs sorted by expiry desc
+    if(!Array.isArray(subs) || !subs.length) return null;
+    for(var i = 0; i < subs.length; i++){
+      var s = subs[i];
+      if(!s) continue;
+      if(s.products === 'all') return s;
+      if(Array.isArray(s.products) && s.products.indexOf(PRODUCT_ID) !== -1) return s;
+    }
+    return null;
+  }
   function setSub(plan, expiry, token, code, email){
     localStorage.setItem(SUB_KEY, JSON.stringify({ active: true, plan: plan, expiry: expiry, token: token || '', code: code, email: email || '' }));
   }
-  function grantAndReload(plan, expiry, token, code, email){
+  function grantAndReload(plan, expiry, token, code, email, quiet){
     setSub(plan, expiry, token, code, email);
     showStep(2);
     document.getElementById('subError').style.display = 'none';
     document.getElementById('subSuccess').style.display = 'block';
+    showNoLink(false);
     setTimeout(function(){ location.reload(); }, 1500);
   }
   function verifyCode(code, email, btn){
@@ -1006,6 +1021,7 @@ select option{background:#1E1E2A;color:#FAFAF8}
         if(data && data.error === 'invalid_session'){
           localStorage.removeItem(GS_KEY);
           showStep(1);
+          showNoLink(false);
           msg = 'Session expired. Please sign in again.';
           initGsi();
         }
@@ -1026,8 +1042,14 @@ select option{background:#1E1E2A;color:#FAFAF8}
       grantAndReload('pro_tdee', expiry.toISOString().split('T')[0], '', 'OWNER', data.email);
       return;
     }
+    var linked = pickAccountSub(data.subscriptions);
+    if(linked){
+      grantAndReload(linked.plan || 'pro_tdee', (linked.expiresAt || '').slice(0, 10), '', linked.code, data.email, true);
+      return;
+    }
     document.getElementById('authWelcome').textContent = 'Signed in as ' + (data.name || data.email);
     showStep(2);
+    showNoLink(true);
   }
   function initGsi(){
     var host = document.getElementById('googleSignInBtn');
@@ -1067,11 +1089,18 @@ select option{background:#1E1E2A;color:#FAFAF8}
           body: JSON.stringify({ session: gs.session })
         }).then(function(r){ return r.json(); }).then(function(data){
           if(data && data.valid){
+            var linked = pickAccountSub(data.subscriptions);
+            if(linked){
+              grantAndReload(linked.plan || 'pro_tdee', (linked.expiresAt || '').slice(0, 10), '', linked.code, gs.email, true);
+              return;
+            }
             document.getElementById('authWelcome').textContent = 'Signed in as ' + (gs.name || gs.email);
             showStep(2);
+            showNoLink(true);
           } else {
             localStorage.removeItem(GS_KEY);
             showStep(1);
+            showNoLink(false);
             initGsi();
           }
         }).catch(function(){
@@ -1105,6 +1134,7 @@ select option{background:#1E1E2A;color:#FAFAF8}
       e.preventDefault();
       localStorage.removeItem(GS_KEY);
       showStep(1);
+      showNoLink(false);
       initGsi();
     });
   }

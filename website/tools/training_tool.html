@@ -520,6 +520,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid var(-
 .sub-verify-btn:hover{background:var(--accent-soft)}
 .sub-error{font-size:12px;color:#f44336;margin-top:6px;display:none}
 .sub-success{font-size:12px;color:#4CAF50;margin-top:6px;display:none}
+.sub-nolink{font-size:12px;color:#b3a06b;margin-top:6px;display:none}
 
 /* ── A6: animation polish ── */
 .btn-primary:active,.btn-secondary:active,.day-tab:active,.pain-btn:active,.rt-start:active,.rt-stop:active,.ex-sel-chip:active,.swap-chip:active,.meso-train-btn:active{transform:scale(.97)}
@@ -660,6 +661,7 @@ select option{background:var(--card)}
       </div>
       <div class="sub-error" id="subError">Invalid code. Please check and try again.</div>
       <div class="sub-success" id="subSuccess">Access granted! Reloading tool...</div>
+      <div class="sub-nolink" id="subNoLink" style="display:none" data-i18n="sub_no_link">No active subscription linked to this account yet. Enter your code below to link it.</div>
     </div>
     <div class="sub-divider" data-i18n="sub_or_google">or sign in with Google to link your account</div>
     <div id="authStep1">
@@ -1464,6 +1466,7 @@ select option{background:var(--card)}
       // Subscription auth
       sub_enter_code:'Enter your access code below to unlock',
       sub_or_google:'or sign in with Google to link your account',
+      sub_no_link:'No active subscription linked to this account yet. Enter your code below to link it.',
       sub_auth_welcome:'Signed in as {name}',
       sub_auth_switch:'Not you? Switch account',
       sub_verify:'Verify',
@@ -1789,6 +1792,7 @@ select option{background:var(--card)}
       // Subscription auth
       sub_enter_code:'أدخل كود الوصول الخاص بك بالأسفل لفتح الأداة',
       sub_or_google:'أو سجّل الدخول بحساب جوجل لربط حسابك',
+      sub_no_link:'لا يوجد اشتراك نشط مرتبط بهذا الحساب بعد. أدخل كودك بالأسفل لربطه.',
       sub_auth_welcome:'تم تسجيل الدخول باسم {name}',
       sub_auth_switch:'مش أنت؟ بدّل الحساب',
       sub_verify:'تحقق',
@@ -5075,6 +5079,7 @@ select option{background:var(--card)}
   var OWNER_EMAIL = 'ANASSTEM2025@GMAIL.COM';
   var API_BASE = 'https://muscleos-access-control.muscleos.workers.dev';
   var GOOGLE_CLIENT_ID = '22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com';
+  var PRODUCT_ID = 'training_tool';
   var sub = null;
   try { sub = JSON.parse(localStorage.getItem(SUB_KEY)); } catch(e){}
   var active = !!(sub && sub.active && new Date(sub.expiry + 'T23:59:59') > new Date());
@@ -5090,15 +5095,32 @@ select option{background:var(--card)}
     document.getElementById('subSignOut').style.display = linked ? 'inline' : 'none';
   }
   function showErr(id, msg){ var el = document.getElementById(id); el.style.display = 'block'; el.textContent = msg; }
+  function showNoLink(show){
+    var el = document.getElementById('subNoLink');
+    if(el) el.style.display = show ? 'block' : 'none';
+  }
+  function pickAccountSub(subs){
+    // Worker returns active account-bound subs sorted by expiry desc
+    if(!Array.isArray(subs) || !subs.length) return null;
+    for(var i = 0; i < subs.length; i++){
+      var s = subs[i];
+      if(!s) continue;
+      if(s.products === 'all') return s;
+      if(Array.isArray(s.products) && s.products.indexOf(PRODUCT_ID) !== -1) return s;
+    }
+    return null;
+  }
   function setSub(plan, expiry, token, code, email){
     localStorage.setItem(SUB_KEY, JSON.stringify({ active: true, plan: plan, expiry: expiry, token: token || '', code: code, email: email || '' }));
   }
-  function grantAndReload(plan, expiry, token, code, email){
+  function grantAndReload(plan, expiry, token, code, email, quiet){
     setSub(plan, expiry, token, code, email);
     showStep(2);
     document.getElementById('subError').style.display = 'none';
     document.getElementById('subSuccess').style.display = 'block';
+    showNoLink(false);
     (function(){try{
+      if(quiet) return;
       var vi = ls(K.VI, {});
       notifyCoach('subscription', { name: vi.name || 'User', code: code, plan: plan || 'pro_training', expiry: (expiry || '').slice(0, 10) });
     }catch(e){}})();
@@ -5122,6 +5144,7 @@ select option{background:var(--card)}
         if(data && data.error === 'invalid_session'){
           localStorage.removeItem(GS_KEY);
           showStep(1);
+          showNoLink(false);
           msg = t('sub_err_session', 'Session expired. Please sign in again.');
           initGsi();
         }
@@ -5142,8 +5165,14 @@ select option{background:var(--card)}
       grantAndReload('pro_training', expiry.toISOString().split('T')[0], '', 'OWNER', data.email);
       return;
     }
+    var linked = pickAccountSub(data.subscriptions);
+    if(linked){
+      grantAndReload(linked.plan || 'pro_training', (linked.expiresAt || '').slice(0, 10), '', linked.code, data.email, true);
+      return;
+    }
     document.getElementById('authWelcome').textContent = t('sub_auth_welcome', 'Signed in as {name}').replace('{name}', data.name || data.email);
     showStep(2);
+    showNoLink(true);
   }
   function initGsi(){
     var host = document.getElementById('googleSignInBtn');
@@ -5183,11 +5212,18 @@ select option{background:var(--card)}
           body: JSON.stringify({ session: gs.session })
         }).then(function(r){ return r.json(); }).then(function(data){
           if(data && data.valid){
+            var linked = pickAccountSub(data.subscriptions);
+            if(linked){
+              grantAndReload(linked.plan || 'pro_training', (linked.expiresAt || '').slice(0, 10), '', linked.code, gs.email, true);
+              return;
+            }
             document.getElementById('authWelcome').textContent = t('sub_auth_welcome', 'Signed in as {name}').replace('{name}', gs.name || gs.email);
             showStep(2);
+            showNoLink(true);
           } else {
             localStorage.removeItem(GS_KEY);
             showStep(1);
+            showNoLink(false);
             initGsi();
           }
         }).catch(function(){
@@ -5221,6 +5257,7 @@ select option{background:var(--card)}
       e.preventDefault();
       localStorage.removeItem(GS_KEY);
       showStep(1);
+      showNoLink(false);
       initGsi();
     });
   }
