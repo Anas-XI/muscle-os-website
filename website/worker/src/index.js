@@ -270,7 +270,7 @@ async function handleVerify(request, env) {
         expiresAt: expiresAt.toISOString(),
         daysRemaining: expTime > now ? Math.ceil((expTime - now) / 86400000) : 0,
         plan: record.plan,
-        durationDays: record.durationDays || 30,
+        durationDays: record.durationDays != null ? record.durationDays : 30,
         boundEmail: binding.email
       }, 200, env, request);
     }
@@ -357,7 +357,7 @@ async function handleVerify(request, env) {
     expiresAt: expiresAt.toISOString(),
     daysRemaining,
     plan: doResult.plan,
-    durationDays: doResult.durationDays || 30
+    durationDays: doResult.durationDays != null ? doResult.durationDays : 30
   }, 200, env, request);
 }
 
