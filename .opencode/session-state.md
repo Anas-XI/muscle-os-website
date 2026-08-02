@@ -297,3 +297,25 @@
 - f19_plateau_test.js (NEW, 17/17): program has main lift; seeded stagnant K.LH (3 sessions 0% gain RPE 8-9) -> card visible + names lift + title; 3 action buttons; swap -> swap panel opens on the lift's day (chips present, right day tab); deload -> lastDeload=today + sessions=0; intense -> step35 + strength + 10 weeks; RPE 7 -> card hidden; no console errors
 - Regression green: F5 21/21, F6 26/26, F7 25/25, F8 20/20, F11 18/18, F12 11/11, F13 13/13, F14 12/12, F15 17/17, F16 12/12, F17 12/12, F18 20/20; bracecheck2 1569/1569; check_parse OK
 - P-batch COMPLETE (P1-P7 shipped)
+
+---
+# Session State - UI polish pass: buttons & interactive styling - COMPLETE
+
+## Status: Unified button radii/shadows, hover lift, focus-visible rings, larger touch targets. Deployed origin + public main/master, live-verified (404/404 live).
+
+## What changed (tools/training_tool.html — single override CSS block before </style>, no JS/i18n changes)
+- New :root tokens: --radius-sm/md/lg/xl (6/8/10/12px), --shadow-sm (0 2px 8px), --shadow-md (0 6px 20px), --shadow-accent (0 3px 14px var(--accent-soft2) — follows accent picker)
+- Global: `button{cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}`; `:focus-visible` accent outline 2px offset 2px on buttons/chips (removed button:disabled cursor override — app convention is .btn-primary:disabled{cursor:default})
+- btn-primary: radius 12px, accent glow shadow, hover translateY(-1px)+shadow-md, disabled = no shadow; btn-secondary: radius 10px, padding 8px 16px, hover fill bg
+- Radii unified: step 10, toggle-opt 8, sess-len-chip 10, pc-btn 8, mb-btn 8, ss-toggle 8, day-tab 8, fat-light-btn 8, weak-chip 8, st-toggle 8, option 10, ex-sel-chip/more 6, swap-chip 6, prio-btn 6, meso-train-btn 6, rm/sw-ex-btn 6, sub-verify-btn 8, consult-cta 10, cardio/notif-toggle 8, nudge-dismiss 6, welcome/split-card 12
+- Bigger touch targets: btn-secondary 8x16, step 9x4, sess-len-chip 10x8, pc-btn 6x12, mb-btn 7x14, ss-toggle 6x12, day-tab 7x12, fat-light-btn 6x12, weak-chip 5x10, st-toggle 6x14, lang-opt 4x10, ex-sel-chip 3x7, cardio/notif-toggle 8x12, nudge-dismiss 4x8
+- Stepper: 1px line border + shadow-sm; .card/.modal-card/select option harmonized to var(--card); active step/toggle-opt get shadow; reduced-motion guard disables hover transforms
+
+## Tests
+- f20_ui_test.js (NEW, 45/45): scratch-element computed-style map for 26 interactive classes (radii/padding), real btn-primary (accent glow, user-select, stepper border+shadow, card bg var, hover translateY matrix 0,-1, focus-visible solid accent ring, disabled = shadow none + opacity .3 with transition:none), accent switch -> green glow rgb(76,175,80), onboarding still navigates; no console errors
+- Regression: all suites green (f1-f19); bracecheck2 1569/1569; check_parse OK
+- LIVE: 404 passed / 0 failed across all 22 suites vs https://anas-xi.github.io/muscle-os-website/tools/training_tool.html?v=livetest
+- Deploy: root 060e23f (feat, incl. f20 test) · public main 1c62fbc · public master 42275c4 · website run 30745376946 success · live `?v=ui` verified
+- GOTCHA: root repo has a broken duplicate deploy-website.yml (fails at Setup Pages on every master push — pre-existing noise, ignore); the real deploy is muscle-os-website workflow, triggered by master push; query it with `gh run list --repo Anas-XI/muscle-os-website`
+- GOTCHA: `.btn-primary:disabled{cursor:default}` (0,2,0) beats generic `button:disabled` — app convention; don't re-add
+- GOTCHA: CSS transitions animate opacity/box-shadow on state change — tests measuring disabled styles must set transition:none first
