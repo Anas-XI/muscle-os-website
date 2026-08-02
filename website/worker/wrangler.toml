@@ -2,6 +2,10 @@ name = "muscleos-access-control"
 main = "src/index.js"
 compatibility_date = "2025-07-26"
 
+# ── Public config (Google OAuth client ID — public by design, must match pages) ──
+[vars]
+GOOGLE_CLIENT_ID = "22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com"
+
 # ── Default = Production (no custom route until muscleos.coach zone is added) ──
 [[kv_namespaces]]
 binding = "ACCESS_CODES"

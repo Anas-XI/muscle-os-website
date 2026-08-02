@@ -138,9 +138,20 @@ html[dir="rtl"] select{background-position:left 11px center;padding-right:11px;p
   .bar-f{background:#e8a83a}
   .bar-c{background:#c48a30}
 }
+#googleGate{position:fixed;inset:0;z-index:9999;background:#14151A;display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Inter',sans-serif}#googleGate.gate-hidden{display:none!important}.gate-card{background:#1E1E2A;border:1px solid #2C2E37;border-radius:16px;padding:36px 28px;max-width:420px;width:100%;text-align:center}.gate-card .gate-lock{font-size:36px;margin-bottom:10px}.gate-card h2{font-size:1.1rem;font-weight:600;color:#FAFAF8;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}.gate-card p{font-size:.75rem;color:rgba(250,250,248,.45);margin-bottom:20px;line-height:1.6}.gate-error{display:none;font-size:.7rem;color:#f44336;margin-top:12px}
 </style>
+<script async defer src="https://accounts.google.com/gsi/client"></script>
 </head>
 <body>
+<div id="googleGate">
+  <div class="gate-card">
+    <div class="gate-lock">&#128274;</div>
+    <h2>Sign In Required</h2>
+    <p>Sign in with Google to access this tool. A free Muscle OS account is required.</p>
+    <div id="googleSignIn"></div>
+    <p class="gate-error" id="gateError"></p>
+  </div>
+</div>
 <nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a><a href="../index.html#packages">Coaching</a></div></div></nav>
 <div class="container">
   <button class="lang-toggle" onclick="toggleLang()" data-i18n="langBtn">🇸🇦 AR</button>
@@ -876,6 +887,17 @@ html[dir="rtl"] select{background-position:left 11px center;padding-right:11px;p
     res.scrollIntoView({behavior:'smooth',block:'start'});
   });
   translateUI();
+})();
+</script>
+<script src="../assets/js/access-control.js"></script>
+<script>
+(function(){
+  function init(){
+    var gate = document.getElementById('googleGate');
+    if(!gate) return;
+    MosAccess.requireGoogleAuth(null, function(ok){ if(ok) gate.classList.add('gate-hidden'); });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
 </script>
 </body>
