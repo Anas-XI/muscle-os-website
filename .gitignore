@@ -37,6 +37,8 @@ bot_err.txt
 bot_log.txt
 bot_output.log
 *.pdf
+!books/*.pdf
+!website/books/*.pdf
 test_e2e_pipeline.py
 
 # Auto-installed agent skills (reproducible via npx skills add)
