@@ -4,7 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'">
-<title>Muscle OS — Order Approval</title>
+<title>Muscle OS — Order Approval Dashboard</title>
+  <meta name="description" content="Muscle OS order management dashboard — approve, reject, and manage customer orders and access codes.">
+  <meta property="og:title" content="Muscle OS — Order Approval Dashboard">
+  <meta property="og:description" content="Muscle OS order management dashboard — approve, reject, and manage customer orders and access codes.">
+  <meta property="og:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="1200">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://muscleos.is-a.dev/admin/orders.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Muscle OS — Order Approval Dashboard">
+  <meta name="twitter:description" content="Muscle OS order management dashboard — approve, reject, and manage customer orders and access codes.">
+  <meta name="twitter:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
@@ -107,6 +119,29 @@ h1,h2,h3,h4,p{overflow-wrap:break-word;word-break:break-word}
 /* ── Responsive ── */
 @media(min-width:480px){.header{padding:24px 16px}.header h1{font-size:1.3rem}}
 input,select,textarea{font-size:16px!important}
+
+/* ── Tab bar ── */
+.tab-bar{display:flex;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(20,21,26,.6)}
+.tab-btn{flex:1;padding:14px 8px;background:none;border:none;color:rgba(250,250,248,.35);font-family:'Inter',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;transition:color .2s,border-color .2s;border-bottom:2.5px solid transparent;min-height:48px}
+.tab-btn.active{color:#F4C93B;border-bottom-color:#F4C93B}
+.tab-btn:hover{color:rgba(250,250,248,.7)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* ── Expiring code cards ── */
+.ec-card{background:rgba(30,30,42,.5);border:1px solid rgba(250,250,248,.06);border-radius:12px;padding:14px;margin-bottom:10px}
+.ec-card.urgent{border-left:3px solid #f44336}
+.ec-card.near{border-left:3px solid #FF9800}
+.ec-card.ok{border-left:3px solid #4CAF50}
+.ec-code{font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:600;color:#F4C93B;letter-spacing:1px}
+.ec-name{font-size:.9rem;font-weight:600;margin-top:2px}
+.ec-detail{font-size:.75rem;color:rgba(250,250,248,.45);margin-top:4px}
+.ec-expiry{font-size:.75rem;margin-top:4px;font-weight:500}
+.ec-expiry.bad{color:#f44336}
+.ec-expiry.warn{color:#FF9800}
+.ec-expiry.good{color:#4CAF50}
+.ec-wa-btn{display:inline-block;margin-top:8px;padding:10px 16px;background:#25D366;color:#14151A;border:none;border-radius:8px;font-family:'Inter',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;text-decoration:none;transition:opacity .2s}
+.ec-wa-btn:hover{opacity:.85}
 </style>
 </head>
 <body>
@@ -125,22 +160,46 @@ input,select,textarea{font-size:16px!important}
 
 <!-- Main Dashboard (hidden until logged in) -->
 <div id="dashboard" style="display:none">
-  <div class="header">
-    <h1>⏳ Pending Orders</h1>
-    <div class="sub"><span id="orderCount" class="count">0</span> waiting for approval</div>
+  <!-- Tabs -->
+  <div class="tab-bar">
+    <button class="tab-btn active" data-tab="orders" onclick="switchTab('orders')">Pending Orders</button>
+    <button class="tab-btn" data-tab="expiring" onclick="switchTab('expiring'); fetchExpiringCodes();">Expiring Codes</button>
   </div>
 
-  <div class="wrap">
-    <div id="loadingIndicator" class="loading"><div class="spinner"></div>Loading orders...</div>
-    <div id="emptyState" class="empty-state" style="display:none">
-      <div class="empty-icon">✅</div>
-      <div>No pending orders</div>
+  <!-- ─── Pending Orders Tab ─── -->
+  <div id="tab-orders" class="tab-content active">
+    <div class="header">
+      <h1>⏳ Pending Orders</h1>
+      <div class="sub"><span id="orderCount" class="count">0</span> waiting for approval</div>
     </div>
-    <div id="orderList" class="order-list"></div>
+    <div class="wrap">
+      <div id="loadingIndicator" class="loading"><div class="spinner"></div>Loading orders...</div>
+      <div id="emptyState" class="empty-state" style="display:none">
+        <div class="empty-icon">✅</div>
+        <div>No pending orders</div>
+      </div>
+      <div id="orderList" class="order-list"></div>
+    </div>
+  </div>
+
+  <!-- ─── Expiring Codes Tab ─── -->
+  <div id="tab-expiring" class="tab-content">
+    <div class="header">
+      <h1>⏰ Expiring Codes</h1>
+      <div class="sub"><span id="expiringCount" class="count">0</span> expiring within 7 days</div>
+    </div>
+    <div class="wrap">
+      <div id="expiringLoading" class="loading" style="display:none"><div class="spinner"></div>Checking codes...</div>
+      <div id="expiringEmpty" class="empty-state" style="display:none">
+        <div class="empty-icon">✅</div>
+        <div>No codes expiring within 7 days</div>
+      </div>
+      <div id="expiringList" class="order-list"></div>
+    </div>
   </div>
 
   <div class="refresh-bar">
-    <span class="rb-label">Auto-refresh every 30s</span>
+    <span class="rb-label" id="refreshLabel">Auto-refresh every 30s</span>
     <button id="refreshBtn" class="rb-btn">Refresh Now</button>
   </div>
 </div>
@@ -358,6 +417,64 @@ input,select,textarea{font-size:16px!important}
     }).catch(function(){
       showToast('Network error', 'error');
       card.classList.remove('resolving');
+    });
+  };
+
+  // ── Tab switching ──
+  window.switchTab = function(name) {
+    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+    document.querySelectorAll('.tab-content').forEach(function(c){ c.classList.remove('active'); });
+    document.querySelector('.tab-btn[data-tab="' + name + '"]').classList.add('active');
+    document.getElementById('tab-' + name).classList.add('active');
+    var label = document.getElementById('refreshLabel');
+    label.textContent = name === 'orders' ? 'Auto-refresh every 30s' : 'Manual refresh';
+  };
+
+  // ── Expiring codes ──
+  window.fetchExpiringCodes = function() {
+    var key = getKey();
+    if (!key) return;
+    var list = document.getElementById('expiringList');
+    var loading = document.getElementById('expiringLoading');
+    var empty = document.getElementById('expiringEmpty');
+    var count = document.getElementById('expiringCount');
+
+    loading.style.display = 'block';
+    empty.style.display = 'none';
+    list.innerHTML = '';
+
+    fetch(API + '/api/expiring-codes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Key': key },
+      body: JSON.stringify({ days: 7 })
+    }).then(function(r){
+      if (r.status === 401) return null;
+      return r.json();
+    }).then(function(data){
+      loading.style.display = 'none';
+      if (!data) return;
+      count.textContent = data.count;
+      if (data.count === 0) {
+        empty.style.display = 'block';
+        return;
+      }
+      list.innerHTML = data.expiring.map(function(e){
+        var cls = e.daysRemaining <= 1 ? 'urgent' : e.daysRemaining <= 3 ? 'near' : 'ok';
+        var expiryCls = e.daysRemaining <= 1 ? 'bad' : e.daysRemaining <= 3 ? 'warn' : 'good';
+        var expiryDate = new Date(e.expiresAt).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+        return '<div class="ec-card ' + cls + '">' +
+          '<div class="ec-code">' + escHtml(e.code) + '</div>' +
+          '<div class="ec-name">' + escHtml(e.customerName) + '</div>' +
+          (e.whatsappNumber ? '<div class="ec-detail">📞 ' + escHtml(e.whatsappNumber) + '</div>' : '') +
+          (e.email ? '<div class="ec-detail">✉️ ' + escHtml(e.email) + '</div>' : '') +
+          '<div class="ec-detail">📦 ' + escHtml(productLabel(e.product)) + ' — ' + (e.lang === 'ar' ? 'عربي' : 'English') + '</div>' +
+          '<div class="ec-expiry ' + expiryCls + '">Expires ' + expiryDate + ' — ' + e.daysRemaining + ' day' + (e.daysRemaining !== 1 ? 's' : '') + ' left</div>' +
+          (e.whatsappLink ? '<a href="' + escHtml(e.whatsappLink) + '" target="_blank" rel="noopener" class="ec-wa-btn">Send Reminder on WhatsApp</a>' : '') +
+        '</div>';
+      }).join('');
+    }).catch(function(){
+      loading.style.display = 'none';
+      showToast('Network error fetching expiring codes', 'error');
     });
   };
 
