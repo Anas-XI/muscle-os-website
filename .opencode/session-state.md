@@ -1,4 +1,24 @@
-﻿# Session State — Bulk Access Codes: 1000 per product, seeded + live — COMPLETE
+﻿# Session State — Midnight-only live deploys + codes validity rules — COMPLETE
+
+## Status: Live site now deploys ONLY at midnight (00:00 Morocco = 23:00 UTC) via scheduled GitHub Actions on Anas-XI/muscle-os-website main. Realtime push-trigger removed. Codes: 30d-from-activation (subscription), lifetime (books), survive any update.
+## Deployed: root master 3fbe5a0 (origin muscle-os-bot) · public main 93f02d1 (workflow 320801512 "Deploy Website to GitHub Pages (midnight only)" active) · master branch untouched until first midnight merge.
+
+## New deployment rules (REPLACES old playbook steps 3-4)
+- During the day: push site changes to public `main` ONLY (worktree flow: copy website/* files → commit → `git push public HEAD:main`). NEVER push master directly — deploy-website.yml no longer has a push trigger.
+- 00:00 Morocco daily (cron `0 23 * * *`): scheduled run on main → job `sync-master` merges main→master (GITHUB_TOKEN push does NOT re-trigger any workflow) → job `deploy` uploads artifact path `website` + deploy-pages → live site updates.
+- Emergency deploy any time: `gh workflow run "Deploy Website to GitHub Pages (midnight only)" --repo Anas-XI/muscle-os-website`.
+- Schedules can be delayed up to ~15 min by GitHub — treat midnight as approximate.
+- Worker (wrangler deploy) stays MANUAL by convention — worker code changes go live only at 12am too (user decision, no CI secrets).
+
+## Codes validity rules (all verified live)
+- Subscription products (TR/TD/TB/MA): 30 days from ACTIVATION — worker sets expiresAt = now+30d on first activation; same-account re-activation returns ORIGINAL expiry (no reset, line ~249 binding path); JWT exp = expiresAt. Verified: TR-X32BUNF9E2, TD-PUPFWZ2LSJ, MA-R9YZQAFVY9 → 30d.
+- Books (BK/BN/BB): LIFETIME — durationDays 0 → expiresAt 2099-12-31 (line ~326-328). Verified: BK-028UJRZDSL, BN-V332OI8R4X, BB-0IVXFVS30D → dur=0.
+- Codes survive updates: truth lives in worker KV (persists across deploys); client fallback = website/assets/data/access-codes.json (6005 merged hashes — bulk-generate & rotate scripts MERGE, never rewrite). New batches: seed KV immediately (wrangler kv bulk put --remote, codes valid at once via worker); fallback JSON ships with next midnight deploy.
+- Never rewrite access-codes.json from scratch — always merge (bulk-generate-codes.js / rotate-fallback-codes.js do this).
+
+---
+
+# Session State — Bulk Access Codes: 1000 per product, seeded + live — COMPLETE
 
 ## Status: 6000 new codes (6 products) generated, seeded to worker KV, hashes merged into fallback json, deployed live. Previous 1000 TR codes confirmed still working.
 ## Deployed: root master 04e8439 (origin muscle-os-bot) · public main bb7da72 · public master e54042b · website run 30767830993 success · worker redeployed (Version de34f8fa-1b20-40f2-9f65-e4b5d3be6539) with lifetime-durationDays response fix · live access-codes.json 200 / 1,105,046 bytes.
