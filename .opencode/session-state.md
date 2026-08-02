@@ -278,3 +278,22 @@
 ## Tests
 - f18_sess_len_test.js (NEW, 20/20): chips present/default 60; baseline 60 counts; 45 -> all days <=4 + ssSuggested + note + sessLen stored; 90 -> exactly 1 optional/day + counts=baseline+1 + badge/label + sessLen stored; optional sets excluded from __weeklyVol while normal counted; persistence (mos_sess_len + chip selected on return); back to 60 -> baseline counts, no optional/ssSuggested; no console errors
 - Regression green: F5 21/21, F6 26/26, F7 25/25, F8 20/20, F11 18/18, F12 11/11, F13 13/13, F14 12/12, F15 17/17, F16 12/12, F17 12/12; bracecheck2 1569/1569; check_parse OK
+
+---
+# Session State - P7 plateau detection -> auto-meso suggestion - COMPLETE
+
+## Status: Dashboard plateau card for stalled main lifts with swap / intensification / deload actions. Deployed origin + public main/master, live-verified.
+
+## What changed (tools/training_tool.html)
+- MAIN_LIFTS = [Barbell Squat, Bench Press, Deadlift Variation, Squat, Deadlift] at IIFE scope (exCtx reuses it; was local there)
+- detectPlateaus(): for each main lift present in program, group K.LH entries by date -> sessions (best e1RM + max RPE per date, ascending); if >=3 sessions and gain (last vs 3-back) <2.5% AND latest session RPE >=8 -> plateau {ex, di, idx, gain, rpe}
+- renderPlateaus(): #plateauCard on step4 (after nudgeBar) — title plateau_title + per-plateau body (plateau_body with {gain}/{rpe} interpolated, ex name) + 3 .pc-btn actions; hidden when none; called from renderDashboard after renderNudge()
+- Actions (delegated listener on #plateauCard): swap -> dayIdx=di, renderDay(di), click that ex's .sw-ex-btn (opens .swap-panel with chips) + scrollIntoView; intense -> #mesoType='strength' + #mesoWeeks='10' (intensification phase needs >=10wk) + go(35)+renderMesoConfig(); deload -> same as markDeloadBtn (dlTracker reset, alert_deload_marked) + renderDashboard
+- Derived from K.LH only; no new storage keys
+- CSS: .plateau-card/.pc-title/.pc-body/.pc-actions/.pc-btn(.swap blue/.intense green/.deload orange)
+- i18n: plateau_title, plateau_body, plateau_swap, plateau_intense, plateau_deload (en+ar)
+
+## Tests
+- f19_plateau_test.js (NEW, 17/17): program has main lift; seeded stagnant K.LH (3 sessions 0% gain RPE 8-9) -> card visible + names lift + title; 3 action buttons; swap -> swap panel opens on the lift's day (chips present, right day tab); deload -> lastDeload=today + sessions=0; intense -> step35 + strength + 10 weeks; RPE 7 -> card hidden; no console errors
+- Regression green: F5 21/21, F6 26/26, F7 25/25, F8 20/20, F11 18/18, F12 11/11, F13 13/13, F14 12/12, F15 17/17, F16 12/12, F17 12/12, F18 20/20; bracecheck2 1569/1569; check_parse OK
+- P-batch COMPLETE (P1-P7 shipped)
