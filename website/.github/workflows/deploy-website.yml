@@ -1,24 +1,55 @@
-name: Deploy Website to GitHub Pages
+name: Deploy Website to GitHub Pages (midnight only)
 
+# Daily midnight deploy (00:00 Morocco = 23:00 UTC). Live site only updates
+# at midnight — NO realtime deployments. Day-to-day work lands on `main`;
+# this scheduled run publishes `website/` and snapshots `main` onto `master`.
 on:
-  push:
-    branches: ["master"]
-    paths:
-      - "website/**"
-      - ".github/workflows/deploy-website.yml"
+  schedule:
+    - cron: '0 23 * * *'
   workflow_dispatch:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-  deploy:
+  sync-master:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./website
+          fetch-depth: 0
+      - name: Merge main into master
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout master
+          git merge origin/main --no-edit
+          git push origin master
+
+  deploy:
+    needs: sync-master
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "website"
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
