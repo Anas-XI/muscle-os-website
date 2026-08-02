@@ -405,5 +405,41 @@ Books and tools already shared the gold/ink palette, but typography was split: I
 - Live-verified ?v=: 14 URLs — all 200, Georgia=False, InterLink=True (6 guides + 4 tools root, 1 bundle each family, plus tdee_macro + consistency under website/ = served via root paths)
 - Worktrees removed, pub-main deleted
 
+# Session State — PDF Viewer Overhaul — COMPLETE
+
+## Status: viewer.html rewritten + DEPLOYED LIVE.
+## Deployed: root master 4f78556 (origin muscle-os-bot) · public main 9a5baa4 · public master 1c084a5 · website run 30752678278 success · live-verified https://anas-xi.github.io/muscle-os-website/pdf/viewer.html?v=4f78556 (200, 22039 bytes)
+
+## Completed
+
+### Root cause (5 issues in website/pdf/viewer.html)
+1. CSP `default-src 'self'` blocked cdnjs pdf.js script+worker, the inline script itself, Google Fonts, and the worker API fetch — viewer could never load a PDF anywhere
+2. No fit-to-width: fixed 1.2× canvas scale with `height:auto!important` CSS hack — blurry/mis-sized on phones, no resize handling
+3. All pages rendered upfront (renderAllPages) — heavy for 100+ page books
+4. Broken scroll math: `offsetTop` against a scroll container lacking a positioned ancestor → wrong page tracking / prev-next mis-scroll
+5. Toolbar sticky `top:49px` hardcoded — misaligned under shorter mobile nav
+
+### Fixes applied (all in one commit)
+- CSP replaced: `default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; worker-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev; img-src 'self' data: blob:; object-src 'none'` (connect-src verified against API_BASE at viewer.html line ~143; pdf.js 3.11.174 from cdnjs lines ~139-141)
+- Fit-to-width engine: `computeFitScale()` = viewer.clientWidth / baseW (clamped 0.25–4), `DPR` capped at 2, canvas rendered at cssScale*DPR and CSS-stretched into fixed-width page box (crisp on HiDPI)
+- Placeholder-first layout: `buildPlaceholders()` creates all `.page` divs with fixed width + aspect-ratio (scrollable immediately), then `renderPage(n)` fills them on demand
+- Lazy rendering: IntersectionObserver (root=#viewerContainer, rootMargin 400px) + `renderNearby()` (1 viewport above → 2 below) — only visible pages render
+- Zoom: A-/A+ scale 0.4–4 step 0.2; `applyZoom()` re-fits, clears canvases, re-renders nearby; `zoomGen` counter kills stale async renders (no old-scale overwrite race)
+- Scroll tracking: page = placeholder whose center is nearest viewport mid (offsetTop now valid — #viewerContainer has `position:relative`); prev/next scrollTo offsetTop-20; resize → debounced applyZoom (250ms)
+- Toolbar: sticky `top:49px` desktop; media query sets `.mos-nav{position:static}` + `.toolbar{top:0}` ≤600px (nav no longer sticky below 600px)
+- `#viewerContainer` gained `position:relative` + `min-height:100dvh` on body; `.page` gains fixed aspect-ratio box (no more `height:auto!important`)
+
+## Verify notes
+- bracecheck2/check_parse pass (84/84 braces, parse OK); grep confirmed no renderAllPages / scale=1.2 / max-width:100% / height:auto!important remnants
+- Local smoke: python http.server 8901 → GET /pdf/viewer.html 200 (22496 bytes)
+- Live-verified: CSP meta present, computeFitScale present, IntersectionObserver present, legacy CSS hack gone
+- Not tested in-browser (no headless browser available) — visual pass recommended: phone-width + desktop, prev/next, zoom, rotate resize
+
+## Deployed
+- root: 4f78556 pushed (only website/pdf/viewer.html staged; dirty tree untouched)
+- public main: 9a5baa4; public master: 1c084a5
+- website run 30752678278 success; live ?v=4f78556 checks passed
+- Worktrees removed, pub-main deleted
+
 
 
