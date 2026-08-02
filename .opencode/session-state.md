@@ -259,3 +259,22 @@
 - GOTCHA: backToDashBtn didn't re-render dashboard (only go(4)) - nudge test caught it; fixed in app (also benefits F16 flow)
 - GOTCHA: ss() JSON-stringifies - mos_nudge_dismiss raw value is '"date"'; test must JSON.parse before comparing
 - Regression green: F5 21/21, F6 26/26, F7 25/25, F8 20/20, F11 18/18, F12 11/11, F13 13/13, F14 12/12, F15 17/17, F16 12/12; bracecheck2 1569/1569; check_parse OK
+
+---
+# Session State - P6 time-based program variants - COMPLETE
+
+## Status: Session-length chips (45/60/90) on step2 persist mos_sess_len and reshape generated programs. Deployed origin + public main/master, live-verified.
+
+## What changed (tools/training_tool.html)
+- step2: "Session Length" section with #sessLenGrid — three .sess-len-chip buttons (45/60/90 min, default 60, persisted mos_sess_len); click handler binds selection, load-time sync restores stored value
+- CSS: .sess-len-grid/.sess-len-chip/.sess-len-chip.selected (accent border) + .opt-badge (blue uppercase pill for optional exercises)
+- generateProgram: reads mos_sess_len; sessLen===45 -> after prehab insertion cap day.ex at 4 (slice, prehab kept at front) + day.ssSuggested=true; sessLen>=90 -> push 1 optional exercise/day picked from first poolOf() pool member not already in day and safe for injuries (isExerciseSafeForInjuries), sets=max(2, first-ex sets-1), optional:true; prog.sessLen stored on program
+- step3 render: day.ssSuggested -> "⚡ supersets suggested" note; ex.optional -> .opt-badge 'optional'; progRecap shows '· N min'
+- renderDay: ssSuggested -> note under warmup; buildNormalExCard -> .opt-badge on optional exercises
+- createMesocycle: propagates optional:ex.optional||false; renderMesoCalendar md-ex rows show .opt-badge for optional
+- weeklyVol: excludes sets logged for exercises marked optional in current program (K.PG) -> not counted in volume compliance; exposed window.__weeklyVol for tests
+- i18n: sess_len, sess_45, sess_60, sess_90, sess_optional, sess_suggest_ss (en+ar)
+
+## Tests
+- f18_sess_len_test.js (NEW, 20/20): chips present/default 60; baseline 60 counts; 45 -> all days <=4 + ssSuggested + note + sessLen stored; 90 -> exactly 1 optional/day + counts=baseline+1 + badge/label + sessLen stored; optional sets excluded from __weeklyVol while normal counted; persistence (mos_sess_len + chip selected on return); back to 60 -> baseline counts, no optional/ssSuggested; no console errors
+- Regression green: F5 21/21, F6 26/26, F7 25/25, F8 20/20, F11 18/18, F12 11/11, F13 13/13, F14 12/12, F15 17/17, F16 12/12, F17 12/12; bracecheck2 1569/1569; check_parse OK
