@@ -319,3 +319,30 @@
 - GOTCHA: root repo has a broken duplicate deploy-website.yml (fails at Setup Pages on every master push — pre-existing noise, ignore); the real deploy is muscle-os-website workflow, triggered by master push; query it with `gh run list --repo Anas-XI/muscle-os-website`
 - GOTCHA: `.btn-primary:disabled{cursor:default}` (0,2,0) beats generic `button:disabled` — app convention; don't re-add
 - GOTCHA: CSS transitions animate opacity/box-shadow on state change — tests measuring disabled styles must set transition:none first
+
+---
+# Session State - Subscription modal code-first flow - COMPLETE
+
+## Status: Access-code box is now the primary entry to the subscription overlay (Google sign-in moved below as an alternative). Deployed origin + public main/master, live-verified.
+
+## Why
+User: "also fix the subscription to tools show the box where user can put his code and verify it" — the overlay was Google-first: the code box lived in `#authStep2` which was `display:none` until sign-in, so users with a code had to sign in with Google first.
+
+## What changed (tools/training_tool.html + tools/tdee_adaptive_engine.html, all 4 deploy copies each)
+- Overlay restructure: divider `data-i18n="sub_enter_code"` ("Enter your access code below to unlock") → `#authStep2` (code row + `#subError` + `#subSuccess`) ALWAYS visible → divider `data-i18n="sub_or_google"` ("or sign in with Google to link your account") → `#authStep1` (now contains `#authWelcomeRow` hidden + `#googleSignInBtn` + `#authStep1Error` + `#subSignOut` starting `display:none`)
+- `showStep(n)` rewritten (both tools): steps are always visible; `n===2` additionally shows the signed-in row (authWelcomeRow block + subSignOut inline); `n===1` hides them. All existing callers (start/initGsi/grantAndReload/check-session/invalid_session/sign-out) work unchanged
+- i18n added (en+ar): `sub_enter_code`, `sub_or_google` (replaces old `sub_auth_step1` key, which is removed from both maps)
+- Auth flow untouched: verifyCode → POST API_BASE+/api/verify-code, TRBOUND/TRDONE/TRBAD errors, owner instant grant, grantAndReload 1500ms reload, Enter-key on #subCode
+
+## Tests
+- f10_google_auth_test.js updated (37/37): T1 now asserts code box visible immediately + Google also visible + signed-in row hidden; T4/T5/T8 added welcome-row/switch-link visibility checks; sign-out asserts both sections still visible. f10b unchanged (10/10)
+- Full regression: all 22 suites green; bracecheck2 1608/1608 (training) + 153/153 (TDEE); check_parse OK both
+- Live: 404 passed / 0 failed baseline re-established (pre-deploy local run)
+
+## Deployed
+- root master d7f64db (feat, incl. f10 test update) pushed origin muscle-os-bot
+- public main 46659c5 (1c62fbc..46659c5), public master 1eaefc8 (42275c4..1eaefc8) — 4 copies rule in both worktrees
+- website run 30746757013 success (master push; root repo's own broken workflow was deleted in 419c531 — no more noise on root pushes)
+- Live-verified `?v=` on both pages: code-first divider, Google-alternative divider, i18n keys, new showStep logic all present
+- Worktrees removed, pub-main branch deleted
+
