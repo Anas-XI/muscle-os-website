@@ -174,7 +174,7 @@ async function handleVerify(request, env) {
   try { body = await request.json(); } catch (e) {
     return json({ valid: false, error: 'invalid_json' }, 400, env, request);
   }
-  const { code, productId } = body;
+  const { code, productId, session } = body;
   if (!code || !productId) {
     return json({ valid: false, error: 'missing_fields' }, 400, env, request);
   }
@@ -184,6 +184,97 @@ async function handleVerify(request, env) {
   if (rateLimited) return json({ valid: false, error: 'rate_limited' }, 429, env, request);
 
   const normalized = code.trim().toUpperCase();
+
+  // Optional Google session — enables one-account binding when present
+  let email = null;
+  if (session) {
+    try {
+      const secret = await getSecret(env);
+      const { payload } = await jwtVerify(session, secret, {
+        audience: 'muscleos-website',
+        issuer: 'muscleos-access-control',
+      });
+      if (payload.type !== 'session' || !payload.email) {
+        return json({ valid: false, error: 'invalid_session' }, 401, env, request);
+      }
+      email = payload.email;
+    } catch (e) {
+      return json({ valid: false, error: 'invalid_session' }, 401, env, request);
+    }
+  }
+
+  // One-account / one-time binding
+  let binding = null;
+  if (email) {
+    binding = await env.ACCESS_CODES.get(`code:${normalized}:binding`, 'json');
+    if (binding && binding.email && binding.email.toLowerCase() !== email.toLowerCase()) {
+      await logAttempt(env, normalized, productId, false);
+      return json({ valid: false, error: 'code_used_by_other' }, 403, env, request);
+    }
+    // Same account re-activating: idempotent grant from the stored expiry, no re-consumption
+    if (binding && binding.email && binding.email.toLowerCase() === email.toLowerCase()) {
+      const doId = env.CODE_COUNTER.idFromName(normalized);
+      const stub = env.CODE_COUNTER.get(doId);
+      let record = null;
+      try {
+        const inspResp = await stub.fetch('http://do/inspect', { method: 'POST' });
+        const insp = await inspResp.json();
+        record = insp.record || null;
+        if (!record) {
+          const kvRecord = await env.ACCESS_CODES.get(`code:${normalized}`, 'json');
+          if (kvRecord) {
+            await stub.fetch('http://do/initialize', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(kvRecord)
+            });
+            const inspResp2 = await stub.fetch('http://do/inspect', { method: 'POST' });
+            const insp2 = await inspResp2.json();
+            record = insp2.record || null;
+          }
+        }
+      } catch (e) { record = null; }
+      if (!record) {
+        await logAttempt(env, normalized, productId, false);
+        return json({ valid: false, error: 'invalid_code' }, 401, env, request);
+      }
+      if (record.uses === -1) {
+        await logAttempt(env, normalized, productId, false);
+        return json({ valid: false, error: 'code_revoked' }, 401, env, request);
+      }
+      if (record.products !== 'all' && !(record.products || []).includes(productId)) {
+        await logAttempt(env, normalized, productId, false);
+        return json({ valid: false, error: 'wrong_product' }, 403, env, request);
+      }
+      const expiresAt = binding.expiresAt ? new Date(binding.expiresAt) : new Date(Date.now() + (record.durationDays || 30) * 86400000);
+      if (expiresAt.getTime() < Date.now()) {
+        await logAttempt(env, normalized, productId, false);
+        return json({ valid: false, error: 'code_expired' }, 401, env, request);
+      }
+      await addAccountSub(env, email, { code: normalized, plan: record.plan, products: record.products, expiresAt: expiresAt.toISOString() });
+      const secret = await getSecret(env);
+      const token = await new SignJWT({ productId, plan: record.plan, codePrefix: normalized.substring(0, 4) })
+        .setProtectedHeader({ alg: 'HS256' })
+        .setIssuedAt()
+        .setIssuer('muscleos-access-control')
+        .setAudience('muscleos-website')
+        .setSubject(normalized.substring(0, 4))
+        .setExpirationTime(Math.floor(expiresAt.getTime() / 1000))
+        .sign(secret);
+      await logAttempt(env, normalized, productId, true);
+      const now = Date.now();
+      const expTime = expiresAt.getTime();
+      return json({
+        valid: true,
+        token,
+        expiresAt: expiresAt.toISOString(),
+        daysRemaining: expTime > now ? Math.ceil((expTime - now) / 86400000) : 0,
+        plan: record.plan,
+        durationDays: record.durationDays != null ? record.durationDays : 30,
+        boundEmail: binding.email
+      }, 200, env, request);
+    }
+  }
 
   // Atomic verification via Durable Object (eliminates TOCTOU race)
   const doId = env.CODE_COUNTER.idFromName(normalized);
@@ -216,6 +307,7 @@ async function handleVerify(request, env) {
           doResult.valid = true;
           doResult.plan = retryResult.plan;
           doResult.durationDays = retryResult.durationDays;
+          doResult.products = retryResult.products || kvRecord.products;
         } else {
           await logAttempt(env, normalized, productId, false);
           return json({ valid: false, error: retryResult.error }, retryResp.status, env, request);
@@ -247,6 +339,14 @@ async function handleVerify(request, env) {
 
   await logAttempt(env, normalized, productId, true);
 
+  // Bind this code to the Google account on first successful activation
+  if (email) {
+    await env.ACCESS_CODES.put(`code:${normalized}:binding`, JSON.stringify({
+      email, expiresAt: expiresAt.toISOString(), plan: doResult.plan, ts: Date.now()
+    }), { expirationTtl: 7776000 });
+    await addAccountSub(env, email, { code: normalized, plan: doResult.plan, products: doResult.products, expiresAt: expiresAt.toISOString() });
+  }
+
   const now = Date.now();
   const expTime = expiresAt.getTime();
   const daysRemaining = expTime > now ? Math.ceil((expTime - now) / 86400000) : 0;
@@ -257,7 +357,7 @@ async function handleVerify(request, env) {
     expiresAt: expiresAt.toISOString(),
     daysRemaining,
     plan: doResult.plan,
-    durationDays: doResult.durationDays || 30
+    durationDays: doResult.durationDays != null ? doResult.durationDays : 30
   }, 200, env, request);
 }
 
@@ -819,7 +919,7 @@ async function handleGoogleAuth(request, env) {
       .setSubject(email)
       .setExpirationTime(Math.floor(Date.now() / 1000) + 604800)
       .sign(secret);
-    return json({ valid: true, session: sessionToken, email, name: payload.name || '' }, 200, env, request);
+    return json({ valid: true, session: sessionToken, email, name: payload.name || '', subscriptions: await getAccountSubs(env, email) }, 200, env, request);
   } catch (e) {
     return json({ valid: false, error: 'invalid_google_token' }, 401, env, request);
   }
@@ -839,7 +939,7 @@ async function handleCheckSession(request, env) {
       issuer: 'muscleos-access-control',
     });
     if (payload.type !== 'session') return json({ valid: false }, 403, env, request);
-    return json({ valid: true, email: payload.email, name: payload.name }, 200, env, request);
+    return json({ valid: true, email: payload.email, name: payload.name, subscriptions: await getAccountSubs(env, payload.email) }, 200, env, request);
   } catch (e) {
     return json({ valid: false, error: 'invalid_session' }, 401, env, request);
   }
@@ -1120,6 +1220,29 @@ async function logAttempt(env, code, productId, success) {
     { expirationTtl: 2592000 });
 }
 
+// ── Per-account subscription index (Google sign-in restore) ──
+// Key: email:<LOWERED_EMAIL>:subs → [{ code, plan, products, expiresAt, ts }] (TTL 90d)
+// Lets a returning Google account restore its bound codes without re-entering them.
+async function addAccountSub(env, email, entry) {
+  const key = `email:${(email || '').toLowerCase()}:subs`;
+  let existing = [];
+  try { const raw = await env.ACCESS_CODES.get(key, 'json'); if (Array.isArray(raw)) existing = raw; } catch (e) {}
+  const rest = existing.filter(s => s && s.code !== entry.code);
+  rest.push({ code: entry.code, plan: entry.plan, products: entry.products, expiresAt: entry.expiresAt, ts: Date.now() });
+  await env.ACCESS_CODES.put(key, JSON.stringify(rest), { expirationTtl: 7776000 });
+}
+
+async function getAccountSubs(env, email) {
+  if (!email) return [];
+  let list = [];
+  try { const raw = await env.ACCESS_CODES.get(`email:${email.toLowerCase()}:subs`, 'json'); if (Array.isArray(raw)) list = raw; } catch (e) {}
+  const now = Date.now();
+  return list
+    .filter(s => s && s.expiresAt && new Date(s.expiresAt).getTime() > now)
+    .map(s => ({ code: s.code, plan: s.plan, products: s.products, expiresAt: s.expiresAt }))
+    .sort((a, b) => new Date(b.expiresAt) - new Date(a.expiresAt));
+}
+
 /** Constant-time string comparison to prevent timing attacks */
 function timingSafeEqual(a, b) {
   if (typeof a !== 'string' || typeof b !== 'string') return false;
@@ -1155,7 +1278,14 @@ export class CodeCounter {
     if (request.method === 'POST' && url.pathname === '/revoke') {
       return this.handleRevoke();
     }
+    if (request.method === 'POST' && url.pathname === '/inspect') {
+      return this.handleInspect();
+    }
     return new Response('Not found', { status: 404 });
+  }
+  async handleInspect() {
+    const record = await this.state.storage.get('record');
+    return new Response(JSON.stringify({ record: record || null }), { status: 200, headers: { 'Content-Type': 'application/json' } });
   }
   async handleVerify(request) {
     let productId;
@@ -1180,7 +1310,7 @@ export class CodeCounter {
     }
     record.uses = (record.uses || 0) + 1;
     await this.state.storage.put('record', record);
-    return new Response(JSON.stringify({ valid: true, uses: record.uses, plan: record.plan, durationDays: record.durationDays }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+    return new Response(JSON.stringify({ valid: true, uses: record.uses, plan: record.plan, durationDays: record.durationDays, products: record.products }), { status: 200, headers: { 'Content-Type': 'application/json' } });
   }
   async handleInitialize(request) {
     let record;
