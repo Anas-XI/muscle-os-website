@@ -1,7 +1,15 @@
-﻿# Session State — Sample-books funnel SHIPPED (midnight deploy will publish) — COMPLETE
+﻿# Session State — Exercise Library + region-grouped picker DEPLOYED NOW — COMPLETE
 
-## Status: Quiz → free samples → book funnel fully wired. Pushed to root master d7f19f8 and public main 6ddd998. Live at next 00:00 Morocco cron (workflow 320801512).
-## Deployed: root master d7f19f8 (origin muscle-os-bot) · public main 6ddd998 · public master still e54042b (first midnight merge pending).
+## Status: Exercise library modal (📚) + picker restructured into muscle headings with region-grouped chips + per-exercise how-to guides (setup/execution/cues/breathing) shipped to `tools/training_tool.html` (4 copies). Deployed immediately (not midnight) via workflow_dispatch.
+## Deployed: root master 0e054dc (origin muscle-os-bot) · public main e2b8be0 · public master dac2636 (stale e54042b merged with main content, 14 conflicted files resolved in favor of main, master-only DOCUMENTATION.md/admin/order*.html preserved) · website run 30834571932 success · live-verified https://anas-xi.github.io/muscle-os-website/tools/training_tool.html (417,122 bytes; EXERCISE_GUIDE/libModal/ex-sel-muscle/lib-fchip present).
+
+## What shipped (this session)
+- `EXERCISE_REGIONS` map (muscle → region buckets) + `EXERCISE_GUIDE` curated how-to for all ~113 pool exercises.
+- Picker restructure: muscle-group heading bars (first-seen order), chips bucketed by region (localized `rgn_*` labels), per-slot how-to toggle. Old "show all/fewer" expander removed.
+- Library: header 📚 button (`#libBtn`) → `#libModal` → filters (All + 12 muscles) → grouped rows with equipment tags, video links, how-to expanders. `window.showLibrary/hideLibrary/renderLibrary`.
+- i18n: 29 new en+ar keys (lib_title/lib_all/lib_empty/how_to/guide_*/rgn_*) — en=ar=510 keys, parity verified.
+- Verification: node --check both script blocks; Playwright smoke (chrome channel via `E:/MoS/.opencode/skills/pdf/node_modules/playwright-core`) — picker (20 muscle headings/92 regions/353 chips/31 guide toggles), library (13 filter chips/111 rows/12 groups/13 video links), AR/RTL flip, zero console errors. Temp scripts in `C:\Users\anass\AppData\Local\Temp\opencode\` (verify_tt*.js, verify3.js, verify_guide.js, smoke_test.js).
+- **Deploy fix:** public master was 32 commits behind main (e54042b) — every sync-master merge failed (14 conflicts: guides/*.html, tools/*.html, training bundle, website copies). Resolved by merging main into master in a temp worktree (`E:\MoS\public\master`, detached), `checkout --theirs` for the 14 conflicted files, kept master-only files, pushed `dac2636`. Midnight cron should now succeed.
 
 ## What shipped
 - 6 books (`E:\MoS\books\muscle_os_*.html`) got Personalise callouts (`.personalise` CSS: dark #14151A card, 4px #F4C93B left border, `\25C8` mark, yellow strong) — mirrored into `website/books/`.
