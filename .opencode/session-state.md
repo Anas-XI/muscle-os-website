@@ -1,4 +1,31 @@
-﻿# Session State — Muscle-highlight diagram + smart exercise ranking DEPLOYED NOW — COMPLETE
+﻿# Session State — Volume management + priority muscles + effort-based recovery — DEPLOYING
+
+## Status: Priority-muscle + frequency screen (first), priority-aware split recommendation with conflict warnings, weighted volume distribution (live bars in picker + weekly review screen), effort-based recovery estimation (logged RPE with defaults fallback) + soreness check-in with soft-gate, and optional PR-session indirect crediting (SBD-only) shipped to `tools/training_tool.html` (4 copies, byte-identical).
+
+## What changed (tools/training_tool.html)
+- New storage keys: `K.PR='mos_priority'` (muscles[{m,freq}]), `K.SR='mos_soreness_log'` (date→muscle→1-10), `K.PC='mos_pr_credit'` (bool), `K.VA='mos_vol_alloc'` (per-muscle per-exercise weekly sets), `K.FO='mos_freq_override'` (week→muscle→freq). Auto-included in export/import/reset via Object.values(K).
+- Priority panel (#prioPanel, .ex-sel-panel in step1): opens from onboardNext BEFORE step2. 1-2 muscles hard cap (UI disables 3rd card + #prioCap), frequency 3x/4x seeded from effort history (#prio-seed hints "from your recovery profile" vs "defaults"), prioContBtn applies +1 set/week volume bump (capped at MRV) then go(2).
+- Effort engine: `effortStyleOf(m)` — 21-day load-history RPE average (per-set rpe>0, primary muscle) → high/med/low + defaultRpe; fallback to `mos_vol_inputs.rec` profile defaults. `lastSessionSets(m)` — latest logged session's non-warmup RPE set count. `estimateRecoveryCost(m)` = `avg_RPE × sets` → bucket low(<24)/med(24-39)/high(40+) with floorH 24/48/72h.
+- Soreness check-in in renderDay (`renderSorenessCards(day,di)`): only on days the priority muscle is scheduled, only for priority muscles; 1-10 chips (sr_title/sr_sub with {H}/{B} floor info); answer persists → sr-done with blended bucket (`blendRecovery`: sore≥7 caps up to med/high, ≤2 nudges down one step). Soft-gate: when modeled bucket=high AND a ≥7 soreness was logged in the last 7 days → .fat-light-banner offering "Keep Nx" or "Drop to 2x" (writes K.FO; shows sr_gate_dropped note after). Gate buttons carry data-gm → existing fat-light-btn handler guards `if(this.dataset.gm!==undefined)return`.
+- Split recommendation (`recommendSplit`): base = existing `determineSplit(vi)`; if priority muscles set, scan SPLITS for same-day-count splits with max satisfied priorities; exact-satisfaction winner that differs from base → replaces base with "Recommended — supports chest 4x" note; else base + note. `renderSplitConflict(k)`: per-priority-muscle frequency vs requirement → .conflict-box.ok (green) or .warn (orange, split_conflict_* i18n). Rendered in #splitWhy + #splitConflict. **No split is pre-selected anymore** (removed quiz auto-set splitKey and the first-card fallback; genProgBtn shows #splitErr until a card is clicked).
+- Volume distribution (`distributeVolume(target, exNames, {prCredit})`): weighted by role (compound ×1.35, isolation ×0.85), PR-session bonus ×1.15 on SBD members with a PR in last 14 days (prCredit only), largest-remainder allocation to hit target, ≥1 floor, <2 sets → fragmentation list. `computeSelection()` reads selected chips per muscle from #exSelContent; `renderLiveVol(m)` renders per-muscle weekly bar (allocated vs target, under/on/over colors, target mark) under each muscle group in the picker; re-runs on every chip click.
+- Volume review screen (#volReviewPanel, step2): confirmExBtn now opens it instead of generating (confirmExSelection → showVolReview → renderVolReview → persists K.VA). Per-muscle bars with per-exercise "Name×N" split, fragmentation warnings, indirect-credit overlay (vr_indirect: triceps +2.7 etc. — SBD only, only sessions with a PR in last 14 days). #prCreditBtn toggles K.PC (vr_pr_on/off, flagged optional with vr_pr_desc explanation). lockInBtn → generateProgram(splitKey); backToExBtn2 → reopens picker via refreshExSelection (pendingExChoices preserved).
+- generateProgram: when K.VA exists, per-exercise weekly set share is distributed across the split's occurrences of that chosen exercise proportionally to slot weight (ex.s), capped by MAX — replacing the pure scale-based ns.
+- i18n: 44 new en+ar keys (prio_*, split_rec_badge, split_rec_priority, split_conflict_*, vl_*, vr_*, bucket_*, sr_*, freq_3x/4x). en=ar=312 keys, parity verified by script.
+- Test hook: `window.__pmEngine` (existing window.__x convention).
+
+## Tests
+- smoke_voleng.js (NEW, 27/27, Playwright+chrome): onboarding→prioPanel; 2-muscle cap + 3rd disabled; seeded freq hint; continue→step2 + mos_priority saved; split why + no-preselect + rec-card flag; engine units (distributeVolume totals/compound-share, recovery buckets, split frequency satisfaction, PR-credit indirect {triceps 2.7, shoulders 1.5}, effort style from seeded RPE logs); splitErr on empty selection; conflict warn after card click (chest 2x vs 4x); picker → 20 live panels → chip click updates bar; confirm → review (10 bars, K.VA persisted, PR toggle persists); lockIn → step3 with days; renderSorenessCards output. Seed gotcha: PR crediting requires mos_load_history entries with e1RM within 14 days.
+- smoke_exsel.js updated (24/24 DOM): confirm now asserts volReviewPanel opens, then lockInBtn → step3. Engine 21/21 unchanged.
+- node --check: both script blocks OK. Zero page errors in both suites.
+- Files: C:\Users\anass\AppData\Local\Temp\opencode\smoke_voleng.js (+ smoke_exsel.js updated).
+
+## Deploy (pending): root master commit + 4 copies → public main + master worktrees → gh workflow run "Deploy Website to GitHub Pages (midnight only)" → live-verify with ?v=vol1 (markers: prioPanel / volReviewPanel / splitConflict / __pmEngine).
+
+---
+
+# Session State — Muscle-highlight diagram + smart exercise ranking DEPLOYED NOW — COMPLETE
+
 
 ## Status: Muscle-highlight imagery (stylized front/rear body SVG per muscle-group header) + smart exercise ranking (recommended-first chips with REC badges) + curated equipment/difficulty/pattern metadata + equipment profile hard filter shipped to `tools/training_tool.html` (4 copies). Deployed immediately (not midnight) via workflow_dispatch.
 ## Deployed: root master 49ff434 (origin muscle-os-bot) · public main (pending sync) · public master (pending sync) · website run (pending) · live-verified (pending).
