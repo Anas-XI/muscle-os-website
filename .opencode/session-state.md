@@ -1,9 +1,19 @@
-﻿# Session State — Exercise Library + region-grouped picker DEPLOYED NOW — COMPLETE
+﻿# Session State — Muscle-highlight diagram + smart exercise ranking DEPLOYED NOW — COMPLETE
 
-## Status: Exercise library modal (📚) + picker restructured into muscle headings with region-grouped chips + per-exercise how-to guides (setup/execution/cues/breathing) shipped to `tools/training_tool.html` (4 copies). Deployed immediately (not midnight) via workflow_dispatch.
-## Deployed: root master 0e054dc (origin muscle-os-bot) · public main e2b8be0 · public master dac2636 (stale e54042b merged with main content, 14 conflicted files resolved in favor of main, master-only DOCUMENTATION.md/admin/order*.html preserved) · website run 30834571932 success · live-verified https://anas-xi.github.io/muscle-os-website/tools/training_tool.html (417,122 bytes; EXERCISE_GUIDE/libModal/ex-sel-muscle/lib-fchip present).
+## Status: Muscle-highlight imagery (stylized front/rear body SVG per muscle-group header) + smart exercise ranking (recommended-first chips with REC badges) + curated equipment/difficulty/pattern metadata + equipment profile hard filter shipped to `tools/training_tool.html` (4 copies). Deployed immediately (not midnight) via workflow_dispatch.
+## Deployed: root master 49ff434 (origin muscle-os-bot) · public main (pending sync) · public master (pending sync) · website run (pending) · live-verified (pending).
 
 ## What shipped (this session)
+- `BODY_BASE`/`BODY_MUSCLES` SVG + `muscleHighlightHtml(muscle)` — one reusable component, mirrored left/right paths, center muscles span both sides; rendered in every muscle-group header of the exercise picker.
+- Schema extension (derived + curated): `equipmentOf` (explicit curated table for all ~100 pool exercises where the name-regex `equipTag` is empty/wrong, regex fallback, full-gym fallback for custom ex), `difficultyOf` (curated overrides win, else f-level mapping), `movementPatternOf` (7 patterns: push/pull/hinge/squat/carry/rotation/core + curated overrides), `jointStressOf` (from EXERCISE_META jr), `secondaryOf` (curated activation backfill), `primaryOf` (pool index).
+- `rankExercises(list,ctx)` — pure scoring: baseline 100 + favorites (bounded 3.0) + experience-fit (±2.0, distance-based) + injury penalty from pain-flag joints (yellow -0.6, red -1.5 × 4.0) + pattern-diversity (-1.5 if same pattern already chosen that day); **equipment is a hard filter** (non-matching excluded). Exposed `window.rankExercises`.
+- Picker: ranked chips first (top-1 gets `✦ REC`, top-2/3 get `✦`), chosen/preferred pinned first, per-slot badge row (difficulty/type/pattern/joint-stress/also-works) via `rowBadgesHtml`, region buckets preserved, chip click re-ranks in place (`bindChipClick` + `slotChipsHtml`).
+- Filter bar (`#exFilterBar`, hidden by default, `#adjustExBtn` toggle): My Gym equipment profile (`vi.eq`, persisted in `mos_vol_inputs`), difficulty/type/pattern chips — **strict** filtering (default/chosen exercise must also match, otherwise excluded; no-match rows show localized notice). Equipment chip state restored on every render.
+- Fixes caught by smoke tests: `[data-f!="eq"]` invalid CSS selector (crashed the picker on first open — fixed to `:not([data-f="eq"])`), default-exercise `unshift` bypassing filters, `null.dataset` crash in `confirmExSelection` on empty-filtered rows.
+- i18n: 30 new en+ar keys (diff_*, mp_*, js_*, eq_*, also_works, rec_badge, ex_no_match, my_gym, adjust, pattern_label, type_label, diff_label); `window.__exEngine` test hook (existing `window.__x` convention).
+- Verification: node --check both script blocks; Playwright smoke (chrome via playwright-core): 21/21 engine + 23/23 DOM + Arabic render, zero page errors. Temp scripts in `C:\Users\anass\AppData\Local\Temp\opencode\` (smoke_exsel.js, debug_diff*.js).
+
+## What shipped
 - `EXERCISE_REGIONS` map (muscle → region buckets) + `EXERCISE_GUIDE` curated how-to for all ~113 pool exercises.
 - Picker restructure: muscle-group heading bars (first-seen order), chips bucketed by region (localized `rgn_*` labels), per-slot how-to toggle. Old "show all/fewer" expander removed.
 - Library: header 📚 button (`#libBtn`) → `#libModal` → filters (All + 12 muscles) → grouped rows with equipment tags, video links, how-to expanders. `window.showLibrary/hideLibrary/renderLibrary`.
