@@ -495,6 +495,26 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid var(-
   .ex-sel-muscle{font-family:'Oswald',sans-serif;font-size:.68rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.4px;margin:10px 0 4px;padding-bottom:3px;border-bottom:1.5px solid var(--fill)}
   .ex-sel-muscle:first-child{margin-top:4px}
   .ex-sel-muscle .esm-count{font-size:.48rem;color:rgba(250,250,248,.25);font-weight:400;letter-spacing:.3px;text-transform:none;margin-left:6px}
+  .ex-sel-muscle{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .esm-hl{width:34px;height:auto;flex-shrink:0;opacity:.95}
+  .esm-hl .hl-base{fill:rgba(250,250,248,.06);stroke:rgba(250,250,248,.16);stroke-width:1.5;stroke-linejoin:round}
+  .esm-hl .hl-muscles{fill:var(--accent);opacity:.92}
+  .esr-badges{display:inline-flex;gap:3px;align-items:center;flex-wrap:wrap}
+  .badge-pill{font-size:.42rem;padding:1px 6px;border-radius:8px;border:1px solid var(--line);color:var(--text-dim);text-transform:uppercase;letter-spacing:.4px;background:var(--input-bg);line-height:1.3}
+  .badge-pill.bp-diff{color:#F4C93B;border-color:rgba(244,201,59,.3)}
+  .badge-pill.bp-type{color:#4FC3F7;border-color:rgba(79,195,247,.3)}
+  .badge-pill.bp-pattern{color:#81C784;border-color:rgba(129,199,132,.3)}
+  .badge-pill.bp-joint{color:#FF8A65;border-color:rgba(255,138,101,.35)}
+  .badge-pill.bp-also{color:#CE93D8;border-color:rgba(206,147,216,.3)}
+  .ex-sel-chip.chip-rec{border-color:var(--accent)}
+  .ex-sel-chip .rec-badge{font-size:.4rem;background:var(--accent);color:#0d0d0d;border-radius:6px;padding:0 4px;margin-right:2px;font-weight:700;letter-spacing:.5px}
+  .ex-filter-bar{border:1px solid var(--line);border-radius:8px;padding:8px;margin:2px 0 10px;background:var(--input-bg)}
+  .ef-row{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-bottom:6px}
+  .ef-row:last-child{margin-bottom:0}
+  .ef-lbl{font-size:.48rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.4px;width:72px;flex-shrink:0}
+  .f-chip{padding:2px 8px;border-radius:10px;border:1px solid var(--line);font-size:.48rem;cursor:pointer;background:transparent;color:var(--text-muted);font-family:'Inter',sans-serif}
+  .f-chip:hover{border-color:var(--line-strong);color:var(--text)}
+  .f-chip.on{background:var(--accent-soft);border-color:var(--accent);color:var(--text);font-weight:600}
   .ex-region{display:flex;flex-direction:column;gap:2px;margin:3px 0 2px;padding-left:8px;border-left:2px solid rgba(250,250,248,.06)}
   .ex-region-lbl{font-size:.48rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
   .ex-region .ex-sel-chip{margin:2px 4px 2px 0}
@@ -824,6 +844,42 @@ select option{background:var(--card)}
       <div class="ex-sel-panel" id="exSelPanel">
         <div class="section-header" data-i18n="exercises">Choose Your Exercises</div>
         <p class="ex-sel-info">Each slot draws from a <strong>full muscle-group pool</strong>. Pick your favorite — the program will generate with your selections. (BB=Barbell, DB=Dumbbell, MAC=Machine, CAB=Cable, BW=Bodyweight)</p>
+        <div style="display:flex;justify-content:flex-end;margin-bottom:4px">
+          <button class="btn-secondary" id="adjustExBtn" style="font-size:.5rem;padding:3px 10px" data-i18n="adjust">Adjust ▾</button>
+        </div>
+        <div class="ex-filter-bar" id="exFilterBar" style="display:none">
+          <div class="ef-row"><span class="ef-lbl" data-i18n="my_gym">My Gym</span>
+            <button class="f-chip on" data-f="eq" data-v="all" data-i18n="eq_all">All</button>
+            <button class="f-chip" data-f="eq" data-v="bodyweight" data-i18n="eq_bodyweight">Bodyweight</button>
+            <button class="f-chip" data-f="eq" data-v="dumbbell" data-i18n="eq_dumbbell">Dumbbell</button>
+            <button class="f-chip" data-f="eq" data-v="barbell" data-i18n="eq_barbell">Barbell</button>
+            <button class="f-chip" data-f="eq" data-v="machine" data-i18n="eq_machine">Machine</button>
+            <button class="f-chip" data-f="eq" data-v="cable" data-i18n="eq_cable">Cable</button>
+            <button class="f-chip" data-f="eq" data-v="band" data-i18n="eq_band">Band</button>
+            <button class="f-chip" data-f="eq" data-v="kettlebell" data-i18n="eq_kettlebell">Kettlebell</button>
+          </div>
+          <div class="ef-row"><span class="ef-lbl" data-i18n="diff_label">Difficulty</span>
+            <button class="f-chip on" data-f="diff" data-v="all" data-i18n="eq_all">All</button>
+            <button class="f-chip" data-f="diff" data-v="beginner" data-i18n="diff_beginner">Beginner</button>
+            <button class="f-chip" data-f="diff" data-v="intermediate" data-i18n="diff_intermediate">Intermediate</button>
+            <button class="f-chip" data-f="diff" data-v="advanced" data-i18n="diff_advanced">Advanced</button>
+          </div>
+          <div class="ef-row"><span class="ef-lbl" data-i18n="type_label">Type</span>
+            <button class="f-chip on" data-f="type" data-v="all" data-i18n="eq_all">All</button>
+            <button class="f-chip" data-f="type" data-v="compound" data-i18n="mp_compound">Compound</button>
+            <button class="f-chip" data-f="type" data-v="isolation" data-i18n="mp_isolation">Isolation</button>
+          </div>
+          <div class="ef-row"><span class="ef-lbl" data-i18n="pattern_label">Pattern</span>
+            <button class="f-chip on" data-f="pattern" data-v="all" data-i18n="eq_all">All</button>
+            <button class="f-chip" data-f="pattern" data-v="push" data-i18n="mp_push">Push</button>
+            <button class="f-chip" data-f="pattern" data-v="pull" data-i18n="mp_pull">Pull</button>
+            <button class="f-chip" data-f="pattern" data-v="hinge" data-i18n="mp_hinge">Hinge</button>
+            <button class="f-chip" data-f="pattern" data-v="squat" data-i18n="mp_squat">Squat</button>
+            <button class="f-chip" data-f="pattern" data-v="carry" data-i18n="mp_carry">Carry</button>
+            <button class="f-chip" data-f="pattern" data-v="rotation" data-i18n="mp_rotation">Rotation</button>
+            <button class="f-chip" data-f="pattern" data-v="core" data-i18n="mp_core">Core</button>
+          </div>
+        </div>
         <div id="exSelContent"></div>
         <div class="btn-group">
           <button class="btn-primary" id="backToSplitBtn2" style="background:transparent;border:1.5px solid rgba(250,250,248,.08);color:rgba(250,250,248,.35);font-size:.65rem" data-i18n="back">← Back to Splits</button>
@@ -1512,6 +1568,12 @@ select option{background:var(--card)}
       sub_err_network:'Network error. Please try again.',
       sub_err_session:'Session expired. Please sign in again.',
       sub_google_failed:'Google sign-in failed. Please try again.',
+      // Smart exercise ranking + muscle highlight
+      adjust:'Adjust', my_gym:'My Gym', eq_all:'All', eq_bodyweight:'Bodyweight', eq_dumbbell:'Dumbbell', eq_barbell:'Barbell', eq_machine:'Machine', eq_cable:'Cable', eq_band:'Band', eq_kettlebell:'Kettlebell',
+      diff_label:'Difficulty', diff_beginner:'Beginner', diff_intermediate:'Intermediate', diff_advanced:'Advanced',
+      type_label:'Type', mp_compound:'Compound', mp_isolation:'Isolation',
+      pattern_label:'Pattern', mp_push:'Push', mp_pull:'Pull', mp_hinge:'Hinge', mp_squat:'Squat', mp_carry:'Carry', mp_rotation:'Rotation', mp_core:'Core', mp_other:'Other',
+      js_moderate:'Joint', js_high:'Joint stress', also_works:'Also', rec_badge:'REC', ex_no_match:'No exercises match these filters',
     },
     ar: {
       app_title:'أداة التمرين', header_sub:'التسجيل → التقسيم → البرنامج → التمرين → التاريخ',
@@ -1560,6 +1622,11 @@ select option{background:var(--card)}
       start_training:'يلا نتمرن',
       rest_day:'يوم راحة',rest_day_recover:'استشفاء وتجديد — لا تدريب اليوم',rest_tip_1:'نم 7–9 ساعات — العضلات تنمو أثناء الراحة',rest_tip_2:'امشِ 6–10 آلاف خطوة لتحسين الدورة الدموية',rest_tip_3:'اشرب كمية كافية من الماء وحقق هدفك اليومي من البروتين',rest_tip_4:'اختياري: حركة خفيفة أو إطالة (15–20 دقيقة)',
       low:'قليل', moderate:'متوسط', high:'كثير',
+      adjust:'ضبط', my_gym:'أدواتي', eq_all:'الكل', eq_bodyweight:'وزن الجسم', eq_dumbbell:'دمبل', eq_barbell:'بار', eq_machine:'أجهزة', eq_cable:'كابل', eq_band:'باند', eq_kettlebell:'كيتل بيل',
+      diff_label:'الصعوبة', diff_beginner:'مبتدئ', diff_intermediate:'متوسط', diff_advanced:'متقدم',
+      type_label:'النوع', mp_compound:'مركب', mp_isolation:'عزل',
+      pattern_label:'نمط الحركة', mp_push:'دفع', mp_pull:'سحب', mp_hinge:'مفصلي', mp_squat:'قرفصاء', mp_carry:'حمل', mp_rotation:'دوران', mp_core:'الجذع', mp_other:'أخرى',
+      js_moderate:'مفاصل', js_high:'ضغط على المفاصل', also_works:'يشغل برضه', rec_badge:'موصى به', ex_no_match:'مفيش تمارين تناسب الفلاتر دي',
       green:'أخضر', yellow:'أصفر', red:'أحمر', unchecked:'مش محدد',
       rpe_guide_title:'دليل RPE / RIR',
       rpe_intro:'RPE (معدل الجهد) و RIR (التكرارات في الاحتياط) بيساعدوك تنظم الشدة حسب ما تحس بيه النهارده. استخدم الجدول عشان تلاقي RPE المناسب لكل نطاق تكرارات.',
@@ -2225,6 +2292,46 @@ select option{background:var(--card)}
     return 'rgn_other';
   }
 
+  // ── Muscle highlight: stylized front/rear body diagram (SVG) ──
+  // One reusable component for all muscle groups. Each muscle is a left-side
+  // path (mirrored for the right side); center muscles span both sides.
+  var BODY_BASE='<ellipse cx="100" cy="20" rx="16" ry="18"/>'
+    +'<rect x="93" y="36" width="14" height="18" rx="4"/>'
+    +'<path d="M60 56 L56 128 L64 196 L100 203 L136 196 L144 128 L140 56 C122 48 78 48 60 56 Z"/>'
+    +'<path d="M62 60 C44 66 38 104 40 138 L52 140 C50 108 52 78 66 64 Z"/>'
+    +'<path d="M42 142 C36 182 36 216 40 248 L52 246 C48 210 48 176 52 144 Z"/>'
+    +'<path d="M72 206 C64 250 68 290 74 330 L96 330 C92 290 92 252 94 212 Z"/>'
+    +'<path d="M76 336 C72 360 76 386 82 408 L96 408 C92 388 92 362 92 340 Z"/>'
+    +'<rect x="70" y="408" width="26" height="10" rx="5"/>'
+    +'<g transform="translate(200,0) scale(-1,1)">'
+    +'<path d="M62 60 C44 66 38 104 40 138 L52 140 C50 108 52 78 66 64 Z"/>'
+    +'<path d="M42 142 C36 182 36 216 40 248 L52 246 C48 210 48 176 52 144 Z"/>'
+    +'<path d="M72 206 C64 250 68 290 74 330 L96 330 C92 290 92 252 94 212 Z"/>'
+    +'<path d="M76 336 C72 360 76 386 82 408 L96 408 C92 388 92 362 92 340 Z"/>'
+    +'<rect x="70" y="408" width="26" height="10" rx="5"/>'
+    +'</g>';
+  var BODY_MUSCLES={
+    chest:{view:'front',d:'<path d="M63 62 C62 82 74 94 97 96 L97 62 Z"/>'},
+    shoulders:{view:'front',d:'<ellipse cx="57" cy="60" rx="13" ry="14"/>'},
+    biceps:{view:'front',d:'<path d="M60 60 C44 66 40 102 42 130 L54 130 C52 104 54 78 66 64 Z"/>'},
+    forearms:{view:'front',d:'<path d="M43 136 C37 174 37 210 41 244 L53 242 C49 206 49 174 53 140 Z"/>'},
+    abs:{view:'front',center:true,d:'<path d="M85 98 C88 120 88 168 84 194 L116 194 C112 168 112 120 115 98 Z"/>'},
+    quads:{view:'front',d:'<path d="M73 206 C66 250 69 290 75 330 L95 330 C91 290 91 252 93 214 Z"/>'},
+    traps:{view:'rear',center:true,d:'<path d="M64 52 C74 68 126 68 136 52 L126 40 C112 48 88 48 74 40 Z"/>'},
+    back:{view:'rear',d:'<path d="M66 62 C58 96 60 134 70 170 L84 160 C78 120 76 88 82 64 Z"/>'},
+    glutes:{view:'rear',d:'<path d="M73 200 C64 226 72 250 88 260 L95 240 C85 232 84 214 86 202 Z"/>'},
+    hamstrings:{view:'rear',d:'<path d="M73 208 C67 252 69 292 75 330 L95 330 C91 292 91 252 93 214 Z"/>'},
+    calves:{view:'rear',d:'<path d="M76 336 C72 360 76 386 82 408 L96 408 C92 388 92 362 92 340 Z"/>'},
+    triceps:{view:'rear',d:'<path d="M60 58 C42 64 38 102 40 132 L52 132 C50 104 52 78 64 62 Z"/>'}
+  };
+  function muscleHighlightHtml(muscle){
+    var s=BODY_MUSCLES[muscle];
+    if(!s)return '';
+    var hl=s.d+(s.center?'':'<g transform="translate(200,0) scale(-1,1)">'+s.d+'</g>');
+    return '<svg class="esm-hl" viewBox="0 0 200 430" aria-label="'+muscle+'"><g class="hl-base">'+BODY_BASE+'</g><g class="hl-muscles">'+hl+'</g></svg>';
+  }
+  window.muscleHighlightHtml=muscleHighlightHtml;
+
   // ── Curated how-to instructions (setup / execution / cue / breathing) ──
   const EXERCISE_GUIDE = {
     // Chest
@@ -2383,6 +2490,120 @@ select option{background:var(--card)}
     for(var i=0;i<ce.length;i++){if(ce[i].name===ex)return ce[i];}
     return{t:"compound",f:"moderate",jr:[],inc:2.5,rr:[6,12],subs:[]};
   }
+
+  // ── Smart exercise metadata (schema extension, derived + curated) ──
+  // equipment: explicit where the name-regex `equipTag` is wrong/ambiguous;
+  //            otherwise derived. difficulty/pattern: curated overrides win,
+  //            else inferred from existing fields + name keywords.
+  var EQUIP_ENUM=['bodyweight','dumbbell','barbell','machine','cable','band','kettlebell'];
+  // Curated equipment per exercise — the name-regex `equipTag` misses most
+  // core barbell/dumbbell/machine movements; explicit table wins where the
+  // regex is empty or wrong. Unknown (custom) exercises pass any filter.
+  var EQ_UNKNOWN_FALLBACK=['barbell','dumbbell','machine','cable','bodyweight','band','kettlebell'];
+  var EQ_OVERRIDES={
+    'Band Lateral Walk':['band'],'Band Pull-Apart':['band'],'Kneeling Leg Curl':['cable','band'],
+    'Farmers Walk':['dumbbell'],'Plate Pinch':['barbell'],'Nordic Curl':['bodyweight'],
+    'Dead Hang':['bodyweight'],'Inverted Row':['bodyweight'],'Push-Up':['bodyweight'],
+    'Bench Press':['barbell'],'Incline Chest Press':['barbell'],'Floor Press':['dumbbell'],'Chest Dip':['bodyweight'],
+    'Meadows Row':['barbell'],'Seated Row':['machine','cable'],'Chest-Supported Row':['machine','dumbbell'],
+    'Lat Pulldown':['machine','cable'],
+    'Overhead Press':['barbell'],'Shoulder Press':['barbell','machine','dumbbell'],'Arnold Press':['dumbbell'],
+    'Lateral Raise':['dumbbell'],'Lean-Away Lateral Raise':['dumbbell'],'Front Raise':['dumbbell'],
+    'Rear Delt Flies':['dumbbell','machine'],'Wide Row':['cable','machine'],
+    'Barbell Squat':['barbell'],'Front Squat':['barbell'],'Belt Squat':['machine'],'Goblet Squat':['dumbbell'],
+    'Bulgarian Split Squat':['dumbbell'],'Leg Extension':['machine'],'Sissy Squat':['bodyweight'],
+    'Deadlift Variation':['barbell'],'RDL':['barbell','dumbbell'],'Trap Bar Deadlift':['barbell'],
+    'Stiff-Leg Deadlift':['barbell'],'Good Morning':['barbell'],'Leg Curl':['machine'],
+    'Hip Thrust':['barbell'],'Glute Bridge':['bodyweight'],'KAS Glute Bridge':['bodyweight','barbell'],
+    'Sumo Deadlift':['barbell'],
+    'Bicep Curl':['barbell','dumbbell'],'Preacher Curl':['machine','dumbbell'],'Spider Curl':['dumbbell'],
+    'Concentration Curl':['dumbbell'],'Hammer Curls':['dumbbell'],'Reverse Curl':['barbell','dumbbell'],
+    'Triceps Pushdown':['cable','machine'],'Triceps Overhead Ext':['cable','dumbbell'],'Skull Crusher':['barbell','dumbbell'],
+    'Close-Grip Bench':['barbell'],'JM Press':['barbell'],
+    'Calf Raise':['machine','bodyweight'],'Standing Calf Raise':['machine'],'Single-Leg Calf Raise':['bodyweight','dumbbell'],
+    'Seated Calf Raise':['machine'],'Donkey Calf Raise':['machine','bodyweight'],
+    'Kelso Shrugs':['machine','dumbbell'],'Vertical Shrugs':['machine','dumbbell'],
+    'Forearm Ext/Flex':['dumbbell'],'Wrist Curl':['dumbbell','barbell'],'Reverse Wrist Curl':['dumbbell','barbell'],
+    'Hanging Leg Raise':['bodyweight'],'Leg Raise':['bodyweight'],'Ab Wheel Rollout':['bodyweight']
+  };
+  function equipmentOf(ex){
+    var o=EQ_OVERRIDES[ex];if(o)return o.slice();
+    var m=meta(ex);if(m.eq)return m.eq.slice();
+    var map={BB:'barbell',DB:'dumbbell',MAC:'machine',CAB:'cable',BW:'bodyweight'};
+    var e=map[equipTag(ex)];
+    if(e)return[e];
+    return EQ_UNKNOWN_FALLBACK.slice();
+  }
+  var DIFF_OVERRIDES={
+    'Nordic Curl':'advanced','Chest Dip':'advanced','Pull-Up':'intermediate','Chin-Up':'intermediate',
+    'Push-Up':'beginner','Plank':'beginner','Assisted Pull-Up':'beginner','Inverted Row':'beginner'
+  };
+  function difficultyOf(ex){
+    var m=meta(ex);if(m.diff)return m.diff;
+    var o=DIFF_OVERRIDES[ex];if(o)return o;
+    var f=m.f||'moderate';
+    return f==='low'?'beginner':(f==='high'?'advanced':'intermediate');
+  }
+  var MP_OVERRIDES={
+    'Forearm Ext/Flex':'pull','Wrist Curl':'pull','Reverse Wrist Curl':'pull','Leg Curl':'pull',
+    'Leg Curls':'pull','Nordic Curl':'pull','Kneeling Leg Curl':'pull','Abductors (Machine)':'other',
+    'Adductors (Machine)':'other','Cable Abduction':'other','Band Lateral Walk':'other','Clam Shell':'other',
+    'Side-Lying Leg Raise':'other','Step-Up':'squat','Incline DB Curl':'pull','Hammer Curls':'pull'
+  };
+  var MP_KEYWORDS=[
+    ['rotation',['rotation','woodchopper','twist','russian']],
+    ['carry',['farmers','carry','dead hang','plate pinch']],
+    ['core',['crunch','plank','rollout','leg raise','bird dog','dead bug','knee raise','ab wheel']],
+    ['hinge',['deadlift','rdl','good morning','hip thrust','glute bridge','pull-through','hyperextension','sumo','stiff-leg']],
+    ['squat',['squat','lunge','leg press','hack','sissy','step-up','split squat','adductor']],
+    ['pull',['row','pulldown','pull-up','chin-up','curl','face pull','rear delt','reverse','shrug','grip','wrist']],
+    ['push',['press','pushdown','push-up','dip','bench','flies','fly','pec deck','extension','raise','calf']]
+  ];
+  function movementPatternOf(ex){
+    var m=meta(ex);if(m.mp)return m.mp;
+    var o=MP_OVERRIDES[ex];if(o)return o;
+    var n=(' '+ex+' ').toLowerCase();
+    for(var i=0;i<MP_KEYWORDS.length;i++){
+      for(var j=0;j<MP_KEYWORDS[i][1].length;j++){
+        if(n.indexOf(MP_KEYWORDS[i][1][j])>=0)return MP_KEYWORDS[i][0];
+      }
+    }
+    return 'other';
+  }
+  function jointStressOf(ex){
+    var m=meta(ex);
+    return{level:m.f||'moderate',joints:(m.jr||[]).map(function(j){return j.replace(/"/g,'').trim().toLowerCase();})};
+  }
+  var POOL_INDEX={};
+  Object.keys(EXERCISE_POOLS).forEach(function(muscle){
+    EXERCISE_POOLS[muscle].forEach(function(name){POOL_INDEX[name]=muscle;});
+  });
+  function primaryOf(ex){return POOL_INDEX[ex]||null;}
+  // Curated secondary-muscle activations (partial backfill — covers the most
+  // common slots; activation % drives ranking tiebreak + "also works" badge)
+  var SECONDARY_MAP={
+    'Bench Press':[['triceps',45],['shoulders',25]],
+    'Dumbbell Bench Press':[['triceps',40],['shoulders',20]],
+    'Incline Chest Press':[['shoulders',40],['triceps',30]],
+    'Machine Chest Press':[['triceps',40],['shoulders',20]],
+    'Push-Up':[['triceps',35],['shoulders',30]],
+    'Chest Dip':[['triceps',40],['shoulders',30]],
+    'Barbell Row':[['biceps',40],['shoulders',25]],
+    'Dumbbell Row':[['biceps',35],['shoulders',20]],
+    'Lat Pulldown':[['biceps',40],['forearms',15]],
+    'Pull-Up':[['biceps',35],['forearms',15]],
+    'Barbell Squat':[['glutes',30],['hamstrings',20]],
+    'Front Squat':[['glutes',25],['abs',20]],
+    'Leg Press':[['glutes',35],['hamstrings',20]],
+    'Hip Thrust':[['hamstrings',35],['quads',15]],
+    'RDL':[['glutes',35],['back',20]],
+    'Deadlift Variation':[['glutes',40],['back',25],['traps',15]],
+    'Overhead Press':[['triceps',35],['chest',15]],
+    'Lateral Raise':[['traps',20]],
+    'Lateral Raises':[['traps',20]],
+    'Bicep Curl':[['forearms',20]]
+  };
+  function secondaryOf(ex){return SECONDARY_MAP[ex]||null;}
   function saveCustomEx(name,type,focus,inc,rr,subs){
     var ce=ls(K.CE,[]);
     for(var i=0;i<ce.length;i++){if(ce[i].name===name){ce[i]={name:name,t:type,f:focus,inc:inc,rr:rr,subs:subs||[]};ss(K.CE,ce);return;}}
@@ -3627,6 +3848,149 @@ select option{background:var(--card)}
     return topC>0?top:null;
   }
 
+  // ── Smart exercise ranking (recommended-first, filters hidden by default) ──
+  // Pure scoring: higher score = more recommended. Weights are tuning knobs.
+  // ctx: {experience:'beginner'|'intermediate'|'advanced'|null,
+  //       userEq:[equipment ids]|null (null = no equipment filter),
+  //       injuries:{joint:'red'|'yellow'}, favorites:{name:count},
+  //       chosenPatterns:[pattern ids]}
+  var RANK_WEIGHTS={favorite:3.0,diff:2.0,joint:4.0,pattern:1.5};
+  var LEVEL_RANK={beginner:0,intermediate:1,advanced:2};
+  function rankExercises(list,ctx){
+    ctx=ctx||{};
+    var userEq=ctx.userEq;
+    var out=[];
+    list.forEach(function(name){
+      var score=100;
+      var eq=equipmentOf(name);
+      var eqOk=!userEq||userEq.length===0||eq.length===0||eq.some(function(e){return userEq.indexOf(e)>=0;});
+      var fav=(ctx.favorites&&ctx.favorites[name])||0;
+      score+=RANK_WEIGHTS.favorite*Math.min(fav,5)/5;
+      if(ctx.experience){
+        var dlv=difficultyOf(name);
+        var delta=Math.abs((LEVEL_RANK[ctx.experience]||1)-(LEVEL_RANK[dlv]||1));
+        score+=RANK_WEIGHTS.diff*(delta===0?1:(delta===1?-0.3:-1.5));
+      }
+      var js=jointStressOf(name);
+      (js.joints||[]).forEach(function(j){
+        var sev=ctx.injuries&&ctx.injuries[j];
+        if(sev==='yellow')score-=RANK_WEIGHTS.joint*0.6;
+        else if(sev==='red')score-=RANK_WEIGHTS.joint*1.5;
+      });
+      var p=movementPatternOf(name);
+      if(ctx.chosenPatterns&&ctx.chosenPatterns.indexOf(p)>=0&&p!=='other')score-=RANK_WEIGHTS.pattern;
+      out.push({name:name,score:score,equipOk:eqOk,pattern:p});
+    });
+    out=out.filter(function(r){return r.equipOk;});
+    out.sort(function(a,b){if(b.score!==a.score)return b.score-a.score;return a.name<b.name?-1:a.name>b.name?1:0;});
+    return out;
+  }
+  window.rankExercises=rankExercises;
+  window.__exEngine={difficultyOf:difficultyOf,equipmentOf:equipmentOf,movementPatternOf:movementPatternOf,secondaryOf:secondaryOf,meta:meta,prefTop:prefTop,ls:ls,ss:ss,K:K,showExSelection:showExSelection,getSplitKey:function(){return splitKey;},getExFilters:function(){return exFilters;},refreshExSelection:refreshExSelection};
+  var exFilters={diff:[],type:[],pattern:[]};
+  function exFilterMatches(name){
+    if(exFilters.diff.length&&exFilters.diff.indexOf(difficultyOf(name))<0)return false;
+    if(exFilters.type.length&&exFilters.type.indexOf(meta(name).t)<0)return false;
+    if(exFilters.pattern.length&&exFilters.pattern.indexOf(movementPatternOf(name))<0)return false;
+    return true;
+  }
+  function exFiltersActive(){
+    if(exFilters.diff.length||exFilters.type.length||exFilters.pattern.length)return true;
+    var eq=ls(K.VI,{}).eq;
+    return !!(eq&&eq.length);
+  }
+  function buildRankCtx(day,slot){
+    var vi=ls(K.VI,{});
+    var exp={novice:'beginner',intermediate:'intermediate',advanced:'advanced'}[vi.ta]||null;
+    var saved=ls('mos_ex_choices',{});
+    var chosenPatterns=[];
+    (day.ex||[]).forEach(function(sl){
+      if(slot&&sl.n===slot.n)return;
+      var sel=saved[sl.n]||pendingExChoices[sl.n]||prefTop(sl.n)||sl.n;
+      chosenPatterns.push(movementPatternOf(sel));
+    });
+    return{experience:exp,userEq:vi.eq||null,injuries:getInjuredJoints(painFlags()),chosenPatterns:chosenPatterns};
+  }
+  var MUSCLE_NAME={};MUSCLES.forEach(function(m){MUSCLE_NAME[m.id]=m.name;});
+
+  function rowBadgesHtml(en){
+    var m=meta(en);
+    var parts=[];
+    parts.push('<span class="badge-pill bp-diff">'+_('diff_'+difficultyOf(en))+'</span>');
+    parts.push('<span class="badge-pill bp-type">'+_(m.t==='compound'?'mp_compound':'mp_isolation')+'</span>');
+    parts.push('<span class="badge-pill bp-pattern">'+_('mp_'+movementPatternOf(en))+'</span>');
+    var js=jointStressOf(en);
+    if(js.level==='high'||js.level==='moderate')parts.push('<span class="badge-pill bp-joint">'+(js.level==='high'?_('js_high'):_('js_moderate'))+'</span>');
+    var sec=secondaryOf(en);
+    if(sec&&sec.length)parts.push('<span class="badge-pill bp-also">'+_('also_works')+' '+MUSCLE_NAME[sec[0][0]]+'</span>');
+    return '<span class="esr-badges">'+parts.join('')+'</span>';
+  }
+  function slotChipsHtml(en,muscle,day){
+    var pf=painFlags();
+    var pool=EXERCISE_POOLS[muscle]||[];
+    var list=pool.filter(exFilterMatches);
+    var saved=ls('mos_ex_choices',{});
+    var top=prefTop(en);
+    var chosen=saved[en]||pendingExChoices[en]||top||en;
+    // When a filter is active, the default/chosen exercise must match it too —
+    // otherwise the hard filter is meaningless. With no filters, keep the
+    // current selection visible even if it is not in the pool (custom ex).
+    var filterActive=exFiltersActive();
+    if(!filterActive){
+      if(list.indexOf(en)<0)list.unshift(en);
+      if(list.indexOf(chosen)<0)list.unshift(chosen);
+    }
+    var ranked=rankExercises(list,buildRankCtx(day,{n:en}));
+    if(!ranked.length){
+      return '<div class="ex-regions"><div class="ex-region"><span class="ex-region-lbl" style="color:var(--text-dim)">'+_('ex_no_match')+'</span></div></div>';
+    }
+    var chosenRanked=ranked.filter(function(r){return r.name===chosen;});
+    var rest=ranked.filter(function(r){return r.name!==chosen;});
+    ranked=chosenRanked.concat(rest);
+    var recIdx={};ranked.forEach(function(r,i){recIdx[r.name]=i;});
+    var buckets={},regOrder=[];
+    ranked.forEach(function(r){
+      var rk=regionOf(muscle,r.name);
+      if(!buckets[rk]){buckets[rk]=[];regOrder.push(rk);}
+      buckets[rk].push(r.name);
+    });
+    var html='<div class="ex-regions">';
+    regOrder.forEach(function(rk){
+      html+='<div class="ex-region"><span class="ex-region-lbl">'+_(rk)+'</span>';
+      buckets[rk].forEach(function(name){
+        var s=isExerciseSafeForInjuries(name,pf);
+        var isTop=name===top&&top;
+        var ri=recIdx[name];
+        var chipCls='ex-sel-chip'+(chosen===name?' selected':'')+((!s.ok||(pf&&pf[name]==='red'))?' rehab-ex-blocked':'')+(s.reason&&s.reason.indexOf('🟡')>=0?' rehab-ex-safe':'')+(isTop?' pref-top':'')+(ri>=0&&ri<3?' chip-rec':'');
+        var eq=equipTag(name);
+        html+='<button class="'+chipCls+'" data-ename="'+en+'" data-exval="'+name+'" title="'+name+'">'
+          +(isTop?'<span class="pref-star">★ </span>':'')
+          +(ri===0?'<span class="rec-badge">✦ '+_('rec_badge')+'</span>':(ri===1||ri===2?'<span class="rec-badge">✦</span>':''))
+          +name+(eq?'<span class="equip-tag">'+eq+'</span>':'')+'</button>';
+      });
+      html+='</div>';
+    });
+    html+='</div>';
+    return html;
+  }
+  function bindChipClick(chip){
+    chip.addEventListener('click',function(){
+      var en=this.dataset.ename,val=this.dataset.exval;
+      var pref=ls('mos_pref',{});
+      if(!pref[en])pref[en]={};
+      pref[en][val]=(pref[en][val]||0)+1;
+      ss('mos_pref',pref);
+      pendingExChoices[en]=val;
+      var row=this.closest('.ex-sel-row');
+      var day=SPLITS[splitKey]&&SPLITS[splitKey].days[parseInt(row.dataset.day,10)]||null;
+      var regions=row.querySelector('.ex-regions');
+      if(regions)regions.outerHTML=slotChipsHtml(en,row.dataset.muscle,day);
+      row.querySelectorAll('.ex-sel-chip').forEach(bindChipClick);
+      var g=row.querySelector('.ex-guide');
+      if(g&&g.style.display!=='none')g.innerHTML=guideHtml(val);
+    });
+  }
+
   function showExSelection(k){
     var split=SPLITS[k];if(!split)return;
     var pf=painFlags();
@@ -3634,7 +3998,6 @@ select option{background:var(--card)}
     document.getElementById('splitBtnGroup').style.display='none';
     var panel=document.getElementById('exSelPanel');
     panel.classList.add('show');
-    var MUSCLE_NAME={};MUSCLES.forEach(function(m){MUSCLE_NAME[m.id]=m.name;});
     var html='';
     // Rehab warning banner
     var rehabInfo=rehabSummary(pf);
@@ -3653,45 +4016,16 @@ select option{background:var(--card)}
         musGroups[musIdx[ex.p]].slots.push(ex);
       });
       musGroups.forEach(function(g){
-        html+='<div class="ex-sel-muscle">'+(MUSCLE_NAME[g.p]||g.p)+(g.slots.length>1?'<span class="esm-count">· '+g.slots.length+'</span>':'')+'</div>';
+        html+='<div class="ex-sel-muscle"><span class="esm-name">'+(MUSCLE_NAME[g.p]||g.p)+(g.slots.length>1?'<span class="esm-count">· '+g.slots.length+'</span>':'')+'</span>'+muscleHighlightHtml(g.p)+'</div>';
         g.slots.forEach(function(ex){
           var pf0=pf;
-          var pool=EXERCISE_POOLS[ex.p]||[];
-          var list=pool.slice();
-          if(list.indexOf(ex.n)<0)list.unshift(ex.n);
-          var saved=ls('mos_ex_choices',{});
-          var prefObj=ls('mos_pref',{})[ex.n]||{};
-          var top=prefTop(ex.n);
-          var chosen=saved[ex.n]||pendingExChoices[ex.n]||top||ex.n;
-          if(list.indexOf(chosen)<0)list.unshift(chosen);
-          var hasPref=false;Object.keys(prefObj).forEach(function(n){if(prefObj[n]>0)hasPref=true;});
-          if(hasPref){
-            list.sort(function(a,b){var ca=prefObj[a]||0,cb=prefObj[b]||0;if(cb!==ca)return cb-ca;return a<b?-1:a>b?1:0;});
-            if(list.indexOf(chosen)>0){list.splice(list.indexOf(chosen),1);list.unshift(chosen);}
-          }
-          // Bucket chips by muscle region (preserve list order within each region)
-          var buckets={},regOrder=[];
-          list.forEach(function(name){
-            var rk=regionOf(ex.p,name);
-            if(!buckets[rk]){buckets[rk]=[];regOrder.push(rk);}
-            buckets[rk].push(name);
-          });
           var safety=isExerciseSafeForInjuries(ex.n,pf0);
           var exClass=pf0&&pf0[ex.n]==='red'?'rehab-ex-blocked':(!safety.ok?'rehab-ex-blocked':(safety.reason&&safety.reason.indexOf('🟡')>=0?'rehab-ex-safe':''));
-          html+='<div class="ex-sel-row '+exClass+'" data-muscle="'+ex.p+'">'+
+          html+='<div class="ex-sel-row '+exClass+'" data-muscle="'+ex.p+'" data-day="'+di+'">'+
             '<span class="esr-lbl">'+exLinkHtml(ex.n)+'</span>'+
-            '<button class="ex-guide-toggle" type="button" data-slot="'+ex.n+'" title="'+_('how_to')+'">'+_('how_to')+' ▾</button>';
-          regOrder.forEach(function(rk){
-            html+='<div class="ex-region"><span class="ex-region-lbl">'+_(rk)+'</span>';
-            buckets[rk].forEach(function(name){
-              var s=isExerciseSafeForInjuries(name,pf0);
-              var isTop=name===top&&top;
-              var chipCls='ex-sel-chip'+(chosen===name?' selected':'')+((!s.ok||(pf0&&pf0[name]==='red'))?' rehab-ex-blocked':'')+(s.reason&&s.reason.indexOf('🟡')>=0?' rehab-ex-safe':'')+(isTop?' pref-top':'');
-              var eq=equipTag(name);
-              html+='<button class="'+chipCls+'" data-ename="'+ex.n+'" data-exval="'+name+'" title="'+name+'">'+(isTop?'<span class="pref-star">★ </span>':'')+name+(eq?'<span class="equip-tag">'+eq+'</span>':'')+'</button>';
-            });
-            html+='</div>';
-          });
+            rowBadgesHtml(ex.n)+
+            '<button class="ex-guide-toggle" type="button" data-slot="'+ex.n+'" title="'+_('how_to')+'">'+_('how_to')+' ▾</button>'+
+            slotChipsHtml(ex.n,ex.p,day);
           if(!safety.ok)html+='<span style="font-size:.45rem;color:#f44336;margin-left:4px">⛔ '+safety.reason+'</span>';
           else if(safety.reason)html+='<span style="font-size:.45rem;color:#FF9800;margin-left:4px">'+safety.reason+'</span>';
           html+='<div class="ex-guide" data-slot="'+ex.n+'"></div>';
@@ -3701,31 +4035,10 @@ select option{background:var(--card)}
       html+='</div>';
     });
     document.getElementById('exSelContent').innerHTML=html;
+    syncExFilterChips();
 
-    // Wire chip clicks
-    document.querySelectorAll('#exSelContent .ex-sel-chip').forEach(function(chip){
-      chip.addEventListener('click',function(){
-        var en=this.dataset.ename,val=this.dataset.exval;
-        var pref=ls('mos_pref',{});
-        if(!pref[en])pref[en]={};
-        pref[en][val]=(pref[en][val]||0)+1;
-        ss('mos_pref',pref);
-        pendingExChoices[en]=val;
-        var row=this.closest('.ex-sel-row');
-        row.querySelectorAll('.ex-sel-chip').forEach(function(c){c.classList.remove('selected');});
-        this.classList.add('selected');
-        var top=prefTop(en);
-        row.querySelectorAll('.ex-sel-chip .pref-star').forEach(function(s){s.remove();});
-        row.querySelectorAll('.ex-sel-chip').forEach(function(c){
-          var isTop=c.dataset.exval===top&&top;
-          c.classList.toggle('pref-top',isTop);
-          if(isTop&&!c.querySelector('.pref-star')){var sp=document.createElement('span');sp.className='pref-star';sp.textContent='★ ';c.insertBefore(sp,c.firstChild);}
-        });
-        // Refresh open how-to panel for this slot
-        var g=row.querySelector('.ex-guide');
-        if(g&&g.style.display!=='none')g.innerHTML=guideHtml(val);
-      });
-    });
+    // Wire chip clicks (re-rank in place via shared binder)
+    document.querySelectorAll('#exSelContent .ex-sel-chip').forEach(bindChipClick);
     // Wire how-to toggles (expand / collapse per slot)
     document.querySelectorAll('#exSelContent .ex-guide-toggle').forEach(function(btn){
       btn.addEventListener('click',function(){
@@ -3748,7 +4061,9 @@ select option{background:var(--card)}
     var choices={};
     document.querySelectorAll('#exSelContent .ex-sel-row').forEach(function(row){
       var selected=row.querySelector('.ex-sel-chip.selected');
-      var en=row.querySelector('.ex-sel-chip').dataset.ename;
+      var chip=row.querySelector('.ex-sel-chip');
+      if(!chip)return;
+      var en=chip.dataset.ename;
       if(selected)choices[en]=selected.dataset.exval;
     });
     ss('mos_ex_choices',choices);
@@ -3760,6 +4075,52 @@ select option{background:var(--card)}
   }
 
   document.getElementById('confirmExBtn').addEventListener('click',confirmExSelection);
+
+  // Exercise filter bar (hidden by default; equipment profile persists in volume inputs)
+  function refreshExSelection(){if(splitKey)showExSelection(splitKey);}
+  function syncExFilterChips(){
+    var vi=ls(K.VI,{});
+    var eq=vi.eq||null;
+    document.querySelectorAll('#exFilterBar .f-chip[data-f="eq"]').forEach(function(c){
+      var v=c.dataset.v;
+      c.classList.toggle('on',v==='all'?!eq:!!(eq&&eq.indexOf(v)>=0));
+    });
+    document.querySelectorAll('#exFilterBar .f-chip:not([data-f="eq"])').forEach(function(c){
+      var f=c.dataset.f,v=c.dataset.v,arr=exFilters[f]||[];
+      c.classList.toggle('on',v==='all'?arr.length===0:arr.indexOf(v)>=0);
+    });
+  }
+  document.getElementById('adjustExBtn').addEventListener('click',function(){
+    var bar=document.getElementById('exFilterBar');
+    var open=bar.style.display!=='none';
+    bar.style.display=open?'none':'block';
+    this.textContent=_('adjust')+(open?' ▾':' ▴');
+  });
+  document.querySelectorAll('#exFilterBar .f-chip').forEach(function(chip){
+    chip.addEventListener('click',function(){
+      var f=this.dataset.f,v=this.dataset.v;
+      if(f==='eq'){
+        var vi=ls(K.VI,{});
+        if(v==='all'){vi.eq=null;}
+        else{
+          var eq=vi.eq&&vi.eq.length?vi.eq.slice():[];
+          if(eq.indexOf(v)>=0)eq.splice(eq.indexOf(v),1);
+          else eq.push(v);
+          vi.eq=eq.length?eq:null;
+        }
+        ss(K.VI,vi);
+      }else{
+        var arr=exFilters[f]=exFilters[f]||[];
+        if(v==='all')exFilters[f]=[];
+        else{
+          if(arr.indexOf(v)>=0)arr.splice(arr.indexOf(v),1);
+          else arr.push(v);
+        }
+      }
+      syncExFilterChips();
+      refreshExSelection();
+    });
+  });
 
   // ═══════════════════════════════════════
   //  SCREEN 3: PROGRAM GENERATE
