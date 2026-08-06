@@ -1,4 +1,4 @@
-﻿# Session State — Session-time estimator + generic coach-routing hook (layer 3) — READY TO DEPLOY
+﻿# Session State — Session-time estimator + generic coach-routing hook (layer 3) — READY TO DEPLOY (DEFERRED: GitHub Pages incident)
 
 ## Status: Layer 3 (Part 5 order: 2a + 3c hook) shipped to `tools/training_tool.html` (4 copies, byte-identical). Additive only — layer 1 and layer 2 behavior unchanged.
 
@@ -19,7 +19,7 @@
 - Regression: smoke_voleng.js 27/27, smoke_exsel.js 24/24 DOM + 21/21 engine — all green, zero page errors.
 - node --check clean. Files: C:\Users\anass\AppData\Local\Temp\opencode\smoke_time_coach.js.
 
-## Deploy (pending): root master commit + 4 copies (done, hashes identical) → public main + master worktrees → gh workflow run "Deploy Website to GitHub Pages (midnight only)" → live-verify ?v=vol3 (markers: #estChip_0 .est-chip, #suggestTray, window.__estEngine, window.__suggestRouter, mos_coach_queue in K).
+## Deploy (DEFERRED — GitHub Pages incident, NOT our code): All commits pushed (root master `6be572a`, public main `5def171` = build v3.1 marker, public master `818814a`). 8 deploy attempts today (runs 31101494848/31102531046/31103136367/31105361371/31105692164/31108292835) all failed/cancelled — Pages deployment queue stuck at `deployment_queued` ~12:27–14:06 UTC (recurring infra issue, see github.com/orgs/community/discussions/184211; status page shows operational but stale). IMPORTANT: build versions whose deployment was cancelled are TAINTED — reusing SHA 05a7886/abd5a4a/5def171 instantly auto-cancels. When retrying: bump marker comment (e.g. v3.2) → mirror 4 copies → commit+push root, public main, public master (fetch+rebase first) → run workflow once → live-verify ?v=vol3 (markers: #estChip_0 .est-chip, #suggestTray, window.__estEngine, window.__suggestRouter, mos_coach_queue in K).
 
 ---
 
