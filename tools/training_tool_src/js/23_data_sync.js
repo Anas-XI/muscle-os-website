@@ -21,14 +21,48 @@
     if(inp)inp.value=id;
     ss(SYNC_KEY,id);
   }
+  function recoveryCode(){
+    var v=ls(SYNC_KEY,'');
+    if(!v){var inp=document.getElementById('syncKeyInput');v=inp?inp.value.trim():'';}
+    return v;
+  }
+  function ensureRecRow(modal){
+    if(!modal||document.getElementById('syncRecRow'))return;
+    var row=document.createElement('div');
+    row.id='syncRecRow';
+    row.style.cssText='margin-top:10px;border-top:1px solid rgba(250,250,248,.06);padding-top:8px';
+    row.innerHTML='<p style="font-size:.5rem;color:rgba(250,250,248,.25);margin:0 0 6px" data-i18n="sync_rec_warn"></p>'+
+      '<div style="display:flex;gap:6px">'+
+      '<button id="syncRecShow" style="flex:1;background:rgba(33,150,243,.08);border:1px solid rgba(33,150,243,.2);color:#2196F3;border-radius:6px;padding:6px 10px;font-size:.55rem;cursor:pointer" data-i18n="sync_rec_show"></button>'+
+      '<button id="syncRecRestore" style="flex:1;background:rgba(255,152,0,.08);border:1px solid rgba(255,152,0,.2);color:#FFB74D;border-radius:6px;padding:6px 10px;font-size:.55rem;cursor:pointer" data-i18n="sync_rec_restore"></button>'+
+      '</div>';
+    modal.querySelector('.modal-card').appendChild(row);
+    row.querySelector('#syncRecShow').addEventListener('click',function(){
+      var c=recoveryCode();
+      if(c)alert(_('sync_rec_new').replace('{code}',c));
+      else alert(_('sync_rec_bad'));
+    });
+    row.querySelector('#syncRecRestore').addEventListener('click',function(){
+      var c=(prompt(_('sync_rec_enter'))||'').trim();
+      if(!c)return;
+      var re=/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|sync-[A-Za-z0-9]+)$/i;
+      if(!re.test(c)){alert(_('sync_rec_bad'));return;}
+      ss(SYNC_KEY,c);var inp=document.getElementById('syncKeyInput');if(inp)inp.value=c;
+      if(window.__evLog)window.__evLog('sync_restore');
+      alert(_('sync_rec_ok'));
+    });
+    translateUI();
+  }
   function showSync(){
     var modal=document.getElementById('syncModal');
     var inp=document.getElementById('syncKeyInput');
+    var freshKey=false;
     if(inp&&!inp.value.trim()){
       var saved=ls(SYNC_KEY,'');
       if(!saved){
         saved=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():'sync-'+Date.now().toString(36);
         ss(SYNC_KEY,saved);
+        freshKey=true;
       }
       inp.value=saved;
     }
@@ -36,7 +70,12 @@
     if(pw&&!pw.value)pw.value=ls(SYNC_PW,'');
     var lastRow=document.getElementById('syncLastRow'),lt=ls(SYNC_LAST,'');
     if(lastRow&&lt){lastRow.style.display='block';document.getElementById('syncLastTs').textContent=new Date(lt).toLocaleString();}
+    ensureRecRow(modal);
     if(modal)modal.style.display='block';
+    if(freshKey){
+      if(window.__evLog)window.__evLog('sync_key_created');
+      alert(_('sync_rec_new').replace('{code}',recoveryCode()));
+    }
   }
   function hideSync(){
     var modal=document.getElementById('syncModal');
