@@ -125,8 +125,15 @@
   }
 
   if(!active){
-    document.getElementById('subOverlay').style.display = 'flex';if(window.__evLog)window.__evLog('paywall_shown');
-    var gs = getGs();
+    var _trial = window.__trialState ? window.__trialState() : null;
+    if(_trial && _trial.active){
+      // Additive gate: an active trial keeps the tool unlocked; the pill shows days left.
+      if(window.__evLog)window.__evLog('trial_gate_open', { days: _trial.daysLeft });
+      if(window.__updateTrialPill)window.__updateTrialPill();
+    } else {
+      document.getElementById('subOverlay').style.display = 'flex';if(window.__evLog)window.__evLog('paywall_shown',{reason:'trial_expired'});
+      if(window.__trialExpiredNote)window.__trialExpiredNote();
+      var gs = getGs();
     var started = false;
     function start(){
       if(started) return;
@@ -186,5 +193,6 @@
       showNoLink(false);
       initGsi();
     });
+    }
   }
 })();

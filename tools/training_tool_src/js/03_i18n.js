@@ -380,7 +380,7 @@
       cq_rejected:'Coach declined',
       cq_dismiss:'Dismiss',
       // Local telemetry + trial (PMF)
-      trial_pill:'Trial: {n} days left',
+      trial_pill_pre:'Trial: ', trial_pill_post:' days left',
       trial_expired_note:'Your 7-day trial has ended. Enter an access code or subscribe to continue using the tool.',
       conflict_title:'Sync conflict',
       conflict_body:'{n} items changed on both this device and the cloud ({k}). Using the newest version.',
@@ -766,7 +766,7 @@
       cq_rejected:'رفض المدرب',
       cq_dismiss:'إغلاق',
       // Local telemetry + trial (PMF)
-      trial_pill:'تجربة: تبقّى {n} أيام',
+      trial_pill_pre:'تجربة: ', trial_pill_post:' أيام',
       trial_expired_note:'انتهت تجربتك (7 أيام). أدخل كود الوصول أو اشترك لمواصلة استخدام الأداة.',
       conflict_title:'تعارض مزامنة',
       conflict_body:'تغيّرت {n} عناصر على هذا الجهاز وفي السحابة ({k}). تم استخدام أحدث نسخة.',
