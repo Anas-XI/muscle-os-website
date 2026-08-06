@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free Sample — Muscle OS Books</title>
+<title>Free Samples — Muscle OS Books</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#14151A;--ink-2:#1E2027;--yellow:#F4C93B;--paper:#FAFAF8;--gray:#8A8D96;--line:#2C2E37}
+:root{--ink:#14151A;--ink-2:#1E2027;--ink-3:#26282F;--yellow:#F4C93B;--paper:#FAFAF8;--gray:#8A8D96;--line:#2C2E37}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',sans-serif;background:var(--ink);color:#fff;line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
 a{color:var(--yellow);text-decoration:none}
-.wrap{max-width:720px;margin:0 auto;padding:0 24px;width:100%}
+.wrap{max-width:960px;margin:0 auto;padding:0 24px;width:100%}
 ::selection{background:var(--yellow);color:var(--ink)}
 header{background:rgba(20,21,26,.95);border-bottom:1px solid var(--line)}
 .header-inner{max-width:1180px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
@@ -21,30 +21,53 @@ header{background:rgba(20,21,26,.95);border-bottom:1px solid var(--line)}
 .nav-links a{color:#C7C9D0;transition:color .2s}
 .nav-links a:hover{color:var(--yellow)}
 main{flex:1;padding:60px 0}
-.section{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:48px 40px;text-align:center}
-.section h1{font-family:'Oswald',sans-serif;font-size:clamp(26px,4vw,34px);font-weight:700;text-transform:uppercase;margin-bottom:12px;line-height:1.2}
-.section h1 span{color:var(--yellow)}
-.section .sub{color:var(--gray);font-size:15px;margin-bottom:32px;line-height:1.6}
-.section .sub strong{color:#fff}
-.sample-badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 10px;border-radius:3px;margin-bottom:16px;background:rgba(76,175,80,.15);color:#4CAF50}
+.intro{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:48px 40px;text-align:center;margin-bottom:40px}
+.intro h1{font-family:'Oswald',sans-serif;font-size:clamp(26px,4vw,34px);font-weight:700;text-transform:uppercase;margin-bottom:12px;line-height:1.2}
+.intro h1 span{color:var(--yellow)}
+.intro .sub{color:var(--gray);font-size:14px;margin-bottom:24px;max-width:580px;margin-left:auto;margin-right:auto;line-height:1.6}
 .badge-row{display:flex;gap:8px;justify-content:center;margin-bottom:20px;flex-wrap:wrap}
 .badge-row span{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 10px;border-radius:3px;background:rgba(255,215,0,.1);color:#FFD700;border:1px solid rgba(255,215,0,.2)}
-.form-group{margin-bottom:16px;text-align:left}
-.form-group label{display:block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--gray);margin-bottom:6px}
-.form-group input{width:100%;padding:14px 16px;background:#14151A;border:1px solid var(--line);border-radius:6px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s}
+/* Combined sample CTA */
+.combined-cta{background:var(--ink-3);border:1px solid var(--yellow);border-radius:10px;padding:24px;margin-bottom:40px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.combined-cta .cc-left{flex:1;min-width:200px}
+.combined-cta .cc-left .cc-badge{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:2px 8px;background:rgba(244,201,59,.15);color:var(--yellow);border-radius:3px;display:inline-block;margin-bottom:4px}
+.combined-cta .cc-left h3{font-size:16px;font-weight:700}
+.combined-cta .cc-left p{font-size:12px;color:var(--gray);margin:2px 0}
+.combined-cta .cc-btn{display:inline-block;padding:12px 24px;background:var(--yellow);color:var(--ink);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.5px;border-radius:6px;transition:background .2s;white-space:nowrap}
+.combined-cta .cc-btn:hover{background:#fff}
+/* Book grid */
+.grid-header{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+.grid-header h2{font-family:'Oswald',sans-serif;font-size:20px;font-weight:600;text-transform:uppercase}
+.grid-header .hline{flex:1;height:1px;background:var(--line)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+.book-card{background:var(--ink-2);border:1px solid var(--line);border-radius:10px;padding:24px;transition:all .2s;cursor:default;scroll-margin-top:80px}
+.book-card.highlighted{border-color:var(--yellow);box-shadow:0 0 0 2px rgba(244,201,59,.15)}
+.book-card:hover{border-color:rgba(255,255,255,.15)}
+.book-card .badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:2px 8px;border-radius:3px;margin-bottom:8px}
+.book-card h3{font-family:'Oswald',sans-serif;font-size:16px;font-weight:600;margin-bottom:4px;text-transform:uppercase}
+.book-card .desc{font-size:12px;color:var(--gray);line-height:1.5;margin-bottom:14px}
+.book-card .pillar-stats{font-size:11px;color:rgba(250,250,248,.35);margin-bottom:14px}
+.book-card .card-actions{display:flex;gap:8px;flex-wrap:wrap}
+.book-card .card-actions a{padding:8px 16px;border-radius:5px;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.3px;transition:all .2s;display:inline-block}
+.book-card .card-actions .dl-btn{background:var(--ink-3);border:1px solid var(--line);color:#C7C9D0}
+.book-card .card-actions .dl-btn:hover{background:var(--line);color:#fff}
+.book-card .card-actions .view-btn{border:1px solid;background:transparent}
+.form-row{display:flex;gap:12px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+.form-row .form-group{text-align:left;flex:1;min-width:200px}
+.form-group label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--gray);margin-bottom:4px}
+.form-group input{width:100%;padding:12px 14px;background:var(--ink);border:1px solid var(--line);border-radius:6px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s}
 .form-group input:focus{border-color:var(--yellow)}
-.btn{display:inline-block;background:var(--yellow);color:var(--ink);font-weight:700;font-size:15px;padding:16px 40px;border-radius:8px;border:none;cursor:pointer;text-transform:uppercase;letter-spacing:.5px;transition:background .2s;width:100%;font-family:'Inter',sans-serif}
-.btn:hover{background:#fff}
-.btn:disabled{opacity:.5;cursor:not-allowed}
-.success-state{display:none}
-.success-state .check{font-size:48px;margin-bottom:12px}
-.success-state h2{font-family:'Oswald',sans-serif;font-size:24px;font-weight:700;text-transform:uppercase;margin-bottom:8px}
+.btn-submit{background:var(--yellow);color:var(--ink);font-weight:700;font-size:13px;padding:12px 28px;border-radius:6px;border:none;cursor:pointer;text-transform:uppercase;letter-spacing:.5px;font-family:'Inter',sans-serif;transition:background .2s;white-space:nowrap}
+.btn-submit:hover{background:#fff}
+.btn-submit:disabled{opacity:.5;cursor:not-allowed}
+.success-state{display:none;text-align:center;padding:24px}
+.success-state .check{font-size:48px;margin-bottom:8px}
+.success-state h2{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;text-transform:uppercase;margin-bottom:4px}
 .success-state h2 span{color:var(--yellow)}
-.success-state .dl-btn{display:inline-block;background:var(--yellow);color:var(--ink);font-weight:700;font-size:15px;padding:16px 40px;border-radius:8px;text-decoration:none;text-transform:uppercase;letter-spacing:.5px;margin-top:20px;transition:background .2s}
-.success-state .dl-btn:hover{background:#fff}
-.success-state .dl-note{font-size:12px;color:var(--gray);margin-top:12px}
-.error-msg{color:#f44336;font-size:12px;margin-top:6px;display:none}
+.success-state p{color:var(--gray);font-size:13px;margin-bottom:16px}
+.error-msg{color:#f44336;font-size:12px;display:none;margin-top:4px}
 footer{padding:24px;text-align:center;border-top:1px solid var(--line);font-size:12px;color:rgba(250,250,248,.4)}
+@media(max-width:600px){.intro{padding:28px 20px}.combined-cta{flex-direction:column;text-align:center}.combined-cta .cc-btn{width:100%;text-align:center}.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -61,38 +84,114 @@ footer{padding:24px;text-align:center;border-top:1px solid var(--line);font-size
 </header>
 <main>
 <div class="wrap">
-<div class="section">
-<div class="sample-badge">Free Sample &middot; 11 Pages</div>
+<div class="intro">
+<div class="badge-row"><span>Free Samples</span><span>6 Pillars</span><span>First Chapter Each</span></div>
 <h1>See the Quality<br><span>Before You Buy</span></h1>
-<p class="sub">Get the first <strong>4 chapters</strong> from the <strong>Diet &amp; Nutrition</strong> and <strong>Training &amp; Programming</strong> books &mdash; full content, exactly as it appears in the paid books. No watered-down previews.</p>
-<div class="badge-row">
-<span>P1 Diet &amp; Nutrition</span>
-<span>P2 Training &amp; Programming</span>
-<span>5 Tables</span>
-<span>200+ References (full books)</span>
-</div>
+<p class="sub">Every book includes the first chapter of the first domain &mdash; full content, exactly as it appears in the paid version. No watered-down previews. Pick the pillar that matters most to you and see the depth for yourself.</p>
 
 <div id="formState">
-<p style="font-size:13px;color:var(--gray);margin-bottom:20px">Enter your email below and get instant access.</p>
+<p style="font-size:13px;color:var(--gray);margin-bottom:16px">Enter your email to unlock instant access to all 6 samples.</p>
 <form id="emailForm" onsubmit="return handleSubmit(event)">
-<div class="form-group">
-<label for="email">Email address</label>
-<input type="email" id="email" placeholder="your@email.com" required autocomplete="email">
+<div class="form-row">
+<div class="form-group"><label for="email">Email</label><input type="email" id="email" placeholder="your@email.com" required autocomplete="email"></div>
+<button type="submit" class="btn-submit" id="submitBtn">Get All Samples</button>
 </div>
 <div class="error-msg" id="errorMsg">Please enter a valid email address.</div>
-<button type="submit" class="btn" id="submitBtn">Send Me the Free Sample</button>
 </form>
-<p style="font-size:11px;color:rgba(250,250,248,.3);margin-top:16px">No spam. Unsubscribe anytime.</p>
+<p style="font-size:11px;color:rgba(250,250,248,.3);margin-top:12px">No spam. Unsubscribe anytime.</p>
 </div>
 
 <div class="success-state" id="successState">
 <div class="check">&#9745;</div>
-<h2>Check Your Inbox <span>(or click below)</span></h2>
-<p style="color:var(--gray);font-size:14px;margin-bottom:8px">Your sample is ready. If you don't see it, click the button below.</p>
-<a class="dl-btn" href="muscle_os_sample.pdf" target="_blank">Download Free Sample Now &darr;</a>
-<p class="dl-note">muscle_os_sample.pdf &middot; 11 pages &middot; 411 KB</p>
+<h2>Samples <span>Unlocked</span></h2>
+<p>Scroll down to download any sample. You can also bookmark this page for later.</p>
 </div>
 </div>
+
+<div class="combined-cta">
+<div class="cc-left">
+<div class="cc-badge">Best Value Sample</div>
+<h3>Combined Sample &mdash; 4 Chapters (P1 + P2)</h3>
+<p>11 pages covering Diet &amp; Nutrition plus Training &amp; Programming. The best overview of the Muscle OS style.</p>
+</div>
+<a class="cc-btn" href="../books/muscle_os_sample.pdf" target="_blank">Download Combined PDF &darr;</a>
+</div>
+
+<div class="grid-header"><div class="hline"></div><h2>Individual Book Samples</h2><div class="hline"></div></div>
+
+<div class="grid" id="bookGrid">
+
+<div class="book-card" id="diet" data-color="#4CAF50">
+<div class="badge" style="background:rgba(76,175,80,.15);color:#4CAF50">P1 &middot; 33 Chapters</div>
+<h3 style="color:#4CAF50">Diet &amp; Nutrition</h3>
+<p class="desc">Master energy balance, macronutrient timing, and the P-Ratio. From calorie cycling to adherence psychology &mdash; evidence-based nutrition for body composition.</p>
+<p class="pillar-stats">Domain 1: Nutritional Foundations &middot; 4 tables &middot; 200+ references (full book)</p>
+<div class="card-actions">
+<a class="dl-btn" href="../books/sample_diet.pdf" target="_blank">Download Sample &darr;</a>
+<a class="view-btn" href="../books/muscle_os_nutrition_book.html" style="border-color:#4CAF50;color:#4CAF50">View Full Book &rarr;</a>
+</div>
+</div>
+
+<div class="book-card" id="training" data-color="#2196F3">
+<div class="badge" style="background:rgba(33,150,243,.15);color:#2196F3">P2 &middot; 27 Chapters</div>
+<h3 style="color:#2196F3">Training &amp; Programming</h3>
+<p class="desc">Program design, periodisation, exercise selection, volume landmarks (MEV/MAV/MRV), and autoregulation. 27 chapters of coaching science.</p>
+<p class="pillar-stats">Domain 1: Training Foundations &middot; 1 table &middot; 200+ references (full book)</p>
+<div class="card-actions">
+<a class="dl-btn" href="../books/sample_training.pdf" target="_blank">Download Sample &darr;</a>
+<a class="view-btn" href="../books/muscle_os_training_book.html" style="border-color:#2196F3;color:#2196F3">View Full Book &rarr;</a>
+</div>
+</div>
+
+<div class="book-card" id="strength" data-color="#FF9800">
+<div class="badge" style="background:rgba(255,152,0,.15);color:#FF9800">P3 &middot; 24 Chapters</div>
+<h3 style="color:#FF9800">Strength Maxing</h3>
+<p class="desc">Neural adaptations, squat/bench/deadlift programming, peaking, meet prep, and plateau breaking. For lifters who want to get genuinely strong.</p>
+<p class="pillar-stats">Domain 1: Strength Physiology &middot; 1 table &middot; 200+ references (full book)</p>
+<div class="card-actions">
+<a class="dl-btn" href="../books/sample_strength.pdf" target="_blank">Download Sample &darr;</a>
+<a class="view-btn" href="../books/muscle_os_strength.html" style="border-color:#FF9800;color:#FF9800">View Full Book &rarr;</a>
+</div>
+</div>
+
+<div class="book-card" id="recovery" data-color="#CE93D8">
+<div class="badge" style="background:rgba(206,147,216,.15);color:#CE93D8">P4 &middot; 24 Chapters</div>
+<h3 style="color:#CE93D8">Recovery &amp; Fatigue Management</h3>
+<p class="desc">ANS regulation, stress hormones, active recovery, HRV, deloads, and illness return. The science of managing training stress and maximising adaptation.</p>
+<p class="pillar-stats">Domain 1: Recovery Science &middot; 1 table &middot; 200+ references (full book)</p>
+<div class="card-actions">
+<a class="dl-btn" href="../books/sample_recovery.pdf" target="_blank">Download Sample &darr;</a>
+<a class="view-btn" href="../books/muscle_os_recovery.html" style="border-color:#CE93D8;color:#CE93D8">View Full Book &rarr;</a>
+</div>
+</div>
+
+<div class="book-card" id="sleep" data-color="#4DD0E1">
+<div class="badge" style="background:rgba(77,208,225,.15);color:#4DD0E1">P5 &middot; 25 Chapters</div>
+<h3 style="color:#4DD0E1">Sleep Optimization</h3>
+<p class="desc">Circadian biology, sleep hygiene, light management, chronotypes, shift work strategies. Optimise the foundation of all physiological function.</p>
+<p class="pillar-stats">Domain 1: Sleep Science &amp; Physiology &middot; 1 table &middot; 200+ references (full book)</p>
+<div class="card-actions">
+<a class="dl-btn" href="../books/sample_sleep.pdf" target="_blank">Download Sample &darr;</a>
+<a class="view-btn" href="../books/muscle_os_sleep.html" style="border-color:#4DD0E1;color:#4DD0E1">View Full Book &rarr;</a>
+</div>
+</div>
+
+<div class="book-card" id="hormones" data-color="#EF9A9A">
+<div class="badge" style="background:rgba(239,154,154,.15);color:#EF9A9A">P6 &middot; 25 Chapters</div>
+<h3 style="color:#EF9A9A">Hormonal Optimization</h3>
+<p class="desc">Steroid hormones, thyroid, cortisol, female cycle, biomarkers. Understand the endocrine system as the master regulator of body composition.</p>
+<p class="pillar-stats">Domain 1: Hormonal Foundations &middot; 2 tables &middot; 200+ references (full book)</p>
+<div class="card-actions">
+<a class="dl-btn" href="../books/sample_hormones.pdf" target="_blank">Download Sample &darr;</a>
+<a class="view-btn" href="../books/muscle_os_hormonal_book.html" style="border-color:#EF9A9A;color:#EF9A9A">View Full Book &rarr;</a>
+</div>
+</div>
+
+</div>
+
+<p style="text-align:center;color:var(--gray);font-size:13px;margin-top:28px">
+<strong style="color:#fff">Want all 6 books?</strong> <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20purchase%20the%20Complete%20Muscle%20OS%20Bundle%20(all%206%20books)%20for%201500%20EGP">Complete Collection &mdash; 1,500 EGP &rarr;</a>
+</p>
 </div>
 </main>
 <footer>&copy; muscleos.coach &mdash; <a href="https://wa.me/201040796017">Start your coaching journey &rarr;</a></footer>
@@ -100,14 +199,21 @@ footer{padding:24px;text-align:center;border-top:1px solid var(--line);font-size
 function handleSubmit(e){
 e.preventDefault();var email=document.getElementById('email').value.trim();
 if(!email||!email.includes('@')){document.getElementById('errorMsg').style.display='block';return false}
-document.getElementById('errorMsg').style.display='none';document.getElementById('submitBtn').disabled=true;document.getElementById('submitBtn').textContent='Sending...';
-var payload=new FormData();payload.append('email',email);payload.append('source','muscle_os_sample');
+document.getElementById('errorMsg').style.display='none';document.getElementById('submitBtn').disabled=true;document.getElementById('submitBtn').textContent='Unlocking...';
+var payload=new FormData();payload.append('email',email);payload.append('source','muscle_os_samples');
 fetch('https://formspree.io/f/xpwzazqk',{method:'POST',body:payload,mode:'no-cors'}).catch(function(){});
-localStorage.setItem('mos_sample_access','true');
+localStorage.setItem('mos_samples_access','true');
 document.getElementById('formState').style.display='none';document.getElementById('successState').style.display='block';
-setTimeout(function(){window.open('muscle_os_sample.pdf','_blank')},500);
 return false}
-if(localStorage.getItem('mos_sample_access')){document.getElementById('formState').style.display='none';document.getElementById('successState').style.display='block'}
+if(localStorage.getItem('mos_samples_access')){document.getElementById('formState').style.display='none';document.getElementById('successState').style.display='block'}
+// Hash routing: scroll to and highlight a specific book card
+(function(){
+var hash=window.location.hash.replace('#','');
+if(hash){
+var el=document.getElementById(hash);
+if(el){setTimeout(function(){el.scrollIntoView({behavior:'smooth',block:'center'});el.classList.add('highlighted')},300)}
+}
+})();
 </script>
 </body>
 </html>
