@@ -1,0 +1,13 @@
+/* Cardio log */
+.cardio-section{margin-bottom:12px}
+.cardio-toggle{display:flex;align-items:center;gap:6px;padding:7px 10px;background:var(--input-bg);border-radius:8px;border:1px solid var(--fill);cursor:pointer;transition:all .15s;font-size:.6rem;color:var(--text-dim);font-family:'Inter',sans-serif}
+.cardio-toggle:hover{border-color:var(--line-strong);color:var(--text)}
+.cardio-toggle .ci-icon{font-size:.85rem}
+.cardio-form{display:none;margin-top:6px;padding:10px;background:var(--input-bg);border-radius:8px}
+.cardio-form.show{display:block}
+.cardio-form .cf-row{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px}
+.cardio-form label{font-size:.5rem;text-transform:uppercase;letter-spacing:.6px;color:var(--text-muted);font-weight:600;display:block;margin-bottom:1px}
+.cardio-form input,.cardio-form select{font-size:.6rem;padding:4px 6px}
+.cardio-form .btn-sm{font-size:.55rem;padding:5px 10px;margin-top:2px}
+.cardio-history{font-size:.55rem;color:var(--text-muted);margin-top:6px;line-height:1.5}
+.cardio-history strong{color:var(--text-soft)}

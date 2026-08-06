@@ -1,4 +1,18 @@
-﻿# Session State — Session-time estimator + generic coach-routing hook (layer 3) — READY TO DEPLOY (DEFERRED: GitHub Pages incident)
+﻿# Session State — training_tool.html split into parts (training_tool_src/) — SHIPPED, deploy still deferred
+
+## Status: Monolithic tools/training_tool.html (6724 lines / ~500KB) refactored into `tools/training_tool_src/` parts + `build.py` assembler. Built output is byte-identical (sha256 efb34980f38a) to the committed v3.1 build across all 8 copies. Layer 3 content unchanged — deploy remains deferred per GitHub Pages incident.
+
+## Layout (training_tool_src/)
+- `build.py` — manifest-driven assembler. `python build.py --extract` slices training_tool.html into parts (lossless round-trip); plain `python build.py` concatenates parts → tools/training_tool.html + 7 mirrors, then `node --check`; `--verify` compares canonical vs parts; `--check-js` checks syntax only.
+- Parts (1-indexed inclusive line ranges, exact byte slices — editing a part changes the built file; always rebuild + mirror + smoke after edits):
+  - head.html (1-13), css/01_base.css..17_polish.css (14-757 per feature block), css/18_style_close.css (758), head_close.html (759-760)
+  - body_open.html (761-829), body/01_screen1_onboarding.html..05_screen5_history.html (830-1298)
+  - js/01_open.js (1299-1300 `<script>`+IIFE), 02_data.js (1301-1332 VOLUME_TABLES/MUSCLES/VMAP), 03_i18n.js (1333-2085 I18N en+ar dict — en 1339-1714, ar 1715-2084), 04_lang_toggle.js (2086-2152 `_()`+toggleLang), 05_injury_joints.js (2153-2465 INJURY_PROTOCOLS/joints/EXERCISE_META), 06_pools_svg.js (2466-2505 pools/regions/SVG/BODY_MUSCLES), 07_guides_meta.js (2506-2796 guides/overrides/SECONDARY_MAP), 08_rpe_splits.js (2797-2945 RPE/SPLITS/hybrid/PL/CARDIO/WEAK_POINTS/K map), 09_pl_weakpoints_quiz.js (2946-3064), 10_engines.js (3065-3836 warmup/compliance/auto-adjust/measurements/rehab/meso/ACWR/volume), 11_layer1_volprio.js (3837-4327 layer1 + __pmEngine), 12_layer3_est_router.js (4328-4491 estimator + SuggestionRouter + __estEngine/__suggestRouter), 13_screen2_split.js (4492-4578), 14_screen25_picker.js (4579-4882), 15_screen3_generate.js (4883-4978), 16_share_card.js (4979-5050), 17_screen4_dash.js (5051-5086), 18_features.js (5087-5874 missed-session/timer/notifications/ICS/rest-timer/plate/card-builders/supersets), 19_wiring.js (5875-6048), 20_screen5_history.js (6049-6249), 21_export_import.js (6250-6271), 22_init.js (6272-6308), 23_data_sync.js (6309-6397), 24_custom_exercises.js (6398-6426), 25_library.js (6427-6481), 26_close.js (6482), modals.html (6483-6531), js/27_modals_open.js..29_close.js (6532-6724 second IIFE), body_close.html (6723-6724)
+- Editing conventions: build version marker lives in head.html line 4. New features: edit the relevant js part, run `python build.py` (mirrors + node --check), then smoke suites.
+
+## Tests: smoke_time_coach 45/45, smoke_voleng 27/27, smoke_exsel 24/24 DOM + 21/21 engine — all green after refactor. Round-trip extract→assemble byte-identical. node --check clean.
+
+
 
 ## Status: Layer 3 (Part 5 order: 2a + 3c hook) shipped to `tools/training_tool.html` (4 copies, byte-identical). Additive only — layer 1 and layer 2 behavior unchanged.
 

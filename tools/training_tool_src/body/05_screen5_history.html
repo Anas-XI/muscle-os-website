@@ -1,0 +1,93 @@
+  <!-- Screen 5: History & Stats -->
+  <div class="step-content" id="step5">
+    <div class="card">
+      <div class="section-header"><span data-i18n="coach_note">Coach's Note</span></div>
+      <div id="coachNote" style="font-size:.6rem;line-height:1.6;padding:4px 0"></div>
+    </div>
+    <div class="card">
+      <div class="section-header"><span data-i18n="track_progress">Volume Dashboard</span> <span class="section-sub" id="histWeekLabel"></span></div>
+      <p style="font-size:.55rem;color:rgba(250,250,248,.18);margin-bottom:6px;line-height:1.2">Logged sets this week (yellow bar) vs MEV–MAV–MRV (green to red).</p>
+      <div id="histVolBars"></div>
+    </div>
+    <div class="card">
+      <div class="section-header" id="histSessionsHeader"></div>
+      <div id="histSessions" style="font-size:.55rem;color:rgba(250,250,248,.35);padding:6px 0;line-height:1.4">—</div>
+      <div id="histSessionsBars" style="display:flex;align-items:flex-end;gap:3px;height:48px;margin-top:4px"></div>
+    </div>
+    <div class="card">
+      <div class="section-header" data-i18n="track_progress">e1RM Progression <span class="section-sub">— last 8 sessions</span></div>
+      <div class="form-group" style="margin-bottom:8px"><label data-i18n="exercises">Select Exercise</label>
+        <select id="histExSelect"></select></div>
+      <div id="histChart"><p style="font-size:.6rem;color:rgba(250,250,248,.15);padding:20px;text-align:center" data-i18n="no_data">Select an exercise to see e1RM trend.</p></div>
+    </div>
+    <div class="card">
+      <div class="section-header" data-i18n="pr_table">Personal Records</div>
+      <div id="prTable"><p style="font-size:.6rem;color:rgba(250,250,248,.15);padding:10px;text-align:center" data-i18n="no_data">Log some sessions to see PRs.</p></div>
+    </div>
+    <div class="card">
+      <div class="section-header" data-i18n="deload_hist">Deload History</div>
+      <div id="deloadHistory"><p style="font-size:.6rem;color:rgba(250,250,248,.15);padding:10px;text-align:center" data-i18n="no_data">No deload data yet.</p></div>
+      <button class="btn-primary" id="markDeloadBtn" style="background:rgba(244,201,59,.06);border:1px solid rgba(244,201,59,.15);color:#F4C93B;font-size:.65rem;padding:8px 0;margin-top:8px" data-i18n="deload_hist">Mark Deload This Week</button>
+    </div>
+    <div class="card" id="compWidgetCard" style="display:none">
+      <div class="section-header" data-i18n="track_progress">Compliance Dashboard <span class="section-sub">— last 28 days</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:6px">
+        <div style="text-align:center;background:rgba(250,250,248,.01);border-radius:6px;padding:6px 4px">
+          <div id="compScore" style="font-size:.9rem;font-weight:700;font-family:'JetBrains Mono',monospace">—</div>
+          <div style="font-size:.4rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.15)" data-i18n="track_progress">Score</div>
+        </div>
+        <div style="text-align:center;background:rgba(250,250,248,.01);border-radius:6px;padding:6px 4px">
+          <div id="compGrade" style="font-size:.9rem;font-weight:700;font-family:'JetBrains Mono',monospace">—</div>
+          <div style="font-size:.4rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.15)">Grade</div>
+        </div>
+        <div style="text-align:center;background:rgba(250,250,248,.01);border-radius:6px;padding:6px 4px">
+          <div id="compLabel" style="font-size:.9rem;font-weight:700">—</div>
+          <div style="font-size:.4rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.15)">Status</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:6px">
+        <div style="background:rgba(250,250,248,.01);border-radius:4px;padding:4px 6px">
+          <span style="font-size:.4rem;text-transform:uppercase;color:rgba(250,250,248,.12)">Current Streak</span>
+          <div id="compStreak" style="font-size:.55rem;font-weight:600">—</div>
+        </div>
+        <div style="background:rgba(250,250,248,.01);border-radius:4px;padding:4px 6px">
+          <span style="font-size:.4rem;text-transform:uppercase;color:rgba(250,250,248,.12)">Best Streak</span>
+          <div id="compBestStreak" style="font-size:.55rem;font-weight:600">—</div>
+        </div>
+      </div>
+      <div style="background:rgba(250,250,248,.01);border-radius:4px;padding:4px 6px;margin-bottom:4px">
+        <span style="font-size:.4rem;text-transform:uppercase;color:rgba(250,250,248,.12)">Adherence (planned/logged)</span>
+        <div id="compAdherence" style="font-size:.55rem;font-weight:600">—</div>
+      </div>
+      <div id="compChart"></div>
+    </div>
+    <div class="card" id="cardioHistCard" style="display:none">
+      <div class="section-header" data-i18n="log_cardio">Cardio Log <span class="section-sub">— weekly summary</span></div>
+      <div id="cardioHistContent"><p style="font-size:.6rem;color:rgba(250,250,248,.15);padding:10px;text-align:center" data-i18n="no_data">No cardio logged yet.</p></div>
+    </div>
+    <div class="card" id="mesoHistCard" style="display:none">
+      <div class="section-header" data-i18n="generate_meso">Mesocycle History <span class="section-sub">— completed blocks</span></div>
+      <div id="mesoHistContent"><p style="font-size:.6rem;color:rgba(250,250,248,.15);padding:10px;text-align:center" data-i18n="no_data">No completed mesocycles yet.</p></div>
+      <div id="acwrHist" style="margin-top:8px;font-size:.55rem;color:rgba(250,250,248,.2)"></div>
+    </div>
+    <div class="card" id="fatigueHistCard" style="display:none">
+      <div class="section-header" data-i18n="pre_session">Fatigue Trend <span class="section-sub">— last 7 check-ins</span></div>
+      <div id="fatigueTrend"><p style="font-size:.6rem;color:rgba(250,250,248,.15);padding:10px;text-align:center" data-i18n="no_data">No fatigue data yet. Check in before training.</p></div>
+    </div>
+    <div class="card" id="measHistCard" style="display:none">
+      <div class="section-header" data-i18n="track_progress">Body Measurements <span class="section-sub">— progress tracker</span></div>
+      <div id="measHistContent"></div>
+    </div>
+    <div class="card" id="rehabHistCard" style="display:none">
+      <div class="section-header">Injury &amp; Rehab Log</div>
+      <div id="rehabHistContent"><p style="font-size:.6rem;color:rgba(250,250,248,.15);padding:10px;text-align:center" data-i18n="no_data">No injuries tracked. Great work staying healthy!</p></div>
+      <div id="rehabConsultHist" style="display:none;margin-top:6px"></div>
+    </div>
+    <div class="btn-group">
+      <button class="btn-primary" id="backToDashBtn" style="background:transparent;border:1.5px solid rgba(250,250,248,.08);color:rgba(250,250,248,.35);font-size:.75rem" data-i18n="back_to_setup">Back to Training</button>
+    </div>
+  </div>
+
+  <div class="footer no-print">By Coach Anas Mo'men — <a href="https://wa.me/201040796017">Start your coaching journey now</a></div>
+</div>
+

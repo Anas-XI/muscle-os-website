@@ -1,0 +1,49 @@
+<!-- Sync Modal -->
+<div class="modal-overlay" id="syncModal" style="display:none" onclick="if(event.target===this)hideSync()">
+  <div class="modal-card">
+    <div class="modal-header"><span data-i18n="sync_title">Data Sync</span><span class="modal-close" onclick="hideSync()">✕</span></div>
+    <p style="font-size:.6rem;color:rgba(250,250,248,.2);margin:6px 0 10px" data-i18n="sync_desc">Enter or create a sync ID to transfer your training data between devices.</p>
+    <label style="font-size:.5rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.25);display:block;margin-bottom:4px">Sync ID</label>
+    <div style="display:flex;gap:6px">
+      <input type="text" id="syncKeyInput" placeholder="e.g. 8f3a-9c2b" style="flex:1;min-width:0;padding:8px 10px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;margin-bottom:10px">
+      <button onclick="genSyncId()" title="New ID" style="background:rgba(33,150,243,.1);border:1px solid rgba(33,150,243,.25);color:#2196F3;border-radius:6px;padding:0 10px;font-size:.7rem;cursor:pointer;margin-bottom:10px">↻</button>
+    </div>
+    <label style="font-size:.5rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.25);display:block;margin-bottom:4px" data-i18n="sync_pw">Passphrase</label>
+    <input type="password" id="syncPwInput" placeholder="optional" style="width:100%;padding:8px 10px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;margin-bottom:10px">
+    <div id="syncLastRow" style="font-size:.5rem;color:rgba(250,250,248,.25);margin-bottom:10px;display:none"><span data-i18n="sync_last">Last synced</span>: <span id="syncLastTs"></span></div>
+    <div style="display:flex;gap:8px">
+      <button class="btn-primary" onclick="doSyncUpload()" style="flex:1" data-i18n="sync_push">Push</button>
+      <button class="btn-primary" onclick="doSyncDownload()" style="flex:1;background:rgba(76,175,80,.08);border-color:rgba(76,175,80,.15);color:#4CAF50" data-i18n="sync_pull">Pull</button>
+    </div>
+  </div>
+</div>
+<!-- Custom Exercise Modal -->
+<div class="modal-overlay" id="ceModal" style="display:none" onclick="if(event.target===this)hideCeModal()">
+  <div class="modal-card">
+    <div class="modal-header"><span data-i18n="ce_title">Custom Exercise</span><span class="modal-close" onclick="hideCeModal()">✕</span></div>
+    <p style="font-size:.6rem;color:rgba(250,250,248,.2);margin:6px 0 10px" data-i18n="ce_desc">Add an exercise not in our database. It will be available for program generation.</p>
+    <input type="text" id="ceName" placeholder="e.g. Bulgarian Split Squat" style="width:100%;padding:8px 10px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;margin-bottom:8px">
+    <div class="form-row" style="margin-bottom:6px">
+      <div class="form-group"><label data-i18n="ce_type">Type</label><select id="ceType"><option value="compound">Compound</option><option value="isolation">Isolation</option></select></div>
+      <div class="form-group"><label data-i18n="ce_focus">Focus</label><select id="ceFocus"><option value="push">Push</option><option value="pull">Pull</option><option value="legs">Legs</option><option value="core">Core</option></select></div>
+      <div class="form-group"><label data-i18n="ce_inc">Increment</label><select id="ceInc"><option value="1.25">1.25 kg</option><option value="2.5" selected>2.5 kg</option><option value="5">5 kg</option></select></div>
+    </div>
+    <div style="display:flex;gap:4px;margin-bottom:10px;align-items:center">
+      <span style="font-size:.5rem;color:rgba(250,250,248,.18);font-weight:600;text-transform:uppercase;letter-spacing:.5px" data-i18n="ce_minrep">Min Reps</span>
+      <input type="number" id="ceMinRep" value="6" min="1" max="30" style="width:50px;padding:4px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:4px;color:#FAFAF8;font-size:.55rem;text-align:center">
+      <span style="font-size:.5rem;color:rgba(250,250,248,.18);font-weight:600;text-transform:uppercase;letter-spacing:.5px" data-i18n="ce_maxrep">Max Reps</span>
+      <input type="number" id="ceMaxRep" value="12" min="1" max="30" style="width:50px;padding:4px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:4px;color:#FAFAF8;font-size:.55rem;text-align:center">
+    </div>
+    <button class="btn-primary" onclick="saveCustomExFromModal()" style="width:100%" data-i18n="ce_save">Save Exercise</button>
+    <div id="ceList" style="margin-top:10px;max-height:150px;overflow-y:auto"></div>
+  </div>
+</div>
+<!-- Exercise Library Modal -->
+<div class="modal-overlay" id="libModal" style="display:none" onclick="if(event.target===this)hideLibrary()">
+  <div class="modal-card lib-modal">
+    <div class="modal-header"><span data-i18n="lib_title">Exercise Library</span><span class="modal-close" onclick="hideLibrary()">✕</span></div>
+    <div class="modal-body" id="libContent"></div>
+  </div>
+</div>
+<canvas id="shareCanvas"></canvas>
+<div id="shareToast"></div>

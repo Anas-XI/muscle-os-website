@@ -1,0 +1,83 @@
+  <!-- Screen 2: Volume + Split -->
+  <div class="step-content" id="step2">
+    <div class="card">
+      <div class="section-header" data-i18n="vol_targets">Volume Targets</div>
+      <div id="volSummary" class="recap-box"></div>
+      <div id="volBars"></div>
+
+      <div class="section-header" data-i18n="split_pref">Select Your Split</div>
+      <p style="font-size:.55rem;color:rgba(250,250,248,.2);margin-bottom:8px;line-height:1.2">Based on <strong id="dowDisplay">4 days/week</strong>.</p>
+      <div id="splitWhy"></div>
+      <div class="split-grid" id="splitGrid"></div>
+      <div id="splitConflict" style="display:none"></div>
+
+      <div class="section-header" data-i18n="sess_len">Session Length</div>
+      <p style="font-size:.55rem;color:rgba(250,250,248,.2);margin-bottom:8px;line-height:1.2">45 min: capped 4 exercises + supersets suggested · 90 min: one optional exercise per day (not counted in compliance).</p>
+      <div class="sess-len-grid" id="sessLenGrid">
+        <button class="sess-len-chip" data-len="45"><strong>45</strong> <span data-i18n="sess_45">min</span></button>
+        <button class="sess-len-chip selected" data-len="60"><strong>60</strong> <span data-i18n="sess_60">min</span></button>
+        <button class="sess-len-chip" data-len="90"><strong>90</strong> <span data-i18n="sess_90">min</span></button>
+      </div>
+
+      <div id="splitErr" style="display:none;color:#F4C93B;font-size:.65rem;text-align:center;margin-top:6px" data-i18n="focus_err">Select a split to continue.</div>
+      <div class="ex-sel-panel" id="exSelPanel">
+        <div class="section-header" data-i18n="exercises">Choose Your Exercises</div>
+        <p class="ex-sel-info">Each slot draws from a <strong>full muscle-group pool</strong>. Pick your favorite — the program will generate with your selections. (BB=Barbell, DB=Dumbbell, MAC=Machine, CAB=Cable, BW=Bodyweight)</p>
+        <div style="display:flex;justify-content:flex-end;margin-bottom:4px">
+          <button class="btn-secondary" id="adjustExBtn" style="font-size:.5rem;padding:3px 10px" data-i18n="adjust">Adjust ▾</button>
+        </div>
+        <div class="ex-filter-bar" id="exFilterBar" style="display:none">
+          <div class="ef-row"><span class="ef-lbl" data-i18n="my_gym">My Gym</span>
+            <button class="f-chip on" data-f="eq" data-v="all" data-i18n="eq_all">All</button>
+            <button class="f-chip" data-f="eq" data-v="bodyweight" data-i18n="eq_bodyweight">Bodyweight</button>
+            <button class="f-chip" data-f="eq" data-v="dumbbell" data-i18n="eq_dumbbell">Dumbbell</button>
+            <button class="f-chip" data-f="eq" data-v="barbell" data-i18n="eq_barbell">Barbell</button>
+            <button class="f-chip" data-f="eq" data-v="machine" data-i18n="eq_machine">Machine</button>
+            <button class="f-chip" data-f="eq" data-v="cable" data-i18n="eq_cable">Cable</button>
+            <button class="f-chip" data-f="eq" data-v="band" data-i18n="eq_band">Band</button>
+            <button class="f-chip" data-f="eq" data-v="kettlebell" data-i18n="eq_kettlebell">Kettlebell</button>
+          </div>
+          <div class="ef-row"><span class="ef-lbl" data-i18n="diff_label">Difficulty</span>
+            <button class="f-chip on" data-f="diff" data-v="all" data-i18n="eq_all">All</button>
+            <button class="f-chip" data-f="diff" data-v="beginner" data-i18n="diff_beginner">Beginner</button>
+            <button class="f-chip" data-f="diff" data-v="intermediate" data-i18n="diff_intermediate">Intermediate</button>
+            <button class="f-chip" data-f="diff" data-v="advanced" data-i18n="diff_advanced">Advanced</button>
+          </div>
+          <div class="ef-row"><span class="ef-lbl" data-i18n="type_label">Type</span>
+            <button class="f-chip on" data-f="type" data-v="all" data-i18n="eq_all">All</button>
+            <button class="f-chip" data-f="type" data-v="compound" data-i18n="mp_compound">Compound</button>
+            <button class="f-chip" data-f="type" data-v="isolation" data-i18n="mp_isolation">Isolation</button>
+          </div>
+          <div class="ef-row"><span class="ef-lbl" data-i18n="pattern_label">Pattern</span>
+            <button class="f-chip on" data-f="pattern" data-v="all" data-i18n="eq_all">All</button>
+            <button class="f-chip" data-f="pattern" data-v="push" data-i18n="mp_push">Push</button>
+            <button class="f-chip" data-f="pattern" data-v="pull" data-i18n="mp_pull">Pull</button>
+            <button class="f-chip" data-f="pattern" data-v="hinge" data-i18n="mp_hinge">Hinge</button>
+            <button class="f-chip" data-f="pattern" data-v="squat" data-i18n="mp_squat">Squat</button>
+            <button class="f-chip" data-f="pattern" data-v="carry" data-i18n="mp_carry">Carry</button>
+            <button class="f-chip" data-f="pattern" data-v="rotation" data-i18n="mp_rotation">Rotation</button>
+            <button class="f-chip" data-f="pattern" data-v="core" data-i18n="mp_core">Core</button>
+          </div>
+        </div>
+        <div id="exSelContent"></div>
+        <div class="btn-group">
+          <button class="btn-primary" id="backToSplitBtn2" style="background:transparent;border:1.5px solid rgba(250,250,248,.08);color:rgba(250,250,248,.35);font-size:.65rem" data-i18n="back">← Back to Splits</button>
+          <button class="btn-primary" id="confirmExBtn" data-i18n="confirm_gen">Confirm &amp; Generate Program</button>
+        </div>
+      </div>
+      <div class="ex-sel-panel" id="volReviewPanel">
+        <div class="section-header" data-i18n="vr_title">Weekly Volume Plan</div>
+        <div id="volReviewContent"></div>
+        <div class="btn-group">
+          <button class="btn-primary" id="backToExBtn2" style="background:transparent;border:1.5px solid rgba(250,250,248,.08);color:rgba(250,250,248,.35);font-size:.7rem" data-i18n="vr_back">← Back to Exercises</button>
+          <button class="btn-primary" id="lockInBtn" data-i18n="vr_lock">Lock In &amp; Generate Program</button>
+        </div>
+      </div>
+      <div class="btn-group" id="splitBtnGroup">
+        <button class="btn-primary" id="backToSetupBtn" style="background:transparent;border:1.5px solid rgba(250,250,248,.08);color:rgba(250,250,248,.35);font-size:.75rem" data-i18n="back_to_setup">Back</button>
+        <button class="btn-primary" id="genProgBtn" data-i18n="generate">Generate Program</button>
+      </div>
+      <div style="text-align:center;margin-top:8px"><span class="ce-link" onclick="showCeModal()" data-i18n="ce_add_custom">+ Custom Exercise</span></div>
+    </div>
+  </div>
+

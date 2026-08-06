@@ -1,0 +1,16 @@
+/* Warm-up Calculator */
+.warmup-box{border-radius:6px;border:1px solid var(--accent-soft);margin:4px 0;overflow:hidden;font-size:.5rem;background:var(--input-bg)}
+.warmup-box:not(.wu-open) .wu-body{display:none}
+.warmup-box .wu-header{display:flex;align-items:center;gap:6px;padding:5px 8px;cursor:pointer;transition:background .15s;user-select:none;background:var(--accent-soft)}
+.warmup-box .wu-header:hover{background:var(--accent-soft)}
+.warmup-box .wu-icon{font-size:.7rem}
+.warmup-box .wu-label{font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--accent);font-size:.5rem}
+.warmup-box .wu-count{font-size:.45rem;color:var(--text-muted);margin-left:auto}
+.warmup-box .wu-arrow{font-size:.4rem;color:var(--line-strong);transition:transform .2s}
+.warmup-box.wu-open .wu-arrow{transform:rotate(180deg)}
+.warmup-box .wu-body{padding:5px 8px}
+.warmup-box .wu-row{display:grid;grid-template-columns:60px 1fr 1fr 1fr;gap:4px;padding:2px 0;border-bottom:1px solid var(--fill);font-size:.48rem}
+.warmup-box .wu-row.wu-head{color:var(--line);text-transform:uppercase;letter-spacing:.5px;font-size:.4rem;font-weight:600}
+.warmup-box .wu-row.wu-work{border-bottom:none;margin-top:1px;font-weight:600;color:var(--text-soft)}
+.warmup-box .wu-weight{font-family:'JetBrains Mono',monospace;color:var(--text-dim)}
+.warmup-box .wu-tip{font-size:.42rem;color:var(--accent-soft2);margin-top:3px;font-style:italic;padding-top:2px;border-top:1px dashed var(--accent-soft)}

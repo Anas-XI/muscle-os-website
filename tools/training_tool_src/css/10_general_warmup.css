@@ -1,0 +1,6 @@
+/* General Warm-up */
+.gen-warmup{background:var(--accent-soft);border:1px solid var(--accent-soft);border-radius:8px;padding:8px 10px;margin-bottom:10px}
+.gen-warmup .gw-header{font-size:.55rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--accent);margin-bottom:4px}
+.gen-warmup .gw-list{display:flex;flex-wrap:wrap;gap:3px}
+.gen-warmup .gw-list span{font-size:.48rem;padding:2px 6px;background:var(--accent-soft);border-radius:3px;color:var(--text-muted)}
+

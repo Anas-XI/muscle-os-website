@@ -1,0 +1,9 @@
+/* Powerlifting extras */
+.strength-extras{display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--accent-soft)}
+.strength-extras.show{display:block}
+.rm-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px}
+.rm-input label{display:block;font-size:.5rem;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--text-muted);margin-bottom:2px}
+.rm-input input{font-size:.7rem}
+.weak-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin:6px 0}
+.weak-chip{padding:4px 8px;border-radius:5px;border:1.5px solid var(--line);background:var(--input-bg);font-size:.58rem;color:var(--text-dim);cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif;text-align:center}
+.weak-chip.active{background:var(--accent-soft);border-color:var(--accent);color:var(--text)}
