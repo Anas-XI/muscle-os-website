@@ -396,6 +396,9 @@
       outcome_title:'Suggestion Outcomes',
       outcome_sub:' — how training responded ~2 weeks after each suggestion',
       outcome_line:'{t} — {p}',
+      outcome_up:'improved +{d} {w}',
+      outcome_down:'declined {d} {w}',
+      outcome_flat:'no change',
     },
     ar: {
       app_title:'أداة التمرين', header_sub:'التسجيل → التقسيم → البرنامج → التمرين → التاريخ',
@@ -783,5 +786,8 @@
       outcome_title:'نتائج الاقتراحات',
       outcome_sub:' — كيف استجاب التدريب بعد ~أسبوعين من كل اقتراح',
       outcome_line:'{t} — {p}',
+      outcome_up:'تحسّن +{d} {w}',
+      outcome_down:'انخفض {d} {w}',
+      outcome_flat:'لا تغيير',
     }
   };

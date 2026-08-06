@@ -100,3 +100,62 @@
   }
   window.addEventListener('pagehide', onLeave);
   document.addEventListener('visibilitychange', function(){ if(document.visibilityState === 'hidden') onLeave(); });
+
+  // ── Suggestion outcomes (read-time before/after vs LH e1RM) ──
+  // Suggestions with timestamps: deload_prompt, plateau_note, fat_gate.
+  function outcomeRows(){
+    var evs = eventsAll(), hist = loadHist();
+    if(!hist) return [];
+    var sug = { deload_prompt: 1, plateau_note: 1, fat_gate: 1 };
+    var seen = {}, rows = [];
+    evs.forEach(function(x){
+      if(!sug[x.e]) return;
+      var D = new Date(x.t), ds = D.toISOString().split('T')[0];
+      var dk = x.e + ds;
+      if(seen[dk]) return; seen[dk] = true;
+      var iso = function(o){ return o.toISOString().split('T')[0]; };
+      var before = [], after = [];
+      MAIN_LIFTS.forEach(function(ex){
+        var b = bestE1RMIn(ex, hist, iso(new Date(D.getTime() - 6 * 864e5)), ds);
+        var a = bestE1RMIn(ex, hist, iso(new Date(D.getTime() + 8 * 864e5)), iso(new Date(D.getTime() + 15 * 864e5)));
+        if(b !== null && a !== null){ before.push(b); after.push(a); }
+      });
+      if(!before.length) return;
+      var avg = function(a){ return a.reduce(function(s, v){ return s + v; }, 0) / a.length; };
+      var delta = avg(after) - avg(before);
+      var dir = delta > 0.5 ? 'up' : delta < -0.5 ? 'down' : 'flat';
+      rows.push({ d: ds, dir: dir, delta: delta });
+    });
+    rows.sort(function(a, b){ return a.d < b.d ? 1 : -1; });
+    return rows.slice(0, 6);
+  }
+  function renderOutcomeSection(){
+    var host = document.getElementById('step5');
+    if(!host) return;
+    var el = document.getElementById('outcomeCard');
+    if(!el){
+      el = document.createElement('div');
+      el.id = 'outcomeCard';
+      el.className = 'card';
+      el.style.display = 'none';
+      el.innerHTML = '<div class="section-header"><span data-i18n="outcome_title"></span><span class="section-sub" data-i18n="outcome_sub"></span></div><div id="outcomeRows" style="font-size:.6rem;line-height:1.6;padding:4px 0"></div>';
+      var anchor = document.getElementById('backToDashBtn');
+      while(anchor && anchor.parentElement !== host) anchor = anchor.parentElement;
+      host.insertBefore(el, anchor || host.firstChild);
+    }
+    var rows = outcomeRows();
+    if(!rows.length){ el.style.display = 'none'; return; }
+    el.style.display = 'block';
+    var html = '';
+    rows.forEach(function(r){
+      var icon = r.dir === 'up' ? '▲' : r.dir === 'down' ? '▼' : '•';
+      var color = r.dir === 'up' ? '#81C784' : r.dir === 'down' ? '#f44336' : 'rgba(250,250,248,.25)';
+      var p = r.dir === 'up' ? _('outcome_up').replace('{d}', (Math.round(r.delta * 2) / 2).toFixed(1)).replace('{w}', _('weight'))
+        : r.dir === 'down' ? _('outcome_down').replace('{d}', (Math.round(-r.delta * 2) / 2).toFixed(1)).replace('{w}', _('weight'))
+        : _('outcome_flat');
+      html += '<div style="padding:3px 0"><span style="color:' + color + '">' + icon + '</span> ' + _('outcome_line').replace('{t}', r.d.slice(5)).replace('{p}', p) + '</div>';
+    });
+    document.getElementById('outcomeRows').innerHTML = html;
+    translateUI();
+  }
+  window.renderOutcomeSection = renderOutcomeSection;

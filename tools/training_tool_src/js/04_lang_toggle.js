@@ -8,6 +8,8 @@
     translateUI();
     var st=document.getElementById('step4');
     if(st&&st.classList.contains('active'))renderDashboard();
+    var st5=document.getElementById('step5');
+    if(st5&&st5.classList.contains('active'))renderOutcomeSection();
     document.querySelector('.lang-opt.active')&&document.querySelector('.lang-opt.active').classList.remove('active');
     document.querySelector('.lang-opt[data-lang="'+window.__lang+'"]')&&document.querySelector('.lang-opt[data-lang="'+window.__lang+'"]').classList.add('active');
   }

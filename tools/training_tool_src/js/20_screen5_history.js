@@ -174,6 +174,8 @@
       ft+='<div style="font-size:.55rem;color:rgba(250,250,248,.2);margin-top:4px">'+_('hist_7day_fatigue')+': <strong>'+(avg.toFixed(1))+'</strong> — '+(avg>=7.5?_('hist_fatigue_green'):avg>=5?_('hist_fatigue_yellow'):_('hist_fatigue_red'))+'</div>';
       document.getElementById('fatigueTrend').innerHTML=ft;
     } else {document.getElementById('fatigueHistCard').style.display='none';}
+
+    renderOutcomeSection();
   }
 
   function renderChart(ex){
