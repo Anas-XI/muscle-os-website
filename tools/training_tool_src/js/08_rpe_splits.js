@@ -145,5 +145,5 @@
     {id:'hole',l:'Bottom of Squat (the hole)'},{id:'midpoint',l:'Mid-Point Sticking'},
     {id:'legs',l:'Leg Strength / Mass'},{id:'back',l:'Back Strength / Thickness'}
   ];
-  const K = {VT:'mos_vol_targets',SP:'mos_split_profile',PG:'mos_program',LG:'mos_logs',VI:'mos_vol_inputs',LH:'mos_load_history',DT:'mos_deload_tracker',PF:'mos_pain_flags',PL:'mos_pl_profile',FL:'mos_fatigue_log',CL:'mos_cardio_logs',MP:'mos_meso_plan',MA:'mos_meso_active',MH:'mos_meso_history',MM:'mos_measurements',CE:'mos_custom_exercises',CR:'mos_custom_replacements',SU:'mos_supersets',SS:'mos_sessions',PR:'mos_priority',SR:'mos_soreness_log',PC:'mos_pr_credit',VA:'mos_vol_alloc',FO:'mos_freq_override',CQ:'mos_coach_queue'};
+  const K = {VT:'mos_vol_targets',SP:'mos_split_profile',PG:'mos_program',LG:'mos_logs',VI:'mos_vol_inputs',LH:'mos_load_history',DT:'mos_deload_tracker',PF:'mos_pain_flags',PL:'mos_pl_profile',FL:'mos_fatigue_log',CL:'mos_cardio_logs',MP:'mos_meso_plan',MA:'mos_meso_active',MH:'mos_meso_history',MM:'mos_measurements',CE:'mos_custom_exercises',CR:'mos_custom_replacements',SU:'mos_supersets',SS:'mos_sessions',PR:'mos_priority',SR:'mos_soreness_log',PC:'mos_pr_credit',VA:'mos_vol_alloc',FO:'mos_freq_override',CQ:'mos_coach_queue',EV:'mos_events'};
 

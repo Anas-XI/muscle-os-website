@@ -246,7 +246,7 @@
   }
   function renderPlateaus(){
     var card=document.getElementById('plateauCard');
-    var pl=detectPlateaus();
+    var pl=detectPlateaus();if(pl.length)evLog('plateau_note',{exs:pl.map(function(p){return p.ex;})},'pl_'+new Date().toISOString().split('T')[0]);
     if(!pl.length){card.style.display='none';return;}
     var html='<div class="pc-title">⚠ '+_('plateau_title')+'</div>';
     pl.forEach(function(p){
@@ -261,7 +261,7 @@
   }
   document.getElementById('plateauCard').addEventListener('click',function(ev){
     var b=ev.target.closest('.pc-btn');if(!b)return;
-    var ex=b.dataset.ex;
+    var ex=b.dataset.ex;evLog('plateau_'+b.dataset.action,{ex:ex});
     if(b.dataset.action==='swap'){
       var p=null;detectPlateaus().forEach(function(x){if(x.ex===ex)p=x;});
       if(!p||p.di<0)return;
@@ -274,7 +274,7 @@
       document.getElementById('mesoWeeks').value='10';
       go(35);renderMesoConfig();
     }else if(b.dataset.action==='deload'){
-      var dt=dlTracker();dt.lastDeload=new Date().toISOString().split('T')[0];dt.sessions=0;dt.overshoots=0;ss(K.DT,dt);
+      var dt=dlTracker();dt.lastDeload=new Date().toISOString().split('T')[0];dt.sessions=0;dt.overshoots=0;ss(K.DT,dt);evLog('deload_marked',{src:'plateau'});
       alert(_('alert_deload_marked'));
       renderDashboard();
     }

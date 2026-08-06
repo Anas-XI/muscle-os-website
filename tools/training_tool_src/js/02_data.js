@@ -29,4 +29,6 @@
     {id:'traps',name:'Traps',vid:'traps'},{id:'forearms',name:'Forearms',vid:'forearms'}
   ];
   const VMAP = {}; MUSCLES.forEach(m=>VMAP[m.id]=m.vid);
+  const TRIAL_DAYS = 7;
+  const EVENTS_MAX = 500;
 

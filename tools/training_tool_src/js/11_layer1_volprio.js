@@ -4,7 +4,7 @@
 
   var step=1,dayIdx=0,splitKey='upper_lower_4',quizMode=false,quizQ=0,quizA={};
   var makeupDays={},missedSkip=false,lightDays={},lightProceed={};
-  function go(n){step=n;document.querySelectorAll('.step-content').forEach(function(s){s.classList.remove('active')});var el=document.getElementById('step'+n);if(el)el.classList.add('active');document.querySelectorAll('.step').forEach(function(s){var sn=parseInt(s.dataset.step);s.classList.remove('active','done');if(sn===n)s.classList.add('active');else if(sn<n)s.classList.add('done');});window.scrollTo(0,0);}
+  function go(n){step=n;evLog('screen_'+n);document.querySelectorAll('.step-content').forEach(function(s){s.classList.remove('active')});var el=document.getElementById('step'+n);if(el)el.classList.add('active');document.querySelectorAll('.step').forEach(function(s){var sn=parseInt(s.dataset.step);s.classList.remove('active','done');if(sn===n)s.classList.add('active');else if(sn<n)s.classList.add('done');});window.scrollTo(0,0);}
   document.querySelectorAll('.step').forEach(function(s){s.addEventListener('click',function(){var n=parseInt(this.dataset.step);if(n<=step)go(n);})});
 
   // ═══════════════════════════════════════
@@ -472,7 +472,7 @@
   document.getElementById('prioBackBtn').addEventListener('click',function(){document.getElementById('prioPanel').classList.remove('show');});
   document.getElementById('prioContBtn').addEventListener('click',function(){
     var pr=getPriority();
-    if(!pr.muscles.length){document.getElementById('prioNeed').style.display='block';return;}
+    if(!pr.muscles.length){document.getElementById('prioNeed').style.display='block';return;}evLog('onboard_done',{muscles:pr.muscles.length});
     var targets=ls(K.VT,{}),changed=false;
     pr.muscles.forEach(function(pm){
       var t=targets[pm.m];

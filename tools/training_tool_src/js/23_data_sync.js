@@ -47,11 +47,11 @@
     var pw=document.getElementById('syncPwInput').value.trim();
     if(!key||key.length<4){alert(_('sync_fail'));return;}
     if(!confirm(_('sync_confirm_upload')))return;
-    ss(SYNC_KEY,key);ss(SYNC_PW,pw);
+    ss(SYNC_KEY,key);ss(SYNC_PW,pw);evLog('sync_push');
     fetch(SYNC_BASE+'/'+encodeURIComponent(key),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pw:pw,data:syncPayload()})})
     .then(function(r){return r.json();})
     .then(function(j){
-      if(j.status==='ok'){ss(SYNC_LAST,new Date().toISOString());alert(_('sync_done'));hideSync();}
+      if(j.status==='ok'){ss(SYNC_LAST,new Date().toISOString());evLog('sync_push_ok');alert(_('sync_done'));hideSync();}
       else alert(_('sync_fail')+': '+(j.error||''));
     })
     .catch(function(){alert(_('sync_fail'));});
@@ -61,7 +61,7 @@
     var pw=document.getElementById('syncPwInput').value.trim();
     if(!key||key.length<4){alert(_('sync_fail'));return;}
     if(!confirm(_('sync_confirm_download')))return;
-    ss(SYNC_KEY,key);ss(SYNC_PW,pw);
+    ss(SYNC_KEY,key);ss(SYNC_PW,pw);evLog('sync_pull');
     fetch(SYNC_BASE+'/'+encodeURIComponent(key)+'?pw='+encodeURIComponent(pw))
     .then(function(r){return r.json();})
     .then(function(j){
@@ -69,7 +69,7 @@
         var size=new TextEncoder().encode(JSON.stringify(j.data)).length;
         if(size>1048576){alert(_('sync_fail'));return;}
         Object.keys(j.data).forEach(function(k){localStorage.setItem(k,JSON.stringify(j.data[k]));});
-        ss(SYNC_LAST,new Date().toISOString());
+        ss(SYNC_LAST,new Date().toISOString());evLog('sync_pull_ok');
         alert(_('sync_done'));
         hideSync();
         location.reload();

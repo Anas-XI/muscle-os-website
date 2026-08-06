@@ -60,8 +60,10 @@
       body: JSON.stringify({ code: code, productId: 'training_tool', session: gs ? gs.session : undefined })
     }).then(function(r){ return r.json(); }).then(function(data){
       if(data && data.valid){
+        if(window.__evLog)window.__evLog('code_accepted',{plan:data.plan||'pro_training'});
         grantAndReload(data.plan || 'pro_training', (data.expiresAt || '').slice(0, 10), data.token || '', code, email);
       } else {
+        if(window.__evLog)window.__evLog('code_rejected');
         var msg = t('sub_err_invalid', 'Invalid code. Please check and try again.');
         if(data && data.error === 'code_used_by_other') msg = t('sub_err_used_by_other', 'This code is already linked to another account.');
         if(data && data.error === 'code_exhausted') msg = t('sub_err_exhausted', 'This code has already been used.');
@@ -123,7 +125,7 @@
   }
 
   if(!active){
-    document.getElementById('subOverlay').style.display = 'flex';
+    document.getElementById('subOverlay').style.display = 'flex';if(window.__evLog)window.__evLog('paywall_shown');
     var gs = getGs();
     var started = false;
     function start(){
@@ -164,7 +166,7 @@
     document.getElementById('subVerify').addEventListener('click', function(){
       var btn = document.getElementById('subVerify');
       var code = document.getElementById('subCode').value.trim().toUpperCase();
-      if(!code){ showErr('subError', t('sub_err_invalid', 'Invalid code. Please check and try again.')); return; }
+      if(!code){ showErr('subError', t('sub_err_invalid', 'Invalid code. Please check and try again.')); if(window.__evLog)window.__evLog('code_attempt',{empty:true}); return; }
       var g = getGs();
       var email = g ? g.email : '';
       if(email.toUpperCase() === OWNER_EMAIL){
@@ -172,7 +174,7 @@
         grantAndReload('pro_training', expiry.toISOString().split('T')[0], '', 'OWNER', email);
         return;
       }
-      verifyCode(code, email, btn);
+      verifyCode(code, email, btn);if(window.__evLog)window.__evLog('code_attempt');
     });
     document.getElementById('subCode').addEventListener('keydown', function(e){
       if(e.key === 'Enter') document.getElementById('subVerify').click();

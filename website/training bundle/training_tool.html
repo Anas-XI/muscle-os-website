@@ -1329,6 +1329,8 @@ select option{background:var(--card)}
     {id:'traps',name:'Traps',vid:'traps'},{id:'forearms',name:'Forearms',vid:'forearms'}
   ];
   const VMAP = {}; MUSCLES.forEach(m=>VMAP[m.id]=m.vid);
+  const TRIAL_DAYS = 7;
+  const EVENTS_MAX = 500;
 
   // ── I18N ──
   window.__lang = localStorage.getItem('mos_lang') || 'en';
@@ -1711,6 +1713,22 @@ select option{background:var(--card)}
       cq_approved:'Coach approved',
       cq_rejected:'Coach declined',
       cq_dismiss:'Dismiss',
+      // Local telemetry + trial (PMF)
+      trial_pill:'Trial: {n} days left',
+      trial_expired_note:'Your 7-day trial has ended. Enter an access code or subscribe to continue using the tool.',
+      conflict_title:'Sync conflict',
+      conflict_body:'{n} items changed on both this device and the cloud ({k}). Using the newest version.',
+      conflict_dismiss:'Got it',
+      sync_rec_title:'Recovery Code',
+      sync_rec_warn:'Save this somewhere safe — we cannot recover it for you.',
+      sync_rec_enter:'Enter recovery code',
+      sync_rec_restore:'Restore',
+      sync_rec_ok:'Sync key restored from recovery code.',
+      sync_rec_bad:'Invalid recovery code.',
+      sync_rec_new:'Recovery code for your sync key:\n\n{code}\n\nSave it somewhere safe — it is the only way to restore your sync key. We cannot recover it for you.',
+      outcome_title:'Suggestion Outcomes',
+      outcome_sub:' — how training responded ~2 weeks after each suggestion',
+      outcome_line:'{t} — {p}',
     },
     ar: {
       app_title:'أداة التمرين', header_sub:'التسجيل → التقسيم → البرنامج → التمرين → التاريخ',
@@ -2081,6 +2099,22 @@ select option{background:var(--card)}
       cq_approved:'موافقة المدرب',
       cq_rejected:'رفض المدرب',
       cq_dismiss:'إغلاق',
+      // Local telemetry + trial (PMF)
+      trial_pill:'تجربة: تبقّى {n} أيام',
+      trial_expired_note:'انتهت تجربتك (7 أيام). أدخل كود الوصول أو اشترك لمواصلة استخدام الأداة.',
+      conflict_title:'تعارض مزامنة',
+      conflict_body:'تغيّرت {n} عناصر على هذا الجهاز وفي السحابة ({k}). تم استخدام أحدث نسخة.',
+      conflict_dismiss:'تمام',
+      sync_rec_title:'كود الاستعادة',
+      sync_rec_warn:'احفظه في مكان آمن — لا نستطيع استعادته لك.',
+      sync_rec_enter:'أدخل كود الاستعادة',
+      sync_rec_restore:'استعادة',
+      sync_rec_ok:'تمت استعادة مفتاح المزامنة من كود الاستعادة.',
+      sync_rec_bad:'كود استعادة غير صالح.',
+      sync_rec_new:'كود الاستعادة لمفتاح المزامنة:\n\n{code}\n\nاحفظه في مكان آمن — هو الطريقة الوحيدة لاستعادة مفتاح المزامنة. لا نستطيع استعادته لك.',
+      outcome_title:'نتائج الاقتراحات',
+      outcome_sub:' — كيف استجاب التدريب بعد ~أسبوعين من كل اقتراح',
+      outcome_line:'{t} — {p}',
     }
   };
   function _(k){return I18N[window.__lang]&&I18N[window.__lang][k]!==undefined?I18N[window.__lang][k]:I18N.en[k]!==undefined?I18N.en[k]:k;}
@@ -2941,8 +2975,60 @@ select option{background:var(--card)}
     {id:'hole',l:'Bottom of Squat (the hole)'},{id:'midpoint',l:'Mid-Point Sticking'},
     {id:'legs',l:'Leg Strength / Mass'},{id:'back',l:'Back Strength / Thickness'}
   ];
-  const K = {VT:'mos_vol_targets',SP:'mos_split_profile',PG:'mos_program',LG:'mos_logs',VI:'mos_vol_inputs',LH:'mos_load_history',DT:'mos_deload_tracker',PF:'mos_pain_flags',PL:'mos_pl_profile',FL:'mos_fatigue_log',CL:'mos_cardio_logs',MP:'mos_meso_plan',MA:'mos_meso_active',MH:'mos_meso_history',MM:'mos_measurements',CE:'mos_custom_exercises',CR:'mos_custom_replacements',SU:'mos_supersets',SS:'mos_sessions',PR:'mos_priority',SR:'mos_soreness_log',PC:'mos_pr_credit',VA:'mos_vol_alloc',FO:'mos_freq_override',CQ:'mos_coach_queue'};
+  const K = {VT:'mos_vol_targets',SP:'mos_split_profile',PG:'mos_program',LG:'mos_logs',VI:'mos_vol_inputs',LH:'mos_load_history',DT:'mos_deload_tracker',PF:'mos_pain_flags',PL:'mos_pl_profile',FL:'mos_fatigue_log',CL:'mos_cardio_logs',MP:'mos_meso_plan',MA:'mos_meso_active',MH:'mos_meso_history',MM:'mos_measurements',CE:'mos_custom_exercises',CR:'mos_custom_replacements',SU:'mos_supersets',SS:'mos_sessions',PR:'mos_priority',SR:'mos_soreness_log',PC:'mos_pr_credit',VA:'mos_vol_alloc',FO:'mos_freq_override',CQ:'mos_coach_queue',EV:'mos_events'};
 
+  // ═══════════════════════════════════════
+  //  LOCAL EVENT LOG + TRIAL (PMF telemetry)
+  //  Append-only, bounded, no PII. Syncs via the existing Worker payload.
+  // ═══════════════════════════════════════
+
+  function eventsAll(){ return ls(K.EV, null) || []; }
+  function evLog(e, d, dedupe){
+    var arr = eventsAll(), now = Date.now();
+    if(dedupe){ arr = arr.filter(function(x){ return !(x.e === e && x.k === dedupe); }); }
+    arr.push({ t: now, e: e, k: dedupe || null, d: d || {} });
+    var cut = now - 90 * 864e5;
+    arr = arr.filter(function(x){ return x.t >= cut; });
+    if(arr.length > EVENTS_MAX) arr = arr.slice(arr.length - EVENTS_MAX);
+    ss(K.EV, arr);
+  }
+  function evLast(e, k){
+    var arr = eventsAll();
+    for(var i = arr.length - 1; i >= 0; i--){ if(arr[i].e === e && (k === undefined || arr[i].k === k)) return arr[i]; }
+    return null;
+  }
+  window.__eventsAll = eventsAll; window.__evLog = evLog; window.__evLast = evLast;
+
+  // Trial state — single source of truth. TRIAL_DAYS constant lives in 02_data.js.
+  function trialState(){
+    var start = localStorage.getItem('mos_trial_start');
+    if(!start){ start = new Date().toISOString(); localStorage.setItem('mos_trial_start', start); evLog('trial_start'); }
+    var daysLeft = TRIAL_DAYS - Math.floor((Date.now() - new Date(start).getTime()) / 864e5);
+    return { start: start, daysLeft: daysLeft, active: daysLeft > 0 };
+  }
+  window.__trialState = trialState;
+
+  // Onboarding / paywall abandon tracking — page lifecycle hooks only.
+  function funnelSnapshot(){
+    var fields = ['userName','userAge','ta','goal'].filter(function(id){
+      var el = document.getElementById(id);
+      return el && el.value && el.value !== '0';
+    }).length;
+    return { step: typeof step !== 'undefined' ? step : 0, quizQ: typeof quizQ !== 'undefined' ? quizQ : -1, fields: fields, hasProgram: !!ls(K.PG, null) };
+  }
+  function onLeave(){
+    var s = funnelSnapshot();
+    var sub = null; try{ sub = JSON.parse(localStorage.getItem('mos_subscription')); }catch(e){}
+    var active = !!(sub && sub.active);
+    var ov = document.getElementById('subOverlay');
+    var paywallOpen = ov && ov.style.display === 'flex' && !active;
+    if(paywallOpen) evLog('paywall_abandon');
+    if(s.step === 1 && !s.hasProgram) evLog('onboard_abandon', { q: s.quizQ, fields: s.fields });
+    var st = trialState();
+    if(!active && !st.active) evLog('trial_expired', {}, 'once');
+  }
+  window.addEventListener('pagehide', onLeave);
+  document.addEventListener('visibilitychange', function(){ if(document.visibilityState === 'hidden') onLeave(); });
   // ── Weak Points Grid ──
   function renderWeakPoints(){
     var g=document.getElementById('weakGrid');if(!g)return;g.innerHTML='';
@@ -3310,7 +3396,7 @@ select option{background:var(--card)}
   }
   function renderPlateaus(){
     var card=document.getElementById('plateauCard');
-    var pl=detectPlateaus();
+    var pl=detectPlateaus();if(pl.length)evLog('plateau_note',{exs:pl.map(function(p){return p.ex;})},'pl_'+new Date().toISOString().split('T')[0]);
     if(!pl.length){card.style.display='none';return;}
     var html='<div class="pc-title">⚠ '+_('plateau_title')+'</div>';
     pl.forEach(function(p){
@@ -3325,7 +3411,7 @@ select option{background:var(--card)}
   }
   document.getElementById('plateauCard').addEventListener('click',function(ev){
     var b=ev.target.closest('.pc-btn');if(!b)return;
-    var ex=b.dataset.ex;
+    var ex=b.dataset.ex;evLog('plateau_'+b.dataset.action,{ex:ex});
     if(b.dataset.action==='swap'){
       var p=null;detectPlateaus().forEach(function(x){if(x.ex===ex)p=x;});
       if(!p||p.di<0)return;
@@ -3338,7 +3424,7 @@ select option{background:var(--card)}
       document.getElementById('mesoWeeks').value='10';
       go(35);renderMesoConfig();
     }else if(b.dataset.action==='deload'){
-      var dt=dlTracker();dt.lastDeload=new Date().toISOString().split('T')[0];dt.sessions=0;dt.overshoots=0;ss(K.DT,dt);
+      var dt=dlTracker();dt.lastDeload=new Date().toISOString().split('T')[0];dt.sessions=0;dt.overshoots=0;ss(K.DT,dt);evLog('deload_marked',{src:'plateau'});
       alert(_('alert_deload_marked'));
       renderDashboard();
     }
@@ -3840,7 +3926,7 @@ select option{background:var(--card)}
 
   var step=1,dayIdx=0,splitKey='upper_lower_4',quizMode=false,quizQ=0,quizA={};
   var makeupDays={},missedSkip=false,lightDays={},lightProceed={};
-  function go(n){step=n;document.querySelectorAll('.step-content').forEach(function(s){s.classList.remove('active')});var el=document.getElementById('step'+n);if(el)el.classList.add('active');document.querySelectorAll('.step').forEach(function(s){var sn=parseInt(s.dataset.step);s.classList.remove('active','done');if(sn===n)s.classList.add('active');else if(sn<n)s.classList.add('done');});window.scrollTo(0,0);}
+  function go(n){step=n;evLog('screen_'+n);document.querySelectorAll('.step-content').forEach(function(s){s.classList.remove('active')});var el=document.getElementById('step'+n);if(el)el.classList.add('active');document.querySelectorAll('.step').forEach(function(s){var sn=parseInt(s.dataset.step);s.classList.remove('active','done');if(sn===n)s.classList.add('active');else if(sn<n)s.classList.add('done');});window.scrollTo(0,0);}
   document.querySelectorAll('.step').forEach(function(s){s.addEventListener('click',function(){var n=parseInt(this.dataset.step);if(n<=step)go(n);})});
 
   // ═══════════════════════════════════════
@@ -4308,7 +4394,7 @@ select option{background:var(--card)}
   document.getElementById('prioBackBtn').addEventListener('click',function(){document.getElementById('prioPanel').classList.remove('show');});
   document.getElementById('prioContBtn').addEventListener('click',function(){
     var pr=getPriority();
-    if(!pr.muscles.length){document.getElementById('prioNeed').style.display='block';return;}
+    if(!pr.muscles.length){document.getElementById('prioNeed').style.display='block';return;}evLog('onboard_done',{muscles:pr.muscles.length});
     var targets=ls(K.VT,{}),changed=false;
     pr.muscles.forEach(function(pm){
       var t=targets[pm.m];
@@ -5288,7 +5374,7 @@ select option{background:var(--card)}
     // Deload bar
     var dt=dlTracker(),ov=dt.overshoots||0,deload=shouldDeload(dt,age,ov);
     var db=document.getElementById('deloadBar');
-    if(dt.sessions>0){db.style.display='flex';db.className='deload-bar'+(deload.yes?' deload-now':'');db.innerHTML=deload.yes?'<span class="db-warn">⚠ '+_('deload_now')+': '+deload.reason+'</span><span style="font-size:.5rem;color:rgba(250,250,248,.3)">'+deload.fix+'</span>':'<span class="db-lbl">'+_('weeks_since_deload')+'</span><span class="db-val">'+dt.sessions+'</span><span class="db-warn">'+(deloadInterval(age)-dt.sessions)+' '+_('wk_until_deload')+'</span>';}
+    if(dt.sessions>0){db.style.display='flex';db.className='deload-bar'+(deload.yes?' deload-now':'');db.innerHTML=deload.yes?'<span class="db-warn">⚠ '+_('deload_now')+': '+deload.reason+'</span><span style="font-size:.5rem;color:rgba(250,250,248,.3)">'+deload.fix+'</span>':'<span class="db-lbl">'+_('weeks_since_deload')+'</span><span class="db-val">'+dt.sessions+'</span><span class="db-warn">'+(deloadInterval(age)-dt.sessions)+' '+_('wk_until_deload')+'</span>';if(deload.yes)evLog('deload_prompt',{reason:deload.reason},'dp_'+new Date().toISOString().split('T')[0]);}
     else db.style.display='none';
 
     renderMissedBanner();
@@ -5414,7 +5500,7 @@ select option{background:var(--card)}
   function setTimerSoundEnabled(ex,on){
     try{sessionStorage.setItem('mos_timer_sound_'+ex,on?'true':'false');}catch(e){}
   }
-  function startRestTimer(ex){
+  function startRestTimer(ex){evLog('rest_timer',{ex:ex});
     if(restTimers[ex]&&restTimers[ex].interval)return;
     var el=document.querySelector('.rest-timer[data-ex="'+ex+'"]');
     if(!el)return;
@@ -5474,7 +5560,7 @@ select option{background:var(--card)}
     var note = diff <= 0.25 ? '' : _('plate_unachievable');
     return {weight: totalWeight, plates: plates, perSideWeight: perSide, achieved: achieved, note: note};
   }
-  function showPlateCalculator(weight, event){
+  function showPlateCalculator(weight, event){evLog('plate_calc',{w:weight});
     var result = calculatePlates(weight);
     var modal = document.getElementById('plateModal');
     if(!modal){
@@ -5527,7 +5613,7 @@ select option{background:var(--card)}
     var sid=('c_'+di+'_'+ex.n).replace(/[^a-zA-Z0-9]/g,'_');
     var pr=null;
     if(sugg&&sugg.w&&sugg.r)pr=checkPR(ex.n,sugg.w,sugg.r,hist);
-    var prHtml=pr?pr.isPR?' <span class="pr-badge" style="color:#F4C93B;border-color:#F4C93B">'+_('pr_badge_pr')+'</span>':pr.note.includes('nearby')?' <span class="pr-badge" style="color:#FF9800;border-color:rgba(255,152,0,.3)">'+_('pr_badge_close')+'</span>':'':'';
+    var prHtml=pr?pr.isPR?' <span class="pr-badge" style="color:#F4C93B;border-color:#F4C93B">'+_('pr_badge_pr')+'</span>':pr.note.includes('nearby')?' <span class="pr-badge" style="color:#FF9800;border-color:rgba(255,152,0,.3)">'+_('pr_badge_close')+'</span>':'':'';if(pr&&pr.isPR)evLog('pr_badge',{ex:ex.n});
     var isMain=MAIN_LIFTS.indexOf(ex.n)>=0;
     var perHtml='';
     if(peri&&isMain){mainLiftRPE(peri,wkCount||1,goal,day.n);perHtml=' <span class="per-badge">'+peri.name+'</span>';}
@@ -5723,7 +5809,7 @@ select option{background:var(--card)}
     html+=renderGeneralWarmup(day.n);
     if(day.ssSuggested)html+='<div style="font-size:.5rem;color:#F4C93B;text-align:center;margin:2px 0 6px">⚡ '+_('sess_suggest_ss')+'</div>';
 
-    if(fs&&fs.adjust<=-1&&!lightDays[di]&&!lightProceed[di]){
+    if(fs&&fs.adjust<=-1&&!lightDays[di]&&!lightProceed[di]){evLog('fat_gate',{di:di,score:fs.score});
       html+='<div class="fat-light-banner"><span class="flb-title">'+_('fat_light_title')+'</span>'+
         '<span class="flb-desc">'+_('fat_light_desc')+'</span>'+
         '<div class="flb-btns"><button class="fat-light-btn" data-di="'+di+'" data-light="1">'+_('fat_light_btn')+'</button>'+
@@ -5752,7 +5838,7 @@ select option{background:var(--card)}
     container.querySelectorAll('.sw-ex-btn').forEach(function(b){b.addEventListener('click',function(){var p=b.parentElement.parentElement.querySelector('.swap-panel');if(p)p.classList.toggle('open');});});
     container.querySelectorAll('.swap-chip').forEach(function(chip){chip.addEventListener('click',function(){swapEx(parseInt(chip.dataset.di),parseInt(chip.dataset.idx),chip.dataset.ex,chip.dataset.to);});});
     container.querySelectorAll('.pain-btn').forEach(function(b){b.addEventListener('click',function(){var pf=painFlags();pf[this.dataset.ex]=this.dataset.p;ss(K.PF,pf);renderDay(di);});});
-    container.querySelectorAll('.fat-light-btn').forEach(function(b){b.addEventListener('click',function(){if(this.dataset.gm!==undefined)return;var i=parseInt(this.dataset.di);if(this.dataset.light==='1')lightDays[i]=true;else lightProceed[i]=true;renderDay(i);});});
+    container.querySelectorAll('.fat-light-btn').forEach(function(b){b.addEventListener('click',function(){if(this.dataset.gm!==undefined)return;var i=parseInt(this.dataset.di);evLog(this.dataset.light==='1'?'fat_gate_light':'fat_gate_proceed',{di:i});if(this.dataset.light==='1')lightDays[i]=true;else lightProceed[i]=true;renderDay(i);});});
     container.querySelectorAll('.sr-chip').forEach(function(b){b.addEventListener('click',function(){saveSoreness(b.dataset.m,parseInt(b.dataset.v,10));renderDay(parseInt(b.dataset.di,10));});});
     container.querySelectorAll('.fat-light-btn[data-gm]').forEach(function(b){b.addEventListener('click',function(){var fo=ls(K.FO,{}),wk=weekStartISO();if(!fo[wk])fo[wk]={};fo[wk][b.dataset.gm]=parseInt(b.dataset.gfreq,10);ss(K.FO,fo);renderDay(parseInt(b.dataset.di,10));});});
     container.querySelectorAll('.rt-start').forEach(function(b){b.addEventListener('click',function(){startRestTimer(this.dataset.ex);});});
@@ -5815,7 +5901,7 @@ select option{background:var(--card)}
     var wasComplete=logs[td][eid].sets[si].w&&logs[td][eid].sets[si].r&&logs[td][eid].sets[si].rpe&&parseFloat(logs[td][eid].sets[si].w)>0&&parseInt(logs[td][eid].sets[si].r)>0&&parseFloat(logs[td][eid].sets[si].rpe)>0;
     logs[td][eid].sets[si][f]=v;ss(K.LG,logs);
     var nowComplete=logs[td][eid].sets[si].w&&logs[td][eid].sets[si].r&&logs[td][eid].sets[si].rpe&&parseFloat(logs[td][eid].sets[si].w)>0&&parseInt(logs[td][eid].sets[si].r)>0&&parseFloat(logs[td][eid].sets[si].rpe)>0;
-    var firstCompleteForEx=!wasComplete&&nowComplete&&!isWu;
+    var firstCompleteForEx=!wasComplete&&nowComplete&&!isWu;if(isWu&&nowComplete)evLog('warmup_used',{ex:en},'wu_'+td+'_'+en);
     if(firstCompleteForEx){
       var otherComplete=false;
       (logs[td][eid].sets||[]).forEach(function(st,idx){if(idx!==si&&!st.wu&&st.w&&st.r&&st.rpe&&parseFloat(st.w)>0&&parseInt(st.r)>0&&parseFloat(st.rpe)>0)otherComplete=true;});
@@ -6240,7 +6326,7 @@ select option{background:var(--card)}
   }
 
   document.getElementById('backToDashBtn').addEventListener('click',function(){go(4);renderDashboard();});
-  document.getElementById('markDeloadBtn').addEventListener('click',function(){
+  document.getElementById('markDeloadBtn').addEventListener('click',function(){evLog('deload_marked',{src:'history'});
     if(!confirm(_('confirm_mark_deload')))return;
     var dt=dlTracker();dt.lastDeload=new Date().toISOString().split('T')[0];dt.sessions=0;dt.overshoots=0;ss(K.DT,dt);
     alert(_('alert_deload_marked'));
@@ -6355,11 +6441,11 @@ select option{background:var(--card)}
     var pw=document.getElementById('syncPwInput').value.trim();
     if(!key||key.length<4){alert(_('sync_fail'));return;}
     if(!confirm(_('sync_confirm_upload')))return;
-    ss(SYNC_KEY,key);ss(SYNC_PW,pw);
+    ss(SYNC_KEY,key);ss(SYNC_PW,pw);evLog('sync_push');
     fetch(SYNC_BASE+'/'+encodeURIComponent(key),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pw:pw,data:syncPayload()})})
     .then(function(r){return r.json();})
     .then(function(j){
-      if(j.status==='ok'){ss(SYNC_LAST,new Date().toISOString());alert(_('sync_done'));hideSync();}
+      if(j.status==='ok'){ss(SYNC_LAST,new Date().toISOString());evLog('sync_push_ok');alert(_('sync_done'));hideSync();}
       else alert(_('sync_fail')+': '+(j.error||''));
     })
     .catch(function(){alert(_('sync_fail'));});
@@ -6369,7 +6455,7 @@ select option{background:var(--card)}
     var pw=document.getElementById('syncPwInput').value.trim();
     if(!key||key.length<4){alert(_('sync_fail'));return;}
     if(!confirm(_('sync_confirm_download')))return;
-    ss(SYNC_KEY,key);ss(SYNC_PW,pw);
+    ss(SYNC_KEY,key);ss(SYNC_PW,pw);evLog('sync_pull');
     fetch(SYNC_BASE+'/'+encodeURIComponent(key)+'?pw='+encodeURIComponent(pw))
     .then(function(r){return r.json();})
     .then(function(j){
@@ -6377,7 +6463,7 @@ select option{background:var(--card)}
         var size=new TextEncoder().encode(JSON.stringify(j.data)).length;
         if(size>1048576){alert(_('sync_fail'));return;}
         Object.keys(j.data).forEach(function(k){localStorage.setItem(k,JSON.stringify(j.data[k]));});
-        ss(SYNC_LAST,new Date().toISOString());
+        ss(SYNC_LAST,new Date().toISOString());evLog('sync_pull_ok');
         alert(_('sync_done'));
         hideSync();
         location.reload();
@@ -6593,8 +6679,10 @@ select option{background:var(--card)}
       body: JSON.stringify({ code: code, productId: 'training_tool', session: gs ? gs.session : undefined })
     }).then(function(r){ return r.json(); }).then(function(data){
       if(data && data.valid){
+        if(window.__evLog)window.__evLog('code_accepted',{plan:data.plan||'pro_training'});
         grantAndReload(data.plan || 'pro_training', (data.expiresAt || '').slice(0, 10), data.token || '', code, email);
       } else {
+        if(window.__evLog)window.__evLog('code_rejected');
         var msg = t('sub_err_invalid', 'Invalid code. Please check and try again.');
         if(data && data.error === 'code_used_by_other') msg = t('sub_err_used_by_other', 'This code is already linked to another account.');
         if(data && data.error === 'code_exhausted') msg = t('sub_err_exhausted', 'This code has already been used.');
@@ -6656,7 +6744,7 @@ select option{background:var(--card)}
   }
 
   if(!active){
-    document.getElementById('subOverlay').style.display = 'flex';
+    document.getElementById('subOverlay').style.display = 'flex';if(window.__evLog)window.__evLog('paywall_shown');
     var gs = getGs();
     var started = false;
     function start(){
@@ -6697,7 +6785,7 @@ select option{background:var(--card)}
     document.getElementById('subVerify').addEventListener('click', function(){
       var btn = document.getElementById('subVerify');
       var code = document.getElementById('subCode').value.trim().toUpperCase();
-      if(!code){ showErr('subError', t('sub_err_invalid', 'Invalid code. Please check and try again.')); return; }
+      if(!code){ showErr('subError', t('sub_err_invalid', 'Invalid code. Please check and try again.')); if(window.__evLog)window.__evLog('code_attempt',{empty:true}); return; }
       var g = getGs();
       var email = g ? g.email : '';
       if(email.toUpperCase() === OWNER_EMAIL){
@@ -6705,7 +6793,7 @@ select option{background:var(--card)}
         grantAndReload('pro_training', expiry.toISOString().split('T')[0], '', 'OWNER', email);
         return;
       }
-      verifyCode(code, email, btn);
+      verifyCode(code, email, btn);if(window.__evLog)window.__evLog('code_attempt');
     });
     document.getElementById('subCode').addEventListener('keydown', function(e){
       if(e.key === 'Enter') document.getElementById('subVerify').click();

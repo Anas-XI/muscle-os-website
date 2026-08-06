@@ -202,7 +202,7 @@
     // Deload bar
     var dt=dlTracker(),ov=dt.overshoots||0,deload=shouldDeload(dt,age,ov);
     var db=document.getElementById('deloadBar');
-    if(dt.sessions>0){db.style.display='flex';db.className='deload-bar'+(deload.yes?' deload-now':'');db.innerHTML=deload.yes?'<span class="db-warn">⚠ '+_('deload_now')+': '+deload.reason+'</span><span style="font-size:.5rem;color:rgba(250,250,248,.3)">'+deload.fix+'</span>':'<span class="db-lbl">'+_('weeks_since_deload')+'</span><span class="db-val">'+dt.sessions+'</span><span class="db-warn">'+(deloadInterval(age)-dt.sessions)+' '+_('wk_until_deload')+'</span>';}
+    if(dt.sessions>0){db.style.display='flex';db.className='deload-bar'+(deload.yes?' deload-now':'');db.innerHTML=deload.yes?'<span class="db-warn">⚠ '+_('deload_now')+': '+deload.reason+'</span><span style="font-size:.5rem;color:rgba(250,250,248,.3)">'+deload.fix+'</span>':'<span class="db-lbl">'+_('weeks_since_deload')+'</span><span class="db-val">'+dt.sessions+'</span><span class="db-warn">'+(deloadInterval(age)-dt.sessions)+' '+_('wk_until_deload')+'</span>';if(deload.yes)evLog('deload_prompt',{reason:deload.reason},'dp_'+new Date().toISOString().split('T')[0]);}
     else db.style.display='none';
 
     renderMissedBanner();
@@ -328,7 +328,7 @@
   function setTimerSoundEnabled(ex,on){
     try{sessionStorage.setItem('mos_timer_sound_'+ex,on?'true':'false');}catch(e){}
   }
-  function startRestTimer(ex){
+  function startRestTimer(ex){evLog('rest_timer',{ex:ex});
     if(restTimers[ex]&&restTimers[ex].interval)return;
     var el=document.querySelector('.rest-timer[data-ex="'+ex+'"]');
     if(!el)return;
@@ -388,7 +388,7 @@
     var note = diff <= 0.25 ? '' : _('plate_unachievable');
     return {weight: totalWeight, plates: plates, perSideWeight: perSide, achieved: achieved, note: note};
   }
-  function showPlateCalculator(weight, event){
+  function showPlateCalculator(weight, event){evLog('plate_calc',{w:weight});
     var result = calculatePlates(weight);
     var modal = document.getElementById('plateModal');
     if(!modal){
@@ -441,7 +441,7 @@
     var sid=('c_'+di+'_'+ex.n).replace(/[^a-zA-Z0-9]/g,'_');
     var pr=null;
     if(sugg&&sugg.w&&sugg.r)pr=checkPR(ex.n,sugg.w,sugg.r,hist);
-    var prHtml=pr?pr.isPR?' <span class="pr-badge" style="color:#F4C93B;border-color:#F4C93B">'+_('pr_badge_pr')+'</span>':pr.note.includes('nearby')?' <span class="pr-badge" style="color:#FF9800;border-color:rgba(255,152,0,.3)">'+_('pr_badge_close')+'</span>':'':'';
+    var prHtml=pr?pr.isPR?' <span class="pr-badge" style="color:#F4C93B;border-color:#F4C93B">'+_('pr_badge_pr')+'</span>':pr.note.includes('nearby')?' <span class="pr-badge" style="color:#FF9800;border-color:rgba(255,152,0,.3)">'+_('pr_badge_close')+'</span>':'':'';if(pr&&pr.isPR)evLog('pr_badge',{ex:ex.n});
     var isMain=MAIN_LIFTS.indexOf(ex.n)>=0;
     var perHtml='';
     if(peri&&isMain){mainLiftRPE(peri,wkCount||1,goal,day.n);perHtml=' <span class="per-badge">'+peri.name+'</span>';}
@@ -637,7 +637,7 @@
     html+=renderGeneralWarmup(day.n);
     if(day.ssSuggested)html+='<div style="font-size:.5rem;color:#F4C93B;text-align:center;margin:2px 0 6px">⚡ '+_('sess_suggest_ss')+'</div>';
 
-    if(fs&&fs.adjust<=-1&&!lightDays[di]&&!lightProceed[di]){
+    if(fs&&fs.adjust<=-1&&!lightDays[di]&&!lightProceed[di]){evLog('fat_gate',{di:di,score:fs.score});
       html+='<div class="fat-light-banner"><span class="flb-title">'+_('fat_light_title')+'</span>'+
         '<span class="flb-desc">'+_('fat_light_desc')+'</span>'+
         '<div class="flb-btns"><button class="fat-light-btn" data-di="'+di+'" data-light="1">'+_('fat_light_btn')+'</button>'+
@@ -666,7 +666,7 @@
     container.querySelectorAll('.sw-ex-btn').forEach(function(b){b.addEventListener('click',function(){var p=b.parentElement.parentElement.querySelector('.swap-panel');if(p)p.classList.toggle('open');});});
     container.querySelectorAll('.swap-chip').forEach(function(chip){chip.addEventListener('click',function(){swapEx(parseInt(chip.dataset.di),parseInt(chip.dataset.idx),chip.dataset.ex,chip.dataset.to);});});
     container.querySelectorAll('.pain-btn').forEach(function(b){b.addEventListener('click',function(){var pf=painFlags();pf[this.dataset.ex]=this.dataset.p;ss(K.PF,pf);renderDay(di);});});
-    container.querySelectorAll('.fat-light-btn').forEach(function(b){b.addEventListener('click',function(){if(this.dataset.gm!==undefined)return;var i=parseInt(this.dataset.di);if(this.dataset.light==='1')lightDays[i]=true;else lightProceed[i]=true;renderDay(i);});});
+    container.querySelectorAll('.fat-light-btn').forEach(function(b){b.addEventListener('click',function(){if(this.dataset.gm!==undefined)return;var i=parseInt(this.dataset.di);evLog(this.dataset.light==='1'?'fat_gate_light':'fat_gate_proceed',{di:i});if(this.dataset.light==='1')lightDays[i]=true;else lightProceed[i]=true;renderDay(i);});});
     container.querySelectorAll('.sr-chip').forEach(function(b){b.addEventListener('click',function(){saveSoreness(b.dataset.m,parseInt(b.dataset.v,10));renderDay(parseInt(b.dataset.di,10));});});
     container.querySelectorAll('.fat-light-btn[data-gm]').forEach(function(b){b.addEventListener('click',function(){var fo=ls(K.FO,{}),wk=weekStartISO();if(!fo[wk])fo[wk]={};fo[wk][b.dataset.gm]=parseInt(b.dataset.gfreq,10);ss(K.FO,fo);renderDay(parseInt(b.dataset.di,10));});});
     container.querySelectorAll('.rt-start').forEach(function(b){b.addEventListener('click',function(){startRestTimer(this.dataset.ex);});});
@@ -729,7 +729,7 @@
     var wasComplete=logs[td][eid].sets[si].w&&logs[td][eid].sets[si].r&&logs[td][eid].sets[si].rpe&&parseFloat(logs[td][eid].sets[si].w)>0&&parseInt(logs[td][eid].sets[si].r)>0&&parseFloat(logs[td][eid].sets[si].rpe)>0;
     logs[td][eid].sets[si][f]=v;ss(K.LG,logs);
     var nowComplete=logs[td][eid].sets[si].w&&logs[td][eid].sets[si].r&&logs[td][eid].sets[si].rpe&&parseFloat(logs[td][eid].sets[si].w)>0&&parseInt(logs[td][eid].sets[si].r)>0&&parseFloat(logs[td][eid].sets[si].rpe)>0;
-    var firstCompleteForEx=!wasComplete&&nowComplete&&!isWu;
+    var firstCompleteForEx=!wasComplete&&nowComplete&&!isWu;if(isWu&&nowComplete)evLog('warmup_used',{ex:en},'wu_'+td+'_'+en);
     if(firstCompleteForEx){
       var otherComplete=false;
       (logs[td][eid].sets||[]).forEach(function(st,idx){if(idx!==si&&!st.wu&&st.w&&st.r&&st.rpe&&parseFloat(st.w)>0&&parseInt(st.r)>0&&parseFloat(st.rpe)>0)otherComplete=true;});

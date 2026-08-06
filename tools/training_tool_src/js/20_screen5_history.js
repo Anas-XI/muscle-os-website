@@ -192,7 +192,7 @@
   }
 
   document.getElementById('backToDashBtn').addEventListener('click',function(){go(4);renderDashboard();});
-  document.getElementById('markDeloadBtn').addEventListener('click',function(){
+  document.getElementById('markDeloadBtn').addEventListener('click',function(){evLog('deload_marked',{src:'history'});
     if(!confirm(_('confirm_mark_deload')))return;
     var dt=dlTracker();dt.lastDeload=new Date().toISOString().split('T')[0];dt.sessions=0;dt.overshoots=0;ss(K.DT,dt);
     alert(_('alert_deload_marked'));

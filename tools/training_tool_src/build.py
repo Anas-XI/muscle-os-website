@@ -11,9 +11,12 @@ Usage:
     python build.py                # assemble parts -> training_tool.html + 7 mirrors
     python build.py --check-js     # node --check on the concatenated JS
     python build.py --verify       # assert current file == assembled parts
+    python build.py --ranges       # recompute PARTS line ranges from part files
 
 To add a part: insert a (kind, path, start, end) entry in PARTS. 'file' parts
 are 1-indexed inclusive line slices; 'text' parts are literal strings.
+After adding a part (or any line-count-changing edit), run
+`python build.py --ranges` to refresh the line ranges, then `--verify`.
 """
 
 import hashlib
@@ -64,36 +67,37 @@ PARTS = [
     ("file", "body/04_screen35_meso.html", 1012, 1205),
     ("file", "body/05_screen5_history.html", 1206, 1298),
     ("file", "js/01_open.js", 1299, 1300),
-    ("file", "js/02_data.js", 1301, 1332),
-    ("file", "js/03_i18n.js", 1333, 2085),
-    ("file", "js/04_lang_toggle.js", 2086, 2152),
-    ("file", "js/05_injury_joints.js", 2153, 2465),
-    ("file", "js/06_pools_svg.js", 2466, 2505),
-    ("file", "js/07_guides_meta.js", 2506, 2796),
-    ("file", "js/08_rpe_splits.js", 2797, 2945),
-    ("file", "js/09_pl_weakpoints_quiz.js", 2946, 3064),
-    ("file", "js/10_engines.js", 3065, 3836),
-    ("file", "js/11_layer1_volprio.js", 3837, 4327),
-    ("file", "js/12_layer3_est_router.js", 4328, 4491),
-    ("file", "js/13_screen2_split.js", 4492, 4578),
-    ("file", "js/14_screen25_picker.js", 4579, 4882),
-    ("file", "js/15_screen3_generate.js", 4883, 4978),
-    ("file", "js/16_share_card.js", 4979, 5050),
-    ("file", "js/17_screen4_dash.js", 5051, 5086),
-    ("file", "js/18_features.js", 5087, 5874),
-    ("file", "js/19_wiring.js", 5875, 6048),
-    ("file", "js/20_screen5_history.js", 6049, 6249),
-    ("file", "js/21_export_import.js", 6250, 6271),
-    ("file", "js/22_init.js", 6272, 6308),
-    ("file", "js/23_data_sync.js", 6309, 6397),
-    ("file", "js/24_custom_exercises.js", 6398, 6426),
-    ("file", "js/25_library.js", 6427, 6481),
-    ("file", "js/26_close.js", 6482, 6482),
-    ("file", "modals.html", 6483, 6531),
-    ("file", "js/27_modals_open.js", 6532, 6533),
-    ("file", "js/28_modals.js", 6534, 6721),
-    ("file", "js/29_close.js", 6722, 6722),
-    ("file", "body_close.html", 6723, 6724),
+    ("file", "js/02_data.js", 1301, 1334),
+    ("file", "js/03_i18n.js", 1335, 2119),
+    ("file", "js/04_lang_toggle.js", 2120, 2186),
+    ("file", "js/05_injury_joints.js", 2187, 2499),
+    ("file", "js/06_pools_svg.js", 2500, 2539),
+    ("file", "js/07_guides_meta.js", 2540, 2830),
+    ("file", "js/08_rpe_splits.js", 2831, 2979),
+    ("file", "js/08b_events.js", 2980, 3031),
+    ("file", "js/09_pl_weakpoints_quiz.js", 3032, 3150),
+    ("file", "js/10_engines.js", 3151, 3922),
+    ("file", "js/11_layer1_volprio.js", 3923, 4413),
+    ("file", "js/12_layer3_est_router.js", 4414, 4577),
+    ("file", "js/13_screen2_split.js", 4578, 4664),
+    ("file", "js/14_screen25_picker.js", 4665, 4968),
+    ("file", "js/15_screen3_generate.js", 4969, 5064),
+    ("file", "js/16_share_card.js", 5065, 5136),
+    ("file", "js/17_screen4_dash.js", 5137, 5172),
+    ("file", "js/18_features.js", 5173, 5960),
+    ("file", "js/19_wiring.js", 5961, 6134),
+    ("file", "js/20_screen5_history.js", 6135, 6335),
+    ("file", "js/21_export_import.js", 6336, 6357),
+    ("file", "js/22_init.js", 6358, 6394),
+    ("file", "js/23_data_sync.js", 6395, 6483),
+    ("file", "js/24_custom_exercises.js", 6484, 6512),
+    ("file", "js/25_library.js", 6513, 6567),
+    ("file", "js/26_close.js", 6568, 6568),
+    ("file", "modals.html", 6569, 6617),
+    ("file", "js/27_modals_open.js", 6618, 6619),
+    ("file", "js/28_modals.js", 6620, 6809),
+    ("file", "js/29_close.js", 6810, 6810),
+    ("file", "body_close.html", 6811, 6812),
 ]
 
 
@@ -184,6 +188,34 @@ def verify():
     return False
 
 
+def update_ranges():
+    """Recompute PARTS line ranges from the part files' current line counts.
+
+    Ranges are prefix sums over file line counts, which is exactly how
+    extract() slices the canonical back into parts. Rewrites the PARTS
+    literal in this file in place.
+    """
+    out = []
+    cur = 1
+    for kind, rel, _s, _e in PARTS:
+        if kind != "file":
+            out.append((kind, rel, _s, _e))
+            continue
+        n = len(read_lines(part_path(rel)))
+        out.append((kind, rel, cur, cur + n - 1))
+        cur += n
+    with open(__file__, "r", encoding="utf-8") as f:
+        src = f.read()
+    new_block = "PARTS = [\n" + "".join(
+        '    ("%s", "%s", %d, %d),\n' % (k, r, s, e) for k, r, s, e in out
+    ) + "]"
+    import re
+    src2 = re.sub(r"PARTS = \[.*?\n\]", new_block, src, count=1, flags=re.S)
+    with open(__file__, "w", encoding="utf-8", newline="\n") as f:
+        f.write(src2)
+    print("ranges updated: %d parts" % len(out))
+
+
 def main():
     if "--extract" in sys.argv:
         extract()
@@ -192,6 +224,9 @@ def main():
         return 0 if check_js() else 1
     if "--verify" in sys.argv:
         return 0 if verify() else 1
+    if "--ranges" in sys.argv:
+        update_ranges()
+        return 0
     data = assemble()
     write_canonical_and_mirrors(data)
     ok = check_js()
