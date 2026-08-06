@@ -221,20 +221,29 @@
   }
 
   // ── Split recommendation (priority-aware) + structural conflict ──
+  function cycleLengthOf(split){
+    if(!split||!split.days)return 7;
+    return split.days.length||7;
+  }
   function muscleFrequencyInSplit(split,m){
     if(!split||!split.days)return 0;
     var n=0;
     split.days.forEach(function(day){
       if(day.restDay)return;
-      if(day.ex.some(function(ex){return ex.p===m||(ex.se||[]).indexOf(m)>=0;}))n++;
+      if(day.ex&&day.ex.some(function(ex){return ex.p===m||(ex.se||[]).indexOf(m)>=0;}))n++;
+      else if(day.muscleGroups&&day.muscleGroups.indexOf(m)>=0)n++;
     });
     return n;
+  }
+  function freq7Of(split,m){
+    var cyc=cycleLengthOf(split);
+    return muscleFrequencyInSplit(split,m)/cyc*7;
   }
   function prioritySatisfaction(split,pr){
     var out={score:0,list:[]};
     (pr.muscles||[]).forEach(function(pm){
-      var f=muscleFrequencyInSplit(split,pm.m),ok=f>=pm.freq;
-      out.list.push({m:pm.m,f:f,need:pm.freq,ok:ok});
+      var f=muscleFrequencyInSplit(split,pm.m),f7=Math.round(freq7Of(split,pm.m)*10)/10,ok=f7>=pm.freq;
+      out.list.push({m:pm.m,f:f,f7:f7,need:pm.freq,ok:ok});
       if(ok)out.score++;
     });
     return out;
@@ -267,12 +276,12 @@
     var bad=sat.list.filter(function(x){return !x.ok;});
     if(!bad.length){
       box.style.display='block';box.className='conflict-box ok';
-      box.innerHTML='✓ '+sat.list.map(function(x){return(MUSCLE_NAME[x.m]||x.m)+' '+x.f+'x/w ('+_('split_conflict_ok')+' '+x.need+'x)';}).join(' · ');
+      box.innerHTML='✓ '+sat.list.map(function(x){return(MUSCLE_NAME[x.m]||x.m)+' '+x.f7+'x/w ('+_('split_conflict_ok')+' '+x.need+'x)';}).join(' · ');
       return;
     }
     box.style.display='block';box.className='conflict-box warn';
     box.innerHTML='<span class="cb-title">⚠ '+_('split_conflict_head')+'</span>'+
-      bad.map(function(x){return(MUSCLE_NAME[x.m]||x.m)+': '+_('split_conflict_body').replace('{F}',x.f).replace('{N}',x.need);}).join('<br>')+
+      bad.map(function(x){return(MUSCLE_NAME[x.m]||x.m)+': '+_('split_conflict_body').replace('{F}',x.f7).replace('{N}',x.need);}).join('<br>')+
       '<br><span class="cb-fix">'+_('split_conflict_fix')+'</span>';
   }
 
@@ -487,5 +496,5 @@
     renderVolumeSplit(targets2,total,vi.ta||'intermediate',vi.goal||'hypertrophy',parseInt(vi.days||4,10));
   });
 
-  window.__pmEngine={getPriority:getPriority,savePriority:savePriority,effortStyleOf:effortStyleOf,lastSessionSets:lastSessionSets,estimateRecoveryCost:estimateRecoveryCost,seededFreq:seededFreq,blendRecovery:blendRecovery,softGateActive:softGateActive,scheduledPriorityMuscles:scheduledPriorityMuscles,renderSorenessCards:renderSorenessCards,muscleFrequencyInSplit:muscleFrequencyInSplit,prioritySatisfaction:prioritySatisfaction,recommendSplit:recommendSplit,renderSplitConflict:renderSplitConflict,SBD_FAMILY:SBD_FAMILY,prHistoryOf:prHistoryOf,hasPrInLastDays:hasPrInLastDays,distributeVolume:distributeVolume,computeSelection:computeSelection,computeAllocation:computeAllocation,renderLiveVol:renderLiveVol,showVolReview:showVolReview,renderVolReview:renderVolReview,renderPrioPanel:renderPrioPanel,weekStartISO:weekStartISO,ls:ls,ss:ss,K:K,MUSCLES:MUSCLES,MUSCLE_NAME:MUSCLE_NAME,SPLITS:SPLITS,determineSplit:determineSplit};
+  window.__pmEngine={getPriority:getPriority,savePriority:savePriority,effortStyleOf:effortStyleOf,lastSessionSets:lastSessionSets,estimateRecoveryCost:estimateRecoveryCost,seededFreq:seededFreq,blendRecovery:blendRecovery,softGateActive:softGateActive,scheduledPriorityMuscles:scheduledPriorityMuscles,renderSorenessCards:renderSorenessCards,cycleLengthOf:cycleLengthOf,muscleFrequencyInSplit:muscleFrequencyInSplit,freq7Of:freq7Of,prioritySatisfaction:prioritySatisfaction,recommendSplit:recommendSplit,renderSplitConflict:renderSplitConflict,SBD_FAMILY:SBD_FAMILY,prHistoryOf:prHistoryOf,hasPrInLastDays:hasPrInLastDays,distributeVolume:distributeVolume,computeSelection:computeSelection,computeAllocation:computeAllocation,renderLiveVol:renderLiveVol,showVolReview:showVolReview,renderVolReview:renderVolReview,renderPrioPanel:renderPrioPanel,weekStartISO:weekStartISO,ls:ls,ss:ss,K:K,MUSCLES:MUSCLES,MUSCLE_NAME:MUSCLE_NAME,SPLITS:SPLITS,determineSplit:determineSplit};
 

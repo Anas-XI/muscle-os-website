@@ -15,7 +15,7 @@
 @media(max-width:600px){
  body{padding:20px 10px}.header h1{font-size:1.6rem}.card{padding:16px 12px}
  .form-row,.form-row-3{grid-template-columns:1fr}.welcome-grid{grid-template-columns:1fr}
- .priority-grid,.split-grid,.summary-dash{grid-template-columns:1fr}.step{font-size:.46rem}
+ .priority-grid,.split-grid,.summary-dash,.cs-muscle-grid{grid-template-columns:1fr}.step{font-size:.46rem}
  .vol-row{grid-template-columns:58px 1fr 34px;font-size:.52rem}.set-row{grid-template-columns:48px 1fr 1fr 1fr 26px}
  .set-log-header{grid-template-columns:48px 1fr 1fr 1fr 26px}.suggest-val{font-size:1.1rem}
 }

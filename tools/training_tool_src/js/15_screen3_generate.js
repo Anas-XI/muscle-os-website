@@ -3,6 +3,8 @@
   // ═══════════════════════════════════════
 
   function generateProgram(k){
+    var spPrev=ls(K.SP,null);
+    if(spPrev&&spPrev.key!==k&&ls(K.PG,null)&&!confirm(_('regen_confirm')))return;
     var split=SPLITS[k],targets=ls(K.VT,{}),vi=ls(K.VI,{}),goal=vi.goal||'hypertrophy',MAX=goal==='strength'?6:5;
     // Apply exercise choices
     var exChoices=ls('mos_ex_choices',{});

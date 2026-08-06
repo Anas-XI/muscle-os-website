@@ -73,6 +73,21 @@
           <button class="btn-primary" id="lockInBtn" data-i18n="vr_lock">Lock In &amp; Generate Program</button>
         </div>
       </div>
+      <div class="ex-sel-panel" id="customSplitPanel">
+        <div class="section-header" data-i18n="cs_title">Custom Split Builder</div>
+        <p style="font-size:.55rem;color:rgba(250,250,248,.2);margin-bottom:8px;line-height:1.2" data-i18n="cs_sub">Design your own weekly schedule — pick the muscles trained each day.</p>
+        <div class="cs-name-row"><input type="text" id="csName" maxlength="40"></div>
+        <div id="csDays"></div>
+        <div class="btn-group" style="margin-top:8px">
+          <button class="btn-secondary" id="csAddDay" data-i18n="cs_add_day">+ Training Day</button>
+          <button class="btn-secondary" id="csAddRest" data-i18n="cs_add_rest">+ Rest Day</button>
+        </div>
+        <div id="csWarn" style="display:none"></div>
+        <div class="btn-group">
+          <button class="btn-primary" id="csCancelBtn" style="background:transparent;border:1.5px solid rgba(250,250,248,.08);color:rgba(250,250,248,.35);font-size:.65rem" data-i18n="back">Back</button>
+          <button class="btn-primary" id="csUseBtn" data-i18n="cs_use">Use This Split</button>
+        </div>
+      </div>
       <div class="btn-group" id="splitBtnGroup">
         <button class="btn-primary" id="backToSetupBtn" style="background:transparent;border:1.5px solid rgba(250,250,248,.08);color:rgba(250,250,248,.35);font-size:.75rem" data-i18n="back_to_setup">Back</button>
         <button class="btn-primary" id="genProgBtn" data-i18n="gen_cta">Generate My Program</button>
