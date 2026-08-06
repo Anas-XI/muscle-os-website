@@ -1,4 +1,29 @@
-﻿# Session State — Volume management + priority muscles + effort-based recovery — DEPLOYING
+﻿# Session State — Session-time estimator + generic coach-routing hook (layer 3) — READY TO DEPLOY
+
+## Status: Layer 3 (Part 5 order: 2a + 3c hook) shipped to `tools/training_tool.html` (4 copies, byte-identical). Additive only — layer 1 and layer 2 behavior unchanged.
+
+## What changed (tools/training_tool.html)
+- **Session time estimator (2a)** — `EST_*` tunable constants (EST_OVERHEAD_SEC=480 setup/transitions/warmup, EST_EXEC compound 40s / isolation 30s per set, EST_REST compound 240s / isolation 150s — mirrors the app's existing rest-timer defaults at exCtx). Model: Σ(sets × (exec+rest)) + overhead. `execTimeOf/restTimeOf` key off `meta(name).t==='compound'`.
+- Picker integration: every non-rest day header in #exSelContent gets an `estChip_<di>` chip (`⏱ ~N min`) + `estWarn_<di>` line. `renderDayEstimates()` runs in showExSelection; `renderDayEstimate(di)` re-runs on every chip click (bindChipClick). When the estimate exceeds `mos_sess_len` (45/60/90): chip turns red (.est-over) + warning "Exceeds your {M}-min session window — Trim: drop {X} (saves ~{M} min) or reduce its sets", where X = highest-cost slot of that day (estTrimPick).
+- Set math: picker uses `estSetsScaled` (volume-target scale, same as generateProgram's pre-VA path); review screen uses `setsForSlotInDay` — an EXACT mirror of generateProgram's per-day VA share math (chosen-name match, slot-weight proportion, MAX cap) — so review-screen estimates match the final program.
+- Review screen: renderVolReview appends `.vr-est` "Estimated session time" block, per-day rows (day + `⏱ ~N min`, `.vr-est-over` when over the window), computed from K.VA + exChoices.
+- **Coach routing hook (3c)** — `SuggestionRouter` (window.__suggestRouter): `register(type,{title,body,apply})`, `route(type,payload)` → self-serve: `{status:'direct'}` surfaced by the feature (call `apply(sug)` on accept); coached (`K.VI.coached`): `{status:'pending_coach'}` appended to `K.CQ='mos_coach_queue'` + `notifyCoach('suggestion',{type,title,body})` ping. `resolve(id,approve)` (coach-side accept/reject, applies via registered applier), `dismiss(id)`, `pending()`, `coached()/setCoached()`. Queue keeps last-6 history with status labels.
+- `#suggestTray` on step4 (renderSuggestTray called from renderDashboard after renderMissedBanner): pending items show "Sent to coach — awaiting decision" + Dismiss; resolved show Coach approved / Coach declined. Hides when empty.
+- `?coached=1` URL param persists `K.VI.coached=true` once (init IIFE near sessLen restore).
+- Locked conventions (documented as constants in code, consumed by future 1b/1c passes): `DELOAD_CONSECUTIVE_SESSIONS=3` (bucket high AND soreness≥7 on 3+ consecutive scheduled sessions), `LAG_RATIO=0.5` (4-week progression < 50% of user median ⇒ lagging), `MESO_WINDOW={minWeeks:4,maxWeeks:8}`.
+- K map: +`CQ:'mos_coach_queue'` (auto-included in export/import/sync via Object.values(K)). i18n: 9 new en+ar keys (est_*, cq_*) — en=ar=321 keys, parity verified.
+- Test hook: `window.__estEngine` (constants, all estimator fns, renderDayEstimate(s), renderSuggestTray, sessWindowMins) + `window.__suggestRouter`.
+
+## Tests
+- smoke_time_coach.js (NEW, 45/45, Playwright+chrome): i18n parity en==ar 321; unit math (exec/rest 40/240 & 30/150, 3xBench=840s, day total = 480+12×280=3840s, rest-day null, VA share 4/6→5-capped & 2/6→3, scale fallback); picker chips 4/4 non-rest days matching engine, overage at 45-min (chip .est-over + warn text + trim names Lat Pulldown), chip-click re-render; review .vr-est rows 4/4 with over flags; router self-serve direct + apply, coached pending + queue + notifyCoach fetch spy (url /notify-coach, body 'suggestion'), resolve(true/false), history statuses, tray render/dismiss/clear, ?coached=1 persistence; zero page errors (GSI_LOGGER + 400 resource noise filtered — file:// Google Sign-In, pre-existing).
+- Regression: smoke_voleng.js 27/27, smoke_exsel.js 24/24 DOM + 21/21 engine — all green, zero page errors.
+- node --check clean. Files: C:\Users\anass\AppData\Local\Temp\opencode\smoke_time_coach.js.
+
+## Deploy (pending): root master commit + 4 copies (done, hashes identical) → public main + master worktrees → gh workflow run "Deploy Website to GitHub Pages (midnight only)" → live-verify ?v=vol3 (markers: #estChip_0 .est-chip, #suggestTray, window.__estEngine, window.__suggestRouter, mos_coach_queue in K).
+
+---
+
+# Session State — Volume management + priority muscles + effort-based recovery — DEPLOYING
 
 ## Status: Priority-muscle + frequency screen (first), priority-aware split recommendation with conflict warnings, weighted volume distribution (live bars in picker + weekly review screen), effort-based recovery estimation (logged RPE with defaults fallback) + soreness check-in with soft-gate, and optional PR-session indirect crediting (SBD-only) shipped to `tools/training_tool.html` (4 copies, byte-identical).
 
