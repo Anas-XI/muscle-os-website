@@ -1,4 +1,23 @@
-﻿# Session State — training_tool.html split into parts (training_tool_src/) — SHIPPED, deploy still deferred
+﻿# Session State — A4 coaching micro-copy shipped on top of part-based refactor — SHIPPED, deploy still deferred
+
+## Status: A4 (Coaching micro-copy pass, last queued FEATURE_PROMPTS.md item — F1–F9/P1–P7/A1–A8 now all DONE) shipped to `tools/training_tool.html` (8 copies, sha256 70ab0cf2). Rebuilt from `training_tool_src/` parts. Deploy remains deferred per GitHub Pages incident.
+
+## A4 changes (all in parts; before → after, en / ar):
+- Logger header set column: (empty) → "Working Sets" / "مجموعات العمل" (new `sets_work`; grid first col 32px→48px in css/01_base.css + mobile override css/13_library.css; first header cell wraps 2 lines via inline style)
+- Logger header weight column: "kg" → "Load (kg)" / "الحمل (كجم)" (new `load`; `weight` key kept for input placeholders/units)
+- Generate CTA button (#genProgBtn): "Build My Program" → "Generate My Program" / "جهّز برنامجي" (new `gen_cta` — button only; `generate` key untouched for step tab/section headers)
+- #dashEmpty (no-exercises day): "No exercises for this day. Select another day or adjust your split." → "This day is empty — pick another day or build your program, then log your first set." / Arabic (new `dash_empty`, now data-i18n'd)
+- hist_log_more: "Log more sessions to see e1RM progression." → "Every session counts — keep logging and the numbers start moving." / Arabic (value change, key stable)
+- hist_log_pr: "Log some sessions to see PRs." → "Your first PR is a few sessions away — log a heavy set." / Arabic (value change, key stable)
+- Unchanged already-coach-toned: `start_training` "Let's Train", `set` "Working Set", `cn_empty`, `confirm_gen`, `vr_lock`.
+
+## Tests: smoke_microcopy.js NEW 35/35 (raw-dict spot checks en+ar, genProgBtn/dashEmpty/Let's Train labels + Arabic toggle, full flow → logger header en+ar, zero page errors; GSI 400 noise filtered). Regression: smoke_time_coach 45/45 (parity en==ar still balanced — line-start counter stays 321 since new keys are mid-line), smoke_voleng 27/27, smoke_exsel 24/24 DOM + 21/21 engine. node --check clean. Screenshots: Temp\opencode\microcopy_header_{en,ar}.png.
+
+## Deploy: STILL DEFERRED (Pages incident). Next deploy = bump marker v3.1→v3.2 in head.html → build → push root/public main/public master → workflow once.
+
+---
+
+# Session State — training_tool.html split into parts (training_tool_src/) — SHIPPED, deploy still deferred
 
 ## Status: Monolithic tools/training_tool.html (6724 lines / ~500KB) refactored into `tools/training_tool_src/` parts + `build.py` assembler. Built output is byte-identical (sha256 efb34980f38a) to the committed v3.1 build across all 8 copies. Layer 3 content unchanged — deploy remains deferred per GitHub Pages incident.
 

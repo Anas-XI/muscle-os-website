@@ -505,7 +505,7 @@
       var padEmpty=(makeupDays[di]||lightDays[di])?Math.max(1,(ex.sets||3)-1):3;
       for(var i2=0;i2<padEmpty;i2++)sets.push({w:'',r:'',rpe:''});
     }
-    var h='<div class="set-log-area"><div class="set-log-header"><span></span><span>'+_('weight')+'</span><span>'+_('reps')+'</span><span>'+_('rpe')+'</span><span></span></div><div class="set-rows-'+('c_'+di+'_'+ex.n).replace(/[^a-zA-Z0-9]/g,'_')+'">';
+    var h='<div class="set-log-area"><div class="set-log-header"><span style="line-height:1.25;white-space:normal;font-size:.42rem;letter-spacing:.2px">'+_('sets_work')+'</span><span>'+_('load')+'</span><span>'+_('reps')+'</span><span>'+_('rpe')+'</span><span></span></div><div class="set-rows-'+('c_'+di+'_'+ex.n).replace(/[^a-zA-Z0-9]/g,'_')+'">';
     sets.forEach(function(set,si){
       var isWu=!!set.wu;
       var wVal = set.w||'';

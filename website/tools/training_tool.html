@@ -190,8 +190,8 @@ select option{background:#1E1E2A;color:var(--text)}
 .pain-btn.active-yellow{background:rgba(255,152,0,.18);border-color:#FF9800}
 .pain-btn.active-red{background:rgba(244,67,54,.18);border-color:#f44336}
 .set-log-area{margin-top:6px}
-.set-log-header{display:grid;grid-template-columns:32px 1fr 1fr 1fr 28px;gap:3px;padding:2px 0;font-size:.48rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:.8px}
-.set-row{display:grid;grid-template-columns:32px 1fr 1fr 1fr 28px;gap:3px;margin-bottom:3px;align-items:center}
+.set-log-header{display:grid;grid-template-columns:48px 1fr 1fr 1fr 28px;gap:3px;padding:2px 0;font-size:.48rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:.8px}
+.set-row{display:grid;grid-template-columns:48px 1fr 1fr 1fr 28px;gap:3px;margin-bottom:3px;align-items:center}
 .set-row .set-lbl{font-size:.5rem;color:var(--text-muted);font-weight:500;text-align:center}
 .set-row.wu-row{background:var(--accent-soft);border-radius:4px;padding:2px 1px}
 .set-row.wu-row .set-lbl{color:var(--accent);font-weight:600}
@@ -619,8 +619,8 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid var(-
  body{padding:20px 10px}.header h1{font-size:1.6rem}.card{padding:16px 12px}
  .form-row,.form-row-3{grid-template-columns:1fr}.welcome-grid{grid-template-columns:1fr}
  .priority-grid,.split-grid,.summary-dash{grid-template-columns:1fr}.step{font-size:.46rem}
- .vol-row{grid-template-columns:58px 1fr 34px;font-size:.52rem}.set-row{grid-template-columns:28px 1fr 1fr 1fr 26px}
- .set-log-header{grid-template-columns:28px 1fr 1fr 1fr 26px}.suggest-val{font-size:1.1rem}
+ .vol-row{grid-template-columns:58px 1fr 34px;font-size:.52rem}.set-row{grid-template-columns:48px 1fr 1fr 1fr 26px}
+ .set-log-header{grid-template-columns:48px 1fr 1fr 1fr 26px}.suggest-val{font-size:1.1rem}
 }
 /* Subscription paywall */
 .sub-overlay{position:fixed;inset:0;z-index:9999;background:var(--overlay);display:none;align-items:center;justify-content:center;padding:24px}
@@ -984,7 +984,7 @@ select option{background:var(--card)}
       </div>
       <div class="btn-group" id="splitBtnGroup">
         <button class="btn-primary" id="backToSetupBtn" style="background:transparent;border:1.5px solid rgba(250,250,248,.08);color:rgba(250,250,248,.35);font-size:.75rem" data-i18n="back_to_setup">Back</button>
-        <button class="btn-primary" id="genProgBtn" data-i18n="generate">Generate Program</button>
+        <button class="btn-primary" id="genProgBtn" data-i18n="gen_cta">Generate My Program</button>
       </div>
       <div style="text-align:center;margin-top:8px"><span class="ce-link" onclick="showCeModal()" data-i18n="ce_add_custom">+ Custom Exercise</span></div>
     </div>
@@ -1120,7 +1120,7 @@ select option{background:var(--card)}
         <div class="summary-card"><div class="summary-val" id="sumExDone">0</div><div class="summary-lbl" data-i18n="exercises">Exercises</div></div>
       </div>
 
-      <div id="dashEmpty" style="display:none;text-align:center;padding:20px;font-size:.7rem;color:rgba(250,250,248,.2)">No exercises for this day. Select another day or adjust your split.</div>
+      <div id="dashEmpty" style="display:none;text-align:center;padding:20px;font-size:.7rem;color:rgba(250,250,248,.2)" data-i18n="dash_empty">This day is empty — pick another day or build your program, then log your first set.</div>
 
       <div id="acwrDash" class="acwr-bar" style="display:none;border:1px solid rgba(250,250,248,.05)"></div>
 
@@ -1362,11 +1362,11 @@ select option{background:var(--card)}
       sessions:'sessions', exercises:'exercises',
       day:'Day', sets:'Sets', reps:'Reps', rest:'Rest',
       warmup:'Warm-up', ramp_sets:'ramp sets',
-      set:'Working Set', weight:'kg', rpe:'RPE', rir:'RIR',
+      set:'Working Set', sets_work:'Working Sets', weight:'kg', load:'Load (kg)', gen_cta:'Generate My Program', rpe:'RPE', rir:'RIR',
       save_readiness:'Save Readiness', skip_today:'Skip Today',
       log_cardio:'Log Cardio', type:'Type', duration_min:'Duration (min)', intensity:'Intensity',
       save_meas:'Save Measurements', cancel:'Cancel',
-      no_data:'No data',
+      no_data:'No data', dash_empty:'This day is empty — pick another day or build your program, then log your first set.',
       today_train:'Today\'s Training', week_row:'This Week', streak:'Week Streak', pre_session:'Pre-Session Readiness',
       complete_week:'Complete Week & Advance', change_split:'Change Split',
       history:'History & Stats', export:'Export', import:'Import', reset:'Reset All',
@@ -1547,8 +1547,8 @@ select option{background:var(--card)}
       cn_next_warn:'prioritize recovery (sleep + protein), then get back on track.',
       cn_empty:'Start logging sessions — your first coach note appears after 2+ sessions.',
       hist_select_ex:'Select exercise...',
-      hist_log_more:'Log more sessions to see e1RM progression.',
-      hist_log_pr:'Log some sessions to see PRs.',
+      hist_log_more:'Every session counts — keep logging and the numbers start moving.',
+      hist_log_pr:'Your first PR is a few sessions away — log a heavy set.',
       hist_book_consult:'Book consultation',
       hist_book_injury:'Book Free Injury Consultation',
       hist_last_deload:'Last deload',
@@ -1738,11 +1738,11 @@ select option{background:var(--card)}
       sessions:'جلسات', exercises:'تمارين',
       day:'اليوم', sets:'مجموعات', reps:'عدات', rest:'راحة',
       warmup:'إحماء', ramp_sets:'مجموعات تصعيدية',
-      set:'مجموعة عمل', weight:'كغم', rpe:'الجهد', rir:'الاحتياطي',
+      set:'مجموعة عمل', sets_work:'مجموعات العمل', weight:'كغم', load:'الحمل (كجم)', gen_cta:'جهّز برنامجي', rpe:'الجهد', rir:'الاحتياطي',
       save_readiness:'حفظ الجاهزية', skip_today:'تخطي النهارده',
       log_cardio:'تسجيل الكارديو', type:'النوع', duration_min:'المدة (دقيقة)', intensity:'الشدة',
       save_meas:'حفظ القياسات', cancel:'إلغاء',
-      no_data:'مفيش بيانات',
+      no_data:'مفيش بيانات', dash_empty:'اليوم ده فاضي — اختار يوم تاني أو جهّز برنامجك، وبعدها سجّل أول مجموعة.',
       today_train:'تمرين النهارده', week_row:'الأسبوع ده', streak:'أسبوع متواصل', pre_session:'جاهزية قبل التمرين',
       complete_week:'إكمال الأسبوع والتقدم', change_split:'تغيير التقسيم',
       history:'السجل والإحصائيات', export:'تصدير', import:'استيراد', reset:'مسح الكل',
@@ -1928,8 +1928,8 @@ select option{background:var(--card)}
       cn_next_warn:'اعطِ الأولوية للتعافي (نوم + بروتين)، وبعدين ارجع على المسار.',
       cn_empty:'ابدأ تسجيل الجلسات — أول ملاحظة كوتش تظهر بعد جلسة-جلسات.',
       hist_select_ex:'اختار تمرين...',
-      hist_log_more:'سجّل جلسات أكتر عشان تشوف تقدم e1RM.',
-      hist_log_pr:'سجّل بعض الجلسات عشان تشوف الأرقام القياسية.',
+      hist_log_more:'كل تمرينة بتفرق — كمّل تسجيل، والأرقام هتبدأ تتحرك.',
+      hist_log_pr:'أول رقم قياسي ليك قريب — سجّل مجموعة تقيلة.',
       hist_book_consult:'استشارة',
       hist_book_injury:'احجز استشارة إصابة مجانية',
       hist_last_deload:'آخر تفريغ',
@@ -5591,7 +5591,7 @@ select option{background:var(--card)}
       var padEmpty=(makeupDays[di]||lightDays[di])?Math.max(1,(ex.sets||3)-1):3;
       for(var i2=0;i2<padEmpty;i2++)sets.push({w:'',r:'',rpe:''});
     }
-    var h='<div class="set-log-area"><div class="set-log-header"><span></span><span>'+_('weight')+'</span><span>'+_('reps')+'</span><span>'+_('rpe')+'</span><span></span></div><div class="set-rows-'+('c_'+di+'_'+ex.n).replace(/[^a-zA-Z0-9]/g,'_')+'">';
+    var h='<div class="set-log-area"><div class="set-log-header"><span style="line-height:1.25;white-space:normal;font-size:.42rem;letter-spacing:.2px">'+_('sets_work')+'</span><span>'+_('load')+'</span><span>'+_('reps')+'</span><span>'+_('rpe')+'</span><span></span></div><div class="set-rows-'+('c_'+di+'_'+ex.n).replace(/[^a-zA-Z0-9]/g,'_')+'">';
     sets.forEach(function(set,si){
       var isWu=!!set.wu;
       var wVal = set.w||'';
