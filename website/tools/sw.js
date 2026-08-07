@@ -1,5 +1,5 @@
 // Muscle OS Training Tool — service worker (app-shell cache-first, versioned)
-const CACHE = 'mos-training-v1';
+const CACHE = 'mos-training-v2';
 const SHELL = [
   './training_tool.html',
   './manifest.json',
