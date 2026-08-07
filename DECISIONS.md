@@ -33,7 +33,15 @@ The history screen's "Suggestion Outcomes" card compares best e1RM over the 3 ma
 ## D7 — Coach view: design doc only (owner decision pending)
 `docs/coach_view_options.md` lays out Option A (coach inbox via the existing `notify-coach` webhook → sheet), Option B (read-only ad-hoc dashboard using the existing sync GET with user-shared credentials), Option C (full workspace — deferred) and 5 explicit owner decisions (passphrase required?, EV stripping, timelines). **Not implemented** — pre-PMF, the owner must pick.
 
+## D8 — Discrepancy: volume-distribution spec vs fixed-row selection model — **RESOLVED: formalize fixed-rows (2026-08-07)**
+The volume-distribution spec (layer 2) describes a **variable-size exercise pool per muscle** with live set-recalculation as exercises are added/removed. The shipped implementation instead uses **fixed rows** — the split layer builds `day.ex` as a fixed list of muscle entries (`15_screen3_generate.js:22` picks one exercise per entry via `mos_ex_choices`), and the selection screen has no add/remove control; the per-muscle "pool" is bounded by the split's row count for that muscle.
+- **Verified functional status (this pass):** live set-recalculation **is** working against fixed rows. `renderLiveVol` → `computeSelection()` reads the DOM's selected chips per row (`11_layer1_volprio.js:346`) and `distributeVolume(target, sel[muscle])` (`:307`) re-splits the muscle's weekly set target across the chosen set (compound 1.35 / isolation 0.85 weighting, remainder + fragmentation handling) on every chip click; the day estimate re-reads the same DOM state (`12_layer3_est_router.js:42` `pickerSlotNames`). The gap is pool **capacity** (no way to grow the per-muscle list beyond the split's rows), **not** recalculation correctness.
+- **Resolution evidence (probe `smoke_volmodel.js`, upper_lower_4 flow):** every muscle's live alloc equals its target exactly (no double-counting on multi-row muscles); delivered program within ±10% of target for all muscles (90–109%); cap binds only on scarce-slot muscles (worst: hamstrings 10→9). **No observed volume-math weirdness — the pool spec was aspirational; fixed-rows is the real, working model.**
+- **Decision:** formalize fixed-rows; **no migration**. Corrected spec: `E:\MoS\tools\VOLUME_MODEL.md` (model statement, equations, selection chain, verified consistency table, explicit out-of-scope list for any future pool migration).
+
+
 ## Deferred (explicitly out of scope this sprint)
+
 - Server-side trial enforcement; server-side key storage/recovery.
 - Per-key conflict timestamps (needs Worker change).
 - Any deploy of the branch artifact to the live site.

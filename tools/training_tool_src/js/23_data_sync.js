@@ -1,4 +1,4 @@
-  // ── Data Sync ──
+  // â”€â”€ Data Sync â”€â”€
   var SYNC_KEY='mos_sync_key';
   var SYNC_PW='mos_sync_pw';
   var SYNC_LAST='mos_sync_last';
@@ -11,7 +11,7 @@
     }catch(e){}
   }
   function syncPayload(){
-    var allKeys=Object.values(K).concat(['mos_periodization','mos_week_count','mos_ex_choices','mos_pref']);
+    var allKeys=Object.values(K).concat(['mos_periodization','mos_week_count','mos_ex_choices','mos_pref','mos_card_density']);
     var data={};allKeys.forEach(function(k){var v=localStorage.getItem(k);if(v)data[k]=JSON.parse(v);});
     return data;
   }
@@ -129,7 +129,7 @@
   function showConflictNotice(keys){
     var banner=document.getElementById('conflictBanner');
     var lt=ls(SYNC_LAST,'');
-    var lastTxt=lt?new Date(lt).toLocaleDateString()+' '+new Date(lt).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'—';
+    var lastTxt=lt?new Date(lt).toLocaleDateString()+' '+new Date(lt).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'â€”';
     if(!banner){
       banner=document.createElement('div');
       banner.id='conflictBanner';
@@ -162,4 +162,5 @@
     }catch(e){}
   }
   window.showSync=showSync;window.hideSync=hideSync;window.doSyncUpload=doSyncUpload;window.doSyncDownload=doSyncDownload;window.genSyncId=genSyncId;window.showLibrary=showLibrary;window.hideLibrary=hideLibrary;window.renderLibrary=renderLibrary;
+
 

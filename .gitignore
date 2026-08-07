@@ -13,6 +13,9 @@ muscle-os-alpha/
 mos-mobile/
 elitefit-master/
 
+# Website repo worktrees (deployed from public/main separately)
+public/
+
 # Python
 __pycache__/
 *.py[cod]

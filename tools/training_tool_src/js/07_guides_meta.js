@@ -130,9 +130,11 @@
     "Dead Bug":{s:"Lying, arms up, knees at 90°.",e:"Lower the opposite arm and leg toward the floor, return.",c:"Keep the lower back pressed down.",b:"Breathe steadily."}
   };
   const GUIDE_ALIASES = {'Leg Curls':'Leg Curl','Leg Extensions':'Leg Extension','Lateral Raises':'Lateral Raise','Calf Raises':'Calf Raise','Preacher Curls':'Preacher Curl','Triceps Overhead Extensions':'Triceps Overhead Ext','Incline Press':'Incline Chest Press','Front Squat or Lunge':'Front Squat'};
+  window.__guide=EXERCISE_GUIDE;window.__guideAliases=GUIDE_ALIASES;
   function guideFor(name){return EXERCISE_GUIDE[name]||EXERCISE_GUIDE[GUIDE_ALIASES[name]]||null;}
   function guideHtml(name){
     var g=guideFor(name);
+    if(!g&&EX_TR[name])g=exGuide(name);
     if(!g)return '<div class="eg-none">'+_('guide_none')+'</div>';
     return '<div class="eg-line"><span class="eg-k">'+_('guide_setup')+'</span>'+g.s+'</div>'+
            '<div class="eg-line"><span class="eg-k">'+_('guide_exec')+'</span>'+g.e+'</div>'+
@@ -147,6 +149,7 @@
     if(n.indexOf('machine')>=0||n.indexOf('pec deck')>=0||n.indexOf('leg press')>=0||n.indexOf('hack squat')>=0||n.indexOf('kneeling')>=0)return 'MAC';
     if(n.indexOf('cable')>=0||n.indexOf('face pull')>=0||n.indexOf('rope')>=0||n.indexOf('straight-arm')>=0)return 'CAB';
     if(n.indexOf('pull-up')>=0||n.indexOf('chin-up')>=0||n.indexOf('push-up')>=0||n.indexOf('dip')>=0||n.indexOf('plank')>=0||n.indexOf('farmers')>=0||n.indexOf('dead hang')>=0||n.indexOf('band')>=0||n.indexOf('clam')>=0||n.indexOf('side-lying')>=0||n.indexOf('hyperextension')>=0||n.indexOf('nordic')>=0||n.indexOf('inverted')>=0||n.indexOf('step-up')>=0)return 'BW';
+    if(n.indexOf('kettlebell')>=0||n.indexOf('turkish get-up')>=0)return 'KB';
     return '';
   }
   function meta(ex){
@@ -195,7 +198,7 @@
   function equipmentOf(ex){
     var o=EQ_OVERRIDES[ex];if(o)return o.slice();
     var m=meta(ex);if(m.eq)return m.eq.slice();
-    var map={BB:'barbell',DB:'dumbbell',MAC:'machine',CAB:'cable',BW:'bodyweight'};
+    var map={BB:'barbell',DB:'dumbbell',MAC:'machine',CAB:'cable',BW:'bodyweight',KB:'kettlebell'};
     var e=map[equipTag(ex)];
     if(e)return[e];
     return EQ_UNKNOWN_FALLBACK.slice();
@@ -284,8 +287,9 @@
   var V_VIDS={'Barbell Squat':'gcNh17Ckjgg','Bench Press':'BYKScL2sgCs','Deadlift Variation':'MBbyAqvTNkU','RDL':'jEy_czb3RKA','Overhead Press':'eNFXEEdfQp4'};
   function vidUrl(ex){return V_VIDS[ex]?'https://www.youtube.com/watch?v='+V_VIDS[ex]:'https://www.youtube.com/results?search_query='+encodeURIComponent(ex);}
   function exLinkHtml(ex){
+    var disp=EX_TR[ex]?exDisplay(ex):ex;
     var id=V_VIDS[ex];
-    if(id)return '<a class="ex-vid-link" href="https://www.youtube.com/watch?v='+id+'" target="_blank" title="'+_('watch_video')+'"><span class="ex-vid-name">'+ex+'</span><img class="ex-vid-thumb" loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+ex+'"></a>';
-    return '<a class="ex-vid-link" href="'+vidUrl(ex)+'" target="_blank" title="'+_('watch_video')+'">'+ex+' ▶</a>';
+    if(id)return '<a class="ex-vid-link" href="https://www.youtube.com/watch?v='+id+'" target="_blank" title="'+_('watch_video')+'"><span class="ex-vid-name">'+disp+'</span><img class="ex-vid-thumb" loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+disp+'"></a>';
+    return '<a class="ex-vid-link" href="'+vidUrl(ex)+'" target="_blank" title="'+_('watch_video')+'">'+disp+' ▶</a>';
   }
 

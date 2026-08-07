@@ -32,8 +32,9 @@
       html+='<div class="lib-muscle">'+(MUSCLE_NAME[g.p]||g.p)+'<span class="esm-count">'+g.items.length+'</span></div>';
       g.items.forEach(function(n){
         html+='<div class="lib-ex-row"><div class="lib-ex-top">'+
-          '<span class="lib-ex-name">'+n+'</span>'+
+          '<span class="lib-ex-name">'+(EX_TR[n]?exDisplay(n):n)+'</span>'+
           (equipTag(n)?'<span class="lib-eq">'+equipTag(n)+'</span>':'')+
+          (meta(n).metadataSource==='inferred'?'<span class="badge-pill bp-inferred" title="'+_('meta_inferred_tip')+'">'+_('meta_inferred')+'</span>':'')+
           '<a class="lib-vid" href="'+vidUrl(n)+'" target="_blank">'+_('watch_video')+'</a>'+
           '<button class="ex-guide-toggle" type="button" data-lib="'+n+'" title="'+_('how_to')+'">'+_('how_to')+' ▾</button>'+
         '</div><div class="ex-guide" data-lib="'+n+'"></div></div>';
@@ -52,4 +53,3 @@
     });
   }
 
-})();

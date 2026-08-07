@@ -455,9 +455,9 @@
       // Show recovery phase only for yellow
       if(a.severity!=='red')html+='<div class="rehab-phase"><div class="rp-label">✅ '+_('rehab_recovery')+'</div><div class="rp-text">'+a.protocol.recovery+'</div></div>'+
         '<div class="rehab-ex-list"><span style="font-size:.48rem;color:rgba(250,250,248,.15);margin-right:4px">'+_('rehab_safe')+'</span>'+
-        a.protocol.safe.slice(0,5).map(function(e){return'<span class="rel-safe">'+e+'</span>'}).join('')+'</div>'+
+        a.protocol.safe.slice(0,5).map(function(e){return'<span class="rel-safe">✓ '+e+'</span>'}).join('')+'</div>'+
         '<div class="rehab-ex-list"><span style="font-size:.48rem;color:rgba(250,250,248,.15);margin-right:4px">'+_('rehab_avoid')+'</span>'+
-        a.protocol.avoid.slice(0,5).map(function(e){return'<span class="rel-avoid">'+e+'</span>'}).join('')+'</div>';
+        a.protocol.avoid.slice(0,5).map(function(e){return'<span class="rel-avoid">✕ '+e+'</span>'}).join('')+'</div>';
       else html+='<div style="font-size:.6rem;color:#f44336;padding:4px 0;font-weight:600">⛔ '+_('rehab_stop_all')+'</div>';
       html+='</div>';
     });
@@ -609,7 +609,7 @@
         if(d.restDay){html+='<div class="meso-day-card" style="border-color:rgba(250,250,248,.08);background:rgba(250,250,248,.02)"><div class="md-title" style="color:rgba(250,250,248,.35)">'+_('day')+' '+(di+1)+': '+d.n+' — '+_('rest_day')+'</div></div>';return;}
         html+='<div class="meso-day-card"><div class="md-title">'+_('day')+' '+(di+1)+': '+d.n+'</div>';
         d.ex.forEach(function(e){
-          html+='<div class="md-ex"><span class="md-ex-n">'+e.n+(e.optional?' <span class="opt-badge">'+_('sess_optional')+'</span>':'')+'</span><span class="md-ex-s">'+e.sets+' '+_('sets')+'</span><span class="md-ex-rpe">@ '+_('rpe')+' '+e.targetRpe+'</span></div>';
+          html+='<div class="md-ex"><span class="md-ex-n">'+(EX_TR[e.n]?exDisplay(e.n):e.n)+(e.optional?' <span class="opt-badge">'+_('sess_optional')+'</span>':'')+'</span><span class="md-ex-s">'+e.sets+' '+_('sets')+'</span><span class="md-ex-rpe">@ '+_('rpe')+' '+e.targetRpe+'</span></div>';
       });
       html+='</div>';
       // Custom exercises (user-defined, available in this day)

@@ -89,7 +89,7 @@
     var c=document.getElementById('estChip_'+di),w=document.getElementById('estWarn_'+di);
     if(!c)return;
     var r=estChipWarn(split.days[di],di,split);
-    c.textContent=r.chip;
+    c.textContent=(r.over?'⚠ ':'')+r.chip;
     c.classList.toggle('est-over',r.over);
     if(w){w.style.display=r.warn?'block':'none';w.textContent=r.warn;}
   }

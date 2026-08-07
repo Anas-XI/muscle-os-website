@@ -133,6 +133,7 @@
   .badge-pill.bp-pattern{color:#81C784;border-color:rgba(129,199,132,.3)}
   .badge-pill.bp-joint{color:#FF8A65;border-color:rgba(255,138,101,.35)}
   .badge-pill.bp-also{color:#CE93D8;border-color:rgba(206,147,216,.3)}
+  .badge-pill.bp-inferred{color:#4DB6AC;border-color:rgba(77,182,172,.35)}
   .ex-sel-chip.chip-rec{border-color:var(--accent)}
   .ex-sel-chip .rec-badge{font-size:.4rem;background:var(--accent);color:#0d0d0d;border-radius:6px;padding:0 4px;margin-right:2px;font-weight:700;letter-spacing:.5px}
   .ex-filter-bar{border:1px solid var(--line);border-radius:8px;padding:8px;margin:2px 0 10px;background:var(--input-bg)}
@@ -154,3 +155,25 @@
   .eg-none{color:var(--text-dim);font-style:italic}
   html[dir="rtl"] .eg-k{margin-right:0;margin-left:5px}
   html[dir="rtl"] .ex-region{padding-left:0;padding-right:8px;border-left:none;border-right:2px solid rgba(250,250,248,.06)}
+  /* Polish pass: search, empty state, last-perf, why-chip, skeleton, density */
+  .esm-search{margin:3px 0 4px}
+  .esm-search-input{width:100%;padding:4px 8px;border-radius:6px;border:1.5px solid var(--line);background:var(--input-bg);color:var(--text);font-size:.52rem;font-family:'Inter',sans-serif}
+  .esm-search-input:focus{outline:none;border-color:var(--accent)}
+  .esm-search-res{display:none;margin-top:3px;padding:4px;background:rgba(20,21,26,.6);border:1px solid var(--line);border-radius:6px}
+  .esm-res-none{font-size:.48rem;color:var(--text-dim);padding:2px 4px}
+  .esm-search-res .search-hit{display:inline-block;margin:2px}
+  .ex-empty{display:flex;flex-direction:column;gap:4px;margin:3px 0 2px;padding:8px;background:rgba(255,152,0,.05);border:1px solid rgba(255,152,0,.25);border-radius:6px}
+  .ex-empty-msg{font-size:.5rem;color:rgba(250,250,248,.6);line-height:1.3}
+  .ex-empty-btn{align-self:flex-start;font-size:.48rem;padding:2px 8px;border-radius:8px;border:1px solid var(--accent);color:var(--accent);background:transparent;cursor:pointer;font-family:'Inter',sans-serif}
+  .ex-empty-btn:hover{background:var(--accent-soft)}
+  .ex-last{font-size:.42rem;color:rgba(250,250,248,.35);min-width:100%;order:10}
+  .why-chip{font-size:.4rem;color:var(--accent);border:1px solid rgba(244,201,59,.35);border-radius:8px;padding:0 4px;margin-left:4px;text-transform:none;letter-spacing:.2px;vertical-align:middle}
+  html[dir="rtl"] .why-chip{margin-left:0;margin-right:4px}
+  .ex-skel-row{display:flex;gap:6px;align-items:center;padding:4px 6px;margin-bottom:3px;border-radius:5px}
+  .ex-skel-lbl{width:80px;height:10px;border-radius:4px;background:var(--fill);animation:ex-shimmer 1.2s infinite}
+  .ex-skel-chips{flex:1;height:10px;border-radius:4px;background:var(--fill);animation:ex-shimmer 1.2s infinite 0.15s}
+  @keyframes ex-shimmer{0%{opacity:.5}50%{opacity:1}100%{opacity:.5}}
+  #exSelPanel.ex-compact .ex-sel-row{padding:2px 4px}
+  #exSelPanel.ex-compact .ex-guide-toggle{display:none}
+  #exSelPanel.ex-compact .ex-last{display:none}
+  #exSelPanel.ex-compact .ex-sel-chip{padding:1px 4px;font-size:.48rem}
