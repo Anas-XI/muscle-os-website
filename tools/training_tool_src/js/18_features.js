@@ -225,6 +225,9 @@
     }
     // ACWR in dashboard
     renderACWRDash();
+    // Combined cross-modality load + non-lifting dash (P1)
+    renderCombinedLoadDash();
+    renderNlDash();
     // Auto adjustments
     renderAutoAdjustments();
     // Periodization detail
@@ -277,6 +280,31 @@
     var wc=weeklyCardio();
     if(wc.sessions>0)hist.innerHTML='<strong>'+_('cardio_this_week')+':</strong> '+wc.sessions+' '+_('cardio_sessions')+', '+wc.minutes+' min'+(wc.detail?Object.keys(wc.detail).map(function(t){return' · '+t+': '+wc.detail[t]+'min'}).join(''):'');
     else hist.textContent='';
+  }
+
+  function renderNlDash(){
+    var td=todayNonLift();
+    document.getElementById('nlTodayBadge').textContent=td.length?td.length+' '+_('nl_today'):'';
+    var hist=document.getElementById('nlHistory');
+    var wn=weeklyNonLift();
+    if(wn.sessions>0)hist.innerHTML='<strong>'+_('nl_this_week')+':</strong> '+wn.sessions+' '+_('cardio_sessions')+', '+wn.minutes+' min';
+    else hist.textContent='';
+  }
+
+  function renderCombinedLoadDash(){
+    var el=document.getElementById('combinedLoadDash');
+    if(!el)return;
+    var cl=combinedLoad();
+    if(cl.week.combined<=0&&cl.today.combined<=0){el.style.display='none';return;}
+    el.style.display='block';
+    var ms=monotonyStrain();
+    var monoColor=ms.mono>2?'#f44336':ms.mono>1.5?'#FF9800':'#4CAF50';
+    document.getElementById('combinedLoadContent').innerHTML=
+      '<div style="display:flex;gap:8px;flex-wrap:wrap">'+
+      '<span>'+_('cl_today')+': <strong style="color:#F4C93B">'+cl.today.combined+'</strong></span>'+
+      '<span>'+_('cl_week')+': <strong style="color:#F4C93B">'+cl.week.combined+'</strong> <span style="font-size:.45rem;color:rgba(250,250,248,.15)">('+_('cl_lift')+' '+cl.week.lift.toFixed(0)+' kg · '+_('cl_nonlift')+' '+cl.week.nonlift.toFixed(0)+')</span></span>'+
+      '<span style="margin-left:auto">'+_('mono_label')+': <strong style="color:'+monoColor+'">'+ms.mono.toFixed(2)+'</strong></span>'+
+      '</div>';
   }
 
   function renderPerDetail(){
@@ -644,6 +672,14 @@
         '<button class="fat-light-btn" data-di="'+di+'" data-light="0">'+_('fat_planned_btn')+'</button></div></div>';
     }
 
+    // P2: Foster monotony soft-gate (read-time, no hard block). Suggest variation/recovery; never modifies the program.
+    var ms=monotonyStrain();
+    if(ms.mono>2&&!monoDismissed[di]&&!lightDays[di]){evLog('mono_gate',{di:di,mono:ms.mono,strain:ms.strain});
+      html+='<div class="fat-light-banner mono-banner"><span class="flb-title">'+_('mono_title')+'</span>'+
+        '<span class="flb-desc">'+_('mono_desc').replace('{m}',ms.mono.toFixed(2))+'</span>'+
+        '<div class="flb-btns"><button class="mono-ack-btn" data-di="'+di+'">'+_('mono_ack')+'</button></div></div>';
+    }
+
     html+=renderSorenessCards(day,di);
 
     var ssOn=!!ls(K.SU,{})[di];
@@ -665,7 +701,13 @@
     container.querySelectorAll('.rm-ex-btn').forEach(function(b){b.addEventListener('click',function(){if(confirm('Remove "'+this.dataset.ex+'" from '+_('today_train')+'?'))rmEx(di,this.dataset.ex);});});
     container.querySelectorAll('.sw-ex-btn').forEach(function(b){b.addEventListener('click',function(){var p=b.parentElement.parentElement.querySelector('.swap-panel');if(p)p.classList.toggle('open');});});
     container.querySelectorAll('.swap-chip').forEach(function(chip){chip.addEventListener('click',function(){swapEx(parseInt(chip.dataset.di),parseInt(chip.dataset.idx),chip.dataset.ex,chip.dataset.to);});});
-    container.querySelectorAll('.pain-btn').forEach(function(b){b.addEventListener('click',function(){var pf=painFlags();pf[this.dataset.ex]=this.dataset.p;ss(K.PF,pf);renderDay(di);});});
+    container.querySelectorAll('.pain-btn').forEach(function(b){b.addEventListener('click',function(){var pf=painFlags();pf[this.dataset.ex]=this.dataset.p;ss(K.PF,pf);
+      // P5: append to joint-stress-flag history (180-day window kept in saveNonLift-style prune below)
+      var pfh=ls(K.PFH,[]);pfh.push({date:new Date().toISOString().split('T')[0],ex:this.dataset.ex,severity:this.dataset.p});
+      var cutoff=new Date(Date.now()-180*864e5).toISOString().split('T')[0];
+      ss(K.PFH,pfh.filter(function(f){return f.date>=cutoff;}));
+      renderDay(di);});});
+    container.querySelectorAll('.mono-ack-btn').forEach(function(b){b.addEventListener('click',function(){var i=parseInt(this.dataset.di);monoDismissed[i]=true;evLog('mono_gate_ack',{di:i});renderDay(i);});});
     container.querySelectorAll('.fat-light-btn').forEach(function(b){b.addEventListener('click',function(){if(this.dataset.gm!==undefined)return;var i=parseInt(this.dataset.di);evLog(this.dataset.light==='1'?'fat_gate_light':'fat_gate_proceed',{di:i});if(this.dataset.light==='1')lightDays[i]=true;else lightProceed[i]=true;renderDay(i);});});
     container.querySelectorAll('.sr-chip').forEach(function(b){b.addEventListener('click',function(){saveSoreness(b.dataset.m,parseInt(b.dataset.v,10));renderDay(parseInt(b.dataset.di,10));});});
     container.querySelectorAll('.fat-light-btn[data-gm]').forEach(function(b){b.addEventListener('click',function(){var fo=ls(K.FO,{}),wk=weekStartISO();if(!fo[wk])fo[wk]={};fo[wk][b.dataset.gm]=parseInt(b.dataset.gfreq,10);ss(K.FO,fo);renderDay(parseInt(b.dataset.di,10));});});

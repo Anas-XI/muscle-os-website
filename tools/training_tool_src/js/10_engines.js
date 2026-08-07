@@ -436,18 +436,31 @@
   // ── Rehab Engine ──
   function renderRehabPanel(){
     var pf=painFlags(),panel=document.getElementById('rehabPanel'),content=document.getElementById('rehabContent'),status=document.getElementById('rehabStatus');
-    if(!pf||!Object.keys(pf).filter(function(k){return pf[k]==='red'||pf[k]==='yellow'}).length){panel.style.display='none';return;}
+    if(!panel||!content)return;
+    var flagged=pf&&Object.keys(pf).filter(function(k){return pf[k]==='red'||pf[k]==='yellow'}).length;
+    // P5: prehab suggestion from repeated joint-stress flags (no active pain flags needed)
+    var stress=jointStressFlags(28).filter(function(s){return s.count>=2&&INJURY_PROTOCOLS[s.joint];});
+    if(!flagged&&!stress.length){panel.style.display='none';return;}
     panel.style.display='block';
     var hasRed=false;var areaList=[];var prots={};
-    Object.keys(pf).forEach(function(ex){
+    Object.keys(pf||{}).forEach(function(ex){
       var v=pf[ex];if(v==='red')hasRed=true;
       var p=rehabForExercise(ex,pf);
       if(p&&!prots[p.name]){prots[p.name]=p;areaList.push({ex:ex,severity:v,protocol:p});}
     });
-    if(!areaList.length){panel.style.display='none';return;}
     status.textContent=(hasRed?'🔴 '+_('rehab_injury'):'🟡 '+_('rehab_inflammation'))+' · '+areaList.length+(areaList.length>1?' areas':' area');
     var html='';
     areaList.forEach(function(a){
+      // P6: tendon-group joints render the gated review-pending card until a
+      // clinical reviewer clears the protocol (pendingClinicalReview stays true).
+      var tp=tendonProtocolFor(a.protocol.joint||a.ex)||tendonProtocolFor(jointsForExercise(a.ex)[0]);
+      if(tp&&tp.pendingClinicalReview){
+        html+='<div class="rehab-card rehab-'+(a.severity==='red'?'red':'yellow')+'">'+
+          '<div class="rc-header"><span>'+tp.icon+' '+tp.name+'</span><span class="rc-severity '+(a.severity==='red'?'danger':'warn')+'">'+a.severity.toUpperCase()+'</span></div>'+
+          '<div class="rehab-phase"><div class="rp-label">🔒 '+_('tendon_review_pending')+'</div><div class="rp-text">'+_('tendon_not_diag')+'</div></div>'+
+          '</div>';
+        return;
+      }
       html+='<div class="rehab-card rehab-'+(a.severity==='red'?'red':'yellow')+'">'+
         '<div class="rc-header"><span>'+a.protocol.icon+' '+a.protocol.name+'</span><span class="rc-severity '+(a.severity==='red'?'danger':'warn')+'">'+a.severity.toUpperCase()+'</span></div>'+
         '<div class="rehab-phase"><div class="rp-label">⚠ '+_('rehab_acute')+'</div><div class="rp-text">'+
@@ -461,8 +474,25 @@
       else html+='<div style="font-size:.6rem;color:#f44336;padding:4px 0;font-weight:600">⛔ '+_('rehab_stop_all')+'</div>';
       html+='</div>';
     });
-    // Consultation CTA
-    html+='<a class="consult-cta" href="https://wa.me/201040796017?text='+encodeURIComponent('Hi Coach Anas, I need a free consultation for my injury ('+areaList.map(function(a){return a.protocol.name+' ('+a.severity+')'}).join(', ')+'). Please advise.')+'" target="_blank">📅 '+_('rehab_book_consult')+'</a>';
+    // P5: prehab suggestion card when a joint keeps getting flagged
+    if(!areaList.length&&stress.length){
+      status.textContent='🛡 '+_('stress_prehab_title');
+      html='';
+      stress.forEach(function(s){
+        var prot=INJURY_PROTOCOLS[s.joint],prehabExs=[];
+        for(var k in EXERCISE_META){var m=EXERCISE_META[k];if(m.prehab&&(m.jr||[]).indexOf(s.joint)>=0)prehabExs.push(k);}
+        html+='<div class="rehab-card rehab-prehab">'+
+          '<div class="rc-header"><span>🛡 '+prot.icon+' '+prot.name+'</span><span class="rc-severity warn">'+s.count+'×</span></div>'+
+          '<div class="rehab-phase"><div class="rp-label">⚠ '+_('stress_prehab_title')+'</div><div class="rp-text">'+_('stress_prehab_desc').replace('{joint}',prot.name).replace('{n}',s.count)+'</div></div>'+
+          (prehabExs.length?'<div class="rehab-ex-list"><span style="font-size:.48rem;color:rgba(250,250,248,.15);margin-right:4px">'+_('prehab_lbl')+'</span>'+
+          prehabExs.map(function(e){return'<span class="rel-safe">✓ '+e+'</span>'}).join('')+'</div>':'')+
+          '</div>';
+      });
+    }
+    if(areaList.length){
+      // Consultation CTA
+      html+='<a class="consult-cta" href="https://wa.me/201040796017?text='+encodeURIComponent('Hi Coach Anas, I need a free consultation for my injury ('+areaList.map(function(a){return a.protocol.name+' ('+a.severity+')'}).join(', ')+'). Please advise.')+'" target="_blank">📅 '+_('rehab_book_consult')+'</a>';
+    }
     content.innerHTML=html;
   }
   // Check if an exercise is safe given current injuries
@@ -764,6 +794,74 @@
     var color=ratio>1.5?'#f44336':ratio>1.3?'#FF9800':ratio>1?'#F4C93B':'#4CAF50';
     return{ratio:ratio,risk:risk,color:color,acute:acute,chronic:avgChronic};
   }
+
+  // ── Combined cross-modality load (P1) ──
+  // Lifting load = tonnage (kg·reps, same source ACWR reads). Non-lifting load =
+  // duration × effort factor (Low 3 / Moderate 5 / High 8). Combined units =
+  // tonnage/100 + non-lifting units, so both modalities land on a comparable scale.
+  function dailyCombinedLoads(days){
+    var hist=loadHist(),nl=getNonLiftLogs();
+    var byDay={};
+    // UTC-calendar keys: storage (cardio/pain/log entries) is dated via
+    // toISOString().split('T')[0], so day keys must match UTC, not local midnight.
+    var dISO=function(offset){var d=new Date();d.setUTCDate(d.getUTCDate()-offset);return d.toISOString().split('T')[0];};
+    for(var i=days-1;i>=0;i--)byDay[dISO(i)]={lift:0,nonlift:0,combined:0};
+    Object.keys(hist).forEach(function(ex){(hist[ex]||[]).forEach(function(e){
+      if(byDay[e.date]!==undefined)byDay[e.date].lift+=e.w*e.r;
+    })});
+    nl.forEach(function(x){
+      if(byDay[x.date]!==undefined){
+        var u=(x.dur||0)*(NONLIFT_EFFORT[x.effort]||5);
+        byDay[x.date].nonlift+=u;
+      }
+    });
+    Object.keys(byDay).forEach(function(d){byDay[d].combined=Math.round(byDay[d].lift/100+byDay[d].nonlift);});
+    return byDay;
+  }
+  function combinedLoad(){
+    var byDay=dailyCombinedLoads(28),td=new Date().toISOString().split('T')[0];
+    var w=0,wl=0,wn=0,m=0,ml=0,mn=0;
+    Object.keys(byDay).forEach(function(d){
+      if(d>=byDayStart(7)){w+=byDay[d].combined;wl+=byDay[d].lift;wn+=byDay[d].nonlift;}
+      m+=byDay[d].combined;ml+=byDay[d].lift;mn+=byDay[d].nonlift;
+    });
+    return{today:byDay[td]||{lift:0,nonlift:0,combined:0},week:{combined:w,lift:wl,nonlift:wn},month:{combined:m,lift:ml,nonlift:mn}};
+  }
+  function byDayStart(days){var d=new Date();d.setUTCDate(d.getUTCDate()-days);return d.toISOString().split('T')[0];}
+
+  // ── Foster monotony & strain (P2, read-time over trailing 7 days) ──
+  // Monotony = daily-mean / daily-SD of combined load. Strain = 7-day total × monotony.
+  // Rest/missed days count as 0. Threshold: monotony > 2.0 → soft gate (suggest
+  // variation/recovery, never modify the program).
+  function monotonyStrain(){
+    var byDay=dailyCombinedLoads(7);
+    var vals=Object.keys(byDay).sort().map(function(d){return byDay[d].combined;});
+    var n=vals.length,sum=vals.reduce(function(a,x){return a+x},0);
+    var mean=sum/n;
+    var sd=Math.sqrt(vals.reduce(function(a,x){return a+(x-mean)*(x-mean)},0)/n)||0;
+    var mono=sd>0?mean/sd:0;
+    var strain=mono>0?sum*mono:0;
+    return{mono:Math.round(mono*100)/100,strain:Math.round(strain*100)/100,mean:Math.round(mean*100)/100,sd:Math.round(sd*100)/100,total:sum,daily:vals};
+  }
+  window.__monotonyStrain=monotonyStrain;window.__combinedLoad=combinedLoad;window.__dailyCombinedLoads=dailyCombinedLoads;
+
+  // ── Joint-stress-flag frequency (P5, from K.PFH) ──
+  // Counts pain-flag events per joint over the window; feeds prehab suggestions.
+  function jointStressFlags(days){
+    var hist=ls(K.PFH,[]),cut=byDayStart(days);
+    var counts={};
+    hist.forEach(function(f){
+      if(!f||!f.date||f.date<cut)return;
+      jointsForExercise(f.ex||'').forEach(function(j){
+        if(!j)return;
+        if(!counts[j])counts[j]={count:0,ex:{}};
+        counts[j].count++;
+        counts[j].ex[f.ex]=true;
+      });
+    });
+    return Object.keys(counts).map(function(j){return{joint:j,count:counts[j].count,exercises:Object.keys(counts[j].ex)};}).sort(function(a,b){return b.count-a.count;});
+  }
+  window.__jointStressFlags=jointStressFlags;
 
   // ── Volume Tracking ──
   function findMuscle(ex){var prog=ls(K.PG,null);if(prog)for(var di in prog.days)for(var ei in prog.days[di].ex){if(prog.days[di].ex[ei].n===ex)return prog.days[di].ex[ei].p;}for(var k in SPLITS)for(var d in SPLITS[k].days)for(var e in SPLITS[k].days[d].ex){var x=SPLITS[k].days[d].ex[e];if(x.n===ex)return x.p;}return null;}

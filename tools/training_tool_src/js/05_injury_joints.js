@@ -56,7 +56,49 @@
       avoid:['Forearm Ext/Flex','Bench Press (wide)','Bicep Curl (barbell)','Wrist Curl','Reverse Wrist Curl','Farmers Walk','Plate Pinch','Push-Up']
     }
   };
-  // Map joints to exercises (which exercises use which joints)
+  // ── Tendon-rehab protocols (P6) ──
+  // Gated behind pendingClinicalReview: true — content is NOT user-visible until a
+  // clinical reviewer is named and clears each group (see DECISIONS.md D9).
+  // Written as general loading principles only, never a diagnosis.
+  const TENDON_PROTOCOLS = {
+    patellar:{name:'Patellar Tendon',icon:'🦵',joint:'knee',pendingClinicalReview:true,
+      acute:'Back off heavy knee-dominant work. Keep everyday movement pain-limited. Short, pain-free isometric holds on the quad are the loading bridge while flare-ups settle.',
+      recovery:'Progressively loaded isometric work (wall sit holds, light leg extension holds) in pain-free ranges. Over 2-3 weeks, slowly add slow-tempo leg extensions with light weight — the tendon needs load, not rest, to adapt.',
+      return:'Gradually reintroduce squat-pattern work starting at light loads, adding weight only when the previous week was pain-free. Keep tempo controlled; fast rebound work stays out for now.',
+      safe:['RDL','Leg Curls','Hip Thrust','Calf Raises','Lat Pulldown','Seated Row','Bench Press','Triceps Pushdown'],
+      avoid:['Barbell Squat','Leg Press','Bulgarian Split Squat','Step-Up','Sissy Squat','Front Squat or Lunge','Hack Squat','Leg Extension (deep, fast)'],
+      reviewNote:'Patellar tendon guidance is drafted as general loading principles and awaits clinical review before any user-visible use.'},
+    achilles:{name:'Achilles Tendon',icon:'🦶',joint:'ankle',pendingClinicalReview:true,
+      acute:'Cut high-impact work (jumping, sprinting, heavy calf loading) to pain-free levels. Walking is fine. Flare-ups settle fastest when load spikes stop.',
+      recovery:'Pain-free isometric calf holds (both legs) progress to single-leg as tolerated. Slow, controlled seated calf raises build capacity without the stretch-load of straight-leg work.',
+      return:'Straight-leg (gastrocnemius) work comes back slowly at light loads before any bouncing or hopping. Load must rise in small steps week to week.',
+      safe:['Barbell Squat','Leg Press','Leg Curls','Leg Extensions','Hip Thrust','Lat Pulldown','Seated Row','Bench Press'],
+      avoid:['Calf Raises (heavy, full stretch)','Standing Calf Raise','Single-Leg Calf Raise','Sprint work','Box Jumps','Rowing (drive phase)'],
+      reviewNote:'Achilles tendon guidance is drafted as general loading principles and awaits clinical review before any user-visible use.'},
+    elbow_flexor_extensor:{name:'Elbow Flexor/Extensor Tendons',icon:'💪',joint:'elbow',pendingClinicalReview:true,
+      acute:'Stop the aggravating curl/pushdown pattern. Keep the elbow mostly pain-free in daily life; grip and lifting loads drop to levels that do not reproduce pain.',
+      recovery:'Pain-free isometric holds for the forearm muscles, then slow-tempo light curls/pushdowns through mid-range only. Wrist position changes (neutral grip) reduce tendon strain while capacity builds.',
+      return:'Reintroduce full-range curling and pressing slowly, adding load only when the previous step was pain-free. Avoid sudden increases in grip-heavy or stretch-loaded work.',
+      safe:['Lat Pulldown','Seated Row','Barbell Squat','Leg Extensions','Leg Curls','Lateral Raises','Rear Delt Flies','Calf Raises','Hip Thrust','Machine Chest Flies','RDL'],
+      avoid:['Preacher Curls','Bicep Curl (barbell, stretch-loaded)','Hammer Curls (heavy)','Triceps Pushdown (full stretch)','Skull Crusher','Close-Grip Bench','JM Press','Dips','Reverse Curl'],
+      reviewNote:'Elbow tendon guidance is drafted as general loading principles and awaits clinical review before any user-visible use.'},
+    rotator_cuff:{name:'Rotator Cuff',icon:'🏋️',joint:'shoulder',pendingClinicalReview:true,
+      acute:'Stop overhead and heavy pushing patterns that reproduce pain. Keep the shoulder moving through pain-free ranges daily; light band work only if completely pain-free.',
+      recovery:'Pain-free isometric pressing and external-rotation holds, then slow-tempo band rotations and scapular work. Keep loads light; the cuff adapts to frequent, low-load input.',
+      return:'Gradually reintroduce pressing at controlled speeds and reduced range before full range. Load rises in small weekly steps; heavy dips and behind-neck work stay out for now.',
+      safe:['Lat Pulldown','Seated Row','Rear Delt Flies','Face Pull','Triceps Pushdown','Preacher Curls','Leg Extensions','Leg Curls','Calf Raises','Hip Thrust','Machine Chest Flies','Barbell Squat','RDL'],
+      avoid:['Overhead Press','Shoulder Press','Incline Chest Press','Bench Press','Dumbbell Bench Press','Pull-Up','Arnold Press','Close-Grip Bench','JM Press','Skull Crusher','Triceps Overhead Extensions'],
+      reviewNote:'Rotator cuff guidance is drafted as general loading principles and awaits clinical review before any user-visible use.'}
+  };
+  // Map a flagged joint to its tendon-protocol group (by joint name), if one exists.
+  function tendonProtocolFor(joint){
+    var j=(joint||'').toLowerCase();
+    if(j==='knee')return TENDON_PROTOCOLS.patellar;
+    if(j==='ankle')return TENDON_PROTOCOLS.achilles;
+    if(j==='elbow')return TENDON_PROTOCOLS.elbow_flexor_extensor;
+    if(j==='shoulder')return TENDON_PROTOCOLS.rotator_cuff;
+    return null;
+  }
   function jointsForExercise(ex){
     var m=meta(ex);
     return (m.jr||[]).map(function(j){return j.replace(/"/g,'').trim().toLowerCase();});
@@ -249,7 +291,7 @@
     forearms:["Forearm Ext/Flex","Wrist Curl","Reverse Wrist Curl","Plate Pinch","Dead Hang"],
     abs:["Hanging Leg Raise","Leg Raise","Cable Crunch","Ab Wheel Rollout","Plank"]
   };
-  window.__pools=EXERCISE_POOLS;window.__exMeta=EXERCISE_META;
+  window.__pools=EXERCISE_POOLS;window.__exMeta=EXERCISE_META;window.__tendonProtocols=TENDON_PROTOCOLS;
 
   // ── Exercise regions: muscle → region buckets (library + picker grouping) ──
   const EXERCISE_REGIONS = {

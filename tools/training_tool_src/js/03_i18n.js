@@ -114,6 +114,15 @@
       acwr_high:'HIGH — injury risk elevated',acwr_moderate:'MODERATE — monitor closely',
       acwr_elevated:'ELEVATED — within acceptable',acwr_low:'LOW — consider increasing load',acwr_normal:'NORMAL — optimal range',
       acwr_ratio:'ACWR',
+      // Hybrid-athlete load (P1/P2/P3)
+      nl_toggle:'Log Non-Lifting Session',nl_type:'Type',nl_duration:'Duration (min)',nl_effort:'Effort',nl_save:'Log Session',nl_today:'today',nl_this_week:'This week',
+      cl_title:'Combined Load',cl_today:'Today',cl_week:'7d',cl_lift:'lifting',cl_nonlift:'non-lifting',
+      mono_label:'Monotony',mono_thresh:'red > 2.0',mono_title:'Monotony is high — mix up the week',
+      mono_desc:'Your weekly load pattern is very repetitive (monotony {m}). Same-feeling sessions every day drive fatigue without extra gains. Swap in a lighter or different session — your program stays as planned.',
+      mono_ack:'Got it — I\'ll vary intensity',
+      trend_title:'Load & Volume Trend',trend_range:'Range',trend_volume:'Weekly Volume',trend_combined:'Weekly Combined Load',trend_priority:'Priority Muscles',trend_updated:'updated',trend_summary:'{s} total sets over {w} weeks · {m} week(s) with monotony > 2.0',
+      tendon_review_pending:'Under clinical review',tendon_not_diag:'This area is flagged. Specific tendon guidance is drafted but not yet cleared for use — it is not a diagnosis. Until a clinical review is done, keep the area pain-free and contact the coach for advice.',
+      stress_prehab_title:'Repeated joint stress — add prehab',stress_prehab_desc:'{joint} has been flagged {n} times in the last 28 days. Add low-intensity prehab work for it before it becomes a real problem.',
       // Auto adjustments
       auto_adj_needed:'adjustment needed',auto_adj_needed_pl:'adjustments needed',
       auto_adj_opportunity:'opportunity',auto_adj_opportunities:'opportunities',
@@ -542,6 +551,15 @@
       acwr_high:'عالي — خطر الإصابة عالي',acwr_moderate:'متوسط — راقب كويس',
       acwr_elevated:'عالي شوية — مقبول',acwr_low:'قليل — فكر تزود الحمل',acwr_normal:'طبيعي — النطاق الأمثل',
       acwr_ratio:'ACWR',
+      // Hybrid-athlete load (P1/P2/P3)
+      nl_toggle:'تسجيل جلسة خارج الحديد',nl_type:'النوع',nl_duration:'المدة (دقيقة)',nl_effort:'الجهد',nl_save:'حفظ الجلسة',nl_today:'النهارده',nl_this_week:'الأسبوع ده',
+      cl_title:'الحمل المدمج',cl_today:'النهارده',cl_week:'7 أيام',cl_lift:'حديد',cl_nonlift:'بره الحديد',
+      mono_label:'الرتابة',mono_thresh:'أحمر > 2.0',mono_title:'الرتابة عالية — نّوع الأسبوع',
+      mono_desc:'نمط حملك الأسبوعي متكرر جداً (رتابة {m}). جلسات بنفس الإحساس كل يوم بتزيد التعب من غير مكاسب زيادة. بدّل جلسة أخف أو مختلفة — برنامجك ثابت زي ما هو.',
+      mono_ack:'تمام — هغيّر الشدة',
+      trend_title:'اتجاه الحمل والحجم',trend_range:'المدة',trend_volume:'الحجم الأسبوعي',trend_combined:'الحمل المدمج الأسبوعي',trend_priority:'العضلات المفضلة',trend_updated:'آخر تحديث',trend_summary:'{s} مجموعة إجمالي على {w} أسبوع · {m} أسبوع برتابة أعلى من 2.0',
+      tendon_review_pending:'قيد المراجعة السريرية',tendon_not_diag:'المنطقة دي فيها إشارة خطر. إرشادات الأوتار مسودة لكن لسه مش معتمدة للاستخدام — وده مش تشخيص. لحد ما المراجعة السريرية تخلص، خلي المنطقة من غير ألم وتواصل مع الكوتش.',
+      stress_prehab_title:'ضغط متكرر على المفصل — ضيف تمارين وقاية',stress_prehab_desc:'{joint} اتعلم عليه {n} مرات في آخر 28 يوم. ضيف شغل وقاية خفيف عشانه قبل ما يتحول لمشكلة حقيقية.',
       // Auto adjustments
       auto_adj_needed:'تعديل مطلوب',auto_adj_needed_pl:'تعديلات مطلوبة',
       auto_adj_opportunity:'فرصة',auto_adj_opportunities:'فرص',

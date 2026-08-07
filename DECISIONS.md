@@ -39,6 +39,11 @@ The volume-distribution spec (layer 2) describes a **variable-size exercise pool
 - **Resolution evidence (probe `smoke_volmodel.js`, upper_lower_4 flow):** every muscle's live alloc equals its target exactly (no double-counting on multi-row muscles); delivered program within ±10% of target for all muscles (90–109%); cap binds only on scarce-slot muscles (worst: hamstrings 10→9). **No observed volume-math weirdness — the pool spec was aspirational; fixed-rows is the real, working model.**
 - **Decision:** formalize fixed-rows; **no migration**. Corrected spec: `E:\MoS\tools\VOLUME_MODEL.md` (model statement, equations, selection chain, verified consistency table, explicit out-of-scope list for any future pool migration).
 
+## D9 — Hybrid-athlete workload: tendon protocols gated behind clinical review (2026-08-07)
+Part 6 of the hybrid-athlete workload ships tendon-rehab protocol content for 4 groups (patellar, Achilles, elbow flexor/extensor, rotator cuff) as `TENDON_PROTOCOLS` in `js/05_injury_joints.js`, each with **`pendingClinicalReview: true`**. The user-facing rehab panel renders a review-pending card (header + severity + non-diagnosis disclaimer) instead of the protocol text; the full content exists only in source. The task referenced a "crisis-copy blocker" as the mechanism to mirror — **no such blocker exists in this repo** (grep-verified: zero hits for crisis/clinical/review in DECISIONS.md/PRD), so this entry plus the data-level flag is the blocker, created fresh. Closest existing analog: `meta_inferred_tip`/`metadataSource:"inferred"` (`js/30_exercise_db.js:177`).
+- **Why:** the protocol text is general loading principles (isometrics → heavier slow-tempo progression, own words), but tendon rehab crosses the clinical line; it must not reach users until a named clinical reviewer clears each group. Owner decision: no reviewer identified yet — **stays blocked indefinitely**; the flag is NOT to be cleared without one.
+- **Tradeoff:** four joints (knee/ankle/elbow/shoulder) show the review-pending card instead of a full protocol until review; users with active pain on those joints get the stop/inflammation message + consult CTA but not graded loading guidance. Accepted per owner decision (2026-08-07).
+
 
 ## Deferred (explicitly out of scope this sprint)
 

@@ -49,6 +49,20 @@
     renderCardioDash();
   });
 
+  // Non-lifting wiring (P1)
+  document.getElementById('nlToggle').addEventListener('click',function(){
+    document.getElementById('nlForm').classList.toggle('show');
+  });
+  document.getElementById('saveNlBtn').addEventListener('click',function(){
+    var type=document.getElementById('nlType').value,dur=parseInt(document.getElementById('nlDur').value)||0,effort=document.getElementById('nlEffort').value,notes=document.getElementById('nlNotes').value;
+    if(!dur||dur<1){alert(_('alert_enter_minutes'));return;}
+    saveNonLiftSession({date:new Date().toISOString().split('T')[0],type:type,dur:dur,effort:effort,notes:notes});
+    document.getElementById('nlForm').classList.remove('show');
+    document.getElementById('nlDur').value='';document.getElementById('nlNotes').value='';
+    renderNlDash();
+    renderCombinedLoadDash();
+  });
+
   // ── Measurement wiring ──
   document.getElementById('measToggle').addEventListener('click',function(){
     var f=document.getElementById('measForm'),isOpen=f.style.display==='block';

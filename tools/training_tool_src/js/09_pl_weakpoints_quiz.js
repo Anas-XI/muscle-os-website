@@ -91,6 +91,19 @@
   function weeklyCardio(){var cl=getCardioLogs(),wa=new Date(Date.now()-7*864e5).toISOString().split('T')[0];return cl.filter(function(x){return x.date>=wa}).reduce(function(a,x){a.minutes=(a.minutes||0)+(x.dur||0);a.sessions=(a.sessions||0)+1;if(!a.detail)a.detail={};a.detail[x.type]=(a.detail[x.type]||0)+(x.dur||0);return a;},{sessions:0,minutes:0,detail:{}});}
   function todayCardio(){var td=new Date().toISOString().split('T')[0],cl=getCardioLogs();return cl.filter(function(x){return x.date===td});}
 
+  // ── Non-lifting session logging (P1: hybrid-athlete cross-modality load) ──
+  var NONLIFT_MAX_DAYS=180;
+  function getNonLiftLogs(){return ls(K.NL,[]);}
+  function saveNonLiftSession(s){
+    var nl=getNonLiftLogs();nl.push(s);
+    var cutoff=new Date(Date.now()-NONLIFT_MAX_DAYS*864e5).toISOString().split('T')[0];
+    nl=nl.filter(function(x){return x.date>=cutoff;});
+    ss(K.NL,nl);
+  }
+  function weeklyNonLift(){var nl=getNonLiftLogs(),wa=new Date(Date.now()-7*864e5).toISOString().split('T')[0];return nl.filter(function(x){return x.date>=wa}).reduce(function(a,x){a.minutes=(a.minutes||0)+(x.dur||0);a.sessions=(a.sessions||0)+1;return a;},{sessions:0,minutes:0});}
+  function todayNonLift(){var td=new Date().toISOString().split('T')[0],nl=getNonLiftLogs();return nl.filter(function(x){return x.date===td});}
+  var NONLIFT_EFFORT={Low:3,Moderate:5,High:8};
+
   // ── Quiz ──
   const QUIZ = [
     {q:"How many days per week can you consistently train?",k:"days",o:[{v:"2",l:"2 days — tight schedule"},{v:"3",l:"3 days — moderate"},{v:"4",l:"4 days — good"},{v:"5",l:"5 days — strong"},{v:"6",l:"6 days — top priority"}]},

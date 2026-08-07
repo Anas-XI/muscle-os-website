@@ -451,6 +451,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid var(-
 .rehab-card{background:rgba(244,67,54,.04);border:1px solid rgba(244,67,54,.15);border-radius:10px;padding:10px 12px;margin-bottom:8px}
 .rehab-card.rehab-yellow{background:rgba(255,152,0,.04);border-color:rgba(255,152,0,.15)}
 .rehab-card.rehab-red{background:rgba(244,67,54,.06);border-color:rgba(244,67,54,.2)}
+.rehab-card.rehab-prehab{background:rgba(76,175,80,.04);border-color:rgba(76,175,80,.18)}
 .rehab-card .rc-header{font-family:'Oswald',sans-serif;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px;display:flex;align-items:center;gap:6px}
 .rehab-card .rc-severity{font-size:.5rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;padding:1px 5px;border-radius:3px}
 .rehab-card .rc-severity.warn{background:rgba(255,152,0,.1);color:#FF9800}
@@ -1187,6 +1188,11 @@ select option{background:var(--card)}
 
       <div id="acwrDash" class="acwr-bar" style="display:none;border:1px solid rgba(250,250,248,.05)"></div>
 
+      <div id="combinedLoadDash" style="display:none;margin-bottom:12px;border:1px solid rgba(250,250,248,.05);border-radius:8px;padding:8px 10px;background:rgba(250,250,248,.01)">
+        <div class="section-header" style="margin-bottom:4px"><span data-i18n="cl_title">Combined Load</span> <span class="section-sub">— lifting + non-lifting</span></div>
+        <div id="combinedLoadContent" style="font-size:.55rem;color:rgba(250,250,248,.2);line-height:1.5"></div>
+      </div>
+
       <div id="autoAdjustCard" class="auto-adjust-card" style="display:none;margin-bottom:12px;border:1px solid rgba(244,201,59,.08);border-radius:8px;padding:8px 10px;background:rgba(244,201,59,.01)">
         <div class="section-header" style="margin-bottom:4px" data-i18n="track_progress">Auto Adjustments <span class="section-sub">— next session</span></div>
         <div id="autoAdjustContent" style="font-size:.5rem;color:rgba(250,250,248,.2)"></div>
@@ -1210,6 +1216,26 @@ select option{background:var(--card)}
           <button class="btn-primary" id="saveCardioBtn" style="font-size:.55rem;padding:6px 0;background:rgba(76,175,80,.06);border:1px solid rgba(76,175,80,.12);color:#4CAF50" data-i18n="log_cardio">Log Cardio</button>
         </div>
         <div class="cardio-history" id="cardioHistory"></div>
+      </div>
+
+      <div class="cardio-section">
+        <div class="cardio-toggle" id="nlToggle">
+          <span class="ci-icon">🏃</span>
+          <span data-i18n="nl_toggle">Log Non-Lifting Session</span>
+          <span id="nlTodayBadge" style="margin-left:auto;font-size:.5rem;color:rgba(250,250,248,.15)"></span>
+        </div>
+        <div class="cardio-form" id="nlForm">
+          <div class="cf-row">
+            <div><label data-i18n="nl_type">Type</label><select id="nlType"><option value="Sport">Sport</option><option value="Rehab">Rehab</option><option value="Mobility">Mobility</option><option value="GPP">GPP</option><option value="Other">Other</option></select></div>
+            <div><label data-i18n="nl_duration">Duration (min)</label><input type="number" id="nlDur" step="1" min="1" placeholder="e.g. 45"></div>
+          </div>
+          <div class="cf-row">
+            <div><label data-i18n="nl_effort">Effort</label><select id="nlEffort"><option value="Low" data-i18n="low">Low — easy pace</option><option value="Moderate" selected data-i18n="moderate">Moderate — can talk in short phrases</option><option value="High" data-i18n="high">High — breathless, can't talk</option></select></div>
+            <div><label>Notes (optional)</label><input type="text" id="nlNotes" placeholder="e.g. football practice"></div>
+          </div>
+          <button class="btn-primary" id="saveNlBtn" style="font-size:.55rem;padding:6px 0;background:rgba(76,175,80,.06);border:1px solid rgba(76,175,80,.12);color:#4CAF50" data-i18n="nl_save">Log Session</button>
+        </div>
+        <div class="cardio-history" id="nlHistory"></div>
       </div>
 
       <div id="rehabPanel" class="rehab-panel" style="display:none">
@@ -1332,6 +1358,12 @@ select option{background:var(--card)}
     <div class="card" id="cardioHistCard" style="display:none">
       <div class="section-header" data-i18n="log_cardio">Cardio Log <span class="section-sub">— weekly summary</span></div>
       <div id="cardioHistContent"><p style="font-size:.6rem;color:rgba(250,250,248,.15);padding:10px;text-align:center" data-i18n="no_data">No cardio logged yet.</p></div>
+    </div>
+    <div class="card" id="trendHistCard" style="display:none">
+      <div class="section-header" data-i18n="trend_title">Load &amp; Volume Trend <span class="section-sub">— weekly buckets</span></div>
+      <div class="form-group" style="margin-bottom:8px"><label data-i18n="trend_range">Range</label>
+        <select id="trendRange"><option value="90">90 days</option><option value="180" selected>180 days</option></select></div>
+      <div id="trendContent"><p style="font-size:.6rem;color:rgba(250,250,248,.15);padding:10px;text-align:center" data-i18n="no_data">Log some sessions to see trends.</p></div>
     </div>
     <div class="card" id="mesoHistCard" style="display:none">
       <div class="section-header" data-i18n="generate_meso">Mesocycle History <span class="section-sub">— completed blocks</span></div>
@@ -1511,6 +1543,15 @@ select option{background:var(--card)}
       acwr_high:'HIGH — injury risk elevated',acwr_moderate:'MODERATE — monitor closely',
       acwr_elevated:'ELEVATED — within acceptable',acwr_low:'LOW — consider increasing load',acwr_normal:'NORMAL — optimal range',
       acwr_ratio:'ACWR',
+      // Hybrid-athlete load (P1/P2/P3)
+      nl_toggle:'Log Non-Lifting Session',nl_type:'Type',nl_duration:'Duration (min)',nl_effort:'Effort',nl_save:'Log Session',nl_today:'today',nl_this_week:'This week',
+      cl_title:'Combined Load',cl_today:'Today',cl_week:'7d',cl_lift:'lifting',cl_nonlift:'non-lifting',
+      mono_label:'Monotony',mono_thresh:'red > 2.0',mono_title:'Monotony is high — mix up the week',
+      mono_desc:'Your weekly load pattern is very repetitive (monotony {m}). Same-feeling sessions every day drive fatigue without extra gains. Swap in a lighter or different session — your program stays as planned.',
+      mono_ack:'Got it — I\'ll vary intensity',
+      trend_title:'Load & Volume Trend',trend_range:'Range',trend_volume:'Weekly Volume',trend_combined:'Weekly Combined Load',trend_priority:'Priority Muscles',trend_updated:'updated',trend_summary:'{s} total sets over {w} weeks · {m} week(s) with monotony > 2.0',
+      tendon_review_pending:'Under clinical review',tendon_not_diag:'This area is flagged. Specific tendon guidance is drafted but not yet cleared for use — it is not a diagnosis. Until a clinical review is done, keep the area pain-free and contact the coach for advice.',
+      stress_prehab_title:'Repeated joint stress — add prehab',stress_prehab_desc:'{joint} has been flagged {n} times in the last 28 days. Add low-intensity prehab work for it before it becomes a real problem.',
       // Auto adjustments
       auto_adj_needed:'adjustment needed',auto_adj_needed_pl:'adjustments needed',
       auto_adj_opportunity:'opportunity',auto_adj_opportunities:'opportunities',
@@ -1939,6 +1980,15 @@ select option{background:var(--card)}
       acwr_high:'عالي — خطر الإصابة عالي',acwr_moderate:'متوسط — راقب كويس',
       acwr_elevated:'عالي شوية — مقبول',acwr_low:'قليل — فكر تزود الحمل',acwr_normal:'طبيعي — النطاق الأمثل',
       acwr_ratio:'ACWR',
+      // Hybrid-athlete load (P1/P2/P3)
+      nl_toggle:'تسجيل جلسة خارج الحديد',nl_type:'النوع',nl_duration:'المدة (دقيقة)',nl_effort:'الجهد',nl_save:'حفظ الجلسة',nl_today:'النهارده',nl_this_week:'الأسبوع ده',
+      cl_title:'الحمل المدمج',cl_today:'النهارده',cl_week:'7 أيام',cl_lift:'حديد',cl_nonlift:'بره الحديد',
+      mono_label:'الرتابة',mono_thresh:'أحمر > 2.0',mono_title:'الرتابة عالية — نّوع الأسبوع',
+      mono_desc:'نمط حملك الأسبوعي متكرر جداً (رتابة {m}). جلسات بنفس الإحساس كل يوم بتزيد التعب من غير مكاسب زيادة. بدّل جلسة أخف أو مختلفة — برنامجك ثابت زي ما هو.',
+      mono_ack:'تمام — هغيّر الشدة',
+      trend_title:'اتجاه الحمل والحجم',trend_range:'المدة',trend_volume:'الحجم الأسبوعي',trend_combined:'الحمل المدمج الأسبوعي',trend_priority:'العضلات المفضلة',trend_updated:'آخر تحديث',trend_summary:'{s} مجموعة إجمالي على {w} أسبوع · {m} أسبوع برتابة أعلى من 2.0',
+      tendon_review_pending:'قيد المراجعة السريرية',tendon_not_diag:'المنطقة دي فيها إشارة خطر. إرشادات الأوتار مسودة لكن لسه مش معتمدة للاستخدام — وده مش تشخيص. لحد ما المراجعة السريرية تخلص، خلي المنطقة من غير ألم وتواصل مع الكوتش.',
+      stress_prehab_title:'ضغط متكرر على المفصل — ضيف تمارين وقاية',stress_prehab_desc:'{joint} اتعلم عليه {n} مرات في آخر 28 يوم. ضيف شغل وقاية خفيف عشانه قبل ما يتحول لمشكلة حقيقية.',
       // Auto adjustments
       auto_adj_needed:'تعديل مطلوب',auto_adj_needed_pl:'تعديلات مطلوبة',
       auto_adj_opportunity:'فرصة',auto_adj_opportunities:'فرص',
@@ -2355,7 +2405,49 @@ select option{background:var(--card)}
       avoid:['Forearm Ext/Flex','Bench Press (wide)','Bicep Curl (barbell)','Wrist Curl','Reverse Wrist Curl','Farmers Walk','Plate Pinch','Push-Up']
     }
   };
-  // Map joints to exercises (which exercises use which joints)
+  // ── Tendon-rehab protocols (P6) ──
+  // Gated behind pendingClinicalReview: true — content is NOT user-visible until a
+  // clinical reviewer is named and clears each group (see DECISIONS.md D9).
+  // Written as general loading principles only, never a diagnosis.
+  const TENDON_PROTOCOLS = {
+    patellar:{name:'Patellar Tendon',icon:'🦵',joint:'knee',pendingClinicalReview:true,
+      acute:'Back off heavy knee-dominant work. Keep everyday movement pain-limited. Short, pain-free isometric holds on the quad are the loading bridge while flare-ups settle.',
+      recovery:'Progressively loaded isometric work (wall sit holds, light leg extension holds) in pain-free ranges. Over 2-3 weeks, slowly add slow-tempo leg extensions with light weight — the tendon needs load, not rest, to adapt.',
+      return:'Gradually reintroduce squat-pattern work starting at light loads, adding weight only when the previous week was pain-free. Keep tempo controlled; fast rebound work stays out for now.',
+      safe:['RDL','Leg Curls','Hip Thrust','Calf Raises','Lat Pulldown','Seated Row','Bench Press','Triceps Pushdown'],
+      avoid:['Barbell Squat','Leg Press','Bulgarian Split Squat','Step-Up','Sissy Squat','Front Squat or Lunge','Hack Squat','Leg Extension (deep, fast)'],
+      reviewNote:'Patellar tendon guidance is drafted as general loading principles and awaits clinical review before any user-visible use.'},
+    achilles:{name:'Achilles Tendon',icon:'🦶',joint:'ankle',pendingClinicalReview:true,
+      acute:'Cut high-impact work (jumping, sprinting, heavy calf loading) to pain-free levels. Walking is fine. Flare-ups settle fastest when load spikes stop.',
+      recovery:'Pain-free isometric calf holds (both legs) progress to single-leg as tolerated. Slow, controlled seated calf raises build capacity without the stretch-load of straight-leg work.',
+      return:'Straight-leg (gastrocnemius) work comes back slowly at light loads before any bouncing or hopping. Load must rise in small steps week to week.',
+      safe:['Barbell Squat','Leg Press','Leg Curls','Leg Extensions','Hip Thrust','Lat Pulldown','Seated Row','Bench Press'],
+      avoid:['Calf Raises (heavy, full stretch)','Standing Calf Raise','Single-Leg Calf Raise','Sprint work','Box Jumps','Rowing (drive phase)'],
+      reviewNote:'Achilles tendon guidance is drafted as general loading principles and awaits clinical review before any user-visible use.'},
+    elbow_flexor_extensor:{name:'Elbow Flexor/Extensor Tendons',icon:'💪',joint:'elbow',pendingClinicalReview:true,
+      acute:'Stop the aggravating curl/pushdown pattern. Keep the elbow mostly pain-free in daily life; grip and lifting loads drop to levels that do not reproduce pain.',
+      recovery:'Pain-free isometric holds for the forearm muscles, then slow-tempo light curls/pushdowns through mid-range only. Wrist position changes (neutral grip) reduce tendon strain while capacity builds.',
+      return:'Reintroduce full-range curling and pressing slowly, adding load only when the previous step was pain-free. Avoid sudden increases in grip-heavy or stretch-loaded work.',
+      safe:['Lat Pulldown','Seated Row','Barbell Squat','Leg Extensions','Leg Curls','Lateral Raises','Rear Delt Flies','Calf Raises','Hip Thrust','Machine Chest Flies','RDL'],
+      avoid:['Preacher Curls','Bicep Curl (barbell, stretch-loaded)','Hammer Curls (heavy)','Triceps Pushdown (full stretch)','Skull Crusher','Close-Grip Bench','JM Press','Dips','Reverse Curl'],
+      reviewNote:'Elbow tendon guidance is drafted as general loading principles and awaits clinical review before any user-visible use.'},
+    rotator_cuff:{name:'Rotator Cuff',icon:'🏋️',joint:'shoulder',pendingClinicalReview:true,
+      acute:'Stop overhead and heavy pushing patterns that reproduce pain. Keep the shoulder moving through pain-free ranges daily; light band work only if completely pain-free.',
+      recovery:'Pain-free isometric pressing and external-rotation holds, then slow-tempo band rotations and scapular work. Keep loads light; the cuff adapts to frequent, low-load input.',
+      return:'Gradually reintroduce pressing at controlled speeds and reduced range before full range. Load rises in small weekly steps; heavy dips and behind-neck work stay out for now.',
+      safe:['Lat Pulldown','Seated Row','Rear Delt Flies','Face Pull','Triceps Pushdown','Preacher Curls','Leg Extensions','Leg Curls','Calf Raises','Hip Thrust','Machine Chest Flies','Barbell Squat','RDL'],
+      avoid:['Overhead Press','Shoulder Press','Incline Chest Press','Bench Press','Dumbbell Bench Press','Pull-Up','Arnold Press','Close-Grip Bench','JM Press','Skull Crusher','Triceps Overhead Extensions'],
+      reviewNote:'Rotator cuff guidance is drafted as general loading principles and awaits clinical review before any user-visible use.'}
+  };
+  // Map a flagged joint to its tendon-protocol group (by joint name), if one exists.
+  function tendonProtocolFor(joint){
+    var j=(joint||'').toLowerCase();
+    if(j==='knee')return TENDON_PROTOCOLS.patellar;
+    if(j==='ankle')return TENDON_PROTOCOLS.achilles;
+    if(j==='elbow')return TENDON_PROTOCOLS.elbow_flexor_extensor;
+    if(j==='shoulder')return TENDON_PROTOCOLS.rotator_cuff;
+    return null;
+  }
   function jointsForExercise(ex){
     var m=meta(ex);
     return (m.jr||[]).map(function(j){return j.replace(/"/g,'').trim().toLowerCase();});
@@ -2548,7 +2640,7 @@ select option{background:var(--card)}
     forearms:["Forearm Ext/Flex","Wrist Curl","Reverse Wrist Curl","Plate Pinch","Dead Hang"],
     abs:["Hanging Leg Raise","Leg Raise","Cable Crunch","Ab Wheel Rollout","Plank"]
   };
-  window.__pools=EXERCISE_POOLS;window.__exMeta=EXERCISE_META;
+  window.__pools=EXERCISE_POOLS;window.__exMeta=EXERCISE_META;window.__tendonProtocols=TENDON_PROTOCOLS;
 
   // ── Exercise regions: muscle → region buckets (library + picker grouping) ──
   const EXERCISE_REGIONS = {
@@ -3097,7 +3189,7 @@ select option{background:var(--card)}
     {id:'hole',l:'Bottom of Squat (the hole)'},{id:'midpoint',l:'Mid-Point Sticking'},
     {id:'legs',l:'Leg Strength / Mass'},{id:'back',l:'Back Strength / Thickness'}
   ];
-  const K = {VT:'mos_vol_targets',SP:'mos_split_profile',PG:'mos_program',LG:'mos_logs',VI:'mos_vol_inputs',LH:'mos_load_history',DT:'mos_deload_tracker',PF:'mos_pain_flags',PL:'mos_pl_profile',FL:'mos_fatigue_log',CL:'mos_cardio_logs',MP:'mos_meso_plan',MA:'mos_meso_active',MH:'mos_meso_history',MM:'mos_measurements',CE:'mos_custom_exercises',CR:'mos_custom_replacements',SU:'mos_supersets',SS:'mos_sessions',PR:'mos_priority',SR:'mos_soreness_log',PC:'mos_pr_credit',VA:'mos_vol_alloc',FO:'mos_freq_override',CQ:'mos_coach_queue',EV:'mos_events',CS:'mos_custom_split'};
+  const K = {VT:'mos_vol_targets',SP:'mos_split_profile',PG:'mos_program',LG:'mos_logs',VI:'mos_vol_inputs',LH:'mos_load_history',DT:'mos_deload_tracker',PF:'mos_pain_flags',PL:'mos_pl_profile',FL:'mos_fatigue_log',CL:'mos_cardio_logs',MP:'mos_meso_plan',MA:'mos_meso_active',MH:'mos_meso_history',MM:'mos_measurements',CE:'mos_custom_exercises',CR:'mos_custom_replacements',SU:'mos_supersets',SS:'mos_sessions',PR:'mos_priority',SR:'mos_soreness_log',PC:'mos_pr_credit',VA:'mos_vol_alloc',FO:'mos_freq_override',CQ:'mos_coach_queue',EV:'mos_events',CS:'mos_custom_split',NL:'mos_nonlift_log',PFH:'mos_pain_flag_hist'};
 
   // ═══════════════════════════════════════
   //  LOCAL EVENT LOG + TRIAL (PMF telemetry)
@@ -3352,6 +3444,19 @@ select option{background:var(--card)}
   function saveCardioSession(s){var cl=getCardioLogs();cl.push(s);ss(K.CL,cl);}
   function weeklyCardio(){var cl=getCardioLogs(),wa=new Date(Date.now()-7*864e5).toISOString().split('T')[0];return cl.filter(function(x){return x.date>=wa}).reduce(function(a,x){a.minutes=(a.minutes||0)+(x.dur||0);a.sessions=(a.sessions||0)+1;if(!a.detail)a.detail={};a.detail[x.type]=(a.detail[x.type]||0)+(x.dur||0);return a;},{sessions:0,minutes:0,detail:{}});}
   function todayCardio(){var td=new Date().toISOString().split('T')[0],cl=getCardioLogs();return cl.filter(function(x){return x.date===td});}
+
+  // ── Non-lifting session logging (P1: hybrid-athlete cross-modality load) ──
+  var NONLIFT_MAX_DAYS=180;
+  function getNonLiftLogs(){return ls(K.NL,[]);}
+  function saveNonLiftSession(s){
+    var nl=getNonLiftLogs();nl.push(s);
+    var cutoff=new Date(Date.now()-NONLIFT_MAX_DAYS*864e5).toISOString().split('T')[0];
+    nl=nl.filter(function(x){return x.date>=cutoff;});
+    ss(K.NL,nl);
+  }
+  function weeklyNonLift(){var nl=getNonLiftLogs(),wa=new Date(Date.now()-7*864e5).toISOString().split('T')[0];return nl.filter(function(x){return x.date>=wa}).reduce(function(a,x){a.minutes=(a.minutes||0)+(x.dur||0);a.sessions=(a.sessions||0)+1;return a;},{sessions:0,minutes:0});}
+  function todayNonLift(){var td=new Date().toISOString().split('T')[0],nl=getNonLiftLogs();return nl.filter(function(x){return x.date===td});}
+  var NONLIFT_EFFORT={Low:3,Moderate:5,High:8};
 
   // ── Quiz ──
   const QUIZ = [
@@ -3817,18 +3922,31 @@ select option{background:var(--card)}
   // ── Rehab Engine ──
   function renderRehabPanel(){
     var pf=painFlags(),panel=document.getElementById('rehabPanel'),content=document.getElementById('rehabContent'),status=document.getElementById('rehabStatus');
-    if(!pf||!Object.keys(pf).filter(function(k){return pf[k]==='red'||pf[k]==='yellow'}).length){panel.style.display='none';return;}
+    if(!panel||!content)return;
+    var flagged=pf&&Object.keys(pf).filter(function(k){return pf[k]==='red'||pf[k]==='yellow'}).length;
+    // P5: prehab suggestion from repeated joint-stress flags (no active pain flags needed)
+    var stress=jointStressFlags(28).filter(function(s){return s.count>=2&&INJURY_PROTOCOLS[s.joint];});
+    if(!flagged&&!stress.length){panel.style.display='none';return;}
     panel.style.display='block';
     var hasRed=false;var areaList=[];var prots={};
-    Object.keys(pf).forEach(function(ex){
+    Object.keys(pf||{}).forEach(function(ex){
       var v=pf[ex];if(v==='red')hasRed=true;
       var p=rehabForExercise(ex,pf);
       if(p&&!prots[p.name]){prots[p.name]=p;areaList.push({ex:ex,severity:v,protocol:p});}
     });
-    if(!areaList.length){panel.style.display='none';return;}
     status.textContent=(hasRed?'🔴 '+_('rehab_injury'):'🟡 '+_('rehab_inflammation'))+' · '+areaList.length+(areaList.length>1?' areas':' area');
     var html='';
     areaList.forEach(function(a){
+      // P6: tendon-group joints render the gated review-pending card until a
+      // clinical reviewer clears the protocol (pendingClinicalReview stays true).
+      var tp=tendonProtocolFor(a.protocol.joint||a.ex)||tendonProtocolFor(jointsForExercise(a.ex)[0]);
+      if(tp&&tp.pendingClinicalReview){
+        html+='<div class="rehab-card rehab-'+(a.severity==='red'?'red':'yellow')+'">'+
+          '<div class="rc-header"><span>'+tp.icon+' '+tp.name+'</span><span class="rc-severity '+(a.severity==='red'?'danger':'warn')+'">'+a.severity.toUpperCase()+'</span></div>'+
+          '<div class="rehab-phase"><div class="rp-label">🔒 '+_('tendon_review_pending')+'</div><div class="rp-text">'+_('tendon_not_diag')+'</div></div>'+
+          '</div>';
+        return;
+      }
       html+='<div class="rehab-card rehab-'+(a.severity==='red'?'red':'yellow')+'">'+
         '<div class="rc-header"><span>'+a.protocol.icon+' '+a.protocol.name+'</span><span class="rc-severity '+(a.severity==='red'?'danger':'warn')+'">'+a.severity.toUpperCase()+'</span></div>'+
         '<div class="rehab-phase"><div class="rp-label">⚠ '+_('rehab_acute')+'</div><div class="rp-text">'+
@@ -3842,8 +3960,25 @@ select option{background:var(--card)}
       else html+='<div style="font-size:.6rem;color:#f44336;padding:4px 0;font-weight:600">⛔ '+_('rehab_stop_all')+'</div>';
       html+='</div>';
     });
-    // Consultation CTA
-    html+='<a class="consult-cta" href="https://wa.me/201040796017?text='+encodeURIComponent('Hi Coach Anas, I need a free consultation for my injury ('+areaList.map(function(a){return a.protocol.name+' ('+a.severity+')'}).join(', ')+'). Please advise.')+'" target="_blank">📅 '+_('rehab_book_consult')+'</a>';
+    // P5: prehab suggestion card when a joint keeps getting flagged
+    if(!areaList.length&&stress.length){
+      status.textContent='🛡 '+_('stress_prehab_title');
+      html='';
+      stress.forEach(function(s){
+        var prot=INJURY_PROTOCOLS[s.joint],prehabExs=[];
+        for(var k in EXERCISE_META){var m=EXERCISE_META[k];if(m.prehab&&(m.jr||[]).indexOf(s.joint)>=0)prehabExs.push(k);}
+        html+='<div class="rehab-card rehab-prehab">'+
+          '<div class="rc-header"><span>🛡 '+prot.icon+' '+prot.name+'</span><span class="rc-severity warn">'+s.count+'×</span></div>'+
+          '<div class="rehab-phase"><div class="rp-label">⚠ '+_('stress_prehab_title')+'</div><div class="rp-text">'+_('stress_prehab_desc').replace('{joint}',prot.name).replace('{n}',s.count)+'</div></div>'+
+          (prehabExs.length?'<div class="rehab-ex-list"><span style="font-size:.48rem;color:rgba(250,250,248,.15);margin-right:4px">'+_('prehab_lbl')+'</span>'+
+          prehabExs.map(function(e){return'<span class="rel-safe">✓ '+e+'</span>'}).join('')+'</div>':'')+
+          '</div>';
+      });
+    }
+    if(areaList.length){
+      // Consultation CTA
+      html+='<a class="consult-cta" href="https://wa.me/201040796017?text='+encodeURIComponent('Hi Coach Anas, I need a free consultation for my injury ('+areaList.map(function(a){return a.protocol.name+' ('+a.severity+')'}).join(', ')+'). Please advise.')+'" target="_blank">📅 '+_('rehab_book_consult')+'</a>';
+    }
     content.innerHTML=html;
   }
   // Check if an exercise is safe given current injuries
@@ -4146,6 +4281,74 @@ select option{background:var(--card)}
     return{ratio:ratio,risk:risk,color:color,acute:acute,chronic:avgChronic};
   }
 
+  // ── Combined cross-modality load (P1) ──
+  // Lifting load = tonnage (kg·reps, same source ACWR reads). Non-lifting load =
+  // duration × effort factor (Low 3 / Moderate 5 / High 8). Combined units =
+  // tonnage/100 + non-lifting units, so both modalities land on a comparable scale.
+  function dailyCombinedLoads(days){
+    var hist=loadHist(),nl=getNonLiftLogs();
+    var byDay={};
+    // UTC-calendar keys: storage (cardio/pain/log entries) is dated via
+    // toISOString().split('T')[0], so day keys must match UTC, not local midnight.
+    var dISO=function(offset){var d=new Date();d.setUTCDate(d.getUTCDate()-offset);return d.toISOString().split('T')[0];};
+    for(var i=days-1;i>=0;i--)byDay[dISO(i)]={lift:0,nonlift:0,combined:0};
+    Object.keys(hist).forEach(function(ex){(hist[ex]||[]).forEach(function(e){
+      if(byDay[e.date]!==undefined)byDay[e.date].lift+=e.w*e.r;
+    })});
+    nl.forEach(function(x){
+      if(byDay[x.date]!==undefined){
+        var u=(x.dur||0)*(NONLIFT_EFFORT[x.effort]||5);
+        byDay[x.date].nonlift+=u;
+      }
+    });
+    Object.keys(byDay).forEach(function(d){byDay[d].combined=Math.round(byDay[d].lift/100+byDay[d].nonlift);});
+    return byDay;
+  }
+  function combinedLoad(){
+    var byDay=dailyCombinedLoads(28),td=new Date().toISOString().split('T')[0];
+    var w=0,wl=0,wn=0,m=0,ml=0,mn=0;
+    Object.keys(byDay).forEach(function(d){
+      if(d>=byDayStart(7)){w+=byDay[d].combined;wl+=byDay[d].lift;wn+=byDay[d].nonlift;}
+      m+=byDay[d].combined;ml+=byDay[d].lift;mn+=byDay[d].nonlift;
+    });
+    return{today:byDay[td]||{lift:0,nonlift:0,combined:0},week:{combined:w,lift:wl,nonlift:wn},month:{combined:m,lift:ml,nonlift:mn}};
+  }
+  function byDayStart(days){var d=new Date();d.setUTCDate(d.getUTCDate()-days);return d.toISOString().split('T')[0];}
+
+  // ── Foster monotony & strain (P2, read-time over trailing 7 days) ──
+  // Monotony = daily-mean / daily-SD of combined load. Strain = 7-day total × monotony.
+  // Rest/missed days count as 0. Threshold: monotony > 2.0 → soft gate (suggest
+  // variation/recovery, never modify the program).
+  function monotonyStrain(){
+    var byDay=dailyCombinedLoads(7);
+    var vals=Object.keys(byDay).sort().map(function(d){return byDay[d].combined;});
+    var n=vals.length,sum=vals.reduce(function(a,x){return a+x},0);
+    var mean=sum/n;
+    var sd=Math.sqrt(vals.reduce(function(a,x){return a+(x-mean)*(x-mean)},0)/n)||0;
+    var mono=sd>0?mean/sd:0;
+    var strain=mono>0?sum*mono:0;
+    return{mono:Math.round(mono*100)/100,strain:Math.round(strain*100)/100,mean:Math.round(mean*100)/100,sd:Math.round(sd*100)/100,total:sum,daily:vals};
+  }
+  window.__monotonyStrain=monotonyStrain;window.__combinedLoad=combinedLoad;window.__dailyCombinedLoads=dailyCombinedLoads;
+
+  // ── Joint-stress-flag frequency (P5, from K.PFH) ──
+  // Counts pain-flag events per joint over the window; feeds prehab suggestions.
+  function jointStressFlags(days){
+    var hist=ls(K.PFH,[]),cut=byDayStart(days);
+    var counts={};
+    hist.forEach(function(f){
+      if(!f||!f.date||f.date<cut)return;
+      jointsForExercise(f.ex||'').forEach(function(j){
+        if(!j)return;
+        if(!counts[j])counts[j]={count:0,ex:{}};
+        counts[j].count++;
+        counts[j].ex[f.ex]=true;
+      });
+    });
+    return Object.keys(counts).map(function(j){return{joint:j,count:counts[j].count,exercises:Object.keys(counts[j].ex)};}).sort(function(a,b){return b.count-a.count;});
+  }
+  window.__jointStressFlags=jointStressFlags;
+
   // ── Volume Tracking ──
   function findMuscle(ex){var prog=ls(K.PG,null);if(prog)for(var di in prog.days)for(var ei in prog.days[di].ex){if(prog.days[di].ex[ei].n===ex)return prog.days[di].ex[ei].p;}for(var k in SPLITS)for(var d in SPLITS[k].days)for(var e in SPLITS[k].days[d].ex){var x=SPLITS[k].days[d].ex[e];if(x.n===ex)return x.p;}return null;}
   function weeklyVol(logs){var v={};MUSCLES.forEach(function(m){v[m.id]=0});var wa=new Date(Date.now()-7*864e5).toISOString().split('T')[0],td=new Date().toISOString().split('T')[0];var prog=ls(K.PG,null);Object.keys(logs).forEach(function(ds){if(ds<wa||ds>td)return;Object.keys(logs[ds]).forEach(function(eid){var s=logs[ds][eid].sets||[],en=eid.split('__')[1]||eid,pm=findMuscle(en);if(!pm||v[pm]===undefined)return;if(prog&&prog.days.some(function(d){return d.ex.some(function(e){return e.optional&&e.n===en});}))return;v[pm]+=s.filter(function(x){return x&&(x.weight||x.w)&&parseFloat(x.weight||x.w)>0}).length;});});return v;}
@@ -4156,7 +4359,7 @@ select option{background:var(--card)}
   // ═══════════════════════════════════════
 
   var step=1,dayIdx=0,splitKey='upper_lower_4',quizMode=false,quizQ=0,quizA={};
-  var makeupDays={},missedSkip=false,lightDays={},lightProceed={};
+  var makeupDays={},missedSkip=false,lightDays={},lightProceed={},monoDismissed={};
   function go(n){step=n;evLog('screen_'+n);document.querySelectorAll('.step-content').forEach(function(s){s.classList.remove('active')});var el=document.getElementById('step'+n);if(el)el.classList.add('active');document.querySelectorAll('.step').forEach(function(s){var sn=parseInt(s.dataset.step);s.classList.remove('active','done');if(sn===n)s.classList.add('active');else if(sn<n)s.classList.add('done');});window.scrollTo(0,0);}
   document.querySelectorAll('.step').forEach(function(s){s.addEventListener('click',function(){var n=parseInt(this.dataset.step);if(n<=step)go(n);})});
 
@@ -5929,6 +6132,9 @@ select option{background:var(--card)}
     }
     // ACWR in dashboard
     renderACWRDash();
+    // Combined cross-modality load + non-lifting dash (P1)
+    renderCombinedLoadDash();
+    renderNlDash();
     // Auto adjustments
     renderAutoAdjustments();
     // Periodization detail
@@ -5981,6 +6187,31 @@ select option{background:var(--card)}
     var wc=weeklyCardio();
     if(wc.sessions>0)hist.innerHTML='<strong>'+_('cardio_this_week')+':</strong> '+wc.sessions+' '+_('cardio_sessions')+', '+wc.minutes+' min'+(wc.detail?Object.keys(wc.detail).map(function(t){return' · '+t+': '+wc.detail[t]+'min'}).join(''):'');
     else hist.textContent='';
+  }
+
+  function renderNlDash(){
+    var td=todayNonLift();
+    document.getElementById('nlTodayBadge').textContent=td.length?td.length+' '+_('nl_today'):'';
+    var hist=document.getElementById('nlHistory');
+    var wn=weeklyNonLift();
+    if(wn.sessions>0)hist.innerHTML='<strong>'+_('nl_this_week')+':</strong> '+wn.sessions+' '+_('cardio_sessions')+', '+wn.minutes+' min';
+    else hist.textContent='';
+  }
+
+  function renderCombinedLoadDash(){
+    var el=document.getElementById('combinedLoadDash');
+    if(!el)return;
+    var cl=combinedLoad();
+    if(cl.week.combined<=0&&cl.today.combined<=0){el.style.display='none';return;}
+    el.style.display='block';
+    var ms=monotonyStrain();
+    var monoColor=ms.mono>2?'#f44336':ms.mono>1.5?'#FF9800':'#4CAF50';
+    document.getElementById('combinedLoadContent').innerHTML=
+      '<div style="display:flex;gap:8px;flex-wrap:wrap">'+
+      '<span>'+_('cl_today')+': <strong style="color:#F4C93B">'+cl.today.combined+'</strong></span>'+
+      '<span>'+_('cl_week')+': <strong style="color:#F4C93B">'+cl.week.combined+'</strong> <span style="font-size:.45rem;color:rgba(250,250,248,.15)">('+_('cl_lift')+' '+cl.week.lift.toFixed(0)+' kg · '+_('cl_nonlift')+' '+cl.week.nonlift.toFixed(0)+')</span></span>'+
+      '<span style="margin-left:auto">'+_('mono_label')+': <strong style="color:'+monoColor+'">'+ms.mono.toFixed(2)+'</strong></span>'+
+      '</div>';
   }
 
   function renderPerDetail(){
@@ -6348,6 +6579,14 @@ select option{background:var(--card)}
         '<button class="fat-light-btn" data-di="'+di+'" data-light="0">'+_('fat_planned_btn')+'</button></div></div>';
     }
 
+    // P2: Foster monotony soft-gate (read-time, no hard block). Suggest variation/recovery; never modifies the program.
+    var ms=monotonyStrain();
+    if(ms.mono>2&&!monoDismissed[di]&&!lightDays[di]){evLog('mono_gate',{di:di,mono:ms.mono,strain:ms.strain});
+      html+='<div class="fat-light-banner mono-banner"><span class="flb-title">'+_('mono_title')+'</span>'+
+        '<span class="flb-desc">'+_('mono_desc').replace('{m}',ms.mono.toFixed(2))+'</span>'+
+        '<div class="flb-btns"><button class="mono-ack-btn" data-di="'+di+'">'+_('mono_ack')+'</button></div></div>';
+    }
+
     html+=renderSorenessCards(day,di);
 
     var ssOn=!!ls(K.SU,{})[di];
@@ -6369,7 +6608,13 @@ select option{background:var(--card)}
     container.querySelectorAll('.rm-ex-btn').forEach(function(b){b.addEventListener('click',function(){if(confirm('Remove "'+this.dataset.ex+'" from '+_('today_train')+'?'))rmEx(di,this.dataset.ex);});});
     container.querySelectorAll('.sw-ex-btn').forEach(function(b){b.addEventListener('click',function(){var p=b.parentElement.parentElement.querySelector('.swap-panel');if(p)p.classList.toggle('open');});});
     container.querySelectorAll('.swap-chip').forEach(function(chip){chip.addEventListener('click',function(){swapEx(parseInt(chip.dataset.di),parseInt(chip.dataset.idx),chip.dataset.ex,chip.dataset.to);});});
-    container.querySelectorAll('.pain-btn').forEach(function(b){b.addEventListener('click',function(){var pf=painFlags();pf[this.dataset.ex]=this.dataset.p;ss(K.PF,pf);renderDay(di);});});
+    container.querySelectorAll('.pain-btn').forEach(function(b){b.addEventListener('click',function(){var pf=painFlags();pf[this.dataset.ex]=this.dataset.p;ss(K.PF,pf);
+      // P5: append to joint-stress-flag history (180-day window kept in saveNonLift-style prune below)
+      var pfh=ls(K.PFH,[]);pfh.push({date:new Date().toISOString().split('T')[0],ex:this.dataset.ex,severity:this.dataset.p});
+      var cutoff=new Date(Date.now()-180*864e5).toISOString().split('T')[0];
+      ss(K.PFH,pfh.filter(function(f){return f.date>=cutoff;}));
+      renderDay(di);});});
+    container.querySelectorAll('.mono-ack-btn').forEach(function(b){b.addEventListener('click',function(){var i=parseInt(this.dataset.di);monoDismissed[i]=true;evLog('mono_gate_ack',{di:i});renderDay(i);});});
     container.querySelectorAll('.fat-light-btn').forEach(function(b){b.addEventListener('click',function(){if(this.dataset.gm!==undefined)return;var i=parseInt(this.dataset.di);evLog(this.dataset.light==='1'?'fat_gate_light':'fat_gate_proceed',{di:i});if(this.dataset.light==='1')lightDays[i]=true;else lightProceed[i]=true;renderDay(i);});});
     container.querySelectorAll('.sr-chip').forEach(function(b){b.addEventListener('click',function(){saveSoreness(b.dataset.m,parseInt(b.dataset.v,10));renderDay(parseInt(b.dataset.di,10));});});
     container.querySelectorAll('.fat-light-btn[data-gm]').forEach(function(b){b.addEventListener('click',function(){var fo=ls(K.FO,{}),wk=weekStartISO();if(!fo[wk])fo[wk]={};fo[wk][b.dataset.gm]=parseInt(b.dataset.gfreq,10);ss(K.FO,fo);renderDay(parseInt(b.dataset.di,10));});});
@@ -6539,6 +6784,20 @@ select option{background:var(--card)}
     document.getElementById('cardioForm').classList.remove('show');
     document.getElementById('cardioDur').value='';document.getElementById('cardioNotes').value='';
     renderCardioDash();
+  });
+
+  // Non-lifting wiring (P1)
+  document.getElementById('nlToggle').addEventListener('click',function(){
+    document.getElementById('nlForm').classList.toggle('show');
+  });
+  document.getElementById('saveNlBtn').addEventListener('click',function(){
+    var type=document.getElementById('nlType').value,dur=parseInt(document.getElementById('nlDur').value)||0,effort=document.getElementById('nlEffort').value,notes=document.getElementById('nlNotes').value;
+    if(!dur||dur<1){alert(_('alert_enter_minutes'));return;}
+    saveNonLiftSession({date:new Date().toISOString().split('T')[0],type:type,dur:dur,effort:effort,notes:notes});
+    document.getElementById('nlForm').classList.remove('show');
+    document.getElementById('nlDur').value='';document.getElementById('nlNotes').value='';
+    renderNlDash();
+    renderCombinedLoadDash();
   });
 
   // ── Measurement wiring ──
@@ -6824,6 +7083,9 @@ select option{background:var(--card)}
       document.getElementById('cardioHistContent').innerHTML=ch;
     } else {document.getElementById('cardioHistCard').style.display='none';}
 
+    // Multi-month trend (P3): volume, combined load, monotony/strain, priority rotation
+    renderTrendHistory();
+
     // Fatigue trend
     var fl=ls(K.FL,{});
     var dates=Object.keys(fl).sort().slice(-7);
@@ -6858,6 +7120,49 @@ select option{background:var(--card)}
     html+='</div><div style="margin-top:6px;font-size:.55rem;color:rgba(250,250,248,.2)">e1RM: <strong style="color:#F4C93B">'+sorted[0].e1RM+'</strong> → <strong style="color:#F4C93B">'+sorted[sorted.length-1].e1RM+'</strong> kg ('+(((sorted[sorted.length-1].e1RM-sorted[0].e1RM)/sorted[0].e1RM*100)||0).toFixed(1)+'%)</div>';
     document.getElementById('histChart').innerHTML=html;
   }
+
+  function renderTrendHistory(){
+    var range=parseInt(document.getElementById('trendRange').value)||180;
+    var logs=ls(K.LG,{}),byDay=dailyCombinedLoads(range);
+    var dates=Object.keys(byDay).sort();
+    var card=document.getElementById('trendHistCard');
+    if(!dates.length){if(card)card.style.display='none';return;}
+    var weeks=[];
+    for(var i=0;i<dates.length;i+=7){
+      var chunk=dates.slice(i,i+7),sets=0,cl=0,vals=[];
+      chunk.forEach(function(d){
+        var l=logs[d]||{};
+        Object.keys(l).forEach(function(eid){(l[eid].sets||[]).forEach(function(x){if(x&&x.w&&parseFloat(x.w)>0&&!x.wu)sets++;});});
+        cl+=byDay[d].combined;vals.push(byDay[d].combined);
+      });
+      var sum=vals.reduce(function(a,x){return a+x},0),mean=sum/Math.max(vals.length,1);
+      var sd=Math.sqrt(vals.reduce(function(a,x){return a+(x-mean)*(x-mean)},0)/Math.max(vals.length,1))||0;
+      var mono=sd>0?mean/sd:0;
+      weeks.push({label:chunk[0].slice(5)+'–'+chunk[chunk.length-1].slice(5),sets:sets,combined:cl,mono:mono,strain:mono>0?cl*mono:0});
+    }
+    var hasData=weeks.some(function(w){return w.sets>0||w.combined>0});
+    if(!hasData){card.style.display='none';return;}
+    card.style.display='block';
+    var mxSets=Math.max.apply(null,weeks.map(function(w){return w.sets}).concat([1]));
+    var mxCl=Math.max.apply(null,weeks.map(function(w){return w.combined}).concat([1]));
+    var html='';
+    html+='<div style="font-size:.5rem;color:rgba(250,250,248,.2);margin:6px 0 2px">'+_('trend_volume')+' <span style="font-size:.42rem;color:rgba(250,250,248,.1)">— '+_('weekly_sets')+'</span></div>';
+    html+='<div style="display:flex;align-items:flex-end;gap:2px;height:44px">'+weeks.map(function(w){var h=Math.max(3,Math.round(w.sets/mxSets*40));return '<div title="'+w.label+': '+w.sets+' sets" style="flex:1;height:'+h+'px;background:rgba(244,201,59,.45);border-radius:2px"></div>';}).join('')+'</div>';
+    html+='<div style="font-size:.5rem;color:rgba(250,250,248,.2);margin:8px 0 2px">'+_('trend_combined')+'</div>';
+    html+='<div style="display:flex;align-items:flex-end;gap:2px;height:44px">'+weeks.map(function(w){var h=Math.max(3,Math.round(w.combined/mxCl*40));return '<div title="'+w.label+': '+w.combined+' u" style="flex:1;height:'+h+'px;background:rgba(33,150,243,.45);border-radius:2px"></div>';}).join('')+'</div>';
+    html+='<div style="font-size:.5rem;color:rgba(250,250,248,.2);margin:8px 0 2px">'+_('mono_label')+' <span style="font-size:.42rem;color:rgba(250,250,248,.1)">— '+_('mono_thresh')+'</span></div>';
+    html+='<div style="display:flex;align-items:flex-end;gap:2px;height:44px">'+weeks.map(function(w){var h=Math.max(3,Math.min(40,Math.round(w.mono*16)));var c=w.mono>2?'#f44336':w.mono>1.5?'#FF9800':'#4CAF50';return '<div title="'+w.label+': mono '+w.mono.toFixed(2)+' · strain '+w.strain.toFixed(0)+'" style="flex:1;height:'+h+'px;background:'+c+';border-radius:2px;opacity:.75"></div>';}).join('')+'</div>';
+    var pr=ls(K.PR,null);
+    if(pr&&pr.muscles&&pr.muscles.length){
+      var names=pr.muscles.map(function(m){for(var i2=0;i2<MUSCLES.length;i2++){if(MUSCLES[i2].id===m)return MUSCLES[i2].name;}return m;}).join(', ');
+      html+='<div style="font-size:.5rem;color:rgba(250,250,248,.2);margin-top:8px">'+_('trend_priority')+': <strong style="color:#F4C93B">'+names+'</strong> <span style="font-size:.45rem;color:rgba(250,250,248,.15)">— '+_('trend_updated')+': '+(pr.updated||'—')+'</span></div>';
+    }
+    var overMono=weeks.filter(function(w){return w.mono>2}).length;
+    var totSets=weeks.reduce(function(a,w){return a+w.sets},0);
+    html+='<div style="font-size:.5rem;color:rgba(250,250,248,.15);margin-top:6px">'+_('trend_summary').replace('{s}',totSets).replace('{w}',weeks.length).replace('{m}',overMono)+'</div>';
+    document.getElementById('trendContent').innerHTML=html;
+  }
+  document.getElementById('trendRange').addEventListener('change',renderTrendHistory);
 
   document.getElementById('backToDashBtn').addEventListener('click',function(){go(4);renderDashboard();});
   document.getElementById('markDeloadBtn').addEventListener('click',function(){evLog('deload_marked',{src:'history'});

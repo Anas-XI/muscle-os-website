@@ -113,6 +113,11 @@
 
       <div id="acwrDash" class="acwr-bar" style="display:none;border:1px solid rgba(250,250,248,.05)"></div>
 
+      <div id="combinedLoadDash" style="display:none;margin-bottom:12px;border:1px solid rgba(250,250,248,.05);border-radius:8px;padding:8px 10px;background:rgba(250,250,248,.01)">
+        <div class="section-header" style="margin-bottom:4px"><span data-i18n="cl_title">Combined Load</span> <span class="section-sub">— lifting + non-lifting</span></div>
+        <div id="combinedLoadContent" style="font-size:.55rem;color:rgba(250,250,248,.2);line-height:1.5"></div>
+      </div>
+
       <div id="autoAdjustCard" class="auto-adjust-card" style="display:none;margin-bottom:12px;border:1px solid rgba(244,201,59,.08);border-radius:8px;padding:8px 10px;background:rgba(244,201,59,.01)">
         <div class="section-header" style="margin-bottom:4px" data-i18n="track_progress">Auto Adjustments <span class="section-sub">— next session</span></div>
         <div id="autoAdjustContent" style="font-size:.5rem;color:rgba(250,250,248,.2)"></div>
@@ -136,6 +141,26 @@
           <button class="btn-primary" id="saveCardioBtn" style="font-size:.55rem;padding:6px 0;background:rgba(76,175,80,.06);border:1px solid rgba(76,175,80,.12);color:#4CAF50" data-i18n="log_cardio">Log Cardio</button>
         </div>
         <div class="cardio-history" id="cardioHistory"></div>
+      </div>
+
+      <div class="cardio-section">
+        <div class="cardio-toggle" id="nlToggle">
+          <span class="ci-icon">🏃</span>
+          <span data-i18n="nl_toggle">Log Non-Lifting Session</span>
+          <span id="nlTodayBadge" style="margin-left:auto;font-size:.5rem;color:rgba(250,250,248,.15)"></span>
+        </div>
+        <div class="cardio-form" id="nlForm">
+          <div class="cf-row">
+            <div><label data-i18n="nl_type">Type</label><select id="nlType"><option value="Sport">Sport</option><option value="Rehab">Rehab</option><option value="Mobility">Mobility</option><option value="GPP">GPP</option><option value="Other">Other</option></select></div>
+            <div><label data-i18n="nl_duration">Duration (min)</label><input type="number" id="nlDur" step="1" min="1" placeholder="e.g. 45"></div>
+          </div>
+          <div class="cf-row">
+            <div><label data-i18n="nl_effort">Effort</label><select id="nlEffort"><option value="Low" data-i18n="low">Low — easy pace</option><option value="Moderate" selected data-i18n="moderate">Moderate — can talk in short phrases</option><option value="High" data-i18n="high">High — breathless, can't talk</option></select></div>
+            <div><label>Notes (optional)</label><input type="text" id="nlNotes" placeholder="e.g. football practice"></div>
+          </div>
+          <button class="btn-primary" id="saveNlBtn" style="font-size:.55rem;padding:6px 0;background:rgba(76,175,80,.06);border:1px solid rgba(76,175,80,.12);color:#4CAF50" data-i18n="nl_save">Log Session</button>
+        </div>
+        <div class="cardio-history" id="nlHistory"></div>
       </div>
 
       <div id="rehabPanel" class="rehab-panel" style="display:none">
