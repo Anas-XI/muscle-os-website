@@ -1,5 +1,5 @@
 {
-  "name": "Muscle OS Training Tool",
+  "name": "Muscle OS Training App",
   "short_name": "MuscleOS",
   "description": "AI-native training logger, program builder and coaching tool by Coach Anas Mo'men.",
   "start_url": "./training_tool.html",

@@ -1,4 +1,4 @@
-// Playwright test: Google sign-in + one-time account-bound activation codes (training tool)
+// Playwright test: Google sign-in + one-time account-bound activation codes (training app)
 const { chromium } = require('E:/MoS/.opencode/skills/pdf/node_modules/playwright');
 
 const PAGE_URL = 'file://E:/MoS/tools/training_tool.html';

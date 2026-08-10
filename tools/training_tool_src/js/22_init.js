@@ -26,7 +26,7 @@
       document.getElementById('resumeBtn').addEventListener('click',function(){go(4);renderDashboard();});
       document.getElementById('newBtn').addEventListener('click',function(){Object.values(K).forEach(function(k){localStorage.removeItem(k)});location.reload();});
     }
-    console.log('Unified Training Tool loaded');
+    console.log('Unified Training App loaded');
     translateUI();
     initTheme();
     initInstall();

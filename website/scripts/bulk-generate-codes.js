@@ -2,7 +2,7 @@
  * Bulk code generator + seeder for Muscle OS
  *
  * Generates 1000 codes per product (tool / book / bundle), writes:
- *   - codes/<product>_codes_1000.csv      (distribution sheet, same format as training tool batch)
+ *   - codes/<product>_codes_1000.csv      (distribution sheet, same format as training app batch)
  *   - codes/<product>_codes_sheet.html    (printable A4 sheet — print to PDF from browser)
  *   - codes/all_products_codes_<date>.txt (WhatsApp-friendly sections)
  *   - codes/kv-seed-<date>.json           (plaintext seed for `wrangler kv bulk put`)
@@ -35,7 +35,7 @@ const CODE_LEN = 10;
 // TR (training_tool) already generated + seeded — not regenerated here.
 const PRODUCTS = [
   { key: 'tdee_adaptive_engine', prefix: 'TD', label: 'TDEE Adaptive Engine', products: ['tdee_adaptive_engine'], plan: 'single_product', durationDays: 30 },
-  { key: 'both_tools',           prefix: 'TB', label: 'Training Tools Bundle', products: ['training_tool', 'tdee_adaptive_engine'], plan: 'single_product', durationDays: 30 },
+  { key: 'both_tools',           prefix: 'TB', label: 'Training Apps Bundle', products: ['training_tool', 'tdee_adaptive_engine'], plan: 'single_product', durationDays: 30 },
   { key: 'training_book',        prefix: 'BK', label: 'Training Book', products: ['training_book'], plan: 'single_product', durationDays: 0 },
   { key: 'nutrition_book',       prefix: 'BN', label: 'Nutrition Book', products: ['nutrition_book'], plan: 'single_product', durationDays: 0 },
   { key: 'both_books',           prefix: 'BB', label: 'Books Bundle', products: ['training_book', 'nutrition_book'], plan: 'single_product', durationDays: 0 },

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- muscle-os training tool · build v3.3 (exercise DB expansion + UX polish + volume model) -->
+<!-- muscle-os training app · build v3.4 (exercise DB expansion + UX polish + volume model) -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0A0A0F">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
-<title>Training Tool — Unified — by Coach Anas Mo'men</title>
+<title>Training App — Unified — by Coach Anas Mo'men</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -847,7 +847,7 @@ select option{background:var(--card)}
 <div class="container">
   <div class="header no-print">
     <div class="header-top">
-      <h1 data-i18n="app_title">Training Tool</h1>
+      <h1 data-i18n="app_title">Training App</h1>
       <div class="lang-toggle" onclick="toggleLang()">
         <span class="lang-opt active" data-lang="en">EN</span>
         <span class="lang-opt" data-lang="ar">AR</span>
@@ -1434,7 +1434,7 @@ select option{background:var(--card)}
   document.documentElement.lang = window.__lang;
   var I18N = {
     en: {
-      app_title:'Training Tool', header_sub:'Onboard → Split → Program → Train → History',
+      app_title:'Training App', header_sub:'Onboard → Split → Program → Train → History',
       welcome:'Welcome', welcome_sub:'set up your profile',
       ta_label:'Training Age', goal_label:'Primary Goal', dow_label:'Days/Week', rec_label:'Recovery Factor',
       novice:'Novice (<1 yr)', intermediate:'Intermediate (1-3 yr)', advanced:'Advanced (3+ yr)',
@@ -6048,7 +6048,7 @@ select option{background:var(--card)}
   function exportIcs(){
     var prog=ls(K.PG,null);if(!prog||!prog.days){alert(_('sync_fail'));return;}
     var today=new Date();today.setHours(17,0,0,0);
-    var lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Muscle OS//Training Tool//EN','CALSCALE:GREGORIAN','METHOD:PUBLISH'];
+    var lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Muscle OS//Training App//EN','CALSCALE:GREGORIAN','METHOD:PUBLISH'];
     var uid=Date.now();
     prog.days.forEach(function(day,i){
       if(day.restDay)return;
@@ -6879,7 +6879,7 @@ select option{background:var(--card)}
     // RPE/RIR/Volume educational section
     var edu='<div class="sec"><div class="st" style="color:#F4C93B">Understanding RPE, RIR &amp; Volume</div><div class="ec"><div class="ecard"><div class="ect">RPE Scale (Rate of Perceived Exertion)</div><table class="rpet"><thead><tr><th>RPE</th><th>Effort Level</th><th>RIR</th></tr></thead><tbody><tr><td class="c" style="font-weight:600">10</td><td>Max effort, cannot add another rep</td><td class="c">0</td></tr><tr><td class="c" style="font-weight:600;color:#F4C93B">9</td><td>Very hard, 1 rep left in the tank</td><td class="c" style="color:#F4C93B">1</td></tr><tr><td class="c" style="font-weight:600;color:#F4C93B">8</td><td>Challenging, 2 reps left</td><td class="c" style="color:#F4C93B">2</td></tr><tr><td class="c" style="font-weight:600">7</td><td>Moderately hard, 3 reps left</td><td class="c">3</td></tr><tr><td class="c" style="font-weight:600">6</td><td>Light, 4+ reps left (warm-up zone)</td><td class="c">4+</td></tr></tbody></table><div class="etip">RIR = 10 \u2212 RPE. Example: RPE 8 = 2 reps in reserve. Stay at RPE 7\u20139 for working sets. Training to failure every session increases fatigue without extra muscle gain.</div></div><div class="ecard"><div class="ect">Volume Guide — Weekly Sets Per Muscle</div><table><thead><tr><th>Zone</th><th>Meaning</th></tr></thead><tbody><tr><td style="font-weight:600;color:#4CAF50">MEV</td><td>Minimum Effective Volume \u2014 the least weekly sets to stimulate growth</td></tr><tr><td style="font-weight:600;color:#F4C93B">MAV</td><td>Maximum Adaptive Volume \u2014 the sweet spot for optimal muscle growth</td></tr><tr><td style="font-weight:600;color:#f44336">MRV</td><td>Maximum Recoverable Volume \u2014 the ceiling before overtraining</td></tr></tbody></table><div class="etip"><strong>Progressive Overload:</strong> Start at MEV or slightly above. Add 1\u20132 sets per week as you adapt. If progress stalls for 2+ weeks, deload or increase toward MAV. Stay below MRV to avoid excessive fatigue.<br><br><strong>Rest Periods:</strong> 2\u20133 min for compound lifts (squat, bench, deadlift, row). 90\u2013120s for most isolation work. 60\u201390s for accessories.</div></div></div></div>';
     // User guide
-    var gh='<div class="sec"><div class="st" style="color:#F4C93B">How to Use Your Training Tool</div><div class="gs"><span class="gn">1</span><div><strong>Set Up Your Profile</strong> \u2014 Select training age, goal, days per week, and recovery factor. Mark muscles as Focus (full volume) or Maintain (~half volume).</div></div><div class="gs"><span class="gn">2</span><div><strong>Choose Your Split</strong> \u2014 Browse available splits matching your schedule, or take the built-in quiz for a personalised recommendation.</div></div><div class="gs"><span class="gn">3</span><div><strong>Generate &amp; Save Program</strong> \u2014 Review your program with sets, rep ranges, and rest periods. Optionally configure a mesocycle plan with progression phases and deload scheduling.</div></div><div class="gs"><span class="gn">4</span><div><strong>Train Each Day</strong> \u2014 Log weights, reps, and RPE for every set. The dashboard shows pre-session readiness, deload reminders, and fatigue tracking.</div></div><div class="gs"><span class="gn">5</span><div><strong>Track Progress</strong> \u2014 Review volume compliance, personal records, e1RM charts, ACWR (acute:chronic workload ratio), and deload history on the History page.</div></div><div class="gs"><span class="gn">6</span><div><strong>Export &amp; Share</strong> \u2014 Save your program as PDF, or export/import your data as JSON for backup across devices.</div></div></div>';
+    var gh='<div class="sec"><div class="st" style="color:#F4C93B">How to Use Your Training App</div><div class="gs"><span class="gn">1</span><div><strong>Set Up Your Profile</strong> \u2014 Select training age, goal, days per week, and recovery factor. Mark muscles as Focus (full volume) or Maintain (~half volume).</div></div><div class="gs"><span class="gn">2</span><div><strong>Choose Your Split</strong> \u2014 Browse available splits matching your schedule, or take the built-in quiz for a personalised recommendation.</div></div><div class="gs"><span class="gn">3</span><div><strong>Generate &amp; Save Program</strong> \u2014 Review your program with sets, rep ranges, and rest periods. Optionally configure a mesocycle plan with progression phases and deload scheduling.</div></div><div class="gs"><span class="gn">4</span><div><strong>Train Each Day</strong> \u2014 Log weights, reps, and RPE for every set. The dashboard shows pre-session readiness, deload reminders, and fatigue tracking.</div></div><div class="gs"><span class="gn">5</span><div><strong>Track Progress</strong> \u2014 Review volume compliance, personal records, e1RM charts, ACWR (acute:chronic workload ratio), and deload history on the History page.</div></div><div class="gs"><span class="gn">6</span><div><strong>Export &amp; Share</strong> \u2014 Save your program as PDF, or export/import your data as JSON for backup across devices.</div></div></div>';
     var w=window.open('','_blank','width=900,height=700');
     w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Training Program \u2014 '+prog.splitName+'</title><style>'+
       '@page{margin:15mm 12mm}@media print{body{background:#14151A!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}}'+
@@ -6917,7 +6917,7 @@ select option{background:var(--card)}
       '<table><thead><tr><th>Muscle</th><th class="c">Priority</th><th class="c">MEV</th><th class="c">MAV</th><th class="c">MRV</th><th class="c">Target</th></tr></thead><tbody>'+vh+'</tbody></table>'+
       '<div class="st" style="color:#F4C93B">Your Split &amp; Exercises</div>'+ph+
       gh+
-      '<div class="ft">Generated by Muscle OS Training Tool \u2014 <a href="https://wa.me/201040796017">Coach Anas Mo\'men</a></div>'+
+      '<div class="ft">Generated by Muscle OS Training App \u2014 <a href="https://wa.me/201040796017">Coach Anas Mo\'men</a></div>'+
       '<footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO\'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach \u2014 Coach Anas Mo\'men</div></footer>'+
       '</body></html>');
     w.document.close();w.focus();setTimeout(function(){w.print();},500);
@@ -7223,7 +7223,7 @@ select option{background:var(--card)}
       document.getElementById('resumeBtn').addEventListener('click',function(){go(4);renderDashboard();});
       document.getElementById('newBtn').addEventListener('click',function(){Object.values(K).forEach(function(k){localStorage.removeItem(k)});location.reload();});
     }
-    console.log('Unified Training Tool loaded');
+    console.log('Unified Training App loaded');
     translateUI();
     initTheme();
     initInstall();

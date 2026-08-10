@@ -1,4 +1,4 @@
-# Muscle OS Training Tool — Product Requirements Document
+# Muscle OS Training App — Product Requirements Document
 
 **Version:** 1.0 (snapshot of shipped build `70ab0cf2`)
 **Owner:** Coach Anas Mo'men
@@ -10,7 +10,7 @@
 
 ## 1. Executive Summary
 
-The Training Tool is a **deterministic, evidence-based hypertrophy/strength program builder** that runs entirely in the browser. From a 10-question onboarding it produces a full program: priority muscles → split → per-day exercise selection → volume allocation → week structure → deload/mastery protocol, then coaches day-to-day via a set logger (RPE/RIR, warm-ups, PRs, rest timers, plate calculator) and weekly intelligence (load history, ACWR, fatigue, soreness, compliance, coach notes).
+The Training App is a **deterministic, evidence-based hypertrophy/strength program builder** that runs entirely in the browser. From a 10-question onboarding it produces a full program: priority muscles → split → per-day exercise selection → volume allocation → week structure → deload/mastery protocol, then coaches day-to-day via a set logger (RPE/RIR, warm-ups, PRs, rest timers, plate calculator) and weekly intelligence (load history, ACWR, fatigue, soreness, compliance, coach notes).
 
 It is the **productized, interactive channel** of Muscle OS: the same decision philosophy as the bot's book engine, packaged as a paid subscription product (access codes via the Cloudflare Worker), with free lead-gen calculators around it.
 

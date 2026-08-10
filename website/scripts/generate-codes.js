@@ -28,14 +28,14 @@ function generateCode(prefix, length = 12) {
 
 const CODE_TEMPLATES = [
   {
-    label: 'Training Tool — 1 month',
+    label: 'Training App — 1 month',
     prefix: 'TR',
     products: ['training_tool'],
     plan: 'training_tool',
     durationDays: 30,
   },
   {
-    label: 'Training Tool — 3 months',
+    label: 'Training App — 3 months',
     prefix: 'TR',
     products: ['training_tool'],
     plan: 'training_tool',

@@ -1,4 +1,4 @@
-# Training Tool — Feature Prompts
+# Training App — Feature Prompts
 
 Source of truth for the feature backlog. One prompt per feature, grouped by flag.
 All features target `E:\MoS\tools\training_tool.html` unless noted. Work through them in order.
@@ -149,7 +149,7 @@ All features target `E:\MoS\tools\training_tool.html` unless noted. Work through
 
 ### A1. PWA — installable, offline
 **Goal:** Feels like a real app.
-- Add `manifest.json` (name "Muscle OS Training Tool", short_name, theme_color #0A0A0F, bg #0A0A0F, icons 192/512 PNG), `sw.js` (app-shell cache-first with versioned cache name, offline fallback), meta theme-color + apple-touch-icon, register SW on load.
+- Add `manifest.json` (name "Muscle OS Training App", short_name, theme_color #0A0A0F, bg #0A0A0F, icons 192/512 PNG), `sw.js` (app-shell cache-first with versioned cache name, offline fallback), meta theme-color + apple-touch-icon, register SW on load.
 - "Install" button appears when `beforeinstallprompt` fires; appinstalled → track.
 - Deploy: copy manifest/sw.js into website/tools/ alongside; update link tags.
 - i18n: `install_app`.

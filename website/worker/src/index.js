@@ -36,9 +36,9 @@ const VALID_PRODUCTS = Object.keys(PRODUCT_CONFIG);
 const ORDER_TTL_SECONDS = 172800; // 48 hours
 
 const PRODUCT_NAMES = {
-  training_tool:        { en: 'Training Tool', ar: 'أداة التدريب' },
+  training_tool:        { en: 'Training App', ar: 'تطبيق التدريب' },
   tdee_adaptive_engine: { en: 'TDEE Adaptive Engine', ar: 'محرك TDEE التكيفي' },
-  both_tools:           { en: 'Training Tools Bundle', ar: 'حزمة أدوات التدريب' },
+  both_tools:           { en: 'Training Apps Bundle', ar: 'حزمة تطبيقات التدريب' },
   training_book:        { en: 'Training Book', ar: 'كتاب التدريب' },
   nutrition_book:       { en: 'Nutrition Book', ar: 'كتاب التغذية' },
   both_books:           { en: 'Books Bundle', ar: 'حزمة الكتب' },
@@ -143,7 +143,7 @@ export default {
     if (url.pathname === '/api/check-order-status' && request.method === 'POST') {
       return handleCheckOrderStatus(request, env);
     }
-    // ---- Data sync (training tool) ----
+    // ---- Data sync (training app) ----
     if (url.pathname === '/api/sync/save' && request.method === 'POST') {
       return handleSyncSave(request, env);
     }
@@ -1042,7 +1042,7 @@ async function handlePdfProxy(request, env, url) {
 }
 
 // In-memory sliding-window rate limiter (no TOCTOU race, per-isolate)
-// ── Data sync (training tool) ──
+// ── Data sync (training app) ──
 async function handleSyncSave(request, env) {
   const rateLimited = await checkRateLimit(request, env, 30);
   if (rateLimited) return json({ error: 'rate_limited' }, 429, env, request);

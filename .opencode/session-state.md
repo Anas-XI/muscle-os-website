@@ -198,7 +198,7 @@
 - JWT_SECRET unchanged this session (old session's fresh key) — session tokens fine.
 - No maxUses on bulk codes: one-account binding blocks sharing; revoke via /api/revoke-code if needed.
 
-# Session State — Training Tool G-batch (F6–F9) — COMPLETE
+# Session State — Training App G-batch (F6–F9) — COMPLETE
 ## Status: F1–F5 + exercise pools + F6–F9 done, ALL DEPLOYED LIVE.
 ## Deployed: root master 3becfc2 (origin muscle-os-bot) · public main 64c3840 · public master bfe868f (GH Pages workflow trigger: push to master, artifact = website/ subdir, pages via actions/deploy-pages). Live verified with cache-buster: sessionTimerChip / notifToggle / exportIcsBtn / syncPwInput / BEGIN:VEVENT all present at https://anas-xi.github.io/muscle-os-website/tools/training_tool.html
 
@@ -322,7 +322,7 @@
 ---
 # Session State — Dark-only theme — COMPLETE
 
-## Status: Light theme removed from training tool; dark-only. Deployed origin + public main/master, live-verified.
+## Status: Light theme removed from training app; dark-only. Deployed origin + public main/master, live-verified.
 
 ## What changed (tools/training_tool.html only — TDEE tool has NO theme system, already dark-only)
 - Removed html[data-theme="light"] CSS block (dark :root vars are now the only theme)

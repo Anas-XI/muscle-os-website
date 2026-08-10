@@ -27,7 +27,7 @@ const CODES_PATH = path.join(__dirname, '..', 'assets', 'data', 'access-codes.js
 // Product definitions: [label, productIds, plan, durationDays]
 const PRODUCTS = [
   ['Master (all products)', 'all', 'master', 30],
-  ['Training Tool',         ['training_tool'], 'single_product', 30],
+  ['Training App',         ['training_tool'], 'single_product', 30],
   ['TDEE Engine',           ['tdee_adaptive_engine'], 'single_product', 30],
   ['Training Book',         ['training_book'], 'book_purchase', 0],
   ['Nutrition Book',        ['nutrition_book'], 'book_purchase', 0],

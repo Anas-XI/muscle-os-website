@@ -160,7 +160,7 @@ NAV (sticky, hide-on-scroll)
 │   └── Cross-sell: bundle discount offers
 │
 ├── TOOL OVERVIEW (2 PRO tools)
-│   ├── Training Tool (300 EGP/mo) — feature list
+│   ├── Training App (300 EGP/mo) — feature list
 │   ├── TDEE Adaptive Engine (200 EGP/mo) — feature list
 │   ├── Gate: Sign In / WhatsApp subscribe (tools_gate)
 │   └── Feedback section (feedback tag)
@@ -216,7 +216,7 @@ NAV (sticky, hide-on-scroll)
 
 ## 4. Tool Pipeline
 
-### 4.1 Training Tool (`tools/training_tool.html` — 231 KB, 2942 lines)
+### 4.1 Training App (`tools/training_tool.html` — 231 KB, 2942 lines)
 
 **The most complex page on the site.** A full training application.
 
@@ -294,7 +294,7 @@ TAGS: tdee_subscribe_top, tdee_subscribe_bottom, footer_wa
 
 | Product | Price | Type | Duration |
 |---------|-------|------|----------|
-| Training Tool | 300 EGP/mo | Subscription | 30 days |
+| Training App | 300 EGP/mo | Subscription | 30 days |
 | TDEE Adaptive Engine | 200 EGP/mo | Subscription | 30 days |
 | Both Tools (bundle) | 400 EGP/mo | Subscription | 30 days |
 | Training Book | 500 EGP | Purchase | Lifetime |
@@ -347,7 +347,7 @@ TAGS: tdee_subscribe_top, tdee_subscribe_bottom, footer_wa
 
 | Prefix | Product | Example |
 |--------|---------|---------|
-| `TR-` | Training Tool | `TR-A2X7K9M3P5` |
+| `TR-` | Training App | `TR-A2X7K9M3P5` |
 | `TD-` | TDEE Engine | `TD-B4W6R8T1Y3` |
 | `TB-` | Both Tools | `TB-C5V7N9M2K4` |
 | `BK-` | Training Book | `BK-D8F2H5J7L9` |
@@ -769,9 +769,9 @@ Every WhatsApp link on the site carries a `data-wa-tag` for tracking. Tags are o
 |-----|----------|---------|
 | `split_quiz_result_cta` | Split quiz results | After personalized recommendation |
 | `rpe_result_cta` | RPE calculator results | After calculation |
-| `train_generated_cta` | Training tool program | After program generation |
-| `train_footer_cta_bottom` | Training tool footer | During tool usage |
-| `train_subscribe_bottom` | Training tool (unlocked view) | When seeing features |
+| `train_generated_cta` | Training app program | After program generation |
+| `train_footer_cta_bottom` | Training app footer | During tool usage |
+| `train_subscribe_bottom` | Training app (unlocked view) | When seeing features |
 
 ### 11.3 Bottom of Funnel (Conversion)
 
@@ -791,7 +791,7 @@ Every WhatsApp link on the site carries a `data-wa-tag` for tracking. Tags are o
 | `feedback` | Feedback section | Existing user feedback |
 | `mbb_book` | Mobile bottom bar | Always accessible |
 
-### 11.5 Training Tool Rehab Tags (JS-generated)
+### 11.5 Training App Rehab Tags (JS-generated)
 
 | Tag | When | Meaning |
 |-----|------|---------|

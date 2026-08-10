@@ -5,7 +5,7 @@
   document.documentElement.lang = window.__lang;
   var I18N = {
     en: {
-      app_title:'Training Tool', header_sub:'Onboard → Split → Program → Train → History',
+      app_title:'Training App', header_sub:'Onboard → Split → Program → Train → History',
       welcome:'Welcome', welcome_sub:'set up your profile',
       ta_label:'Training Age', goal_label:'Primary Goal', dow_label:'Days/Week', rec_label:'Recovery Factor',
       novice:'Novice (<1 yr)', intermediate:'Intermediate (1-3 yr)', advanced:'Advanced (3+ yr)',

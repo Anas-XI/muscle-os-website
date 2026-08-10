@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* Builds codes/all_products_codes_sheet.html: cover + TOC + per-product tables
    for all 7 products (1000 codes each). Sources: existing codes_sheet.html
-   (Training Tool batch) + the 6 product CSVs. */
+   (Training App batch) + the 6 product CSVs. */
 const fs = require('fs');
 const path = require('path');
 
@@ -23,11 +23,11 @@ function readCsv(file) {
 const sections = [
   {
     id: 'sec-1',
-    title: 'Training Tool',
+    title: 'Training App',
     prefix: 'TR',
     kind: 'html',
     file: 'codes_sheet.html',
-    meta: { product: 'Training Tool', plan: 'single_product', duration: '30', generated: '2026-07-31', expires: '2026-08-30' }
+    meta: { product: 'Training App', plan: 'single_product', duration: '30', generated: '2026-07-31', expires: '2026-08-30' }
   },
   { id: 'sec-2', title: 'TDEE Adaptive Engine', prefix: 'TD', kind: 'csv', file: 'tdee_adaptive_engine_codes_1000.csv' },
   { id: 'sec-3', title: 'Both Tools', prefix: 'TB', kind: 'csv', file: 'both_tools_codes_1000.csv' },
@@ -156,7 +156,7 @@ const html = `<!DOCTYPE html>
       <h1 class="cover-title">Muscle OS — Access Codes Master Sheet</h1>
       <p class="cover-subtitle">All Products &middot; ${total.toLocaleString()} Codes</p>
       <div class="cover-meta">
-        <p>Training Tool &middot; TDEE Adaptive Engine &middot; Both Tools</p>
+        <p>Training App &middot; TDEE Adaptive Engine &middot; Both Tools</p>
         <p>Training Book &middot; Nutrition Book &middot; Both Books &middot; All Access</p>
         <p>Generated 2026-08-03 &middot; 30-day codes expire 2026-09-02 &middot; Book codes lifetime</p>
       </div>

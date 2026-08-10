@@ -26,7 +26,7 @@
   var CONFIG = {
     apiBase: 'https://muscleos-access-control.muscleos.workers.dev',
     products: {
-      training_tool:         { key: 'mos_subscription', durationDays: 30, label: 'Training Tool' },
+      training_tool:         { key: 'mos_subscription', durationDays: 30, label: 'Training App' },
       tdee_adaptive_engine:  { key: 'mos_subscription', durationDays: 30, label: 'TDEE Adaptive Engine' },
       training_book:         { key: 'mos_book_training', durationDays: 0, label: 'Training Book' },
       nutrition_book:        { key: 'mos_book_nutrition', durationDays: 0, label: 'Nutrition Book' }

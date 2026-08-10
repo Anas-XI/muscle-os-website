@@ -1,7 +1,7 @@
 # Coach View Options — Design Doc (design only, NOT implemented)
 
 **Status:** Proposal for owner decision. Do not implement until Anas picks an option.
-**Scope:** How the coach (Anas) can see what a user is doing inside the Training Tool, given the current **no-accounts architecture**.
+**Scope:** How the coach (Anas) can see what a user is doing inside the Training App, given the current **no-accounts architecture**.
 **Stage:** Pre-PMF. Validation has not started; every option here should be re-evaluated after the first real users.
 
 ---
@@ -12,7 +12,7 @@
 - **Worker = dumb store.** `muscleos-access-control.muscleos.workers.dev` stores the newest payload blob per key (`newest-wins`). It has no user table, no auth, no analytics.
 - **Only server hook today:** `notify-coach` (`/api/notify-coach`) — fired by the `CQ` coach queue (`__suggestRouter`) when a coached user's session produces queued suggestions. That's a one-way ping; there is no pull-back.
 - **Events live on-device.** `mos_events` (JSONL, max 500, 90-day retention) syncs with the payload, so it *can* reach the Worker — but the Worker does not expose it beyond the raw GET.
-- **Analytics already exists elsewhere:** website funnel events go to a Google Apps Script webhook → Google Sheet (`docs/apps-script-webhook.gs`). The Training Tool events do **not** go there yet (offline-first; no background API spam by design).
+- **Analytics already exists elsewhere:** website funnel events go to a Google Apps Script webhook → Google Sheet (`docs/apps-script-webhook.gs`). The Training App events do **not** go there yet (offline-first; no background API spam by design).
 
 ## 2. Data a coach could look at (all available today via sync payload)
 
@@ -61,7 +61,7 @@ The payload is a single JSON blob; the coach's read path is identical to the use
 ## 5. Explicit non-goals (this doc does not authorize)
 - No new user accounts or login system.
 - No change to the sync Worker's trust model (key = bearer).
-- No background telemetry from the Training Tool to the funnel sheet.
+- No background telemetry from the Training App to the funnel sheet.
 - No auto-ingest of user payloads into any coach-facing store.
 
 ## 6. Privacy notes

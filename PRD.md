@@ -30,7 +30,7 @@ The **performance goal** across all channels: intake → program generation → 
 | P1 | Telegram bot + backend | `mos_bot/` + root scripts | 🟢 Active (primary) | Python 3.12, python-telegram-bot 21, FastAPI, FAISS, sentence-transformers | Full coaching flow: intake → program PDF → check-ins → coach |
 | P2 | **Muscle OS Core** (Coaching Engine) | `mos_bot/core/` + `Muscle Operating System/` | 🟢 In production (reused by bot, web, web backend v2, desktop alpha, mobile) | Python + Markdown vault + FAISS + graph | The shared "brain": safety, pillars, book engine, vault RAG |
 | P3 | **Website & media commerce** | `website/` + worker + `books/`, `guides/`, `knowledge-hub/`, `samples/`, `quiz/`, `pdf/`, `admin/` | 🟢 Live (midnight deploys) | Static HTML/CSS/JS, GitHub Pages, Cloudflare Worker (KV + Durable Objects) | Marketing, monetization (access codes, PDF books), order/payment handling, analytics |
-| P4 | **Web Tools** | `tools/` (mirrored in `website/tools/`) | 🟢 Live: two paid (Training Tool PRO, TDEE Adaptive Engine) + free calculators | Vanilla JS SPA, PWA, bilingual EN/AR | Productized interactive training & nutrition tools sold as subscriptions |
+| P4 | **Web Tools** | `tools/` (mirrored in `website/tools/`) | 🟢 Live: two paid (Training App PRO, TDEE Adaptive Engine) + free calculators | Vanilla JS SPA, PWA, bilingual EN/AR | Productized interactive training & nutrition tools sold as subscriptions |
 | P5 | **Books & Guides (digital products)** | `books/`, `guides/`, `website/books/`, `site guides/`, `knowledge-hub/`, `samples/`, bundles | 🟢 Shipped (6 full books + samples + 6 guide work-sheets) | HTML → PDF generator, in English + Arabic + French variants | Owned paid content / lead magnets sold via codes |
 | P6 | **Mobile App** | `mos-mobile/` | 🟡 In development (screen flow done) | Expo (React Native) + Expo Router, FastAPI backend, Supabase (schema + optional), Zustand, JSON API | Client check-ins, AI coach chat, profile, program viewing on mobile |
 | P7 | **Desktop Alpha App** | `muscle-os-alpha/` | 🟡 In development (standalone repo) | React 19 + Electron + Vite + Tailwind + Zustand + Dexie (IndexedDB) + local LM Studio | Validate "plateaued intermediate" hypothesis → one diagnosis → one recommendation → review loop; local nutrition tracker |
@@ -150,7 +150,7 @@ See §Shared Core. The engine files:
 ## Status: 🟢 Live
 
 ## 5.1 Goal
-Drive clients to the WhatsApp funnel and product subscriptions: coach page that sells Training Tools (Paid), TDEE engine, books, and coaching packages; bilingual EN/Arabic; all paid content behind an access-code gate.
+Drive clients to the WhatsApp funnel and product subscriptions: coach page that sells Training Apps (Paid), TDEE engine, books, and coaching packages; bilingual EN/Arabic; all paid content behind an access-code gate.
 
 ## 5.2 Site structure (`website/`)
 ```
@@ -184,9 +184,9 @@ Defined in `worker/src/index.js` `PRODUCT_CONFIG` + `PRODUCT_PRICES`:
 
 | Product | Price | Duration | Code prefix |
 |---|---|---|---|
-| Training Tool (PRO) | 300 EGP/mo | 30d | `TR` |
+| Training App (PRO) | 300 EGP/mo | 30d | `TR` |
 | TDEE Adaptive Engine | 200 EGP/mo | 30d | `TD` |
-| Training Tools Bundle (both) | 400 EGP/mo | 30d | `TB` |
+| Training Apps Bundle (both) | 400 EGP/mo | 30d | `TB` |
 | Training Book | 500 EGP | lifetime | `BK` |
 | Nutrition Book | 500 EGP | lifetime | `BN` |
 | Books Bundle | 800 EGP | lifetime | `BB` |
@@ -203,7 +203,7 @@ Key endpoints (all under `/api/…`):
 - Orders: `create-order`, `pending-orders`, `approve-order`, `reject-order`, `check-payment-status`
 - Payments: `create-payment-link`, `paymob-callback` (HMAC SHA-512 verification)
 - PDF: `pdf/:filename` freeguide passthrough or JWT-gated book
-- Sync: `sync/…` passphrase-guarded local-data sync (for training tool & alpha)
+- Sync: `sync/…` passphrase-guarded local-data sync (for training app & alpha)
 - Auth: Google sign-in `/api/auth/google` (JWKS verify) → session JWT; `check-session`, `refresh-session`
 - Admin: `expiring-codes` (WhatsApp renewal reminders); rate limit all endpoints (per-IP 300s window)
 
@@ -222,7 +222,7 @@ Storage:
 
 | Tool | File | Status / price | What it does |
 |---|---|---|---|
-| **Training Tool (PRO)** | `tools/training_tool.html` (big, ~2942 lines) | Paid, 300 EGP/mo | Volume calculator, split selector, program generator, session logger, RPE/RIR guide, progress charts, PR tracking, plate calculator, warm-up rows, supersets, rest timer, missed-lift make-up, data sync, bilingual EN/AR, add-to-homescreen (manifest.json, sw.js PWA) |
+| **Training App (PRO)** | `tools/training_tool.html` (big, ~2942 lines) | Paid, 300 EGP/mo | Volume calculator, split selector, program generator, session logger, RPE/RIR guide, progress charts, PR tracking, plate calculator, warm-up rows, supersets, rest timer, missed-lift make-up, data sync, bilingual EN/AR, add-to-homescreen (manifest.json, sw.js PWA) |
 | **TDEE Adaptive Engine** | `tools/tdee_adaptive_engine.html` | Paid, 200 EGP/mo | Daily weight + calorie logs → auto-adjusted TDEE from rolling averages & trend; auto macro suggestions |
 | **TDEE & Macro Calculator** | `tools/tdee_macro_calculator.html` | Free | Maintenance calories, deficit/surplus, protein/carbs/fat targets |
 | **Volume & Set Calculator** | `tools/volume_set_calculator.html` | Free | Weekly sets per muscle group (from experience/goal/days) + per-session distribution |
@@ -246,7 +246,7 @@ Deployment mirror: canonical copies live in `E:\MoS\tools`, deployed copies in `
 Builds: `books/build_master_book.py`, plus per-title PDF + HTML.
 
 ### Bundles & translations
-- `training bundle/`: training book + split quiz + volume calc + RPE + deload decision tree + quick start + TDEE engine + training tool
+- `training bundle/`: training book + split quiz + volume calc + RPE + deload decision tree + quick start + TDEE engine + training app
 - `nutrition bundle/`: nutrition book + macro calc + consistency workbook + diet quick start + recomp cheat sheet + plateau decision tree + TDEE engine
 - Full books ship as HTML+PDF pairs; the nutrition book also has Arabic (`_ar`) and French (`_fr`) variants
 

@@ -228,7 +228,7 @@ select option{background:#1E1E2A;color:#FAFAF8}
 
       <div id="sessionNoData" class="no-data-msg" style="display:none">
         No saved program found. You can either:<br>
-        <span class="cta" onclick="window.open('training_tool.html','_blank')">Open the Training Tool</span> to build a program with volume targets & splits,<br>
+        <span class="cta" onclick="window.open('training_tool.html','_blank')">Open the Training App</span> to build a program with volume targets & splits,<br>
         or select from the built-in splits above.
       </div>
 
@@ -898,7 +898,7 @@ select option{background:#1E1E2A;color:#FAFAF8}
       html += '<strong>'+prog.splitName+'</strong> · '+prog.totalSets+' weekly sets · '+prog.totalExercises+' exercises';
       profile.style.display = 'block';
     } else if(activeSplit){
-      html += '<strong>'+SPLITS[activeSplit].name+'</strong> (from built-in splits). <span style="color:#FF9800">No saved program. Generate one in the Training Tool for full volume targets.</span>';
+      html += '<strong>'+SPLITS[activeSplit].name+'</strong> (from built-in splits). <span style="color:#FF9800">No saved program. Generate one in the Training App for full volume targets.</span>';
       profile.style.display = 'block';
     } else {
       profile.style.display = 'none';
@@ -1412,7 +1412,7 @@ select option{background:#1E1E2A;color:#FAFAF8}
     data[LH_KEY] = getLoadHistory();
     data[DT_KEY] = getDeloadTracker();
     data[PF_KEY] = getPainFlags();
-    // Also include training tool keys
+    // Also include training app keys
     TT_KEYS.forEach(k => {
       const v = localStorage.getItem(k);
       if(v) data[k] = JSON.parse(v);

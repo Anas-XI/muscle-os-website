@@ -141,7 +141,7 @@
   function exportIcs(){
     var prog=ls(K.PG,null);if(!prog||!prog.days){alert(_('sync_fail'));return;}
     var today=new Date();today.setHours(17,0,0,0);
-    var lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Muscle OS//Training Tool//EN','CALSCALE:GREGORIAN','METHOD:PUBLISH'];
+    var lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Muscle OS//Training App//EN','CALSCALE:GREGORIAN','METHOD:PUBLISH'];
     var uid=Date.now();
     prog.days.forEach(function(day,i){
       if(day.restDay)return;

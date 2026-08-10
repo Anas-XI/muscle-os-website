@@ -59,7 +59,7 @@ const PAGE_URL = 'file://E:/MoS/tools/training_tool.html';
   // T2: structure
   check('Starts with BEGIN:VCALENDAR', raw.startsWith('BEGIN:VCALENDAR'));
   check('Has VERSION:2.0', raw.includes('VERSION:2.0'));
-  check('Has PRODID', raw.includes('PRODID:-//Muscle OS//Training Tool//EN'));
+  check('Has PRODID', raw.includes('PRODID:-//Muscle OS//Training App//EN'));
   check('Ends with END:VCALENDAR', raw.trimEnd().endsWith('END:VCALENDAR'));
   check('CRLF line endings', raw.includes('\r\n'));
 

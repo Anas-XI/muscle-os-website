@@ -16,8 +16,8 @@ const API = 'https://muscleos-access-control.muscleos.workers.dev';
 const ADMIN_KEY = process.env.ADMIN_KEY || 'MOS-ADMIN-DEV-2026';
 
 const PRODUCTS = {
-  training_tool:        { label: 'Training Tool (1mo)',       plan: 'training_tool',    days: 30, multi: false },
-  training_tool_3mo:    { label: 'Training Tool (3mo)',       plan: 'training_tool',    days: 90, multi: false },
+  training_tool:        { label: 'Training App (1mo)',       plan: 'training_tool',    days: 30, multi: false },
+  training_tool_3mo:    { label: 'Training App (3mo)',       plan: 'training_tool',    days: 90, multi: false },
   tdee_adaptive_engine: { label: 'TDEE Engine (1mo)',         plan: 'tdee_adaptive_engine', days: 30, multi: false },
   bundle:               { label: 'Both Tools (1mo)',          plan: 'bundle',           days: 30, multi: true },
   training_book:        { label: 'Training Book (lifetime)',  plan: 'single_product',   days: 0,  multi: false },
