@@ -915,3 +915,25 @@ Access-Control-Allow-Origin: (dynamically set)
 | jose (npm) | JWT signing/verification in Worker | Node dependency |
 | wrangler (npm) | Worker deployment | Dev dependency |
 
+
+---
+
+## Activation Checklist (owner-only)
+
+### 1. Google Analytics (GA4)
+
+`index.html` head contains the gtag.js scaffold with placeholder ID `G-XXXXXXXXXX`.
+To activate:
+1. Go to https://analytics.google.com and create a GA4 property (e.g. "muscleos.coach").
+2. Admin > Data Streams > Web > your stream, copy the Measurement ID (starts with `G-`).
+3. Replace both `G-XXXXXXXXXX` occurrences in `website/index.html` (script src + config call).
+
+### 2. Testimonials (social proof)
+
+The reviews section (`id="reviews"`) is intentionally HIDDEN (`style="display:none"`) until real client testimonials exist.
+To activate:
+1. Collect real client reviews (WhatsApp follow-ups are fine) with written consent to publish.
+2. Remove `style="display:none;"` from the `<section id="reviews">` tag.
+3. Replace the 3 placeholder cards: quote, real name (or first name), goal + duration.
+
+Do not ship fabricated testimonials — the section stays hidden until the quotes are real.
