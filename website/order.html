@@ -509,6 +509,12 @@ input,select,textarea{font-size:16px!important}
   // ── Init ──
   document.addEventListener('DOMContentLoaded', function(){
     requestAnimationFrame(function(){ document.body.classList.add('loaded'); });
+    var u = new URL(window.location.href);
+    var prod = u.searchParams.get('product');
+    if (prod) {
+      var opt = document.querySelector('.prod-opt[data-product="' + prod + '"]');
+      if (opt) { selectProduct(opt); opt.scrollIntoView({behavior:'smooth', block:'center'}); }
+    }
     updatePayToggle();
   });
 })();

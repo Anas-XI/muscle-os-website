@@ -140,6 +140,17 @@ pre, table, figure, img, svg, blockquote { max-width: 100%; box-sizing: border-b
 .po-error{font-size:12px;color:#f44336;margin-top:6px;display:none}
 .po-success{font-size:12px;color:#4CAF50;margin-top:6px;display:none}
 @media print{.po-overlay{display:none!important}}
+
+/* Sticky mobile CTA bar */
+#mobileCtaBar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:950;background:rgba(20,21,26,.97);backdrop-filter:blur(10px);border-top:1px solid rgba(244,201,59,.25);padding:10px 14px calc(10px + env(safe-area-inset-bottom));gap:10px;box-shadow:0 -8px 24px rgba(0,0,0,.35)}
+#mobileCtaBar a{flex:1;text-align:center;padding:13px 8px;border-radius:10px;font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;text-decoration:none;transition:opacity .2s}
+#mobileCtaBar .cta-primary{background:#F4C93B;color:#14151A}
+#mobileCtaBar .cta-secondary{background:transparent;color:#FAFAF8;border:1.5px solid rgba(250,250,248,.25)}
+#mobileCtaBar a:active{opacity:.85}
+@media(max-width:768px){
+  #mobileCtaBar{display:flex}
+  body{padding-bottom:76px}
+}
 </style>
 </head>
 <body>
@@ -1569,5 +1580,11 @@ setTimeout(function(){location.reload();},1500);
 }else{document.getElementById('poError').style.display='block';}});
 document.getElementById('poCode').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('poVerify').click();});}})();
 </script>
+
+<!-- STICKY MOBILE CTA -->
+<div id="mobileCtaBar">
+  <a class="cta-primary" href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%27m%20interested%20in%20the%20Training%20Bundle." target="_blank" rel="noopener">WhatsApp</a>
+  <a class="cta-secondary" href="../order.html?product=training_book">Buy Bundle</a>
+</div>
 </body>
 </html>
