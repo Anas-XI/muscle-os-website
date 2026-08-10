@@ -16,6 +16,34 @@
   <meta name="twitter:title" content="Coach Anas Mo'men — Hypertrophy & Powerlifting Coach | Muscle OS">
   <meta name="twitter:description" content="Muscle OS by Coach Anas Mo'men — evidence-based hypertrophy & powerlifting coaching, AI-powered training programs, nutrition plans, and interactive fitness tools.">
   <meta name="twitter:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Coach Anas Mo'men — Muscle OS",
+  "url": "https://muscleos.is-a.dev/",
+  "image": "https://muscleos.is-a.dev/assets/img/coach.jpg",
+  "description": "Evidence-based hypertrophy & powerlifting coaching, AI-powered training programs, nutrition plans, and interactive fitness tools.",
+  "telephone": "+201040796017",
+  "priceRange": "EGP",
+  "areaServed": "Worldwide",
+  "sameAs": ["https://instagram.com/anas_moamen1"],
+  "founder": {
+    "@type": "Person",
+    "name": "Anas Mo'men",
+    "jobTitle": "Hypertrophy & Powerlifting Coach",
+    "url": "https://muscleos.is-a.dev/"
+  }
+}
+</script>
+<!-- Google tag (gtag.js) — REPLACE G-XXXXXXXXXX with your real GA4 Measurement ID (Google Analytics > Admin > Data Streams) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -334,6 +362,31 @@
     #mobileCtaBar{display:flex}
     body{padding-bottom:76px}
   }
+
+  /* Testimonials */
+  .reviews-section{background:var(--paper);color:var(--ink)}
+  .reviews-section .eyebrow{color:var(--yellow-dim)}
+  .review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:42px}
+  .review-card{background:#fff;border:1px solid #E6E4DC;border-radius:14px;padding:26px 24px;display:flex;flex-direction:column;gap:14px;box-shadow:0 4px 18px rgba(20,21,26,.06)}
+  .review-stars{color:var(--yellow-dim);font-size:.85rem;letter-spacing:3px}
+  .review-quote{font-size:.95rem;line-height:1.65;color:#3A3C44;margin:0}
+  .review-who{display:flex;flex-direction:column;gap:2px;margin-top:auto}
+  .review-name{font-weight:700;font-size:.9rem}
+  .review-goal{font-size:.72rem;text-transform:uppercase;letter-spacing:1.2px;color:var(--yellow-dim);font-family:'JetBrains Mono',monospace}
+
+  /* FAQ */
+  .faq-section{background:var(--ink-2);border-top:1px solid var(--line)}
+  .faq-list{max-width:760px;margin:38px auto 0}
+  .faq-item{border:1px solid rgba(250,250,248,.1);border-radius:12px;margin-bottom:12px;background:var(--ink-3);overflow:hidden}
+  .faq-item summary{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 22px;cursor:pointer;list-style:none;font-weight:600;font-size:1rem}
+  .faq-item summary::-webkit-details-marker{display:none}
+  .faq-item summary::after{content:'+';font-family:'JetBrains Mono',monospace;color:var(--yellow);font-size:1.2rem;transition:transform .2s}
+  .faq-item[open] summary::after{transform:rotate(45deg)}
+  .faq-item .faq-a{padding:0 22px 20px;color:var(--gray);font-size:.92rem;line-height:1.7}
+  .faq-item .faq-a a{color:var(--yellow)}
+  .faq-cta{text-align:center;margin-top:28px;font-size:.92rem;color:var(--gray)}
+
+  @media(max-width:900px){.review-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -622,6 +675,77 @@
   </div>
 </section>
 
+<!-- CLIENT REVIEWS -->
+<section class="reviews-section section-pad" id="reviews">
+  <div class="wrap">
+    <div class="eyebrow" style="color:var(--yellow-dim);">Client Results</div>
+    <h2 class="section-title" style="color:var(--ink);">Coached, not just programmed.</h2>
+    <p class="section-intro" style="color:#5A5D66;">Real clients, real numbers — this is what working with Anas looks like.</p>
+    <!-- TODO: replace placeholder testimonials with real client reviews before launch -->
+    <div class="review-grid">
+      <div class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-quote">"The program changed every week based on how I was actually responding. Nobody had ever coached me like that before."</p>
+        <div class="review-who">
+          <div class="review-name">[Client name]</div>
+          <div class="review-goal">Powerlifting — 6 months</div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-quote">"Nutrition was explained instead of just handed over. I finally understand why I'm eating what I'm eating."</p>
+        <div class="review-who">
+          <div class="review-name">[Client name]</div>
+          <div class="review-goal">Hypertrophy — 4 months</div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-quote">"Check-ins actually matter here. My form, my recovery, my lifts — everything gets adjusted. Worth every EGP."</p>
+        <div class="review-who">
+          <div class="review-name">[Client name]</div>
+          <div class="review-goal">Strength — 3 months</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section section-pad" id="faq">
+  <div class="wrap">
+    <div class="eyebrow">FAQ</div>
+    <h2 class="section-title">Questions, answered.</h2>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>How do I pay for packages and tools?</summary>
+        <div class="faq-a">Vodafone Cash or Paymob online payment. The order page walks you through both — pick your product, choose your payment method, and submit. Access is granted after payment confirmation.</div>
+      </details>
+      <details class="faq-item">
+        <summary>How fast do I get access after ordering?</summary>
+        <div class="faq-a">Online payments via Paymob are verified automatically — your access code appears immediately after successful payment. Manual Vodafone Cash transfers are verified after confirmation, usually within a few hours.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Is the programming really personalized?</summary>
+        <div class="faq-a">Yes. Every program starts from your intake answers, biomechanics assessment, equipment access, and training history — then gets adjusted weekly against your actual performance data. No template with your name pasted on it.</div>
+      </details>
+      <details class="faq-item">
+        <summary>I'm a beginner. Is this for me?</summary>
+        <div class="faq-a">Absolutely. Volume targets, exercise selection, and progression all scale to your training age. Most clients start as beginners and most of the science used comes from evidence-based ranges that apply from day one.</div>
+      </details>
+      <details class="faq-item">
+        <summary>What's included in the bundles?</summary>
+        <div class="faq-a"><strong>Training Bundle (500 EGP):</strong> Training &amp; Programming Book + Volume Calculator, RPE Calculator, and Split Quiz — plus 50% off the Training App for your first month. <strong>Nutrition Bundle (500 EGP):</strong> Diet &amp; Nutrition Book + TDEE &amp; Macro Calculator — plus 50% off the TDEE Adaptive Engine for your first month.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Can I pause or cancel coaching?</summary>
+        <div class="faq-a">Monthly billing with no long lock-in — the 3-month plan is just a discount, not a contract. Need to pause, switch plans, or cancel? Message Anas directly and it's handled.</div>
+      </details>
+    </div>
+    <p class="faq-cta">Still have a question? <a href="https://wa.me/201040796017" target="_blank" rel="noopener" style="color:var(--yellow);font-weight:600;">Message me on WhatsApp</a></p>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section class="contact section-pad" id="contact">
   <div class="wrap contact-inner">
@@ -643,6 +767,7 @@
       <a href="tel:01040796017">01040796017</a>
       <a href="https://instagram.com/anas_moamen1" target="_blank" rel="noopener">@anas_moamen1</a>
       <a href="https://wa.me/201040796017" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="privacy.html">Privacy</a>
     </div>
   </div>
 </footer>
