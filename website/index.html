@@ -105,19 +105,20 @@
   /* ---------- HERO ---------- */
   .hero {
     min-height:100vh;
-    display:flex; align-items:flex-end;
+    display:flex; align-items:center;
     position:relative;
     overflow:hidden;
     padding-top:80px;
   }
   .hero-bg {
     position:absolute; inset:0; z-index:0;
+    background:radial-gradient(1100px 750px at 72% 28%, #23242C 0%, #14151A 58%);
   }
-  .hero-bg img { width:100%; height:100%; object-fit:cover; object-position:center 15%; }
+  .hero-bg img { display:none; }
   .hero-bg::after {
     content:"";
     position:absolute; inset:0;
-    background:linear-gradient(180deg, rgba(20,21,26,0.55) 0%, rgba(20,21,26,0.35) 35%, rgba(20,21,26,0.97) 92%);
+    background:linear-gradient(180deg, rgba(20,21,26,0.5) 0%, rgba(20,21,26,0) 42%, rgba(20,21,26,0.88) 100%);
   }
   .hero-shard {
     position:absolute; top:0; right:0; width:38%; height:100%;
@@ -125,7 +126,30 @@
     transform:skewX(-12deg) translateX(15%);
     z-index:1;
   }
-  .hero-content { position:relative; z-index:2; width:100%; padding-bottom:80px; }
+  .hero-content { position:relative; z-index:2; width:100%; padding:16px 0 80px; }
+  .hero-grid {
+    display:grid; grid-template-columns:1.15fr 0.85fr; gap:64px; align-items:center;
+  }
+  .hero-photo { justify-self:center; position:relative; width:100%; max-width:430px; }
+  .hero-photo::before {
+    content:""; position:absolute; top:-14px; left:-14px; width:100%; height:100%;
+    border:2px solid var(--yellow); opacity:0.35; border-radius:3px; z-index:0;
+  }
+  .hero-photo .frame {
+    position:relative; z-index:1;
+    background:#FAFAF8; padding:12px 12px 14px; border-radius:3px;
+    box-shadow:0 30px 70px rgba(0,0,0,.55), 0 6px 18px rgba(0,0,0,.3);
+    transform:rotate(2deg);
+  }
+  .hero-photo .frame img {
+    display:block; width:100%; aspect-ratio:3/4; object-fit:cover; object-position:center 0%;
+    border-radius:1px;
+  }
+  .hero-photo .frame .caption {
+    margin-top:10px; text-align:center;
+    font-family:'JetBrains Mono',monospace; font-size:11px;
+    letter-spacing:2.5px; text-transform:uppercase; color:#14151A;
+  }
   .kicker {
     display:inline-block; font-size:13px; font-weight:700; color:var(--yellow);
     letter-spacing:3px; text-transform:uppercase; margin-bottom:16px;
@@ -350,6 +374,8 @@
 
     .section-pad { padding:72px 0; }
     .hero { min-height:92vh; }
+    .hero-grid { grid-template-columns:1fr; gap:40px; }
+    .hero-photo { max-width:340px; }
   }
 
   /* Sticky mobile CTA bar */
@@ -422,19 +448,29 @@
 
 <!-- HERO -->
 <section class="hero" id="top">
-  <div class="hero-bg"><img src="assets/hero.jpg" alt="Anas Mo'men training"></div>
+  <div class="hero-bg"><img src="assets/back.jpg" alt="Anas Mo'men training"></div>
   <div class="hero-shard"></div>
   <div class="wrap hero-content">
-    <div class="kicker">Hypertrophy &amp; Powerlifting Coaching</div>
-    <h1>Stop Guessing.<br>Start <span class="accent">Progressing.</span></h1>
-    <p class="hero-sub">
-      Coached by <b>Anas Mo'men</b> — a competitive powerlifter with a <b>700kg+ total</b>, training and
-      coaching from real experience under the bar. Programming built on biomechanics and data, not a
-      template with your name pasted on it.
-    </p>
-    <div class="hero-ctas">
-      <a href="https://wa.me/201040796017" class="btn btn-primary" target="_blank" rel="noopener">Start Coaching — WhatsApp</a>
-      <a href="#packages" class="btn btn-ghost">View Packages</a>
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="kicker">Hypertrophy &amp; Powerlifting Coaching</div>
+        <h1>Stop Guessing.<br>Start <span class="accent">Progressing.</span></h1>
+        <p class="hero-sub">
+          Coached by <b>Anas Mo'men</b> — a competitive powerlifter with a <b>700kg+ total</b>, training and
+          coaching from real experience under the bar. Programming built on biomechanics and data, not a
+          template with your name pasted on it.
+        </p>
+        <div class="hero-ctas">
+          <a href="https://wa.me/201040796017" class="btn btn-primary" target="_blank" rel="noopener">Start Coaching — WhatsApp</a>
+          <a href="#packages" class="btn btn-ghost">View Packages</a>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <div class="frame">
+          <img src="assets/back.jpg" alt="Anas Mo'men training">
+          <div class="caption">ANAS MO'MEN — COACH</div>
+        </div>
+      </div>
     </div>
     <div class="hero-stats">
       <div class="hstat"><div class="num mono">700kg+</div><div class="lbl">SBD Total</div></div>

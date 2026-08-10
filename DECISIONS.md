@@ -1,4 +1,4 @@
-# Muscle OS — Training Tool Decisions (PMF gap sprint)
+# Muscle OS — Training App Decisions (PMF gap sprint)
 
 Branch: `feat/pmf-gaps`. Every entry records what was decided, why, and the accepted tradeoff.
 
@@ -44,6 +44,28 @@ Part 6 of the hybrid-athlete workload ships tendon-rehab protocol content for 4 
 - **Why:** the protocol text is general loading principles (isometrics → heavier slow-tempo progression, own words), but tendon rehab crosses the clinical line; it must not reach users until a named clinical reviewer clears each group. Owner decision: no reviewer identified yet — **stays blocked indefinitely**; the flag is NOT to be cleared without one.
 - **Tradeoff:** four joints (knee/ankle/elbow/shoulder) show the review-pending card instead of a full protocol until review; users with active pain on those joints get the stop/inflammation message + consult CTA but not graded loading guidance. Accepted per owner decision (2026-08-07).
 
+## D10 — Mobile engine port: machine-extracted data + faithful TS port (2026-08-07)
+The Alpha mobile app (`mos-mobile`) ports the training app's validated engines to framework-agnostic TypeScript. Data was **machine-extracted**, not hand-transcribed: `scripts/extract-training-data.mjs` runs the main IIFE in a Node `vm` sandbox and serializes the named supersets (58 names, 536 KB, `as const`) to `src/training-logic/data/training-data.generated.ts`. Engines (`rpe`, `load-engine`, `exercise-meta`, `volume`, `strain`) are line-level ports of `10_engines.js`/`11_layer1_volprio.js`/`09_pl_weakpoints_quiz.js` with three accepted deviations: (1) storage/clock injected as pure function inputs; (2) i18n keys returned instead of resolved strings; (3) `now` injectable for determinism.
+- **Verified:** 94 Vitest tests green + `tsc --noEmit` clean; contract parity tests replicate the tool's own smoke-suite unit expectations (`smoke_voleng`/`smoke_volmodel`), including the PR-credit indirect-volume case (BP → triceps 2.7 / shoulders 1.5) and the 12-exercise fragmentation case. One real port bug was caught and fixed (double-prog branch missing `rep=tRR[0]`).
+- **Tradeoffs:** `as const` readonly tuples require casts at module boundaries; source quirks (e.g. `eid.split('__')[1]` = exercise name, `equipTag('Triceps Pushdown')` = '') are preserved faithfully, not "fixed".
+
+
+## D11 — EliteFit full port: sequenced absorption into MOS RN (2026-08-07)
+EliteFit (Flutter/Dart, Firebase Auth, Drift SQLite, Firestore backup) is fully retired. Every usable feature ports into MOS RN (Expo/Zustand/Supabase). No Firebase↔Supabase bridge — each domain migrates its data model directly into Supabase as it ships.
+- **Audit findings (unchanged):** 14 Flutter domains audited. 5 skip entirely (MOS RN already owns `exercises`, `strength`, `workout_splits`, `splash`, `guides`). 4 salvage/merge (`auth`, `profile`, `home`, `health_intelligence`). 5 genuinely new build (`meals`, `diet_plans`, `scale`, `favorites`, HealthKit/Google Fit sync). Website tools: 4 of 6 already ported; TDEE Adaptive Engine is the key unported tool. Training app backlog (22 features): triaged into 4 priority tiers.
+- **Phase order:** (1) Auth + Supabase schema for new domains, (2) Nutrition/meals + body metrics + TDEE Adaptive Engine + dashboard, (3) Health intelligence suite + training UX backlog, (4) HealthKit/Google Fit + i18n + polish.
+- **Auth migration:** hard cutover with Firebase Admin SDK export → Supabase Admin API import + password reset tokens. No dual-auth. Guest users lose local-only data (accepted pre-PMF).
+- **Default assumptions (owner confirmation pending — override any of these):**
+  - Foods database (`jouleit_db.json`): assumed owner-curated, safe to seed into Supabase.
+  - Existing EliteFit Firestore users: assumed small count pre-PMF; "re-enter data" approach, no full migration pipeline.
+  - HealthKit/Google Fit: Phase 4; manual input interim for recovery scoring.
+  - Condition mode clinical reviewer: still blocked per D9 — ported condition mode inherits the same gate.
+  - TDEE Adaptive Engine: Phase 2 alongside nutrition logging.
+  - Worker non-sync functions (paywall codes, coach webhooks): deferred migration to FastAPI backend.
+  - Arabic/RTL: post-launch pass; English-only for initial port.
+- **Recovery model conflict:** EliteFit's `RecoveryDebtCubit` uses time-elapsed sleep-debt scoring (`100 - sleepDebt×3 - lowQuality×8 - highStress×5 + restDays×5`). This is **not ported as-is** — recovery scoring in MOS is effort-based (RPE × sets → stimulus magnitude via `strain.ts`). Sleep/stress become modifiers, not primary signals.
+- **Safety/working-principles:** all ported features subject to soft-gate pattern, coach-visibility routing, safety-critical field confirmation, clinical content review (D9), and data metadata honesty. No exceptions.
+- **Tradeoff:** full port is expensive (~14 domain-weeks estimated across all phases). Accepted because MOS is the superset product and maintaining two apps on two backends is more expensive long-term. Sequencing by AI-pipeline value ensures highest-impact features land first.
 
 ## Deferred (explicitly out of scope this sprint)
 
