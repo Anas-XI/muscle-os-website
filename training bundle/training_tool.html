@@ -7404,6 +7404,35 @@ select option{background:var(--card)}
   //  EXPORT / IMPORT / RESET
   // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
+  window.copyBackupToClipboard = function(){
+    var allKeys=Object.values(K).concat(['mos_periodization','mos_week_count','mos_ex_choices','mos_pref','mos_card_density']);
+    var data={};allKeys.forEach(function(k){var v=localStorage.getItem(k);if(v)try{data[k]=JSON.parse(v);}catch(e){data[k]=v;}});
+    var str = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+    navigator.clipboard.writeText(str).then(function() {
+      alert('📋 Backup code copied to clipboard! You can paste this on any device.');
+    }).catch(function() {
+      prompt('Copy this backup code:', str);
+    });
+  };
+
+  window.pasteBackupFromClipboard = function(){
+    var str = prompt('Paste your MuscleOS backup code here:');
+    if(!str) return;
+    try {
+      var json = decodeURIComponent(escape(atob(str.trim())));
+      var data = JSON.parse(json);
+      if(typeof data !== 'object') throw new Error('Invalid format');
+      Object.keys(data).forEach(function(k) {
+        var val = typeof data[k] === 'string' ? data[k] : JSON.stringify(data[k]);
+        localStorage.setItem(k, val);
+      });
+      alert('✅ Backup restored successfully! Reloading...');
+      location.reload();
+    } catch(e) {
+      alert('❌ Invalid backup code: ' + e.message);
+    }
+  };
+
   document.getElementById('exportBtn').addEventListener('click',function(){
     var allKeys=Object.values(K).concat(['mos_periodization','mos_week_count','mos_ex_choices','mos_pref','mos_card_density']);
     var data={};allKeys.forEach(function(k){var v=localStorage.getItem(k);if(v)data[k]=JSON.parse(v);});

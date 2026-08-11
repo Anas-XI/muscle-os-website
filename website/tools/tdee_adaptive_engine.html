@@ -138,6 +138,17 @@ select option{background:#1E1E2A;color:#FAFAF8}
 .food-date-btn{background:none;border:none;color:#F4C93B;cursor:pointer;font-size:1rem;padding:0 8px}
 .food-date-display{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:#FAFAF8}
 
+/* ---- Category Filter Chips & Voice Search ---- */
+.cat-chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:10px;scrollbar-width:none}
+.cat-chips::-webkit-scrollbar{display:none}
+.cat-chip{background:rgba(20,21,26,.6);border:1px solid rgba(250,250,248,.1);border-radius:20px;padding:4px 10px;font-size:.65rem;color:rgba(250,250,248,.6);cursor:pointer;white-space:nowrap;transition:all .15s}
+.cat-chip.active{background:#F4C93B;color:#14151A;font-weight:600;border-color:#F4C93B}
+.voice-search-btn{background:rgba(20,21,26,.6);border:1px solid rgba(250,250,248,.1);border-radius:10px;color:#F4C93B;padding:0 12px;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center}
+.voice-search-btn.recording{background:#f44336;color:#fff;animation:pulse 1s infinite}
+@keyframes pulse{0%{opacity:1}50%{opacity:.5}100%{opacity:1}}
+.fav-star{cursor:pointer;font-size:.9rem;color:rgba(250,250,248,.2);transition:color .15s;padding:2px 4px}
+.fav-star.active{color:#F4C93B}
+
 /* ---- Welcome Back Card ---- */
 .welcome-card{background:#1E1E2A;border:1px solid rgba(244,201,59,.3);border-radius:16px;padding:24px 22px;margin-bottom:20px;box-shadow:0 8px 32px rgba(0,0,0,.4)}
 .welcome-title{font-family:'Oswald',sans-serif;font-size:1.6rem;color:#F4C93B;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;text-align:center}
@@ -825,7 +836,7 @@ select option{background:#1E1E2A;color:#FAFAF8}
     renderFoodTab();
 
     // Edit tab
-    document.getElementById('dash-edit').innerHTML = '<div class="section-header">Edit Profile</div><p style="font-size:.72rem;color:rgba(250,250,248,.4);margin-bottom:12px;line-height:1.5;">Changing your profile will reset the recalibration cycle (current weight log is preserved).</p><button class="btn-secondary" id="backToProfile">Edit Profile Settings</button><div style="margin-top:14px;border-top:1px solid rgba(250,250,248,.06);padding-top:14px"><div class="section-header" style="margin-top:0">Data Management</div><div style="display:flex;gap:8px"><button class="btn-secondary" id="exportTdeeBtn" style="flex:1;text-align:center">⬇ Export All Data</button><button class="btn-secondary" id="importTdeeBtn" style="flex:1;text-align:center">⬆ Import Data</button></div></div><input type="file" id="tdeeImportInput" accept=".json" style="display:none">';
+    document.getElementById('dash-edit').innerHTML = '<div class="section-header">Edit Profile</div><p style="font-size:.72rem;color:rgba(250,250,248,.4);margin-bottom:12px;line-height:1.5;">Changing your profile will reset the recalibration cycle (current weight log is preserved).</p><button class="btn-secondary" id="backToProfile">Edit Profile Settings</button><div style="margin-top:14px;border-top:1px solid rgba(250,250,248,.06);padding-top:14px"><div class="section-header" style="margin-top:0">Data Management</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn-secondary" id="exportTdeeBtn" style="flex:1;text-align:center">⬇ Export JSON</button><button class="btn-secondary" id="importTdeeBtn" style="flex:1;text-align:center">⬆ Import JSON</button><button class="btn-secondary" onclick="copyBackupToClipboard()" style="flex:1;text-align:center;color:#F4C93B">📋 Copy Backup Code</button><button class="btn-secondary" onclick="pasteBackupFromClipboard()" style="flex:1;text-align:center;color:#F4C93B">📥 Paste Backup Code</button></div></div><input type="file" id="tdeeImportInput" accept=".json" style="display:none">';
     document.getElementById('backToProfile').addEventListener('click', function(){
       document.getElementById('dashboardView').style.display = 'none';
       document.getElementById('profileView').style.display = 'block';
@@ -1097,7 +1108,57 @@ select option{background:#1E1E2A;color:#FAFAF8}
         alert('Import failed: '+err.message);
       }
     };
-    reader.readAsText(file);
+  // ─── Sound & Haptic Feedback ───
+  function playSoundEffect(type){
+    try {
+      if(navigator.vibrate) navigator.vibrate(15);
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(type === 'success' ? 587.33 : 440, ctx.currentTime);
+      gain.gain.setValueAtTime(0.08, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.15);
+    } catch(e) {}
+  }
+
+  // ─── Clipboard Backup & Restore ───
+  window.copyBackupToClipboard = function(){
+    const data = {};
+    for(let i=0; i<localStorage.length; i++){
+      const k = localStorage.key(i);
+      if(k.startsWith('muscle_os_') || k.startsWith('mos_')){
+        try { data[k] = JSON.parse(localStorage.getItem(k)); } catch(e){ data[k] = localStorage.getItem(k); }
+      }
+    }
+    const str = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+    navigator.clipboard.writeText(str).then(() => {
+      alert('📋 Backup code copied to clipboard! You can paste this on any device.');
+    }).catch(() => {
+      prompt('Copy this backup code:', str);
+    });
+  };
+
+  window.pasteBackupFromClipboard = function(){
+    const str = prompt('Paste your MuscleOS backup code here:');
+    if(!str) return;
+    try {
+      const json = decodeURIComponent(escape(atob(str.trim())));
+      const data = JSON.parse(json);
+      if(typeof data !== 'object') throw new Error('Invalid format');
+      Object.keys(data).forEach(k => {
+        const val = typeof data[k] === 'string' ? data[k] : JSON.stringify(data[k]);
+        localStorage.setItem(k, val);
+      });
+      alert('✅ Backup restored successfully! Reloading...');
+      location.reload();
+    } catch(e) {
+      alert('❌ Invalid backup code: ' + e.message);
+    }
   };
 
   // ─── Food Log Engine ───
@@ -1193,8 +1254,20 @@ select option{background:#1E1E2A;color:#FAFAF8}
         <button class="food-date-btn" onclick="changeFoodDate(1)">&#9654;</button>
       </div>
 
-      <div class="food-search-wrapper">
-        <input type="text" class="food-search-input" id="foodSearch" placeholder="Search food (English or Arabic)..." autocomplete="off">
+      <div class="cat-chips" id="catChips">
+        <div class="cat-chip active" data-cat="all">All</div>
+        <div class="cat-chip" data-cat="Meat">🥩 Proteins</div>
+        <div class="cat-chip" data-cat="Carbs">🍚 Carbs</div>
+        <div class="cat-chip" data-cat="Meals">🇪🇬 Egyptian</div>
+        <div class="cat-chip" data-cat="Dairy">🥛 Dairy</div>
+        <div class="cat-chip" data-cat="Fats">🥜 Fats/Nuts</div>
+        <div class="cat-chip" data-cat="Fruits">🍎 Fruits</div>
+        <div class="cat-chip" data-cat="Vegetables">🥦 Veggies</div>
+      </div>
+
+      <div class="food-search-wrapper" style="display:flex;gap:6px">
+        <input type="text" class="food-search-input" id="foodSearch" placeholder="Search 1,000+ foods (English/Arabic)..." autocomplete="off" style="flex:1">
+        <button class="voice-search-btn" id="voiceSearchBtn" title="Voice Search">🎙️</button>
         <div class="food-autocomplete" id="foodAutocomplete"></div>
       </div>
       
@@ -1283,6 +1356,58 @@ select option{background:#1E1E2A;color:#FAFAF8}
       }
     });
 
+    // Category chips click listener
+    let activeCat = 'all';
+    document.querySelectorAll('.cat-chip').forEach(chip => {
+      chip.addEventListener('click', function(){
+        document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+        activeCat = this.dataset.cat;
+        if(activeCat === 'all'){
+          searchInput.value = '';
+          autocomplete.style.display = 'none';
+        } else {
+          const matches = foodDB.filter(f => f.category === activeCat).slice(0, 15);
+          autocomplete.innerHTML = matches.map(f => `
+            <div class="food-ac-item" data-id="${escapeHTML(f.id)}">
+              <div><span class="food-ac-name">${escapeHTML(f.name_en)}</span><span class="food-ac-name-ar">${escapeHTML(f.name_ar||'')}</span></div>
+              <span class="food-ac-macros">${f.calories}kcal</span>
+            </div>
+          `).join('');
+          autocomplete.style.display = 'block';
+        }
+      });
+    });
+
+    // Voice Dictation
+    const voiceBtn = document.getElementById('voiceSearchBtn');
+    if(voiceBtn && ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)){
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const rec = new SpeechRecognition();
+      rec.continuous = false;
+      rec.interimResults = false;
+
+      voiceBtn.addEventListener('click', function(){
+        try {
+          voiceBtn.classList.add('recording');
+          rec.start();
+        } catch(e) { voiceBtn.classList.remove('recording'); }
+      });
+
+      rec.onresult = function(e){
+        voiceBtn.classList.remove('recording');
+        const transcript = e.results[0][0].transcript;
+        if(transcript){
+          searchInput.value = transcript;
+          searchInput.dispatchEvent(new Event('input'));
+        }
+      };
+      rec.onerror = function(){ voiceBtn.classList.remove('recording'); };
+      rec.onend = function(){ voiceBtn.classList.remove('recording'); };
+    } else if(voiceBtn){
+      voiceBtn.style.display = 'none';
+    }
+
     document.getElementById('foodAddBtn').addEventListener('click', function(){
       if(!selectedFood) return;
       const amt = parseFloat(document.getElementById('foodAddAmount').value);
@@ -1300,6 +1425,7 @@ select option{background:#1E1E2A;color:#FAFAF8}
         c: selectedFood.carbs * ratio
       });
       
+      playSoundEffect('success');
       saveFoodLogs();
       renderFoodTab();
     });
