@@ -292,7 +292,9 @@ select option{background:#1E1E2A;color:#FAFAF8}
               <option value="no">No, irregular / absent</option></select></div>
             <div class="form-group"><label>Current Phase</label>
               <select id="cyclePhase"><option value="">Not tracking</option>
-              <option value="follicular">Follicular (days 1-14)</option>
+              <option value="menstrual">Menstruation (days 1-5)</option>
+              <option value="follicular">Follicular (days 6-13)</option>
+              <option value="ovulation">Ovulation (~day 14)</option>
               <option value="luteal">Luteal (days 15-28)</option></select>
               <div class="tip">Luteal phase increases REE by 5-10% — ignoring this causes false plateaus</div></div>
           </div>
@@ -378,7 +380,7 @@ select option{background:#1E1E2A;color:#FAFAF8}
   const STEP_CALS = [-60,0,70,160,260,360,480];
   const SLEEP_FACTOR = {poor:.95, fair:.98, good:1.0, excellent:1.02};
   const CHRONIC_ADJUST = {no:1.0, yes:0.92};
-  const CYCLE_ADJUST = {follicular:1.0, luteal:1.07};
+  const CYCLE_ADJUST = {menstrual:1.0, follicular:1.0, ovulation:1.02, luteal:1.07};
 
   const PROTEIN_TARGETS = {
     omnivore: {aggressive_loss:2.3, moderate_loss:2.0, recomp:2.0, maintenance:1.8, lean_gain:1.8, aggressive_gain:1.6},

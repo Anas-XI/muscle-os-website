@@ -810,10 +810,16 @@ select option{background:var(--card)}
 #mobileCtaBar .cta-primary{background:#F4C93B;color:#14151A}
 #mobileCtaBar .cta-secondary{background:transparent;color:#FAFAF8;border:1.5px solid rgba(250,250,248,.25)}
 #mobileCtaBar a:active{opacity:.85}
-@media(max-width:768px){
-  #mobileCtaBar{display:flex}
-  body{padding-bottom:76px}
-}
+/* ---- Welcome Back Card ---- */
+.training-welcome-card{background:#1E1E2A;border:1px solid rgba(244,201,59,.3);border-radius:16px;padding:22px;margin-bottom:20px;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.tw-title{font-family:'Oswald',sans-serif;font-size:1.5rem;color:#F4C93B;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;text-align:center}
+.tw-sub{font-size:.75rem;color:rgba(250,250,248,.6);margin-bottom:16px;text-align:center}
+.tw-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:18px}
+.tw-item{background:rgba(20,21,26,.5);padding:10px 12px;border-radius:10px;border:1px solid rgba(250,250,248,.05)}
+.tw-lbl{font-size:.58rem;font-weight:600;text-transform:uppercase;color:rgba(250,250,248,.4);letter-spacing:1px}
+.tw-val{font-size:.85rem;font-weight:600;color:#FAFAF8;margin-top:2px}
+.tw-actions{display:flex;gap:10px;flex-wrap:wrap}
+.tw-actions button{flex:1;min-width:130px;padding:10px 14px;font-size:.78rem;font-weight:600;border-radius:8px;cursor:pointer}
 </style>
 <script async defer src="https://accounts.google.com/gsi/client"></script>
 </head>
@@ -888,7 +894,18 @@ select option{background:var(--card)}
 
   <!-- Screen 1: Onboarding -->
   <div class="step-content active" id="step1">
-    <div class="card">
+    <!-- Welcome Back Card for returning athletes -->
+    <div class="training-welcome-card" id="welcomeTrainingCard" style="display:none">
+      <div class="tw-title" id="twTitle">👋 Welcome Back!</div>
+      <div class="tw-sub">Your personalized training program &amp; volume calibration profile are active.</div>
+      <div class="tw-grid" id="twGrid"></div>
+      <div class="tw-actions">
+        <button class="btn-primary" id="twResumeBtn">🚀 Resume Workout Session</button>
+        <button class="btn-secondary" id="twEditBtn">⚙️ Edit Profile &amp; Program</button>
+      </div>
+    </div>
+
+    <div class="card" id="onboardingFormCard">
       <div class="section-header"><span data-i18n="welcome">Welcome</span> <span class="section-sub" data-i18n="welcome_sub">— set up your profile</span></div>
 
       <p style="font-size:.6rem;color:rgba(250,250,248,.22);margin-bottom:10px;line-height:1.3" data-i18n="muscle_priorities_sub">Tell us about yourself and your goals. We'll calculate target volume for each muscle group and recommend a split.</p>
@@ -912,6 +929,43 @@ select option{background:var(--card)}
           <select id="recFactor"><option value="low" data-i18n="low_rec">Low — limited sleep, high stress</option><option value="moderate" selected data-i18n="mod_rec">Moderate — balanced lifestyle</option><option value="high" data-i18n="high_rec">High — optimal recovery</option></select></div>
       </div>
 
+      <div class="form-row">
+        <div class="form-group"><label data-i18n="sex_label">Sex</label>
+          <select id="userSex"><option value="male" data-i18n="sex_male">Male</option><option value="female" data-i18n="sex_female">Female</option></select></div>
+        <div class="form-group" id="cycleLenGroup" style="display:none"><label data-i18n="cycle_len_label">Cycle Length (days)</label>
+          <select id="cycleLen">
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28" selected>28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+                <option value="32">32</option>
+                <option value="33">33</option>
+                <option value="34">34</option>
+                <option value="35">35</option>
+                <option value="36">36</option>
+                <option value="37">37</option>
+                <option value="38">38</option>
+                <option value="39">39</option>
+                <option value="40">40</option>
+          </select></div>
+      </div>
+      <div id="cycleSection" style="display:none">
+        <div class="section-header" data-i18n="cycle_title">Menstrual Cycle</div>
+        <p style="font-size:.55rem;color:rgba(250,250,248,.2);margin-bottom:6px;line-height:1.3" data-i18n="cycle_sub">Tell us where you are in your cycle and we'll tune weekly volume, RPE and recovery notes. Optional — you can skip for a balanced program.</p>
+        <div class="form-row">
+          <div class="form-group"><label data-i18n="cycle_last_label">First day of your last period</label><input type="date" id="cycleLastDate" style="width:100%;padding:6px 8px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem;color-scheme:dark"></div>
+          <div class="form-group"><label data-i18n="cycle_phase_label">Current Phase</label>
+            <select id="cyclePhaseSel"><option value="auto" data-i18n="cycle_auto">Auto (from dates)</option><option value="menstrual" data-i18n="cyc_menstrual">Menstruation (days 1–5)</option><option value="follicular" data-i18n="cyc_follicular">Follicular (days 6–13)</option><option value="ovulation" data-i18n="cyc_ovulation">Ovulation (~day 14)</option><option value="luteal" data-i18n="cyc_luteal">Luteal (days 15–28)</option><option value="skip" data-i18n="cycle_skip">Skip — balanced program</option></select></div>
+        </div>
+        <div id="cyclePhaseInfo" style="font-size:.55rem;color:rgba(250,250,248,.4);margin-top:4px;line-height:1.4"></div>
+      </div>
       <div id="musclePrioSection">
         <div class="section-header" data-i18n="muscle_priorities">Muscle Priorities</div>
         <p style="font-size:.55rem;color:rgba(250,250,248,.2);margin-bottom:6px;line-height:1.2"><span data-i18n="muscle_priorities_sub">Select which muscles to <strong style="color:#F4C93B">focus</strong> (full volume) vs <strong style="color:rgba(250,250,248,.35)">maintain</strong> (~half volume).</span></p>
@@ -1072,6 +1126,7 @@ select option{background:var(--card)}
     <div class="card">
       <div class="section-header" data-i18n="generate">Your Program</div>
       <div id="progRecap" class="recap-box"></div>
+      <div id="cycleBanner" style="display:none"></div>
       <div class="summary-dash">
         <div class="summary-card"><div class="summary-val" id="progSets">0</div><div class="summary-lbl" data-i18n="weekly_sets">Weekly Sets</div></div>
         <div class="summary-card"><div class="summary-val" id="progExs">0</div><div class="summary-lbl" data-i18n="exercises">Exercises</div></div>
@@ -1871,6 +1926,16 @@ select option{background:var(--card)}
       outcome_up:'improved +{d} {w}',
       outcome_down:'declined {d} {w}',
       outcome_flat:'no change',
+      sex_label:'Sex', sex_male:'Male', sex_female:'Female',
+      cycle_len_label:'Cycle Length (days)', cycle_title:'Menstrual Cycle', cycle_sub:'Tell us where you are in your cycle and we\'ll tune weekly volume, RPE and recovery notes. Optional — you can skip for a balanced program.',
+      cycle_last_label:'First day of your last period', cycle_phase_label:'Current Phase', cycle_auto:'Auto (from dates)', cycle_skip:'Skip — balanced program',
+      cyc_menstrual:'Menstruation', cyc_follicular:'Follicular', cyc_ovulation:'Ovulation', cyc_luteal:'Luteal',
+      cyc_day:'Cycle day', cyc_detected:'Detected phase', cyc_manual:'Manual phase', cyc_vol_note:'volume',
+      cyc_banner_head:'Cycle-aware adjustments', cyc_phase:'Phase',
+      cyc_note_menstrual:'Days 1–5: energy often dips. We cut weekly sets ~15% and cap RPE 1 point lower. Prioritize sleep and iron-rich foods; if you feel strong, keep normal loads.',
+      cyc_note_follicular:'Days 6–13: rising energy and strength tolerance. Great window to push intensity or add a set if recovered.',
+      cyc_note_ovulation:'Around day 14: peak strength often. Feel free to push — just keep the warm-up thorough.',
+      cyc_note_luteal:'Days 15–28: fatigue and heat tolerance may dip. We trim weekly sets ~10% and ease RPE 0.5. Extra sleep, hydration and electrolytes help.',
     },
     ar: {
       app_title:'أداة التمرين', header_sub:'التسجيل → التقسيم → البرنامج → التمرين → التاريخ',
@@ -2291,6 +2356,16 @@ select option{background:var(--card)}
       outcome_up:'تحسّن +{d} {w}',
       outcome_down:'انخفض {d} {w}',
       outcome_flat:'لا تغيير',
+      sex_label:'الجنس', sex_male:'ذكر', sex_female:'أنثى',
+      cycle_len_label:'طول الدورة (أيام)', cycle_title:'الدورة الشهرية', cycle_sub:'قوليلنا إنتِ فين في دورتك وهنضبط الحجم الأسبوعي والشدة ونوتات الاستشفاء تلقائيًا. اختياري — تقدري تتخطي لبرنامج متوازن.',
+      cycle_last_label:'أول يوم في آخر دورة', cycle_phase_label:'المرحلة الحالية', cycle_auto:'تلقائي (من التواريخ)', cycle_skip:'تخطي — برنامج متوازن',
+      cyc_menstrual:'الدورة الشهرية', cyc_follicular:'الطور الجريبي', cyc_ovulation:'الإباضة', cyc_luteal:'الطور الأصفري',
+      cyc_day:'يوم الدورة', cyc_detected:'المرحلة المكتشفة', cyc_manual:'المرحلة المختارة', cyc_vol_note:'الحجم',
+      cyc_banner_head:'تعديلات مبنية على الدورة', cyc_phase:'المرحلة',
+      cyc_note_menstrual:'أيام 1–5: الطاقة غالبًا بتبوظ. قلّصنا المجموعات الأسبوعية ~15% وخفّضنا RPE نقطة. نامي كويس وكلي أطعمة غنية بالحديد، ولو حاسة بقوة كمّلي بالأحمال العادية.',
+      cyc_note_follicular:'أيام 6–13: الطاقة وقوة التحمل في ارتفاع. وقت ممتاز تزودي الشدة أو تضيفي مجموعة لو الاستشفاء تمام.',
+      cyc_note_ovulation:'حوالين يوم 14: القوة في الذروة غالبًا. اقتحمي براحتك — مع إحماء كامل.',
+      cyc_note_luteal:'أيام 15–28: التعب وتحمل الحرارة ممكن يقلوا. قلّصنا المجموعات ~10% وخفّضنا RPE نص نقطة. نوم أطول وترطيب وإلكتروليت بيفرقوا.',
     }
   };
   function _(k){return I18N[window.__lang]&&I18N[window.__lang][k]!==undefined?I18N[window.__lang][k]:I18N.en[k]!==undefined?I18N.en[k]:k;}
@@ -3565,6 +3640,8 @@ select option{background:var(--card)}
     var m=meta(ex),best=bestE1RM(ex,hist),last=lastSess(ex,hist);
     var rpeMap={low:8,moderate:8,high:7.5};if(goal==='strength')rpeMap={low:8,moderate:8,high:8.5};
     var tRpe=rpeMap[m.f]||8;
+    var _cyc0=cycleMods(ls(K.VI,{}));
+    if(_cyc0.rpe)tRpe=Math.max(5,tRpe+_cyc0.rpe);
     // Apply fatigue adjustment (safety first)
     if(fatigueAdj&&fatigueAdj<0){tRpe=Math.max(5,tRpe+fatigueAdj);}
     var tRR=goal==='strength'?[3,6]:goal==='hypertrophy'?(m.rr||[6,12]):[5,10];
@@ -4482,6 +4559,89 @@ select option{background:var(--card)}
     renderVolumeSplit(targets2,total,vi.ta||'intermediate',vi.goal||'hypertrophy',parseInt(vi.days||4,10));
   }
 
+  // ── Sex & Menstrual Cycle Engine ──
+  var CYCLE_PHASES={menstrual:{vol:0.85,rpe:-1,days:'1\u20135'},follicular:{vol:1.0,rpe:0,days:'6\u201313'},ovulation:{vol:1.0,rpe:0,days:'~14'},luteal:{vol:0.9,rpe:-0.5,days:'15\u201328'}};
+  function cyclePhaseOf(vi){
+    if(!vi||vi.sex!=='female')return null;
+    if(vi.cyclePhase&&vi.cyclePhase!=='auto'&&vi.cyclePhase!=='')return vi.cyclePhase==='skip'?null:vi.cyclePhase;
+    if(!vi.cycleLast)return null;
+    var last=new Date((vi.cycleLast||'').replace(/-/g,'/'));
+    if(isNaN(last))return null;
+    var len=parseInt(vi.cycleLen||28,10)||28;
+    var now=new Date();now.setHours(0,0,0,0);last.setHours(0,0,0,0);
+    var day=Math.floor((now-last)/864e5)+1;
+    if(day<1)day=1;if(day>len)day=((day-1)%len)+1;
+    var ovu=Math.max(11,len-14);
+    if(day<=5)return 'menstrual';
+    if(day<ovu)return 'follicular';
+    if(day<=ovu+2)return 'ovulation';
+    return 'luteal';
+  }
+  function cycleMods(vi){
+    var ph=cyclePhaseOf(vi);
+    if(!ph)return{vol:1,rpe:0,phase:null,note:null};
+    var m=CYCLE_PHASES[ph];
+    return{vol:m.vol,rpe:m.rpe,phase:ph,note:'cyc_note_'+ph};
+  }
+  function cycleDayOf(vi){
+    if(!vi||vi.sex!=='female'||!vi.cycleLast)return null;
+    var last=new Date((vi.cycleLast||'').replace(/-/g,'/'));
+    if(isNaN(last))return null;
+    var len=parseInt(vi.cycleLen||28,10)||28;
+    var now=new Date();now.setHours(0,0,0,0);last.setHours(0,0,0,0);
+    var day=Math.floor((now-last)/864e5)+1;
+    if(day<1)return 1;if(day>len)return ((day-1)%len)+1;
+    return day;
+  }
+  function cycleModText(m){
+    var t=''+_('cyc_vol_note')+' \u00d7'+m.vol;
+    if(m.rpe)t+=' \u00b7 RPE '+(m.rpe>0?'+':'')+m.rpe;
+    return t;
+  }
+  function updateCycleUI(){
+    var sexEl=document.getElementById('userSex');
+    var isF=sexEl&&sexEl.value==='female';
+    var lenGrp=document.getElementById('cycleLenGroup'),sec=document.getElementById('cycleSection'),info=document.getElementById('cyclePhaseInfo');
+    if(lenGrp)lenGrp.style.display=isF?'':'none';
+    if(sec)sec.style.display=isF?'':'none';
+    if(!isF||!info)return;
+    var vi={sex:'female',cycleLen:document.getElementById('cycleLen').value,cycleLast:document.getElementById('cycleLastDate').value,cyclePhase:document.getElementById('cyclePhaseSel').value};
+    var ph=cyclePhaseOf(vi),day=cycleDayOf(vi),m=cycleMods(vi);
+    if(vi.cyclePhase==='skip'||!m.phase){info.innerHTML='';return;}
+    var lbl=(m.phase==='menstrual'?_('cyc_menstrual'):m.phase==='follicular'?_('cyc_follicular'):m.phase==='ovulation'?_('cyc_ovulation'):_('cyc_luteal'));
+    var txt='';
+    if(vi.cyclePhase==='auto'&&ph&&day)txt='<span style="color:#F4C93B">'+_('cyc_detected')+'</span> '+lbl+' ('+CYCLE_PHASES[ph].days+') \u00b7 '+_('cyc_day')+' '+day+'/'+vi.cycleLen;
+    else if(vi.cyclePhase!=='auto')txt=_('cyc_manual')+' '+lbl+' ('+CYCLE_PHASES[vi.cyclePhase].days+')';
+    if(txt)info.innerHTML=txt+' \u00b7 '+cycleModText(m);
+  }
+  function fillCycleBanner(){
+    var bn=document.getElementById('cycleBanner');
+    if(!bn)return;
+    var vi=ls(K.VI,{}),cm=cycleMods(vi),day=cycleDayOf(vi);
+    if(!cm.phase){bn.style.display='none';return;}
+    var lbl=(cm.phase==='menstrual'?_('cyc_menstrual'):cm.phase==='follicular'?_('cyc_follicular'):cm.phase==='ovulation'?_('cyc_ovulation'):_('cyc_luteal'));
+    bn.innerHTML='<div style="background:rgba(244,201,59,.05);border:1px solid rgba(244,201,59,.15);border-radius:8px;padding:8px 10px;margin-top:8px;font-size:.6rem;line-height:1.5">'+
+      '<div style="font-weight:600;color:#F4C93B;margin-bottom:2px">'+_('cyc_banner_head')+'</div>'+
+      '<div>'+_('cyc_phase')+': <strong>'+lbl+'</strong>'+(day?' \u00b7 '+_('cyc_day')+' '+day+(vi.cycleLen?'/'+vi.cycleLen:''):'')+' \u00b7 '+cycleModText(cm)+'</div>'+
+      '<div style="color:rgba(250,250,248,.55);margin-top:2px">'+_(cm.note)+'</div></div>';
+    bn.style.display='block';
+  }
+  function initCycleUI(){
+    var sexEl=document.getElementById('userSex');
+    if(!sexEl)return;
+    sexEl.addEventListener('change',updateCycleUI);
+    var c1=document.getElementById('cycleLastDate'),c2=document.getElementById('cycleLen'),c3=document.getElementById('cyclePhaseSel');
+    if(c1)c1.addEventListener('change',updateCycleUI);
+    if(c2)c2.addEventListener('change',updateCycleUI);
+    if(c3)c3.addEventListener('change',updateCycleUI);
+    var vi=ls(K.VI,{});
+    if(vi.sex)sexEl.value=vi.sex;
+    if(vi.cycleLen&&c2)c2.value=vi.cycleLen;
+    if(vi.cycleLast&&c1)c1.value=vi.cycleLast;
+    if(vi.cyclePhase&&c3)c3.value=vi.cyclePhase;
+    updateCycleUI();
+  }
+  initCycleUI();
   document.getElementById('onboardNext').addEventListener('click',function(){
     var err=document.getElementById('onboardErr');
     var ta=document.getElementById('ta').value;
@@ -4492,6 +4652,10 @@ select option{background:var(--card)}
     var age=document.getElementById('userAge').value||'';
     var rfMap={low:0.85,moderate:1.0,high:1.1};
     var rec=rfMap[rf]||1;
+    var sex=document.getElementById('userSex').value;
+    var cycRec={sex:sex,cycleLen:document.getElementById('cycleLen').value,cycleLast:document.getElementById('cycleLastDate').value,cyclePhase:document.getElementById('cyclePhaseSel').value};
+    var cm=cycleMods(cycRec);
+    rec=rec*(cm.vol||1);
     var table=VOLUME_TABLES[ta][g],targets={},total=0;
     MUSCLES.forEach(function(m){
       var v=table[VMAP[m.id]]||[4,8,12],prio=getPrio(m.id),mult=prio==='focus'?1:0.55;
@@ -4499,7 +4663,7 @@ select option{background:var(--card)}
       targets[m.id]={mev:mev,mav:mav,mrv:mrv,rec:Math.round((mev+mav)/2),prio:prio,name:m.name};
       total+=Math.round((mev+mav)/2);
     });
-    ss(K.VI,{name:name,age:age,ta:ta,goal:g,days:dd,rec:rf,prios:MUSCLES.map(function(m){return{id:m.id,p:getPrio(m.id)}})});
+    ss(K.VI,{name:name,age:age,ta:ta,goal:g,days:dd,rec:rf,sex:sex,cycleLen:cycRec.cycleLen,cycleLast:cycRec.cycleLast,cyclePhase:cycRec.cyclePhase,prios:MUSCLES.map(function(m){return{id:m.id,p:getPrio(m.id)}})});
     ss(K.VT,targets);
     // Powerlifting profile
     if(g==='strength'){
@@ -5841,6 +6005,7 @@ select option{background:var(--card)}
     document.getElementById('progExs').textContent=te;
     document.getElementById('progDays').textContent=progDays.length;
     document.getElementById('progRecap').innerHTML='<div class="rb-title">'+_('generate')+'</div><strong>'+split.name+'</strong> · '+ts+' '+_('weekly_sets')+' · '+te+' '+_('exercises')+' · '+sessLen+' min';
+    fillCycleBanner();
 
     var html='';
     progDays.forEach(function(day,di){
@@ -7272,19 +7437,42 @@ select option{background:var(--card)}
     if(vi.goal){var gEl=document.getElementById('goal');if(gEl)gEl.value=vi.goal;}
     if(vi.days){var dEl=document.getElementById('dow');if(dEl)dEl.value=vi.days;}
     if(vi.rec){var rEl=document.getElementById('recFactor');if(rEl)rEl.value=vi.rec;}
-    // Profile greeting
-    if(vi.name&&ls('mos_profile_saved',null)){
-      var greeting=document.getElementById('profileGreeting');
-      if(greeting){greeting.style.display='block';greeting.textContent=_('profile_greeting')+', '+vi.name+(vi.age?' ('+vi.age+')':'');}
-    }
-    if(prog&&sp){
-      var banner=document.getElementById('savedDataBanner');
-      banner.style.display='block';
-      banner.innerHTML='<div class="rb-title">'+_('saved_session')+'</div><strong>'+prog.splitName+'</strong> · '+prog.totalSets+' '+_('weekly_sets')+
-        '<button class="btn-secondary" id="resumeBtn" style="display:inline-block;margin-left:8px;padding:4px 10px;font-size:.55rem">'+_('resume')+'</button>'+
-        '<button class="btn-secondary" id="newBtn" style="display:inline-block;margin-left:4px;padding:4px 10px;font-size:.55rem">'+_('start_fresh')+'</button>';
-      document.getElementById('resumeBtn').addEventListener('click',function(){go(4);renderDashboard();});
-      document.getElementById('newBtn').addEventListener('click',function(){Object.values(K).forEach(function(k){localStorage.removeItem(k)});location.reload();});
+    // Enhanced Welcome Back Card for existing profile / program
+    if(prog || sp || vi.name){
+      var welcomeCard = document.getElementById('welcomeTrainingCard');
+      var formCard = document.getElementById('onboardingFormCard');
+      if(welcomeCard && formCard){
+        var name = vi.name || 'Athlete';
+        var twTitle = document.getElementById('twTitle');
+        if(twTitle) twTitle.textContent = '👋 Welcome Back, ' + name + '!';
+        var grid = document.getElementById('twGrid');
+        if(grid){
+          grid.innerHTML = `
+            <div class="tw-item"><div class="tw-lbl">Athlete Profile</div><div class="tw-val">${name} ${vi.age ? '('+vi.age+'y)' : ''}</div></div>
+            <div class="tw-item"><div class="tw-lbl">Active Split</div><div class="tw-val">${prog ? prog.splitName : (sp ? sp.name : 'Custom')}</div></div>
+            <div class="tw-item"><div class="tw-lbl">Volume Target</div><div class="tw-val">${prog ? prog.totalSets + ' weekly sets' : 'Custom'}</div></div>
+            <div class="tw-item"><div class="tw-lbl">Primary Goal</div><div class="tw-val">${(vi.goal || 'hypertrophy').toUpperCase()}</div></div>
+          `;
+        }
+        welcomeCard.style.display = 'block';
+        formCard.style.display = 'none';
+
+        var resumeBtn = document.getElementById('twResumeBtn');
+        if(resumeBtn){
+          resumeBtn.addEventListener('click', function(){
+            go(4);
+            renderDashboard();
+          });
+        }
+
+        var editBtn = document.getElementById('twEditBtn');
+        if(editBtn){
+          editBtn.addEventListener('click', function(){
+            welcomeCard.style.display = 'none';
+            formCard.style.display = 'block';
+          });
+        }
+      }
     }
     console.log('Unified Training App loaded');
     translateUI();
