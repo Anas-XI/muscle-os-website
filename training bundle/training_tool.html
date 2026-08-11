@@ -878,6 +878,9 @@ select option{background:var(--card)}
     </div>
     <p data-i18n="header_sub">Autoregulated Hypertrophy &amp; Periodized Force Matrix</p>
     <div style="text-align:center"><span style="display:inline-block;background:rgba(244,201,59,.12);color:#F4C93B;font-size:.55rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;padding:3px 10px;border-radius:20px;margin-top:6px;border:1px solid rgba(244,201,59,.25)">FLAGSHIP MODULE // MOS-HYPERKINETIX MVP</span></div>
+    <div style="text-align:center;margin-top:8px">
+      <button class="btn-primary" onclick="startTrainingTour()" style="width:auto;padding:8px 18px;font-size:.78rem;margin-top:0">🚀 Get Started (Interactive Tour)</button>
+    </div>
     <div id="profileGreeting" style="display:none;font-size:.6rem;color:#4CAF50;margin-top:4px;font-weight:500"></div>
   </div>
 
@@ -7449,6 +7452,65 @@ select option{background:var(--card)}
     allKeys.forEach(function(k){localStorage.removeItem(k)});
     go(1);renderPriorities();
   });
+
+  // MOS Interactive Training Tour Engine
+  var MOS_TRAIN_TOUR = [
+    {
+      title: '📍 Step 1: Athlete Onboarding & Volume Calibration',
+      desc: 'Welcome to MOS-HYPERKINETIX! Select your Training Age, Primary Goal (Hypertrophy / Strength), Days/Week, and Recovery Factor. The engine calculates your exact muscle volume landmarks (MEV, MAV, MRV).'
+    },
+    {
+      title: '📍 Step 2: Intelligent Split Selector & Muscle Priorities',
+      desc: 'Choose your optimal weekly split (Push/Pull/Legs, Upper/Lower, Arnold Split, Full Body) or build a custom schedule. Adjust muscle priority sliders to assign extra set allocations to lagging bodyparts!'
+    },
+    {
+      title: '📍 Step 3: Autoregulated Mesocycle Generator',
+      desc: 'Generate a periodized 4-to-12 week mesocycle. The system plans progressive overload set ramp-ups week over week, leading to a calculated Deload Week for systemic CNS recovery.'
+    },
+    {
+      title: '📍 Step 4: Active Workout Logger & Pre-Session Readiness',
+      desc: 'Check in before every session with the Pre-Session Readiness slider (Sleep, Stress, Soreness). If fatigue is high, load targets automatically scale down to prevent injury. Log sets with built-in rest timer chimes & plate calculators!'
+    },
+    {
+      title: '📍 Step 5: History, Volume Charts & Backup Engine',
+      desc: 'Review weekly volume landmark charts, PR tracking tables, and mesocycle history. Use 📋 Copy Backup Code to instant-sync your workout logs across devices!'
+    }
+  ];
+
+  window.startTrainingTour = function(){
+    showTrainingTourStep(0);
+  };
+
+  window.showTrainingTourStep = function(stepIdx){
+    var modal = document.getElementById('mosTrainTourModal');
+    if(!modal){
+      modal = document.createElement('div');
+      modal.id = 'mosTrainTourModal';
+      modal.className = 'modal-overlay';
+      document.body.appendChild(modal);
+    }
+    var step = MOS_TRAIN_TOUR[stepIdx];
+    modal.innerHTML = `
+      <div class="card animate-in" style="max-width:440px;width:90%;border:1.5px solid #F4C93B;box-shadow:0 0 32px rgba(244,201,59,.35);background:#1A1B26">
+        <div style="font-family:'Oswald',sans-serif;font-size:1.15rem;color:#F4C93B;margin-bottom:8px">${step.title}</div>
+        <div style="font-size:.78rem;line-height:1.6;color:rgba(250,250,248,.85);margin-bottom:16px">${step.desc}</div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:.65rem;color:rgba(250,250,248,.4)">Step ${stepIdx + 1} of ${MOS_TRAIN_TOUR.length}</span>
+          <div style="display:flex;gap:6px">
+            ${stepIdx > 0 ? `<button class="btn-secondary" onclick="showTrainingTourStep(${stepIdx - 1})" style="padding:5px 10px;font-size:.65rem">◄ Back</button>` : ''}
+            ${stepIdx < MOS_TRAIN_TOUR.length - 1 ? `<button class="btn-primary" onclick="showTrainingTourStep(${stepIdx + 1})" style="margin:0;padding:5px 12px;font-size:.65rem">Next ➔</button>` : `<button class="btn-primary" onclick="closeTrainingTourModal()" style="margin:0;padding:5px 12px;font-size:.65rem">Finish Tour 🚀</button>`}
+            <button class="btn-secondary" onclick="closeTrainingTourModal()" style="padding:5px 8px;font-size:.65rem">Skip</button>
+          </div>
+        </div>
+      </div>
+    `;
+    modal.style.display = 'flex';
+  };
+
+  window.closeTrainingTourModal = function(){
+    var modal = document.getElementById('mosTrainTourModal');
+    if(modal) modal.style.display = 'none';
+  };
 
 
   // ═══════════════════════════════════════

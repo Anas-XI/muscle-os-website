@@ -272,6 +272,9 @@ select option{background:#1A1B26;color:#FAFAF8}
     <h1>MOS-METABOLIX</h1>
     <p>Adaptive Bio-Expenditure Matrix &amp; Pharmacokinetic Nutrition Engine</p>
     <span class="badge">FLAGSHIP MODULE // MOS-METABOLIX MVP</span>
+    <div style="margin-top:10px">
+      <button class="btn-primary" onclick="startInteractiveTour()" style="width:auto;padding:8px 18px;font-size:.78rem;margin-top:0">🚀 Get Started (Interactive Tour)</button>
+    </div>
   </div>
 
   <div id="profileView">
@@ -1358,6 +1361,65 @@ select option{background:#1A1B26;color:#FAFAF8}
         playSoundEffect('click');
         renderFoodTab();
       };
+
+  // MOS Interactive Product Tour Engine
+  const MOS_TOUR_STEPS = [
+    {
+      title: '📍 Step 1: Adaptive Profile & 2-Week Recalibration',
+      desc: 'Welcome to MOS-METABOLIX! Enter your age, sex, weight, height, body fat, and lifestyle inputs. The engine uses rolling exponential moving averages to recalibrate your TDEE every 2 weeks based on your real-world weight trends!'
+    },
+    {
+      title: '📍 Step 2: 5,000 Food DB & Raw vs Cooked Selector',
+      desc: 'Search 5,000+ foods in English or Arabic using voice dictation (🎙️) or quick category chips. When adding food, toggle between 🥩 Raw (النيء) and 🍳 Cooked (المطبوخ) to account for exact water shrinkage math!'
+    },
+    {
+      title: '📍 Step 3: Anabolic Leucine MPS Meter & 8-Micro Grid',
+      desc: 'Track your Leucine MPS threshold — hit 3.0g Leucine per meal window to trigger maximal mTORc1 muscle protein synthesis! Monitor your 8-item micro grid: Iron, Calcium, Zinc, Magnesium, Potassium, Vit C, Vit D, and Vit B12.'
+    },
+    {
+      title: '📍 Step 4: Carb Cycling & Circadian Chronotype Timing',
+      desc: 'Switch between ⚡ High Carb (Legs/Back), ⚖️ Mod Carb, and 🥗 Low Carb (Rest Day) modes. Select your Early Lark (morning GLUT4 peak) or Night Owl chronotype to align nutrient timing with your circadian rhythm.'
+    },
+    {
+      title: '📍 Step 5: Reverse Dieting & Athlete Productivity Suite',
+      desc: 'Use the 🔄 Reverse Dieting Controller (+75 kcal/wk ramp) to restore thyroid & leptin levels post-cut. Access 🛒 1-Click Grocery Lists, ⚖️ Batch Meal Prep Splitters, ⚡ Quick Add Macros, and 📋 Copy Yesterday!'
+    }
+  ];
+
+  window.startInteractiveTour = function(){
+    showTourStep(0);
+  };
+
+  window.showTourStep = function(stepIdx){
+    let modal = document.getElementById('mosTourModal');
+    if(!modal){
+      modal = document.createElement('div');
+      modal.id = 'mosTourModal';
+      modal.className = 'modal-overlay';
+      document.body.appendChild(modal);
+    }
+    const step = MOS_TOUR_STEPS[stepIdx];
+    modal.innerHTML = `
+      <div class="card animate-in" style="max-width:440px;width:90%;border:1.5px solid #F4C93B;box-shadow:0 0 32px rgba(244,201,59,.35);background:#1A1B26">
+        <div style="font-family:'Oswald',sans-serif;font-size:1.15rem;color:#F4C93B;margin-bottom:8px">${step.title}</div>
+        <div style="font-size:.78rem;line-height:1.6;color:rgba(250,250,248,.85);margin-bottom:16px">${step.desc}</div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:.65rem;color:rgba(250,250,248,.4)">Step ${stepIdx + 1} of ${MOS_TOUR_STEPS.length}</span>
+          <div style="display:flex;gap:6px">
+            ${stepIdx > 0 ? `<button class="btn-secondary" onclick="showTourStep(${stepIdx - 1})" style="padding:5px 10px;font-size:.65rem">◄ Back</button>` : ''}
+            ${stepIdx < MOS_TOUR_STEPS.length - 1 ? `<button class="btn-primary" onclick="showTourStep(${stepIdx + 1})" style="margin:0;padding:5px 12px;font-size:.65rem">Next ➔</button>` : `<button class="btn-primary" onclick="closeTourModal()" style="margin:0;padding:5px 12px;font-size:.65rem">Finish Tour 🚀</button>`}
+            <button class="btn-secondary" onclick="closeTourModal()" style="padding:5px 8px;font-size:.65rem">Skip</button>
+          </div>
+        </div>
+      </div>
+    `;
+    modal.style.display = 'flex';
+  };
+
+  window.closeTourModal = function(){
+    const modal = document.getElementById('mosTourModal');
+    if(modal) modal.style.display = 'none';
+  };
 
   window.renderFoodTab = async function(){
     const tabEl = document.getElementById('dash-food');
