@@ -36,9 +36,9 @@ const VALID_PRODUCTS = Object.keys(PRODUCT_CONFIG);
 const ORDER_TTL_SECONDS = 172800; // 48 hours
 
 const PRODUCT_NAMES = {
-  training_tool:        { en: 'Training App', ar: 'تطبيق التدريب' },
+  training_tool:        { en: 'Training Tool', ar: 'أداة التدريب' },
   tdee_adaptive_engine: { en: 'TDEE Adaptive Engine', ar: 'محرك TDEE التكيفي' },
-  both_tools:           { en: 'Training Apps Bundle', ar: 'حزمة تطبيقات التدريب' },
+  both_tools:           { en: 'Training Tools Bundle', ar: 'حزمة أدوات التدريب' },
   training_book:        { en: 'Training Book', ar: 'كتاب التدريب' },
   nutrition_book:       { en: 'Nutrition Book', ar: 'كتاب التغذية' },
   both_books:           { en: 'Books Bundle', ar: 'حزمة الكتب' },
@@ -74,7 +74,9 @@ const PDF_PRODUCT_MAP = {
 };
 
 async function getSecret(env) {
-  return encoder.encode(env.JWT_SECRET);
+  const s = env.JWT_SECRET || '';
+  if (s.length < 32) throw new Error('JWT_SECRET not configured');
+  return encoder.encode(s);
 }
 
 export default {
@@ -143,12 +145,9 @@ export default {
     if (url.pathname === '/api/check-order-status' && request.method === 'POST') {
       return handleCheckOrderStatus(request, env);
     }
-    // ---- Data sync (training app) ----
-    if (url.pathname === '/api/sync/save' && request.method === 'POST') {
-      return handleSyncSave(request, env);
-    }
-    if (url.pathname === '/api/sync/load' && request.method === 'POST') {
-      return handleSyncLoad(request, env);
+    // ---- Data sync (training tool) ----
+    if (url.pathname === '/api/sync/save' || url.pathname === '/api/sync/load') {
+      return json({ error: 'endpoint_removed' }, 410, env, request);
     }
     // ---- Data sync v2 (passphrase-guarded, key in path) ----
     if (url.pathname.startsWith('/api/sync/') && request.method === 'POST') {
@@ -394,6 +393,7 @@ async function handleIssueCode(request, env) {
   // Authenticate with a shared admin secret
   const authHeader = request.headers.get('X-Admin-Key');
   const key = env.ADMIN_KEY || '';
+  if (key.length < 16) return json({ error: 'server_not_configured' }, 503, env, request);
   if (!authHeader || !timingSafeEqual(authHeader, key)) {
     return json({ error: 'unauthorized' }, 401, env, request);
   }
@@ -441,6 +441,7 @@ async function handleRevokeCode(request, env) {
   if (adminLimited) return json({ error: 'rate_limited' }, 429, env, request);
   const authHeader = request.headers.get('X-Admin-Key');
   const key = env.ADMIN_KEY || '';
+  if (key.length < 16) return json({ error: 'server_not_configured' }, 503, env, request);
   if (!authHeader || !timingSafeEqual(authHeader, key)) {
     return json({ error: 'unauthorized' }, 401, env, request);
   }
@@ -672,6 +673,7 @@ async function handleCreateOrder(request, env) {
 async function handlePendingOrders(request, env) {
   const authHeader = request.headers.get('X-Admin-Key');
   const key = env.ADMIN_KEY || '';
+  if (key.length < 16) return json({ error: 'server_not_configured' }, 503, env, request);
   if (!authHeader || !timingSafeEqual(authHeader, key)) {
     return json({ error: 'unauthorized' }, 401, env, request);
   }
@@ -693,6 +695,7 @@ async function handlePendingOrders(request, env) {
 async function handleApproveOrder(request, env) {
   const authHeader = request.headers.get('X-Admin-Key');
   const key = env.ADMIN_KEY || '';
+  if (key.length < 16) return json({ error: 'server_not_configured' }, 503, env, request);
   if (!authHeader || !timingSafeEqual(authHeader, key)) {
     return json({ error: 'unauthorized' }, 401, env, request);
   }
@@ -714,6 +717,7 @@ async function handleApproveOrder(request, env) {
 async function handleRejectOrder(request, env) {
   const authHeader = request.headers.get('X-Admin-Key');
   const key = env.ADMIN_KEY || '';
+  if (key.length < 16) return json({ error: 'server_not_configured' }, 503, env, request);
   if (!authHeader || !timingSafeEqual(authHeader, key)) {
     return json({ error: 'unauthorized' }, 401, env, request);
   }
@@ -751,6 +755,9 @@ async function handleRejectOrder(request, env) {
 // ── POST /api/paymob-callback (Paymob webhook, HMAC-verified) ─────
 
 async function handlePaymobCallback(request, env) {
+  if (!env.PAYMOB_HMAC_SECRET || env.PAYMOB_HMAC_SECRET.length < 16) {
+    return json({ status: 'ignored', reason: 'not_configured' }, 503, env, request);
+  }
   let body;
   try { body = await request.json(); } catch (e) {
     return json({ status: 'ignored', reason: 'invalid_json' }, 200, env, request);
@@ -822,27 +829,56 @@ async function handleCreatePaymentLink(request, env) {
 
 // ── POST /api/check-order-status (public — returns status + code if approved) ──
 
+function maskAccessCode(code) {
+  const s = String(code || '');
+  return s.length > 7 ? s.slice(0, 7) + '***' : '***';
+}
+
+
 async function handleCheckOrderStatus(request, env) {
+  const rateLimited = await checkRateLimit(request, env, 20);
+  if (rateLimited) return json({ error: 'rate_limited' }, 429, env, request);
+
   let body;
   try { body = await request.json(); } catch (e) {
     return json({ error: 'invalid_json' }, 400, env, request);
   }
-  const { orderId } = body;
+
+  const { orderId, session } = body;
   if (!orderId) return json({ error: 'missing_order_id' }, 400, env, request);
+
   const order = await env.PENDING_ORDERS.get(`order:${orderId}`, 'json');
   if (!order) return json({ error: 'order_not_found' }, 404, env, request);
-  return json({
+
+  let sessionEmail = null;
+  if (session) {
+    try {
+      const secret = await getSecret(env);
+      const { payload } = await jwtVerify(session, secret, {
+        audience: 'muscleos-website',
+        issuer: 'muscleos-access-control',
+      });
+      if (payload.type === 'session' && payload.email) sessionEmail = payload.email;
+    } catch (e) {}
+  }
+
+  const match = !!sessionEmail && !!order.email && sessionEmail.toLowerCase() === order.email.toLowerCase();
+  const code = order.issuedCode || order.generatedCode || null;
+  const out = {
     status: order.status,
-    code: order.issuedCode || order.generatedCode || null,
+    code: match ? code : maskAccessCode(code),
     product: order.product,
-    customerName: order.customerName,
-  }, 200, env, request);
+  };
+  if (match) out.customerName = order.customerName;
+  return json(out, 200, env, request);
 }
+
 
 // ── POST /api/expiring-codes (admin-key protected) ────────────────
 async function handleExpiringCodes(request, env) {
   const authHeader = request.headers.get('X-Admin-Key');
   const key = env.ADMIN_KEY || '';
+  if (key.length < 16) return json({ error: 'server_not_configured' }, 503, env, request);
   if (!authHeader || !timingSafeEqual(authHeader, key)) {
     return json({ error: 'unauthorized' }, 401, env, request);
   }
@@ -1042,43 +1078,9 @@ async function handlePdfProxy(request, env, url) {
 }
 
 // In-memory sliding-window rate limiter (no TOCTOU race, per-isolate)
-// ── Data sync (training app) ──
-async function handleSyncSave(request, env) {
-  const rateLimited = await checkRateLimit(request, env, 30);
-  if (rateLimited) return json({ error: 'rate_limited' }, 429, env, request);
-  let body;
-  try { body = await request.json(); } catch (e) {
-    return json({ error: 'invalid_json' }, 400, env, request);
-  }
-  const { key, data } = body;
-  if (!key || key.length < 4) return json({ error: 'invalid_key' }, 400, env, request);
-  if (!data) return json({ error: 'missing_data' }, 400, env, request);
-  const payloadSize = new TextEncoder().encode(JSON.stringify(data)).length;
-  if (payloadSize > 1_000_000) return json({ error: 'data_too_large' }, 413, env, request);
-  const sanitized = key.replace(/[^a-zA-Z0-9_-]/g, '').toLowerCase();
-  if (sanitized.length < 4) return json({ error: 'invalid_key' }, 400, env, request);
-  await env.ACCESS_CODES.put(`sync:${sanitized}:data`, JSON.stringify(data), { expirationTtl: 7776000 });
-  return json({ status: 'ok' }, 200, env, request);
-}
+// ── Data sync (training tool) ──
 
-async function handleSyncLoad(request, env) {
-  const rateLimited = await checkRateLimit(request, env, 60);
-  if (rateLimited) return json({ error: 'rate_limited' }, 429, env, request);
-  let body;
-  try { body = await request.json(); } catch (e) {
-    return json({ error: 'invalid_json' }, 400, env, request);
-  }
-  const { key } = body;
-  if (!key || key.length < 4) return json({ error: 'invalid_key' }, 400, env, request);
-  const sanitized = key.replace(/[^a-zA-Z0-9_-]/g, '').toLowerCase();
-  const raw = await env.ACCESS_CODES.get(`sync:${sanitized}:data`);
-  if (!raw) return json({ data: null }, 200, env, request);
-  try {
-    return json({ data: JSON.parse(raw) }, 200, env, request);
-  } catch (e) {
-    return json({ error: 'corrupt_data' }, 500, env, request);
-  }
-}
+
 
 async function sha256Hex(s) {
   const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s || ''));
@@ -1099,7 +1101,9 @@ async function handleSyncPush(request, env, url) {
   try { body = await request.json(); } catch (e) {
     return json({ error: 'invalid_json' }, 400, env, request);
   }
-  const { pw, data } = body;
+  const data = body.data;
+
+  const pw = request.headers.get('X-Sync-Passphrase') || body.pw || '';
   if (!data) return json({ error: 'missing_data' }, 400, env, request);
   const payloadSize = new TextEncoder().encode(JSON.stringify(data)).length;
   if (payloadSize > 1_000_000) return json({ error: 'data_too_large' }, 413, env, request);
@@ -1121,7 +1125,7 @@ async function handleSyncPull(request, env, url) {
   if (rateLimited) return json({ error: 'rate_limited' }, 429, env, request);
   const key = syncKeyFromPath(url);
   if (key.length < 4 || key.length > 64) return json({ error: 'invalid_key' }, 400, env, request);
-  const pw = url.searchParams.get('pw') || '';
+  const pw = request.headers.get('X-Sync-Passphrase') || '';
   const meta = await env.ACCESS_CODES.get(`sync:${key}:meta`, 'json');
   if (meta && meta.pwHash) {
     const pwHash = pw ? await sha256Hex(pw) : null;
@@ -1152,11 +1156,33 @@ async function handleNotifyCoach(request, env) {
   const accessToken = env.WHATSAPP_ACCESS_TOKEN;
   const coachNumber = env.COACH_WHATSAPP || '201040796017';
 
+  const { type, data, session, token } = body;
+
+  let authed = false;
+  try {
+    const secret = await getSecret(env);
+    const { payload } = await jwtVerify(session || '', secret, {
+      audience: 'muscleos-website',
+      issuer: 'muscleos-access-control',
+    });
+    if (payload.type === 'session') authed = true;
+  } catch (e) {}
+  if (!authed && token) {
+    try {
+      const secret = await getSecret(env);
+      const { payload } = await jwtVerify(token, secret, {
+        audience: 'muscleos-website',
+        issuer: 'muscleos-access-control',
+      });
+      if (payload.productId) authed = true;
+    } catch (e) {}
+  }
+  if (!authed) return json({ error: 'unauthorized' }, 401, env, request);
+
   if (!phoneNumberId || !accessToken) {
     return json({ error: 'whatsapp_not_configured' }, 503, env, request);
   }
 
-  const { type, data } = body;
   let messageBody;
 
   switch (type) {
@@ -1190,7 +1216,7 @@ async function handleNotifyCoach(request, env) {
 
     const result = await resp.json();
     if (!resp.ok) {
-      return json({ error: 'whatsapp_api_error', details: result }, 502, env, request);
+      return json({ error: 'whatsapp_api_error' }, 502, env, request);
     }
     return json({ status: 'ok', messageId: result.messages?.[0]?.id }, 200, env, request);
   } catch (err) {
@@ -1341,7 +1367,7 @@ function corsHeaders(env, request, isAuth = true) {
   const methods = isAuth ? 'POST, OPTIONS' : 'GET, OPTIONS';
   const headers = {
     'Access-Control-Allow-Methods': methods,
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Admin-Key',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Admin-Key, X-Sync-Passphrase',
     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
     'X-Content-Type-Options': 'nosniff',
     'X-Frame-Options': 'DENY',
