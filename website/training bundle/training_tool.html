@@ -803,6 +803,23 @@ button:focus-visible,.pc-btn:focus-visible,.week-chip:focus-visible,.weak-chip:f
 .modal-card{background:var(--card)}
 select option{background:var(--card)}
 @media (prefers-reduced-motion: reduce){.btn-primary:hover,.pc-btn:hover,.consult-cta:hover,.sub-btn:hover,.week-chip:hover,.btn-secondary:hover{transform:none;box-shadow:var(--shadow-accent)}}
+
+/* Sticky mobile CTA bar */
+#mobileCtaBar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:950;background:rgba(20,21,26,.97);backdrop-filter:blur(10px);border-top:1px solid rgba(244,201,59,.25);padding:10px 14px calc(10px + env(safe-area-inset-bottom));gap:10px;box-shadow:0 -8px 24px rgba(0,0,0,.35)}
+#mobileCtaBar a{flex:1;text-align:center;padding:13px 8px;border-radius:10px;font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;text-decoration:none;transition:opacity .2s}
+#mobileCtaBar .cta-primary{background:#F4C93B;color:#14151A}
+#mobileCtaBar .cta-secondary{background:transparent;color:#FAFAF8;border:1.5px solid rgba(250,250,248,.25)}
+#mobileCtaBar a:active{opacity:.85}
+/* ---- Welcome Back Card ---- */
+.training-welcome-card{background:#1E1E2A;border:1px solid rgba(244,201,59,.3);border-radius:16px;padding:22px;margin-bottom:20px;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.tw-title{font-family:'Oswald',sans-serif;font-size:1.5rem;color:#F4C93B;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;text-align:center}
+.tw-sub{font-size:.75rem;color:rgba(250,250,248,.6);margin-bottom:16px;text-align:center}
+.tw-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:18px}
+.tw-item{background:rgba(20,21,26,.5);padding:10px 12px;border-radius:10px;border:1px solid rgba(250,250,248,.05)}
+.tw-lbl{font-size:.58rem;font-weight:600;text-transform:uppercase;color:rgba(250,250,248,.4);letter-spacing:1px}
+.tw-val{font-size:.85rem;font-weight:600;color:#FAFAF8;margin-top:2px}
+.tw-actions{display:flex;gap:10px;flex-wrap:wrap}
+.tw-actions button{flex:1;min-width:130px;padding:10px 14px;font-size:.78rem;font-weight:600;border-radius:8px;cursor:pointer}
 </style>
 <script async defer src="https://accounts.google.com/gsi/client"></script>
 </head>
@@ -877,7 +894,18 @@ select option{background:var(--card)}
 
   <!-- Screen 1: Onboarding -->
   <div class="step-content active" id="step1">
-    <div class="card">
+    <!-- Welcome Back Card for returning athletes -->
+    <div class="training-welcome-card" id="welcomeTrainingCard" style="display:none">
+      <div class="tw-title" id="twTitle">👋 Welcome Back!</div>
+      <div class="tw-sub">Your personalized training program &amp; volume calibration profile are active.</div>
+      <div class="tw-grid" id="twGrid"></div>
+      <div class="tw-actions">
+        <button class="btn-primary" id="twResumeBtn">🚀 Resume Workout Session</button>
+        <button class="btn-secondary" id="twEditBtn">⚙️ Edit Profile &amp; Program</button>
+      </div>
+    </div>
+
+    <div class="card" id="onboardingFormCard">
       <div class="section-header"><span data-i18n="welcome">Welcome</span> <span class="section-sub" data-i18n="welcome_sub">— set up your profile</span></div>
 
       <p style="font-size:.6rem;color:rgba(250,250,248,.22);margin-bottom:10px;line-height:1.3" data-i18n="muscle_priorities_sub">Tell us about yourself and your goals. We'll calculate target volume for each muscle group and recommend a split.</p>
@@ -7409,19 +7437,42 @@ select option{background:var(--card)}
     if(vi.goal){var gEl=document.getElementById('goal');if(gEl)gEl.value=vi.goal;}
     if(vi.days){var dEl=document.getElementById('dow');if(dEl)dEl.value=vi.days;}
     if(vi.rec){var rEl=document.getElementById('recFactor');if(rEl)rEl.value=vi.rec;}
-    // Profile greeting
-    if(vi.name&&ls('mos_profile_saved',null)){
-      var greeting=document.getElementById('profileGreeting');
-      if(greeting){greeting.style.display='block';greeting.textContent=_('profile_greeting')+', '+vi.name+(vi.age?' ('+vi.age+')':'');}
-    }
-    if(prog&&sp){
-      var banner=document.getElementById('savedDataBanner');
-      banner.style.display='block';
-      banner.innerHTML='<div class="rb-title">'+_('saved_session')+'</div><strong>'+prog.splitName+'</strong> · '+prog.totalSets+' '+_('weekly_sets')+
-        '<button class="btn-secondary" id="resumeBtn" style="display:inline-block;margin-left:8px;padding:4px 10px;font-size:.55rem">'+_('resume')+'</button>'+
-        '<button class="btn-secondary" id="newBtn" style="display:inline-block;margin-left:4px;padding:4px 10px;font-size:.55rem">'+_('start_fresh')+'</button>';
-      document.getElementById('resumeBtn').addEventListener('click',function(){go(4);renderDashboard();});
-      document.getElementById('newBtn').addEventListener('click',function(){Object.values(K).forEach(function(k){localStorage.removeItem(k)});location.reload();});
+    // Enhanced Welcome Back Card for existing profile / program
+    if(prog || sp || vi.name){
+      var welcomeCard = document.getElementById('welcomeTrainingCard');
+      var formCard = document.getElementById('onboardingFormCard');
+      if(welcomeCard && formCard){
+        var name = vi.name || 'Athlete';
+        var twTitle = document.getElementById('twTitle');
+        if(twTitle) twTitle.textContent = '👋 Welcome Back, ' + name + '!';
+        var grid = document.getElementById('twGrid');
+        if(grid){
+          grid.innerHTML = `
+            <div class="tw-item"><div class="tw-lbl">Athlete Profile</div><div class="tw-val">${name} ${vi.age ? '('+vi.age+'y)' : ''}</div></div>
+            <div class="tw-item"><div class="tw-lbl">Active Split</div><div class="tw-val">${prog ? prog.splitName : (sp ? sp.name : 'Custom')}</div></div>
+            <div class="tw-item"><div class="tw-lbl">Volume Target</div><div class="tw-val">${prog ? prog.totalSets + ' weekly sets' : 'Custom'}</div></div>
+            <div class="tw-item"><div class="tw-lbl">Primary Goal</div><div class="tw-val">${(vi.goal || 'hypertrophy').toUpperCase()}</div></div>
+          `;
+        }
+        welcomeCard.style.display = 'block';
+        formCard.style.display = 'none';
+
+        var resumeBtn = document.getElementById('twResumeBtn');
+        if(resumeBtn){
+          resumeBtn.addEventListener('click', function(){
+            go(4);
+            renderDashboard();
+          });
+        }
+
+        var editBtn = document.getElementById('twEditBtn');
+        if(editBtn){
+          editBtn.addEventListener('click', function(){
+            welcomeCard.style.display = 'none';
+            formCard.style.display = 'block';
+          });
+        }
+      }
     }
     console.log('Unified Training App loaded');
     translateUI();
@@ -8242,5 +8293,11 @@ select option{background:var(--card)}
   }
 })();
 </script>
+
+<!-- STICKY MOBILE CTA -->
+<div id="mobileCtaBar">
+  <a class="cta-primary" href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%27m%20interested%20in%20the%20Training%20App." target="_blank" rel="noopener">WhatsApp</a>
+  <a class="cta-secondary" href="../order.html?product=training_tool">Buy Access</a>
+</div>
 </body>
 </html>

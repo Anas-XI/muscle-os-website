@@ -803,6 +803,23 @@ button:focus-visible,.pc-btn:focus-visible,.week-chip:focus-visible,.weak-chip:f
 .modal-card{background:var(--card)}
 select option{background:var(--card)}
 @media (prefers-reduced-motion: reduce){.btn-primary:hover,.pc-btn:hover,.consult-cta:hover,.sub-btn:hover,.week-chip:hover,.btn-secondary:hover{transform:none;box-shadow:var(--shadow-accent)}}
+
+/* Sticky mobile CTA bar */
+#mobileCtaBar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:950;background:rgba(20,21,26,.97);backdrop-filter:blur(10px);border-top:1px solid rgba(244,201,59,.25);padding:10px 14px calc(10px + env(safe-area-inset-bottom));gap:10px;box-shadow:0 -8px 24px rgba(0,0,0,.35)}
+#mobileCtaBar a{flex:1;text-align:center;padding:13px 8px;border-radius:10px;font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;text-decoration:none;transition:opacity .2s}
+#mobileCtaBar .cta-primary{background:#F4C93B;color:#14151A}
+#mobileCtaBar .cta-secondary{background:transparent;color:#FAFAF8;border:1.5px solid rgba(250,250,248,.25)}
+#mobileCtaBar a:active{opacity:.85}
+/* ---- Welcome Back Card ---- */
+.training-welcome-card{background:#1E1E2A;border:1px solid rgba(244,201,59,.3);border-radius:16px;padding:22px;margin-bottom:20px;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.tw-title{font-family:'Oswald',sans-serif;font-size:1.5rem;color:#F4C93B;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;text-align:center}
+.tw-sub{font-size:.75rem;color:rgba(250,250,248,.6);margin-bottom:16px;text-align:center}
+.tw-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:18px}
+.tw-item{background:rgba(20,21,26,.5);padding:10px 12px;border-radius:10px;border:1px solid rgba(250,250,248,.05)}
+.tw-lbl{font-size:.58rem;font-weight:600;text-transform:uppercase;color:rgba(250,250,248,.4);letter-spacing:1px}
+.tw-val{font-size:.85rem;font-weight:600;color:#FAFAF8;margin-top:2px}
+.tw-actions{display:flex;gap:10px;flex-wrap:wrap}
+.tw-actions button{flex:1;min-width:130px;padding:10px 14px;font-size:.78rem;font-weight:600;border-radius:8px;cursor:pointer}
 </style>
 <script async defer src="https://accounts.google.com/gsi/client"></script>
 </head>
@@ -877,7 +894,18 @@ select option{background:var(--card)}
 
   <!-- Screen 1: Onboarding -->
   <div class="step-content active" id="step1">
-    <div class="card">
+    <!-- Welcome Back Card for returning athletes -->
+    <div class="training-welcome-card" id="welcomeTrainingCard" style="display:none">
+      <div class="tw-title" id="twTitle">👋 Welcome Back!</div>
+      <div class="tw-sub">Your personalized training program &amp; volume calibration profile are active.</div>
+      <div class="tw-grid" id="twGrid"></div>
+      <div class="tw-actions">
+        <button class="btn-primary" id="twResumeBtn">🚀 Resume Workout Session</button>
+        <button class="btn-secondary" id="twEditBtn">⚙️ Edit Profile &amp; Program</button>
+      </div>
+    </div>
+
+    <div class="card" id="onboardingFormCard">
       <div class="section-header"><span data-i18n="welcome">Welcome</span> <span class="section-sub" data-i18n="welcome_sub">— set up your profile</span></div>
 
       <p style="font-size:.6rem;color:rgba(250,250,248,.22);margin-bottom:10px;line-height:1.3" data-i18n="muscle_priorities_sub">Tell us about yourself and your goals. We'll calculate target volume for each muscle group and recommend a split.</p>
@@ -1912,13 +1940,13 @@ select option{background:var(--card)}
     ar: {
       app_title:'أداة التمرين', header_sub:'التسجيل → التقسيم → البرنامج → التمرين → التاريخ',
       welcome:'أهلاً بيك', welcome_sub:'إعمل بروفايلك',
-      ta_label:'عمرك التدريبي', goal_label:'هدفك الأساسي', dow_label:'أيام/الأسبوع', rec_label:'مستوى الاستشفاء',
+      ta_label:'العمر التدريبي', goal_label:'الهدف الأساسي', dow_label:'أيام/الأسبوع', rec_label:'مستوى الاستشفاء',
       novice:'مبتدئ (أقل من سنة)', intermediate:'متوسط (1-3 سنين)', advanced:'متقدم (3+ سنين)',
       hypertrophy:'تضخيم', strength:'قوة', balanced:'متوازن',
       low_rec:'ضعيف — نوم قليل وضغط عالي', mod_rec:'متوسط — حياة متزنة', high_rec:'عالي — استشفاء ممتاز',
       muscle_priorities:'أولويات العضلات', muscle_priorities_sub:'اختار العضلات اللي عايز تركز عليها (حجم كامل) ولا صيانة (نص حجم).',
       focus:'تركيز', maint:'صيانة',
-      split_pref:'اختيار التقسيم', choose_my_split:'اختار التقسيم بنفسي', take_quiz:'الاختبار',
+      split_pref:'اختيار التقسيم', choose_my_split:'اختار التقسيم بنفسي', take_quiz:'اعمل الاختبار',
       pl_profile:'ملف رفع الأثقال', pl_sub:'هنصمم برنامج دوري على أساس أقصى أوزانك ونقاط ضعفك والتعب.',
       squat_rm:'أقصى قرفصاء (كغم)', bench_rm:'أقصى ضغط (كغم)', deadlift_rm:'أقصى رفع أرضي (كغم)',
       bw:'وزن الجسم (كغم)', yrs_pl:'سنين رفع الأثقال', weak_pts:'نقاط الضعف',
@@ -1927,11 +1955,11 @@ select option{background:var(--card)}
       meet_date:'تاريخ المسابقة', focus_err:'اختار عضلة تركيز واحدة على الأقل.',
       calc_continue:'احسب وكمل',
       saved_session:'لقينا جلسة محفوظة',
-      resume:'اكمل التمرين', start_fresh:'ابدا من أول وجديد',
-      back:'رجوع', generate:'ابنِ برنامجي', confirm_gen:'أكّد برنامجي',
+      resume:'كمّل التمرين', start_fresh:'ابدأ من جديد',
+      back:'رجوع', generate:'ابني برنامجي', confirm_gen:'أكّد برنامجي',
       accent:'لون التمييز', install_app:'ثبّت التطبيق',
       save_start:'احفظ وابدأ التمرين',
-      vol_targets:'أهداف الحجم', weekly_sets:'مجموعة أسبوعية',
+      vol_targets:'أهداف الحجم', weekly_sets:'مجموعات أسبوعية',
       sessions:'جلسات', exercises:'تمارين',
       day:'اليوم', sets:'مجموعات', reps:'عدات', rest:'راحة',
       warmup:'إحماء', ramp_sets:'مجموعات تصعيدية',
@@ -1940,31 +1968,31 @@ select option{background:var(--card)}
       log_cardio:'تسجيل الكارديو', type:'النوع', duration_min:'المدة (دقيقة)', intensity:'الشدة',
       save_meas:'حفظ القياسات', cancel:'إلغاء',
       no_data:'مفيش بيانات', dash_empty:'اليوم ده فاضي — اختار يوم تاني أو جهّز برنامجك، وبعدها سجّل أول مجموعة.',
-      today_train:'تمرين النهارده', week_row:'الأسبوع ده', streak:'أسبوع متواصل', pre_session:'جاهزية قبل التمرين',
+      today_train:'تمرين النهارده', week_row:'الأسبوع ده', streak:'السلسلة', pre_session:'جاهزية قبل التمرين',
       complete_week:'إكمال الأسبوع والتقدم', change_split:'تغيير التقسيم',
       history:'السجل والإحصائيات', export:'تصدير', import:'استيراد', reset:'مسح الكل',
       deload_hist:'تاريخ التفريغ', pr_table:'الأرقام القياسية',
       save_pdf:'حفظ PDF',
       export_cal:'تصدير التقويم',
       session_timer:'مؤقت الجلسة', session_start:'بدء', session_stop:'إيقاف', session_len:'متوسط الجلسة', sets_per_hour:'مجموعات/ساعة',
-      notif_on:'تذكيرات التمرين مفعلة', notif_off:'تذكيرات التمرين متوقفة', notif_title:'يوم تمرين', notif_body:'تمرين الدفع على الأبواب', notif_denied:'الإشعارات محظورة — اسمح بها من إعدادات المتصفح.',
+      notif_on:'تذكيرات التمرين مفعلة', notif_off:'تذكيرات التمرين متوقفة', notif_title:'يوم تمرين', notif_body:'وقت تمرين الدفع', notif_denied:'الإشعارات محظورة — اسمح بها من إعدادات المتصفح.',
       track_progress:'تتبع التقدم',
       back_to_setup:'رجوع للإعدادات', back_to_split:'رجوع للتقسيم', share_program:'📤 شارك البرنامج', share_copied:'اتنسخ نص البرنامج — شاركه في أي مكان!',
       rec_split_recommended:'مقترح', quiz_summary:'ملخص الاختبار',
       retake_quiz:'إعادة الاختبار',
-      generate_meso:'إنشاء الدورة المتوسطة',
+      generate_meso:'إنشاء الدورة التدريبية',
       start_training:'يلا نتمرن',
       rest_day:'يوم راحة',rest_day_recover:'استشفاء وتجديد — لا تدريب اليوم',rest_tip_1:'نم 7–9 ساعات — العضلات تنمو أثناء الراحة',rest_tip_2:'امشِ 6–10 آلاف خطوة لتحسين الدورة الدموية',rest_tip_3:'اشرب كمية كافية من الماء وحقق هدفك اليومي من البروتين',rest_tip_4:'اختياري: حركة خفيفة أو إطالة (15–20 دقيقة)',
       low:'قليل', moderate:'متوسط', high:'كثير',
-      adjust:'ضبط', my_gym:'أدواتي', eq_all:'الكل', eq_bodyweight:'وزن الجسم', eq_dumbbell:'دمبل', eq_barbell:'بار', eq_machine:'أجهزة', eq_cable:'كابل', eq_band:'باند', eq_kettlebell:'كيتل بيل',
+      adjust:'ضبط', my_gym:'أدواتي', eq_all:'الكل', eq_bodyweight:'وزن الجسم', eq_dumbbell:'دمبل', eq_barbell:'بار', eq_machine:'أجهزة', eq_cable:'كابل', eq_band:'باند', eq_kettlebell:'كيتلبل',
       diff_label:'الصعوبة', diff_beginner:'مبتدئ', diff_intermediate:'متوسط', diff_advanced:'متقدم',
       type_label:'النوع', mp_compound:'مركب', mp_isolation:'عزل',
       pattern_label:'نمط الحركة', mp_push:'دفع', mp_pull:'سحب', mp_hinge:'مفصلي', mp_squat:'قرفصاء', mp_carry:'حمل', mp_rotation:'دوران', mp_core:'الجذع', mp_other:'أخرى',
-      js_moderate:'مفاصل', js_high:'ضغط على المفاصل', also_works:'يشغل برضه', rec_badge:'موصى به', ex_no_match:'مفيش تمارين تناسب الفلاتر دي',
+      js_moderate:'ضغط معتدل', js_high:'ضغط على المفاصل', also_works:'يشغل برضه', rec_badge:'موصى به', ex_no_match:'مفيش تمارين تناسب الفلاتر دي',
       meta_inferred:'تلقائي', meta_inferred_tip:'بيانات التمرين مشتقة تلقائياً من القواعد — مراجعة المدرب قيد الانتظار.',
       search_ex:'ابحث في التمارين', search_none:'لا توجد نتائج',
       empty_eq:'لا توجد تمارين تناسب أجهزتك والفلاتر لهذه العضلة.', empty_filters:'لا توجد تمارين تناسب الفلاتر الحالية.',
-      empty_btn_eq:'إظهار كل الأجهزة', empty_btn_filters:'مسح الفلاتر',
+      empty_btn_eq:'اعرض كل الأجهزة', empty_btn_filters:'مسح الفلاتر',
       lp_last:'آخر مرة', lp_today:'اليوم', lp_yesterday:'أمس', lp_days:'منذ {N} يوم',
       why_fav:'مفضلتك', why_level:'يناسب مستواك', why_jointsafe:'أمان للمفاصل', why_eq:'يناسب أجهزتك', why_balanced:'خيار متوازن',
       density_on:'مختصر', density_off:'بطاقات',
@@ -1982,7 +2010,7 @@ select option{background:var(--card)}
       rpe_7_use:'مجموعات التخفيف، مجموعات العمل الأولانية',
       rpe_5_feel:'معتدل — سرعة البار بتقل شوية',
       rpe_5_use:'الإحماء، مجموعات التصعيد، أول مجموعات العمل',
-      rpe_tip:'ابدا أول مجموعة عمل على RPE 7. لو الحركة كويسة، زود وزن في المجموعة اللي بعدها. لو صعبة، كمل أو قلل. على مدى 4 أسابيع، تابع RPE عشان تلاحظ تراكم التعب قبل ما يأثر على أدائك.',
+      rpe_tip:'ابدأ أول مجموعة عمل على RPE 7. لو الحركة كويسة، زود وزن في المجموعة اللي بعدها. لو صعبة، كمل أو قلل. على مدى 4 أسابيع، تابع RPE عشان تلاحظ تراكم التعب قبل ما يأثر على أدائك.',
       // Mesocycle
       meso_phase_accumulation:'تراكم',meso_phase_intensification:'تكثيف',meso_phase_peak:'قمة',meso_phase_deload:'تفريغ',
       meso_vol_rpe_progression:'تقدم الحجم والجهد',meso_weeks:'أسبوع',
@@ -2018,7 +2046,7 @@ select option{background:var(--card)}
       fatigue_hint_doms:'1=مدمّر، 10=منتعش',fatigue_hint_nutrition:'1=جوعان، 10=ممتاز',fatigue_hint_cns:'1=مرهق، 10=نشيط',
       fatigue_rates:'قيّم كل حاجة من 1-10. الأعلى أحسن للنوم/التغذية/العصبي، الأقل أحسن للضغط/الألم.',
       fatigue_ready:'جاهز للتمرين بكثافة كاملة.',
-      fatigue_rpe_adjusted:'اتعدل RPE بسبب التعب. السلامة الأول.',
+      fatigue_rpe_adjusted:'اتعدل RPE بسبب التعب. السلامة أولاً.',
       fat_light_title:'تعب عالي — في خيار أخف',
       fat_light_desc:'الجاهزية حمراء النهارده. خد جلسة أخف: أوزان مقترحة 80% ومجموعة أقل في كل تمرين.',
       fat_light_btn:'يوم خفيف',fat_planned_btn:'كمّل زي ما هو',
@@ -2034,11 +2062,11 @@ select option{background:var(--card)}
       // Hybrid-athlete load (P1/P2/P3)
       nl_toggle:'تسجيل جلسة خارج الحديد',nl_type:'النوع',nl_duration:'المدة (دقيقة)',nl_effort:'الجهد',nl_save:'حفظ الجلسة',nl_today:'النهارده',nl_this_week:'الأسبوع ده',
       cl_title:'الحمل المدمج',cl_today:'النهارده',cl_week:'7 أيام',cl_lift:'حديد',cl_nonlift:'بره الحديد',
-      mono_label:'الرتابة',mono_thresh:'أحمر > 2.0',mono_title:'الرتابة عالية — نّوع الأسبوع',
+      mono_label:'الرتابة',mono_thresh:'أحمر > 2.0',mono_title:'الرتابة عالية — نوّع الأسبوع',
       mono_desc:'نمط حملك الأسبوعي متكرر جداً (رتابة {m}). جلسات بنفس الإحساس كل يوم بتزيد التعب من غير مكاسب زيادة. بدّل جلسة أخف أو مختلفة — برنامجك ثابت زي ما هو.',
       mono_ack:'تمام — هغيّر الشدة',
-      trend_title:'اتجاه الحمل والحجم',trend_range:'المدة',trend_volume:'الحجم الأسبوعي',trend_combined:'الحمل المدمج الأسبوعي',trend_priority:'العضلات المفضلة',trend_updated:'آخر تحديث',trend_summary:'{s} مجموعة إجمالي على {w} أسبوع · {m} أسبوع برتابة أعلى من 2.0',
-      tendon_review_pending:'قيد المراجعة السريرية',tendon_not_diag:'المنطقة دي فيها إشارة خطر. إرشادات الأوتار مسودة لكن لسه مش معتمدة للاستخدام — وده مش تشخيص. لحد ما المراجعة السريرية تخلص، خلي المنطقة من غير ألم وتواصل مع الكوتش.',
+      trend_title:'اتجاه الحمل والحجم',trend_range:'المدة',trend_volume:'الحجم الأسبوعي',trend_combined:'الحمل المدمج الأسبوعي',trend_priority:'العضلات المفضلة',trend_updated:'آخر تحديث',trend_summary:'إجمالي {s} مجموعة على {w} أسبوع · {m} أسبوع برتابة أعلى من 2.0',
+      tendon_review_pending:'قيد المراجعة السريرية',tendon_not_diag:'المنطقة دي فيها إشارة خطر. إرشادات الأوتار مسودة لكن لسه مش معتمدة للاستخدام — وده مش تشخيص. لحد ما المراجعة السريرية تخلص، تجنب أي ألم في المنطقة وتواصل مع الكوتش.',
       stress_prehab_title:'ضغط متكرر على المفصل — ضيف تمارين وقاية',stress_prehab_desc:'{joint} اتعلم عليه {n} مرات في آخر 28 يوم. ضيف شغل وقاية خفيف عشانه قبل ما يتحول لمشكلة حقيقية.',
       // Auto adjustments
       auto_adj_needed:'تعديل مطلوب',auto_adj_needed_pl:'تعديلات مطلوبة',
@@ -2046,8 +2074,8 @@ select option{background:var(--card)}
       // Measurements
       meas_weight:'الوزن (كغم)',meas_bf:'نسبة الدهون %',meas_chest:'الصدر (سم)',meas_waist:'الوسط (سم)',
       meas_l_arm:'الدراع الأيسر (سم)',meas_r_arm:'الدراع الأيمن (سم)',meas_l_thigh:'الفخذ الأيسر (سم)',meas_r_thigh:'الفخذ الأيمن (سم)',
-      meas_l_calf:'الساق اليسرى (سم)',meas_r_calf:'الساق اليمنى (سم)',meas_photo:'صورة تقدم (اختياري، حد أقصى 100 كيلوبايت)',
-      meas_last:'آخر حاجة',meas_no_data:'مفيش بيانات',meas_weight_trend:'اتجاه الوزن',
+      meas_l_calf:'الساق اليسرى (سم)',meas_r_calf:'الساق اليمنى (سم)',meas_photo:'صورة التقدم (اختياري، حد أقصى 100 كيلوبايت)',
+      meas_last:'آخر قياس',meas_no_data:'مفيش بيانات',meas_weight_trend:'اتجاه الوزن',
       nudge_hypertrophy_down:'الوزن نازل — فكّر في +200 سعرة/يوم',
       nudge_strength_up:'الوزن زايد >1%/أسبوع — راجع حجم الفائض.',
       sess_len:'مدة الجلسة',sess_45:'دقيقة',sess_60:'دقيقة',sess_90:'دقيقة',sess_optional:'اختياري',sess_suggest_ss:'مجموعات مزدوجة مقترحة',
@@ -2062,7 +2090,7 @@ select option{background:var(--card)}
       timer_start:'ابدأ',timer_stop:'وقف',timer_reset:'إعادة',timer_rest:'راحة',
       timer_compound:'تمارين مركبة: 3-5 دقايق',timer_isolation:'تمارين عزل: 2-3 دقايق',
       timer_sound_on:'صوت مفعل',timer_sound_off:'صوت معطل',
-      plate_title:'حاسبة الأقراص',plate_bar:'العارضة',plate_per_side:'لكل جانب',plate_unachievable:'الوزن غير قابل للتحقيق بدقة ±0.25 كجم',
+      plate_title:'حاسبة الأقراص',plate_bar:'البار',plate_per_side:'لكل جانب',plate_unachievable:'الوزن غير قابل للتحقيق بدقة ±0.25 كجم',
       // Custom exercises
       custom_add:'إضافة تمرين مخصص',custom_name:'اسم التمرين',custom_muscle:'المجموعة العضلية',
       custom_type:'النوع',custom_compound:'مركب',custom_isolation:'عزل',
@@ -2092,8 +2120,8 @@ select option{background:var(--card)}
       rgn_pushdown:'دفع لأسفل',rgn_overhead:'فوق الرأس',rgn_pressing:'ضغط',rgn_standing:'وقوف',rgn_seated:'جلوس',rgn_traps:'ترابيس',rgn_wrist:'رسغ',rgn_grip:'قبضة',rgn_core:'وسطي',rgn_lowcore:'بطن سفلي',rgn_other:'أخرى',
       time_up:'خلص!',
       // Deload bar (dashboard)
-      deload_now:'فَرّغ دلوقتي',
-      weeks_since_deload:'أسابيع من آخر تفريغ',
+      deload_now:'اعمل تفريغ دلوقتي',
+      weeks_since_deload:'الأسابيع منذ آخر تفريغ',
       wk_until_deload:'أسبوع للتفريغ',
       // Rehab exercise selection
       rehab_inj_safe:'خيار آمن عند الإصابة',
@@ -2112,7 +2140,7 @@ select option{background:var(--card)}
       // Per detail
       per_squat_label:'قرفصاء',
       per_bench_label:'بنش',
-      per_deadlift_label:'رفع ميت',
+      per_deadlift_label:'الرفعة الميتة',
       per_weak_points:'نقاط الضعف',
       // Cardio dash
       cardio_this_week:'الأسبوع ده',
@@ -2134,7 +2162,7 @@ select option{background:var(--card)}
       cn_sets:'الإجمالي: {n} مجموعة.',
       cn_pr:'{ex} e1RM {d} كجم',
       cn_pain:'تنبيهات ألم نشطة: {n} تمرين ({list}).',
-      cn_deload:'موعد التفريغ حان — خصّص أسبوعاً خفيفاً.',
+      cn_deload:'موعد التفريغ حان — خصّص أسبوع خفيف.',
       cn_next:'الأسبوع الجاي',
       cn_next_good:'حافظ على التقدم — زوّد 2.5 كجم في التمارين اللي تحسّنت.',
       cn_next_ok:'جلسة واحدة زيادة تقفل الفجوة.',
@@ -2176,7 +2204,7 @@ select option{background:var(--card)}
       meso_strength:'القوة',
       meso_avg_e1rm:'متوسط e1RM',
       // Meso preview
-      meso_configure_first:'ظبط الإعدادات فوق واضغط إنشاء.',
+      meso_configure_first:'ضبط الإعدادات فوق واضغط إنشاء.',
       // Generate program
       gen_rest_2_3:'2-3 دقايق',
       gen_rest_90_120:'90-120 ثانية',
@@ -2184,7 +2212,7 @@ select option{background:var(--card)}
       // Split rec
       split_advanced_periodization:'دورة متقدمة مع مراحل تراكم وتكثيف.',
       split_wave_periodization:'دورة موجية 65-95%. أقصى تمرين = 90% من 1RM. BBB إضافي.',
-      split_add_weight:'زود 2.5-5 كجم كل جلسة. 3×5 كلاسيكي. فرّغ كل 4 أسابيع.',
+      split_add_weight:'زود 2.5-5 كجم كل جلسة. 3×5 كلاسيكي. اعمل تفريغ كل 4 أسابيع.',
       split_dup:'دورة يومية متغيرة: تقيل/متوسط/خفيف. ممتاز لإدارة الجهاز العصبي.',
       split_strength_maintenance:'صيانة القوة بجلستين. ركز على متغيرات التمارين الرئيسية.',
       split_try_531:'جرب 5/3/1 أو شغّل التمارين الرئيسية في تقسيم دوّار.',
@@ -2235,7 +2263,7 @@ select option{background:var(--card)}
       peri_peak:'القمة: 1-3 فرديات @ RPE 8.5-9.5',
       peri_deload_rpe:'التفريغ: 3×5 @ RPE 6، قلّل الحجم 50%',
       // Deload reasons
-      dl_scheduled:'مجدول من آخر تفريغ.',
+      dl_scheduled:'مجدول منذ آخر تفريغ.',
       dl_reduce_sets:'قلّل المجموعات ~50%، حدد RPE عند 6-7.',
       dl_rpe_overshoot:'تجاوز RPE لجلسات متتالية.',
       dl_week:'أسبوع تفريغ: نص المجموعات، RPE 6-7.',
@@ -2248,19 +2276,19 @@ select option{background:var(--card)}
       // 1RM percentage
       pct_1rm:'% 1RM',
       // Subscription auth
-      sub_enter_code:'أدخل كود الوصول الخاص بك بالأسفل لفتح الأداة',
-      sub_or_google:'أو سجّل الدخول بحساب جوجل لربط حسابك',
-      sub_no_link:'لا يوجد اشتراك نشط مرتبط بهذا الحساب بعد. أدخل كودك بالأسفل لربطه.',
-      sub_auth_welcome:'تم تسجيل الدخول باسم {name}',
+      sub_enter_code:'اكتب كود الوصول بتاعك بالأسفل عشان تفتح الأداة',
+      sub_or_google:'أو سجّل الدخول بحساب جوجل عشان تربط حسابك',
+      sub_no_link:'مفيش اشتراك نشط مرتبط بالحساب ده. اكتب كودك بالأسفل عشان تربطه.',
+      sub_auth_welcome:'سجّلت الدخول باسم {name}',
       sub_auth_switch:'مش أنت؟ بدّل الحساب',
       sub_verify:'تحقق',
-      sub_checking:'جارٍ التحقق...',
-      sub_err_invalid:'الكود غير صحيح. تحقق وحاول مرة أخرى.',
-      sub_err_used_by_other:'هذا الكود مرتبط بحساب آخر بالفعل.',
-      sub_err_exhausted:'هذا الكود مستخدم بالفعل.',
-      sub_err_network:'خطأ في الشبكة. حاول مرة أخرى.',
-      sub_err_session:'انتهت الجلسة. سجّل الدخول مرة أخرى.',
-      sub_google_failed:'فشل تسجيل الدخول بجوجل. حاول مرة أخرى.',
+      sub_checking:'بنتحقق دلوقتي...',
+      sub_err_invalid:'الكود غلط. اتأكد وجرب تاني.',
+      sub_err_used_by_other:'الكود ده مرتبط بحساب تاني قبل كده.',
+      sub_err_exhausted:'الكود ده مستخدم بالفعل.',
+      sub_err_network:'حصل خطأ في الشبكة. جرب تاني.',
+      sub_err_session:'الجلسة خلصت. سجّل الدخول تاني.',
+      sub_google_failed:'فشل تسجيل الدخول بجوجل. جرب تاني.',
       prio_title:'العضلات الأساسية والتكرار الأسبوعي', prio_sub:'اختياري — اختر 1–2 عضلة لتركيز الأولوية عليها. ستحصل على تكرار أسبوعي أعلى (3–4 مرات) وزيادة حجم بسيطة (+1 مجموعة/أسبوع). تقدر تتخطى وتستخدم برنامج متوازن.',
       prio_picked:'✓ أولوية', prio_cap:'تم اختيار 2 من 2 — ألغِ اختيار واحدة لاختيار أخرى.',
       freq_3x:'3×', freq_4x:'4×',
@@ -2310,20 +2338,20 @@ select option{background:var(--card)}
       cq_dismiss:'إغلاق',
       // Local telemetry + trial (PMF)
       trial_pill_pre:'تجربة: ', trial_pill_post:' أيام',
-      trial_expired_note:'انتهت تجربتك (7 أيام). أدخل كود الوصول أو اشترك لمواصلة استخدام الأداة.',
+      trial_expired_note:'انتهت تجربتك (7 أيام). اكتب كود الوصول أو اشترك عشان تكمل استخدام الأداة.',
       conflict_title:'تعارض مزامنة',
-      conflict_body:'تغيّرت {n} عناصر على هذا الجهاز وفي السحابة منذ آخر مزامنة ({t}): {k}. تم استخدام أحدث نسخة.',
+      conflict_body:'تغيّرت {n} عناصر على الجهاز ده وفي السحابة من آخر مزامنة ({t}): {k}. اتستخدمت أحدث نسخة.',
       conflict_dismiss:'تمام',
       sync_rec_title:'كود الاستعادة',
-      sync_rec_warn:'احفظه في مكان آمن — لا نستطيع استعادته لك.',
-      sync_rec_enter:'أدخل كود الاستعادة',
+      sync_rec_warn:'احفظه في مكان آمن — مش هنقدر نرجعهولك.',
+      sync_rec_enter:'اكتب كود الاستعادة',
       sync_rec_restore:'استعادة',
       sync_rec_show:'عرض الكود',
-      sync_rec_ok:'تمت استعادة مفتاح المزامنة من كود الاستعادة.',
-      sync_rec_bad:'كود استعادة غير صالح.',
-      sync_rec_new:'كود الاستعادة لمفتاح المزامنة:\n\n{code}\n\nاحفظه في مكان آمن — هو الطريقة الوحيدة لاستعادة مفتاح المزامنة. لا نستطيع استعادته لك.',
+      sync_rec_ok:'اترجعت مفتاح المزامنة من كود الاستعادة.',
+      sync_rec_bad:'كود الاستعادة غلط.',
+      sync_rec_new:'كود الاستعادة لمفتاح المزامنة:\n\n{code}\n\nاحفظه في مكان آمن — هو الطريقة الوحيدة لاسترجاع مفتاح المزامنة. مش هنقدر نرجعهولك.',
       outcome_title:'نتائج الاقتراحات',
-      outcome_sub:' — كيف استجاب التدريب بعد ~أسبوعين من كل اقتراح',
+      outcome_sub:' — إزاي التدريب استجاب بعد ~أسبوعين من كل اقتراح',
       outcome_line:'{t} — {p}',
       outcome_up:'تحسّن +{d} {w}',
       outcome_down:'انخفض {d} {w}',
@@ -7409,19 +7437,42 @@ select option{background:var(--card)}
     if(vi.goal){var gEl=document.getElementById('goal');if(gEl)gEl.value=vi.goal;}
     if(vi.days){var dEl=document.getElementById('dow');if(dEl)dEl.value=vi.days;}
     if(vi.rec){var rEl=document.getElementById('recFactor');if(rEl)rEl.value=vi.rec;}
-    // Profile greeting
-    if(vi.name&&ls('mos_profile_saved',null)){
-      var greeting=document.getElementById('profileGreeting');
-      if(greeting){greeting.style.display='block';greeting.textContent=_('profile_greeting')+', '+vi.name+(vi.age?' ('+vi.age+')':'');}
-    }
-    if(prog&&sp){
-      var banner=document.getElementById('savedDataBanner');
-      banner.style.display='block';
-      banner.innerHTML='<div class="rb-title">'+_('saved_session')+'</div><strong>'+prog.splitName+'</strong> · '+prog.totalSets+' '+_('weekly_sets')+
-        '<button class="btn-secondary" id="resumeBtn" style="display:inline-block;margin-left:8px;padding:4px 10px;font-size:.55rem">'+_('resume')+'</button>'+
-        '<button class="btn-secondary" id="newBtn" style="display:inline-block;margin-left:4px;padding:4px 10px;font-size:.55rem">'+_('start_fresh')+'</button>';
-      document.getElementById('resumeBtn').addEventListener('click',function(){go(4);renderDashboard();});
-      document.getElementById('newBtn').addEventListener('click',function(){Object.values(K).forEach(function(k){localStorage.removeItem(k)});location.reload();});
+    // Enhanced Welcome Back Card for existing profile / program
+    if(prog || sp || vi.name){
+      var welcomeCard = document.getElementById('welcomeTrainingCard');
+      var formCard = document.getElementById('onboardingFormCard');
+      if(welcomeCard && formCard){
+        var name = vi.name || 'Athlete';
+        var twTitle = document.getElementById('twTitle');
+        if(twTitle) twTitle.textContent = '👋 Welcome Back, ' + name + '!';
+        var grid = document.getElementById('twGrid');
+        if(grid){
+          grid.innerHTML = `
+            <div class="tw-item"><div class="tw-lbl">Athlete Profile</div><div class="tw-val">${name} ${vi.age ? '('+vi.age+'y)' : ''}</div></div>
+            <div class="tw-item"><div class="tw-lbl">Active Split</div><div class="tw-val">${prog ? prog.splitName : (sp ? sp.name : 'Custom')}</div></div>
+            <div class="tw-item"><div class="tw-lbl">Volume Target</div><div class="tw-val">${prog ? prog.totalSets + ' weekly sets' : 'Custom'}</div></div>
+            <div class="tw-item"><div class="tw-lbl">Primary Goal</div><div class="tw-val">${(vi.goal || 'hypertrophy').toUpperCase()}</div></div>
+          `;
+        }
+        welcomeCard.style.display = 'block';
+        formCard.style.display = 'none';
+
+        var resumeBtn = document.getElementById('twResumeBtn');
+        if(resumeBtn){
+          resumeBtn.addEventListener('click', function(){
+            go(4);
+            renderDashboard();
+          });
+        }
+
+        var editBtn = document.getElementById('twEditBtn');
+        if(editBtn){
+          editBtn.addEventListener('click', function(){
+            welcomeCard.style.display = 'none';
+            formCard.style.display = 'block';
+          });
+        }
+      }
     }
     console.log('Unified Training App loaded');
     translateUI();
@@ -8242,5 +8293,11 @@ select option{background:var(--card)}
   }
 })();
 </script>
+
+<!-- STICKY MOBILE CTA -->
+<div id="mobileCtaBar">
+  <a class="cta-primary" href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%27m%20interested%20in%20the%20Training%20App." target="_blank" rel="noopener">WhatsApp</a>
+  <a class="cta-secondary" href="../order.html?product=training_tool">Buy Access</a>
+</div>
 </body>
 </html>

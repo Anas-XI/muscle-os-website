@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'">
 <title>Adaptive TDEE & Macro Engine — by Coach Anas Mo'men</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -108,6 +109,46 @@ select option{background:#1E1E2A;color:#FAFAF8}
 .hist-up{color:#4CAF50}
 .hist-down{color:#f44336}
 
+/* ---- Food Log ---- */
+.food-search-wrapper{position:relative;margin-bottom:12px}
+.food-search-input{width:100%;padding:10px 14px;background:rgba(20,21,26,.6);border:1.5px solid rgba(250,250,248,.08);border-radius:10px;color:#FAFAF8;font-family:'Inter',sans-serif;font-size:.82rem;outline:none}
+.food-search-input:focus{border-color:#F4C93B}
+.food-autocomplete{position:absolute;top:100%;left:0;right:0;background:#1E1E2A;border:1px solid rgba(250,250,248,.1);border-radius:8px;margin-top:4px;max-height:200px;overflow-y:auto;z-index:50;display:none;box-shadow:0 4px 12px rgba(0,0,0,.5)}
+.food-ac-item{padding:8px 12px;cursor:pointer;border-bottom:1px solid rgba(250,250,248,.03);display:flex;justify-content:space-between;align-items:center}
+.food-ac-item:last-child{border-bottom:none}
+.food-ac-item:hover{background:rgba(244,201,59,.1)}
+.food-ac-name{font-size:.75rem;font-weight:500;color:#FAFAF8}
+.food-ac-name-ar{font-size:.65rem;color:rgba(250,250,248,.5);margin-left:8px}
+.food-ac-macros{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:#F4C93B}
+.food-add-modal{display:none;padding:12px;background:rgba(20,21,26,.6);border:1px solid rgba(244,201,59,.2);border-radius:10px;margin-bottom:14px}
+.food-add-modal h4{font-family:'Inter',sans-serif;font-size:.8rem;color:#FAFAF8;margin-bottom:4px}
+.food-add-modal .macros-preview{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:rgba(250,250,248,.5);margin-bottom:10px}
+.food-add-row{display:flex;gap:8px}
+.food-add-row input{flex:1;background:rgba(250,250,248,.05)}
+.food-add-row button{padding:0 16px;background:#F4C93B;color:#14151A;border:none;border-radius:8px;font-weight:600;cursor:pointer}
+.food-log-list{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;max-height:250px;overflow-y:auto}
+.food-log-item{display:flex;justify-content:space-between;align-items:center;background:rgba(20,21,26,.4);padding:8px 12px;border-radius:8px;border:1px solid rgba(250,250,248,.04)}
+.food-log-info{display:flex;flex-direction:column;gap:2px}
+.food-log-title{font-size:.72rem;font-weight:500;color:#FAFAF8}
+.food-log-macros{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:rgba(250,250,248,.4)}
+.food-log-actions{display:flex;align-items:center;gap:10px}
+.food-log-cals{font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:600;color:#F4C93B}
+.food-log-del{background:none;border:none;color:#f44336;cursor:pointer;font-size:.8rem;padding:2px 4px}
+.food-date-selector{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;background:rgba(20,21,26,.4);padding:6px 12px;border-radius:8px}
+.food-date-btn{background:none;border:none;color:#F4C93B;cursor:pointer;font-size:1rem;padding:0 8px}
+.food-date-display{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:#FAFAF8}
+
+/* ---- Welcome Back Card ---- */
+.welcome-card{background:#1E1E2A;border:1px solid rgba(244,201,59,.3);border-radius:16px;padding:24px 22px;margin-bottom:20px;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.welcome-title{font-family:'Oswald',sans-serif;font-size:1.6rem;color:#F4C93B;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;text-align:center}
+.welcome-sub{font-size:.78rem;color:rgba(250,250,248,.6);margin-bottom:18px;text-align:center}
+.welcome-stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px}
+.welcome-stat-item{background:rgba(20,21,26,.5);padding:10px 14px;border-radius:10px;border:1px solid rgba(250,250,248,.05)}
+.welcome-stat-lbl{font-size:.6rem;font-weight:600;text-transform:uppercase;color:rgba(250,250,248,.4);letter-spacing:1px}
+.welcome-stat-val{font-size:.9rem;font-weight:600;color:#FAFAF8;margin-top:2px}
+.welcome-actions{display:flex;gap:10px;flex-wrap:wrap}
+.welcome-actions button{flex:1;min-width:140px;padding:12px 16px;font-size:.8rem;font-weight:600;border-radius:10px;cursor:pointer}
+
 /* ---- Adherence check modal ---- */
 .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:100;align-items:center;justify-content:center;padding:20px}
 .modal-overlay.show{display:flex}
@@ -164,6 +205,17 @@ select option{background:#1E1E2A;color:#FAFAF8}
 .sub-error{font-size:12px;color:#f44336;margin-top:6px;display:none}
 .sub-success{font-size:12px;color:#4CAF50;margin-top:6px;display:none}
 .sub-nolink{font-size:12px;color:#b3a06b;margin-top:6px;display:none}
+
+/* Sticky mobile CTA bar */
+#mobileCtaBar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:950;background:rgba(20,21,26,.97);backdrop-filter:blur(10px);border-top:1px solid rgba(244,201,59,.25);padding:10px 14px calc(10px + env(safe-area-inset-bottom));gap:10px;box-shadow:0 -8px 24px rgba(0,0,0,.35)}
+#mobileCtaBar a{flex:1;text-align:center;padding:13px 8px;border-radius:10px;font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;text-decoration:none;transition:opacity .2s}
+#mobileCtaBar .cta-primary{background:#F4C93B;color:#14151A}
+#mobileCtaBar .cta-secondary{background:transparent;color:#FAFAF8;border:1.5px solid rgba(250,250,248,.25)}
+#mobileCtaBar a:active{opacity:.85}
+@media(max-width:768px){
+  #mobileCtaBar{display:flex}
+  body{padding-bottom:76px}
+}
 </style>
 <script async defer src="https://accounts.google.com/gsi/client"></script>
 </head>
@@ -211,7 +263,18 @@ select option{background:#1E1E2A;color:#FAFAF8}
   </div>
 
   <div id="profileView">
-    <div class="card">
+    <!-- Welcome Back Card for returning users -->
+    <div class="welcome-card" id="welcomeCard" style="display:none">
+      <div class="welcome-title">👋 Welcome Back!</div>
+      <div class="welcome-sub">Your personalized profile &amp; adaptive recalibration data are loaded.</div>
+      <div class="welcome-stats-grid" id="welcomeStatsGrid"></div>
+      <div class="welcome-actions">
+        <button class="btn-primary" id="welcomeResumeBtn">🚀 Resume Dashboard</button>
+        <button class="btn-secondary" id="welcomeEditBtn">⚙️ Edit Profile</button>
+      </div>
+    </div>
+
+    <div class="card" id="profileFormCard">
       <div class="tab-bar">
         <button class="tab active" data-tab="tab-setup">Setup</button>
         <button class="tab" data-tab="tab-weight">Weight Log</button>
@@ -341,11 +404,13 @@ select option{background:#1E1E2A;color:#FAFAF8}
       <div class="tab-bar">
         <button class="tab active" data-tab="dash-numbers">Numbers</button>
         <button class="tab" data-tab="dash-weight">Log Weight</button>
+        <button class="tab" data-tab="dash-food">Food Log</button>
         <button class="tab" data-tab="dash-history">History</button>
         <button class="tab" data-tab="dash-edit">Edit Profile</button>
       </div>
       <div id="dash-numbers" class="tab-content active"></div>
       <div id="dash-weight" class="tab-content"></div>
+      <div id="dash-food" class="tab-content"></div>
       <div id="dash-history" class="tab-content"></div>
       <div id="dash-edit" class="tab-content"></div>
     </div>
@@ -756,11 +821,17 @@ select option{background:#1E1E2A;color:#FAFAF8}
     // History tab in dashboard
     document.getElementById('dash-history').innerHTML = renderHistory();
 
+    // Food Log tab in dashboard
+    renderFoodTab();
+
     // Edit tab
     document.getElementById('dash-edit').innerHTML = '<div class="section-header">Edit Profile</div><p style="font-size:.72rem;color:rgba(250,250,248,.4);margin-bottom:12px;line-height:1.5;">Changing your profile will reset the recalibration cycle (current weight log is preserved).</p><button class="btn-secondary" id="backToProfile">Edit Profile Settings</button><div style="margin-top:14px;border-top:1px solid rgba(250,250,248,.06);padding-top:14px"><div class="section-header" style="margin-top:0">Data Management</div><div style="display:flex;gap:8px"><button class="btn-secondary" id="exportTdeeBtn" style="flex:1;text-align:center">⬇ Export All Data</button><button class="btn-secondary" id="importTdeeBtn" style="flex:1;text-align:center">⬆ Import Data</button></div></div><input type="file" id="tdeeImportInput" accept=".json" style="display:none">';
     document.getElementById('backToProfile').addEventListener('click', function(){
       document.getElementById('dashboardView').style.display = 'none';
       document.getElementById('profileView').style.display = 'block';
+      document.getElementById('welcomeCard').style.display = 'none';
+      document.getElementById('profileFormCard').style.display = 'block';
+      populateProfileForm(store.profile);
     });
     document.getElementById('exportTdeeBtn').addEventListener('click', exportTdeeData);
     document.getElementById('importTdeeBtn').addEventListener('click', function(){ document.getElementById('tdeeImportInput').click(); });
@@ -831,20 +902,93 @@ select option{background:#1E1E2A;color:#FAFAF8}
     }
   }
 
+  function updateWelcomeCard(){
+    const welcomeCard = document.getElementById('welcomeCard');
+    const profileFormCard = document.getElementById('profileFormCard');
+    if(!welcomeCard || !profileFormCard) return;
+
+    if(store.profile){
+      const p = store.profile;
+      const statsGrid = document.getElementById('welcomeStatsGrid');
+      const latestW = (store.weights && store.weights.length > 0) 
+        ? [...store.weights].sort((a,b)=>new Date(b.date)-new Date(a.date))[0].weight 
+        : p.weight;
+      const recalibCount = (store.adjustments && store.adjustments.length) || 0;
+
+      statsGrid.innerHTML = `
+        <div class="welcome-stat-item">
+          <div class="welcome-stat-lbl">Sex &amp; Age</div>
+          <div class="welcome-stat-val">${p.sex === 'female' ? 'Female' : 'Male'}, ${p.age} yrs</div>
+        </div>
+        <div class="welcome-stat-item">
+          <div class="welcome-stat-lbl">Current Weight</div>
+          <div class="welcome-stat-val">${latestW} kg</div>
+        </div>
+        <div class="welcome-stat-item">
+          <div class="welcome-stat-lbl">Active Goal</div>
+          <div class="welcome-stat-val">${GOAL_LABELS[p.goal] || p.goal}</div>
+        </div>
+        <div class="welcome-stat-item">
+          <div class="welcome-stat-lbl">Recalibrations</div>
+          <div class="welcome-stat-val">${recalibCount} Completed</div>
+        </div>
+      `;
+
+      welcomeCard.style.display = 'block';
+      profileFormCard.style.display = 'none';
+    } else {
+      welcomeCard.style.display = 'none';
+      profileFormCard.style.display = 'block';
+    }
+  }
+
+  function populateProfileForm(p){
+    if(!p) return;
+    if(p.sex){
+      selectedSex = p.sex;
+      document.querySelectorAll('.sex-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.sex === p.sex);
+      });
+      if(p.sex === 'female'){
+        document.getElementById('cycleGroup').style.display = 'block';
+      } else {
+        document.getElementById('cycleGroup').style.display = 'none';
+      }
+    }
+    if(p.weight) document.getElementById('weight').value = p.weight;
+    if(p.height) document.getElementById('height').value = p.height;
+    if(p.age) document.getElementById('age').value = p.age;
+    if(p.bf !== undefined) document.getElementById('bf').value = p.bf;
+    if(p.trainingAge) document.getElementById('trainingAge').value = p.trainingAge;
+    if(p.trainDays !== undefined) document.getElementById('trainDays').value = p.trainDays;
+    if(p.sessionLen !== undefined) document.getElementById('sessionLen').value = p.sessionLen;
+    if(p.occupation) document.getElementById('occupation').value = p.occupation;
+    if(p.steps !== undefined) document.getElementById('steps').value = p.steps;
+    if(p.sleep) document.getElementById('sleep').value = p.sleep;
+    if(p.dietPattern) document.getElementById('dietPattern').value = p.dietPattern;
+    if(p.chronicDiet) document.getElementById('chronicDiet').value = p.chronicDiet;
+    if(p.cycleRegular) document.getElementById('cycleRegular').value = p.cycleRegular;
+    if(p.cyclePhase) document.getElementById('cyclePhase').value = p.cyclePhase;
+    if(p.goal) document.getElementById('goal').value = p.goal;
+  }
+
   // ─── Initialize ───
   sexInit();
 
   // Show female-cycle group only if female selected
   document.getElementById('cycleGroup').style.display = 'none';
 
-  // Load profile if exists
-  if(store.profile){
-    document.getElementById('loadProfileBtn').style.display = 'block';
-    document.getElementById('loadProfileBtn').textContent = 'Load saved profile (recalibrated '+(store.adjustments.length>0?store.adjustments.length+'x':'0x')+')';
-  }
+  // Setup welcome screen if profile exists
+  updateWelcomeCard();
 
-  document.getElementById('loadProfileBtn').addEventListener('click', function(){
+  document.getElementById('welcomeResumeBtn').addEventListener('click', function(){
     if(store.profile) renderDashboard();
+  });
+
+  document.getElementById('welcomeEditBtn').addEventListener('click', function(){
+    document.getElementById('welcomeCard').style.display = 'none';
+    document.getElementById('profileFormCard').style.display = 'block';
+    populateProfileForm(store.profile);
   });
 
   // Tabs in profile view
@@ -955,6 +1099,219 @@ select option{background:#1E1E2A;color:#FAFAF8}
     };
     reader.readAsText(file);
   };
+
+  // ─── Food Log Engine ───
+  function escapeHTML(str) {
+    if (typeof str !== 'string') return '';
+    return str.replace(/[&<>"']/g, function(m) {
+      return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[m];
+    });
+  }
+
+  let foodDB = [];
+  let foodLogStore = {};
+  const FOOD_STORAGE_KEY = 'muscle_os_food_log';
+  let currentFoodDate = new Date().toISOString().split('T')[0];
+
+  function loadFoodLogs(){
+    try{
+      const raw = localStorage.getItem(FOOD_STORAGE_KEY);
+      if(raw) foodLogStore = JSON.parse(raw);
+    }catch(e){}
+  }
+  function saveFoodLogs(){
+    localStorage.setItem(FOOD_STORAGE_KEY, JSON.stringify(foodLogStore));
+  }
+  loadFoodLogs();
+
+  async function fetchFoodDB(){
+    if(foodDB.length > 0) return;
+    try {
+      const res = await fetch('../assets/data/food-database.json');
+      if(res.ok) foodDB = await res.json();
+    } catch(e) {
+      console.error('Failed to load food database:', e);
+    }
+  }
+
+  window.changeFoodDate = function(offset){
+    let d = new Date(currentFoodDate);
+    d.setDate(d.getDate() + offset);
+    currentFoodDate = d.toISOString().split('T')[0];
+    renderFoodTab();
+  }
+
+  window.renderFoodTab = async function(){
+    const tabEl = document.getElementById('dash-food');
+    if(!tabEl) return;
+    await fetchFoodDB();
+
+    // calculate target macros for current profile
+    const p = store.profile;
+    const r = calcTDEE(p.sex, p.weight, p.height, p.age, p.bf, p.trainingAge,
+      p.trainDays, p.sessionLen, p.occupation, p.steps, p.sleep, p.dietPattern,
+      p.goal, p.chronicDiet, p.cyclePhase);
+      
+    // adjust if recalibrated
+    const trend = calcWeightTrend(store.weights);
+    let targetCal = r.goalCal, targetP = r.protein, targetF = r.fat, targetC = r.carbs;
+    if(trend && store.weights.length >= 5){
+      let adjustment = recalibrate(store);
+      if(adjustment && adjustment.adjusted){
+        targetCal = adjustment.newCal.goalCal;
+        targetP = adjustment.newCal.protein;
+        targetF = adjustment.newCal.fat;
+        targetC = adjustment.newCal.carbs;
+      }
+    }
+
+    const todayLogs = foodLogStore[currentFoodDate] || [];
+    let totCal = 0, totP = 0, totF = 0, totC = 0;
+    
+    let listHtml = todayLogs.length === 0 ? '<p style="font-size:.72rem;color:rgba(250,250,248,.3);text-align:center;padding:10px 0">No food logged for this date.</p>' : '';
+    
+    todayLogs.forEach((item, idx) => {
+      totCal += item.cals; totP += item.p; totF += item.f; totC += item.c;
+      const safeName = escapeHTML(item.name);
+      listHtml += `
+        <div class="food-log-item">
+          <div class="food-log-info">
+            <span class="food-log-title">${item.amount}g ${safeName}</span>
+            <span class="food-log-macros">${Math.round(item.p)}g P &bull; ${Math.round(item.f)}g F &bull; ${Math.round(item.c)}g C</span>
+          </div>
+          <div class="food-log-actions">
+            <span class="food-log-cals">${Math.round(item.cals)} kcal</span>
+            <button class="food-log-del" onclick="deleteFoodLog(${idx})">×</button>
+          </div>
+        </div>`;
+    });
+
+    let html = `
+      <div class="food-date-selector">
+        <button class="food-date-btn" onclick="changeFoodDate(-1)">&#9664;</button>
+        <span class="food-date-display">${currentFoodDate === new Date().toISOString().split('T')[0] ? 'Today' : currentFoodDate}</span>
+        <button class="food-date-btn" onclick="changeFoodDate(1)">&#9654;</button>
+      </div>
+
+      <div class="food-search-wrapper">
+        <input type="text" class="food-search-input" id="foodSearch" placeholder="Search food (English or Arabic)..." autocomplete="off">
+        <div class="food-autocomplete" id="foodAutocomplete"></div>
+      </div>
+      
+      <div class="food-add-modal" id="foodAddModal">
+        <h4 id="foodAddTitle"></h4>
+        <div class="macros-preview" id="foodAddPreview"></div>
+        <div class="food-add-row">
+          <input type="number" id="foodAddAmount" placeholder="Grams" min="1">
+          <button id="foodAddBtn">Add</button>
+        </div>
+      </div>
+
+      <div class="section-header">Daily Summary</div>
+      <div class="dash-macro-grid" style="margin-top:10px;margin-bottom:6px">
+        <div class="dash-macro"><div class="dash-macro-val" style="color:${totCal>targetCal?'#f44336':'#FAFAF8'}">${Math.round(totCal)}</div><div class="dash-macro-lbl">Kcal / ${targetCal}</div></div>
+        <div class="dash-macro"><div class="dash-macro-val">${Math.round(totP)}</div><div class="dash-macro-lbl">Pro / ${targetP}</div></div>
+        <div class="dash-macro"><div class="dash-macro-val">${Math.round(totC)}</div><div class="dash-macro-lbl">Carbs / ${targetC}</div></div>
+      </div>
+      
+      <div class="section-header" style="margin-top:16px">Logged Food</div>
+      <div class="food-log-list">${listHtml}</div>
+    `;
+
+    tabEl.innerHTML = html;
+    
+    // Attach event listeners
+    const searchInput = document.getElementById('foodSearch');
+    const autocomplete = document.getElementById('foodAutocomplete');
+    let selectedFood = null;
+
+    searchInput.addEventListener('input', function(){
+      const q = this.value.toLowerCase().trim();
+      if(q.length < 2){ autocomplete.style.display = 'none'; return; }
+      
+      const matches = foodDB.filter(f => f.name_en.toLowerCase().includes(q) || (f.name_ar && f.name_ar.includes(q))).slice(0, 15);
+      
+      if(matches.length > 0){
+        autocomplete.innerHTML = matches.map(f => {
+          const safeEn = escapeHTML(f.name_en);
+          const safeAr = escapeHTML(f.name_ar || '');
+          return `
+          <div class="food-ac-item" data-id="${escapeHTML(f.id)}">
+            <div><span class="food-ac-name">${safeEn}</span><span class="food-ac-name-ar">${safeAr}</span></div>
+            <span class="food-ac-macros">${f.calories}kcal</span>
+          </div>
+        `;
+        }).join('');
+        autocomplete.style.display = 'block';
+      } else {
+        autocomplete.innerHTML = '<div style="padding:10px;text-align:center;color:rgba(250,250,248,.3);font-size:.7rem">No food found.</div>';
+        autocomplete.style.display = 'block';
+      }
+    });
+
+    autocomplete.addEventListener('click', function(e){
+      const item = e.target.closest('.food-ac-item');
+      if(!item) return;
+      const fId = item.dataset.id;
+      selectedFood = foodDB.find(f => f.id === fId);
+      if(!selectedFood) return;
+      
+      autocomplete.style.display = 'none';
+      searchInput.value = '';
+      
+      document.getElementById('foodAddModal').style.display = 'block';
+      document.getElementById('foodAddTitle').textContent = selectedFood.name_en + ' ' + (selectedFood.name_ar||'');
+      const amtInput = document.getElementById('foodAddAmount');
+      amtInput.value = '100';
+      
+      function updatePreview(){
+        const ratio = (parseFloat(amtInput.value)||0) / 100;
+        document.getElementById('foodAddPreview').innerHTML = 
+          `${Math.round(selectedFood.calories*ratio)} kcal &bull; `+
+          `${(selectedFood.protein*ratio).toFixed(1)}g P &bull; `+
+          `${(selectedFood.fat*ratio).toFixed(1)}g F &bull; `+
+          `${(selectedFood.carbs*ratio).toFixed(1)}g C`;
+      }
+      updatePreview();
+      amtInput.oninput = updatePreview;
+    });
+
+    document.addEventListener('click', function(e){
+      if(e.target.closest('.food-search-wrapper') === null){
+        const ac = document.getElementById('foodAutocomplete');
+        if(ac) ac.style.display = 'none';
+      }
+    });
+
+    document.getElementById('foodAddBtn').addEventListener('click', function(){
+      if(!selectedFood) return;
+      const amt = parseFloat(document.getElementById('foodAddAmount').value);
+      if(isNaN(amt) || amt <= 0) return;
+      
+      const ratio = amt / 100;
+      if(!foodLogStore[currentFoodDate]) foodLogStore[currentFoodDate] = [];
+      foodLogStore[currentFoodDate].push({
+        id: selectedFood.id,
+        name: selectedFood.name_en,
+        amount: amt,
+        cals: selectedFood.calories * ratio,
+        p: selectedFood.protein * ratio,
+        f: selectedFood.fat * ratio,
+        c: selectedFood.carbs * ratio
+      });
+      
+      saveFoodLogs();
+      renderFoodTab();
+    });
+  }
+
+  window.deleteFoodLog = function(index){
+    if(!foodLogStore[currentFoodDate]) return;
+    foodLogStore[currentFoodDate].splice(index, 1);
+    saveFoodLogs();
+    renderFoodTab();
+  }
+  // ─── End Food Log ───
 
   console.log('Adaptive TDEE Engine loaded. Data stored in localStorage under key: '+STORAGE_KEY);
 })();
@@ -1143,5 +1500,11 @@ select option{background:#1E1E2A;color:#FAFAF8}
   }
 })();
 </script>
+
+<!-- STICKY MOBILE CTA -->
+<div id="mobileCtaBar">
+  <a class="cta-primary" href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%27m%20interested%20in%20the%20TDEE%20Adaptive%20Engine." target="_blank" rel="noopener">WhatsApp</a>
+  <a class="cta-secondary" href="../order.html?product=tdee_adaptive_engine">Buy Access</a>
+</div>
 </body>
 </html>
