@@ -99,24 +99,21 @@ html[dir="rtl"] .header-top{flex-direction:row-reverse}
 .step-content{display:none}
 .step-content.active{display:block;animation:fadeSlideIn .35s ease-out}
 @keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.card{background:#1E1E2A;border-radius:16px;padding:22px 20px;margin-bottom:14px}
-.section-header{font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:500;text-transform:uppercase;letter-spacing:.5px;color:var(--accent);border-bottom:1px solid var(--line);padding-bottom:5px;margin:16px 0 10px}
-.section-header:first-of-type{margin-top:0}
-.section-sub{font-size:.55rem;color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0;font-family:'Inter',sans-serif}
-.form-group{margin-bottom:10px}
-.form-group label{display:block;font-size:.55rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);margin-bottom:4px}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-input,select{width:100%;padding:8px 10px;background:var(--input-bg);border:1.5px solid var(--line);border-radius:8px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:.78rem;outline:none;transition:border-color .2s}
-input:focus,select:focus{border-color:var(--accent)}
-select{font-family:'Inter',sans-serif;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 12 8'%3E%3Cpath fill='%23FAFAF8' opacity='0.5' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;padding-right:32px}
-select option{background:#1E1E2A;color:var(--text)}
-.btn-primary{width:100%;margin-top:12px;padding:12px 0;background:var(--accent);color:var(--bg);border:none;border-radius:10px;font-family:'Oswald',sans-serif;font-size:.9rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;transition:opacity .2s,transform .15s}
-.btn-primary:hover{opacity:.9}
+.card{background:rgba(26,27,38,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(244,201,59,.18);border-radius:18px;padding:24px 22px;margin-bottom:16px;box-shadow:0 16px 48px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.08);transition:all .25s ease}
+.card:hover{border-color:rgba(244,201,59,.32);box-shadow:0 20px 52px rgba(0,0,0,.7),inset 0 1px 0 rgba(244,201,59,.15)}
+.header h1{font-family:'Oswald',sans-serif;font-size:2.3rem;font-weight:700;background:linear-gradient(135deg,#FFFFFF 30%,#F4C93B 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-transform:uppercase;letter-spacing:1px;line-height:1.1;filter:drop-shadow(0 0 20px rgba(244,201,59,.2))}
+.stepper{display:flex;gap:4px;background:rgba(13,14,18,.6);border-radius:12px;padding:4px;margin-bottom:20px;border:1px solid rgba(250,250,248,.05)}
+.step{flex:1;text-align:center;padding:9px 4px;font-size:.58rem;font-weight:600;text-transform:uppercase;letter-spacing:.3px;color:rgba(250,250,248,.4);cursor:pointer;transition:all .2s;border-radius:8px}
+.step:hover{color:rgba(250,250,248,.7)}
+.step.active{background:linear-gradient(135deg,#F4C93B 0%,#E8A83A 100%);color:#0D0E12;font-weight:700;box-shadow:0 4px 16px rgba(244,201,59,.35)}
+.step.done{color:rgba(250,250,248,.6)}
+.step .num{display:inline-block;width:16px;height:16px;line-height:16px;border-radius:50%;font-size:.48rem;font-weight:700;text-align:center;margin-right:4px}
+.step.active .num{background:#0D0E12;color:#F4C93B}
+.btn-primary{width:100%;margin-top:14px;padding:13px 0;background:linear-gradient(135deg,#F4C93B 0%,#E8A83A 100%);color:#0D0E12;border:none;border-radius:12px;font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;box-shadow:0 6px 20px rgba(244,201,59,.3);transition:all .2s cubic-bezier(0.16,1,0.3,1)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(244,201,59,.45)}
 .btn-primary:active{transform:scale(.98)}
-.btn-primary:disabled{opacity:.3;cursor:default}
-.btn-secondary{width:auto;padding:7px 14px;background:transparent;border:1.5px solid var(--line);border-radius:8px;color:var(--text-soft);font-family:'Inter',sans-serif;font-size:.65rem;font-weight:500;cursor:pointer;transition:all .2s}
-.btn-secondary:hover{border-color:var(--text-muted);color:var(--text)}
+.btn-secondary{width:auto;padding:8px 16px;background:rgba(13,14,18,.4);border:1.5px solid rgba(250,250,248,.12);border-radius:10px;color:rgba(250,250,248,.6);font-family:'Inter',sans-serif;font-size:.7rem;font-weight:500;cursor:pointer;transition:all .2s}
+.btn-secondary:hover{border-color:rgba(244,201,59,.4);color:#FAFAF8;background:rgba(244,201,59,.05)}
 .btn-group{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
 .btn-group .btn-primary{margin-top:0;flex:1;min-width:120px}
 .welcome-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
@@ -2966,6 +2963,7 @@ select option{background:var(--card)}
   const GUIDE_ALIASES = {'Leg Curls':'Leg Curl','Leg Extensions':'Leg Extension','Lateral Raises':'Lateral Raise','Calf Raises':'Calf Raise','Preacher Curls':'Preacher Curl','Triceps Overhead Extensions':'Triceps Overhead Ext','Incline Press':'Incline Chest Press','Front Squat or Lunge':'Front Squat'};
   window.__guide=EXERCISE_GUIDE;window.__guideAliases=GUIDE_ALIASES;
   function guideFor(name){return EXERCISE_GUIDE[name]||EXERCISE_GUIDE[GUIDE_ALIASES[name]]||null;}
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
   function guideHtml(name){
     var g=guideFor(name);
     if(!g&&EX_TR[name])g=exGuide(name);
@@ -3121,7 +3119,7 @@ select option{background:var(--card)}
   var V_VIDS={'Barbell Squat':'gcNh17Ckjgg','Bench Press':'BYKScL2sgCs','Deadlift Variation':'MBbyAqvTNkU','RDL':'jEy_czb3RKA','Overhead Press':'eNFXEEdfQp4'};
   function vidUrl(ex){return V_VIDS[ex]?'https://www.youtube.com/watch?v='+V_VIDS[ex]:'https://www.youtube.com/results?search_query='+encodeURIComponent(ex);}
   function exLinkHtml(ex){
-    var disp=EX_TR[ex]?exDisplay(ex):ex;
+    var disp=esc(EX_TR[ex]?exDisplay(ex):ex);
     var id=V_VIDS[ex];
     if(id)return '<a class="ex-vid-link" href="https://www.youtube.com/watch?v='+id+'" target="_blank" title="'+_('watch_video')+'"><span class="ex-vid-name">'+disp+'</span><img class="ex-vid-thumb" loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+disp+'"></a>';
     return '<a class="ex-vid-link" href="'+vidUrl(ex)+'" target="_blank" title="'+_('watch_video')+'">'+disp+' ▶</a>';
@@ -5671,11 +5669,11 @@ select option{background:var(--card)}
         var safeWarn=s.reason&&s.reason.indexOf('🟡')>=0;
         var chipCls='ex-sel-chip'+(chosen===name?' selected':'')+(blocked?' rehab-ex-blocked':'')+(safeWarn?' rehab-ex-safe':'')+(isTop?' pref-top':'')+(ri>=0&&ri<3?' chip-rec':'');
         var eq=equipTag(name);
-        html+='<button class="'+chipCls+'" data-ename="'+en+'" data-exval="'+name+'" title="'+name+'">'
+        html+='<button class="'+chipCls+'" data-ename="'+esc(en)+'" data-exval="'+esc(name)+'" title="'+esc(name)+'">'
           +(blocked?'⛔ ':(safeWarn?'✓ ':''))
           +(isTop?'<span class="pref-star">★ </span>':'')
           +(ri===0?'<span class="rec-badge">✦ '+_('rec_badge')+'</span>':(ri===1||ri===2?'<span class="rec-badge">✦</span>':''))
-          +(EX_TR[name]?exDisplay(name):name)
+          +(EX_TR[name]?exDisplay(name):esc(name))
           +(ri>=0&&ri<3&&whyBy[name]&&whyBy[name]!=='balanced'?'<span class="why-chip">'+_('why_'+whyBy[name])+'</span>':'')
           +(eq?'<span class="equip-tag">'+eq+'</span>':'')+'</button>';
       });
@@ -5755,11 +5753,11 @@ select option{background:var(--card)}
             '<span class="esr-lbl">'+exLinkHtml(ex.n)+'</span>'+
             rowBadgesHtml(ex.n)+
             lastPerfHtml(ex.n,hist)+
-            '<button class="ex-guide-toggle" type="button" data-slot="'+ex.n+'" title="'+_('how_to')+'">'+_('how_to')+' ▾</button>'+
+            '<button class="ex-guide-toggle" type="button" data-slot="'+esc(ex.n)+'" title="'+_('how_to')+'">'+_('how_to')+' ▾</button>'+
             slotChipsHtml(ex.n,ex.p,day);
           if(!safety.ok)html+='<span style="font-size:.45rem;color:#f44336;margin-left:4px">⛔ '+safety.reason+'</span>';
           else if(safety.reason)html+='<span style="font-size:.45rem;color:#FF9800;margin-left:4px">'+safety.reason+'</span>';
-          html+='<div class="ex-guide" data-slot="'+ex.n+'"></div>';
+          html+='<div class="ex-guide" data-slot="'+esc(ex.n)+'"></div>';
           html+='</div>';
         });
         html+='<div class="vol-live" data-muscle="'+g.p+'"></div>';
@@ -6004,7 +6002,7 @@ select option{background:var(--card)}
     document.getElementById('progSets').textContent=ts;
     document.getElementById('progExs').textContent=te;
     document.getElementById('progDays').textContent=progDays.length;
-    document.getElementById('progRecap').innerHTML='<div class="rb-title">'+_('generate')+'</div><strong>'+split.name+'</strong> · '+ts+' '+_('weekly_sets')+' · '+te+' '+_('exercises')+' · '+sessLen+' min';
+    document.getElementById('progRecap').innerHTML='<div class="rb-title">'+_('generate')+'</div><strong>'+esc(split.name)+'</strong> · '+ts+' '+_('weekly_sets')+' · '+te+' '+_('exercises')+' · '+sessLen+' min';
     fillCycleBanner();
 
     var html='';
@@ -7520,7 +7518,10 @@ select option{background:var(--card)}
   var API_BASE='https://muscleos-access-control.muscleos.workers.dev/api';
   function notifyCoach(type, data){
     try{
-      fetch(API_BASE+'/notify-coach',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:type,data:data})})
+      var _na={};
+      try{var _ng=JSON.parse(localStorage.getItem('mos_google_session')||'null');if(_ng&&_ng.session)_na.session=_ng.session;}catch(e){}
+      try{var _ns=JSON.parse(localStorage.getItem('mos_subscription')||'null');if(_ns&&_ns.token)_na.token=_ns.token;}catch(e){}
+      fetch(API_BASE+'/notify-coach',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:type,data:data,session:_na.session,token:_na.token})})
       .catch(function(){});
     }catch(e){}
   }
@@ -7601,7 +7602,7 @@ select option{background:var(--card)}
     if(!key||key.length<4){alert(_('sync_fail'));return;}
     if(!confirm(_('sync_confirm_upload')))return;
     ss(SYNC_KEY,key);ss(SYNC_PW,pw);evLog('sync_push');
-    fetch(SYNC_BASE+'/'+encodeURIComponent(key),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pw:pw,data:syncPayload()})})
+    fetch(SYNC_BASE+'/'+encodeURIComponent(key),{method:'POST',headers:{'Content-Type':'application/json','X-Sync-Passphrase':pw},body:JSON.stringify({data:syncPayload()})})
     .then(function(r){return r.json();})
     .then(function(j){
       if(j.status==='ok'){ss(SYNC_LAST,new Date().toISOString());evLog('sync_push_ok');alert(_('sync_done'));hideSync();}
@@ -7615,7 +7616,7 @@ select option{background:var(--card)}
     if(!key||key.length<4){alert(_('sync_fail'));return;}
     if(!confirm(_('sync_confirm_download')))return;
     ss(SYNC_KEY,key);ss(SYNC_PW,pw);evLog('sync_pull');
-    fetch(SYNC_BASE+'/'+encodeURIComponent(key)+'?pw='+encodeURIComponent(pw))
+    fetch(SYNC_BASE+'/'+encodeURIComponent(key),{headers:{'X-Sync-Passphrase':pw}})
     .then(function(r){return r.json();})
     .then(function(j){
       if(j.data){
