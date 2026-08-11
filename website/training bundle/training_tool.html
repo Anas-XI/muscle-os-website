@@ -919,8 +919,8 @@ select option{background:var(--card)}
   <div class="step-content active" id="step1">
     <!-- Welcome Back Card for returning athletes -->
     <div class="training-welcome-card" id="welcomeTrainingCard" style="display:none">
-      <div class="tw-badge"><span class="pulse-dot"></span> HYPERKINETIC MATRIX ACTIVE // SYNCED</div>
-      <div class="tw-title" id="twTitle">👑 WELCOME BACK, <span id="twUserName">ATHLETE</span>!</div>
+      <div class="tw-badge" id="twBadge"><span class="pulse-dot"></span> HYPERKINETIC MATRIX ACTIVE // SYNCED</div>
+      <div class="tw-title" id="twTitleText">👑 WELCOME BACK, <span id="twUserName">ATHLETE</span>!</div>
       <div class="tw-sub">Your periodized mesocycle, muscle volume landmarks (MEV/MAV/MRV), and readiness profiles are active.</div>
       <div class="tw-grid" id="twGrid"></div>
       <div class="tw-actions">
@@ -7558,7 +7558,19 @@ select option{background:var(--card)}
       if(welcomeCard && formCard){
         var name = vi.name || 'Athlete';
         var twUserName = document.getElementById('twUserName');
-        if(twUserName) twUserName.textContent = name.toUpperCase();
+        var greetingTitle = document.getElementById('twTitleText');
+        var hour = new Date().getHours();
+        let greeting = '👑 WELCOME BACK';
+        if(hour >= 5 && hour < 12) greeting = '☀️ GOOD MORNING';
+        else if(hour >= 12 && hour < 17) greeting = '⚡ GOOD AFTERNOON';
+        else if(hour >= 17 && hour < 22) greeting = '🌙 GOOD EVENING';
+        else greeting = '🌃 NIGHT SHIFT ACTIVE';
+
+        if(greetingTitle) greetingTitle.innerHTML = `${greeting}, <span id="twUserName">${name.toUpperCase()}</span>!`;
+
+        var badgeEl = document.getElementById('twBadge');
+        var nowStr = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        if(badgeEl) badgeEl.innerHTML = `<span class="pulse-dot"></span> HYPERKINETIC MATRIX ACTIVE // LIVE SYNC [${nowStr}]`;
 
         var grid = document.getElementById('twGrid');
         if(grid){
@@ -7586,7 +7598,7 @@ select option{background:var(--card)}
             <div class="tw-item">
               <div class="tw-lbl">Mesocycle Overload Status</div>
               <div class="tw-val" style="color:#4CAF50">Week ${mesoWeek} Periodized</div>
-              <div class="tw-subval">CNS Recovery Monitored</div>
+              <div class="tw-subval">CNS Readiness: 98% Optimal</div>
             </div>
           `;
         }

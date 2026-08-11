@@ -301,8 +301,8 @@ select option{background:#1A1B26;color:#FAFAF8}
   <div id="profileView">
     <!-- Welcome Back Card for returning users -->
     <div class="welcome-card" id="welcomeCard" style="display:none">
-      <div class="welcome-card-badge"><span class="pulse-dot"></span> METABOLIC MATRIX ACTIVE // SYNCED</div>
-      <div class="welcome-title">👑 WELCOME BACK, <span id="welcomeUserName">ATHLETE</span>!</div>
+      <div class="welcome-card-badge" id="welcomeBadge"><span class="pulse-dot"></span> METABOLIC MATRIX ACTIVE // SYNCED</div>
+      <div class="welcome-title" id="welcomeTitleText">👑 WELCOME BACK, <span id="welcomeUserName">ATHLETE</span>!</div>
       <div class="welcome-sub">Your bio-adaptive expenditure matrix, 5,000-food database, and circadian timing profiles are active.</div>
       <div class="welcome-stats-grid" id="welcomeStatsGrid"></div>
       <div class="welcome-actions">
@@ -956,7 +956,19 @@ select option{background:#1A1B26;color:#FAFAF8}
     if(store.profile){
       const p = store.profile;
       const userNameEl = document.getElementById('welcomeUserName');
-      if(userNameEl && p.name) userNameEl.textContent = p.name.toUpperCase();
+      const greetingTitle = document.getElementById('welcomeTitleText');
+      const hour = new Date().getHours();
+      let greeting = '👑 WELCOME BACK';
+      if(hour >= 5 && hour < 12) greeting = '☀️ GOOD MORNING';
+      else if(hour >= 12 && hour < 17) greeting = '⚡ GOOD AFTERNOON';
+      else if(hour >= 17 && hour < 22) greeting = '🌙 GOOD EVENING';
+      else greeting = '🌃 NIGHT SHIFT ACTIVE';
+
+      if(greetingTitle) greetingTitle.innerHTML = `${greeting}, <span id="welcomeUserName">${(p.name || 'ATHLETE').toUpperCase()}</span>!`;
+
+      const badgeEl = document.getElementById('welcomeBadge');
+      const nowStr = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+      if(badgeEl) badgeEl.innerHTML = `<span class="pulse-dot"></span> METABOLIC MATRIX ACTIVE // LIVE SYNC [${nowStr}]`;
 
       const statsGrid = document.getElementById('welcomeStatsGrid');
       const sortedW = (store.weights && store.weights.length > 0) 
@@ -973,6 +985,9 @@ select option{background:#1A1B26;color:#FAFAF8}
       const recalibCount = (store.adjustments && store.adjustments.length) || 0;
       const loggedDaysCount = sortedW.length;
 
+      const chronotype = localStorage.getItem('mos_chronotype') || 'early_lark';
+      const chronotypeStr = chronotype === 'early_lark' ? 'Early Lark (Morning GLUT4)' : 'Night Owl (Evening GLUT4)';
+
       statsGrid.innerHTML = `
         <div class="welcome-stat-item">
           <div class="welcome-stat-lbl">Target Caloric Intake</div>
@@ -980,9 +995,9 @@ select option{background:#1A1B26;color:#FAFAF8}
           <div class="welcome-stat-sub">TDEE Baseline: ${Math.round(r.tdee)} kcal</div>
         </div>
         <div class="welcome-stat-item">
-          <div class="welcome-stat-lbl">Active Goal</div>
+          <div class="welcome-stat-lbl">Active Goal &amp; Chronotype</div>
           <div class="welcome-stat-val">${GOAL_LABELS[p.goal] || p.goal}</div>
-          <div class="welcome-stat-sub">Sex &amp; Age: ${p.sex === 'female' ? 'Female' : 'Male'}, ${p.age}y</div>
+          <div class="welcome-stat-sub">${chronotypeStr}</div>
         </div>
         <div class="welcome-stat-item">
           <div class="welcome-stat-lbl">Current Bodyweight</div>
@@ -990,9 +1005,9 @@ select option{background:#1A1B26;color:#FAFAF8}
           <div class="welcome-stat-sub">Initial Delta: ${diffStr}</div>
         </div>
         <div class="welcome-stat-item">
-          <div class="welcome-stat-lbl">Adherence &amp; Recalibration</div>
+          <div class="welcome-stat-lbl">Adherence &amp; Engine Status</div>
           <div class="welcome-stat-val" style="color:#4CAF50">${loggedDaysCount} Days Logged</div>
-          <div class="welcome-stat-sub">${recalibCount} Recalibrations Active</div>
+          <div class="welcome-stat-sub">${recalibCount} Active Recalibrations</div>
         </div>
       `;
 

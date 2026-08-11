@@ -1,5 +1,5 @@
 // Muscle OS Tools & Training App — service worker (Network-first for HTML/JSON, Cache-first for assets)
-const CACHE_NAME = 'mos-tools-v3.0.0';
+const CACHE_NAME = 'mos-tools-v3.1.0';
 const ASSETS = [
   './training_tool.html',
   './tdee_adaptive_engine.html',
@@ -27,12 +27,13 @@ self.addEventListener('activate', (event) => {
     }).then(() => {
       return self.clients.claim();
     }).then(() => {
-      // Notify open clients that a new version is active
+      // Notify open clients that a new version is active and trigger reload
       return self.clients.matchAll().then((clients) => {
         clients.forEach((client) => {
           client.postMessage({
             type: 'NEW_VERSION_AVAILABLE',
-            message: 'v3.0.0 is live! 1000+ Food DB & Welcome Back features ready.'
+            message: 'v3.1.0 is live! Enhanced Welcome Back Matrix active.',
+            forceReload: true
           });
         });
       });

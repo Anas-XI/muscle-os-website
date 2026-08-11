@@ -1,5 +1,19 @@
 (function() {
-  const APP_VERSION = 'v3.0.0';
+  const APP_VERSION = 'v3.1.0';
+  
+  // Auto force refresh if client version is older than v3.1.0
+  try {
+    const currentVer = localStorage.getItem('mos_app_ver');
+    if (currentVer !== APP_VERSION) {
+      localStorage.setItem('mos_app_ver', APP_VERSION);
+      if (currentVer) {
+        console.log(`[MOS UPDATE] Upgrading from ${currentVer} to ${APP_VERSION}. Triggering forceAppUpdate().`);
+        setTimeout(function() {
+          forceAppUpdate();
+        }, 300);
+      }
+    }
+  } catch(e) {}
   
   // Create & inject update notification UI styles
   const style = document.createElement('style');
