@@ -1159,6 +1159,9 @@ select option{background:#1A1B26;color:#FAFAF8}
         alert('Import failed: '+err.message);
       }
     };
+    reader.readAsText(file);
+  };
+
   // ─── Sound & Haptic Feedback ───
   function playSoundEffect(type){
     try {
@@ -1372,8 +1375,10 @@ select option{background:#1A1B26;color:#FAFAF8}
   };
 
       window.calcReverseDiet = function(){
+        const p = store.profile || { sex:'male', weight:80, height:178, age:25, bf:15, trainingAge:'intermediate', trainDays:4, sessionLen:60, occupation:'desk', steps:8000, sleep:7.5, dietPattern:'balanced', goal:'recomp', chronicDiet:'none', cyclePhase:'none' };
+        const calcRes = calcTDEE(p.sex, p.weight, p.height, p.age, p.bf, p.trainingAge, p.trainDays, p.sessionLen, p.occupation, p.steps, p.sleep, p.dietPattern, p.goal, p.chronicDiet, p.cyclePhase);
         const curCal = parseFloat(prompt('Current Calorie Intake (kcal):', '1600')) || 1600;
-        const targetCal = Math.round(r.goalCal) || 2200;
+        const targetCal = Math.round(calcRes.goalCal) || 2200;
         const rampKcal = 75; // +75 kcal per week
         const weeks = Math.ceil((targetCal - curCal) / rampKcal);
 
@@ -1853,7 +1858,7 @@ select option{background:#1A1B26;color:#FAFAF8}
       saveFoodLogs();
       renderFoodTab();
     });
-  }
+  };
 
   window.deleteFoodLog = function(index){
     if(!foodLogStore[currentFoodDate]) return;
@@ -1866,7 +1871,7 @@ select option{background:#1A1B26;color:#FAFAF8}
   console.log('Adaptive TDEE Engine loaded. Data stored in localStorage under key: '+STORAGE_KEY);
 })();
 
-(function(){
+;(function(){
   var SUB_KEY = 'mos_subscription';
   var GS_KEY = 'mos_google_session';
   var OWNER_EMAIL = 'ANASSTEM2025@GMAIL.COM';
