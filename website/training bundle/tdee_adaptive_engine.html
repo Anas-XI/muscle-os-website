@@ -193,14 +193,28 @@ select option{background:#1A1B26;color:#FAFAF8}
 .mos-fsocial a{color:#F4C93B;text-decoration:none;margin:0 8px;font-size:11px}
 .mos-fcopy{font-size:10px;color:rgba(250,250,248,.3);margin-top:6px}
 .wa-link{font-family:'JetBrains Mono',monospace;color:#F4C93B;text-decoration:none}
-@media(max-width:580px){
-  body{padding:20px 12px}
-  .header h1{font-size:1.8rem}
+@media(max-width:600px){
+  body{padding:12px 10px calc(80px + env(safe-area-inset-bottom))}
+  .header h1{font-size:1.6rem;letter-spacing:.5px}
+  .header p{font-size:.72rem}
+  .header .badge{font-size:.55rem;padding:3px 8px}
   .card{padding:18px 14px}
-  .form-row,.form-row-3{grid-template-columns:1fr}
+  .form-row,.form-row-3{grid-template-columns:1fr!important}
   .dash-grid{grid-template-columns:1fr}
-  .dash-macro-grid{grid-template-columns:1fr}
-  .dash-val{font-size:1.3rem}
+  .dash-macro-grid{grid-template-columns:1fr 1fr}
+  .dash-val{font-size:1.2rem}
+  .tab-bar{overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:3px}
+  .tab-bar::-webkit-scrollbar{display:none}
+  .tab{padding:9px 12px;font-size:.68rem;flex:none}
+  .welcome-card{padding:18px 14px;border-radius:14px}
+  .welcome-title{font-size:1.35rem}
+  .welcome-sub{font-size:.72rem;margin-bottom:14px}
+  .welcome-stats-grid{grid-template-columns:1fr;gap:8px}
+  .welcome-stat-val{font-size:.95rem}
+  .welcome-actions{flex-direction:column;gap:8px}
+  .welcome-actions button{width:100%;min-width:100%;padding:12px 14px;font-size:.78rem}
+  .modal-overlay{align-items:flex-end;padding:0}
+  .modal-overlay .card,.modal-overlay .modal{border-bottom-left-radius:0;border-bottom-right-radius:0;width:100%;max-width:100%;margin:0;max-height:85vh;overflow-y:auto}
 }
 /* Subscription paywall */
 .sub-overlay{position:fixed;inset:0;z-index:9999;background:rgba(20,21,26,.97);display:flex;align-items:center;justify-content:center;padding:24px}
