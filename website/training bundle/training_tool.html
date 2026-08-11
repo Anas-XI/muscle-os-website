@@ -2966,6 +2966,7 @@ select option{background:var(--card)}
   const GUIDE_ALIASES = {'Leg Curls':'Leg Curl','Leg Extensions':'Leg Extension','Lateral Raises':'Lateral Raise','Calf Raises':'Calf Raise','Preacher Curls':'Preacher Curl','Triceps Overhead Extensions':'Triceps Overhead Ext','Incline Press':'Incline Chest Press','Front Squat or Lunge':'Front Squat'};
   window.__guide=EXERCISE_GUIDE;window.__guideAliases=GUIDE_ALIASES;
   function guideFor(name){return EXERCISE_GUIDE[name]||EXERCISE_GUIDE[GUIDE_ALIASES[name]]||null;}
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
   function guideHtml(name){
     var g=guideFor(name);
     if(!g&&EX_TR[name])g=exGuide(name);
@@ -3121,7 +3122,7 @@ select option{background:var(--card)}
   var V_VIDS={'Barbell Squat':'gcNh17Ckjgg','Bench Press':'BYKScL2sgCs','Deadlift Variation':'MBbyAqvTNkU','RDL':'jEy_czb3RKA','Overhead Press':'eNFXEEdfQp4'};
   function vidUrl(ex){return V_VIDS[ex]?'https://www.youtube.com/watch?v='+V_VIDS[ex]:'https://www.youtube.com/results?search_query='+encodeURIComponent(ex);}
   function exLinkHtml(ex){
-    var disp=EX_TR[ex]?exDisplay(ex):ex;
+    var disp=esc(EX_TR[ex]?exDisplay(ex):ex);
     var id=V_VIDS[ex];
     if(id)return '<a class="ex-vid-link" href="https://www.youtube.com/watch?v='+id+'" target="_blank" title="'+_('watch_video')+'"><span class="ex-vid-name">'+disp+'</span><img class="ex-vid-thumb" loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+disp+'"></a>';
     return '<a class="ex-vid-link" href="'+vidUrl(ex)+'" target="_blank" title="'+_('watch_video')+'">'+disp+' ▶</a>';
@@ -5671,11 +5672,11 @@ select option{background:var(--card)}
         var safeWarn=s.reason&&s.reason.indexOf('🟡')>=0;
         var chipCls='ex-sel-chip'+(chosen===name?' selected':'')+(blocked?' rehab-ex-blocked':'')+(safeWarn?' rehab-ex-safe':'')+(isTop?' pref-top':'')+(ri>=0&&ri<3?' chip-rec':'');
         var eq=equipTag(name);
-        html+='<button class="'+chipCls+'" data-ename="'+en+'" data-exval="'+name+'" title="'+name+'">'
+        html+='<button class="'+chipCls+'" data-ename="'+esc(en)+'" data-exval="'+esc(name)+'" title="'+esc(name)+'">'
           +(blocked?'⛔ ':(safeWarn?'✓ ':''))
           +(isTop?'<span class="pref-star">★ </span>':'')
           +(ri===0?'<span class="rec-badge">✦ '+_('rec_badge')+'</span>':(ri===1||ri===2?'<span class="rec-badge">✦</span>':''))
-          +(EX_TR[name]?exDisplay(name):name)
+          +(EX_TR[name]?exDisplay(name):esc(name))
           +(ri>=0&&ri<3&&whyBy[name]&&whyBy[name]!=='balanced'?'<span class="why-chip">'+_('why_'+whyBy[name])+'</span>':'')
           +(eq?'<span class="equip-tag">'+eq+'</span>':'')+'</button>';
       });
@@ -5755,11 +5756,11 @@ select option{background:var(--card)}
             '<span class="esr-lbl">'+exLinkHtml(ex.n)+'</span>'+
             rowBadgesHtml(ex.n)+
             lastPerfHtml(ex.n,hist)+
-            '<button class="ex-guide-toggle" type="button" data-slot="'+ex.n+'" title="'+_('how_to')+'">'+_('how_to')+' ▾</button>'+
+            '<button class="ex-guide-toggle" type="button" data-slot="'+esc(ex.n)+'" title="'+_('how_to')+'">'+_('how_to')+' ▾</button>'+
             slotChipsHtml(ex.n,ex.p,day);
           if(!safety.ok)html+='<span style="font-size:.45rem;color:#f44336;margin-left:4px">⛔ '+safety.reason+'</span>';
           else if(safety.reason)html+='<span style="font-size:.45rem;color:#FF9800;margin-left:4px">'+safety.reason+'</span>';
-          html+='<div class="ex-guide" data-slot="'+ex.n+'"></div>';
+          html+='<div class="ex-guide" data-slot="'+esc(ex.n)+'"></div>';
           html+='</div>';
         });
         html+='<div class="vol-live" data-muscle="'+g.p+'"></div>';
@@ -6004,7 +6005,7 @@ select option{background:var(--card)}
     document.getElementById('progSets').textContent=ts;
     document.getElementById('progExs').textContent=te;
     document.getElementById('progDays').textContent=progDays.length;
-    document.getElementById('progRecap').innerHTML='<div class="rb-title">'+_('generate')+'</div><strong>'+split.name+'</strong> · '+ts+' '+_('weekly_sets')+' · '+te+' '+_('exercises')+' · '+sessLen+' min';
+    document.getElementById('progRecap').innerHTML='<div class="rb-title">'+_('generate')+'</div><strong>'+esc(split.name)+'</strong> · '+ts+' '+_('weekly_sets')+' · '+te+' '+_('exercises')+' · '+sessLen+' min';
     fillCycleBanner();
 
     var html='';
@@ -7520,7 +7521,10 @@ select option{background:var(--card)}
   var API_BASE='https://muscleos-access-control.muscleos.workers.dev/api';
   function notifyCoach(type, data){
     try{
-      fetch(API_BASE+'/notify-coach',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:type,data:data})})
+      var _na={};
+      try{var _ng=JSON.parse(localStorage.getItem('mos_google_session')||'null');if(_ng&&_ng.session)_na.session=_ng.session;}catch(e){}
+      try{var _ns=JSON.parse(localStorage.getItem('mos_subscription')||'null');if(_ns&&_ns.token)_na.token=_ns.token;}catch(e){}
+      fetch(API_BASE+'/notify-coach',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:type,data:data,session:_na.session,token:_na.token})})
       .catch(function(){});
     }catch(e){}
   }
@@ -7601,7 +7605,7 @@ select option{background:var(--card)}
     if(!key||key.length<4){alert(_('sync_fail'));return;}
     if(!confirm(_('sync_confirm_upload')))return;
     ss(SYNC_KEY,key);ss(SYNC_PW,pw);evLog('sync_push');
-    fetch(SYNC_BASE+'/'+encodeURIComponent(key),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pw:pw,data:syncPayload()})})
+    fetch(SYNC_BASE+'/'+encodeURIComponent(key),{method:'POST',headers:{'Content-Type':'application/json','X-Sync-Passphrase':pw},body:JSON.stringify({data:syncPayload()})})
     .then(function(r){return r.json();})
     .then(function(j){
       if(j.status==='ok'){ss(SYNC_LAST,new Date().toISOString());evLog('sync_push_ok');alert(_('sync_done'));hideSync();}
@@ -7615,7 +7619,7 @@ select option{background:var(--card)}
     if(!key||key.length<4){alert(_('sync_fail'));return;}
     if(!confirm(_('sync_confirm_download')))return;
     ss(SYNC_KEY,key);ss(SYNC_PW,pw);evLog('sync_pull');
-    fetch(SYNC_BASE+'/'+encodeURIComponent(key)+'?pw='+encodeURIComponent(pw))
+    fetch(SYNC_BASE+'/'+encodeURIComponent(key),{headers:{'X-Sync-Passphrase':pw}})
     .then(function(r){return r.json();})
     .then(function(j){
       if(j.data){
