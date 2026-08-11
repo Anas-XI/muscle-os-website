@@ -1289,6 +1289,10 @@ select option{background:#1A1B26;color:#FAFAF8}
       
       <div class="food-add-modal" id="foodAddModal">
         <h4 id="foodAddTitle"></h4>
+        <div style="display:flex;gap:6px;margin:8px 0;justify-content:center">
+          <button class="sex-btn active" id="stateRawBtn" style="padding:5px 10px;font-size:.65rem">🥩 النيء / Raw (قبل الطبخ)</button>
+          <button class="sex-btn" id="stateCookedBtn" style="padding:5px 10px;font-size:.65rem">🍳 المطبوخ / Cooked (بعد الطبخ)</button>
+        </div>
         <div class="macros-preview" id="foodAddPreview"></div>
         <div class="food-add-row">
           <input type="number" id="foodAddAmount" placeholder="Grams" min="1">
@@ -1379,18 +1383,63 @@ select option{background:#1A1B26;color:#FAFAF8}
       autocomplete.style.display = 'none';
       searchInput.value = '';
       
+      const rawBtn = document.getElementById('stateRawBtn');
+      const cookedBtn = document.getElementById('stateCookedBtn');
+
+      if(selectedFood.cooking_state === 'raw'){
+        rawBtn.classList.add('active'); cookedBtn.classList.remove('active');
+      } else {
+        cookedBtn.classList.add('active'); rawBtn.classList.remove('active');
+      }
+
       document.getElementById('foodAddModal').style.display = 'block';
       document.getElementById('foodAddTitle').textContent = selectedFood.name_en + ' ' + (selectedFood.name_ar||'');
       const amtInput = document.getElementById('foodAddAmount');
       amtInput.value = '100';
+
+      let currentFoodState = selectedFood;
+
+      rawBtn.onclick = function(){
+        rawBtn.classList.add('active'); cookedBtn.classList.remove('active');
+        if(selectedFood.cooking_state === 'cooked'){
+          // Multiply calories & macros by 0.75 ratio for raw state water expansion
+          currentFoodState = Object.assign({}, selectedFood, {
+            calories: selectedFood.calories * 0.75,
+            protein: selectedFood.protein * 0.75,
+            fat: selectedFood.fat * 0.75,
+            carbs: selectedFood.carbs * 0.75,
+            leucine: selectedFood.leucine * 0.75
+          });
+        } else {
+          currentFoodState = selectedFood;
+        }
+        updatePreview();
+      };
+
+      cookedBtn.onclick = function(){
+        cookedBtn.classList.add('active'); rawBtn.classList.remove('active');
+        if(selectedFood.cooking_state === 'raw'){
+          // Multiply calories & macros by 1.33 ratio for cooked state density concentration
+          currentFoodState = Object.assign({}, selectedFood, {
+            calories: selectedFood.calories * 1.33,
+            protein: selectedFood.protein * 1.33,
+            fat: selectedFood.fat * 1.33,
+            carbs: selectedFood.carbs * 1.33,
+            leucine: selectedFood.leucine * 1.33
+          });
+        } else {
+          currentFoodState = selectedFood;
+        }
+        updatePreview();
+      };
       
       function updatePreview(){
         const ratio = (parseFloat(amtInput.value)||0) / 100;
         document.getElementById('foodAddPreview').innerHTML = 
-          `${Math.round(selectedFood.calories*ratio)} kcal &bull; `+
-          `${(selectedFood.protein*ratio).toFixed(1)}g P &bull; `+
-          `${(selectedFood.fat*ratio).toFixed(1)}g F &bull; `+
-          `${(selectedFood.carbs*ratio).toFixed(1)}g C`;
+          `${Math.round(currentFoodState.calories*ratio)} kcal &bull; `+
+          `${(currentFoodState.protein*ratio).toFixed(1)}g P &bull; `+
+          `${(currentFoodState.fat*ratio).toFixed(1)}g F &bull; `+
+          `${(currentFoodState.carbs*ratio).toFixed(1)}g C`;
       }
       updatePreview();
       amtInput.oninput = updatePreview;
@@ -1456,30 +1505,30 @@ select option{background:#1A1B26;color:#FAFAF8}
     }
 
     document.getElementById('foodAddBtn').addEventListener('click', function(){
-      if(!selectedFood) return;
+      if(!currentFoodState) return;
       const amt = parseFloat(document.getElementById('foodAddAmount').value);
       if(isNaN(amt) || amt <= 0) return;
       
       const ratio = amt / 100;
       if(!foodLogStore[currentFoodDate]) foodLogStore[currentFoodDate] = [];
       foodLogStore[currentFoodDate].push({
-        id: selectedFood.id,
-        name: selectedFood.name_en,
+        id: currentFoodState.id,
+        name: currentFoodState.name_en,
         amount: amt,
-        cals: selectedFood.calories * ratio,
-        p: selectedFood.protein * ratio,
-        f: selectedFood.fat * ratio,
-        c: selectedFood.carbs * ratio,
-        leu: (selectedFood.leucine || 0) * ratio,
-        vit_c: (selectedFood.vit_c || 0) * ratio,
-        vit_d: (selectedFood.vit_d || 0) * ratio,
-        b12: (selectedFood.b12 || 0) * ratio,
-        iron: (selectedFood.iron || 0) * ratio,
-        calcium: (selectedFood.calcium || 0) * ratio,
-        zinc: (selectedFood.zinc || 0) * ratio,
-        mag: (selectedFood.mag || 0) * ratio,
-        pot: (selectedFood.pot || 0) * ratio,
-        sod: (selectedFood.sod || 0) * ratio
+        cals: currentFoodState.calories * ratio,
+        p: currentFoodState.protein * ratio,
+        f: currentFoodState.fat * ratio,
+        c: currentFoodState.carbs * ratio,
+        leu: (currentFoodState.leucine || 0) * ratio,
+        vit_c: (currentFoodState.vit_c || 0) * ratio,
+        vit_d: (currentFoodState.vit_d || 0) * ratio,
+        b12: (currentFoodState.b12 || 0) * ratio,
+        iron: (currentFoodState.iron || 0) * ratio,
+        calcium: (currentFoodState.calcium || 0) * ratio,
+        zinc: (currentFoodState.zinc || 0) * ratio,
+        mag: (currentFoodState.mag || 0) * ratio,
+        pot: (currentFoodState.pot || 0) * ratio,
+        sod: (currentFoodState.sod || 0) * ratio
       });
       
       playSoundEffect('success');
