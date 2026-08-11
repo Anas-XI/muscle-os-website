@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'">
 <title>Adaptive TDEE & Macro Engine — by Coach Anas Mo'men</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1000,6 +1001,13 @@ select option{background:#1E1E2A;color:#FAFAF8}
   };
 
   // ─── Food Log Engine ───
+  function escapeHTML(str) {
+    if (typeof str !== 'string') return '';
+    return str.replace(/[&<>"']/g, function(m) {
+      return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[m];
+    });
+  }
+
   let foodDB = [];
   let foodLogStore = {};
   const FOOD_STORAGE_KEY = 'muscle_os_food_log';
@@ -1064,10 +1072,11 @@ select option{background:#1E1E2A;color:#FAFAF8}
     
     todayLogs.forEach((item, idx) => {
       totCal += item.cals; totP += item.p; totF += item.f; totC += item.c;
+      const safeName = escapeHTML(item.name);
       listHtml += `
         <div class="food-log-item">
           <div class="food-log-info">
-            <span class="food-log-title">${item.amount}g ${item.name}</span>
+            <span class="food-log-title">${item.amount}g ${safeName}</span>
             <span class="food-log-macros">${Math.round(item.p)}g P &bull; ${Math.round(item.f)}g F &bull; ${Math.round(item.c)}g C</span>
           </div>
           <div class="food-log-actions">
@@ -1123,12 +1132,16 @@ select option{background:#1E1E2A;color:#FAFAF8}
       const matches = foodDB.filter(f => f.name_en.toLowerCase().includes(q) || (f.name_ar && f.name_ar.includes(q))).slice(0, 15);
       
       if(matches.length > 0){
-        autocomplete.innerHTML = matches.map(f => `
-          <div class="food-ac-item" data-id="${f.id}">
-            <div><span class="food-ac-name">${f.name_en}</span><span class="food-ac-name-ar">${f.name_ar||''}</span></div>
+        autocomplete.innerHTML = matches.map(f => {
+          const safeEn = escapeHTML(f.name_en);
+          const safeAr = escapeHTML(f.name_ar || '');
+          return `
+          <div class="food-ac-item" data-id="${escapeHTML(f.id)}">
+            <div><span class="food-ac-name">${safeEn}</span><span class="food-ac-name-ar">${safeAr}</span></div>
             <span class="food-ac-macros">${f.calories}kcal</span>
           </div>
-        `).join('');
+        `;
+        }).join('');
         autocomplete.style.display = 'block';
       } else {
         autocomplete.innerHTML = '<div style="padding:10px;text-align:center;color:rgba(250,250,248,.3);font-size:.7rem">No food found.</div>';
