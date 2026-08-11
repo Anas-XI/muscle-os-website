@@ -1203,6 +1203,57 @@ select option{background:#1A1B26;color:#FAFAF8}
     renderFoodTab();
   }
 
+  window.copyYesterdayLogs = function(){
+    let d = new Date(currentFoodDate);
+    d.setDate(d.getDate() - 1);
+    const prevDate = d.toISOString().split('T')[0];
+    const prevLogs = foodLogStore[prevDate] || [];
+    if(prevLogs.length === 0){
+      alert('No food logs found for yesterday (' + prevDate + ')');
+      return;
+    }
+    if(!foodLogStore[currentFoodDate]) foodLogStore[currentFoodDate] = [];
+    foodLogStore[currentFoodDate] = foodLogStore[currentFoodDate].concat(JSON.parse(JSON.stringify(prevLogs)));
+    saveFoodLogs();
+    playSoundEffect('success');
+    renderFoodTab();
+    alert('📋 Successfully copied ' + prevLogs.length + ' food entries from yesterday!');
+  };
+
+  window.quickAddMacros = function(){
+    const name = prompt('Meal / Food Name:', 'Custom Quick Meal');
+    if(!name) return;
+    const cals = parseFloat(prompt('Calories (kcal):', '350')) || 0;
+    const p = parseFloat(prompt('Protein (g):', '30')) || 0;
+    const c = parseFloat(prompt('Carbs (g):', '40')) || 0;
+    const f = parseFloat(prompt('Fat (g):', '10')) || 0;
+    const leu = (p * 0.08);
+
+    if(!foodLogStore[currentFoodDate]) foodLogStore[currentFoodDate] = [];
+    foodLogStore[currentFoodDate].push({
+      id: 'custom_' + Date.now(),
+      name: name,
+      amount: 1,
+      cals: cals,
+      p: p,
+      c: c,
+      f: f,
+      leu: leu
+    });
+    saveFoodLogs();
+    playSoundEffect('success');
+    renderFoodTab();
+  };
+
+  window.addWater = function(ml){
+    const key = 'mos_water_' + currentFoodDate;
+    let cur = parseFloat(localStorage.getItem(key)) || 0;
+    cur += ml;
+    localStorage.setItem(key, cur);
+    playSoundEffect('success');
+    renderFoodTab();
+  };
+
   window.renderFoodTab = async function(){
     const tabEl = document.getElementById('dash-food');
     if(!tabEl) return;
@@ -1286,6 +1337,11 @@ select option{background:#1A1B26;color:#FAFAF8}
         <button class="voice-search-btn" id="voiceSearchBtn" title="Voice Search">🎙️</button>
         <div class="food-autocomplete" id="foodAutocomplete"></div>
       </div>
+
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button class="btn-secondary" onclick="quickAddMacros()" style="flex:1;padding:7px;font-size:.68rem">⚡ Quick Add Macros</button>
+        <button class="btn-secondary" onclick="copyYesterdayLogs()" style="flex:1;padding:7px;font-size:.68rem">📋 Copy Yesterday</button>
+      </div>
       
       <div class="food-add-modal" id="foodAddModal">
         <h4 id="foodAddTitle"></h4>
@@ -1329,13 +1385,27 @@ select option{background:#1A1B26;color:#FAFAF8}
         <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.4)">VIT B12</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${totB12.toFixed(1)}mcg</div></div>
       </div>
 
+      <!-- Hydration & Electrolyte Balance Tracker -->
+      <div class="section-header" style="margin-top:12px">Hydration &amp; Electrolyte Balance</div>
+      <div style="background:rgba(20,21,26,.5);padding:10px;border-radius:10px;border:1px solid rgba(250,250,248,.08);margin:8px 0">
+        <div style="display:flex;justify-content:space-between;font-size:.72rem;margin-bottom:6px">
+          <span>💧 Daily Water Intake: <strong>${((parseFloat(localStorage.getItem('mos_water_'+currentFoodDate))||0)/1000).toFixed(2)}L / 3.5L Target</strong></span>
+          <span style="color:${totPot>0 && (totSod/totPot)<=0.8?'#4CAF50':'#F4C93B'}">Na:K Ratio: <strong>${totPot>0?(totSod/totPot).toFixed(2):'0.00'}</strong> (Ideal &lt; 0.8)</span>
+        </div>
+        <div style="display:flex;gap:6px">
+          <button class="btn-secondary" onclick="addWater(250)" style="flex:1;padding:4px;font-size:.65rem">+250 ml</button>
+          <button class="btn-secondary" onclick="addWater(500)" style="flex:1;padding:4px;font-size:.65rem">+500 ml</button>
+          <button class="btn-secondary" onclick="addWater(1000)" style="flex:1;padding:4px;font-size:.65rem">+1.0 Liter</button>
+        </div>
+      </div>
+
       <!-- Smart Meal Completion Recommendations Engine -->
       <div class="rationale" style="margin-top:12px;margin-bottom:12px">
-        <div class="r-title">🧠 Smart Coaching Meal Completion Advice</div>
+        <div class="r-title">🧠 Smart Coaching &amp; Peri-Workout Nutrient Timing</div>
+        <div>&bull; <strong>Pre-Workout Window (1-2h Before):</strong> Consume ~${Math.round(targetC*0.35)}g fast-digesting Carbs + ${Math.round(targetP*0.25)}g Protein with 3.0g Leucine for maximum pump and MPS.</div>
         ${totP < targetP * 0.4 ? '<div>&bull; <strong>Protein Gap Detected:</strong> Add 150g Grilled Chicken Breast or 200g Greek Yogurt to support muscle recovery.</div>' : ''}
         ${totMag < 100 ? '<div>&bull; <strong>Magnesium Alert:</strong> Add 100g Fresh Spinach or 30g Almonds for optimal muscle contraction and sleep quality.</div>' : ''}
         ${totC < targetC * 0.3 ? '<div>&bull; <strong>Glycogen Fuel Recommendation:</strong> Add 150g Sweet Potato or 1 Cup Rice for sustained pre-workout energy.</div>' : ''}
-        ${totP >= targetP * 0.4 && totMag >= 100 && totC >= targetC * 0.3 ? '<div>&bull; <strong>Excellent Nutrition Balance!</strong> Your meal distribution is well-rounded for performance and recovery.</div>' : ''}
       </div>
       
       <div class="section-header" style="margin-top:16px">Logged Food</div>
