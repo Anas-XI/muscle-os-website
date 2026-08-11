@@ -151,15 +151,22 @@ select option{background:#1A1B26;color:#FAFAF8}
 .fav-star.active{color:#F4C93B}
 
 /* ---- Welcome Back Card ---- */
-.welcome-card{background:#1E1E2A;border:1px solid rgba(244,201,59,.3);border-radius:16px;padding:24px 22px;margin-bottom:20px;box-shadow:0 8px 32px rgba(0,0,0,.4)}
-.welcome-title{font-family:'Oswald',sans-serif;font-size:1.6rem;color:#F4C93B;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;text-align:center}
-.welcome-sub{font-size:.78rem;color:rgba(250,250,248,.6);margin-bottom:18px;text-align:center}
-.welcome-stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px}
-.welcome-stat-item{background:rgba(20,21,26,.5);padding:10px 14px;border-radius:10px;border:1px solid rgba(250,250,248,.05)}
-.welcome-stat-lbl{font-size:.6rem;font-weight:600;text-transform:uppercase;color:rgba(250,250,248,.4);letter-spacing:1px}
-.welcome-stat-val{font-size:.9rem;font-weight:600;color:#FAFAF8;margin-top:2px}
+.welcome-card{background:linear-gradient(135deg,rgba(26,27,38,.95),rgba(15,16,21,.98));border:1.5px solid rgba(244,201,59,.35);border-radius:18px;padding:26px 24px;margin-bottom:22px;box-shadow:0 16px 48px rgba(0,0,0,.7),0 0 30px rgba(244,201,59,.12);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);position:relative;overflow:hidden}
+.welcome-card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 50% 0%,rgba(244,201,59,.08) 0%,transparent 60%);pointer-events:none}
+.welcome-card-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(76,175,80,.12);color:#4CAF50;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:4px 12px;border-radius:20px;border:1px solid rgba(76,175,80,.3);margin-bottom:12px}
+.welcome-card-badge .pulse-dot{width:6px;height:6px;border-radius:50%;background:#4CAF50;box-shadow:0 0 8px #4CAF50;animation:pulseDot 2s infinite}
+@keyframes pulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.3)}}
+.welcome-title{font-family:'Oswald',sans-serif;font-size:1.8rem;color:#FAFAF8;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;text-align:left}
+.welcome-title span{color:#F4C93B;text-shadow:0 0 16px rgba(244,201,59,.3)}
+.welcome-sub{font-size:.8rem;color:rgba(250,250,248,.65);margin-bottom:20px;text-align:left;line-height:1.4;font-weight:400}
+.welcome-stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:22px}
+.welcome-stat-item{background:rgba(13,14,18,.65);padding:14px 16px;border-radius:12px;border:1px solid rgba(244,201,59,.15);transition:all .2s ease;box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.welcome-stat-item:hover{border-color:rgba(244,201,59,.35);box-shadow:0 4px 16px rgba(0,0,0,.4)}
+.welcome-stat-lbl{font-size:.62rem;font-weight:600;text-transform:uppercase;color:rgba(250,250,248,.45);letter-spacing:1px;margin-bottom:4px}
+.welcome-stat-val{font-size:1.05rem;font-weight:700;color:#FAFAF8;font-family:'Oswald',sans-serif;letter-spacing:.3px}
+.welcome-stat-sub{font-size:.6rem;color:#F4C93B;margin-top:2px;font-weight:500}
 .welcome-actions{display:flex;gap:10px;flex-wrap:wrap}
-.welcome-actions button{flex:1;min-width:140px;padding:12px 16px;font-size:.8rem;font-weight:600;border-radius:10px;cursor:pointer}
+.welcome-actions button{flex:1;min-width:140px;padding:12px 18px;font-size:.8rem;font-weight:700;border-radius:10px;cursor:pointer}
 
 /* ---- Adherence check modal ---- */
 .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:100;align-items:center;justify-content:center;padding:20px}
@@ -280,12 +287,14 @@ select option{background:#1A1B26;color:#FAFAF8}
   <div id="profileView">
     <!-- Welcome Back Card for returning users -->
     <div class="welcome-card" id="welcomeCard" style="display:none">
-      <div class="welcome-title">👋 Welcome Back!</div>
-      <div class="welcome-sub">Your personalized profile &amp; adaptive recalibration data are loaded.</div>
+      <div class="welcome-card-badge"><span class="pulse-dot"></span> METABOLIC MATRIX ACTIVE // SYNCED</div>
+      <div class="welcome-title">👑 WELCOME BACK, <span id="welcomeUserName">ATHLETE</span>!</div>
+      <div class="welcome-sub">Your bio-adaptive expenditure matrix, 5,000-food database, and circadian timing profiles are active.</div>
       <div class="welcome-stats-grid" id="welcomeStatsGrid"></div>
       <div class="welcome-actions">
-        <button class="btn-primary" id="welcomeResumeBtn">🚀 Resume Dashboard</button>
-        <button class="btn-secondary" id="welcomeEditBtn">⚙️ Edit Profile</button>
+        <button class="btn-primary" id="welcomeResumeBtn">🚀 Launch Dashboard</button>
+        <button class="btn-secondary" onclick="document.querySelector('[data-tab=\'tab-food\']').click()" style="background:rgba(244,201,59,.12);color:#F4C93B;border:1px solid rgba(244,201,59,.3)">⚡ Log Food Now</button>
+        <button class="btn-secondary" id="welcomeEditBtn">⚙️ Edit Bio-Profile</button>
       </div>
     </div>
 
@@ -932,28 +941,44 @@ select option{background:#1A1B26;color:#FAFAF8}
 
     if(store.profile){
       const p = store.profile;
+      const userNameEl = document.getElementById('welcomeUserName');
+      if(userNameEl && p.name) userNameEl.textContent = p.name.toUpperCase();
+
       const statsGrid = document.getElementById('welcomeStatsGrid');
-      const latestW = (store.weights && store.weights.length > 0) 
-        ? [...store.weights].sort((a,b)=>new Date(b.date)-new Date(a.date))[0].weight 
-        : p.weight;
+      const sortedW = (store.weights && store.weights.length > 0) 
+        ? [...store.weights].sort((a,b)=>new Date(b.date)-new Date(a.date))
+        : [];
+      const latestW = sortedW.length > 0 ? sortedW[0].weight : p.weight;
+      const initialW = p.weight;
+      const diffW = (latestW - initialW).toFixed(1);
+      const diffStr = diffW > 0 ? `(+${diffW} kg)` : diffW < 0 ? `(${diffW} kg)` : `(Baseline)`;
+
+      const r = calcTDEE(p.sex, latestW, p.height, p.age, p.bf, p.trainingAge,
+        p.trainDays, p.sessionLen, p.occupation, p.steps, p.sleep, p.dietPattern,
+        p.goal, p.chronicDiet, p.cyclePhase);
       const recalibCount = (store.adjustments && store.adjustments.length) || 0;
+      const loggedDaysCount = sortedW.length;
 
       statsGrid.innerHTML = `
         <div class="welcome-stat-item">
-          <div class="welcome-stat-lbl">Sex &amp; Age</div>
-          <div class="welcome-stat-val">${p.sex === 'female' ? 'Female' : 'Male'}, ${p.age} yrs</div>
-        </div>
-        <div class="welcome-stat-item">
-          <div class="welcome-stat-lbl">Current Weight</div>
-          <div class="welcome-stat-val">${latestW} kg</div>
+          <div class="welcome-stat-lbl">Target Caloric Intake</div>
+          <div class="welcome-stat-val" style="color:#F4C93B">${Math.round(r.goalCal)} kcal/day</div>
+          <div class="welcome-stat-sub">TDEE Baseline: ${Math.round(r.tdee)} kcal</div>
         </div>
         <div class="welcome-stat-item">
           <div class="welcome-stat-lbl">Active Goal</div>
           <div class="welcome-stat-val">${GOAL_LABELS[p.goal] || p.goal}</div>
+          <div class="welcome-stat-sub">Sex &amp; Age: ${p.sex === 'female' ? 'Female' : 'Male'}, ${p.age}y</div>
         </div>
         <div class="welcome-stat-item">
-          <div class="welcome-stat-lbl">Recalibrations</div>
-          <div class="welcome-stat-val">${recalibCount} Completed</div>
+          <div class="welcome-stat-lbl">Current Bodyweight</div>
+          <div class="welcome-stat-val">${latestW} kg</div>
+          <div class="welcome-stat-sub">Initial Delta: ${diffStr}</div>
+        </div>
+        <div class="welcome-stat-item">
+          <div class="welcome-stat-lbl">Adherence &amp; Recalibration</div>
+          <div class="welcome-stat-val" style="color:#4CAF50">${loggedDaysCount} Days Logged</div>
+          <div class="welcome-stat-sub">${recalibCount} Recalibrations Active</div>
         </div>
       `;
 

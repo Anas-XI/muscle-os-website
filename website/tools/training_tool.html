@@ -808,15 +808,21 @@ select option{background:var(--card)}
 #mobileCtaBar .cta-secondary{background:transparent;color:#FAFAF8;border:1.5px solid rgba(250,250,248,.25)}
 #mobileCtaBar a:active{opacity:.85}
 /* ---- Welcome Back Card ---- */
-.training-welcome-card{background:#1E1E2A;border:1px solid rgba(244,201,59,.3);border-radius:16px;padding:22px;margin-bottom:20px;box-shadow:0 8px 32px rgba(0,0,0,.4)}
-.tw-title{font-family:'Oswald',sans-serif;font-size:1.5rem;color:#F4C93B;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;text-align:center}
-.tw-sub{font-size:.75rem;color:rgba(250,250,248,.6);margin-bottom:16px;text-align:center}
-.tw-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:18px}
-.tw-item{background:rgba(20,21,26,.5);padding:10px 12px;border-radius:10px;border:1px solid rgba(250,250,248,.05)}
-.tw-lbl{font-size:.58rem;font-weight:600;text-transform:uppercase;color:rgba(250,250,248,.4);letter-spacing:1px}
-.tw-val{font-size:.85rem;font-weight:600;color:#FAFAF8;margin-top:2px}
+.training-welcome-card{background:linear-gradient(135deg,rgba(26,27,38,.95),rgba(15,16,21,.98));border:1.5px solid rgba(244,201,59,.35);border-radius:18px;padding:26px 24px;margin-bottom:22px;box-shadow:0 16px 48px rgba(0,0,0,.7),0 0 30px rgba(244,201,59,.12);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);position:relative;overflow:hidden}
+.training-welcome-card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 50% 0%,rgba(244,201,59,.08) 0%,transparent 60%);pointer-events:none}
+.tw-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(76,175,80,.12);color:#4CAF50;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:4px 12px;border-radius:20px;border:1px solid rgba(76,175,80,.3);margin-bottom:12px}
+.tw-badge .pulse-dot{width:6px;height:6px;border-radius:50%;background:#4CAF50;box-shadow:0 0 8px #4CAF50;animation:pulseDot 2s infinite}
+.tw-title{font-family:'Oswald',sans-serif;font-size:1.8rem;color:#FAFAF8;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;text-align:left}
+.tw-title span{color:#F4C93B;text-shadow:0 0 16px rgba(244,201,59,.3)}
+.tw-sub{font-size:.8rem;color:rgba(250,250,248,.65);margin-bottom:20px;text-align:left;line-height:1.4;font-weight:400}
+.tw-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:22px}
+.tw-item{background:rgba(13,14,18,.65);padding:14px 16px;border-radius:12px;border:1px solid rgba(244,201,59,.15);transition:all .2s ease;box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.tw-item:hover{border-color:rgba(244,201,59,.35);box-shadow:0 4px 16px rgba(0,0,0,.4)}
+.tw-lbl{font-size:.62rem;font-weight:600;text-transform:uppercase;color:rgba(250,250,248,.45);letter-spacing:1px;margin-bottom:4px}
+.tw-val{font-size:1.05rem;font-weight:700;color:#FAFAF8;font-family:'Oswald',sans-serif;letter-spacing:.3px}
+.tw-subval{font-size:.6rem;color:#F4C93B;margin-top:2px;font-weight:500}
 .tw-actions{display:flex;gap:10px;flex-wrap:wrap}
-.tw-actions button{flex:1;min-width:130px;padding:10px 14px;font-size:.78rem;font-weight:600;border-radius:8px;cursor:pointer}
+.tw-actions button{flex:1;min-width:140px;padding:12px 18px;font-size:.8rem;font-weight:700;border-radius:10px;cursor:pointer}
 </style>
 <script async defer src="https://accounts.google.com/gsi/client"></script>
 </head>
@@ -897,11 +903,13 @@ select option{background:var(--card)}
   <div class="step-content active" id="step1">
     <!-- Welcome Back Card for returning athletes -->
     <div class="training-welcome-card" id="welcomeTrainingCard" style="display:none">
-      <div class="tw-title" id="twTitle">👋 Welcome Back!</div>
-      <div class="tw-sub">Your personalized training program &amp; volume calibration profile are active.</div>
+      <div class="tw-badge"><span class="pulse-dot"></span> HYPERKINETIC MATRIX ACTIVE // SYNCED</div>
+      <div class="tw-title" id="twTitle">👑 WELCOME BACK, <span id="twUserName">ATHLETE</span>!</div>
+      <div class="tw-sub">Your periodized mesocycle, muscle volume landmarks (MEV/MAV/MRV), and readiness profiles are active.</div>
       <div class="tw-grid" id="twGrid"></div>
       <div class="tw-actions">
-        <button class="btn-primary" id="twResumeBtn">🚀 Resume Workout Session</button>
+        <button class="btn-primary" id="twResumeBtn">🚀 Launch Workout Session</button>
+        <button class="btn-secondary" onclick="go(2)" style="background:rgba(244,201,59,.12);color:#F4C93B;border:1px solid rgba(244,201,59,.3)">🏋️ View Split &amp; Volume</button>
         <button class="btn-secondary" id="twEditBtn">⚙️ Edit Profile &amp; Program</button>
       </div>
     </div>
@@ -7533,15 +7541,37 @@ select option{background:var(--card)}
       var formCard = document.getElementById('onboardingFormCard');
       if(welcomeCard && formCard){
         var name = vi.name || 'Athlete';
-        var twTitle = document.getElementById('twTitle');
-        if(twTitle) twTitle.textContent = '👋 Welcome Back, ' + name + '!';
+        var twUserName = document.getElementById('twUserName');
+        if(twUserName) twUserName.textContent = name.toUpperCase();
+
         var grid = document.getElementById('twGrid');
         if(grid){
+          var splitName = prog ? prog.splitName : (sp ? sp.name : 'Custom Split');
+          var totalSets = prog ? prog.totalSets + ' weekly sets' : (sp ? sp.sets + ' weekly sets' : 'Calibrated');
+          var goalStr = (vi.goal || 'hypertrophy').toUpperCase() + (vi.ta ? ' (' + vi.ta + ')' : '');
+          var mesoWeek = ls('mos_week_count', 1);
+
           grid.innerHTML = `
-            <div class="tw-item"><div class="tw-lbl">Athlete Profile</div><div class="tw-val">${name} ${vi.age ? '('+vi.age+'y)' : ''}</div></div>
-            <div class="tw-item"><div class="tw-lbl">Active Split</div><div class="tw-val">${prog ? prog.splitName : (sp ? sp.name : 'Custom')}</div></div>
-            <div class="tw-item"><div class="tw-lbl">Volume Target</div><div class="tw-val">${prog ? prog.totalSets + ' weekly sets' : 'Custom'}</div></div>
-            <div class="tw-item"><div class="tw-lbl">Primary Goal</div><div class="tw-val">${(vi.goal || 'hypertrophy').toUpperCase()}</div></div>
+            <div class="tw-item">
+              <div class="tw-lbl">Active Split &amp; Schedule</div>
+              <div class="tw-val">${splitName}</div>
+              <div class="tw-subval">${vi.days || 4} Days / Week</div>
+            </div>
+            <div class="tw-item">
+              <div class="tw-lbl">Target Volume Allocation</div>
+              <div class="tw-val" style="color:#F4C93B">${totalSets}</div>
+              <div class="tw-subval">Autoregulated MEV-MRV</div>
+            </div>
+            <div class="tw-item">
+              <div class="tw-lbl">Primary Focus &amp; Level</div>
+              <div class="tw-val">${goalStr}</div>
+              <div class="tw-subval">Age: ${vi.age || 25} yrs</div>
+            </div>
+            <div class="tw-item">
+              <div class="tw-lbl">Mesocycle Overload Status</div>
+              <div class="tw-val" style="color:#4CAF50">Week ${mesoWeek} Periodized</div>
+              <div class="tw-subval">CNS Recovery Monitored</div>
+            </div>
           `;
         }
         welcomeCard.style.display = 'block';
