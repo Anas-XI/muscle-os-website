@@ -138,6 +138,17 @@ select option{background:#1E1E2A;color:#FAFAF8}
 .food-date-btn{background:none;border:none;color:#F4C93B;cursor:pointer;font-size:1rem;padding:0 8px}
 .food-date-display{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:#FAFAF8}
 
+/* ---- Welcome Back Card ---- */
+.welcome-card{background:#1E1E2A;border:1px solid rgba(244,201,59,.3);border-radius:16px;padding:24px 22px;margin-bottom:20px;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.welcome-title{font-family:'Oswald',sans-serif;font-size:1.6rem;color:#F4C93B;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;text-align:center}
+.welcome-sub{font-size:.78rem;color:rgba(250,250,248,.6);margin-bottom:18px;text-align:center}
+.welcome-stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px}
+.welcome-stat-item{background:rgba(20,21,26,.5);padding:10px 14px;border-radius:10px;border:1px solid rgba(250,250,248,.05)}
+.welcome-stat-lbl{font-size:.6rem;font-weight:600;text-transform:uppercase;color:rgba(250,250,248,.4);letter-spacing:1px}
+.welcome-stat-val{font-size:.9rem;font-weight:600;color:#FAFAF8;margin-top:2px}
+.welcome-actions{display:flex;gap:10px;flex-wrap:wrap}
+.welcome-actions button{flex:1;min-width:140px;padding:12px 16px;font-size:.8rem;font-weight:600;border-radius:10px;cursor:pointer}
+
 /* ---- Adherence check modal ---- */
 .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:100;align-items:center;justify-content:center;padding:20px}
 .modal-overlay.show{display:flex}
@@ -252,7 +263,18 @@ select option{background:#1E1E2A;color:#FAFAF8}
   </div>
 
   <div id="profileView">
-    <div class="card">
+    <!-- Welcome Back Card for returning users -->
+    <div class="welcome-card" id="welcomeCard" style="display:none">
+      <div class="welcome-title">👋 Welcome Back!</div>
+      <div class="welcome-sub">Your personalized profile &amp; adaptive recalibration data are loaded.</div>
+      <div class="welcome-stats-grid" id="welcomeStatsGrid"></div>
+      <div class="welcome-actions">
+        <button class="btn-primary" id="welcomeResumeBtn">🚀 Resume Dashboard</button>
+        <button class="btn-secondary" id="welcomeEditBtn">⚙️ Edit Profile</button>
+      </div>
+    </div>
+
+    <div class="card" id="profileFormCard">
       <div class="tab-bar">
         <button class="tab active" data-tab="tab-setup">Setup</button>
         <button class="tab" data-tab="tab-weight">Weight Log</button>
@@ -336,7 +358,9 @@ select option{background:#1E1E2A;color:#FAFAF8}
               <option value="no">No, irregular / absent</option></select></div>
             <div class="form-group"><label>Current Phase</label>
               <select id="cyclePhase"><option value="">Not tracking</option>
-              <option value="follicular">Follicular (days 1-14)</option>
+              <option value="menstrual">Menstruation (days 1-5)</option>
+              <option value="follicular">Follicular (days 6-13)</option>
+              <option value="ovulation">Ovulation (~day 14)</option>
               <option value="luteal">Luteal (days 15-28)</option></select>
               <div class="tip">Luteal phase increases REE by 5-10% — ignoring this causes false plateaus</div></div>
           </div>
@@ -424,7 +448,7 @@ select option{background:#1E1E2A;color:#FAFAF8}
   const STEP_CALS = [-60,0,70,160,260,360,480];
   const SLEEP_FACTOR = {poor:.95, fair:.98, good:1.0, excellent:1.02};
   const CHRONIC_ADJUST = {no:1.0, yes:0.92};
-  const CYCLE_ADJUST = {follicular:1.0, luteal:1.07};
+  const CYCLE_ADJUST = {menstrual:1.0, follicular:1.0, ovulation:1.02, luteal:1.07};
 
   const PROTEIN_TARGETS = {
     omnivore: {aggressive_loss:2.3, moderate_loss:2.0, recomp:2.0, maintenance:1.8, lean_gain:1.8, aggressive_gain:1.6},
@@ -805,6 +829,9 @@ select option{background:#1E1E2A;color:#FAFAF8}
     document.getElementById('backToProfile').addEventListener('click', function(){
       document.getElementById('dashboardView').style.display = 'none';
       document.getElementById('profileView').style.display = 'block';
+      document.getElementById('welcomeCard').style.display = 'none';
+      document.getElementById('profileFormCard').style.display = 'block';
+      populateProfileForm(store.profile);
     });
     document.getElementById('exportTdeeBtn').addEventListener('click', exportTdeeData);
     document.getElementById('importTdeeBtn').addEventListener('click', function(){ document.getElementById('tdeeImportInput').click(); });
@@ -875,20 +902,93 @@ select option{background:#1E1E2A;color:#FAFAF8}
     }
   }
 
+  function updateWelcomeCard(){
+    const welcomeCard = document.getElementById('welcomeCard');
+    const profileFormCard = document.getElementById('profileFormCard');
+    if(!welcomeCard || !profileFormCard) return;
+
+    if(store.profile){
+      const p = store.profile;
+      const statsGrid = document.getElementById('welcomeStatsGrid');
+      const latestW = (store.weights && store.weights.length > 0) 
+        ? [...store.weights].sort((a,b)=>new Date(b.date)-new Date(a.date))[0].weight 
+        : p.weight;
+      const recalibCount = (store.adjustments && store.adjustments.length) || 0;
+
+      statsGrid.innerHTML = `
+        <div class="welcome-stat-item">
+          <div class="welcome-stat-lbl">Sex &amp; Age</div>
+          <div class="welcome-stat-val">${p.sex === 'female' ? 'Female' : 'Male'}, ${p.age} yrs</div>
+        </div>
+        <div class="welcome-stat-item">
+          <div class="welcome-stat-lbl">Current Weight</div>
+          <div class="welcome-stat-val">${latestW} kg</div>
+        </div>
+        <div class="welcome-stat-item">
+          <div class="welcome-stat-lbl">Active Goal</div>
+          <div class="welcome-stat-val">${GOAL_LABELS[p.goal] || p.goal}</div>
+        </div>
+        <div class="welcome-stat-item">
+          <div class="welcome-stat-lbl">Recalibrations</div>
+          <div class="welcome-stat-val">${recalibCount} Completed</div>
+        </div>
+      `;
+
+      welcomeCard.style.display = 'block';
+      profileFormCard.style.display = 'none';
+    } else {
+      welcomeCard.style.display = 'none';
+      profileFormCard.style.display = 'block';
+    }
+  }
+
+  function populateProfileForm(p){
+    if(!p) return;
+    if(p.sex){
+      selectedSex = p.sex;
+      document.querySelectorAll('.sex-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.sex === p.sex);
+      });
+      if(p.sex === 'female'){
+        document.getElementById('cycleGroup').style.display = 'block';
+      } else {
+        document.getElementById('cycleGroup').style.display = 'none';
+      }
+    }
+    if(p.weight) document.getElementById('weight').value = p.weight;
+    if(p.height) document.getElementById('height').value = p.height;
+    if(p.age) document.getElementById('age').value = p.age;
+    if(p.bf !== undefined) document.getElementById('bf').value = p.bf;
+    if(p.trainingAge) document.getElementById('trainingAge').value = p.trainingAge;
+    if(p.trainDays !== undefined) document.getElementById('trainDays').value = p.trainDays;
+    if(p.sessionLen !== undefined) document.getElementById('sessionLen').value = p.sessionLen;
+    if(p.occupation) document.getElementById('occupation').value = p.occupation;
+    if(p.steps !== undefined) document.getElementById('steps').value = p.steps;
+    if(p.sleep) document.getElementById('sleep').value = p.sleep;
+    if(p.dietPattern) document.getElementById('dietPattern').value = p.dietPattern;
+    if(p.chronicDiet) document.getElementById('chronicDiet').value = p.chronicDiet;
+    if(p.cycleRegular) document.getElementById('cycleRegular').value = p.cycleRegular;
+    if(p.cyclePhase) document.getElementById('cyclePhase').value = p.cyclePhase;
+    if(p.goal) document.getElementById('goal').value = p.goal;
+  }
+
   // ─── Initialize ───
   sexInit();
 
   // Show female-cycle group only if female selected
   document.getElementById('cycleGroup').style.display = 'none';
 
-  // Load profile if exists
-  if(store.profile){
-    document.getElementById('loadProfileBtn').style.display = 'block';
-    document.getElementById('loadProfileBtn').textContent = 'Load saved profile (recalibrated '+(store.adjustments.length>0?store.adjustments.length+'x':'0x')+')';
-  }
+  // Setup welcome screen if profile exists
+  updateWelcomeCard();
 
-  document.getElementById('loadProfileBtn').addEventListener('click', function(){
+  document.getElementById('welcomeResumeBtn').addEventListener('click', function(){
     if(store.profile) renderDashboard();
+  });
+
+  document.getElementById('welcomeEditBtn').addEventListener('click', function(){
+    document.getElementById('welcomeCard').style.display = 'none';
+    document.getElementById('profileFormCard').style.display = 'block';
+    populateProfileForm(store.profile);
   });
 
   // Tabs in profile view
