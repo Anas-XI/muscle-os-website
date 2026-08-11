@@ -901,9 +901,11 @@ select option{background:var(--card)}
           <select id="recFactor"><option value="low" data-i18n="low_rec">Low — limited sleep, high stress</option><option value="moderate" selected data-i18n="mod_rec">Moderate — balanced lifestyle</option><option value="high" data-i18n="high_rec">High — optimal recovery</option></select></div>
       </div>
 
-      <div class="section-header" data-i18n="muscle_priorities">Muscle Priorities</div>
-      <p style="font-size:.55rem;color:rgba(250,250,248,.2);margin-bottom:6px;line-height:1.2"><span data-i18n="muscle_priorities_sub">Select which muscles to <strong style="color:#F4C93B">focus</strong> (full volume) vs <strong style="color:rgba(250,250,248,.35)">maintain</strong> (~half volume).</span></p>
-      <div class="priority-grid" id="priorityGrid"></div>
+      <div id="musclePrioSection">
+        <div class="section-header" data-i18n="muscle_priorities">Muscle Priorities</div>
+        <p style="font-size:.55rem;color:rgba(250,250,248,.2);margin-bottom:6px;line-height:1.2"><span data-i18n="muscle_priorities_sub">Select which muscles to <strong style="color:#F4C93B">focus</strong> (full volume) vs <strong style="color:rgba(250,250,248,.35)">maintain</strong> (~half volume).</span></p>
+        <div class="priority-grid" id="priorityGrid"></div>
+      </div>
 
       <div class="section-header" data-i18n="split_pref">Split Preference</div>
       <div class="toggle-group" id="splitToggle">
@@ -1711,6 +1713,7 @@ select option{background:var(--card)}
       split_push_pull:'Separates pressing from arm iso. Great for lagging arms or shoulders.',
       split_4day_popular:'The most popular and effective 4-day split.',
       split_max_frequency:'Maximises frequency for beginners and lower recovery.',
+      split_rest_recovery:'Built-in rest day in the middle of the week to protect recovery.',
       split_full_body:'Each session hits all major muscle groups 2-3x/week.',
       split_2day:'Split your 2 days into upper and lower body. Maximises recovery between sessions.',
       split_start_simple:'Start with 2 sessions per week. Consistent > intense.',
@@ -1786,11 +1789,11 @@ select option{background:var(--card)}
       why_fav:'Your favorite', why_level:'Fits your level', why_jointsafe:'Joint-safe pick', why_eq:'Matches your equipment', why_balanced:'Solid all-rounder',
       density_on:'Compact', density_off:'Cards',
       // Priority muscles + frequency (first screen after onboarding)
-      prio_title:'Priority Muscles & Frequency', prio_sub:'Pick 1–2 muscles to prioritize. They get higher weekly frequency (3–4x) and a small volume bump (+1 set/week).',
+      prio_title:'Priority Muscles & Frequency', prio_sub:'Optional — pick 1–2 muscles to prioritize. They get higher weekly frequency (3–4x) and a small volume bump (+1 set/week). You can skip this for a balanced program.',
       prio_picked:'✓ PRIORITY', prio_cap:'2 of 2 selected — deselect one to choose another.',
       freq_3x:'3x', freq_4x:'4x',
       prio_seed_effort:'Seeded from your logged effort: high-effort sessions → conservative 3x.', prio_seed_default:'Seeded from your recovery profile.',
-      prio_need:'Pick at least one priority muscle to continue.', prio_bump:'Priority muscles get +1 set/week on top of your volume target.',
+      prio_need:'Optional — no priority muscles needed. Save & Continue to proceed.', prio_bump:'Priority muscles get +1 set/week on top of your volume target.',
       prio_cont:'Save & Continue',
       // Split recommendation + priority conflict
       split_rec_badge:'RECOMMENDED', split_rec_priority:'Recommended — supports your priority',
@@ -2148,6 +2151,7 @@ select option{background:var(--card)}
       split_push_pull:'يفصل الضغط عن عزل الدراعين. ممتاز للدراعين أو الكتفين المتأخرين.',
       split_4day_popular:'أشهر تقسيم 4 أيام وأكترهم فعالية.',
       split_max_frequency:'أعلى تواتر للمبتدئين وقليلي التعافي.',
+      split_rest_recovery:'يوم راحة مدمج في نص الأسبوع لحماية التعافي.',
       split_full_body:'كل جلسة تستهدف كل المجموعات العضلية الرئيسية 2-3 مرات/أسبوع.',
       split_2day:'قسم يوميك علوي وسفلي. أقصى تعافي بين الجلسات.',
       split_start_simple:'ابدأ بجلستين في الأسبوع. الاستمرارية أهم من الشدة.',
@@ -2209,11 +2213,11 @@ select option{background:var(--card)}
       sub_err_network:'خطأ في الشبكة. حاول مرة أخرى.',
       sub_err_session:'انتهت الجلسة. سجّل الدخول مرة أخرى.',
       sub_google_failed:'فشل تسجيل الدخول بجوجل. حاول مرة أخرى.',
-      prio_title:'العضلات الأساسية والتكرار الأسبوعي', prio_sub:'اختر 1–2 عضلة لتركيز الأولوية عليها. ستحصل على تكرار أسبوعي أعلى (3–4 مرات) وزيادة حجم بسيطة (+1 مجموعة/أسبوع).',
+      prio_title:'العضلات الأساسية والتكرار الأسبوعي', prio_sub:'اختياري — اختر 1–2 عضلة لتركيز الأولوية عليها. ستحصل على تكرار أسبوعي أعلى (3–4 مرات) وزيادة حجم بسيطة (+1 مجموعة/أسبوع). تقدر تتخطى وتستخدم برنامج متوازن.',
       prio_picked:'✓ أولوية', prio_cap:'تم اختيار 2 من 2 — ألغِ اختيار واحدة لاختيار أخرى.',
       freq_3x:'3×', freq_4x:'4×',
       prio_seed_effort:'مبني على مجهودك المسجّل: جلسات عالية الجهد ← 3× (أكثر أماناً).', prio_seed_default:'مبني على ملف استشفائك.',
-      prio_need:'اختر عضلة أولوية واحدة على الأقل للمتابعة.', prio_bump:'العضلات ذات الأولوية تحصل على +1 مجموعة/أسبوع فوق هدفك الحجمي.',
+      prio_need:'اختياري — مش محتاج عضلات أولوية. اضغط حفظ ومتابعة للمتابعة.', prio_bump:'العضلات ذات الأولوية تحصل على +1 مجموعة/أسبوع فوق هدفك الحجمي.',
       prio_cont:'حفظ ومتابعة',
       split_rec_badge:'موصى به', split_rec_priority:'موصى به — يدعم أولوياتك',
       split_conflict_head:'تعارض التكرار مع العضلات ذات الأولوية', split_conflict_ok:'يدعم',
@@ -3122,6 +3126,31 @@ select option{background:var(--card)}
       {n:'Shoulders & Arms',ex:cp(SPLITS.arnold_3r.days[2])},
       {n:'Rest',restDay:true}
     ]};
+    SPLITS.upper_lower_rest_5={name:'Upper/Lower + Rest (5-Day)',d:5,days:[
+      {n:'Upper 1',ex:cp(SPLITS.upper_lower_4.days[0])},
+      {n:'Lower 1',ex:cp(SPLITS.upper_lower_4.days[1])},
+      {n:'Rest',restDay:true},
+      {n:'Upper 2',ex:cp(SPLITS.upper_lower_4.days[2])},
+      {n:'Lower 2',ex:cp(SPLITS.upper_lower_4.days[3])}
+    ]};
+    SPLITS.torso_limbs_rest_5={name:'Torso/Limbs + Rest (5-Day)',d:5,days:[
+      {n:'Torso 1',ex:cp(SPLITS.torso_limbs_4.days[0])},
+      {n:'Limbs 1',ex:cp(SPLITS.torso_limbs_4.days[1])},
+      {n:'Rest',restDay:true},
+      {n:'Torso 2',ex:cp(SPLITS.torso_limbs_4.days[0])},
+      {n:'Limbs 2',ex:cp(SPLITS.torso_limbs_4.days[1])}
+    ]};
+    SPLITS.ppl_rest_4={name:'PPL + Rest (4-Day)',d:4,days:[
+      {n:'Push',ex:cp(SPLITS.ppl_6.days[0])},
+      {n:'Pull',ex:cp(SPLITS.ppl_6.days[1])},
+      {n:'Legs',ex:cp(SPLITS.ppl_6.days[2])},
+      {n:'Rest',restDay:true}
+    ]};
+    SPLITS.fullbody_rest_3={name:'Full Body + Rest (3-Day)',d:3,days:[
+      {n:'Full Body A',ex:cp(SPLITS.fullbody_3.days[0])},
+      {n:'Rest',restDay:true},
+      {n:'Full Body B',ex:cp(SPLITS.fullbody_3.days[1])}
+    ]};
     // 6-day hybrids
     SPLITS.ppl_arnold_6={name:'PPL + Arnold Hybrid (6-Day)',d:6,days:[
       {n:'Push',ex:cp(SPLITS.ppl_6.days[0])},
@@ -3476,9 +3505,9 @@ select option{background:var(--card)}
       if(d===2)return{name:'Upper/Lower (2-Day)',key:'upper_lower_2',note:_('split_strength_maintenance')};
       return{name:'5/3/1 (4-Day)',key:'five_three_one_4',note:_('split_try_531')};
     }
-    if(d>=6){if(g==='both'||r==='high')return{name:'PPL + Arnold Hybrid (6-Day)',key:'ppl_arnold_6',note:_('split_ppl_arnold')};if(r==='low')return{name:'Upper/Lower 3x (6-Day)',key:'ul_3x_6',note:_('split_high_freq')};return{name:'PPL + Arnold Hybrid (6-Day)',key:'ppl_arnold_6',note:_('split_mix_compound')};}
-    if(d===5){if(r==='high')return{name:'PPL + Upper/Lower (5-Day)',key:'ppl_ul_5',note:_('split_ppl_ul')};if(e==='advanced')return{name:'Arnold + Upper/Lower (5-Day)',key:'arnold_ul_5',note:_('split_arnold_ul')};if(g==='hypertrophy')return{name:'PPL + Torso/Limbs (5-Day)',key:'ppl_tl_5',note:_('split_torso_limbs')};return{name:'PPL + Upper/Lower (5-Day)',key:'ppl_ul_5',note:_('split_5day_hybrid')};}
-    if(d===4){if(g==='both')return{name:'Upper/Lower (4-Day)',key:'upper_lower_4',note:_('split_industry_standard')};if(r==='low'||s==='variable')return{name:'Torso/Limbs (4-Day)',key:'torso_limbs_4',note:_('split_push_pull')};return{name:'Upper/Lower (4-Day)',key:'upper_lower_4',note:_('split_4day_popular')};}
+    if(d>=6){if(g==='both'||r==='high')return{name:'PPL + Arnold Hybrid (6-Day)',key:'ppl_arnold_6',note:_('split_ppl_arnold')};if(r==='low')return{name:'PPL + Rest + UL (6-Day)',key:'ppl_rest_ul_6',note:_('split_rest_recovery')};return{name:'PPL + Arnold Hybrid (6-Day)',key:'ppl_arnold_6',note:_('split_mix_compound')};}
+    if(d===5){if(r==='low')return{name:'Upper/Lower + Rest (5-Day)',key:'upper_lower_rest_5',note:_('split_rest_recovery')};if(r==='high')return{name:'PPL + Upper/Lower (5-Day)',key:'ppl_ul_5',note:_('split_ppl_ul')};if(e==='advanced')return{name:'Arnold + Upper/Lower (5-Day)',key:'arnold_ul_5',note:_('split_arnold_ul')};if(g==='hypertrophy')return{name:'PPL + Torso/Limbs (5-Day)',key:'ppl_tl_5',note:_('split_torso_limbs')};return{name:'PPL + Upper/Lower (5-Day)',key:'ppl_ul_5',note:_('split_5day_hybrid')};}
+    if(d===4){if(r==='low')return{name:'PPL + Rest (4-Day)',key:'ppl_rest_4',note:_('split_rest_recovery')};if(g==='both')return{name:'Upper/Lower (4-Day)',key:'upper_lower_4',note:_('split_industry_standard')};if(s==='variable')return{name:'Torso/Limbs (4-Day)',key:'torso_limbs_4',note:_('split_push_pull')};return{name:'Upper/Lower (4-Day)',key:'upper_lower_4',note:_('split_4day_popular')};}
     if(d===3){if(e==='novice'||r==='low')return{name:'Full Body (3-Day)',key:'fullbody_3',note:_('split_max_frequency')};return{name:'Full Body (3-Day)',key:'fullbody_3',note:_('split_full_body')};}
     if(d===2)return{name:'Upper/Lower (2-Day)',key:'upper_lower_2',note:_('split_2day')};
     return{name:'Full Body (2-Day)',key:'upper_lower_2',note:_('split_start_simple')};
@@ -4380,6 +4409,16 @@ select option{background:var(--card)}
 
   function getPrio(id){var b=document.querySelector('.prio-btn.active[data-m="'+id+'"]');return b?b.dataset.v:'focus';}
 
+  // Priority/focus selection is for intermediate+ lifters (1+ years).
+  // Novices get a balanced program without forced priority choices.
+  function applyPrioVisibility(){
+    var ta=document.getElementById('ta').value;
+    var sec=document.getElementById('musclePrioSection');
+    if(sec)sec.style.display=ta==='novice'?'none':'block';
+  }
+  applyPrioVisibility();
+  document.getElementById('ta').addEventListener('change',applyPrioVisibility);
+
   // Split toggle
   document.querySelectorAll('#splitToggle .toggle-opt').forEach(function(t){
     t.addEventListener('click',function(){
@@ -4424,11 +4463,20 @@ select option{background:var(--card)}
     var select=document.getElementById('dow');select.value=String(parsedDays);
   }
 
+  function proceedToSplit(){
+    splitKey='';
+    var vi=ls(K.VI,{}),targets2=ls(K.VT,{}),total=0;
+    MUSCLES.forEach(function(m){var x=targets2[m.id];if(x)total+=x.rec;});
+    go(2);
+    renderVolumeSplit(targets2,total,vi.ta||'intermediate',vi.goal||'hypertrophy',parseInt(vi.days||4,10));
+  }
+
   document.getElementById('onboardNext').addEventListener('click',function(){
     var err=document.getElementById('onboardErr');
+    var ta=document.getElementById('ta').value;
     var fc=MUSCLES.filter(function(m){return getPrio(m.id)==='focus'}).length;
-    if(fc===0){err.style.display='block';return;}err.style.display='none';
-    var ta=document.getElementById('ta').value,g=document.getElementById('goal').value,dd=parseInt(document.getElementById('dow').value),rf=document.getElementById('recFactor').value;
+    if(ta!=='novice'&&fc===0){err.style.display='block';return;}err.style.display='none';
+    var g=document.getElementById('goal').value,dd=parseInt(document.getElementById('dow').value),rf=document.getElementById('recFactor').value;
     var name=document.getElementById('userName').value.trim();
     var age=document.getElementById('userAge').value||'';
     var rfMap={low:0.85,moderate:1.0,high:1.1};
@@ -4448,6 +4496,7 @@ select option{background:var(--card)}
       var peri=determinePeriodization(pl,ta);
       if(peri)ss('mos_periodization',peri);
     } else {localStorage.removeItem(K.PL);localStorage.removeItem('mos_periodization');}
+    if(ta==='novice'){proceedToSplit();return;}
     document.getElementById('prioPanel').classList.add('show');
     renderPrioPanel();
   });
@@ -4831,13 +4880,13 @@ select option{background:var(--card)}
     var cap=document.getElementById('prioCap');
     cap.style.display=Object.keys(sel).length>=2?'block':'none';
     cap.textContent=_('prio_cap');
-    document.getElementById('prioContBtn').disabled=Object.keys(sel).length===0;
+    document.getElementById('prioContBtn').disabled=false;
     document.getElementById('prioNeed').style.display='none';
   }
   document.getElementById('prioBackBtn').addEventListener('click',function(){document.getElementById('prioPanel').classList.remove('show');});
   document.getElementById('prioContBtn').addEventListener('click',function(){
     var pr=getPriority();
-    if(!pr.muscles.length){document.getElementById('prioNeed').style.display='block';return;}evLog('onboard_done',{muscles:pr.muscles.length});
+    evLog('onboard_done',{muscles:pr.muscles.length});
     var targets=ls(K.VT,{}),changed=false;
     pr.muscles.forEach(function(pm){
       var t=targets[pm.m];
@@ -4845,11 +4894,7 @@ select option{background:var(--card)}
     });
     if(changed)ss(K.VT,targets);
     document.getElementById('prioPanel').classList.remove('show');
-    splitKey='';
-    var vi=ls(K.VI,{}),targets2=ls(K.VT,{}),total=0;
-    MUSCLES.forEach(function(m){var x=targets2[m.id];if(x)total+=x.rec;});
-    go(2);
-    renderVolumeSplit(targets2,total,vi.ta||'intermediate',vi.goal||'hypertrophy',parseInt(vi.days||4,10));
+    proceedToSplit();
   });
 
   window.__pmEngine={getPriority:getPriority,savePriority:savePriority,effortStyleOf:effortStyleOf,lastSessionSets:lastSessionSets,estimateRecoveryCost:estimateRecoveryCost,seededFreq:seededFreq,blendRecovery:blendRecovery,softGateActive:softGateActive,scheduledPriorityMuscles:scheduledPriorityMuscles,renderSorenessCards:renderSorenessCards,cycleLengthOf:cycleLengthOf,muscleFrequencyInSplit:muscleFrequencyInSplit,freq7Of:freq7Of,prioritySatisfaction:prioritySatisfaction,recommendSplit:recommendSplit,renderSplitConflict:renderSplitConflict,SBD_FAMILY:SBD_FAMILY,prHistoryOf:prHistoryOf,hasPrInLastDays:hasPrInLastDays,distributeVolume:distributeVolume,computeSelection:computeSelection,computeAllocation:computeAllocation,renderLiveVol:renderLiveVol,showVolReview:showVolReview,renderVolReview:renderVolReview,renderPrioPanel:renderPrioPanel,weekStartISO:weekStartISO,ls:ls,ss:ss,K:K,MUSCLES:MUSCLES,MUSCLE_NAME:MUSCLE_NAME,SPLITS:SPLITS,determineSplit:determineSplit};
@@ -5042,7 +5087,8 @@ select option{background:var(--card)}
       var card=document.createElement('div');card.className='split-card'+(rec.key===k?' rec-card':'');card.dataset.key=k;
       var plTag=s.g==='strength'?' <span style="background:rgba(33,150,243,.1);color:#2196F3;font-size:.4rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;padding:1px 4px;border-radius:3px;margin-left:4px">PL</span>':'';
       var sRest=(s.days||[]).filter(function(x){return x.restDay;}).length;
-      card.innerHTML='<div class="s-name">'+s.name+plTag+(rec.key===k?'<span class="rec-badge">✦ '+_('split_rec_badge')+'</span>':'')+(sRest?'<span class="rest-badge">'+sRest+' '+_('rest_day')+'</span>':'')+'</div><div class="s-detail">'+s.days.length+' '+_('sessions')+'</div>';
+      var sTrain=(s.days||[]).filter(function(x){return !x.restDay;}).length;
+      card.innerHTML='<div class="s-name">'+s.name+plTag+(rec.key===k?'<span class="rec-badge">✦ '+_('split_rec_badge')+'</span>':'')+(sRest?'<span class="rest-badge">'+sRest+' '+_('rest_day')+'</span>':'')+'</div><div class="s-detail">'+sTrain+' '+_('sessions')+'</div>';
       card.addEventListener('click',function(){
         grid.querySelectorAll('.split-card').forEach(function(c){c.classList.remove('selected')});
         this.classList.add('selected');splitKey=k;
@@ -5403,6 +5449,12 @@ select option{background:var(--card)}
   function slotChipsHtml(en,muscle,day){
     var pf=painFlags();
     var pool=EXERCISE_POOLS[muscle]||[];
+    // Replacements must hit the same muscle region (e.g. lats not the full
+    // back) — the slot's exercise defines which region. Fall back to the
+    // full muscle pool when the region has fewer than 2 exercises.
+    var rk=regionOf(muscle,en);
+    var regionPool=pool.filter(function(n){return regionOf(muscle,n)===rk;});
+    if(regionPool.length>=2)pool=regionPool;
     var list=pool.filter(exFilterMatches);
     var saved=ls('mos_ex_choices',{});
     var top=prefTop(en);
@@ -7743,7 +7795,7 @@ select option{background:var(--card)}
     var jr=x.jr||EX_JR_OVERRIDES[n]||exJrOf(x);
     var inc=x.inc||exIncOf(x);
     var rr=x.rr||exRrOf(x);
-    var subs=x.subs||(EXERCISE_POOLS[p]||[]).filter(function(q){return q!==n;}).slice(0,2);
+    var subs=x.subs||(EXERCISE_POOLS[p]||[]).filter(function(q){return q!==n&&regionOf(p,q)===regionOf(p,n);}).slice(0,2);
     EXERCISE_META[n]={t:t,f:f,jr:jr,inc:inc,rr:rr,subs:subs,diff:diff,eq:(x.eq||[]).slice(),mp:mp,metadataSource:'inferred'};
     EXERCISE_GUIDE[n]={s:x.g.s,e:x.g.e,c:x.g.c,b:x.g.b};
     if(x.sec&&x.sec.length)SECONDARY_MAP[n]=x.sec.map(function(m,i){return[m,EX_SEC_PCT[i]||10];});
