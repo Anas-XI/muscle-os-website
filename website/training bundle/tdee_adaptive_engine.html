@@ -1254,6 +1254,81 @@ select option{background:#1A1B26;color:#FAFAF8}
     renderFoodTab();
   };
 
+  window.generateGroceryList = function(){
+    const todayLogs = foodLogStore[currentFoodDate] || [];
+    if(todayLogs.length === 0){
+      alert('No food logged today to generate a grocery list!');
+      return;
+    }
+    const summary = {};
+    todayLogs.forEach(item => {
+      const key = item.name;
+      if(!summary[key]) summary[key] = 0;
+      summary[key] += item.amount;
+    });
+    let txt = '🛒 ANABOLIC GROCERY SHOPPING LIST (' + currentFoodDate + '):\n\n';
+    Object.keys(summary).forEach(name => {
+      const totalGrams = summary[name];
+      const packQty = totalGrams >= 1000 ? (totalGrams/1000).toFixed(2) + ' kg' : Math.round(totalGrams) + 'g';
+      txt += '• ' + name + ': ' + packQty + '\n';
+    });
+    navigator.clipboard.writeText(txt).then(() => {
+      alert('🛒 Grocery list copied to clipboard!\n\n' + txt);
+    }).catch(() => {
+      prompt('Your Grocery List:', txt);
+    });
+  };
+
+  window.calcBatchMealPrep = function(){
+    const rawW = parseFloat(prompt('Total Raw Batch Weight (g):', '1500'));
+    if(!rawW || isNaN(rawW)) return;
+    const cookedW = parseFloat(prompt('Total Cooked Batch Weight (g):', '1120'));
+    if(!cookedW || isNaN(cookedW)) return;
+    const targetP = parseFloat(prompt('Target Protein Per Meal Container (g):', '40'));
+    if(!targetP || isNaN(targetP)) return;
+    const rawP100 = parseFloat(prompt('Raw Protein Per 100g (g, e.g. Chicken = 22.5):', '22.5')) || 22.5;
+
+    const shrinkage = ((1 - (cookedW / rawW)) * 100).toFixed(1);
+    const totalBatchProtein = (rawW / 100) * rawP100;
+    const portionCookedW = Math.round(cookedW * (targetP / totalBatchProtein));
+    const numMeals = (totalBatchProtein / targetP).toFixed(1);
+
+    alert(
+      '⚖️ BATCH MEAL PREP PORTION SPLITTER:\n\n' +
+      '• Water Shrinkage Loss: ' + shrinkage + '%\n' +
+      '• Total Batch Protein: ' + Math.round(totalBatchProtein) + 'g\n' +
+      '• Number of ' + targetP + 'g Protein Meals: ' + numMeals + ' containers\n\n' +
+      '👉 Portion EXACTLY ' + portionCookedW + 'g of Cooked Food into each container!'
+    );
+  };
+
+  window.calcGlycogenCarbSizer = function(){
+    const bw = (store.profile && store.profile.weight) ? store.profile.weight : 80;
+    const type = prompt('Select Session Intensity:\n1 = Heavy Legs / Back (High Demand)\n2 = Chest / Shoulders / Arms (Moderate Demand)\n3 = Rest Day / Light Cardio', '1');
+    let mult = 1.0;
+    if(type === '2') mult = 0.6;
+    if(type === '3') mult = 0.3;
+
+    const preCarbs = Math.round(bw * mult);
+    const intraCarbs = mult >= 0.6 ? Math.round(bw * 0.4) : 0;
+    const waterMl = intraCarbs * 16.6;
+
+    alert(
+      '⛽ SCIENTIFIC GLYCOGEN & INTRA-WORKOUT CARBS:\n\n' +
+      '• Pre-Workout Carbs (1-2h before): ' + preCarbs + 'g Fast Carbs\n' +
+      (intraCarbs > 0 ? '• Intra-Workout Drink (6% Isotonic Solution):\n  - ' + intraCarbs + 'g Fast Carbs (Cluster Dextrin/Maltodextrin)\n  - ' + Math.round(waterMl) + 'ml Water\n  - 300mg Sodium\n' : '• Intra-Workout: Water + Electrolytes only\n') +
+      '• Post-Workout Recovery: 3.0g Leucine + ' + preCarbs + 'g Carbs'
+    );
+  };
+
+  window.toggleSupp = function(id){
+    const key = 'mos_supp_' + currentFoodDate + '_' + id;
+    const val = localStorage.getItem(key) === '1' ? '0' : '1';
+    localStorage.setItem(key, val);
+    playSoundEffect('click');
+    renderFoodTab();
+  };
+
   window.renderFoodTab = async function(){
     const tabEl = document.getElementById('dash-food');
     if(!tabEl) return;
@@ -1338,9 +1413,12 @@ select option{background:#1A1B26;color:#FAFAF8}
         <div class="food-autocomplete" id="foodAutocomplete"></div>
       </div>
 
-      <div style="display:flex;gap:8px;margin-top:8px">
-        <button class="btn-secondary" onclick="quickAddMacros()" style="flex:1;padding:7px;font-size:.68rem">⚡ Quick Add Macros</button>
-        <button class="btn-secondary" onclick="copyYesterdayLogs()" style="flex:1;padding:7px;font-size:.68rem">📋 Copy Yesterday</button>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px">
+        <button class="btn-secondary" onclick="quickAddMacros()" style="padding:7px;font-size:.65rem">⚡ Quick Add Macros</button>
+        <button class="btn-secondary" onclick="copyYesterdayLogs()" style="padding:7px;font-size:.65rem">📋 Copy Yesterday</button>
+        <button class="btn-secondary" onclick="generateGroceryList()" style="padding:7px;font-size:.65rem">🛒 Grocery List</button>
+        <button class="btn-secondary" onclick="calcBatchMealPrep()" style="padding:7px;font-size:.65rem">⚖️ Meal Prep Splitter</button>
+        <button class="btn-secondary" onclick="calcGlycogenCarbSizer()" style="grid-column:span 2;padding:7px;font-size:.65rem">⛽ Session Glycogen &amp; Carb Sizer</button>
       </div>
       
       <div class="food-add-modal" id="foodAddModal">
@@ -1399,13 +1477,31 @@ select option{background:#1A1B26;color:#FAFAF8}
         </div>
       </div>
 
-      <!-- Smart Meal Completion Recommendations Engine -->
-      <div class="rationale" style="margin-top:12px;margin-bottom:12px">
-        <div class="r-title">🧠 Smart Coaching &amp; Peri-Workout Nutrient Timing</div>
-        <div>&bull; <strong>Pre-Workout Window (1-2h Before):</strong> Consume ~${Math.round(targetC*0.35)}g fast-digesting Carbs + ${Math.round(targetP*0.25)}g Protein with 3.0g Leucine for maximum pump and MPS.</div>
-        ${totP < targetP * 0.4 ? '<div>&bull; <strong>Protein Gap Detected:</strong> Add 150g Grilled Chicken Breast or 200g Greek Yogurt to support muscle recovery.</div>' : ''}
-        ${totMag < 100 ? '<div>&bull; <strong>Magnesium Alert:</strong> Add 100g Fresh Spinach or 30g Almonds for optimal muscle contraction and sleep quality.</div>' : ''}
-        ${totC < targetC * 0.3 ? '<div>&bull; <strong>Glycogen Fuel Recommendation:</strong> Add 150g Sweet Potato or 1 Cup Rice for sustained pre-workout energy.</div>' : ''}
+      <!-- Pharmacokinetic Supplement Stack Checklist -->
+      <div class="section-header" style="margin-top:14px">Pharmacokinetic Supplement Stack</div>
+      <div style="background:rgba(20,21,26,.5);padding:10px;border-radius:10px;border:1px solid rgba(250,250,248,.08);margin:8px 0;font-size:.7rem">
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer">
+            <input type="checkbox" ${localStorage.getItem('mos_supp_'+currentFoodDate+'_creatine')==='1'?'checked':''} onchange="toggleSupp('creatine')" style="width:auto">
+            <span>⚡ <strong>Creatine Monohydrate (5g)</strong> — Post-workout with Carbs</span>
+          </label>
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer">
+            <input type="checkbox" ${localStorage.getItem('mos_supp_'+currentFoodDate+'_caffeine')==='1'?'checked':''} onchange="toggleSupp('caffeine')" style="width:auto">
+            <span>☕ <strong>Caffeine (200-400mg)</strong> — 45m Pre-workout ($t_{\\max}$ Peak)</span>
+          </label>
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer">
+            <input type="checkbox" ${localStorage.getItem('mos_supp_'+currentFoodDate+'_omega3')==='1'?'checked':''} onchange="toggleSupp('omega3')" style="width:auto">
+            <span>🐟 <strong>Omega-3 Fish Oil (2g)</strong> — With Fatty Meals</span>
+          </label>
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer">
+            <input type="checkbox" ${localStorage.getItem('mos_supp_'+currentFoodDate+'_vitd')==='1'?'checked':''} onchange="toggleSupp('vitd')" style="width:auto">
+            <span>☀️ <strong>Vitamin D3 + K2 (5000 IU)</strong> — Morning with Fats</span>
+          </label>
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer">
+            <input type="checkbox" ${localStorage.getItem('mos_supp_'+currentFoodDate+'_mag')==='1'?'checked':''} onchange="toggleSupp('mag')" style="width:auto">
+            <span>🌙 <strong>Magnesium Glycinate (400mg)</strong> — 45m Before Sleep</span>
+          </label>
+        </div>
       </div>
       
       <div class="section-header" style="margin-top:16px">Logged Food</div>
