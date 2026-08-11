@@ -306,8 +306,8 @@ TAGS: tdee_subscribe_top, tdee_subscribe_bottom, footer_wa
 
 | Package | Price | 3-Month | Features |
 |---------|-------|---------|----------|
-| Standard | 600 EGP/mo | 1500 EGP | Weekly check-ins, real-time adjustments, basic nutrition, DM, 50% off tools |
-| Premium | 1000 EGP/mo | 2500 EGP | Standard + custom nutrition/carb cycling, priority response, video calls, early Muscle OS access |
+| Standard | 600 EGP/mo | 1500 EGP | Weekly check-ins, real-time adjustments, basic nutrition, DM, 66.6% off tools |
+| Premium | 1000 EGP/mo | 2500 EGP | Standard + custom nutrition/carb cycling, priority response, video calls, early Muscle OS access, all tools free |
 
 ### 5.3 Auth Flow
 
@@ -936,4 +936,4 @@ To activate:
 2. Remove `style="display:none;"` from the `<section id="reviews">` tag.
 3. Replace the 3 placeholder cards: quote, real name (or first name), goal + duration.
 
-Do not ship fabricated testimonials — the section stays hidden until the quotes are real.
+Do not ship fabricated testimonials ï¿½ the section stays hidden until the quotes are real.
