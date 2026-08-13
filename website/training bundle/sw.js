@@ -1,5 +1,5 @@
 // Muscle OS Tools & Training App — service worker (Network-first for HTML/JSON, Cache-first for assets)
-const CACHE_NAME = 'mos-tools-v4.0.0';
+const CACHE_NAME = 'mos-tools-v4.0.1';
 const ASSETS = [
   './training_tool.html',
   './tdee_adaptive_engine.html',

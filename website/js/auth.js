@@ -97,20 +97,21 @@
       if (data && data.valid) {
         // We have a valid session. Check trial & verified codes.
         var hasActiveSub = data.subscriptions && data.subscriptions.length > 0; // simplistic check
+        var isProTool = !window.location.pathname.includes('/books/');
 
-        if (data.trialDaysRemaining > 0) {
-          // In trial
+        if (isProTool && data.trialDaysRemaining > 0) {
+          // In trial and on a pro tool page
           document.getElementById('mosAuthOverlay').style.display = 'none';
           var bannerEl = document.getElementById('mosTrialBanner');
           document.getElementById('mosTrialDays').innerText = data.trialDaysRemaining;
           bannerEl.style.display = 'flex';
         } else if (hasActiveSub) {
-          // Trial expired, but has sub
+          // Has sub (either trial expired, or on a book page with a sub)
           document.getElementById('mosAuthOverlay').style.display = 'none';
         } else {
-          // Trial expired, no sub -> Show paywall
-          document.getElementById('mosAuthTitle').innerText = 'Trial Expired';
-          document.getElementById('mosAuthDesc').innerText = 'Your 14-day free trial has expired. Please enter an access code to continue.';
+          // Trial expired or not applicable, and no sub -> Show paywall
+          document.getElementById('mosAuthTitle').innerText = isProTool ? 'Trial Expired' : 'Access Restricted';
+          document.getElementById('mosAuthDesc').innerText = isProTool ? 'Your 14-day free trial has expired. Please enter an access code to continue.' : 'You need a verified access code to view this content.';
           document.getElementById('mosAuthStep1').style.display = 'none';
           document.getElementById('mosAuthStep2').style.display = 'block';
           document.getElementById('mosAuthOverlay').style.display = 'flex';
