@@ -910,29 +910,35 @@ select option{background:var(--card)}
   </div>
 
   <div class="stepper no-print" id="stepper">
-    <div class="step active" data-step="1"><span class="num">1</span><span data-i18n="welcome">Setup</span></div>
-    <div class="step" data-step="2"><span class="num">2</span><span data-i18n="vol_targets">Split</span></div>
-    <div class="step" data-step="3"><span class="num">3</span><span data-i18n="generate">Program</span></div>
-    <div class="step" data-step="35"><span class="num">🔄</span><span>Meso</span></div>
-    <div class="step" data-step="4"><span class="num">4</span><span data-i18n="today_train">Train</span></div>
-    <div class="step" data-step="5"><span class="num">5</span><span data-i18n="history">History</span></div>
+    <!-- Active Program Steps -->
+    <div class="step program-step" data-step="0" style="display:none"><span class="num">🏠</span><span data-i18n="dashboard">Dashboard</span></div>
+    <div class="step program-step" data-step="3" style="display:none"><span class="num">📋</span><span data-i18n="generate">Program</span></div>
+    <div class="step program-step" data-step="35" style="display:none"><span class="num">🔄</span><span>Meso</span></div>
+    <div class="step program-step" data-step="4" style="display:none"><span class="num">🏋️</span><span data-i18n="today_train">Train</span></div>
+    <div class="step program-step" data-step="5" style="display:none"><span class="num">📈</span><span data-i18n="history">History</span></div>
+
+    <!-- Intake Steps -->
+    <div class="step intake-step active" data-step="1"><span class="num">1</span><span data-i18n="welcome">Setup</span></div>
+    <div class="step intake-step" data-step="2"><span class="num">2</span><span data-i18n="vol_targets">Split &amp; Exercises</span></div>
   </div>
 
-  <!-- Screen 1: Onboarding -->
-  <div class="step-content active" id="step1">
-    <!-- Welcome Back Card for returning athletes -->
-    <div class="training-welcome-card" id="welcomeTrainingCard" style="display:none">
+  <!-- Screen 0: Dashboard (Welcome Back) -->
+  <div class="step-content" id="step0">
+    <div class="training-welcome-card" id="welcomeTrainingCard">
       <div class="tw-badge" id="twBadge"><span class="pulse-dot"></span> HYPERKINETIC MATRIX ACTIVE // SYNCED</div>
       <div class="tw-title" id="twTitleText">👑 WELCOME BACK, <span id="twUserName">ATHLETE</span>!</div>
       <div class="tw-sub">Your periodized mesocycle, muscle volume landmarks (MEV/MAV/MRV), and readiness profiles are active.</div>
       <div class="tw-grid" id="twGrid"></div>
       <div class="tw-actions">
         <button class="btn-primary" id="twResumeBtn">🚀 Launch Workout Session</button>
-        <button class="btn-secondary" onclick="go(2)" style="background:rgba(244,201,59,.12);color:#F4C93B;border:1px solid rgba(244,201,59,.3)">🏋️ View Split &amp; Volume</button>
-        <button class="btn-secondary" id="twEditBtn">⚙️ Edit Profile &amp; Program</button>
+        <button class="btn-secondary" onclick="go(3)" style="background:rgba(244,201,59,.12);color:#F4C93B;border:1px solid rgba(244,201,59,.3)">📋 View Program</button>
+        <button class="btn-secondary" id="twEditBtn">⚙️ Modify Program Parameters</button>
       </div>
     </div>
+  </div>
 
+  <!-- Screen 1: Onboarding -->
+  <div class="step-content active" id="step1">
     <div class="card" id="onboardingFormCard">
       <div class="section-header"><span data-i18n="welcome">Welcome</span> <span class="section-sub" data-i18n="welcome_sub">— set up your profile</span></div>
 
@@ -995,8 +1001,8 @@ select option{background:var(--card)}
         <div id="cyclePhaseInfo" style="font-size:.55rem;color:rgba(250,250,248,.4);margin-top:4px;line-height:1.4"></div>
       </div>
       <div id="musclePrioSection">
-        <div class="section-header" data-i18n="muscle_priorities">Muscle Priorities</div>
-        <p style="font-size:.55rem;color:rgba(250,250,248,.2);margin-bottom:6px;line-height:1.2"><span data-i18n="muscle_priorities_sub">Select which muscles to <strong style="color:#F4C93B">focus</strong> (full volume) vs <strong style="color:rgba(250,250,248,.35)">maintain</strong> (~half volume).</span></p>
+        <div class="section-header"><span data-i18n="muscle_priorities">Muscle Priorities</span> <span style="font-size:.55rem;color:rgba(250,250,248,.3);font-weight:400">(Optional)</span></div>
+        <p style="font-size:.55rem;color:rgba(250,250,248,.2);margin-bottom:6px;line-height:1.2">Select which muscles to <strong style="color:#F4C93B">focus</strong> (full volume) vs <strong style="color:rgba(250,250,248,.35)">maintain</strong> (~half volume). <br/><em>If you skip this, all muscles will receive balanced (standard) volume.</em></p>
         <div class="priority-grid" id="priorityGrid"></div>
       </div>
 
@@ -1012,8 +1018,8 @@ select option{background:var(--card)}
 
       <!-- Powerlifting extras (shown when goal=strength) -->
       <div class="strength-extras" id="strengthExtras">
-        <div class="section-header" data-i18n="pl_profile">Powerlifting Profile</div>
-        <p style="font-size:.55rem;color:rgba(250,250,248,.2);margin-bottom:6px;line-height:1.2" data-i18n="pl_sub">We'll design a periodized program based on your current maxes, weak points, and fatigue profile.</p>
+        <div class="section-header"><span data-i18n="pl_profile">Powerlifting Profile</span> <span style="font-size:.55rem;color:rgba(250,250,248,.3);font-weight:400">(Optional)</span></div>
+        <p style="font-size:.55rem;color:rgba(250,250,248,.2);margin-bottom:6px;line-height:1.2" data-i18n="pl_sub">We'll design a periodized program based on your current maxes, weak points, and fatigue profile. Leave blank if unsure.</p>
         <div class="rm-row">
           <div class="rm-input"><label data-i18n="squat_rm">Squat 1RM (kg)</label><input type="number" id="plSquat" step="0.5" placeholder="e.g. 140"></div>
           <div class="rm-input"><label data-i18n="bench_rm">Bench 1RM (kg)</label><input type="number" id="plBench" step="0.5" placeholder="e.g. 100"></div>
@@ -1054,6 +1060,11 @@ select option{background:var(--card)}
   <div class="step-content" id="step2">
     <div class="card">
       <div class="section-header" data-i18n="vol_targets">Volume Targets</div>
+      <p style="font-size:.55rem;color:rgba(250,250,248,.4);margin-bottom:10px;line-height:1.4;background:rgba(244,201,59,.08);border-left:2px solid #F4C93B;padding:6px 8px;">
+        💡 <strong>Coach's Tip:</strong> This is your weekly set volume per muscle (MEV to MRV). 
+        If you click a bar to modify it, remember that increasing volume on one muscle adds systemic fatigue. 
+        Consider lowering volume on another muscle to balance your recovery!
+      </p>
       <div id="volSummary" class="recap-box"></div>
       <div id="volBars"></div>
 
@@ -1074,7 +1085,10 @@ select option{background:var(--card)}
       <div id="splitErr" style="display:none;color:#F4C93B;font-size:.65rem;text-align:center;margin-top:6px" data-i18n="focus_err">Select a split to continue.</div>
       <div class="ex-sel-panel" id="exSelPanel">
         <div class="section-header" data-i18n="exercises">Choose Your Exercises</div>
-        <p class="ex-sel-info">Each slot draws from a <strong>full muscle-group pool</strong>. Pick your favorite — the program will generate with your selections. (BB=Barbell, DB=Dumbbell, MAC=Machine, CAB=Cable, BW=Bodyweight)</p>
+        <p class="ex-sel-info">
+          Each slot draws from a <strong>full muscle-group pool</strong> based on your split.<br/>
+          💡 <strong>Tip:</strong> You can click the 🔄 swap icon on any exercise to change it. Ensure you select exercises that fit your available equipment! (BB=Barbell, DB=Dumbbell, MAC=Machine, CAB=Cable, BW=Bodyweight)
+        </p>
         <div style="display:flex;justify-content:flex-end;margin-bottom:4px;gap:4px">
           <button class="btn-secondary" id="densityBtn" style="font-size:.5rem;padding:3px 10px" data-i18n="density_on">Compact</button>
           <button class="btn-secondary" id="adjustExBtn" style="font-size:.5rem;padding:3px 10px" data-i18n="adjust">Adjust ▾</button>
@@ -4506,8 +4520,17 @@ select option{background:var(--card)}
 
   var step=1,dayIdx=0,splitKey='upper_lower_4',quizMode=false,quizQ=0,quizA={};
   var makeupDays={},missedSkip=false,lightDays={},lightProceed={},monoDismissed={};
+  function setAppMode(mode) {
+    if(mode === 'program') {
+      document.querySelectorAll('.program-step').forEach(function(s){s.style.display=''});
+      document.querySelectorAll('.intake-step').forEach(function(s){s.style.display='none'});
+    } else {
+      document.querySelectorAll('.program-step').forEach(function(s){s.style.display='none'});
+      document.querySelectorAll('.intake-step').forEach(function(s){s.style.display=''});
+    }
+  }
   function go(n){step=n;evLog('screen_'+n);document.querySelectorAll('.step-content').forEach(function(s){s.classList.remove('active')});var el=document.getElementById('step'+n);if(el)el.classList.add('active');document.querySelectorAll('.step').forEach(function(s){var sn=parseInt(s.dataset.step);s.classList.remove('active','done');if(sn===n)s.classList.add('active');else if(sn<n)s.classList.add('done');});window.scrollTo(0,0);}
-  document.querySelectorAll('.step').forEach(function(s){s.addEventListener('click',function(){var n=parseInt(this.dataset.step);if(n<=step)go(n);})});
+  document.querySelectorAll('.step').forEach(function(s){s.addEventListener('click',function(){var n=parseInt(this.dataset.step);if(n<=step && this.style.display !== 'none')go(n);})});
 
   // ═══════════════════════════════════════
   //  SCREEN 1: ONBOARDING
@@ -4675,7 +4698,7 @@ select option{background:var(--card)}
     var err=document.getElementById('onboardErr');
     var ta=document.getElementById('ta').value;
     var fc=MUSCLES.filter(function(m){return getPrio(m.id)==='focus'}).length;
-    if(ta!=='novice'&&fc===0){err.style.display='block';return;}err.style.display='none';
+    err.style.display='none';
     var g=document.getElementById('goal').value,dd=parseInt(document.getElementById('dow').value),rf=document.getElementById('recFactor').value;
     var name=document.getElementById('userName').value.trim();
     var age=document.getElementById('userAge').value||'';
@@ -7557,11 +7580,11 @@ select option{background:var(--card)}
     if(vi.rec){var rEl=document.getElementById('recFactor');if(rEl)rEl.value=vi.rec;}
     // Enhanced Welcome Back Card for existing profile / program
     if(prog || sp || vi.name){
+      setAppMode('program');
+      go(0);
       var welcomeCard = document.getElementById('welcomeTrainingCard');
-      var formCard = document.getElementById('onboardingFormCard');
-      if(welcomeCard && formCard){
+      if(welcomeCard){
         var name = vi.name || 'Athlete';
-        var twUserName = document.getElementById('twUserName');
         var greetingTitle = document.getElementById('twTitleText');
         var hour = new Date().getHours();
         let greeting = '👑 WELCOME BACK';
@@ -7606,8 +7629,6 @@ select option{background:var(--card)}
             </div>
           `;
         }
-        welcomeCard.style.display = 'block';
-        formCard.style.display = 'none';
 
         var resumeBtn = document.getElementById('twResumeBtn');
         if(resumeBtn){
@@ -7620,11 +7641,14 @@ select option{background:var(--card)}
         var editBtn = document.getElementById('twEditBtn');
         if(editBtn){
           editBtn.addEventListener('click', function(){
-            welcomeCard.style.display = 'none';
-            formCard.style.display = 'block';
+            setAppMode('intake');
+            go(1);
           });
         }
       }
+    } else {
+      setAppMode('intake');
+      go(1);
     }
     console.log('Unified Training App loaded');
     translateUI();
