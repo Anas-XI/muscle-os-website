@@ -1,5 +1,5 @@
 (function() {
-  const APP_VERSION = 'v3.1.0';
+  const APP_VERSION = 'v4.0.2';
   
   // Auto force refresh if client version is older than v3.1.0
   try {

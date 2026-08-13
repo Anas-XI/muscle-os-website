@@ -32,7 +32,7 @@ self.addEventListener('activate', (event) => {
         clients.forEach((client) => {
           client.postMessage({
             type: 'NEW_VERSION_AVAILABLE',
-            message: 'v3.1.0 is live! Enhanced Welcome Back Matrix active.',
+            message: 'v4.0.2 is live! Enhanced Welcome Back Matrix active.',
             forceReload: true
           });
         });
