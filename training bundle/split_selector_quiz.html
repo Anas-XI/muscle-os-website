@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev; frame-ancestors 'self'; base-uri 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Split Selector Quiz — Train Maxing by Coach Anas Mo'men</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 16px}
+body{font-family:Georgia,'Times New Roman',Times,serif;background:#14151A;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 16px;line-height:1.7}
 .container{width:100%;max-width:600px}
 .header{text-align:center;margin-bottom:28px}
-.header h1{font-family:'Oswald',sans-serif;font-size:2.4rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:1px;line-height:1.1}
+.header h1{font-family:Georgia,'Times New Roman',Times,serif;font-size:2.4rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:1px;line-height:1.1}
 .header p{font-size:.8rem;color:rgba(250,250,248,.5);margin-top:4px;font-weight:300;letter-spacing:.5px}
 .card{background:#1E1E2A;border-radius:16px;padding:24px 22px}
-.card h2{font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:600;color:#F4C93B;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
-.card .q-num{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:rgba(250,250,248,.3);margin-bottom:3px}
+.card h2{font-family:Georgia,'Times New Roman',Times,serif;font-size:1.1rem;font-weight:600;color:#F4C93B;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.card .q-num{font-family:'Courier New',Courier,monospace;font-size:.7rem;color:rgba(250,250,248,.3);margin-bottom:3px}
 .card .q-text{font-size:.95rem;font-weight:500;color:#FAFAF8;margin-bottom:16px;line-height:1.4}
 .options{display:flex;flex-direction:column;gap:8px}
 .option{display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(20,21,26,.4);border:1.5px solid rgba(250,250,248,.08);border-radius:8px;cursor:pointer;transition:all .2s;font-size:.82rem;color:#FAFAF8}
 .option:hover{border-color:rgba(250,250,248,.2);background:rgba(20,21,26,.6)}
 .option.selected{border-color:#F4C93B;background:rgba(244,201,59,.08)}
 .option input[type="radio"]{accent-color:#F4C93B;width:auto;margin:0}
-.btn-next{width:100%;margin-top:16px;padding:12px 0;background:#F4C93B;color:#14151A;border:none;border-radius:10px;font-family:'Oswald',sans-serif;font-size:1rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;transition:opacity .2s,transform .15s}
+.btn-next{width:100%;margin-top:16px;padding:12px 0;background:#F4C93B;color:#14151A;border:none;border-radius:10px;font-family:Georgia,'Times New Roman',Times,serif;font-size:1rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;transition:opacity .2s,transform .15s}
 .btn-next:disabled{opacity:.3;cursor:not-allowed}
 .btn-next:hover:not(:disabled){opacity:.9}
 .btn-next:active:not(:disabled){transform:scale(.98)}
@@ -34,19 +35,48 @@ body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:
 .results{display:none;margin-top:22px;animation:fadeSlideIn .45s ease-out}
 @keyframes fadeSlideIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .results-card{background:#1E1E2A;border-radius:16px;border-top:3px solid #F4C93B;padding:24px 22px}
-.rec-badge{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:rgba(250,250,248,.4);text-transform:uppercase;letter-spacing:1px;text-align:center;margin-bottom:4px}
-.rec-title{font-family:'Oswald',sans-serif;font-size:1.8rem;font-weight:700;color:#F4C93B;text-align:center;margin-bottom:6px;letter-spacing:.5px}
+.rec-badge{font-family:'Courier New',Courier,monospace;font-size:.65rem;color:rgba(250,250,248,.4);text-transform:uppercase;letter-spacing:1px;text-align:center;margin-bottom:4px}
+.rec-title{font-family:Georgia,'Times New Roman',Times,serif;font-size:1.8rem;font-weight:700;color:#F4C93B;text-align:center;margin-bottom:6px;letter-spacing:.5px}
 .rec-desc{font-size:.82rem;line-height:1.5;color:rgba(250,250,248,.6);text-align:center;margin-bottom:16px}
 .rec-detail{background:rgba(20,21,26,.4);border-radius:8px;padding:12px 14px;margin-bottom:10px}
-.rec-detail h3{font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:600;color:#F4C93B;margin-bottom:4px;text-transform:uppercase;letter-spacing:.3px}
+.rec-detail h3{font-family:Georgia,'Times New Roman',Times,serif;font-size:.85rem;font-weight:600;color:#F4C93B;margin-bottom:4px;text-transform:uppercase;letter-spacing:.3px}
 .rec-detail p{font-size:.75rem;line-height:1.5;color:rgba(250,250,248,.55)}
 .rec-detail a{color:#F4C93B;text-decoration:none;font-weight:500}
 .rec-detail a:hover{text-decoration:underline}
-.footer{text-align:center;margin-top:24px;font-size:.68rem;color:rgba(250,250,248,.25);font-weight:300}
-.footer a{color:#F4C93B;text-decoration:none;font-weight:500}
-.footer a:hover{text-decoration:underline}
-.btn-restart{display:block;margin:14px auto 0;padding:8px 20px;background:transparent;border:1.5px solid rgba(250,250,248,.1);border-radius:8px;color:rgba(250,250,248,.4);font-family:'Inter',sans-serif;font-size:.75rem;cursor:pointer;transition:all .2s}
+.mos-nav{position:sticky;top:0;z-index:999;background:rgba(20,21,26,.95);backdrop-filter:blur(8px);border-bottom:1px solid #2C2E37;font-family:Georgia,'Times New Roman',Times,serif}
+.mos-nav-inner{max-width:1180px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
+.mos-brand{font-family:Georgia,'Times New Roman',Times,serif;font-weight:700;font-size:15px;letter-spacing:.5px;text-transform:uppercase;color:#fff;text-decoration:none}
+.mos-brand span{color:#F4C93B}
+.mos-nav-links{display:flex;gap:20px;font-size:11px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
+.mos-nav-links a{color:#C7C9D0;text-decoration:none;transition:color .2s}
+.mos-nav-links a:hover{color:#F4C93B}
+@media(max-width:600px){.mos-nav-links{gap:10px;font-size:9px}.mos-nav-inner{padding:8px 16px}.mos-brand{font-size:12px}}
+@media print{.mos-nav{display:none!important}.mos-footer{display:none!important}}
+.mos-footer{padding:20px 24px;background:#14151A;border-top:1px solid #2C2E37;font-family:Georgia,'Times New Roman',Times,serif;text-align:center}
+.mos-footer-inner{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
+.mos-fbrand{font-family:Georgia,'Times New Roman',Times,serif;font-weight:700;font-size:13px;letter-spacing:.5px;text-transform:uppercase;color:#fff}
+.mos-fbrand span{color:#F4C93B}
+.mos-fnav a{color:rgba(250,250,248,.5);text-decoration:none;margin:0 8px;font-size:11px;font-weight:500}
+.mos-fnav a:hover{color:#F4C93B}
+.mos-fsocial a{color:#F4C93B;text-decoration:none;margin:0 8px;font-size:11px}
+.mos-fcopy{font-size:10px;color:rgba(250,250,248,.3);margin-top:6px}
+.btn-restart{display:block;margin:14px auto 0;padding:8px 20px;background:transparent;border:1.5px solid rgba(250,250,248,.1);border-radius:8px;color:rgba(250,250,248,.4);font-family:Georgia,'Times New Roman',Times,serif;font-size:.75rem;cursor:pointer;transition:all .2s}
 .btn-restart:hover{border-color:rgba(250,250,248,.2);color:#FAFAF8}
+.concept-box{background:rgba(244,201,59,.08);border-left:3px solid #F4C93B;border-radius:8px;padding:16px 20px;margin-bottom:20px;font-family:Georgia,'Times New Roman',Times,serif;font-size:.85rem;line-height:1.7;color:rgba(250,250,248,.85)}
+.concept-box strong{color:#F4C93B}
+.concept-box .book-ref{display:block;margin-top:8px;font-size:.75rem;color:rgba(250,250,248,.5);font-style:italic;border-top:1px solid rgba(244,201,59,.15);padding-top:8px}
+.concept-box .book-ref a{color:#F4C93B;font-weight:600;text-decoration:none}
+.upsell-box{background:#1E1E2A;border:1px solid rgba(244,201,59,.3);border-radius:12px;padding:24px;margin-top:24px;text-align:center}
+.upsell-box h3{font-family:Georgia,'Times New Roman',Times,serif;font-size:1.1rem;font-weight:700;color:#F4C93B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.upsell-box p{font-family:Georgia,'Times New Roman',Times,serif;font-size:.82rem;color:rgba(250,250,248,.7);line-height:1.6;margin-bottom:16px;max-width:480px;margin-left:auto;margin-right:auto}
+.upsell-cta{display:inline-block;background:#F4C93B;color:#14151A;font-family:Georgia,'Times New Roman',Times,serif;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:12px 28px;border-radius:6px;text-decoration:none;transition:opacity .2s}
+.upsell-cta:hover{opacity:.85}
+.styled-table{width:100%;border-collapse:collapse;margin:12px 0;font-family:Georgia,'Times New Roman',Times,serif;font-size:.82rem}
+.styled-table thead{background:#F4C93B;color:#14151A}
+.styled-table th{padding:10px 12px;text-align:left;font-weight:700;text-transform:uppercase;letter-spacing:.5px;font-size:.7rem}
+.styled-table td{padding:8px 12px;border-bottom:1px solid rgba(250,250,248,.08)}
+.styled-table tbody tr:nth-child(even){background:rgba(250,250,248,.02)}
+.styled-table tbody tr:hover{background:rgba(244,201,59,.05)}
 @media(max-width:500px){
   body{padding:24px 12px}
   .header h1{font-size:2rem}
@@ -56,10 +86,15 @@ body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:
 </style>
 </head>
 <body>
+<nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a><a href="../index.html#packages">Coaching</a></div></div></nav>
 <div class="container">
   <div class="header">
     <h1>Split Selector</h1>
     <p>Find your ideal training split in 30 seconds</p>
+  </div>
+  <div class="concept-box">
+    <strong>What is a Training Split?</strong> A training split determines how you organise your workouts across the week — how often each muscle group is trained, how much volume per session, and how recovery is structured. Choosing the right split (full body, upper/lower, PPL, bro split, or powerlifting) is one of the most important programming decisions you can make.
+    <span class="book-ref">This concept is covered in depth in the <a href="../books/muscle_os_training_book.html">Training &amp; Programming Book</a> (27 chapters, 200+ references).</span>
   </div>
   <div class="card" id="quizCard">
     <div class="progress-bar" id="progressBar"></div>
@@ -73,12 +108,14 @@ body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:
       <div class="rec-detail" id="recDetail1"></div>
       <div class="rec-detail" id="recDetail2"></div>
       <div class="rec-detail" id="recDetail3"></div>
-      <div class="footer">
-        Free tool by Coach Anas Mo'men — <a href="https://wa.me/201040796017">Start your coaching journey now</a>
-      </div>
       <button class="btn-restart" id="restartBtn">&larr; Take Again</button>
     </div>
   </div>
+</div>
+<div class="upsell-box">
+  <h3>Want the full picture?</h3>
+  <p>This free calculator gives you a snapshot. The full Training &amp; Programming Book covers progressive overload, periodisation, exercise selection, fatigue management, and autoregulation across 27 chapters with 200+ scientific references.</p>
+  <a class="upsell-cta" href="../books/muscle_os_training_book.html">Get the Full Book — 500 EGP &rarr;</a>
 </div>
 
 <script>
@@ -139,35 +176,35 @@ body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:
       desc: "The most balanced and time-efficient split for most lifters. Trains each muscle group 2x/week with adequate recovery.",
       detail1: "<h3>Why This Split</h3><p>With moderate frequency (2x per muscle group per week), the upper/lower split provides the best balance of stimulus and recovery for intermediate lifters training 4 days/week. Upper days target pressing, pulling, and overhead work. Lower days cover both anterior and posterior chain.</p>",
       detail2: "<h3>Typical Schedule</h3><p>Day 1: Upper (chest, back, shoulders, arms)<br>Day 2: Lower (quads, hamstrings, glutes, calves)<br>Day 3: Rest<br>Day 4: Upper (different emphasis)<br>Day 5: Lower (different emphasis)<br>Days 6-7: Rest</p>",
-      detail3: "<h3>See the Book</h3><p>Full template and coaching notes in <a href='muscle_os_training_book.html#ch14'>Chapter 14: Upper/Lower Split Templates</a>.</p>"
+      detail3: "<h3>See the Book</h3><p>Full template and coaching notes in <a href='../books/muscle_os_training_book.html#ch14'>Chapter 14: Upper/Lower Split Templates</a>.</p>"
     },
     ppl: {
       title: "Push / Pull / Legs",
       desc: "Great for lifters with 5-6 days available. Each session focuses on related movement patterns for excellent recovery between sessions.",
       detail1: "<h3>Why This Split</h3><p>PPL organises training by movement pattern rather than body part, which means each session is synergistic — all pushing muscles work together, then all pulling muscles. This minimises pre-exhaustion conflicts and maximises recovery.</p>",
       detail2: "<h3>Typical Schedule</h3><p>Day 1: Push (chest, front/side delts, triceps)<br>Day 2: Pull (back, rear delts, biceps, forearms)<br>Day 3: Legs (quads, hamstrings, glutes, calves)<br>Day 4: Rest<br>Days 5-7: Repeat (or add rest day if needed)</p>",
-      detail3: "<h3>See the Book</h3><p>Full template and coaching notes in <a href='muscle_os_training_book.html#ch15'>Chapter 15: Push/Pull/Legs Split Templates</a>.</p>"
+      detail3: "<h3>See the Book</h3><p>Full template and coaching notes in <a href='../books/muscle_os_training_book.html#ch15'>Chapter 15: Push/Pull/Legs Split Templates</a>.</p>"
     },
     fullbody: {
       title: "Full-Body Split",
       desc: "Best for novices or those with only 2-3 days available. Maximises frequency and neural adaptation.",
       detail1: "<h3>Why This Split</h3><p>Full-body training maximises per-muscle frequency (3x/week or more), which is ideal for novices learning movement patterns and intermediates who recover quickly. Each session stimulates every major muscle group, keeping MPS elevated throughout the week.</p>",
       detail2: "<h3>Typical Schedule</h3><p>Day 1: Full Body A (squat focus)<br>Day 2: Rest<br>Day 3: Full Body B (bench focus)<br>Day 4: Rest<br>Day 5: Full Body C (deadlift focus)<br>Days 6-7: Rest</p>",
-      detail3: "<h3>See the Book</h3><p>Full template and coaching notes in <a href='muscle_os_training_book.html#ch13'>Chapter 13: Full-Body Split Templates</a>.</p>"
+      detail3: "<h3>See the Book</h3><p>Full template and coaching notes in <a href='../books/muscle_os_training_book.html#ch13'>Chapter 13: Full-Body Split Templates</a>.</p>"
     },
     bro: {
       title: "Bro Split / Body-Part Split",
       desc: "Classic bodybuilding approach. Each muscle group gets its own day for maximum volume and focus.",
       detail1: "<h3>Why This Split</h3><p>The bro split delivers high volume per muscle group per session, making it ideal for advanced bodybuilders who need to exhaust a muscle thoroughly. Each session is 45-75 minutes focused entirely on one or two related groups.</p>",
       detail2: "<h3>Typical Schedule</h3><p>Day 1: Chest + Front/Side Delts<br>Day 2: Back + Rear Delts<br>Day 3: Rest or Arms<br>Day 4: Legs (quad-focused)<br>Day 5: Shoulders + Arms<br>Days 6-7: Rest</p>",
-      detail3: "<h3>See the Book</h3><p>Full template and coaching notes in <a href='muscle_os_training_book.html#ch16'>Chapter 16: Bro Split / Body-Part Split Templates</a>.</p>"
+      detail3: "<h3>See the Book</h3><p>Full template and coaching notes in <a href='../books/muscle_os_training_book.html#ch16'>Chapter 16: Bro Split / Body-Part Split Templates</a>.</p>"
     },
     powerlifting: {
       title: "Powerlifting-Specific Split",
       desc: "Designed around the three competition lifts. Ideal for strength-focused lifters.",
       detail1: "<h3>Why This Split</h3><p>This split prioritises the squat, bench press, and deadlift with dedicated technique work, heavy sets, and accessory exercises selected to strengthen weak points in each lift. Frequency per lift is 2-3x/week.</p>",
       detail2: "<h3>Typical Schedule</h3><p>Day 1: Squat focus + posterior chain accessories<br>Day 2: Bench focus + triceps/shoulders<br>Day 3: Deadlift focus + back accessories<br>Day 4: Rest or light bench + squat technique<br>Days 5-7: Rest</p>",
-      detail3: "<h3>See the Book</h3><p>Full template and coaching notes in <a href='muscle_os_training_book.html#ch17'>Chapter 17: Powerlifting-Specific Programming Templates</a>.</p>"
+      detail3: "<h3>See the Book</h3><p>Full template and coaching notes in <a href='../books/muscle_os_training_book.html#ch17'>Chapter 17: Powerlifting-Specific Programming Templates</a>.</p>"
     }
   };
 
@@ -290,5 +327,6 @@ body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:
   renderQuestion();
 })();
 </script>
+<footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo'men</div></footer>
 </body>
 </html>

@@ -616,6 +616,16 @@ async function verifyPaymobHmac(obj, hmacSecret) {
 // ── POST /api/create-order (public, rate-limited) ────────────────
 
 async function handleCreateOrder(request, env) {
+  const origin = request.headers.get('Origin');
+  const ALLOWED_ORIGINS = ['https://anas-xi.github.io', 'https://muscleos.is-a.dev'];
+  // If not local development and origin is not allowed, reject
+  if (origin && !ALLOWED_ORIGINS.includes(origin)) {
+    return json({ error: 'forbidden_origin' }, 403, env, request);
+  } else if (!origin) {
+    // If absolutely no origin is provided (direct cURL bot), reject
+    return json({ error: 'missing_origin' }, 403, env, request);
+  }
+
   const rateLimited = await checkRateLimit(request, env, 5);
   if (rateLimited) return json({ error: 'rate_limited' }, 429, env, request);
 
@@ -944,9 +954,28 @@ async function handleGoogleAuth(request, env) {
     });
     const email = payload.email;
     if (!email) return json({ valid: false, error: 'no_email_in_token' }, 400, env, request);
+    
+    // Check or create user profile for 2-week trial logic
+    const profileKey = `email:${email.toLowerCase()}:profile`;
+    let profile = null;
+    try {
+      const raw = await env.ACCESS_CODES.get(profileKey, 'json');
+      if (raw) profile = raw;
+    } catch (e) {}
+    
+    if (!profile) {
+      profile = {
+        email,
+        name: payload.name || '',
+        signUpDate: Date.now()
+      };
+      await env.ACCESS_CODES.put(profileKey, JSON.stringify(profile));
+    }
+
     const secret = await getSecret(env);
     const sessionToken = await new SignJWT({
       type: 'session', email, name: payload.name || '', googleSub: payload.sub,
+      signUpDate: profile.signUpDate
     })
       .setProtectedHeader({ alg: 'HS256' })
       .setIssuedAt()
@@ -955,7 +984,21 @@ async function handleGoogleAuth(request, env) {
       .setSubject(email)
       .setExpirationTime(Math.floor(Date.now() / 1000) + 604800)
       .sign(secret);
-    return json({ valid: true, session: sessionToken, email, name: payload.name || '', subscriptions: await getAccountSubs(env, email) }, 200, env, request);
+      
+    // Calculate trial days remaining
+    const trialDurationMs = 14 * 24 * 60 * 60 * 1000;
+    const timeElapsed = Date.now() - profile.signUpDate;
+    const trialDaysRemaining = Math.max(0, Math.ceil((trialDurationMs - timeElapsed) / (24 * 60 * 60 * 1000)));
+
+    return json({ 
+      valid: true, 
+      session: sessionToken, 
+      email, 
+      name: payload.name || '', 
+      subscriptions: await getAccountSubs(env, email),
+      trialDaysRemaining,
+      signUpDate: profile.signUpDate
+    }, 200, env, request);
   } catch (e) {
     return json({ valid: false, error: 'invalid_google_token' }, 401, env, request);
   }
@@ -975,7 +1018,32 @@ async function handleCheckSession(request, env) {
       issuer: 'muscleos-access-control',
     });
     if (payload.type !== 'session') return json({ valid: false }, 403, env, request);
-    return json({ valid: true, email: payload.email, name: payload.name, subscriptions: await getAccountSubs(env, payload.email) }, 200, env, request);
+    
+    // Retrieve profile to calculate trial days
+    let profile = null;
+    try {
+      const raw = await env.ACCESS_CODES.get(`email:${payload.email.toLowerCase()}:profile`, 'json');
+      if (raw) profile = raw;
+    } catch (e) {}
+
+    let trialDaysRemaining = 0;
+    let signUpDate = payload.signUpDate || Date.now();
+    
+    if (profile && profile.signUpDate) {
+      signUpDate = profile.signUpDate;
+      const trialDurationMs = 14 * 24 * 60 * 60 * 1000;
+      const timeElapsed = Date.now() - profile.signUpDate;
+      trialDaysRemaining = Math.max(0, Math.ceil((trialDurationMs - timeElapsed) / (24 * 60 * 60 * 1000)));
+    }
+
+    return json({ 
+      valid: true, 
+      email: payload.email, 
+      name: payload.name, 
+      subscriptions: await getAccountSubs(env, payload.email),
+      trialDaysRemaining,
+      signUpDate
+    }, 200, env, request);
   } catch (e) {
     return json({ valid: false, error: 'invalid_session' }, 401, env, request);
   }
