@@ -8,18 +8,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PDF Viewer — Muscle OS by Coach Anas Mo'men</title>
-  <meta name="description" content="Secure PDF viewer for Muscle OS training programs, nutrition guides, and reference books by Coach Anas Mo'men.">
-  <meta property="og:title" content="PDF Viewer — Muscle OS by Coach Anas Mo'men">
-  <meta property="og:description" content="Secure PDF viewer for Muscle OS training programs, nutrition guides, and reference books by Coach Anas Mo'men.">
-  <meta property="og:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="1200">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://muscleos.is-a.dev/pdf/viewer.html">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="PDF Viewer — Muscle OS by Coach Anas Mo'men">
-  <meta name="twitter:description" content="Secure PDF viewer for Muscle OS training programs, nutrition guides, and reference books by Coach Anas Mo'men.">
-  <meta name="twitter:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
+ <meta name="description" content="Secure PDF viewer for Muscle OS training programs, nutrition guides, and reference books by Coach Anas Mo'men.">
+ <meta property="og:title" content="PDF Viewer — Muscle OS by Coach Anas Mo'men">
+ <meta property="og:description" content="Secure PDF viewer for Muscle OS training programs, nutrition guides, and reference books by Coach Anas Mo'men.">
+ <meta property="og:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
+ <meta property="og:image:width" content="1200">
+ <meta property="og:image:height" content="1200">
+ <meta property="og:type" content="website">
+ <meta property="og:url" content="https://muscleos.is-a.dev/pdf/viewer.html">
+ <meta name="twitter:card" content="summary_large_image">
+ <meta name="twitter:title" content="PDF Viewer — Muscle OS by Coach Anas Mo'men">
+ <meta name="twitter:description" content="Secure PDF viewer for Muscle OS training programs, nutrition guides, and reference books by Coach Anas Mo'men.">
+ <meta name="twitter:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -88,52 +88,52 @@ body.loaded{opacity:1}
 <nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../knowledge-hub/">Knowledge Hub</a><a href="../index.html#packages">Coaching</a></div></div></nav>
 
 <div class="toolbar">
-  <span class="filename" id="filename"></span>
-  <button id="prevPage" disabled>&larr; Prev</button>
-  <span class="page-info" id="pageInfo">- / -</span>
-  <button id="nextPage" disabled>Next &rarr;</button>
-  <div class="sep"></div>
-  <button id="zoomOut">A-</button>
-  <span class="zoom-info" id="zoomInfo">100%</span>
-  <button id="zoomIn">A+</button>
+ <span class="filename" id="filename"></span>
+ <button id="prevPage" disabled>&larr; Prev</button>
+ <span class="page-info" id="pageInfo">- / -</span>
+ <button id="nextPage" disabled>Next &rarr;</button>
+ <div class="sep"></div>
+ <button id="zoomOut">A-</button>
+ <span class="zoom-info" id="zoomInfo">100%</span>
+ <button id="zoomIn">A+</button>
 </div>
 
 <div id="viewerContainer">
-  <div class="loading" id="loading">
-    <div class="spinner"></div>
-    <p>Loading PDF...</p>
-  </div>
-  <div id="viewer" style="display:none"></div>
-  <div class="error-state" id="error" style="display:none">
-    <div class="icon">&#128196;</div>
-    <h2>Could not load PDF</h2>
-    <p id="errorMsg">The file was not found or could not be opened.</p>
-    <a href="../index.html">Back to Home</a>
-  </div>
-  <div class="library" id="library">
-    <div class="lib-wrap">
-      <h1 class="lib-title">PDF Library</h1>
-      <p class="lib-sub">Select a guide or book to view in the built-in PDF reader. Books require purchase; guides are free.</p>
-      <div class="lib-section">
-        <h2 class="lib-section-title">Free Guides</h2>
-        <div class="lib-grid">
-          <a class="lib-card" href="?product=consistency-workbook"><span class="lib-badge badge-g">Workbook</span><span class="lib-name">Consistency Workbook</span><span class="lib-desc">6-week guided workbook for building training &amp; nutrition habits.</span></a>
-          <a class="lib-card" href="?product=train-maxing-quick-start"><span class="lib-badge badge-g">Quick-Start</span><span class="lib-name">Train Maxing Quick Start</span><span class="lib-desc">Five steps to a structured, progressive programme.</span></a>
-          <a class="lib-card" href="?product=diet-maxing-quick-start"><span class="lib-badge badge-g">Quick-Start</span><span class="lib-name">Diet Maxing Quick Start</span><span class="lib-desc">Set calories, macros, and meal structure.</span></a>
-          <a class="lib-card" href="?product=deload-decision-tree"><span class="lib-badge badge-g">Decision Aid</span><span class="lib-name">Deload Decision Tree</span><span class="lib-desc">Visual flowchart for when and how to deload.</span></a>
-          <a class="lib-card" href="?product=plateau-decision-tree"><span class="lib-badge badge-g">Decision Aid</span><span class="lib-name">Plateau Decision Tree</span><span class="lib-desc">Diagnose stalled progress bottlenecks.</span></a>
-          <a class="lib-card" href="?product=recomp-cheat-sheet"><span class="lib-badge badge-g">Cheat Sheet</span><span class="lib-name">Recomp Protocol Cheat Sheet</span><span class="lib-desc">Quick reference for body recomposition.</span></a>
-        </div>
-      </div>
-      <div class="lib-section">
-        <h2 class="lib-section-title">Paid Books <span class="lib-price">500 EGP each</span></h2>
-        <div class="lib-grid">
-          <a class="lib-card lib-prod" href="?product=training-book"><span class="lib-badge badge-b">Book</span><span class="lib-name">Training &amp; Programming Book</span><span class="lib-desc">27 chapters — program design, periodisation, exercise selection.</span></a>
-          <a class="lib-card lib-prod" href="?product=nutrition-book"><span class="lib-badge badge-b">Book</span><span class="lib-name">Diet &amp; Nutrition Book</span><span class="lib-desc">33 chapters — energy balance, macros, meal timing.</span></a>
-        </div>
-      </div>
-    </div>
-  </div>
+ <div class="loading" id="loading">
+ <div class="spinner"></div>
+ <p>Loading PDF...</p>
+ </div>
+ <div id="viewer" style="display:none"></div>
+ <div class="error-state" id="error" style="display:none">
+ <div class="icon">&#128196;</div>
+ <h2>Could not load PDF</h2>
+ <p id="errorMsg">The file was not found or could not be opened.</p>
+ <a href="../index.html">Back to Home</a>
+ </div>
+ <div class="library" id="library">
+ <div class="lib-wrap">
+ <h1 class="lib-title">PDF Library</h1>
+ <p class="lib-sub">Select a guide or book to view in the built-in PDF reader. Books require purchase; guides are free.</p>
+ <div class="lib-section">
+ <h2 class="lib-section-title">Free Guides</h2>
+ <div class="lib-grid">
+ <a class="lib-card" href="?product=consistency-workbook"><span class="lib-badge badge-g">Workbook</span><span class="lib-name">Consistency Workbook</span><span class="lib-desc">6-week guided workbook for building training &amp; nutrition habits.</span></a>
+ <a class="lib-card" href="?product=train-maxing-quick-start"><span class="lib-badge badge-g">Quick-Start</span><span class="lib-name">Train Maxing Quick Start</span><span class="lib-desc">Five steps to a structured, progressive programme.</span></a>
+ <a class="lib-card" href="?product=diet-maxing-quick-start"><span class="lib-badge badge-g">Quick-Start</span><span class="lib-name">Diet Maxing Quick Start</span><span class="lib-desc">Set calories, macros, and meal structure.</span></a>
+ <a class="lib-card" href="?product=deload-decision-tree"><span class="lib-badge badge-g">Decision Aid</span><span class="lib-name">Deload Decision Tree</span><span class="lib-desc">Visual flowchart for when and how to deload.</span></a>
+ <a class="lib-card" href="?product=plateau-decision-tree"><span class="lib-badge badge-g">Decision Aid</span><span class="lib-name">Plateau Decision Tree</span><span class="lib-desc">Diagnose stalled progress bottlenecks.</span></a>
+ <a class="lib-card" href="?product=recomp-cheat-sheet"><span class="lib-badge badge-g">Cheat Sheet</span><span class="lib-name">Recomp Protocol Cheat Sheet</span><span class="lib-desc">Quick reference for body recomposition.</span></a>
+ </div>
+ </div>
+ <div class="lib-section">
+ <h2 class="lib-section-title">Paid Books <span class="lib-price">500 EGP each</span></h2>
+ <div class="lib-grid">
+ <a class="lib-card lib-prod" href="?product=training-book"><span class="lib-badge badge-b">Book</span><span class="lib-name">Training &amp; Programming Book</span><span class="lib-desc">27 chapters — program design, periodisation, exercise selection.</span></a>
+ <a class="lib-card lib-prod" href="?product=nutrition-book"><span class="lib-badge badge-b">Book</span><span class="lib-name">Diet &amp; Nutrition Book</span><span class="lib-desc">33 chapters — energy balance, macros, meal timing.</span></a>
+ </div>
+ </div>
+ </div>
+ </div>
 </div>
 
 <footer class="mos-footer"><a href="https://muscleos.coach">muscleos.coach</a> — Coach Anas Mo'men</footer>
@@ -169,238 +169,238 @@ filename.textContent = product.replace(/-/g,' ') || 'PDF Viewer';
 
 // ── Open IndexedDB cache ──
 function openDB() {
-  return new Promise(function(resolve, reject) {
-    if (dbOpen) return resolve(dbOpen);
-    var req = indexedDB.open('MuscleOS_PDF_Cache', 1);
-    req.onupgradeneeded = function(e) {
-      e.target.result.createObjectStore('pdfs', { keyPath: 'id' });
-    };
-    req.onsuccess = function(e) {
-      dbOpen = e.target.result;
-      resolve(dbOpen);
-    };
-    req.onerror = function() { reject(req.error); };
-  });
+ return new Promise(function(resolve, reject) {
+ if (dbOpen) return resolve(dbOpen);
+ var req = indexedDB.open('MuscleOS_PDF_Cache', 1);
+ req.onupgradeneeded = function(e) {
+ e.target.result.createObjectStore('pdfs', { keyPath: 'id' });
+ };
+ req.onsuccess = function(e) {
+ dbOpen = e.target.result;
+ resolve(dbOpen);
+ };
+ req.onerror = function() { reject(req.error); };
+ });
 }
 
 function getCached(id) {
-  return openDB().then(function(db) {
-    return new Promise(function(resolve) {
-      var tx = db.transaction('pdfs', 'readonly');
-      var req = tx.objectStore('pdfs').get(id);
-      req.onsuccess = function() { resolve(req.result ? req.result.data : null); };
-      req.onerror = function() { resolve(null); };
-    });
-  }).catch(function() { return null; });
+ return openDB().then(function(db) {
+ return new Promise(function(resolve) {
+ var tx = db.transaction('pdfs', 'readonly');
+ var req = tx.objectStore('pdfs').get(id);
+ req.onsuccess = function() { resolve(req.result ? req.result.data : null); };
+ req.onerror = function() { resolve(null); };
+ });
+ }).catch(function() { return null; });
 }
 
 function setCache(id, data) {
-  openDB().then(function(db) {
-    var tx = db.transaction('pdfs', 'readwrite');
-    tx.objectStore('pdfs').put({ id: id, data: data, ts: Date.now() });
-  }).catch(function() {});
+ openDB().then(function(db) {
+ var tx = db.transaction('pdfs', 'readwrite');
+ tx.objectStore('pdfs').put({ id: id, data: data, ts: Date.now() });
+ }).catch(function() {});
 }
 
 // ── Load PDF data ──
 function loadPdf() {
-  if (!product) {
-    loading.style.display = 'none';
-    error.style.display = 'none';
-    viewer.style.display = 'none';
-    library.style.display = 'flex';
-    return;
-  }
-  library.style.display = 'none';
+ if (!product) {
+ loading.style.display = 'none';
+ error.style.display = 'none';
+ viewer.style.display = 'none';
+ library.style.display = 'flex';
+ return;
+ }
+ library.style.display = 'none';
 
-  var isPaid = !!PAID_PRODUCTS[product];
+ var isPaid = !!PAID_PRODUCTS[product];
 
-  // Try cache first (for offline)
-  getCached(product).then(function(cached) {
-    if (cached) {
-      openPdf(cached);
-      return;
-    }
-    // Not cached — fetch from Worker
-    var url = API_BASE + '/api/pdf/' + encodeURIComponent(product);
-    
-    if (isPaid) {
-      // Get JWT from localStorage (same keys as access-control.js)
-      var session = null;
-      try {
-        var key = product === 'training-book' ? 'mos_book_training' : 'mos_book_nutrition';
-        var raw = localStorage.getItem(key);
-        if (raw) session = JSON.parse(raw);
-      } catch(e) {}
-      
-      if (session && session.token) {
-        authToken = session.token;
-      } else {
-        loading.style.display = 'none';
-        error.style.display = 'flex';
-        errorMsg.textContent = 'Access denied. Please purchase this product to view the PDF.';
-        return;
-      }
-    }
+ // Try cache first (for offline)
+ getCached(product).then(function(cached) {
+ if (cached) {
+ openPdf(cached);
+ return;
+ }
+ // Not cached — fetch from Worker
+ var url = API_BASE + '/api/pdf/' + encodeURIComponent(product);
+ 
+ if (isPaid) {
+ // Get JWT from localStorage (same keys as access-control.js)
+ var session = null;
+ try {
+ var key = product === 'training-book' ? 'mos_book_training' : 'mos_book_nutrition';
+ var raw = localStorage.getItem(key);
+ if (raw) session = JSON.parse(raw);
+ } catch(e) {}
+ 
+ if (session && session.token) {
+ authToken = session.token;
+ } else {
+ loading.style.display = 'none';
+ error.style.display = 'flex';
+ errorMsg.textContent = 'Access denied. Please purchase this product to view the PDF.';
+ return;
+ }
+ }
 
-    var fetchOpts = { headers: {} };
-    if (authToken) fetchOpts.headers['Authorization'] = 'Bearer ' + authToken;
+ var fetchOpts = { headers: {} };
+ if (authToken) fetchOpts.headers['Authorization'] = 'Bearer ' + authToken;
 
-    fetch(url, fetchOpts).then(function(resp) {
-      if (!resp.ok) {
-        loading.style.display = 'none';
-        if (resp.status === 401 || resp.status === 403) {
-          error.style.display = 'flex';
-          errorMsg.textContent = 'Access denied. Please verify your access code first.';
-        } else {
-          error.style.display = 'flex';
-          errorMsg.textContent = 'Failed to load PDF (error ' + resp.status + ').';
-        }
-        return null;
-      }
-      return resp.arrayBuffer();
-    }).then(function(buf) {
-      if (!buf) return;
-      // Cache for offline
-      setCache(product, buf);
-      openPdf(buf);
-    }).catch(function(err) {
-      // Network error — check cache again as fallback
-      getCached(product).then(function(cached) {
-        if (cached) { openPdf(cached); return; }
-        loading.style.display = 'none';
-        error.style.display = 'flex';
-        errorMsg.textContent = 'Could not connect. Check your internet connection and try again.';
-      });
-    });
-  });
+ fetch(url, fetchOpts).then(function(resp) {
+ if (!resp.ok) {
+ loading.style.display = 'none';
+ if (resp.status === 401 || resp.status === 403) {
+ error.style.display = 'flex';
+ errorMsg.textContent = 'Access denied. Please verify your access code first.';
+ } else {
+ error.style.display = 'flex';
+ errorMsg.textContent = 'Failed to load PDF (error ' + resp.status + ').';
+ }
+ return null;
+ }
+ return resp.arrayBuffer();
+ }).then(function(buf) {
+ if (!buf) return;
+ // Cache for offline
+ setCache(product, buf);
+ openPdf(buf);
+ }).catch(function(err) {
+ // Network error — check cache again as fallback
+ getCached(product).then(function(cached) {
+ if (cached) { openPdf(cached); return; }
+ loading.style.display = 'none';
+ error.style.display = 'flex';
+ errorMsg.textContent = 'Could not connect. Check your internet connection and try again.';
+ });
+ });
+ });
 }
 
 function openPdf(data) {
-  loading.style.display = 'none';
-  pdfjsLib.getDocument({ data: data }).promise.then(function(pdf) {
-    pdfDoc = pdf;
-    viewer.style.display = 'flex';
-    viewer.innerHTML = '';
-    pageInfo.textContent = '1 / ' + pdf.numPages;
-    prevBtn.disabled = true;
-    nextBtn.disabled = pdf.numPages <= 1;
-    pdf.getPage(1).then(function(first) {
-      var base = first.getViewport({ scale: 1 });
-      baseW = base.width;
-      baseH = base.height;
-      buildPlaceholders();
-      applyZoom();
-      setupObserver();
-      renderNearby();
-    });
-    document.getElementById('viewerContainer').addEventListener('scroll', onScroll);
-  }).catch(function(err) {
-    loading.style.display = 'none';
-    error.style.display = 'flex';
-    errorMsg.textContent = err.message || 'Failed to render PDF.';
-  });
+ loading.style.display = 'none';
+ pdfjsLib.getDocument({ data: data }).promise.then(function(pdf) {
+ pdfDoc = pdf;
+ viewer.style.display = 'flex';
+ viewer.innerHTML = '';
+ pageInfo.textContent = '1 / ' + pdf.numPages;
+ prevBtn.disabled = true;
+ nextBtn.disabled = pdf.numPages <= 1;
+ pdf.getPage(1).then(function(first) {
+ var base = first.getViewport({ scale: 1 });
+ baseW = base.width;
+ baseH = base.height;
+ buildPlaceholders();
+ applyZoom();
+ setupObserver();
+ renderNearby();
+ });
+ document.getElementById('viewerContainer').addEventListener('scroll', onScroll);
+ }).catch(function(err) {
+ loading.style.display = 'none';
+ error.style.display = 'flex';
+ errorMsg.textContent = err.message || 'Failed to render PDF.';
+ });
 }
 
 function computeFitScale() {
-  var avail = viewer.clientWidth || viewerContainer.clientWidth;
-  var fit = avail / baseW;
-  return Math.max(0.25, Math.min(fit, 4));
+ var avail = viewer.clientWidth || viewerContainer.clientWidth;
+ var fit = avail / baseW;
+ return Math.max(0.25, Math.min(fit, 4));
 }
 
 function buildPlaceholders() {
-  viewer.innerHTML = '';
-  var cssScale = fitScale * scale;
-  for (var n = 1; n <= pdfDoc.numPages; n++) {
-    var div = document.createElement('div');
-    div.className = 'page';
-    div.dataset.page = n;
-    div.style.width = Math.round(baseW * cssScale) + 'px';
-    div.style.aspectRatio = baseW + ' / ' + baseH;
-    viewer.appendChild(div);
-  }
+ viewer.innerHTML = '';
+ var cssScale = fitScale * scale;
+ for (var n = 1; n <= pdfDoc.numPages; n++) {
+ var div = document.createElement('div');
+ div.className = 'page';
+ div.dataset.page = n;
+ div.style.width = Math.round(baseW * cssScale) + 'px';
+ div.style.aspectRatio = baseW + ' / ' + baseH;
+ viewer.appendChild(div);
+ }
 }
 
 function setupObserver() {
-  if (io) io.disconnect();
-  if (!('IntersectionObserver' in window)) return;
-  io = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (e.isIntersecting) renderPage(parseInt(e.target.dataset.page));
-    });
-  }, { root: viewerContainer, rootMargin: '400px 0px' });
-  viewer.querySelectorAll('.page').forEach(function(p) { io.observe(p); });
+ if (io) io.disconnect();
+ if (!('IntersectionObserver' in window)) return;
+ io = new IntersectionObserver(function(entries) {
+ entries.forEach(function(e) {
+ if (e.isIntersecting) renderPage(parseInt(e.target.dataset.page));
+ });
+ }, { root: viewerContainer, rootMargin: '400px 0px' });
+ viewer.querySelectorAll('.page').forEach(function(p) { io.observe(p); });
 }
 
 function renderNearby() {
-  if (!pdfDoc) return;
-  var top = viewerContainer.scrollTop - viewerContainer.clientHeight;
-  var bottom = viewerContainer.scrollTop + 2 * viewerContainer.clientHeight;
-  viewer.querySelectorAll('.page').forEach(function(p) {
-    var t = p.offsetTop;
-    if (t + p.offsetHeight >= top && t <= bottom) renderPage(parseInt(p.dataset.page));
-  });
+ if (!pdfDoc) return;
+ var top = viewerContainer.scrollTop - viewerContainer.clientHeight;
+ var bottom = viewerContainer.scrollTop + 2 * viewerContainer.clientHeight;
+ viewer.querySelectorAll('.page').forEach(function(p) {
+ var t = p.offsetTop;
+ if (t + p.offsetHeight >= top && t <= bottom) renderPage(parseInt(p.dataset.page));
+ });
 }
 
 function renderPage(n) {
-  if (!pdfDoc || renderedPages[n]) return;
-  var el = viewer.querySelector('.page[data-page="' + n + '"]');
-  if (!el) return;
-  var gen = zoomGen;
-  pdfDoc.getPage(n).then(function(page) {
-    if (!el.parentNode || gen !== zoomGen) return;
-    var base = page.getViewport({ scale: 1 });
-    var cssScale = fitScale * scale;
-    var vp = page.getViewport({ scale: cssScale * DPR });
-    var canvas = document.createElement('canvas');
-    canvas.width = Math.floor(vp.width);
-    canvas.height = Math.floor(vp.height);
-    el.innerHTML = '';
-    el.appendChild(canvas);
-    el.style.width = Math.round(base.width * cssScale) + 'px';
-    el.style.aspectRatio = base.width + ' / ' + base.height;
-    canvas.style.width = '100%';
-    canvas.style.height = '100%';
-    page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise.then(function() {
-      if (gen !== zoomGen) return;
-      renderedPages[n] = true;
-    }).catch(function() {});
-  });
+ if (!pdfDoc || renderedPages[n]) return;
+ var el = viewer.querySelector('.page[data-page="' + n + '"]');
+ if (!el) return;
+ var gen = zoomGen;
+ pdfDoc.getPage(n).then(function(page) {
+ if (!el.parentNode || gen !== zoomGen) return;
+ var base = page.getViewport({ scale: 1 });
+ var cssScale = fitScale * scale;
+ var vp = page.getViewport({ scale: cssScale * DPR });
+ var canvas = document.createElement('canvas');
+ canvas.width = Math.floor(vp.width);
+ canvas.height = Math.floor(vp.height);
+ el.innerHTML = '';
+ el.appendChild(canvas);
+ el.style.width = Math.round(base.width * cssScale) + 'px';
+ el.style.aspectRatio = base.width + ' / ' + base.height;
+ canvas.style.width = '100%';
+ canvas.style.height = '100%';
+ page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise.then(function() {
+ if (gen !== zoomGen) return;
+ renderedPages[n] = true;
+ }).catch(function() {});
+ });
 }
 
 function applyZoom() {
-  if (!pdfDoc) return;
-  zoomGen++;
-  fitScale = computeFitScale();
-  var cssScale = fitScale * scale;
-  viewer.querySelectorAll('.page').forEach(function(p) {
-    p.style.width = Math.round(baseW * cssScale) + 'px';
-  });
-  zoomInfo.textContent = Math.round(scale * 100) + '%';
-  renderedPages = {};
-  viewer.querySelectorAll('.page').forEach(function(p) {
-    if (p.querySelector('canvas')) p.innerHTML = '';
-  });
-  renderNearby();
+ if (!pdfDoc) return;
+ zoomGen++;
+ fitScale = computeFitScale();
+ var cssScale = fitScale * scale;
+ viewer.querySelectorAll('.page').forEach(function(p) {
+ p.style.width = Math.round(baseW * cssScale) + 'px';
+ });
+ zoomInfo.textContent = Math.round(scale * 100) + '%';
+ renderedPages = {};
+ viewer.querySelectorAll('.page').forEach(function(p) {
+ if (p.querySelector('canvas')) p.innerHTML = '';
+ });
+ renderNearby();
 }
 
 function onScroll() {
-  var pages = viewer.querySelectorAll('.page');
-  var container = document.getElementById('viewerContainer');
-  var mid = container.scrollTop + container.clientHeight / 2;
-  var closest = null, closestDist = Infinity;
-  pages.forEach(function(p) {
-    var dist = Math.abs(p.offsetTop + p.offsetHeight / 2 - mid);
-    if (dist < closestDist) { closestDist = dist; closest = p; }
-  });
-  if (closest) {
-    var n = parseInt(closest.dataset.page);
-    if (n !== pageNum) {
-      pageNum = n;
-      pageInfo.textContent = n + ' / ' + pdfDoc.numPages;
-      prevBtn.disabled = n <= 1;
-      nextBtn.disabled = n >= pdfDoc.numPages;
-    }
-  }
+ var pages = viewer.querySelectorAll('.page');
+ var container = document.getElementById('viewerContainer');
+ var mid = container.scrollTop + container.clientHeight / 2;
+ var closest = null, closestDist = Infinity;
+ pages.forEach(function(p) {
+ var dist = Math.abs(p.offsetTop + p.offsetHeight / 2 - mid);
+ if (dist < closestDist) { closestDist = dist; closest = p; }
+ });
+ if (closest) {
+ var n = parseInt(closest.dataset.page);
+ if (n !== pageNum) {
+ pageNum = n;
+ pageInfo.textContent = n + ' / ' + pdfDoc.numPages;
+ prevBtn.disabled = n <= 1;
+ nextBtn.disabled = n >= pdfDoc.numPages;
+ }
+ }
 }
 
 prevBtn.addEventListener('click', function() { if (pageNum > 1) { var el = viewer.querySelector('.page[data-page="' + (pageNum - 1) + '"]'); if (el) viewerContainer.scrollTo({top: el.offsetTop - 20, behavior: 'smooth'}); } });
@@ -409,15 +409,15 @@ zoomOutBtn.addEventListener('click', function() { scale = Math.max(0.4, +(scale 
 zoomInBtn.addEventListener('click', function() { scale = Math.min(4, +(scale + 0.2).toFixed(2)); applyZoom(); });
 
 window.addEventListener('resize', function() {
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(function() { applyZoom(); }, 250);
+ clearTimeout(resizeTimer);
+ resizeTimer = setTimeout(function() { applyZoom(); }, 250);
 });
 
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'ArrowLeft' || e.key === 'PageUp') { prevBtn.click(); }
-  else if (e.key === 'ArrowRight' || e.key === 'PageDown') { nextBtn.click(); }
-  else if (e.key === '+' || e.key === '=') { zoomInBtn.click(); }
-  else if (e.key === '-') { zoomOutBtn.click(); }
+ if (e.key === 'ArrowLeft' || e.key === 'PageUp') { prevBtn.click(); }
+ else if (e.key === 'ArrowRight' || e.key === 'PageDown') { nextBtn.click(); }
+ else if (e.key === '+' || e.key === '=') { zoomInBtn.click(); }
+ else if (e.key === '-') { zoomOutBtn.click(); }
 });
 
 loadPdf();

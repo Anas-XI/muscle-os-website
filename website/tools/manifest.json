@@ -1,15 +1,15 @@
 {
-  "name": "Muscle OS Training App",
-  "short_name": "MuscleOS",
-  "description": "AI-native training logger, program builder and coaching tool by Coach Anas Mo'men.",
-  "start_url": "./training_tool.html",
-  "scope": "./",
-  "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#0A0A0F",
-  "theme_color": "#0A0A0F",
-  "icons": [
-    { "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
-    { "src": "./icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
-  ]
+ "name": "Muscle OS Training App",
+ "short_name": "MuscleOS",
+ "description": "AI-native training logger, program builder and coaching tool by Coach Anas Mo'men.",
+ "start_url": "./training_tool.html",
+ "scope": "./",
+ "display": "standalone",
+ "orientation": "portrait",
+ "background_color": "#0A0A0F",
+ "theme_color": "#0A0A0F",
+ "icons": [
+ { "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+ { "src": "./icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+ ]
 }

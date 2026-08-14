@@ -8,18 +8,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Muscle OS — Order Approval Dashboard</title>
-  <meta name="description" content="Muscle OS order management dashboard — approve, reject, and manage customer orders and access codes.">
-  <meta property="og:title" content="Muscle OS — Order Approval Dashboard">
-  <meta property="og:description" content="Muscle OS order management dashboard — approve, reject, and manage customer orders and access codes.">
-  <meta property="og:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="1200">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://muscleos.is-a.dev/admin/orders.html">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Muscle OS — Order Approval Dashboard">
-  <meta name="twitter:description" content="Muscle OS order management dashboard — approve, reject, and manage customer orders and access codes.">
-  <meta name="twitter:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
+ <meta name="description" content="Muscle OS order management dashboard — approve, reject, and manage customer orders and access codes.">
+ <meta property="og:title" content="Muscle OS — Order Approval Dashboard">
+ <meta property="og:description" content="Muscle OS order management dashboard — approve, reject, and manage customer orders and access codes.">
+ <meta property="og:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
+ <meta property="og:image:width" content="1200">
+ <meta property="og:image:height" content="1200">
+ <meta property="og:type" content="website">
+ <meta property="og:url" content="https://muscleos.is-a.dev/admin/orders.html">
+ <meta name="twitter:card" content="summary_large_image">
+ <meta name="twitter:title" content="Muscle OS — Order Approval Dashboard">
+ <meta name="twitter:description" content="Muscle OS order management dashboard — approve, reject, and manage customer orders and access codes.">
+ <meta name="twitter:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
@@ -153,388 +153,388 @@ input,select,textarea{font-size:16px!important}
 
 <!-- Login Screen -->
 <div id="loginScreen" class="login-screen">
-  <h2>🔐 Admin Access</h2>
-  <p class="login-desc">Enter the admin key to approve or reject pending orders.</p>
-  <input type="password" id="adminKeyInput" class="login-input" placeholder="Enter admin key" autocomplete="off" enterkeyhint="go">
-  <button id="loginBtn" class="login-btn">Unlock Orders</button>
-  <div id="loginError" class="login-error">Invalid key. Try again.</div>
-  <p class="login-hint">The key is stored in sessionStorage and clears when you close this tab.</p>
+ <h2> Admin Access</h2>
+ <p class="login-desc">Enter the admin key to approve or reject pending orders.</p>
+ <input type="password" id="adminKeyInput" class="login-input" placeholder="Enter admin key" autocomplete="off" enterkeyhint="go">
+ <button id="loginBtn" class="login-btn">Unlock Orders</button>
+ <div id="loginError" class="login-error">Invalid key. Try again.</div>
+ <p class="login-hint">The key is stored in sessionStorage and clears when you close this tab.</p>
 </div>
 
 <!-- Main Dashboard (hidden until logged in) -->
 <div id="dashboard" style="display:none">
-  <!-- Tabs -->
-  <div class="tab-bar">
-    <button class="tab-btn active" data-tab="orders" onclick="switchTab('orders')">Pending Orders</button>
-    <button class="tab-btn" data-tab="expiring" onclick="switchTab('expiring'); fetchExpiringCodes();">Expiring Codes</button>
-  </div>
+ <!-- Tabs -->
+ <div class="tab-bar">
+ <button class="tab-btn active" data-tab="orders" onclick="switchTab('orders')">Pending Orders</button>
+ <button class="tab-btn" data-tab="expiring" onclick="switchTab('expiring'); fetchExpiringCodes();">Expiring Codes</button>
+ </div>
 
-  <!-- ─── Pending Orders Tab ─── -->
-  <div id="tab-orders" class="tab-content active">
-    <div class="header">
-      <h1>⏳ Pending Orders</h1>
-      <div class="sub"><span id="orderCount" class="count">0</span> waiting for approval</div>
-    </div>
-    <div class="wrap">
-      <div id="loadingIndicator" class="loading"><div class="spinner"></div>Loading orders...</div>
-      <div id="emptyState" class="empty-state" style="display:none">
-        <div class="empty-icon">✅</div>
-        <div>No pending orders</div>
-      </div>
-      <div id="orderList" class="order-list"></div>
-    </div>
-  </div>
+ <!-- ─── Pending Orders Tab ─── -->
+ <div id="tab-orders" class="tab-content active">
+ <div class="header">
+ <h1> Pending Orders</h1>
+ <div class="sub"><span id="orderCount" class="count">0</span> waiting for approval</div>
+ </div>
+ <div class="wrap">
+ <div id="loadingIndicator" class="loading"><div class="spinner"></div>Loading orders...</div>
+ <div id="emptyState" class="empty-state" style="display:none">
+ <div class="empty-icon"></div>
+ <div>No pending orders</div>
+ </div>
+ <div id="orderList" class="order-list"></div>
+ </div>
+ </div>
 
-  <!-- ─── Expiring Codes Tab ─── -->
-  <div id="tab-expiring" class="tab-content">
-    <div class="header">
-      <h1>⏰ Expiring Codes</h1>
-      <div class="sub"><span id="expiringCount" class="count">0</span> expiring within 7 days</div>
-    </div>
-    <div class="wrap">
-      <div id="expiringLoading" class="loading" style="display:none"><div class="spinner"></div>Checking codes...</div>
-      <div id="expiringEmpty" class="empty-state" style="display:none">
-        <div class="empty-icon">✅</div>
-        <div>No codes expiring within 7 days</div>
-      </div>
-      <div id="expiringList" class="order-list"></div>
-    </div>
-  </div>
+ <!-- ─── Expiring Codes Tab ─── -->
+ <div id="tab-expiring" class="tab-content">
+ <div class="header">
+ <h1> Expiring Codes</h1>
+ <div class="sub"><span id="expiringCount" class="count">0</span> expiring within 7 days</div>
+ </div>
+ <div class="wrap">
+ <div id="expiringLoading" class="loading" style="display:none"><div class="spinner"></div>Checking codes...</div>
+ <div id="expiringEmpty" class="empty-state" style="display:none">
+ <div class="empty-icon"></div>
+ <div>No codes expiring within 7 days</div>
+ </div>
+ <div id="expiringList" class="order-list"></div>
+ </div>
+ </div>
 
-  <div class="refresh-bar">
-    <span class="rb-label" id="refreshLabel">Auto-refresh every 30s</span>
-    <button id="refreshBtn" class="rb-btn">Refresh Now</button>
-  </div>
+ <div class="refresh-bar">
+ <span class="rb-label" id="refreshLabel">Auto-refresh every 30s</span>
+ <button id="refreshBtn" class="rb-btn">Refresh Now</button>
+ </div>
 </div>
 
 <script>
 (function(){
-  'use strict';
+ 'use strict';
 
-  var API = 'https://muscleos-access-control.muscleos.workers.dev';
-  var POLL_INTERVAL = 30000;
-  var pollTimer = null;
+ var API = 'https://muscleos-access-control.muscleos.workers.dev';
+ var POLL_INTERVAL = 30000;
+ var pollTimer = null;
 
-  var toastEl = document.getElementById('toast');
-  function showToast(msg, type) {
-    toastEl.textContent = msg;
-    toastEl.className = 'toast show ' + (type || 'success');
-    clearTimeout(toastEl._hide);
-    toastEl._hide = setTimeout(function(){ toastEl.className = 'toast'; }, 3000);
-  }
+ var toastEl = document.getElementById('toast');
+ function showToast(msg, type) {
+ toastEl.textContent = msg;
+ toastEl.className = 'toast show ' + (type || 'success');
+ clearTimeout(toastEl._hide);
+ toastEl._hide = setTimeout(function(){ toastEl.className = 'toast'; }, 3000);
+ }
 
-  function getKey() { return sessionStorage.getItem('mos_admin_key'); }
-  function setKey(k) { sessionStorage.setItem('mos_admin_key', k); }
+ function getKey() { return sessionStorage.getItem('mos_admin_key'); }
+ function setKey(k) { sessionStorage.setItem('mos_admin_key', k); }
 
-  function timeAgo(iso) {
-    var diff = Date.now() - new Date(iso).getTime();
-    var mins = Math.floor(diff / 60000);
-    if (mins < 1) return 'just now';
-    if (mins < 60) return mins + 'm ago';
-    var hrs = Math.floor(mins / 60);
-    mins = mins % 60;
-    if (hrs < 24) return hrs + 'h ' + mins + 'm ago';
-    var days = Math.floor(hrs / 24);
-    return days + 'd ago';
-  }
+ function timeAgo(iso) {
+ var diff = Date.now() - new Date(iso).getTime();
+ var mins = Math.floor(diff / 60000);
+ if (mins < 1) return 'just now';
+ if (mins < 60) return mins + 'm ago';
+ var hrs = Math.floor(mins / 60);
+ mins = mins % 60;
+ if (hrs < 24) return hrs + 'h ' + mins + 'm ago';
+ var days = Math.floor(hrs / 24);
+ return days + 'd ago';
+ }
 
-  function isUrgent(iso) {
-    return (Date.now() - new Date(iso).getTime()) > 86400000;
-  }
+ function isUrgent(iso) {
+ return (Date.now() - new Date(iso).getTime()) > 86400000;
+ }
 
-  function productLabel(product) {
-    var labels = {
-      training_tool: 'Training App',
-      tdee_adaptive_engine: 'TDEE Engine',
-      both_tools: 'Both Tools',
-      training_book: 'Training Book',
-      nutrition_book: 'Nutrition Book',
-      both_books: 'Both Books',
-      all_access: 'All Access'
-    };
-    return labels[product] || product;
-  }
+ function productLabel(product) {
+ var labels = {
+ training_tool: 'Training App',
+ tdee_adaptive_engine: 'TDEE Engine',
+ both_tools: 'Both Tools',
+ training_book: 'Training Book',
+ nutrition_book: 'Nutrition Book',
+ both_books: 'Both Books',
+ all_access: 'All Access'
+ };
+ return labels[product] || product;
+ }
 
-  function methodLabel(m) {
-    return { instapay: 'InstaPay', vodafone_cash: 'Vodafone Cash', other: 'Other' }[m] || m;
-  }
+ function methodLabel(m) {
+ return { instapay: 'InstaPay', vodafone_cash: 'Vodafone Cash', other: 'Other' }[m] || m;
+ }
 
-  function escHtml(s) { return String(s).replace(/[&<>"']/g, function(c){
-    return '&#' + c.charCodeAt(0) + ';';
-  }); }
+ function escHtml(s) { return String(s).replace(/[&<>"']/g, function(c){
+ return '&#' + c.charCodeAt(0) + ';';
+ }); }
 
-  function renderOrders(orders) {
-    var list = document.getElementById('orderList');
-    var count = document.getElementById('orderCount');
-    var empty = document.getElementById('emptyState');
-    var loading = document.getElementById('loadingIndicator');
+ function renderOrders(orders) {
+ var list = document.getElementById('orderList');
+ var count = document.getElementById('orderCount');
+ var empty = document.getElementById('emptyState');
+ var loading = document.getElementById('loadingIndicator');
 
-    loading.style.display = 'none';
-    count.textContent = orders.length;
+ loading.style.display = 'none';
+ count.textContent = orders.length;
 
-    if (orders.length === 0) {
-      list.innerHTML = '';
-      empty.style.display = 'block';
-      return;
-    }
-    empty.style.display = 'none';
+ if (orders.length === 0) {
+ list.innerHTML = '';
+ empty.style.display = 'block';
+ return;
+ }
+ empty.style.display = 'none';
 
-    list.innerHTML = orders.map(function(o){
-      var urgent = isUrgent(o.createdAt);
-      var timeStr = timeAgo(o.createdAt);
-      return '<div class="order-card' + (urgent ? ' old' : '') + '" data-order-id="' + escHtml(o.id) + '">' +
-        '<div class="oc-header">' +
-          '<div class="oc-product">' + escHtml(productLabel(o.product)) + '</div>' +
-          '<div class="oc-time' + (urgent ? ' urgent' : '') + '">' + escHtml(timeStr) + '</div>' +
-        '</div>' +
-        '<div class="oc-name">' + escHtml(o.customerName) + '</div>' +
-        '<div class="oc-detail"><strong>Phone:</strong> ' + escHtml(o.whatsappNumber) + '</div>' +
-        (o.email ? '<div class="oc-detail"><strong>Email:</strong> ' + escHtml(o.email) + '</div>' : '') +
-        '<div class="oc-detail"><strong>Payment Ref:</strong> <span class="ref">' + escHtml(o.paymentRef) + '</span></div>' +
-        '<div class="oc-tags">' +
-          '<span class="oc-tag method-' + escHtml(o.paymentMethod) + '">' + escHtml(methodLabel(o.paymentMethod)) + '</span>' +
-          '<span class="oc-tag lang-' + escHtml(o.lang) + '">' + (o.lang === 'ar' ? 'AR' : 'EN') + '</span>' +
-          (urgent ? '<span class="oc-tag old-warn">24h+</span>' : '') +
-        '</div>' +
-        '<div class="oc-btns">' +
-          '<button class="oc-btn oc-btn-approve" onclick="approveOrder(\'' + escHtml(o.id) + '\', this)">Approve</button>' +
-          '<button class="oc-btn oc-btn-reject" onclick="showReject(\'' + escHtml(o.id) + '\', this)">Reject</button>' +
-        '</div>' +
-        '<div class="reject-panel" id="rp-' + escHtml(o.id) + '">' +
-          '<select id="rs-' + escHtml(o.id) + '">' +
-            '<option value="didnt_pay">Didn\'t Pay</option>' +
-            '<option value="suspicious">Suspicious</option>' +
-            '<option value="duplicate">Duplicate</option>' +
-            '<option value="other">Other</option>' +
-          '</select>' +
-          '<div class="rp-btns">' +
-            '<button class="rp-btn rp-confirm" onclick="rejectOrder(\'' + escHtml(o.id) + '\', this)">Confirm Reject</button>' +
-            '<button class="rp-btn rp-cancel" onclick="hideReject(\'' + escHtml(o.id) + '\')">Cancel</button>' +
-          '</div>' +
-        '</div>' +
-        '<div class="approval-result" id="ar-' + escHtml(o.id) + '"></div>' +
-      '</div>';
-    }).join('');
-  }
+ list.innerHTML = orders.map(function(o){
+ var urgent = isUrgent(o.createdAt);
+ var timeStr = timeAgo(o.createdAt);
+ return '<div class="order-card' + (urgent ? ' old' : '') + '" data-order-id="' + escHtml(o.id) + '">' +
+ '<div class="oc-header">' +
+ '<div class="oc-product">' + escHtml(productLabel(o.product)) + '</div>' +
+ '<div class="oc-time' + (urgent ? ' urgent' : '') + '">' + escHtml(timeStr) + '</div>' +
+ '</div>' +
+ '<div class="oc-name">' + escHtml(o.customerName) + '</div>' +
+ '<div class="oc-detail"><strong>Phone:</strong> ' + escHtml(o.whatsappNumber) + '</div>' +
+ (o.email ? '<div class="oc-detail"><strong>Email:</strong> ' + escHtml(o.email) + '</div>' : '') +
+ '<div class="oc-detail"><strong>Payment Ref:</strong> <span class="ref">' + escHtml(o.paymentRef) + '</span></div>' +
+ '<div class="oc-tags">' +
+ '<span class="oc-tag method-' + escHtml(o.paymentMethod) + '">' + escHtml(methodLabel(o.paymentMethod)) + '</span>' +
+ '<span class="oc-tag lang-' + escHtml(o.lang) + '">' + (o.lang === 'ar' ? 'AR' : 'EN') + '</span>' +
+ (urgent ? '<span class="oc-tag old-warn">24h+</span>' : '') +
+ '</div>' +
+ '<div class="oc-btns">' +
+ '<button class="oc-btn oc-btn-approve" onclick="approveOrder(\'' + escHtml(o.id) + '\', this)">Approve</button>' +
+ '<button class="oc-btn oc-btn-reject" onclick="showReject(\'' + escHtml(o.id) + '\', this)">Reject</button>' +
+ '</div>' +
+ '<div class="reject-panel" id="rp-' + escHtml(o.id) + '">' +
+ '<select id="rs-' + escHtml(o.id) + '">' +
+ '<option value="didnt_pay">Didn\'t Pay</option>' +
+ '<option value="suspicious">Suspicious</option>' +
+ '<option value="duplicate">Duplicate</option>' +
+ '<option value="other">Other</option>' +
+ '</select>' +
+ '<div class="rp-btns">' +
+ '<button class="rp-btn rp-confirm" onclick="rejectOrder(\'' + escHtml(o.id) + '\', this)">Confirm Reject</button>' +
+ '<button class="rp-btn rp-cancel" onclick="hideReject(\'' + escHtml(o.id) + '\')">Cancel</button>' +
+ '</div>' +
+ '</div>' +
+ '<div class="approval-result" id="ar-' + escHtml(o.id) + '"></div>' +
+ '</div>';
+ }).join('');
+ }
 
-  function fetchOrders() {
-    var key = getKey();
-    if (!key) return;
-    var list = document.getElementById('orderList');
-    var loading = document.getElementById('loadingIndicator');
-    var empty = document.getElementById('emptyState');
+ function fetchOrders() {
+ var key = getKey();
+ if (!key) return;
+ var list = document.getElementById('orderList');
+ var loading = document.getElementById('loadingIndicator');
+ var empty = document.getElementById('emptyState');
 
-    fetch(API + '/api/pending-orders', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-Admin-Key': key }
-    }).then(function(r){
-      if (r.status === 401) {
-        sessionStorage.removeItem('mos_admin_key');
-        showToast('Session expired. Re-enter admin key.', 'error');
-        location.reload();
-        return null;
-      }
-      return r.json();
-    }).then(function(data){
-      if (data && data.orders) {
-        renderOrders(data.orders);
-      }
-    }).catch(function(){
-      showToast('Network error fetching orders', 'error');
-      loading.style.display = 'none';
-    });
-  }
+ fetch(API + '/api/pending-orders', {
+ method: 'POST',
+ headers: { 'Content-Type': 'application/json', 'X-Admin-Key': key }
+ }).then(function(r){
+ if (r.status === 401) {
+ sessionStorage.removeItem('mos_admin_key');
+ showToast('Session expired. Re-enter admin key.', 'error');
+ location.reload();
+ return null;
+ }
+ return r.json();
+ }).then(function(data){
+ if (data && data.orders) {
+ renderOrders(data.orders);
+ }
+ }).catch(function(){
+ showToast('Network error fetching orders', 'error');
+ loading.style.display = 'none';
+ });
+ }
 
-  window.approveOrder = function(orderId, btn) {
-    var card = btn.closest('.order-card');
-    card.classList.add('resolving');
-    btn.disabled = true;
-    var key = getKey();
+ window.approveOrder = function(orderId, btn) {
+ var card = btn.closest('.order-card');
+ card.classList.add('resolving');
+ btn.disabled = true;
+ var key = getKey();
 
-    fetch(API + '/api/approve-order', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-Admin-Key': key },
-      body: JSON.stringify({ orderId: orderId })
-    }).then(function(r){ return r.json(); }).then(function(data){
-      if (data.status === 'ok') {
-        var resultPanel = document.getElementById('ar-' + orderId);
-        var waUrl = 'https://wa.me/' + encodeURIComponent(data.whatsappNumber) + '?text=' + encodeURIComponent(data.prefilledMessage);
-        resultPanel.innerHTML =
-          '<div class="ar-code">' + escHtml(data.code) + '</div>' +
-          '<div class="ar-msg">' + escHtml(data.prefilledMessage.substring(0, 120)) + (data.prefilledMessage.length > 120 ? '…' : '') + '</div>' +
-          '<a href="' + escHtml(waUrl) + '" target="_blank" rel="noopener" class="ar-wa-btn">Send via WhatsApp</a>';
-        resultPanel.className = 'approval-result open';
-        card.classList.remove('resolving');
+ fetch(API + '/api/approve-order', {
+ method: 'POST',
+ headers: { 'Content-Type': 'application/json', 'X-Admin-Key': key },
+ body: JSON.stringify({ orderId: orderId })
+ }).then(function(r){ return r.json(); }).then(function(data){
+ if (data.status === 'ok') {
+ var resultPanel = document.getElementById('ar-' + orderId);
+ var waUrl = 'https://wa.me/' + encodeURIComponent(data.whatsappNumber) + '?text=' + encodeURIComponent(data.prefilledMessage);
+ resultPanel.innerHTML =
+ '<div class="ar-code">' + escHtml(data.code) + '</div>' +
+ '<div class="ar-msg">' + escHtml(data.prefilledMessage.substring(0, 120)) + (data.prefilledMessage.length > 120 ? '…' : '') + '</div>' +
+ '<a href="' + escHtml(waUrl) + '" target="_blank" rel="noopener" class="ar-wa-btn">Send via WhatsApp</a>';
+ resultPanel.className = 'approval-result open';
+ card.classList.remove('resolving');
 
-        // Track event
-        if (window.mosTrackEvent) {
-          window.mosTrackEvent('order_approved', data.product, { order_id: orderId });
-        }
-      } else if (data.currentStatus === 'approved') {
-        showToast('Already approved (auto-approved by Paymob)', 'success');
-        card.style.display = 'none';
-      } else {
-        showToast(data.error || 'Approval failed', 'error');
-        card.classList.remove('resolving');
-        btn.disabled = false;
-      }
-    }).catch(function(){
-      showToast('Network error', 'error');
-      card.classList.remove('resolving');
-      btn.disabled = false;
-    });
-  };
+ // Track event
+ if (window.mosTrackEvent) {
+ window.mosTrackEvent('order_approved', data.product, { order_id: orderId });
+ }
+ } else if (data.currentStatus === 'approved') {
+ showToast('Already approved (auto-approved by Paymob)', 'success');
+ card.style.display = 'none';
+ } else {
+ showToast(data.error || 'Approval failed', 'error');
+ card.classList.remove('resolving');
+ btn.disabled = false;
+ }
+ }).catch(function(){
+ showToast('Network error', 'error');
+ card.classList.remove('resolving');
+ btn.disabled = false;
+ });
+ };
 
-  window.showReject = function(orderId) {
-    var panel = document.getElementById('rp-' + orderId);
-    panel.classList.add('open');
-  };
+ window.showReject = function(orderId) {
+ var panel = document.getElementById('rp-' + orderId);
+ panel.classList.add('open');
+ };
 
-  window.hideReject = function(orderId) {
-    var panel = document.getElementById('rp-' + orderId);
-    panel.classList.remove('open');
-  };
+ window.hideReject = function(orderId) {
+ var panel = document.getElementById('rp-' + orderId);
+ panel.classList.remove('open');
+ };
 
-  window.rejectOrder = function(orderId, btn) {
-    var card = btn.closest('.order-card');
-    var select = document.getElementById('rs-' + orderId);
-    var reason = select.value;
-    card.classList.add('resolving');
-    var key = getKey();
+ window.rejectOrder = function(orderId, btn) {
+ var card = btn.closest('.order-card');
+ var select = document.getElementById('rs-' + orderId);
+ var reason = select.value;
+ card.classList.add('resolving');
+ var key = getKey();
 
-    fetch(API + '/api/reject-order', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-Admin-Key': key },
-      body: JSON.stringify({ orderId: orderId, reason: reason })
-    }).then(function(r){ return r.json(); }).then(function(data){
-      if (data.status === 'ok') {
-        showToast('Order rejected', 'success');
-        fetchOrders();
-        if (window.mosTrackEvent) {
-          window.mosTrackEvent('order_rejected', reason, { order_id: orderId });
-        }
-      } else {
-        showToast(data.error || 'Rejection failed', 'error');
-        card.classList.remove('resolving');
-      }
-    }).catch(function(){
-      showToast('Network error', 'error');
-      card.classList.remove('resolving');
-    });
-  };
+ fetch(API + '/api/reject-order', {
+ method: 'POST',
+ headers: { 'Content-Type': 'application/json', 'X-Admin-Key': key },
+ body: JSON.stringify({ orderId: orderId, reason: reason })
+ }).then(function(r){ return r.json(); }).then(function(data){
+ if (data.status === 'ok') {
+ showToast('Order rejected', 'success');
+ fetchOrders();
+ if (window.mosTrackEvent) {
+ window.mosTrackEvent('order_rejected', reason, { order_id: orderId });
+ }
+ } else {
+ showToast(data.error || 'Rejection failed', 'error');
+ card.classList.remove('resolving');
+ }
+ }).catch(function(){
+ showToast('Network error', 'error');
+ card.classList.remove('resolving');
+ });
+ };
 
-  // ── Tab switching ──
-  window.switchTab = function(name) {
-    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
-    document.querySelectorAll('.tab-content').forEach(function(c){ c.classList.remove('active'); });
-    document.querySelector('.tab-btn[data-tab="' + name + '"]').classList.add('active');
-    document.getElementById('tab-' + name).classList.add('active');
-    var label = document.getElementById('refreshLabel');
-    label.textContent = name === 'orders' ? 'Auto-refresh every 30s' : 'Manual refresh';
-  };
+ // ── Tab switching ──
+ window.switchTab = function(name) {
+ document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+ document.querySelectorAll('.tab-content').forEach(function(c){ c.classList.remove('active'); });
+ document.querySelector('.tab-btn[data-tab="' + name + '"]').classList.add('active');
+ document.getElementById('tab-' + name).classList.add('active');
+ var label = document.getElementById('refreshLabel');
+ label.textContent = name === 'orders' ? 'Auto-refresh every 30s' : 'Manual refresh';
+ };
 
-  // ── Expiring codes ──
-  window.fetchExpiringCodes = function() {
-    var key = getKey();
-    if (!key) return;
-    var list = document.getElementById('expiringList');
-    var loading = document.getElementById('expiringLoading');
-    var empty = document.getElementById('expiringEmpty');
-    var count = document.getElementById('expiringCount');
+ // ── Expiring codes ──
+ window.fetchExpiringCodes = function() {
+ var key = getKey();
+ if (!key) return;
+ var list = document.getElementById('expiringList');
+ var loading = document.getElementById('expiringLoading');
+ var empty = document.getElementById('expiringEmpty');
+ var count = document.getElementById('expiringCount');
 
-    loading.style.display = 'block';
-    empty.style.display = 'none';
-    list.innerHTML = '';
+ loading.style.display = 'block';
+ empty.style.display = 'none';
+ list.innerHTML = '';
 
-    fetch(API + '/api/expiring-codes', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-Admin-Key': key },
-      body: JSON.stringify({ days: 7 })
-    }).then(function(r){
-      if (r.status === 401) return null;
-      return r.json();
-    }).then(function(data){
-      loading.style.display = 'none';
-      if (!data) return;
-      count.textContent = data.count;
-      if (data.count === 0) {
-        empty.style.display = 'block';
-        return;
-      }
-      list.innerHTML = data.expiring.map(function(e){
-        var cls = e.daysRemaining <= 1 ? 'urgent' : e.daysRemaining <= 3 ? 'near' : 'ok';
-        var expiryCls = e.daysRemaining <= 1 ? 'bad' : e.daysRemaining <= 3 ? 'warn' : 'good';
-        var expiryDate = new Date(e.expiresAt).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
-        return '<div class="ec-card ' + cls + '">' +
-          '<div class="ec-code">' + escHtml(e.code) + '</div>' +
-          '<div class="ec-name">' + escHtml(e.customerName) + '</div>' +
-          (e.whatsappNumber ? '<div class="ec-detail">📞 ' + escHtml(e.whatsappNumber) + '</div>' : '') +
-          (e.email ? '<div class="ec-detail">✉️ ' + escHtml(e.email) + '</div>' : '') +
-          '<div class="ec-detail">📦 ' + escHtml(productLabel(e.product)) + ' — ' + (e.lang === 'ar' ? 'عربي' : 'English') + '</div>' +
-          '<div class="ec-expiry ' + expiryCls + '">Expires ' + expiryDate + ' — ' + e.daysRemaining + ' day' + (e.daysRemaining !== 1 ? 's' : '') + ' left</div>' +
-          (e.whatsappLink ? '<a href="' + escHtml(e.whatsappLink) + '" target="_blank" rel="noopener" class="ec-wa-btn">Send Reminder on WhatsApp</a>' : '') +
-        '</div>';
-      }).join('');
-    }).catch(function(){
-      loading.style.display = 'none';
-      showToast('Network error fetching expiring codes', 'error');
-    });
-  };
+ fetch(API + '/api/expiring-codes', {
+ method: 'POST',
+ headers: { 'Content-Type': 'application/json', 'X-Admin-Key': key },
+ body: JSON.stringify({ days: 7 })
+ }).then(function(r){
+ if (r.status === 401) return null;
+ return r.json();
+ }).then(function(data){
+ loading.style.display = 'none';
+ if (!data) return;
+ count.textContent = data.count;
+ if (data.count === 0) {
+ empty.style.display = 'block';
+ return;
+ }
+ list.innerHTML = data.expiring.map(function(e){
+ var cls = e.daysRemaining <= 1 ? 'urgent' : e.daysRemaining <= 3 ? 'near' : 'ok';
+ var expiryCls = e.daysRemaining <= 1 ? 'bad' : e.daysRemaining <= 3 ? 'warn' : 'good';
+ var expiryDate = new Date(e.expiresAt).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+ return '<div class="ec-card ' + cls + '">' +
+ '<div class="ec-code">' + escHtml(e.code) + '</div>' +
+ '<div class="ec-name">' + escHtml(e.customerName) + '</div>' +
+ (e.whatsappNumber ? '<div class="ec-detail"> ' + escHtml(e.whatsappNumber) + '</div>' : '') +
+ (e.email ? '<div class="ec-detail">✉ ' + escHtml(e.email) + '</div>' : '') +
+ '<div class="ec-detail"> ' + escHtml(productLabel(e.product)) + ' — ' + (e.lang === 'ar' ? 'عربي' : 'English') + '</div>' +
+ '<div class="ec-expiry ' + expiryCls + '">Expires ' + expiryDate + ' — ' + e.daysRemaining + ' day' + (e.daysRemaining !== 1 ? 's' : '') + ' left</div>' +
+ (e.whatsappLink ? '<a href="' + escHtml(e.whatsappLink) + '" target="_blank" rel="noopener" class="ec-wa-btn">Send Reminder on WhatsApp</a>' : '') +
+ '</div>';
+ }).join('');
+ }).catch(function(){
+ loading.style.display = 'none';
+ showToast('Network error fetching expiring codes', 'error');
+ });
+ };
 
-  // ── Login ──
-  document.getElementById('loginBtn').addEventListener('click', function(){
-    var input = document.getElementById('adminKeyInput');
-    var key = input.value.trim();
-    if (!key) return;
-    setKey(key);
+ // ── Login ──
+ document.getElementById('loginBtn').addEventListener('click', function(){
+ var input = document.getElementById('adminKeyInput');
+ var key = input.value.trim();
+ if (!key) return;
+ setKey(key);
 
-    // Test the key by fetching orders
-    fetch(API + '/api/pending-orders', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-Admin-Key': key }
-    }).then(function(r){
-      if (r.status === 401) {
-        document.getElementById('loginError').style.display = 'block';
-        sessionStorage.removeItem('mos_admin_key');
-        return null;
-      }
-      return r.json();
-    }).then(function(data){
-      if (data) {
-        document.getElementById('loginError').style.display = 'none';
-        document.getElementById('loginScreen').style.display = 'none';
-        document.getElementById('dashboard').style.display = 'block';
-        renderOrders(data.orders || []);
-        startPolling();
-      }
-    }).catch(function(){
-      document.getElementById('loginError').textContent = 'Network error. Check connection.';
-      document.getElementById('loginError').style.display = 'block';
-      sessionStorage.removeItem('mos_admin_key');
-    });
-  });
+ // Test the key by fetching orders
+ fetch(API + '/api/pending-orders', {
+ method: 'POST',
+ headers: { 'Content-Type': 'application/json', 'X-Admin-Key': key }
+ }).then(function(r){
+ if (r.status === 401) {
+ document.getElementById('loginError').style.display = 'block';
+ sessionStorage.removeItem('mos_admin_key');
+ return null;
+ }
+ return r.json();
+ }).then(function(data){
+ if (data) {
+ document.getElementById('loginError').style.display = 'none';
+ document.getElementById('loginScreen').style.display = 'none';
+ document.getElementById('dashboard').style.display = 'block';
+ renderOrders(data.orders || []);
+ startPolling();
+ }
+ }).catch(function(){
+ document.getElementById('loginError').textContent = 'Network error. Check connection.';
+ document.getElementById('loginError').style.display = 'block';
+ sessionStorage.removeItem('mos_admin_key');
+ });
+ });
 
-  // Enter key on input
-  document.getElementById('adminKeyInput').addEventListener('keydown', function(e){
-    if (e.key === 'Enter') document.getElementById('loginBtn').click();
-  });
+ // Enter key on input
+ document.getElementById('adminKeyInput').addEventListener('keydown', function(e){
+ if (e.key === 'Enter') document.getElementById('loginBtn').click();
+ });
 
-  // Refresh button
-  document.getElementById('refreshBtn').addEventListener('click', function(){
-    fetchOrders();
-  });
+ // Refresh button
+ document.getElementById('refreshBtn').addEventListener('click', function(){
+ fetchOrders();
+ });
 
-  function startPolling() {
-    if (pollTimer) clearInterval(pollTimer);
-    pollTimer = setInterval(fetchOrders, POLL_INTERVAL);
-  }
+ function startPolling() {
+ if (pollTimer) clearInterval(pollTimer);
+ pollTimer = setInterval(fetchOrders, POLL_INTERVAL);
+ }
 
-  // ── Auto-login if key exists in sessionStorage ──
-  var savedKey = getKey();
-  if (savedKey) {
-    document.getElementById('adminKeyInput').value = savedKey;
-    document.getElementById('loginBtn').click();
-  }
+ // ── Auto-login if key exists in sessionStorage ──
+ var savedKey = getKey();
+ if (savedKey) {
+ document.getElementById('adminKeyInput').value = savedKey;
+ document.getElementById('loginBtn').click();
+ }
 })();
 </script>
 </body>

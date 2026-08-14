@@ -10,18 +10,18 @@
 <title>Volume & Set Calculator — Coach Anas Mo'men | Muscle OS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <meta name="description" content="Training volume & set calculator by Coach Anas Mo'men. Calculate optimal sets per muscle group based on your experience level and goals.">
-  <meta property="og:title" content="Volume & Set Calculator — Coach Anas Mo'men | Muscle OS">
-  <meta property="og:description" content="Training volume & set calculator by Coach Anas Mo'men. Calculate optimal sets per muscle group based on your experience level and goals.">
-  <meta property="og:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="1200">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://muscleos.is-a.dev/tools/volume_set_calculator.html">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Volume & Set Calculator — Coach Anas Mo'men | Muscle OS">
-  <meta name="twitter:description" content="Training volume & set calculator by Coach Anas Mo'men. Calculate optimal sets per muscle group based on your experience level and goals.">
-  <meta name="twitter:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
+ <meta name="description" content="Training volume & set calculator by Coach Anas Mo'men. Calculate optimal sets per muscle group based on your experience level and goals.">
+ <meta property="og:title" content="Volume & Set Calculator — Coach Anas Mo'men | Muscle OS">
+ <meta property="og:description" content="Training volume & set calculator by Coach Anas Mo'men. Calculate optimal sets per muscle group based on your experience level and goals.">
+ <meta property="og:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
+ <meta property="og:image:width" content="1200">
+ <meta property="og:image:height" content="1200">
+ <meta property="og:type" content="website">
+ <meta property="og:url" content="https://muscleos.is-a.dev/tools/volume_set_calculator.html">
+ <meta name="twitter:card" content="summary_large_image">
+ <meta name="twitter:title" content="Volume & Set Calculator — Coach Anas Mo'men | Muscle OS">
+ <meta name="twitter:description" content="Training volume & set calculator by Coach Anas Mo'men. Calculate optimal sets per muscle group based on your experience level and goals.">
+ <meta name="twitter:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 16px;line-height:1.7}
@@ -109,12 +109,12 @@ select option{background:#1E1E2A;color:#FAFAF8}
 .mos-fsocial a{color:#F4C93B;text-decoration:none;margin:0 8px;font-size:11px}
 .mos-fcopy{font-size:10px;color:rgba(250,250,248,.3);margin-top:6px}
 @media(max-width:600px){
-  body{padding:24px 12px}
-  .header h1{font-size:2rem}
-  .card{padding:18px 14px}
-  .form-row,.form-row-3{grid-template-columns:1fr}
-  .muscle-grid{grid-template-columns:1fr}
-  .cal-val{font-size:2.3rem}
+ body{padding:24px 12px}
+ .header h1{font-size:2rem}
+ .card{padding:18px 14px}
+ .form-row,.form-row-3{grid-template-columns:1fr}
+ .muscle-grid{grid-template-columns:1fr}
+ .cal-val{font-size:2.3rem}
 }
 #googleGate{position:fixed;inset:0;z-index:9999;background:#14151A;display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Inter',sans-serif}#googleGate.gate-hidden{display:none!important}.gate-card{background:#1E1E2A;border:1px solid #2C2E37;border-radius:16px;padding:36px 28px;max-width:420px;width:100%;text-align:center}.gate-card .gate-lock{font-size:36px;margin-bottom:10px}.gate-card h2{font-size:1.1rem;font-weight:600;color:#FAFAF8;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}.gate-card p{font-size:.75rem;color:rgba(250,250,248,.45);margin-bottom:20px;line-height:1.6}.gate-error{display:none;font-size:.7rem;color:#f44336;margin-top:12px}
 </style>
@@ -122,278 +122,278 @@ select option{background:#1E1E2A;color:#FAFAF8}
 </head>
 <body>
 <div id="googleGate">
-  <div class="gate-card">
-    <div class="gate-lock">&#128274;</div>
-    <h2>Sign In Required</h2>
-    <p>Sign in with Google to access this tool. A free Muscle OS account is required.</p>
-    <div id="googleSignIn"></div>
-    <p class="gate-error" id="gateError"></p>
-  </div>
+ <div class="gate-card">
+ <div class="gate-lock">&#128274;</div>
+ <h2>Sign In Required</h2>
+ <p>Sign in with Google to access this tool. A free Muscle OS account is required.</p>
+ <div id="googleSignIn"></div>
+ <p class="gate-error" id="gateError"></p>
+ </div>
 </div>
 <nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a><a href="../index.html#packages">Coaching</a></div></div></nav>
 <div class="container">
-  <div class="header">
-    <h1>Volume & Set Calculator</h1>
-    <p>Find your optimal weekly sets per muscle group</p>
-  </div>
-  <div class="concept-box">
-    <strong>What is Training Volume?</strong> Training volume — measured as the number of hard sets per muscle group per week — is the primary driver of muscle hypertrophy. Research shows each muscle group has a Minimum Effective Volume (MEV), a Maximum Adaptive Volume (MAV), and a Maximum Recoverable Volume (MRV). Getting these right prevents both under-training and overtraining.
-    <span class="book-ref">This concept is covered in depth in the <a href="../books/muscle_os_training_book.html">Training &amp; Programming Book</a> (27 chapters, 200+ references).</span>
-  </div>
-  <div class="card" id="formCard">
-    <div class="section-header">Your Profile</div>
-    <div class="form-row">
-      <div class="form-group">
-        <label>Training Age</label>
-        <select id="trainingAge">
-          <option value="novice">Novice (under 1 year)</option>
-          <option value="intermediate" selected>Intermediate (1–3 years)</option>
-          <option value="advanced">Advanced (3+ years)</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Primary Goal</label>
-        <select id="goal">
-          <option value="hypertrophy" selected>Hypertrophy (muscle size)</option>
-          <option value="strength">Strength (max force)</option>
-          <option value="both">Both (balanced)</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Days Per Week Available to Train</label>
-      <select id="daysPerWeek">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4" selected>4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-      </select>
-    </div>
+ <div class="header">
+ <h1>Volume & Set Calculator</h1>
+ <p>Find your optimal weekly sets per muscle group</p>
+ </div>
+ <div class="concept-box">
+ <strong>What is Training Volume?</strong> Training volume — measured as the number of hard sets per muscle group per week — is the primary driver of muscle hypertrophy. Research shows each muscle group has a Minimum Effective Volume (MEV), a Maximum Adaptive Volume (MAV), and a Maximum Recoverable Volume (MRV). Getting these right prevents both under-training and overtraining.
+ <span class="book-ref">This concept is covered in depth in the <a href="../books/muscle_os_training_book.html">Training &amp; Programming Book</a> (27 chapters, 200+ references).</span>
+ </div>
+ <div class="card" id="formCard">
+ <div class="section-header">Your Profile</div>
+ <div class="form-row">
+ <div class="form-group">
+ <label>Training Age</label>
+ <select id="trainingAge">
+ <option value="novice">Novice (under 1 year)</option>
+ <option value="intermediate" selected>Intermediate (1–3 years)</option>
+ <option value="advanced">Advanced (3+ years)</option>
+ </select>
+ </div>
+ <div class="form-group">
+ <label>Primary Goal</label>
+ <select id="goal">
+ <option value="hypertrophy" selected>Hypertrophy (muscle size)</option>
+ <option value="strength">Strength (max force)</option>
+ <option value="both">Both (balanced)</option>
+ </select>
+ </div>
+ </div>
+ <div class="form-group">
+ <label>Days Per Week Available to Train</label>
+ <select id="daysPerWeek">
+ <option value="1">1</option>
+ <option value="2">2</option>
+ <option value="3">3</option>
+ <option value="4" selected>4</option>
+ <option value="5">5</option>
+ <option value="6">6</option>
+ <option value="7">7</option>
+ </select>
+ </div>
 
-    <div class="section-header">Muscle Priority <span class="section-sub">— mark each as Focus or Maintenance</span></div>
-    <p style="font-size:.62rem;color:rgba(250,250,248,.35);margin-bottom:10px;line-height:1.4;">Focus muscles get MEV–MAV range. Maintenance muscles get reduced volume near MEV.</p>
-    <div id="priorityGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+ <div class="section-header">Muscle Priority <span class="section-sub">— mark each as Focus or Maintenance</span></div>
+ <p style="font-size:.62rem;color:rgba(250,250,248,.35);margin-bottom:10px;line-height:1.4;">Focus muscles get MEV–MAV range. Maintenance muscles get reduced volume near MEV.</p>
+ <div id="priorityGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
 
-    </div>
+ </div>
 
-    <div class="error" id="errorMsg">Select at least one Focus muscle group.</div>
-    <button class="btn-calc" id="calcBtn">Calculate My Volume</button>
-  </div>
+ <div class="error" id="errorMsg">Select at least one Focus muscle group.</div>
+ <button class="btn-calc" id="calcBtn">Calculate My Volume</button>
+ </div>
 
-  <div class="results" id="resultsSection">
-    <div class="results-card">
-      <div class="results-title">Weekly Set Recommendations</div>
-      <div class="cal-section">
-        <div class="cal-label">Total Weekly Working Sets</div>
-        <div class="cal-val" id="totalSets">0</div>
-        <div class="cal-unit">sets / week</div>
-      </div>
-      <div class="muscle-grid" id="muscleResults"></div>
-      <div id="volBreakdown"></div>
-      <div class="bar-section">
-        <div class="bar-title">Per-Session Volume Distribution</div>
-        <div class="bar-track" id="sessionBar"></div>
-        <div class="legend">
-          <span class="legend-item"><span class="legend-dot" style="background:#F4C93B"></span>Sessions</span>
-        </div>
-      </div>
-      <div class="rec-note" id="recNote"></div>
-    </div>
-  </div>
+ <div class="results" id="resultsSection">
+ <div class="results-card">
+ <div class="results-title">Weekly Set Recommendations</div>
+ <div class="cal-section">
+ <div class="cal-label">Total Weekly Working Sets</div>
+ <div class="cal-val" id="totalSets">0</div>
+ <div class="cal-unit">sets / week</div>
+ </div>
+ <div class="muscle-grid" id="muscleResults"></div>
+ <div id="volBreakdown"></div>
+ <div class="bar-section">
+ <div class="bar-title">Per-Session Volume Distribution</div>
+ <div class="bar-track" id="sessionBar"></div>
+ <div class="legend">
+ <span class="legend-item"><span class="legend-dot" style="background:#F4C93B"></span>Sessions</span>
+ </div>
+ </div>
+ <div class="rec-note" id="recNote"></div>
+ </div>
+ </div>
 </div>
 <div class="upsell-box">
-  <h3>Want the full picture?</h3>
-  <p>This free calculator gives you a snapshot. The full Training &amp; Programming Book covers progressive overload, periodisation, exercise selection, fatigue management, and autoregulation across 27 chapters with 200+ scientific references.</p>
-  <a class="upsell-cta" href="../books/muscle_os_training_book.html">Get the Full Book — 500 EGP &rarr;</a>
+ <h3>Want the full picture?</h3>
+ <p>This free calculator gives you a snapshot. The full Training &amp; Programming Book covers progressive overload, periodisation, exercise selection, fatigue management, and autoregulation across 27 chapters with 200+ scientific references.</p>
+ <a class="upsell-cta" href="../books/muscle_os_training_book.html">Get the Full Book — 500 EGP &rarr;</a>
 </div>
 <footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo'men</div></footer>
 
 <script>
 (function(){
-  const MUSCLES = [
-    {id:'chest', name:'Chest'},
-    {id:'back_lat', name:'Back (Lats)'},
-    {id:'back_upper', name:'Back (Upper/Mid)'},
-    {id:'shoulders', name:'Shoulders (Delts)'},
-    {id:'quads', name:'Quads (Front Thigh)'},
-    {id:'hamstrings', name:'Hamstrings'},
-    {id:'glutes', name:'Glutes'},
-    {id:'biceps', name:'Biceps'},
-    {id:'triceps', name:'Triceps'},
-    {id:'calves', name:'Calves'},
-    {id:'abs', name:'Abs / Core'},
-    {id:'traps', name:'Traps'},
-    {id:'forearms', name:'Forearms'}
-  ];
+ const MUSCLES = [
+ {id:'chest', name:'Chest'},
+ {id:'back_lat', name:'Back (Lats)'},
+ {id:'back_upper', name:'Back (Upper/Mid)'},
+ {id:'shoulders', name:'Shoulders (Delts)'},
+ {id:'quads', name:'Quads (Front Thigh)'},
+ {id:'hamstrings', name:'Hamstrings'},
+ {id:'glutes', name:'Glutes'},
+ {id:'biceps', name:'Biceps'},
+ {id:'triceps', name:'Triceps'},
+ {id:'calves', name:'Calves'},
+ {id:'abs', name:'Abs / Core'},
+ {id:'traps', name:'Traps'},
+ {id:'forearms', name:'Forearms'}
+ ];
 
-  const VOLUME_TABLES = {
-    novice: {
-      hypertrophy: {
-        chest:[6,10,14], back_lat:[8,12,18], back_upper:[8,12,16],
-        shoulders:[6,10,16], quads:[6,12,18], hamstrings:[6,10,14],
-        glutes:[6,10,14], biceps:[4,8,12], triceps:[4,8,12],
-        calves:[4,8,12], abs:[4,8,12], traps:[4,8,10], forearms:[4,6,10]
-      },
-      strength: {
-        chest:[4,7,12], back_lat:[5,9,14], back_upper:[5,9,12],
-        shoulders:[4,7,12], quads:[5,9,14], hamstrings:[4,7,12],
-        glutes:[4,7,12], biceps:[3,5,9], triceps:[3,5,9],
-        calves:[3,5,9], abs:[3,5,9], traps:[3,5,8], forearms:[3,4,8]
-      },
-      both: {
-        chest:[5,9,14], back_lat:[7,11,16], back_upper:[7,11,14],
-        shoulders:[5,9,14], quads:[6,10,16], hamstrings:[5,9,14],
-        glutes:[5,9,14], biceps:[3,7,11], triceps:[3,7,11],
-        calves:[3,7,11], abs:[3,7,11], traps:[3,6,10], forearms:[3,5,9]
-      }
-    },
-    intermediate: {
-      hypertrophy: {
-        chest:[8,14,20], back_lat:[10,16,22], back_upper:[10,15,20],
-        shoulders:[8,14,20], quads:[8,14,22], hamstrings:[8,12,18],
-        glutes:[8,12,18], biceps:[6,12,16], triceps:[6,12,16],
-        calves:[6,10,16], abs:[6,10,16], traps:[6,10,14], forearms:[6,8,14]
-      },
-      strength: {
-        chest:[5,10,16], back_lat:[7,12,18], back_upper:[7,12,16],
-        shoulders:[5,10,16], quads:[6,12,18], hamstrings:[5,10,16],
-        glutes:[5,10,16], biceps:[4,8,13], triceps:[4,8,13],
-        calves:[4,8,13], abs:[4,8,13], traps:[4,8,11], forearms:[4,6,11]
-      },
-      both: {
-        chest:[7,12,18], back_lat:[9,14,20], back_upper:[9,13,18],
-        shoulders:[7,12,18], quads:[7,13,20], hamstrings:[7,11,17],
-        glutes:[7,11,17], biceps:[5,10,14], triceps:[5,10,14],
-        calves:[5,9,14], abs:[5,9,14], traps:[5,9,12], forearms:[5,7,12]
-      }
-    },
-    advanced: {
-      hypertrophy: {
-        chest:[10,16,22], back_lat:[12,18,26], back_upper:[12,18,24],
-        shoulders:[10,16,24], quads:[10,16,24], hamstrings:[10,14,22],
-        glutes:[10,14,22], biceps:[8,14,20], triceps:[8,14,20],
-        calves:[8,12,18], abs:[8,12,18], traps:[8,12,16], forearms:[8,10,16]
-      },
-      strength: {
-        chest:[6,12,18], back_lat:[8,14,20], back_upper:[8,14,18],
-        shoulders:[6,12,18], quads:[7,14,20], hamstrings:[6,12,18],
-        glutes:[6,12,18], biceps:[5,10,15], triceps:[5,10,15],
-        calves:[5,9,15], abs:[5,9,15], traps:[5,9,13], forearms:[5,7,13]
-      },
-      both: {
-        chest:[8,14,20], back_lat:[10,16,22], back_upper:[10,16,20],
-        shoulders:[8,14,20], quads:[9,15,22], hamstrings:[8,13,20],
-        glutes:[8,13,20], biceps:[7,12,18], triceps:[7,12,18],
-        calves:[7,11,17], abs:[7,11,17], traps:[7,11,15], forearms:[7,9,15]
-      }
-    }
-  };
+ const VOLUME_TABLES = {
+ novice: {
+ hypertrophy: {
+ chest:[6,10,14], back_lat:[8,12,18], back_upper:[8,12,16],
+ shoulders:[6,10,16], quads:[6,12,18], hamstrings:[6,10,14],
+ glutes:[6,10,14], biceps:[4,8,12], triceps:[4,8,12],
+ calves:[4,8,12], abs:[4,8,12], traps:[4,8,10], forearms:[4,6,10]
+ },
+ strength: {
+ chest:[4,7,12], back_lat:[5,9,14], back_upper:[5,9,12],
+ shoulders:[4,7,12], quads:[5,9,14], hamstrings:[4,7,12],
+ glutes:[4,7,12], biceps:[3,5,9], triceps:[3,5,9],
+ calves:[3,5,9], abs:[3,5,9], traps:[3,5,8], forearms:[3,4,8]
+ },
+ both: {
+ chest:[5,9,14], back_lat:[7,11,16], back_upper:[7,11,14],
+ shoulders:[5,9,14], quads:[6,10,16], hamstrings:[5,9,14],
+ glutes:[5,9,14], biceps:[3,7,11], triceps:[3,7,11],
+ calves:[3,7,11], abs:[3,7,11], traps:[3,6,10], forearms:[3,5,9]
+ }
+ },
+ intermediate: {
+ hypertrophy: {
+ chest:[8,14,20], back_lat:[10,16,22], back_upper:[10,15,20],
+ shoulders:[8,14,20], quads:[8,14,22], hamstrings:[8,12,18],
+ glutes:[8,12,18], biceps:[6,12,16], triceps:[6,12,16],
+ calves:[6,10,16], abs:[6,10,16], traps:[6,10,14], forearms:[6,8,14]
+ },
+ strength: {
+ chest:[5,10,16], back_lat:[7,12,18], back_upper:[7,12,16],
+ shoulders:[5,10,16], quads:[6,12,18], hamstrings:[5,10,16],
+ glutes:[5,10,16], biceps:[4,8,13], triceps:[4,8,13],
+ calves:[4,8,13], abs:[4,8,13], traps:[4,8,11], forearms:[4,6,11]
+ },
+ both: {
+ chest:[7,12,18], back_lat:[9,14,20], back_upper:[9,13,18],
+ shoulders:[7,12,18], quads:[7,13,20], hamstrings:[7,11,17],
+ glutes:[7,11,17], biceps:[5,10,14], triceps:[5,10,14],
+ calves:[5,9,14], abs:[5,9,14], traps:[5,9,12], forearms:[5,7,12]
+ }
+ },
+ advanced: {
+ hypertrophy: {
+ chest:[10,16,22], back_lat:[12,18,26], back_upper:[12,18,24],
+ shoulders:[10,16,24], quads:[10,16,24], hamstrings:[10,14,22],
+ glutes:[10,14,22], biceps:[8,14,20], triceps:[8,14,20],
+ calves:[8,12,18], abs:[8,12,18], traps:[8,12,16], forearms:[8,10,16]
+ },
+ strength: {
+ chest:[6,12,18], back_lat:[8,14,20], back_upper:[8,14,18],
+ shoulders:[6,12,18], quads:[7,14,20], hamstrings:[6,12,18],
+ glutes:[6,12,18], biceps:[5,10,15], triceps:[5,10,15],
+ calves:[5,9,15], abs:[5,9,15], traps:[5,9,13], forearms:[5,7,13]
+ },
+ both: {
+ chest:[8,14,20], back_lat:[10,16,22], back_upper:[10,16,20],
+ shoulders:[8,14,20], quads:[9,15,22], hamstrings:[8,13,20],
+ glutes:[8,13,20], biceps:[7,12,18], triceps:[7,12,18],
+ calves:[7,11,17], abs:[7,11,17], traps:[7,11,15], forearms:[7,9,15]
+ }
+ }
+ };
 
-  const PRIORITY_MULT = {focus:1.0, maintenance:0.55};
+ const PRIORITY_MULT = {focus:1.0, maintenance:0.55};
 
-  // Render muscle priority grid
-  const grid = document.getElementById('priorityGrid');
-  MUSCLES.forEach(m => {
-    const div = document.createElement('div');
-    div.style.cssText = 'display:flex;align-items:center;gap:6px;padding:5px 8px;background:rgba(20,21,26,.4);border-radius:6px;';
-    div.innerHTML = '<span style="flex:1;font-size:.68rem;color:#FAFAF8;font-weight:500;">'+m.name+'</span>' +
-      '<label style="font-size:.55rem;color:rgba(250,250,248,.35);cursor:pointer;display:flex;align-items:center;gap:2px;"><input type="radio" name="p_'+m.id+'" value="focus" checked style="accent-color:#F4C93B;width:auto;margin:0;">Focus</label>' +
-      '<label style="font-size:.55rem;color:rgba(250,250,248,.25);cursor:pointer;display:flex;align-items:center;gap:2px;"><input type="radio" name="p_'+m.id+'" value="maintenance" style="accent-color:#F4C93B;width:auto;margin:0;">Maint</label>';
-    grid.appendChild(div);
-  });
+ // Render muscle priority grid
+ const grid = document.getElementById('priorityGrid');
+ MUSCLES.forEach(m => {
+ const div = document.createElement('div');
+ div.style.cssText = 'display:flex;align-items:center;gap:6px;padding:5px 8px;background:rgba(20,21,26,.4);border-radius:6px;';
+ div.innerHTML = '<span style="flex:1;font-size:.68rem;color:#FAFAF8;font-weight:500;">'+m.name+'</span>' +
+ '<label style="font-size:.55rem;color:rgba(250,250,248,.35);cursor:pointer;display:flex;align-items:center;gap:2px;"><input type="radio" name="p_'+m.id+'" value="focus" checked style="accent-color:#F4C93B;width:auto;margin:0;">Focus</label>' +
+ '<label style="font-size:.55rem;color:rgba(250,250,248,.25);cursor:pointer;display:flex;align-items:center;gap:2px;"><input type="radio" name="p_'+m.id+'" value="maintenance" style="accent-color:#F4C93B;width:auto;margin:0;">Maint</label>';
+ grid.appendChild(div);
+ });
 
-  function getPriority(id){
-    const r = document.querySelector('input[name="p_'+id+'"]:checked');
-    return r ? r.value : 'focus';
-  }
+ function getPriority(id){
+ const r = document.querySelector('input[name="p_'+id+'"]:checked');
+ return r ? r.value : 'focus';
+ }
 
-  function getVol(muscleId, level, goal){
-    return VOLUME_TABLES[level][goal][muscleId] || [4,8,12];
-  }
+ function getVol(muscleId, level, goal){
+ return VOLUME_TABLES[level][goal][muscleId] || [4,8,12];
+ }
 
-  document.getElementById('calcBtn').addEventListener('click', function(){
-    const err = document.getElementById('errorMsg');
-    const res = document.getElementById('resultsSection');
-    const level = document.getElementById('trainingAge').value;
-    const goal = document.getElementById('goal').value;
-    const days = parseInt(document.getElementById('daysPerWeek').value);
+ document.getElementById('calcBtn').addEventListener('click', function(){
+ const err = document.getElementById('errorMsg');
+ const res = document.getElementById('resultsSection');
+ const level = document.getElementById('trainingAge').value;
+ const goal = document.getElementById('goal').value;
+ const days = parseInt(document.getElementById('daysPerWeek').value);
 
-    const focusCount = MUSCLES.filter(m => getPriority(m.id) === 'focus').length;
-    if(focusCount === 0){
-      err.style.display = 'block'; res.style.display = 'none'; return;
-    }
-    err.style.display = 'none';
+ const focusCount = MUSCLES.filter(m => getPriority(m.id) === 'focus').length;
+ if(focusCount === 0){
+ err.style.display = 'block'; res.style.display = 'none'; return;
+ }
+ err.style.display = 'none';
 
-    const table = VOLUME_TABLES[level][goal];
-    let totalSets = 0;
-    let resultsHtml = '';
-    const muscleData = [];
+ const table = VOLUME_TABLES[level][goal];
+ let totalSets = 0;
+ let resultsHtml = '';
+ const muscleData = [];
 
-    MUSCLES.forEach(m => {
-      const vol = getVol(m.id, level, goal);
-      const priority = getPriority(m.id);
-      const mult = PRIORITY_MULT[priority];
-      const mev = Math.round(vol[0] * mult);
-      const mav = Math.round(vol[1] * mult);
-      const mrv = Math.round(vol[2] * mult);
-      const rec = Math.round((mev + mav) / 2);
-      muscleData.push({id:m.id, name:m.name, mev,mav,mrv,rec, priority});
-      totalSets += rec;
-      const barPct = Math.min(100, (rec / mrv) * 100);
-      resultsHtml += '<div class="muscle-card">' +
-        '<div><span class="muscle-name">'+m.name+' <span class="priority">'+(priority==='focus'?'FOCUS':'MAINT')+'</span></span></div>' +
-        '<div style="text-align:right"><span class="muscle-sets">'+rec+'</span> <span class="muscle-range">('+mev+'–'+mav+')</span></div>' +
-        '</div>' +
-        '<div class="bar-progress"><div class="bar-fill" style="width:'+barPct+'%"></div></div>';
-    });
+ MUSCLES.forEach(m => {
+ const vol = getVol(m.id, level, goal);
+ const priority = getPriority(m.id);
+ const mult = PRIORITY_MULT[priority];
+ const mev = Math.round(vol[0] * mult);
+ const mav = Math.round(vol[1] * mult);
+ const mrv = Math.round(vol[2] * mult);
+ const rec = Math.round((mev + mav) / 2);
+ muscleData.push({id:m.id, name:m.name, mev,mav,mrv,rec, priority});
+ totalSets += rec;
+ const barPct = Math.min(100, (rec / mrv) * 100);
+ resultsHtml += '<div class="muscle-card">' +
+ '<div><span class="muscle-name">'+m.name+' <span class="priority">'+(priority==='focus'?'FOCUS':'MAINT')+'</span></span></div>' +
+ '<div style="text-align:right"><span class="muscle-sets">'+rec+'</span> <span class="muscle-range">('+mev+'–'+mav+')</span></div>' +
+ '</div>' +
+ '<div class="bar-progress"><div class="bar-fill" style="width:'+barPct+'%"></div></div>';
+ });
 
-    document.getElementById('totalSets').textContent = totalSets;
-    document.getElementById('muscleResults').innerHTML = resultsHtml;
+ document.getElementById('totalSets').textContent = totalSets;
+ document.getElementById('muscleResults').innerHTML = resultsHtml;
 
-    // Per-session breakdown
-    const totalFocus = muscleData.filter(m => m.priority === 'focus').reduce((s,m)=>s+m.rec,0);
-    const perSession = Math.round(totalSets / days);
+ // Per-session breakdown
+ const totalFocus = muscleData.filter(m => m.priority === 'focus').reduce((s,m)=>s+m.rec,0);
+ const perSession = Math.round(totalSets / days);
 
-    let sessHtml = '';
-    for(let d=1; d<=days; d++){
-      const pct = 100/days;
-      sessHtml += '<div class="bar-seg" style="width:'+pct+'%;background:#F4C93B;font-size:.5rem;">'+Math.round(totalSets/days)+'</div>';
-    }
-    document.getElementById('sessionBar').innerHTML = sessHtml;
+ let sessHtml = '';
+ for(let d=1; d<=days; d++){
+ const pct = 100/days;
+ sessHtml += '<div class="bar-seg" style="width:'+pct+'%;background:#F4C93B;font-size:.5rem;">'+Math.round(totalSets/days)+'</div>';
+ }
+ document.getElementById('sessionBar').innerHTML = sessHtml;
 
-    // Recommendation note
-    let note = '';
-    const setGoal = goal === 'hypertrophy' ? 'hypertrophy' : (goal === 'strength' ? 'strength' : 'balanced');
-    note = 'Training age: <strong>'+level+'</strong> · Goal: <strong>'+setGoal+'</strong> · Days/week: <strong>'+days+'</strong>. ';
-    if(level === 'novice'){
-      note += 'As a novice, you will respond to almost any volume within range. Start at the lower end of your MEV–MAV range and add sets only when progress stalls for 2+ weeks.';
-    } else if(level === 'intermediate'){
-      note += 'As an intermediate, your MEV is higher and your MRV is a real constraint. Stay within the recommended sweet spot (midpoint). If recovery suffers, reduce volume before reducing intensity.';
-    } else {
-      note += 'As an advanced lifter, you need substantial volume to drive progress and substantial recovery to manage it. Consider a weekly undulating volume pattern: higher volume early in the week, lower volume before rest days.';
-    }
-    if(totalSets > 25 && days <= 3){
-      note += ' With '+days+' days/week and '+totalSets+' total sets, each session will be long. Consider spreading to 4+ days or reducing maintenance volume.';
-    }
-    document.getElementById('recNote').innerHTML = note;
+ // Recommendation note
+ let note = '';
+ const setGoal = goal === 'hypertrophy' ? 'hypertrophy' : (goal === 'strength' ? 'strength' : 'balanced');
+ note = 'Training age: <strong>'+level+'</strong> · Goal: <strong>'+setGoal+'</strong> · Days/week: <strong>'+days+'</strong>. ';
+ if(level === 'novice'){
+ note += 'As a novice, you will respond to almost any volume within range. Start at the lower end of your MEV–MAV range and add sets only when progress stalls for 2+ weeks.';
+ } else if(level === 'intermediate'){
+ note += 'As an intermediate, your MEV is higher and your MRV is a real constraint. Stay within the recommended sweet spot (midpoint). If recovery suffers, reduce volume before reducing intensity.';
+ } else {
+ note += 'As an advanced lifter, you need substantial volume to drive progress and substantial recovery to manage it. Consider a weekly undulating volume pattern: higher volume early in the week, lower volume before rest days.';
+ }
+ if(totalSets > 25 && days <= 3){
+ note += ' With '+days+' days/week and '+totalSets+' total sets, each session will be long. Consider spreading to 4+ days or reducing maintenance volume.';
+ }
+ document.getElementById('recNote').innerHTML = note;
 
-    res.style.display = 'block';
-    res.scrollIntoView({behavior:'smooth',block:'start'});
-  });
+ res.style.display = 'block';
+ res.scrollIntoView({behavior:'smooth',block:'start'});
+ });
 })();
 </script>
 <script src="../assets/js/access-control.js"></script>
 <script>
 (function(){
-  function init(){
-    var gate = document.getElementById('googleGate');
-    if(!gate) return;
-    MosAccess.requireGoogleAuth(null, function(ok){ if(ok) gate.classList.add('gate-hidden'); });
-  }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+ function init(){
+ var gate = document.getElementById('googleGate');
+ if(!gate) return;
+ MosAccess.requireGoogleAuth(null, function(ok){ if(ok) gate.classList.add('gate-hidden'); });
+ }
+ if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
 </script>
 <script src="../js/auth.js"></script>

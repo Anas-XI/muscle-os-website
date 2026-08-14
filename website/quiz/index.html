@@ -124,38 +124,38 @@ main{flex:1;padding:60px 0}
 <main>
 <div class="wrap">
 <div class="card" id="app">
-  <!-- INTRO -->
-  <div id="intro">
-    <div class="badge">60-Second Diagnostic</div>
-    <h1>Which Book Should<br><span>You Read First?</span></h1>
-    <p class="sub">Answer a few quick questions and we&#8217;ll match you to the one Muscle OS pillar that will make the biggest difference right now.</p>
-    <div class="intro-pills">
-      <span style="color:#4CAF50">P1 Diet</span>
-      <span style="color:#2196F3">P2 Training</span>
-      <span style="color:#FF9800">P3 Strength</span>
-      <span style="color:#CE93D8">P4 Recovery</span>
-      <span style="color:#4DD0E1">P5 Sleep</span>
-      <span style="color:#EF9A9A">P6 Hormones</span>
-    </div>
-    <div class="form-row">
-      <div class="form-group"><label>Your name</label><input type="text" id="userName" placeholder="e.g. Ahmed" autocomplete="name"></div>
-      <div class="form-group"><label>Experience</label><select id="userExp"><option value="beginner">&lt; 1 year</option><option value="intermediate" selected>1&#8211;3 years</option><option value="advanced">3+ years</option></select></div>
-    </div>
-    <button class="btn-start" onclick="startQuiz()">Find My Book &rarr;</button>
-  </div>
+ <!-- INTRO -->
+ <div id="intro">
+ <div class="badge">60-Second Diagnostic</div>
+ <h1>Which Book Should<br><span>You Read First?</span></h1>
+ <p class="sub">Answer a few quick questions and we&#8217;ll match you to the one Muscle OS pillar that will make the biggest difference right now.</p>
+ <div class="intro-pills">
+ <span style="color:#4CAF50">P1 Diet</span>
+ <span style="color:#2196F3">P2 Training</span>
+ <span style="color:#FF9800">P3 Strength</span>
+ <span style="color:#CE93D8">P4 Recovery</span>
+ <span style="color:#4DD0E1">P5 Sleep</span>
+ <span style="color:#EF9A9A">P6 Hormones</span>
+ </div>
+ <div class="form-row">
+ <div class="form-group"><label>Your name</label><input type="text" id="userName" placeholder="e.g. Ahmed" autocomplete="name"></div>
+ <div class="form-group"><label>Experience</label><select id="userExp"><option value="beginner">&lt; 1 year</option><option value="intermediate" selected>1&#8211;3 years</option><option value="advanced">3+ years</option></select></div>
+ </div>
+ <button class="btn-start" onclick="startQuiz()">Find My Book &rarr;</button>
+ </div>
 
-  <!-- QUIZ -->
-  <div id="quiz" style="display:none">
-    <div class="progress"><div class="p-num" id="pNum">Step 1 of 3</div><div class="p-track"><div class="p-fill" id="pFill" style="width:0%"></div></div></div>
-    <div id="stepsContainer"></div>
-    <div class="nav-btns">
-      <button class="btn btn-prev" id="prevBtn" onclick="prevStep()" style="display:none">Back</button>
-      <button class="btn btn-next" id="nextBtn" onclick="nextStep()" disabled>Next</button>
-    </div>
-  </div>
+ <!-- QUIZ -->
+ <div id="quiz" style="display:none">
+ <div class="progress"><div class="p-num" id="pNum">Step 1 of 3</div><div class="p-track"><div class="p-fill" id="pFill" style="width:0%"></div></div></div>
+ <div id="stepsContainer"></div>
+ <div class="nav-btns">
+ <button class="btn btn-prev" id="prevBtn" onclick="prevStep()" style="display:none">Back</button>
+ <button class="btn btn-next" id="nextBtn" onclick="nextStep()" disabled>Next</button>
+ </div>
+ </div>
 
-  <!-- RESULT -->
-  <div id="result" class="result"></div>
+ <!-- RESULT -->
+ <div id="result" class="result"></div>
 </div>
 </div>
 </main>
@@ -169,245 +169,245 @@ function q(txt,opts){return{text:txt,options:opts}}
 function opt(txt,next){return{text:txt,next:next}}
 
 function buildTree(){
-  var S={};
-  S.start=q('What is your primary goal right now?',[
-    opt('Build muscle & improve my physique','physique'),
-    opt('Get stronger & lift more','strength'),
-    opt('Improve my health, energy & how I feel','health')
-  ]);
-  S.physique=q('What is blocking your physique progress the most?',[
-    opt('I don\u2019t know what or how much to eat','diet'),
-    opt('My training programme isn\u2019t structured','training'),
-    opt('I\u2019m not recovering or sleeping well','recovery_check')
-  ]);
-  S.strength=q('What is blocking your strength gains?',[
-    opt('I don\u2019t have a proper strength programme','training'),
-    opt('I\u2019ve been stuck at the same weights for weeks','strength_book')
-  ]);
-  S.health=q('What is affecting your health the most?',[
-    opt('Poor sleep quality or inconsistent sleep','sleep'),
-    opt('Chronic fatigue, poor recovery, high stress','recovery'),
-    opt('Hormonal issues \u2014 low libido, mood swings, energy','hormones')
-  ]);
-  S.recovery_check=q('What kind of recovery issues?',[
-    opt('Poor sleep despite trying everything','sleep'),
-    opt('General fatigue, stress, feeling overtrained','recovery')
-  ]);
-  steps=[S.start,S.physique,S.strength,S.health,S.recovery_check];
-  var idMap={
-    physique:'S.physique',strength:'S.strength',health:'S.health',
-    diet:'RESULT_diet',training:'RESULT_training',
-    strength_book:'RESULT_strength',sleep:'RESULT_sleep',
-    recovery:'RESULT_recovery',recovery_check:'S.recovery_check',
-    hormones:'RESULT_hormones'
-  };
-  S.start.options.forEach(function(o){o.nextKey=idMap[o.next]});
-  S.physique.options.forEach(function(o){o.nextKey=idMap[o.next]});
-  S.strength.options.forEach(function(o){o.nextKey=idMap[o.next]});
-  S.health.options.forEach(function(o){o.nextKey=idMap[o.next]});
-  S.recovery_check.options.forEach(function(o){o.nextKey=idMap[o.next]});
-  return S;
+ var S={};
+ S.start=q('What is your primary goal right now?',[
+ opt('Build muscle & improve my physique','physique'),
+ opt('Get stronger & lift more','strength'),
+ opt('Improve my health, energy & how I feel','health')
+ ]);
+ S.physique=q('What is blocking your physique progress the most?',[
+ opt('I don\u2019t know what or how much to eat','diet'),
+ opt('My training programme isn\u2019t structured','training'),
+ opt('I\u2019m not recovering or sleeping well','recovery_check')
+ ]);
+ S.strength=q('What is blocking your strength gains?',[
+ opt('I don\u2019t have a proper strength programme','training'),
+ opt('I\u2019ve been stuck at the same weights for weeks','strength_book')
+ ]);
+ S.health=q('What is affecting your health the most?',[
+ opt('Poor sleep quality or inconsistent sleep','sleep'),
+ opt('Chronic fatigue, poor recovery, high stress','recovery'),
+ opt('Hormonal issues \u2014 low libido, mood swings, energy','hormones')
+ ]);
+ S.recovery_check=q('What kind of recovery issues?',[
+ opt('Poor sleep despite trying everything','sleep'),
+ opt('General fatigue, stress, feeling overtrained','recovery')
+ ]);
+ steps=[S.start,S.physique,S.strength,S.health,S.recovery_check];
+ var idMap={
+ physique:'S.physique',strength:'S.strength',health:'S.health',
+ diet:'RESULT_diet',training:'RESULT_training',
+ strength_book:'RESULT_strength',sleep:'RESULT_sleep',
+ recovery:'RESULT_recovery',recovery_check:'S.recovery_check',
+ hormones:'RESULT_hormones'
+ };
+ S.start.options.forEach(function(o){o.nextKey=idMap[o.next]});
+ S.physique.options.forEach(function(o){o.nextKey=idMap[o.next]});
+ S.strength.options.forEach(function(o){o.nextKey=idMap[o.next]});
+ S.health.options.forEach(function(o){o.nextKey=idMap[o.next]});
+ S.recovery_check.options.forEach(function(o){o.nextKey=idMap[o.next]});
+ return S;
 }
 
 var tree=buildTree();
 var stepKeys=['start'];
 
 function startQuiz(){
-  userName=document.getElementById('userName').value.trim()||'there';
-  userExp=document.getElementById('userExp').value;
-  document.getElementById('intro').style.display='none';
-  document.getElementById('quiz').style.display='block';
-  answers={};currentStep=0;stepKeys=['start'];
-  renderStep('start');updateProgress();
+ userName=document.getElementById('userName').value.trim()||'there';
+ userExp=document.getElementById('userExp').value;
+ document.getElementById('intro').style.display='none';
+ document.getElementById('quiz').style.display='block';
+ answers={};currentStep=0;stepKeys=['start'];
+ renderStep('start');updateProgress();
 }
 
 function getStep(key){
-  if(key==='start')return tree.start;
-  if(key==='S.physique')return tree.physique;
-  if(key==='S.strength')return tree.strength;
-  if(key==='S.health')return tree.health;
-  if(key==='S.recovery_check')return tree.recovery_check;
-  return null;
+ if(key==='start')return tree.start;
+ if(key==='S.physique')return tree.physique;
+ if(key==='S.strength')return tree.strength;
+ if(key==='S.health')return tree.health;
+ if(key==='S.recovery_check')return tree.recovery_check;
+ return null;
 }
 
 function renderStep(key){
-  var step=getStep(key);
-  if(!step)return;
-  var c=document.getElementById('stepsContainer');
-  var html='<div class="step active"><div class="q-label">STEP '+(currentStep+1)+'</div><div class="q-text">'+step.text+'</div><div class="options">';
-  step.options.forEach(function(o,i){
-    html+='<div class="option" onclick="selectAnswer('+currentStep+','+i+')"><span>'+o.text+'</span></div>';
-  });
-  html+='</div></div>';
-  c.innerHTML=html;
-  // Re-select if already answered
-  if(answers[key]!==undefined){
-    var idx=answers[key];
-    var opts=c.querySelectorAll('.option');
-    if(opts[idx]){opts[idx].classList.add('selected');document.getElementById('nextBtn').disabled=false;}
-  }else{
-    document.getElementById('nextBtn').disabled=true;
-  }
-  document.getElementById('prevBtn').style.display=currentStep===0?'none':'inline-block';
-  document.getElementById('nextBtn').textContent=step.options[0]&&step.options[0].nextKey&&step.options[0].nextKey.startsWith('RESULT')?'See My Book':'Next';
-  updateProgress();
+ var step=getStep(key);
+ if(!step)return;
+ var c=document.getElementById('stepsContainer');
+ var html='<div class="step active"><div class="q-label">STEP '+(currentStep+1)+'</div><div class="q-text">'+step.text+'</div><div class="options">';
+ step.options.forEach(function(o,i){
+ html+='<div class="option" onclick="selectAnswer('+currentStep+','+i+')"><span>'+o.text+'</span></div>';
+ });
+ html+='</div></div>';
+ c.innerHTML=html;
+ // Re-select if already answered
+ if(answers[key]!==undefined){
+ var idx=answers[key];
+ var opts=c.querySelectorAll('.option');
+ if(opts[idx]){opts[idx].classList.add('selected');document.getElementById('nextBtn').disabled=false;}
+ }else{
+ document.getElementById('nextBtn').disabled=true;
+ }
+ document.getElementById('prevBtn').style.display=currentStep===0?'none':'inline-block';
+ document.getElementById('nextBtn').textContent=step.options[0]&&step.options[0].nextKey&&step.options[0].nextKey.startsWith('RESULT')?'See My Book':'Next';
+ updateProgress();
 }
 
 function selectAnswer(si,oi){
-  var key=stepKeys[si];
-  var step=getStep(key);if(!step)return;
-  answers[key]=oi;
-  var opts=document.querySelectorAll('#stepsContainer .option');
-  opts.forEach(function(o){o.classList.remove('selected')});
-  opts[oi].classList.add('selected');
-  document.getElementById('nextBtn').disabled=false;
+ var key=stepKeys[si];
+ var step=getStep(key);if(!step)return;
+ answers[key]=oi;
+ var opts=document.querySelectorAll('#stepsContainer .option');
+ opts.forEach(function(o){o.classList.remove('selected')});
+ opts[oi].classList.add('selected');
+ document.getElementById('nextBtn').disabled=false;
 }
 
 function nextStep(){
-  var key=stepKeys[currentStep];
-  var step=getStep(key);if(!step)return;
-  if(answers[key]===undefined)return;
-  var chosen=step.options[answers[key]];
-  if(chosen&&chosen.nextKey){
-    if(chosen.nextKey.startsWith('RESULT')){
-      resultBook=chosen.nextKey.replace('RESULT_','');
-      showResult(resultBook);
-      return;
-    }
-    currentStep++;
-    stepKeys.push(chosen.nextKey);
-    renderStep(chosen.nextKey);
-  }
+ var key=stepKeys[currentStep];
+ var step=getStep(key);if(!step)return;
+ if(answers[key]===undefined)return;
+ var chosen=step.options[answers[key]];
+ if(chosen&&chosen.nextKey){
+ if(chosen.nextKey.startsWith('RESULT')){
+ resultBook=chosen.nextKey.replace('RESULT_','');
+ showResult(resultBook);
+ return;
+ }
+ currentStep++;
+ stepKeys.push(chosen.nextKey);
+ renderStep(chosen.nextKey);
+ }
 }
 
 function prevStep(){
-  if(currentStep>0){
-    currentStep--;
-    stepKeys.pop();
-    renderStep(stepKeys[currentStep]);
-  }
+ if(currentStep>0){
+ currentStep--;
+ stepKeys.pop();
+ renderStep(stepKeys[currentStep]);
+ }
 }
 
 function updateProgress(){
-  var total=4;
-  var pct=Math.round((currentStep+1)/total*100);
-  document.getElementById('pFill').style.width=pct+'%';
-  document.getElementById('pNum').textContent='Step '+(currentStep+1)+' of 3';
+ var total=4;
+ var pct=Math.round((currentStep+1)/total*100);
+ document.getElementById('pFill').style.width=pct+'%';
+ document.getElementById('pNum').textContent='Step '+(currentStep+1)+' of 3';
 }
 
 var BOOKS={
-  diet:{name:'Diet & Nutrition',badge:'P1',color:'#4CAF50',book:'../books/muscle_os_nutrition_book.html',desc:'Master energy balance, macronutrient timing, and the P-Ratio. 33 chapters on everything from calorie cycling to adherence psychology.',sample:'../samples/#diet'},
-  training:{name:'Training & Programming',badge:'P2',color:'#2196F3',book:'../books/muscle_os_training_book.html',desc:'Program design, periodisation, exercise selection, volume landmarks, and autoregulation. 27 chapters of evidence-based coaching.',sample:'../samples/#training'},
-  strength:{name:'Strength Maxing',badge:'P3',color:'#FF9800',book:'../books/muscle_os_strength.html',desc:'Neural adaptations, squat/bench/deadlift programming, peaking, meet prep, and plateau breaking. 24 chapters.',sample:'../samples/#strength'},
-  recovery:{name:'Recovery & Fatigue Management',badge:'P4',color:'#CE93D8',book:'../books/muscle_os_recovery.html',desc:'ANS regulation, stress hormones, active recovery, HRV, deloads, and illness return. 24 chapters.',sample:'../samples/#recovery'},
-  sleep:{name:'Sleep Optimization',badge:'P5',color:'#4DD0E1',book:'../books/muscle_os_sleep.html',desc:'Circadian biology, sleep hygiene, light management, chronotype, shift work. 25 chapters.',sample:'../samples/#sleep'},
-  hormones:{name:'Hormonal Optimization',badge:'P6',color:'#EF9A9A',book:'../books/muscle_os_hormonal_book.html',desc:'Steroid hormones, thyroid, cortisol, female cycle, biomarkers. 25 chapters.',sample:'../samples/#hormones'}
+ diet:{name:'Diet & Nutrition',badge:'P1',color:'#4CAF50',book:'../books/muscle_os_nutrition_book.html',desc:'Master energy balance, macronutrient timing, and the P-Ratio. 33 chapters on everything from calorie cycling to adherence psychology.',sample:'../samples/#diet'},
+ training:{name:'Training & Programming',badge:'P2',color:'#2196F3',book:'../books/muscle_os_training_book.html',desc:'Program design, periodisation, exercise selection, volume landmarks, and autoregulation. 27 chapters of evidence-based coaching.',sample:'../samples/#training'},
+ strength:{name:'Strength Maxing',badge:'P3',color:'#FF9800',book:'../books/muscle_os_strength.html',desc:'Neural adaptations, squat/bench/deadlift programming, peaking, meet prep, and plateau breaking. 24 chapters.',sample:'../samples/#strength'},
+ recovery:{name:'Recovery & Fatigue Management',badge:'P4',color:'#CE93D8',book:'../books/muscle_os_recovery.html',desc:'ANS regulation, stress hormones, active recovery, HRV, deloads, and illness return. 24 chapters.',sample:'../samples/#recovery'},
+ sleep:{name:'Sleep Optimization',badge:'P5',color:'#4DD0E1',book:'../books/muscle_os_sleep.html',desc:'Circadian biology, sleep hygiene, light management, chronotype, shift work. 25 chapters.',sample:'../samples/#sleep'},
+ hormones:{name:'Hormonal Optimization',badge:'P6',color:'#EF9A9A',book:'../books/muscle_os_hormonal_book.html',desc:'Steroid hormones, thyroid, cortisol, female cycle, biomarkers. 25 chapters.',sample:'../samples/#hormones'}
 };
 
 function showResult(bookId){
-  var b=BOOKS[bookId];if(!b)return;
-  document.getElementById('quiz').style.display='none';
-  var r=document.getElementById('result');r.className='result active';
+ var b=BOOKS[bookId];if(!b)return;
+ document.getElementById('quiz').style.display='none';
+ var r=document.getElementById('result');r.className='result active';
 
-  var why='';
-  if(bookId==='diet')why='You identified nutrition as your primary gap. Most physique plateaus start in the kitchen \u2014 fixing your energy balance and macronutrient strategy will unlock your next level of progress.';
-  else if(bookId==='training')why='You identified programming as your bottleneck. A structured training approach with clear progression is the fastest path to breaking through your current plateau.';
-  else if(bookId==='strength')why='Getting stronger requires specific neural and programming adaptations. Your plateau is normal \u2014 it just needs the right periodisation strategy to break through.';
-  else if(bookId==='recovery')why='You identified recovery as your limiter. More training or stricter dieting won\u2019t work if your nervous system is overloaded. Fix recovery first.';
-  else if(bookId==='sleep')why='Sleep is the foundation of everything \u2014 muscle repair, hormone production, cognitive function, and appetite regulation. Improving sleep quality will amplify every other effort.';
-  else if(bookId==='hormones')why='Hormonal health affects body composition, energy, mood, and training response. Addressing hormone optimisation can unlock progress that training and diet alone cannot.';
+ var why='';
+ if(bookId==='diet')why='You identified nutrition as your primary gap. Most physique plateaus start in the kitchen \u2014 fixing your energy balance and macronutrient strategy will unlock your next level of progress.';
+ else if(bookId==='training')why='You identified programming as your bottleneck. A structured training approach with clear progression is the fastest path to breaking through your current plateau.';
+ else if(bookId==='strength')why='Getting stronger requires specific neural and programming adaptations. Your plateau is normal \u2014 it just needs the right periodisation strategy to break through.';
+ else if(bookId==='recovery')why='You identified recovery as your limiter. More training or stricter dieting won\u2019t work if your nervous system is overloaded. Fix recovery first.';
+ else if(bookId==='sleep')why='Sleep is the foundation of everything \u2014 muscle repair, hormone production, cognitive function, and appetite regulation. Improving sleep quality will amplify every other effort.';
+ else if(bookId==='hormones')why='Hormonal health affects body composition, energy, mood, and training response. Addressing hormone optimisation can unlock progress that training and diet alone cannot.';
 
-  var altIds=PILLAR_ORDER.filter(function(id){return id!==bookId});
-  var html='<div class="r-icon">&#128218;</div>';
-  html+='<div class="r-title">Start with <span>'+b.name+'</span></div>';
-  html+='<p class="r-sub">Recommended for '+userName+' &middot; '+(userExp==='beginner'?'<1 yr':userExp==='intermediate'?'1\u20133 yrs':'3+ yrs')+' experience</p>';
-  html+='<div class="r-book-card" style="border-color:'+b.color+'"><div class="r-badge" style="background:'+b.color.replace(')','.15)').replace('rgb','rgba')+';color:'+b.color+'">'+b.badge+'</div><div class="r-book-name" style="color:'+b.color+'">'+b.name+'</div><div class="r-book-desc">'+b.desc+'</div><a class="r-book-action" style="background:'+b.color+';color:#14151A" href="'+b.book+'">View Full Book &rarr;</a></div>';
-  html+='<div class="r-why"><div class="w-label">Why this book?</div><div class="w-text">'+why+'</div></div>';
+ var altIds=PILLAR_ORDER.filter(function(id){return id!==bookId});
+ var html='<div class="r-icon">&#128218;</div>';
+ html+='<div class="r-title">Start with <span>'+b.name+'</span></div>';
+ html+='<p class="r-sub">Recommended for '+userName+' &middot; '+(userExp==='beginner'?'<1 yr':userExp==='intermediate'?'1\u20133 yrs':'3+ yrs')+' experience</p>';
+ html+='<div class="r-book-card" style="border-color:'+b.color+'"><div class="r-badge" style="background:'+b.color.replace(')','.15)').replace('rgb','rgba')+';color:'+b.color+'">'+b.badge+'</div><div class="r-book-name" style="color:'+b.color+'">'+b.name+'</div><div class="r-book-desc">'+b.desc+'</div><a class="r-book-action" style="background:'+b.color+';color:#14151A" href="'+b.book+'">View Full Book &rarr;</a></div>';
+ html+='<div class="r-why"><div class="w-label">Why this book?</div><div class="w-text">'+why+'</div></div>';
 
-  html+='<div class="r-alt"><div class="a-label">Also consider reading:</div>';
-  altIds.slice(0,3).forEach(function(id){
-    var ab=BOOKS[id];
-    html+='<div class="r-alt-item"><span class="a-name">'+ab.badge+' '+ab.name+'</span><a class="a-link" href="'+ab.book+'">View &rarr;</a></div>';
-  });
-  html+='</div>';
+ html+='<div class="r-alt"><div class="a-label">Also consider reading:</div>';
+ altIds.slice(0,3).forEach(function(id){
+ var ab=BOOKS[id];
+ html+='<div class="r-alt-item"><span class="a-name">'+ab.badge+' '+ab.name+'</span><a class="a-link" href="'+ab.book+'">View &rarr;</a></div>';
+ });
+ html+='</div>';
 
-  html+='<div class="r-cta"><p>Want all 6 books at half price?</p><a class="bundle-link" href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20purchase%20the%20Complete%20Muscle%20OS%20Bundle%20(all%206%20books)%20for%201500%20EGP%20(after%20taking%20the%20book%20quiz)" target="_blank">Complete Collection &mdash; 1,500 EGP &rarr;</a>';
-  html+='<br><a class="sample-link" href="../samples/">Download a free sample first &rarr;</a>';
-  html+='<br><button class="full-check" onclick="toggleDeepDive()">&#9660; Want a full breakdown of all 6 pillars?</button>';
-  html+='</div>';
+ html+='<div class="r-cta"><p>Want all 6 books at half price?</p><a class="bundle-link" href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20purchase%20the%20Complete%20Muscle%20OS%20Bundle%20(all%206%20books)%20for%201500%20EGP%20(after%20taking%20the%20book%20quiz)" target="_blank">Complete Collection &mdash; 1,500 EGP &rarr;</a>';
+ html+='<br><a class="sample-link" href="../samples/">Download a free sample first &rarr;</a>';
+ html+='<br><button class="full-check" onclick="toggleDeepDive()">&#9660; Want a full breakdown of all 6 pillars?</button>';
+ html+='</div>';
 
-  // Deep dive container
-  html+='<div class="deep-dive" id="deepDive"><div class="dd-title">Full Pillar Breakdown</div><div id="quickQuestions"></div><div id="ddScores" style="display:none"></div></div>';
+ // Deep dive container
+ html+='<div class="deep-dive" id="deepDive"><div class="dd-title">Full Pillar Breakdown</div><div id="quickQuestions"></div><div id="ddScores" style="display:none"></div></div>';
 
-  html+='<br><button class="btn-restart" onclick="restart()">Take the assessment again</button>';
-  r.innerHTML=html;
+ html+='<br><button class="btn-restart" onclick="restart()">Take the assessment again</button>';
+ r.innerHTML=html;
 
-  // Build quick questions for full breakdown
-  buildQuickQuestions();
+ // Build quick questions for full breakdown
+ buildQuickQuestions();
 }
 
 var PILLAR_ORDER=['diet','training','strength','recovery','sleep','hormones'];
 
 function buildQuickQuestions(){
-  var c=document.getElementById('quickQuestions');if(!c)return;
-  var Qs=[
-    {id:'diet',text:'How consistent is your nutrition?',opts:[{label:'Dialled in',s:0},{label:'Mostly on track',s:1},{label:'Struggling',s:3}]},
-    {id:'training',text:'How is your training progression?',opts:[{label:'Making gains',s:0},{label:'Stuck a bit',s:1},{label:'Completely stuck',s:3}]},
-    {id:'strength',text:'How are your strength levels?',opts:[{label:'Getting stronger',s:0},{label:'Plateaued',s:1},{label:'No progress',s:3}]},
-    {id:'recovery',text:'How well do you recover?',opts:[{label:'Recover well',s:0},{label:'Could be better',s:1},{label:'Always tired/sore',s:3}]},
-    {id:'sleep',text:'How is your sleep quality?',opts:[{label:'Great sleep',s:0},{label:'Decent',s:1},{label:'Poor',s:3}]},
-    {id:'hormones',text:'How are your energy &amp; mood?',opts:[{label:'Good',s:0},{label:'Okay',s:1},{label:'Off',s:3}]}
-  ];
-  var html='';var ddScores={};
-  Qs.forEach(function(q,i){
-    html+='<div class="quick-q"><div class="qq-text">'+q.text+'</div><div class="qq-options">';
-    q.opts.forEach(function(o,oi){
-      html+='<button class="qq-opt" onclick="setQuickScore('+i+','+oi+')" data-idx="'+oi+'">'+o.label+'</button>';
-    });
-    html+='</div></div>';
-    ddScores[q.id]=-1;
-  });
-  window.ddScores=ddScores;window.ddQuestions=Qs;
-  c.innerHTML=html;
+ var c=document.getElementById('quickQuestions');if(!c)return;
+ var Qs=[
+ {id:'diet',text:'How consistent is your nutrition?',opts:[{label:'Dialled in',s:0},{label:'Mostly on track',s:1},{label:'Struggling',s:3}]},
+ {id:'training',text:'How is your training progression?',opts:[{label:'Making gains',s:0},{label:'Stuck a bit',s:1},{label:'Completely stuck',s:3}]},
+ {id:'strength',text:'How are your strength levels?',opts:[{label:'Getting stronger',s:0},{label:'Plateaued',s:1},{label:'No progress',s:3}]},
+ {id:'recovery',text:'How well do you recover?',opts:[{label:'Recover well',s:0},{label:'Could be better',s:1},{label:'Always tired/sore',s:3}]},
+ {id:'sleep',text:'How is your sleep quality?',opts:[{label:'Great sleep',s:0},{label:'Decent',s:1},{label:'Poor',s:3}]},
+ {id:'hormones',text:'How are your energy &amp; mood?',opts:[{label:'Good',s:0},{label:'Okay',s:1},{label:'Off',s:3}]}
+ ];
+ var html='';var ddScores={};
+ Qs.forEach(function(q,i){
+ html+='<div class="quick-q"><div class="qq-text">'+q.text+'</div><div class="qq-options">';
+ q.opts.forEach(function(o,oi){
+ html+='<button class="qq-opt" onclick="setQuickScore('+i+','+oi+')" data-idx="'+oi+'">'+o.label+'</button>';
+ });
+ html+='</div></div>';
+ ddScores[q.id]=-1;
+ });
+ window.ddScores=ddScores;window.ddQuestions=Qs;
+ c.innerHTML=html;
 }
 
 function setQuickScore(qi,oi){
-  var q=window.ddQuestions[qi];var opts=document.querySelectorAll('.quick-q:nth-child('+(qi+1)+') .qq-opt');
-  opts.forEach(function(o){o.classList.remove('selected')});opts[oi].classList.add('selected');
-  window.ddScores[q.id]=q.opts[oi].s;
-  // Check if all answered
-  var allAnswered=true;Object.values(window.ddScores).forEach(function(v){if(v<0)allAnswered=false});
-  if(allAnswered)showDDScores();
+ var q=window.ddQuestions[qi];var opts=document.querySelectorAll('.quick-q:nth-child('+(qi+1)+') .qq-opt');
+ opts.forEach(function(o){o.classList.remove('selected')});opts[oi].classList.add('selected');
+ window.ddScores[q.id]=q.opts[oi].s;
+ // Check if all answered
+ var allAnswered=true;Object.values(window.ddScores).forEach(function(v){if(v<0)allAnswered=false});
+ if(allAnswered)showDDScores();
 }
 
 function showDDScores(){
-  var container=document.getElementById('ddScores');
-  var maxVal=Math.max.apply(null,Object.values(window.ddScores))||1;
-  var sorted=PILLAR_ORDER.slice().sort(function(a,b){return(window.ddScores[b]||0)-(window.ddScores[a]||0)});
-  var html='<div class="dd-score">';
-  PILLAR_ORDER.forEach(function(id){
-    var sc=window.ddScores[id]||0;var pct=Math.round(sc/maxVal*100);
-    var b=BOOKS[id];if(!b)return;
-    html+='<div class="ds-row"><div class="ds-name" style="color:'+b.color+'">'+b.badge+'</div><div class="ds-bar"><div class="ds-fill" style="width:'+pct+'%;background:'+b.color+'"></div></div><div class="ds-val">'+sc+'</div></div>';
-  });
-  html+='</div>';
-  if(sorted[0]){
-    var top=BOOKS[sorted[0]];
-    html+='<p style="font-size:13px;color:#C7C9D0;margin-top:12px"><strong>Bottom line:</strong> Your biggest gap is <strong style="color:'+top.color+'">'+top.name+'</strong>. <a href="'+top.book+'" style="color:var(--yellow)">View book &rarr;</a></p>';
-  }
-  container.innerHTML=html;container.style.display='block';
-  container.scrollIntoView({behavior:'smooth',block:'center'});
+ var container=document.getElementById('ddScores');
+ var maxVal=Math.max.apply(null,Object.values(window.ddScores))||1;
+ var sorted=PILLAR_ORDER.slice().sort(function(a,b){return(window.ddScores[b]||0)-(window.ddScores[a]||0)});
+ var html='<div class="dd-score">';
+ PILLAR_ORDER.forEach(function(id){
+ var sc=window.ddScores[id]||0;var pct=Math.round(sc/maxVal*100);
+ var b=BOOKS[id];if(!b)return;
+ html+='<div class="ds-row"><div class="ds-name" style="color:'+b.color+'">'+b.badge+'</div><div class="ds-bar"><div class="ds-fill" style="width:'+pct+'%;background:'+b.color+'"></div></div><div class="ds-val">'+sc+'</div></div>';
+ });
+ html+='</div>';
+ if(sorted[0]){
+ var top=BOOKS[sorted[0]];
+ html+='<p style="font-size:13px;color:#C7C9D0;margin-top:12px"><strong>Bottom line:</strong> Your biggest gap is <strong style="color:'+top.color+'">'+top.name+'</strong>. <a href="'+top.book+'" style="color:var(--yellow)">View book &rarr;</a></p>';
+ }
+ container.innerHTML=html;container.style.display='block';
+ container.scrollIntoView({behavior:'smooth',block:'center'});
 }
 
 function toggleDeepDive(){
-  var dd=document.getElementById('deepDive');
-  if(dd.classList.contains('active')){dd.classList.remove('active')}else{dd.classList.add('active');dd.scrollIntoView({behavior:'smooth',block:'center'})}
+ var dd=document.getElementById('deepDive');
+ if(dd.classList.contains('active')){dd.classList.remove('active')}else{dd.classList.add('active');dd.scrollIntoView({behavior:'smooth',block:'center'})}
 }
 
 function restart(){
-  document.getElementById('result').className='result';document.getElementById('result').innerHTML='';
-  document.getElementById('quiz').style.display='none';document.getElementById('intro').style.display='block';
-  currentStep=0;stepKeys=['start'];answers={};resultBook=null;
+ document.getElementById('result').className='result';document.getElementById('result').innerHTML='';
+ document.getElementById('quiz').style.display='none';document.getElementById('intro').style.display='block';
+ currentStep=0;stepKeys=['start'];answers={};resultBook=null;
 }
 </script>
 </body>

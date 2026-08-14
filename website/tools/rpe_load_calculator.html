@@ -10,18 +10,18 @@
 <title>RPE Load Calculator — Coach Anas Mo'men | Muscle OS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <meta name="description" content="RPE load calculator by Coach Anas Mo'men. Convert between RPE, percentages, and estimated 1RM for precise training intensity.">
-  <meta property="og:title" content="RPE Load Calculator — Coach Anas Mo'men | Muscle OS">
-  <meta property="og:description" content="RPE load calculator by Coach Anas Mo'men. Convert between RPE, percentages, and estimated 1RM for precise training intensity.">
-  <meta property="og:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="1200">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://muscleos.is-a.dev/tools/rpe_load_calculator.html">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="RPE Load Calculator — Coach Anas Mo'men | Muscle OS">
-  <meta name="twitter:description" content="RPE load calculator by Coach Anas Mo'men. Convert between RPE, percentages, and estimated 1RM for precise training intensity.">
-  <meta name="twitter:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
+ <meta name="description" content="RPE load calculator by Coach Anas Mo'men. Convert between RPE, percentages, and estimated 1RM for precise training intensity.">
+ <meta property="og:title" content="RPE Load Calculator — Coach Anas Mo'men | Muscle OS">
+ <meta property="og:description" content="RPE load calculator by Coach Anas Mo'men. Convert between RPE, percentages, and estimated 1RM for precise training intensity.">
+ <meta property="og:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
+ <meta property="og:image:width" content="1200">
+ <meta property="og:image:height" content="1200">
+ <meta property="og:type" content="website">
+ <meta property="og:url" content="https://muscleos.is-a.dev/tools/rpe_load_calculator.html">
+ <meta name="twitter:card" content="summary_large_image">
+ <meta name="twitter:title" content="RPE Load Calculator — Coach Anas Mo'men | Muscle OS">
+ <meta name="twitter:description" content="RPE load calculator by Coach Anas Mo'men. Convert between RPE, percentages, and estimated 1RM for precise training intensity.">
+ <meta name="twitter:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:32px 16px;line-height:1.7}
@@ -165,17 +165,17 @@ select option{background:#1E1E2A;color:#FAFAF8}
 .styled-table tbody tr:nth-child(even){background:rgba(250,250,248,.02)}
 .styled-table tbody tr:hover{background:rgba(244,201,59,.05)}
 @media(max-width:600px){
-  body{padding:20px 10px}
-  .header h1{font-size:1.6rem}
-  .card{padding:16px 12px}
-  .card-sm{padding:12px 10px}
-  .summary-dash{grid-template-columns:1fr}
-  .vol-row{grid-template-columns:60px 1fr 36px;font-size:.55rem}
-  .step{font-size:.5rem}
-  .step .num{width:14px;height:14px;line-height:14px;font-size:.45rem}
-  .suggest-val{font-size:1.2rem}
-  .set-row{grid-template-columns:30px 1fr 1fr 1fr 30px}
-  .set-log-header{grid-template-columns:30px 1fr 1fr 1fr 30px}
+ body{padding:20px 10px}
+ .header h1{font-size:1.6rem}
+ .card{padding:16px 12px}
+ .card-sm{padding:12px 10px}
+ .summary-dash{grid-template-columns:1fr}
+ .vol-row{grid-template-columns:60px 1fr 36px;font-size:.55rem}
+ .step{font-size:.5rem}
+ .step .num{width:14px;height:14px;line-height:14px;font-size:.45rem}
+ .suggest-val{font-size:1.2rem}
+ .set-row{grid-template-columns:30px 1fr 1fr 1fr 30px}
+ .set-log-header{grid-template-columns:30px 1fr 1fr 1fr 30px}
 }
 #googleGate{position:fixed;inset:0;z-index:9999;background:#14151A;display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Inter',sans-serif}#googleGate.gate-hidden{display:none!important}.gate-card{background:#1E1E2A;border:1px solid #2C2E37;border-radius:16px;padding:36px 28px;max-width:420px;width:100%;text-align:center}.gate-card .gate-lock{font-size:36px;margin-bottom:10px}.gate-card h2{font-size:1.1rem;font-weight:600;color:#FAFAF8;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}.gate-card p{font-size:.75rem;color:rgba(250,250,248,.45);margin-bottom:20px;line-height:1.6}.gate-error{display:none;font-size:.7rem;color:#f44336;margin-top:12px}
 </style>
@@ -183,1309 +183,1309 @@ select option{background:#1E1E2A;color:#FAFAF8}
 </head>
 <body>
 <div id="googleGate">
-  <div class="gate-card">
-    <div class="gate-lock">&#128274;</div>
-    <h2>Sign In Required</h2>
-    <p>Sign in with Google to access this tool. A free Muscle OS account is required.</p>
-    <div id="googleSignIn"></div>
-    <p class="gate-error" id="gateError"></p>
-  </div>
+ <div class="gate-card">
+ <div class="gate-lock">&#128274;</div>
+ <h2>Sign In Required</h2>
+ <p>Sign in with Google to access this tool. A free Muscle OS account is required.</p>
+ <div id="googleSignIn"></div>
+ <p class="gate-error" id="gateError"></p>
+ </div>
 </div>
 <nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a><a href="../index.html#packages">Coaching</a></div></div></nav>
 <div class="container">
-  <div class="header">
-    <h1>RPE Load Calculator</h1>
-    <p>Autoregulated load suggestions · e1RM tracking · Safety layer · Weekly volume dashboard</p>
-  </div>
+ <div class="header">
+ <h1>RPE Load Calculator</h1>
+ <p>Autoregulated load suggestions · e1RM tracking · Safety layer · Weekly volume dashboard</p>
+ </div>
 
-  <div class="concept-box">
-    <strong>What is RPE?</strong> RPE (Rate of Perceived Exertion) is an autoregulation tool that measures how hard a set feels on a 1–10 scale. Combined with the Reps in Reserve (RIR) model, RPE-based training lets you adjust load daily based on how you actually perform — not how you planned to perform weeks ago. It is the most practical way to apply autoregulation to your training.
-    <span class="book-ref">This concept is covered in depth in the <a href="../books/muscle_os_training_book.html">Training &amp; Programming Book</a> (27 chapters, 200+ references).</span>
-  </div>
+ <div class="concept-box">
+ <strong>What is RPE?</strong> RPE (Rate of Perceived Exertion) is an autoregulation tool that measures how hard a set feels on a 1–10 scale. Combined with the Reps in Reserve (RIR) model, RPE-based training lets you adjust load daily based on how you actually perform — not how you planned to perform weeks ago. It is the most practical way to apply autoregulation to your training.
+ <span class="book-ref">This concept is covered in depth in the <a href="../books/muscle_os_training_book.html">Training &amp; Programming Book</a> (27 chapters, 200+ references).</span>
+ </div>
 
-  <div class="stepper" id="stepper">
-    <div class="step active" data-step="1"><span class="num">1</span>Session</div>
-    <div class="step" data-step="2"><span class="num">2</span>Volume</div>
-    <div class="step" data-step="3"><span class="num">3</span>Train</div>
-  </div>
+ <div class="stepper" id="stepper">
+ <div class="step active" data-step="1"><span class="num">1</span>Session</div>
+ <div class="step" data-step="2"><span class="num">2</span>Volume</div>
+ <div class="step" data-step="3"><span class="num">3</span>Train</div>
+ </div>
 
-  <!-- Step 1: Session Selector -->
-  <div class="step-content active" id="step1">
-    <div class="card">
-      <div class="section-header">Training Profile</div>
-      <div id="sessionProfile" class="recap-box" style="display:none"></div>
-      <div class="form-group" style="margin-bottom:14px">
-        <label>Select Your Split</label>
-        <select id="splitSelect"></select>
-      </div>
-      <div class="form-group" style="margin-bottom:14px">
-        <label>Training Age</label>
-        <select id="taSelect"><option value="novice">Novice (under 1 year)</option><option value="intermediate" selected>Intermediate (1–3 years)</option><option value="advanced">Advanced (3+ years)</option></select>
-      </div>
-      <div class="form-group" style="margin-bottom:14px">
-        <label>Primary Goal</label>
-        <select id="goalSelect"><option value="hypertrophy" selected>Hypertrophy</option><option value="strength">Strength</option><option value="both">Balanced</option></select>
-      </div>
+ <!-- Step 1: Session Selector -->
+ <div class="step-content active" id="step1">
+ <div class="card">
+ <div class="section-header">Training Profile</div>
+ <div id="sessionProfile" class="recap-box" style="display:none"></div>
+ <div class="form-group" style="margin-bottom:14px">
+ <label>Select Your Split</label>
+ <select id="splitSelect"></select>
+ </div>
+ <div class="form-group" style="margin-bottom:14px">
+ <label>Training Age</label>
+ <select id="taSelect"><option value="novice">Novice (under 1 year)</option><option value="intermediate" selected>Intermediate (1–3 years)</option><option value="advanced">Advanced (3+ years)</option></select>
+ </div>
+ <div class="form-group" style="margin-bottom:14px">
+ <label>Primary Goal</label>
+ <select id="goalSelect"><option value="hypertrophy" selected>Hypertrophy</option><option value="strength">Strength</option><option value="both">Balanced</option></select>
+ </div>
 
-      <div class="section-header">Select Session</div>
-      <div id="dayTabContainer"><p style="font-size:.65rem;color:rgba(250,250,248,.25);padding:8px 0">Select a split above to see available sessions.</p></div>
+ <div class="section-header">Select Session</div>
+ <div id="dayTabContainer"><p style="font-size:.65rem;color:rgba(250,250,248,.25);padding:8px 0">Select a split above to see available sessions.</p></div>
 
-      <div id="sessionNoData" class="no-data-msg" style="display:none">
-        No saved program found. You can either:<br>
-        <span class="cta" onclick="window.open('training_tool.html','_blank')">Open the Training App</span> to build a program with volume targets & splits,<br>
-        or select from the built-in splits above.
-      </div>
+ <div id="sessionNoData" class="no-data-msg" style="display:none">
+ No saved program found. You can either:<br>
+ <span class="cta" onclick="window.open('training_tool.html','_blank')">Open the Training App</span> to build a program with volume targets & splits,<br>
+ or select from the built-in splits above.
+ </div>
 
-      <button class="btn-primary" id="goToVolBtn" style="display:none">Continue to Volume Dashboard</button>
-    </div>
-  </div>
+ <button class="btn-primary" id="goToVolBtn" style="display:none">Continue to Volume Dashboard</button>
+ </div>
+ </div>
 
-  <!-- Step 2: Volume Dashboard -->
-  <div class="step-content" id="step2">
-    <div class="card">
-      <div class="section-header">Weekly Volume Dashboard <span class="section-sub" id="volWeekLabel"></span></div>
-      <p style="font-size:.6rem;color:rgba(250,250,248,.25);margin-bottom:8px;line-height:1.3">Logged volume this week (dark bar) vs MEV–MAV–MRV (green–red). Yellow = logged sets. Red bar = MRV ceiling.</p>
-      <div id="volDashboard" class="vol-dashboard"></div>
-      <div class="btn-group">
-        <button class="btn-primary" id="backToSessBtn" style="background:transparent;border:1.5px solid rgba(250,250,248,.1);color:rgba(250,250,248,.4);font-size:.8rem">Back</button>
-        <button class="btn-primary" id="goToTrainBtn">Start Training</button>
-      </div>
-    </div>
-  </div>
+ <!-- Step 2: Volume Dashboard -->
+ <div class="step-content" id="step2">
+ <div class="card">
+ <div class="section-header">Weekly Volume Dashboard <span class="section-sub" id="volWeekLabel"></span></div>
+ <p style="font-size:.6rem;color:rgba(250,250,248,.25);margin-bottom:8px;line-height:1.3">Logged volume this week (dark bar) vs MEV–MAV–MRV (green–red). Yellow = logged sets. Red bar = MRV ceiling.</p>
+ <div id="volDashboard" class="vol-dashboard"></div>
+ <div class="btn-group">
+ <button class="btn-primary" id="backToSessBtn" style="background:transparent;border:1.5px solid rgba(250,250,248,.1);color:rgba(250,250,248,.4);font-size:.8rem">Back</button>
+ <button class="btn-primary" id="goToTrainBtn">Start Training</button>
+ </div>
+ </div>
+ </div>
 
-  <!-- Step 3: Load Calculator + Logger -->
-  <div class="step-content" id="step3">
-    <div class="card">
-      <div class="section-header" id="trainDayHeader">Today's Session</div>
-      <div id="trainSessionInfo" class="recap-box" style="display:none"></div>
+ <!-- Step 3: Load Calculator + Logger -->
+ <div class="step-content" id="step3">
+ <div class="card">
+ <div class="section-header" id="trainDayHeader">Today's Session</div>
+ <div id="trainSessionInfo" class="recap-box" style="display:none"></div>
 
-      <!-- Deload tracker -->
-      <div id="deloadTracker" class="deload-tracker" style="display:none"></div>
+ <!-- Deload tracker -->
+ <div id="deloadTracker" class="deload-tracker" style="display:none"></div>
 
-      <!-- Exercise cards -->
-      <div id="exerciseCards"></div>
+ <!-- Exercise cards -->
+ <div id="exerciseCards"></div>
 
-      <!-- Session summary -->
-      <div class="section-header">Session Summary</div>
-      <div class="summary-dash" id="sessionSummary">
-        <div class="summary-card"><div class="summary-val" id="sumSets">0</div><div class="summary-lbl">Sets Logged</div></div>
-        <div class="summary-card"><div class="summary-val" id="sumVol">0</div><div class="summary-lbl">Total Reps</div></div>
-        <div class="summary-card"><div class="summary-val" id="sumEx">0</div><div class="summary-lbl">Exercises</div></div>
-      </div>
+ <!-- Session summary -->
+ <div class="section-header">Session Summary</div>
+ <div class="summary-dash" id="sessionSummary">
+ <div class="summary-card"><div class="summary-val" id="sumSets">0</div><div class="summary-lbl">Sets Logged</div></div>
+ <div class="summary-card"><div class="summary-val" id="sumVol">0</div><div class="summary-lbl">Total Reps</div></div>
+ <div class="summary-card"><div class="summary-val" id="sumEx">0</div><div class="summary-lbl">Exercises</div></div>
+ </div>
 
-      <div class="btn-group" style="flex-wrap:wrap">
-        <button class="btn-primary" id="backToVolFromTrainBtn" style="background:transparent;border:1.5px solid rgba(250,250,248,.1);color:rgba(250,250,248,.4);font-size:.75rem">Back to Volume</button>
-        <button class="btn-primary" id="resetLoadHistoryBtn" style="background:transparent;border:1.5px solid rgba(244,67,54,.2);color:rgba(244,67,54,.5);font-size:.6rem;padding:8px 0;flex:.5">Reset Load History</button>
-        <button class="btn-secondary" id="exportLoadDataBtn" style="background:rgba(76,175,80,.08);border:1px solid rgba(76,175,80,.15);color:#4CAF50;font-size:.6rem">⬇ Export</button>
-        <button class="btn-secondary" id="importLoadDataBtn" style="background:rgba(33,150,243,.08);border:1px solid rgba(33,150,243,.15);color:#2196F3;font-size:.6rem">⬆ Import</button>
-      </div>
-      <input type="file" id="importLoadFile" accept=".json" style="display:none">
-    </div>
-  </div>
+ <div class="btn-group" style="flex-wrap:wrap">
+ <button class="btn-primary" id="backToVolFromTrainBtn" style="background:transparent;border:1.5px solid rgba(250,250,248,.1);color:rgba(250,250,248,.4);font-size:.75rem">Back to Volume</button>
+ <button class="btn-primary" id="resetLoadHistoryBtn" style="background:transparent;border:1.5px solid rgba(244,67,54,.2);color:rgba(244,67,54,.5);font-size:.6rem;padding:8px 0;flex:.5">Reset Load History</button>
+ <button class="btn-secondary" id="exportLoadDataBtn" style="background:rgba(76,175,80,.08);border:1px solid rgba(76,175,80,.15);color:#4CAF50;font-size:.6rem">⬇ Export</button>
+ <button class="btn-secondary" id="importLoadDataBtn" style="background:rgba(33,150,243,.08);border:1px solid rgba(33,150,243,.15);color:#2196F3;font-size:.6rem">⬆ Import</button>
+ </div>
+ <input type="file" id="importLoadFile" accept=".json" style="display:none">
+ </div>
+ </div>
 
 </div>
 <div class="upsell-box">
-  <h3>Want the full picture?</h3>
-  <p>This free calculator gives you a snapshot. The full Training &amp; Programming Book covers progressive overload, periodisation, exercise selection, fatigue management, and autoregulation across 27 chapters with 200+ scientific references.</p>
-  <a class="upsell-cta" href="../books/muscle_os_training_book.html">Get the Full Book — 500 EGP &rarr;</a>
+ <h3>Want the full picture?</h3>
+ <p>This free calculator gives you a snapshot. The full Training &amp; Programming Book covers progressive overload, periodisation, exercise selection, fatigue management, and autoregulation across 27 chapters with 200+ scientific references.</p>
+ <a class="upsell-cta" href="../books/muscle_os_training_book.html">Get the Full Book — 500 EGP &rarr;</a>
 </div>
 <footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo'men</div></footer>
 
 <script>
 (function(){
-  // ═══════════════════════════════════════════════════════════
-  //  DATA
-  // ═══════════════════════════════════════════════════════════
-
-  const VOLUME_TABLES = {
-    novice: {
-      hypertrophy: { chest:[6,10,14], back_lat:[8,12,18], back_upper:[8,12,16], shoulders:[6,10,16], quads:[6,12,18], hamstrings:[6,10,14], glutes:[6,10,14], biceps:[4,8,12], triceps:[4,8,12], calves:[4,8,12], abs:[4,8,12], traps:[4,8,10], forearms:[4,6,10] },
-      strength: { chest:[4,7,12], back_lat:[5,9,14], back_upper:[5,9,12], shoulders:[4,7,12], quads:[5,9,14], hamstrings:[4,7,12], glutes:[4,7,12], biceps:[3,5,9], triceps:[3,5,9], calves:[3,5,9], abs:[3,5,9], traps:[3,5,8], forearms:[3,4,8] },
-      both: { chest:[5,9,14], back_lat:[7,11,16], back_upper:[7,11,14], shoulders:[5,9,14], quads:[6,10,16], hamstrings:[5,9,14], glutes:[5,9,14], biceps:[3,7,11], triceps:[3,7,11], calves:[3,7,11], abs:[3,7,11], traps:[3,6,10], forearms:[3,5,9] }
-    },
-    intermediate: {
-      hypertrophy: { chest:[8,14,20], back_lat:[10,16,22], back_upper:[10,15,20], shoulders:[8,14,20], quads:[8,14,22], hamstrings:[8,12,18], glutes:[8,12,18], biceps:[6,12,16], triceps:[6,12,16], calves:[6,10,16], abs:[6,10,16], traps:[6,10,14], forearms:[6,8,14] },
-      strength: { chest:[5,10,16], back_lat:[7,12,18], back_upper:[7,12,16], shoulders:[5,10,16], quads:[6,12,18], hamstrings:[5,10,16], glutes:[5,10,16], biceps:[4,8,13], triceps:[4,8,13], calves:[4,8,13], abs:[4,8,13], traps:[4,8,11], forearms:[4,6,11] },
-      both: { chest:[7,12,18], back_lat:[9,14,20], back_upper:[9,13,18], shoulders:[7,12,18], quads:[7,13,20], hamstrings:[7,11,17], glutes:[7,11,17], biceps:[5,10,14], triceps:[5,10,14], calves:[5,9,14], abs:[5,9,14], traps:[5,9,12], forearms:[5,7,12] }
-    },
-    advanced: {
-      hypertrophy: { chest:[10,16,22], back_lat:[12,18,26], back_upper:[12,18,24], shoulders:[10,16,24], quads:[10,16,24], hamstrings:[10,14,22], glutes:[10,14,22], biceps:[8,14,20], triceps:[8,14,20], calves:[8,12,18], abs:[8,12,18], traps:[8,12,16], forearms:[8,10,16] },
-      strength: { chest:[6,12,18], back_lat:[8,14,20], back_upper:[8,14,18], shoulders:[6,12,18], quads:[7,14,20], hamstrings:[6,12,18], glutes:[6,12,18], biceps:[5,10,15], triceps:[5,10,15], calves:[5,9,15], abs:[5,9,15], traps:[5,9,13], forearms:[5,7,13] },
-      both: { chest:[8,14,20], back_lat:[10,16,22], back_upper:[10,16,20], shoulders:[8,14,20], quads:[9,15,22], hamstrings:[8,13,20], glutes:[8,13,20], biceps:[7,12,18], triceps:[7,12,18], calves:[7,11,17], abs:[7,11,17], traps:[7,11,15], forearms:[7,9,15] }
-    }
-  };
-
-  const MUSCLE_GROUPS = [
-    {id:'chest', name:'Chest', volId:'chest'},
-    {id:'back', name:'Back (Lats)', volId:'back_lat'},
-    {id:'back_upper', name:'Back (Upper)', volId:'back_upper'},
-    {id:'shoulders', name:'Shoulders', volId:'shoulders'},
-    {id:'quads', name:'Quads', volId:'quads'},
-    {id:'hamstrings', name:'Hamstrings', volId:'hamstrings'},
-    {id:'glutes', name:'Glutes', volId:'glutes'},
-    {id:'biceps', name:'Biceps', volId:'biceps'},
-    {id:'triceps', name:'Triceps', volId:'triceps'},
-    {id:'calves', name:'Calves', volId:'calves'},
-    {id:'abs', name:'Abs / Core', volId:'abs'},
-    {id:'traps', name:'Traps', volId:'traps'},
-    {id:'forearms', name:'Forearms', volId:'forearms'}
-  ];
-
-  const MUSCLE_VOL_MAP = {
-    chest:'chest', back:'back_lat', back_upper:'back_upper', shoulders:'shoulders',
-    quads:'quads', hamstrings:'hamstrings', glutes:'glutes', biceps:'biceps',
-    triceps:'triceps', calves:'calves', abs:'abs', traps:'traps', forearms:'forearms'
-  };
-
-  // ═══════════════════════════════════════════════════════════
-  //  EXERCISE METADATA  (all exercises from SPLITS + extras)
-  // ═══════════════════════════════════════════════════════════
-
-  const EXERCISE_META = {
-    "Barbell Squat":{type:"compound",fatigue:"high",jointRisk:["knee","spine","hip"],inc:2.5,repRange:[6,12],subs:["Front Squat","Leg Press","Goblet Squat","Belt Squat","Hack Squat"]},
-    "Bench Press":{type:"compound",fatigue:"moderate",jointRisk:["shoulder","elbow"],inc:2.5,repRange:[6,12],subs:["Dumbbell Bench Press","Machine Chest Press","Floor Press","Incline Press"]},
-    "Barbell Row":{type:"compound",fatigue:"moderate",jointRisk:["spine","shoulder"],inc:2.5,repRange:[6,12],subs:["Chest-Supported Row","Seated Cable Row","T-Bar Row","Dumbbell Row"]},
-    "Leg Curl":{type:"isolation",fatigue:"low",jointRisk:["knee"],inc:2.5,repRange:[8,15],subs:["RDL","Nordic Curl","Kneeling Leg Curl","Good Morning"]},
-    "Leg Curls":{type:"isolation",fatigue:"low",jointRisk:["knee"],inc:2.5,repRange:[8,15],subs:["RDL","Nordic Curl","Kneeling Leg Curl","Good Morning"]},
-    "Lateral Raise":{type:"isolation",fatigue:"low",jointRisk:["shoulder"],inc:1,repRange:[10,20],subs:["Cable Lateral Raise","Lean-Away Lateral Raise","DB Upright Row"]},
-    "Lateral Raises":{type:"isolation",fatigue:"low",jointRisk:["shoulder"],inc:1,repRange:[10,20],subs:["Cable Lateral Raise","Lean-Away Lateral Raise","DB Upright Row"]},
-    "Triceps Pushdown":{type:"isolation",fatigue:"low",jointRisk:["elbow"],inc:2.5,repRange:[8,15],subs:["Overhead Triceps Ext","JM Press","Close-Grip Bench","Skull Crusher"]},
-    "Deadlift Variation":{type:"compound",fatigue:"high",jointRisk:["spine","hip"],inc:2.5,repRange:[4,8],subs:["Trap Bar Deadlift","RDL","Good Morning","Hyperextension"]},
-    "Overhead Press":{type:"compound",fatigue:"moderate",jointRisk:["shoulder","spine"],inc:2.5,repRange:[5,10],subs:["Seated DB Press","Machine Shoulder Press","Incline Press","Lateral Raise"]},
-    "Pull-Up":{type:"compound",fatigue:"high",jointRisk:["shoulder","elbow"],inc:-1,repRange:[6,12],subs:["Lat Pulldown","Cable Pullover","Inverted Row","Assisted Pull-Up"]},
-    "Leg Extension":{type:"isolation",fatigue:"low",jointRisk:["knee"],inc:2.5,repRange:[10,15],subs:["Bulgarian Split Squat","Sissy Squat","Step-Up","Leg Press (high feet)"]},
-    "Leg Extensions":{type:"isolation",fatigue:"low",jointRisk:["knee"],inc:2.5,repRange:[10,15],subs:["Bulgarian Split Squat","Sissy Squat","Step-Up","Leg Press (high feet)"]},
-    "Bicep Curl":{type:"isolation",fatigue:"low",jointRisk:["elbow"],inc:1,repRange:[10,15],subs:["Incline DB Curl","Preacher Curl","Cable Curl","Hammer Curl"]},
-    "Calf Raise":{type:"isolation",fatigue:"low",jointRisk:["ankle"],inc:5,repRange:[10,20],subs:["Seated Calf Raise","Leg Press Calf Raise","Donkey Calf Raise","Single-Leg Calf Raise"]},
-    "Calf Raises":{type:"isolation",fatigue:"low",jointRisk:["ankle"],inc:5,repRange:[10,20],subs:["Seated Calf Raise","Leg Press Calf Raise","Donkey Calf Raise","Single-Leg Calf Raise"]},
-    "Front Squat or Lunge":{type:"compound",fatigue:"high",jointRisk:["knee","spine","hip"],inc:2.5,repRange:[6,12],subs:["Leg Press","Bulgarian Split Squat","Goblet Squat","Hack Squat"]},
-    "Incline Press":{type:"compound",fatigue:"moderate",jointRisk:["shoulder","elbow"],inc:2.5,repRange:[6,12],subs:["Dumbbell Incline Press","Machine Incline Press","Flat Dumbbell Press","Floor Press"]},
-    "Incline Chest Press":{type:"compound",fatigue:"moderate",jointRisk:["shoulder","elbow"],inc:2.5,repRange:[6,12],subs:["Dumbbell Incline Press","Machine Incline Press","Flat Dumbbell Press","Floor Press"]},
-    "Lat Pulldown":{type:"compound",fatigue:"moderate",jointRisk:["shoulder","elbow"],inc:2.5,repRange:[6,12],subs:["Pull-Up","Cable Pullover","Inverted Row","Straight-Arm Pulldown"]},
-    "RDL":{type:"compound",fatigue:"high",jointRisk:["spine","hip"],inc:2.5,repRange:[6,12],subs:["Good Morning","Hyperextension","Kneeling Leg Curl","Trap Bar Deadlift"]},
-    "Triceps Overhead Ext":{type:"isolation",fatigue:"low",jointRisk:["elbow","shoulder"],inc:1,repRange:[8,15],subs:["Triceps Pushdown","Close-Grip Bench","JM Press","Skull Crusher"]},
-    "Triceps Overhead Extensions":{type:"isolation",fatigue:"low",jointRisk:["elbow","shoulder"],inc:1,repRange:[8,15],subs:["Triceps Pushdown","Close-Grip Bench","JM Press","Skull Crusher"]},
-    "Machine Chest Flies":{type:"isolation",fatigue:"low",jointRisk:["shoulder"],inc:2.5,repRange:[8,15],subs:["Dumbbell Flies","Cable Flies","Pec Deck","Push-Up"]},
-    "T-Bar Row":{type:"compound",fatigue:"moderate",jointRisk:["spine","shoulder"],inc:2.5,repRange:[6,12],subs:["Chest-Supported Row","Seated Cable Row","Dumbbell Row","Meadows Row"]},
-    "Kelso Shrugs":{type:"isolation",fatigue:"low",jointRisk:["trap"],inc:5,repRange:[8,15],subs:["Dumbbell Shrugs","Barbell Shrugs","Farmers Walk","Face Pull"]},
-    "Shoulder Press":{type:"compound",fatigue:"moderate",jointRisk:["shoulder","spine"],inc:2.5,repRange:[6,12],subs:["Seated DB Press","Machine Shoulder Press","Arnold Press","Lateral Raise"]},
-    "Rear Delt Flies":{type:"isolation",fatigue:"low",jointRisk:["shoulder"],inc:1,repRange:[10,20],subs:["Face Pull","Reverse Pec Deck","Bent-Over Cable Rear Delt","Wide Row"]},
-    "Preacher Curls":{type:"isolation",fatigue:"low",jointRisk:["elbow"],inc:1,repRange:[8,15],subs:["Standing DB Curl","Cable Curl","Incline Curl","Hammer Curl"]},
-    "Preacher Curl":{type:"isolation",fatigue:"low",jointRisk:["elbow"],inc:1,repRange:[8,15],subs:["Standing DB Curl","Cable Curl","Incline Curl","Hammer Curl"]},
-    "Adductors (Machine)":{type:"isolation",fatigue:"low",jointRisk:["hip"],inc:2.5,repRange:[10,20],subs:["Cable Adduction","Side-Lying Leg Raise","Cossack Squat","Bulgarian Split Squat"]},
-    "Abductors (Machine)":{type:"isolation",fatigue:"low",jointRisk:["hip"],inc:2.5,repRange:[10,20],subs:["Band Lateral Walk","Clam Shell","Side-Lying Leg Raise","Cable Abduction"]},
-    "Hip Thrust":{type:"compound",fatigue:"moderate",jointRisk:["hip","spine"],inc:2.5,repRange:[6,15],subs:["Glute Bridge","Cable Pull-Through","Bulgarian Split Squat","KAS Glute Bridge"]},
-    "Seated Row":{type:"compound",fatigue:"moderate",jointRisk:["shoulder","spine"],inc:2.5,repRange:[6,12],subs:["Chest-Supported Row","Cable Row","Dumbbell Row","Inverted Row"]},
-    "Vertical Shrugs":{type:"isolation",fatigue:"low",jointRisk:["trap"],inc:5,repRange:[8,15],subs:["Barbell Shrugs","Dumbbell Shrugs","Farmers Walk","Face Pull"]},
-    "Hammer Curls":{type:"isolation",fatigue:"low",jointRisk:["elbow"],inc:1,repRange:[8,15],subs:["Standing DB Curl","Cable Curl","Reverse Curl","Incline Curl"]},
-    "Forearm Ext/Flex":{type:"isolation",fatigue:"low",jointRisk:["wrist"],inc:1,repRange:[10,20],subs:["Wrist Curl","Reverse Wrist Curl","Farmers Walk","Plate Pinch"]}
-  };
-
-  function getMeta(exName){
-    return EXERCISE_META[exName] || {type:"compound",fatigue:"moderate",jointRisk:[],inc:2.5,repRange:[6,12],subs:[]};
-  }
-
-  // ═══════════════════════════════════════════════════════════
-  //  RPE → %1RM (compute from Epley: % = 100/(1+(reps+RIR)/30))
-  // ═══════════════════════════════════════════════════════════
-
-  function rpePct(reps, rpe){
-    if(rpe < 6 || rpe > 10) return null;
-    const rir = 10 - rpe;
-    const effReps = reps + rir;
-    return 100 / (1 + effReps / 30);
-  }
-
-  function estimate1RM(weight, reps, rpe){
-    if(!weight || !reps || !rpe) return null;
-    const pct = rpePct(reps, rpe);
-    if(!pct) return null;
-    return Math.round(weight / (pct / 100) * 10) / 10;
-  }
-
-  // ═══════════════════════════════════════════════════════════
-  //  SPLITS  (mirrored from training_tool.html)
-  // ═══════════════════════════════════════════════════════════
-
-  const SPLITS = {
-    fullbody_3: { name:'Full Body (3-Day)', daysPerWeek:3, matchDays:[2,3], days:[
-      { name:'Session A (Squat Focus)', exercises:[{name:'Barbell Squat',sets:3,primary:'quads',secondary:['glutes','hamstrings']},{name:'Bench Press',sets:3,primary:'chest',secondary:['shoulders','triceps']},{name:'Barbell Row',sets:3,primary:'back',secondary:['biceps']},{name:'Leg Curl',sets:2,primary:'hamstrings',secondary:[]},{name:'Lateral Raise',sets:2,primary:'shoulders',secondary:[]},{name:'Triceps Pushdown',sets:2,primary:'triceps',secondary:[]}] },
-      { name:'Session B (Hinge Focus)', exercises:[{name:'Deadlift Variation',sets:3,primary:'hamstrings',secondary:['glutes','back']},{name:'Overhead Press',sets:3,primary:'shoulders',secondary:['triceps']},{name:'Pull-Up',sets:3,primary:'back',secondary:['biceps']},{name:'Leg Extension',sets:2,primary:'quads',secondary:[]},{name:'Bicep Curl',sets:2,primary:'biceps',secondary:[]},{name:'Calf Raise',sets:2,primary:'calves',secondary:[]}] },
-      { name:'Session C (Balanced)', exercises:[{name:'Front Squat or Lunge',sets:3,primary:'quads',secondary:['glutes']},{name:'Incline Press',sets:3,primary:'chest',secondary:['shoulders','triceps']},{name:'Lat Pulldown',sets:3,primary:'back',secondary:['biceps']},{name:'RDL',sets:2,primary:'hamstrings',secondary:['glutes','back']},{name:'Lateral Raise',sets:2,primary:'shoulders',secondary:[]},{name:'Triceps Overhead Ext',sets:2,primary:'triceps',secondary:[]}] }
-    ]},
-    upper_lower_4: { name:'Upper/Lower (4-Day)', daysPerWeek:4, matchDays:[4,5], days:[
-      { name:'Upper 1 — Chest, Back, Delts, Arms', exercises:[{name:'Incline Chest Press',sets:3,primary:'chest',secondary:['shoulders','triceps']},{name:'Machine Chest Flies',sets:3,primary:'chest',secondary:[]},{name:'Lat Pulldown',sets:2,primary:'back',secondary:['biceps']},{name:'T-Bar Row',sets:2,primary:'back',secondary:['biceps']},{name:'Kelso Shrugs',sets:1,primary:'traps',secondary:[]},{name:'Shoulder Press',sets:1,primary:'shoulders',secondary:['triceps']},{name:'Lateral Raises',sets:2,primary:'shoulders',secondary:[]},{name:'Rear Delt Flies',sets:1,primary:'shoulders',secondary:[]},{name:'Preacher Curls',sets:2,primary:'biceps',secondary:[]},{name:'Triceps Pushdown',sets:2,primary:'triceps',secondary:[]}] },
-      { name:'Lower 1 — Quads, Hams, Glutes', exercises:[{name:'Leg Extensions',sets:3,primary:'quads',secondary:[]},{name:'Leg Curls',sets:2,primary:'hamstrings',secondary:[]},{name:'Adductors (Machine)',sets:2,primary:'quads',secondary:[]},{name:'Abductors (Machine)',sets:2,primary:'glutes',secondary:[]},{name:'Hip Thrust',sets:2,primary:'glutes',secondary:['hamstrings']},{name:'Calf Raises',sets:2,primary:'calves',secondary:[]}] },
-      { name:'Upper 2 — Chest, Back, Delts, Arms', exercises:[{name:'Incline Chest Press',sets:2,primary:'chest',secondary:['shoulders','triceps']},{name:'Machine Chest Flies',sets:3,primary:'chest',secondary:[]},{name:'Lat Pulldown',sets:2,primary:'back',secondary:['biceps']},{name:'Seated Row',sets:2,primary:'back',secondary:['biceps']},{name:'Kelso Shrugs',sets:2,primary:'traps',secondary:[]},{name:'Vertical Shrugs',sets:1,primary:'traps',secondary:[]},{name:'Lateral Raises',sets:2,primary:'shoulders',secondary:[]},{name:'Preacher Curls',sets:3,primary:'biceps',secondary:[]},{name:'Triceps Overhead Extensions',sets:3,primary:'triceps',secondary:[]}] },
-      { name:'Lower 2 — Quads, Hams, Glutes', exercises:[{name:'Leg Extensions',sets:2,primary:'quads',secondary:[]},{name:'Leg Curls',sets:3,primary:'hamstrings',secondary:[]},{name:'Adductors (Machine)',sets:2,primary:'quads',secondary:[]},{name:'Abductors (Machine)',sets:2,primary:'glutes',secondary:[]},{name:'Hip Thrust',sets:2,primary:'glutes',secondary:['hamstrings']},{name:'Calf Raises',sets:2,primary:'calves',secondary:[]}] }
-    ]},
-    ppl_6: { name:'PPL (6-Day)', daysPerWeek:6, matchDays:[5,6], days:[
-      { name:'Push — Chest, Front Delt, Triceps', exercises:[{name:'Incline Chest Press',sets:3,primary:'chest',secondary:['shoulders','triceps']},{name:'Machine Chest Flies',sets:3,primary:'chest',secondary:[]},{name:'Shoulder Press',sets:2,primary:'shoulders',secondary:['triceps']},{name:'Lateral Raises',sets:2,primary:'shoulders',secondary:[]},{name:'Triceps Pushdown',sets:2,primary:'triceps',secondary:[]},{name:'Triceps Overhead Extensions',sets:2,primary:'triceps',secondary:[]}] },
-      { name:'Pull — Back, Rear Delt, Biceps', exercises:[{name:'Lat Pulldown',sets:2,primary:'back',secondary:['biceps']},{name:'Seated Row',sets:2,primary:'back',secondary:['biceps']},{name:'T-Bar Row',sets:2,primary:'back',secondary:['biceps']},{name:'Kelso Shrugs',sets:1,primary:'traps',secondary:[]},{name:'Vertical Shrugs',sets:1,primary:'traps',secondary:[]},{name:'Rear Delt Flies',sets:2,primary:'shoulders',secondary:[]},{name:'Preacher Curls',sets:3,primary:'biceps',secondary:[]},{name:'Forearm Ext/Flex',sets:1,primary:'forearms',secondary:[]}] },
-      { name:'Legs — Quads, Hams, Glutes', exercises:[{name:'Leg Extensions',sets:2,primary:'quads',secondary:[]},{name:'Leg Curls',sets:2,primary:'hamstrings',secondary:[]},{name:'Adductors (Machine)',sets:2,primary:'quads',secondary:[]},{name:'Abductors (Machine)',sets:2,primary:'glutes',secondary:[]},{name:'Hip Thrust',sets:2,primary:'glutes',secondary:['hamstrings']},{name:'Calf Raises',sets:2,primary:'calves',secondary:[]}] }
-    ]},
-    torso_limbs_4: { name:'Torso/Limbs (4-Day)', daysPerWeek:4, matchDays:[4,5], days:[
-      { name:'Torso — Chest, Back, Delts', exercises:[{name:'Incline Chest Press',sets:3,primary:'chest',secondary:['shoulders','triceps']},{name:'Machine Chest Flies',sets:3,primary:'chest',secondary:[]},{name:'Lat Pulldown',sets:2,primary:'back',secondary:['biceps']},{name:'Seated Row',sets:1,primary:'back',secondary:['biceps']},{name:'T-Bar Row',sets:2,primary:'back',secondary:['biceps']},{name:'Kelso Shrugs',sets:1,primary:'traps',secondary:[]},{name:'Vertical Shrugs',sets:1,primary:'traps',secondary:[]},{name:'Shoulder Press',sets:1,primary:'shoulders',secondary:['triceps']},{name:'Lateral Raises',sets:2,primary:'shoulders',secondary:[]},{name:'Rear Delt Flies',sets:1,primary:'shoulders',secondary:[]}] },
-      { name:'Limbs — Legs, Arms', exercises:[{name:'Leg Extensions',sets:3,primary:'quads',secondary:[]},{name:'Leg Curls',sets:3,primary:'hamstrings',secondary:[]},{name:'Adductors (Machine)',sets:2,primary:'quads',secondary:[]},{name:'Abductors (Machine)',sets:2,primary:'glutes',secondary:[]},{name:'Hip Thrust',sets:2,primary:'glutes',secondary:['hamstrings']},{name:'Calf Raises',sets:2,primary:'calves',secondary:[]},{name:'Preacher Curls',sets:2,primary:'biceps',secondary:[]},{name:'Hammer Curls',sets:2,primary:'biceps',secondary:['forearms']},{name:'Triceps Pushdown',sets:2,primary:'triceps',secondary:[]},{name:'Triceps Overhead Extensions',sets:2,primary:'triceps',secondary:[]}] }
-    ]},
-    arnold_3r: { name:'Arnold Split (3-Day Rotation)', daysPerWeek:6, matchDays:[5,6], days:[
-      { name:'Day 1 — Chest & Back', exercises:[{name:'Incline Chest Press',sets:4,primary:'chest',secondary:['shoulders','triceps']},{name:'Machine Chest Flies',sets:3,primary:'chest',secondary:[]},{name:'Lat Pulldown',sets:3,primary:'back',secondary:['biceps']},{name:'Seated Row',sets:3,primary:'back',secondary:['biceps']},{name:'T-Bar Row',sets:2,primary:'back',secondary:['biceps']},{name:'Kelso Shrugs',sets:1,primary:'traps',secondary:[]}] },
-      { name:'Day 2 — Legs', exercises:[{name:'Leg Extensions',sets:3,primary:'quads',secondary:[]},{name:'Leg Curls',sets:3,primary:'hamstrings',secondary:[]},{name:'Adductors (Machine)',sets:2,primary:'quads',secondary:[]},{name:'Abductors (Machine)',sets:2,primary:'glutes',secondary:[]},{name:'Hip Thrust',sets:3,primary:'glutes',secondary:['hamstrings']},{name:'Calf Raises',sets:3,primary:'calves',secondary:[]}] },
-      { name:'Day 3 — Shoulders & Arms', exercises:[{name:'Shoulder Press',sets:3,primary:'shoulders',secondary:['triceps']},{name:'Lateral Raises',sets:3,primary:'shoulders',secondary:[]},{name:'Rear Delt Flies',sets:2,primary:'shoulders',secondary:[]},{name:'Preacher Curls',sets:3,primary:'biceps',secondary:[]},{name:'Hammer Curls',sets:2,primary:'biceps',secondary:['forearms']},{name:'Triceps Pushdown',sets:3,primary:'triceps',secondary:[]},{name:'Triceps Overhead Extensions',sets:2,primary:'triceps',secondary:[]}] }
-    ]}
-  };
-
-  // Rest-day variants (mirrored from training_tool.html)
-  (function(){
-    const clone = (d) => JSON.parse(JSON.stringify(d));
-    SPLITS.ppl_rest_ul_6 = { name:'PPL + Rest + UL (6-Day)', daysPerWeek:6, matchDays:[5,6], days:[
-      clone(SPLITS.ppl_6.days[0]),
-      clone(SPLITS.ppl_6.days[1]),
-      clone(SPLITS.ppl_6.days[2]),
-      { name:'Rest', restDay:true, exercises:[] },
-      clone(SPLITS.upper_lower_4.days[0]),
-      clone(SPLITS.upper_lower_4.days[1])
-    ]};
-    SPLITS.arnold_rest_4 = { name:'Arnold + Rest (4-Day)', daysPerWeek:4, matchDays:[4,5], days:[
-      clone(SPLITS.arnold_3r.days[0]),
-      clone(SPLITS.arnold_3r.days[1]),
-      clone(SPLITS.arnold_3r.days[2]),
-      { name:'Rest', restDay:true, exercises:[] }
-    ]};
-  })();
-
-  // ═══════════════════════════════════════════════════════════
-  //  INJURY SUBSTITUTION MAP (joint → exercise lists)
-  // ═══════════════════════════════════════════════════════════
-
-  const INJURY_SUBS = {
-    knee:["Leg Press","Bulgarian Split Squat","Step-Up","Leg Extensions","RDL","Seated Calf Raise"],
-    shoulder:["Machine Press","Neutral-Grip DB Press","Cable Flies","Face Pull","Trap Raise"],
-    spine:["Chest-Supported Row","Leg Press","Machine Press","Ab Wheel","Plank"],
-    elbow:["Neutral-Grip DB Press","Overhead Triceps Ext","Incline Curl","Cable Curl","EZ Bar Work"],
-    hip:["Band Lateral Walk","KAS Glute Bridge","Seated Adductor","Plank","Side Lying Leg Raise"],
-    wrist:["DB Bench","EZ Bar Curls","Neutral Grip Pull-Up","Straps for Row","Forearm Wraps"],
-    trap:["Face Pull","Rear Delt Flies","Neutral-Grip Row","Prone Trap Raise","Dead Hang"]
-  };
-
-  // ═══════════════════════════════════════════════════════════
-  //  STORAGE
-  // ═══════════════════════════════════════════════════════════
-
-  const TT_KEYS = ['mos_vol_targets','mos_split_profile','mos_program','mos_logs','mos_vol_inputs'];
-  const LH_KEY = 'mos_load_history';
-  const DT_KEY = 'mos_deload_tracker';
-  const PF_KEY = 'mos_pain_flags';
-
-  function lsGet(key, def){
-    try{ const r = localStorage.getItem(key); return r ? JSON.parse(r) : def; }catch(e){ return def; }
-  }
-  function lsSet(key, val){ localStorage.setItem(key, JSON.stringify(val)); }
-
-  function getLoadHistory(){
-    return lsGet(LH_KEY, {});
-  }
-  function saveLoadHistory(h){
-    // Prune entries older than 180 days
-    const cutoff = new Date(Date.now() - 180*86400000).toISOString().split('T')[0];
-    Object.keys(h).forEach(ex => {
-      h[ex] = (h[ex] || []).filter(e => e.date >= cutoff);
-      if(h[ex].length === 0) delete h[ex];
-    });
-    lsSet(LH_KEY, h);
-  }
-
-  function getDeloadTracker(){
-    return lsGet(DT_KEY, { lastDeloadDate: null, trainingAge: 'intermediate', sessionCount: 0, consecutiveOvershoot: 0, totalSessions: 0, lastWeekRpes: [] });
-  }
-
-  function getPainFlags(){
-    return lsGet(PF_KEY, {});
-  }
-
-  // ═══════════════════════════════════════════════════════════
-  //  ENGINE: e1RM estimation, load suggestion, safety
-  // ═══════════════════════════════════════════════════════════
-
-  function getBestE1RM(exName, history){
-    const entries = history[exName];
-    if(!entries || entries.length === 0) return null;
-    // Take the highest e1RM from the last 60 days
-    const cutoff = new Date(Date.now() - 60*86400000).toISOString().split('T')[0];
-    const recent = entries.filter(e => e.date >= cutoff && e.e1RM > 0);
-    if(recent.length === 0) return null;
-    const best = recent.reduce((max, e) => e.e1RM > max ? e.e1RM : max, 0);
-    return best;
-  }
-
-  function getLastSession(exName, history){
-    const entries = history[exName];
-    if(!entries || entries.length === 0) return null;
-    const sorted = [...entries].sort((a,b) => b.date.localeCompare(a.date));
-    return sorted[0];
-  }
-
-  function getTargetRepRange(goal, exerciseMeta, rpe){
-    const meta = exerciseMeta || {repRange:[6,12]};
-    if(goal === 'strength') return [3, 6];
-    if(goal === 'hypertrophy') return meta.repRange || [6,12];
-    return [5, 10]; // balanced
-  }
-
-  function getTargetRPE(goal, fatigue){
-    if(goal === 'strength'){
-      return {low:8, moderate:8, high:8.5};
-    }
-    if(goal === 'hypertrophy'){
-      return {low:8, moderate:8, high:7.5};
-    }
-    return {low:8, moderate:8, high:8};
-  }
-
-  function suggestNextLoad(exName, goal, trainingAge, history){
-    const meta = getMeta(exName);
-    const bestE1RM = getBestE1RM(exName, history);
-    const last = getLastSession(exName, history);
-    const targetRPEmap = getTargetRPE(goal, meta.fatigue);
-    const targetRPE = targetRPEmap[meta.fatigue] || 8;
-    const repRange = getTargetRepRange(goal, meta, targetRPE);
-    const midReps = Math.round((repRange[0] + repRange[1]) / 2);
-
-    // Step 1: determine if this is a new exercise or continuing
-    if(!bestE1RM){
-      // No history — recommend starting light with technique focus
-      return {
-        suggestedWeight: null,
-        suggestedReps: repRange[1],
-        suggestedRPE: 7,
-        e1RM: null,
-        explanation: "No load history for this exercise. Start in the upper rep range at RPE 7–8 to establish a baseline e1RM.",
-        lastSession: null,
-        targetPct: null
-      };
-    }
-
-    // Step 2: get the %1RM for suggested reps at target RPE
-    const targetPct = rpePct(midReps, targetRPE);
-    if(!targetPct){
-      return { suggestedWeight: null, suggestedReps: midReps, suggestedRPE: targetRPE, e1RM: bestE1RM, explanation: "RPE out of range.", lastSession: last, targetPct: null };
-    }
-
-    // Step 3: compute suggested raw weight
-    const rawWeight = bestE1RM * (targetPct / 100);
-    const inc = meta.inc > 0 ? meta.inc : 2.5;
-    const rounded = Math.round(rawWeight / inc) * inc;
-
-    // Step 4: adjust based on last session
-    let adjWeight = rounded;
-    let adjReps = midReps;
-    let adjRPE = targetRPE;
-    let explanation = '';
-
-    if(last){
-      const lastMidRep = last.reps || midReps;
-      const lastRPE = last.rpe || targetRPE;
-      const lastWeight = last.weight || 0;
-
-      if(lastRPE < targetRPE - 0.5 && adjWeight > lastWeight){
-        // Last session was easier than target — increase load
-        adjWeight = Math.max(adjWeight, Math.round((lastWeight + inc) / inc) * inc);
-        explanation = 'Last session RPE '+lastRPE+' was below target '+targetRPE+'. Increased load.';
-      } else if(lastRPE > targetRPE + 0.5){
-        // Last session was harder than target — hold or reduce
-        adjWeight = Math.min(adjWeight, Math.round(lastWeight / inc) * inc);
-        adjWeight = Math.max(adjWeight, Math.round((lastWeight - inc) / inc) * inc);
-        explanation = 'Last session RPE '+lastRPE+' was above target '+targetRPE+'. Holding or slightly reducing load.';
-      } else if(lastRPE >= targetRPE - 0.5 && lastRPE <= targetRPE + 0.5 && last.reps >= repRange[1] - 1){
-        // Hit target RPE at top of rep range — double progression: bump weight, drop reps
-        adjWeight = Math.round((lastWeight + inc) / inc) * inc;
-        adjReps = repRange[0];
-        explanation = 'Double progression: hit '+last.reps+' reps @ RPE '+lastRPE+'. Bump weight to '+adjWeight+' kg, drop to '+adjReps+' reps.';
-      } else {
-        explanation = 'Continue progressing from last session.';
-      }
-    } else {
-      explanation = 'First logged session for this exercise. Start at suggested load.';
-    }
-
-    return {
-      suggestedWeight: adjWeight,
-      suggestedReps: adjReps,
-      suggestedRPE: adjRPE,
-      e1RM: bestE1RM,
-      explanation: explanation,
-      lastSession: last,
-      targetPct: targetPct
-    };
-  }
-
-  // ─── Safety Layer ───
-  function getDeloadInterval(trainingAge){
-    const intervals = { novice: 6, intermediate: 5, advanced: 4 };
-    return intervals[trainingAge] || 5;
-  }
-
-  function checkSafety(exName, suggestion, currentDayIdx, program, logs, loadHistory, painFlags, trainingAge){
-    const meta = getMeta(exName);
-    const warnings = [];
-    let blocked = false;
-    let substitute = null;
-    let severity = 'safe';
-
-    // 1. Pain gate
-    const pain = painFlags[exName] || 'green';
-    if(pain === 'red'){
-      blocked = true;
-      substitute = meta.subs && meta.subs.length > 0 ? meta.subs[0] : null;
-      severity = 'danger';
-      warnings.push('🔴 Pain reported. Exercise blocked. '+(substitute?'Suggested substitute: '+substitute+'.':'Consult a professional.'));
-    } else if(pain === 'yellow'){
-      severity = 'warn';
-      warnings.push('🟡 Pain reported (yellow). Load capped, consider exercise substitution.');
-    }
-
-    // 2. Weekly volume check (MRV ceiling)
-    if(!blocked && program && logs){
-      const weeklyVol = getWeeklyVolumeForMuscle(exName, program, logs);
-      const volTargets = lsGet('mos_vol_targets', {});
-      const primaryMuscle = findPrimaryMuscle(exName, program);
-      if(primaryMuscle && volTargets[primaryMuscle]){
-        const mrv = volTargets[primaryMuscle].mrv || 99;
-        if(weeklyVol >= mrv){
-          severity = 'danger';
-          warnings.push('⚠️ MRV ceiling reached for '+volTargets[primaryMuscle].name+'. Additional sets may impair recovery.');
-        }
-      }
-    }
-
-    // 3. 10% rule: check if suggested weight jump is >10% from last logged weight
-    const last = getLastSession(exName, loadHistory);
-    if(last && last.weight > 0 && suggestion && suggestion.suggestedWeight){
-      const jump = (suggestion.suggestedWeight - last.weight) / last.weight;
-      if(jump > 0.10){
-        const capped = Math.round(last.weight * 1.10 / meta.inc) * meta.inc;
-        if(suggestion.suggestedWeight > capped){
-          warnings.push('📈 Load jump of '+(jump*100).toFixed(1)+'% exceeds 10% rule. Capped to '+(capped)+' kg.');
-          suggestion.suggestedWeight = capped;
-        }
-      }
-    }
-
-    // 4. RPE ceiling for hypertrophy work
-    if(suggestion && suggestion.suggestedRPE > 9){
-      suggestion.suggestedRPE = 9;
-      warnings.push('🎯 RPE capped at 9 (hypertrophy safety ceiling).');
-    }
-
-    // 5. Tendon-lag rule: isolations at stretch position, >5% jump in <2 weeks
-    if(meta.type === 'isolation' && last && suggestion && suggestion.suggestedWeight){
-      const jump = (suggestion.suggestedWeight - last.weight) / last.weight;
-      if(jump > 0.05 && last.date){
-        const twoWeeksAgo = new Date(Date.now() - 14*86400000).toISOString().split('T')[0];
-        if(last.date >= twoWeeksAgo){
-          const capped = Math.round(last.weight * 1.05 / meta.inc) * meta.inc;
-          if(suggestion.suggestedWeight > capped){
-            warnings.push('🔗 Tendon-lag rule: isolation exercise load jump capped to 5% over 2 weeks ('+capped+' kg).');
-            suggestion.suggestedWeight = capped;
-          }
-        }
-      }
-    }
-
-    return { safe: !blocked, blocked, warnings, severity, substitute };
-  }
-
-  function shouldDeload(tracker, trainingAge, recentRpeOvershoots){
-    const interval = getDeloadInterval(trainingAge);
-    const weeksSince = tracker.sessionCount;
-    let reason = null;
-
-    if(weeksSince >= interval){
-      reason = 'Scheduled deload: '+weeksSince+' weeks since last deload (interval: '+interval+' weeks for '+trainingAge+' training age).';
-    } else if(recentRpeOvershoots >= 2){
-      reason = 'RPE overshoot: RPE exceeded target by 1+ for 2 consecutive sessions.';
-    }
-
-    if(reason){
-      return { needed: true, reason, suggestion: 'Reduce sets by ~50%, cap RPE at 6–7 for this session.' };
-    }
-    return { needed: false, reason: null, suggestion: null };
-  }
-
-  // ─── Volume Tracking Helpers ───
-  function getWeeklyVolumeForMuscle(exName, program, logs){
-    // Compute logged sets this week per muscle group
-    const volByMuscle = {};
-    MUSCLE_GROUPS.forEach(m => volByMuscle[m.id] = 0);
-
-    // Find this week's dates (last 7 days)
-    const weekAgo = new Date(Date.now() - 7*86400000).toISOString().split('T')[0];
-    const today = new Date().toISOString().split('T')[0];
-
-    Object.keys(logs).forEach(dateStr => {
-      if(dateStr < weekAgo || dateStr > today) return;
-      Object.keys(logs[dateStr]).forEach(eid => {
-        const sets = logs[dateStr][eid].sets || [];
-        // Estimate muscle from exercise name in eid (format: "dayName__exerciseName")
-        const exNameFromKey = eid.includes('__') ? eid.split('__')[1] : eid;
-        const meta = getMeta(exNameFromKey);
-        // Find primary muscle in program
-        const primary = findPrimaryMuscleFromAllSplits(exNameFromKey);
-        if(primary && volByMuscle[primary] !== undefined){
-          const count = sets.filter(s => s && s.weight && parseFloat(s.weight) > 0).length;
-          volByMuscle[primary] += count;
-        }
-      });
-    });
-
-    if(exName){
-      const pm = findPrimaryMuscleFromAllSplits(exName);
-      return pm ? volByMuscle[pm] || 0 : 0;
-    }
-    return volByMuscle;
-  }
-
-  function findPrimaryMuscle(exName, program){
-    if(!program) return null;
-    for(const day of program.days){
-      for(const ex of day.exercises){
-        if(ex.name === exName) return ex.primary || null;
-      }
-    }
-    return null;
-  }
-
-  function findPrimaryMuscleFromAllSplits(exName){
-    for(const sk in SPLITS){
-      for(const day of SPLITS[sk].days){
-        for(const ex of day.exercises){
-          if(ex.name === exName) return ex.primary || null;
-        }
-      }
-    }
-    // Fallback heuristic
-    const map = {
-      'squat':'quads','bench':'chest','row':'back','curl':'biceps','raise':'shoulders',
-      'press':'chest','pulldown':'back','pull':'back','deadlift':'hamstrings','leg':'quads',
-      'calf':'calves','triceps':'triceps','bicep':'biceps','fly':'chest','shrug':'traps',
-      'thrust':'glutes','adduct':'quads','abduct':'glutes','hip':'glutes','forearm':'forearms',
-      'row':'back','lateral':'shoulders','delt':'shoulders','rdl':'hamstrings','ext':'triceps'
-    };
-    const lower = exName.toLowerCase();
-    for(const k in map){
-      if(lower.includes(k)) return map[k];
-    }
-    return null;
-  }
-
-  function getWeeklyVolumeByMuscleForDashboard(logs, program, volTargets){
-    const vol = {};
-    MUSCLE_GROUPS.forEach(m => vol[m.id] = 0);
-
-    const weekAgo = new Date(Date.now() - 7*86400000).toISOString().split('T')[0];
-    const today = new Date().toISOString().split('T')[0];
-
-    Object.keys(logs).forEach(dateStr => {
-      if(dateStr < weekAgo || dateStr > today) return;
-      Object.keys(logs[dateStr]).forEach(eid => {
-        const sets = logs[dateStr][eid].sets || [];
-        const exName = eid.includes('__') ? eid.split('__')[1] : eid;
-        const primary = findPrimaryMuscleFromAllSplits(exName);
-        if(primary && vol[primary] !== undefined){
-          vol[primary] += sets.filter(s => s && s.weight && parseFloat(s.weight) > 0).length;
-        }
-      });
-    });
-
-    return vol;
-  }
-
-  // ═══════════════════════════════════════════════════════════
-  //  UI STATE
-  // ═══════════════════════════════════════════════════════════
-
-  let currentStep = 1;
-  let selectedDayIdx = 0;
-  let activeSplit = null; // the SPLITS key
-  let activeProgram = null; // from training_tool
-
-  function goToStep(n){
-    currentStep = n;
-    document.querySelectorAll('.step-content').forEach(s=>s.classList.remove('active'));
-    const el = document.getElementById('step'+n);
-    if(el) el.classList.add('active');
-    document.querySelectorAll('.step').forEach(s=>{
-      const sn = parseInt(s.dataset.step);
-      s.classList.remove('active','done');
-      if(sn === n) s.classList.add('active');
-      else if(sn < n) s.classList.add('done');
-    });
-  }
-
-  document.querySelectorAll('.step').forEach(s=>{
-    s.addEventListener('click', function(){
-      const n = parseInt(this.dataset.step);
-      if(n <= currentStep) goToStep(n);
-    });
-  });
-
-  // ═══════════════════════════════════════════════════════════
-  //  STEP 1: Session Selector
-  // ═══════════════════════════════════════════════════════════
-
-  function tryLoadFromTrainingTool(){
-    const prog = lsGet('mos_program', null);
-    const splitProf = lsGet('mos_split_profile', null);
-    const volTargets = lsGet('mos_vol_targets', null);
-    const volInputs = lsGet('mos_vol_inputs', null);
-
-    if(prog && prog.splitName){
-      activeProgram = prog;
-      // Find matching split key
-      for(const sk in SPLITS){
-        if(SPLITS[sk].name === prog.splitName){
-          activeSplit = sk;
-          break;
-        }
-      }
-      if(!activeSplit && splitProf && splitProf.key && SPLITS[splitProf.key]){
-        activeSplit = splitProf.key;
-      }
-      return true;
-    }
-    if(splitProf && splitProf.key && SPLITS[splitProf.key]){
-      activeSplit = splitProf.key;
-      return true;
-    }
-    return false;
-  }
-
-  function renderSessionSelector(){
-    const select = document.getElementById('splitSelect');
-    select.innerHTML = '';
-
-    let hasSaved = tryLoadFromTrainingTool();
-    const volInputs = lsGet('mos_vol_inputs', null);
-
-    // Populate split dropdown
-    Object.keys(SPLITS).forEach(key => {
-      const s = SPLITS[key];
-      const opt = document.createElement('option');
-      opt.value = key;
-      opt.textContent = s.name + ' (' + s.daysPerWeek + ' days/wk)';
-      if(key === activeSplit) opt.selected = true;
-      select.appendChild(opt);
-    });
-
-    if(hasSaved && activeSplit){
-      select.value = activeSplit;
-    }
-
-    // Set training age/goal from saved inputs if available
-    if(volInputs){
-      document.getElementById('taSelect').value = volInputs.ta || 'intermediate';
-      document.getElementById('goalSelect').value = volInputs.goal || 'hypertrophy';
-    }
-
-    // Show profile recap
-    updateSessionProfile();
-    renderDayTabs();
-  }
-
-  function updateSessionProfile(){
-    const profile = document.getElementById('sessionProfile');
-    const prog = lsGet('mos_program', null);
-    const volTargets = lsGet('mos_vol_targets', null);
-
-    let html = '<div class="rb-title">Training Data Found</div>';
-    if(prog && activeSplit){
-      html += '<strong>'+prog.splitName+'</strong> · '+prog.totalSets+' weekly sets · '+prog.totalExercises+' exercises';
-      profile.style.display = 'block';
-    } else if(activeSplit){
-      html += '<strong>'+SPLITS[activeSplit].name+'</strong> (from built-in splits). <span style="color:#FF9800">No saved program. Generate one in the Training App for full volume targets.</span>';
-      profile.style.display = 'block';
-    } else {
-      profile.style.display = 'none';
-      return;
-    }
-    if(volTargets){
-      const focusCount = Object.values(volTargets).filter(t => t.priority === 'focus').length;
-      html += ' · '+focusCount+' focus muscles';
-    }
-    profile.innerHTML = html;
-  }
-
-  function renderDayTabs(){
-    const container = document.getElementById('dayTabContainer');
-    const splitKey = document.getElementById('splitSelect').value;
-    activeSplit = splitKey;
-    const split = SPLITS[splitKey];
-    if(!split){ container.innerHTML = '<p style="font-size:.65rem;color:rgba(250,250,248,.25);padding:8px 0">No split selected.</p>'; return; }
-
-    const logs = lsGet('mos_logs', {});
-    const today = new Date().toISOString().split('T')[0];
-
-    let html = '<p style="font-size:.6rem;color:rgba(250,250,248,.25);margin-bottom:6px">Select today\'s session:</p><div class="day-tabs">';
-    split.days.forEach((day, di) => {
-      const isToday = di === selectedDayIdx;
-      let hasLog = false;
-      // Check if any exercise for this day has been logged this week
-      const weekAgo = new Date(Date.now() - 7*86400000).toISOString().split('T')[0];
-      Object.keys(logs).forEach(ds => {
-        if(ds < weekAgo) return;
-        Object.keys(logs[ds]).forEach(eid => {
-          if(eid.startsWith(day.name + '__')){
-            const sets = logs[ds][eid].sets || [];
-            if(sets.some(s => s && s.weight && parseFloat(s.weight) > 0)) hasLog = true;
-          }
-        });
-      });
-      html += '<button class="day-tab'+(day.restDay?' rest':'')+(isToday?' active':'')+'" data-day="'+di+'">Day '+(di+1)+': '+day.name+(hasLog?'<span class="logged-dot"></span>':'')+'</button>';
-    });
-    html += '</div>';
-    container.innerHTML = html;
-
-    // Wire day tabs
-    container.querySelectorAll('.day-tab').forEach(btn => {
-      btn.addEventListener('click', function(){
-        container.querySelectorAll('.day-tab').forEach(b=>b.classList.remove('active'));
-        this.classList.add('active');
-        selectedDayIdx = parseInt(this.dataset.day);
-      });
-    });
-
-    document.getElementById('sessionNoData').style.display = 'none';
-    document.getElementById('goToVolBtn').style.display = 'block';
-  }
-
-  document.getElementById('splitSelect').addEventListener('change', function(){
-    activeSplit = this.value;
-    selectedDayIdx = 0;
-    updateSessionProfile();
-    renderDayTabs();
-  });
-
-  document.getElementById('goToVolBtn').addEventListener('click', function(){
-    renderVolumeDashboard();
-    goToStep(2);
-  });
-
-  // ═══════════════════════════════════════════════════════════
-  //  STEP 2: Volume Dashboard
-  // ═══════════════════════════════════════════════════════════
-
-  function renderVolumeDashboard(){
-    const trainingAge = document.getElementById('taSelect').value;
-    const goal = document.getElementById('goalSelect').value;
-    const logs = lsGet('mos_logs', {});
-    const volTargets = lsGet('mos_vol_targets', {});
-    const table = VOLUME_TABLES[trainingAge][goal];
-    const weeklyVol = getWeeklyVolumeByMuscleForDashboard(logs, null, volTargets);
-
-    // Try to get vol input priorities
-    const volInputs = lsGet('mos_vol_inputs', null);
-    const priorities = {};
-    if(volInputs && volInputs.priorities){
-      volInputs.priorities.forEach(p => priorities[p.id] = p.priority);
-    }
-
-    const today = new Date();
-    const weekStart = new Date(today);
-    weekStart.setDate(today.getDate() - today.getDay());
-    document.getElementById('volWeekLabel').textContent = '— Week of ' + weekStart.toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'});
-
-    let html = '';
-    MUSCLE_GROUPS.forEach(m => {
-      const volId = MUSCLE_VOL_MAP[m.id];
-      const vol = table[volId] || [4,8,12];
-      const priority = priorities[m.id] || 'focus';
-      const mult = priority === 'focus' ? 1.0 : 0.55;
-      const mev = Math.round(vol[0] * mult);
-      const mav = Math.round(vol[1] * mult);
-      const mrv = Math.round(vol[2] * mult);
-      const logged = weeklyVol[m.id] || 0;
-      const maxVal = Math.max(mrv, logged, 1);
-      const isOver = logged > mrv;
-
-      html += '<div class="vol-row">'+
-        '<span class="vol-label">'+m.name+'</span>'+
-        '<div class="vol-bar-wrap">'+
-          '<div class="vol-bar-mev" style="width:'+(mev/maxVal*100)+'%"></div>'+
-          '<div class="vol-bar-mav" style="left:'+(mev/maxVal*100)+'%;width:'+((mav-mev)/maxVal*100)+'%"></div>'+
-          '<div class="vol-bar-mrv" style="left:'+(mrv/maxVal*100)+'%"></div>'+
-          '<div class="vol-bar-logged'+(isOver?' over':'')+'" style="width:'+(logged/maxVal*100)+'%"></div>'+
-        '</div>'+
-        '<div class="vol-num">'+(isOver?'<span style="color:#f44336;font-weight:600">'+logged+'</span>':'<span class="logged-num">'+logged+'</span>')+'<br><span style="font-size:.5rem;color:rgba(250,250,248,.15)">('+mev+'-'+mav+')</span></div>'+
-      '</div>';
-    });
-
-    document.getElementById('volDashboard').innerHTML = html;
-  }
-
-  document.getElementById('backToSessBtn').addEventListener('click', function(){ goToStep(1); });
-  document.getElementById('goToTrainBtn').addEventListener('click', function(){
-    renderLoadCalculator();
-    goToStep(3);
-  });
-
-  // ═══════════════════════════════════════════════════════════
-  //  STEP 3: Load Calculator + Logger
-  // ═══════════════════════════════════════════════════════════
-
-  function renderLoadCalculator(){
-    const splitKey = document.getElementById('splitSelect').value;
-    const split = SPLITS[splitKey];
-    const goal = document.getElementById('goalSelect').value;
-    const trainingAge = document.getElementById('taSelect').value;
-    if(!split || !split.days[selectedDayIdx]) return;
-
-    const day = split.days[selectedDayIdx];
-    const logs = lsGet('mos_logs', {});
-    const loadHistory = getLoadHistory();
-    const painFlags = getPainFlags();
-    const tracker = getDeloadTracker();
-    const today = new Date().toISOString().split('T')[0];
-
-    // Deload check
-    const recentOvershoots = tracker.consecutiveOvershoot || 0;
-    const deloadResult = shouldDeload(tracker, trainingAge, recentOvershoots);
-
-    document.getElementById('trainDayHeader').textContent = 'Day '+(selectedDayIdx+1)+': '+day.name;
-
-    // Session info
-    const sessionInfo = document.getElementById('trainSessionInfo');
-    let infoHtml = '<div class="rb-title">Training Session</div><strong>'+split.name+'</strong> · '+goal+' · '+trainingAge+' · '+day.name;
-    if(deloadResult.needed){
-      infoHtml += '<br><span style="color:#FF9800;font-weight:600">⚠️ '+deloadResult.reason+'</span>';
-    }
-    sessionInfo.innerHTML = infoHtml;
-    sessionInfo.style.display = 'block';
-
-    if(day.restDay){
-      document.getElementById('exerciseCards').innerHTML =
-        '<div class="rest-card"><div class="rc-title">Rest Day</div>'+
-        '<div class="rc-tip">Recovery &amp; regeneration - no training today</div>'+
-        '<div class="rc-tip">• Sleep 7-9 hours - muscle grows while you rest</div>'+
-        '<div class="rc-tip">• Walk 6-10k steps for blood flow and recovery</div>'+
-        '<div class="rc-tip">• Hydrate well and hit your daily protein target</div>'+
-        '<div class="rc-tip">• Optional: light mobility or stretching (15-20 min)</div></div>';
-      return;
-    }
-
-    // Deload tracker
-    const dt = document.getElementById('deloadTracker');
-    if(tracker.sessionCount > 0 || tracker.lastDeloadDate){
-      dt.style.display = 'flex';
-      const weeksSince = tracker.sessionCount;
-      const interval = getDeloadInterval(trainingAge);
-      const remaining = Math.max(0, interval - weeksSince);
-      dt.innerHTML = '<div><span class="dt-label">Weeks since last deload</span><br><span class="dt-val">'+weeksSince+'</span> <span style="font-size:.55rem;color:rgba(250,250,248,.2)">/ '+interval+'</span></div>'+
-        '<div><span class="dt-label">Next scheduled</span><br><span class="dt-val">'+(deloadResult.needed?'NOW':remaining+' wk')+'</span></div>'+
-        (deloadResult.needed?'<div><span class="dt-warn">⚠ Deload recommended</span></div>':'');
-    } else {
-      dt.style.display = 'none';
-    }
-
-    // Render exercise cards
-    const container = document.getElementById('exerciseCards');
-    let html = '';
-
-    day.exercises.forEach((ex, ei) => {
-      const meta = getMeta(ex.name);
-      const suggestion = suggestNextLoad(ex.name, goal, trainingAge, loadHistory);
-      const safety = checkSafety(ex.name, suggestion, selectedDayIdx, null, logs, loadHistory, painFlags, trainingAge);
-
-      const cardClass = painFlags[ex.name] === 'red' ? 'ex-card pain-red' :
-                        painFlags[ex.name] === 'yellow' ? 'ex-card pain-yellow' :
-                        safety.severity === 'safe' ? 'ex-card safe-green' : 'ex-card';
-
-      const safeId = ('card_'+selectedDayIdx+'_'+ex.name).replace(/[^a-zA-Z0-9]/g,'_');
-
-      html += '<div class="'+cardClass+'" id="'+safeId+'">'+
-        '<div class="ex-title">'+
-          '<span class="ex-name">'+(ei+1)+'. '+ex.name+'</span>'+
-          '<span class="safety-badge '+safety.severity+'">'+
-            (safety.severity==='safe'?'✓ Safe':safety.severity==='warn'?'⚠ Warning':'✕ Blocked')+
-          '</span>'+
-          '<span class="rm-ex-btn" data-exname="'+ex.name+'">✕ Remove</span>'+
-        '</div>';
-
-      // Last session + e1RM
-      const last = suggestion.lastSession;
-      html += '<div class="ex-last">'+
-        (last ? 'Last: <strong>'+last.weight+' kg × '+last.reps+' @ RPE '+last.rpe+'</strong>' : 'No previous data')+
-        '</div>';
-      html += '<div class="ex-e1rm">e1RM: <strong>'+(suggestion.e1RM ? suggestion.e1RM+' kg' : '—')+'</strong> · '+
-        meta.type+' · '+meta.fatigue+' fatigue · inc: '+(meta.inc>0?meta.inc+' kg':'BW')+'</div>';
-
-      // Safety warnings
-      if(safety.warnings.length > 0){
-        const isBlocked = safety.blocked;
-        html += '<div class="'+(isBlocked?'safety-block':'safety-warning')+'">';
-        safety.warnings.forEach(w => { html += '<strong>'+(isBlocked?'⛔ ':'')+'</strong>'+w+'<br>'; });
-        if(isBlocked && safety.substitute){
-          html += '<div class="sub-option">Suggested substitute: <strong>'+safety.substitute+'</strong>. Log below as a replacement.</div>';
-        }
-        html += '</div>';
-      }
-
-      // Suggest box
-      if(!safety.blocked && suggestion.suggestedWeight !== null){
-        html += '<div class="suggest-box">'+
-          '<div><span class="suggest-val">'+(suggestion.suggestedWeight > 0 ? suggestion.suggestedWeight+' kg' : '—')+'</span></div>'+
-          '<div class="suggest-detail">'+
-            '<strong>'+(suggestion.suggestedWeight > 0 ? suggestion.suggestedWeight+' kg' : '—')+' × '+suggestion.suggestedReps+' reps @ RPE '+suggestion.suggestedRPE+'</strong><br>'+
-            suggestion.explanation+
-            (suggestion.targetPct ? ' · Target %1RM: '+(suggestion.targetPct).toFixed(0)+'%' : '')+
-          '</div>'+
-        '</div>';
-      } else if(!safety.blocked) {
-        html += '<div class="suggest-box"><div class="suggest-detail"><strong>Start light</strong><br>'+suggestion.explanation+'</div></div>';
-      }
-
-      // Pain check-in
-      const currentPain = painFlags[ex.name] || 'green';
-      html += '<div class="pain-group">'+
-        '<span style="font-size:.55rem;color:rgba(250,250,248,.2);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-right:4px;line-height:28px">Pain:</span>'+
-        '<button class="pain-btn'+(currentPain==='green'?' active-green':'')+'" data-ex="'+ex.name+'" data-pain="green">🟢</button>'+
-        '<button class="pain-btn'+(currentPain==='yellow'?' active-yellow':'')+'" data-ex="'+ex.name+'" data-pain="yellow">🟡</button>'+
-        '<button class="pain-btn'+(currentPain==='red'?' active-red':'')+'" data-ex="'+ex.name+'" data-pain="red">🔴</button>'+
-      '</div>';
-
-      // Set logger
-      const eid = day.name + '__' + ex.name;
-      const dayLog = logs[today] && logs[today][eid] ? logs[today][eid] : null;
-      const sets = (dayLog && dayLog.sets && dayLog.sets.length > 0) ? dayLog.sets : [{weight:'',reps:'',rpe:''},{weight:'',reps:'',rpe:''},{weight:'',reps:'',rpe:''}];
-
-      html += '<div class="set-log-area">'+
-        '<div class="set-log-header"><span></span><span>kg</span><span>Reps</span><span>RPE</span><span></span></div>'+
-        '<div id="sets_'+safeId+'">';
-      sets.forEach((set, si) => {
-        html += '<div class="set-row" data-ex="'+ex.name+'" data-set="'+si+'">'+
-          '<span class="set-lbl">'+(si+1)+'</span>'+
-          '<input type="number" step="0.5" placeholder="kg" value="'+(set.weight||'')+'" data-ex="'+ex.name+'" data-set="'+si+'" data-field="weight">'+
-          '<input type="number" step="1" placeholder="reps" value="'+(set.reps||'')+'" data-ex="'+ex.name+'" data-set="'+si+'" data-field="reps">'+
-          '<input type="number" step="0.5" placeholder="RPE" value="'+(set.rpe||'')+'" data-ex="'+ex.name+'" data-set="'+si+'" data-field="rpe">'+
-          '<button class="del-set-btn" data-ex="'+ex.name+'" data-set="'+si+'">✕</button>'+
-        '</div>';
-      });
-      html += '</div>'+
-        '<button class="add-set-btn" data-ex="'+ex.name+'">+ Add Set</button>'+
-      '</div>';
-
-      html += '</div>'; // end ex-card
-    });
-
-    container.innerHTML = html;
-
-    // Wire: input saving
-    container.querySelectorAll('.set-row input').forEach(inp => {
-      inp.addEventListener('input', function(){
-        const exName = this.dataset.ex;
-        const setIdx = parseInt(this.dataset.set);
-        const field = this.dataset.field;
-        const value = this.value;
-        saveSetLog(exName, setIdx, field, value);
-        updateSessionSummary();
-        updateE1RM(exName);
-      });
-    });
-
-    // Wire: delete set
-    container.querySelectorAll('.del-set-btn').forEach(btn => {
-      btn.addEventListener('click', function(){
-        const exName = this.dataset.ex;
-        const setIdx = parseInt(this.dataset.set);
-        deleteSetLog(exName, setIdx);
-      });
-    });
-
-    // Wire: add set
-    container.querySelectorAll('.add-set-btn').forEach(btn => {
-      btn.addEventListener('click', function(){
-        const exName = this.dataset.ex;
-        addSetLog(exName);
-      });
-    });
-
-    // Wire: remove exercise
-    container.querySelectorAll('.rm-ex-btn').forEach(btn => {
-      btn.addEventListener('click', function(){
-        const exName = this.dataset.exname;
-        if(confirm('Remove all data for "'+exName+'" from this session?')){
-          removeExerciseLog(exName);
-        }
-      });
-    });
-
-    // Wire: pain buttons
-    container.querySelectorAll('.pain-btn').forEach(btn => {
-      btn.addEventListener('click', function(){
-        const exName = this.dataset.ex;
-        const pain = this.dataset.pain;
-        const pf = getPainFlags();
-        pf[exName] = pain;
-        lsSet(PF_KEY, pf);
-        // Re-render to update card colors
-        renderLoadCalculator();
-      });
-    });
-
-    updateSessionSummary();
-  }
-
-  // ─── Session Summary ───
-  function updateSessionSummary(){
-    const logs = lsGet('mos_logs', {});
-    const today = new Date().toISOString().split('T')[0];
-    const dayLog = logs[today] || {};
-    let totalSets = 0, totalReps = 0, totalEx = 0;
-
-    Object.keys(dayLog).forEach(eid => {
-      const sets = dayLog[eid].sets || [];
-      const valid = sets.filter(s => s && s.weight && parseFloat(s.weight) > 0);
-      if(valid.length > 0) totalEx++;
-      totalSets += valid.length;
-      valid.forEach(s => { totalReps += parseInt(s.reps) || 0; });
-    });
-
-    document.getElementById('sumSets').textContent = totalSets;
-    document.getElementById('sumVol').textContent = totalReps;
-    document.getElementById('sumEx').textContent = totalEx;
-  }
-
-  // ─── Logging Helpers ───
-  function getCurrentDayName(){
-    const splitKey = document.getElementById('splitSelect').value;
-    const split = SPLITS[splitKey];
-    if(!split || !split.days[selectedDayIdx]) return '';
-    return split.days[selectedDayIdx].name;
-  }
-
-  function saveSetLog(exName, setIdx, field, value){
-    const logs = lsGet('mos_logs', {});
-    const today = new Date().toISOString().split('T')[0];
-    const dayName = getCurrentDayName();
-    const eid = dayName + '__' + exName;
-
-    if(!logs[today]) logs[today] = {};
-    if(!logs[today][eid]) logs[today][eid] = { sets: [] };
-    if(!logs[today][eid].sets[setIdx]) logs[today][eid].sets[setIdx] = {weight:'',reps:'',rpe:''};
-    logs[today][eid].sets[setIdx][field] = value;
-    lsSet('mos_logs', logs);
-
-    // If all three fields filled, update load history
-    const set = logs[today][eid].sets[setIdx];
-    if(set.weight && set.reps && set.rpe && parseFloat(set.weight) > 0 && parseInt(set.reps) > 0 && parseFloat(set.rpe) > 0){
-      updateLoadHistory(exName, set, today, dayName);
-    }
-  }
-
-  function updateLoadHistory(exName, set, dateStr, dayName){
-    const h = getLoadHistory();
-    if(!h[exName]) h[exName] = [];
-    const e1rm = estimate1RM(parseFloat(set.weight), parseInt(set.reps), parseFloat(set.rpe));
-    if(!e1rm) return;
-    // Avoid duplicate entries for same date+set
-    const exists = h[exName].some(e => e.date === dateStr && e.weight === parseFloat(set.weight) && e.reps === parseInt(set.reps));
-    if(exists) return;
-    h[exName].push({
-      date: dateStr,
-      weight: parseFloat(set.weight),
-      reps: parseInt(set.reps),
-      rpe: parseFloat(set.rpe),
-      e1RM: e1rm,
-      dayName: dayName
-    });
-    saveLoadHistory(h);
-  }
-
-  function updateE1RM(exName){
-    const h = getLoadHistory();
-    const best = getBestE1RM(exName, h);
-    const last = getLastSession(exName, h);
-    const container = document.getElementById('exerciseCards');
-    if(!container) return;
-    // Update just this card's e1RM display without full re-render
-    const card = container.querySelector('.ex-card .ex-title .ex-name');
-    // Too hard to target specific card, just re-render the whole thing
-    renderLoadCalculator();
-  }
-
-  function deleteSetLog(exName, setIdx){
-    const logs = lsGet('mos_logs', {});
-    const today = new Date().toISOString().split('T')[0];
-    const dayName = getCurrentDayName();
-    const eid = dayName + '__' + exName;
-
-    if(logs[today] && logs[today][eid]){
-      logs[today][eid].sets.splice(setIdx, 1);
-      if(logs[today][eid].sets.length === 0) delete logs[today][eid];
-      if(Object.keys(logs[today][eid] || {}).length === 0) delete logs[today][eid];
-      lsSet('mos_logs', logs);
-    }
-    renderLoadCalculator();
-  }
-
-  function addSetLog(exName){
-    const logs = lsGet('mos_logs', {});
-    const today = new Date().toISOString().split('T')[0];
-    const dayName = getCurrentDayName();
-    const eid = dayName + '__' + exName;
-
-    if(!logs[today]) logs[today] = {};
-    if(!logs[today][eid]) logs[today][eid] = { sets: [] };
-    logs[today][eid].sets.push({weight:'',reps:'',rpe:''});
-    lsSet('mos_logs', logs);
-    renderLoadCalculator();
-  }
-
-  function removeExerciseLog(exName){
-    const logs = lsGet('mos_logs', {});
-    const today = new Date().toISOString().split('T')[0];
-    const dayName = getCurrentDayName();
-    const eid = dayName + '__' + exName;
-
-    if(logs[today] && logs[today][eid]){
-      delete logs[today][eid];
-      if(Object.keys(logs[today]).length === 0) delete logs[today];
-      lsSet('mos_logs', logs);
-    }
-    renderLoadCalculator();
-  }
-
-  // ─── Back from Step 3 ───
-  document.getElementById('backToVolFromTrainBtn').addEventListener('click', function(){ goToStep(2); });
-
-  // ─── Deload Tracker Update ───
-  function updateDeloadTracker(){
-    const logs = lsGet('mos_logs', {});
-    const loadHistory = getLoadHistory();
-    const tracker = getDeloadTracker();
-    const trainingAge = document.getElementById('taSelect').value;
-    const interval = getDeloadInterval(trainingAge);
-
-    // Count unique training days logged this period
-    const dates = Object.keys(logs).sort().reverse();
-    const recentDates = dates.slice(0, Math.min(dates.length, interval * 7));
-
-    // Count sessions since last deload
-    let sessionCount = 0;
-    let lastSessionRPEs = [];
-
-    recentDates.forEach(d => {
-      const dayLogs = logs[d];
-      let hasValidSet = false;
-      Object.keys(dayLogs).forEach(eid => {
-        const sets = dayLogs[eid].sets || [];
-        sets.forEach(s => {
-          if(s && s.weight && s.reps && s.rpe && parseFloat(s.weight) > 0){
-            hasValidSet = true;
-            lastSessionRPEs.push(parseFloat(s.rpe));
-          }
-        });
-      });
-      if(hasValidSet) sessionCount++;
-    });
-
-    // Check for overshoots
-    let consecutiveOvershoot = 0;
-    // Simple: if average RPE across all recent sets > 8.5, count as overshoot
-    if(lastSessionRPEs.length > 0){
-      const avgRpe = lastSessionRPEs.reduce((a,b)=>a+b,0) / lastSessionRPEs.length;
-      if(avgRpe > 8.5){
-        consecutiveOvershoot = tracker.consecutiveOvershoot + 1;
-      } else {
-        consecutiveOvershoot = 0;
-      }
-    }
-
-    tracker.sessionCount = sessionCount;
-    tracker.consecutiveOvershoot = consecutiveOvershoot;
-    tracker.totalSessions = (tracker.totalSessions || 0) + 1;
-    tracker.trainingAge = trainingAge;
-    lsSet(DT_KEY, tracker);
-  }
-
-  // Run deload tracker update on load
-  setTimeout(updateDeloadTracker, 500);
-
-  // ─── Export / Import for Load History ───
-  document.getElementById('exportLoadDataBtn').addEventListener('click', function(){
-    const data = {};
-    data[LH_KEY] = getLoadHistory();
-    data[DT_KEY] = getDeloadTracker();
-    data[PF_KEY] = getPainFlags();
-    // Also include training app keys
-    TT_KEYS.forEach(k => {
-      const v = localStorage.getItem(k);
-      if(v) data[k] = JSON.parse(v);
-    });
-    const blob = new Blob([JSON.stringify({exported:new Date().toISOString(), version:2, data:data}, null, 2)], {type:'application/json'});
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'muscle_os_rpe_data_' + new Date().toISOString().split('T')[0] + '.json';
-    a.click();
-  });
-
-  document.getElementById('importLoadDataBtn').addEventListener('click', function(){
-    document.getElementById('importLoadFile').click();
-  });
-  document.getElementById('importLoadFile').addEventListener('change', function(){
-    if(!this.files || !this.files[0]) return;
-    const reader = new FileReader();
-    reader.onload = function(e){
-      try {
-        const parsed = JSON.parse(e.target.result);
-        const imported = parsed.data || parsed;
-        if(!imported || typeof imported !== 'object') throw new Error('Invalid format');
-        let hasAny = false;
-        if(imported[LH_KEY]){ lsSet(LH_KEY, imported[LH_KEY]); hasAny = true; }
-        if(imported[DT_KEY]){ lsSet(DT_KEY, imported[DT_KEY]); hasAny = true; }
-        if(imported[PF_KEY]){ lsSet(PF_KEY, imported[PF_KEY]); hasAny = true; }
-        TT_KEYS.forEach(k => {
-          if(imported[k] !== undefined){ localStorage.setItem(k, JSON.stringify(imported[k])); hasAny = true; }
-        });
-        if(!hasAny) throw new Error('No recognized data keys in file');
-        alert('Data imported successfully.');
-        location.reload();
-      } catch(err){
-        alert('Import failed: '+err.message);
-      }
-    };
-    reader.readAsText(this.files[0]);
-    this.value = '';
-  });
-
-  // ─── Reset Load History ───
-  document.getElementById('resetLoadHistoryBtn').addEventListener('click', function(){
-    if(!confirm('Reset all load history, deload tracker, and pain flags?')) return;
-    localStorage.removeItem(LH_KEY);
-    localStorage.removeItem(DT_KEY);
-    localStorage.removeItem(PF_KEY);
-    alert('Reset complete.');
-    location.reload();
-  });
-
-  // ═══════════════════════════════════════════════════════════
-  //  INIT
-  // ═══════════════════════════════════════════════════════════
-
-  renderSessionSelector();
-
-  console.log('RPE Load Calculator loaded. Keys: load_history, deload_tracker, pain_flags');
+ // ═══════════════════════════════════════════════════════════
+ // DATA
+ // ═══════════════════════════════════════════════════════════
+
+ const VOLUME_TABLES = {
+ novice: {
+ hypertrophy: { chest:[6,10,14], back_lat:[8,12,18], back_upper:[8,12,16], shoulders:[6,10,16], quads:[6,12,18], hamstrings:[6,10,14], glutes:[6,10,14], biceps:[4,8,12], triceps:[4,8,12], calves:[4,8,12], abs:[4,8,12], traps:[4,8,10], forearms:[4,6,10] },
+ strength: { chest:[4,7,12], back_lat:[5,9,14], back_upper:[5,9,12], shoulders:[4,7,12], quads:[5,9,14], hamstrings:[4,7,12], glutes:[4,7,12], biceps:[3,5,9], triceps:[3,5,9], calves:[3,5,9], abs:[3,5,9], traps:[3,5,8], forearms:[3,4,8] },
+ both: { chest:[5,9,14], back_lat:[7,11,16], back_upper:[7,11,14], shoulders:[5,9,14], quads:[6,10,16], hamstrings:[5,9,14], glutes:[5,9,14], biceps:[3,7,11], triceps:[3,7,11], calves:[3,7,11], abs:[3,7,11], traps:[3,6,10], forearms:[3,5,9] }
+ },
+ intermediate: {
+ hypertrophy: { chest:[8,14,20], back_lat:[10,16,22], back_upper:[10,15,20], shoulders:[8,14,20], quads:[8,14,22], hamstrings:[8,12,18], glutes:[8,12,18], biceps:[6,12,16], triceps:[6,12,16], calves:[6,10,16], abs:[6,10,16], traps:[6,10,14], forearms:[6,8,14] },
+ strength: { chest:[5,10,16], back_lat:[7,12,18], back_upper:[7,12,16], shoulders:[5,10,16], quads:[6,12,18], hamstrings:[5,10,16], glutes:[5,10,16], biceps:[4,8,13], triceps:[4,8,13], calves:[4,8,13], abs:[4,8,13], traps:[4,8,11], forearms:[4,6,11] },
+ both: { chest:[7,12,18], back_lat:[9,14,20], back_upper:[9,13,18], shoulders:[7,12,18], quads:[7,13,20], hamstrings:[7,11,17], glutes:[7,11,17], biceps:[5,10,14], triceps:[5,10,14], calves:[5,9,14], abs:[5,9,14], traps:[5,9,12], forearms:[5,7,12] }
+ },
+ advanced: {
+ hypertrophy: { chest:[10,16,22], back_lat:[12,18,26], back_upper:[12,18,24], shoulders:[10,16,24], quads:[10,16,24], hamstrings:[10,14,22], glutes:[10,14,22], biceps:[8,14,20], triceps:[8,14,20], calves:[8,12,18], abs:[8,12,18], traps:[8,12,16], forearms:[8,10,16] },
+ strength: { chest:[6,12,18], back_lat:[8,14,20], back_upper:[8,14,18], shoulders:[6,12,18], quads:[7,14,20], hamstrings:[6,12,18], glutes:[6,12,18], biceps:[5,10,15], triceps:[5,10,15], calves:[5,9,15], abs:[5,9,15], traps:[5,9,13], forearms:[5,7,13] },
+ both: { chest:[8,14,20], back_lat:[10,16,22], back_upper:[10,16,20], shoulders:[8,14,20], quads:[9,15,22], hamstrings:[8,13,20], glutes:[8,13,20], biceps:[7,12,18], triceps:[7,12,18], calves:[7,11,17], abs:[7,11,17], traps:[7,11,15], forearms:[7,9,15] }
+ }
+ };
+
+ const MUSCLE_GROUPS = [
+ {id:'chest', name:'Chest', volId:'chest'},
+ {id:'back', name:'Back (Lats)', volId:'back_lat'},
+ {id:'back_upper', name:'Back (Upper)', volId:'back_upper'},
+ {id:'shoulders', name:'Shoulders', volId:'shoulders'},
+ {id:'quads', name:'Quads', volId:'quads'},
+ {id:'hamstrings', name:'Hamstrings', volId:'hamstrings'},
+ {id:'glutes', name:'Glutes', volId:'glutes'},
+ {id:'biceps', name:'Biceps', volId:'biceps'},
+ {id:'triceps', name:'Triceps', volId:'triceps'},
+ {id:'calves', name:'Calves', volId:'calves'},
+ {id:'abs', name:'Abs / Core', volId:'abs'},
+ {id:'traps', name:'Traps', volId:'traps'},
+ {id:'forearms', name:'Forearms', volId:'forearms'}
+ ];
+
+ const MUSCLE_VOL_MAP = {
+ chest:'chest', back:'back_lat', back_upper:'back_upper', shoulders:'shoulders',
+ quads:'quads', hamstrings:'hamstrings', glutes:'glutes', biceps:'biceps',
+ triceps:'triceps', calves:'calves', abs:'abs', traps:'traps', forearms:'forearms'
+ };
+
+ // ═══════════════════════════════════════════════════════════
+ // EXERCISE METADATA (all exercises from SPLITS + extras)
+ // ═══════════════════════════════════════════════════════════
+
+ const EXERCISE_META = {
+ "Barbell Squat":{type:"compound",fatigue:"high",jointRisk:["knee","spine","hip"],inc:2.5,repRange:[6,12],subs:["Front Squat","Leg Press","Goblet Squat","Belt Squat","Hack Squat"]},
+ "Bench Press":{type:"compound",fatigue:"moderate",jointRisk:["shoulder","elbow"],inc:2.5,repRange:[6,12],subs:["Dumbbell Bench Press","Machine Chest Press","Floor Press","Incline Press"]},
+ "Barbell Row":{type:"compound",fatigue:"moderate",jointRisk:["spine","shoulder"],inc:2.5,repRange:[6,12],subs:["Chest-Supported Row","Seated Cable Row","T-Bar Row","Dumbbell Row"]},
+ "Leg Curl":{type:"isolation",fatigue:"low",jointRisk:["knee"],inc:2.5,repRange:[8,15],subs:["RDL","Nordic Curl","Kneeling Leg Curl","Good Morning"]},
+ "Leg Curls":{type:"isolation",fatigue:"low",jointRisk:["knee"],inc:2.5,repRange:[8,15],subs:["RDL","Nordic Curl","Kneeling Leg Curl","Good Morning"]},
+ "Lateral Raise":{type:"isolation",fatigue:"low",jointRisk:["shoulder"],inc:1,repRange:[10,20],subs:["Cable Lateral Raise","Lean-Away Lateral Raise","DB Upright Row"]},
+ "Lateral Raises":{type:"isolation",fatigue:"low",jointRisk:["shoulder"],inc:1,repRange:[10,20],subs:["Cable Lateral Raise","Lean-Away Lateral Raise","DB Upright Row"]},
+ "Triceps Pushdown":{type:"isolation",fatigue:"low",jointRisk:["elbow"],inc:2.5,repRange:[8,15],subs:["Overhead Triceps Ext","JM Press","Close-Grip Bench","Skull Crusher"]},
+ "Deadlift Variation":{type:"compound",fatigue:"high",jointRisk:["spine","hip"],inc:2.5,repRange:[4,8],subs:["Trap Bar Deadlift","RDL","Good Morning","Hyperextension"]},
+ "Overhead Press":{type:"compound",fatigue:"moderate",jointRisk:["shoulder","spine"],inc:2.5,repRange:[5,10],subs:["Seated DB Press","Machine Shoulder Press","Incline Press","Lateral Raise"]},
+ "Pull-Up":{type:"compound",fatigue:"high",jointRisk:["shoulder","elbow"],inc:-1,repRange:[6,12],subs:["Lat Pulldown","Cable Pullover","Inverted Row","Assisted Pull-Up"]},
+ "Leg Extension":{type:"isolation",fatigue:"low",jointRisk:["knee"],inc:2.5,repRange:[10,15],subs:["Bulgarian Split Squat","Sissy Squat","Step-Up","Leg Press (high feet)"]},
+ "Leg Extensions":{type:"isolation",fatigue:"low",jointRisk:["knee"],inc:2.5,repRange:[10,15],subs:["Bulgarian Split Squat","Sissy Squat","Step-Up","Leg Press (high feet)"]},
+ "Bicep Curl":{type:"isolation",fatigue:"low",jointRisk:["elbow"],inc:1,repRange:[10,15],subs:["Incline DB Curl","Preacher Curl","Cable Curl","Hammer Curl"]},
+ "Calf Raise":{type:"isolation",fatigue:"low",jointRisk:["ankle"],inc:5,repRange:[10,20],subs:["Seated Calf Raise","Leg Press Calf Raise","Donkey Calf Raise","Single-Leg Calf Raise"]},
+ "Calf Raises":{type:"isolation",fatigue:"low",jointRisk:["ankle"],inc:5,repRange:[10,20],subs:["Seated Calf Raise","Leg Press Calf Raise","Donkey Calf Raise","Single-Leg Calf Raise"]},
+ "Front Squat or Lunge":{type:"compound",fatigue:"high",jointRisk:["knee","spine","hip"],inc:2.5,repRange:[6,12],subs:["Leg Press","Bulgarian Split Squat","Goblet Squat","Hack Squat"]},
+ "Incline Press":{type:"compound",fatigue:"moderate",jointRisk:["shoulder","elbow"],inc:2.5,repRange:[6,12],subs:["Dumbbell Incline Press","Machine Incline Press","Flat Dumbbell Press","Floor Press"]},
+ "Incline Chest Press":{type:"compound",fatigue:"moderate",jointRisk:["shoulder","elbow"],inc:2.5,repRange:[6,12],subs:["Dumbbell Incline Press","Machine Incline Press","Flat Dumbbell Press","Floor Press"]},
+ "Lat Pulldown":{type:"compound",fatigue:"moderate",jointRisk:["shoulder","elbow"],inc:2.5,repRange:[6,12],subs:["Pull-Up","Cable Pullover","Inverted Row","Straight-Arm Pulldown"]},
+ "RDL":{type:"compound",fatigue:"high",jointRisk:["spine","hip"],inc:2.5,repRange:[6,12],subs:["Good Morning","Hyperextension","Kneeling Leg Curl","Trap Bar Deadlift"]},
+ "Triceps Overhead Ext":{type:"isolation",fatigue:"low",jointRisk:["elbow","shoulder"],inc:1,repRange:[8,15],subs:["Triceps Pushdown","Close-Grip Bench","JM Press","Skull Crusher"]},
+ "Triceps Overhead Extensions":{type:"isolation",fatigue:"low",jointRisk:["elbow","shoulder"],inc:1,repRange:[8,15],subs:["Triceps Pushdown","Close-Grip Bench","JM Press","Skull Crusher"]},
+ "Machine Chest Flies":{type:"isolation",fatigue:"low",jointRisk:["shoulder"],inc:2.5,repRange:[8,15],subs:["Dumbbell Flies","Cable Flies","Pec Deck","Push-Up"]},
+ "T-Bar Row":{type:"compound",fatigue:"moderate",jointRisk:["spine","shoulder"],inc:2.5,repRange:[6,12],subs:["Chest-Supported Row","Seated Cable Row","Dumbbell Row","Meadows Row"]},
+ "Kelso Shrugs":{type:"isolation",fatigue:"low",jointRisk:["trap"],inc:5,repRange:[8,15],subs:["Dumbbell Shrugs","Barbell Shrugs","Farmers Walk","Face Pull"]},
+ "Shoulder Press":{type:"compound",fatigue:"moderate",jointRisk:["shoulder","spine"],inc:2.5,repRange:[6,12],subs:["Seated DB Press","Machine Shoulder Press","Arnold Press","Lateral Raise"]},
+ "Rear Delt Flies":{type:"isolation",fatigue:"low",jointRisk:["shoulder"],inc:1,repRange:[10,20],subs:["Face Pull","Reverse Pec Deck","Bent-Over Cable Rear Delt","Wide Row"]},
+ "Preacher Curls":{type:"isolation",fatigue:"low",jointRisk:["elbow"],inc:1,repRange:[8,15],subs:["Standing DB Curl","Cable Curl","Incline Curl","Hammer Curl"]},
+ "Preacher Curl":{type:"isolation",fatigue:"low",jointRisk:["elbow"],inc:1,repRange:[8,15],subs:["Standing DB Curl","Cable Curl","Incline Curl","Hammer Curl"]},
+ "Adductors (Machine)":{type:"isolation",fatigue:"low",jointRisk:["hip"],inc:2.5,repRange:[10,20],subs:["Cable Adduction","Side-Lying Leg Raise","Cossack Squat","Bulgarian Split Squat"]},
+ "Abductors (Machine)":{type:"isolation",fatigue:"low",jointRisk:["hip"],inc:2.5,repRange:[10,20],subs:["Band Lateral Walk","Clam Shell","Side-Lying Leg Raise","Cable Abduction"]},
+ "Hip Thrust":{type:"compound",fatigue:"moderate",jointRisk:["hip","spine"],inc:2.5,repRange:[6,15],subs:["Glute Bridge","Cable Pull-Through","Bulgarian Split Squat","KAS Glute Bridge"]},
+ "Seated Row":{type:"compound",fatigue:"moderate",jointRisk:["shoulder","spine"],inc:2.5,repRange:[6,12],subs:["Chest-Supported Row","Cable Row","Dumbbell Row","Inverted Row"]},
+ "Vertical Shrugs":{type:"isolation",fatigue:"low",jointRisk:["trap"],inc:5,repRange:[8,15],subs:["Barbell Shrugs","Dumbbell Shrugs","Farmers Walk","Face Pull"]},
+ "Hammer Curls":{type:"isolation",fatigue:"low",jointRisk:["elbow"],inc:1,repRange:[8,15],subs:["Standing DB Curl","Cable Curl","Reverse Curl","Incline Curl"]},
+ "Forearm Ext/Flex":{type:"isolation",fatigue:"low",jointRisk:["wrist"],inc:1,repRange:[10,20],subs:["Wrist Curl","Reverse Wrist Curl","Farmers Walk","Plate Pinch"]}
+ };
+
+ function getMeta(exName){
+ return EXERCISE_META[exName] || {type:"compound",fatigue:"moderate",jointRisk:[],inc:2.5,repRange:[6,12],subs:[]};
+ }
+
+ // ═══════════════════════════════════════════════════════════
+ // RPE → %1RM (compute from Epley: % = 100/(1+(reps+RIR)/30))
+ // ═══════════════════════════════════════════════════════════
+
+ function rpePct(reps, rpe){
+ if(rpe < 6 || rpe > 10) return null;
+ const rir = 10 - rpe;
+ const effReps = reps + rir;
+ return 100 / (1 + effReps / 30);
+ }
+
+ function estimate1RM(weight, reps, rpe){
+ if(!weight || !reps || !rpe) return null;
+ const pct = rpePct(reps, rpe);
+ if(!pct) return null;
+ return Math.round(weight / (pct / 100) * 10) / 10;
+ }
+
+ // ═══════════════════════════════════════════════════════════
+ // SPLITS (mirrored from training_tool.html)
+ // ═══════════════════════════════════════════════════════════
+
+ const SPLITS = {
+ fullbody_3: { name:'Full Body (3-Day)', daysPerWeek:3, matchDays:[2,3], days:[
+ { name:'Session A (Squat Focus)', exercises:[{name:'Barbell Squat',sets:3,primary:'quads',secondary:['glutes','hamstrings']},{name:'Bench Press',sets:3,primary:'chest',secondary:['shoulders','triceps']},{name:'Barbell Row',sets:3,primary:'back',secondary:['biceps']},{name:'Leg Curl',sets:2,primary:'hamstrings',secondary:[]},{name:'Lateral Raise',sets:2,primary:'shoulders',secondary:[]},{name:'Triceps Pushdown',sets:2,primary:'triceps',secondary:[]}] },
+ { name:'Session B (Hinge Focus)', exercises:[{name:'Deadlift Variation',sets:3,primary:'hamstrings',secondary:['glutes','back']},{name:'Overhead Press',sets:3,primary:'shoulders',secondary:['triceps']},{name:'Pull-Up',sets:3,primary:'back',secondary:['biceps']},{name:'Leg Extension',sets:2,primary:'quads',secondary:[]},{name:'Bicep Curl',sets:2,primary:'biceps',secondary:[]},{name:'Calf Raise',sets:2,primary:'calves',secondary:[]}] },
+ { name:'Session C (Balanced)', exercises:[{name:'Front Squat or Lunge',sets:3,primary:'quads',secondary:['glutes']},{name:'Incline Press',sets:3,primary:'chest',secondary:['shoulders','triceps']},{name:'Lat Pulldown',sets:3,primary:'back',secondary:['biceps']},{name:'RDL',sets:2,primary:'hamstrings',secondary:['glutes','back']},{name:'Lateral Raise',sets:2,primary:'shoulders',secondary:[]},{name:'Triceps Overhead Ext',sets:2,primary:'triceps',secondary:[]}] }
+ ]},
+ upper_lower_4: { name:'Upper/Lower (4-Day)', daysPerWeek:4, matchDays:[4,5], days:[
+ { name:'Upper 1 — Chest, Back, Delts, Arms', exercises:[{name:'Incline Chest Press',sets:3,primary:'chest',secondary:['shoulders','triceps']},{name:'Machine Chest Flies',sets:3,primary:'chest',secondary:[]},{name:'Lat Pulldown',sets:2,primary:'back',secondary:['biceps']},{name:'T-Bar Row',sets:2,primary:'back',secondary:['biceps']},{name:'Kelso Shrugs',sets:1,primary:'traps',secondary:[]},{name:'Shoulder Press',sets:1,primary:'shoulders',secondary:['triceps']},{name:'Lateral Raises',sets:2,primary:'shoulders',secondary:[]},{name:'Rear Delt Flies',sets:1,primary:'shoulders',secondary:[]},{name:'Preacher Curls',sets:2,primary:'biceps',secondary:[]},{name:'Triceps Pushdown',sets:2,primary:'triceps',secondary:[]}] },
+ { name:'Lower 1 — Quads, Hams, Glutes', exercises:[{name:'Leg Extensions',sets:3,primary:'quads',secondary:[]},{name:'Leg Curls',sets:2,primary:'hamstrings',secondary:[]},{name:'Adductors (Machine)',sets:2,primary:'quads',secondary:[]},{name:'Abductors (Machine)',sets:2,primary:'glutes',secondary:[]},{name:'Hip Thrust',sets:2,primary:'glutes',secondary:['hamstrings']},{name:'Calf Raises',sets:2,primary:'calves',secondary:[]}] },
+ { name:'Upper 2 — Chest, Back, Delts, Arms', exercises:[{name:'Incline Chest Press',sets:2,primary:'chest',secondary:['shoulders','triceps']},{name:'Machine Chest Flies',sets:3,primary:'chest',secondary:[]},{name:'Lat Pulldown',sets:2,primary:'back',secondary:['biceps']},{name:'Seated Row',sets:2,primary:'back',secondary:['biceps']},{name:'Kelso Shrugs',sets:2,primary:'traps',secondary:[]},{name:'Vertical Shrugs',sets:1,primary:'traps',secondary:[]},{name:'Lateral Raises',sets:2,primary:'shoulders',secondary:[]},{name:'Preacher Curls',sets:3,primary:'biceps',secondary:[]},{name:'Triceps Overhead Extensions',sets:3,primary:'triceps',secondary:[]}] },
+ { name:'Lower 2 — Quads, Hams, Glutes', exercises:[{name:'Leg Extensions',sets:2,primary:'quads',secondary:[]},{name:'Leg Curls',sets:3,primary:'hamstrings',secondary:[]},{name:'Adductors (Machine)',sets:2,primary:'quads',secondary:[]},{name:'Abductors (Machine)',sets:2,primary:'glutes',secondary:[]},{name:'Hip Thrust',sets:2,primary:'glutes',secondary:['hamstrings']},{name:'Calf Raises',sets:2,primary:'calves',secondary:[]}] }
+ ]},
+ ppl_6: { name:'PPL (6-Day)', daysPerWeek:6, matchDays:[5,6], days:[
+ { name:'Push — Chest, Front Delt, Triceps', exercises:[{name:'Incline Chest Press',sets:3,primary:'chest',secondary:['shoulders','triceps']},{name:'Machine Chest Flies',sets:3,primary:'chest',secondary:[]},{name:'Shoulder Press',sets:2,primary:'shoulders',secondary:['triceps']},{name:'Lateral Raises',sets:2,primary:'shoulders',secondary:[]},{name:'Triceps Pushdown',sets:2,primary:'triceps',secondary:[]},{name:'Triceps Overhead Extensions',sets:2,primary:'triceps',secondary:[]}] },
+ { name:'Pull — Back, Rear Delt, Biceps', exercises:[{name:'Lat Pulldown',sets:2,primary:'back',secondary:['biceps']},{name:'Seated Row',sets:2,primary:'back',secondary:['biceps']},{name:'T-Bar Row',sets:2,primary:'back',secondary:['biceps']},{name:'Kelso Shrugs',sets:1,primary:'traps',secondary:[]},{name:'Vertical Shrugs',sets:1,primary:'traps',secondary:[]},{name:'Rear Delt Flies',sets:2,primary:'shoulders',secondary:[]},{name:'Preacher Curls',sets:3,primary:'biceps',secondary:[]},{name:'Forearm Ext/Flex',sets:1,primary:'forearms',secondary:[]}] },
+ { name:'Legs — Quads, Hams, Glutes', exercises:[{name:'Leg Extensions',sets:2,primary:'quads',secondary:[]},{name:'Leg Curls',sets:2,primary:'hamstrings',secondary:[]},{name:'Adductors (Machine)',sets:2,primary:'quads',secondary:[]},{name:'Abductors (Machine)',sets:2,primary:'glutes',secondary:[]},{name:'Hip Thrust',sets:2,primary:'glutes',secondary:['hamstrings']},{name:'Calf Raises',sets:2,primary:'calves',secondary:[]}] }
+ ]},
+ torso_limbs_4: { name:'Torso/Limbs (4-Day)', daysPerWeek:4, matchDays:[4,5], days:[
+ { name:'Torso — Chest, Back, Delts', exercises:[{name:'Incline Chest Press',sets:3,primary:'chest',secondary:['shoulders','triceps']},{name:'Machine Chest Flies',sets:3,primary:'chest',secondary:[]},{name:'Lat Pulldown',sets:2,primary:'back',secondary:['biceps']},{name:'Seated Row',sets:1,primary:'back',secondary:['biceps']},{name:'T-Bar Row',sets:2,primary:'back',secondary:['biceps']},{name:'Kelso Shrugs',sets:1,primary:'traps',secondary:[]},{name:'Vertical Shrugs',sets:1,primary:'traps',secondary:[]},{name:'Shoulder Press',sets:1,primary:'shoulders',secondary:['triceps']},{name:'Lateral Raises',sets:2,primary:'shoulders',secondary:[]},{name:'Rear Delt Flies',sets:1,primary:'shoulders',secondary:[]}] },
+ { name:'Limbs — Legs, Arms', exercises:[{name:'Leg Extensions',sets:3,primary:'quads',secondary:[]},{name:'Leg Curls',sets:3,primary:'hamstrings',secondary:[]},{name:'Adductors (Machine)',sets:2,primary:'quads',secondary:[]},{name:'Abductors (Machine)',sets:2,primary:'glutes',secondary:[]},{name:'Hip Thrust',sets:2,primary:'glutes',secondary:['hamstrings']},{name:'Calf Raises',sets:2,primary:'calves',secondary:[]},{name:'Preacher Curls',sets:2,primary:'biceps',secondary:[]},{name:'Hammer Curls',sets:2,primary:'biceps',secondary:['forearms']},{name:'Triceps Pushdown',sets:2,primary:'triceps',secondary:[]},{name:'Triceps Overhead Extensions',sets:2,primary:'triceps',secondary:[]}] }
+ ]},
+ arnold_3r: { name:'Arnold Split (3-Day Rotation)', daysPerWeek:6, matchDays:[5,6], days:[
+ { name:'Day 1 — Chest & Back', exercises:[{name:'Incline Chest Press',sets:4,primary:'chest',secondary:['shoulders','triceps']},{name:'Machine Chest Flies',sets:3,primary:'chest',secondary:[]},{name:'Lat Pulldown',sets:3,primary:'back',secondary:['biceps']},{name:'Seated Row',sets:3,primary:'back',secondary:['biceps']},{name:'T-Bar Row',sets:2,primary:'back',secondary:['biceps']},{name:'Kelso Shrugs',sets:1,primary:'traps',secondary:[]}] },
+ { name:'Day 2 — Legs', exercises:[{name:'Leg Extensions',sets:3,primary:'quads',secondary:[]},{name:'Leg Curls',sets:3,primary:'hamstrings',secondary:[]},{name:'Adductors (Machine)',sets:2,primary:'quads',secondary:[]},{name:'Abductors (Machine)',sets:2,primary:'glutes',secondary:[]},{name:'Hip Thrust',sets:3,primary:'glutes',secondary:['hamstrings']},{name:'Calf Raises',sets:3,primary:'calves',secondary:[]}] },
+ { name:'Day 3 — Shoulders & Arms', exercises:[{name:'Shoulder Press',sets:3,primary:'shoulders',secondary:['triceps']},{name:'Lateral Raises',sets:3,primary:'shoulders',secondary:[]},{name:'Rear Delt Flies',sets:2,primary:'shoulders',secondary:[]},{name:'Preacher Curls',sets:3,primary:'biceps',secondary:[]},{name:'Hammer Curls',sets:2,primary:'biceps',secondary:['forearms']},{name:'Triceps Pushdown',sets:3,primary:'triceps',secondary:[]},{name:'Triceps Overhead Extensions',sets:2,primary:'triceps',secondary:[]}] }
+ ]}
+ };
+
+ // Rest-day variants (mirrored from training_tool.html)
+ (function(){
+ const clone = (d) => JSON.parse(JSON.stringify(d));
+ SPLITS.ppl_rest_ul_6 = { name:'PPL + Rest + UL (6-Day)', daysPerWeek:6, matchDays:[5,6], days:[
+ clone(SPLITS.ppl_6.days[0]),
+ clone(SPLITS.ppl_6.days[1]),
+ clone(SPLITS.ppl_6.days[2]),
+ { name:'Rest', restDay:true, exercises:[] },
+ clone(SPLITS.upper_lower_4.days[0]),
+ clone(SPLITS.upper_lower_4.days[1])
+ ]};
+ SPLITS.arnold_rest_4 = { name:'Arnold + Rest (4-Day)', daysPerWeek:4, matchDays:[4,5], days:[
+ clone(SPLITS.arnold_3r.days[0]),
+ clone(SPLITS.arnold_3r.days[1]),
+ clone(SPLITS.arnold_3r.days[2]),
+ { name:'Rest', restDay:true, exercises:[] }
+ ]};
+ })();
+
+ // ═══════════════════════════════════════════════════════════
+ // INJURY SUBSTITUTION MAP (joint → exercise lists)
+ // ═══════════════════════════════════════════════════════════
+
+ const INJURY_SUBS = {
+ knee:["Leg Press","Bulgarian Split Squat","Step-Up","Leg Extensions","RDL","Seated Calf Raise"],
+ shoulder:["Machine Press","Neutral-Grip DB Press","Cable Flies","Face Pull","Trap Raise"],
+ spine:["Chest-Supported Row","Leg Press","Machine Press","Ab Wheel","Plank"],
+ elbow:["Neutral-Grip DB Press","Overhead Triceps Ext","Incline Curl","Cable Curl","EZ Bar Work"],
+ hip:["Band Lateral Walk","KAS Glute Bridge","Seated Adductor","Plank","Side Lying Leg Raise"],
+ wrist:["DB Bench","EZ Bar Curls","Neutral Grip Pull-Up","Straps for Row","Forearm Wraps"],
+ trap:["Face Pull","Rear Delt Flies","Neutral-Grip Row","Prone Trap Raise","Dead Hang"]
+ };
+
+ // ═══════════════════════════════════════════════════════════
+ // STORAGE
+ // ═══════════════════════════════════════════════════════════
+
+ const TT_KEYS = ['mos_vol_targets','mos_split_profile','mos_program','mos_logs','mos_vol_inputs'];
+ const LH_KEY = 'mos_load_history';
+ const DT_KEY = 'mos_deload_tracker';
+ const PF_KEY = 'mos_pain_flags';
+
+ function lsGet(key, def){
+ try{ const r = localStorage.getItem(key); return r ? JSON.parse(r) : def; }catch(e){ return def; }
+ }
+ function lsSet(key, val){ localStorage.setItem(key, JSON.stringify(val)); }
+
+ function getLoadHistory(){
+ return lsGet(LH_KEY, {});
+ }
+ function saveLoadHistory(h){
+ // Prune entries older than 180 days
+ const cutoff = new Date(Date.now() - 180*86400000).toISOString().split('T')[0];
+ Object.keys(h).forEach(ex => {
+ h[ex] = (h[ex] || []).filter(e => e.date >= cutoff);
+ if(h[ex].length === 0) delete h[ex];
+ });
+ lsSet(LH_KEY, h);
+ }
+
+ function getDeloadTracker(){
+ return lsGet(DT_KEY, { lastDeloadDate: null, trainingAge: 'intermediate', sessionCount: 0, consecutiveOvershoot: 0, totalSessions: 0, lastWeekRpes: [] });
+ }
+
+ function getPainFlags(){
+ return lsGet(PF_KEY, {});
+ }
+
+ // ═══════════════════════════════════════════════════════════
+ // ENGINE: e1RM estimation, load suggestion, safety
+ // ═══════════════════════════════════════════════════════════
+
+ function getBestE1RM(exName, history){
+ const entries = history[exName];
+ if(!entries || entries.length === 0) return null;
+ // Take the highest e1RM from the last 60 days
+ const cutoff = new Date(Date.now() - 60*86400000).toISOString().split('T')[0];
+ const recent = entries.filter(e => e.date >= cutoff && e.e1RM > 0);
+ if(recent.length === 0) return null;
+ const best = recent.reduce((max, e) => e.e1RM > max ? e.e1RM : max, 0);
+ return best;
+ }
+
+ function getLastSession(exName, history){
+ const entries = history[exName];
+ if(!entries || entries.length === 0) return null;
+ const sorted = [...entries].sort((a,b) => b.date.localeCompare(a.date));
+ return sorted[0];
+ }
+
+ function getTargetRepRange(goal, exerciseMeta, rpe){
+ const meta = exerciseMeta || {repRange:[6,12]};
+ if(goal === 'strength') return [3, 6];
+ if(goal === 'hypertrophy') return meta.repRange || [6,12];
+ return [5, 10]; // balanced
+ }
+
+ function getTargetRPE(goal, fatigue){
+ if(goal === 'strength'){
+ return {low:8, moderate:8, high:8.5};
+ }
+ if(goal === 'hypertrophy'){
+ return {low:8, moderate:8, high:7.5};
+ }
+ return {low:8, moderate:8, high:8};
+ }
+
+ function suggestNextLoad(exName, goal, trainingAge, history){
+ const meta = getMeta(exName);
+ const bestE1RM = getBestE1RM(exName, history);
+ const last = getLastSession(exName, history);
+ const targetRPEmap = getTargetRPE(goal, meta.fatigue);
+ const targetRPE = targetRPEmap[meta.fatigue] || 8;
+ const repRange = getTargetRepRange(goal, meta, targetRPE);
+ const midReps = Math.round((repRange[0] + repRange[1]) / 2);
+
+ // Step 1: determine if this is a new exercise or continuing
+ if(!bestE1RM){
+ // No history — recommend starting light with technique focus
+ return {
+ suggestedWeight: null,
+ suggestedReps: repRange[1],
+ suggestedRPE: 7,
+ e1RM: null,
+ explanation: "No load history for this exercise. Start in the upper rep range at RPE 7–8 to establish a baseline e1RM.",
+ lastSession: null,
+ targetPct: null
+ };
+ }
+
+ // Step 2: get the %1RM for suggested reps at target RPE
+ const targetPct = rpePct(midReps, targetRPE);
+ if(!targetPct){
+ return { suggestedWeight: null, suggestedReps: midReps, suggestedRPE: targetRPE, e1RM: bestE1RM, explanation: "RPE out of range.", lastSession: last, targetPct: null };
+ }
+
+ // Step 3: compute suggested raw weight
+ const rawWeight = bestE1RM * (targetPct / 100);
+ const inc = meta.inc > 0 ? meta.inc : 2.5;
+ const rounded = Math.round(rawWeight / inc) * inc;
+
+ // Step 4: adjust based on last session
+ let adjWeight = rounded;
+ let adjReps = midReps;
+ let adjRPE = targetRPE;
+ let explanation = '';
+
+ if(last){
+ const lastMidRep = last.reps || midReps;
+ const lastRPE = last.rpe || targetRPE;
+ const lastWeight = last.weight || 0;
+
+ if(lastRPE < targetRPE - 0.5 && adjWeight > lastWeight){
+ // Last session was easier than target — increase load
+ adjWeight = Math.max(adjWeight, Math.round((lastWeight + inc) / inc) * inc);
+ explanation = 'Last session RPE '+lastRPE+' was below target '+targetRPE+'. Increased load.';
+ } else if(lastRPE > targetRPE + 0.5){
+ // Last session was harder than target — hold or reduce
+ adjWeight = Math.min(adjWeight, Math.round(lastWeight / inc) * inc);
+ adjWeight = Math.max(adjWeight, Math.round((lastWeight - inc) / inc) * inc);
+ explanation = 'Last session RPE '+lastRPE+' was above target '+targetRPE+'. Holding or slightly reducing load.';
+ } else if(lastRPE >= targetRPE - 0.5 && lastRPE <= targetRPE + 0.5 && last.reps >= repRange[1] - 1){
+ // Hit target RPE at top of rep range — double progression: bump weight, drop reps
+ adjWeight = Math.round((lastWeight + inc) / inc) * inc;
+ adjReps = repRange[0];
+ explanation = 'Double progression: hit '+last.reps+' reps @ RPE '+lastRPE+'. Bump weight to '+adjWeight+' kg, drop to '+adjReps+' reps.';
+ } else {
+ explanation = 'Continue progressing from last session.';
+ }
+ } else {
+ explanation = 'First logged session for this exercise. Start at suggested load.';
+ }
+
+ return {
+ suggestedWeight: adjWeight,
+ suggestedReps: adjReps,
+ suggestedRPE: adjRPE,
+ e1RM: bestE1RM,
+ explanation: explanation,
+ lastSession: last,
+ targetPct: targetPct
+ };
+ }
+
+ // ─── Safety Layer ───
+ function getDeloadInterval(trainingAge){
+ const intervals = { novice: 6, intermediate: 5, advanced: 4 };
+ return intervals[trainingAge] || 5;
+ }
+
+ function checkSafety(exName, suggestion, currentDayIdx, program, logs, loadHistory, painFlags, trainingAge){
+ const meta = getMeta(exName);
+ const warnings = [];
+ let blocked = false;
+ let substitute = null;
+ let severity = 'safe';
+
+ // 1. Pain gate
+ const pain = painFlags[exName] || 'green';
+ if(pain === 'red'){
+ blocked = true;
+ substitute = meta.subs && meta.subs.length > 0 ? meta.subs[0] : null;
+ severity = 'danger';
+ warnings.push(' Pain reported. Exercise blocked. '+(substitute?'Suggested substitute: '+substitute+'.':'Consult a professional.'));
+ } else if(pain === 'yellow'){
+ severity = 'warn';
+ warnings.push(' Pain reported (yellow). Load capped, consider exercise substitution.');
+ }
+
+ // 2. Weekly volume check (MRV ceiling)
+ if(!blocked && program && logs){
+ const weeklyVol = getWeeklyVolumeForMuscle(exName, program, logs);
+ const volTargets = lsGet('mos_vol_targets', {});
+ const primaryMuscle = findPrimaryMuscle(exName, program);
+ if(primaryMuscle && volTargets[primaryMuscle]){
+ const mrv = volTargets[primaryMuscle].mrv || 99;
+ if(weeklyVol >= mrv){
+ severity = 'danger';
+ warnings.push(' MRV ceiling reached for '+volTargets[primaryMuscle].name+'. Additional sets may impair recovery.');
+ }
+ }
+ }
+
+ // 3. 10% rule: check if suggested weight jump is >10% from last logged weight
+ const last = getLastSession(exName, loadHistory);
+ if(last && last.weight > 0 && suggestion && suggestion.suggestedWeight){
+ const jump = (suggestion.suggestedWeight - last.weight) / last.weight;
+ if(jump > 0.10){
+ const capped = Math.round(last.weight * 1.10 / meta.inc) * meta.inc;
+ if(suggestion.suggestedWeight > capped){
+ warnings.push(' Load jump of '+(jump*100).toFixed(1)+'% exceeds 10% rule. Capped to '+(capped)+' kg.');
+ suggestion.suggestedWeight = capped;
+ }
+ }
+ }
+
+ // 4. RPE ceiling for hypertrophy work
+ if(suggestion && suggestion.suggestedRPE > 9){
+ suggestion.suggestedRPE = 9;
+ warnings.push(' RPE capped at 9 (hypertrophy safety ceiling).');
+ }
+
+ // 5. Tendon-lag rule: isolations at stretch position, >5% jump in <2 weeks
+ if(meta.type === 'isolation' && last && suggestion && suggestion.suggestedWeight){
+ const jump = (suggestion.suggestedWeight - last.weight) / last.weight;
+ if(jump > 0.05 && last.date){
+ const twoWeeksAgo = new Date(Date.now() - 14*86400000).toISOString().split('T')[0];
+ if(last.date >= twoWeeksAgo){
+ const capped = Math.round(last.weight * 1.05 / meta.inc) * meta.inc;
+ if(suggestion.suggestedWeight > capped){
+ warnings.push(' Tendon-lag rule: isolation exercise load jump capped to 5% over 2 weeks ('+capped+' kg).');
+ suggestion.suggestedWeight = capped;
+ }
+ }
+ }
+ }
+
+ return { safe: !blocked, blocked, warnings, severity, substitute };
+ }
+
+ function shouldDeload(tracker, trainingAge, recentRpeOvershoots){
+ const interval = getDeloadInterval(trainingAge);
+ const weeksSince = tracker.sessionCount;
+ let reason = null;
+
+ if(weeksSince >= interval){
+ reason = 'Scheduled deload: '+weeksSince+' weeks since last deload (interval: '+interval+' weeks for '+trainingAge+' training age).';
+ } else if(recentRpeOvershoots >= 2){
+ reason = 'RPE overshoot: RPE exceeded target by 1+ for 2 consecutive sessions.';
+ }
+
+ if(reason){
+ return { needed: true, reason, suggestion: 'Reduce sets by ~50%, cap RPE at 6–7 for this session.' };
+ }
+ return { needed: false, reason: null, suggestion: null };
+ }
+
+ // ─── Volume Tracking Helpers ───
+ function getWeeklyVolumeForMuscle(exName, program, logs){
+ // Compute logged sets this week per muscle group
+ const volByMuscle = {};
+ MUSCLE_GROUPS.forEach(m => volByMuscle[m.id] = 0);
+
+ // Find this week's dates (last 7 days)
+ const weekAgo = new Date(Date.now() - 7*86400000).toISOString().split('T')[0];
+ const today = new Date().toISOString().split('T')[0];
+
+ Object.keys(logs).forEach(dateStr => {
+ if(dateStr < weekAgo || dateStr > today) return;
+ Object.keys(logs[dateStr]).forEach(eid => {
+ const sets = logs[dateStr][eid].sets || [];
+ // Estimate muscle from exercise name in eid (format: "dayName__exerciseName")
+ const exNameFromKey = eid.includes('__') ? eid.split('__')[1] : eid;
+ const meta = getMeta(exNameFromKey);
+ // Find primary muscle in program
+ const primary = findPrimaryMuscleFromAllSplits(exNameFromKey);
+ if(primary && volByMuscle[primary] !== undefined){
+ const count = sets.filter(s => s && s.weight && parseFloat(s.weight) > 0).length;
+ volByMuscle[primary] += count;
+ }
+ });
+ });
+
+ if(exName){
+ const pm = findPrimaryMuscleFromAllSplits(exName);
+ return pm ? volByMuscle[pm] || 0 : 0;
+ }
+ return volByMuscle;
+ }
+
+ function findPrimaryMuscle(exName, program){
+ if(!program) return null;
+ for(const day of program.days){
+ for(const ex of day.exercises){
+ if(ex.name === exName) return ex.primary || null;
+ }
+ }
+ return null;
+ }
+
+ function findPrimaryMuscleFromAllSplits(exName){
+ for(const sk in SPLITS){
+ for(const day of SPLITS[sk].days){
+ for(const ex of day.exercises){
+ if(ex.name === exName) return ex.primary || null;
+ }
+ }
+ }
+ // Fallback heuristic
+ const map = {
+ 'squat':'quads','bench':'chest','row':'back','curl':'biceps','raise':'shoulders',
+ 'press':'chest','pulldown':'back','pull':'back','deadlift':'hamstrings','leg':'quads',
+ 'calf':'calves','triceps':'triceps','bicep':'biceps','fly':'chest','shrug':'traps',
+ 'thrust':'glutes','adduct':'quads','abduct':'glutes','hip':'glutes','forearm':'forearms',
+ 'row':'back','lateral':'shoulders','delt':'shoulders','rdl':'hamstrings','ext':'triceps'
+ };
+ const lower = exName.toLowerCase();
+ for(const k in map){
+ if(lower.includes(k)) return map[k];
+ }
+ return null;
+ }
+
+ function getWeeklyVolumeByMuscleForDashboard(logs, program, volTargets){
+ const vol = {};
+ MUSCLE_GROUPS.forEach(m => vol[m.id] = 0);
+
+ const weekAgo = new Date(Date.now() - 7*86400000).toISOString().split('T')[0];
+ const today = new Date().toISOString().split('T')[0];
+
+ Object.keys(logs).forEach(dateStr => {
+ if(dateStr < weekAgo || dateStr > today) return;
+ Object.keys(logs[dateStr]).forEach(eid => {
+ const sets = logs[dateStr][eid].sets || [];
+ const exName = eid.includes('__') ? eid.split('__')[1] : eid;
+ const primary = findPrimaryMuscleFromAllSplits(exName);
+ if(primary && vol[primary] !== undefined){
+ vol[primary] += sets.filter(s => s && s.weight && parseFloat(s.weight) > 0).length;
+ }
+ });
+ });
+
+ return vol;
+ }
+
+ // ═══════════════════════════════════════════════════════════
+ // UI STATE
+ // ═══════════════════════════════════════════════════════════
+
+ let currentStep = 1;
+ let selectedDayIdx = 0;
+ let activeSplit = null; // the SPLITS key
+ let activeProgram = null; // from training_tool
+
+ function goToStep(n){
+ currentStep = n;
+ document.querySelectorAll('.step-content').forEach(s=>s.classList.remove('active'));
+ const el = document.getElementById('step'+n);
+ if(el) el.classList.add('active');
+ document.querySelectorAll('.step').forEach(s=>{
+ const sn = parseInt(s.dataset.step);
+ s.classList.remove('active','done');
+ if(sn === n) s.classList.add('active');
+ else if(sn < n) s.classList.add('done');
+ });
+ }
+
+ document.querySelectorAll('.step').forEach(s=>{
+ s.addEventListener('click', function(){
+ const n = parseInt(this.dataset.step);
+ if(n <= currentStep) goToStep(n);
+ });
+ });
+
+ // ═══════════════════════════════════════════════════════════
+ // STEP 1: Session Selector
+ // ═══════════════════════════════════════════════════════════
+
+ function tryLoadFromTrainingTool(){
+ const prog = lsGet('mos_program', null);
+ const splitProf = lsGet('mos_split_profile', null);
+ const volTargets = lsGet('mos_vol_targets', null);
+ const volInputs = lsGet('mos_vol_inputs', null);
+
+ if(prog && prog.splitName){
+ activeProgram = prog;
+ // Find matching split key
+ for(const sk in SPLITS){
+ if(SPLITS[sk].name === prog.splitName){
+ activeSplit = sk;
+ break;
+ }
+ }
+ if(!activeSplit && splitProf && splitProf.key && SPLITS[splitProf.key]){
+ activeSplit = splitProf.key;
+ }
+ return true;
+ }
+ if(splitProf && splitProf.key && SPLITS[splitProf.key]){
+ activeSplit = splitProf.key;
+ return true;
+ }
+ return false;
+ }
+
+ function renderSessionSelector(){
+ const select = document.getElementById('splitSelect');
+ select.innerHTML = '';
+
+ let hasSaved = tryLoadFromTrainingTool();
+ const volInputs = lsGet('mos_vol_inputs', null);
+
+ // Populate split dropdown
+ Object.keys(SPLITS).forEach(key => {
+ const s = SPLITS[key];
+ const opt = document.createElement('option');
+ opt.value = key;
+ opt.textContent = s.name + ' (' + s.daysPerWeek + ' days/wk)';
+ if(key === activeSplit) opt.selected = true;
+ select.appendChild(opt);
+ });
+
+ if(hasSaved && activeSplit){
+ select.value = activeSplit;
+ }
+
+ // Set training age/goal from saved inputs if available
+ if(volInputs){
+ document.getElementById('taSelect').value = volInputs.ta || 'intermediate';
+ document.getElementById('goalSelect').value = volInputs.goal || 'hypertrophy';
+ }
+
+ // Show profile recap
+ updateSessionProfile();
+ renderDayTabs();
+ }
+
+ function updateSessionProfile(){
+ const profile = document.getElementById('sessionProfile');
+ const prog = lsGet('mos_program', null);
+ const volTargets = lsGet('mos_vol_targets', null);
+
+ let html = '<div class="rb-title">Training Data Found</div>';
+ if(prog && activeSplit){
+ html += '<strong>'+prog.splitName+'</strong> · '+prog.totalSets+' weekly sets · '+prog.totalExercises+' exercises';
+ profile.style.display = 'block';
+ } else if(activeSplit){
+ html += '<strong>'+SPLITS[activeSplit].name+'</strong> (from built-in splits). <span style="color:#FF9800">No saved program. Generate one in the Training App for full volume targets.</span>';
+ profile.style.display = 'block';
+ } else {
+ profile.style.display = 'none';
+ return;
+ }
+ if(volTargets){
+ const focusCount = Object.values(volTargets).filter(t => t.priority === 'focus').length;
+ html += ' · '+focusCount+' focus muscles';
+ }
+ profile.innerHTML = html;
+ }
+
+ function renderDayTabs(){
+ const container = document.getElementById('dayTabContainer');
+ const splitKey = document.getElementById('splitSelect').value;
+ activeSplit = splitKey;
+ const split = SPLITS[splitKey];
+ if(!split){ container.innerHTML = '<p style="font-size:.65rem;color:rgba(250,250,248,.25);padding:8px 0">No split selected.</p>'; return; }
+
+ const logs = lsGet('mos_logs', {});
+ const today = new Date().toISOString().split('T')[0];
+
+ let html = '<p style="font-size:.6rem;color:rgba(250,250,248,.25);margin-bottom:6px">Select today\'s session:</p><div class="day-tabs">';
+ split.days.forEach((day, di) => {
+ const isToday = di === selectedDayIdx;
+ let hasLog = false;
+ // Check if any exercise for this day has been logged this week
+ const weekAgo = new Date(Date.now() - 7*86400000).toISOString().split('T')[0];
+ Object.keys(logs).forEach(ds => {
+ if(ds < weekAgo) return;
+ Object.keys(logs[ds]).forEach(eid => {
+ if(eid.startsWith(day.name + '__')){
+ const sets = logs[ds][eid].sets || [];
+ if(sets.some(s => s && s.weight && parseFloat(s.weight) > 0)) hasLog = true;
+ }
+ });
+ });
+ html += '<button class="day-tab'+(day.restDay?' rest':'')+(isToday?' active':'')+'" data-day="'+di+'">Day '+(di+1)+': '+day.name+(hasLog?'<span class="logged-dot"></span>':'')+'</button>';
+ });
+ html += '</div>';
+ container.innerHTML = html;
+
+ // Wire day tabs
+ container.querySelectorAll('.day-tab').forEach(btn => {
+ btn.addEventListener('click', function(){
+ container.querySelectorAll('.day-tab').forEach(b=>b.classList.remove('active'));
+ this.classList.add('active');
+ selectedDayIdx = parseInt(this.dataset.day);
+ });
+ });
+
+ document.getElementById('sessionNoData').style.display = 'none';
+ document.getElementById('goToVolBtn').style.display = 'block';
+ }
+
+ document.getElementById('splitSelect').addEventListener('change', function(){
+ activeSplit = this.value;
+ selectedDayIdx = 0;
+ updateSessionProfile();
+ renderDayTabs();
+ });
+
+ document.getElementById('goToVolBtn').addEventListener('click', function(){
+ renderVolumeDashboard();
+ goToStep(2);
+ });
+
+ // ═══════════════════════════════════════════════════════════
+ // STEP 2: Volume Dashboard
+ // ═══════════════════════════════════════════════════════════
+
+ function renderVolumeDashboard(){
+ const trainingAge = document.getElementById('taSelect').value;
+ const goal = document.getElementById('goalSelect').value;
+ const logs = lsGet('mos_logs', {});
+ const volTargets = lsGet('mos_vol_targets', {});
+ const table = VOLUME_TABLES[trainingAge][goal];
+ const weeklyVol = getWeeklyVolumeByMuscleForDashboard(logs, null, volTargets);
+
+ // Try to get vol input priorities
+ const volInputs = lsGet('mos_vol_inputs', null);
+ const priorities = {};
+ if(volInputs && volInputs.priorities){
+ volInputs.priorities.forEach(p => priorities[p.id] = p.priority);
+ }
+
+ const today = new Date();
+ const weekStart = new Date(today);
+ weekStart.setDate(today.getDate() - today.getDay());
+ document.getElementById('volWeekLabel').textContent = '— Week of ' + weekStart.toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'});
+
+ let html = '';
+ MUSCLE_GROUPS.forEach(m => {
+ const volId = MUSCLE_VOL_MAP[m.id];
+ const vol = table[volId] || [4,8,12];
+ const priority = priorities[m.id] || 'focus';
+ const mult = priority === 'focus' ? 1.0 : 0.55;
+ const mev = Math.round(vol[0] * mult);
+ const mav = Math.round(vol[1] * mult);
+ const mrv = Math.round(vol[2] * mult);
+ const logged = weeklyVol[m.id] || 0;
+ const maxVal = Math.max(mrv, logged, 1);
+ const isOver = logged > mrv;
+
+ html += '<div class="vol-row">'+
+ '<span class="vol-label">'+m.name+'</span>'+
+ '<div class="vol-bar-wrap">'+
+ '<div class="vol-bar-mev" style="width:'+(mev/maxVal*100)+'%"></div>'+
+ '<div class="vol-bar-mav" style="left:'+(mev/maxVal*100)+'%;width:'+((mav-mev)/maxVal*100)+'%"></div>'+
+ '<div class="vol-bar-mrv" style="left:'+(mrv/maxVal*100)+'%"></div>'+
+ '<div class="vol-bar-logged'+(isOver?' over':'')+'" style="width:'+(logged/maxVal*100)+'%"></div>'+
+ '</div>'+
+ '<div class="vol-num">'+(isOver?'<span style="color:#f44336;font-weight:600">'+logged+'</span>':'<span class="logged-num">'+logged+'</span>')+'<br><span style="font-size:.5rem;color:rgba(250,250,248,.15)">('+mev+'-'+mav+')</span></div>'+
+ '</div>';
+ });
+
+ document.getElementById('volDashboard').innerHTML = html;
+ }
+
+ document.getElementById('backToSessBtn').addEventListener('click', function(){ goToStep(1); });
+ document.getElementById('goToTrainBtn').addEventListener('click', function(){
+ renderLoadCalculator();
+ goToStep(3);
+ });
+
+ // ═══════════════════════════════════════════════════════════
+ // STEP 3: Load Calculator + Logger
+ // ═══════════════════════════════════════════════════════════
+
+ function renderLoadCalculator(){
+ const splitKey = document.getElementById('splitSelect').value;
+ const split = SPLITS[splitKey];
+ const goal = document.getElementById('goalSelect').value;
+ const trainingAge = document.getElementById('taSelect').value;
+ if(!split || !split.days[selectedDayIdx]) return;
+
+ const day = split.days[selectedDayIdx];
+ const logs = lsGet('mos_logs', {});
+ const loadHistory = getLoadHistory();
+ const painFlags = getPainFlags();
+ const tracker = getDeloadTracker();
+ const today = new Date().toISOString().split('T')[0];
+
+ // Deload check
+ const recentOvershoots = tracker.consecutiveOvershoot || 0;
+ const deloadResult = shouldDeload(tracker, trainingAge, recentOvershoots);
+
+ document.getElementById('trainDayHeader').textContent = 'Day '+(selectedDayIdx+1)+': '+day.name;
+
+ // Session info
+ const sessionInfo = document.getElementById('trainSessionInfo');
+ let infoHtml = '<div class="rb-title">Training Session</div><strong>'+split.name+'</strong> · '+goal+' · '+trainingAge+' · '+day.name;
+ if(deloadResult.needed){
+ infoHtml += '<br><span style="color:#FF9800;font-weight:600"> '+deloadResult.reason+'</span>';
+ }
+ sessionInfo.innerHTML = infoHtml;
+ sessionInfo.style.display = 'block';
+
+ if(day.restDay){
+ document.getElementById('exerciseCards').innerHTML =
+ '<div class="rest-card"><div class="rc-title">Rest Day</div>'+
+ '<div class="rc-tip">Recovery &amp; regeneration - no training today</div>'+
+ '<div class="rc-tip">• Sleep 7-9 hours - muscle grows while you rest</div>'+
+ '<div class="rc-tip">• Walk 6-10k steps for blood flow and recovery</div>'+
+ '<div class="rc-tip">• Hydrate well and hit your daily protein target</div>'+
+ '<div class="rc-tip">• Optional: light mobility or stretching (15-20 min)</div></div>';
+ return;
+ }
+
+ // Deload tracker
+ const dt = document.getElementById('deloadTracker');
+ if(tracker.sessionCount > 0 || tracker.lastDeloadDate){
+ dt.style.display = 'flex';
+ const weeksSince = tracker.sessionCount;
+ const interval = getDeloadInterval(trainingAge);
+ const remaining = Math.max(0, interval - weeksSince);
+ dt.innerHTML = '<div><span class="dt-label">Weeks since last deload</span><br><span class="dt-val">'+weeksSince+'</span> <span style="font-size:.55rem;color:rgba(250,250,248,.2)">/ '+interval+'</span></div>'+
+ '<div><span class="dt-label">Next scheduled</span><br><span class="dt-val">'+(deloadResult.needed?'NOW':remaining+' wk')+'</span></div>'+
+ (deloadResult.needed?'<div><span class="dt-warn"> Deload recommended</span></div>':'');
+ } else {
+ dt.style.display = 'none';
+ }
+
+ // Render exercise cards
+ const container = document.getElementById('exerciseCards');
+ let html = '';
+
+ day.exercises.forEach((ex, ei) => {
+ const meta = getMeta(ex.name);
+ const suggestion = suggestNextLoad(ex.name, goal, trainingAge, loadHistory);
+ const safety = checkSafety(ex.name, suggestion, selectedDayIdx, null, logs, loadHistory, painFlags, trainingAge);
+
+ const cardClass = painFlags[ex.name] === 'red' ? 'ex-card pain-red' :
+ painFlags[ex.name] === 'yellow' ? 'ex-card pain-yellow' :
+ safety.severity === 'safe' ? 'ex-card safe-green' : 'ex-card';
+
+ const safeId = ('card_'+selectedDayIdx+'_'+ex.name).replace(/[^a-zA-Z0-9]/g,'_');
+
+ html += '<div class="'+cardClass+'" id="'+safeId+'">'+
+ '<div class="ex-title">'+
+ '<span class="ex-name">'+(ei+1)+'. '+ex.name+'</span>'+
+ '<span class="safety-badge '+safety.severity+'">'+
+ (safety.severity==='safe'?' Safe':safety.severity==='warn'?' Warning':'✕ Blocked')+
+ '</span>'+
+ '<span class="rm-ex-btn" data-exname="'+ex.name+'">✕ Remove</span>'+
+ '</div>';
+
+ // Last session + e1RM
+ const last = suggestion.lastSession;
+ html += '<div class="ex-last">'+
+ (last ? 'Last: <strong>'+last.weight+' kg '+last.reps+' @ RPE '+last.rpe+'</strong>' : 'No previous data')+
+ '</div>';
+ html += '<div class="ex-e1rm">e1RM: <strong>'+(suggestion.e1RM ? suggestion.e1RM+' kg' : '—')+'</strong> · '+
+ meta.type+' · '+meta.fatigue+' fatigue · inc: '+(meta.inc>0?meta.inc+' kg':'BW')+'</div>';
+
+ // Safety warnings
+ if(safety.warnings.length > 0){
+ const isBlocked = safety.blocked;
+ html += '<div class="'+(isBlocked?'safety-block':'safety-warning')+'">';
+ safety.warnings.forEach(w => { html += '<strong>'+(isBlocked?' ':'')+'</strong>'+w+'<br>'; });
+ if(isBlocked && safety.substitute){
+ html += '<div class="sub-option">Suggested substitute: <strong>'+safety.substitute+'</strong>. Log below as a replacement.</div>';
+ }
+ html += '</div>';
+ }
+
+ // Suggest box
+ if(!safety.blocked && suggestion.suggestedWeight !== null){
+ html += '<div class="suggest-box">'+
+ '<div><span class="suggest-val">'+(suggestion.suggestedWeight > 0 ? suggestion.suggestedWeight+' kg' : '—')+'</span></div>'+
+ '<div class="suggest-detail">'+
+ '<strong>'+(suggestion.suggestedWeight > 0 ? suggestion.suggestedWeight+' kg' : '—')+' '+suggestion.suggestedReps+' reps @ RPE '+suggestion.suggestedRPE+'</strong><br>'+
+ suggestion.explanation+
+ (suggestion.targetPct ? ' · Target %1RM: '+(suggestion.targetPct).toFixed(0)+'%' : '')+
+ '</div>'+
+ '</div>';
+ } else if(!safety.blocked) {
+ html += '<div class="suggest-box"><div class="suggest-detail"><strong>Start light</strong><br>'+suggestion.explanation+'</div></div>';
+ }
+
+ // Pain check-in
+ const currentPain = painFlags[ex.name] || 'green';
+ html += '<div class="pain-group">'+
+ '<span style="font-size:.55rem;color:rgba(250,250,248,.2);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-right:4px;line-height:28px">Pain:</span>'+
+ '<button class="pain-btn'+(currentPain==='green'?' active-green':'')+'" data-ex="'+ex.name+'" data-pain="green"></button>'+
+ '<button class="pain-btn'+(currentPain==='yellow'?' active-yellow':'')+'" data-ex="'+ex.name+'" data-pain="yellow"></button>'+
+ '<button class="pain-btn'+(currentPain==='red'?' active-red':'')+'" data-ex="'+ex.name+'" data-pain="red"></button>'+
+ '</div>';
+
+ // Set logger
+ const eid = day.name + '__' + ex.name;
+ const dayLog = logs[today] && logs[today][eid] ? logs[today][eid] : null;
+ const sets = (dayLog && dayLog.sets && dayLog.sets.length > 0) ? dayLog.sets : [{weight:'',reps:'',rpe:''},{weight:'',reps:'',rpe:''},{weight:'',reps:'',rpe:''}];
+
+ html += '<div class="set-log-area">'+
+ '<div class="set-log-header"><span></span><span>kg</span><span>Reps</span><span>RPE</span><span></span></div>'+
+ '<div id="sets_'+safeId+'">';
+ sets.forEach((set, si) => {
+ html += '<div class="set-row" data-ex="'+ex.name+'" data-set="'+si+'">'+
+ '<span class="set-lbl">'+(si+1)+'</span>'+
+ '<input type="number" step="0.5" placeholder="kg" value="'+(set.weight||'')+'" data-ex="'+ex.name+'" data-set="'+si+'" data-field="weight">'+
+ '<input type="number" step="1" placeholder="reps" value="'+(set.reps||'')+'" data-ex="'+ex.name+'" data-set="'+si+'" data-field="reps">'+
+ '<input type="number" step="0.5" placeholder="RPE" value="'+(set.rpe||'')+'" data-ex="'+ex.name+'" data-set="'+si+'" data-field="rpe">'+
+ '<button class="del-set-btn" data-ex="'+ex.name+'" data-set="'+si+'">✕</button>'+
+ '</div>';
+ });
+ html += '</div>'+
+ '<button class="add-set-btn" data-ex="'+ex.name+'">+ Add Set</button>'+
+ '</div>';
+
+ html += '</div>'; // end ex-card
+ });
+
+ container.innerHTML = html;
+
+ // Wire: input saving
+ container.querySelectorAll('.set-row input').forEach(inp => {
+ inp.addEventListener('input', function(){
+ const exName = this.dataset.ex;
+ const setIdx = parseInt(this.dataset.set);
+ const field = this.dataset.field;
+ const value = this.value;
+ saveSetLog(exName, setIdx, field, value);
+ updateSessionSummary();
+ updateE1RM(exName);
+ });
+ });
+
+ // Wire: delete set
+ container.querySelectorAll('.del-set-btn').forEach(btn => {
+ btn.addEventListener('click', function(){
+ const exName = this.dataset.ex;
+ const setIdx = parseInt(this.dataset.set);
+ deleteSetLog(exName, setIdx);
+ });
+ });
+
+ // Wire: add set
+ container.querySelectorAll('.add-set-btn').forEach(btn => {
+ btn.addEventListener('click', function(){
+ const exName = this.dataset.ex;
+ addSetLog(exName);
+ });
+ });
+
+ // Wire: remove exercise
+ container.querySelectorAll('.rm-ex-btn').forEach(btn => {
+ btn.addEventListener('click', function(){
+ const exName = this.dataset.exname;
+ if(confirm('Remove all data for "'+exName+'" from this session?')){
+ removeExerciseLog(exName);
+ }
+ });
+ });
+
+ // Wire: pain buttons
+ container.querySelectorAll('.pain-btn').forEach(btn => {
+ btn.addEventListener('click', function(){
+ const exName = this.dataset.ex;
+ const pain = this.dataset.pain;
+ const pf = getPainFlags();
+ pf[exName] = pain;
+ lsSet(PF_KEY, pf);
+ // Re-render to update card colors
+ renderLoadCalculator();
+ });
+ });
+
+ updateSessionSummary();
+ }
+
+ // ─── Session Summary ───
+ function updateSessionSummary(){
+ const logs = lsGet('mos_logs', {});
+ const today = new Date().toISOString().split('T')[0];
+ const dayLog = logs[today] || {};
+ let totalSets = 0, totalReps = 0, totalEx = 0;
+
+ Object.keys(dayLog).forEach(eid => {
+ const sets = dayLog[eid].sets || [];
+ const valid = sets.filter(s => s && s.weight && parseFloat(s.weight) > 0);
+ if(valid.length > 0) totalEx++;
+ totalSets += valid.length;
+ valid.forEach(s => { totalReps += parseInt(s.reps) || 0; });
+ });
+
+ document.getElementById('sumSets').textContent = totalSets;
+ document.getElementById('sumVol').textContent = totalReps;
+ document.getElementById('sumEx').textContent = totalEx;
+ }
+
+ // ─── Logging Helpers ───
+ function getCurrentDayName(){
+ const splitKey = document.getElementById('splitSelect').value;
+ const split = SPLITS[splitKey];
+ if(!split || !split.days[selectedDayIdx]) return '';
+ return split.days[selectedDayIdx].name;
+ }
+
+ function saveSetLog(exName, setIdx, field, value){
+ const logs = lsGet('mos_logs', {});
+ const today = new Date().toISOString().split('T')[0];
+ const dayName = getCurrentDayName();
+ const eid = dayName + '__' + exName;
+
+ if(!logs[today]) logs[today] = {};
+ if(!logs[today][eid]) logs[today][eid] = { sets: [] };
+ if(!logs[today][eid].sets[setIdx]) logs[today][eid].sets[setIdx] = {weight:'',reps:'',rpe:''};
+ logs[today][eid].sets[setIdx][field] = value;
+ lsSet('mos_logs', logs);
+
+ // If all three fields filled, update load history
+ const set = logs[today][eid].sets[setIdx];
+ if(set.weight && set.reps && set.rpe && parseFloat(set.weight) > 0 && parseInt(set.reps) > 0 && parseFloat(set.rpe) > 0){
+ updateLoadHistory(exName, set, today, dayName);
+ }
+ }
+
+ function updateLoadHistory(exName, set, dateStr, dayName){
+ const h = getLoadHistory();
+ if(!h[exName]) h[exName] = [];
+ const e1rm = estimate1RM(parseFloat(set.weight), parseInt(set.reps), parseFloat(set.rpe));
+ if(!e1rm) return;
+ // Avoid duplicate entries for same date+set
+ const exists = h[exName].some(e => e.date === dateStr && e.weight === parseFloat(set.weight) && e.reps === parseInt(set.reps));
+ if(exists) return;
+ h[exName].push({
+ date: dateStr,
+ weight: parseFloat(set.weight),
+ reps: parseInt(set.reps),
+ rpe: parseFloat(set.rpe),
+ e1RM: e1rm,
+ dayName: dayName
+ });
+ saveLoadHistory(h);
+ }
+
+ function updateE1RM(exName){
+ const h = getLoadHistory();
+ const best = getBestE1RM(exName, h);
+ const last = getLastSession(exName, h);
+ const container = document.getElementById('exerciseCards');
+ if(!container) return;
+ // Update just this card's e1RM display without full re-render
+ const card = container.querySelector('.ex-card .ex-title .ex-name');
+ // Too hard to target specific card, just re-render the whole thing
+ renderLoadCalculator();
+ }
+
+ function deleteSetLog(exName, setIdx){
+ const logs = lsGet('mos_logs', {});
+ const today = new Date().toISOString().split('T')[0];
+ const dayName = getCurrentDayName();
+ const eid = dayName + '__' + exName;
+
+ if(logs[today] && logs[today][eid]){
+ logs[today][eid].sets.splice(setIdx, 1);
+ if(logs[today][eid].sets.length === 0) delete logs[today][eid];
+ if(Object.keys(logs[today][eid] || {}).length === 0) delete logs[today][eid];
+ lsSet('mos_logs', logs);
+ }
+ renderLoadCalculator();
+ }
+
+ function addSetLog(exName){
+ const logs = lsGet('mos_logs', {});
+ const today = new Date().toISOString().split('T')[0];
+ const dayName = getCurrentDayName();
+ const eid = dayName + '__' + exName;
+
+ if(!logs[today]) logs[today] = {};
+ if(!logs[today][eid]) logs[today][eid] = { sets: [] };
+ logs[today][eid].sets.push({weight:'',reps:'',rpe:''});
+ lsSet('mos_logs', logs);
+ renderLoadCalculator();
+ }
+
+ function removeExerciseLog(exName){
+ const logs = lsGet('mos_logs', {});
+ const today = new Date().toISOString().split('T')[0];
+ const dayName = getCurrentDayName();
+ const eid = dayName + '__' + exName;
+
+ if(logs[today] && logs[today][eid]){
+ delete logs[today][eid];
+ if(Object.keys(logs[today]).length === 0) delete logs[today];
+ lsSet('mos_logs', logs);
+ }
+ renderLoadCalculator();
+ }
+
+ // ─── Back from Step 3 ───
+ document.getElementById('backToVolFromTrainBtn').addEventListener('click', function(){ goToStep(2); });
+
+ // ─── Deload Tracker Update ───
+ function updateDeloadTracker(){
+ const logs = lsGet('mos_logs', {});
+ const loadHistory = getLoadHistory();
+ const tracker = getDeloadTracker();
+ const trainingAge = document.getElementById('taSelect').value;
+ const interval = getDeloadInterval(trainingAge);
+
+ // Count unique training days logged this period
+ const dates = Object.keys(logs).sort().reverse();
+ const recentDates = dates.slice(0, Math.min(dates.length, interval * 7));
+
+ // Count sessions since last deload
+ let sessionCount = 0;
+ let lastSessionRPEs = [];
+
+ recentDates.forEach(d => {
+ const dayLogs = logs[d];
+ let hasValidSet = false;
+ Object.keys(dayLogs).forEach(eid => {
+ const sets = dayLogs[eid].sets || [];
+ sets.forEach(s => {
+ if(s && s.weight && s.reps && s.rpe && parseFloat(s.weight) > 0){
+ hasValidSet = true;
+ lastSessionRPEs.push(parseFloat(s.rpe));
+ }
+ });
+ });
+ if(hasValidSet) sessionCount++;
+ });
+
+ // Check for overshoots
+ let consecutiveOvershoot = 0;
+ // Simple: if average RPE across all recent sets > 8.5, count as overshoot
+ if(lastSessionRPEs.length > 0){
+ const avgRpe = lastSessionRPEs.reduce((a,b)=>a+b,0) / lastSessionRPEs.length;
+ if(avgRpe > 8.5){
+ consecutiveOvershoot = tracker.consecutiveOvershoot + 1;
+ } else {
+ consecutiveOvershoot = 0;
+ }
+ }
+
+ tracker.sessionCount = sessionCount;
+ tracker.consecutiveOvershoot = consecutiveOvershoot;
+ tracker.totalSessions = (tracker.totalSessions || 0) + 1;
+ tracker.trainingAge = trainingAge;
+ lsSet(DT_KEY, tracker);
+ }
+
+ // Run deload tracker update on load
+ setTimeout(updateDeloadTracker, 500);
+
+ // ─── Export / Import for Load History ───
+ document.getElementById('exportLoadDataBtn').addEventListener('click', function(){
+ const data = {};
+ data[LH_KEY] = getLoadHistory();
+ data[DT_KEY] = getDeloadTracker();
+ data[PF_KEY] = getPainFlags();
+ // Also include training app keys
+ TT_KEYS.forEach(k => {
+ const v = localStorage.getItem(k);
+ if(v) data[k] = JSON.parse(v);
+ });
+ const blob = new Blob([JSON.stringify({exported:new Date().toISOString(), version:2, data:data}, null, 2)], {type:'application/json'});
+ const a = document.createElement('a');
+ a.href = URL.createObjectURL(blob);
+ a.download = 'muscle_os_rpe_data_' + new Date().toISOString().split('T')[0] + '.json';
+ a.click();
+ });
+
+ document.getElementById('importLoadDataBtn').addEventListener('click', function(){
+ document.getElementById('importLoadFile').click();
+ });
+ document.getElementById('importLoadFile').addEventListener('change', function(){
+ if(!this.files || !this.files[0]) return;
+ const reader = new FileReader();
+ reader.onload = function(e){
+ try {
+ const parsed = JSON.parse(e.target.result);
+ const imported = parsed.data || parsed;
+ if(!imported || typeof imported !== 'object') throw new Error('Invalid format');
+ let hasAny = false;
+ if(imported[LH_KEY]){ lsSet(LH_KEY, imported[LH_KEY]); hasAny = true; }
+ if(imported[DT_KEY]){ lsSet(DT_KEY, imported[DT_KEY]); hasAny = true; }
+ if(imported[PF_KEY]){ lsSet(PF_KEY, imported[PF_KEY]); hasAny = true; }
+ TT_KEYS.forEach(k => {
+ if(imported[k] !== undefined){ localStorage.setItem(k, JSON.stringify(imported[k])); hasAny = true; }
+ });
+ if(!hasAny) throw new Error('No recognized data keys in file');
+ alert('Data imported successfully.');
+ location.reload();
+ } catch(err){
+ alert('Import failed: '+err.message);
+ }
+ };
+ reader.readAsText(this.files[0]);
+ this.value = '';
+ });
+
+ // ─── Reset Load History ───
+ document.getElementById('resetLoadHistoryBtn').addEventListener('click', function(){
+ if(!confirm('Reset all load history, deload tracker, and pain flags?')) return;
+ localStorage.removeItem(LH_KEY);
+ localStorage.removeItem(DT_KEY);
+ localStorage.removeItem(PF_KEY);
+ alert('Reset complete.');
+ location.reload();
+ });
+
+ // ═══════════════════════════════════════════════════════════
+ // INIT
+ // ═══════════════════════════════════════════════════════════
+
+ renderSessionSelector();
+
+ console.log('RPE Load Calculator loaded. Keys: load_history, deload_tracker, pain_flags');
 
 })();
 </script>
 <script src="../assets/js/access-control.js"></script>
 <script>
 (function(){
-  function init(){
-    var gate = document.getElementById('googleGate');
-    if(!gate) return;
-    MosAccess.requireGoogleAuth(null, function(ok){ if(ok) gate.classList.add('gate-hidden'); });
-  }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+ function init(){
+ var gate = document.getElementById('googleGate');
+ if(!gate) return;
+ MosAccess.requireGoogleAuth(null, function(ok){ if(ok) gate.classList.add('gate-hidden'); });
+ }
+ if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
 </script>
 <script src="../js/auth.js"></script>
