@@ -1624,11 +1624,11 @@ select option{background:var(--card)}
       warmup_tip_legs:'Foam roll quads + hip flexors before warm-up sets.',
       warmup_tip_upper:'Band pull-aparts + arm circles before warm-up sets.',
       // General warmup
-      gen_warmup_legs:'Foam roll: quads, hams, glutes',gen_warmup_legs2:'Hip circles x10 each direction',
-      gen_warmup_legs3:'Bodyweight squats x10',gen_warmup_legs4:'Leg swings x10/side',gen_warmup_legs5:'Inchworms x5',
-      gen_warmup_upper1:'Band pull-aparts x15',gen_warmup_upper2:'Arm circles x10 fwd/back',
-      gen_warmup_upper3:'Push-ups x10',gen_warmup_upper4:'Scapular retractions x10',gen_warmup_upper5:'Cat-cow x8',
-      gen_warmup_default1:'Jumping jacks 30s',gen_warmup_default2:'Torso twists x10/side',
+      gen_warmup_legs:'Foam roll: quads, hams, glutes',gen_warmup_legs2:'90/90 Hip Rotations x10/side',
+      gen_warmup_legs3:'World\'s Greatest Stretch x5/side',gen_warmup_legs4:'Leg swings x10/side',gen_warmup_legs5:'Cossack Squat x8/side',
+      gen_warmup_upper1:'Shoulder Dislocates (Band) x15',gen_warmup_upper2:'Thoracic Extensions (Foam Roller)',
+      gen_warmup_upper3:'Push-ups x10',gen_warmup_upper4:'Scapular retractions x10',gen_warmup_upper5:'Cat-Cow x8',
+      gen_warmup_default1:'Jumping jacks 30s',gen_warmup_default2:'World\'s Greatest Stretch x5/side',
       // Rehab
       rehab_acute:'Acute Phase',rehab_recovery:'Recovery Phase (when pain-free)',rehab_safe:'Safe exercises:',rehab_avoid:'Avoid:',
       rehab_stop_all:'Stop all aggravating exercises until pain subsides.',
@@ -2072,11 +2072,11 @@ select option{background:var(--card)}
       warmup_tip_legs:'تدليك الفخذين وثنيات الحوض قبل الإحماء.',
       warmup_tip_upper:'تمارين شد الكتف + لف الدراعين قبل الإحماء.',
       // General warmup
-      gen_warmup_legs:'تدليك: الفخذين، العضلات الخلفية، الألوية',gen_warmup_legs2:'لفات الحوض 10 مرات كل اتجاه',
-      gen_warmup_legs3:'قرفصاء بدون وزن 10 مرات',gen_warmup_legs4:'رجلك متأرجحة 10 مرات',gen_warmup_legs5:'تمارين الدودة 5 مرات',
-      gen_warmup_upper1:'شد الكتف 15 مرة',gen_warmup_upper2:'لف الدراعين 10 مرات قدام/ورا',
-      gen_warmup_upper3:'تمارين الضغط 10 مرات',gen_warmup_upper4:'تراجع لوح الكتف 10 مرات',gen_warmup_upper5:'تمدد القطة 8 مرات',
-      gen_warmup_default1:'نط 30 ثانية',gen_warmup_default2:'لفات الجذع 10 مرات',
+      gen_warmup_legs:'تدليك: الفخذين، العضلات الخلفية، الألوية',gen_warmup_legs2:'90/90 دوران الحوض 10x',
+      gen_warmup_legs3:'أعظم إطالة في العالم 5x',gen_warmup_legs4:'أرجحة الأرجل 10x',gen_warmup_legs5:'قرفصاء قوزاق 8x',
+      gen_warmup_upper1:'فك الكتف بالشريط 15x',gen_warmup_upper2:'تمديد الصدر (رول فوم)',
+      gen_warmup_upper3:'تمارين الضغط 10 مرات',gen_warmup_upper4:'تراجع لوح الكتف 10 مرات',gen_warmup_upper5:'قطة وبقرة 8x',
+      gen_warmup_default1:'نط 30 ثانية',gen_warmup_default2:'أعظم إطالة في العالم 5x',
       // Rehab
       rehab_acute:'المرحلة الحادة',rehab_recovery:'مرحلة التعافي (لما يروح الألم)',rehab_safe:'تمارين آمنة:',rehab_avoid:'تجنب:',
       rehab_stop_all:'⛔ وقف كل التمارين اللي بتوجعك لغاية ما الألم يروح.',
@@ -2754,7 +2754,13 @@ select option{background:var(--card)}
     "Leg Raise":{t:"isolation",f:"low",jr:["spine"],inc:2.5,rr:[10,20],subs:["Hanging Leg Raise","Cable Crunch","Ab Wheel Rollout","Plank"]},
     "Cable Crunch":{t:"isolation",f:"low",jr:["spine"],inc:2.5,rr:[10,20],subs:["Hanging Leg Raise","Leg Raise","Ab Wheel Rollout","Plank"]},
     "Ab Wheel Rollout":{t:"isolation",f:"low",jr:["spine"],inc:2.5,rr:[8,15],subs:["Plank","Hanging Leg Raise","Cable Crunch","Leg Raise"]},
-    "Plank":{t:"isolation",f:"low",jr:["spine"],inc:2.5,rr:[10,20],subs:["Ab Wheel Rollout","Hanging Leg Raise","Leg Raise","Cable Crunch"]}
+    "Plank":{t:"isolation",f:"low",jr:["spine"],inc:2.5,rr:[10,20],subs:["Ab Wheel Rollout","Hanging Leg Raise","Leg Raise","Cable Crunch"]},
+    "World's Greatest Stretch":{t:"isolation",f:"low",jr:["hip","spine"],inc:0,rr:[5,10],subs:["90/90 Hip Rotations","Cossack Squat"]},
+    "90/90 Hip Rotations":{t:"isolation",f:"low",jr:["hip"],inc:0,rr:[10,20],subs:["World's Greatest Stretch","Cossack Squat"]},
+    "Cossack Squat":{t:"isolation",f:"low",jr:["hip","knee"],inc:0,rr:[8,12],subs:["90/90 Hip Rotations","World's Greatest Stretch"]},
+    "Shoulder Dislocates":{t:"isolation",f:"low",jr:["shoulder"],inc:0,rr:[15,20],subs:["Thoracic Extensions","Cat-Cow"]},
+    "Thoracic Extensions":{t:"isolation",f:"low",jr:["spine"],inc:0,rr:[10,15],subs:["Cat-Cow","Shoulder Dislocates"]},
+    "Cat-Cow":{t:"isolation",f:"low",jr:["spine"],inc:0,rr:[8,12],subs:["Thoracic Extensions","Shoulder Dislocates"]}
   };
 
   // ── Exercise pools per muscle group (favorites picker) ──
@@ -2770,7 +2776,8 @@ select option{background:var(--card)}
     calves:["Calf Raise","Standing Calf Raise","Single-Leg Calf Raise","Seated Calf Raise","Leg Press Calf Raise","Donkey Calf Raise"],
     traps:["Kelso Shrugs","Vertical Shrugs","Barbell Shrugs","Dumbbell Shrugs","Farmers Walk","Face Pull"],
     forearms:["Forearm Ext/Flex","Wrist Curl","Reverse Wrist Curl","Plate Pinch","Dead Hang"],
-    abs:["Hanging Leg Raise","Leg Raise","Cable Crunch","Ab Wheel Rollout","Plank"]
+    abs:["Hanging Leg Raise","Leg Raise","Cable Crunch","Ab Wheel Rollout","Plank"],
+    mobility:["World's Greatest Stretch","90/90 Hip Rotations","Cossack Squat","Shoulder Dislocates","Thoracic Extensions","Cat-Cow"]
   };
   window.__pools=EXERCISE_POOLS;window.__exMeta=EXERCISE_META;window.__tendonProtocols=TENDON_PROTOCOLS;
 
@@ -6686,6 +6693,10 @@ select option{background:var(--card)}
     if(orig&&orig!==ex.n)swapChips+='<button class="swap-chip original" data-di="'+di+'" data-idx="'+ei+'" data-ex="'+ex.n+'" data-to="'+orig+'">↩ '+_('swap_back')+' ('+(EX_TR[orig]?exDisplay(orig):orig)+')</button>';
     msubs.forEach(function(s){if(s!==ex.n)swapChips+='<button class="swap-chip" data-di="'+di+'" data-idx="'+ei+'" data-ex="'+ex.n+'" data-to="'+s+'">'+(EX_TR[s]?exDisplay(s):s)+'</button>';});
     ceList.forEach(function(c){if(c.name!==ex.n&&(c.f===ex.p||ex.se.indexOf(c.f)>=0))swapChips+='<button class="swap-chip" data-di="'+di+'" data-idx="'+ei+'" data-ex="'+ex.n+'" data-to="'+c.name+'">'+(EX_TR[c.name]?exDisplay(c.name):c.name)+'</button>';});
+    
+    // Add mobility exercises as a variety to all swap panels
+    var mobPool=window.__pools.mobility||[];
+    mobPool.forEach(function(s){if(s!==ex.n)swapChips+='<button class="swap-chip" style="color:#64B5F6;border-color:rgba(100,181,246,0.3);border-style:dashed" data-di="'+di+'" data-idx="'+ei+'" data-ex="'+ex.n+'" data-to="'+s+'">🧘 '+(EX_TR[s]?exDisplay(s):s)+'</button>';});
     var swapHtml=swapChips?'<div class="swap-panel"><div class="swp-title">'+_('swap_title')+'</div><div class="swp-hint">'+_('swap_hint')+'</div>'+swapChips+'</div>':'';
     var painHtml='<div class="pain-group"><span class="pain-lbl">'+_('red')+'</span>'+
       '<button class="pain-btn'+(pfc==='green'?' active-green':'')+'" data-ex="'+ex.n+'" data-p="green">🟢</button>'+
@@ -7925,6 +7936,13 @@ select option{background:var(--card)}
   //    jr (joints), subs (alternatives)}
   // ═══════════════════════════════════════════════════════════════════
   var EX_NEW=[
+    // ── Mobility / Warm-up ──
+    {n:'World\'s Greatest Stretch',p:'mobility',eq:['bodyweight'],sec:['hip','spine'],g:{s:'Start in a push-up position, step one foot outside your hand.',e:'Rotate the inside arm up to the sky, hold, then switch.',c:'Keep the back leg straight and focus on opening the hip and thoracic spine.',b:'Exhale on the twist.'},ar:{name:'أعظم إطالة في العالم',s:'وضع الضغط، خطوة بقدم واحدة خارج يدك.',e:'لف الذراع الداخلي للسماء، اثبت، ثم بدل.',c:'حافظ على الرجل الخلفية مستقيمة وركز على فتح الحوض والصدر.',b:'زفير عند اللف.'}},
+    {n:'90/90 Hip Rotations',p:'mobility',eq:['bodyweight'],sec:['hip'],g:{s:'Sit on the floor, one leg in front bent at 90°, the other behind bent at 90°.',e:'Slowly rotate your hips to switch the legs to the other side without using hands if possible.',c:'Keep your torso upright and move smoothly.',b:'Breathe naturally.'},ar:{name:'90/90 دوران الحوض',s:'اجلس على الأرض، رجل أمامية بزاوية 90 درجة ورجل خلفية بـ 90 درجة.',e:'لف حوضك ببطء لتبديل الأرجل للجهة التانية بدون إيدين لو أمكن.',c:'خلي ظهرك مفرود واتحرك بسلاسة.',b:'تنفس براحتك.'}},
+    {n:'Cossack Squat',p:'mobility',eq:['bodyweight'],sec:['quads','hamstrings'],g:{s:'Stand very wide, toes slightly out.',e:'Squat down sideways over one leg, keeping the other leg straight.',c:'Keep the heel of the bent leg on the floor, and point the straight leg\'s toes up.',b:'Exhale as you push back to center.'},ar:{name:'قرفصاء قوزاق',s:'قف بفتحة أرجل واسعة جداً.',e:'انزل قرفصاء على رجل واحدة مع بقاء الرجل التانية مفرودة.',c:'خلي كعب الرجل المتنية على الأرض، واصابع الرجل المفرودة لفوق.',b:'زفير وإنت بتدفع للمنتصف.'}},
+    {n:'Shoulder Dislocates',p:'mobility',eq:['band'],sec:['shoulders'],g:{s:'Hold a band or stick with a very wide grip in front of you.',e:'Keeping arms straight, bring it up and over your head to your lower back, then reverse.',c:'Start very wide and do not force through pain.',b:'Inhale up, exhale down.'},ar:{name:'فك الكتف بالشريط',s:'امسك شريط مقاومة أو عصا بمسكة واسعة جداً.',e:'بذراعين مفرودين، ارفعها فوق رأسك لظهرك، ثم ارجع.',c:'ابدأ بمسكة واسعة جداً ولا تضغط على الألم.',b:'شهيق لفوق، زفير لتحت.'}},
+    {n:'Thoracic Extensions',p:'mobility',eq:['foam_roller'],sec:['spine'],g:{s:'Lie with a foam roller across your mid-back, hands supporting your head.',e:'Arch your upper back over the roller while keeping your ribs down.',c:'Do not roll the lower back; focus on the thoracic spine.',b:'Exhale as you stretch over the roller.'},ar:{name:'تمديد الصدر برول الفوم',s:'نام ورول الفوم تحت منتصف ظهرك، وإيدك ساندة راسك.',e:'قوس ظهرك العلوي فوق الرول وحافظ على أضلاعك لتحت.',c:'ماتعملش رول لأسفل الظهر؛ ركز على منتصف الظهر.',b:'زفير مع الإطالة.'}},
+    {n:'Cat-Cow',p:'mobility',eq:['bodyweight'],sec:['spine'],g:{s:'Get on all fours, hands under shoulders, knees under hips.',e:'Arch your back up (cat) then let your belly dip down (cow).',c:'Move slowly and articulate through the entire spine.',b:'Exhale on cat, inhale on cow.'},ar:{name:'إطالة القطة والبقرة',s:'انزل على إيدك وركبك، الأيدين تحت الكتف والركب تحت الحوض.',e:'قوس ظهرك لفوق (القطة) ثم نزل بطنك لتحت (البقرة).',c:'اتحرك ببطء وشغل العمود الفقري كله.',b:'زفير في القطة، شهيق في البقرة.'}},
     // ── Chest (gap: fly variants, pressing variants, band/home) ──
     {n:'Decline Bench Press',p:'chest',eq:['barbell'],sec:['triceps','shoulders'],g:{s:'Bench at 15-30° decline, feet hooked, bar over the lower chest.',e:'Lower the bar to the lower chest, press up and back.',c:'Keep the bar path over the lower pecs.',b:'Exhale on the press.'},ar:{name:'ضغط بنش مائل لأسفل',s:'بنش مائل 15-30°، ثبّت القدمين، البار فوق أسفل الصدر.',e:'أنزل البار لأسفل الصدر ثم ادفعه للأعلى والخلف.',c:'حافظ على مسار البار فوق الجزء السفلي من الصدر.',b:'زفير عند الدفع.'}},
     {n:'Cable Crossover',p:'chest',eq:['cable'],sec:['shoulders','triceps'],g:{s:'Cables high, step forward, slight lean, arms extended wide.',e:'Bring the handles together in front of the chest, pause, return slowly.',c:'Slight elbow bend; squeeze the chest at the peak.',b:'Exhale on the squeeze.'},ar:{name:'كروس كابل',s:'كابل مرتفع، خطوة للأمام، ميل بسيط، ذراعان ممدودتان.',e:'اجمع المقابض أمام الصدر، توقف قليلاً ثم عُد ببطء.',c:'ثني بسيط بالكوع؛ اضغط الصدر عند الذروة.',b:'زفير عند الضغط.'}},
