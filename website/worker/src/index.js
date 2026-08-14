@@ -1,21 +1,21 @@
 /**
  * Cloudflare Worker — server-side code verification + PDF proxy + order management
- *
+ * 
  * Phase B: replaces client-side manifest check with JWTs
  * Phase C: secure PDF serving with JWT validation
  * Phase D: self-serve order + one-tap approval flow
- *
+ * 
  * KV namespace: ACCESS_CODES
  * Keys: code:<UPPERCASED_CODE> → { products, plan, durationDays, expiresAt, maxUses, uses }
  * pdf:<filename> → binary PDF data (base64)
  * ratelimit:<IP> → count (TTL 300s)
  * log:<ts>:<uuid> → { code, productId, success, ts } (TTL 30d)
- *
+ * 
  * KV namespace: PENDING_ORDERS
  * Keys: order:<uuid> → { id, product, customerName, whatsappNumber, email, paymentRef,
  * paymentMethod, lang, status, createdAt, resolvedAt, resolvedBy,
  * rejectionReason, issuedCode }
- *
+ * 
  * PDF product IDs (for JWT productId matching):
  * training_book → requires JWT with productId='training_book' or plan='master'
  * nutrition_book → requires JWT with productId='nutrition_book' or plan='master'
@@ -954,7 +954,7 @@ async function handleGoogleAuth(request, env) {
  });
  const email = payload.email;
  if (!email) return json({ valid: false, error: 'no_email_in_token' }, 400, env, request);
-
+ 
  // Check or create user profile for 2-week trial logic
  const profileKey = `email:${email.toLowerCase()}:profile`;
  let profile = null;
@@ -962,7 +962,7 @@ async function handleGoogleAuth(request, env) {
  const raw = await env.ACCESS_CODES.get(profileKey, 'json');
  if (raw) profile = raw;
  } catch (e) {}
-
+ 
  if (!profile) {
  profile = {
  email,
@@ -984,17 +984,17 @@ async function handleGoogleAuth(request, env) {
  .setSubject(email)
  .setExpirationTime(Math.floor(Date.now() / 1000) + 604800)
  .sign(secret);
-
+ 
  // Calculate trial days remaining
  const trialDurationMs = 14 * 24 * 60 * 60 * 1000;
  const timeElapsed = Date.now() - profile.signUpDate;
  const trialDaysRemaining = Math.max(0, Math.ceil((trialDurationMs - timeElapsed) / (24 * 60 * 60 * 1000)));
 
- return json({
- valid: true,
- session: sessionToken,
- email,
- name: payload.name || '',
+ return json({ 
+ valid: true, 
+ session: sessionToken, 
+ email, 
+ name: payload.name || '', 
  subscriptions: await getAccountSubs(env, email),
  trialDaysRemaining,
  signUpDate: profile.signUpDate
@@ -1018,7 +1018,7 @@ async function handleCheckSession(request, env) {
  issuer: 'muscleos-access-control',
  });
  if (payload.type !== 'session') return json({ valid: false }, 403, env, request);
-
+ 
  // Retrieve profile to calculate trial days
  let profile = null;
  try {
@@ -1028,7 +1028,7 @@ async function handleCheckSession(request, env) {
 
  let trialDaysRemaining = 0;
  let signUpDate = payload.signUpDate || Date.now();
-
+ 
  if (profile && profile.signUpDate) {
  signUpDate = profile.signUpDate;
  const trialDurationMs = 14 * 24 * 60 * 60 * 1000;
@@ -1036,10 +1036,10 @@ async function handleCheckSession(request, env) {
  trialDaysRemaining = Math.max(0, Math.ceil((trialDurationMs - timeElapsed) / (24 * 60 * 60 * 1000)));
  }
 
- return json({
- valid: true,
- email: payload.email,
- name: payload.name,
+ return json({ 
+ valid: true, 
+ email: payload.email, 
+ name: payload.name, 
  subscriptions: await getAccountSubs(env, payload.email),
  trialDaysRemaining,
  signUpDate

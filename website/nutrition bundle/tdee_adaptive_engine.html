@@ -974,7 +974,7 @@ select option{background:#1A1B26;color:#FAFAF8}
  if(badgeEl) badgeEl.innerHTML = `<span class="pulse-dot"></span> METABOLIC MATRIX ACTIVE // LIVE SYNC [${nowStr}]`;
 
  const statsGrid = document.getElementById('welcomeStatsGrid');
- const sortedW = (store.weights && store.weights.length > 0)
+ const sortedW = (store.weights && store.weights.length > 0) 
  ? [...store.weights].sort((a,b)=>new Date(b.date)-new Date(a.date))
  : [];
  const latestW = sortedW.length > 0 ? sortedW[0].weight : p.weight;
@@ -1493,7 +1493,7 @@ select option{background:#1A1B26;color:#FAFAF8}
  const r = calcTDEE(p.sex, p.weight, p.height, p.age, p.bf, p.trainingAge,
  p.trainDays, p.sessionLen, p.occupation, p.steps, p.sleep, p.dietPattern,
  p.goal, p.chronicDiet, p.cyclePhase);
-
+ 
  // adjust if recalibrated
  const trend = calcWeightTrend(store.weights);
  let targetCal = r.goalCal, targetP = r.protein, targetF = r.fat, targetC = r.carbs;
@@ -1510,9 +1510,9 @@ select option{background:#1A1B26;color:#FAFAF8}
  const todayLogs = foodLogStore[currentFoodDate] || [];
  let totCal = 0, totP = 0, totF = 0, totC = 0, totLeu = 0;
  let totVitC = 0, totVitD = 0, totB12 = 0, totIron = 0, totCalcium = 0, totZinc = 0, totMag = 0, totPot = 0, totSod = 0;
-
+ 
  let listHtml = todayLogs.length === 0 ? '<p style="font-size:.72rem;color:rgba(250,250,248,.3);text-align:center;padding:10px 0">No food logged for this date.</p>' : '';
-
+ 
  todayLogs.forEach((item, idx) => {
  totCal += item.cals || 0;
  totP += item.p || 0;
@@ -1595,7 +1595,7 @@ select option{background:#1A1B26;color:#FAFAF8}
  <button class="btn-secondary" onclick="calcReverseDiet()" style="padding:7px;font-size:.65rem"> Reverse Dieting Controller</button>
  <button class="btn-secondary" onclick="calcGlycogenCarbSizer()" style="padding:7px;font-size:.65rem"> Glycogen Carb Sizer</button>
  </div>
-
+ 
  <div class="food-add-modal" id="foodAddModal">
  <h4 id="foodAddTitle"></h4>
  <div style="display:flex;gap:6px;margin:8px 0;justify-content:center">
@@ -1678,13 +1678,13 @@ select option{background:#1A1B26;color:#FAFAF8}
  </label>
  </div>
  </div>
-
+ 
  <div class="section-header" style="margin-top:16px">Logged Food</div>
  <div class="food-log-list">${listHtml}</div>
  `;
 
  tabEl.innerHTML = html;
-
+ 
  // Attach event listeners
  const searchInput = document.getElementById('foodSearch');
  const autocomplete = document.getElementById('foodAutocomplete');
@@ -1693,9 +1693,9 @@ select option{background:#1A1B26;color:#FAFAF8}
  searchInput.addEventListener('input', function(){
  const q = this.value.toLowerCase().trim();
  if(q.length < 2){ autocomplete.style.display = 'none'; return; }
-
+ 
  const matches = foodDB.filter(f => f.name_en.toLowerCase().includes(q) || (f.name_ar && f.name_ar.includes(q))).slice(0, 15);
-
+ 
  if(matches.length > 0){
  autocomplete.innerHTML = matches.map(f => {
  const safeEn = escapeHTML(f.name_en);
@@ -1720,10 +1720,10 @@ select option{background:#1A1B26;color:#FAFAF8}
  const fId = item.dataset.id;
  selectedFood = foodDB.find(f => f.id === fId);
  if(!selectedFood) return;
-
+ 
  autocomplete.style.display = 'none';
  searchInput.value = '';
-
+ 
  const rawBtn = document.getElementById('stateRawBtn');
  const cookedBtn = document.getElementById('stateCookedBtn');
 
@@ -1773,10 +1773,10 @@ select option{background:#1A1B26;color:#FAFAF8}
  }
  updatePreview();
  };
-
+ 
  function updatePreview(){
  const ratio = (parseFloat(amtInput.value)||0) / 100;
- document.getElementById('foodAddPreview').innerHTML =
+ document.getElementById('foodAddPreview').innerHTML = 
  `${Math.round(currentFoodState.calories*ratio)} kcal &bull; `+
  `${(currentFoodState.protein*ratio).toFixed(1)}g P &bull; `+
  `${(currentFoodState.fat*ratio).toFixed(1)}g F &bull; `+
@@ -1849,7 +1849,7 @@ select option{background:#1A1B26;color:#FAFAF8}
  if(!currentFoodState) return;
  const amt = parseFloat(document.getElementById('foodAddAmount').value);
  if(isNaN(amt) || amt <= 0) return;
-
+ 
  const ratio = amt / 100;
  if(!foodLogStore[currentFoodDate]) foodLogStore[currentFoodDate] = [];
  foodLogStore[currentFoodDate].push({
@@ -1871,7 +1871,7 @@ select option{background:#1A1B26;color:#FAFAF8}
  pot: (currentFoodState.pot || 0) * ratio,
  sod: (currentFoodState.sod || 0) * ratio
  });
-
+ 
  playSoundEffect('success');
  saveFoodLogs();
  renderFoodTab();

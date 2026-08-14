@@ -2065,7 +2065,7 @@ select option{background:var(--card)}
  gen_warmup_default1:'نط 30 ثانية',gen_warmup_default2:'لفات الجذع 10 مرات',
  // Rehab
  rehab_acute:'المرحلة الحادة',rehab_recovery:'مرحلة التعافي (لما يروح الألم)',rehab_safe:'تمارين آمنة:',rehab_avoid:'تجنب:',
- rehab_stop_all:' وقف كل التمارين اللي بتوجعك لغاية ما الألم يروح.',
+ rehab_stop_all:'⛔ وقف كل التمارين اللي بتوجعك لغاية ما الألم يروح.',
  rehab_book_consult:' احجز استشارة مجانية',rehab_injury:'إصابة',rehab_inflammation:'التهاب خفيف',
  // Fatigue
  fatigue_sleep:'جودة النوم',fatigue_stress:'الضغط النفسي',fatigue_doms:'ألم العضلات',
@@ -2597,7 +2597,7 @@ select option{background:var(--card)}
  Object.keys(pf||{}).forEach(function(ex){
  var v=pf[ex];
  if(v==='red')hasRed=true;
- jointsForExercise(ex).forEach(function(j){if(j&&INJURY_PROTOCOLS[j]){joints[j]=joints[j]||(v==='red'?'':'');}});
+ jointsForExercise(ex).forEach(function(j){if(j&&INJURY_PROTOCOLS[j]){joints[j]=joints[j]||(v==='red'?'🔴':'🟡');}});
  });
  if(!Object.keys(joints).length)return null;
  return{hasRed:hasRed,areas:Object.keys(joints).map(function(j){return{id:j,name:INJURY_PROTOCOLS[j].name,icon:INJURY_PROTOCOLS[j].icon,severity:joints[j]}})};
@@ -3703,10 +3703,10 @@ select option{background:var(--card)}
  var m=meta(ex),warn=[],blocked=false,sub=null,sev='safe',pain=pf[ex]||'green';
  // Rehab-aware safety
  var rehabCheck=isExerciseSafeForInjuries(ex,pf);
- if(!rehabCheck.ok){blocked=true;sub=m.subs&&m.subs[0];sev='danger';warn.push(" "+rehabCheck.reason+(sub?' '+_('sel_try')+': '+sub:'')+' · <a href="https://wa.me/201040796017" target="_blank" style="color:#F4C93B">'+_('hist_book_consult')+'</a>');}
- else if(pain==='red'){blocked=true;sub=m.subs&&m.subs[0];sev='danger';warn.push(" "+_('safety_pain_reported')+(sub?' '+_('sel_try')+': '+sub:'')+' · <a href="https://wa.me/201040796017" target="_blank" style="color:#F4C93B">'+_('hist_book_injury')+'</a>');}
- else if(pain==='yellow'){sev='warn';warn.push(" "+_('safety_inflammation'));}
- else if(rehabCheck.reason&&rehabCheck.reason.indexOf('')>=0){sev='warn';warn.push(rehabCheck.reason);}
+ if(!rehabCheck.ok){blocked=true;sub=m.subs&&m.subs[0];sev='danger';warn.push("⛔ "+rehabCheck.reason+(sub?' '+_('sel_try')+': '+sub:'')+' · <a href="https://wa.me/201040796017" target="_blank" style="color:#F4C93B">'+_('hist_book_consult')+'</a>');}
+ else if(pain==='red'){blocked=true;sub=m.subs&&m.subs[0];sev='danger';warn.push("🔴 "+_('safety_pain_reported')+(sub?' '+_('sel_try')+': '+sub:'')+' · <a href="https://wa.me/201040796017" target="_blank" style="color:#F4C93B">'+_('hist_book_injury')+'</a>');}
+ else if(pain==='yellow'){sev='warn';warn.push("🟡 "+_('safety_inflammation'));}
+ else if(rehabCheck.reason&&rehabCheck.reason.indexOf('🟡')>=0){sev='warn';warn.push(rehabCheck.reason);}
  if(!blocked&&sugg&&sugg.w){
  var last=lastSess(ex,hist);
  if(last&&last.w>0){var jump=(sugg.w-last.w)/last.w;if(jump>0.10){var cap=Math.round(last.w*1.10/m.inc)*m.inc;sugg.w=cap;warn.push(" "+_('safety_jump_capped')+' '+cap+" kg.");}}
@@ -4080,7 +4080,7 @@ select option{background:var(--card)}
  var p=rehabForExercise(ex,pf);
  if(p&&!prots[p.name]){prots[p.name]=p;areaList.push({ex:ex,severity:v,protocol:p});}
  });
- status.textContent=(hasRed?' '+_('rehab_injury'):' '+_('rehab_inflammation'))+' · '+areaList.length+(areaList.length>1?' areas':' area');
+ status.textContent=(hasRed?'🔴 '+_('rehab_injury'):'🟡 '+_('rehab_inflammation'))+' · '+areaList.length+(areaList.length>1?' areas':' area');
  var html='';
  areaList.forEach(function(a){
  // P6: tendon-group joints render the gated review-pending card until a
@@ -4096,14 +4096,14 @@ select option{background:var(--card)}
  html+='<div class="rehab-card rehab-'+(a.severity==='red'?'red':'yellow')+'">'+
  '<div class="rc-header"><span>'+a.protocol.icon+' '+a.protocol.name+'</span><span class="rc-severity '+(a.severity==='red'?'danger':'warn')+'">'+a.severity.toUpperCase()+'</span></div>'+
  '<div class="rehab-phase"><div class="rp-label"> '+_('rehab_acute')+'</div><div class="rp-text">'+
- (a.severity==='red'?a.protocol.acute:' '+_('rehab_inflammation')+'. '+a.protocol.acute)+'</div></div>';
+ (a.severity==='red'?a.protocol.acute:'🟡 '+_('rehab_inflammation')+'. '+a.protocol.acute)+'</div></div>';
  // Show recovery phase only for yellow
  if(a.severity!=='red')html+='<div class="rehab-phase"><div class="rp-label"> '+_('rehab_recovery')+'</div><div class="rp-text">'+a.protocol.recovery+'</div></div>'+
  '<div class="rehab-ex-list"><span style="font-size:.48rem;color:rgba(250,250,248,.15);margin-right:4px">'+_('rehab_safe')+'</span>'+
  a.protocol.safe.slice(0,5).map(function(e){return'<span class="rel-safe"> '+e+'</span>'}).join('')+'</div>'+
  '<div class="rehab-ex-list"><span style="font-size:.48rem;color:rgba(250,250,248,.15);margin-right:4px">'+_('rehab_avoid')+'</span>'+
  a.protocol.avoid.slice(0,5).map(function(e){return'<span class="rel-avoid">✕ '+e+'</span>'}).join('')+'</div>';
- else html+='<div style="font-size:.6rem;color:#f44336;padding:4px 0;font-weight:600"> '+_('rehab_stop_all')+'</div>';
+ else html+='<div style="font-size:.6rem;color:#f44336;padding:4px 0;font-weight:600">⛔ '+_('rehab_stop_all')+'</div>';
  html+='</div>';
  });
  // P5: prehab suggestion card when a joint keeps getting flagged
@@ -4148,18 +4148,18 @@ select option{background:var(--card)}
  }
  }
  // Yellow flag - warn
- for(var k in pf){if(pf[k]==='yellow'){var otherJrs=jointsForExercise(k);for(var i2=0;i2<jrs.length;i2++){if(otherJrs.indexOf(jrs[i2])>=0)return{ok:true,reason:' Caution: '+jrs[i2]+' may be inflamed.',protocol:INJURY_PROTOCOLS[jrs[i2]]||null,joint:jrs[i2]};}}}
+ for(var k in pf){if(pf[k]==='yellow'){var otherJrs=jointsForExercise(k);for(var i2=0;i2<jrs.length;i2++){if(otherJrs.indexOf(jrs[i2])>=0)return{ok:true,reason:'🟡 Caution: '+jrs[i2]+' may be inflamed.',protocol:INJURY_PROTOCOLS[jrs[i2]]||null,joint:jrs[i2]};}}}
  return{ok:true,reason:null};
  }
  // Rehab-aware exercise suggestion
  function rehabSuggest(ex,goal,age,hist,pf,fatigueAdj){
  var safety=isExerciseSafeForInjuries(ex,pf);
- if(!safety.ok)return{w:null,r:null,rpe:null,e1RM:null,exp:' INJURY: '+safety.reason,blocked:true,safety:safety};
+ if(!safety.ok)return{w:null,r:null,rpe:null,e1RM:null,exp:'⛔ INJURY: '+safety.reason,blocked:true,safety:safety};
  var base=suggestLoad(ex,goal,age,hist,fatigueAdj);
  // If inflammation, cap RPE further
- if(safety.reason&&safety.reason.indexOf('')>=0&&base.w>0){
+ if(safety.reason&&safety.reason.indexOf('🟡')>=0&&base.w>0){
  base.rpe=Math.min(base.rpe,7);
- base.exp=' '+safety.reason+' RPE capped at 7 for safety.';
+ base.exp='🟡 '+safety.reason+' RPE capped at 7 for safety.';
  }
  return base;
  }
@@ -5697,11 +5697,11 @@ select option{background:var(--card)}
  var isTop=name===top&&top;
  var ri=recIdx[name];
  var blocked=!s.ok||(pf&&pf[name]==='red');
- var safeWarn=s.reason&&s.reason.indexOf('')>=0;
+ var safeWarn=s.reason&&s.reason.indexOf('🟡')>=0;
  var chipCls='ex-sel-chip'+(chosen===name?' selected':'')+(blocked?' rehab-ex-blocked':'')+(safeWarn?' rehab-ex-safe':'')+(isTop?' pref-top':'')+(ri>=0&&ri<3?' chip-rec':'');
  var eq=equipTag(name);
  html+='<button class="'+chipCls+'" data-ename="'+esc(en)+'" data-exval="'+esc(name)+'" title="'+esc(name)+'">'
- +(blocked?' ':(safeWarn?' ':''))
+ +(blocked?'⛔ ':(safeWarn?' ':''))
  +(isTop?'<span class="pref-star">★ </span>':'')
  +(ri===0?'<span class="rec-badge">✦ '+_('rec_badge')+'</span>':(ri===1||ri===2?'<span class="rec-badge">✦</span>':''))
  +(EX_TR[name]?exDisplay(name):esc(name))
@@ -5779,14 +5779,14 @@ select option{background:var(--card)}
  g.slots.forEach(function(ex){
  var pf0=pf;
  var safety=isExerciseSafeForInjuries(ex.n,pf0);
- var exClass=pf0&&pf0[ex.n]==='red'?'rehab-ex-blocked':(!safety.ok?'rehab-ex-blocked':(safety.reason&&safety.reason.indexOf('')>=0?'rehab-ex-safe':''));
+ var exClass=pf0&&pf0[ex.n]==='red'?'rehab-ex-blocked':(!safety.ok?'rehab-ex-blocked':(safety.reason&&safety.reason.indexOf('🟡')>=0?'rehab-ex-safe':''));
  html+='<div class="ex-sel-row '+exClass+'" data-muscle="'+ex.p+'" data-day="'+di+'">'+
  '<span class="esr-lbl">'+exLinkHtml(ex.n)+'</span>'+
  rowBadgesHtml(ex.n)+
  lastPerfHtml(ex.n,hist)+
  '<button class="ex-guide-toggle" type="button" data-slot="'+esc(ex.n)+'" title="'+_('how_to')+'">'+_('how_to')+' ▾</button>'+
  slotChipsHtml(ex.n,ex.p,day);
- if(!safety.ok)html+='<span style="font-size:.45rem;color:#f44336;margin-left:4px"> '+safety.reason+'</span>';
+ if(!safety.ok)html+='<span style="font-size:.45rem;color:#f44336;margin-left:4px">⛔ '+safety.reason+'</span>';
  else if(safety.reason)html+='<span style="font-size:.45rem;color:#FF9800;margin-left:4px">'+safety.reason+'</span>';
  html+='<div class="ex-guide" data-slot="'+esc(ex.n)+'"></div>';
  html+='</div>';
@@ -6643,7 +6643,7 @@ select option{background:var(--card)}
  var safetyHtml='';
  if(safety.warn.length>0){
  var bl=safety.sub;
- safetyHtml='<div class="safety-block">'+safety.warn.map(function(w){return'<strong></strong> '+w}).join('<br>')+(bl?'<div class="sub-option">Try: <strong>'+bl+'</strong></div>':'')+'</div>';
+ safetyHtml='<div class="safety-block">'+safety.warn.map(function(w){return'<strong>⛔</strong> '+w}).join('<br>')+(bl?'<div class="sub-option">Try: <strong>'+bl+'</strong></div>':'')+'</div>';
  }
  var fatigueNote='';
  if(fatigueAdj<0)fatigueNote=' <span style="color:'+(fatigueAdj<=-1?'#f44336':'#FF9800')+';font-size:.5rem;font-weight:600">Readiness fatigue: RPE −'+(Math.abs(fatigueAdj).toFixed(1))+'</span>';
@@ -6665,9 +6665,9 @@ select option{background:var(--card)}
  ceList.forEach(function(c){if(c.name!==ex.n&&(c.f===ex.p||ex.se.indexOf(c.f)>=0))swapChips+='<button class="swap-chip" data-di="'+di+'" data-idx="'+ei+'" data-ex="'+ex.n+'" data-to="'+c.name+'">'+(EX_TR[c.name]?exDisplay(c.name):c.name)+'</button>';});
  var swapHtml=swapChips?'<div class="swap-panel"><div class="swp-title">'+_('swap_title')+'</div><div class="swp-hint">'+_('swap_hint')+'</div>'+swapChips+'</div>':'';
  var painHtml='<div class="pain-group"><span class="pain-lbl">'+_('red')+'</span>'+
- '<button class="pain-btn'+(pfc==='green'?' active-green':'')+'" data-ex="'+ex.n+'" data-p="green"></button>'+
- '<button class="pain-btn'+(pfc==='yellow'?' active-yellow':'')+'" data-ex="'+ex.n+'" data-p="yellow"></button>'+
- '<button class="pain-btn'+(pfc==='red'?' active-red':'')+'" data-ex="'+ex.n+'" data-p="red"></button></div>';
+ '<button class="pain-btn'+(pfc==='green'?' active-green':'')+'" data-ex="'+ex.n+'" data-p="green">🟢</button>'+
+ '<button class="pain-btn'+(pfc==='yellow'?' active-yellow':'')+'" data-ex="'+ex.n+'" data-p="yellow">🟡</button>'+
+ '<button class="pain-btn'+(pfc==='red'?' active-red':'')+'" data-ex="'+ex.n+'" data-p="red">🔴</button></div>';
  var restSec=m.t==='compound'?240:150;
  var restLabel=m.t==='compound'?_('timer_compound'):_('timer_isolation');
  return {cc:cc,sid:sid,titleInnerHtml:titleInnerHtml,metaHtml:metaHtml,prNoteHtml:prNoteHtml,safetyHtml:safetyHtml,suggestHtml:suggestHtml,painHtml:painHtml,swapHtml:swapHtml,restSec:restSec,restLabel:restLabel,sugg:sugg};
@@ -7295,7 +7295,7 @@ select option{background:var(--card)}
  Object.keys(pf).forEach(function(ex){
  if(pf[ex]==='red'||pf[ex]==='yellow'){
  var protocol=rehabForExercise(ex,pf);
- rh+='<div style="padding:4px 0;border-bottom:1px solid rgba(250,250,248,.02)"><strong>'+(pf[ex]==='red'?'':'')+' '+ex+'</strong> → ';
+ rh+='<div style="padding:4px 0;border-bottom:1px solid rgba(250,250,248,.02)"><strong>'+(pf[ex]==='red'?'🔴':'🟡')+' '+ex+'</strong> → ';
  rh+=protocol?protocol.name+' <span style="font-size:.5rem;color:rgba(250,250,248,.2)">('+protocol.icon+')</span>':'—';
  rh+=' · <a href="https://wa.me/201040796017?text='+encodeURIComponent('Hi Coach Anas, I need help with my '+ex+' injury ('+(protocol?protocol.name:ex)+'). Please advise.')+'" target="_blank" style="color:#F4C93B;font-size:.5rem">'+_('hist_book_consult')+'</a></div>';
  }

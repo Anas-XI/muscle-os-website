@@ -566,10 +566,10 @@ select option{background:#1E1E2A;color:#FAFAF8}
  blocked = true;
  substitute = meta.subs && meta.subs.length > 0 ? meta.subs[0] : null;
  severity = 'danger';
- warnings.push(' Pain reported. Exercise blocked. '+(substitute?'Suggested substitute: '+substitute+'.':'Consult a professional.'));
+ warnings.push('🔴 Pain reported. Exercise blocked. '+(substitute?'Suggested substitute: '+substitute+'.':'Consult a professional.'));
  } else if(pain === 'yellow'){
  severity = 'warn';
- warnings.push(' Pain reported (yellow). Load capped, consider exercise substitution.');
+ warnings.push('🟡 Pain reported (yellow). Load capped, consider exercise substitution.');
  }
 
  // 2. Weekly volume check (MRV ceiling)
@@ -1039,7 +1039,7 @@ select option{background:#1E1E2A;color:#FAFAF8}
  if(safety.warnings.length > 0){
  const isBlocked = safety.blocked;
  html += '<div class="'+(isBlocked?'safety-block':'safety-warning')+'">';
- safety.warnings.forEach(w => { html += '<strong>'+(isBlocked?' ':'')+'</strong>'+w+'<br>'; });
+ safety.warnings.forEach(w => { html += '<strong>'+(isBlocked?'⛔ ':'')+'</strong>'+w+'<br>'; });
  if(isBlocked && safety.substitute){
  html += '<div class="sub-option">Suggested substitute: <strong>'+safety.substitute+'</strong>. Log below as a replacement.</div>';
  }
@@ -1064,9 +1064,9 @@ select option{background:#1E1E2A;color:#FAFAF8}
  const currentPain = painFlags[ex.name] || 'green';
  html += '<div class="pain-group">'+
  '<span style="font-size:.55rem;color:rgba(250,250,248,.2);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-right:4px;line-height:28px">Pain:</span>'+
- '<button class="pain-btn'+(currentPain==='green'?' active-green':'')+'" data-ex="'+ex.name+'" data-pain="green"></button>'+
- '<button class="pain-btn'+(currentPain==='yellow'?' active-yellow':'')+'" data-ex="'+ex.name+'" data-pain="yellow"></button>'+
- '<button class="pain-btn'+(currentPain==='red'?' active-red':'')+'" data-ex="'+ex.name+'" data-pain="red"></button>'+
+ '<button class="pain-btn'+(currentPain==='green'?' active-green':'')+'" data-ex="'+ex.name+'" data-pain="green">🟢</button>'+
+ '<button class="pain-btn'+(currentPain==='yellow'?' active-yellow':'')+'" data-ex="'+ex.name+'" data-pain="yellow">🟡</button>'+
+ '<button class="pain-btn'+(currentPain==='red'?' active-red':'')+'" data-ex="'+ex.name+'" data-pain="red">🔴</button>'+
  '</div>';
 
  // Set logger

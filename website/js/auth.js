@@ -48,7 +48,7 @@
  <div class="mos-auth-modal">
  <h2 id="mosAuthTitle">Sign In to Continue</h2>
  <p id="mosAuthDesc">Sign in with Google to start your 14-day free trial, or access your purchased tools.</p>
-
+ 
  <div id="mosAuthStep1">
  <div id="mosGoogleSignInBtn" style="display:flex;justify-content:center"></div>
  <div class="mos-auth-error" id="mosAuthStep1Error">Sign-in failed. Please try again.</div>
@@ -80,7 +80,7 @@
 
  function getGs(){ try { var g = JSON.parse(localStorage.getItem(GS_KEY)); return (g && g.session) ? g : null; } catch(e){ return null; } }
  function showErr(id, msg){ var el = document.getElementById(id); el.style.display = 'block'; el.textContent = msg; }
-
+ 
  function checkAccess() {
  var gs = getGs();
  if (!gs) {
@@ -138,12 +138,12 @@
  var host = document.getElementById('mosGoogleSignInBtn');
  if(!host || host.getAttribute('data-gsi')) return;
  host.setAttribute('data-gsi', '1');
-
- if(typeof google === 'undefined' || !google.accounts || !google.accounts.id){
- setTimeout(initGsi, 300);
- return;
+ 
+ if(typeof google === 'undefined' || !google.accounts || !google.accounts.id){ 
+ setTimeout(initGsi, 300); 
+ return; 
  }
-
+ 
  google.accounts.id.initialize({
  client_id: GOOGLE_CLIENT_ID,
  callback: function(resp){
@@ -167,11 +167,11 @@
  var btn = this;
  var code = document.getElementById('mosSubCode').value.trim().toUpperCase();
  if(!code){ showErr('mosSubError', 'Invalid code.'); return; }
-
+ 
  btn.disabled = true;
  btn.textContent = 'Checking...';
  var gs = getGs();
-
+ 
  fetch(API_BASE + '/api/verify-code', {
  method: 'POST',
  headers: { 'Content-Type': 'application/json' },

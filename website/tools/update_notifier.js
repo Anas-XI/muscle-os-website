@@ -1,6 +1,6 @@
 (function() {
  const APP_VERSION = 'v4.0.2';
-
+ 
  // Auto force refresh if client version is older than v3.1.0
  try {
  const currentVer = localStorage.getItem('mos_app_ver');
@@ -14,7 +14,7 @@
  }
  }
  } catch(e) {}
-
+ 
  // Create & inject update notification UI styles
  const style = document.createElement('style');
  style.textContent = `
@@ -89,7 +89,7 @@
 
  function showUpdateBanner(msg) {
  if (document.getElementById('updateBannerOverlay')) return;
-
+ 
  const banner = document.createElement('div');
  banner.id = 'updateBannerOverlay';
  banner.className = 'update-banner-overlay';
