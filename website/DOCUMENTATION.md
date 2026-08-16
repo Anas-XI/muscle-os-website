@@ -282,16 +282,21 @@ TAGS: tdee_subscribe_top, tdee_subscribe_bottom, footer_wa
 
 ```
 HUB SHELL:
-├── Header: MOS COMBINED brand + status chip (Access active / Trial ·Nd / Locked) + "Get Both" CTA → order?product=both_tools
+├── Header: MOS COMBINED brand + status chip (Access active / Trial ·Nd / Locked) + "Get Access" CTA → order?product=omni_hub
 ├── Tab bar (bottom): Training (MOS-HYPERKINETIX) ⇄ Nutrition (MOS-METABOLIX)
 ├── Iframes: same-origin → SHARED localStorage (subscription, trial, lang, theme) between hub and both apps
 ├── Lazy load: inactive tab's iframe boots on first open
 ├── Persistence: active tab restored from sessionStorage (mos_hub_tab)
 ├── i18n: EN/AR via shared mos_lang key + RTL flip
 ├── CSP: connect-src allows the access-control worker; nosniff + referrer policy
-└── Status chip logic: mos_subscription (active+expiry) OR 7-day trial (mos_trial_start) — mirrors training_tool
+├── Hub mode: shell sets sessionStorage mos_hub_mode='1' BEFORE iframes load — tool auth gates
+│   detect it (self !== top && mos_hub_mode) and require productId 'omni_hub' instead of their own
+└── Status chip logic: mos_subscription (prodId omni_hub OR master/OWNER, active+expiry) OR 7-day trial (mos_trial_start)
 
-ACCESS: no separate product — reuses `both_tools` (TB- codes, products ['training_tool','tdee_adaptive_engine']) and MA (master).
+ACCESS: dedicated product `omni_hub` — OH- codes, products ['omni_hub'], 400 EGP/mo.
+        Individual tool codes (TR-/TD-/TB-) are REJECTED inside the hub; MA (master) still unlocks it.
+HUB-ONLY GATES: tools' auth IIFEs compute prodOk as (plan master|OWNER) OR (hubMode ? prodId==='omni_hub' : prodId===PRODUCT_ID);
+        trial is disabled in hub mode; js/auth.js verify posts window.__MOS_PRODUCT__ (omni_hub in hub) instead of all_access.
 PAYWALL: handled inside each embedded app; nutrition tab needs its own unlock (TDEE has no trial logic).
 OFFLINE: precached in tools/sw.js (ASSETS), network-first.
 ```
@@ -316,6 +321,7 @@ OFFLINE: precached in tools/sw.js (ASSETS), network-first.
 | Training App | 300 EGP/mo | Subscription | 30 days |
 | TDEE Adaptive Engine | 200 EGP/mo | Subscription | 30 days |
 | Both Tools (Combined App bundle) | 400 EGP/mo | Subscription | 30 days |
+| OMNI HUB (Combined App, standalone product) | 400 EGP/mo | Subscription | 30 days |
 | Training Book | 500 EGP | Purchase | Lifetime |
 | Nutrition Book | 500 EGP | Purchase | Lifetime |
 | Both Books | 800 EGP | Purchase | Lifetime |
@@ -618,6 +624,7 @@ When Anas approves an order, the Worker generates a code based on the product:
 | `training_tool` | `TR-` | `['training_tool']` | 30 days | `single_product` |
 | `tdee_adaptive_engine` | `TD-` | `['tdee_adaptive_engine']` | 30 days | `single_product` |
 | `both_tools` | `TB-` | `['training_tool', 'tdee_adaptive_engine']` | 30 days | `single_product` |
+| `omni_hub` | `OH-` | `['omni_hub']` | 30 days | `single_product` |
 | `training_book` | `BK-` | `['training_book']` | Lifetime | `single_product` |
 | `nutrition_book` | `BN-` | `['nutrition_book']` | Lifetime | `single_product` |
 | `both_books` | `BB-` | `['training_book', 'nutrition_book']` | Lifetime | `single_product` |

@@ -78,56 +78,90 @@
  `;
  document.body.appendChild(banner);
 
- function getGs(){ try { var g = JSON.parse(localStorage.getItem(GS_KEY)); return (g && g.session) ? g : null; } catch(e){ return null; } }
- function showErr(id, msg){ var el = document.getElementById(id); el.style.display = 'block'; el.textContent = msg; }
- 
- function checkAccess() {
- var gs = getGs();
- if (!gs) {
- document.getElementById('mosAuthOverlay').style.display = 'flex';
- initGsi();
- return;
- }
+function getGs(){ try { var g = JSON.parse(localStorage.getItem(GS_KEY)); return (g && g.session) ? g : null; } catch(e){ return null; } }
+  function showErr(id, msg){ var el = document.getElementById(id); el.style.display = 'block'; el.textContent = msg; }
 
- fetch(API_BASE + '/api/check-session', {
- method: 'POST',
- headers: { 'Content-Type': 'application/json' },
- body: JSON.stringify({ session: gs.session })
- }).then(r => r.json()).then(data => {
- if (data && data.valid) {
- // We have a valid session. Check trial & verified codes.
- var hasActiveSub = data.subscriptions && data.subscriptions.length > 0; // simplistic check
- var isProTool = !window.location.pathname.includes('/books/');
+  // Allow the page's own auth gate (tool IIFE) to declare the active product and local access state.
+  function getGate(){
+    try {
+      if (window.__MOS_GATE__) return window.__MOS_GATE__() || null;
+    } catch(e){}
+    return null;
+  }
+  function getProductId(){
+    try { if (window.__MOS_PRODUCT__) return window.__MOS_PRODUCT__; } catch(e){}
+    return 'all_access';
+  }
 
- if (isProTool && data.trialDaysRemaining > 0) {
- // In trial and on a pro tool page
- document.getElementById('mosAuthOverlay').style.display = 'none';
- var bannerEl = document.getElementById('mosTrialBanner');
- document.getElementById('mosTrialDays').innerText = data.trialDaysRemaining;
- bannerEl.style.display = 'flex';
- } else if (hasActiveSub) {
- // Has sub (either trial expired, or on a book page with a sub)
- document.getElementById('mosAuthOverlay').style.display = 'none';
- } else {
- // Trial expired or not applicable, and no sub -> Show paywall
- document.getElementById('mosAuthTitle').innerText = isProTool ? 'Trial Expired' : 'Access Restricted';
- document.getElementById('mosAuthDesc').innerText = isProTool ? 'Your 14-day free trial has expired. Please enter an access code to continue.' : 'You need a verified access code to view this content.';
- document.getElementById('mosAuthStep1').style.display = 'none';
- document.getElementById('mosAuthStep2').style.display = 'block';
- document.getElementById('mosAuthOverlay').style.display = 'flex';
- }
- } else {
- // Invalid session
- localStorage.removeItem(GS_KEY);
- document.getElementById('mosAuthOverlay').style.display = 'flex';
- initGsi();
- }
- }).catch(e => {
- // Safe default: Show modal if no local sub cached.
- document.getElementById('mosAuthOverlay').style.display = 'flex';
- initGsi();
- });
- }
+  function hasProductSub(subscriptions, productId){
+    for (var i = 0; i < subscriptions.length; i++) {
+      var s = subscriptions[i];
+      if (!s) continue;
+      if (s.products === 'all') return true;
+      if (Array.isArray(s.products) && s.products.indexOf(productId) !== -1) return true;
+    }
+    return false;
+  }
+
+  function checkAccess() {
+  var gate = getGate();
+  if (gate && gate.active) {
+  // Valid cached/verified subscription for this page's product — no gate needed.
+  document.getElementById('mosAuthOverlay').style.display = 'none';
+  var oldOv = document.getElementById('subOverlay');
+  if (oldOv) oldOv.style.display = 'none';
+  return;
+  }
+  var isHub = !!(gate && gate.hub);
+  var productId = getProductId();
+  var gs = getGs();
+  if (!gs) {
+  // No Google session: if the page has its own code-entry overlay (tool paywall),
+  // leave it visible instead of stacking our modal on top; otherwise show ours.
+  var subOverlay = document.getElementById('subOverlay');
+  if (subOverlay) return;
+  document.getElementById('mosAuthOverlay').style.display = 'flex';
+  initGsi();
+  return;
+  }
+
+  fetch(API_BASE + '/api/check-session', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ session: gs.session })
+  }).then(r => r.json()).then(data => {
+  if (data && data.valid) {
+  var isProTool = !window.location.pathname.includes('/books/');
+  var hasActiveSub = data.subscriptions && hasProductSub(data.subscriptions, productId);
+
+  if (isProTool && !isHub && data.trialDaysRemaining > 0) {
+  // In trial and on a pro tool page (trial does not apply inside the OMNI HUB)
+  document.getElementById('mosAuthOverlay').style.display = 'none';
+  var bannerEl = document.getElementById('mosTrialBanner');
+  document.getElementById('mosTrialDays').innerText = data.trialDaysRemaining;
+  bannerEl.style.display = 'flex';
+  } else if (hasActiveSub) {
+  document.getElementById('mosAuthOverlay').style.display = 'none';
+  } else {
+  document.getElementById('mosAuthTitle').innerText = isProTool ? 'Trial Expired' : 'Access Restricted';
+  document.getElementById('mosAuthDesc').innerText = isProTool ? 'Your 14-day free trial has expired. Please enter an access code to continue.' : 'You need a verified access code to view this content.';
+  document.getElementById('mosAuthStep1').style.display = 'none';
+  document.getElementById('mosAuthStep2').style.display = 'block';
+  document.getElementById('mosAuthOverlay').style.display = 'flex';
+  }
+  } else {
+  // Invalid session
+  localStorage.removeItem(GS_KEY);
+  document.getElementById('mosAuthOverlay').style.display = 'flex';
+  initGsi();
+  }
+  }).catch(e => {
+  if (gate && !gate.active) {
+  document.getElementById('mosAuthOverlay').style.display = 'flex';
+  initGsi();
+  }
+  });
+  }
 
  function finishGoogle(data) {
  localStorage.setItem(GS_KEY, JSON.stringify({ session: data.session, email: data.email, name: data.name || '', ts: Date.now() }));
@@ -172,24 +206,25 @@
  btn.textContent = 'Checking...';
  var gs = getGs();
  
- fetch(API_BASE + '/api/verify-code', {
- method: 'POST',
- headers: { 'Content-Type': 'application/json' },
- body: JSON.stringify({ code: code, productId: 'all_access', session: gs ? gs.session : undefined }) // Hardcoded product for now or extract from meta
- }).then(r => r.json()).then(data => {
- if(data && data.valid){
- document.getElementById('mosSubError').style.display = 'none';
- document.getElementById('mosSubSuccess').style.display = 'block';
- setTimeout(() => window.location.reload(), 1500);
- } else {
- var msg = 'Invalid code. Please check and try again.';
- if(data && data.error === 'code_used_by_other') msg = 'This code is already linked to another account.';
- if(data && data.error === 'code_expired') msg = 'This code has expired.';
- showErr('mosSubError', msg);
- btn.disabled = false;
- btn.textContent = 'Verify';
- }
- }).catch(e => {
+fetch(API_BASE + '/api/verify-code', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ code: code, productId: getProductId(), session: gs ? gs.session : undefined }) // Product-aware: page gate declares its product, fallback 'all_access'
+  }).then(r => r.json()).then(data => {
+  if(data && data.valid){
+  document.getElementById('mosSubError').style.display = 'none';
+  document.getElementById('mosSubSuccess').style.display = 'block';
+  setTimeout(() => window.location.reload(), 1500);
+  } else {
+  var msg = 'Invalid code. Please check and try again.';
+  if(data && data.error === 'code_used_by_other') msg = 'This code is already linked to another account.';
+  if(data && data.error === 'code_expired') msg = 'This code has expired.';
+  if(data && data.error === 'wrong_product') msg = 'This code does not grant access to this product.';
+  showErr('mosSubError', msg);
+  btn.disabled = false;
+  btn.textContent = 'Verify';
+  }
+  }).catch(e => {
  showErr('mosSubError', 'Network error.');
  btn.disabled = false;
  btn.textContent = 'Verify';
@@ -202,9 +237,14 @@
  window.location.reload();
  });
 
- // Hide any old auth overlay if it exists
- var oldOverlay = document.getElementById('subOverlay');
- if (oldOverlay) oldOverlay.style.display = 'none';
+// Hide the old per-tool overlay only when we're showing our own gate over it.
+  var oldOverlay = document.getElementById('subOverlay');
+  if (oldOverlay) {
+    try {
+      var gate = getGate();
+      if (!gate || !gate.active) oldOverlay.style.display = 'none';
+    } catch(e){ oldOverlay.style.display = 'none'; }
+  }
 
  // Start the check
  checkAccess();

@@ -155,7 +155,7 @@
     </div>
     <div class="hub-side">
       <span class="status-chip locked" id="statusChip" data-i18n="hub_locked">Locked</span>
-      <a class="hub-cta" href="../order.html?product=both_tools" data-i18n="hub_cta">Get Both</a>
+      <a class="hub-cta" href="../order.html?product=omni_hub" data-i18n="hub_cta">Get Access</a>
     </div>
   </header>
 
@@ -183,7 +183,7 @@
         hub_locked: 'Locked',
         hub_trial: 'Trial active',
         hub_ok: 'Access active',
-        hub_cta: 'Get Both',
+        hub_cta: 'Get Access',
         hub_tab_training: 'Training',
         hub_tab_nutrition: 'Nutrition'
       },
@@ -192,13 +192,27 @@
         hub_locked: '\u0645\u0642\u0641\u0644',
         hub_trial: '\u0627\u0644\u062A\u062C\u0631\u0628\u0629 \u0645\u0641\u0639\u0644\u0629',
         hub_ok: '\u0627\u0644\u0648\u0635\u0648\u0644 \u0645\u0641\u0639\u0644',
-        hub_cta: '\u0627\u062D\u0635\u0644 \u0639\u0644\u0649 \u0627\u0644\u0627\u062B\u0646\u064A\u0646',
+        hub_cta: '\u0627\u0634\u062A\u0631\u064D \u0627\u0644\u0648\u0635\u0648\u0644',
         hub_tab_training: '\u0627\u0644\u062A\u062F\u0631\u064A\u0628',
         hub_tab_nutrition: '\u0627\u0644\u062A\u063A\u0630\u064A\u0629'
       }
     };
     var TRIAL_DAYS = 7;
+    var HUB_PRODUCT = 'omni_hub';
     var HUB_TAB_KEY = 'mos_hub_tab';
+    // Mark this session as hub mode BEFORE the tool iframes load, so their auth gates
+    // know to require an OMNI HUB product, not the individual tool product.
+    try { sessionStorage.setItem('mos_hub_mode', '1'); } catch(e){}
+    function deriveProd(code, plan){
+      var p = (code || '').toUpperCase();
+      if (plan === 'master') return 'all_access';
+      if (p.indexOf('OH-') === 0) return 'omni_hub';
+      if (p.indexOf('TR-') === 0) return 'training_tool';
+      if (p.indexOf('MA-') === 0) return 'all_access';
+      if (p.indexOf('TD-') === 0) return 'tdee_adaptive_engine';
+      if (p.indexOf('TB-') === 0) return 'both_tools';
+      return 'all_access';
+    }
     var lang = localStorage.getItem('mos_lang') === 'ar' ? 'ar' : 'en';
     var t = function(k){ return (I18N[lang] && I18N[lang][k]) || I18N.en[k] || k; };
     document.documentElement.lang = lang;
@@ -210,9 +224,11 @@
     var TRIAL_MS = TRIAL_DAYS * 24 * 60 * 60 * 1000;
     function refreshStatus(){
       var chip = document.getElementById('statusChip');
-      var sub = null;
-      try { sub = JSON.parse(localStorage.getItem('mos_subscription') || 'null'); } catch(e){}
-      var activeSub = !!(sub && sub.active && sub.expiry && new Date(sub.expiry + 'T23:59:59') > new Date());
+var sub = null;
+    try { sub = JSON.parse(localStorage.getItem('mos_subscription') || 'null'); } catch(e){}
+    var subProd = sub ? (sub.prodId || deriveProd(sub.code, sub.plan)) : null;
+    var prodOk = !!sub && (sub.plan === 'master' || sub.code === 'OWNER' || subProd === HUB_PRODUCT);
+    var activeSub = !!(sub && sub.active && prodOk && sub.expiry && new Date(sub.expiry + 'T23:59:59') > new Date());
       var trialStart = localStorage.getItem('mos_trial_start');
       var trialActive = !!(trialStart && (Date.now() - new Date(trialStart).getTime()) < TRIAL_MS);
       if (activeSub) {
