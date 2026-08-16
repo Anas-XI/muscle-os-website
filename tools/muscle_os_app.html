@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Muscle OS - Unified Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0D0E12;
+    color: #FAFAF8;
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height for iOS */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .app-container {
+    flex: 1;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+
+  iframe.active {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 10;
+  }
+
+  /* Bottom Tab Bar */
+  .tab-bar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: rgba(20, 21, 26, 0.98);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(244, 201, 59, 0.15);
+    padding: 12px 10px calc(12px + env(safe-area-inset-bottom));
+    box-shadow: 0 -8px 24px rgba(0,0,0,0.4);
+    position: relative;
+    z-index: 100;
+  }
+
+  .tab-item {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px;
+    cursor: pointer;
+    color: rgba(250, 250, 248, 0.4);
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .tab-item:active {
+    transform: scale(0.95);
+  }
+
+  .tab-icon {
+    font-size: 1.4rem;
+    filter: grayscale(100%) opacity(0.6);
+    transition: all 0.2s ease;
+  }
+
+  .tab-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Active Tab State */
+  .tab-item.active {
+    color: #F4C93B;
+  }
+  
+  .tab-item.active .tab-icon {
+    filter: none;
+    transform: translateY(-2px);
+  }
+</style>
+</head>
+<body>
+
+  <div class="app-container">
+    <iframe id="frame-training" src="training_tool.html" class="active"></iframe>
+    <iframe id="frame-nutrition" src="tdee_adaptive_engine.html"></iframe>
+  </div>
+
+  <nav class="tab-bar">
+    <div class="tab-item active" data-target="frame-training">
+      <span class="tab-icon">🏋️‍♂️</span>
+      <span class="tab-label">Training</span>
+    </div>
+    <div class="tab-item" data-target="frame-nutrition">
+      <span class="tab-icon">🥩</span>
+      <span class="tab-label">Nutrition</span>
+    </div>
+  </nav>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tabs = document.querySelectorAll('.tab-item');
+      const frames = document.querySelectorAll('iframe');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          // Remove active classes
+          tabs.forEach(t => t.classList.remove('active'));
+          frames.forEach(f => f.classList.remove('active'));
+
+          // Add active class to clicked tab and corresponding frame
+          tab.classList.add('active');
+          const targetId = tab.getAttribute('data-target');
+          document.getElementById(targetId).classList.add('active');
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -2080,5 +2080,12 @@ select option{background:#1A1B26;color:#FAFAF8}
   <a class="cta-secondary" href="../order.html?product=tdee_adaptive_engine">Buy Access</a>
 </div>
 <script src="./update_notifier.js"></script>
+<script>
+if (window.self !== window.top) {
+  var style = document.createElement('style');
+  style.innerHTML = '#mobileCtaBar { display: none !important; } body { padding-bottom: 30px !important; }';
+  document.head.appendChild(style);
+}
+</script>
 </body>
 </html>
