@@ -8524,5 +8524,12 @@ window.closeTrainingTourModal = function(){
  <a class="cta-secondary" href="../order.html?product=training_tool">Buy Access</a>
 </div>
 <script src="./update_notifier.js"></script>
+<script>
+if (window.self !== window.top) {
+  var style = document.createElement('style');
+  style.innerHTML = '#mobileCtaBar { display: none !important; } body { padding-bottom: 30px !important; }';
+  document.head.appendChild(style);
+}
+</script>
 </body>
 </html>
