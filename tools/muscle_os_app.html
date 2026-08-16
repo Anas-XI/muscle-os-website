@@ -5,30 +5,91 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Muscle OS - Unified Hub</title>
+<meta name="description" content="Muscle OS Combined App — training (MOS-HYPERKINETIX) and nutrition (MOS-METABOLIX) together in one unified interface.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev; frame-ancestors 'self'; base-uri 'self'">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="referrer" content="no-referrer">
+<title>Muscle OS — Combined App</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { background: #0D0E12; }
   body {
     font-family: 'Inter', sans-serif;
     background: #0D0E12;
     color: #FAFAF8;
     height: 100vh;
-    height: 100dvh; /* Dynamic viewport height for iOS */
+    height: 100dvh;
     overflow: hidden;
     display: flex;
     flex-direction: column;
   }
-  
+  body[dir="rtl"] .hub-brand, body[dir="rtl"] .tab-label { letter-spacing: 0; }
+  .hub-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 14px;
+    background: rgba(13, 14, 18, 0.98);
+    border-bottom: 1px solid rgba(244, 201, 59, 0.15);
+    z-index: 200;
+  }
+  .hub-brand {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+    color: #FAFAF8;
+    line-height: 1.2;
+  }
+  .hub-brand b { color: #F4C93B; }
+  .hub-brand small {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.4px;
+    color: rgba(250, 250, 248, 0.45);
+    text-transform: none;
+  }
+  .hub-side { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .status-chip {
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 46vw;
+  }
+  .status-chip.ok { background: rgba(76, 175, 80, 0.15); color: #4CAF50; border: 1px solid rgba(76, 175, 80, 0.35); }
+  .status-chip.trial { background: rgba(244, 201, 59, 0.13); color: #F4C93B; border: 1px solid rgba(244, 201, 59, 0.3); }
+  .status-chip.locked { background: rgba(250, 250, 248, 0.06); color: rgba(250, 250, 248, 0.55); border: 1px solid rgba(250, 250, 248, 0.12); }
+  .hub-cta {
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: #F4C93B;
+    color: #0D0E12;
+    text-decoration: none;
+    white-space: nowrap;
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+  }
+  .hub-cta:active { transform: scale(0.96); }
   .app-container {
     flex: 1;
     position: relative;
     width: 100%;
     overflow: hidden;
   }
-
   iframe {
     position: absolute;
     top: 0;
@@ -40,14 +101,11 @@
     pointer-events: none;
     transition: opacity 0.25s ease;
   }
-
   iframe.active {
     opacity: 1;
     pointer-events: auto;
     z-index: 10;
   }
-
-  /* Bottom Tab Bar */
   .tab-bar {
     display: flex;
     justify-content: space-around;
@@ -57,11 +115,10 @@
     -webkit-backdrop-filter: blur(12px);
     border-top: 1px solid rgba(244, 201, 59, 0.15);
     padding: 12px 10px calc(12px + env(safe-area-inset-bottom));
-    box-shadow: 0 -8px 24px rgba(0,0,0,0.4);
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.4);
     position: relative;
     z-index: 100;
   }
-
   .tab-item {
     flex: 1;
     text-align: center;
@@ -74,18 +131,10 @@
     color: rgba(250, 250, 248, 0.4);
     transition: all 0.2s ease;
     -webkit-tap-highlight-color: transparent;
+    user-select: none;
   }
-
-  .tab-item:active {
-    transform: scale(0.95);
-  }
-
-  .tab-icon {
-    font-size: 1.4rem;
-    filter: grayscale(100%) opacity(0.6);
-    transition: all 0.2s ease;
-  }
-
+  .tab-item:active { transform: scale(0.95); }
+  .tab-icon { font-size: 1.4rem; filter: grayscale(100%) opacity(0.6); transition: all 0.2s ease; }
   .tab-label {
     font-family: 'Oswald', sans-serif;
     font-size: 0.7rem;
@@ -93,54 +142,123 @@
     text-transform: uppercase;
     letter-spacing: 1px;
   }
-
-  /* Active Tab State */
-  .tab-item.active {
-    color: #F4C93B;
-  }
-  
-  .tab-item.active .tab-icon {
-    filter: none;
-    transform: translateY(-2px);
-  }
+  .tab-item.active { color: #F4C93B; }
+  .tab-item.active .tab-icon { filter: none; transform: translateY(-2px); }
 </style>
 </head>
 <body>
 
+  <header class="hub-header">
+    <div class="hub-brand">
+      <b>MOS</b> COMBINED
+      <small data-i18n="hub_sub">Training + Nutrition, one app</small>
+    </div>
+    <div class="hub-side">
+      <span class="status-chip locked" id="statusChip" data-i18n="hub_locked">Locked</span>
+      <a class="hub-cta" href="../order.html?product=both_tools" data-i18n="hub_cta">Get Both</a>
+    </div>
+  </header>
+
   <div class="app-container">
-    <iframe id="frame-training" src="training_tool.html" class="active"></iframe>
-    <iframe id="frame-nutrition" src="tdee_adaptive_engine.html"></iframe>
+    <iframe id="frame-training" src="training_tool.html" class="active" title="Training"></iframe>
+    <iframe id="frame-nutrition" data-src="tdee_adaptive_engine.html" title="Nutrition"></iframe>
   </div>
 
   <nav class="tab-bar">
     <div class="tab-item active" data-target="frame-training">
-      <span class="tab-icon">🏋️‍♂️</span>
-      <span class="tab-label">Training</span>
+      <span class="tab-icon">&#127993;</span>
+      <span class="tab-label" data-i18n="hub_tab_training">Training</span>
     </div>
     <div class="tab-item" data-target="frame-nutrition">
-      <span class="tab-icon">🥩</span>
-      <span class="tab-label">Nutrition</span>
+      <span class="tab-icon">&#129382;</span>
+      <span class="tab-label" data-i18n="hub_tab_nutrition">Nutrition</span>
     </div>
   </nav>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const tabs = document.querySelectorAll('.tab-item');
-      const frames = document.querySelectorAll('iframe');
+  (function(){
+    var I18N = {
+      en: {
+        hub_sub: 'Training + Nutrition, one app',
+        hub_locked: 'Locked',
+        hub_trial: 'Trial active',
+        hub_ok: 'Access active',
+        hub_cta: 'Get Both',
+        hub_tab_training: 'Training',
+        hub_tab_nutrition: 'Nutrition'
+      },
+      ar: {
+        hub_sub: '\u0627\u0644\u062A\u062F\u0631\u064A\u0628 + \u0627\u0644\u062A\u063A\u0630\u064A\u0629 \u0641\u064A \u062A\u0637\u0628\u064A\u0642 \u0648\u0627\u062D\u062F',
+        hub_locked: '\u0645\u0642\u0641\u0644',
+        hub_trial: '\u0627\u0644\u062A\u062C\u0631\u0628\u0629 \u0645\u0641\u0639\u0644\u0629',
+        hub_ok: '\u0627\u0644\u0648\u0635\u0648\u0644 \u0645\u0641\u0639\u0644',
+        hub_cta: '\u0627\u062D\u0635\u0644 \u0639\u0644\u0649 \u0627\u0644\u0627\u062B\u0646\u064A\u0646',
+        hub_tab_training: '\u0627\u0644\u062A\u062F\u0631\u064A\u0628',
+        hub_tab_nutrition: '\u0627\u0644\u062A\u063A\u0630\u064A\u0629'
+      }
+    };
+    var TRIAL_DAYS = 7;
+    var HUB_TAB_KEY = 'mos_hub_tab';
+    var lang = localStorage.getItem('mos_lang') === 'ar' ? 'ar' : 'en';
+    var t = function(k){ return (I18N[lang] && I18N[lang][k]) || I18N.en[k] || k; };
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      el.textContent = t(el.getAttribute('data-i18n'));
+    });
 
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          // Remove active classes
-          tabs.forEach(t => t.classList.remove('active'));
-          frames.forEach(f => f.classList.remove('active'));
+    var TRIAL_MS = TRIAL_DAYS * 24 * 60 * 60 * 1000;
+    function refreshStatus(){
+      var chip = document.getElementById('statusChip');
+      var sub = null;
+      try { sub = JSON.parse(localStorage.getItem('mos_subscription') || 'null'); } catch(e){}
+      var activeSub = !!(sub && sub.active && sub.expiry && new Date(sub.expiry + 'T23:59:59') > new Date());
+      var trialStart = localStorage.getItem('mos_trial_start');
+      var trialActive = !!(trialStart && (Date.now() - new Date(trialStart).getTime()) < TRIAL_MS);
+      if (activeSub) {
+        chip.textContent = t('hub_ok');
+        chip.className = 'status-chip ok';
+      } else if (trialActive) {
+        var left = Math.max(1, Math.ceil((new Date(trialStart).getTime() + TRIAL_MS - Date.now()) / 864e5));
+        chip.textContent = t('hub_trial') + ' \u00B7 ' + left + 'd';
+        chip.className = 'status-chip trial';
+      } else {
+        chip.textContent = t('hub_locked');
+        chip.className = 'status-chip locked';
+      }
+    }
 
-          // Add active class to clicked tab and corresponding frame
-          tab.classList.add('active');
-          const targetId = tab.getAttribute('data-target');
-          document.getElementById(targetId).classList.add('active');
-        });
+    var frames = document.querySelectorAll('iframe');
+    var tabs = document.querySelectorAll('.tab-item');
+    function activate(targetId){
+      tabs.forEach(function(tb){ tb.classList.toggle('active', tb.getAttribute('data-target') === targetId); });
+      frames.forEach(function(f){
+        var on = f.id === targetId;
+        f.classList.toggle('active', on);
+        if (on) {
+          try { sessionStorage.setItem(HUB_TAB_KEY, f.id); } catch(e){}
+          var src = f.getAttribute('data-src');
+          if (src && !f.getAttribute('src')) { f.setAttribute('src', src); }
+        }
+      });
+    }
+    tabs.forEach(function(tab){
+      tab.addEventListener('click', function(){
+        activate(tab.getAttribute('data-target'));
       });
     });
+    var saved = null;
+    try { saved = sessionStorage.getItem(HUB_TAB_KEY); } catch(e){}
+    if (saved === 'frame-nutrition') {
+      var nut = document.getElementById('frame-nutrition');
+      nut.setAttribute('src', nut.getAttribute('data-src'));
+    }
+    activate(saved === 'frame-nutrition' ? 'frame-nutrition' : 'frame-training');
+    refreshStatus();
+    window.addEventListener('storage', function(e){
+      if (e.key === 'mos_subscription' || e.key === 'mos_trial_start') refreshStatus();
+    });
+  })();
   </script>
 </body>
 </html>

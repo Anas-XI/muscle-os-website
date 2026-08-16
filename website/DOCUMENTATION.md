@@ -70,7 +70,8 @@
 │   └── analytics.html          ANALYTICS DASHBOARD (key-gated, funnel + order stats from Sheet)
 │
 ├── tools/
-│   ├── index.html              Tools listing (6 cards)
+│   ├── index.html              Tools listing (7 cards: combined + 2 pro + 4 free)
+│   ├── muscle_os_app.html      COMBINED APP: Training + Nutrition in one hub (tabbed iframes)
 │   ├── training_tool.html      FULL APP: program builder, session logger, periodization
 │   ├── tdee_adaptive_engine.html  Multi-tab TDEE tracker + dashboard + trend chart
 │   ├── tdee_macro_calculator.html  Free TDEE + macro calculator
@@ -277,7 +278,25 @@ PAYWALL: MosAccess.checkOrShow('tdee_adaptive_engine')
 TAGS: tdee_subscribe_top, tdee_subscribe_bottom, footer_wa
 ```
 
-### 4.3 Free Tools (no paywall)
+### 4.3 Combined App (`tools/muscle_os_app.html`)
+
+```
+HUB SHELL:
+├── Header: MOS COMBINED brand + status chip (Access active / Trial ·Nd / Locked) + "Get Both" CTA → order?product=both_tools
+├── Tab bar (bottom): Training (MOS-HYPERKINETIX) ⇄ Nutrition (MOS-METABOLIX)
+├── Iframes: same-origin → SHARED localStorage (subscription, trial, lang, theme) between hub and both apps
+├── Lazy load: inactive tab's iframe boots on first open
+├── Persistence: active tab restored from sessionStorage (mos_hub_tab)
+├── i18n: EN/AR via shared mos_lang key + RTL flip
+├── CSP: connect-src allows the access-control worker; nosniff + referrer policy
+└── Status chip logic: mos_subscription (active+expiry) OR 7-day trial (mos_trial_start) — mirrors training_tool
+
+ACCESS: no separate product — reuses `both_tools` (TB- codes, products ['training_tool','tdee_adaptive_engine']) and MA (master).
+PAYWALL: handled inside each embedded app; nutrition tab needs its own unlock (TDEE has no trial logic).
+OFFLINE: precached in tools/sw.js (ASSETS), network-first.
+```
+
+### 4.4 Free Tools (no paywall)
 
 | Tool | Path | What It Does |
 |------|------|-------------|
@@ -296,7 +315,7 @@ TAGS: tdee_subscribe_top, tdee_subscribe_bottom, footer_wa
 |---------|-------|------|----------|
 | Training App | 300 EGP/mo | Subscription | 30 days |
 | TDEE Adaptive Engine | 200 EGP/mo | Subscription | 30 days |
-| Both Tools (bundle) | 400 EGP/mo | Subscription | 30 days |
+| Both Tools (Combined App bundle) | 400 EGP/mo | Subscription | 30 days |
 | Training Book | 500 EGP | Purchase | Lifetime |
 | Nutrition Book | 500 EGP | Purchase | Lifetime |
 | Both Books | 800 EGP | Purchase | Lifetime |
