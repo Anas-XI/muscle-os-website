@@ -305,7 +305,13 @@ PAYWALL: handled inside each embedded app; nutrition tab needs its own unlock (T
 OFFLINE: precached in tools/sw.js (ASSETS), network-first.
 ```
 
-### 4.4 Free Tools (no paywall)
+### 4.4 Auxiliary Tools (code-gated)
+
+All auxiliary tools are walled with the same subscription model as the pro apps.
+The wall (inline snippet, `tool-wall` pattern at the end of each page) accepts ANY valid code:
+TR-/TD-/OH-/MA- all unlock it (client tries `training_tool` → `tdee_adaptive_engine` → `omni_hub`
+in order; server `productAllowed` + `products: 'all'` cover the rest). Rejected/unknown codes show
+"Invalid code or wrong product" and nothing else is consumed. No trial on these pages.
 
 | Tool | Path | What It Does |
 |------|------|-------------|
@@ -313,6 +319,12 @@ OFFLINE: precached in tools/sw.js (ASSETS), network-first.
 | **Volume & Set Calculator** | `volume_set_calculator.html` | Per-muscle weekly set recs by experience/goal |
 | **RPE Load Calculator** | `rpe_load_calculator.html` | 1RM estimation + working weights + load history |
 | **Split Selector Quiz** | `split_selector_quiz.html` | 8-question quiz → recommended split + explanation |
+
+Notes: the pages already shipped a dormant `#googleGate` overlay driven by `../js/auth.js`
+(which 404s in the public repo — auth.js stays master-only). The wall reuses that overlay markup
+(populates the existing `.gate-card` with a code input; creates it from scratch on
+`split_selector_quiz.html` which has none). Valid local `mos_subscription` hides the gate;
+a `storage` listener hides it live if unlocked elsewhere.
 
 ---
 
