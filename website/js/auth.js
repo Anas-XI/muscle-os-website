@@ -99,6 +99,7 @@ function getGs(){ try { var g = JSON.parse(localStorage.getItem(GS_KEY)); return
       if (!s) continue;
       if (s.products === 'all') return true;
       if (Array.isArray(s.products) && s.products.indexOf(productId) !== -1) return true;
+      if (Array.isArray(s.products) && s.products.indexOf('omni_hub') !== -1 && (productId === 'training_tool' || productId === 'tdee_adaptive_engine')) return true;
     }
     return false;
   }

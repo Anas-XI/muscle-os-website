@@ -244,7 +244,7 @@ async function handleVerify(request, env) {
         await logAttempt(env, normalized, productId, false);
         return json({ valid: false, error: 'code_revoked' }, 401, env, request);
       }
-      if (record.products !== 'all' && !(record.products || []).includes(productId)) {
+      if (!productAllowed(record.products, productId)) {
         await logAttempt(env, normalized, productId, false);
         return json({ valid: false, error: 'wrong_product' }, 403, env, request);
       }
@@ -255,7 +255,8 @@ async function handleVerify(request, env) {
       }
       await addAccountSub(env, email, { code: normalized, plan: record.plan, products: record.products, expiresAt: expiresAt.toISOString() });
       const secret = await getSecret(env);
-      const token = await new SignJWT({ productId, plan: record.plan, codePrefix: normalized.substring(0, 4) })
+      const effProductId = (record.products !== 'all' && Array.isArray(record.products) && record.products.length) ? record.products[0] : productId;
+      const token = await new SignJWT({ productId: effProductId, plan: record.plan, codePrefix: normalized.substring(0, 4) })
         .setProtectedHeader({ alg: 'HS256' })
         .setIssuedAt()
         .setIssuer('muscleos-access-control')
@@ -268,7 +269,7 @@ async function handleVerify(request, env) {
       const expTime = expiresAt.getTime();
       return json({
         valid: true,
-        productId,
+        productId: effProductId,
         token,
         expiresAt: expiresAt.toISOString(),
         daysRemaining: expTime > now ? Math.ceil((expTime - now) / 86400000) : 0,
@@ -331,7 +332,8 @@ async function handleVerify(request, env) {
     : new Date('2099-12-31'); // lifetime
 
   const secret = await getSecret(env);
-  const token = await new SignJWT({ productId, plan: doResult.plan, codePrefix: normalized.substring(0, 4) })
+  const effProductId = (doResult.products !== 'all' && Array.isArray(doResult.products) && doResult.products.length) ? doResult.products[0] : productId;
+  const token = await new SignJWT({ productId: effProductId, plan: doResult.plan, codePrefix: normalized.substring(0, 4) })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
     .setIssuer('muscleos-access-control')
@@ -356,7 +358,7 @@ async function handleVerify(request, env) {
 
   return json({
     valid: true,
-    productId,
+    productId: effProductId,
     token,
     expiresAt: expiresAt.toISOString(),
     daysRemaining,
@@ -1291,6 +1293,20 @@ function json(obj, status = 200, env, request) {
 }
 
 /**
+ * Product access rule:
+ * - 'all' grants everything
+ * - exact product match grants
+ * - an omni_hub (OMNI HUB) code is a superset: also valid on the two standalone tools
+ */
+function productAllowed(recordProducts, productId) {
+  if (recordProducts === 'all') return true;
+  const list = Array.isArray(recordProducts) ? recordProducts : [];
+  if (list.includes(productId)) return true;
+  if (list.includes('omni_hub') && (productId === 'training_tool' || productId === 'tdee_adaptive_engine')) return true;
+  return false;
+}
+
+/**
  * Durable Object — per-code atomic counter
  * Eliminates TOCTOU race on code usage increments
  */
@@ -1330,7 +1346,7 @@ export class CodeCounter {
     if (record.uses === -1) {
       return new Response(JSON.stringify({ valid: false, error: 'code_revoked' }), { status: 401, headers: { 'Content-Type': 'application/json' } });
     }
-    if (record.products !== 'all' && !record.products.includes(productId)) {
+    if (!productAllowed(record.products, productId)) {
       return new Response(JSON.stringify({ valid: false, error: 'wrong_product' }), { status: 403, headers: { 'Content-Type': 'application/json' } });
     }
     if (record.expiresAt && Date.now() > new Date(record.expiresAt).getTime()) {

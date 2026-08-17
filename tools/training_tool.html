@@ -3631,7 +3631,37 @@ select option{background:var(--card)}
   // ═══════════════════════════════════════
   //  STORAGE
   function ls(k,d){try{var r=localStorage.getItem(k);return r?JSON.parse(r):d}catch(e){return d}}
-  function ss(k,v){localStorage.setItem(k,JSON.stringify(v))}
+  function ss(k,v){
+    localStorage.setItem(k,JSON.stringify(v));
+    if(typeof broadcastOmniState === 'function') broadcastOmniState();
+  }
+  function broadcastOmniState(){
+    try {
+      if(window.parent && window.parent !== window && sessionStorage.getItem('mos_hub_mode')==='1') {
+        var prog=ls(K.PG,null), dt=dlTracker(), pf=painFlags();
+        var sessionName = '';
+        if(prog && typeof dayIdx !== 'undefined' && prog.days && prog.days[dayIdx]) {
+           sessionName = prog.days[dayIdx].n;
+        }
+        var vi = ls(K.VI,{});
+        var ov = dt.overshoots||0, deload = typeof shouldDeload === 'function' ? shouldDeload(dt,vi.ta||'intermediate',ov) : {yes:false};
+        var hasRed = false, hasYellow = false;
+        Object.keys(pf).forEach(function(k){
+          if(pf[k]==='red') hasRed = true;
+          else if(pf[k]==='yellow') hasYellow = true;
+        });
+        var fat = hasRed ? 'red' : (hasYellow ? 'yellow' : 'green');
+        var st = {
+           active: true,
+           sessionName: sessionName,
+           fatigue: fat,
+           acwr: window._lastAcwr || 1.0,
+           isDeload: deload.yes || false
+        };
+        window.parent.postMessage({ type: 'MOS_TRAINING_SYNC', payload: st }, '*');
+      }
+    } catch(e){}
+  }
   function loadHist(){return ls(K.LH,{})}
   function saveHist(h){var c=new Date(Date.now()-180*864e5).toISOString().split('T')[0];Object.keys(h).forEach(function(e){h[e]=(h[e]||[]).filter(function(x){return x.date>=c});if(!h[e].length)delete h[e]});ss(K.LH,h)}
   function dlTracker(){return ls(K.DT,{lastDeload:null,sessions:0,overshoots:0})}
@@ -6230,12 +6260,14 @@ select option{background:var(--card)}
       disp.textContent='00:00:00';
       SESSION_TIMER.tick=setInterval(function(){if(step===4)disp.textContent=fmtClock(SESSION_TIMER.elapsed+Math.floor((Date.now()-SESSION_TIMER.startTs)/1000));},1000);
       btn.textContent=_('session_stop');chip.classList.add('running');
+      if(window.parent && window.parent !== window) window.parent.postMessage({ type: 'SESSION_STARTED' }, '*');
     }else{
       SESSION_TIMER.elapsed+=Math.floor((Date.now()-SESSION_TIMER.startTs)/1000);
       clearInterval(SESSION_TIMER.tick);SESSION_TIMER.tick=null;SESSION_TIMER.running=false;
       var rec={date:new Date().toISOString().split('T')[0],durationSec:SESSION_TIMER.elapsed,sets:sessSetCount()};
       var all=ls(K.SS,[]);all.push(rec);if(all.length>200)all=all.slice(-200);ss(K.SS,all);
       btn.textContent=_('session_start');chip.classList.remove('running');
+      if(window.parent && window.parent !== window) window.parent.postMessage({ type: 'SESSION_ENDED' }, '*');
     }
   }
   (function(){var stBtn=document.getElementById('sessionTimerToggle');if(stBtn)stBtn.addEventListener('click',sessionTimerToggle);})();
@@ -8272,7 +8304,7 @@ select option{background:var(--card)}
   var sub = null;
   try { sub = JSON.parse(localStorage.getItem(SUB_KEY)); } catch(e){}
   var subProd = sub ? (sub.prodId || deriveProd(sub.code, sub.plan)) : null;
-  var prodOk = !!sub && (sub.plan === 'master' || sub.code === 'OWNER' || (hubMode ? subProd === HUB_PRODUCT : subProd === PRODUCT_ID));
+  var prodOk = !!sub && (sub.plan === 'master' || sub.code === 'OWNER' || (hubMode ? subProd === HUB_PRODUCT : (subProd === PRODUCT_ID || subProd === HUB_PRODUCT)));
   var active = !!(sub && sub.active && prodOk && new Date(sub.expiry + 'T23:59:59') > new Date());
   window.__MOS_PRODUCT__ = hubMode ? HUB_PRODUCT : PRODUCT_ID;
   window.__MOS_GATE__ = function(){ return { active: active, prodId: subProd, plan: sub ? sub.plan : null, hub: hubMode }; };
@@ -8301,6 +8333,7 @@ select option{background:var(--card)}
       if(!s) continue;
       if(s.products === 'all') return s;
       if(Array.isArray(s.products) && s.products.indexOf(want) !== -1) return s;
+      if(Array.isArray(s.products) && s.products.indexOf('omni_hub') !== -1 && (want === 'training_tool' || want === 'tdee_adaptive_engine')) return s;
     }
     return null;
   }
@@ -8338,6 +8371,7 @@ body: JSON.stringify({ code: code, productId: hubMode ? 'omni_hub' : 'training_t
         var msg = t('sub_err_invalid', 'Invalid code. Please check and try again.');
         if(data && data.error === 'code_used_by_other') msg = t('sub_err_used_by_other', 'This code is already linked to another account.');
         if(data && data.error === 'code_exhausted') msg = t('sub_err_exhausted', 'This code has already been used.');
+  if(data && data.error === 'wrong_product') msg = t('sub_err_wrong_product', 'This code unlocks the OMNI HUB app — open the OMNI HUB to use it here.');
         if(data && data.error === 'invalid_session'){
           localStorage.removeItem(GS_KEY);
           showStep(1);

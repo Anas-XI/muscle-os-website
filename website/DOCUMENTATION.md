@@ -295,7 +295,11 @@ HUB SHELL:
 
 ACCESS: dedicated product `omni_hub` — OH- codes, products ['omni_hub'], 400 EGP/mo.
         Individual tool codes (TR-/TD-/TB-) are REJECTED inside the hub; MA (master) still unlocks it.
-HUB-ONLY GATES: tools' auth IIFEs compute prodOk as (plan master|OWNER) OR (hubMode ? prodId==='omni_hub' : prodId===PRODUCT_ID);
+        OMNI HUB is a SUPERSET: OH- codes ALSO work on the standalone tools (server productAllowed rule
+        accepts omni_hub for training_tool/tdee_adaptive_engine; verify-code returns the canonical
+        productId so one stored subscription unlocks hub + both tools everywhere).
+HUB-ONLY GATES: tools' auth IIFEs compute prodOk as (plan master|OWNER) OR
+        (hubMode ? prodId==='omni_hub' : (prodId===PRODUCT_ID || prodId==='omni_hub'));
         trial is disabled in hub mode; js/auth.js verify posts window.__MOS_PRODUCT__ (omni_hub in hub) instead of all_access.
 PAYWALL: handled inside each embedded app; nutrition tab needs its own unlock (TDEE has no trial logic).
 OFFLINE: precached in tools/sw.js (ASSETS), network-first.

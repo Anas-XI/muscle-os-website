@@ -490,7 +490,30 @@ select option{background:#1A1B26;color:#FAFAF8}
 
   function saveStore(store){
     localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
+    if(typeof broadcastOmniState === 'function') broadcastOmniState();
   }
+  function broadcastOmniState(){
+    try {
+      if(window.parent && window.parent !== window && sessionStorage.getItem('mos_hub_mode')==='1') {
+        const s = loadStore();
+        if(s.profile) {
+           const p = s.profile;
+           const r = calcTDEE(p.sex, p.weight, p.height, p.age, p.bf, p.trainingAge, p.trainDays, p.sessionLen, p.occupation, p.steps, p.sleep, p.dietPattern, p.goal, p.chronicDiet, p.cyclePhase);
+           const payload = {
+              cals: r.goalCal,
+              macros: { p: r.protein, f: r.fat, c: r.carbs }
+           };
+           window.parent.postMessage({ type: 'MOS_NUTRITION_SYNC', payload: payload }, '*');
+        }
+      }
+    } catch(e){}
+  }
+  window.addEventListener('message', function(e){
+    if(e.data && e.data.type === 'OMNI_STATE_UPDATE') {
+       window.MOS_OMNI_TRAINING_STATE = e.data.payload ? e.data.payload.training : null;
+       if(typeof renderDashboard === 'function') renderDashboard();
+    }
+  });
 
   // ─── Constants ───
   const OCC_MULT = {bed:0.05, desk:0.12, light:0.20, moderate:0.30, active:0.42};
@@ -577,6 +600,25 @@ select option{background:#1A1B26;color:#FAFAF8}
       }
     }
 
+    // Omni Hub Synergy Overrides
+    let synergyApplied = false;
+    if(window.MOS_OMNI_TRAINING_STATE && window.MOS_OMNI_TRAINING_STATE.active) {
+       const ts = window.MOS_OMNI_TRAINING_STATE;
+       if(ts.isDeload) {
+          goalCal = Math.round(goalCal * 0.95); // Reduce slightly during deloads
+          synergyApplied = true;
+       } else if (ts.sessionName) {
+          // On training days, bump depending on fatigue
+          if(ts.fatigue === 'red') {
+             goalCal += 200; // Extra calories (mostly carbs) on highly fatigued training days
+             synergyApplied = true;
+          } else if(ts.fatigue === 'yellow') {
+             goalCal += 100;
+             synergyApplied = true;
+          }
+       }
+    }
+
     // Macros
     const proteinG = PROTEIN_TARGETS[dietPattern] ? PROTEIN_TARGETS[dietPattern][goalVal] || 1.8 : 1.8;
     const pG = Math.round(proteinG * w);
@@ -603,7 +645,8 @@ select option{background:#1A1B26;color:#FAFAF8}
       pctProtein: Math.round(pG*4/goalCal*100),
       pctFat: Math.round(fG*9/goalCal*100),
       pctCarbs: Math.round(cG*4/goalCal*100),
-      safetyCapped: capApplied
+      safetyCapped: capApplied,
+      synergyApplied: synergyApplied
     };
   }
 
@@ -800,6 +843,13 @@ select option{background:#1A1B26;color:#FAFAF8}
       statusHtml = '<div class="status-banner status-ok animate-in"><strong>Tracking Active</strong><br>'+trend.direction+' at '+Math.abs(trend.weeklyTrend).toFixed(2)+' kg/week over '+store.weights.length+' entries.</div>';
     } else {
       statusHtml = '<div class="status-banner status-warn animate-in"><strong>Start Logging</strong><br>Log your weight 3-5x/week in the "Log Weight" tab. After ~2 weeks, the engine will recalibrate your numbers from real data.</div>';
+    }
+    if(r.synergyApplied) {
+       let msg = "Adjusting calories and macros for ";
+       const ts = window.MOS_OMNI_TRAINING_STATE;
+       if(ts.isDeload) msg += "Deload recovery.";
+       else msg += "Training Session fatigue.";
+       statusHtml = '<div class="status-banner animate-in" style="background:rgba(219,167,46,0.1); border-left:3px solid var(--accent); color:var(--text); margin-bottom:10px;"><strong><span class="s-icon">⚡</span> Omni Hub Synergy Active</strong><br>' + msg + '</div>' + statusHtml;
     }
     statusEl.innerHTML = statusHtml;
 
@@ -1914,7 +1964,7 @@ select option{background:#1A1B26;color:#FAFAF8}
   var sub = null;
   try { sub = JSON.parse(localStorage.getItem(SUB_KEY)); } catch(e){}
   var subProd = sub ? (sub.prodId || deriveProd(sub.code, sub.plan)) : null;
-  var prodOk = !!sub && (sub.plan === 'master' || sub.code === 'OWNER' || (hubMode ? subProd === HUB_PRODUCT : subProd === PRODUCT_ID));
+  var prodOk = !!sub && (sub.plan === 'master' || sub.code === 'OWNER' || (hubMode ? subProd === HUB_PRODUCT : (subProd === PRODUCT_ID || subProd === HUB_PRODUCT)));
   var active = !!(sub && sub.active && prodOk && new Date(sub.expiry + 'T23:59:59') > new Date());
   window.__MOS_PRODUCT__ = hubMode ? HUB_PRODUCT : PRODUCT_ID;
   window.__MOS_GATE__ = function(){ return { active: active, prodId: subProd, plan: sub ? sub.plan : null, hub: hubMode }; };
@@ -1942,6 +1992,7 @@ select option{background:#1A1B26;color:#FAFAF8}
       if(!s) continue;
       if(s.products === 'all') return s;
       if(Array.isArray(s.products) && s.products.indexOf(want) !== -1) return s;
+      if(Array.isArray(s.products) && s.products.indexOf('omni_hub') !== -1 && (want === 'training_tool' || want === 'tdee_adaptive_engine')) return s;
     }
     return null;
   }
@@ -1972,6 +2023,7 @@ body: JSON.stringify({ code: code, productId: hubMode ? 'omni_hub' : 'tdee_adapt
         var msg = 'Invalid code. Please check and try again.';
         if(data && data.error === 'code_used_by_other') msg = 'This code is already linked to another account.';
         if(data && data.error === 'code_exhausted') msg = 'This code has already been used.';
+if(data && data.error === 'wrong_product') msg = 'This code unlocks the OMNI HUB app — open the OMNI HUB to use it here.';
         if(data && data.error === 'invalid_session'){
           localStorage.removeItem(GS_KEY);
           showStep(1);

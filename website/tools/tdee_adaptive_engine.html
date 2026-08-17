@@ -1914,7 +1914,7 @@ select option{background:#1A1B26;color:#FAFAF8}
  var sub = null;
  try { sub = JSON.parse(localStorage.getItem(SUB_KEY)); } catch(e){}
  var subProd = sub ? (sub.prodId || deriveProd(sub.code, sub.plan)) : null;
- var prodOk = !!sub && (sub.plan === 'master' || sub.code === 'OWNER' || (hubMode ? subProd === HUB_PRODUCT : subProd === PRODUCT_ID));
+ var prodOk = !!sub && (sub.plan === 'master' || sub.code === 'OWNER' || (hubMode ? subProd === HUB_PRODUCT : (subProd === PRODUCT_ID || subProd === HUB_PRODUCT)));
  var active = !!(sub && sub.active && prodOk && new Date(sub.expiry + 'T23:59:59') > new Date());
  window.__MOS_PRODUCT__ = hubMode ? HUB_PRODUCT : PRODUCT_ID;
  window.__MOS_GATE__ = function(){ return { active: active, prodId: subProd, plan: sub ? sub.plan : null, hub: hubMode }; };
@@ -1942,6 +1942,7 @@ function pickAccountSub(subs){
   if(!s) continue;
   if(s.products === 'all') return s;
   if(Array.isArray(s.products) && s.products.indexOf(want) !== -1) return s;
+if(Array.isArray(s.products) && s.products.indexOf('omni_hub') !== -1 && (want === 'training_tool' || want === 'tdee_adaptive_engine')) return s;
   }
   return null;
   }
@@ -1972,6 +1973,7 @@ body: JSON.stringify({ code: code, productId: hubMode ? 'omni_hub' : 'tdee_adapt
  var msg = 'Invalid code. Please check and try again.';
  if(data && data.error === 'code_used_by_other') msg = 'This code is already linked to another account.';
  if(data && data.error === 'code_exhausted') msg = 'This code has already been used.';
+if(data && data.error === 'wrong_product') msg = 'This code unlocks the OMNI HUB app — open the OMNI HUB to use it here.';
  if(data && data.error === 'invalid_session'){
  localStorage.removeItem(GS_KEY);
  showStep(1);
