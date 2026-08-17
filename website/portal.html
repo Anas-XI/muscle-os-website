@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Muscle OS - Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0D0E12;
+      --surface: #14151A;
+      --border: #2C2E37;
+      --text: #FAFAF8;
+      --text-muted: rgba(250, 250, 248, 0.6);
+      --accent: #E11D2E;
+      --accent-hover: #b91523;
+      --gold: #F4C93B;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .portal-container {
+      width: 100%;
+      max-width: 400px;
+      padding: 32px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      text-align: center;
+    }
+    .brand {
+      font-family: 'Oswald', sans-serif;
+      font-size: 2rem;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    .brand span { color: var(--accent); }
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .input-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      color: var(--text-muted);
+    }
+    input {
+      width: 100%;
+      padding: 14px 16px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+    }
+    input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(225, 29, 46, 0.15);
+    }
+    button {
+      width: 100%;
+      padding: 14px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    button:hover { background: var(--accent-hover); }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    .error-msg {
+      color: #ff4b4b;
+      font-size: 0.85rem;
+      margin-top: 12px;
+      display: none;
+    }
+    .get-access {
+      display: inline-block;
+      margin-top: 24px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-decoration: underline;
+    }
+    .get-access:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+
+  <div class="portal-container">
+    <div class="brand">MUSCLE<span>OS</span></div>
+    <div class="subtitle">Access your specialized fitness tools.</div>
+    
+    <div class="input-group">
+      <label for="accessCode">Access Code</label>
+      <input type="text" id="accessCode" placeholder="Enter your code (e.g. OH-...)" autocomplete="off">
+    </div>
+    
+    <button id="unlockBtn">UNLOCK ACCESS</button>
+    <div id="errorMsg" class="error-msg">Invalid code. Please try again.</div>
+    
+    <a href="order.html" class="get-access">No code? Get access here</a>
+  </div>
+
+  <script>
+    (function(){
+      var SUB_KEY = 'mos_subscription';
+      var API = 'https://muscleos-access-control.muscleos.workers.dev/api/verify-code';
+      
+      var btn = document.getElementById('unlockBtn');
+      var input = document.getElementById('accessCode');
+      var err = document.getElementById('errorMsg');
+
+      var ERR_MSGS = {
+        invalid_code: 'Wrong code. Please check and try again.',
+        wrong_product: 'This code belongs to a different product.',
+        code_used_by_other: 'This code is already linked to another account.',
+        code_exhausted: 'This code has already been used.',
+        code_revoked: 'This code has been revoked.',
+        code_expired: 'This code has expired.',
+        network: 'Network error. Please try again.'
+      };
+
+      function routeProduct(productId) {
+        if (productId === 'omni_hub' || productId === 'all_access') {
+          window.location.href = '../tools/muscle_os_app.html';
+        } else if (productId === 'training_tool') {
+          window.location.href = '../tools/training_tool.html';
+        } else if (productId === 'tdee_adaptive_engine') {
+          window.location.href = '../tools/tdee_adaptive_engine.html';
+        } else {
+          window.location.href = '../index.html';
+        }
+      }
+
+      function attemptVerify(code) {
+        btn.disabled = true;
+        btn.textContent = 'Verifying...';
+        err.style.display = 'none';
+
+        var tries = ['all_access', 'omni_hub', 'training_tool', 'tdee_adaptive_engine', 'both_tools'];
+        var i = 0;
+        var lastError = 'network';
+
+        function fail(){
+          btn.disabled = false;
+          btn.textContent = 'UNLOCK ACCESS';
+          err.style.display = 'block';
+          err.textContent = ERR_MSGS[lastError] || ERR_MSGS.invalid_code;
+        }
+
+        function tryNext() {
+          if (i >= tries.length) return fail();
+          var prod = tries[i++];
+          
+          fetch(API, { 
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' }, 
+            body: JSON.stringify({ code: code, productId: prod }) 
+          })
+          .then(function(r){ return r.json().catch(function(){ return null; }).then(function(d){ return { ok: r.ok, d: d }; }); })
+          .then(function(res){
+            if (res.ok && res.d && res.d.valid) {
+              var actualProdId = res.d.productId || prod;
+              localStorage.setItem(SUB_KEY, JSON.stringify({ 
+                active: true, 
+                plan: res.d.plan || 'pro_tool', 
+                expiry: (res.d.expiresAt || '').slice(0, 10), 
+                token: res.d.token || '', 
+                code: code, 
+                email: '', 
+                prodId: actualProdId 
+              }));
+              routeProduct(actualProdId);
+            } else {
+              if (res.d && res.d.error) {
+                lastError = res.d.error;
+                if (lastError === 'wrong_product') {
+                  tryNext();
+                } else {
+                  fail();
+                }
+              } else {
+                tryNext();
+              }
+            }
+          })
+          .catch(function(){ lastError = 'network'; fail(); });
+        }
+        
+        tryNext();
+      }
+
+      btn.addEventListener('click', function(){
+        var code = (input.value || '').trim();
+        if(code) attemptVerify(code);
+      });
+      
+      input.addEventListener('keypress', function(e){
+        if(e.key === 'Enter') {
+          var code = (input.value || '').trim();
+          if(code) attemptVerify(code);
+        }
+      });
+      
+    })();
+  </script>
+</body>
+</html>

@@ -49,6 +49,20 @@ const CODE_TEMPLATES = [
  durationDays: 30,
  },
  {
+ label: 'Omni Hub — Lifetime',
+ prefix: 'OMNI',
+ products: ['omni_hub'],
+ plan: 'omni_hub',
+ durationDays: 36500, // lifetime
+ },
+ {
+ label: 'Omni Hub — 1 month',
+ prefix: 'OMNI',
+ products: ['omni_hub'],
+ plan: 'omni_hub',
+ durationDays: 30,
+ },
+ {
  label: 'Training Bundle — 1 month',
  prefix: 'TB',
  products: ['training_tool', 'tdee_adaptive_engine'],
@@ -172,3 +186,4 @@ async function main() {
 }
 
 main().catch(console.error);
+}

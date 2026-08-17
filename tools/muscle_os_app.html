@@ -414,109 +414,23 @@ var sub = null;
 <script>
 (function(){
   var SUB_KEY = 'mos_subscription';
-  var API = 'https://muscleos-access-control.muscleos.workers.dev/api/verify-code';
-  var ERR_MSGS = {
-    invalid_code: 'Wrong code. Please check and try again.',
-    wrong_product: 'This code belongs to a different product.',
-    code_used_by_other: 'This code is already linked to another account.',
-    code_exhausted: 'This code has already been used.',
-    code_revoked: 'This code has been revoked.',
-    code_expired: 'This code has expired.',
-    invalid_session: 'Session expired. Please sign in again.',
-    network: 'Network error. Please try again.'
-  };
   function getSub(){ try { return JSON.parse(localStorage.getItem(SUB_KEY) || 'null'); } catch(e){ return null; } }
   function subOk(s){ return !!(s && s.active && (!s.expiry || new Date(s.expiry + 'T23:59:59') > new Date())); }
   function hideGate(){ var g = document.getElementById('googleGate'); if (g) g.classList.add('gate-hidden'); }
   window.MosAccess = { requireGoogleAuth: function(o, cb){ try { cb(!!subOk(getSub())); } catch(e){ cb(false); } } };
-  function buildCard(g){
-    var card = g.querySelector('.gate-card');
-    if (card) {
-      var old = card.querySelector('.gate-error');
-      if (old) old.parentNode.removeChild(old);
-      var p = card.querySelector('p');
-      if (p && p.parentNode) p.parentNode.removeChild(p);
-      var h2 = card.querySelector('h2');
-      if (h2) h2.textContent = 'SUBSCRIPTION REQUIRED';
-      return card;
-    }
-    card = document.createElement('div');
-    card.className = 'gate-card';
-    var lock = document.createElement('div');
-    lock.className = 'gate-lock';
-    lock.textContent = '🔒';
-    var h2 = document.createElement('h2');
-    h2.textContent = 'SUBSCRIPTION REQUIRED';
-    card.appendChild(lock);
-    card.appendChild(h2);
-    g.appendChild(card);
-    return card;
+  
+  if (subOk(getSub())) { 
+    hideGate(); 
+  } else { 
+    window.location.href = '../website/portal.html'; 
   }
-  function wire(){
-    var g = document.getElementById('googleGate');
-    if (!g) {
-      g = document.createElement('div');
-      g.id = 'googleGate';
-      g.style.cssText = 'position:fixed;inset:0;z-index:9999;background:#14151A;display:flex;align-items:center;justify-content:center;padding:20px;font-family:Inter,sans-serif';
-      document.body.appendChild(g);
-    }
-    var card = buildCard(g);
-    var input = document.createElement('input');
-    input.type = 'text';
-    input.placeholder = 'Enter your OH code...';
-    input.autocomplete = 'off';
-    input.style.cssText = 'width:100%;padding:11px 12px;border-radius:8px;border:1px solid #2C2E37;background:#14151A;color:#FAFAF8;font:600 .85rem Inter,sans-serif;letter-spacing:1px;text-align:center;margin-bottom:10px;box-sizing:border-box;text-transform:uppercase';
-    var btn = document.createElement('button');
-    btn.type = 'button';
-    btn.textContent = 'UNLOCK HUB';
-    btn.style.cssText = 'width:100%;padding:11px;border-radius:8px;border:0;background:#E11D2E;color:#fff;font:700 .8rem Inter,sans-serif;cursor:pointer';
-    var err = document.createElement('div');
-    err.style.cssText = 'display:none;font-size:.7rem;color:#f44336;margin-top:10px';
-    var link = document.createElement('a');
-    link.href = '../order.html';
-    link.target = '_blank';
-    link.textContent = 'No code? Get access →';
-    link.style.cssText = 'display:inline-block;margin-top:14px;font-size:.72rem;color:rgba(250,250,248,.55);text-decoration:underline';
-    card.appendChild(input);
-    card.appendChild(btn);
-    card.appendChild(err);
-    card.appendChild(link);
-    btn.addEventListener('click', function(){
-      var code = (input.value || '').trim();
-      if (!code) return;
-      btn.disabled = true;
-      btn.textContent = 'Checking...';
-      err.style.display = 'none';
-      var tries = ['omni_hub', 'training_tool', 'tdee_adaptive_engine'];
-      var i = 0;
-      var lastError = 'network';
-      function fail(){
-        btn.disabled = false;
-        btn.textContent = 'UNLOCK HUB';
-        err.style.display = 'block';
-        err.textContent = ERR_MSGS[lastError] || ERR_MSGS.invalid_code;
-      }
-      function attempt(){
-        if (i >= tries.length) return fail();
-        var prod = tries[i++];
-        fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code: code, productId: prod }) })
-          .then(function(r){ return r.json().catch(function(){ return null; }).then(function(d){ return { ok: r.ok, d: d }; }); })
-          .then(function(res){
-            if (res.ok && res.d && res.d.valid) {
-              localStorage.setItem(SUB_KEY, JSON.stringify({ active: true, plan: res.d.plan || 'pro_tool', expiry: (res.d.expiresAt || '').slice(0, 10), token: res.d.token || '', code: code, email: '', prodId: res.d.productId || 'all_access' }));
-              hideGate();
-            } else {
-              lastError = (res.d && res.d.error) ? res.d.error : 'network';
-              attempt();
-            }
-          })
-          .catch(function(){ lastError = 'network'; attempt(); });
-      }
-      attempt();
-    });
-  }
-  if (subOk(getSub())) { hideGate(); } else { wire(); }
-  window.addEventListener('storage', function(e){ if (e.key === SUB_KEY && subOk(getSub())) hideGate(); });
+  
+  window.addEventListener('storage', function(e){ 
+    if (e.key === SUB_KEY) {
+      if(subOk(getSub())) hideGate();
+      else window.location.href = '../website/portal.html';
+    } 
+  });
 })();
 </script>
 </body>

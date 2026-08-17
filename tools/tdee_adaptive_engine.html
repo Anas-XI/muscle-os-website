@@ -2032,7 +2032,7 @@ var linked = pickAccountSub(data.subscriptions);
  }
 
  if(!active){
- document.getElementById('subOverlay').style.display = 'flex';
+ window.top.location.href = '../website/portal.html'; return;
  var gs = getGs();
  var started = false;
  function start(){

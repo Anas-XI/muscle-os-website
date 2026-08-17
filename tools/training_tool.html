@@ -8474,7 +8474,7 @@ if(!active){
  if(window.__evLog)window.__evLog('trial_gate_open', { days: _trial.daysLeft });
  if(window.__updateTrialPill)window.__updateTrialPill();
  } else {
- document.getElementById('subOverlay').style.display = 'flex';if(window.__evLog)window.__evLog('paywall_shown',{reason:'trial_expired'});
+ window.top.location.href = '../website/portal.html'; return;
  if(window.__trialExpiredNote)window.__trialExpiredNote();
  var gs = getGs();
  var started = false;
