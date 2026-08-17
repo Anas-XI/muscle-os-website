@@ -144,6 +144,58 @@
   }
   .tab-item.active { color: #F4C93B; }
   .tab-item.active .tab-icon { filter: none; transform: translateY(-2px); }
+
+  .dashboard-view {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+    overflow-y: auto; padding: 20px 14px; z-index: 10;
+  }
+  .dashboard-view.active {
+    opacity: 1; pointer-events: auto; z-index: 20;
+  }
+  .dash-content { max-width: 600px; margin: 0 auto; }
+  .dash-title {
+    font-family: 'Oswald', sans-serif; font-size: 1.4rem; color: #F4C93B;
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px;
+  }
+  .synergy-card {
+    background: rgba(26, 27, 38, 0.85); border: 1px solid rgba(244, 201, 59, 0.18);
+    border-radius: 14px; padding: 16px; margin-bottom: 14px;
+  }
+  .sync-header {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+    font-family: 'Oswald', sans-serif; font-size: 0.9rem; text-transform: uppercase;
+    color: rgba(250, 250, 248, 0.6);
+  }
+  .sync-header .icon { font-size: 1.2rem; }
+  .synergy-val { font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; font-weight: 700; color: #FAFAF8; }
+  .synergy-sub { font-size: 0.75rem; color: rgba(250, 250, 248, 0.4); margin-top: 2px; }
+  
+  .insight-card {
+    background: rgba(76, 175, 80, 0.1); border: 1px solid rgba(76, 175, 80, 0.3);
+    border-radius: 10px; padding: 12px; margin-bottom: 10px;
+  }
+  .insight-card.warn {
+    background: rgba(244, 201, 59, 0.1); border-color: rgba(244, 201, 59, 0.3); color: #F4C93B;
+  }
+  .insight-card.warn .insight-title { color: #F4C93B; }
+  .insight-card.danger {
+    background: rgba(244, 67, 54, 0.1); border-color: rgba(244, 67, 54, 0.3); color: #f44336;
+  }
+  .insight-card.danger .insight-title { color: #f44336; }
+  .insight-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; color: #4CAF50; }
+  .insight-desc { font-size: 0.75rem; color: rgba(250, 250, 248, 0.8); line-height: 1.4; }
+  
+  .toast-container {
+    position: fixed; top: 70px; left: 50%; transform: translateX(-50%);
+    z-index: 9999; display: flex; flex-direction: column; gap: 10px; pointer-events: none;
+  }
+  .toast {
+    background: rgba(20, 21, 26, 0.95); border: 1px solid #F4C93B; border-radius: 8px;
+    padding: 12px 16px; color: #FAFAF8; font-size: 0.8rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    animation: toastIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: auto;
+  }
+  @keyframes toastIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
 <body>
@@ -160,12 +212,35 @@
   </header>
 
   <div class="app-container">
-    <iframe id="frame-training" src="training_tool.html" class="active" title="Training"></iframe>
+    <div id="frame-home" class="active dashboard-view">
+      <div class="dash-content">
+        <h2 class="dash-title">TODAY'S OMNI PLAN</h2>
+        
+        <div class="synergy-card training-sync-card">
+          <div class="sync-header"><span class="icon">🏋️</span> <span class="sync-title">TRAINING</span></div>
+          <div id="hub-train-state">Waiting for sync...</div>
+        </div>
+
+        <div class="synergy-card nutrition-sync-card">
+          <div class="sync-header"><span class="icon">🍎</span> <span class="sync-title">NUTRITION</span></div>
+          <div id="hub-nutr-state">Waiting for sync...</div>
+        </div>
+        
+        <div class="synergy-insights" id="hub-insights">
+          <!-- Populated by JS based on synergy logic -->
+        </div>
+      </div>
+    </div>
+    <iframe id="frame-training" src="training_tool.html" title="Training"></iframe>
     <iframe id="frame-nutrition" data-src="tdee_adaptive_engine.html" title="Nutrition"></iframe>
   </div>
 
   <nav class="tab-bar">
-    <div class="tab-item active" data-target="frame-training">
+    <div class="tab-item active" data-target="frame-home">
+      <span class="tab-icon">🏠</span>
+      <span class="tab-label">Home</span>
+    </div>
+    <div class="tab-item" data-target="frame-training">
       <span class="tab-icon">&#127993;</span>
       <span class="tab-label" data-i18n="hub_tab_training">Training</span>
     </div>
@@ -244,7 +319,7 @@ var sub = null;
       }
     }
 
-    var frames = document.querySelectorAll('iframe');
+    var frames = document.querySelectorAll('iframe, .dashboard-view');
     var tabs = document.querySelectorAll('.tab-item');
     function activate(targetId){
       tabs.forEach(function(tb){ tb.classList.toggle('active', tb.getAttribute('data-target') === targetId); });
@@ -269,11 +344,85 @@ var sub = null;
       var nut = document.getElementById('frame-nutrition');
       nut.setAttribute('src', nut.getAttribute('data-src'));
     }
-    activate(saved === 'frame-nutrition' ? 'frame-nutrition' : 'frame-training');
+    activate(saved || 'frame-home');
     refreshStatus();
     window.addEventListener('storage', function(e){
       if (e.key === 'mos_subscription' || e.key === 'mos_trial_start') refreshStatus();
     });
+
+    // Synergy Message Bus
+    var omniState = {
+      training: { active: false, sessionName: '', fatigue: 'green', acwr: 1.0, isDeload: false },
+      nutrition: { cals: 0, macros: {p:0, f:0, c:0}, goal: '' }
+    };
+
+    window.addEventListener('message', function(e) {
+      if (!e.data || !e.data.type) return;
+      
+      if (e.data.type === 'MOS_TRAINING_SYNC') {
+        omniState.training = e.data.payload;
+        updateOmniDashboard();
+        broadcastStateToChildren();
+      } else if (e.data.type === 'MOS_NUTRITION_SYNC') {
+        omniState.nutrition = e.data.payload;
+        updateOmniDashboard();
+      } else if (e.data.type === 'SESSION_STARTED') {
+        showToast("🏃 Session Started! Pre-workout fuel suggested: 30g Carbs, 15g Protein.");
+      } else if (e.data.type === 'SESSION_ENDED') {
+        showToast("✅ Session Complete! Post-workout recovery: 40g Protein, 50g Carbs.");
+      }
+    });
+
+    function broadcastStateToChildren() {
+      var nutFrame = document.getElementById('frame-nutrition').contentWindow;
+      if(nutFrame) nutFrame.postMessage({ type: 'OMNI_STATE_UPDATE', payload: omniState }, '*');
+    }
+
+    function updateOmniDashboard() {
+      var tCard = document.getElementById('hub-train-state');
+      var nCard = document.getElementById('hub-nutr-state');
+      var ins = document.getElementById('hub-insights');
+      
+      if(omniState.training.sessionName) {
+        tCard.innerHTML = '<div class="synergy-val">' + omniState.training.sessionName + '</div>' +
+                          '<div class="synergy-sub">Fatigue: ' + (omniState.training.fatigue || 'green').toUpperCase() + ' | ACWR: ' + (omniState.training.acwr || 1.0) + '</div>';
+      } else {
+        tCard.innerHTML = '<div class="synergy-val">Rest Day</div><div class="synergy-sub">No session planned</div>';
+      }
+      
+      if(omniState.nutrition.cals > 0) {
+        var m = omniState.nutrition.macros;
+        nCard.innerHTML = '<div class="synergy-val">' + omniState.nutrition.cals + ' kcal</div>' +
+                          '<div class="synergy-sub">P: ' + m.p + 'g | F: ' + m.f + 'g | C: ' + m.c + 'g</div>';
+      }
+      
+      var insightsHTML = '';
+      if(omniState.training.isDeload) {
+        insightsHTML += '<div class="insight-card"><div class="insight-title">Deload Week</div><div class="insight-desc">You are in a training deload. We recommend eating at maintenance to shed systemic fatigue.</div></div>';
+      }
+      if(omniState.training.fatigue === 'red') {
+        insightsHTML += '<div class="insight-card danger"><div class="insight-title">High Fatigue Detected</div><div class="insight-desc">Your training pain/fatigue is very high. Consider an extra rest day and slightly higher carbs for recovery.</div></div>';
+      } else if(omniState.training.fatigue === 'yellow') {
+        insightsHTML += '<div class="insight-card warn"><div class="insight-title">Elevated Fatigue</div><div class="insight-desc">Keep an eye on recovery. Ensure your post-workout protein hits 40g today.</div></div>';
+      }
+      
+      ins.innerHTML = insightsHTML;
+    }
+
+    function showToast(msg) {
+      var tc = document.getElementById('toast-container');
+      if(!tc) {
+        tc = document.createElement('div');
+        tc.id = 'toast-container';
+        tc.className = 'toast-container';
+        document.body.appendChild(tc);
+      }
+      var t = document.createElement('div');
+      t.className = 'toast';
+      t.innerText = msg;
+      tc.appendChild(t);
+      setTimeout(function(){ t.style.opacity = '0'; setTimeout(function(){ t.remove(); },300); }, 4000);
+    }
   })();
   </script>
 </body>
