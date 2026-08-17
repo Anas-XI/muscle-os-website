@@ -255,7 +255,7 @@ async function handleVerify(request, env) {
       }
       await addAccountSub(env, email, { code: normalized, plan: record.plan, products: record.products, expiresAt: expiresAt.toISOString() });
       const secret = await getSecret(env);
-      const effProductId = (record.products !== 'all' && Array.isArray(record.products) && record.products.length) ? record.products[0] : productId;
+      const effProductId = (record.products === 'all') ? 'all_access' : (Array.isArray(record.products) && record.products.length) ? record.products[0] : productId;
       const token = await new SignJWT({ productId: effProductId, plan: record.plan, codePrefix: normalized.substring(0, 4) })
         .setProtectedHeader({ alg: 'HS256' })
         .setIssuedAt()
@@ -332,7 +332,7 @@ async function handleVerify(request, env) {
     : new Date('2099-12-31'); // lifetime
 
   const secret = await getSecret(env);
-  const effProductId = (doResult.products !== 'all' && Array.isArray(doResult.products) && doResult.products.length) ? doResult.products[0] : productId;
+  const effProductId = (doResult.products === 'all') ? 'all_access' : (Array.isArray(doResult.products) && doResult.products.length) ? doResult.products[0] : productId;
   const token = await new SignJWT({ productId: effProductId, plan: doResult.plan, codePrefix: normalized.substring(0, 4) })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
@@ -384,7 +384,10 @@ async function handleCheckToken(request, env) {
     });
     // A master-plan token or matching productId is valid
     if (payload.plan !== 'master' && payload.productId !== productId) {
-      return json({ valid: false }, 403, env, request);
+      // omni_hub code includes training_tool and tdee_adaptive_engine
+      if (!(payload.productId === 'omni_hub' && (productId === 'training_tool' || productId === 'tdee_adaptive_engine'))) {
+        return json({ valid: false }, 403, env, request);
+      }
     }
     return json({ valid: true, plan: payload.plan, codePrefix: payload.codePrefix }, 200, env, request);
   } catch (e) {
@@ -1299,6 +1302,7 @@ function json(obj, status = 200, env, request) {
  * - an omni_hub (OMNI HUB) code is a superset: also valid on the two standalone tools
  */
 function productAllowed(recordProducts, productId) {
+  if (productId === 'any') return true;
   if (recordProducts === 'all') return true;
   const list = Array.isArray(recordProducts) ? recordProducts : [];
   if (list.includes(productId)) return true;

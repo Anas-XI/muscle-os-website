@@ -159,35 +159,20 @@
         }
       }
 
-      function attemptVerify(code) {
-        btn.disabled = true;
-        btn.textContent = 'Verifying...';
-        err.style.display = 'none';
+        function attemptVerify(code) {
+          btn.disabled = true;
+          btn.textContent = 'Verifying...';
+          err.style.display = 'none';
 
-        var tries = ['all_access', 'omni_hub', 'training_tool', 'tdee_adaptive_engine', 'both_tools'];
-        var i = 0;
-        var lastError = 'network';
-
-        function fail(){
-          btn.disabled = false;
-          btn.textContent = 'UNLOCK ACCESS';
-          err.style.display = 'block';
-          err.textContent = ERR_MSGS[lastError] || ERR_MSGS.invalid_code;
-        }
-
-        function tryNext() {
-          if (i >= tries.length) return fail();
-          var prod = tries[i++];
-          
           fetch(API, { 
             method: 'POST', 
             headers: { 'Content-Type': 'application/json' }, 
-            body: JSON.stringify({ code: code, productId: prod }) 
+            body: JSON.stringify({ code: code, productId: 'any' }) 
           })
           .then(function(r){ return r.json().catch(function(){ return null; }).then(function(d){ return { ok: r.ok, d: d }; }); })
           .then(function(res){
             if (res.ok && res.d && res.d.valid) {
-              var actualProdId = res.d.productId || prod;
+              var actualProdId = res.d.productId || 'all_access';
               localStorage.setItem(SUB_KEY, JSON.stringify({ 
                 active: true, 
                 plan: res.d.plan || 'pro_tool', 
@@ -199,23 +184,23 @@
               }));
               routeProduct(actualProdId);
             } else {
+              btn.disabled = false;
+              btn.textContent = 'UNLOCK ACCESS';
+              err.style.display = 'block';
               if (res.d && res.d.error) {
-                lastError = res.d.error;
-                if (lastError === 'wrong_product') {
-                  tryNext();
-                } else {
-                  fail();
-                }
+                err.textContent = ERR_MSGS[res.d.error] || ERR_MSGS.invalid_code;
               } else {
-                tryNext();
+                err.textContent = ERR_MSGS.network;
               }
             }
           })
-          .catch(function(){ lastError = 'network'; fail(); });
+          .catch(function(){ 
+            btn.disabled = false;
+            btn.textContent = 'UNLOCK ACCESS';
+            err.style.display = 'block';
+            err.textContent = ERR_MSGS.network; 
+          });
         }
-        
-        tryNext();
-      }
 
       btn.addEventListener('click', function(){
         var code = (input.value || '').trim();

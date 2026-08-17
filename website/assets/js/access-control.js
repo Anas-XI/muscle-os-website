@@ -28,6 +28,9 @@
  products: {
  training_tool: { key: 'mos_subscription', durationDays: 30, label: 'Training App' },
  tdee_adaptive_engine: { key: 'mos_subscription', durationDays: 30, label: 'TDEE Adaptive Engine' },
+ both_tools: { key: 'mos_subscription', durationDays: 30, label: 'Training Tools Bundle' },
+ omni_hub: { key: 'mos_subscription', durationDays: 30, label: 'OMNI HUB' },
+ all_access: { key: 'mos_subscription', durationDays: 30, label: 'All Access' },
  training_book: { key: 'mos_book_training', durationDays: 0, label: 'Training Book' },
  nutrition_book: { key: 'mos_book_nutrition', durationDays: 0, label: 'Nutrition Book' }
  }

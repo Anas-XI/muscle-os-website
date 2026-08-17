@@ -891,6 +891,34 @@ select option{background:#1A1B26;color:#FAFAF8}
 
  document.getElementById('dashboardView').style.display = 'block';
  document.getElementById('profileView').style.display = 'none';
+ syncOmniHub();
+ }
+
+ function syncOmniHub() {
+   if (window.parent !== window && window.store && store.profile) {
+     try {
+       const p = store.profile;
+       const r = calcTDEE(p.sex, p.w, p.h, p.a, p.bf, p.trainingAge, p.trainDays, p.sessionLen, p.occupation, p.steps, p.sleep, p.dietPattern, p.goal, p.chronicDiet, p.cyclePhase);
+       let tdeeGoal = r.tdeeGoal;
+       let adjustment = null;
+       if (store.adjustments && store.adjustments.length > 0) {
+         adjustment = store.adjustments[store.adjustments.length - 1];
+         if (adjustment.adjusted) {
+           tdeeGoal = Math.round(tdeeGoal * (1 + adjustment.factor));
+         }
+       }
+       const t = calcTargets(tdeeGoal, p.goal);
+       window.parent.postMessage({
+         type: 'OMNI_SYNC_N',
+         payload: {
+           tdee: tdeeGoal,
+           protein: t.p,
+           carbs: t.c,
+           fats: t.f
+         }
+       }, '*');
+     } catch(e) {}
+   }
  }
 
  function renderWeightTab(){
@@ -2032,7 +2060,21 @@ var linked = pickAccountSub(data.subscriptions);
  }
 
  if(!active){
- window.top.location.href = '../website/portal.html'; return;
+  window.top.location.href = '../website/portal.html'; return;
+} else {
+  // Enforce secure server-side verification of the token
+  if (sub && sub.token) {
+    fetch('https://muscleos-access-control.muscleos.workers.dev/api/check-token', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: sub.token, productId: 'tdee_adaptive_engine' })
+    }).then(function(r){ return r.json(); }).then(function(d){
+      if (!d.valid) {
+        localStorage.removeItem('mos_subscription');
+        window.top.location.href = '../website/portal.html';
+      }
+    }).catch(function(){}); // Allow on network failure to act as local fallback
+  }
+}
  var gs = getGs();
  var started = false;
  function start(){

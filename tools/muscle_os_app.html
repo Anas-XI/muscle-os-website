@@ -332,15 +332,15 @@ var sub = null;
     window.addEventListener('message', function(e) {
       if (!e.data || !e.data.type) return;
       
-      if (e.data.type === 'MOS_TRAINING_SYNC') {
+      if (e.data.type === 'OMNI_SYNC_T') {
         omniState.training = e.data.payload;
         updateOmniDashboard();
         broadcastStateToChildren();
-      } else if (e.data.type === 'MOS_NUTRITION_SYNC') {
+      } else if (e.data.type === 'OMNI_SYNC_N') {
         omniState.nutrition = e.data.payload;
         updateOmniDashboard();
       } else if (e.data.type === 'SESSION_STARTED') {
-        showToast("🏃 Session Started! Pre-workout fuel suggested: 30g Carbs, 15g Protein.");
+        showToast("🏃‍♂️ Session Started! Pre-workout fuel suggested: 30g Carbs, 15g Protein.");
       } else if (e.data.type === 'SESSION_ENDED') {
         showToast("✅ Session Complete! Post-workout recovery: 40g Protein, 50g Carbs.");
       }
@@ -402,33 +402,34 @@ var sub = null;
 <script src="../assets/js/access-control.js"></script>
 <script>
 (function(){
- function init(){
- var gate = document.getElementById('googleGate');
- if(!gate) return;
- MosAccess.requireGoogleAuth(null, function(ok){ if(ok) gate.classList.add('gate-hidden'); });
- }
- if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
-})();
-</script>
-<script src="../js/auth.js"></script>
-<script>
-(function(){
-  var SUB_KEY = 'mos_subscription';
-  function getSub(){ try { return JSON.parse(localStorage.getItem(SUB_KEY) || 'null'); } catch(e){ return null; } }
-  function subOk(s){ return !!(s && s.active && (!s.expiry || new Date(s.expiry + 'T23:59:59') > new Date())); }
-  function hideGate(){ var g = document.getElementById('googleGate'); if (g) g.classList.add('gate-hidden'); }
-  window.MosAccess = { requireGoogleAuth: function(o, cb){ try { cb(!!subOk(getSub())); } catch(e){ cb(false); } } };
-  
-  if (subOk(getSub())) { 
-    hideGate(); 
-  } else { 
-    window.location.href = '../website/portal.html'; 
+  function init(){
+    var gate = document.getElementById('googleGate');
+    if(!gate) return;
+    
+    // Secure background JWT check
+    if (window.MosAccess && typeof window.MosAccess.checkAccess === 'function') {
+      window.MosAccess.checkAccess('omni_hub').then(function(access) {
+        if (access && access.active) {
+          gate.classList.add('gate-hidden');
+        } else {
+          window.location.href = '../website/portal.html';
+        }
+      }).catch(function() {
+        window.location.href = '../website/portal.html';
+      });
+    } else {
+      window.location.href = '../website/portal.html';
+    }
   }
-  
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+
   window.addEventListener('storage', function(e){ 
-    if (e.key === SUB_KEY) {
-      if(subOk(getSub())) hideGate();
-      else window.location.href = '../website/portal.html';
+    if (e.key === 'mos_subscription') {
+      window.MosAccess.checkAccess('omni_hub').then(function(access) {
+        if (!access || !access.active) {
+          window.location.href = '../website/portal.html';
+        }
+      });
     } 
   });
 })();
