@@ -278,7 +278,7 @@ select option{background:#1A1B26;color:#FAFAF8}
  <input type="text" class="sub-code-input" id="subCode" placeholder="Enter your access code" autocomplete="off">
  <button class="sub-verify-btn" id="subVerify">Verify</button>
  </div>
- <div class="sub-error" id="subError">Invalid code. Please check and try again.</div>
+ <div class="sub-error" id="subError">Wrong code. Please check and try again.</div>
  <div class="sub-success" id="subSuccess">Access granted! Reloading tool...</div>
  <div class="sub-nolink" id="subNoLink" style="display:none">No active subscription linked to this account yet. Enter your code below to link it.</div>
  </div>
@@ -1970,7 +1970,7 @@ body: JSON.stringify({ code: code, productId: hubMode ? 'omni_hub' : 'tdee_adapt
   if(data && data.valid){
   grantAndReload(data.plan || 'pro_tdee', (data.expiresAt || '').slice(0, 10), data.token || '', code, email, false, data.productId);
  } else {
- var msg = 'Invalid code. Please check and try again.';
+ var msg = 'Wrong code. Please check and try again.';
  if(data && data.error === 'code_used_by_other') msg = 'This code is already linked to another account.';
  if(data && data.error === 'code_exhausted') msg = 'This code has already been used.';
 if(data && data.error === 'wrong_product') msg = 'This code unlocks the OMNI HUB app — open the OMNI HUB to use it here.';
@@ -2073,7 +2073,7 @@ var linked = pickAccountSub(data.subscriptions);
  document.getElementById('subVerify').addEventListener('click', function(){
  var btn = document.getElementById('subVerify');
  var code = document.getElementById('subCode').value.trim().toUpperCase();
- if(!code){ showErr('subError', 'Invalid code. Please check and try again.'); return; }
+ if(!code){ showErr('subError', 'Wrong code. Please check and try again.'); return; }
  var g = getGs();
  var email = g ? g.email : '';
  if(email.toUpperCase() === OWNER_EMAIL){

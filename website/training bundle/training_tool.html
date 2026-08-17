@@ -842,7 +842,11 @@ select option{background:var(--card)}
 .tw-subval{font-size:.6rem;color:#F4C93B;margin-top:2px;font-weight:500}
 .tw-actions{display:flex;gap:10px;flex-wrap:wrap}
 .tw-actions button{flex:1;min-width:140px;padding:12px 18px;font-size:.8rem;font-weight:700;border-radius:10px;cursor:pointer}
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulseGlow { 0% { box-shadow: 0 0 15px rgba(244,201,59,.2); } 50% { box-shadow: 0 0 25px rgba(244,201,59,.6); } 100% { box-shadow: 0 0 15px rgba(244,201,59,.2); } }
 </style>
+
 <script async defer src="https://accounts.google.com/gsi/client"></script>
 </head>
 <body>
@@ -869,7 +873,7 @@ select option{background:var(--card)}
  <input type="text" class="sub-code-input" id="subCode" placeholder="Enter your access code" autocomplete="off">
  <button class="sub-verify-btn" id="subVerify">Verify</button>
  </div>
- <div class="sub-error" id="subError">Invalid code. Please check and try again.</div>
+ <div class="sub-error" id="subError">Wrong code. Please check and try again.</div>
  <div class="sub-success" id="subSuccess">Access granted! Reloading tool...</div>
  <div class="sub-nolink" id="subNoLink" style="display:none" data-i18n="sub_no_link">No active subscription linked to this account yet. Enter your code below to link it.</div>
  </div>
@@ -910,29 +914,47 @@ select option{background:var(--card)}
  </div>
 
  <div class="stepper no-print" id="stepper">
- <div class="step active" data-step="1"><span class="num">1</span><span data-i18n="welcome">Setup</span></div>
- <div class="step" data-step="2"><span class="num">2</span><span data-i18n="vol_targets">Split</span></div>
- <div class="step" data-step="3"><span class="num">3</span><span data-i18n="generate">Program</span></div>
- <div class="step" data-step="35"><span class="num"></span><span>Meso</span></div>
- <div class="step" data-step="4"><span class="num">4</span><span data-i18n="today_train">Train</span></div>
- <div class="step" data-step="5"><span class="num">5</span><span data-i18n="history">History</span></div>
+ <!-- Active Program Steps -->
+ <div class="step program-step" data-step="0" style="display:none"><span class="num"></span><span data-i18n="dashboard">Dashboard</span></div>
+ <div class="step program-step" data-step="3" style="display:none"><span class="num"></span><span data-i18n="generate">Program</span></div>
+ <div class="step program-step" data-step="35" style="display:none"><span class="num"></span><span>Meso</span></div>
+ <div class="step program-step" data-step="4" style="display:none"><span class="num">🏋</span><span data-i18n="today_train">Train</span></div>
+ <div class="step program-step" data-step="5" style="display:none"><span class="num"></span><span data-i18n="history">History</span></div>
+
+ <!-- Intake Steps -->
+ <div class="step intake-step active" data-step="1"><span class="num">1</span><span data-i18n="welcome">Setup</span></div>
+ <div class="step intake-step" data-step="2"><span class="num">2</span><span data-i18n="vol_targets">Split &amp; Exercises</span></div>
  </div>
 
- <!-- Screen 1: Onboarding -->
- <div class="step-content active" id="step1">
- <!-- Welcome Back Card for returning athletes -->
- <div class="training-welcome-card" id="welcomeTrainingCard" style="display:none">
+ <!-- Screen 0: Dashboard (Welcome Back) -->
+ <div class="step-content" id="step0">
+  <!-- Empty State for New Users -->
+  <div id="hubEmptyState" style="display:none;text-align:center;padding:40px 20px;animation:fadeIn 0.5s ease-out">
+    <div style="margin-bottom:24px">
+      <h2 style="font-size:1.2rem;font-weight:700;color:#FAFAF8;margin-bottom:8px">Welcome to Muscle OS</h2>
+      <p style="font-size:0.75rem;color:rgba(250,250,248,.6);max-width:300px;margin:0 auto;line-height:1.4">Your autoregulated, periodized training journey begins here. Build a custom program tailored to your goals.</p>
+    </div>
+    <button class="btn-primary" onclick="startNewProgram()" style="font-size:0.9rem;padding:12px 24px;width:auto;box-shadow:0 0 15px rgba(244,201,59,.2);animation:pulseGlow 2s infinite">Build Your Program</button>
+  </div>
+
+  <!-- Active State for Returning Users -->
+  <div id="hubActiveState" style="display:none">
+    <div class="training-welcome-card" id="welcomeTrainingCard">
  <div class="tw-badge" id="twBadge"><span class="pulse-dot"></span> HYPERKINETIC MATRIX ACTIVE // SYNCED</div>
  <div class="tw-title" id="twTitleText"> WELCOME BACK, <span id="twUserName">ATHLETE</span>!</div>
  <div class="tw-sub">Your periodized mesocycle, muscle volume landmarks (MEV/MAV/MRV), and readiness profiles are active.</div>
  <div class="tw-grid" id="twGrid"></div>
  <div class="tw-actions">
  <button class="btn-primary" id="twResumeBtn"> Launch Workout Session</button>
- <button class="btn-secondary" onclick="go(2)" style="background:rgba(244,201,59,.12);color:#F4C93B;border:1px solid rgba(244,201,59,.3)">🏋 View Split &amp; Volume</button>
- <button class="btn-secondary" id="twEditBtn">⚙ Edit Profile &amp; Program</button>
+ <button class="btn-secondary" onclick="go(3)" style="background:rgba(244,201,59,.12);color:#F4C93B;border:1px solid rgba(244,201,59,.3)"> View Program</button>
+ <button class="btn-secondary" id="twEditBtn">⚙ Modify Program Parameters</button>
  </div>
+ </div>
+  </div>
  </div>
 
+ <!-- Screen 1: Onboarding -->
+ <div class="step-content active" id="step1">
  <div class="card" id="onboardingFormCard">
  <div class="section-header"><span data-i18n="welcome">Welcome</span> <span class="section-sub" data-i18n="welcome_sub">— set up your profile</span></div>
 
@@ -995,8 +1017,8 @@ select option{background:var(--card)}
  <div id="cyclePhaseInfo" style="font-size:.55rem;color:rgba(250,250,248,.4);margin-top:4px;line-height:1.4"></div>
  </div>
  <div id="musclePrioSection">
- <div class="section-header" data-i18n="muscle_priorities">Muscle Priorities</div>
- <p style="font-size:.55rem;color:rgba(250,250,248,.2);margin-bottom:6px;line-height:1.2"><span data-i18n="muscle_priorities_sub">Select which muscles to <strong style="color:#F4C93B">focus</strong> (full volume) vs <strong style="color:rgba(250,250,248,.35)">maintain</strong> (~half volume).</span></p>
+ <div class="section-header"><span data-i18n="muscle_priorities">Muscle Priorities</span> <span style="font-size:.55rem;color:rgba(250,250,248,.3);font-weight:400">(Optional)</span></div>
+ <p style="font-size:.55rem;color:rgba(250,250,248,.2);margin-bottom:6px;line-height:1.2">Select which muscles to <strong style="color:#F4C93B">focus</strong> (full volume) vs <strong style="color:rgba(250,250,248,.35)">maintain</strong> (~half volume). <br/><em>If you skip this, all muscles will receive balanced (standard) volume.</em></p>
  <div class="priority-grid" id="priorityGrid"></div>
  </div>
 
@@ -1012,8 +1034,8 @@ select option{background:var(--card)}
 
  <!-- Powerlifting extras (shown when goal=strength) -->
  <div class="strength-extras" id="strengthExtras">
- <div class="section-header" data-i18n="pl_profile">Powerlifting Profile</div>
- <p style="font-size:.55rem;color:rgba(250,250,248,.2);margin-bottom:6px;line-height:1.2" data-i18n="pl_sub">We'll design a periodized program based on your current maxes, weak points, and fatigue profile.</p>
+ <div class="section-header"><span data-i18n="pl_profile">Powerlifting Profile</span> <span style="font-size:.55rem;color:rgba(250,250,248,.3);font-weight:400">(Optional)</span></div>
+ <p style="font-size:.55rem;color:rgba(250,250,248,.2);margin-bottom:6px;line-height:1.2" data-i18n="pl_sub">We'll design a periodized program based on your current maxes, weak points, and fatigue profile. Leave blank if unsure.</p>
  <div class="rm-row">
  <div class="rm-input"><label data-i18n="squat_rm">Squat 1RM (kg)</label><input type="number" id="plSquat" step="0.5" placeholder="e.g. 140"></div>
  <div class="rm-input"><label data-i18n="bench_rm">Bench 1RM (kg)</label><input type="number" id="plBench" step="0.5" placeholder="e.g. 100"></div>
@@ -1054,6 +1076,11 @@ select option{background:var(--card)}
  <div class="step-content" id="step2">
  <div class="card">
  <div class="section-header" data-i18n="vol_targets">Volume Targets</div>
+ <p style="font-size:.55rem;color:rgba(250,250,248,.4);margin-bottom:10px;line-height:1.4;background:rgba(244,201,59,.08);border-left:2px solid #F4C93B;padding:6px 8px;">
+ <strong>Coach's Tip:</strong> This is your weekly set volume per muscle (MEV to MRV). 
+ If you click a bar to modify it, remember that increasing volume on one muscle adds systemic fatigue. 
+ Consider lowering volume on another muscle to balance your recovery!
+ </p>
  <div id="volSummary" class="recap-box"></div>
  <div id="volBars"></div>
 
@@ -1074,7 +1101,10 @@ select option{background:var(--card)}
  <div id="splitErr" style="display:none;color:#F4C93B;font-size:.65rem;text-align:center;margin-top:6px" data-i18n="focus_err">Select a split to continue.</div>
  <div class="ex-sel-panel" id="exSelPanel">
  <div class="section-header" data-i18n="exercises">Choose Your Exercises</div>
- <p class="ex-sel-info">Each slot draws from a <strong>full muscle-group pool</strong>. Pick your favorite — the program will generate with your selections. (BB=Barbell, DB=Dumbbell, MAC=Machine, CAB=Cable, BW=Bodyweight)</p>
+ <p class="ex-sel-info">
+ Each slot draws from a <strong>full muscle-group pool</strong> based on your split.<br/>
+ <strong>Tip:</strong> You can click the swap icon on any exercise to change it. Ensure you select exercises that fit your available equipment! (BB=Barbell, DB=Dumbbell, MAC=Machine, CAB=Cable, BW=Bodyweight)
+ </p>
  <div style="display:flex;justify-content:flex-end;margin-bottom:4px;gap:4px">
  <button class="btn-secondary" id="densityBtn" style="font-size:.5rem;padding:3px 10px" data-i18n="density_on">Compact</button>
  <button class="btn-secondary" id="adjustExBtn" style="font-size:.5rem;padding:3px 10px" data-i18n="adjust">Adjust ▾</button>
@@ -1610,11 +1640,11 @@ select option{background:var(--card)}
  warmup_tip_legs:'Foam roll quads + hip flexors before warm-up sets.',
  warmup_tip_upper:'Band pull-aparts + arm circles before warm-up sets.',
  // General warmup
- gen_warmup_legs:'Foam roll: quads, hams, glutes',gen_warmup_legs2:'Hip circles x10 each direction',
- gen_warmup_legs3:'Bodyweight squats x10',gen_warmup_legs4:'Leg swings x10/side',gen_warmup_legs5:'Inchworms x5',
- gen_warmup_upper1:'Band pull-aparts x15',gen_warmup_upper2:'Arm circles x10 fwd/back',
- gen_warmup_upper3:'Push-ups x10',gen_warmup_upper4:'Scapular retractions x10',gen_warmup_upper5:'Cat-cow x8',
- gen_warmup_default1:'Jumping jacks 30s',gen_warmup_default2:'Torso twists x10/side',
+ gen_warmup_legs:'Foam roll: quads, hams, glutes',gen_warmup_legs2:'90/90 Hip Rotations x10/side',
+ gen_warmup_legs3:'World\'s Greatest Stretch x5/side',gen_warmup_legs4:'Leg swings x10/side',gen_warmup_legs5:'Cossack Squat x8/side',
+ gen_warmup_upper1:'Shoulder Dislocates (Band) x15',gen_warmup_upper2:'Thoracic Extensions (Foam Roller)',
+ gen_warmup_upper3:'Push-ups x10',gen_warmup_upper4:'Scapular retractions x10',gen_warmup_upper5:'Cat-Cow x8',
+ gen_warmup_default1:'Jumping jacks 30s',gen_warmup_default2:'World\'s Greatest Stretch x5/side',
  // Rehab
  rehab_acute:'Acute Phase',rehab_recovery:'Recovery Phase (when pain-free)',rehab_safe:'Safe exercises:',rehab_avoid:'Avoid:',
  rehab_stop_all:'Stop all aggravating exercises until pain subsides.',
@@ -1863,7 +1893,7 @@ select option{background:var(--card)}
  sub_auth_switch:'Not you? Switch account',
  sub_verify:'Verify',
  sub_checking:'Checking...',
- sub_err_invalid:'Invalid code. Please check and try again.',
+ sub_err_invalid:'Wrong code. Please check and try again.',
  sub_err_used_by_other:'This code is already linked to another account.',
  sub_err_exhausted:'This code has already been used.',
  sub_err_network:'Network error. Please try again.',
@@ -2058,11 +2088,11 @@ select option{background:var(--card)}
  warmup_tip_legs:'تدليك الفخذين وثنيات الحوض قبل الإحماء.',
  warmup_tip_upper:'تمارين شد الكتف + لف الدراعين قبل الإحماء.',
  // General warmup
- gen_warmup_legs:'تدليك: الفخذين، العضلات الخلفية، الألوية',gen_warmup_legs2:'لفات الحوض 10 مرات كل اتجاه',
- gen_warmup_legs3:'قرفصاء بدون وزن 10 مرات',gen_warmup_legs4:'رجلك متأرجحة 10 مرات',gen_warmup_legs5:'تمارين الدودة 5 مرات',
- gen_warmup_upper1:'شد الكتف 15 مرة',gen_warmup_upper2:'لف الدراعين 10 مرات قدام/ورا',
- gen_warmup_upper3:'تمارين الضغط 10 مرات',gen_warmup_upper4:'تراجع لوح الكتف 10 مرات',gen_warmup_upper5:'تمدد القطة 8 مرات',
- gen_warmup_default1:'نط 30 ثانية',gen_warmup_default2:'لفات الجذع 10 مرات',
+ gen_warmup_legs:'تدليك: الفخذين، العضلات الخلفية، الألوية',gen_warmup_legs2:'90/90 دوران الحوض 10x',
+ gen_warmup_legs3:'أعظم إطالة في العالم 5x',gen_warmup_legs4:'أرجحة الأرجل 10x',gen_warmup_legs5:'قرفصاء قوزاق 8x',
+ gen_warmup_upper1:'فك الكتف بالشريط 15x',gen_warmup_upper2:'تمديد الصدر (رول فوم)',
+ gen_warmup_upper3:'تمارين الضغط 10 مرات',gen_warmup_upper4:'تراجع لوح الكتف 10 مرات',gen_warmup_upper5:'قطة وبقرة 8x',
+ gen_warmup_default1:'نط 30 ثانية',gen_warmup_default2:'أعظم إطالة في العالم 5x',
  // Rehab
  rehab_acute:'المرحلة الحادة',rehab_recovery:'مرحلة التعافي (لما يروح الألم)',rehab_safe:'تمارين آمنة:',rehab_avoid:'تجنب:',
  rehab_stop_all:'⛔ وقف كل التمارين اللي بتوجعك لغاية ما الألم يروح.',
@@ -2740,7 +2770,13 @@ select option{background:var(--card)}
  "Leg Raise":{t:"isolation",f:"low",jr:["spine"],inc:2.5,rr:[10,20],subs:["Hanging Leg Raise","Cable Crunch","Ab Wheel Rollout","Plank"]},
  "Cable Crunch":{t:"isolation",f:"low",jr:["spine"],inc:2.5,rr:[10,20],subs:["Hanging Leg Raise","Leg Raise","Ab Wheel Rollout","Plank"]},
  "Ab Wheel Rollout":{t:"isolation",f:"low",jr:["spine"],inc:2.5,rr:[8,15],subs:["Plank","Hanging Leg Raise","Cable Crunch","Leg Raise"]},
- "Plank":{t:"isolation",f:"low",jr:["spine"],inc:2.5,rr:[10,20],subs:["Ab Wheel Rollout","Hanging Leg Raise","Leg Raise","Cable Crunch"]}
+ "Plank":{t:"isolation",f:"low",jr:["spine"],inc:2.5,rr:[10,20],subs:["Ab Wheel Rollout","Hanging Leg Raise","Leg Raise","Cable Crunch"]},
+ "World's Greatest Stretch":{t:"isolation",f:"low",jr:["hip","spine"],inc:0,rr:[5,10],subs:["90/90 Hip Rotations","Cossack Squat"]},
+ "90/90 Hip Rotations":{t:"isolation",f:"low",jr:["hip"],inc:0,rr:[10,20],subs:["World's Greatest Stretch","Cossack Squat"]},
+ "Cossack Squat":{t:"isolation",f:"low",jr:["hip","knee"],inc:0,rr:[8,12],subs:["90/90 Hip Rotations","World's Greatest Stretch"]},
+ "Shoulder Dislocates":{t:"isolation",f:"low",jr:["shoulder"],inc:0,rr:[15,20],subs:["Thoracic Extensions","Cat-Cow"]},
+ "Thoracic Extensions":{t:"isolation",f:"low",jr:["spine"],inc:0,rr:[10,15],subs:["Cat-Cow","Shoulder Dislocates"]},
+ "Cat-Cow":{t:"isolation",f:"low",jr:["spine"],inc:0,rr:[8,12],subs:["Thoracic Extensions","Shoulder Dislocates"]}
  };
 
  // ── Exercise pools per muscle group (favorites picker) ──
@@ -2756,7 +2792,8 @@ select option{background:var(--card)}
  calves:["Calf Raise","Standing Calf Raise","Single-Leg Calf Raise","Seated Calf Raise","Leg Press Calf Raise","Donkey Calf Raise"],
  traps:["Kelso Shrugs","Vertical Shrugs","Barbell Shrugs","Dumbbell Shrugs","Farmers Walk","Face Pull"],
  forearms:["Forearm Ext/Flex","Wrist Curl","Reverse Wrist Curl","Plate Pinch","Dead Hang"],
- abs:["Hanging Leg Raise","Leg Raise","Cable Crunch","Ab Wheel Rollout","Plank"]
+ abs:["Hanging Leg Raise","Leg Raise","Cable Crunch","Ab Wheel Rollout","Plank"],
+ mobility:["World's Greatest Stretch","90/90 Hip Rotations","Cossack Squat","Shoulder Dislocates","Thoracic Extensions","Cat-Cow"]
  };
  window.__pools=EXERCISE_POOLS;window.__exMeta=EXERCISE_META;window.__tendonProtocols=TENDON_PROTOCOLS;
 
@@ -4506,8 +4543,17 @@ select option{background:var(--card)}
 
  var step=1,dayIdx=0,splitKey='upper_lower_4',quizMode=false,quizQ=0,quizA={};
  var makeupDays={},missedSkip=false,lightDays={},lightProceed={},monoDismissed={};
+ function setAppMode(mode) {
+ if(mode === 'program') {
+ document.querySelectorAll('.program-step').forEach(function(s){s.style.display=''});
+ document.querySelectorAll('.intake-step').forEach(function(s){s.style.display='none'});
+ } else {
+ document.querySelectorAll('.program-step').forEach(function(s){s.style.display='none'});
+ document.querySelectorAll('.intake-step').forEach(function(s){s.style.display=''});
+ }
+ }
  function go(n){step=n;evLog('screen_'+n);document.querySelectorAll('.step-content').forEach(function(s){s.classList.remove('active')});var el=document.getElementById('step'+n);if(el)el.classList.add('active');document.querySelectorAll('.step').forEach(function(s){var sn=parseInt(s.dataset.step);s.classList.remove('active','done');if(sn===n)s.classList.add('active');else if(sn<n)s.classList.add('done');});window.scrollTo(0,0);}
- document.querySelectorAll('.step').forEach(function(s){s.addEventListener('click',function(){var n=parseInt(this.dataset.step);if(n<=step)go(n);})});
+ document.querySelectorAll('.step').forEach(function(s){s.addEventListener('click',function(){var n=parseInt(this.dataset.step);if(n<=step && this.style.display !== 'none')go(n);})});
 
  // ═══════════════════════════════════════
  // SCREEN 1: ONBOARDING
@@ -4675,7 +4721,7 @@ select option{background:var(--card)}
  var err=document.getElementById('onboardErr');
  var ta=document.getElementById('ta').value;
  var fc=MUSCLES.filter(function(m){return getPrio(m.id)==='focus'}).length;
- if(ta!=='novice'&&fc===0){err.style.display='block';return;}err.style.display='none';
+ err.style.display='none';
  var g=document.getElementById('goal').value,dd=parseInt(document.getElementById('dow').value),rf=document.getElementById('recFactor').value;
  var name=document.getElementById('userName').value.trim();
  var age=document.getElementById('userAge').value||'';
@@ -6663,6 +6709,10 @@ select option{background:var(--card)}
  if(orig&&orig!==ex.n)swapChips+='<button class="swap-chip original" data-di="'+di+'" data-idx="'+ei+'" data-ex="'+ex.n+'" data-to="'+orig+'">↩ '+_('swap_back')+' ('+(EX_TR[orig]?exDisplay(orig):orig)+')</button>';
  msubs.forEach(function(s){if(s!==ex.n)swapChips+='<button class="swap-chip" data-di="'+di+'" data-idx="'+ei+'" data-ex="'+ex.n+'" data-to="'+s+'">'+(EX_TR[s]?exDisplay(s):s)+'</button>';});
  ceList.forEach(function(c){if(c.name!==ex.n&&(c.f===ex.p||ex.se.indexOf(c.f)>=0))swapChips+='<button class="swap-chip" data-di="'+di+'" data-idx="'+ei+'" data-ex="'+ex.n+'" data-to="'+c.name+'">'+(EX_TR[c.name]?exDisplay(c.name):c.name)+'</button>';});
+ 
+ // Add mobility exercises as a variety to all swap panels
+ var mobPool=window.__pools.mobility||[];
+ mobPool.forEach(function(s){if(s!==ex.n)swapChips+='<button class="swap-chip" style="color:#64B5F6;border-color:rgba(100,181,246,0.3);border-style:dashed" data-di="'+di+'" data-idx="'+ei+'" data-ex="'+ex.n+'" data-to="'+s+'"> '+(EX_TR[s]?exDisplay(s):s)+'</button>';});
  var swapHtml=swapChips?'<div class="swap-panel"><div class="swp-title">'+_('swap_title')+'</div><div class="swp-hint">'+_('swap_hint')+'</div>'+swapChips+'</div>':'';
  var painHtml='<div class="pain-group"><span class="pain-lbl">'+_('red')+'</span>'+
  '<button class="pain-btn'+(pfc==='green'?' active-green':'')+'" data-ex="'+ex.n+'" data-p="green">🟢</button>'+
@@ -7176,8 +7226,8 @@ select option{background:var(--card)}
  gh+
  '<div class="ft">Generated by Muscle OS Training App \u2014 <a href="https://wa.me/201040796017">Coach Anas Mo\'men</a></div>'+
  '<footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO\'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach \u2014 Coach Anas Mo\'men</div></footer>'+
- '<script src="../js/auth.js"></script>
-</body></html>');
+ '<script src="../js/auth.js"><\/script>'+
+'</body></html>');
  w.document.close();w.focus();setTimeout(function(){w.print();},500);
  });
 
@@ -7535,7 +7585,11 @@ select option{background:var(--card)}
  modal.style.display = 'flex';
  };
 
- window.closeTrainingTourModal = function(){
+ window.startNewProgram = function(){
+  setAppMode('intake');
+  go(1);
+};
+window.closeTrainingTourModal = function(){
  var modal = document.getElementById('mosTrainTourModal');
  if(modal) modal.style.display = 'none';
  };
@@ -7556,12 +7610,19 @@ select option{background:var(--card)}
  if(vi.days){var dEl=document.getElementById('dow');if(dEl)dEl.value=vi.days;}
  if(vi.rec){var rEl=document.getElementById('recFactor');if(rEl)rEl.value=vi.rec;}
  // Enhanced Welcome Back Card for existing profile / program
- if(prog || sp || vi.name){
+ go(0);
+    var hubEmpty = document.getElementById('hubEmptyState');
+    var hubActive = document.getElementById('hubActiveState');
+    var stepper = document.getElementById('stepper');
+    
+    if(prog || sp || vi.name){
+      setAppMode('program');
+      if(hubEmpty) hubEmpty.style.display = 'none';
+      if(hubActive) hubActive.style.display = 'block';
+      if(stepper) stepper.style.display = 'flex';
  var welcomeCard = document.getElementById('welcomeTrainingCard');
- var formCard = document.getElementById('onboardingFormCard');
- if(welcomeCard && formCard){
+ if(welcomeCard){
  var name = vi.name || 'Athlete';
- var twUserName = document.getElementById('twUserName');
  var greetingTitle = document.getElementById('twTitleText');
  var hour = new Date().getHours();
  let greeting = ' WELCOME BACK';
@@ -7606,8 +7667,6 @@ select option{background:var(--card)}
  </div>
  `;
  }
- welcomeCard.style.display = 'block';
- formCard.style.display = 'none';
 
  var resumeBtn = document.getElementById('twResumeBtn');
  if(resumeBtn){
@@ -7620,11 +7679,14 @@ select option{background:var(--card)}
  var editBtn = document.getElementById('twEditBtn');
  if(editBtn){
  editBtn.addEventListener('click', function(){
- welcomeCard.style.display = 'none';
- formCard.style.display = 'block';
+ setAppMode('intake');
+ go(1);
  });
  }
  }
+ } else {
+ setAppMode('intake');
+ go(1);
  }
  console.log('Unified Training App loaded');
  translateUI();
@@ -7901,6 +7963,13 @@ select option{background:var(--card)}
  // jr (joints), subs (alternatives)}
  // ═══════════════════════════════════════════════════════════════════
  var EX_NEW=[
+ // ── Mobility / Warm-up ──
+ {n:'World\'s Greatest Stretch',p:'mobility',eq:['bodyweight'],sec:['hip','spine'],g:{s:'Start in a push-up position, step one foot outside your hand.',e:'Rotate the inside arm up to the sky, hold, then switch.',c:'Keep the back leg straight and focus on opening the hip and thoracic spine.',b:'Exhale on the twist.'},ar:{name:'أعظم إطالة في العالم',s:'وضع الضغط، خطوة بقدم واحدة خارج يدك.',e:'لف الذراع الداخلي للسماء، اثبت، ثم بدل.',c:'حافظ على الرجل الخلفية مستقيمة وركز على فتح الحوض والصدر.',b:'زفير عند اللف.'}},
+ {n:'90/90 Hip Rotations',p:'mobility',eq:['bodyweight'],sec:['hip'],g:{s:'Sit on the floor, one leg in front bent at 90°, the other behind bent at 90°.',e:'Slowly rotate your hips to switch the legs to the other side without using hands if possible.',c:'Keep your torso upright and move smoothly.',b:'Breathe naturally.'},ar:{name:'90/90 دوران الحوض',s:'اجلس على الأرض، رجل أمامية بزاوية 90 درجة ورجل خلفية بـ 90 درجة.',e:'لف حوضك ببطء لتبديل الأرجل للجهة التانية بدون إيدين لو أمكن.',c:'خلي ظهرك مفرود واتحرك بسلاسة.',b:'تنفس براحتك.'}},
+ {n:'Cossack Squat',p:'mobility',eq:['bodyweight'],sec:['quads','hamstrings'],g:{s:'Stand very wide, toes slightly out.',e:'Squat down sideways over one leg, keeping the other leg straight.',c:'Keep the heel of the bent leg on the floor, and point the straight leg\'s toes up.',b:'Exhale as you push back to center.'},ar:{name:'قرفصاء قوزاق',s:'قف بفتحة أرجل واسعة جداً.',e:'انزل قرفصاء على رجل واحدة مع بقاء الرجل التانية مفرودة.',c:'خلي كعب الرجل المتنية على الأرض، واصابع الرجل المفرودة لفوق.',b:'زفير وإنت بتدفع للمنتصف.'}},
+ {n:'Shoulder Dislocates',p:'mobility',eq:['band'],sec:['shoulders'],g:{s:'Hold a band or stick with a very wide grip in front of you.',e:'Keeping arms straight, bring it up and over your head to your lower back, then reverse.',c:'Start very wide and do not force through pain.',b:'Inhale up, exhale down.'},ar:{name:'فك الكتف بالشريط',s:'امسك شريط مقاومة أو عصا بمسكة واسعة جداً.',e:'بذراعين مفرودين، ارفعها فوق رأسك لظهرك، ثم ارجع.',c:'ابدأ بمسكة واسعة جداً ولا تضغط على الألم.',b:'شهيق لفوق، زفير لتحت.'}},
+ {n:'Thoracic Extensions',p:'mobility',eq:['foam_roller'],sec:['spine'],g:{s:'Lie with a foam roller across your mid-back, hands supporting your head.',e:'Arch your upper back over the roller while keeping your ribs down.',c:'Do not roll the lower back; focus on the thoracic spine.',b:'Exhale as you stretch over the roller.'},ar:{name:'تمديد الصدر برول الفوم',s:'نام ورول الفوم تحت منتصف ظهرك، وإيدك ساندة راسك.',e:'قوس ظهرك العلوي فوق الرول وحافظ على أضلاعك لتحت.',c:'ماتعملش رول لأسفل الظهر؛ ركز على منتصف الظهر.',b:'زفير مع الإطالة.'}},
+ {n:'Cat-Cow',p:'mobility',eq:['bodyweight'],sec:['spine'],g:{s:'Get on all fours, hands under shoulders, knees under hips.',e:'Arch your back up (cat) then let your belly dip down (cow).',c:'Move slowly and articulate through the entire spine.',b:'Exhale on cat, inhale on cow.'},ar:{name:'إطالة القطة والبقرة',s:'انزل على إيدك وركبك، الأيدين تحت الكتف والركب تحت الحوض.',e:'قوس ظهرك لفوق (القطة) ثم نزل بطنك لتحت (البقرة).',c:'اتحرك ببطء وشغل العمود الفقري كله.',b:'زفير في القطة، شهيق في البقرة.'}},
  // ── Chest (gap: fly variants, pressing variants, band/home) ──
  {n:'Decline Bench Press',p:'chest',eq:['barbell'],sec:['triceps','shoulders'],g:{s:'Bench at 15-30° decline, feet hooked, bar over the lower chest.',e:'Lower the bar to the lower chest, press up and back.',c:'Keep the bar path over the lower pecs.',b:'Exhale on the press.'},ar:{name:'ضغط بنش مائل لأسفل',s:'بنش مائل 15-30°، ثبّت القدمين، البار فوق أسفل الصدر.',e:'أنزل البار لأسفل الصدر ثم ادفعه للأعلى والخلف.',c:'حافظ على مسار البار فوق الجزء السفلي من الصدر.',b:'زفير عند الدفع.'}},
  {n:'Cable Crossover',p:'chest',eq:['cable'],sec:['shoulders','triceps'],g:{s:'Cables high, step forward, slight lean, arms extended wide.',e:'Bring the handles together in front of the chest, pause, return slowly.',c:'Slight elbow bend; squeeze the chest at the peak.',b:'Exhale on the squeeze.'},ar:{name:'كروس كابل',s:'كابل مرتفع، خطوة للأمام، ميل بسيط، ذراعان ممدودتان.',e:'اجمع المقابض أمام الصدر، توقف قليلاً ثم عُد ببطء.',c:'ثني بسيط بالكوع؛ اضغط الصدر عند الذروة.',b:'زفير عند الضغط.'}},
@@ -8255,9 +8324,28 @@ select option{background:var(--card)}
  var API_BASE = 'https://muscleos-access-control.muscleos.workers.dev';
  var GOOGLE_CLIENT_ID = '22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com';
  var PRODUCT_ID = 'training_tool';
+ var HUB_PRODUCT = 'omni_hub';
+ var hubMode = (window.self !== window.top) && (function(){ try { return sessionStorage.getItem('mos_hub_mode') === '1'; } catch(e){ return false; } })();
+ function deriveProd(code, plan){
+  var p = (code || '').toUpperCase();
+  if (plan === 'master') return 'all_access';
+  if (p.indexOf('OH-') === 0) return 'omni_hub';
+  if (p.indexOf('TR-') === 0) return 'training_tool';
+  if (p.indexOf('MA-') === 0) return 'all_access';
+  if (p.indexOf('TD-') === 0) return 'tdee_adaptive_engine';
+  if (p.indexOf('TB-') === 0) return 'both_tools';
+  if (p.indexOf('BK-') === 0) return 'training_book';
+  if (p.indexOf('BN-') === 0) return 'nutrition_book';
+  if (p.indexOf('BB-') === 0) return 'both_books';
+  return PRODUCT_ID;
+ }
  var sub = null;
  try { sub = JSON.parse(localStorage.getItem(SUB_KEY)); } catch(e){}
- var active = !!(sub && sub.active && new Date(sub.expiry + 'T23:59:59') > new Date());
+ var subProd = sub ? (sub.prodId || deriveProd(sub.code, sub.plan)) : null;
+  var prodOk = !!sub && (sub.plan === 'master' || sub.code === 'OWNER' || (hubMode ? subProd === HUB_PRODUCT : (subProd === PRODUCT_ID || subProd === HUB_PRODUCT)));
+ var active = !!(sub && sub.active && prodOk && new Date(sub.expiry + 'T23:59:59') > new Date());
+ window.__MOS_PRODUCT__ = hubMode ? HUB_PRODUCT : PRODUCT_ID;
+ window.__MOS_GATE__ = function(){ return { active: active, prodId: subProd, plan: sub ? sub.plan : null, hub: hubMode }; };
 
  function t(key, fb){ try { var v = _(key); return (v === key) ? (fb || v) : v; } catch(e){ return fb || key; } }
  function getGs(){ try { var g = JSON.parse(localStorage.getItem(GS_KEY)); return (g && g.session) ? g : null; } catch(e){ return null; } }
@@ -8274,22 +8362,25 @@ select option{background:var(--card)}
  var el = document.getElementById('subNoLink');
  if(el) el.style.display = show ? 'block' : 'none';
  }
- function pickAccountSub(subs){
- // Worker returns active account-bound subs sorted by expiry desc
- if(!Array.isArray(subs) || !subs.length) return null;
- for(var i = 0; i < subs.length; i++){
- var s = subs[i];
- if(!s) continue;
- if(s.products === 'all') return s;
- if(Array.isArray(s.products) && s.products.indexOf(PRODUCT_ID) !== -1) return s;
- }
- return null;
- }
- function setSub(plan, expiry, token, code, email){
- localStorage.setItem(SUB_KEY, JSON.stringify({ active: true, plan: plan, expiry: expiry, token: token || '', code: code, email: email || '' }));
- }
- function grantAndReload(plan, expiry, token, code, email, quiet){
- setSub(plan, expiry, token, code, email);
+function pickAccountSub(subs){
+  // Worker returns active account-bound subs sorted by expiry desc
+  if(!Array.isArray(subs) || !subs.length) return null;
+  var want = hubMode ? HUB_PRODUCT : PRODUCT_ID;
+  for(var i = 0; i < subs.length; i++){
+  var s = subs[i];
+  if(!s) continue;
+  if(s.products === 'all') return s;
+  if(Array.isArray(s.products) && s.products.indexOf(want) !== -1) return s;
+  if(Array.isArray(s.products) && s.products.indexOf('omni_hub') !== -1 && (want === 'training_tool' || want === 'tdee_adaptive_engine')) return s;
+  }
+  return null;
+  }
+  function subProdOf(s){ return s ? (s.products === 'all' ? 'all_access' : (Array.isArray(s.products) && s.products.length === 1 ? s.products[0] : null)) : null; }
+  function setSub(plan, expiry, token, code, email, prodId){
+  localStorage.setItem(SUB_KEY, JSON.stringify({ active: true, plan: plan, expiry: expiry, token: token || '', code: code, email: email || '', prodId: prodId || deriveProd(code, plan) }));
+  }
+  function grantAndReload(plan, expiry, token, code, email, quiet, prodId){
+  setSub(plan, expiry, token, code, email, prodId);
  showStep(2);
  document.getElementById('subError').style.display = 'none';
  document.getElementById('subSuccess').style.display = 'block';
@@ -8308,16 +8399,17 @@ select option{background:var(--card)}
  fetch(API_BASE + '/api/verify-code', {
  method: 'POST',
  headers: { 'Content-Type': 'application/json' },
- body: JSON.stringify({ code: code, productId: 'training_tool', session: gs ? gs.session : undefined })
- }).then(function(r){ return r.json(); }).then(function(data){
- if(data && data.valid){
- if(window.__evLog)window.__evLog('code_accepted',{plan:data.plan||'pro_training'});
- grantAndReload(data.plan || 'pro_training', (data.expiresAt || '').slice(0, 10), data.token || '', code, email);
+body: JSON.stringify({ code: code, productId: hubMode ? 'omni_hub' : 'training_tool', session: gs ? gs.session : undefined })
+  }).then(function(r){ return r.json(); }).then(function(data){
+  if(data && data.valid){
+  if(window.__evLog)window.__evLog('code_accepted',{plan:data.plan||'pro_training'});
+  grantAndReload(data.plan || 'pro_training', (data.expiresAt || '').slice(0, 10), data.token || '', code, email, false, data.productId);
  } else {
  if(window.__evLog)window.__evLog('code_rejected');
- var msg = t('sub_err_invalid', 'Invalid code. Please check and try again.');
+ var msg = t('sub_err_invalid', 'Wrong code. Please check and try again.');
  if(data && data.error === 'code_used_by_other') msg = t('sub_err_used_by_other', 'This code is already linked to another account.');
- if(data && data.error === 'code_exhausted') msg = t('sub_err_exhausted', 'This code has already been used.');
+  if(data && data.error === 'code_exhausted') msg = t('sub_err_exhausted', 'This code has already been used.');
+  if(data && data.error === 'wrong_product') msg = t('sub_err_wrong_product', 'This code unlocks the OMNI HUB app — open the OMNI HUB to use it here.');
  if(data && data.error === 'invalid_session'){
  localStorage.removeItem(GS_KEY);
  showStep(1);
@@ -8342,12 +8434,12 @@ select option{background:var(--card)}
  grantAndReload('pro_training', expiry.toISOString().split('T')[0], '', 'OWNER', data.email);
  return;
  }
- var linked = pickAccountSub(data.subscriptions);
- if(linked){
- grantAndReload(linked.plan || 'pro_training', (linked.expiresAt || '').slice(0, 10), '', linked.code, data.email, true);
- return;
- }
- document.getElementById('authWelcome').textContent = t('sub_auth_welcome', 'Signed in as {name}').replace('{name}', data.name || data.email);
+var linked = pickAccountSub(data.subscriptions);
+  if(linked){
+  grantAndReload(linked.plan || 'pro_training', (linked.expiresAt || '').slice(0, 10), '', linked.code, data.email, true, subProdOf(linked));
+  return;
+  }
+  document.getElementById('authWelcome').textContent = t('sub_auth_welcome', 'Signed in as {name}').replace('{name}', data.name || data.email);
  showStep(2);
  showNoLink(true);
  }
@@ -8375,8 +8467,8 @@ select option{background:var(--card)}
  google.accounts.id.renderButton(host, { theme: 'outline', size: 'large', width: 280 });
  }
 
- if(!active){
- var _trial = window.__trialState ? window.__trialState() : null;
+if(!active){
+  var _trial = (!hubMode && window.__trialState) ? window.__trialState() : null;
  if(_trial && _trial.active){
  // Additive gate: an active trial keeps the tool unlocked; the pill shows days left.
  if(window.__evLog)window.__evLog('trial_gate_open', { days: _trial.daysLeft });
@@ -8396,11 +8488,11 @@ select option{background:var(--card)}
  body: JSON.stringify({ session: gs.session })
  }).then(function(r){ return r.json(); }).then(function(data){
  if(data && data.valid){
- var linked = pickAccountSub(data.subscriptions);
- if(linked){
- grantAndReload(linked.plan || 'pro_training', (linked.expiresAt || '').slice(0, 10), '', linked.code, gs.email, true);
- return;
- }
+var linked = pickAccountSub(data.subscriptions);
+  if(linked){
+  grantAndReload(linked.plan || 'pro_training', (linked.expiresAt || '').slice(0, 10), '', linked.code, gs.email, true, subProdOf(linked));
+  return;
+  }
  document.getElementById('authWelcome').textContent = t('sub_auth_welcome', 'Signed in as {name}').replace('{name}', gs.name || gs.email);
  showStep(2);
  showNoLink(true);
@@ -8424,7 +8516,7 @@ select option{background:var(--card)}
  document.getElementById('subVerify').addEventListener('click', function(){
  var btn = document.getElementById('subVerify');
  var code = document.getElementById('subCode').value.trim().toUpperCase();
- if(!code){ showErr('subError', t('sub_err_invalid', 'Invalid code. Please check and try again.')); if(window.__evLog)window.__evLog('code_attempt',{empty:true}); return; }
+ if(!code){ showErr('subError', t('sub_err_invalid', 'Wrong code. Please check and try again.')); if(window.__evLog)window.__evLog('code_attempt',{empty:true}); return; }
  var g = getGs();
  var email = g ? g.email : '';
  if(email.toUpperCase() === OWNER_EMAIL){
@@ -8455,5 +8547,12 @@ select option{background:var(--card)}
  <a class="cta-secondary" href="../order.html?product=training_tool">Buy Access</a>
 </div>
 <script src="./update_notifier.js"></script>
+<script>
+if (window.self !== window.top) {
+  var style = document.createElement('style');
+  style.innerHTML = '#mobileCtaBar { display: none !important; } body { padding-bottom: 30px !important; }';
+  document.head.appendChild(style);
+}
+</script>
 </body>
 </html>

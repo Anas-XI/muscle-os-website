@@ -401,6 +401,16 @@ select option{background:#1E1E2A;color:#FAFAF8}
 (function(){
   var SUB_KEY = 'mos_subscription';
   var API = 'https://muscleos-access-control.muscleos.workers.dev/api/verify-code';
+  var ERR_MSGS = {
+    invalid_code: 'Wrong code. Please check and try again.',
+    wrong_product: 'This code belongs to a different product.',
+    code_used_by_other: 'This code is already linked to another account.',
+    code_exhausted: 'This code has already been used.',
+    code_revoked: 'This code has been revoked.',
+    code_expired: 'This code has expired.',
+    invalid_session: 'Session expired. Please sign in again.',
+    network: 'Network error. Please try again.'
+  };
   function getSub(){ try { return JSON.parse(localStorage.getItem(SUB_KEY) || 'null'); } catch(e){ return null; } }
   function subOk(s){ return !!(s && s.active && (!s.expiry || new Date(s.expiry + 'T23:59:59') > new Date())); }
   function hideGate(){ var g = document.getElementById('googleGate'); if (g) g.classList.add('gate-hidden'); }
@@ -465,18 +475,28 @@ select option{background:#1E1E2A;color:#FAFAF8}
       err.style.display = 'none';
       var tries = ['training_tool', 'tdee_adaptive_engine', 'omni_hub'];
       var i = 0;
-      function fail(){ btn.disabled = false; btn.textContent = 'UNLOCK'; err.style.display = 'block'; err.textContent = 'Invalid code or wrong product.'; }
+      var lastError = 'network';
+      function fail(){
+        btn.disabled = false;
+        btn.textContent = 'UNLOCK';
+        err.style.display = 'block';
+        err.textContent = ERR_MSGS[lastError] || ERR_MSGS.invalid_code;
+      }
       function attempt(){
         if (i >= tries.length) return fail();
-        fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code: code, productId: tries[i++] }) })
-          .then(function(r){ return r.json(); })
-          .then(function(d){
-            if (d && d.valid) {
-              localStorage.setItem(SUB_KEY, JSON.stringify({ active: true, plan: d.plan || 'pro_tool', expiry: (d.expiresAt || '').slice(0, 10), token: d.token || '', code: code, email: '', prodId: d.productId || 'all_access' }));
+        var prod = tries[i++];
+        fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code: code, productId: prod }) })
+          .then(function(r){ return r.json().catch(function(){ return null; }).then(function(d){ return { ok: r.ok, d: d }; }); })
+          .then(function(res){
+            if (res.ok && res.d && res.d.valid) {
+              localStorage.setItem(SUB_KEY, JSON.stringify({ active: true, plan: res.d.plan || 'pro_tool', expiry: (res.d.expiresAt || '').slice(0, 10), token: res.d.token || '', code: code, email: '', prodId: res.d.productId || 'all_access' }));
               hideGate();
-            } else attempt();
+            } else {
+              lastError = (res.d && res.d.error) ? res.d.error : 'network';
+              attempt();
+            }
           })
-          .catch(attempt);
+          .catch(function(){ lastError = 'network'; attempt(); });
       }
       attempt();
     });

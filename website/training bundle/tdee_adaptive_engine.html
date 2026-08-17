@@ -278,7 +278,7 @@ select option{background:#1A1B26;color:#FAFAF8}
  <input type="text" class="sub-code-input" id="subCode" placeholder="Enter your access code" autocomplete="off">
  <button class="sub-verify-btn" id="subVerify">Verify</button>
  </div>
- <div class="sub-error" id="subError">Invalid code. Please check and try again.</div>
+ <div class="sub-error" id="subError">Wrong code. Please check and try again.</div>
  <div class="sub-success" id="subSuccess">Access granted! Reloading tool...</div>
  <div class="sub-nolink" id="subNoLink" style="display:none">No active subscription linked to this account yet. Enter your code below to link it.</div>
  </div>
@@ -1896,9 +1896,28 @@ select option{background:#1A1B26;color:#FAFAF8}
  var API_BASE = 'https://muscleos-access-control.muscleos.workers.dev';
  var GOOGLE_CLIENT_ID = '22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com';
  var PRODUCT_ID = 'tdee_adaptive_engine';
+ var HUB_PRODUCT = 'omni_hub';
+ var hubMode = (window.self !== window.top) && (function(){ try { return sessionStorage.getItem('mos_hub_mode') === '1'; } catch(e){ return false; } })();
+ function deriveProd(code, plan){
+  var p = (code || '').toUpperCase();
+  if (plan === 'master') return 'all_access';
+  if (p.indexOf('OH-') === 0) return 'omni_hub';
+  if (p.indexOf('TR-') === 0) return 'training_tool';
+  if (p.indexOf('MA-') === 0) return 'all_access';
+  if (p.indexOf('TD-') === 0) return 'tdee_adaptive_engine';
+  if (p.indexOf('TB-') === 0) return 'both_tools';
+  if (p.indexOf('BK-') === 0) return 'training_book';
+  if (p.indexOf('BN-') === 0) return 'nutrition_book';
+  if (p.indexOf('BB-') === 0) return 'both_books';
+  return PRODUCT_ID;
+ }
  var sub = null;
  try { sub = JSON.parse(localStorage.getItem(SUB_KEY)); } catch(e){}
- var active = !!(sub && sub.active && new Date(sub.expiry + 'T23:59:59') > new Date());
+ var subProd = sub ? (sub.prodId || deriveProd(sub.code, sub.plan)) : null;
+ var prodOk = !!sub && (sub.plan === 'master' || sub.code === 'OWNER' || (hubMode ? subProd === HUB_PRODUCT : (subProd === PRODUCT_ID || subProd === HUB_PRODUCT)));
+ var active = !!(sub && sub.active && prodOk && new Date(sub.expiry + 'T23:59:59') > new Date());
+ window.__MOS_PRODUCT__ = hubMode ? HUB_PRODUCT : PRODUCT_ID;
+ window.__MOS_GATE__ = function(){ return { active: active, prodId: subProd, plan: sub ? sub.plan : null, hub: hubMode }; };
 
  function getGs(){ try { var g = JSON.parse(localStorage.getItem(GS_KEY)); return (g && g.session) ? g : null; } catch(e){ return null; } }
  function showStep(n){
@@ -1914,22 +1933,25 @@ select option{background:#1A1B26;color:#FAFAF8}
  var el = document.getElementById('subNoLink');
  if(el) el.style.display = show ? 'block' : 'none';
  }
- function pickAccountSub(subs){
- // Worker returns active account-bound subs sorted by expiry desc
- if(!Array.isArray(subs) || !subs.length) return null;
- for(var i = 0; i < subs.length; i++){
- var s = subs[i];
- if(!s) continue;
- if(s.products === 'all') return s;
- if(Array.isArray(s.products) && s.products.indexOf(PRODUCT_ID) !== -1) return s;
- }
- return null;
- }
- function setSub(plan, expiry, token, code, email){
- localStorage.setItem(SUB_KEY, JSON.stringify({ active: true, plan: plan, expiry: expiry, token: token || '', code: code, email: email || '' }));
- }
- function grantAndReload(plan, expiry, token, code, email, quiet){
- setSub(plan, expiry, token, code, email);
+function pickAccountSub(subs){
+  // Worker returns active account-bound subs sorted by expiry desc
+  if(!Array.isArray(subs) || !subs.length) return null;
+  var want = hubMode ? HUB_PRODUCT : PRODUCT_ID;
+  for(var i = 0; i < subs.length; i++){
+  var s = subs[i];
+  if(!s) continue;
+  if(s.products === 'all') return s;
+  if(Array.isArray(s.products) && s.products.indexOf(want) !== -1) return s;
+if(Array.isArray(s.products) && s.products.indexOf('omni_hub') !== -1 && (want === 'training_tool' || want === 'tdee_adaptive_engine')) return s;
+  }
+  return null;
+  }
+  function subProdOf(s){ return s ? (s.products === 'all' ? 'all_access' : (Array.isArray(s.products) && s.products.length === 1 ? s.products[0] : null)) : null; }
+  function setSub(plan, expiry, token, code, email, prodId){
+  localStorage.setItem(SUB_KEY, JSON.stringify({ active: true, plan: plan, expiry: expiry, token: token || '', code: code, email: email || '', prodId: prodId || deriveProd(code, plan) }));
+  }
+  function grantAndReload(plan, expiry, token, code, email, quiet, prodId){
+  setSub(plan, expiry, token, code, email, prodId);
  showStep(2);
  document.getElementById('subError').style.display = 'none';
  document.getElementById('subSuccess').style.display = 'block';
@@ -1943,14 +1965,15 @@ select option{background:#1A1B26;color:#FAFAF8}
  fetch(API_BASE + '/api/verify-code', {
  method: 'POST',
  headers: { 'Content-Type': 'application/json' },
- body: JSON.stringify({ code: code, productId: 'tdee_adaptive_engine', session: gs ? gs.session : undefined })
- }).then(function(r){ return r.json(); }).then(function(data){
- if(data && data.valid){
- grantAndReload(data.plan || 'pro_tdee', (data.expiresAt || '').slice(0, 10), data.token || '', code, email);
+body: JSON.stringify({ code: code, productId: hubMode ? 'omni_hub' : 'tdee_adaptive_engine', session: gs ? gs.session : undefined })
+  }).then(function(r){ return r.json(); }).then(function(data){
+  if(data && data.valid){
+  grantAndReload(data.plan || 'pro_tdee', (data.expiresAt || '').slice(0, 10), data.token || '', code, email, false, data.productId);
  } else {
- var msg = 'Invalid code. Please check and try again.';
+ var msg = 'Wrong code. Please check and try again.';
  if(data && data.error === 'code_used_by_other') msg = 'This code is already linked to another account.';
  if(data && data.error === 'code_exhausted') msg = 'This code has already been used.';
+if(data && data.error === 'wrong_product') msg = 'This code unlocks the OMNI HUB app — open the OMNI HUB to use it here.';
  if(data && data.error === 'invalid_session'){
  localStorage.removeItem(GS_KEY);
  showStep(1);
@@ -1975,12 +1998,12 @@ select option{background:#1A1B26;color:#FAFAF8}
  grantAndReload('pro_tdee', expiry.toISOString().split('T')[0], '', 'OWNER', data.email);
  return;
  }
- var linked = pickAccountSub(data.subscriptions);
- if(linked){
- grantAndReload(linked.plan || 'pro_tdee', (linked.expiresAt || '').slice(0, 10), '', linked.code, data.email, true);
- return;
- }
- document.getElementById('authWelcome').textContent = 'Signed in as ' + (data.name || data.email);
+var linked = pickAccountSub(data.subscriptions);
+  if(linked){
+  grantAndReload(linked.plan || 'pro_tdee', (linked.expiresAt || '').slice(0, 10), '', linked.code, data.email, true, subProdOf(linked));
+  return;
+  }
+  document.getElementById('authWelcome').textContent = 'Signed in as ' + (data.name || data.email);
  showStep(2);
  showNoLink(true);
  }
@@ -2022,11 +2045,11 @@ select option{background:#1A1B26;color:#FAFAF8}
  body: JSON.stringify({ session: gs.session })
  }).then(function(r){ return r.json(); }).then(function(data){
  if(data && data.valid){
- var linked = pickAccountSub(data.subscriptions);
- if(linked){
- grantAndReload(linked.plan || 'pro_tdee', (linked.expiresAt || '').slice(0, 10), '', linked.code, gs.email, true);
- return;
- }
+var linked = pickAccountSub(data.subscriptions);
+  if(linked){
+  grantAndReload(linked.plan || 'pro_tdee', (linked.expiresAt || '').slice(0, 10), '', linked.code, gs.email, true, subProdOf(linked));
+  return;
+  }
  document.getElementById('authWelcome').textContent = 'Signed in as ' + (gs.name || gs.email);
  showStep(2);
  showNoLink(true);
@@ -2050,7 +2073,7 @@ select option{background:#1A1B26;color:#FAFAF8}
  document.getElementById('subVerify').addEventListener('click', function(){
  var btn = document.getElementById('subVerify');
  var code = document.getElementById('subCode').value.trim().toUpperCase();
- if(!code){ showErr('subError', 'Invalid code. Please check and try again.'); return; }
+ if(!code){ showErr('subError', 'Wrong code. Please check and try again.'); return; }
  var g = getGs();
  var email = g ? g.email : '';
  if(email.toUpperCase() === OWNER_EMAIL){
@@ -2081,5 +2104,12 @@ select option{background:#1A1B26;color:#FAFAF8}
 </div>
 <script src="./update_notifier.js"></script>
 <script src="../js/auth.js"></script>
+<script>
+if (window.self !== window.top) {
+  var style = document.createElement('style');
+  style.innerHTML = '#mobileCtaBar { display: none !important; } body { padding-bottom: 30px !important; }';
+  document.head.appendChild(style);
+}
+</script>
 </body>
 </html>
