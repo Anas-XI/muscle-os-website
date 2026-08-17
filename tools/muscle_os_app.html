@@ -212,35 +212,12 @@
   </header>
 
   <div class="app-container">
-    <div id="frame-home" class="active dashboard-view">
-      <div class="dash-content">
-        <h2 class="dash-title">TODAY'S OMNI PLAN</h2>
-        
-        <div class="synergy-card training-sync-card">
-          <div class="sync-header"><span class="icon">🏋️</span> <span class="sync-title">TRAINING</span></div>
-          <div id="hub-train-state">Waiting for sync...</div>
-        </div>
-
-        <div class="synergy-card nutrition-sync-card">
-          <div class="sync-header"><span class="icon">🍎</span> <span class="sync-title">NUTRITION</span></div>
-          <div id="hub-nutr-state">Waiting for sync...</div>
-        </div>
-        
-        <div class="synergy-insights" id="hub-insights">
-          <!-- Populated by JS based on synergy logic -->
-        </div>
-      </div>
-    </div>
-    <iframe id="frame-training" src="training_tool.html" title="Training"></iframe>
+    <iframe id="frame-training" class="active" src="training_tool.html" title="Training"></iframe>
     <iframe id="frame-nutrition" data-src="tdee_adaptive_engine.html" title="Nutrition"></iframe>
   </div>
 
   <nav class="tab-bar">
-    <div class="tab-item active" data-target="frame-home">
-      <span class="tab-icon">🏠</span>
-      <span class="tab-label">Home</span>
-    </div>
-    <div class="tab-item" data-target="frame-training">
+    <div class="tab-item active" data-target="frame-training">
       <span class="tab-icon">&#127993;</span>
       <span class="tab-label" data-i18n="hub_tab_training">Training</span>
     </div>
@@ -340,11 +317,7 @@ var sub = null;
     });
     var saved = null;
     try { saved = sessionStorage.getItem(HUB_TAB_KEY); } catch(e){}
-    if (saved === 'frame-nutrition') {
-      var nut = document.getElementById('frame-nutrition');
-      nut.setAttribute('src', nut.getAttribute('data-src'));
-    }
-    activate(saved || 'frame-home');
+    activate(saved || 'frame-training');
     refreshStatus();
     window.addEventListener('storage', function(e){
       if (e.key === 'mos_subscription' || e.key === 'mos_trial_start') refreshStatus();
@@ -380,6 +353,7 @@ var sub = null;
 
     function updateOmniDashboard() {
       var tCard = document.getElementById('hub-train-state');
+      if (!tCard) return;
       var nCard = document.getElementById('hub-nutr-state');
       var ins = document.getElementById('hub-insights');
       
