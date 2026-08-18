@@ -144,7 +144,14 @@
   }
   .tab-item.active { color: #F4C93B; }
   .tab-item.active .tab-icon { filter: none; transform: translateY(-2px); }
+  /* Engine status strip */
+  .engine-strip { display:flex; align-items:center; gap:6px; padding:4px 14px; background:rgba(244,201,59,.03); border-bottom:1px solid rgba(244,201,59,.08); font-size:.5rem; color:rgba(250,250,248,.4); overflow:hidden; white-space:nowrap; transition:all .2s; }
+  .engine-strip b { color:rgba(244,201,59,.7); font-family:'Oswald',sans-serif; letter-spacing:.5px; margin-right:2px; }
+  .engine-strip .eng-dot { width:5px; height:5px; border-radius:50%; background:#4CAF50; display:inline-block; flex-shrink:0; }
 </style>
+<!-- Decision Engine asset root (read-only reference for hub status strip) -->
+<script>window.MOS_ASSET_ROOT = '../assets/data';</script>
+<script src="../assets/js/decision-engine.js"></script>
 </head>
 <body>
 
@@ -158,6 +165,12 @@
       <a class="hub-cta" href="../order.html?product=omni_hub" data-i18n="hub_cta">Get Access</a>
     </div>
   </header>
+  <!-- Engine Status Strip: shows active profile loaded from localStorage -->
+  <div class="engine-strip" id="engineStrip" style="display:none">
+    <span class="eng-dot"></span>
+    <b>ENGINE</b>
+    <span id="engStripText">Loading…</span>
+  </div>
 
   <div class="app-container">
     <iframe id="frame-training" src="training_tool.html" class="active" title="Training"></iframe>
@@ -274,6 +287,41 @@
     window.addEventListener('storage', function(e){
       if (e.key === 'mos_subscription' || e.key === 'mos_trial_start') refreshStatus();
     });
+
+    // Engine Status Strip — read saved profile from localStorage
+    (function(){
+      function updateEngineStrip(){
+        var strip = document.getElementById('engineStrip');
+        var txt = document.getElementById('engStripText');
+        if(!strip||!txt) return;
+        try{
+          var vi = JSON.parse(localStorage.getItem('mos_vol_inputs')||'{}');
+          var ep = vi.engine_profile;
+          var bw = vi.bodyweight_kg || (ep&&ep.bodyweight_kg);
+          if(!ep) { strip.style.display='none'; return; }
+          var eng = window.DecisionEngine;
+          strip.style.display = 'flex';
+          if(eng && eng.isLoaded){
+            var recs = eng.applyBookRulesSync(ep);
+            var prot = recs ? Math.round(recs.protein_per_kg*(bw||75)) : '?';
+            txt.innerHTML = (ep.goal||'').toUpperCase() + ' &nbsp;·&nbsp; ' +
+              (ep.experience_years<1?'Novice':ep.experience_years<4?'Intermediate':'Advanced') + ' &nbsp;·&nbsp; ' +
+              (ep.age||'?')+'y '+(ep.sex==='female'?'\u2640':'\u2642') + ' &nbsp;·&nbsp; ' +
+              (bw?bw+'kg':'?') + ' &nbsp;&bull;&nbsp; 🥩 '+prot+'g protein/day &nbsp;&bull;&nbsp; ' +
+              (recs?'Reps: '+recs.rep_range+' &nbsp;&bull;&nbsp; Rest: '+recs.rest_compounds:'');
+          } else {
+            txt.textContent = (ep.goal||'')+' · '+(ep.age||'?')+'y · '+(bw?bw+'kg':'—');
+          }
+        }catch(e){ strip.style.display='none'; }
+      }
+      // Run after engine has had time to load
+      if(document.readyState==='loading'){
+        document.addEventListener('DOMContentLoaded',function(){setTimeout(updateEngineStrip,800);});
+      }else{setTimeout(updateEngineStrip,800);}
+      window.addEventListener('storage',function(e){
+        if(e.key==='mos_vol_inputs')updateEngineStrip();
+      });
+    })();
   })();
   </script>
 </body>
