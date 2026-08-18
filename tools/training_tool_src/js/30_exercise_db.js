@@ -1,308 +1,308 @@
-  // ═══════════════════════════════════════════════════════════════════
-  //  EXERCISE DB v2 — gap-driven expansion (metadataSource:"inferred")
-  //  One delineated module: new entries + rule-based metadata inference.
-  //  Kept as a single self-contained section so splitting it into a
-  //  separate versioned data file (loaded + cached by sw.js, which
-  //  already caches same-origin GETs) is mechanical later.
-  //  Entry schema: {n:name, p:primary muscle, eq:[equipment ids],
-  //    sec:[secondary muscle ids], g:{s,e,c,b} guide (en),
-  //    ar:{name,s,e,c,b} Arabic, optional curated overrides:
-  //    t (type), mp (pattern), diff (difficulty), f (fatigue),
-  //    jr (joints), subs (alternatives)}
-  // ═══════════════════════════════════════════════════════════════════
-  var EX_NEW=[
-    // ── Chest (gap: fly variants, pressing variants, band/home) ──
-    {n:'Decline Bench Press',p:'chest',eq:['barbell'],sec:['triceps','shoulders'],g:{s:'Bench at 15-30° decline, feet hooked, bar over the lower chest.',e:'Lower the bar to the lower chest, press up and back.',c:'Keep the bar path over the lower pecs.',b:'Exhale on the press.'},ar:{name:'ضغط بنش مائل لأسفل',s:'بنش مائل 15-30°، ثبّت القدمين، البار فوق أسفل الصدر.',e:'أنزل البار لأسفل الصدر ثم ادفعه للأعلى والخلف.',c:'حافظ على مسار البار فوق الجزء السفلي من الصدر.',b:'زفير عند الدفع.'}},
-    {n:'Cable Crossover',p:'chest',eq:['cable'],sec:['shoulders','triceps'],g:{s:'Cables high, step forward, slight lean, arms extended wide.',e:'Bring the handles together in front of the chest, pause, return slowly.',c:'Slight elbow bend; squeeze the chest at the peak.',b:'Exhale on the squeeze.'},ar:{name:'كروس كابل',s:'كابل مرتفع، خطوة للأمام، ميل بسيط، ذراعان ممدودتان.',e:'اجمع المقابض أمام الصدر، توقف قليلاً ثم عُد ببطء.',c:'ثني بسيط بالكوع؛ اضغط الصدر عند الذروة.',b:'زفير عند الضغط.'}},
-    {n:'Single-Arm Cable Fly',p:'chest',eq:['cable'],sec:['shoulders'],g:{s:'Cable at chest height, side-on, arm extended across the body.',e:'Bring the handle across the chest, pause, return slowly.',c:'Keep the torso still; fixed elbow angle.',b:'Exhale as you close.'},ar:{name:'تجميع كابل بذراع واحدة',s:'كابل بارتفاع الصدر، واقف جانبياً، ذراع ممدودة عبر الجسم.',e:'اسحب المقبض عبر الصدر، توقف، وعُد ببطء.',c:'أبقِ الجذع ثابتاً وزاوية الكوع ثابتة.',b:'زفير عند التجمع.'}},
-    {n:'Svend Press',p:'chest',eq:['dumbbell'],sec:['triceps'],g:{s:'Palms pressed together holding one dumbbell at the chest, elbows out.',e:'Press the palms straight out, squeeze the chest, return.',c:'Squeeze the dumbbell hard between the palms the whole rep.',b:'Exhale on the press.'},ar:{name:'ضغط سفيند',s:'الكفان ملتصقان على دمبل واحد أمام الصدر، مرفقان للخارج.',e:'ادفع الكفين للأمام، اضغط الصدر، وعُد.',c:'اضغط الدمبل بقوة بين الكفين طوال الحركة.',b:'زفير عند الدفع.'}},
-    {n:'Landmine Press',p:'chest',eq:['barbell'],sec:['shoulders','triceps'],g:{s:'Bar in a landmine corner, one hand on the top end, staggered stance.',e:'Press the end of the bar up and slightly across, lower with control.',c:'Keep the elbow close to the ribs at the start.',b:'Exhale on the press.'},ar:{name:'ضغط لاندماين',s:'بار في زاوية لاندماين، يد على طرف البار، وقفة متدرجة.',e:'ادفع طرف البار للأعلى قليلاً بشكل عرضي، وأنزله بتحكم.',c:'أبقِ الكوع قريباً من الجسم عند البداية.',b:'زفير عند الدفع.'}},
-    {n:'Band Chest Press',p:'chest',eq:['band'],sec:['triceps','shoulders'],g:{s:'Band anchored behind you at chest height, handles at the chest.',e:'Press the handles forward until the arms are straight, return slowly.',c:'Don\'t let the band snap back — control the return.',b:'Exhale on the press.'},ar:{name:'ضغط صدر بباند',s:'ثبّت الباند خلفك بارتفاع الصدر، المقابض عند الصدر.',e:'ادفع المقابض للأمام حتى استقامة الذراعين، وعُد ببطء.',c:'لا تدع الباند يرتد — تحكم في العودة.',b:'زفير عند الدفع.'}},
-    {n:'Banded Push-Up',p:'chest',eq:['band'],sec:['triceps','shoulders'],g:{s:'Band across the upper back held under the hands, plank position.',e:'Lower the chest to the floor, press back up against the band.',c:'Keep the core braced; the band adds overload at the top.',b:'Inhale down, exhale up.'},ar:{name:'ضغط أرضي بباند',s:'باند خلف أعلى الظهر مثبت تحت الكفين، وضعية اللوح.',e:'أنزل الصدر للأرض وادفع للأعلى ضد الباند.',c:'ثبّت الجذع؛ الباند يزيد الحمل عند القمة.',b:'شهيق للأسفل، زفير للأعلى.'}},
-    {n:'Archer Push-Up',p:'chest',eq:['bodyweight'],sec:['triceps','shoulders'],g:{s:'Wide hand position, body in a straight line.',e:'Lower toward one hand while the other arm straightens, press back, switch.',c:'Shift the weight over the working side.',b:'Exhale on the press.'},ar:{name:'ضغط أرضي قوسي',s:'كفان متباعدان، الجسم في خط مستقيم.',e:'انزل نحو أحد الكفين بينما يمتد الذراع الآخر، ادفع، وبدّل.',c:'انقل الوزن فوق الجانب العامل.',b:'زفير عند الدفع.'}},
-    {n:'Incline Dumbbell Fly',p:'chest',eq:['dumbbell'],sec:['shoulders'],g:{s:'Incline bench 30-45°, dumbbells over the chest, palms facing.',e:'Open the arms in an arc to a stretch, bring them back together.',c:'Fixed elbow angle; control the negative.',b:'Exhale as you close.'},ar:{name:'تجميع دمبل مائل',s:'بنش مائل 30-45°، دمبلان فوق الصدر، الكفان متقابلان.',e:'افتح الذراعين بقوس حتى التمدد ثم أعدهما معاً.',c:'زاوية كوع ثابتة؛ تحكم في النزول.',b:'زفير عند التجمع.'}},
-    {n:'Dumbbell Pullover',p:'chest',eq:['dumbbell'],sec:['back','triceps'],g:{s:'Lie across a bench, one dumbbell over the chest, both hands under the top plate.',e:'Lower the dumbbell behind the head to a stretch, pull it back over the chest.',c:'Keep the elbows slightly bent throughout.',b:'Exhale on the pull.'},ar:{name:'بول أوفر دمبل',s:'استلقِ على بنش، دمبل واحد فوق الصدر، اليدان تحت القرص العلوي.',e:'أنزل الدمبل خلف الرأس حتى التمدد ثم اسحبه فوق الصدر.',c:'أبقِ الكوعين مثنيين قليلاً طوال الحركة.',b:'زفير عند السحب.'}},
-    {n:'Machine Chest Dip',p:'chest',eq:['machine'],sec:['triceps','shoulders'],g:{s:'Set the assist weight, arms on the pads, slight forward lean.',e:'Lower until the shoulders dip below the elbows, press back up.',c:'Lean forward slightly to bias the chest.',b:'Exhale on the press.'},ar:{name:'دايب جهاز للصدر',s:'اضبط وزن المساعدة، ذراعان على الوسائد، ميل بسيط للأمام.',e:'انزل حتى ينخفض الكتف تحت الكوع ثم ادفع للأعلى.',c:'ميل بسيط للأمام لتفعيل الصدر.',b:'زفير عند الدفع.'}},
-    {n:'Incline Cable Fly',p:'chest',eq:['cable'],sec:['shoulders'],g:{s:'Cables low, incline bench between the pulleys.',e:'Bring the handles together above the upper chest, pause, return.',c:'Slight elbow bend; feel the upper-chest squeeze.',b:'Exhale on the squeeze.'},ar:{name:'تجميع كابل مائل',s:'كابل منخفض، بنش مائل بين البكرتين.',e:'اجمع المقابض فوق أعلى الصدر، توقف، وعُد.',c:'ثني كوع بسيط؛ اشعر بانقباض أعلى الصدر.',b:'زفير عند الضغط.'}},
-    // ── Back (gap: pulldown grip variants, beginner band rows, advanced pull-ups) ──
-    {n:'Pendlay Row',p:'back',eq:['barbell'],sec:['biceps','shoulders'],g:{s:'Barbell on the floor, hinge to horizontal back, grip outside the knees.',e:'Explosively row the bar to the chest, lower to a dead stop each rep.',c:'Flat back; the bar returns to the floor every rep.',b:'Exhale on the pull.'},ar:{name:'سحب بندلاي',s:'بار على الأرض، انحناء بظهر مسطح، قبضة خارج الركبتين.',e:'اسحب البار بقوة إلى الصدر وأنزله لتوقف تام كل تكرار.',c:'ظهر مسطح؛ البار يعود للأرض كل تكرار.',b:'زفير عند السحب.'}},
-    {n:'Seal Row',p:'back',eq:['dumbbell'],sec:['biceps'],g:{s:'Face-down on an incline bench, dumbbells hanging.',e:'Row the dumbbells to the sides of the ribs, squeeze, lower.',c:'The bench removes cheating — strict form.',b:'Exhale on the pull.'},ar:{name:'سحب سيل',s:'منبطح على بنش مائل، دمبلان معلقان.',e:'اسحب الدمبلين لجانبي الأضلاع، اضغط، وأنزلهما.',c:'البنش يمنع الغش — أداء صارم.',b:'زفير عند السحب.'}},
-    {n:'Rack Pull',p:'back',eq:['barbell'],sec:['traps','hamstrings'],g:{s:'Bar on pins at knee height, overhand grip, hips back.',e:'Drive up through the floor with a flat back until standing tall, lower.',c:'A partial deadlift — heavy, keep the bar close.',b:'Exhale at the top.'},ar:{name:'سحب رف',s:'بار على دعامات بارتفاع الركبة، قبضة علوية، ورك للخلف.',e:'ادفع للأعلى بظهر مسطح حتى الوقوف الكامل، ثم أنزل.',c:'رفعة مميتة جزئية — ثقيلة، أبقِ البار قريباً.',b:'زفير عند القمة.'}},
-    {n:'Single-Arm Lat Pulldown',p:'back',eq:['cable'],sec:['biceps'],g:{s:'Kneel or sit facing the cable, one handle, other hand free.',e:'Pull the handle to the chest, drive the elbow down, return slowly.',c:'Rotate slightly for a bigger stretch on the working lat.',b:'Exhale on the pull.'},ar:{name:'سحب أمامي بذراع واحدة',s:'اجلس أو اركع مقابل الكابل، مقبض واحد، اليد الأخرى حرة.',e:'اسحب المقبض إلى الصدر، ادفع الكوع للأسفل، وعُد ببطء.',c:'دوران بسيط لتمدد أكبر للّات العامل.',b:'زفير عند السحب.'}},
-    {n:'Reverse-Grip Pulldown',p:'back',eq:['cable'],sec:['biceps'],g:{s:'Underhand grip shoulder-width, thighs under the pads.',e:'Pull the bar to the upper chest, squeeze, return slowly.',c:'The underhand grip adds a biceps stretch.',b:'Exhale on the pull.'},ar:{name:'سحب أمامي بقبضة معكوسة',s:'قبضة عكسية بعرض الكتفين، الفخذان تحت الوسائد.',e:'اسحب البار لأعلى الصدر، اضغط، وعُد ببطء.',c:'القبضة المعكوسة تضيف تمدداً للبايسيبس.',b:'زفير عند السحب.'}},
-    {n:'Lat Prayer',p:'back',eq:['cable'],sec:['biceps'],g:{s:'Kneel facing a high cable, arms extended overhead holding the bar.',e:'Drive the elbows down and back, leaning into the stretch, return.',c:'Maximal lat stretch at the top — light weight.',b:'Exhale on the pull.'},ar:{name:'صلاة اللاتس',s:'اركع مقابل كابل مرتفع، ذراعان ممدودتان للأعلى ممسكتان البار.',e:'ادفع الكوعين للأسفل والخلف مع ميل للأمام، ثم عُد.',c:'تمدد أقصى للّات عند القمة — وزن خفيف.',b:'زفير عند السحب.'}},
-    {n:'Archer Pull-Up',p:'back',eq:['bodyweight'],sec:['biceps','forearms'],g:{s:'Hang with one arm extended to the side on the bar.',e:'Pull toward one hand, the other arm stays straight, lower, switch.',c:'A one-arm-dominant pull-up — strong lats required.',b:'Exhale on the pull.'},ar:{name:'عقلة قوسية',s:'تعلق بذراع ممتد للجانب على البار.',e:'اسحب نحو يد واحدة بينما يبقى الذراع الآخر مستقيماً، أنزل، وبدّل.',c:'عقلة بتركيز ذراع واحدة — تتطلب لاتس قوياً.',b:'زفير عند السحب.'}},
-    {n:'Weighted Pull-Up',p:'back',eq:['bodyweight'],sec:['biceps','forearms'],g:{s:'Hang with a plate or dumbbell between the legs.',e:'Pull until the chin clears the bar, lower under control.',c:'Don\'t kip — keep the legs still.',b:'Exhale on the pull.'},ar:{name:'عقلة بأوزان',s:'تعلق مع قرص أو دمبل بين القدمين.',e:'اسحب حتى يتجاوز الذقن البار، وأنزل بتحكم.',c:'لا تتأرجح — أبقِ الساقين ثابتتين.',b:'زفير عند السحب.'}},
-    {n:'Wide-Grip Pull-Up',p:'back',eq:['bodyweight'],sec:['biceps'],g:{s:'Grip wider than the shoulders, hang.',e:'Pull until the upper chest approaches the bar, lower with control.',c:'The wide grip biases the upper lats.',b:'Exhale on the pull.'},ar:{name:'عقلة بقبضة واسعة',s:'قبضة أعرض من الكتفين، ثم تعلق.',e:'اسحب حتى يقترب أعلى الصدر من البار، وانزل بتحكم.',c:'القبضة الواسعة تركّز على اللاتس العلوي.',b:'زفير عند السحب.'}},
-    {n:'One-Arm Cable Row',p:'back',eq:['cable'],sec:['biceps'],g:{s:'Side-on to a low cable, one handle, staggered stance.',e:'Row the handle to the hip, squeeze, return fully.',c:'No torso rotation — pull with the lat.',b:'Exhale on the pull.'},ar:{name:'سحب كابل بذراع واحدة',s:'جانبي مقابل كابل منخفض، مقبض واحد، وقفة متدرجة.',e:'اسحب المقبض إلى الورك، اضغط، وعُد بالكامل.',c:'بدون دوران للجذع — اسحب باللات.',b:'زفير عند السحب.'}},
-    {n:'Band Pulldown',p:'back',eq:['band'],sec:['biceps'],g:{s:'Band anchored overhead, kneeling, arms extended.',e:'Pull the band to the chest, drive the elbows down, return slowly.',c:'Constant tension from the band.',b:'Exhale on the pull.'},ar:{name:'سحب أمامي بباند',s:'باند مثبت للأعلى، راكعاً، ذراعان ممدودتان.',e:'اسحب الباند إلى الصدر، ادفع الكوعين للأسفل، وعُد ببطء.',c:'شد مستمر من الباند.',b:'زفير عند السحب.'}},
-    {n:'Band Row',p:'back',eq:['band'],sec:['biceps'],g:{s:'Band anchored at chest height, seated, legs extended.',e:'Row the band to the ribs, squeeze, return slowly.',c:'Sit tall — no rocking.',b:'Exhale on the pull.'},ar:{name:'سحب بباند',s:'باند مثبت بارتفاع الصدر، جالساً بساقين ممدودتين.',e:'اسحب الباند إلى الأضلاع، اضغط، وعُد ببطء.',c:'اجلس منتصباً — بدون تمايل.',b:'زفير عند السحب.'}},
-    {n:'Trap Bar Row',p:'back',eq:['barbell'],sec:['biceps','shoulders'],g:{s:'Stand inside the trap bar, hinge slightly, grip the handles.',e:'Row the handles to the ribs, squeeze, lower.',c:'More upright than a barbell row — back-friendly.',b:'Exhale on the pull.'},ar:{name:'سحب بار تراب',s:'قف داخل بار التراب، انحنِ قليلاً، وامسك المقابض.',e:'اسحب المقابض إلى الأضلاع، اضغط، وأنزل.',c:'أكثر استقامة من سحب البار — صديق للظهر.',b:'زفير عند السحب.'}},
-    {n:'Narrow-Grip Pulldown',p:'back',eq:['cable'],sec:['biceps'],g:{s:'Close neutral grip, thighs under the pads.',e:'Pull the handle to the upper chest, drive the elbows down, return.',c:'The narrow grip stretches the lats more.',b:'Exhale on the pull.'},ar:{name:'سحب أمامي بقبضة ضيقة',s:'قبضة محايدة ضيقة، الفخذان تحت الوسائد.',e:'اسحب المقبض لأعلى الصدر، ادفع الكوعين للأسفل، وعُد.',c:'القبضة الضيقة تمدد اللاتس أكثر.',b:'زفير عند السحب.'}},
-    {n:'V-Grip Pulldown',p:'back',eq:['cable'],sec:['biceps'],g:{s:'V-handle attached, thighs under the pads.',e:'Pull the handle to the sternum, squeeze the mid-back, return.',c:'Lead with the elbows.',b:'Exhale on the pull.'},ar:{name:'سحب بقبضة في',s:'مقبض في مثبت، الفخذان تحت الوسائد.',e:'اسحب المقبض لعظم الصدر، اضغط منتصف الظهر، وعُد.',c:'قُد بالكوعين.',b:'زفير عند السحب.'}},
-    {n:'Kettlebell Row',p:'back',eq:['kettlebell'],sec:['biceps','shoulders'],g:{s:'Hinge forward, one kettlebell on the floor, flat back.',e:'Row the kettlebell to the hip, squeeze, lower.',c:'Keep the hips square and the back flat.',b:'Exhale on the pull.'},ar:{name:'سحب كيتلبل',s:'انحنِ للأمام، كيتلبل على الأرض، ظهر مسطح.',e:'اسحب الكيتلبل إلى الورك، اضغط، وأنزل.',c:'أبقِ الوركين مستويين والظهر مسطحاً.',b:'زفير عند السحب.'}},
-    // ── Shoulders (gap: no advanced options, no beginner cable/band, rotation) ──
-    {n:'Push Press',p:'shoulders',eq:['barbell'],sec:['triceps'],g:{s:'Bar at collarbone height, feet shoulder-width, slight knee bend.',e:'Dip slightly, drive with the legs, press the bar overhead.',c:'Use leg drive — the arms finish the press.',b:'Exhale on the press.'},ar:{name:'ضغط دفعي',s:'بار بارتفاع الترقوة، قدم بعرض الكتفين، ثني ركبة بسيط.',e:'انحنِ قليلاً، ادفع بالساقين، واضغط البار فوق الرأس.',c:'استخدم دفع الساقين — الذراعان ينهيان الضغط.',b:'زفير عند الدفع.'}},
-    {n:'Handstand Push-Up',p:'shoulders',eq:['bodyweight'],sec:['triceps'],g:{s:'Handstand against a wall, hands slightly wider than the shoulders.',e:'Lower the head toward the floor, press back up.',c:'Keep the body in a straight line — no arching.',b:'Inhale down, exhale up.'},ar:{name:'ضغط وقوف على اليدين',s:'وقوف على اليدين مقابل الحائط، كفان أوسع قليلاً من الكتفين.',e:'أنزل الرأس نحو الأرض ثم ادفع للأعلى.',c:'أبقِ الجسم في خط مستقيم — بدون تقوس.',b:'شهيق للأسفل، زفير للأعلى.'}},
-    {n:'Pike Push-Up',p:'shoulders',eq:['bodyweight'],sec:['triceps'],g:{s:'Hips high in a pike position, hands wider than the shoulders.',e:'Lower the head toward the floor between the hands, press back up.',c:'A handstand push-up progression.',b:'Inhale down, exhale up.'},ar:{name:'ضغط زاوية',s:'ورك مرتفع بوضعية الزاوية، كفان أوسع من الكتفين.',e:'أنزل الرأس نحو الأرض بين الكفين ثم ادفع للأعلى.',c:'خطوة تمهيدية للوقوف على اليدين.',b:'شهيق للأسفل، زفير للأعلى.'}},
-    {n:'Single-Arm Dumbbell Press',p:'shoulders',eq:['dumbbell'],sec:['triceps'],g:{s:'One dumbbell at shoulder height, standing or seated.',e:'Press up until the arm is straight, lower with control.',c:'Brace the core against rotation.',b:'Exhale on the press.'},ar:{name:'ضغط دمبل بذراع واحدة',s:'دمبل واحد بارتفاع الكتف، واقفاً أو جالساً.',e:'ادفع للأعلى حتى استقامة الذراع، وأنزل بتحكم.',c:'شدّ الجذع لمقاومة الدوران.',b:'زفير عند الدفع.'}},
-    {n:'Cable Front Raise',p:'shoulders',eq:['cable'],sec:[],g:{s:'Low cable, handle in one hand behind the body.',e:'Raise the arm to shoulder height, pause, lower slowly.',c:'Constant tension — no momentum.',b:'Exhale on the raise.'},ar:{name:'رفع أمامي كابل',s:'كابل منخفض، مقبض بيد واحدة خلف الجسم.',e:'ارفع الذراع لارتفاع الكتف، توقف، وأنزل ببطء.',c:'شد مستمر — بدون اندفاع.',b:'زفير عند الرفع.'}},
-    {n:'Z-Press',p:'shoulders',eq:['bodyweight'],sec:['triceps','abs'],g:{s:'Seated with legs extended straight, dumbbells at the shoulders.',e:'Press overhead with a tall torso, lower to the shoulders.',c:'No leg drive and no back lean — pure pressing.',b:'Exhale on the press.'},ar:{name:'ضغط زد',s:'جالساً بساقين ممدودتين، دمبلان عند الكتفين.',e:'ادفع فوق الرأس بجذع منتصب ثم أنزل للكتفين.',c:'بدون دفع ساق وبدون ميل للظهر — ضغط نقي.',b:'زفير عند الدفع.'}},
-    {n:'Incline Y-Raise',p:'shoulders',eq:['bodyweight'],sec:['traps'],g:{s:'Incline bench 30-45°, arms hanging, thumbs up.',e:'Raise the arms in a Y shape to shoulder height, lower slowly.',c:'Lead with the thumbs — upper-back engagement.',b:'Exhale on the raise.'},ar:{name:'رفع واي مائل',s:'بنش مائل 30-45°، ذراعان معلقان، إبهامان للأعلى.',e:'ارفع الذراعين بشكل واي لارتفاع الكتف، وأنزل ببطء.',c:'قُد بالإبهامين — لتفعيل أعلى الظهر.',b:'زفير عند الرفع.'}},
-    {n:'Wall Slide',p:'shoulders',eq:['bodyweight'],sec:['traps'],g:{s:'Back against a wall, arms up in a goalpost, elbows and wrists on the wall.',e:'Slide the arms up and down keeping everything on the wall.',c:'Mobility drill — no weights.',b:'Breathe steadily.'},ar:{name:'انزلاق حائطي',s:'ظهر على الحائط، ذراعان بوضعية المرمى، كوعان ورسغان على الحائط.',e:'انزلق بالذراعين للأعلى والأسفل مع بقاء كل شيء على الحائط.',c:'تمرين حركي — بدون أوزان.',b:'تنفس منتظم.'}},
-    {n:'Cuban Rotation',p:'shoulders',eq:['dumbbell'],sec:['traps'],g:{s:'Dumbbells at the thighs, light weight, elbows straight.',e:'Raise the arms to shoulder height, rotate the thumbs down and back, lower.',c:'Stop before discomfort — shoulder health first.',b:'Exhale on the raise.'},ar:{name:'دوران كوبي',s:'دمبلان خفيفان عند الفخذين، كوعان مستقيمان.',e:'ارفع الذراعين لارتفاع الكتف، دوّر الإبهامين للأسفل والخلف، ثم أنزل.',c:'توقف قبل أي انزعاج — صحة الكتف أولاً.',b:'زفير عند الرفع.'}},
-    {n:'Band External Rotation',p:'shoulders',eq:['band'],sec:[],g:{s:'Band anchored at elbow height, elbow bent 90° at the side.',e:'Rotate the forearm outward against the band, return slowly.',c:'Elbow stays glued to the side.',b:'Exhale on the rotation.'},ar:{name:'دوران خارجي بباند',s:'باند مثبت بارتفاع الكوع، كوع مثني 90° بجانب الجسم.',e:'دوّر الساعد للخارج ضد الباند وعُد ببطء.',c:'أبقِ الكوع ملاصقاً للجسم.',b:'زفير عند الدوران.'}},
-    {n:'Machine Lateral Raise',p:'shoulders',eq:['machine'],sec:['traps'],g:{s:'Seat so the pads sit at the outer elbows.',e:'Raise the arms to shoulder height, pause, lower slowly.',c:'Control the negative — no bouncing.',b:'Exhale on the raise.'},ar:{name:'رفرفة جانبي جهاز',s:'اجلس بحيث تلامس الوسائد المرفقين من الخارج.',e:'ارفع الذراعين لارتفاع الكتف، توقف، وأنزل ببطء.',c:'تحكم في النزول — بدون ارتداد.',b:'زفير عند الرفع.'}},
-    {n:'Cable Y-Raise',p:'shoulders',eq:['cable'],sec:['traps'],g:{s:'Low cables, handles in both hands, slight lean forward.',e:'Raise the arms in a Y shape to shoulder height, lower slowly.',c:'Lead with the thumbs.',b:'Exhale on the raise.'},ar:{name:'رفع واي كابل',s:'كابل منخفض، مقبض بكل يد، ميل بسيط للأمام.',e:'ارفع الذراعين بشكل واي لارتفاع الكتف، وأنزل ببطء.',c:'قُد بالإبهامين.',b:'زفير عند الرفع.'}},
-    {n:'Scapular Push-Up',p:'shoulders',eq:['bodyweight'],sec:[],g:{s:'Plank position, arms straight.',e:'Protract the shoulder blades (push the floor away), retract, repeat.',c:'Small movement — pure scapular control.',b:'Breathe steadily.'},ar:{name:'ضغط لوحي',s:'وضعية اللوح، ذراعان مستقيمان.',e:'أبعد لوحي الكتفين (ادفع الأرض بعيداً) ثم جمعهما، وكرر.',c:'حركة صغيرة — تحكم لوحي نقي.',b:'تنفس منتظم.'}},
-    // ── Quads (gap: lunge family, advanced squatting, referenced Cossack Squat) ──
-    {n:'Cossack Squat',p:'quads',eq:['bodyweight'],sec:['glutes','hamstrings'],g:{s:'Feet wide, toes out, one leg straight as the other bends.',e:'Sit deep toward the bent leg, drive up, switch sides.',c:'Heel down; the straight leg stays active.',b:'Exhale up.'},ar:{name:'قرفصاء قوزاقي',s:'قدمان متباعدتان، أصابع للخارج، ساق مستقيمة والأخرى تنثني.',e:'اجلس بعمق نحو الساق المثنية، ادفع للأعلى، وبدّل الجانبين.',c:'الكعب لأسفل؛ الساق المستقيمة تبقى نشطة.',b:'زفير عند الصعود.'}},
-    {n:'Box Squat',p:'quads',eq:['barbell'],sec:['glutes','hamstrings'],g:{s:'Box at parallel height, bar on the traps, feet shoulder-width.',e:'Sit back to the box, pause, drive up without bouncing.',c:'Touch-and-go — reset your brace each rep.',b:'Inhale down, exhale up.'},ar:{name:'قرفصاء على صندوق',s:'صندوق بارتفاع الموازاة، بار على الترابيس، قدم بعرض الكتفين.',e:'اجلس للخلف على الصندوق، توقف، وادفع للأعلى بدون ارتداد.',c:'لمسة وانطلاق — أعد شد الجذع كل تكرار.',b:'شهيق للأسفل، زفير للأعلى.'}},
-    {n:'Pistol Squat',p:'quads',eq:['bodyweight'],sec:['glutes','hamstrings'],g:{s:'One leg extended forward, arms out for balance.',e:'Squat down on one leg to full depth, drive back up.',c:'A strength + mobility feat — use a support if needed.',b:'Exhale up.'},ar:{name:'قرفصاء مسدس',s:'ساق ممتدة للأمام، ذراعان للتوازن.',e:'قرفصاء على ساق واحدة حتى العمق الكامل ثم ادفع للأعلى.',c:'تتطلب قوة ومرونة — استخدم دعماً عند الحاجة.',b:'زفير عند الصعود.'}},
-    {n:'Split Squat',p:'quads',eq:['bodyweight'],sec:['glutes'],g:{s:'Staggered stance, rear foot on the toe, torso tall.',e:'Lower the back knee toward the floor, drive up through the front heel.',c:'No equipment needed — a lunge base pattern.',b:'Exhale up.'},ar:{name:'قرفصاء منقسمة',s:'وقفة متدرجة، قدم خلفية على الأصابع، جذع منتصب.',e:'أنزل الركبة الخلفية نحو الأرض وادفع بكعب القدم الأمامية.',c:'بدون معدات — نمط اندفاع أساسي.',b:'زفير عند الصعود.'}},
-    {n:'Forward Lunge',p:'quads',eq:['dumbbell'],sec:['glutes'],g:{s:'Dumbbells at the sides, step forward.',e:'Lower until both knees are ~90°, drive back to standing.',c:'Step long enough for a vertical front shin.',b:'Exhale up.'},ar:{name:'اندفاع أمامي',s:'دمبلان بالجانبين، خطوة للأمام.',e:'انزل حتى تصل الركبتان ~90° ثم ادفع للعودة للوقوف.',c:'خطوة كافية لقصبة أمامية عمودية.',b:'زفير عند الصعود.'}},
-    {n:'Reverse Lunge',p:'quads',eq:['dumbbell'],sec:['glutes','hamstrings'],g:{s:'Dumbbells at the sides, step backward.',e:'Lower the rear knee toward the floor, drive back to standing.',c:'Easier on the knee than a forward lunge.',b:'Exhale up.'},ar:{name:'اندفاع خلفي',s:'دمبلان بالجانبين، خطوة للخلف.',e:'أنزل الركبة الخلفية نحو الأرض ثم ادفع للعودة.',c:'أسهل على الركبة من الاندفاع الأمامي.',b:'زفير عند الصعود.'}},
-    {n:'Walking Lunge',p:'quads',eq:['dumbbell'],sec:['glutes','hamstrings'],g:{s:'Dumbbells at the sides, walk forward with alternating lunges.',e:'Step, lower, drive through the front heel into the next step.',c:'Stay tall; keep the steps controlled.',b:'Exhale on each drive.'},ar:{name:'اندفاع مشي',s:'دمبلان بالجانبين، امشِ للأمام باندفاعات متبادلة.',e:'خطوة، نزول، دفع بكعب القدم الأمامية للخطوة التالية.',c:'ابقَ منتصباً وتحكم في الخطوات.',b:'زفير عند كل دفع.'}},
-    {n:'Lateral Lunge',p:'quads',eq:['dumbbell'],sec:['glutes','hamstrings'],g:{s:'Step to the side, toes forward.',e:'Sit back into the stepping leg, drive back to center.',c:'Keep the other leg straight and the chest up.',b:'Exhale up.'},ar:{name:'اندفاع جانبي',s:'خطوة للجانب، أصابع للأمام.',e:'اجلس للخلف على الساق الخارجة ثم ادفع للعودة للمنتصف.',c:'أبقِ الساق الأخرى مستقيمة والصدر مرفوعاً.',b:'زفير عند الصعود.'}},
-    {n:'Wall Sit',p:'quads',eq:['bodyweight'],sec:['glutes'],g:{s:'Back flat on a wall, knees at 90°, feet hip-width.',e:'Hold the position for time.',c:'Thighs parallel to the floor.',b:'Breathe steadily.'},ar:{name:'جلوس الحائط',s:'ظهر مسطح على حائط، ركبتان بزاوية 90°، قدم بعرض الورك.',e:'اثبت على الوضعية لمدة زمنية.',c:'الفخذان موازيان للأرض.',b:'تنفس منتظم.'}},
-    {n:'Zercher Squat',p:'quads',eq:['barbell'],sec:['glutes','hamstrings'],g:{s:'Bar held in the elbows at the chest, feet shoulder-width.',e:'Squat to depth keeping the torso tall, drive up.',c:'The front rack position forces an upright torso.',b:'Inhale down, exhale up.'},ar:{name:'قرفصاء زيرشر',s:'بار في ثنية الكوعين عند الصدر، قدم بعرض الكتفين.',e:'قرفصاء حتى العمق مع جذع منتصب ثم ادفع للأعلى.',c:'الوضعية الأمامية تُجبر الجذع على الاستقامة.',b:'شهيق للأسفل، زفير للأعلى.'}},
-    {n:'Kettlebell Thruster',p:'quads',eq:['kettlebell'],sec:['glutes','shoulders'],g:{s:'Kettlebells in a front-rack position.',e:'Squat to depth, drive up, and press the kettlebells overhead.',c:'One fluid movement — the legs start the press.',b:'Exhale at the top.'},ar:{name:'ثرستر كيتلبل',s:'كيتلبلان بوضعية الحامل الأمامي.',e:'قرفصاء حتى العمق، ادفع للأعلى، واضغط الكيتلبل فوق الرأس.',c:'حركة واحدة سلسة — الساقان تبدأان الدفع.',b:'زفير عند القمة.'}},
-    {n:'Box Jump',p:'quads',eq:['bodyweight'],sec:['glutes','calves'],g:{s:'Box at a challenging height, feet shoulder-width.',e:'Jump onto the box, land soft with both feet, step down.',c:'Land quietly — absorb the landing.',b:'Exhale on the jump.'},ar:{name:'قفز صندوق',s:'صندوق بارتفاع مناسب، قدم بعرض الكتفين.',e:'اقفز على الصندوق، اهبط بهدوء على القدمين، وانزل.',c:'اهبط بهدوء — امتصاص الهبوط.',b:'زفير عند القفز.'}},
-    {n:'Curtsy Lunge',p:'quads',eq:['dumbbell'],sec:['glutes'],g:{s:'Dumbbells at the sides, step one leg behind and across.',e:'Lower the back knee toward the floor, drive back to standing.',c:'The cross-over step adds glute activation.',b:'Exhale up.'},ar:{name:'اندفاع كورنيسي',s:'دمبلان بالجانبين، خطوة خلفية عرضية بإحدى الساقين.',e:'أنزل الركبة الخلفية نحو الأرض ثم ادفع للعودة.',c:'الخطوة العرضية تزيد تفعيل الألوية.',b:'زفير عند الصعود.'}},
-    {n:'Anderson Squat',p:'quads',eq:['barbell'],sec:['glutes','hamstrings'],g:{s:'Bar on the pins at parallel depth, hands set under the bar.',e:'Stand up from the pins, then lower the bar back to a rest.',c:'A squat from a dead stop — no stretch reflex.',b:'Exhale up.'},ar:{name:'قرفصاء أندرسون',s:'بار على الدعامات عند عمق الموازاة، اليدان تحت البار.',e:'قف من الدعامات ثم أنزل البار لتوقف كامل.',c:'قرفصاء من توقف تام — بدون ارتداد عضلي.',b:'زفير عند الصعود.'}},
-    {n:'Kettlebell Squat',p:'quads',eq:['kettlebell'],sec:['glutes'],g:{s:'Kettlebell held at the chest, feet shoulder-width.',e:'Squat to depth, drive up through the midfoot.',c:'Keep the elbows inside the knees at the bottom.',b:'Exhale up.'},ar:{name:'قرفصاء كيتلبل',s:'كيتلبل عند الصدر، قدم بعرض الكتفين.',e:'قرفصاء حتى العمق ثم ادفع للأعلى عبر منتصف القدم.',c:'أبقِ الكوعين داخل الركبتين عند الأسفل.',b:'زفير عند الصعود.'}},
-    {n:'Lateral Step-Up',p:'quads',eq:['bodyweight'],sec:['glutes'],g:{s:'Side-on to a box at knee height.',e:'Step up with the near leg, drive through the heel, lower.',c:'Push through the heel; no push-off from the floor leg.',b:'Exhale up.'},ar:{name:'صعود جانبي',s:'جانبي مقابل صندوق بارتفاع الركبة.',e:'اصعد بالساق القريبة، ادفع بالكعب، وانزل.',c:'ادفع بالكعب؛ بدون دفع من الساق الأرضية.',b:'زفير عند الصعود.'}},
-    {n:'Single-Leg Leg Press',p:'quads',eq:['machine'],sec:['glutes'],g:{s:'One foot on the platform, hips square.',e:'Lower until the knee reaches ~90°, press up without locking hard.',c:'The single leg exposes imbalances.',b:'Exhale on the press.'},ar:{name:'ضغط أرجل بقدم واحدة',s:'قدم واحدة على المنصة، ورك مستوٍ.',e:'انزل حتى تصل الركبة ~90° ثم ادفع دون قفل كامل.',c:'القدم الواحدة تكشف الاختلالات.',b:'زفير عند الدفع.'}},
-    // ── Glutes (gap: beginner/intermediate spread, band, BW) ──
-    {n:'Single-Leg Hip Thrust',p:'glutes',eq:['bodyweight'],sec:['hamstrings'],g:{s:'Shoulders on a bench, one foot on the floor, other leg extended.',e:'Drive through the heel until the hips are fully extended, lower.',c:'Keep the hips level — no dropping.',b:'Exhale at the top.'},ar:{name:'دفع ورك بساق واحدة',s:'كتفان على بنش، قدم واحدة على الأرض والساق الأخرى ممدودة.',e:'ادفع بالكعب حتى تمدد الوركين بالكامل ثم انزل.',c:'أبقِ الوركين مستويين — بدون هبوط.',b:'زفير عند القمة.'}},
-    {n:'Banded Hip Thrust',p:'glutes',eq:['band'],sec:['hamstrings'],g:{s:'Band around the knees, shoulders on a bench.',e:'Drive the hips up and push the knees out against the band.',c:'The band adds abductor work at the top.',b:'Exhale at the top.'},ar:{name:'دفع ورك بباند',s:'باند حول الركبتين، كتفان على بنش.',e:'ادفع الوركين للأعلى وافتح الركبتين ضد الباند.',c:'الباند يضيف عملاً للعضلات المبعدة عند القمة.',b:'زفير عند القمة.'}},
-    {n:'Barbell Glute Bridge',p:'glutes',eq:['barbell'],sec:['hamstrings'],g:{s:'Bar across the hips, lying with knees bent, feet flat.',e:'Drive the hips up to full extension, squeeze, lower.',c:'Pad the bar if needed — keep it over the hips.',b:'Exhale at the top.'},ar:{name:'جسر ألوية ببار',s:'بار عبر الوركين، مستلقٍ بركبتين مثنيتين وقدمين على الأرض.',e:'ادفع الوركين للأعلى حتى التمدد الكامل، اضغط، وانزل.',c:'استخدم وسادة عند الحاجة — أبقِ البار فوق الوركين.',b:'زفير عند القمة.'}},
-    {n:'Single-Leg Glute Bridge',p:'glutes',eq:['bodyweight'],sec:['hamstrings'],g:{s:'Lying, knees bent, one foot lifted.',e:'Drive the hips up on one leg, squeeze, lower.',c:'Keep the hips square — no twisting.',b:'Exhale at the top.'},ar:{name:'جسر ألوية بساق واحدة',s:'مستلقٍ بركبتين مثنيتين وقدم واحدة مرفوعة.',e:'ادفع الوركين للأعلى بساق واحدة، اضغط، وانزل.',c:'أبقِ الوركين مستويين — بدون التواء.',b:'زفير عند القمة.'}},
-    {n:'Glute Kickback',p:'glutes',eq:['cable'],sec:['hamstrings'],g:{s:'Ankle strap on a low cable, facing the machine.',e:'Kick the leg straight back against the cable, squeeze, return.',c:'Keep the torso still — extend from the hip.',b:'Exhale on the kick.'},ar:{name:'ركلة خلفية للألوية',s:'شريط حول الكاحل على كابل منخفض، مواجهاً للجهاز.',e:'اركل الساق للخلف ضد الكابل، اضغط، وعُد.',c:'أبقِ الجذع ثابتاً — التمديد من الورك.',b:'زفير عند الركلة.'}},
-    {n:'Frog Pump',p:'glutes',eq:['bodyweight'],sec:[],g:{s:'Lying, soles of the feet together, knees out.',e:'Drive the hips up, squeeze the glutes, lower slightly.',c:'Small range of motion — constant tension.',b:'Exhale at the top.'},ar:{name:'ضغط الضفدع',s:'مستلقٍ، باطنا القدمين متلاصقان وركبتان للخارج.',e:'ادفع الوركين للأعلى، اضغط الألوية، وانزل قليلاً.',c:'مدى حركة قصير — شد مستمر.',b:'زفير عند القمة.'}},
-    {n:'Kettlebell Swing',p:'glutes',eq:['kettlebell'],sec:['back','hamstrings'],g:{s:'Kettlebell between the feet, hinge at the hips.',e:'Hike the bell back, then snap the hips forward to chest height.',c:'The hips drive — the arms just guide.',b:'Exhale sharply on the snap.'},ar:{name:'تأرجح كيتلبل',s:'كيتلبل بين القدمين، انحناء من الوركين.',e:'أرجح الكيتلبل للخلف ثم ادفع الوركين للأمام حتى ارتفاع الصدر.',c:'الوركان يدفعان — الذراعان يوجهان فقط.',b:'زفير حاد عند الدفع.'}},
-    {n:'Sumo Squat',p:'glutes',eq:['bodyweight'],sec:['quads','hamstrings'],g:{s:'Feet wide, toes out, hands clasped at the chest.',e:'Squat down between the legs, knees tracking the toes.',c:'A wide-stance squat biased to the inner thighs and glutes.',b:'Inhale down, exhale up.'},ar:{name:'قرفصاء سومو',s:'قدمان متباعدتان، أصابع للخارج، يدان مشبكتان عند الصدر.',e:'قرفصاء بين الساقين مع توجيه الركبتين للأصابع.',c:'قرفصاء بوقفة واسعة تركّز على الفخذ الداخلي والألوية.',b:'شهيق للأسفل، زفير للأعلى.'}},
-    {n:'Fire Hydrant',p:'glutes',eq:['bodyweight'],sec:[],g:{s:'On all fours, back flat.',e:'Lift one knee out to the side to hip height, lower, switch.',c:'No torso tilt — lift from the hip.',b:'Exhale on the lift.'},ar:{name:'هيدرانت النار',s:'على الأطراف الأربعة، ظهر مسطح.',e:'ارفع ركبة واحدة للجانب حتى ارتفاع الورك، أنزل، وبدّل.',c:'بدون ميل للجذع — الرفع من الورك.',b:'زفير عند الرفع.'}},
-    // ── Hamstrings (gap: beginner/intermediate spread, curl variants) ──
-    {n:'Deficit Deadlift',p:'hamstrings',eq:['barbell'],sec:['glutes','back'],g:{s:'Stand on a small platform, bar at the shins.',e:'Deadlift with a flat back from the deeper start position.',c:'The deficit increases the range — start light.',b:'Exhale at the top.'},ar:{name:'رفعة مميتة بمنصة مرتفعة',s:'قف على منصة صغيرة والبار عند الساقين.',e:'رفعة مميتة بظهر مسطح من وضعية بداية أعمق.',c:'المنصة تزيد مدى الحركة — ابدأ بوزن خفيف.',b:'زفير عند القمة.'}},
-    {n:'Dumbbell RDL',p:'hamstrings',eq:['dumbbell'],sec:['glutes','back'],g:{s:'Dumbbells at the thighs, knees soft.',e:'Hinge at the hips, lower the dumbbells to mid-shin, drive up.',c:'Slide the dumbbells down the legs — back stays flat.',b:'Exhale on the drive.'},ar:{name:'رفعة رومانية بدمبل',s:'دمبلان عند الفخذين، ركبتان مرتخيتان.',e:'انحنِ من الوركين، أنزل الدمبلين لمنتصف الساق، وادفع للأعلى.',c:'انزلق بالدمبلين على طول الساقين — الظهر مسطح.',b:'زفير عند الدفع.'}},
-    {n:'Single-Leg RDL',p:'hamstrings',eq:['dumbbell'],sec:['glutes'],g:{s:'One dumbbell in one hand, opposite foot slightly back.',e:'Hinge forward, keep the back flat, return to standing.',c:'A balance and hamstring test — go light.',b:'Exhale on the drive.'},ar:{name:'رفعة رومانية بساق واحدة',s:'دمبل واحد بيد، القدم الأخرى خلف قليلاً.',e:'انحنِ للأمام مع ظهر مسطح ثم عُد للوقوف.',c:'اختبار توازن وأوتار الركبة — وزن خفيف.',b:'زفير عند الدفع.'}},
-    {n:'Single-Leg Deadlift',p:'hamstrings',eq:['bodyweight'],sec:['glutes'],g:{s:'Stand on one leg, arms out.',e:'Hinge forward until the torso is parallel to the floor, return.',c:'No weights needed — control the descent.',b:'Exhale on the return.'},ar:{name:'رفعة مميتة بساق واحدة',s:'قف على ساق واحدة وذراعان ممدودتان.',e:'انحنِ للأمام حتى يصبح الجذع موازياً للأرض ثم عُد.',c:'بدون أوزان — تحكم في النزول.',b:'زفير عند العودة.'}},
-    {n:'Kettlebell Deadlift',p:'hamstrings',eq:['kettlebell'],sec:['glutes','back'],g:{s:'Kettlebell on the floor between the feet.',e:'Hinge down, grip the handle, stand up with a flat back.',c:'A friendly entry to the hinge pattern.',b:'Exhale at the top.'},ar:{name:'رفعة مميتة كيتلبل',s:'كيتلبل على الأرض بين القدمين.',e:'انحنِ للأسفل، أمسك المقبض، وقف بظهر مسطح.',c:'مدخل سهل لنمط الانحناء.',b:'زفير عند القمة.'}},
-    {n:'Glute-Ham Raise',p:'hamstrings',eq:['bodyweight'],sec:['glutes'],g:{s:'Knees anchored on the pad, torso vertical.',e:'Lower the torso under control, pull back up with the hamstrings.',c:'Use a pad or manual support until strong enough.',b:'Exhale on the pull.'},ar:{name:'رفع أوتار الركبة والألوية',s:'ركبتان مثبتتان على الوسادة، جذع عمودي.',e:'أنزل الجذع بتحكم ثم اصعد بالأوتار والألوية.',c:'استخدم دعماً يدوياً حتى تصبح قوياً بما يكفي.',b:'زفير عند السحب.'}},
-    {n:'Seated Leg Curl',p:'hamstrings',eq:['machine'],sec:[],g:{s:'Seat so the pad sits above the heels.',e:'Curl the legs down and in, pause, return slowly.',c:'Keep the hips pressed into the seat.',b:'Exhale on the curl.'},ar:{name:'ثني رجل جالس',s:'اجلس بحيث تكون الوسادة فوق الكعبين.',e:'اثنِ الساقين للأسفل والداخل، توقف، وعُد ببطء.',c:'أبقِ الوركين ملتصقين بالمقعد.',b:'زفير عند الثني.'}},
-    {n:'Lying Leg Curl',p:'hamstrings',eq:['machine'],sec:[],g:{s:'Lying face-down, pad above the heels.',e:'Curl the heels toward the glutes, pause, return.',c:'Keep the hips down on the bench.',b:'Exhale on the curl.'},ar:{name:'ثني رجل مستلقٍ',s:'مستلقٍ على البطن، وسادة فوق الكعبين.',e:'اثنِ الكعبين نحو الألوية، توقف، وعُد.',c:'أبقِ الوركين على البنش.',b:'زفير عند الثني.'}},
-    {n:'Single-Leg Leg Curl',p:'hamstrings',eq:['machine'],sec:[],g:{s:'Lying leg curl, one foot on the pad.',e:'Curl one leg at a time, control the return.',c:'The single leg exposes imbalances.',b:'Exhale on the curl.'},ar:{name:'ثني رجل بساق واحدة',s:'ثني رجل مستلقٍ، قدم واحدة على الوسادة.',e:'اثنِ ساقاً واحدة في كل مرة وتحكم في العودة.',c:'الساق الواحدة تكشف الاختلالات.',b:'زفير عند الثني.'}},
-    {n:'Sliding Leg Curl',p:'hamstrings',eq:['bodyweight'],sec:[],g:{s:'Lying, heels on sliders or towels, hips lifted.',e:'Slide the heels in toward the glutes, extend back out.',c:'Keep the hips up the whole time — tough on the hamstrings.',b:'Exhale on the slide.'},ar:{name:'ثني رجل منزلق',s:'مستلقٍ، كعبان على منزلاقات أو مناشف، ورك مرفوع.',e:'انزلق بالكعبين نحو الألوية ثم امتد للخارج.',c:'أبقِ الوركين مرفوعين طوال الوقت — صعب على الأوتار.',b:'زفير عند الانزلاق.'}},
-    {n:'45-Degree Back Extension',p:'hamstrings',eq:['bodyweight'],sec:['glutes'],g:{s:'Pad at the hips, ankles anchored, torso straight.',e:'Lower the torso to a stretch, raise to a straight line.',c:'Stop at parallel — don\'t overextend the spine.',b:'Exhale on the raise.'},ar:{name:'تمديد ظهر 45 درجة',s:'وسادة عند الوركين، كاحلان مثبتان، جذع مستقيم.',e:'أنزل الجذع حتى التمدد ثم ارفعه إلى خط مستقيم.',c:'توقف عند الموازاة — لا تفرط في تمديد العمود.',b:'زفير عند الرفع.'}},
-    {n:'Reverse Hyperextension',p:'hamstrings',eq:['bodyweight'],sec:['glutes'],g:{s:'Lie face-down on a bench, legs hanging off the edge.',e:'Lift the legs to hip height, squeeze, lower.',c:'A back-friendly way to work the hamstrings.',b:'Exhale on the lift.'},ar:{name:'فرط تمديد عكسي',s:'انبط على بنش والساقان تتدليان من الحافة.',e:'ارفع الساقين حتى ارتفاع الورك، اضغط، وأنزل.',c:'طريقة آمنة للظهر لتمرين الأوتار.',b:'زفير عند الرفع.'}},
-    // ── Biceps (gap: machine, cable, hammer variants — all beginner) ──
-    {n:'Bayesian Cable Curl',p:'biceps',eq:['cable'],sec:[],g:{s:'Standing back to a high pulley, arm extended behind.',e:'Curl the handle forward, squeezing at the top, return.',c:'Maximal stretch at the start of every rep.',b:'Exhale on the curl.'},ar:{name:'تجعيد بايزي بكابل',s:'واقف وظهره لبكرة مرتفعة، ذراع ممتدة للخلف.',e:'اثنِ المقبض للأمام، اضغط عند القمة، وعُد.',c:'تمدد أقصى في بداية كل تكرار.',b:'زفير عند الثني.'}},
-    {n:'EZ-Bar Preacher Curl',p:'biceps',eq:['barbell'],sec:[],g:{s:'Arms on the preacher pad, EZ-bar in an underhand grip.',e:'Curl the bar up, squeeze, lower slowly.',c:'No swinging — the pad removes momentum.',b:'Exhale on the curl.'},ar:{name:'تجعيد واعظ بقضيب EZ',s:'ذراعان على وسادة الواعظ، قبضة عكسية على قضيب EZ.',e:'اثنِ البار للأعلى، اضغط، وأنزل ببطء.',c:'بدون تأرجح — الوسادة تمنع الاندفاع.',b:'زفير عند الثني.'}},
-    {n:'Machine Preacher Curl',p:'biceps',eq:['machine'],sec:[],g:{s:'Seat height so the arms rest on the pad.',e:'Curl the handles up, pause, lower with control.',c:'Keep the elbows planted on the pad.',b:'Exhale on the curl.'},ar:{name:'تجعيد واعظ بجهاز',s:'اضبط المقعد بحيث تستقر الذراعان على الوسادة.',e:'اثنِ المقابض للأعلى، توقف، وانزل بتحكم.',c:'أبقِ الكوعين على الوسادة.',b:'زفير عند الثني.'}},
-    {n:'Cross-Body Hammer Curl',p:'biceps',eq:['dumbbell'],sec:['forearms'],g:{s:'Neutral grip, dumbbell at the side.',e:'Curl one arm across the body to the opposite shoulder, lower.',c:'The cross-over adds peak contraction.',b:'Exhale on the curl.'},ar:{name:'تجعيد مطرقة عرضي',s:'قبضة محايدة، دمبل بجانب الجسم.',e:'اثنِ ذراعاً واحدة عبر الجسم نحو الكتف المقابل ثم أنزل.',c:'العبور يزيد الانقباض الذروي.',b:'زفير عند الثني.'}},
-    {n:'Cable Hammer Curl',p:'biceps',eq:['cable'],sec:['forearms'],g:{s:'Rope or handles at the low pulley, neutral grip.',e:'Curl up keeping the palms facing, pause, lower.',c:'Constant tension from the cable.',b:'Exhale on the curl.'},ar:{name:'تجعيد مطرقة بكابل',s:'حبل أو مقابض عند البكرة السفلية، قبضة محايدة.',e:'اثنِ للأعلى مع بقاء الكفين متقابلين، توقف، وانزل.',c:'شد مستمر من الكابل.',b:'زفير عند الثني.'}},
-    {n:'Rope Hammer Curl',p:'biceps',eq:['cable'],sec:['forearms'],g:{s:'Rope on the low pulley, neutral grip.',e:'Curl the rope up, split the ends at the top, lower.',c:'Squeeze the brachialis with the neutral grip.',b:'Exhale on the curl.'},ar:{name:'تجعيد مطرقة بحبل',s:'حبل على البكرة السفلية، قبضة محايدة.',e:'اثنِ الحبل للأعلى وافصل الطرفين عند القمة ثم انزل.',c:'اضغط على العضلة العضدية بالقبضة المحايدة.',b:'زفير عند الثني.'}},
-    {n:'Incline Hammer Curl',p:'biceps',eq:['dumbbell'],sec:['forearms'],g:{s:'Incline bench, arms hanging, neutral grip.',e:'Curl both arms up keeping the palms facing, lower.',c:'The incline stretches the long head.',b:'Exhale on the curl.'},ar:{name:'تجعيد مطرقة مائل',s:'بنش مائل، ذراعان معلقان، قبضة محايدة.',e:'اثنِ الذراعين للأعلى مع بقاء الكفين متقابلين، وانزل.',c:'الميل يمدد الرأس الطويل.',b:'زفير عند الثني.'}},
-    {n:'Zottman Curl',p:'biceps',eq:['dumbbell'],sec:['forearms'],g:{s:'Dumbbells at the sides, palms forward.',e:'Curl up, rotate to palms-down at the top, lower slowly.',c:'The rotation works both biceps and forearms.',b:'Exhale on the curl.'},ar:{name:'تجعيد زوتمان',s:'دمبلان بجانب الجسم، كفان للأمام.',e:'اثنِ للأعلى، دوّر الكفين للأسفل عند القمة، وانزل ببطء.',c:'الدوران يعمل على البايسيبس والساعدين.',b:'زفير عند الثني.'}},
-    {n:'Drag Curl',p:'biceps',eq:['barbell'],sec:['forearms'],g:{s:'Bar at the thighs, elbows pulled back.',e:'Drag the bar up along the torso to the chest, lower.',c:'Elbows stay behind the bar — peak-tension curl.',b:'Exhale on the curl.'},ar:{name:'تجعيد سحب',s:'بار عند الفخذين، كوعان للخلف.',e:'اسحب البار للأعلى على طول الجذع نحو الصدر ثم أنزل.',c:'الكوعان خلف البار — تجعيد بشد ذروي.',b:'زفير عند الثني.'}},
-    {n:'Behind-the-Back Cable Curl',p:'biceps',eq:['cable'],sec:[],g:{s:'Back to a low pulley, handle between the legs.',e:'Curl the handle up keeping the elbows back, lower.',c:'Constant tension on the short head.',b:'Exhale on the curl.'},ar:{name:'تجعيد كابل خلف الظهر',s:'ظهر لبكرة سفلية، المقبض بين الساقين.',e:'اثنِ المقبض للأعلى مع كوعين للخلف ثم انزل.',c:'شد مستمر على الرأس القصير.',b:'زفير عند الثني.'}},
-    // ── Triceps (gap: intermediate press variants, band, machine) ──
-    {n:'Reverse-Grip Pushdown',p:'triceps',eq:['cable'],sec:[],g:{s:'Underhand grip on the bar, elbows at the sides.',e:'Press the bar down to lockout, pause, return.',c:'The reverse grip biases the medial head.',b:'Exhale on the press.'},ar:{name:'ضغط لأسفل بقبضة معكوسة',s:'قبضة عكسية على البار، كوعان بجانب الجسم.',e:'ادفع البار للأسفل حتى القفل، توقف، وعُد.',c:'القبضة المعكوسة تركّز على الرأس الإنسي.',b:'زفير عند الدفع.'}},
-    {n:'Band Triceps Pushdown',p:'triceps',eq:['band'],sec:[],g:{s:'Band anchored overhead, elbows at the sides.',e:'Press the hands down to lockout against the band, return.',c:'Constant tension — control the return.',b:'Exhale on the press.'},ar:{name:'ضغط ترايسبس بباند',s:'باند مثبت للأعلى، كوعان بجانب الجسم.',e:'ادفع اليدين للأسفل حتى القفل ضد الباند ثم عُد.',c:'شد مستمر — تحكم في العودة.',b:'زفير عند الدفع.'}},
-    {n:'Overhead Rope Extension',p:'triceps',eq:['cable'],sec:[],g:{s:'Rope on the low pulley, back to the machine.',e:'Extend the arms overhead, split the ends at the top, lower.',c:'Keep the elbows close to the head.',b:'Exhale on the extension.'},ar:{name:'تمديد فوق الرأس بحبل',s:'حبل على البكرة السفلية، ظهر للجهاز.',e:'مدد الذراعين فوق الرأس، افصل الطرفين عند القمة، وانزل.',c:'أبقِ الكوعين قريبين من الرأس.',b:'زفير عند التمديد.'}},
-    {n:'EZ-Bar Overhead Extension',p:'triceps',eq:['barbell'],sec:[],g:{s:'EZ-bar overhead, elbows close to the head.',e:'Lower the bar behind the head to a stretch, extend up.',c:'Go light — keep the elbows in.',b:'Exhale on the extension.'},ar:{name:'تمديد فوق الرأس بقضيب EZ',s:'قضيب EZ فوق الرأس، كوعان قريبان من الرأس.',e:'أنزل البار خلف الرأس حتى التمدد ثم مدد للأعلى.',c:'وزن خفيف — أبقِ الكوعين للداخل.',b:'زفير عند التمديد.'}},
-    {n:'Single-Arm Cable Kickback',p:'triceps',eq:['cable'],sec:[],g:{s:'Low cable, slight lean, elbow bent.',e:'Extend the arm straight back against the cable, pause, return.',c:'Fixed elbow — no swinging.',b:'Exhale on the extension.'},ar:{name:'ركلة خلفية بذراع واحدة',s:'كابل منخفض، ميل بسيط، كوع مثني.',e:'مدد الذراع للخلف ضد الكابل، توقف، وعُد.',c:'كوع ثابت — بدون تأرجح.',b:'زفير عند التمديد.'}},
-    {n:'Close-Grip Push-Up',p:'triceps',eq:['bodyweight'],sec:['chest','shoulders'],g:{s:'Hands directly under the shoulders, narrow stance.',e:'Lower the chest to the hands, press back up.',c:'Elbows track the torso — triceps-driven.',b:'Inhale down, exhale up.'},ar:{name:'ضغط أرضي بقبضة ضيقة',s:'كفان تحت الكتفين مباشرة، وقفة ضيقة.',e:'أنزل الصدر نحو الكفين ثم ادفع للأعلى.',c:'الكوعان يتبعان الجذع — تركيز على الترايسبس.',b:'شهيق للأسفل، زفير للأعلى.'}},
-    {n:'Diamond Push-Up',p:'triceps',eq:['bodyweight'],sec:['chest','shoulders'],g:{s:'Hands together forming a diamond under the chest.',e:'Lower the chest to the hands, press back up.',c:'The narrow hand position hits the triceps hard.',b:'Inhale down, exhale up.'},ar:{name:'ضغط أرضي ماسي',s:'كفان متلاصقان بشكل ماسي تحت الصدر.',e:'أنزل الصدر نحو الكفين ثم ادفع للأعلى.',c:'الوضعية الضيقة تضغط الترايسبس بقوة.',b:'شهيق للأسفل، زفير للأعلى.'}},
-    {n:'Machine Dip',p:'triceps',eq:['machine'],sec:['chest','shoulders'],g:{s:'Set the assist, arms on the pads, upright torso.',e:'Lower until the elbows reach ~90°, press back up.',c:'Stay upright to keep the work on the triceps.',b:'Exhale on the press.'},ar:{name:'دايب بجهاز',s:'اضبط المساعدة، ذراعان على الوسائد، جذع منتصب.',e:'انزل حتى تصل الكوعان ~90° ثم ادفع للأعلى.',c:'ابقَ منتصباً لإبقاء الجهد على الترايسبس.',b:'زفير عند الدفع.'}},
-    {n:'Tate Press',p:'triceps',eq:['dumbbell'],sec:['chest'],g:{s:'Lying, dumbbells pressed together over the chest, palms facing.',e:'Lower the dumbbells to the sides of the chest, press back together.',c:'A heavy-hitting long-head press — go light.',b:'Exhale on the press.'},ar:{name:'ضغط تيت',s:'مستلقٍ، دمبلان متلاصقان فوق الصدر، كفان متقابلان.',e:'أنزل الدمبلين لجانبي الصدر ثم ادفعهما معاً للأعلى.',c:'ضغط قوي للرأس الطويل — ابدأ بوزن خفيف.',b:'زفير عند الدفع.'}},
-    // ── Calves (gap: machine/plyo depth, tibialis) ──
-    {n:'Smith Machine Calf Raise',p:'calves',eq:['machine'],sec:[],g:{s:'Bar across the traps, balls of the feet on a step.',e:'Raise up onto the toes, pause, lower below parallel.',c:'Full stretch at the bottom.',b:'Exhale on the raise.'},ar:{name:'رفع سمانة بجهاز سميث',s:'بار فوق الترابيس، أصابع القدم على خطوة.',e:'ارفع على الأصابع، توقف، وانزل تحت الموازاة.',c:'تمدد كامل عند الأسفل.',b:'زفير عند الرفع.'}},
-    {n:'Tibialis Raise',p:'calves',eq:['bodyweight'],sec:[],g:{s:'Heels on the floor, toes on a wall or step.',e:'Pull the toes up toward the shins, pause, lower.',c:'Works the shin muscle — the forgotten stabilizer.',b:'Exhale on the raise.'},ar:{name:'رفع قصبة الساق',s:'كعبان على الأرض، أصابع على حائط أو خطوة.',e:'اسحب الأصابع نحو الساقين، توقف، وانزل.',c:'يعمل على عضلة الساق الأمامية — المثبت المنسي.',b:'زفير عند الرفع.'}},
-    {n:'Jump Rope',p:'calves',eq:['bodyweight'],sec:[],g:{s:'Rope behind you, elbows close.',e:'Jump on the balls of the feet as the rope passes.',c:'Soft knees — land quietly.',b:'Breathe rhythmically.'},ar:{name:'نط الحبل',s:'حبل خلفك، كوعان قريبان.',e:'اقفز على أصابع القدمين مع مرور الحبل.',c:'ركبتان مرتخيتان — اهبط بهدوء.',b:'تنفس بإيقاع.'}},
-    {n:'Pogo Jump',p:'calves',eq:['bodyweight'],sec:[],g:{s:'Stand tall, knees slightly bent.',e:'Jump with straight legs off the balls of the feet.',c:'Quick, springy jumps — calf power.',b:'Breathe steadily.'},ar:{name:'قفز بوجو',s:'قف منتصباً بركبتين مثنيتين قليلاً.',e:'اقفز بساقين مستقيمتين من أصابع القدمين.',c:'قفزات سريعة مرنة — قوة السمانة.',b:'تنفس منتظم.'}},
-    // ── Traps (gap: machine variants, behind-back, overhead) ──
-    {n:'Machine Shrug',p:'traps',eq:['machine'],sec:[],g:{s:'Shoulder pads, upright posture.',e:'Shrug the shoulders up toward the ears, pause, lower.',c:'Full range — no rolling the shoulders.',b:'Exhale on the shrug.'},ar:{name:'رفع كتفين بجهاز',s:'وسائد على الكتفين، وضعية منتصبة.',e:'ارفع الكتفين نحو الأذنين، توقف، وانزل.',c:'مدى كامل — بدون لف الكتفين.',b:'زفير عند الرفع.'}},
-    {n:'Smith Machine Shrug',p:'traps',eq:['machine'],sec:[],g:{s:'Bar across the traps in the Smith.',e:'Shrug the bar straight up, pause, lower.',c:'Easy to load heavy with the Smith.',b:'Exhale on the shrug.'},ar:{name:'رفع كتفين بجهاز سميث',s:'بار فوق الترابيس في جهاز سميث.',e:'ارفع البار للأعلى مباشرة، توقف، وانزل.',c:'سهل التحميل الثقيل مع سميث.',b:'زفير عند الرفع.'}},
-    {n:'Behind-the-Back Shrug',p:'traps',eq:['barbell'],sec:[],g:{s:'Bar behind the hips, overhand grip.',e:'Shrug up and slightly back, pause, lower.',c:'Bias the lower traps from behind.',b:'Exhale on the shrug.'},ar:{name:'رفع كتفين خلف الظهر',s:'بار خلف الوركين، قبضة علوية.',e:'ارفع الكتفين للأعلى والخلف قليلاً، توقف، وانزل.',c:'يركّز على الجزء السفلي من الترابيس من الخلف.',b:'زفير عند الرفع.'}},
-    {n:'Trap Bar Shrug',p:'traps',eq:['barbell'],sec:[],g:{s:'Stand inside the trap bar, arms hanging.',e:'Shrug the handles straight up, pause, lower.',c:'Neutral grip — comfortable on the shoulders.',b:'Exhale on the shrug.'},ar:{name:'رفع كتفين ببار تراب',s:'قف داخل بار التراب، ذراعان معلقان.',e:'ارفع المقابض للأعلى مباشرة، توقف، وانزل.',c:'قبضة محايدة — مريحة للكتفين.',b:'زفير عند الرفع.'}},
-    {n:'Overhead Shrug',p:'traps',eq:['barbell'],sec:[],g:{s:'Bar overhead, arms extended.',e:'Shrug the shoulders up while holding the bar overhead.',c:'A mobility-plus-strength movement.',b:'Exhale on the shrug.'},ar:{name:'رفع كتفين فوق الرأس',s:'بار فوق الرأس، ذراعان ممدودتان.',e:'ارفع الكتفين للأعلى مع إبقاء البار فوق الرأس.',c:'حركة تجمع المرونة والقوة.',b:'زفير عند الرفع.'}},
-    {n:'Cable Shrug',p:'traps',eq:['cable'],sec:[],g:{s:'Cable handles at the sides, tall posture.',e:'Shrug up against the cable, pause, lower.',c:'Constant tension throughout the rep.',b:'Exhale on the shrug.'},ar:{name:'رفع كتفين بكابل',s:'مقابض كابل بجانب الجسم، وضعية منتصبة.',e:'ارفع الكتفين ضد الكابل، توقف، وانزل.',c:'شد مستمر طوال التكرار.',b:'زفير عند الرفع.'}},
-    {n:'Snatch-Grip Shrug',p:'traps',eq:['barbell'],sec:[],g:{s:'Wide snatch grip, bar at the thighs.',e:'Shrug the bar up with a proud chest, lower.',c:'The wide grip stretches the traps hard.',b:'Exhale on the shrug.'},ar:{name:'رفع كتفين بقبضة خطف',s:'قبضة خطف واسعة، بار عند الفخذين.',e:'ارفع البار للأعلى مع صدر بارز ثم أنزل.',c:'القبضة الواسعة تمدد الترابيس بشدة.',b:'زفير عند الرفع.'}},
-    // ── Abs (gap: rotation/anti-rotation = 0 existing, advanced moves) ──
-    {n:'Russian Twist',p:'abs',eq:['bodyweight'],sec:[],g:{s:'Seated, knees bent, lean back slightly.',e:'Rotate the torso side to side, hands together.',c:'Add weight only when the form is solid.',b:'Exhale on each twist.'},ar:{name:'لف روسي',s:'جالس بركبتين مثنيتين وميل بسيط للخلف.',e:'دوّر الجذع من جانب لآخر واليدان متلاصقتان.',c:'أضف وزناً فقط عندما يكون الأداء متقناً.',b:'زفير مع كل لفّة.'}},
-    {n:'Pallof Press',p:'abs',eq:['band'],sec:[],g:{s:'Side-on to the band anchor, handle at the chest.',e:'Press the handle straight out, resist rotation, return.',c:'Anti-rotation — the torso stays still.',b:'Breathe steadily.'},ar:{name:'ضغط بالوف',s:'جانبي لمثبت الباند، المقبض عند الصدر.',e:'ادفع المقبض للخارج مباشرة مع مقاومة الدوران ثم عُد.',c:'مضاد للدوران — الجذع يبقى ثابتاً.',b:'تنفس منتظم.'}},
-    {n:'Woodchopper',p:'abs',eq:['cable'],sec:[],g:{s:'Cable at shoulder height, feet wide.',e:'Pull the handle down across the body to the opposite hip.',c:'Rotate from the torso, not the arms.',b:'Exhale on the chop.'},ar:{name:'تقطيع الخشب',s:'كابل بارتفاع الكتف، قدم متباعدة.',e:'اسحب المقبض للأسفل عبر الجسم نحو الورك المقابل.',c:'الدوران من الجذع وليس الذراعين.',b:'زفير عند التقطيع.'}},
-    {n:'Landmine Rotation',p:'abs',eq:['barbell'],sec:[],g:{s:'Bar in the landmine, hands at the top end, feet wide.',e:'Rotate the bar across the body side to side.',c:'Light bar — controlled turns.',b:'Exhale on each turn.'},ar:{name:'دوران لاندماين',s:'بار في زاوية لاندماين، يدان عند الطرف العلوي، قدم متباعدة.',e:'دوّر البار عبر الجسم من جانب لآخر.',c:'بار خفيف — دوران محكم.',b:'زفير مع كل دورة.'}},
-    {n:'Turkish Get-Up',p:'abs',eq:['kettlebell'],sec:['shoulders','glutes'],g:{s:'Lying, kettlebell pressed overhead, opposite hand on the floor.',e:'Stand up under the bell in stages, reverse back down.',c:'A total-body control masterpiece — go light.',b:'Breathe at each stage.'},ar:{name:'النهوض التركي',s:'مستلقٍ، كيتلبل مرفوع فوق الرأس، اليد الأخرى على الأرض.',e:'قف تحت الكيتلبل على مراحل ثم عُد للأسفل عكسياً.',c:'حركة تحكم كامل للجسم — وزن خفيف.',b:'تنفس في كل مرحلة.'}},
-    {n:'Windmill',p:'abs',eq:['kettlebell'],sec:['shoulders','hamstrings'],g:{s:'Kettlebell overhead, feet wide, toes out.',e:'Hinge down toward the opposite foot, arm stays overhead.',c:'Hips back, eyes on the bell.',b:'Exhale on the descent.'},ar:{name:'طاحونة الهواء',s:'كيتلبل فوق الرأس، قدم متباعدة، أصابع للخارج.',e:'انحنِ للأسفل نحو القدم المقابلة مع بقاء الذراع فوق الرأس.',c:'ورك للخلف وعين على الكيتلبل.',b:'زفير عند النزول.'}},
-    {n:'V-Up',p:'abs',eq:['bodyweight'],sec:[],g:{s:'Lying, arms overhead, legs straight.',e:'Lift the arms and legs to meet in the middle.',c:'Tuck under the ribs for a full crunch.',b:'Exhale on the lift.'},ar:{name:'في أب',s:'مستلقٍ، ذراعان فوق الرأس، ساقان مستقيمتان.',e:'ارفع الذراعين والساقين ليتلاقيا في المنتصف.',c:'اضغط البطن تحت الأضلاع لكرانش كامل.',b:'زفير عند الرفع.'}},
-    {n:'Reverse Crunch',p:'abs',eq:['bodyweight'],sec:[],g:{s:'Lying, knees bent at 90°, hands by the sides.',e:'Curl the hips up off the floor, lower slowly.',c:'Focus on the lower abs — no swinging.',b:'Exhale on the curl.'},ar:{name:'كرانش عكسي',s:'مستلقٍ بركبتين بزاوية 90°، يدان بجانب الجسم.',e:'ارفع الوركين عن الأرض ثم انزل ببطء.',c:'ركّز على أسفل البطن — بدون تأرجح.',b:'زفير عند الرفع.'}},
-    {n:'Decline Sit-Up',p:'abs',eq:['bodyweight'],sec:[],g:{s:'Decline bench, ankles hooked.',e:'Curl up to a full sit-up, lower under control.',c:'Hands across the chest, not behind the head.',b:'Exhale on the way up.'},ar:{name:'جلوس مائل لأسفل',s:'بنش مائل، كاحلان مثبتان.',e:'اصعد بتمدد كامل ثم انزل بتحكم.',c:'يدان متقاطعتان على الصدر وليس خلف الرأس.',b:'زفير عند الصعود.'}},
-    {n:'Bicycle Crunch',p:'abs',eq:['bodyweight'],sec:[],g:{s:'Lying, hands behind the head, legs lifted.',e:'Alternate bringing elbow to the opposite knee.',c:'Slow and controlled — rotation, not speed.',b:'Exhale with each rep.'},ar:{name:'كرانش دراجة',s:'مستلقٍ، يدان خلف الرأس، ساقان مرفوعتان.',e:'بادل تقريب الكوع من الركبة المقابلة.',c:'بطيء ومحكم — دوران وليس سرعة.',b:'زفير مع كل تكرار.'}},
-    {n:'Side Plank',p:'abs',eq:['bodyweight'],sec:[],g:{s:'On one forearm, feet stacked, hips lifted.',e:'Hold a straight line from head to heels.',c:'Brace the obliques — no sagging.',b:'Breathe steadily.'},ar:{name:'بلانك جانبي',s:'على ساعد واحد، قدمان متعامدتان، ورك مرفوع.',e:'اثبت على خط مستقيم من الرأس للكعبين.',c:'شدّ العضلات الجانبية — بدون هبوط.',b:'تنفس منتظم.'}},
-    {n:'Mountain Climber',p:'abs',eq:['bodyweight'],sec:[],g:{s:'Plank position, hands under the shoulders.',e:'Drive the knees toward the chest alternately.',c:'Hips stay low — quick feet, tight core.',b:'Exhale with each drive.'},ar:{name:'متسلق الجبال',s:'وضعية اللوح، كفان تحت الكتفين.',e:'ادفع الركبتين نحو الصدر بالتناوب.',c:'ورك منخفض — خطوات سريعة وجذع مشدود.',b:'زفير مع كل دفعة.'}},
-    {n:'Dragon Flag',p:'abs',eq:['bodyweight'],sec:[],g:{s:'Lying on a bench, gripping the edge behind the head.',e:'Lift the whole body to a flag position, lower slowly.',c:'An advanced move — keep the body straight.',b:'Exhale on the lift.'},ar:{name:'علم التنين',s:'مستلقٍ على بنش ممسكاً بالحافة خلف الرأس.',e:'ارفع الجسم كاملاً إلى وضعية العلم ثم انزل ببطء.',c:'حركة متقدمة — أبقِ الجسم مستقيماً.',b:'زفير عند الرفع.'}},
-    {n:'Toes to Bar',p:'abs',eq:['bodyweight'],sec:[],g:{s:'Hanging from a bar.',e:'Raise the toes to the bar with a pelvic tuck, lower.',c:'Tuck the pelvis — no swinging.',b:'Exhale on the raise.'},ar:{name:'أصابع القدم إلى البار',s:'معلق من بار.',e:'ارفع أصابع القدم إلى البار مع ثني الحوض ثم انزل.',c:'اثنِ الحوض — بدون تأرجح.',b:'زفير عند الرفع.'}},
-    {n:'L-Sit',p:'abs',eq:['bodyweight'],sec:[],g:{s:'On parallel bars or the floor, arms straight.',e:'Lift the legs to a 90° hold, stay there.',c:'Press down hard through the hands.',b:'Breathe steadily.'},ar:{name:'جلوس حرف L',s:'على بارين متوازيين أو الأرض، ذراعان مستقيمان.',e:'ارفع الساقين إلى تثبيت بزاوية 90° واثبت.',c:'اضغط بقوة عبر اليدين.',b:'تنفس منتظم.'}},
-    {n:'Kettlebell Figure 8',p:'abs',eq:['kettlebell'],sec:['forearms'],g:{s:'Slight squat stance, kettlebell in one hand.',e:'Pass the bell around each leg in a figure 8 pattern.',c:'Light bell — the core stabilizes the circles.',b:'Breathe steadily.'},ar:{name:'شكل 8 بكيتلبل',s:'وقفة قرفصاء بسيطة، كيتلبل بيد واحدة.',e:'مرّر الكيتلبل حول كل ساق بنمط شكل 8.',c:'وزن خفيف — الجذع يثبت الدوائر.',b:'تنفس منتظم.'}},
-    // ── Forearms (gap: grip hold variants, roller, fingers) ──
-    {n:'Finger Curl',p:'forearms',eq:['dumbbell'],sec:[],g:{s:'Forearms on the thighs, dumbbell in hand, palm up.',e:'Open the fingers to let it roll, curl it back with the fingers.',c:'The fingers do the work — not the wrist.',b:'Breathe steadily.'},ar:{name:'تجعيد أصابع',s:'ساعدان على الفخذين، دمبل باليد، كف للأعلى.',e:'افتح الأصابع ليتدحرج ثم أعده بقوة الأصابع.',c:'الأصابع تعمل — وليس الرسغ.',b:'تنفس منتظم.'}},
-    {n:'Wrist Roller',p:'forearms',eq:['barbell'],sec:[],g:{s:'Plate tied to a rope on a bar, arms extended.',e:'Roll the bar with the wrists to lift the plate, unroll slowly.',c:'A painful finisher — grip and wrist together.',b:'Breathe steadily.'},ar:{name:'لفافة الرسغ',s:'قرص مربوط بحبل على بار، ذراعان ممدودتان.',e:'لفّ البار بالرسغين لرفع القرص ثم فُك ببطء.',c:'تمرين ختامي قاسٍ — القبضة والرسغ معاً.',b:'تنفس منتظم.'}},
-    {n:'Towel Hang',p:'forearms',eq:['bodyweight'],sec:[],g:{s:'Towels over a bar, grip them firmly.',e:'Hang for time.',c:'The thick grip crushes the forearms.',b:'Breathe steadily.'},ar:{name:'تعلق بمنشفة',s:'مناشف فوق البار، أمسكها بإحكام.',e:'تعلق لمدة زمنية.',c:'القبضة السميكة تضغط الساعدين بشدة.',b:'تنفس منتظم.'}},
-    {n:'One-Arm Hang',p:'forearms',eq:['bodyweight'],sec:[],g:{s:'Grip the bar with one hand, hang.',e:'Hold for time, switch arms.',c:'Go easy on the shoulder — start short.',b:'Breathe steadily.'},ar:{name:'تعلق بذراع واحدة',s:'أمسك البار بيد واحدة وتعلق.',e:'اثبت لمدة زمنية ثم بدّل الذراعين.',c:'تعامل بحذر مع الكتف — ابدأ بوقت قصير.',b:'تنفس منتظم.'}},
-    {n:'Kettlebell Hold',p:'forearms',eq:['kettlebell'],sec:[],g:{s:'Kettlebell hanging from a hooked grip.',e:'Hold for time, switch hands.',c:'A brutal static grip hold.',b:'Breathe steadily.'},ar:{name:'ثبات كيتلبل',s:'كيتلبل معلق بقبضة معقوفة.',e:'اثبت لمدة زمنية ثم بدّل اليدين.',c:'تثبيت ساكن قاسٍ للقبضة.',b:'تنفس منتظم.'}},
-    // ── Chunk 3: rotation, kettlebell, band, advanced fillers ──
-    {n:'Rotational Cable Row',p:'back',eq:['cable'],sec:['biceps'],g:{s:'Low cable, handle in one hand, feet wide.',e:'Row the handle to the chest while rotating the torso.',c:'Rotate on the pull, not the return.',b:'Exhale on the row.'},ar:{name:'سحب كابل دوراني',s:'كابل منخفض، مقبض بيد واحدة، قدم متباعدة.',e:'اسحب المقبض إلى الصدر مع دوران الجذع.',c:'دُر عند السحب وليس عند العودة.',b:'زفير عند السحب.'}},
-    {n:'Landmine Row',p:'back',eq:['barbell'],sec:['biceps'],g:{s:'Bar in the landmine, one hand at the top end.',e:'Row the end of the bar to the hip, lower.',c:'Kneel or stand — brace the torso.',b:'Exhale on the row.'},ar:{name:'سحب لاندماين',s:'بار في زاوية لاندماين، يد واحدة عند الطرف العلوي.',e:'اسحب طرف البار إلى الورك ثم أنزل.',c:'اركع أو قف — شدّ الجذع.',b:'زفير عند السحب.'}},
-    {n:'Kroc Row',p:'back',eq:['dumbbell'],sec:['biceps'],g:{s:'One heavy dumbbell, bench support or bent over.',e:'Row with a big stretch and momentum, control the lower.',c:'A heavy, high-rep mass builder.',b:'Exhale on the row.'},ar:{name:'سحب كروك',s:'دمبل ثقيل واحد مع دعم أو انحناء.',e:'اسحب بتمدد كبير واندفاع خفيف مع تحكم في النزول.',c:'حركة بناء كتلة ثقيلة بتكرارات عالية.',b:'زفير عند السحب.'}},
-    {n:'Muscle-Up',p:'back',eq:['bodyweight'],sec:['biceps','shoulders'],g:{s:'Grip the bar, kipping allowed at first.',e:'Pull high, drive the chest over the bar, press up, lower.',c:'Combine a pull-up with a dip — master both first.',b:'Exhale on the drive.'},ar:{name:'موسل أب',s:'أمسك البار، يمكن التأرجح في البداية.',e:'اسحب عالياً، مرر الصدر فوق البار، ادفع للأعلى، وانزل.',c:'اجمع بين العقلة والدايب — أتقنهما أولاً.',b:'زفير عند الدفع.'}},
-    {n:'Kettlebell Clean',p:'shoulders',eq:['kettlebell'],sec:['back','quads'],g:{s:'Kettlebell on the floor, hinge stance.',e:'Explode up and catch the bell in a front rack position.',c:'The hips drive — the arm just guides.',b:'Exhale on the pull.'},ar:{name:'كلين كيتلبل',s:'كيتلبل على الأرض، وقفة انحناء.',e:'اندفع للأعلى والتقط الكيتلبل في وضعية الحامل الأمامي.',c:'الوركان يدفعان — الذراع يوجه فقط.',b:'زفير عند السحب.'}},
-    {n:'Kettlebell Snatch',p:'shoulders',eq:['kettlebell'],sec:['back','quads'],g:{s:'Kettlebell on the floor, hinge stance.',e:'Explode up and punch the bell overhead to a lockout.',c:'A full-body ballistic — master the swing first.',b:'Exhale on the punch.'},ar:{name:'سناتش كيتلبل',s:'كيتلبل على الأرض، وقفة انحناء.',e:'اندفع للأعلى واكسر الكيتلبل فوق الرأس حتى القفل.',c:'حركة بالستية كاملة — أتقن الأرجحة أولاً.',b:'زفير عند الكسر.'}},
-    {n:'Kettlebell High Pull',p:'shoulders',eq:['kettlebell'],sec:['back'],g:{s:'Kettlebell between the feet, hinge stance.',e:'Explode up pulling the bell to the chest, elbows high.',c:'Elbows lead — above the hands.',b:'Exhale on the pull.'},ar:{name:'سحب عالي كيتلبل',s:'كيتلبل بين القدمين، وقفة انحناء.',e:'اندفع للأعلى ساحباً الكيتلبل إلى الصدر مع رفع الكوعين.',c:'الكوعان يقودان — فوق اليدين.',b:'زفير عند السحب.'}},
-    {n:'Kettlebell Overhead Press',p:'shoulders',eq:['kettlebell'],sec:['triceps'],g:{s:'Kettlebell in a front rack position.',e:'Press the bell overhead, lock out, lower to the rack.',c:'Brace the core and squeeze the glutes.',b:'Exhale on the press.'},ar:{name:'ضغط كيتلبل فوق الرأس',s:'كيتلبل في وضعية الحامل الأمامي.',e:'ادفع الكيتلبل فوق الرأس، أقفل، وأنزله للحامل.',c:'شدّ الجذع واضغط الألوية.',b:'زفير عند الدفع.'}},
-    {n:'Kettlebell Halos',p:'shoulders',eq:['kettlebell'],sec:[],g:{s:'Kettlebell held upside-down at the chest.',e:'Circle the bell around the head, keep the core tight.',c:'A warm-up — light weight, full circles.',b:'Breathe steadily.'},ar:{name:'هالات كيتلبل',s:'كيتلبل مقلوب عند الصدر.',e:'دوّر الكيتلبل حول الرأس مع جذع مشدود.',c:'إحماء — وزن خفيف ودوائر كاملة.',b:'تنفس منتظم.'}},
-    {n:'Band Lateral Raise',p:'shoulders',eq:['band'],sec:[],g:{s:'Band under the feet, handles at the sides.',e:'Raise the arms to shoulder height, lower slowly.',c:'Constant tension from the band.',b:'Exhale on the raise.'},ar:{name:'رفرفة جانبية بباند',s:'باند تحت القدمين، مقابض بجانب الجسم.',e:'ارفع الذراعين لارتفاع الكتف ثم أنزل ببطء.',c:'شد مستمر من الباند.',b:'زفير عند الرفع.'}},
-    {n:'Band Overhead Press',p:'shoulders',eq:['band'],sec:['triceps'],g:{s:'Band under the feet, handles at the shoulders.',e:'Press overhead against the band, lower with control.',c:'More tension at the top — press hard.',b:'Exhale on the press.'},ar:{name:'ضغط فوق الرأس بباند',s:'باند تحت القدمين، مقابض عند الكتفين.',e:'ادفع فوق الرأس ضد الباند ثم انزل بتحكم.',c:'شد أكبر عند القمة — ادفع بقوة.',b:'زفير عند الدفع.'}},
-    {n:'Band Bicep Curl',p:'biceps',eq:['band'],sec:[],g:{s:'Band under the feet, handles at the sides.',e:'Curl the handles to the shoulders, lower slowly.',c:'Constant tension — a great finisher.',b:'Exhale on the curl.'},ar:{name:'تجعيد بايسيبس بباند',s:'باند تحت القدمين، مقابض بجانب الجسم.',e:'اثنِ المقابض إلى الكتفين ثم انزل ببطء.',c:'شد مستمر — ختام ممتاز.',b:'زفير عند الثني.'}},
-    {n:'Band Squat',p:'quads',eq:['band'],sec:['glutes'],g:{s:'Band under the feet, handles on the shoulders.',e:'Squat to depth, drive up against the band.',c:'The band loads the top of the squat.',b:'Exhale up.'},ar:{name:'قرفصاء بباند',s:'باند تحت القدمين، مقابض على الكتفين.',e:'قرفصاء حتى العمق ثم ادفع للأعلى ضد الباند.',c:'الباند يحمّل قمة القرفصاء.',b:'زفير عند الصعود.'}},
-    {n:'Suitcase Carry',p:'abs',eq:['dumbbell'],sec:['forearms'],g:{s:'One heavy dumbbell at the side.',e:'Walk tall holding the weight in one hand.',c:'Anti-rotation — the torso stays square.',b:'Breathe steadily.'},ar:{name:'حمل الحقيبة',s:'دمبل ثقيل واحد بجانب الجسم.',e:'امشِ منتصباً حاملاً الوزن بيد واحدة.',c:'مضاد للدوران — الجذع يبقى مستوياً.',b:'تنفس منتظم.'}},
-    {n:'Waiter Carry',p:'shoulders',eq:['dumbbell'],sec:['forearms'],g:{s:'One dumbbell pressed overhead.',e:'Walk tall holding the weight overhead.',c:'Shoulder stability + core under load.',b:'Breathe steadily.'},ar:{name:'حمل النادل',s:'دمبل واحد مرفوع فوق الرأس.',e:'امشِ منتصباً حاملاً الوزن فوق الرأس.',c:'ثبات الكتف + جذع تحت الحمل.',b:'تنفس منتظم.'}}
-  ];
+ // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
-  // ═══════════════════════════════════════════════════════════════════
-  //  RULES + REGISTRATION — extend the existing 07 override+keyword
-  //  pattern. Curated overrides win, rules fill the gaps; every new
-  //  entry is flagged metadataSource:"inferred" until a review pass
-  //  promotes it to "verified".
-  // ═══════════════════════════════════════════════════════════════════
-  var EX_DIFF_OVERRIDES={
-    'Landmine Press':'beginner','Band Chest Press':'beginner','Banded Push-Up':'beginner','Machine Chest Dip':'beginner',
-    'Seal Row':'beginner','Rack Pull':'advanced','Single-Arm Lat Pulldown':'beginner','Reverse-Grip Pulldown':'beginner',
-    'Wide-Grip Pull-Up':'intermediate','One-Arm Cable Row':'beginner','Band Pulldown':'beginner','Band Row':'beginner',
-    'Trap Bar Row':'beginner','Narrow-Grip Pulldown':'beginner','V-Grip Pulldown':'beginner','Kettlebell Row':'beginner',
-    'Z-Press':'advanced','Cossack Squat':'intermediate','Split Squat':'beginner','Forward Lunge':'beginner',
-    'Reverse Lunge':'beginner','Lateral Lunge':'beginner','Box Jump':'intermediate','Curtsy Lunge':'beginner',
-    'Kettlebell Squat':'beginner','Lateral Step-Up':'beginner','Single-Leg Leg Press':'beginner',
-    'Single-Leg Hip Thrust':'intermediate','Banded Hip Thrust':'beginner','Barbell Glute Bridge':'intermediate',
-    'Single-Leg Glute Bridge':'beginner','Kettlebell Swing':'intermediate','Sumo Squat':'beginner',
-    'Dumbbell RDL':'beginner','Single-Leg RDL':'intermediate','Single-Leg Deadlift':'beginner','Kettlebell Deadlift':'beginner',
-    'Glute-Ham Raise':'advanced','Single-Leg Leg Curl':'intermediate','Sliding Leg Curl':'intermediate',
-    'Close-Grip Push-Up':'intermediate','Diamond Push-Up':'intermediate','Machine Dip':'beginner','Tate Press':'beginner',
-    'Jump Rope':'beginner','Pogo Jump':'beginner','Snatch-Grip Shrug':'advanced','Landmine Rotation':'intermediate',
-    'Windmill':'intermediate','Dragon Flag':'advanced','Toes to Bar':'advanced','L-Sit':'advanced','One-Arm Hang':'intermediate',
-    'Rotational Cable Row':'intermediate','Landmine Row':'beginner','Kroc Row':'advanced','Kettlebell Clean':'intermediate',
-    'Kettlebell Snatch':'advanced','Kettlebell High Pull':'intermediate','Kettlebell Overhead Press':'beginner',
-    'Band Overhead Press':'beginner','Band Squat':'beginner'
-  };
-  var EX_MP_OVERRIDES={
-    'Pallof Press':'core','Turkish Get-Up':'rotation','Windmill':'rotation','Suitcase Carry':'carry','Waiter Carry':'carry',
-    'Wall Sit':'core','Kettlebell Figure 8':'core','Lat Prayer':'pull','Kettlebell Swing':'hinge','Glute-Ham Raise':'pull',
-    '45-Degree Back Extension':'hinge','Reverse Hyperextension':'hinge','Kettlebell Clean':'pull','Kettlebell Snatch':'pull',
-    'Kettlebell High Pull':'pull'
-  };
-  var EX_JR_OVERRIDES={
-    'Turkish Get-Up':['shoulder','spine','hip'],'Windmill':['shoulder','spine','hip'],'Landmine Rotation':['spine','shoulder','hip'],
-    'Pallof Press':['spine','shoulder'],'Woodchopper':['spine','shoulder'],'Suitcase Carry':['spine','wrist','shoulder'],
-    'Waiter Carry':['shoulder','spine','wrist'],'Towel Hang':['wrist','shoulder'],'One-Arm Hang':['wrist','shoulder'],
-    'Jump Rope':['ankle','knee'],'Pogo Jump':['ankle','knee'],'Box Jump':['knee','hip','ankle'],'Wall Slide':['shoulder'],
-    'Cuban Rotation':['shoulder'],'Band External Rotation':['shoulder'],'Wall Sit':['knee'],'Scapular Push-Up':['shoulder'],
-    'Z-Press':['shoulder','spine'],'Handstand Push-Up':['shoulder','elbow','wrist'],'Pike Push-Up':['shoulder','wrist'],
-    'L-Sit':['shoulder','wrist','spine'],'Dragon Flag':['spine','shoulder'],'Toes to Bar':['spine','shoulder','wrist'],
-    'Muscle-Up':['shoulder','elbow','wrist'],'Pistol Squat':['knee','hip','ankle'],'Cossack Squat':['knee','hip','ankle']
-  };
-  function exTypeOf(x){
-    var n=' '+x.n.toLowerCase()+' ';
-    if(x.p==='abs'&&n.indexOf('turkish')<0)return 'isolation';
-    if(/( fly |flies|crossover|raise|slide|rotation|plank|crunch|extension|pushdown|kickback|shrug|pullover|curl|pinch| hang|hang |walk|abduct|hold|sit|prayer|halos|carry|scapular|tibialis|roller|pump|hydrant|figure|twist|pallof|woodchopper|windmill|climber|v-up|dragon|toes to bar)/.test(n))return 'isolation';
-    return 'compound';
-  }
-  function exFOf(x){
-    if(x.t==='isolation')return 'low';
-    var n=' '+x.n.toLowerCase()+' ';
-    if(/deadlift|good morning|squat|lunge|pull-up|chin-up|muscle-up|dip|clean|snatch|handstand|thruster|jump|turkish|pistol/.test(n))return 'high';
-    return 'moderate';
-  }
-  function exJrOf(x){
-    var P=x.p;
-    var j=P==='abs'?['spine']:P==='traps'?['trap']:P==='forearms'?['wrist','elbow']:P==='calves'?['ankle']:(P==='quads'||P==='hamstrings'||P==='glutes')?['knee','hip']:['shoulder','elbow'];
-    var n=' '+x.n.toLowerCase()+' ';
-    if(/deadlift|good morning|swing|thrust|bridge|pull-through|hyperextension|row|curl/.test(n))j=j.concat(['spine']);
-    if(/squat|lunge|leg press/.test(n))j=j.concat(['spine']);
-    if(/rotation|turkish|windmill|woodchopper|carry|pallof/.test(n))j=j.concat(['shoulder','hip']);
-    if(/wrist|grip|pinch|hang|finger|hold|roller/.test(n))j.push('wrist');
-    return j.filter(function(v,i,a){return a.indexOf(v)===i;});
-  }
-  function exIncOf(x){
-    var P=x.p;
-    if(P==='calves'||P==='traps')return 5;
-    if(P==='shoulders'||P==='biceps'||P==='triceps'||P==='forearms')return 1;
-    if(x.t==='compound'&&/pull-up|chin-up|muscle-up/.test(x.n.toLowerCase()))return -1;
-    return 2.5;
-  }
-  function exRrOf(x){
-    if(x.t==='isolation'){
-      if(x.p==='shoulders'||x.p==='calves'||x.p==='forearms'||/(plank|sit|hang|hold|carry|pallof|crunch|twist|leg raise|raise)/.test(x.n.toLowerCase()))return[10,20];
-      return[8,15];
-    }
-    if(/deadlift|good morning|clean|snatch|rack pull/.test(x.n.toLowerCase()))return[4,8];
-    return[6,12];
-  }
-  var EX_SEC_PCT=[40,20,10,10];
-  EX_NEW.forEach(function(x){
-    var n=x.n,p=x.p;
-    var t=x.t||exTypeOf(x);
-    var f=x.f||exFOf(x);
-    var diff=x.d||EX_DIFF_OVERRIDES[n]||(f==='low'?'beginner':(f==='high'?'advanced':'intermediate'));
-    var mp=x.mp||EX_MP_OVERRIDES[n]||null;
-    var jr=x.jr||EX_JR_OVERRIDES[n]||exJrOf(x);
-    var inc=x.inc||exIncOf(x);
-    var rr=x.rr||exRrOf(x);
-    var subs=x.subs||(EXERCISE_POOLS[p]||[]).filter(function(q){return q!==n;}).slice(0,2);
-    EXERCISE_META[n]={t:t,f:f,jr:jr,inc:inc,rr:rr,subs:subs,diff:diff,eq:(x.eq||[]).slice(),mp:mp,metadataSource:'inferred'};
-    EXERCISE_GUIDE[n]={s:x.g.s,e:x.g.e,c:x.g.c,b:x.g.b};
-    if(x.sec&&x.sec.length)SECONDARY_MAP[n]=x.sec.map(function(m,i){return[m,EX_SEC_PCT[i]||10];});
-    if(!EXERCISE_POOLS[p])EXERCISE_POOLS[p]=[];
-    EXERCISE_POOLS[p].push(n);
-    POOL_INDEX[n]=p;
-  });
-  // ── Region buckets: append into existing EXERCISE_REGIONS buckets ──
-  var EX_RGN={
-    chest:{rgn_upper:['Landmine Press','Incline Dumbbell Fly','Incline Cable Fly','Svend Press'],rgn_mid:['Band Chest Press','Banded Push-Up','Archer Push-Up','Machine Chest Dip','Dumbbell Pullover'],rgn_lower:['Decline Bench Press'],rgn_flies:['Cable Crossover','Single-Arm Cable Fly']},
-    back:{rgn_lats:['Single-Arm Lat Pulldown','Reverse-Grip Pulldown','Lat Prayer','Band Pulldown','Narrow-Grip Pulldown','V-Grip Pulldown','Archer Pull-Up','Weighted Pull-Up','Wide-Grip Pull-Up','Muscle-Up'],rgn_rows:['Pendlay Row','Seal Row','One-Arm Cable Row','Band Row','Trap Bar Row','Kettlebell Row','Kroc Row','Rotational Cable Row','Landmine Row']},
-    shoulders:{rgn_front:['Push Press','Single-Arm Dumbbell Press','Z-Press','Cable Front Raise','Band Overhead Press','Kettlebell Overhead Press','Pike Push-Up','Handstand Push-Up','Kettlebell Clean','Kettlebell Snatch','Kettlebell High Pull','Scapular Push-Up','Waiter Carry'],rgn_lateral:['Machine Lateral Raise','Cable Y-Raise','Band Lateral Raise','Cuban Rotation'],rgn_rear:['Incline Y-Raise','Wall Slide','Band External Rotation','Kettlebell Halos']},
-    quads:{rgn_squat:['Cossack Squat','Box Squat','Pistol Squat','Zercher Squat','Anderson Squat','Kettlebell Squat','Split Squat','Forward Lunge','Reverse Lunge','Walking Lunge','Lateral Lunge','Curtsy Lunge','Lateral Step-Up','Kettlebell Thruster','Band Squat','Box Jump'],rgn_press:['Single-Leg Leg Press'],rgn_isol:['Wall Sit']},
-    hamstrings:{rgn_hinge:['Deficit Deadlift','Dumbbell RDL','Single-Leg RDL','Single-Leg Deadlift','Kettlebell Deadlift','45-Degree Back Extension','Reverse Hyperextension'],rgn_curl:['Glute-Ham Raise','Seated Leg Curl','Lying Leg Curl','Single-Leg Leg Curl','Sliding Leg Curl']},
-    glutes:{rgn_thrust:['Single-Leg Hip Thrust','Banded Hip Thrust','Barbell Glute Bridge','Single-Leg Glute Bridge','Frog Pump','Kettlebell Swing','Sumo Squat'],rgn_abduct:['Glute Kickback','Fire Hydrant']},
-    biceps:{rgn_curl:['Bayesian Cable Curl','EZ-Bar Preacher Curl','Machine Preacher Curl','Cable Hammer Curl','Drag Curl','Behind-the-Back Cable Curl','Band Bicep Curl','Rope Hammer Curl'],rgn_stretch:['Incline Hammer Curl'],rgn_hammer:['Cross-Body Hammer Curl','Zottman Curl']},
-    triceps:{rgn_pushdown:['Reverse-Grip Pushdown','Band Triceps Pushdown'],rgn_overhead:['Overhead Rope Extension','EZ-Bar Overhead Extension','Single-Arm Cable Kickback'],rgn_pressing:['Close-Grip Push-Up','Diamond Push-Up','Machine Dip','Tate Press']},
-    calves:{rgn_standing:['Smith Machine Calf Raise','Pogo Jump','Jump Rope'],rgn_seated:['Tibialis Raise']},
-    traps:{rgn_traps:['Machine Shrug','Smith Machine Shrug','Behind-the-Back Shrug','Trap Bar Shrug','Overhead Shrug','Cable Shrug','Snatch-Grip Shrug']},
-    forearms:{rgn_wrist:['Finger Curl','Wrist Roller'],rgn_grip:['Towel Hang','One-Arm Hang','Kettlebell Hold']},
-    abs:{rgn_core:['Russian Twist','Pallof Press','Woodchopper','Landmine Rotation','Turkish Get-Up','Windmill','V-Up','Decline Sit-Up','Bicycle Crunch','Side Plank','Mountain Climber','Kettlebell Figure 8','L-Sit','Suitcase Carry'],rgn_lowcore:['Reverse Crunch','Dragon Flag','Toes to Bar']}
-  };
-  Object.keys(EX_RGN).forEach(function(muscle){
-    var regs=EXERCISE_REGIONS[muscle]=EXERCISE_REGIONS[muscle]||[];
-    Object.keys(EX_RGN[muscle]).forEach(function(k){
-      var b=null;
-      for(var i=0;i<regs.length;i++){if(regs[i].k===k)b=regs[i];}
-      if(!b){b={k:k,ex:[]};regs.push(b);}
-      b.ex=b.ex.concat(EX_RGN[muscle][k]);
-    });
-  });
-  // ── Bilingual plumbing: names + guides fall back to raw English ──
-  var EX_TR={};
-  EX_NEW.forEach(function(x){EX_TR[x.n]=x;});
-  function exDisplay(name){
-    var x=EX_TR[name];
-    if(!x)return name;
-    return(window.__lang==='ar'&&x.ar&&x.ar.name)?x.ar.name:name;
-  }
-  function exGuide(name){
-    var x=EX_TR[name];
-    if(!x)return null;
-    var L=(window.__lang==='ar'&&x.ar)?x.ar:null;
-    return{s:(L&&L.s)||x.g.s,e:(L&&L.e)||x.g.e,c:(L&&L.c)||x.g.c,b:(L&&L.b)||x.g.b};
-  }
-  window.__exDisplay=exDisplay;window.__exGuide=exGuide;window.__exNew=EX_NEW;window.__exTr=EX_TR;
+ window.copyBackupToClipboard = function(){
+ var allKeys=Object.values(K).concat(['mos_periodization','mos_week_count','mos_ex_choices','mos_pref','mos_card_density']);
+ var data={};allKeys.forEach(function(k){var v=localStorage.getItem(k);if(v)try{data[k]=JSON.parse(v);}catch(e){data[k]=v;}});
+ var str = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+ navigator.clipboard.writeText(str).then(function() {
+ alert(' Backup code copied to clipboard! You can paste this on any device.');
+ }).catch(function() {
+ prompt('Copy this backup code:', str);
+ });
+ };
+
+ window.pasteBackupFromClipboard = function(){
+ var str = prompt('Paste your MuscleOS backup code here:');
+ if(!str) return;
+ try {
+ var json = decodeURIComponent(escape(atob(str.trim())));
+ var data = JSON.parse(json);
+ if(typeof data !== 'object') throw new Error('Invalid format');
+ Object.keys(data).forEach(function(k) {
+ var val = typeof data[k] === 'string' ? data[k] : JSON.stringify(data[k]);
+ localStorage.setItem(k, val);
+ });
+ alert(' Backup restored successfully! Reloading...');
+ location.reload();
+ } catch(e) {
+ alert(' Invalid backup code: ' + e.message);
+ }
+ };
+
+ document.getElementById('exportBtn').addEventListener('click',function(){
+ var allKeys=Object.values(K).concat(['mos_periodization','mos_week_count','mos_ex_choices','mos_pref','mos_card_density']);
+ var data={};allKeys.forEach(function(k){var v=localStorage.getItem(k);if(v)data[k]=JSON.parse(v);});
+ var b=new Blob([JSON.stringify({exported:new Date().toISOString(),ver:4,data:data},null,2)],{type:'application/json'});
+ var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='muscle_os_data_'+new Date().toISOString().split('T')[0]+'.json';a.click();
+ });
+ document.getElementById('importBtn').addEventListener('click',function(){document.getElementById('importFile').click()});
+ document.getElementById('importFile').addEventListener('change',function(){
+ if(!this.files||!this.files[0])return;
+ var r=new FileReader();r.onload=function(e){try{var p=JSON.parse(e.target.result),d=p.data||p;if(!d||typeof d!=='object')throw Error('Invalid');var allKeys=Object.values(K).concat(['mos_periodization','mos_week_count','mos_ex_choices','mos_pref','mos_card_density']);var ok=false;allKeys.forEach(function(k){if(d[k]!==undefined){localStorage.setItem(k,JSON.stringify(d[k]));ok=true;}}); if(!ok)throw Error('No recognized data');alert(_('alert_imported'));location.reload();}catch(err){alert('Import failed: '+err.message);}};r.readAsText(this.files[0]);this.value='';
+ });
+ document.getElementById('resetBtn').addEventListener('click',function(){
+ if(!confirm(_('confirm_reset_all')))return;
+ var allKeys=Object.values(K).concat(['mos_periodization','mos_week_count','mos_ex_choices','mos_pref','mos_card_density']);
+ allKeys.forEach(function(k){localStorage.removeItem(k)});
+ go(1);renderPriorities();
+ });
+
+ // MOS Interactive Training Tour Engine
+ var MOS_TRAIN_TOUR = [
+ {
+ title: ' Step 1: Athlete Onboarding & Volume Calibration',
+ desc: 'Welcome to MOS-HYPERKINETIX! Select your Training Age, Primary Goal (Hypertrophy / Strength), Days/Week, and Recovery Factor. The engine calculates your exact muscle volume landmarks (MEV, MAV, MRV).'
+ },
+ {
+ title: ' Step 2: Intelligent Split Selector & Muscle Priorities',
+ desc: 'Choose your optimal weekly split (Push/Pull/Legs, Upper/Lower, Arnold Split, Full Body) or build a custom schedule. Adjust muscle priority sliders to assign extra set allocations to lagging bodyparts!'
+ },
+ {
+ title: ' Step 3: Autoregulated Mesocycle Generator',
+ desc: 'Generate a periodized 4-to-12 week mesocycle. The system plans progressive overload set ramp-ups week over week, leading to a calculated Deload Week for systemic CNS recovery.'
+ },
+ {
+ title: ' Step 4: Active Workout Logger & Pre-Session Readiness',
+ desc: 'Check in before every session with the Pre-Session Readiness slider (Sleep, Stress, Soreness). If fatigue is high, load targets automatically scale down to prevent injury. Log sets with built-in rest timer chimes & plate calculators!'
+ },
+ {
+ title: ' Step 5: History, Volume Charts & Backup Engine',
+ desc: 'Review weekly volume landmark charts, PR tracking tables, and mesocycle history. Use Copy Backup Code to instant-sync your workout logs across devices!'
+ }
+ ];
+
+ window.startTrainingTour = function(){
+ showTrainingTourStep(0);
+ };
+
+ window.showTrainingTourStep = function(stepIdx){
+ var modal = document.getElementById('mosTrainTourModal');
+ if(!modal){
+ modal = document.createElement('div');
+ modal.id = 'mosTrainTourModal';
+ modal.className = 'modal-overlay';
+ document.body.appendChild(modal);
+ }
+ var step = MOS_TRAIN_TOUR[stepIdx];
+ modal.innerHTML = `
+ <div class="card animate-in" style="max-width:440px;width:90%;border:1.5px solid #F4C93B;box-shadow:0 0 32px rgba(244,201,59,.35);background:#1A1B26">
+ <div style="font-family:'Oswald',sans-serif;font-size:1.15rem;color:#F4C93B;margin-bottom:8px">${step.title}</div>
+ <div style="font-size:.78rem;line-height:1.6;color:rgba(250,250,248,.85);margin-bottom:16px">${step.desc}</div>
+ <div style="display:flex;justify-content:space-between;align-items:center">
+ <span style="font-size:.65rem;color:rgba(250,250,248,.4)">Step ${stepIdx + 1} of ${MOS_TRAIN_TOUR.length}</span>
+ <div style="display:flex;gap:6px">
+ ${stepIdx > 0 ? `<button class="btn-secondary" onclick="showTrainingTourStep(${stepIdx - 1})" style="padding:5px 10px;font-size:.65rem">◄ Back</button>` : ''}
+ ${stepIdx < MOS_TRAIN_TOUR.length - 1 ? `<button class="btn-primary" onclick="showTrainingTourStep(${stepIdx + 1})" style="margin:0;padding:5px 12px;font-size:.65rem">Next ➔</button>` : `<button class="btn-primary" onclick="closeTrainingTourModal()" style="margin:0;padding:5px 12px;font-size:.65rem">Finish Tour </button>`}
+ <button class="btn-secondary" onclick="closeTrainingTourModal()" style="padding:5px 8px;font-size:.65rem">Skip</button>
+ </div>
+ </div>
+ </div>
+ `;
+ modal.style.display = 'flex';
+ };
+
+ window.startNewProgram = function(){
+  setAppMode('intake');
+  go(1);
+};
+window.closeTrainingTourModal = function(){
+ var modal = document.getElementById('mosTrainTourModal');
+ if(modal) modal.style.display = 'none';
+ };
+
+
+ // ═══════════════════════════════════════
+ // INIT
+ // ═══════════════════════════════════════
+
+ (function init(){
+ var prog=ls(K.PG,null),sp=ls(K.SP,null),vt=ls(K.VT,null);
+ var vi=ls(K.VI,{});
+ // Pre-fill name/age if profile exists
+ if(vi.name){var nEl=document.getElementById('userName');if(nEl)nEl.value=vi.name;}
+ if(vi.age){var aEl=document.getElementById('userAge');if(aEl)aEl.value=vi.age;}
+ if(vi.ta){var tEl=document.getElementById('ta');if(tEl)tEl.value=vi.ta;}
+ if(vi.goal){var gEl=document.getElementById('goal');if(gEl)gEl.value=vi.goal;}
+ if(vi.days){var dEl=document.getElementById('dow');if(dEl)dEl.value=vi.days;}
+ if(vi.rec){var rEl=document.getElementById('recFactor');if(rEl)rEl.value=vi.rec;}
+ // Enhanced Welcome Back Card for existing profile / program
+ go(0);
+    var hubEmpty = document.getElementById('hubEmptyState');
+    var hubActive = document.getElementById('hubActiveState');
+    var stepper = document.getElementById('stepper');
+    
+    if(prog || sp || vi.name){
+      setAppMode('program');
+      if(hubEmpty) hubEmpty.style.display = 'none';
+      if(hubActive) hubActive.style.display = 'block';
+      if(stepper) stepper.style.display = 'flex';
+ var welcomeCard = document.getElementById('welcomeTrainingCard');
+ if(welcomeCard){
+ var name = vi.name || 'Athlete';
+ var greetingTitle = document.getElementById('twTitleText');
+ var hour = new Date().getHours();
+ let greeting = ' WELCOME BACK';
+ if(hour >= 5 && hour < 12) greeting = '☀ GOOD MORNING';
+ else if(hour >= 12 && hour < 17) greeting = ' GOOD AFTERNOON';
+ else if(hour >= 17 && hour < 22) greeting = ' GOOD EVENING';
+ else greeting = ' NIGHT SHIFT ACTIVE';
+
+ if(greetingTitle) greetingTitle.innerHTML = `${greeting}, <span id="twUserName">${name.toUpperCase()}</span>!`;
+
+ var badgeEl = document.getElementById('twBadge');
+ var nowStr = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+ if(badgeEl) badgeEl.innerHTML = `<span class="pulse-dot"></span> HYPERKINETIC MATRIX ACTIVE // LIVE SYNC [${nowStr}]`;
+
+ var grid = document.getElementById('twGrid');
+ if(grid){
+ var splitName = prog ? prog.splitName : (sp ? sp.name : 'Custom Split');
+ var totalSets = prog ? prog.totalSets + ' weekly sets' : (sp ? sp.sets + ' weekly sets' : 'Calibrated');
+ var goalStr = (vi.goal || 'hypertrophy').toUpperCase() + (vi.ta ? ' (' + vi.ta + ')' : '');
+ var mesoWeek = ls('mos_week_count', 1);
+
+ grid.innerHTML = `
+ <div class="tw-item">
+ <div class="tw-lbl">Active Split &amp; Schedule</div>
+ <div class="tw-val">${splitName}</div>
+ <div class="tw-subval">${vi.days || 4} Days / Week</div>
+ </div>
+ <div class="tw-item">
+ <div class="tw-lbl">Target Volume Allocation</div>
+ <div class="tw-val" style="color:#F4C93B">${totalSets}</div>
+ <div class="tw-subval">Autoregulated MEV-MRV</div>
+ </div>
+ <div class="tw-item">
+ <div class="tw-lbl">Primary Focus &amp; Level</div>
+ <div class="tw-val">${goalStr}</div>
+ <div class="tw-subval">Age: ${vi.age || 25} yrs</div>
+ </div>
+ <div class="tw-item">
+ <div class="tw-lbl">Mesocycle Overload Status</div>
+ <div class="tw-val" style="color:#4CAF50">Week ${mesoWeek} Periodized</div>
+ <div class="tw-subval">CNS Readiness: 98% Optimal</div>
+ </div>
+ `;
+ }
+
+ var resumeBtn = document.getElementById('twResumeBtn');
+ if(resumeBtn){
+ resumeBtn.addEventListener('click', function(){
+ go(4);
+ renderDashboard();
+ });
+ }
+
+ var editBtn = document.getElementById('twEditBtn');
+ if(editBtn){
+ editBtn.addEventListener('click', function(){
+ setAppMode('intake');
+ go(1);
+ });
+ }
+ }
+ } else {
+ setAppMode('intake');
+ go(1);
+ }
+ console.log('Unified Training App loaded');
+ translateUI();
+ initTheme();
+ initInstall();
+ initSync();
+ updateNotifToggle();
+ checkNotif();
+ })();
+
+ // â”€â”€ Data Sync â”€â”€
+ var SYNC_KEY='mos_sync_key';
+ var SYNC_PW='mos_sync_pw';
+ var SYNC_LAST='mos_sync_last';
+ var SYNC_BASE='https://muscleos-access-control.muscleos.workers.dev/api/sync';
+ var API_BASE='https://muscleos-access-control.muscleos.workers.dev/api';
+ function notifyCoach(type, data){
+ try{
+ var _na={};
+ try{var _ng=JSON.parse(localStorage.getItem('mos_google_session')||'null');if(_ng&&_ng.session)_na.session=_ng.session;}catch(e){}
+ try{var _ns=JSON.parse(localStorage.getItem('mos_subscription')||'null');if(_ns&&_ns.token)_na.token=_ns.token;}catch(e){}
+ fetch(API_BASE+'/notify-coach',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:type,data:data,session:_na.session,token:_na.token})})
+ .catch(function(){});
+ }catch(e){}
+ }
+ function syncPayload(){
+ var allKeys=Object.values(K).concat(['mos_periodization','mos_week_count','mos_ex_choices','mos_pref','mos_card_density']);
+ var data={};allKeys.forEach(function(k){var v=localStorage.getItem(k);if(v)data[k]=JSON.parse(v);});
+ return data;
+ }
+ function genSyncId(){
+ var id=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():'sync-'+Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+ var inp=document.getElementById('syncKeyInput');
+ if(inp)inp.value=id;
+ ss(SYNC_KEY,id);
+ }
+ function recoveryCode(){
+ var v=ls(SYNC_KEY,'');
+ if(!v){var inp=document.getElementById('syncKeyInput');v=inp?inp.value.trim():'';}
+ return v;
+ }
+ function ensureRecRow(modal){
+ if(!modal||document.getElementById('syncRecRow'))return;
+ var row=document.createElement('div');
+ row.id='syncRecRow';
+ row.style.cssText='margin-top:10px;border-top:1px solid rgba(250,250,248,.06);padding-top:8px';
+ row.innerHTML='<p style="font-size:.5rem;color:rgba(250,250,248,.25);margin:0 0 6px" data-i18n="sync_rec_warn"></p>'+
+ '<div style="display:flex;gap:6px">'+
+ '<button id="syncRecShow" style="flex:1;background:rgba(33,150,243,.08);border:1px solid rgba(33,150,243,.2);color:#2196F3;border-radius:6px;padding:6px 10px;font-size:.55rem;cursor:pointer" data-i18n="sync_rec_show"></button>'+
+ '<button id="syncRecRestore" style="flex:1;background:rgba(255,152,0,.08);border:1px solid rgba(255,152,0,.2);color:#FFB74D;border-radius:6px;padding:6px 10px;font-size:.55rem;cursor:pointer" data-i18n="sync_rec_restore"></button>'+
+ '</div>';
+ modal.querySelector('.modal-card').appendChild(row);
+ row.querySelector('#syncRecShow').addEventListener('click',function(){
+ var c=recoveryCode();
+ if(c)alert(_('sync_rec_new').replace('{code}',c));
+ else alert(_('sync_rec_bad'));
+ });
+ row.querySelector('#syncRecRestore').addEventListener('click',function(){
+ var c=(prompt(_('sync_rec_enter'))||'').trim();
+ if(!c)return;
+ var re=/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|sync-[A-Za-z0-9]+)$/i;
+ if(!re.test(c)){alert(_('sync_rec_bad'));return;}
+ ss(SYNC_KEY,c);var inp=document.getElementById('syncKeyInput');if(inp)inp.value=c;
+ if(window.__evLog)window.__evLog('sync_restore');
+ alert(_('sync_rec_ok'));
+ });
+ translateUI();
+ }
+ function showSync(){
+ var modal=document.getElementById('syncModal');
+ var inp=document.getElementById('syncKeyInput');
+ var freshKey=false;
+ if(inp&&!inp.value.trim()){
+ var saved=ls(SYNC_KEY,'');
+ if(!saved){
+ saved=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():'sync-'+Date.now().toString(36);
+ ss(SYNC_KEY,saved);
+ freshKey=true;
+ }
+ inp.value=saved;
+ }
+ var pw=document.getElementById('syncPwInput');
+ if(pw&&!pw.value)pw.value=ls(SYNC_PW,'');
+ var lastRow=document.getElementById('syncLastRow'),lt=ls(SYNC_LAST,'');
+ if(lastRow&&lt){lastRow.style.display='block';document.getElementById('syncLastTs').textContent=new Date(lt).toLocaleString();}
+ ensureRecRow(modal);
+ if(modal)modal.style.display='block';
+ if(freshKey){
+ if(window.__evLog)window.__evLog('sync_key_created');
+ alert(_('sync_rec_new').replace('{code}',recoveryCode()));
+ }
+ }
+ function hideSync(){
+ var modal=document.getElementById('syncModal');
+ if(modal)modal.style.display='none';
+ }
+ function doSyncUpload(){
+ var key=document.getElementById('syncKeyInput').value.trim();
+ var pw=document.getElementById('syncPwInput').value.trim();
+ if(!key||key.length<4){alert(_('sync_fail'));return;}
+ if(!confirm(_('sync_confirm_upload')))return;
+ ss(SYNC_KEY,key);ss(SYNC_PW,pw);evLog('sync_push');
+ fetch(SYNC_BASE+'/'+encodeURIComponent(key),{method:'POST',headers:{'Content-Type':'application/json','X-Sync-Passphrase':pw},body:JSON.stringify({data:syncPayload()})})

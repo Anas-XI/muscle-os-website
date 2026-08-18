@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev; frame-ancestors 'self'; base-uri 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
-<!-- muscle-os training app · build v3.4 (exercise DB expansion + UX polish + volume model) -->
+<!-- muscle-os training app · build v3.5 (decision engine integration — 33 evidence rules live) -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0A0A0F">
@@ -15,6 +15,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Decision Engine — evidence-based rule evaluator (33 rules from Schoenfeld, Nippard, NSCA, ACE, IPTA) -->
+<script>window.MOS_ASSET_ROOT = '../assets/data';</script>
+<script src="../assets/js/decision-engine.js"></script>
+<script>if(window.DecisionEngine){window.DecisionEngine.init(window.MOS_ASSET_ROOT);}</script>
 <style>:root{
  --bg:#14151A;
  --card:#1E2027;
@@ -292,6 +296,12 @@ html[dir="rtl"] .session-chip .st-display{direction:ltr;unicode-bidi:embed}
 .footer{text-align:center;margin-top:24px;font-size:.58rem;color:var(--line-strong);font-weight:300}
 .footer a{color:var(--accent);text-decoration:none;font-weight:500}
 .footer a:hover{text-decoration:underline}
+/* ═ Decision Engine UI ═ */
+.engine-recs-card{border-color:rgba(244,201,59,.2)!important;animation:fadeSlideIn .4s ease-out}
+.engine-rule-chip{display:inline-block;padding:2px 7px;font-size:.44rem;font-weight:600;background:rgba(244,201,59,.07);border:1px solid rgba(244,201,59,.18);border-radius:4px;color:rgba(244,201,59,.7);font-family:'JetBrains Mono',monospace;margin:2px 2px 2px 0;white-space:nowrap}
+.engine-protein-banner{font-size:.55rem;background:rgba(76,175,80,.04);border:1px solid rgba(76,175,80,.15);border-radius:8px;padding:8px 12px;margin:8px 0;color:rgba(250,250,248,.75);line-height:1.6}
+.engine-safety-alert{background:rgba(244,67,54,.05);border:1px solid rgba(244,67,54,.22);border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:.55rem;color:rgba(250,250,248,.8);line-height:1.7}
+.engine-deload-banner{background:rgba(244,201,59,.04);border:1px solid rgba(244,201,59,.2);border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:.55rem;color:rgba(250,250,248,.75);line-height:1.6;cursor:pointer}
 .toggle-group{display:flex;background:var(--input-bg);border-radius:8px;padding:2px;margin-bottom:12px}
 .toggle-opt{flex:1;text-align:center;padding:7px 8px;border-radius:6px;font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;cursor:pointer;color:var(--text-muted);transition:all .2s;font-family:'Inter',sans-serif}
 .toggle-opt.active{background:var(--accent);color:var(--bg)}
@@ -982,6 +992,14 @@ select option{background:var(--card)}
  <div class="form-row">
  <div class="form-group"><label data-i18n="sex_label">Sex</label>
  <select id="userSex"><option value="male" data-i18n="sex_male">Male</option><option value="female" data-i18n="sex_female">Female</option></select></div>
+ </div>
+ <div class="form-row" id="bodyCompRow">
+ <div class="form-group"><label data-i18n="weight_label">Bodyweight (kg)</label>
+ <input type="number" id="userWeight" placeholder="75" min="30" max="300" step="0.5" style="width:100%;padding:6px 8px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem"></div>
+ <div class="form-group"><label data-i18n="height_label">Height (cm) <span style="color:rgba(250,250,248,.3);font-size:.5rem">(optional)</span></label>
+ <input type="number" id="userHeight" placeholder="175" min="100" max="250" step="1" style="width:100%;padding:6px 8px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem"></div>
+ </div>
+ <div class="form-row">
  <div class="form-group" id="cycleLenGroup" style="display:none"><label data-i18n="cycle_len_label">Cycle Length (days)</label>
  <select id="cycleLen">
  <option value="21">21</option>
@@ -3373,6 +3391,40 @@ select option{background:var(--card)}
  const K = {VT:'mos_vol_targets',SP:'mos_split_profile',PG:'mos_program',LG:'mos_logs',VI:'mos_vol_inputs',LH:'mos_load_history',DT:'mos_deload_tracker',PF:'mos_pain_flags',PL:'mos_pl_profile',FL:'mos_fatigue_log',CL:'mos_cardio_logs',MP:'mos_meso_plan',MA:'mos_meso_active',MH:'mos_meso_history',MM:'mos_measurements',CE:'mos_custom_exercises',CR:'mos_custom_replacements',SU:'mos_supersets',SS:'mos_sessions',PR:'mos_priority',SR:'mos_soreness_log',PC:'mos_pr_credit',VA:'mos_vol_alloc',FO:'mos_freq_override',CQ:'mos_coach_queue',EV:'mos_events',CS:'mos_custom_split',NL:'mos_nonlift_log',PFH:'mos_pain_flag_hist'};
 
  // ═══════════════════════════════════════
+ // DECISION ENGINE — Profile Builder & Cache
+ // ═══════════════════════════════════════
+ var TA_TO_YEARS = { novice: 0.5, intermediate: 2, advanced: 5 };
+ function buildEngineProfile() {
+  var goal   = (document.getElementById('goal')       && document.getElementById('goal').value)       || 'hypertrophy';
+  var ta     = (document.getElementById('ta')         && document.getElementById('ta').value)         || 'intermediate';
+  var age    = parseInt((document.getElementById('userAge')    && document.getElementById('userAge').value)    || 25);
+  var sex    = (document.getElementById('userSex')    && document.getElementById('userSex').value)    || 'male';
+  var weight = parseFloat((document.getElementById('userWeight') && document.getElementById('userWeight').value) || ls('mos_eng_bw', 75));
+  var height = parseFloat((document.getElementById('userHeight') && document.getElementById('userHeight').value) || ls('mos_eng_ht', 175));
+  var days   = parseInt((document.getElementById('dow')        && document.getElementById('dow').value)        || 4);
+  return { goal: goal, experience_years: TA_TO_YEARS[ta] || 2, age: age, sex: sex, bodyweight_kg: weight, height_cm: height, training_days: days };
+ }
+ var _engineRecs = null;
+ function getEngineRecs() {
+  if (_engineRecs) return _engineRecs;
+  if (typeof DecisionEngine === 'undefined' || !DecisionEngine.isLoaded) return null;
+  _engineRecs = DecisionEngine.applyBookRulesSync(buildEngineProfile());
+  return _engineRecs;
+ }
+ function parseRestSec(str, fallback) {
+  if (!str) return fallback;
+  var match = str.match(/(\d+)-(\d+)/);
+  if (match) return parseInt(match[2]);
+  var single = str.match(/(\d+)/);
+  return single ? parseInt(single[1]) : fallback;
+ }
+ // Invalidate cache on profile field change
+ ['goal','ta','userAge','userSex','userWeight','userHeight','dow'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('change', function() { _engineRecs = null; });
+ });
+
+ // ═══════════════════════════════════════
  // LOCAL EVENT LOG + TRIAL (PMF telemetry)
  // Append-only, bounded, no PII. Syncs via the existing Worker payload.
  // ═══════════════════════════════════════
@@ -3710,7 +3762,15 @@ select option{background:var(--card)}
  if(_cyc0.rpe)tRpe=Math.max(5,tRpe+_cyc0.rpe);
  // Apply fatigue adjustment (safety first)
  if(fatigueAdj&&fatigueAdj<0){tRpe=Math.max(5,tRpe+fatigueAdj);}
- var tRR=goal==='strength'?[3,6]:goal==='hypertrophy'?(m.rr||[6,12]):[5,10];
+ // Engine-driven rep range (overrides hardcoded defaults when engine is loaded)
+ var _engRR = getEngineRecs();
+ var tRR;
+ if (_engRR && _engRR.rep_range) {
+  var _rrM = _engRR.rep_range.match(/(\d+)[-\u2013](\d+)/);
+  tRR = _rrM ? [parseInt(_rrM[1]), parseInt(_rrM[2])] : (goal==='strength'?[3,6]:goal==='hypertrophy'?(m.rr||[6,12]):[5,10]);
+ } else {
+  tRR = goal==='strength'?[3,6]:goal==='hypertrophy'?(m.rr||[6,12]):[5,10];
+ }
  var mid=Math.round((tRR[0]+tRR[1])/2);
  if(!best)return{w:null,r:tRR[1],rpe:7,e1RM:null,exp:_('suggest_no_history'),last:null};
  var pct=rpePct(mid,tRpe);if(!pct)return{w:null,r:mid,rpe:tRpe,e1RM:best,exp:_('suggest_rpe_out'),last:null};
@@ -6089,11 +6149,68 @@ select option{background:var(--card)}
  if(day.ssSuggested)html+='<div style="font-size:.5rem;color:#F4C93B;margin-bottom:4px"> '+_('sess_suggest_ss')+'</div>';
  day.ex.forEach(function(ex){
  var rest=ex.rl<=6?_('gen_rest_2_3'):ex.rl<=10?_('gen_rest_90_120'):_('gen_rest_60_90');
- html+='<div style="display:flex;gap:8px;padding:3px 0;font-size:.62rem;border-bottom:1px solid rgba(250,250,248,.02)"><span style="flex:2;color:#FAFAF8;font-weight:500">'+exLinkHtml(ex.n)+(ex.optional?' <span class="opt-badge">'+_('sess_optional')+'</span>':'')+'</span><span style="flex:1;text-align:center;color:rgba(250,250,248,.4)">'+ex.sets+''+ex.rl+'-'+ex.rh+'</span><span style="flex:1;text-align:center;color:rgba(250,250,248,.3);font-size:.55rem">'+rest+'</span></div>';
+ html+='<div style="display:flex;gap:8px;padding:3px 0;font-size:.62rem;border-bottom:1px solid rgba(250,250,248,.02)"><span style="flex:2;color:#FAFAF8;font-weight:500">'+exLinkHtml(ex.n)+(ex.optional?' <span class="opt-badge">'+_('sess_optional')+'</span>':'')+'</span><span style="flex:1;text-align:center;color:rgba(250,250,248,.4)">'+ex.sets+'×'+ex.rl+'-'+ex.rh+'</span><span style="flex:1;text-align:center;color:rgba(250,250,248,.3);font-size:.55rem">'+rest+'</span></div>';
  });
  html+='</div>';
  });
  document.getElementById('progOutput').innerHTML=html;
+ // Persist engine profile + body comp to localStorage
+ (function(){
+  var ep=buildEngineProfile();
+  try{localStorage.setItem('mos_eng_bw',String(ep.bodyweight_kg));localStorage.setItem('mos_eng_ht',String(ep.height_cm));}catch(e){}
+  var vi=ls(K.VI,{});vi.bodyweight_kg=ep.bodyweight_kg;vi.height_cm=ep.height_cm;vi.engine_profile=ep;ss(K.VI,vi);
+  // Inject Coach Intelligence card
+  var recs=getEngineRecs();
+  var ciEl=document.getElementById('coachIntelCard');
+  if(!ciEl){ciEl=document.createElement('div');ciEl.id='coachIntelCard';ciEl.className='card engine-recs-card';ciEl.style.marginBottom='12px';}
+  if(recs&&recs.applied_rules.length){
+   var chips=recs.applied_rules.map(function(r){return'<span class="engine-rule-chip" title="'+esc(r.rule_id||'')+'">'+esc(r.source||r.rule_id||'')+'</span>';}).join('');
+   var notes=[].concat(recs.program_notes||[],recs.nutrition_notes||[]).slice(0,6).map(function(n){return'<div style="padding:2px 0;border-bottom:1px solid rgba(250,250,248,.04)">\u2022 '+n+'</div>';}).join('');
+   ciEl.innerHTML='<div class="section-header" style="cursor:pointer;user-select:none" onclick="var b=document.getElementById(\'ciBody\');b.style.display=b.style.display===\'none\'?\'block\':\'none\'">✓ Coach Intelligence <span style="font-size:.45rem;color:rgba(250,250,248,.3);float:right">tap to expand ▼</span></div>'+
+    '<div id="ciBody" style="display:none;margin-top:8px">'+
+    '<div style="margin-bottom:6px">'+chips+'</div>'+
+    '<div style="font-size:.55rem;background:rgba(13,14,18,.4);border-radius:6px;padding:8px 10px;line-height:1.8">'+
+    '<strong style="color:#F4C93B">Rep Range:</strong> '+esc(recs.rep_range)+' &nbsp;|&nbsp; <strong style="color:#F4C93B">Rest Compounds:</strong> '+esc(recs.rest_compounds)+' &nbsp;|&nbsp; <strong style="color:#F4C93B">Rest Isolation:</strong> '+esc(recs.rest_isolation)+'<br>'+
+    '<strong style="color:#F4C93B">Protein:</strong> '+recs.protein_per_kg+' g/kg/day</div>'+
+    (notes?'<div style="font-size:.52rem;color:rgba(250,250,248,.55);margin-top:6px;line-height:1.7">'+notes+'</div>':'')+
+    '</div>';
+   var progCard=document.getElementById('step3')&&document.getElementById('step3').querySelector('.card');
+   if(progCard&&!progCard.contains(ciEl))progCard.insertBefore(ciEl,progCard.querySelector('#progOutput'));
+  }
+  // Protein banner
+  var bw=ep.bodyweight_kg||75;
+  var dailyP=recs?Math.round(recs.protein_per_kg*bw):Math.round(1.6*bw);
+  var pbEl=document.getElementById('proteinTargetBanner');
+  if(!pbEl){pbEl=document.createElement('div');pbEl.id='proteinTargetBanner';pbEl.className='engine-protein-banner';}
+  pbEl.innerHTML='🥩 <strong style="color:#81C784">Daily Protein Target:</strong> '+dailyP+'g '+(recs?'('+recs.protein_per_kg+' g/kg × '+bw+' kg)':'')+(recs&&recs.meal_timing?' — <em style="color:rgba(250,250,248,.4)">'+recs.meal_timing.split('.')[0]+'.</em>':'');
+  var progCard2=document.getElementById('step3')&&document.getElementById('step3').querySelector('.card');
+  if(progCard2&&!progCard2.contains(pbEl))progCard2.insertBefore(pbEl,progCard2.querySelector('#progOutput'));
+  // Deload trigger check
+  (function(){
+   var dt=dlTracker(),sess=dt.sessions||0;
+   var deloadInterval=28;
+   var deloadNote=recs&&(recs.program_notes||[]).find(function(n){return n.toLowerCase().includes('deload');});
+   if((sess>0&&sess%deloadInterval===0)||deloadNote){
+    var dlEl=document.getElementById('engineDeloadBanner');
+    if(!dlEl){dlEl=document.createElement('div');dlEl.id='engineDeloadBanner';dlEl.className='engine-deload-banner';dlEl.onclick=function(){this.style.display='none';};}
+    dlEl.innerHTML='💤 <strong style="color:#F4C93B">Deload Week Recommended</strong> — '+(deloadNote||'You\'ve completed '+sess+' sessions. Take a deload: 50% volume, 70% intensity.')+' <span style="opacity:.4;float:right">✕</span>';
+    var s4el=document.getElementById('step4');if(s4el&&!s4el.contains(dlEl))s4el.prepend(dlEl);
+    dlEl.style.display='block';
+    evLog('deload_prompt',{sessions:sess,source:'engine'});
+   }
+  })();
+  // Safety gate alerts on profile fields
+  (function(){
+   var SAFETY_KW=['consult','medical','physician','non-weight','overtraining','de-train','cardiac'];
+   if(!recs)return;
+   var safetyNotes=[].concat(recs.program_notes||[],recs.nutrition_notes||[]).filter(function(n){return SAFETY_KW.some(function(kw){return n.toLowerCase().includes(kw);});});
+   if(!safetyNotes.length)return;
+   var saEl=document.getElementById('engineSafetyAlert');
+   if(!saEl){saEl=document.createElement('div');saEl.id='engineSafetyAlert';saEl.className='engine-safety-alert';}
+   saEl.innerHTML='⚠️ <strong style="color:#ef5350">Health Notice</strong><br>'+safetyNotes.map(function(n){return'• '+n;}).join('<br>');
+   var s1el=document.getElementById('step1');if(s1el&&!s1el.contains(saEl))s1el.prepend(saEl);
+  })();
+ })();
  go(3);
  }
 
@@ -6718,7 +6835,11 @@ select option{background:var(--card)}
  '<button class="pain-btn'+(pfc==='green'?' active-green':'')+'" data-ex="'+ex.n+'" data-p="green">🟢</button>'+
  '<button class="pain-btn'+(pfc==='yellow'?' active-yellow':'')+'" data-ex="'+ex.n+'" data-p="yellow">🟡</button>'+
  '<button class="pain-btn'+(pfc==='red'?' active-red':'')+'" data-ex="'+ex.n+'" data-p="red">🔴</button></div>';
- var restSec=m.t==='compound'?240:150;
+ // Engine-driven rest prescription (replaces hardcoded 240/150s)
+ var _restRecs = getEngineRecs();
+ var restSec = _restRecs
+  ? (m.t==='compound' ? parseRestSec(_restRecs.rest_compounds, 180) : parseRestSec(_restRecs.rest_isolation, 90))
+  : (m.t==='compound' ? 180 : 90);
  var restLabel=m.t==='compound'?_('timer_compound'):_('timer_isolation');
  return {cc:cc,sid:sid,titleInnerHtml:titleInnerHtml,metaHtml:metaHtml,prNoteHtml:prNoteHtml,safetyHtml:safetyHtml,suggestHtml:suggestHtml,painHtml:painHtml,swapHtml:swapHtml,restSec:restSec,restLabel:restLabel,sugg:sugg};
  }
@@ -8044,7 +8165,6 @@ window.closeTrainingTourModal = function(){
  {n:'Fire Hydrant',p:'glutes',eq:['bodyweight'],sec:[],g:{s:'On all fours, back flat.',e:'Lift one knee out to the side to hip height, lower, switch.',c:'No torso tilt — lift from the hip.',b:'Exhale on the lift.'},ar:{name:'هيدرانت النار',s:'على الأطراف الأربعة، ظهر مسطح.',e:'ارفع ركبة واحدة للجانب حتى ارتفاع الورك، أنزل، وبدّل.',c:'بدون ميل للجذع — الرفع من الورك.',b:'زفير عند الرفع.'}},
  // ── Hamstrings (gap: beginner/intermediate spread, curl variants) ──
  {n:'Deficit Deadlift',p:'hamstrings',eq:['barbell'],sec:['glutes','back'],g:{s:'Stand on a small platform, bar at the shins.',e:'Deadlift with a flat back from the deeper start position.',c:'The deficit increases the range — start light.',b:'Exhale at the top.'},ar:{name:'رفعة مميتة بمنصة مرتفعة',s:'قف على منصة صغيرة والبار عند الساقين.',e:'رفعة مميتة بظهر مسطح من وضعية بداية أعمق.',c:'المنصة تزيد مدى الحركة — ابدأ بوزن خفيف.',b:'زفير عند القمة.'}},
- {n:'Dumbbell RDL',p:'hamstrings',eq:['dumbbell'],sec:['glutes','back'],g:{s:'Dumbbells at the thighs, knees soft.',e:'Hinge at the hips, lower the dumbbells to mid-shin, drive up.',c:'Slide the dumbbells down the legs — back stays flat.',b:'Exhale on the drive.'},ar:{name:'رفعة رومانية بدمبل',s:'دمبلان عند الفخذين، ركبتان مرتخيتان.',e:'انحنِ من الوركين، أنزل الدمبلين لمنتصف الساق، وادفع للأعلى.',c:'انزلق بالدمبلين على طول الساقين — الظهر مسطح.',b:'زفير عند الدفع.'}},
  {n:'Single-Leg RDL',p:'hamstrings',eq:['dumbbell'],sec:['glutes'],g:{s:'One dumbbell in one hand, opposite foot slightly back.',e:'Hinge forward, keep the back flat, return to standing.',c:'A balance and hamstring test — go light.',b:'Exhale on the drive.'},ar:{name:'رفعة رومانية بساق واحدة',s:'دمبل واحد بيد، القدم الأخرى خلف قليلاً.',e:'انحنِ للأمام مع ظهر مسطح ثم عُد للوقوف.',c:'اختبار توازن وأوتار الركبة — وزن خفيف.',b:'زفير عند الدفع.'}},
  {n:'Single-Leg Deadlift',p:'hamstrings',eq:['bodyweight'],sec:['glutes'],g:{s:'Stand on one leg, arms out.',e:'Hinge forward until the torso is parallel to the floor, return.',c:'No weights needed — control the descent.',b:'Exhale on the return.'},ar:{name:'رفعة مميتة بساق واحدة',s:'قف على ساق واحدة وذراعان ممدودتان.',e:'انحنِ للأمام حتى يصبح الجذع موازياً للأرض ثم عُد.',c:'بدون أوزان — تحكم في النزول.',b:'زفير عند العودة.'}},
  {n:'Kettlebell Deadlift',p:'hamstrings',eq:['kettlebell'],sec:['glutes','back'],g:{s:'Kettlebell on the floor between the feet.',e:'Hinge down, grip the handle, stand up with a flat back.',c:'A friendly entry to the hinge pattern.',b:'Exhale at the top.'},ar:{name:'رفعة مميتة كيتلبل',s:'كيتلبل على الأرض بين القدمين.',e:'انحنِ للأسفل، أمسك المقبض، وقف بظهر مسطح.',c:'مدخل سهل لنمط الانحناء.',b:'زفير عند القمة.'}},

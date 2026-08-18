@@ -152,6 +152,7 @@
 <!-- Decision Engine asset root (read-only reference for hub status strip) -->
 <script>window.MOS_ASSET_ROOT = '../assets/data';</script>
 <script src="../assets/js/decision-engine.js"></script>
+<script>if(window.DecisionEngine){window.DecisionEngine.init(window.MOS_ASSET_ROOT);}</script>
 </head>
 <body>
 
@@ -298,7 +299,11 @@
           var vi = JSON.parse(localStorage.getItem('mos_vol_inputs')||'{}');
           var ep = vi.engine_profile;
           var bw = vi.bodyweight_kg || (ep&&ep.bodyweight_kg);
-          if(!ep) { strip.style.display='none'; return; }
+          if(!ep) { 
+            strip.style.display = 'flex'; 
+            txt.innerHTML = '<span style="color:#f44336">Profile not configured.</span> <a href="training_tool.html" style="color:#F4C93B;text-decoration:underline;margin-left:8px">Start a training program to calibrate</a>';
+            return; 
+          }
           var eng = window.DecisionEngine;
           strip.style.display = 'flex';
           if(eng && eng.isLoaded){

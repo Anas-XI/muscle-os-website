@@ -1,69 +1,69 @@
+.sub-btn{box-shadow:var(--shadow-accent)}
+.sub-btn:hover{transform:translateY(-1px)}
+.option{border-radius:var(--radius-lg)}
+.week-chip:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+.welcome-card,.split-card{border-radius:var(--radius-xl)}
+.cardio-toggle,.notif-toggle{border-radius:var(--radius-md);padding:8px 12px}
+.nudge-dismiss{border-radius:var(--radius-sm);padding:4px 8px}
+.nudge-dismiss:hover{background:var(--fill);color:rgba(250,250,248,.8)}
+.stepper{border:1px solid var(--line);box-shadow:var(--shadow-sm)}
+.card{background:var(--card)}
+.modal-card{background:var(--card)}
+select option{background:var(--card)}
+@media (prefers-reduced-motion: reduce){.btn-primary:hover,.pc-btn:hover,.consult-cta:hover,.sub-btn:hover,.week-chip:hover,.btn-secondary:hover{transform:none;box-shadow:var(--shadow-accent)}}
+
+/* Sticky mobile CTA bar */
+#mobileCtaBar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:950;background:rgba(20,21,26,.97);backdrop-filter:blur(10px);border-top:1px solid rgba(244,201,59,.25);padding:10px 14px calc(10px + env(safe-area-inset-bottom));gap:10px;box-shadow:0 -8px 24px rgba(0,0,0,.35)}
+#mobileCtaBar a{flex:1;text-align:center;padding:13px 8px;border-radius:10px;font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;text-decoration:none;transition:opacity .2s}
+#mobileCtaBar .cta-primary{background:#F4C93B;color:#14151A}
+#mobileCtaBar .cta-secondary{background:transparent;color:#FAFAF8;border:1.5px solid rgba(250,250,248,.25)}
+#mobileCtaBar a:active{opacity:.85}
+/* ---- Welcome Back Card ---- */
+.training-welcome-card{background:linear-gradient(135deg,rgba(26,27,38,.95),rgba(15,16,21,.98));border:1.5px solid rgba(244,201,59,.35);border-radius:18px;padding:26px 24px;margin-bottom:22px;box-shadow:0 16px 48px rgba(0,0,0,.7),0 0 30px rgba(244,201,59,.12);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);position:relative;overflow:hidden}
+.training-welcome-card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 50% 0%,rgba(244,201,59,.08) 0%,transparent 60%);pointer-events:none}
+.tw-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(76,175,80,.12);color:#4CAF50;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:4px 12px;border-radius:20px;border:1px solid rgba(76,175,80,.3);margin-bottom:12px}
+.tw-badge .pulse-dot{width:6px;height:6px;border-radius:50%;background:#4CAF50;box-shadow:0 0 8px #4CAF50;animation:pulseDot 2s infinite}
+.tw-title{font-family:'Oswald',sans-serif;font-size:1.8rem;color:#FAFAF8;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;text-align:left}
+.tw-title span{color:#F4C93B;text-shadow:0 0 16px rgba(244,201,59,.3)}
+.tw-sub{font-size:.8rem;color:rgba(250,250,248,.65);margin-bottom:20px;text-align:left;line-height:1.4;font-weight:400}
+.tw-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:22px}
+.tw-item{background:rgba(13,14,18,.65);padding:14px 16px;border-radius:12px;border:1px solid rgba(244,201,59,.15);transition:all .2s ease;box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.tw-item:hover{border-color:rgba(244,201,59,.35);box-shadow:0 4px 16px rgba(0,0,0,.4)}
+.tw-lbl{font-size:.62rem;font-weight:600;text-transform:uppercase;color:rgba(250,250,248,.45);letter-spacing:1px;margin-bottom:4px}
+.tw-val{font-size:1.05rem;font-weight:700;color:#FAFAF8;font-family:'Oswald',sans-serif;letter-spacing:.3px}
+.tw-subval{font-size:.6rem;color:#F4C93B;margin-top:2px;font-weight:500}
+.tw-actions{display:flex;gap:10px;flex-wrap:wrap}
+.tw-actions button{flex:1;min-width:140px;padding:12px 18px;font-size:.8rem;font-weight:700;border-radius:10px;cursor:pointer}
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulseGlow { 0% { box-shadow: 0 0 15px rgba(244,201,59,.2); } 50% { box-shadow: 0 0 25px rgba(244,201,59,.6); } 100% { box-shadow: 0 0 15px rgba(244,201,59,.2); } }
+</style>
+
+<script async defer src="https://accounts.google.com/gsi/client"></script>
+</head>
 <body>
 <nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a><a href="../index.html#packages">Coaching</a></div></div></nav>
 <div class="sub-overlay" id="subOverlay">
-  <div class="sub-modal">
-    <div class="lock-icon">&#128274;</div>
-    <h2>Pro Tool</h2>
-    <div class="sub-price">300 EGP / month</div>
-    <p class="sub-desc">This tool requires an active subscription. Subscribe now or enter your access code if you already have one.</p>
-    <ul class="sub-features">
-      <li>Full training program generator with auto-periodization</li>
-      <li>Session logger with e1RM progression tracking</li>
-      <li>Volume targets with MEV/MAV/MRV per muscle group</li>
-      <li>RPE/RIR-based load calculator integration</li>
-      <li>Deload tracking &amp; fatigue management</li>
-      <li>EN/AR bilingual interface</li>
-      <li>Exportable PDF programs with full details</li>
-    </ul>
-    <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20subscribe%20to%20the%20Training%20Tool%20for%20200%20EGP/month" class="sub-btn" target="_blank" rel="noopener">Subscribe via WhatsApp</a>
-    <div class="sub-divider" data-i18n="sub_enter_code">Enter your access code below to unlock</div>
-    <div id="authStep2">
-      <div class="sub-code-row">
-        <input type="text" class="sub-code-input" id="subCode" placeholder="Enter your access code" autocomplete="off">
-        <button class="sub-verify-btn" id="subVerify">Verify</button>
-      </div>
-      <div class="sub-error" id="subError">Invalid code. Please check and try again.</div>
-      <div class="sub-success" id="subSuccess">Access granted! Reloading tool...</div>
-      <div class="sub-nolink" id="subNoLink" style="display:none" data-i18n="sub_no_link">No active subscription linked to this account yet. Enter your code below to link it.</div>
-    </div>
-    <div class="sub-divider" data-i18n="sub_or_google">or sign in with Google to link your account</div>
-    <div id="authStep1">
-      <div class="sub-divider" id="authWelcomeRow" style="display:none"><span id="authWelcome"></span></div>
-      <div id="googleSignInBtn" style="display:flex;justify-content:center"></div>
-      <div class="sub-error" id="authStep1Error" style="display:none">Google sign-in failed. Please try again.</div>
-      <div style="text-align:center;margin-top:6px"><a href="#" id="subSignOut" style="display:none;font-size:.5rem;color:rgba(250,250,248,.3)" data-i18n="sub_auth_switch">Not you? Switch account</a></div>
-    </div>
-  </div>
-</div>
-<div class="print-header"><h2>Training Log</h2><p id="printInfo"></p></div>
-<div class="container">
-  <div class="header no-print">
-    <div class="header-top">
-      <h1 data-i18n="app_title">Training App</h1>
-      <div class="lang-toggle" onclick="toggleLang()">
-        <span class="lang-opt active" data-lang="en">EN</span>
-        <span class="lang-opt" data-lang="ar">AR</span>
-      </div>
-      <div class="acc-picker no-print" id="accPicker">
-        <span class="acc-swatch" data-acc="yellow" style="background:#F4C93B"></span>
-        <span class="acc-swatch" data-acc="green" style="background:#4CAF50"></span>
-        <span class="acc-swatch" data-acc="cyan" style="background:#2196F3"></span>
-        <span class="acc-swatch" data-acc="purple" style="background:#9C27B0"></span>
-      </div>
-      <button class="install-btn no-print" id="installBtn" style="display:none">📲</button>
-      <div class="sync-toggle" id="syncBtn" onclick="showSync()" data-i18n="sync_title">☁️</div>
-      <div class="sync-toggle" id="libBtn" onclick="showLibrary()" title="Exercise Library">📚</div>
-    </div>
-    <p data-i18n="header_sub">Onboard → Split → Program → Train → History</p>
-    <div id="profileGreeting" style="display:none;font-size:.6rem;color:#4CAF50;margin-top:4px;font-weight:500"></div>
-  </div>
-
-  <div class="stepper no-print" id="stepper">
-    <div class="step active" data-step="1"><span class="num">1</span><span data-i18n="welcome">Setup</span></div>
-    <div class="step" data-step="2"><span class="num">2</span><span data-i18n="vol_targets">Split</span></div>
-    <div class="step" data-step="3"><span class="num">3</span><span data-i18n="generate">Program</span></div>
-    <div class="step" data-step="35"><span class="num">🔄</span><span>Meso</span></div>
-    <div class="step" data-step="4"><span class="num">4</span><span data-i18n="today_train">Train</span></div>
-    <div class="step" data-step="5"><span class="num">5</span><span data-i18n="history">History</span></div>
-  </div>
-
+ <div class="sub-modal">
+ <div class="lock-icon">&#128274;</div>
+ <h2>Pro Tool</h2>
+ <div class="sub-price">300 EGP / month</div>
+ <p class="sub-desc">This tool requires an active subscription. Subscribe now or enter your access code if you already have one.</p>
+ <ul class="sub-features">
+ <li>Full training program generator with auto-periodization</li>
+ <li>Session logger with e1RM progression tracking</li>
+ <li>Volume targets with MEV/MAV/MRV per muscle group</li>
+ <li>RPE/RIR-based load calculator integration</li>
+ <li>Deload tracking &amp; fatigue management</li>
+ <li>EN/AR bilingual interface</li>
+ <li>Exportable PDF programs with full details</li>
+ </ul>
+ <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20subscribe%20to%20the%20Training%20Tool%20for%20200%20EGP/month" class="sub-btn" target="_blank" rel="noopener">Subscribe via WhatsApp</a>
+ <div class="sub-divider" data-i18n="sub_enter_code">Enter your access code below to unlock</div>
+ <div id="authStep2">
+ <div class="sub-code-row">
+ <input type="text" class="sub-code-input" id="subCode" placeholder="Enter your access code" autocomplete="off">
+ <button class="sub-verify-btn" id="subVerify">Verify</button>
+ </div>
+ <div class="sub-error" id="subError">Wrong code. Please check and try again.</div>
+ <div class="sub-success" id="subSuccess">Access granted! Reloading tool...</div>

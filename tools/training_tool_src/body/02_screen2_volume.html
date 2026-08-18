@@ -1,99 +1,107 @@
-  <!-- Screen 2: Volume + Split -->
-  <div class="step-content" id="step2">
-    <div class="card">
-      <div class="section-header" data-i18n="vol_targets">Volume Targets</div>
-      <div id="volSummary" class="recap-box"></div>
-      <div id="volBars"></div>
+ <div class="card" id="onboardingFormCard">
+ <div class="section-header"><span data-i18n="welcome">Welcome</span> <span class="section-sub" data-i18n="welcome_sub">— set up your profile</span></div>
 
-      <div class="section-header" data-i18n="split_pref">Select Your Split</div>
-      <p style="font-size:.55rem;color:rgba(250,250,248,.2);margin-bottom:8px;line-height:1.2">Based on <strong id="dowDisplay">4 days/week</strong>.</p>
-      <div id="splitWhy"></div>
-      <div class="split-grid" id="splitGrid"></div>
-      <div id="splitConflict" style="display:none"></div>
+ <p style="font-size:.6rem;color:rgba(250,250,248,.22);margin-bottom:10px;line-height:1.3" data-i18n="muscle_priorities_sub">Tell us about yourself and your goals. We'll calculate target volume for each muscle group and recommend a split.</p>
 
-      <div class="section-header" data-i18n="sess_len">Session Length</div>
-      <p style="font-size:.55rem;color:rgba(250,250,248,.2);margin-bottom:8px;line-height:1.2">45 min: capped 4 exercises + supersets suggested · 90 min: one optional exercise per day (not counted in compliance).</p>
-      <div class="sess-len-grid" id="sessLenGrid">
-        <button class="sess-len-chip" data-len="45"><strong>45</strong> <span data-i18n="sess_45">min</span></button>
-        <button class="sess-len-chip selected" data-len="60"><strong>60</strong> <span data-i18n="sess_60">min</span></button>
-        <button class="sess-len-chip" data-len="90"><strong>90</strong> <span data-i18n="sess_90">min</span></button>
-      </div>
+ <div class="form-row">
+ <div class="form-group"><label data-i18n="name_label">Name</label>
+ <input type="text" id="userName" placeholder="e.g. Ahmed" style="width:100%;padding:6px 8px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem"></div>
+ <div class="form-group"><label data-i18n="age_label">Age</label>
+ <input type="number" id="userAge" placeholder="25" min="10" max="100" style="width:100%;padding:6px 8px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem"></div>
+ </div>
+ <div class="form-row">
+ <div class="form-group"><label data-i18n="ta_label">Training Age</label>
+ <select id="ta"><option value="novice" data-i18n="novice">Novice (&lt;1 yr)</option><option value="intermediate" selected data-i18n="intermediate">Intermediate (1–3 yr)</option><option value="advanced" data-i18n="advanced">Advanced (3+ yr)</option></select></div>
+ <div class="form-group"><label data-i18n="goal_label">Primary Goal</label>
+ <select id="goal"><option value="hypertrophy" selected data-i18n="hypertrophy">Hypertrophy</option><option value="strength" data-i18n="strength">Strength</option><option value="both" data-i18n="balanced">Balanced</option></select></div>
+ </div>
+ <div class="form-row">
+ <div class="form-group"><label data-i18n="dow_label">Days/Week</label>
+ <select id="dow"><option value="2">2</option><option value="3">3</option><option value="4" selected>4</option><option value="5">5</option><option value="6">6</option></select></div>
+ <div class="form-group"><label data-i18n="rec_label">Recovery Factor</label>
+ <select id="recFactor"><option value="low" data-i18n="low_rec">Low — limited sleep, high stress</option><option value="moderate" selected data-i18n="mod_rec">Moderate — balanced lifestyle</option><option value="high" data-i18n="high_rec">High — optimal recovery</option></select></div>
+ </div>
 
-      <div id="splitErr" style="display:none;color:#F4C93B;font-size:.65rem;text-align:center;margin-top:6px" data-i18n="focus_err">Select a split to continue.</div>
-      <div class="ex-sel-panel" id="exSelPanel">
-        <div class="section-header" data-i18n="exercises">Choose Your Exercises</div>
-        <p class="ex-sel-info">Each slot draws from a <strong>full muscle-group pool</strong>. Pick your favorite — the program will generate with your selections. (BB=Barbell, DB=Dumbbell, MAC=Machine, CAB=Cable, BW=Bodyweight)</p>
-        <div style="display:flex;justify-content:flex-end;margin-bottom:4px;gap:4px">
-          <button class="btn-secondary" id="densityBtn" style="font-size:.5rem;padding:3px 10px" data-i18n="density_on">Compact</button>
-          <button class="btn-secondary" id="adjustExBtn" style="font-size:.5rem;padding:3px 10px" data-i18n="adjust">Adjust ▾</button>
-        </div>
-        <div class="ex-filter-bar" id="exFilterBar" style="display:none">
-          <div class="ef-row"><span class="ef-lbl" data-i18n="my_gym">My Gym</span>
-            <button class="f-chip on" data-f="eq" data-v="all" data-i18n="eq_all">All</button>
-            <button class="f-chip" data-f="eq" data-v="bodyweight" data-i18n="eq_bodyweight">Bodyweight</button>
-            <button class="f-chip" data-f="eq" data-v="dumbbell" data-i18n="eq_dumbbell">Dumbbell</button>
-            <button class="f-chip" data-f="eq" data-v="barbell" data-i18n="eq_barbell">Barbell</button>
-            <button class="f-chip" data-f="eq" data-v="machine" data-i18n="eq_machine">Machine</button>
-            <button class="f-chip" data-f="eq" data-v="cable" data-i18n="eq_cable">Cable</button>
-            <button class="f-chip" data-f="eq" data-v="band" data-i18n="eq_band">Band</button>
-            <button class="f-chip" data-f="eq" data-v="kettlebell" data-i18n="eq_kettlebell">Kettlebell</button>
-          </div>
-          <div class="ef-row"><span class="ef-lbl" data-i18n="diff_label">Difficulty</span>
-            <button class="f-chip on" data-f="diff" data-v="all" data-i18n="eq_all">All</button>
-            <button class="f-chip" data-f="diff" data-v="beginner" data-i18n="diff_beginner">Beginner</button>
-            <button class="f-chip" data-f="diff" data-v="intermediate" data-i18n="diff_intermediate">Intermediate</button>
-            <button class="f-chip" data-f="diff" data-v="advanced" data-i18n="diff_advanced">Advanced</button>
-          </div>
-          <div class="ef-row"><span class="ef-lbl" data-i18n="type_label">Type</span>
-            <button class="f-chip on" data-f="type" data-v="all" data-i18n="eq_all">All</button>
-            <button class="f-chip" data-f="type" data-v="compound" data-i18n="mp_compound">Compound</button>
-            <button class="f-chip" data-f="type" data-v="isolation" data-i18n="mp_isolation">Isolation</button>
-          </div>
-          <div class="ef-row"><span class="ef-lbl" data-i18n="pattern_label">Pattern</span>
-            <button class="f-chip on" data-f="pattern" data-v="all" data-i18n="eq_all">All</button>
-            <button class="f-chip" data-f="pattern" data-v="push" data-i18n="mp_push">Push</button>
-            <button class="f-chip" data-f="pattern" data-v="pull" data-i18n="mp_pull">Pull</button>
-            <button class="f-chip" data-f="pattern" data-v="hinge" data-i18n="mp_hinge">Hinge</button>
-            <button class="f-chip" data-f="pattern" data-v="squat" data-i18n="mp_squat">Squat</button>
-            <button class="f-chip" data-f="pattern" data-v="carry" data-i18n="mp_carry">Carry</button>
-            <button class="f-chip" data-f="pattern" data-v="rotation" data-i18n="mp_rotation">Rotation</button>
-            <button class="f-chip" data-f="pattern" data-v="core" data-i18n="mp_core">Core</button>
-          </div>
-        </div>
-        <div id="exSelContent"></div>
-        <div class="btn-group">
-          <button class="btn-primary" id="backToSplitBtn2" style="background:transparent;border:1.5px solid rgba(250,250,248,.08);color:rgba(250,250,248,.35);font-size:.65rem" data-i18n="back">← Back to Splits</button>
-          <button class="btn-primary" id="confirmExBtn" data-i18n="confirm_gen">Confirm &amp; Generate Program</button>
-        </div>
-      </div>
-      <div class="ex-sel-panel" id="volReviewPanel">
-        <div class="section-header" data-i18n="vr_title">Weekly Volume Plan</div>
-        <div id="volReviewContent"></div>
-        <div class="btn-group">
-          <button class="btn-primary" id="backToExBtn2" style="background:transparent;border:1.5px solid rgba(250,250,248,.08);color:rgba(250,250,248,.35);font-size:.7rem" data-i18n="vr_back">← Back to Exercises</button>
-          <button class="btn-primary" id="lockInBtn" data-i18n="vr_lock">Lock In &amp; Generate Program</button>
-        </div>
-      </div>
-      <div class="ex-sel-panel" id="customSplitPanel">
-        <div class="section-header" data-i18n="cs_title">Custom Split Builder</div>
-        <p style="font-size:.55rem;color:rgba(250,250,248,.2);margin-bottom:8px;line-height:1.2" data-i18n="cs_sub">Design your own weekly schedule — pick the muscles trained each day.</p>
-        <div class="cs-name-row"><input type="text" id="csName" maxlength="40"></div>
-        <div id="csDays"></div>
-        <div class="btn-group" style="margin-top:8px">
-          <button class="btn-secondary" id="csAddDay" data-i18n="cs_add_day">+ Training Day</button>
-          <button class="btn-secondary" id="csAddRest" data-i18n="cs_add_rest">+ Rest Day</button>
-        </div>
-        <div id="csWarn" style="display:none"></div>
-        <div class="btn-group">
-          <button class="btn-primary" id="csCancelBtn" style="background:transparent;border:1.5px solid rgba(250,250,248,.08);color:rgba(250,250,248,.35);font-size:.65rem" data-i18n="back">Back</button>
-          <button class="btn-primary" id="csUseBtn" data-i18n="cs_use">Use This Split</button>
-        </div>
-      </div>
-      <div class="btn-group" id="splitBtnGroup">
-        <button class="btn-primary" id="backToSetupBtn" style="background:transparent;border:1.5px solid rgba(250,250,248,.08);color:rgba(250,250,248,.35);font-size:.75rem" data-i18n="back_to_setup">Back</button>
-        <button class="btn-primary" id="genProgBtn" data-i18n="gen_cta">Generate My Program</button>
-      </div>
-      <div style="text-align:center;margin-top:8px"><span class="ce-link" onclick="showCeModal()" data-i18n="ce_add_custom">+ Custom Exercise</span></div>
-    </div>
-  </div>
+ <div class="form-row">
+ <div class="form-group"><label data-i18n="sex_label">Sex</label>
+ <select id="userSex"><option value="male" data-i18n="sex_male">Male</option><option value="female" data-i18n="sex_female">Female</option></select></div>
+ </div>
+ <div class="form-row" id="bodyCompRow">
+ <div class="form-group"><label data-i18n="weight_label">Bodyweight (kg)</label>
+ <input type="number" id="userWeight" placeholder="75" min="30" max="300" step="0.5" style="width:100%;padding:6px 8px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem"></div>
+ <div class="form-group"><label data-i18n="height_label">Height (cm) <span style="color:rgba(250,250,248,.3);font-size:.5rem">(optional)</span></label>
+ <input type="number" id="userHeight" placeholder="175" min="100" max="250" step="1" style="width:100%;padding:6px 8px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem"></div>
+ </div>
+ <div class="form-row">
+ <div class="form-group" id="cycleLenGroup" style="display:none"><label data-i18n="cycle_len_label">Cycle Length (days)</label>
+ <select id="cycleLen">
+ <option value="21">21</option>
+ <option value="22">22</option>
+ <option value="23">23</option>
+ <option value="24">24</option>
+ <option value="25">25</option>
+ <option value="26">26</option>
+ <option value="27">27</option>
+ <option value="28" selected>28</option>
+ <option value="29">29</option>
+ <option value="30">30</option>
+ <option value="31">31</option>
+ <option value="32">32</option>
+ <option value="33">33</option>
+ <option value="34">34</option>
+ <option value="35">35</option>
+ <option value="36">36</option>
+ <option value="37">37</option>
+ <option value="38">38</option>
+ <option value="39">39</option>
+ <option value="40">40</option>
+ </select></div>
+ </div>
+ <div id="cycleSection" style="display:none">
+ <div class="section-header" data-i18n="cycle_title">Menstrual Cycle</div>
+ <p style="font-size:.55rem;color:rgba(250,250,248,.2);margin-bottom:6px;line-height:1.3" data-i18n="cycle_sub">Tell us where you are in your cycle and we'll tune weekly volume, RPE and recovery notes. Optional — you can skip for a balanced program.</p>
+ <div class="form-row">
+ <div class="form-group"><label data-i18n="cycle_last_label">First day of your last period</label><input type="date" id="cycleLastDate" style="width:100%;padding:6px 8px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem;color-scheme:dark"></div>
+ <div class="form-group"><label data-i18n="cycle_phase_label">Current Phase</label>
+ <select id="cyclePhaseSel"><option value="auto" data-i18n="cycle_auto">Auto (from dates)</option><option value="menstrual" data-i18n="cyc_menstrual">Menstruation (days 1–5)</option><option value="follicular" data-i18n="cyc_follicular">Follicular (days 6–13)</option><option value="ovulation" data-i18n="cyc_ovulation">Ovulation (~day 14)</option><option value="luteal" data-i18n="cyc_luteal">Luteal (days 15–28)</option><option value="skip" data-i18n="cycle_skip">Skip — balanced program</option></select></div>
+ </div>
+ <div id="cyclePhaseInfo" style="font-size:.55rem;color:rgba(250,250,248,.4);margin-top:4px;line-height:1.4"></div>
+ </div>
+ <div id="musclePrioSection">
+ <div class="section-header"><span data-i18n="muscle_priorities">Muscle Priorities</span> <span style="font-size:.55rem;color:rgba(250,250,248,.3);font-weight:400">(Optional)</span></div>
+ <p style="font-size:.55rem;color:rgba(250,250,248,.2);margin-bottom:6px;line-height:1.2">Select which muscles to <strong style="color:#F4C93B">focus</strong> (full volume) vs <strong style="color:rgba(250,250,248,.35)">maintain</strong> (~half volume). <br/><em>If you skip this, all muscles will receive balanced (standard) volume.</em></p>
+ <div class="priority-grid" id="priorityGrid"></div>
+ </div>
+
+ <div class="section-header" data-i18n="split_pref">Split Preference</div>
+ <div class="toggle-group" id="splitToggle">
+ <div class="toggle-opt active" data-mode="choose"><span data-i18n="choose_my_split">Choose My Split</span></div>
+ <div class="toggle-opt" data-mode="quiz"><span data-i18n="take_quiz">Take the Quiz</span></div>
+ </div>
+ <div class="quiz-container" id="quizContainer">
+ <div class="prog-steps" id="quizProgress"></div>
+ <div id="quizArea"></div>
+ </div>
+
+ <!-- Powerlifting extras (shown when goal=strength) -->
+ <div class="strength-extras" id="strengthExtras">
+ <div class="section-header"><span data-i18n="pl_profile">Powerlifting Profile</span> <span style="font-size:.55rem;color:rgba(250,250,248,.3);font-weight:400">(Optional)</span></div>
+ <p style="font-size:.55rem;color:rgba(250,250,248,.2);margin-bottom:6px;line-height:1.2" data-i18n="pl_sub">We'll design a periodized program based on your current maxes, weak points, and fatigue profile. Leave blank if unsure.</p>
+ <div class="rm-row">
+ <div class="rm-input"><label data-i18n="squat_rm">Squat 1RM (kg)</label><input type="number" id="plSquat" step="0.5" placeholder="e.g. 140"></div>
+ <div class="rm-input"><label data-i18n="bench_rm">Bench 1RM (kg)</label><input type="number" id="plBench" step="0.5" placeholder="e.g. 100"></div>
+ <div class="rm-input"><label data-i18n="deadlift_rm">Deadlift 1RM (kg)</label><input type="number" id="plDeadlift" step="0.5" placeholder="e.g. 180"></div>
+ </div>
+ <div class="form-row">
+ <div class="form-group"><label data-i18n="bw">Bodyweight (kg)</label><input type="number" id="plBW" step="0.5" placeholder="e.g. 80"></div>
+ <div class="form-group"><label data-i18n="yrs_pl">Years Powerlifting</label><select id="plYears"><option value="novice" data-i18n="novice">&lt;1 yr</option><option value="intermediate" selected data-i18n="intermediate">1–3 yr</option><option value="advanced" data-i18n="advanced">3+ yr</option></select></div>
+ </div>
+ <div class="form-group"><label data-i18n="weak_pts">Weak Points</label><p style="font-size:.5rem;color:rgba(250,250,248,.15);margin-bottom:4px" data-i18n="weak_sub">Select your sticking points (affects accessory selection).</p>
+ <div class="weak-grid" id="weakGrid"></div>
+ </div>
+ <div class="form-row">
+ <div class="form-group"><label data-i18n="comp_goal">Competition Goal</label><select id="plComp"><option value="none" data-i18n="just_train">Just training</option><option value="meet" data-i18n="prep_meet">Preparing for a meet</option></select></div>
+ <div class="form-group"><label data-i18n="meet_date">Meet Date</label><input type="date" id="plMeetDate" style="display:none"></div>
+ </div>
+ </div>
 

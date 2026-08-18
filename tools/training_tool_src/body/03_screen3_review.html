@@ -1,19 +1,19 @@
-  <!-- Screen 3: Program Review -->
-  <div class="step-content" id="step3">
-    <div class="card">
-      <div class="section-header" data-i18n="generate">Your Program</div>
-      <div id="progRecap" class="recap-box"></div>
-      <div class="summary-dash">
-        <div class="summary-card"><div class="summary-val" id="progSets">0</div><div class="summary-lbl" data-i18n="weekly_sets">Weekly Sets</div></div>
-        <div class="summary-card"><div class="summary-val" id="progExs">0</div><div class="summary-lbl" data-i18n="exercises">Exercises</div></div>
-        <div class="summary-card"><div class="summary-val" id="progDays">0</div><div class="summary-lbl" data-i18n="dow_label">Days/Week</div></div>
-      </div>
-      <div id="progOutput"></div>
-      <div class="btn-group">
-        <button class="btn-primary" id="backToSplitBtn" style="background:transparent;border:1.5px solid rgba(250,250,248,.08);color:rgba(250,250,248,.35);font-size:.75rem" data-i18n="back_to_split">Back</button>
-        <button class="btn-primary" id="shareProgBtn" style="background:rgba(33,150,243,.06);border:1px solid rgba(33,150,243,.15);color:#2196F3;font-size:.75rem;flex:.7" data-i18n="share_program">📤 Share Program</button>
-        <button class="btn-primary" id="saveProgBtn" data-i18n="save_start">Save &amp; Start Training</button>
-      </div>
-    </div>
-  </div>
+ <div id="onboardErr" style="display:none;color:#F4C93B;font-size:.65rem;text-align:center;margin-top:6px;font-weight:500" data-i18n="focus_err">Select at least one Focus muscle.</div>
+ <button class="btn-primary" id="onboardNext" data-i18n="calc_continue">Calculate &amp; Continue</button>
+ </div>
+ <div class="ex-sel-panel" id="prioPanel">
+ <div class="section-header" data-i18n="prio_title">Priority Muscles &amp; Frequency</div>
+ <p style="font-size:.55rem;color:rgba(250,250,248,.3);margin-bottom:6px;line-height:1.3" data-i18n="prio_sub">Pick 1–2 muscles to prioritize. They get higher weekly frequency (3–4x) and a small volume bump (+1 set/week).</p>
+ <div class="prio-grid" id="prioGrid"></div>
+ <div id="prioCap" style="display:none;color:#F4C93B;font-size:.55rem;margin:4px 0"></div>
+ <div id="prioNeed" style="display:none;color:#F4C93B;font-size:.6rem;margin:6px 0;font-weight:500"></div>
+ <p style="font-size:.5rem;color:rgba(250,250,248,.25);margin:4px 0 8px" data-i18n="prio_bump">Priority muscles get +1 set/week on top of your volume target.</p>
+ <div class="btn-group">
+ <button class="btn-primary" id="prioBackBtn" style="background:transparent;border:1.5px solid rgba(250,250,248,.08);color:rgba(250,250,248,.35);font-size:.7rem" data-i18n="back">← Back</button>
+ <button class="btn-primary" id="prioContBtn" data-i18n="prio_cont">Save &amp; Continue</button>
+ </div>
+ </div>
+ <div id="savedDataBanner" class="recap-box" style="display:none"></div>
+ </div>
 
+ <!-- Screen 2: Volume + Split -->

@@ -252,8 +252,19 @@ select option{background:#1A1B26;color:#FAFAF8}
  #mobileCtaBar{display:flex}
  body{padding-bottom:76px}
 }
+
+/* Decision Engine — Coach Intelligence card */
+.engine-recs-card{background:rgba(244,201,59,.04);border:1px solid rgba(244,201,59,.18);border-radius:10px;padding:10px 12px;margin-top:10px;font-size:.68rem}
+.engine-recs-card .ec-header{font-family:'Oswald',sans-serif;font-size:.72rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.engine-recs-card .ec-sub{font-size:.6rem;color:rgba(250,250,248,.45);margin-bottom:6px;line-height:1.4}
+.engine-rule-chip{display:inline-block;font-size:.5rem;background:rgba(244,201,59,.1);border:1px solid rgba(244,201,59,.3);color:#F4C93B;border-radius:10px;padding:1px 8px;margin:0 4px 4px 0;font-weight:600}
+.engine-note{font-size:.58rem;color:rgba(250,250,248,.6);line-height:1.4;padding-top:4px;border-top:1px solid rgba(250,250,248,.06);margin-top:4px}
 </style>
 <script async defer src="https://accounts.google.com/gsi/client"></script>
+<script>window.MOS_ASSET_ROOT='../assets/data';</script>
+<script src="../assets/js/decision-engine.js"></script>
+<script>if(window.DecisionEngine){window.DecisionEngine.init(window.MOS_ASSET_ROOT);}</script>
+https://accounts.google.com/gsi/client"></script>
 </head>
 <body>
 <nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a><a href="../index.html#packages">Coaching</a></div></div></nav>
@@ -578,7 +589,18 @@ select option{background:#1A1B26;color:#FAFAF8}
  }
 
  // Macros
- const proteinG = PROTEIN_TARGETS[dietPattern] ? PROTEIN_TARGETS[dietPattern][goalVal] || 1.8 : 1.8;
+   // Muscle OS Decision Engine — protein override (SH-NU-01 / BB-NU-01)
+  let engProteinMult = null;
+  try{
+   if(typeof DecisionEngine !== 'undefined' && DecisionEngine.isLoaded){
+    const engGoal = (goalVal === 'aggressive_loss' || goalVal === 'moderate_loss') ? 'cut'
+      : (goalVal === 'aggressive_gain' || goalVal === 'moderate_gain') ? 'bulk' : 'maintain';
+    const engYrs = (trainingAge === 'novice') ? 1 : (trainingAge === 'advanced' ? 5 : 2);
+    const engRecs = DecisionEngine.applyBookRulesSync({goal: engGoal, experience_years: engYrs, age: a, sex: sex, bodyweight_kg: w, height_cm: h});
+    if(engRecs && engRecs.protein_per_kg) engProteinMult = engRecs.protein_per_kg;
+   }
+  }catch(e){}
+  const proteinG = (engProteinMult || (PROTEIN_TARGETS[dietPattern] ? PROTEIN_TARGETS[dietPattern][goalVal] || 1.8 : 1.8));
  const pG = Math.round(proteinG * w);
 
  const isFL = goalVal==='aggressive_loss'||goalVal==='moderate_loss';
@@ -818,7 +840,27 @@ select option{background:#1A1B26;color:#FAFAF8}
  '<div class="dash-card"><div class="dash-label">Estimated TDEE</div><div class="dash-val">'+targetTDEE+'</div><div class="dash-sub">'+r.bmrMethod+'</div></div>' +
  '</div>';
 
- numbersHtml += '<div class="dash-macro-grid">' +
+   // Decision Engine — Coach Intelligence card
+  try{
+   if(typeof DecisionEngine !== 'undefined' && DecisionEngine.isLoaded){
+    const engGoal2 = (p.goal === 'aggressive_loss' || p.goal === 'moderate_loss') ? 'cut'
+      : (p.goal === 'aggressive_gain' || p.goal === 'moderate_gain') ? 'bulk' : 'maintain';
+    const engYrs2 = (p.trainingAge === 'novice') ? 1 : (p.trainingAge === 'advanced' ? 5 : 2);
+    const eR = DecisionEngine.applyBookRulesSync({goal: engGoal2, experience_years: engYrs2, age: p.age, sex: p.sex, bodyweight_kg: p.weight, height_cm: p.height});
+    if(eR){
+     const eNotes = (eR.program_notes || []).concat(eR.nutrition_notes || []);
+     if(eR.protein_per_kg || eNotes.length){
+      numbersHtml += '<div class="engine-recs-card"><div class="ec-header">&#10003; Coach Intelligence</div><div class="ec-sub">Evidence-based adjustments from the Muscle OS Decision Engine (Schoenfeld, Nippard, NSCA, ACE, IPTA)</div>'+
+       (eR.protein_per_kg ? '<span class="engine-rule-chip">Protein '+eR.protein_per_kg.toFixed(1)+' g/kg</span>' : '') +
+       (eR.rep_range ? '<span class="engine-rule-chip">Rep Range '+eR.rep_range+'</span>' : '') +
+       eNotes.map(function(n){return '<div class="engine-note">&#8226; '+n+'</div>';}).join('') +
+       '</div>';
+     }
+    }
+   }
+  }catch(e){}
+
+numbersHtml += '<div class="dash-macro-grid">' +
  '<div class="dash-macro"><div class="dash-macro-val">'+protein+'</div><div class="dash-macro-lbl">Protein (g)</div></div>' +
  '<div class="dash-macro"><div class="dash-macro-val">'+fat+'</div><div class="dash-macro-lbl">Fat (g)</div></div>' +
  '<div class="dash-macro"><div class="dash-macro-val">'+carbs+'</div><div class="dash-macro-lbl">Carbs (g)</div></div>' +

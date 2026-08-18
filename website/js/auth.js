@@ -116,11 +116,13 @@ function getGs(){ try { var g = JSON.parse(localStorage.getItem(GS_KEY)); return
   var isHub = !!(gate && gate.hub);
   var productId = getProductId();
   var gs = getGs();
+  function hideLegacy(){ var o = document.getElementById('subOverlay'); if (o) o.style.display = 'none'; }
   if (!gs) {
   // No Google session: if the page has its own code-entry overlay (tool paywall),
   // leave it visible instead of stacking our modal on top; otherwise show ours.
   var subOverlay = document.getElementById('subOverlay');
   if (subOverlay) return;
+  hideLegacy();
   document.getElementById('mosAuthOverlay').style.display = 'flex';
   initGsi();
   return;
@@ -143,21 +145,24 @@ function getGs(){ try { var g = JSON.parse(localStorage.getItem(GS_KEY)); return
   bannerEl.style.display = 'flex';
   } else if (hasActiveSub) {
   document.getElementById('mosAuthOverlay').style.display = 'none';
-  } else {
+} else {
   document.getElementById('mosAuthTitle').innerText = isProTool ? 'Trial Expired' : 'Access Restricted';
   document.getElementById('mosAuthDesc').innerText = isProTool ? 'Your 14-day free trial has expired. Please enter an access code to continue.' : 'You need a verified access code to view this content.';
   document.getElementById('mosAuthStep1').style.display = 'none';
   document.getElementById('mosAuthStep2').style.display = 'block';
+  hideLegacy();
   document.getElementById('mosAuthOverlay').style.display = 'flex';
   }
   } else {
   // Invalid session
   localStorage.removeItem(GS_KEY);
+  hideLegacy();
   document.getElementById('mosAuthOverlay').style.display = 'flex';
   initGsi();
   }
   }).catch(e => {
   if (gate && !gate.active) {
+  hideLegacy();
   document.getElementById('mosAuthOverlay').style.display = 'flex';
   initGsi();
   }
@@ -238,15 +243,9 @@ fetch(API_BASE + '/api/verify-code', {
  window.location.reload();
  });
 
-// Hide the old per-tool overlay only when we're showing our own gate over it.
-  var oldOverlay = document.getElementById('subOverlay');
-  if (oldOverlay) {
-    try {
-      var gate = getGate();
-      if (!gate || !gate.active) oldOverlay.style.display = 'none';
-    } catch(e){ oldOverlay.style.display = 'none'; }
-  }
+// Hide the old per-tool overlay only when we're actually showing our own gate over it
+  // (handled inside checkAccess via hideLegacy()).
 
- // Start the check
- checkAccess();
+  // Start the check
+  checkAccess();
 })();

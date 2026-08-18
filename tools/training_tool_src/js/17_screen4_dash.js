@@ -1,36 +1,36 @@
-  // ═══════════════════════════════════════
-  //  SCREEN 4: DASHBOARD
-  // ═══════════════════════════════════════
-
-  function renderWeekRow(){
-    var row=document.getElementById('weekRow');if(!row)return;
-    var logs=ls(K.LG,{});
-    var labels=(window.__lang==='ar')?['أح','إث','ثل','أر','خم','جم','سب']:['Su','Mo','Tu','We','Th','Fr','Sa'];
-    var chips='',now=new Date();
-    for(var i=6;i>=0;i--){
-      var d=new Date(now.getTime()-i*86400000);
-      var ds=d.toISOString().split('T')[0];
-      var done=dayHasSets(logs[ds]);
-      chips+='<div class="week-chip'+(done?' done':'')+(i===0?' today':'')+'" title="'+ds+'">'+labels[d.getDay()]+'</div>';
-    }
-    var streak=weekStreak(logs);
-    row.innerHTML='<span class="wr-lbl">'+_('week_row')+'</span><div class="week-chips">'+chips+'</div>'+(streak>0?'<span class="streak-chip">🔥 '+streak+' '+_('streak')+'</span>':'');
-  }
-  function dayHasSets(dl){
-    if(!dl)return false;
-    for(var k in dl){var s=dl[k].sets;if(s&&s.length)for(var j=0;j<s.length;j++){if(s[j]&&(parseFloat(s[j].w)>0||parseInt(s[j].r)>0||parseFloat(s[j].rpe)>0))return true;}}
-    return false;
-  }
-  function weekStreak(logs){
-    var streak=0,now=new Date();
-    for(var w=0;w<52;w++){
-      var wkStart=new Date(now.getTime()-(w*7+6)*86400000);
-      var count=0;
-      for(var i=0;i<7;i++){
-        var d=new Date(wkStart.getTime()+i*86400000);
-        if(dayHasSets(logs[d.toISOString().split('T')[0]]))count++;
-      }
-      if(count>=3)streak++;else break;
-    }
-    return streak;
-  }
+ else{exFilters.diff=[];exFilters.type=[];exFilters.pattern=[];}
+ syncExFilterChips();
+ refreshExSelection();
+ });
+ });
+ // Per-muscle-group search (fast-path; selects via the same path as chips)
+ document.querySelectorAll('#exSelContent .esm-search-input').forEach(function(inp){
+ inp.addEventListener('input',function(){
+ var q=this.value,res=this.parentNode.querySelector('.esm-search-res');
+ var m=this.dataset.muscle,di=parseInt(this.dataset.day,10);
+ var day=SPLITS[splitKey]&&SPLITS[splitKey].days[di]||null;
+ var norm=normalizeSearch(q);
+ if(norm.length<2){res.style.display='none';res.innerHTML='';return;}
+ var pool=(EXERCISE_POOLS[m]||[]).filter(exFilterMatches);
+ var ctx=buildRankCtx(day,{n:null});
+ var userEq=ctx.userEq;
+ var hits=[];
+ pool.forEach(function(n){
+ var eq=equipmentOf(n);
+ if(!(!userEq||userEq.length===0||eq.length===0||eq.some(function(e){return userEq.indexOf(e)>=0;})))return;
+ var dn=normalizeSearch(exDisplay(n)||n);
+ var qq=searchQuality(dn,norm);
+ if(qq>0)hits.push({n:n,qq:qq,rk:rankScoreOf(n,ctx)});
+ });
+ hits.sort(function(a,b){if(b.qq!==a.qq)return b.qq-a.qq;return b.rk-a.rk;});
+ if(!hits.length){res.innerHTML='<div class="esm-res-none">'+_('search_none')+'</div>';res.style.display='block';return;}
+ res.innerHTML=hits.slice(0,8).map(function(h){
+ return '<button class="ex-sel-chip search-hit" data-ename="'+inp.dataset.slotkey+'" data-exval="'+h.n+'">'+(EX_TR[h.n]?exDisplay(h.n):h.n)+'</button>';
+ }).join('');
+ res.style.display='block';
+ res.querySelectorAll('.search-hit').forEach(function(chip){
+ chip.addEventListener('click',function(){
+ var row=document.querySelector('#exSelContent .ex-sel-row[data-day="'+di+'"][data-muscle="'+m+'"]');
+ if(!row)return;
+ applyChipSelection(chip,row);
+ inp.value='';res.style.display='none';res.innerHTML='';

@@ -1,188 +1,188 @@
-  // Fatigue wiring
-  document.getElementById('saveFatigueBtn').addEventListener('click',function(){
-    var f={};
-    document.querySelectorAll('#fatigueGrid input').forEach(function(inp){f[inp.dataset.fk]=parseInt(inp.value)||5;});
-    saveTodayFatigue(f);
-    renderDashboard();
-  });
-  document.getElementById('skipFatigueBtn').addEventListener('click',function(){
-    document.getElementById('fatigueBar').style.display='none';
-  });
+ sets[si].wu=true;
+ if(s.w)sets[si].w=s.w;
+ if(s.r)sets[si].r=s.r;
+ if(s.rpe)sets[si].rpe=s.rpe;
+ }else{
+ sets[si]=s;
+ }
+ });
+ }else{
+ var padEmpty=(makeupDays[di]||lightDays[di])?Math.max(1,(ex.sets||3)-1):3;
+ for(var i2=0;i2<padEmpty;i2++)sets.push({w:'',r:'',rpe:''});
+ }
+ var h='<div class="set-log-area"><div class="set-log-header"><span style="line-height:1.25;white-space:normal;font-size:.42rem;letter-spacing:.2px">'+_('sets_work')+'</span><span>'+_('load')+'</span><span>'+_('reps')+'</span><span>'+_('rpe')+'</span><span></span></div><div class="set-rows-'+('c_'+di+'_'+ex.n).replace(/[^a-zA-Z0-9]/g,'_')+'">';
+ sets.forEach(function(set,si){
+ var isWu=!!set.wu;
+ var wVal = set.w||'';
+ var wClick = wVal ? 'onclick="showPlateCalculator('+parseFloat(wVal)+',event)" style="cursor:pointer"' : '';
+ var wuAttr=isWu?' data-wu="1"':'';
+ var rowCls=isWu?' set-row wu-row':'set-row';
+ var lbl=prefix+(isWu?' '+_('warmup_row')+' '+(si+1):(si+1));
+ if(!isWu&&wuCount>0&&si===wuCount)h+='<div class="wu-divider">'+_('warmup_lbl')+'</div>';
+ h+='<div class="'+rowCls+'" data-ex="'+ex.n+'" data-set="'+si+'"'+(isWu?' data-wu="1"':'')+'><span class="set-lbl">'+lbl+'</span>'+
+ '<input type="number" step="0.5" placeholder="'+_('weight')+'" value="'+wVal+'" data-ex="'+ex.n+'" data-set="'+si+'" data-f="w"'+wuAttr+' '+wClick+'>'+
+ '<input type="number" step="1" placeholder="'+_('reps')+'" value="'+(set.r||'')+'" data-ex="'+ex.n+'" data-set="'+si+'" data-f="r"'+wuAttr+'>'+
+ '<input type="number" step="0.5" placeholder="'+_('rpe')+'" value="'+(set.rpe||'')+'" data-ex="'+ex.n+'" data-set="'+si+'" data-f="rpe"'+wuAttr+'>'+
+ '<button class="del-set-btn" data-ex="'+ex.n+'" data-set="'+si+'">✕</button></div>';
+ });
+ h+='</div><button class="add-set-btn" data-ex="'+ex.n+'">+ '+_('set')+'</button></div>';
+ return h;
+ }
+ function buildNormalExCard(ex,ei,di,day){
+ var c=exCtx(ex,ei,di,day);
+ var today=new Date().toISOString().split('T')[0];
+ var html='<div class="'+c.cc+'" id="'+c.sid+'">'+
+ '<div class="ex-title">'+c.titleInnerHtml+
+ (ex.optional?'<span class="opt-badge">'+_('sess_optional')+'</span>':'')+
+ '<button class="sw-ex-btn" data-ex="'+ex.n+'" title="'+_('swap_title')+'"> '+_('swap_btn')+'</button></div>'+
+ c.metaHtml+c.prNoteHtml+c.safetyHtml+c.suggestHtml+
+ restTimerHTML(ex,c.restSec,c.restLabel)+
+ c.painHtml+c.swapHtml+
+ setLoggerHTML(ex,di,day.n,today,ls(K.LG,{}),c.sugg,'')+
+ '</div>';
+ return html;
+ }
+ function buildSupersetExCard(exA,exB,eiA,eiB,di,day){
+ var cA=exCtx(exA,eiA,di,day),cB=exCtx(exB,eiB,di,day);
+ var today=new Date().toISOString().split('T')[0],logs=ls(K.LG,{});
+ var safetyRow=(cA.safetyHtml||cB.safetyHtml)?'<div class="ss-safety">'+cA.safetyHtml+cB.safetyHtml+'</div>':'';
+ return '<div class="ex-card superset-card">'+
+ '<div class="ss-title-row">'+
+ '<div class="ss-title a"><span class="ss-badge">'+_('superset_a')+'</span>'+cA.titleInnerHtml+'</div>'+
+ '<div class="ss-title b"><span class="ss-badge">'+_('superset_b')+'</span>'+cB.titleInnerHtml+'</div>'+
+ '</div>'+
+ '<div class="ss-meta-row"><div>'+cA.metaHtml+'</div><div>'+cB.metaHtml+'</div></div>'+
+ safetyRow+
+ '<div class="ss-suggest"><div class="ss-col">'+cA.suggestHtml+'</div><div class="ss-col">'+cB.suggestHtml+'</div></div>'+
+ '<div class="rest-timer ss-rest" data-ex="'+exA.n+'" data-seconds="90">'+_('rest_timer_label')+' · <span class="rt-recommend">90s</span> — '+
+ '<span class="rt-display" id="rtd_'+exA.n.replace(/[^a-zA-Z0-9]/g,'_')+'">'+formatTime(90)+'</span>'+
+ '<button class="rt-start" data-ex="'+exA.n+'">'+_('timer_start')+'</button>'+
+ '<button class="rt-stop" data-ex="'+exA.n+'" style="display:none">'+_('timer_stop')+'</button>'+
+ '<button class="rt-reset" data-ex="'+exA.n+'">'+_('timer_reset')+'</button></div>'+
+ '<div class="ss-cols">'+
+ '<div class="ss-col a">'+setLoggerHTML(exA,di,day.n,today,logs,cA.sugg,'A')+'</div>'+
+ '<div class="ss-col b">'+setLoggerHTML(exB,di,day.n,today,logs,cB.sugg,'B')+'</div>'+
+ '</div>'+
+ '</div>';
+ }
 
-  // Missed-session make-up wiring
-  document.getElementById('missedCondensedBtn').addEventListener('click',function(){
-    var missed=findMissedDay();if(!missed)return;
-    makeupDays[missed.di]=true;
-    document.getElementById('missedBanner').style.display='none';
-    var tabs=document.getElementById('dayTabs');
-    Array.prototype.forEach.call(tabs.querySelectorAll('.day-tab'),function(x){x.classList.remove('active');});
-    var tb=tabs.children[missed.di];if(tb)tb.classList.add('active');
-    dayIdx=missed.di;
-    var ec=document.getElementById('exCards');ec.classList.remove('fresh');void ec.offsetWidth;ec.classList.add('fresh');setTimeout(function(){ec.classList.remove('fresh');},500);
-    renderDay(dayIdx);
-    updateMakeupChip();
-  });
-  document.getElementById('missedSkipBtn').addEventListener('click',function(){
-    missedSkip=true;
-    document.getElementById('missedBanner').style.display='none';
-  });
+ // ── Antagonist superset pairing (opposite muscle groups) ──
+ var SS_ANTAGONIST={
+ chest:'back',back:'chest',
+ biceps:'triceps',triceps:'biceps',
+ quads:'hamstrings',hamstrings:'quads',
+ glutes:'hamstrings'
+ };
+ var SS_POOL_ORDER=['chest','back','shoulders','quads','hamstrings','glutes','biceps','triceps','calves','traps','forearms','abs'];
+ function poolOf(ex){
+ for(var i=0;i<SS_POOL_ORDER.length;i++){
+ if(EXERCISE_POOLS[SS_POOL_ORDER[i]].indexOf(ex.n)>=0)return SS_POOL_ORDER[i];
+ }
+ var ce=ls(K.CE,[]);
+ for(var j=0;j<ce.length;j++){if(ce[j].name===ex.n&&ce[j].f&&EXERCISE_POOLS[ce[j].f])return ce[j].f;}
+ var p=ex.p||ex.f;
+ if(p&&EXERCISE_POOLS[p])return p;
+ return null;
+ }
+ function shoulderKind(ex){
+ return /rear|face pull|reverse pec|bent-over|wide row/i.test(ex)?'rear':'frontmid';
+ }
+ function ssCanPair(a,b){
+ var pa=poolOf(a),pb=poolOf(b);
+ if(!pa||!pb)return false;
+ if(pa==='shoulders'&&pb==='shoulders')return shoulderKind(a.n)!==shoulderKind(b.n);
+ return SS_ANTAGONIST[pa]===pb;
+ }
+ function buildAntagonistPairs(exs){
+ var used=[],i;
+ for(i=0;i<exs.length;i++)used.push(false);
+ var pairs=[];
+ for(i=0;i<exs.length;i++){
+ if(used[i])continue;
+ var j2=-1;
+ for(var j=i+1;j<exs.length;j++){
+ if(!used[j]&&ssCanPair(exs[i],exs[j])){j2=j;break;}
+ }
+ if(j2>=0){pairs.push([{e:exs[i],i:i},{e:exs[j2],i:j2}]);used[i]=used[j2]=true;}
+ }
+ var rest=[];
+ for(var k=0;k<exs.length;k++)if(!used[k])rest.push({e:exs[k],i:k});
+ var r=0;
+ while(r<rest.length){
+ var a=rest[r++],b=rest[r++];
+ if(b&&poolOf(a.e)&&poolOf(a.e)===poolOf(b.e))pairs.push([a,b]);
+ else if(b){pairs.push([a]);pairs.push([b]);}
+ else pairs.push([a]);
+ }
+ return pairs;
+ }
+ window.__ssBuildPairs=buildAntagonistPairs;
+ window.__ssPoolOf=poolOf;
 
-  // Superset toggle wiring
-  document.getElementById('supersetToggle').addEventListener('click',function(){
-    var su=ls(K.SU,{});
-    su[dayIdx]=!su[dayIdx];
-    ss(K.SU,su);
-    renderDay(dayIdx);
-    updateSupersetToggle();
-  });
+ function renderDay(di){
+ var prog=ls(K.PG,null);if(!prog||!prog.days[di])return;
+ var day=prog.days[di],goal=(ls(K.VI,{})).goal||'hypertrophy',age=(ls(K.VI,{})).ta||'intermediate';
+ var logs=ls(K.LG,{}),hist=loadHist(),pf=painFlags(),today=new Date().toISOString().split('T')[0];
+ var fCheck=getTodayFatigue(),fs=fCheck?fatigueScore(fCheck):null;
+ var fatigueAdj=fs?fs.adjust:0;
+ var peri=ls('mos_periodization',null),wkCount=ls('mos_week_count',1);
+ var container=document.getElementById('exCards'),html='';
 
-  // Cardio wiring
-  document.getElementById('cardioToggle').addEventListener('click',function(){
-    document.getElementById('cardioForm').classList.toggle('show');
-  });
-  document.getElementById('saveCardioBtn').addEventListener('click',function(){
-    var type=document.getElementById('cardioType').value,dur=parseInt(document.getElementById('cardioDur').value)||0,intensity=document.getElementById('cardioIntensity').value,notes=document.getElementById('cardioNotes').value;
-    if(!dur||dur<1){alert(_('alert_enter_minutes'));return;}
-    saveCardioSession({date:new Date().toISOString().split('T')[0],type:type,dur:dur,intensity:intensity,notes:notes});
-    document.getElementById('cardioForm').classList.remove('show');
-    document.getElementById('cardioDur').value='';document.getElementById('cardioNotes').value='';
-    renderCardioDash();
-  });
+ if(day.restDay){
+ container.innerHTML='<div class="rest-card"><div class="rc-title">'+_('rest_day')+'</div><div class="rc-tip">'+_('rest_day_recover')+'</div>'+
+ '<div class="rc-tip">• '+_('rest_tip_1')+'</div>'+
+ '<div class="rc-tip">• '+_('rest_tip_2')+'</div>'+
+ '<div class="rc-tip">• '+_('rest_tip_3')+'</div>'+
+ '<div class="rc-tip">• '+_('rest_tip_4')+'</div></div>';
+ updateSummary(di);
+ return;
+ }
 
-  // Non-lifting wiring (P1)
-  document.getElementById('nlToggle').addEventListener('click',function(){
-    document.getElementById('nlForm').classList.toggle('show');
-  });
-  document.getElementById('saveNlBtn').addEventListener('click',function(){
-    var type=document.getElementById('nlType').value,dur=parseInt(document.getElementById('nlDur').value)||0,effort=document.getElementById('nlEffort').value,notes=document.getElementById('nlNotes').value;
-    if(!dur||dur<1){alert(_('alert_enter_minutes'));return;}
-    saveNonLiftSession({date:new Date().toISOString().split('T')[0],type:type,dur:dur,effort:effort,notes:notes});
-    document.getElementById('nlForm').classList.remove('show');
-    document.getElementById('nlDur').value='';document.getElementById('nlNotes').value='';
-    renderNlDash();
-    renderCombinedLoadDash();
-  });
+ // General warm-up for this day
+ html+=renderGeneralWarmup(day.n);
+ if(day.ssSuggested)html+='<div style="font-size:.5rem;color:#F4C93B;text-align:center;margin:2px 0 6px"> '+_('sess_suggest_ss')+'</div>';
 
-  // ── Measurement wiring ──
-  document.getElementById('measToggle').addEventListener('click',function(){
-    var f=document.getElementById('measForm'),isOpen=f.style.display==='block';
-    f.style.display=isOpen?'none':'block';
-    if(!isOpen){var lm=latestMeasurements();renderMeasForm(lm||undefined);}
-  });
-  document.getElementById('cancelMeasBtn').addEventListener('click',function(){document.getElementById('measForm').style.display='none';});
-  document.getElementById('saveMeasBtn').addEventListener('click',function(){
-    var m={};
-    ['weight','bf','chest','waist','lArm','rArm','lThigh','rThigh','lCalf','rCalf'].forEach(function(f){
-      m[f]=document.getElementById('meas'+f.charAt(0).toUpperCase()+f.slice(1)).value;
-    });
-    // Handle photo
-    var photoInput=document.getElementById('measPhotoInput');
-    if(photoInput.files&&photoInput.files[0]){
-      var r=new FileReader();
-      r.onload=function(e){
-        m.photo=e.target.result;
-        saveMeasurement(m);
-        document.getElementById('measForm').style.display='none';
-        photoInput.value='';
-        renderMeasBadge();
-        alert(_('alert_meas_saved'));
-      };
-      if(photoInput.files[0].size>100*1024){alert(_('alert_photo_large'));return;}
-      r.readAsDataURL(photoInput.files[0]);
-    } else {
-      saveMeasurement(m);
-      document.getElementById('measForm').style.display='none';
-      renderMeasBadge();
-      alert(_('alert_meas_saved'));
-    }
-  });
+ if(fs&&fs.adjust<=-1&&!lightDays[di]&&!lightProceed[di]){evLog('fat_gate',{di:di,score:fs.score});
+ html+='<div class="fat-light-banner"><span class="flb-title">'+_('fat_light_title')+'</span>'+
+ '<span class="flb-desc">'+_('fat_light_desc')+'</span>'+
+ '<div class="flb-btns"><button class="fat-light-btn" data-di="'+di+'" data-light="1">'+_('fat_light_btn')+'</button>'+
+ '<button class="fat-light-btn" data-di="'+di+'" data-light="0">'+_('fat_planned_btn')+'</button></div></div>';
+ }
 
-  // ── Mesocycle wiring ──
-  document.getElementById('mesoBackBtn').addEventListener('click',function(){go(3);});
-  document.getElementById('genMesoBtn').addEventListener('click',function(){saveMesoPlan();});
-  document.getElementById('startTrainingBtn').addEventListener('click',function(){
-    go(4);renderDashboard();
-  });
-  document.getElementById('saveProfileBtn').addEventListener('click',function(){
-    var vi=ls(K.VI,{}),name=vi.name||'';
-    if(!name){alert(_('name_required'));return;}
-    ss('mos_profile_saved','yes');
-    notifyCoach('onboarding',{name:vi.name,age:vi.age,goal:vi.goal,days:vi.days});
-    document.getElementById('profileStatus').textContent='✓ '+_('profile_saved')+' '+name;
-    setTimeout(function(){document.getElementById('profileStatus').textContent='';},3000);
-  });
-  // Week advance button (added dynamically in renderMesoCalendar)
-  document.getElementById('advanceWeekBtn')&&document.getElementById('advanceWeekBtn').addEventListener('click',function(){
-    if(!confirm(_('confirm_advance_week')))return;
-    advanceWeek();
-    renderMesoCalendar();
-    renderDashboard();
-  });
-  // Re-generate meso when type/weeks change
-  document.getElementById('mesoType').addEventListener('change',function(){
-    var mp=ls(K.MP,null);
-    if(mp)renderMesoPreview(mp);
-  });
-  document.getElementById('mesoWeeks').addEventListener('change',function(){
-    var mp=ls(K.MP,null);
-    if(mp)renderMesoPreview(mp);
-  });
+ // P2: Foster monotony soft-gate (read-time, no hard block). Suggest variation/recovery; never modifies the program.
+ var ms=monotonyStrain();
+ if(ms.mono>2&&!monoDismissed[di]&&!lightDays[di]){evLog('mono_gate',{di:di,mono:ms.mono,strain:ms.strain});
+ html+='<div class="fat-light-banner mono-banner"><span class="flb-title">'+_('mono_title')+'</span>'+
+ '<span class="flb-desc">'+_('mono_desc').replace('{m}',ms.mono.toFixed(2))+'</span>'+
+ '<div class="flb-btns"><button class="mono-ack-btn" data-di="'+di+'">'+_('mono_ack')+'</button></div></div>';
+ }
 
-  // ── PDF ──
-  document.getElementById('exportIcsBtn').addEventListener('click',exportIcs);
-  document.getElementById('savePdfBtn').addEventListener('click',function(){
-    var prog=ls(K.PG,null),vi=ls(K.VI,{}),vt=ls(K.VT,{}),sp=ls(K.SP,null);
-    if(!prog||!sp){alert(_('alert_gen_program'));return;}
-    var goal=vi.goal||'hypertrophy',ta=vi.ta||'intermediate',dd=vi.days||4,rec=vi.rec||'moderate';
-    var dateF=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
-    // Volume targets table
-    var vh='';MUSCLES.forEach(function(m){var t=vt[m.id];if(!t)return;vh+='<tr><td>'+t.name+'</td><td class="c">'+t.prio+'</td><td class="c">'+t.mev+'</td><td class="c">'+t.mav+'</td><td class="c">'+t.mrv+'</td><td class="c">'+t.rec+'</td></tr>';});
-    // Program days
-    var ph='';prog.days.forEach(function(day,di){ph+='<div class="db"><div class="dt">'+_('day_prefix')+' '+(di+1)+': '+day.n+'</div><table><thead><tr><th>Exercise</th><th class="c">'+_('sets')+'</th><th class="c">'+_('reps')+'</th><th class="c">'+_('rest')+'</th></tr></thead><tbody>';if(day.restDay){ph+='<tr><td colspan="4" style="text-align:center;color:rgba(250,250,248,.25)">'+_('rest_day')+' - '+_('rest_day_recover')+'</td></tr>';}else{day.ex.forEach(function(ex){var r=ex.rl<=6?_('gen_rest_2_3'):ex.rl<=10?_('gen_rest_90_120'):_('gen_rest_60_90');ph+='<tr><td>'+(EX_TR[ex.n]?exDisplay(ex.n):ex.n)+'</td><td class="c">'+ex.sets+'</td><td class="c">'+ex.rl+'\u2013'+ex.rh+'</td><td class="c">'+r+'</td></tr>';});}ph+='</tbody></table></div>';});
-    // RPE/RIR/Volume educational section
-    var edu='<div class="sec"><div class="st" style="color:#F4C93B">Understanding RPE, RIR &amp; Volume</div><div class="ec"><div class="ecard"><div class="ect">RPE Scale (Rate of Perceived Exertion)</div><table class="rpet"><thead><tr><th>RPE</th><th>Effort Level</th><th>RIR</th></tr></thead><tbody><tr><td class="c" style="font-weight:600">10</td><td>Max effort, cannot add another rep</td><td class="c">0</td></tr><tr><td class="c" style="font-weight:600;color:#F4C93B">9</td><td>Very hard, 1 rep left in the tank</td><td class="c" style="color:#F4C93B">1</td></tr><tr><td class="c" style="font-weight:600;color:#F4C93B">8</td><td>Challenging, 2 reps left</td><td class="c" style="color:#F4C93B">2</td></tr><tr><td class="c" style="font-weight:600">7</td><td>Moderately hard, 3 reps left</td><td class="c">3</td></tr><tr><td class="c" style="font-weight:600">6</td><td>Light, 4+ reps left (warm-up zone)</td><td class="c">4+</td></tr></tbody></table><div class="etip">RIR = 10 \u2212 RPE. Example: RPE 8 = 2 reps in reserve. Stay at RPE 7\u20139 for working sets. Training to failure every session increases fatigue without extra muscle gain.</div></div><div class="ecard"><div class="ect">Volume Guide — Weekly Sets Per Muscle</div><table><thead><tr><th>Zone</th><th>Meaning</th></tr></thead><tbody><tr><td style="font-weight:600;color:#4CAF50">MEV</td><td>Minimum Effective Volume \u2014 the least weekly sets to stimulate growth</td></tr><tr><td style="font-weight:600;color:#F4C93B">MAV</td><td>Maximum Adaptive Volume \u2014 the sweet spot for optimal muscle growth</td></tr><tr><td style="font-weight:600;color:#f44336">MRV</td><td>Maximum Recoverable Volume \u2014 the ceiling before overtraining</td></tr></tbody></table><div class="etip"><strong>Progressive Overload:</strong> Start at MEV or slightly above. Add 1\u20132 sets per week as you adapt. If progress stalls for 2+ weeks, deload or increase toward MAV. Stay below MRV to avoid excessive fatigue.<br><br><strong>Rest Periods:</strong> 2\u20133 min for compound lifts (squat, bench, deadlift, row). 90\u2013120s for most isolation work. 60\u201390s for accessories.</div></div></div></div>';
-    // User guide
-    var gh='<div class="sec"><div class="st" style="color:#F4C93B">How to Use Your Training App</div><div class="gs"><span class="gn">1</span><div><strong>Set Up Your Profile</strong> \u2014 Select training age, goal, days per week, and recovery factor. Mark muscles as Focus (full volume) or Maintain (~half volume).</div></div><div class="gs"><span class="gn">2</span><div><strong>Choose Your Split</strong> \u2014 Browse available splits matching your schedule, or take the built-in quiz for a personalised recommendation.</div></div><div class="gs"><span class="gn">3</span><div><strong>Generate &amp; Save Program</strong> \u2014 Review your program with sets, rep ranges, and rest periods. Optionally configure a mesocycle plan with progression phases and deload scheduling.</div></div><div class="gs"><span class="gn">4</span><div><strong>Train Each Day</strong> \u2014 Log weights, reps, and RPE for every set. The dashboard shows pre-session readiness, deload reminders, and fatigue tracking.</div></div><div class="gs"><span class="gn">5</span><div><strong>Track Progress</strong> \u2014 Review volume compliance, personal records, e1RM charts, ACWR (acute:chronic workload ratio), and deload history on the History page.</div></div><div class="gs"><span class="gn">6</span><div><strong>Export &amp; Share</strong> \u2014 Save your program as PDF, or export/import your data as JSON for backup across devices.</div></div></div>';
-    var w=window.open('','_blank','width=900,height=700');
-    w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Training Program \u2014 '+prog.splitName+'</title><style>'+
-      '@page{margin:15mm 12mm}@media print{body{background:#14151A!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}}'+
-      '*{margin:0;padding:0;box-sizing:border-box}'+
-      'body{background:#14151A;color:#FAFAF8;font-family:"Inter","Segoe UI",Arial,sans-serif;max-width:800px;margin:0 auto;padding:30px 24px}'+
-      'h1{font-family:"Oswald","Impact",sans-serif;font-size:1.8rem;text-transform:uppercase;letter-spacing:2px;color:#FAFAF8;margin-bottom:4px}'+
-      '.sb{font-size:.7rem;color:rgba(250,250,248,.3);margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid rgba(250,250,248,.05)}'+
-      '.st{font-family:"Oswald",sans-serif;font-size:.95rem;text-transform:uppercase;letter-spacing:1.5px;margin:16px 0 8px;padding-bottom:3px;border-bottom:1px solid rgba(244,201,59,.15)}'+
-      '.rp{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 12px}'+
-      '.rp>div{flex:1;min-width:70px;background:rgba(20,21,26,.4);border-radius:6px;padding:7px 8px;text-align:center;border:1px solid rgba(250,250,248,.03)}'+
-      '.rp .v{font-size:1rem;font-weight:700;color:#F4C93B}.rp .l{font-size:.48rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.2);margin-top:1px}'+
-      'table{width:100%;border-collapse:collapse;margin:4px 0 8px}'+
-      'th{text-align:left;font-size:.52rem;text-transform:uppercase;letter-spacing:1px;color:rgba(250,250,248,.25);padding:5px 6px 3px;border-bottom:1px solid rgba(250,250,248,.06);font-weight:500}'+
-      'td{padding:4px 6px;font-size:.65rem;border-bottom:1px solid rgba(250,250,248,.02);color:rgba(250,250,248,.7)}'+
-      '.c{text-align:center}.db{margin:8px 0 12px;background:rgba(20,21,26,.4);border-radius:8px;padding:8px 10px;border:1px solid rgba(250,250,248,.03)}'+
-      '.dt{font-family:"Oswald",sans-serif;font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:#F4C93B;margin-bottom:4px}'+
-      '.sec{margin:16px 0;page-break-inside:avoid}.ec{display:flex;flex-direction:column;gap:8px}'+
-      '.ecard{background:rgba(20,21,26,.35);border-radius:8px;padding:8px 10px;border:1px solid rgba(250,250,248,.03)}'+
-      '.ect{font-size:.65rem;font-weight:600;color:#FAFAF8;margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px}'+
-      '.etip{font-size:.6rem;color:rgba(250,250,248,.45);margin-top:6px;line-height:1.4}'+
-      '.gs{display:flex;gap:8px;align-items:flex-start;padding:6px 8px;background:rgba(20,21,26,.25);border-radius:6px;margin-bottom:4px;border:1px solid rgba(250,250,248,.02)}'+
-      '.gn{width:22px;height:22px;border-radius:50%;background:#F4C93B;color:#14151A;font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}'+
-      '.gs div{font-size:.62rem;color:rgba(250,250,248,.6);line-height:1.4}.gs div strong{color:#FAFAF8}'+
-      '.ft{text-align:center;margin-top:24px;padding-top:10px;border-top:1px solid rgba(250,250,248,.04);font-size:.55rem;color:rgba(250,250,248,.2)}'+
-      '.ft a{color:rgba(244,201,59,.35);text-decoration:none}'+
-      '</style></head><body>'+
-      '<h1>Your Training Program</h1>'+
-      '<div class="sb">'+dateF+' \u2014 '+prog.splitName+' \u2014 '+ta+' \u2014 '+goal+' \u2014 '+dd+' days/wk</div>'+
-      '<div class="rp"><div><div class="v">'+prog.days.length+'</div><div class="l">Training Days</div></div>'+
-      '<div><div class="v">'+prog.totalSets+'</div><div class="l">Weekly Sets</div></div>'+
-      '<div><div class="v">'+prog.totalEx+'</div><div class="l">Exercises</div></div>'+
-      '<div><div class="v" style="text-transform:capitalize;font-size:.8rem">'+rec+'</div><div class="l">Recovery</div></div></div>'+
-      edu+
-      '<div class="st" style="color:#F4C93B">Your Volume Targets</div>'+
-      '<table><thead><tr><th>Muscle</th><th class="c">Priority</th><th class="c">MEV</th><th class="c">MAV</th><th class="c">MRV</th><th class="c">Target</th></tr></thead><tbody>'+vh+'</tbody></table>'+
-      '<div class="st" style="color:#F4C93B">Your Split &amp; Exercises</div>'+ph+
-      gh+
-      '<div class="ft">Generated by Muscle OS Training App \u2014 <a href="https://wa.me/201040796017">Coach Anas Mo\'men</a></div>'+
-      '<footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO\'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach \u2014 Coach Anas Mo\'men</div></footer>'+
-      '</body></html>');
-    w.document.close();w.focus();setTimeout(function(){w.print();},500);
-  });
+ html+=renderSorenessCards(day,di);
 
+ var ssOn=!!ls(K.SU,{})[di];
+ if(ssOn){
+ buildAntagonistPairs(day.ex).forEach(function(pair){
+ if(pair.length===2)html+=buildSupersetExCard(pair[0].e,pair[1].e,pair[0].i,pair[1].i,di,day);
+ else html+=buildNormalExCard(pair[0].e,pair[0].i,di,day);
+ });
+ }else{
+ day.ex.forEach(function(ex,ei){html+=buildNormalExCard(ex,ei,di,day);});
+ }
+
+ container.innerHTML=html;
+
+ // Wire inputs
+ container.querySelectorAll('.set-row input').forEach(function(inp){inp.addEventListener('input',function(){saveSet(di,this.dataset.ex,parseInt(this.dataset.set),this.dataset.f,this.value,this.dataset.wu);});});
+ container.querySelectorAll('.del-set-btn').forEach(function(b){b.addEventListener('click',function(){delSet(di,this.dataset.ex,parseInt(this.dataset.set));});});
+ container.querySelectorAll('.add-set-btn').forEach(function(b){b.addEventListener('click',function(){addSet(di,this.dataset.ex);});});
+ container.querySelectorAll('.rm-ex-btn').forEach(function(b){b.addEventListener('click',function(){if(confirm('Remove "'+this.dataset.ex+'" from '+_('today_train')+'?'))rmEx(di,this.dataset.ex);});});
+ container.querySelectorAll('.sw-ex-btn').forEach(function(b){b.addEventListener('click',function(){var p=b.parentElement.parentElement.querySelector('.swap-panel');if(p)p.classList.toggle('open');});});
+ container.querySelectorAll('.swap-chip').forEach(function(chip){chip.addEventListener('click',function(){swapEx(parseInt(chip.dataset.di),parseInt(chip.dataset.idx),chip.dataset.ex,chip.dataset.to);});});
+ container.querySelectorAll('.pain-btn').forEach(function(b){b.addEventListener('click',function(){var pf=painFlags();pf[this.dataset.ex]=this.dataset.p;ss(K.PF,pf);
+ // P5: append to joint-stress-flag history (180-day window kept in saveNonLift-style prune below)
+ var pfh=ls(K.PFH,[]);pfh.push({date:new Date().toISOString().split('T')[0],ex:this.dataset.ex,severity:this.dataset.p});
+ var cutoff=new Date(Date.now()-180*864e5).toISOString().split('T')[0];
+ ss(K.PFH,pfh.filter(function(f){return f.date>=cutoff;}));
+ renderDay(di);});});
+ container.querySelectorAll('.mono-ack-btn').forEach(function(b){b.addEventListener('click',function(){var i=parseInt(this.dataset.di);monoDismissed[i]=true;evLog('mono_gate_ack',{di:i});renderDay(i);});});
+ container.querySelectorAll('.fat-light-btn').forEach(function(b){b.addEventListener('click',function(){if(this.dataset.gm!==undefined)return;var i=parseInt(this.dataset.di);evLog(this.dataset.light==='1'?'fat_gate_light':'fat_gate_proceed',{di:i});if(this.dataset.light==='1')lightDays[i]=true;else lightProceed[i]=true;renderDay(i);});});

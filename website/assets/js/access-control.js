@@ -3,7 +3,7 @@
  *
  * Include this script on any paywalled page, then:
  * MosAccess.checkOrShow('training_tool')
- * .then(access => { if (access) { /* init tool */ } });
+ * .then(access => { if (access) { initTool(); } });
  *
  * Fallback path (intentional resilience):
  * When the Cloudflare Worker is unreachable, verification falls back to

@@ -1,0 +1,333 @@
+[
+  {
+    "rule_id": "SH-TR-05",
+    "source": "Schoenfeld - Science and Development of Muscle Hypertrophy",
+    "description": "Use 5-30 RM range (sweet spot 6-15) for hypertrophy. Adjust rep targets accordingly.",
+    "trigger_js": "(['hypertrophy', 'build muscle', 'recomp']).includes(p.goal.toLowerCase())",
+    "rep_range_override": "6-15",
+    "rest_period_override": "3min compounds, 2min isolation",
+    "modifier_additions": [
+      "evidence_based_rep_range"
+    ],
+    "program_note": "Per Schoenfeld: effective hypertrophy rep range is 5-30 RM, practical sweet spot 6-15 RM."
+  },
+  {
+    "rule_id": "SH-TR-06",
+    "source": "Schoenfeld - Science and Development of Muscle Hypertrophy",
+    "description": "Rest at least 2 min between sets for same muscle group, 3 min for multi-joint compounds.",
+    "trigger_js": "true",
+    "rest_period_override": "3min compounds, 2min isolation",
+    "program_note": "Per Schoenfeld: longer rest (2-3 min) maintains mechanical tension across sets."
+  },
+  {
+    "rule_id": "SH-TR-08",
+    "source": "Schoenfeld - Science and Development of Muscle Hypertrophy",
+    "description": "Prioritize exercises that train muscles at long lengths (stretch-mediated hypertrophy).",
+    "trigger_js": "true",
+    "modifier_additions": [
+      "long_length_emphasis"
+    ],
+    "program_note": "Per Schoenfeld: prioritize exercises that train target muscles at long lengths under load."
+  },
+  {
+    "rule_id": "SH-TR-04",
+    "source": "Schoenfeld - Science and Development of Muscle Hypertrophy",
+    "description": "Train each muscle group at least 2x/week for hypertrophy.",
+    "trigger_js": "(['hypertrophy', 'build muscle', 'strength']).includes(p.goal.toLowerCase())",
+    "program_note": "Per Schoenfeld: each muscle group trained 2x/week for optimal hypertrophy stimulus."
+  },
+  {
+    "rule_id": "SH-NU-01",
+    "source": "Schoenfeld - Science and Development of Muscle Hypertrophy",
+    "description": "Consume 1.6-2.2 g/kg/day protein across 4+ meals with ~0.4g/kg per meal for mTOR activation.",
+    "trigger_js": "true",
+    "protein_g_per_kg_override": 2.0,
+    "meal_timing_note": "Per Schoenfeld: 1.6-2.2 g/kg/day protein across 4+ meals, ~0.4 g/kg per meal (2-3g leucine) for mTORC1 activation.",
+    "nutrition_note": "Protein target is evidence-based: 1.6-2.2 g/kg/day (Schoenfeld). Older adults (65+): 1.6-2.4 g/kg/day."
+  },
+  {
+    "rule_id": "SH-NU-03",
+    "source": "Schoenfeld - Science and Development of Muscle Hypertrophy",
+    "description": "Modest caloric surplus (200-400 kcal/day) for maximal hypertrophy. Deficit impairs but doesn't prevent growth.",
+    "trigger_js": "(['hypertrophy', 'build muscle', 'recomp']).includes(p.goal.toLowerCase())",
+    "surplus_cal_adjustment": 300,
+    "nutrition_note": "Per Schoenfeld: modest 200-400 kcal surplus is permissive for maximal hypertrophy."
+  },
+  {
+    "rule_id": "SH-PL-02",
+    "source": "Schoenfeld - Science and Development of Muscle Hypertrophy",
+    "description": "Deload every 6-8 weeks preventatively (not reactively). Reduce volume 40-60% at same intensity.",
+    "trigger_js": "true",
+    "program_note": "Per Schoenfeld: deload every 6-8 weeks preventatively \u2014 reduce volume 40-60% at same intensity."
+  },
+  {
+    "rule_id": "SH-IN-01",
+    "source": "Schoenfeld - Science and Development of Muscle Hypertrophy",
+    "description": "Older adults (65+): increase protein to 0.4-0.6 g/kg per meal. Prioritize lower-impact exercises.",
+    "trigger_js": "((typeof p.age === 'number') && (p.age >= 65))",
+    "modifier_additions": [
+      "masters_athlete_protein",
+      "longer_recovery"
+    ],
+    "program_note": "Per Schoenfeld: older adults (65+) need 0.4-0.6 g/kg per meal to overcome anabolic resistance."
+  },
+  {
+    "rule_id": "SH-FA-01",
+    "source": "Schoenfeld - Science and Development of Muscle Hypertrophy",
+    "description": "Monitor overreaching via: performance decline 2+ sessions, mood disturbance, sleep disruption, elevated HR, illness frequency.",
+    "trigger_js": "true",
+    "program_note": "Per Schoenfeld: monitor overreaching \u2014 performance decline, mood disturbance, sleep disruption, elevated HR, illness frequency."
+  },
+  {
+    "rule_id": "ML-TR-04",
+    "source": "Jeff Nippard - The Muscle Ladder",
+    "description": "Stop 1-3 RIR on most hypertrophy sets. Reserve failure only for last set of last exercise per muscle group.",
+    "trigger_js": "(['hypertrophy', 'build muscle', 'recomp']).includes(p.goal.toLowerCase())",
+    "rep_range_override": "6-15",
+    "program_note": "Per Nippard: 1-3 RIR on most sets. Failure reserved for last set of last exercise per muscle group."
+  },
+  {
+    "rule_id": "ML-TR-07",
+    "source": "Jeff Nippard - The Muscle Ladder",
+    "description": "For hypertrophy, 6-15 reps is the practical sweet spot. Below 6 is too heavy for metabolic stimulus.",
+    "trigger_js": "true",
+    "program_note": "Per Nippard: 6-15 reps is the hypertrophy sweet spot \u2014 below 6 lacks metabolic stimulus."
+  },
+  {
+    "rule_id": "ML-SC-01",
+    "source": "Jeff Nippard - The Muscle Ladder",
+    "description": "If trainee adds weight/reps weekly, treat as beginner regardless of training age.",
+    "trigger_js": "((p.experience_years > 2) && (p.training_days <= 3))",
+    "modifier_additions": [
+      "treat_as_beginner"
+    ],
+    "program_note": "Per Nippard: weekly progress = beginner programming, regardless of training age."
+  },
+  {
+    "rule_id": "ML-PL-03",
+    "source": "Jeff Nippard - The Muscle Ladder",
+    "description": "Deload every 6-8 weeks preventatively, never wait for exhaustion.",
+    "trigger_js": "true",
+    "program_note": "Per Nippard: deload every 6-8 weeks preventatively \u2014 never wait for exhaustion symptoms."
+  },
+  {
+    "rule_id": "NSCA-PD-01",
+    "source": "NSCA - Essentials of Strength Training and Conditioning",
+    "description": "Load assignment by goal: Strength \u226585% 1RM 2-6 reps. Hypertrophy 67-85% 1RM 6-12 reps. Power 70-85% 1RM 1-5 reps.",
+    "trigger_js": "true",
+    "program_note": "Per NSCA: load assignment by goal \u2014 strength \u226585% 1RM (2-6 reps), hypertrophy 67-85% 1RM (6-12 reps)."
+  },
+  {
+    "rule_id": "NSCA-PD-03",
+    "source": "NSCA - Essentials of Strength Training and Conditioning",
+    "description": "Never increase weekly sets by more than 20-30% from previous mesocycle.",
+    "trigger_js": "true",
+    "modifier_additions": [
+      "volume_progression_cap"
+    ],
+    "program_note": "Per NSCA: cap volume increase at 20-30% per mesocycle to prevent injury and systemic fatigue."
+  },
+  {
+    "rule_id": "NSCA-FM-01",
+    "source": "NSCA - Essentials of Strength Training and Conditioning",
+    "description": "3-tier fatigue: <2 weeks = acute fatigue (normal). 2-4 weeks = functional overreaching. >4 weeks = nonfunctional overreaching.",
+    "trigger_js": "true",
+    "program_note": "Per NSCA: 3-tier fatigue \u2014 <2w acute (normal), 2-4w functional overreaching (expected supercompensation), >4w nonfunctional (medical)."
+  },
+  {
+    "rule_id": "NSCA-FM-03",
+    "source": "NSCA - Essentials of Strength Training and Conditioning",
+    "description": "Overtraining red flags: 3+ criteria for >4 weeks \u2014 performance decline, chronic fatigue, sleep disruption, mood disturbance, appetite loss, frequent illness.",
+    "trigger_js": "true",
+    "program_note": "Per NSCA: 3+ criteria for >4 weeks \u2014 performance decline, fatigue, sleep/mood disruption, appetite loss, frequent illness \u2192 medical escalation."
+  },
+  {
+    "rule_id": "NSCA-EX-03",
+    "source": "NSCA - Essentials of Strength Training and Conditioning",
+    "description": "4-phase warm-up: 5 min cardio, 5 min dynamic stretching, 5 min movement prep, ramping sets.",
+    "trigger_js": "true",
+    "warm_up_addition": "NSCA 4-phase warm-up: 5 min cardio \u2192 5 min dynamic \u2192 5 min movement prep \u2192 ramping sets (50%\u219270%\u219290%).",
+    "program_note": "Per NSCA: standardized 4-phase warm-up protocol (15-20 min total)."
+  },
+  {
+    "rule_id": "NSCA-EX-05",
+    "source": "NSCA - Essentials of Strength Training and Conditioning",
+    "description": "Detraining recovery: 1-2w off \u2192 90% load. 2-4w off \u2192 80%. 4-8w off \u2192 70%. 8+w off \u2192 50-60%.",
+    "trigger_js": "true",
+    "program_note": "Per NSCA: detraining recovery guidelines \u2014 1-2w off at 90%, 2-4w at 80%, 4-8w at 70%, 8+w at 50-60%."
+  },
+  {
+    "rule_id": "NSCA-AS-02",
+    "source": "NSCA - Essentials of Strength Training and Conditioning",
+    "description": "Masters athletes (50+): 48-72h recovery between sessions vs 24-48h. Deload every 4-6 weeks.",
+    "trigger_js": "((typeof p.age === 'number') && (p.age >= 50))",
+    "modifier_additions": [
+      "extended_recovery",
+      "frequent_deload"
+    ],
+    "program_note": "Per NSCA: masters athletes (50+) need 48-72h inter-session recovery and deload every 4-6 weeks."
+  },
+  {
+    "rule_id": "NSCA-AS-03",
+    "source": "NSCA - Essentials of Strength Training and Conditioning",
+    "description": "Female athletes: 2-8x higher ACL risk. Include landing mechanics, hamstring strengthening, plyometric progression.",
+    "trigger_js": "((p.sex.toLowerCase() === 'female') && (['hypertrophy', 'strength', 'fat_loss']).includes(p.goal.toLowerCase()))",
+    "modifier_additions": [
+      "acl_prevention"
+    ],
+    "program_note": "Per NSCA: female ACL risk 2-8x higher \u2014 include landing mechanics, hamstring strength, plyometric progression."
+  },
+  {
+    "rule_id": "ACE-BC-02",
+    "source": "ACE - Personal Trainer Manual",
+    "description": "First 2 weeks: prioritize adherence over all other variables. Achievable > optimal.",
+    "trigger_js": "true",
+    "modifier_additions": [
+      "adherence_first"
+    ],
+    "program_note": "Per ACE: first 2 weeks prioritize adherence over optimal \u2014 achievable > perfect."
+  },
+  {
+    "rule_id": "ACE-SP-03",
+    "source": "ACE - Personal Trainer Manual",
+    "description": "BMI >30: prioritize non-weight-bearing exercise (cycling, swimming, seated resistance) for first 4-6 weeks.",
+    "trigger_js": "((p.height_cm > 0) && (p.bodyweight_kg > 0) && ((p.bodyweight_kg / ((p.height_cm / 100) ** 2)) > 30))",
+    "modifier_additions": [
+      "non_weight_bearing_start"
+    ],
+    "program_note": "Per ACE: BMI >30 \u2014 start with non-weight-bearing exercise for 4-6 weeks to reduce joint stress."
+  },
+  {
+    "rule_id": "ACE-IFT-01",
+    "source": "ACE - Personal Trainer Manual",
+    "description": "Before progressing from Phase 1 to Phase 2: verify pain-free ROM, neutral spine during fundamental movements, single-leg balance >15s.",
+    "trigger_js": "true",
+    "program_note": "Per ACE IFT model: verify pain-free ROM, neutral spine, and 15s single-leg balance before progressing intensity."
+  },
+  {
+    "rule_id": "ISSA-NC-01",
+    "source": "ISSA - Certified Personal Trainer",
+    "description": "Start with standard hand portions. After 2 weeks, adjust by 1 unit (remove or add handful + thumb) based on progress.",
+    "trigger_js": "true",
+    "nutrition_note": "Per ISSA: hand portion method \u2014 start standard, adjust by 1 unit after 2 weeks based on weight trend."
+  },
+  {
+    "rule_id": "IPTA-PD-02",
+    "source": "IPTA - Certified Personal Trainer",
+    "description": "Assign rep ranges by goal: Power 1-5, Strength 1-6, Hypertrophy 6-12, Endurance 12-20+ reps.",
+    "trigger_js": "true",
+    "rep_range_override": "6-12",
+    "program_note": "Per IPTA: rep range by goal \u2014 power (1-5), strength (1-6), hypertrophy (6-12), endurance (12-20+)."
+  },
+  {
+    "rule_id": "IPTA-PD-02S",
+    "source": "IPTA - Certified Personal Trainer",
+    "description": "Strength rep range 1-6 \u2014 heavier loads, 3-5 min rest. Applied for strength goals (overrides hypertrophy default).",
+    "trigger_js": "(['strength', 'powerlifting', 'strongman']).includes(p.goal.toLowerCase())",
+    "rep_range_override": "4-6",
+    "rest_period_override": "3-5min compounds, 90-120s isolation",
+    "program_note": "Per IPTA: strength rep range 1-6 \u2014 4-6 is the practical sweet spot for heavy compound work."
+  },
+  {
+    "rule_id": "IPTA-PD-03",
+    "source": "IPTA - Certified Personal Trainer",
+    "description": "Rest by goal: Strength/Power 3-5 min, Hypertrophy 30-90s, Endurance 30-60s.",
+    "trigger_js": "true",
+    "rest_period_override": "3min compounds, 60-90s isolation",
+    "program_note": "Per IPTA: rest by goal \u2014 strength 3-5 min, hypertrophy 30-90s, endurance 30-60s."
+  },
+  {
+    "rule_id": "IPTA-PD-07",
+    "source": "IPTA - Certified Personal Trainer",
+    "description": "Standard warm-up: 5-10 min cardio + dynamic stretching + movement-specific warm-up sets.",
+    "trigger_js": "true",
+    "warm_up_addition": "IPTA warm-up standard: 5-10 min general cardio \u2192 dynamic stretching \u2192 movement-specific warm-up at 40-60% working weight.",
+    "program_note": "Per IPTA: 3-phase warm-up \u2014 general cardio, dynamic mobility, movement-specific preparation."
+  },
+  {
+    "rule_id": "IPTA-SP-03",
+    "source": "IPTA - Certified Personal Trainer",
+    "description": "Older adults (65+): lower-impact exercise, 48-72h recovery, include balance training 2-3x/week, start at 40-50% 1RM.",
+    "trigger_js": "((typeof p.age === 'number') && (p.age >= 65))",
+    "modifier_additions": [
+      "older_adult_programming",
+      "balance_training"
+    ],
+    "program_note": "Per IPTA: older adults (65+) need lower-impact exercise, 48-72h recovery, balance training 2-3x/week."
+  },
+  {
+    "rule_id": "IPTA-CE-02",
+    "source": "IPTA - Certified Personal Trainer",
+    "description": "Movement screen gate: pain-free ROM, bodyweight squat to parallel with neutral spine, single-leg balance >15s, hinge without lumbar flexion.",
+    "trigger_js": "true",
+    "program_note": "Per IPTA: 4-criteria movement screen gate before loaded exercise \u2014 ROM, squat, balance, hinge."
+  },
+  {
+    "rule_id": "IPTA-PE-01",
+    "source": "IPTA - Certified Personal Trainer",
+    "description": "Periodization model by status: Beginner \u2192 linear, Intermediate \u2192 undulating, Advanced \u2192 block.",
+    "trigger_js": "true",
+    "program_note": "Per IPTA: periodization by training status \u2014 beginner (linear), intermediate (undulating), advanced (block)."
+  },
+  {
+    "rule_id": "CNS-EB-01",
+    "source": "IPTA - Certified Nutrition Specialist",
+    "description": "Sustainable deficit: 300-500 kcal/day. Never exceed 750 kcal or 12 consecutive weeks without medical supervision.",
+    "trigger_js": "(['fat_loss', 'cut']).includes(p.goal.toLowerCase())",
+    "deficit_cal_adjustment": 500,
+    "nutrition_note": "Per IPTA CNS: sustainable deficit 300-500 kcal/day. Exceeding 750 kcal or 12 weeks requires medical supervision."
+  },
+  {
+    "rule_id": "CNS-EB-02",
+    "source": "IPTA - Certified Nutrition Specialist",
+    "description": "Hypertrophy surplus: 200-400 kcal/day primarily from carbohydrates for training performance.",
+    "trigger_js": "(['hypertrophy', 'build muscle', 'strength', 'recomp']).includes(p.goal.toLowerCase())",
+    "surplus_cal_adjustment": 300,
+    "nutrition_note": "Per IPTA CNS: hypertrophy surplus 200-400 kcal/day, primarily from carbohydrates for training performance."
+  },
+  {
+    "rule_id": "CNS-MA-01",
+    "source": "IPTA - Certified Nutrition Specialist",
+    "description": "Distribute protein across 3-5 meals at 0.4 g/kg per meal minimum for optimal MPS stimulation.",
+    "trigger_js": "true",
+    "protein_g_per_kg_override": 1.8,
+    "meal_timing_note": "Per IPTA CNS: distribute protein across 3-5 meals at \u22650.4 g/kg per meal (minimum 20-30g) for optimal MPS. Post-exercise: consume 0.4 g/kg within 2 hours."
+  },
+  {
+    "rule_id": "CNS-MA-04",
+    "source": "IPTA - Certified Nutrition Specialist",
+    "description": "Never prescribe fat below 0.5 g/kg/day. For hormonal concerns, increase to 0.8-1.0 g/kg.",
+    "trigger_js": "true",
+    "nutrition_note": "Per IPTA CNS: minimum 0.5 g/kg fat for hormone function. Increase to 0.8-1.0 g/kg for hormonal concerns or amenorrhea."
+  },
+  {
+    "rule_id": "CNS-SU-01",
+    "source": "IPTA - Certified Nutrition Specialist",
+    "description": "Supplement tier protocol: Tier 1 \u2014 creatine 5g, vitamin D 2000-4000 IU, omega-3 2-3g. Tier 2 \u2014 magnesium glycinate, B12, probiotics.",
+    "trigger_js": "true",
+    "nutrition_note": "Per IPTA CNS: supplement tier \u2014 Tier 1 (strong evidence): creatine 5g/day, vitamin D 2000-4000 IU, omega-3 2-3g. Tier 2 (moderate): magnesium, B12, probiotics."
+  },
+  {
+    "rule_id": "BB-HP-03",
+    "source": "IPTA - Bodybuilding Screen",
+    "description": "Bodybuilding volume: start at MEV 8-12 sets/muscle/week, progress to MAV 15-20. Bodybuilders tolerate higher volume.",
+    "trigger_js": "(['hypertrophy', 'build muscle']).includes(p.goal.toLowerCase())",
+    "program_note": "Per IPTA Bodybuilding: MEV 8-12 \u2192 MAV 15-20 sets/muscle/week for hypertrophy. Bodybuilders tolerate higher volume than general clients."
+  },
+  {
+    "rule_id": "BB-NU-01",
+    "source": "IPTA - Bodybuilding Screen",
+    "description": "Off-season surplus 200-400 kcal. Protein 1.6-2.2 g/kg. Carbs 4-6 g/kg. Limit fat gain to 0.5-1%/month.",
+    "trigger_js": "(['hypertrophy', 'build muscle']).includes(p.goal.toLowerCase())",
+    "surplus_cal_adjustment": 300,
+    "protein_g_per_kg_override": 2.0,
+    "nutrition_note": "Per IPTA Bodybuilding: off-season surplus 200-400 kcal, protein 1.6-2.2 g/kg, carbs 4-6 g/kg."
+  },
+  {
+    "rule_id": "BB-RI-01",
+    "source": "IPTA - Bodybuilding Screen",
+    "description": "Recovery priority: Sleep > Protein > Active recovery > Passive recovery. Reduce volume before frequency if compromised.",
+    "trigger_js": "true",
+    "program_note": "Per IPTA Bodybuilding: recovery priority \u2014 sleep > protein > active > passive. Reduce volume first when recovery is compromised."
+  }
+]

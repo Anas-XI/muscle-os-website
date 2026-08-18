@@ -1,69 +1,69 @@
-  function _(k){return I18N[window.__lang]&&I18N[window.__lang][k]!==undefined?I18N[window.__lang][k]:I18N.en[k]!==undefined?I18N.en[k]:k;}
-  function toggleLang(){
-    window.__lang=window.__lang==='en'?'ar':'en';
-    window.__dir=window.__lang==='ar'?'rtl':'ltr';
-    document.documentElement.dir=window.__dir;
-    document.documentElement.lang=window.__lang;
-    localStorage.setItem('mos_lang',window.__lang);
-    translateUI();
-    var st=document.getElementById('step4');
-    if(st&&st.classList.contains('active'))renderDashboard();
-    var st5=document.getElementById('step5');
-    if(st5&&st5.classList.contains('active'))renderOutcomeSection();
-    document.querySelector('.lang-opt.active')&&document.querySelector('.lang-opt.active').classList.remove('active');
-    document.querySelector('.lang-opt[data-lang="'+window.__lang+'"]')&&document.querySelector('.lang-opt[data-lang="'+window.__lang+'"]').classList.add('active');
-  }
-  window.toggleLang=toggleLang;
-  function applyAccent(acc){
-    acc=acc||'yellow';
-    if(acc!=='yellow')document.documentElement.setAttribute('data-accent',acc);
-    else document.documentElement.removeAttribute('data-accent');
-    localStorage.setItem('mos_accent',acc);
-    var sw=document.querySelectorAll('.acc-swatch');
-    for(var i=0;i<sw.length;i++)sw[i].classList.toggle('active',sw[i].dataset.acc===acc);
-  }
-  window.applyAccent=applyAccent;
-  function initTheme(){
-    document.documentElement.setAttribute('data-theme','dark');
-    localStorage.setItem('mos_theme','dark');
-    applyAccent(localStorage.getItem('mos_accent')||'yellow');
-    var sws=document.querySelectorAll('.acc-swatch');
-    for(var i=0;i<sws.length;i++)sws[i].addEventListener('click',function(){applyAccent(this.dataset.acc);});
-  }
-  window.initTheme=initTheme;
-  var deferredPrompt=null;
-  window.addEventListener('beforeinstallprompt',function(e){
-    e.preventDefault();
-    deferredPrompt=e;
-    var btn=document.getElementById('installBtn');
-    if(btn){btn.style.display='';btn.title=_('install_app');}
-  });
-  window.addEventListener('appinstalled',function(){
-    deferredPrompt=null;
-    var btn=document.getElementById('installBtn');
-    if(btn)btn.style.display='none';
-  });
-  function initInstall(){
-    var btn=document.getElementById('installBtn');
-    if(!btn)return;
-    btn.addEventListener('click',function(){
-      if(!deferredPrompt)return;
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then(function(){deferredPrompt=null;btn.style.display='none';});
-    });
-    btn.title=_('install_app');
-    if('serviceWorker' in navigator){
-      navigator.serviceWorker.register('./sw.js').catch(function(){});
-    }
-  }
-  window.initInstall=initInstall;
-  function translateUI(){
-    document.querySelectorAll('[data-i18n]').forEach(function(el){el.textContent=_(el.dataset.i18n);});
-    document.querySelectorAll('[data-i18n-ph]').forEach(function(el){el.placeholder=_(el.dataset.i18nPh);});
-    document.querySelectorAll('[data-i18n-val]').forEach(function(el){el.value=_(el.dataset.i18nVal);});
-    var ap=document.getElementById('accPicker');
-    if(ap)ap.title=_('accent');
-    var ibtn=document.getElementById('installBtn');
-    if(ibtn)ibtn.title=_('install_app');
-    document.title=_('app_title')+' \u2014 '+_('header_sub');
-  }
+ split_arnold_ul:'دورة أرنولد ثلاثية + علوي/سفلي. ممتاز لتقوية النقاط الضعيفة.',
+ split_torso_limbs:'الجذع/الأطراف يركز على جماليات الجزء العلوي + شكل الجزء السفلي.',
+ split_5day_hybrid:'هجين 5 أيام. تحفيز متوازن في كل أنماط الحركة.',
+ split_industry_standard:'المعيار المعروف. درب كل حركة مرتين/أسبوع بحجم متوازن.',
+ split_push_pull:'يفصل الضغط عن عزل الدراعين. ممتاز للدراعين أو الكتفين المتأخرين.',
+ split_4day_popular:'أشهر تقسيم 4 أيام وأكترهم فعالية.',
+ split_max_frequency:'أعلى تواتر للمبتدئين وقليلي التعافي.',
+ split_rest_recovery:'يوم راحة مدمج في نص الأسبوع لحماية التعافي.',
+ split_full_body:'كل جلسة تستهدف كل المجموعات العضلية الرئيسية 2-3 مرات/أسبوع.',
+ split_2day:'قسم يوميك علوي وسفلي. أقصى تعافي بين الجلسات.',
+ split_start_simple:'ابدأ بجلستين في الأسبوع. الاستمرارية أهم من الشدة.',
+ // Safety messages
+ safety_pain_reported:'فيه ألم مُبلّغ عنه. وقف التمرين ده.',
+ safety_inflammation:'التهاب خفيف. حوّل لبدائل آمنة أو احجز استشارة مجانية.',
+ safety_jump_capped:'قفزة أكتر من 10%، اتسقفت عند',
+ safety_tendon_capped:'تأخر الوتر: اتسقف عند',
+ safety_rpe_capped:'RPE اتسقف عند 9.',
+ // Suggest load
+ suggest_no_history:'مفيش تاريخ. ابدأ في نطاق التكرارات العليا على RPE 7-8.',
+ suggest_rpe_out:'RPE بره النطاق.',
+ suggest_rpe_below:'آخر RPE أقل من الهدف. اتعملت زيادة.',
+ suggest_rpe_above:'آخر RPE أعلى من الهدف. تثبيت/تخفيف.',
+ suggest_double_prog:'تقدم مزدوج: زود الوزن، قلّل التكرارات.',
+ suggest_continue_prog:'كمل تقدم من الجلسة اللي فاتت.',
+ suggest_first_session:'أول جلسة. ابدأ بالحمل المقترح.',
+ // Periodization RPE
+ peri_standard_rpe_8:'RPE 8 عادي',
+ peri_5x5:'35 @ RPE 8-9',
+ peri_531_w:'أسبوع',
+ peri_531_w1:'5/5/5+ (65-75% TM) @ RPE 6-7',
+ peri_531_w2:'3/3/3+ (70-80% TM) @ RPE 7-8',
+ peri_531_w3:'5/3/1+ (75-85% TM) @ RPE 8-9',
+ peri_531_w1_4:'الأسبوع 1: 5/5/5+ @ RPE 6-7',
+ peri_531_w2_4:'الأسبوع 2: 3/3/3+ @ RPE 7-8',
+ peri_531_w3_4:'الأسبوع 3: 5/3/1+ @ RPE 8-9',
+ peri_heavy:'اليوم التقيل: 3-5 تكرارات @ RPE 8-9',
+ peri_moderate:'اليوم المتوسط: 5-8 تكرارات @ RPE 7-8',
+ peri_light:'اليوم الخفيف: 8-12 تكرارات @ RPE 6-7',
+ peri_accum:'التراكم: 6-10 تكرارات @ RPE 6-7',
+ peri_intensify:'التكثيف: 2-5 تكرارات @ RPE 8-9',
+ peri_peak:'القمة: 1-3 فرديات @ RPE 8.5-9.5',
+ peri_deload_rpe:'التفريغ: 35 @ RPE 6، قلّل الحجم 50%',
+ // Deload reasons
+ dl_scheduled:'مجدول منذ آخر تفريغ.',
+ dl_reduce_sets:'قلّل المجموعات ~50%، حدد RPE عند 6-7.',
+ dl_rpe_overshoot:'تجاوز RPE لجلسات متتالية.',
+ dl_week:'أسبوع تفريغ: نص المجموعات، RPE 6-7.',
+ // Quiz
+ quiz_of:'من',
+ // Volume
+ vol_days_wk:'يوم/أسبوع',
+ // Selection
+ sel_try:'جرب',
+ // 1RM percentage
+ pct_1rm:'% 1RM',
+ // Subscription auth
+ sub_enter_code:'اكتب كود الوصول بتاعك بالأسفل عشان تفتح الأداة',
+ sub_or_google:'أو سجّل الدخول بحساب جوجل عشان تربط حسابك',
+ sub_no_link:'مفيش اشتراك نشط مرتبط بالحساب ده. اكتب كودك بالأسفل عشان تربطه.',
+ sub_auth_welcome:'سجّلت الدخول باسم {name}',
+ sub_auth_switch:'مش أنت؟ بدّل الحساب',
+ sub_verify:'تحقق',
+ sub_checking:'بنتحقق دلوقتي...',
+ sub_err_invalid:'الكود غلط. اتأكد وجرب تاني.',
+ sub_err_used_by_other:'الكود ده مرتبط بحساب تاني قبل كده.',
+ sub_err_exhausted:'الكود ده مستخدم بالفعل.',
+ sub_err_network:'حصل خطأ في الشبكة. جرب تاني.',
+ sub_err_session:'الجلسة خلصت. سجّل الدخول تاني.',
+ sub_google_failed:'فشل تسجيل الدخول بجوجل. جرب تاني.',

@@ -1,161 +1,161 @@
-  // ═══════════════════════════════════════
-  //  LOCAL EVENT LOG + TRIAL (PMF telemetry)
-  //  Append-only, bounded, no PII. Syncs via the existing Worker payload.
-  // ═══════════════════════════════════════
+ }
 
-  function eventsAll(){ return ls(K.EV, null) || []; }
-  function evLog(e, d, dedupe){
-    var arr = eventsAll(), now = Date.now();
-    if(dedupe){ arr = arr.filter(function(x){ return !(x.e === e && x.k === dedupe); }); }
-    arr.push({ t: now, e: e, k: dedupe || null, d: d || {} });
-    var cut = now - 90 * 864e5;
-    arr = arr.filter(function(x){ return x.t >= cut; });
-    if(arr.length > EVENTS_MAX) arr = arr.slice(arr.length - EVENTS_MAX);
-    ss(K.EV, arr);
-  }
-  function evLast(e, k){
-    var arr = eventsAll();
-    for(var i = arr.length - 1; i >= 0; i--){ if(arr[i].e === e && (k === undefined || arr[i].k === k)) return arr[i]; }
-    return null;
-  }
-  window.__eventsAll = eventsAll; window.__evLog = evLog; window.__evLast = evLast;
+ // ── RPE ──
+ function rpePct(reps, rpe){ if(rpe<6||rpe>10)return null; return 100/(1+(reps+(10-rpe))/30); }
+ function est1RM(w,r,rpe){ if(!w||!r||!rpe)return null; const p=rpePct(r,rpe); return p?Math.round(w/(p/100)*10)/10:null; }
 
-  // Trial state — single source of truth. TRIAL_DAYS constant lives in 02_data.js.
-  function trialState(){
-    var start = localStorage.getItem('mos_trial_start');
-    if(!start){ start = new Date().toISOString(); localStorage.setItem('mos_trial_start', start); evLog('trial_start'); }
-    var daysLeft = TRIAL_DAYS - Math.floor((Date.now() - new Date(start).getTime()) / 864e5);
-    return { start: start, daysLeft: daysLeft, active: daysLeft > 0 };
-  }
-  window.__trialState = trialState;
+ // ── SPLITS ──
+ const SPLITS = {
+ fullbody_3: { name:'Full Body (3-Day)', d:3, days:[
+ {n:'Session A (Squat)',ex:[{n:'Barbell Squat',s:3,p:'quads',se:['glutes','hamstrings']},{n:'Bench Press',s:3,p:'chest',se:['shoulders','triceps']},{n:'Barbell Row',s:3,p:'back',se:['biceps']},{n:'Leg Curl',s:2,p:'hamstrings',se:[]},{n:'Lateral Raise',s:2,p:'shoulders',se:[]},{n:'Triceps Pushdown',s:2,p:'triceps',se:[]}]},
+ {n:'Session B (Hinge)',ex:[{n:'Deadlift Variation',s:3,p:'hamstrings',se:['glutes','back']},{n:'Overhead Press',s:3,p:'shoulders',se:['triceps']},{n:'Pull-Up',s:3,p:'back',se:['biceps']},{n:'Leg Extension',s:2,p:'quads',se:[]},{n:'Bicep Curl',s:2,p:'biceps',se:[]},{n:'Calf Raise',s:2,p:'calves',se:[]}]},
+ {n:'Session C (Balanced)',ex:[{n:'Front Squat or Lunge',s:3,p:'quads',se:['glutes']},{n:'Incline Press',s:3,p:'chest',se:['shoulders','triceps']},{n:'Lat Pulldown',s:3,p:'back',se:['biceps']},{n:'RDL',s:2,p:'hamstrings',se:['glutes','back']},{n:'Lateral Raise',s:2,p:'shoulders',se:[]},{n:'Triceps Overhead Ext',s:2,p:'triceps',se:[]}]}
+ ]},
+ upper_lower_4: { name:'Upper/Lower (4-Day)', d:4, days:[
+ {n:'Upper 1',ex:[{n:'Incline Chest Press',s:3,p:'chest',se:['shoulders','triceps']},{n:'Machine Chest Flies',s:3,p:'chest',se:[]},{n:'Lat Pulldown',s:2,p:'back',se:['biceps']},{n:'T-Bar Row',s:2,p:'back',se:['biceps']},{n:'Kelso Shrugs',s:1,p:'traps',se:[]},{n:'Shoulder Press',s:1,p:'shoulders',se:['triceps']},{n:'Lateral Raises',s:2,p:'shoulders',se:[]},{n:'Rear Delt Flies',s:1,p:'shoulders',se:[]},{n:'Preacher Curls',s:2,p:'biceps',se:[]},{n:'Triceps Pushdown',s:2,p:'triceps',se:[]}]},
+ {n:'Lower 1',ex:[{n:'Leg Extensions',s:3,p:'quads',se:[]},{n:'Leg Curls',s:2,p:'hamstrings',se:[]},{n:'Adductors (Machine)',s:2,p:'quads',se:[]},{n:'Abductors (Machine)',s:2,p:'glutes',se:[]},{n:'Hip Thrust',s:2,p:'glutes',se:['hamstrings']},{n:'Calf Raises',s:2,p:'calves',se:[]}]},
+ {n:'Upper 2',ex:[{n:'Incline Chest Press',s:2,p:'chest',se:['shoulders','triceps']},{n:'Machine Chest Flies',s:3,p:'chest',se:[]},{n:'Lat Pulldown',s:2,p:'back',se:['biceps']},{n:'Seated Row',s:2,p:'back',se:['biceps']},{n:'Kelso Shrugs',s:2,p:'traps',se:[]},{n:'Vertical Shrugs',s:1,p:'traps',se:[]},{n:'Lateral Raises',s:2,p:'shoulders',se:[]},{n:'Preacher Curls',s:3,p:'biceps',se:[]},{n:'Triceps Overhead Extensions',s:3,p:'triceps',se:[]}]},
+ {n:'Lower 2',ex:[{n:'Leg Extensions',s:2,p:'quads',se:[]},{n:'Leg Curls',s:3,p:'hamstrings',se:[]},{n:'Adductors (Machine)',s:2,p:'quads',se:[]},{n:'Abductors (Machine)',s:2,p:'glutes',se:[]},{n:'Hip Thrust',s:2,p:'glutes',se:['hamstrings']},{n:'Calf Raises',s:2,p:'calves',se:[]}]}
+ ]},
+ ppl_6: { name:'PPL (6-Day)', d:6, days:[
+ {n:'Push',ex:[{n:'Incline Chest Press',s:3,p:'chest',se:['shoulders','triceps']},{n:'Machine Chest Flies',s:3,p:'chest',se:[]},{n:'Shoulder Press',s:2,p:'shoulders',se:['triceps']},{n:'Lateral Raises',s:2,p:'shoulders',se:[]},{n:'Triceps Pushdown',s:2,p:'triceps',se:[]},{n:'Triceps Overhead Extensions',s:2,p:'triceps',se:[]}]},
+ {n:'Pull',ex:[{n:'Lat Pulldown',s:2,p:'back',se:['biceps']},{n:'Seated Row',s:2,p:'back',se:['biceps']},{n:'T-Bar Row',s:2,p:'back',se:['biceps']},{n:'Kelso Shrugs',s:1,p:'traps',se:[]},{n:'Vertical Shrugs',s:1,p:'traps',se:[]},{n:'Rear Delt Flies',s:2,p:'shoulders',se:[]},{n:'Preacher Curls',s:3,p:'biceps',se:[]},{n:'Forearm Ext/Flex',s:1,p:'forearms',se:[]}]},
+ {n:'Legs',ex:[{n:'Leg Extensions',s:2,p:'quads',se:[]},{n:'Leg Curls',s:2,p:'hamstrings',se:[]},{n:'Adductors (Machine)',s:2,p:'quads',se:[]},{n:'Abductors (Machine)',s:2,p:'glutes',se:[]},{n:'Hip Thrust',s:2,p:'glutes',se:['hamstrings']},{n:'Calf Raises',s:2,p:'calves',se:[]}]}
+ ]},
+ torso_limbs_4: { name:'Torso/Limbs (4-Day)', d:4, days:[
+ {n:'Torso',ex:[{n:'Incline Chest Press',s:3,p:'chest',se:['shoulders','triceps']},{n:'Machine Chest Flies',s:3,p:'chest',se:[]},{n:'Lat Pulldown',s:2,p:'back',se:['biceps']},{n:'Seated Row',s:1,p:'back',se:['biceps']},{n:'T-Bar Row',s:2,p:'back',se:['biceps']},{n:'Kelso Shrugs',s:1,p:'traps',se:[]},{n:'Vertical Shrugs',s:1,p:'traps',se:[]},{n:'Shoulder Press',s:1,p:'shoulders',se:['triceps']},{n:'Lateral Raises',s:2,p:'shoulders',se:[]},{n:'Rear Delt Flies',s:1,p:'shoulders',se:[]}]},
+ {n:'Limbs',ex:[{n:'Leg Extensions',s:3,p:'quads',se:[]},{n:'Leg Curls',s:3,p:'hamstrings',se:[]},{n:'Adductors (Machine)',s:2,p:'quads',se:[]},{n:'Abductors (Machine)',s:2,p:'glutes',se:[]},{n:'Hip Thrust',s:2,p:'glutes',se:['hamstrings']},{n:'Calf Raises',s:2,p:'calves',se:[]},{n:'Preacher Curls',s:2,p:'biceps',se:[]},{n:'Hammer Curls',s:2,p:'biceps',se:['forearms']},{n:'Triceps Pushdown',s:2,p:'triceps',se:[]},{n:'Triceps Overhead Extensions',s:2,p:'triceps',se:[]}]}
+ ]},
+ arnold_3r: { name:'Arnold Split (3-Rot)', d:6, days:[
+ {n:'Chest & Back',ex:[{n:'Incline Chest Press',s:4,p:'chest',se:['shoulders','triceps']},{n:'Machine Chest Flies',s:3,p:'chest',se:[]},{n:'Lat Pulldown',s:3,p:'back',se:['biceps']},{n:'Seated Row',s:3,p:'back',se:['biceps']},{n:'T-Bar Row',s:2,p:'back',se:['biceps']},{n:'Kelso Shrugs',s:1,p:'traps',se:[]}]},
+ {n:'Legs',ex:[{n:'Leg Extensions',s:3,p:'quads',se:[]},{n:'Leg Curls',s:3,p:'hamstrings',se:[]},{n:'Adductors (Machine)',s:2,p:'quads',se:[]},{n:'Abductors (Machine)',s:2,p:'glutes',se:[]},{n:'Hip Thrust',s:3,p:'glutes',se:['hamstrings']},{n:'Calf Raises',s:3,p:'calves',se:[]}]},
+ {n:'Shoulders & Arms',ex:[{n:'Shoulder Press',s:3,p:'shoulders',se:['triceps']},{n:'Lateral Raises',s:3,p:'shoulders',se:[]},{n:'Rear Delt Flies',s:2,p:'shoulders',se:[]},{n:'Preacher Curls',s:3,p:'biceps',se:[]},{n:'Hammer Curls',s:2,p:'biceps',se:['forearms']},{n:'Triceps Pushdown',s:3,p:'triceps',se:[]},{n:'Triceps Overhead Extensions',s:2,p:'triceps',se:[]}]}
+ ]}
+ };
 
-  // Unobtrusive "X days left" pill — injected into the header, zero HTML part changes.
-  function updateTrialPill(){
-    var pill = document.getElementById('trialPill');
-    var st = trialState(), sub = null;
-    try{ sub = JSON.parse(localStorage.getItem('mos_subscription')); }catch(e){}
-    var active = !!(sub && sub.active);
-    if(active || !st.active){
-      if(pill) pill.style.display = 'none';
-      if(!active && !st.active) evLog('trial_expired', {}, 'once');
-      return;
-    }
-    if(!pill){
-      pill = document.createElement('span');
-      pill.id = 'trialPill';
-      pill.style.cssText = 'display:inline-flex;align-items:center;gap:4px;font-size:.5rem;color:#F4C93B;border:1px solid rgba(244,201,59,.25);background:rgba(244,201,59,.06);border-radius:20px;padding:2px 8px;margin-left:6px;white-space:nowrap;cursor:default';
-      pill.innerHTML = '<span data-i18n="trial_pill_pre"></span><b id="trialDays" style="font-weight:700"></b><span data-i18n="trial_pill_post"></span>';
-      var top = document.querySelector('.header-top');
-      if(top) top.appendChild(pill);
-    }
-    pill.style.display = 'inline-flex';
-    var days = document.getElementById('trialDays');
-    if(days) days.textContent = st.daysLeft;
-    evLog('trial_days_left', { days: st.daysLeft }, 'tl_' + new Date().toISOString().split('T')[0]);
-    translateUI();
-  }
-  window.__updateTrialPill = updateTrialPill;
+ // ── Build Hybrid Splits from base SPLITS ──
+ (function(){
+ function cp(d){return JSON.parse(JSON.stringify(d.ex));}
+ // 2-day
+ SPLITS.upper_lower_2={name:'Upper/Lower (2-Day)',d:2,days:[
+ {n:'Upper (Chest, Back, Delts, Arms)',ex:[{n:'Incline Chest Press',s:3,p:'chest',se:['shoulders','triceps']},{n:'Lat Pulldown',s:3,p:'back',se:['biceps']},{n:'Lateral Raises',s:2,p:'shoulders',se:[]},{n:'Bicep Curl',s:2,p:'biceps',se:[]},{n:'Triceps Pushdown',s:2,p:'triceps',se:[]}]},
+ {n:'Lower (Quads, Hams, Glutes, Calves)',ex:[{n:'Barbell Squat',s:3,p:'quads',se:['glutes','hamstrings']},{n:'RDL',s:3,p:'hamstrings',se:['glutes','back']},{n:'Leg Extension',s:2,p:'quads',se:[]},{n:'Leg Curl',s:2,p:'hamstrings',se:[]},{n:'Calf Raise',s:2,p:'calves',se:[]}]}
+ ]};
+ // 5-day hybrids
+ SPLITS.ppl_ul_5={name:'PPL + Upper/Lower (5-Day)',d:5,days:[
+ {n:'Push',ex:cp(SPLITS.ppl_6.days[0])},
+ {n:'Pull',ex:cp(SPLITS.ppl_6.days[1])},
+ {n:'Legs',ex:cp(SPLITS.ppl_6.days[2])},
+ {n:'Upper',ex:cp(SPLITS.upper_lower_4.days[0])},
+ {n:'Lower',ex:cp(SPLITS.upper_lower_4.days[1])}
+ ]};
+ SPLITS.ppl_tl_5={name:'PPL + Torso/Limbs (5-Day)',d:5,days:[
+ {n:'Push',ex:cp(SPLITS.ppl_6.days[0])},
+ {n:'Pull',ex:cp(SPLITS.ppl_6.days[1])},
+ {n:'Legs',ex:cp(SPLITS.ppl_6.days[2])},
+ {n:'Torso',ex:cp(SPLITS.torso_limbs_4.days[0])},
+ {n:'Limbs',ex:cp(SPLITS.torso_limbs_4.days[1])}
+ ]};
+ SPLITS.arnold_ul_5={name:'Arnold + Upper/Lower (5-Day)',d:5,days:[
+ {n:'Chest & Back',ex:cp(SPLITS.arnold_3r.days[0])},
+ {n:'Legs',ex:cp(SPLITS.arnold_3r.days[1])},
+ {n:'Shoulders & Arms',ex:cp(SPLITS.arnold_3r.days[2])},
+ {n:'Upper',ex:cp(SPLITS.upper_lower_4.days[0])},
+ {n:'Lower',ex:cp(SPLITS.upper_lower_4.days[1])}
+ ]};
+ SPLITS.arnold_tl_5={name:'Arnold + Torso/Limbs (5-Day)',d:5,days:[
+ {n:'Chest & Back',ex:cp(SPLITS.arnold_3r.days[0])},
+ {n:'Legs',ex:cp(SPLITS.arnold_3r.days[1])},
+ {n:'Shoulders & Arms',ex:cp(SPLITS.arnold_3r.days[2])},
+ {n:'Torso',ex:cp(SPLITS.torso_limbs_4.days[0])},
+ {n:'Limbs',ex:cp(SPLITS.torso_limbs_4.days[1])}
+ ]};
+ // Rest-day splits (scheduled recovery slots)
+ SPLITS.ppl_rest_ul_6={name:'PPL + Rest + UL (6-Day)',d:6,days:[
+ {n:'Push',ex:cp(SPLITS.ppl_6.days[0])},
+ {n:'Pull',ex:cp(SPLITS.ppl_6.days[1])},
+ {n:'Legs',ex:cp(SPLITS.ppl_6.days[2])},
+ {n:'Rest',restDay:true},
+ {n:'Upper',ex:cp(SPLITS.upper_lower_4.days[0])},
+ {n:'Lower',ex:cp(SPLITS.upper_lower_4.days[1])}
+ ]};
+ SPLITS.arnold_rest_4={name:'Arnold + Rest (4-Day)',d:4,days:[
+ {n:'Chest & Back',ex:cp(SPLITS.arnold_3r.days[0])},
+ {n:'Legs',ex:cp(SPLITS.arnold_3r.days[1])},
+ {n:'Shoulders & Arms',ex:cp(SPLITS.arnold_3r.days[2])},
+ {n:'Rest',restDay:true}
+ ]};
+ SPLITS.upper_lower_rest_5={name:'Upper/Lower + Rest (5-Day)',d:5,days:[
+ {n:'Upper 1',ex:cp(SPLITS.upper_lower_4.days[0])},
+ {n:'Lower 1',ex:cp(SPLITS.upper_lower_4.days[1])},
+ {n:'Rest',restDay:true},
+ {n:'Upper 2',ex:cp(SPLITS.upper_lower_4.days[2])},
+ {n:'Lower 2',ex:cp(SPLITS.upper_lower_4.days[3])}
+ ]};
+ SPLITS.torso_limbs_rest_5={name:'Torso/Limbs + Rest (5-Day)',d:5,days:[
+ {n:'Torso 1',ex:cp(SPLITS.torso_limbs_4.days[0])},
+ {n:'Limbs 1',ex:cp(SPLITS.torso_limbs_4.days[1])},
+ {n:'Rest',restDay:true},
+ {n:'Torso 2',ex:cp(SPLITS.torso_limbs_4.days[0])},
+ {n:'Limbs 2',ex:cp(SPLITS.torso_limbs_4.days[1])}
+ ]};
+ SPLITS.ppl_rest_4={name:'PPL + Rest (4-Day)',d:4,days:[
+ {n:'Push',ex:cp(SPLITS.ppl_6.days[0])},
+ {n:'Pull',ex:cp(SPLITS.ppl_6.days[1])},
+ {n:'Legs',ex:cp(SPLITS.ppl_6.days[2])},
+ {n:'Rest',restDay:true}
+ ]};
+ SPLITS.fullbody_rest_3={name:'Full Body + Rest (3-Day)',d:3,days:[
+ {n:'Full Body A',ex:cp(SPLITS.fullbody_3.days[0])},
+ {n:'Rest',restDay:true},
+ {n:'Full Body B',ex:cp(SPLITS.fullbody_3.days[1])}
+ ]};
+ // 6-day hybrids
+ SPLITS.ppl_arnold_6={name:'PPL + Arnold Hybrid (6-Day)',d:6,days:[
+ {n:'Push',ex:cp(SPLITS.ppl_6.days[0])},
+ {n:'Pull',ex:cp(SPLITS.ppl_6.days[1])},
+ {n:'Legs',ex:cp(SPLITS.ppl_6.days[2])},
+ {n:'Chest & Back (Compound Focus)',ex:[{n:'Incline Chest Press',s:3,p:'chest',se:['shoulders','triceps']},{n:'Machine Chest Flies',s:3,p:'chest',se:[]},{n:'T-Bar Row',s:3,p:'back',se:['biceps']},{n:'Seated Row',s:3,p:'back',se:['biceps']},{n:'Kelso Shrugs',s:1,p:'traps',se:[]},{n:'Vertical Shrugs',s:1,p:'traps',se:[]}]},
+ {n:'Shoulders & Arms (Isolation Focus)',ex:[{n:'Shoulder Press',s:2,p:'shoulders',se:['triceps']},{n:'Lateral Raises',s:3,p:'shoulders',se:[]},{n:'Rear Delt Flies',s:2,p:'shoulders',se:[]},{n:'Preacher Curls',s:3,p:'biceps',se:[]},{n:'Hammer Curls',s:2,p:'biceps',se:['forearms']},{n:'Triceps Pushdown',s:2,p:'triceps',se:[]},{n:'Triceps Overhead Extensions',s:2,p:'triceps',se:[]}]},
+ {n:'Legs + Weak Points',ex:[{n:'Leg Extensions',s:2,p:'quads',se:[]},{n:'Leg Curls',s:2,p:'hamstrings',se:[]},{n:'Adductors (Machine)',s:2,p:'quads',se:[]},{n:'Abductors (Machine)',s:2,p:'glutes',se:[]},{n:'Hip Thrust',s:2,p:'glutes',se:['hamstrings']},{n:'Calf Raises',s:2,p:'calves',se:[]}]}
+ ]};
+ SPLITS.ul_3x_6={name:'Upper/Lower 3x (6-Day)',d:6,days:[
+ {n:'Upper 1 (Heavy)',ex:cp(SPLITS.upper_lower_4.days[0])},
+ {n:'Lower 1 (Heavy)',ex:cp(SPLITS.upper_lower_4.days[1])},
+ {n:'Upper 2 (Volume)',ex:cp(SPLITS.upper_lower_4.days[2])},
+ {n:'Lower 2 (Volume)',ex:cp(SPLITS.upper_lower_4.days[3])},
+ {n:'Upper 3 (Pump)',ex:[{n:'Incline Chest Press',s:2,p:'chest',se:['shoulders','triceps']},{n:'Lat Pulldown',s:2,p:'back',se:['biceps']},{n:'Seated Row',s:2,p:'back',se:['biceps']},{n:'Lateral Raises',s:2,p:'shoulders',se:[]},{n:'Rear Delt Flies',s:1,p:'shoulders',se:[]},{n:'Preacher Curls',s:2,p:'biceps',se:[]},{n:'Triceps Pushdown',s:2,p:'triceps',se:[]}]},
+ {n:'Lower 3 (Pump)',ex:[{n:'Leg Extensions',s:2,p:'quads',se:[]},{n:'Leg Curls',s:2,p:'hamstrings',se:[]},{n:'Hip Thrust',s:2,p:'glutes',se:['hamstrings']},{n:'Calf Raises',s:2,p:'calves',se:[]}]}
+ ]};
+ SPLITS.tl_3x_6={name:'Torso/Limbs 3x (6-Day)',d:6,days:[
+ {n:'Torso 1 (Heavy)',ex:cp(SPLITS.torso_limbs_4.days[0])},
+ {n:'Limbs 1 (Heavy)',ex:cp(SPLITS.torso_limbs_4.days[1])},
+ {n:'Torso 2 (Volume)',ex:[{n:'Incline Chest Press',s:3,p:'chest',se:['shoulders','triceps']},{n:'Machine Chest Flies',s:3,p:'chest',se:[]},{n:'Lat Pulldown',s:2,p:'back',se:['biceps']},{n:'T-Bar Row',s:2,p:'back',se:['biceps']},{n:'Shoulder Press',s:2,p:'shoulders',se:['triceps']},{n:'Lateral Raises',s:2,p:'shoulders',se:[]},{n:'Rear Delt Flies',s:1,p:'shoulders',se:[]}]},
+ {n:'Limbs 2 (Volume)',ex:[{n:'Leg Extensions',s:3,p:'quads',se:[]},{n:'Leg Curls',s:3,p:'hamstrings',se:[]},{n:'Hip Thrust',s:2,p:'glutes',se:['hamstrings']},{n:'Calf Raises',s:2,p:'calves',se:[]},{n:'Preacher Curls',s:2,p:'biceps',se:[]},{n:'Triceps Pushdown',s:2,p:'triceps',se:[]}]},
+ {n:'Torso 3 (Pump)',ex:[{n:'Incline Chest Press',s:2,p:'chest',se:['shoulders','triceps']},{n:'Lat Pulldown',s:2,p:'back',se:['biceps']},{n:'Lateral Raises',s:2,p:'shoulders',se:[]},{n:'Rear Delt Flies',s:1,p:'shoulders',se:[]}]},
+ {n:'Limbs 3 (Pump)',ex:[{n:'Leg Curls',s:2,p:'hamstrings',se:[]},{n:'Calf Raises',s:2,p:'calves',se:[]},{n:'Hammer Curls',s:2,p:'biceps',se:['forearms']},{n:'Triceps Overhead Extensions',s:2,p:'triceps',se:[]}]}
+ ]};
+ })();
 
-  // Trial-expired note inside the paywall modal, injected next to the code row.
-  function trialExpiredNote(){
-    var el = document.getElementById('trialExpiredNote');
-    var st = trialState(), sub = null;
-    try{ sub = JSON.parse(localStorage.getItem('mos_subscription')); }catch(e){}
-    if((sub && sub.active) || st.active){
-      if(el) el.style.display = 'none';
-      return;
-    }
-    if(!el){
-      el = document.createElement('div');
-      el.id = 'trialExpiredNote';
-      el.className = 'sub-error';
-      var modal = document.querySelector('.sub-modal');
-      var anchor = modal ? (modal.querySelector('#authStep2') || modal.lastElementChild) : null;
-      if(anchor) modal.insertBefore(el, anchor);
-    }
-    el.textContent = _('trial_expired_note');
-    el.style.display = 'block';
-    evLog('trial_expired', {}, 'once');
-  }
-  window.__trialExpiredNote = trialExpiredNote;
-
-  // Onboarding / paywall abandon tracking — page lifecycle hooks only.
-  function funnelSnapshot(){
-    var fields = ['userName','userAge','ta','goal'].filter(function(id){
-      var el = document.getElementById(id);
-      return el && el.value && el.value !== '0';
-    }).length;
-    return { step: typeof step !== 'undefined' ? step : 0, quizQ: typeof quizQ !== 'undefined' ? quizQ : -1, fields: fields, hasProgram: !!ls(K.PG, null) };
-  }
-  function onLeave(){
-    var s = funnelSnapshot();
-    var sub = null; try{ sub = JSON.parse(localStorage.getItem('mos_subscription')); }catch(e){}
-    var active = !!(sub && sub.active);
-    var ov = document.getElementById('subOverlay');
-    var paywallOpen = ov && ov.style.display === 'flex' && !active;
-    if(paywallOpen) evLog('paywall_abandon');
-    if(s.step === 1 && !s.hasProgram) evLog('onboard_abandon', { q: s.quizQ, fields: s.fields });
-    var st = trialState();
-    if(!active && !st.active) evLog('trial_expired', {}, 'once');
-  }
-  window.addEventListener('pagehide', onLeave);
-  document.addEventListener('visibilitychange', function(){ if(document.visibilityState === 'hidden') onLeave(); });
-
-  // ── Suggestion outcomes (read-time before/after vs LH e1RM) ──
-  // Suggestions with timestamps: deload_prompt, plateau_note, fat_gate.
-  function outcomeRows(){
-    var evs = eventsAll(), hist = loadHist();
-    if(!hist) return [];
-    var sug = { deload_prompt: 1, plateau_note: 1, fat_gate: 1 };
-    var seen = {}, rows = [];
-    evs.forEach(function(x){
-      if(!sug[x.e]) return;
-      var D = new Date(x.t), ds = D.toISOString().split('T')[0];
-      var dk = x.e + ds;
-      if(seen[dk]) return; seen[dk] = true;
-      var iso = function(o){ return o.toISOString().split('T')[0]; };
-      var before = [], after = [];
-      MAIN_LIFTS.forEach(function(ex){
-        var b = bestE1RMIn(ex, hist, iso(new Date(D.getTime() - 6 * 864e5)), ds);
-        var a = bestE1RMIn(ex, hist, iso(new Date(D.getTime() + 8 * 864e5)), iso(new Date(D.getTime() + 15 * 864e5)));
-        if(b !== null && a !== null){ before.push(b); after.push(a); }
-      });
-      if(!before.length) return;
-      var avg = function(a){ return a.reduce(function(s, v){ return s + v; }, 0) / a.length; };
-      var delta = avg(after) - avg(before);
-      var dir = delta > 0.5 ? 'up' : delta < -0.5 ? 'down' : 'flat';
-      rows.push({ d: ds, dir: dir, delta: delta });
-    });
-    rows.sort(function(a, b){ return a.d < b.d ? 1 : -1; });
-    return rows.slice(0, 6);
-  }
-  function renderOutcomeSection(){
-    var host = document.getElementById('step5');
-    if(!host) return;
-    var el = document.getElementById('outcomeCard');
-    if(!el){
-      el = document.createElement('div');
-      el.id = 'outcomeCard';
-      el.className = 'card';
-      el.style.display = 'none';
-      el.innerHTML = '<div class="section-header"><span data-i18n="outcome_title"></span><span class="section-sub" data-i18n="outcome_sub"></span></div><div id="outcomeRows" style="font-size:.6rem;line-height:1.6;padding:4px 0"></div>';
-      var anchor = document.getElementById('backToDashBtn');
-      while(anchor && anchor.parentElement !== host) anchor = anchor.parentElement;
-      host.insertBefore(el, anchor || host.firstChild);
-    }
-    var rows = outcomeRows();
-    if(!rows.length){ el.style.display = 'none'; return; }
-    el.style.display = 'block';
-    var html = '';
-    rows.forEach(function(r){
-      var icon = r.dir === 'up' ? '▲' : r.dir === 'down' ? '▼' : '•';
-      var color = r.dir === 'up' ? '#81C784' : r.dir === 'down' ? '#f44336' : 'rgba(250,250,248,.25)';
-      var p = r.dir === 'up' ? _('outcome_up').replace('{d}', (Math.round(r.delta * 2) / 2).toFixed(1)).replace('{w}', _('weight'))
-        : r.dir === 'down' ? _('outcome_down').replace('{d}', (Math.round(-r.delta * 2) / 2).toFixed(1)).replace('{w}', _('weight'))
-        : _('outcome_flat');
-      html += '<div style="padding:3px 0"><span style="color:' + color + '">' + icon + '</span> ' + _('outcome_line').replace('{t}', r.d.slice(5)).replace('{p}', p) + '</div>';
-    });
-    document.getElementById('outcomeRows').innerHTML = html;
-    translateUI();
-  }
-  window.renderOutcomeSection = renderOutcomeSection;
+ // ── Powerlifting Splits ──
+ (function(){
+ SPLITS.linear_3={name:'Linear Progression (3-Day)',d:3,g:'strength',days:[
+ {n:'Squat Focus',ex:[{n:'Barbell Squat',s:3,p:'quads',se:['glutes','hamstrings']},{n:'Bench Press',s:3,p:'chest',se:['shoulders','triceps']},{n:'Barbell Row',s:3,p:'back',se:['biceps']},{n:'Lateral Raises',s:2,p:'shoulders',se:[]},{n:'Triceps Pushdown',s:2,p:'triceps',se:[]}]},
+ {n:'Bench Focus',ex:[{n:'Bench Press',s:3,p:'chest',se:['shoulders','triceps']},{n:'Incline Chest Press',s:2,p:'chest',se:['shoulders','triceps']},{n:'Lat Pulldown',s:3,p:'back',se:['biceps']},{n:'Preacher Curls',s:2,p:'biceps',se:[]},{n:'Calf Raises',s:2,p:'calves',se:[]}]},
+ {n:'Deadlift Focus',ex:[{n:'Deadlift Variation',s:3,p:'hamstrings',se:['glutes','back']},{n:'Leg Extensions',s:2,p:'quads',se:[]},{n:'Leg Curls',s:2,p:'hamstrings',se:[]},{n:'Hip Thrust',s:2,p:'glutes',se:['hamstrings']},{n:'Calf Raises',s:2,p:'calves',se:[]}]}
+ ]};
+ SPLITS.five_three_one_4={name:'5/3/1 (4-Day)',d:4,g:'strength',days:[
+ {n:'Press Day (OHP + Triceps)',ex:[{n:'Overhead Press',s:3,p:'shoulders',se:['triceps']},{n:'Lateral Raises',s:3,p:'shoulders',se:[]},{n:'Rear Delt Flies',s:2,p:'shoulders',se:[]},{n:'Triceps Pushdown',s:3,p:'triceps',se:[]},{n:'Triceps Overhead Extensions',s:2,p:'triceps',se:[]}]},
+ {n:'Deadlift Day',ex:[{n:'Deadlift Variation',s:3,p:'hamstrings',se:['glutes','back']},{n:'Leg Curls',s:2,p:'hamstrings',se:[]},{n:'Hip Thrust',s:2,p:'glutes',se:['hamstrings']},{n:'Calf Raises',s:2,p:'calves',se:[]},{n:'Preacher Curls',s:2,p:'biceps',se:[]}]},
+ {n:'Bench Day',ex:[{n:'Bench Press',s:3,p:'chest',se:['shoulders','triceps']},{n:'Incline Chest Press',s:2,p:'chest',se:['shoulders','triceps']},{n:'Machine Chest Flies',s:2,p:'chest',se:[]},{n:'Lat Pulldown',s:2,p:'back',se:['biceps']},{n:'Lateral Raises',s:2,p:'shoulders',se:[]}]},
+ {n:'Squat Day',ex:[{n:'Barbell Squat',s:3,p:'quads',se:['glutes','hamstrings']},{n:'Leg Extensions',s:2,p:'quads',se:[]},{n:'RDL',s:2,p:'hamstrings',se:['glutes','back']},{n:'Adductors (Machine)',s:2,p:'quads',se:[]},{n:'Abductors (Machine)',s:2,p:'glutes',se:[]}]}
+ ]};
+ SPLITS.dup_3={name:'DUP (3-Day)',d:3,g:'strength',days:[
+ {n:'Heavy (Squat/Bench)',ex:[{n:'Barbell Squat',s:3,p:'quads',se:['glutes','hamstrings']},{n:'Bench Press',s:3,p:'chest',se:['shoulders','triceps']},{n:'Barbell Row',s:3,p:'back',se:['biceps']},{n:'Lateral Raises',s:2,p:'shoulders',se:[]},{n:'Triceps Pushdown',s:2,p:'triceps',se:[]}]},
+ {n:'Moderate (Bench/Row)',ex:[{n:'Bench Press',s:3,p:'chest',se:['shoulders','triceps']},{n:'Incline Chest Press',s:2,p:'chest',se:['shoulders','triceps']},{n:'Lat Pulldown',s:3,p:'back',se:['biceps']},{n:'Preacher Curls',s:2,p:'biceps',se:[]},{n:'Calf Raises',s:2,p:'calves',se:[]}]},
+ {n:'Light (Deadlift/OHP)',ex:[{n:'Deadlift Variation',s:2,p:'hamstrings',se:['glutes','back']},{n:'Overhead Press',s:2,p:'shoulders',se:['triceps']},{n:'Leg Extensions',s:2,p:'quads',se:[]},{n:'Leg Curls',s:2,p:'hamstrings',se:[]},{n:'Hip Thrust',s:2,p:'glutes',se:['hamstrings']}]}
+ ]};
+ SPLITS.block_4={name:'Block Periodization (4-Day)',d:4,g:'strength',days:[
+ {n:'Heavy Lower',ex:[{n:'Barbell Squat',s:3,p:'quads',se:['glutes','hamstrings']},{n:'Deadlift Variation',s:3,p:'hamstrings',se:['glutes','back']},{n:'Leg Extensions',s:2,p:'quads',se:[]},{n:'Leg Curls',s:2,p:'hamstrings',se:[]},{n:'Calf Raises',s:2,p:'calves',se:[]}]},
+ {n:'Heavy Upper',ex:[{n:'Bench Press',s:3,p:'chest',se:['shoulders','triceps']},{n:'Incline Chest Press',s:2,p:'chest',se:['shoulders','triceps']},{n:'Barbell Row',s:3,p:'back',se:['biceps']},{n:'Overhead Press',s:2,p:'shoulders',se:['triceps']},{n:'Lateral Raises',s:2,p:'shoulders',se:[]}]},
+ {n:'Volume Lower',ex:[{n:'Leg Extensions',s:3,p:'quads',se:[]},{n:'Leg Curls',s:3,p:'hamstrings',se:[]},{n:'Hip Thrust',s:3,p:'glutes',se:['hamstrings']},{n:'Adductors (Machine)',s:2,p:'quads',se:[]},{n:'Abductors (Machine)',s:2,p:'glutes',se:[]}]},

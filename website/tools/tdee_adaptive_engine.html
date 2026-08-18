@@ -252,8 +252,18 @@ select option{background:#1A1B26;color:#FAFAF8}
  #mobileCtaBar{display:flex}
  body{padding-bottom:76px}
 }
+
+/* Decision Engine — Coach Intelligence card */
+.engine-recs-card{background:rgba(244,201,59,.04);border:1px solid rgba(244,201,59,.18);border-radius:10px;padding:10px 12px;margin-top:10px;font-size:.68rem}
+.engine-recs-card .ec-header{font-family:'Oswald',sans-serif;font-size:.72rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.engine-recs-card .ec-sub{font-size:.6rem;color:rgba(250,250,248,.45);margin-bottom:6px;line-height:1.4}
+.engine-rule-chip{display:inline-block;font-size:.5rem;background:rgba(244,201,59,.1);border:1px solid rgba(244,201,59,.3);color:#F4C93B;border-radius:10px;padding:1px 8px;margin:0 4px 4px 0;font-weight:600}
+.engine-note{font-size:.58rem;color:rgba(250,250,248,.6);line-height:1.4;padding-top:4px;border-top:1px solid rgba(250,250,248,.06);margin-top:4px}
 </style>
 <script async defer src="https://accounts.google.com/gsi/client"></script>
+<script>window.MOS_ASSET_ROOT='../assets/data';</script>
+<script src="../assets/js/decision-engine.js"></script>
+<script>if(window.DecisionEngine){window.DecisionEngine.init(window.MOS_ASSET_ROOT);}</script>
 </head>
 <body>
 <nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a><a href="../index.html#packages">Coaching</a></div></div></nav>
@@ -578,7 +588,18 @@ select option{background:#1A1B26;color:#FAFAF8}
  }
 
  // Macros
- const proteinG = PROTEIN_TARGETS[dietPattern] ? PROTEIN_TARGETS[dietPattern][goalVal] || 1.8 : 1.8;
+   // Muscle OS Decision Engine — protein override (SH-NU-01 / BB-NU-01)
+  let engProteinMult = null;
+  try{
+   if(typeof DecisionEngine !== 'undefined' && DecisionEngine.isLoaded){
+    const engGoal = (goalVal === 'aggressive_loss' || goalVal === 'moderate_loss') ? 'cut'
+      : (goalVal === 'aggressive_gain' || goalVal === 'moderate_gain') ? 'bulk' : 'maintain';
+    const engYrs = (trainingAge === 'novice') ? 1 : (trainingAge === 'advanced' ? 5 : 2);
+    const engRecs = DecisionEngine.applyBookRulesSync({goal: engGoal, experience_years: engYrs, age: a, sex: sex, bodyweight_kg: w, height_cm: h});
+    if(engRecs && engRecs.protein_per_kg) engProteinMult = engRecs.protein_per_kg;
+   }
+  }catch(e){}
+  const proteinG = (engProteinMult || (PROTEIN_TARGETS[dietPattern] ? PROTEIN_TARGETS[dietPattern][goalVal] || 1.8 : 1.8));
  const pG = Math.round(proteinG * w);
 
  const isFL = goalVal==='aggressive_loss'||goalVal==='moderate_loss';
@@ -818,248 +839,25 @@ select option{background:#1A1B26;color:#FAFAF8}
  '<div class="dash-card"><div class="dash-label">Estimated TDEE</div><div class="dash-val">'+targetTDEE+'</div><div class="dash-sub">'+r.bmrMethod+'</div></div>' +
  '</div>';
 
- numbersHtml += '<div class="dash-macro-grid">' +
- '<div class="dash-macro"><div class="dash-macro-val">'+protein+'</div><div class="dash-macro-lbl">Protein (g)</div></div>' +
- '<div class="dash-macro"><div class="dash-macro-val">'+fat+'</div><div class="dash-macro-lbl">Fat (g)</div></div>' +
- '<div class="dash-macro"><div class="dash-macro-val">'+carbs+'</div><div class="dash-macro-lbl">Carbs (g)</div></div>' +
- '</div>';
-
- numbersHtml += '<div class="bar-track">' +
- '<div class="bar-seg bar-p" style="width:'+pP+'%">'+pP+'%</div>' +
- '<div class="bar-seg bar-f" style="width:'+fP+'%">'+fP+'%</div>' +
- '<div class="bar-seg bar-c" style="width:'+cP+'%">'+cP+'%</div>' +
- '</div>' +
- '<div class="bar-legend">' +
- '<span class="bar-leg-item"><span class="bar-dot" style="background:#F4C93B"></span>Protein</span>' +
- '<span class="bar-leg-item"><span class="bar-dot" style="background:#e8a83a"></span>Fat</span>' +
- '<span class="bar-leg-item"><span class="bar-dot" style="background:#c48a30"></span>Carbs</span>' +
- '</div>';
-
- // Detailed breakdown
- numbersHtml += '<div class="section-header" style="margin-top:10px">Breakdown</div>' +
- '<div class="dash-row"><span class="l">BMR ('+r.bmrMethod+')</span><span class="v">'+r.bmr.toLocaleString()+' kcal</span></div>' +
- '<div class="dash-row"><span class="l">NEAT (occupation + steps)</span><span class="v">'+r.neat+' kcal</span></div>' +
- '<div class="dash-row"><span class="l">EAT (training)</span><span class="v">'+r.eat+' kcal</span></div>' +
- '<div class="dash-row"><span class="l">Bio adjustment</span><span class="v">'+(r.bioAdj>=0?'+':'')+r.bioAdj+' kcal</span></div>';
-
- if(r.safetyCapped){
- numbersHtml += '<div class="dash-row"><span class="l">Safety cap (BF% too low for this goal)</span><span class="v" style="color:#F4C93B">Active</span></div>';
- }
-
- const cycleLabel = p.cyclePhase === 'luteal' ? ' (luteal +7%)' : '';
- numbersHtml += '<div class="dash-row"><span class="l">Goal adjustment'+cycleLabel+'</span><span class="v">'+GOAL_LABELS[p.goal]+'</span></div>';
-
- // Rationale
- const allGood = !(adjustment && adjustment.adjusted);
- numbersHtml += '<div class="rationale"><div class="r-title">Why These Numbers?</div>' +
- '<strong>'+(allGood ? 'Initial estimate based on your profile' : 'Adjusted from real data')+'</strong><br>' +
- 'Your BMR was calculated using <strong>'+r.bmrMethod+'</strong> ' +
- (r.bmrMethod==='Katch-McArdle' ? 'because you provided body fat % (most accurate method).' : '(standard formula, ~200-300 kcal uncertainty without body fat %).') +
- '<br>Activity estimated from: <strong>'+p.occupation+'</strong> occupation + <strong>'+p.steps+'</strong> steps range + <strong>'+p.trainDays+''+p.sessionLen+'min</strong> training.' +
- '<br>Goal: <strong>'+GOAL_LABELS[p.goal]+'</strong> — applying <strong>'+(GOAL_MULT[p.goal]>1?'+'+(Math.round((GOAL_MULT[p.goal]-1)*100)):(Math.round((1-GOAL_MULT[p.goal])*100)))+'%</strong> adjustment from estimated TDEE.' +
- (p.chronicDiet==='yes' ? '<br>Chronic dieting flag applied: <strong>-8% metabolic adaptation adjustment</strong>.' : '') +
- (p.cyclePhase==='luteal' ? '<br>Luteal phase applied: <strong>+7% REE adjustment</strong>.' : '') +
- (r.safetyCapped ? '<br><strong>Safety cap:</strong> Your goal was adjusted because aggressive targets are not appropriate at your current body fat level.' : '') +
- '</div>';
-
- document.getElementById('dash-numbers').innerHTML = numbersHtml;
-
- // Weight tab in dashboard
- document.getElementById('dash-weight').innerHTML = renderWeightTab();
-
- // History tab in dashboard
- document.getElementById('dash-history').innerHTML = renderHistory();
-
- // Food Log tab in dashboard
- renderFoodTab();
-
- // Edit tab
- document.getElementById('dash-edit').innerHTML = '<div class="section-header">Edit Profile</div><p style="font-size:.72rem;color:rgba(250,250,248,.4);margin-bottom:12px;line-height:1.5;">Changing your profile will reset the recalibration cycle (current weight log is preserved).</p><button class="btn-secondary" id="backToProfile">Edit Profile Settings</button><div style="margin-top:14px;border-top:1px solid rgba(250,250,248,.06);padding-top:14px"><div class="section-header" style="margin-top:0">Data Management</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn-secondary" id="exportTdeeBtn" style="flex:1;text-align:center">⬇ Export JSON</button><button class="btn-secondary" id="importTdeeBtn" style="flex:1;text-align:center">⬆ Import JSON</button><button class="btn-secondary" onclick="copyBackupToClipboard()" style="flex:1;text-align:center;color:#F4C93B"> Copy Backup Code</button><button class="btn-secondary" onclick="pasteBackupFromClipboard()" style="flex:1;text-align:center;color:#F4C93B"> Paste Backup Code</button></div></div><input type="file" id="tdeeImportInput" accept=".json" style="display:none">';
- document.getElementById('backToProfile').addEventListener('click', function(){
- document.getElementById('dashboardView').style.display = 'none';
- document.getElementById('profileView').style.display = 'block';
- document.getElementById('welcomeCard').style.display = 'none';
- document.getElementById('profileFormCard').style.display = 'block';
- populateProfileForm(store.profile);
- });
- document.getElementById('exportTdeeBtn').addEventListener('click', exportTdeeData);
- document.getElementById('importTdeeBtn').addEventListener('click', function(){ document.getElementById('tdeeImportInput').click(); });
- document.getElementById('tdeeImportInput').addEventListener('change', function(){
- if(this.files && this.files[0]) importTdeeData(this.files[0]);
- this.value = '';
- });
-
- document.getElementById('dashboardView').style.display = 'block';
- document.getElementById('profileView').style.display = 'none';
- }
-
- function renderWeightTab(){
- let html = '<div class="weight-input-row">' +
- '<input type="number" id="dashWeightInput" step="0.1" placeholder="Enter weight (kg)">' +
- '<button id="dashLogBtn">Log</button></div>' +
- '<div class="section-header">Recent Entries</div><div class="weight-log" id="dashWeightLog"></div>';
-
- // Defer rendering after DOM insert
- return html;
- }
-
- function renderHistory(){
- if(!store.adjustments || store.adjustments.length === 0){
- return '<div class="section-header">Adjustment History</div><p style="font-size:.78rem;color:rgba(250,250,248,.3);text-align:center;padding:20px 0">No adjustments yet. Keep logging weight for 2+ weeks.</p>';
- }
- let html = '<div class="section-header">Adjustment History</div>';
- [...store.adjustments].reverse().forEach(a => {
- const diff = a.newGoal - a.oldGoal;
- const cls = diff > 0 ? 'hist-up' : 'hist-down';
- const sign = diff > 0 ? '+' : '';
- const d = new Date(a.date);
- html += '<div class="hist-entry">' +
- '<div class="h-date">'+d.toLocaleDateString()+'</div>' +
- '<div class="h-reason">'+a.reason+'</div>' +
- '<div class="h-change '+cls+'">'+a.oldGoal+' &rarr; '+a.newGoal+' kcal ('+sign+diff+')</div></div>';
- });
- return html;
- }
-
- function renderWeightEntries(){
- const containers = ['weightLog', 'dashWeightLog'];
- containers.forEach(id => {
- const el = document.getElementById(id);
- if(!el) return;
- if(!store.weights || store.weights.length === 0){
- el.innerHTML = '<p style="font-size:.72rem;color:rgba(250,250,248,.2);text-align:center;padding:14px 0">No entries yet. Log your weight above.</p>';
- return;
- }
- const sorted = [...store.weights].sort((a,b)=>new Date(b.date)-new Date(a.date));
- el.innerHTML = sorted.slice(0,20).map(e =>
- '<div class="weight-entry"><span class="d">'+new Date(e.date).toLocaleDateString()+'</span><span class="w">'+e.weight.toFixed(1)+' kg</span></div>'
- ).join('');
- });
- }
-
- function logWeight(val){
- if(isNaN(val) || val <= 0) return;
- store.weights.push({date:new Date().toISOString().split('T')[0], weight:Math.round(val*10)/10});
- saveStore(store);
- renderWeightEntries();
- if(document.getElementById('dashboardView').style.display !== 'none'){
- const dashEl = document.getElementById('dashStatus');
- if(dashEl){
- const trend = calcWeightTrend(store.weights);
- dashEl.innerHTML = '<div class="status-banner status-ok animate-in"><strong>Weight Logged</strong><br>'+(trend?'Current trend: '+trend.direction+' at '+Math.abs(trend.weeklyTrend).toFixed(2)+' kg/week ('+store.weights.length+' entries).':'You have '+store.weights.length+' entries. Keep logging!')+'</div>';
- }
- }
- }
-
- function updateWelcomeCard(){
- const welcomeCard = document.getElementById('welcomeCard');
- const profileFormCard = document.getElementById('profileFormCard');
- if(!welcomeCard || !profileFormCard) return;
-
- if(store.profile){
- const p = store.profile;
- const userNameEl = document.getElementById('welcomeUserName');
- const greetingTitle = document.getElementById('welcomeTitleText');
- const hour = new Date().getHours();
- let greeting = ' WELCOME BACK';
- if(hour >= 5 && hour < 12) greeting = '☀ GOOD MORNING';
- else if(hour >= 12 && hour < 17) greeting = ' GOOD AFTERNOON';
- else if(hour >= 17 && hour < 22) greeting = ' GOOD EVENING';
- else greeting = ' NIGHT SHIFT ACTIVE';
-
- if(greetingTitle) greetingTitle.innerHTML = `${greeting}, <span id="welcomeUserName">${(p.name || 'ATHLETE').toUpperCase()}</span>!`;
-
- const badgeEl = document.getElementById('welcomeBadge');
- const nowStr = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
- if(badgeEl) badgeEl.innerHTML = `<span class="pulse-dot"></span> METABOLIC MATRIX ACTIVE // LIVE SYNC [${nowStr}]`;
-
- const statsGrid = document.getElementById('welcomeStatsGrid');
- const sortedW = (store.weights && store.weights.length > 0) 
- ? [...store.weights].sort((a,b)=>new Date(b.date)-new Date(a.date))
- : [];
- const latestW = sortedW.length > 0 ? sortedW[0].weight : p.weight;
- const initialW = p.weight;
- const diffW = (latestW - initialW).toFixed(1);
- const diffStr = diffW > 0 ? `(+${diffW} kg)` : diffW < 0 ? `(${diffW} kg)` : `(Baseline)`;
-
- const r = calcTDEE(p.sex, latestW, p.height, p.age, p.bf, p.trainingAge,
- p.trainDays, p.sessionLen, p.occupation, p.steps, p.sleep, p.dietPattern,
- p.goal, p.chronicDiet, p.cyclePhase);
- const recalibCount = (store.adjustments && store.adjustments.length) || 0;
- const loggedDaysCount = sortedW.length;
-
- const chronotype = localStorage.getItem('mos_chronotype') || 'early_lark';
- const chronotypeStr = chronotype === 'early_lark' ? 'Early Lark (Morning GLUT4)' : 'Night Owl (Evening GLUT4)';
-
- statsGrid.innerHTML = `
- <div class="welcome-stat-item">
- <div class="welcome-stat-lbl">Target Caloric Intake</div>
- <div class="welcome-stat-val" style="color:#F4C93B">${Math.round(r.goalCal)} kcal/day</div>
- <div class="welcome-stat-sub">TDEE Baseline: ${Math.round(r.tdee)} kcal</div>
- </div>
- <div class="welcome-stat-item">
- <div class="welcome-stat-lbl">Active Goal &amp; Chronotype</div>
- <div class="welcome-stat-val">${GOAL_LABELS[p.goal] || p.goal}</div>
- <div class="welcome-stat-sub">${chronotypeStr}</div>
- </div>
- <div class="welcome-stat-item">
- <div class="welcome-stat-lbl">Current Bodyweight</div>
- <div class="welcome-stat-val">${latestW} kg</div>
- <div class="welcome-stat-sub">Initial Delta: ${diffStr}</div>
- </div>
- <div class="welcome-stat-item">
- <div class="welcome-stat-lbl">Adherence &amp; Engine Status</div>
- <div class="welcome-stat-val" style="color:#4CAF50">${loggedDaysCount} Days Logged</div>
- <div class="welcome-stat-sub">${recalibCount} Active Recalibrations</div>
- </div>
- `;
-
- welcomeCard.style.display = 'block';
- profileFormCard.style.display = 'none';
- } else {
- welcomeCard.style.display = 'none';
- profileFormCard.style.display = 'block';
- }
- }
-
- function populateProfileForm(p){
- if(!p) return;
- if(p.sex){
- selectedSex = p.sex;
- document.querySelectorAll('.sex-btn').forEach(b => {
- b.classList.toggle('active', b.dataset.sex === p.sex);
- });
- if(p.sex === 'female'){
- document.getElementById('cycleGroup').style.display = 'block';
- } else {
- document.getElementById('cycleGroup').style.display = 'none';
- }
- }
- if(p.weight) document.getElementById('weight').value = p.weight;
- if(p.height) document.getElementById('height').value = p.height;
- if(p.age) document.getElementById('age').value = p.age;
- if(p.bf !== undefined) document.getElementById('bf').value = p.bf;
- if(p.trainingAge) document.getElementById('trainingAge').value = p.trainingAge;
- if(p.trainDays !== undefined) document.getElementById('trainDays').value = p.trainDays;
- if(p.sessionLen !== undefined) document.getElementById('sessionLen').value = p.sessionLen;
- if(p.occupation) document.getElementById('occupation').value = p.occupation;
- if(p.steps !== undefined) document.getElementById('steps').value = p.steps;
- if(p.sleep) document.getElementById('sleep').value = p.sleep;
- if(p.dietPattern) document.getElementById('dietPattern').value = p.dietPattern;
- if(p.chronicDiet) document.getElementById('chronicDiet').value = p.chronicDiet;
- if(p.cycleRegular) document.getElementById('cycleRegular').value = p.cycleRegular;
- if(p.cyclePhase) document.getElementById('cyclePhase').value = p.cyclePhase;
- if(p.goal) document.getElementById('goal').value = p.goal;
- }
-
- // ─── Initialize ───
- sexInit();
-
- // Show female-cycle group only if female selected
- document.getElementById('cycleGroup').style.display = 'none';
-
- // Setup welcome screen if profile exists
- updateWelcomeCard();
+   // Decision Engine — Coach Intelligence card
+  try{
+   if(typeof DecisionEngine !== 'undefined' && DecisionEngine.isLoaded){
+    const engGoal2 = (p.goal === 'aggressive_loss' || p.goal === 'moderate_loss') ? 'cut'
+      : (p.goal === 'aggressive_gain' || p.goal === 'moderate_gain') ? 'bulk' : 'maintain';
+    const engYrs2 = (p.trainingAge === 'novice') ? 1 : (p.trainingAge === 'advanced' ? 5 : 2);
+    const eR = DecisionEngine.applyBookRulesSync({goal: engGoal2, experience_years: engYrs2, age: p.age, sex: p.sex, bodyweight_kg: p.weight, height_cm: p.height});
+    if(eR){
+     const eNotes = (eR.program_notes || []).concat(eR.nutrition_notes || []);
+     if(eR.protein_per_kg || eNotes.length){
+      numbersHtml += '<div class="engine-recs-card"><div class="ec-header">&#10003; Coach Intelligence</div><div class="ec-sub">Evidence-based adjustments from the Muscle OS Decision Engine (Schoenfeld, Nippard, NSCA, ACE, IPTA)</div>'+
+       (eR.protein_per_kg ? '<span class="engine-rule-chip">Protein '+eR.protein_per_kg.toFixed(1)+' g/kg</span>' : '') +
+       (eR.rep_range ? '<span class="engine-rule-chip">Rep Range '+eR.rep_range+'</span>' : '') +
+       eNotes.map(function(n){return '<div class="engine-note">&#8226; '+n+'</div>';}).join('') +
+       '</div>';
+     }
+    }
+   }
+  }catch(e){}
 
  document.getElementById('welcomeResumeBtn').addEventListener('click', function(){
  if(store.profile) renderDashboard();

@@ -1,72 +1,72 @@
-  // ═══════════════════════════════════════
-  //  A7: SHARE PROGRAM CARD
-  // ═══════════════════════════════════════
+ setTimeout(function(){renderExSelection(split);},0);
+ }
+ function renderExSelection(split){
+ var pf=painFlags();
+ var hist=ls(K.LH,{});
+ var html='';
+ // Rehab warning banner
+ var rehabInfo=rehabSummary(pf);
+ if(rehabInfo)html+='<div class="rehab-card rehab-'+(rehabInfo.hasRed?'red':'yellow')+'" style="margin-bottom:8px;font-size:.6rem">'+
+ '<div class="rc-header"> '+_('rehab_inj_safe')+'</div>'+
+ '<div style="color:rgba(250,250,248,.5);line-height:1.2">'+rehabInfo.areas.map(function(a){return a.icon+' '+a.name+' ('+a.severity+')'}).join(', ')+
+ '. '+_('rehab_ex_green')+' <span class="rel-safe">green</span> '+_('rehab_ex_risk')+
+ ' <a href="https://wa.me/201040796017" target="_blank" style="color:#F4C93B">'+_('rehab_book_short')+'</a></div></div>';
+ split.days.forEach(function(day,di){
+ if(day.restDay){html+='<div class="ex-sel-day" style="opacity:.45"><div class="esd-title">'+_('day_prefix')+' '+(di+1)+': '+day.n+' — '+_('rest_day')+'</div></div>';return;}
+ html+='<div class="ex-sel-day"><div class="esd-title">'+_('day_prefix')+' '+(di+1)+': '+day.n+'</div><div class="esd-est"><span id="estChip_'+di+'" class="est-chip"></span></div><div id="estWarn_'+di+'" class="est-warn" style="display:none"></div>';
+ // Group slots by muscle group (preserve first-seen order)
+ var musGroups=[],musIdx={};
+ day.ex.forEach(function(ex){
+ if(musIdx[ex.p]===undefined){musIdx[ex.p]=musGroups.length;musGroups.push({p:ex.p,slots:[]});}
+ musGroups[musIdx[ex.p]].slots.push(ex);
+ });
+ musGroups.forEach(function(g){
+ html+='<div class="ex-sel-muscle"><span class="esm-name">'+(MUSCLE_NAME[g.p]||g.p)+(g.slots.length>1?'<span class="esm-count">· '+g.slots.length+'</span>':'')+'</span>'+muscleHighlightHtml(g.p)+'</div>';
+ html+='<div class="esm-search"><input type="text" class="esm-search-input" data-muscle="'+g.p+'" data-day="'+di+'" data-slotkey="'+g.slots[0].n+'" placeholder="'+_('search_ex')+'" aria-label="'+_('search_ex')+'"><div class="esm-search-res"></div></div>';
+ g.slots.forEach(function(ex){
+ var pf0=pf;
+ var safety=isExerciseSafeForInjuries(ex.n,pf0);
+ var exClass=pf0&&pf0[ex.n]==='red'?'rehab-ex-blocked':(!safety.ok?'rehab-ex-blocked':(safety.reason&&safety.reason.indexOf('🟡')>=0?'rehab-ex-safe':''));
+ html+='<div class="ex-sel-row '+exClass+'" data-muscle="'+ex.p+'" data-day="'+di+'">'+
+ '<span class="esr-lbl">'+exLinkHtml(ex.n)+'</span>'+
+ rowBadgesHtml(ex.n)+
+ lastPerfHtml(ex.n,hist)+
+ '<button class="ex-guide-toggle" type="button" data-slot="'+esc(ex.n)+'" title="'+_('how_to')+'">'+_('how_to')+' ▾</button>'+
+ slotChipsHtml(ex.n,ex.p,day);
+ if(!safety.ok)html+='<span style="font-size:.45rem;color:#f44336;margin-left:4px">⛔ '+safety.reason+'</span>';
+ else if(safety.reason)html+='<span style="font-size:.45rem;color:#FF9800;margin-left:4px">'+safety.reason+'</span>';
+ html+='<div class="ex-guide" data-slot="'+esc(ex.n)+'"></div>';
+ html+='</div>';
+ });
+ html+='<div class="vol-live" data-muscle="'+g.p+'"></div>';
+ });
+ html+='</div>';
+ });
+ document.getElementById('exSelContent').innerHTML=html;
+ syncExFilterChips();
+ document.querySelectorAll('#exSelContent .vol-live').forEach(function(el){renderLiveVol(el.dataset.muscle);});
+ renderDayEstimates();
 
-  var shareToastTimer=null;
-  function showToast(msg){
-    var t=document.getElementById('shareToast');
-    t.textContent=msg;t.classList.add('show');
-    clearTimeout(shareToastTimer);
-    shareToastTimer=setTimeout(function(){t.classList.remove('show');},2600);
-  }
-  function wrapText(ctx,txt,x,y,maxW,lh,maxLines){
-    var words=String(txt).split(/\s+/),line='',ly=y,lines=0;
-    for(var i=0;i<words.length;i++){
-      var test=line?line+' '+words[i]:words[i];
-      if(ctx.measureText(test).width>maxW&&line){
-        ctx.fillText(line,x,ly);ly+=lh;lines++;line=words[i];
-        if(lines>=maxLines)return ly;
-      }else{line=test;}
-    }
-    if(line){ctx.fillText(line,x,ly);lines++;}
-    return ly;
-  }
-  function shareProgram(){
-    var prog=ls(K.PG,null);
-    if(!prog||!prog.days)return;
-    var sp=ls(K.SP,null);
-    var split=sp&&SPLITS[sp.key]?SPLITS[sp.key]:null;
-    var vi=ls(K.VI,{});
-    var goal=vi.goal||'hypertrophy',ta=vi.ta||'intermediate';
-    var top=[];
-    prog.days.forEach(function(d){if(!d.ex)return;d.ex.forEach(function(e){if(top.indexOf(e.n)<0)top.push(e.n);});});
-    top=top.slice(0,5);
-    var splitName=split?split.name:(prog.splitName||'My Program');
-    var W=1080,H=1350,c=document.getElementById('shareCanvas'),ctx=c.getContext('2d');
-    c.width=W;c.height=H;
-    ctx.fillStyle='#14151A';ctx.fillRect(0,0,W,H);
-    ctx.fillStyle='#F4C93B';ctx.fillRect(0,0,W,16);
-    ctx.fillStyle='#1E2027';ctx.fillRect(0,16,W,120);
-    ctx.fillStyle='#F4C93B';ctx.font='800 46px Arial,Helvetica,sans-serif';ctx.fillText('MUSCLE OS',60,95);
-    ctx.fillStyle='rgba(250,250,248,.55)';ctx.font='600 24px Arial,Helvetica,sans-serif';ctx.fillText('TRAINING PROGRAM',60,128);
-    ctx.fillStyle='#FAFAF8';ctx.font='800 64px Arial,Helvetica,sans-serif';
-    var y=wrapText(ctx,splitName,60,300,W-120,76,3);
-    ctx.fillStyle='rgba(250,250,248,.4)';ctx.font='600 26px Arial,Helvetica,sans-serif';
-    ctx.fillText(prog.days.length+' days/week  ·  '+goal+'  ·  '+ta,60,y+30);
-    ctx.fillStyle='#F4C93B';ctx.font='700 30px Arial,Helvetica,sans-serif';ctx.fillText('TOP EXERCISES',60,y+120);
-    ctx.fillStyle='#FAFAF8';ctx.font='600 40px Arial,Helvetica,sans-serif';
-    top.forEach(function(ex,i){
-      var ly=y+170+i*66;
-      ctx.fillStyle='#F4C93B';ctx.font='800 30px Arial,Helvetica,sans-serif';ctx.fillText(String(i+1).padStart(2,'0'),60,ly);
-      ctx.fillStyle='#FAFAF8';ctx.font='600 38px Arial,Helvetica,sans-serif';ctx.fillText(ex,130,ly);
-    });
-    ctx.fillStyle='#F4C93B';ctx.fillRect(60,H-170,W-120,4);
-    ctx.fillStyle='rgba(250,250,248,.7)';ctx.font='700 30px Arial,Helvetica,sans-serif';ctx.fillText('muscleos.coach',60,H-100);
-    ctx.fillStyle='rgba(250,250,248,.35)';ctx.font='500 22px Arial,Helvetica,sans-serif';ctx.fillText('Coach Anas Mo\u2019men',60,H-62);
-    var a=document.createElement('a');
-    a.href=c.toDataURL('image/png');a.download='muscleos_program.png';
-    document.body.appendChild(a);a.click();a.remove();
-    var shareTxt='💪 My '+splitName+' program — '+prog.days.length+' days/week · '+goal+'\nTop lifts: '+top.join(', ')+'\nBuilt with Muscle OS → muscleos.coach';
-    function done(){showToast(_('share_copied'));}
-    function fallback(){
-      var ta2=document.createElement('textarea');
-      ta2.value=shareTxt;ta2.style.position='fixed';ta2.style.opacity='0';
-      document.body.appendChild(ta2);ta2.select();
-      try{document.execCommand('copy');}catch(e){}
-      ta2.remove();done();
-    }
-    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(shareTxt).then(done).catch(fallback);}
-    else{fallback();}
-  }
-  document.getElementById('shareProgBtn').addEventListener('click',shareProgram);
-
+ // Wire chip clicks (re-rank in place via shared binder)
+ document.querySelectorAll('#exSelContent .ex-sel-chip').forEach(bindChipClick);
+ // Wire how-to toggles (expand / collapse per slot)
+ document.querySelectorAll('#exSelContent .ex-guide-toggle').forEach(function(btn){
+ btn.addEventListener('click',function(){
+ var row=this.closest('.ex-sel-row');
+ var g=row.querySelector('.ex-guide');
+ if(!g)return;
+ var open=g.style.display==='block';
+ if(!open){
+ var sel=row.querySelector('.ex-sel-chip.selected');
+ var name=sel?sel.dataset.exval:this.dataset.slot;
+ g.innerHTML=guideHtml(name);
+ }
+ g.style.display=open?'none':'block';
+ this.textContent=(open?'':'▴ ')+_('how_to')+(open?' ▾':'');
+ });
+ });
+ // Empty-state action buttons (loosen the most restrictive filter)
+ document.querySelectorAll('#exSelContent .ex-empty-btn').forEach(function(b){
+ b.addEventListener('click',function(){
+ var act=this.dataset.act;
+ if(act==='cleareq'){var vi=ls(K.VI,{});vi.eq=null;ss(K.VI,vi);}

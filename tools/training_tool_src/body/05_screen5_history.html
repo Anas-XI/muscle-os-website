@@ -1,99 +1,99 @@
-  <!-- Screen 5: History & Stats -->
-  <div class="step-content" id="step5">
-    <div class="card">
-      <div class="section-header"><span data-i18n="coach_note">Coach's Note</span></div>
-      <div id="coachNote" style="font-size:.6rem;line-height:1.6;padding:4px 0"></div>
-    </div>
-    <div class="card">
-      <div class="section-header"><span data-i18n="track_progress">Volume Dashboard</span> <span class="section-sub" id="histWeekLabel"></span></div>
-      <p style="font-size:.55rem;color:rgba(250,250,248,.18);margin-bottom:6px;line-height:1.2">Logged sets this week (yellow bar) vs MEV–MAV–MRV (green to red).</p>
-      <div id="histVolBars"></div>
-    </div>
-    <div class="card">
-      <div class="section-header" id="histSessionsHeader"></div>
-      <div id="histSessions" style="font-size:.55rem;color:rgba(250,250,248,.35);padding:6px 0;line-height:1.4">—</div>
-      <div id="histSessionsBars" style="display:flex;align-items:flex-end;gap:3px;height:48px;margin-top:4px"></div>
-    </div>
-    <div class="card">
-      <div class="section-header" data-i18n="track_progress">e1RM Progression <span class="section-sub">— last 8 sessions</span></div>
-      <div class="form-group" style="margin-bottom:8px"><label data-i18n="exercises">Select Exercise</label>
-        <select id="histExSelect"></select></div>
-      <div id="histChart"><p style="font-size:.6rem;color:rgba(250,250,248,.15);padding:20px;text-align:center" data-i18n="no_data">Select an exercise to see e1RM trend.</p></div>
-    </div>
-    <div class="card">
-      <div class="section-header" data-i18n="pr_table">Personal Records</div>
-      <div id="prTable"><p style="font-size:.6rem;color:rgba(250,250,248,.15);padding:10px;text-align:center" data-i18n="no_data">Log some sessions to see PRs.</p></div>
-    </div>
-    <div class="card">
-      <div class="section-header" data-i18n="deload_hist">Deload History</div>
-      <div id="deloadHistory"><p style="font-size:.6rem;color:rgba(250,250,248,.15);padding:10px;text-align:center" data-i18n="no_data">No deload data yet.</p></div>
-      <button class="btn-primary" id="markDeloadBtn" style="background:rgba(244,201,59,.06);border:1px solid rgba(244,201,59,.15);color:#F4C93B;font-size:.65rem;padding:8px 0;margin-top:8px" data-i18n="deload_hist">Mark Deload This Week</button>
-    </div>
-    <div class="card" id="compWidgetCard" style="display:none">
-      <div class="section-header" data-i18n="track_progress">Compliance Dashboard <span class="section-sub">— last 28 days</span></div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:6px">
-        <div style="text-align:center;background:rgba(250,250,248,.01);border-radius:6px;padding:6px 4px">
-          <div id="compScore" style="font-size:.9rem;font-weight:700;font-family:'JetBrains Mono',monospace">—</div>
-          <div style="font-size:.4rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.15)" data-i18n="track_progress">Score</div>
-        </div>
-        <div style="text-align:center;background:rgba(250,250,248,.01);border-radius:6px;padding:6px 4px">
-          <div id="compGrade" style="font-size:.9rem;font-weight:700;font-family:'JetBrains Mono',monospace">—</div>
-          <div style="font-size:.4rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.15)">Grade</div>
-        </div>
-        <div style="text-align:center;background:rgba(250,250,248,.01);border-radius:6px;padding:6px 4px">
-          <div id="compLabel" style="font-size:.9rem;font-weight:700">—</div>
-          <div style="font-size:.4rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.15)">Status</div>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:6px">
-        <div style="background:rgba(250,250,248,.01);border-radius:4px;padding:4px 6px">
-          <span style="font-size:.4rem;text-transform:uppercase;color:rgba(250,250,248,.12)">Current Streak</span>
-          <div id="compStreak" style="font-size:.55rem;font-weight:600">—</div>
-        </div>
-        <div style="background:rgba(250,250,248,.01);border-radius:4px;padding:4px 6px">
-          <span style="font-size:.4rem;text-transform:uppercase;color:rgba(250,250,248,.12)">Best Streak</span>
-          <div id="compBestStreak" style="font-size:.55rem;font-weight:600">—</div>
-        </div>
-      </div>
-      <div style="background:rgba(250,250,248,.01);border-radius:4px;padding:4px 6px;margin-bottom:4px">
-        <span style="font-size:.4rem;text-transform:uppercase;color:rgba(250,250,248,.12)">Adherence (planned/logged)</span>
-        <div id="compAdherence" style="font-size:.55rem;font-weight:600">—</div>
-      </div>
-      <div id="compChart"></div>
-    </div>
-    <div class="card" id="cardioHistCard" style="display:none">
-      <div class="section-header" data-i18n="log_cardio">Cardio Log <span class="section-sub">— weekly summary</span></div>
-      <div id="cardioHistContent"><p style="font-size:.6rem;color:rgba(250,250,248,.15);padding:10px;text-align:center" data-i18n="no_data">No cardio logged yet.</p></div>
-    </div>
-    <div class="card" id="trendHistCard" style="display:none">
-      <div class="section-header" data-i18n="trend_title">Load &amp; Volume Trend <span class="section-sub">— weekly buckets</span></div>
-      <div class="form-group" style="margin-bottom:8px"><label data-i18n="trend_range">Range</label>
-        <select id="trendRange"><option value="90">90 days</option><option value="180" selected>180 days</option></select></div>
-      <div id="trendContent"><p style="font-size:.6rem;color:rgba(250,250,248,.15);padding:10px;text-align:center" data-i18n="no_data">Log some sessions to see trends.</p></div>
-    </div>
-    <div class="card" id="mesoHistCard" style="display:none">
-      <div class="section-header" data-i18n="generate_meso">Mesocycle History <span class="section-sub">— completed blocks</span></div>
-      <div id="mesoHistContent"><p style="font-size:.6rem;color:rgba(250,250,248,.15);padding:10px;text-align:center" data-i18n="no_data">No completed mesocycles yet.</p></div>
-      <div id="acwrHist" style="margin-top:8px;font-size:.55rem;color:rgba(250,250,248,.2)"></div>
-    </div>
-    <div class="card" id="fatigueHistCard" style="display:none">
-      <div class="section-header" data-i18n="pre_session">Fatigue Trend <span class="section-sub">— last 7 check-ins</span></div>
-      <div id="fatigueTrend"><p style="font-size:.6rem;color:rgba(250,250,248,.15);padding:10px;text-align:center" data-i18n="no_data">No fatigue data yet. Check in before training.</p></div>
-    </div>
-    <div class="card" id="measHistCard" style="display:none">
-      <div class="section-header" data-i18n="track_progress">Body Measurements <span class="section-sub">— progress tracker</span></div>
-      <div id="measHistContent"></div>
-    </div>
-    <div class="card" id="rehabHistCard" style="display:none">
-      <div class="section-header">Injury &amp; Rehab Log</div>
-      <div id="rehabHistContent"><p style="font-size:.6rem;color:rgba(250,250,248,.15);padding:10px;text-align:center" data-i18n="no_data">No injuries tracked. Great work staying healthy!</p></div>
-      <div id="rehabConsultHist" style="display:none;margin-top:6px"></div>
-    </div>
-    <div class="btn-group">
-      <button class="btn-primary" id="backToDashBtn" style="background:transparent;border:1.5px solid rgba(250,250,248,.08);color:rgba(250,250,248,.35);font-size:.75rem" data-i18n="back_to_setup">Back to Training</button>
-    </div>
-  </div>
+ <tr><td>9</td><td>1</td><td data-i18n="rpe_9_feel">Hard — one more rep possible but very difficult</td><td data-i18n="rpe_9_use">Top working sets, heavy compounds</td></tr>
+ <tr><td>8</td><td>2</td><td data-i18n="rpe_8_feel">Challenging — 2 reps left in tank</td><td data-i18n="rpe_8_use">Most working sets, hypertrophy</td></tr>
+ <tr><td>7</td><td>3</td><td data-i18n="rpe_7_feel">Moderately hard — 3 reps left</td><td data-i18n="rpe_7_use">Back-off sets, early working sets</td></tr>
+ <tr><td>5-6</td><td>4-5</td><td data-i18n="rpe_5_feel">Moderate — bar speed slows slightly</td><td data-i18n="rpe_5_use">Warm-up, ramp sets, first work sets</td></tr>
+ </table>
+ <div class="rg-tip" data-i18n="rpe_tip"> <strong>Pro tip:</strong> Start your first working set at RPE 7. If it moves well, add weight next set. If it's a grind, stay or back off. Over 4 weeks, track your RPE to spot accumulating fatigue before it hurts performance.</div>
+ </div>
+ </div>
+ <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap"><div class="day-tabs" id="dayTabs" style="margin-bottom:0"></div><button id="supersetToggle" class="ss-toggle" title="Pair exercises"> <span id="supersetToggleLabel">Superset</span></button></div>
 
-  <div class="footer no-print">By Coach Anas Mo'men — <a href="https://wa.me/201040796017">Start your coaching journey now</a></div>
-</div>
+ <div id="exCards"></div>
 
+ <div class="summary-dash">
+ <div class="summary-card"><div class="summary-val" id="sumSets">0</div><div class="summary-lbl" data-i18n="sets">Sets Logged</div></div>
+ <div class="summary-card"><div class="summary-val" id="sumReps">0</div><div class="summary-lbl" data-i18n="reps">Total Reps</div></div>
+ <div class="summary-card"><div class="summary-val" id="sumExDone">0</div><div class="summary-lbl" data-i18n="exercises">Exercises</div></div>
+ </div>
+
+ <div id="dashEmpty" style="display:none;text-align:center;padding:20px;font-size:.7rem;color:rgba(250,250,248,.2)" data-i18n="dash_empty">This day is empty — pick another day or build your program, then log your first set.</div>
+
+ <div id="acwrDash" class="acwr-bar" style="display:none;border:1px solid rgba(250,250,248,.05)"></div>
+
+ <div id="combinedLoadDash" style="display:none;margin-bottom:12px;border:1px solid rgba(250,250,248,.05);border-radius:8px;padding:8px 10px;background:rgba(250,250,248,.01)">
+ <div class="section-header" style="margin-bottom:4px"><span data-i18n="cl_title">Combined Load</span> <span class="section-sub">— lifting + non-lifting</span></div>
+ <div id="combinedLoadContent" style="font-size:.55rem;color:rgba(250,250,248,.2);line-height:1.5"></div>
+ </div>
+
+ <div id="autoAdjustCard" class="auto-adjust-card" style="display:none;margin-bottom:12px;border:1px solid rgba(244,201,59,.08);border-radius:8px;padding:8px 10px;background:rgba(244,201,59,.01)">
+ <div class="section-header" style="margin-bottom:4px" data-i18n="track_progress">Auto Adjustments <span class="section-sub">— next session</span></div>
+ <div id="autoAdjustContent" style="font-size:.5rem;color:rgba(250,250,248,.2)"></div>
+ </div>
+
+ <div class="cardio-section">
+ <div class="cardio-toggle" id="cardioToggle">
+ <span class="ci-icon">❤</span>
+ <span data-i18n="log_cardio">Log Cardio Session</span>
+ <span id="cardioTodayBadge" style="margin-left:auto;font-size:.5rem;color:rgba(250,250,248,.15)"></span>
+ </div>
+ <div class="cardio-form" id="cardioForm">
+ <div class="cf-row">
+ <div><label data-i18n="type">Type</label><select id="cardioType"><option value="Walking">Walking</option><option value="Jogging">Jogging</option><option value="Running">Running</option><option value="Cycling">Cycling</option><option value="Swimming">Swimming</option><option value="Rowing">Rowing</option><option value="Elliptical">Elliptical</option><option value="Stairmaster">Stairmaster</option><option value="HIIT">HIIT</option><option value="Other">Other</option></select></div>
+ <div><label data-i18n="duration_min">Duration (min)</label><input type="number" id="cardioDur" step="1" min="1" placeholder="e.g. 30"></div>
+ </div>
+ <div class="cf-row">
+ <div><label data-i18n="intensity">Intensity</label><select id="cardioIntensity"><option value="Low" data-i18n="low">Low — easy conversation pace</option><option value="Moderate" selected data-i18n="moderate">Moderate — can talk in short phrases</option><option value="High" data-i18n="high">High — breathless, can't talk</option></select></div>
+ <div><label>Notes (optional)</label><input type="text" id="cardioNotes" placeholder="e.g. incline treadmill"></div>
+ </div>
+ <button class="btn-primary" id="saveCardioBtn" style="font-size:.55rem;padding:6px 0;background:rgba(76,175,80,.06);border:1px solid rgba(76,175,80,.12);color:#4CAF50" data-i18n="log_cardio">Log Cardio</button>
+ </div>
+ <div class="cardio-history" id="cardioHistory"></div>
+ </div>
+
+ <div class="cardio-section">
+ <div class="cardio-toggle" id="nlToggle">
+ <span class="ci-icon"></span>
+ <span data-i18n="nl_toggle">Log Non-Lifting Session</span>
+ <span id="nlTodayBadge" style="margin-left:auto;font-size:.5rem;color:rgba(250,250,248,.15)"></span>
+ </div>
+ <div class="cardio-form" id="nlForm">
+ <div class="cf-row">
+ <div><label data-i18n="nl_type">Type</label><select id="nlType"><option value="Sport">Sport</option><option value="Rehab">Rehab</option><option value="Mobility">Mobility</option><option value="GPP">GPP</option><option value="Other">Other</option></select></div>
+ <div><label data-i18n="nl_duration">Duration (min)</label><input type="number" id="nlDur" step="1" min="1" placeholder="e.g. 45"></div>
+ </div>
+ <div class="cf-row">
+ <div><label data-i18n="nl_effort">Effort</label><select id="nlEffort"><option value="Low" data-i18n="low">Low — easy pace</option><option value="Moderate" selected data-i18n="moderate">Moderate — can talk in short phrases</option><option value="High" data-i18n="high">High — breathless, can't talk</option></select></div>
+ <div><label>Notes (optional)</label><input type="text" id="nlNotes" placeholder="e.g. football practice"></div>
+ </div>
+ <button class="btn-primary" id="saveNlBtn" style="font-size:.55rem;padding:6px 0;background:rgba(76,175,80,.06);border:1px solid rgba(76,175,80,.12);color:#4CAF50" data-i18n="nl_save">Log Session</button>
+ </div>
+ <div class="cardio-history" id="nlHistory"></div>
+ </div>
+
+ <div id="rehabPanel" class="rehab-panel" style="display:none">
+ <div class="section-header">Rehab &amp; Prevention <span class="section-sub" id="rehabStatus"></span></div>
+ <div id="rehabContent"></div>
+ </div>
+
+ <div class="meas-section" style="margin-bottom:12px">
+ <div class="meas-toggle" id="measToggle" style="display:flex;align-items:center;gap:8px;padding:6px 10px;background:rgba(250,250,248,.01);border-radius:6px;cursor:pointer;font-size:.55rem;color:rgba(250,250,248,.25);transition:background .15s">
+ <span style="font-size:.7rem"></span>
+ <span data-i18n="track_progress">Body Measurements</span>
+ <span id="measBadge" style="margin-left:auto;font-size:.45rem;color:rgba(250,250,248,.1)"></span>
+ </div>
+ <div class="meas-form" id="measForm" style="display:none;padding:8px 10px;background:rgba(250,250,248,.01);border-radius:0 0 6px 6px">
+ <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 8px">
+ <div><label>Weight (kg)</label><input type="number" id="measWeight" step="0.1" placeholder="e.g. 80"></div>
+ <div><label>Body Fat %</label><input type="number" id="measBf" step="0.1" placeholder="e.g. 15" min="3" max="50"></div>
+ <div><label>Chest (cm)</label><input type="number" id="measChest" step="0.5" placeholder="cm"></div>
+ <div><label>Waist (cm)</label><input type="number" id="measWaist" step="0.5" placeholder="cm"></div>
+ <div><label>Left Arm (cm)</label><input type="number" id="measLArm" step="0.5" placeholder="cm"></div>
+ <div><label>Right Arm (cm)</label><input type="number" id="measRArm" step="0.5" placeholder="cm"></div>
+ <div><label>Left Thigh (cm)</label><input type="number" id="measLThigh" step="0.5" placeholder="cm"></div>
+ <div><label>Right Thigh (cm)</label><input type="number" id="measRThigh" step="0.5" placeholder="cm"></div>
+ <div><label>Left Calf (cm)</label><input type="number" id="measLCalf" step="0.5" placeholder="cm"></div>
+ <div><label>Right Calf (cm)</label><input type="number" id="measRCalf" step="0.5" placeholder="cm"></div>
+ </div>
+ <div style="margin-top:6px"><label>Progress Photo (optional, max ~100KB)</label><input type="file" id="measPhotoInput" accept="image/*" style="font-size:.5rem;color:rgba(250,250,248,.25)"></div>
+ <div class="btn-group" style="margin-top:6px">
+ <button class="btn-primary" id="saveMeasBtn" style="font-size:.55rem;padding:6px 0;background:rgba(76,175,80,.06);border:1px solid rgba(76,175,80,.12);color:#4CAF50" data-i18n="save_meas">Save Measurements</button>

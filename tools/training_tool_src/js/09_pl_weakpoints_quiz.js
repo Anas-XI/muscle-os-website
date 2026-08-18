@@ -1,132 +1,166 @@
-  // ── Weak Points Grid ──
-  function renderWeakPoints(){
-    var g=document.getElementById('weakGrid');if(!g)return;g.innerHTML='';
-    WEAK_POINTS.forEach(function(w){
-      var b=document.createElement('button');b.className='weak-chip';b.textContent=w.l;b.dataset.id=w.id;
-      b.addEventListener('click',function(){this.classList.toggle('active');});
-      g.appendChild(b);
-    });
-  }
-  renderWeakPoints();
+ {n:'Volume Upper',ex:[{n:'Lat Pulldown',s:3,p:'back',se:['biceps']},{n:'Seated Row',s:3,p:'back',se:['biceps']},{n:'Machine Chest Flies',s:3,p:'chest',se:[]},{n:'Shoulder Press',s:2,p:'shoulders',se:['triceps']},{n:'Lateral Raises',s:2,p:'shoulders',se:[]},{n:'Triceps Pushdown',s:2,p:'triceps',se:[]}]}
+ ]};
+ })();
 
-  // ── Goal toggle: show/hide powerlifting extras ──
-  document.getElementById('goal').addEventListener('change',function(){
-    var ex=document.getElementById('strengthExtras');
-    if(!ex)return;
-    ex.classList.toggle('show',this.value==='strength');
-  });
+ window.__splits=SPLITS;
 
-  // ── Comp goal toggle: show/hide meet date ──
-  document.getElementById('plComp').addEventListener('change',function(){
-    document.getElementById('plMeetDate').style.display=this.value==='meet'?'block':'none';
-  });
+ // ── Custom split builder constants ──
+ const CUSTOM_SPLIT_KEY='__custom__';
+ const DEFAULT_SLOT_SETS=3;
+ const SLOT_DEFAULTS={chest:'Bench Press',back:'Lat Pulldown',shoulders:'Overhead Press',quads:'Barbell Squat',hamstrings:'Deadlift Variation',glutes:'Hip Thrust',biceps:'Bicep Curl',triceps:'Triceps Pushdown',calves:'Calf Raise',traps:'Kelso Shrugs',forearms:'Wrist Curl',abs:'Cable Crunch'};
 
-  // ── Powerlifting Profile ──
-  function getPLProfile(){
-    var g=document.getElementById('goal');
-    if(g&&g.value!=='strength')return null;
-    var weaks=[];(document.querySelectorAll('#weakGrid .weak-chip.active')||[]).forEach(function(c){weaks.push(c.dataset.id);});
-    return{
-      squat:parseFloat(document.getElementById('plSquat').value)||0,
-      bench:parseFloat(document.getElementById('plBench').value)||0,
-      deadlift:parseFloat(document.getElementById('plDeadlift').value)||0,
-      bw:parseFloat(document.getElementById('plBW').value)||0,
-      years:document.getElementById('plYears').value||'intermediate',
-      weaks:weaks,
-      comp:document.getElementById('plComp').value||'none',
-      meetDate:document.getElementById('plMeetDate').value||null
-    };
-  }
-  function savePLProfile(p){ss(K.PL,p);}
+ const CARDIO_TYPES = ['Walking','Jogging','Running','Cycling','Swimming','Rowing','Elliptical','Stairmaster','HIIT','Other'];
+ const WEAK_POINTS = [
+ {id:'lockout',l:'Lockout (bench/overhead)'},{id:'off_chest',l:'Off Chest (bench)'},
+ {id:'off_floor',l:'Off Floor (deadlift)'},{id:'lockout_dl',l:'Lockout (deadlift)'},
+ {id:'hole',l:'Bottom of Squat (the hole)'},{id:'midpoint',l:'Mid-Point Sticking'},
+ {id:'legs',l:'Leg Strength / Mass'},{id:'back',l:'Back Strength / Thickness'}
+ ];
+ const K = {VT:'mos_vol_targets',SP:'mos_split_profile',PG:'mos_program',LG:'mos_logs',VI:'mos_vol_inputs',LH:'mos_load_history',DT:'mos_deload_tracker',PF:'mos_pain_flags',PL:'mos_pl_profile',FL:'mos_fatigue_log',CL:'mos_cardio_logs',MP:'mos_meso_plan',MA:'mos_meso_active',MH:'mos_meso_history',MM:'mos_measurements',CE:'mos_custom_exercises',CR:'mos_custom_replacements',SU:'mos_supersets',SS:'mos_sessions',PR:'mos_priority',SR:'mos_soreness_log',PC:'mos_pr_credit',VA:'mos_vol_alloc',FO:'mos_freq_override',CQ:'mos_coach_queue',EV:'mos_events',CS:'mos_custom_split',NL:'mos_nonlift_log',PFH:'mos_pain_flag_hist'};
 
-  // ── Periodization Engine ──
-  function determinePeriodization(plProfile,age){
-    if(!plProfile)return null;
-    var yrs=plProfile.years||'intermediate',total=plProfile.squat+plProfile.bench+plProfile.deadlift;
-    if(!total||total<30)return null;
-    if(yrs==='novice')return{name:'Linear Progression',key:'linear',desc:_('split_add_weight'),cycle:1,note:_('split_add_weight')};
-    if(total<500||yrs==='intermediate')return{name:'5/3/1 (Wave Periodization)',key:'531',desc:_('split_wave_periodization'),cycle:3,note:_('split_wave_periodization')};
-    if(total<700)return{name:'DUP (Daily Undulating)',key:'dup',desc:_('split_dup'),cycle:1,note:_('split_dup')};
-    return{name:'Block Periodization',key:'block',desc:_('split_advanced_periodization'),cycle:10,note:_('split_advanced_periodization')};
-  }
+ // ═══════════════════════════════════════
+ // DECISION ENGINE — Profile Builder & Cache
+ // ═══════════════════════════════════════
+ var TA_TO_YEARS = { novice: 0.5, intermediate: 2, advanced: 5 };
+ function buildEngineProfile() {
+  var goal   = (document.getElementById('goal')       && document.getElementById('goal').value)       || 'hypertrophy';
+  var ta     = (document.getElementById('ta')         && document.getElementById('ta').value)         || 'intermediate';
+  var age    = parseInt((document.getElementById('userAge')    && document.getElementById('userAge').value)    || 25);
+  var sex    = (document.getElementById('userSex')    && document.getElementById('userSex').value)    || 'male';
+  var weight = parseFloat((document.getElementById('userWeight') && document.getElementById('userWeight').value) || ls('mos_eng_bw', 75));
+  var height = parseFloat((document.getElementById('userHeight') && document.getElementById('userHeight').value) || ls('mos_eng_ht', 175));
+  var days   = parseInt((document.getElementById('dow')        && document.getElementById('dow').value)        || 4);
+  return { goal: goal, experience_years: TA_TO_YEARS[ta] || 2, age: age, sex: sex, bodyweight_kg: weight, height_cm: height, training_days: days };
+ }
+ var _engineRecs = null;
+ function getEngineRecs() {
+  if (_engineRecs) return _engineRecs;
+  if (typeof DecisionEngine === 'undefined' || !DecisionEngine.isLoaded) return null;
+  _engineRecs = DecisionEngine.applyBookRulesSync(buildEngineProfile());
+  return _engineRecs;
+ }
+ function parseRestSec(str, fallback) {
+  if (!str) return fallback;
+  var match = str.match(/(\d+)-(\d+)/);
+  if (match) return parseInt(match[2]);
+  var single = str.match(/(\d+)/);
+  return single ? parseInt(single[1]) : fallback;
+ }
+ // Invalidate cache on profile field change
+ ['goal','ta','userAge','userSex','userWeight','userHeight','dow'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('change', function() { _engineRecs = null; });
+ });
 
-  function mainLiftRPE(scheme,week,goal,dayName){
-    if(!scheme)return {rpe:8,reps:8,desc:_('peri_standard_rpe_8')};
-    if(scheme.key==='linear')return{rpe:8.5,reps:5,desc:_('peri_5x5')};
-    if(scheme.key==='531'){
-      var w=((week-1)%3)+1;
-      if(dayName&&dayName.toLowerCase().indexOf('squ')>=0){
-        if(w===1)return{rpe:6.5,reps:5,desc:_('peri_531_w')+' '+w+': '+_('peri_531_w1')};
-        if(w===2)return{rpe:8,reps:3,desc:_('peri_531_w')+' '+w+': '+_('peri_531_w2')};
-        return{rpe:9,reps:1,desc:_('peri_531_w')+' '+w+': '+_('peri_531_w3')};
-      }
-      if(w===1)return{rpe:6.5,reps:5,desc:_('peri_531_w1_4')};
-      if(w===2)return{rpe:8,reps:3,desc:_('peri_531_w2_4')};
-      return{rpe:9,reps:1,desc:_('peri_531_w3_4')};
-    }
-    if(scheme.key==='dup'){
-      if(dayName&&dayName.toLowerCase().indexOf('heavy')>=0)return{rpe:8.5,reps:3,desc:_('peri_heavy')};
-      if(dayName&&dayName.toLowerCase().indexOf('moderate')>=0)return{rpe:7.5,reps:5,desc:_('peri_moderate')};
-      return{rpe:6.5,reps:8,desc:_('peri_light')};
-    }
-    if(scheme.key==='block'){
-      var phase=((week-1)%10)+1;
-      if(phase<=4)return{rpe:7,reps:8,desc:_('peri_accum')};
-      if(phase<=8)return{rpe:8.5,reps:3,desc:_('peri_intensify')};
-      if(phase<=9)return{rpe:9,reps:1,desc:_('peri_peak')};
-      return{rpe:6,reps:5,desc:_('peri_deload_rpe')};
-    }
-    return{rpe:8,reps:8,desc:_('peri_standard_rpe_8')};
-  }
+ // ═══════════════════════════════════════
+ // LOCAL EVENT LOG + TRIAL (PMF telemetry)
+ // Append-only, bounded, no PII. Syncs via the existing Worker payload.
+ // ═══════════════════════════════════════
 
-  // ── Fatigue / Stress Ratio Scoring ──
-  function defaultFatigue(){return{sleep:7,stress:5,doms:5,nutrition:7,cns:5};}
-  function fatigueScore(f){if(!f)return{score:5,label:'UNCHECKED',color:'green',adjust:0};var s=(f.sleep+f.stress+f.doms+f.nutrition+f.cns)/5;f.stress=10-f.stress;var a=(10-s)/2;if(s>=7.5)return{score:s,label:'GREEN',color:'green',adjust:0};if(s>=5)return{score:s,label:'YELLOW',color:'yellow',adjust:-0.5};return{score:s,label:'RED',color:'red',adjust:-1};}
-  function getTodayFatigue(){var fl=ls(K.FL,{});var td=new Date().toISOString().split('T')[0];return fl[td]||null;}
-  function saveTodayFatigue(f){var fl=ls(K.FL,{});fl[new Date().toISOString().split('T')[0]]=f;ss(K.FL,fl);}
+ function eventsAll(){ return ls(K.EV, null) || []; }
+ function evLog(e, d, dedupe){
+ var arr = eventsAll(), now = Date.now();
+ if(dedupe){ arr = arr.filter(function(x){ return !(x.e === e && x.k === dedupe); }); }
+ arr.push({ t: now, e: e, k: dedupe || null, d: d || {} });
+ var cut = now - 90 * 864e5;
+ arr = arr.filter(function(x){ return x.t >= cut; });
+ if(arr.length > EVENTS_MAX) arr = arr.slice(arr.length - EVENTS_MAX);
+ ss(K.EV, arr);
+ }
+ function evLast(e, k){
+ var arr = eventsAll();
+ for(var i = arr.length - 1; i >= 0; i--){ if(arr[i].e === e && (k === undefined || arr[i].k === k)) return arr[i]; }
+ return null;
+ }
+ window.__eventsAll = eventsAll; window.__evLog = evLog; window.__evLast = evLast;
 
-  // ── Cardio Logging ──
-  function getCardioLogs(){return ls(K.CL,[]);}
-  function saveCardioSession(s){var cl=getCardioLogs();cl.push(s);ss(K.CL,cl);}
-  function weeklyCardio(){var cl=getCardioLogs(),wa=new Date(Date.now()-7*864e5).toISOString().split('T')[0];return cl.filter(function(x){return x.date>=wa}).reduce(function(a,x){a.minutes=(a.minutes||0)+(x.dur||0);a.sessions=(a.sessions||0)+1;if(!a.detail)a.detail={};a.detail[x.type]=(a.detail[x.type]||0)+(x.dur||0);return a;},{sessions:0,minutes:0,detail:{}});}
-  function todayCardio(){var td=new Date().toISOString().split('T')[0],cl=getCardioLogs();return cl.filter(function(x){return x.date===td});}
+ // Trial state — single source of truth. TRIAL_DAYS constant lives in 02_data.js.
+ function trialState(){
+ var start = localStorage.getItem('mos_trial_start');
+ if(!start){ start = new Date().toISOString(); localStorage.setItem('mos_trial_start', start); evLog('trial_start'); }
+ var daysLeft = TRIAL_DAYS - Math.floor((Date.now() - new Date(start).getTime()) / 864e5);
+ return { start: start, daysLeft: daysLeft, active: daysLeft > 0 };
+ }
+ window.__trialState = trialState;
 
-  // ── Non-lifting session logging (P1: hybrid-athlete cross-modality load) ──
-  var NONLIFT_MAX_DAYS=180;
-  function getNonLiftLogs(){return ls(K.NL,[]);}
-  function saveNonLiftSession(s){
-    var nl=getNonLiftLogs();nl.push(s);
-    var cutoff=new Date(Date.now()-NONLIFT_MAX_DAYS*864e5).toISOString().split('T')[0];
-    nl=nl.filter(function(x){return x.date>=cutoff;});
-    ss(K.NL,nl);
-  }
-  function weeklyNonLift(){var nl=getNonLiftLogs(),wa=new Date(Date.now()-7*864e5).toISOString().split('T')[0];return nl.filter(function(x){return x.date>=wa}).reduce(function(a,x){a.minutes=(a.minutes||0)+(x.dur||0);a.sessions=(a.sessions||0)+1;return a;},{sessions:0,minutes:0});}
-  function todayNonLift(){var td=new Date().toISOString().split('T')[0],nl=getNonLiftLogs();return nl.filter(function(x){return x.date===td});}
-  var NONLIFT_EFFORT={Low:3,Moderate:5,High:8};
+ // Unobtrusive "X days left" pill — injected into the header, zero HTML part changes.
+ function updateTrialPill(){
+ var pill = document.getElementById('trialPill');
+ var st = trialState(), sub = null;
+ try{ sub = JSON.parse(localStorage.getItem('mos_subscription')); }catch(e){}
+ var active = !!(sub && sub.active);
+ if(active || !st.active){
+ if(pill) pill.style.display = 'none';
+ if(!active && !st.active) evLog('trial_expired', {}, 'once');
+ return;
+ }
+ if(!pill){
+ pill = document.createElement('span');
+ pill.id = 'trialPill';
+ pill.style.cssText = 'display:inline-flex;align-items:center;gap:4px;font-size:.5rem;color:#F4C93B;border:1px solid rgba(244,201,59,.25);background:rgba(244,201,59,.06);border-radius:20px;padding:2px 8px;margin-left:6px;white-space:nowrap;cursor:default';
+ pill.innerHTML = '<span data-i18n="trial_pill_pre"></span><b id="trialDays" style="font-weight:700"></b><span data-i18n="trial_pill_post"></span>';
+ var top = document.querySelector('.header-top');
+ if(top) top.appendChild(pill);
+ }
+ pill.style.display = 'inline-flex';
+ var days = document.getElementById('trialDays');
+ if(days) days.textContent = st.daysLeft;
+ evLog('trial_days_left', { days: st.daysLeft }, 'tl_' + new Date().toISOString().split('T')[0]);
+ translateUI();
+ }
+ window.__updateTrialPill = updateTrialPill;
 
-  // ── Quiz ──
-  const QUIZ = [
-    {q:"How many days per week can you consistently train?",k:"days",o:[{v:"2",l:"2 days — tight schedule"},{v:"3",l:"3 days — moderate"},{v:"4",l:"4 days — good"},{v:"5",l:"5 days — strong"},{v:"6",l:"6 days — top priority"}]},
-    {q:"What is your primary training goal?",k:"goal",o:[{v:"hypertrophy",l:"Hypertrophy — maximise muscle size"},{v:"strength",l:"Strength — maximise weight on the bar"},{v:"both",l:"Both — balanced growth"}]},
-    {q:"How is your recovery capacity?",k:"recovery",o:[{v:"low",l:"Low — limited sleep, high stress"},{v:"moderate",l:"Moderate — adequate with good habits"},{v:"high",l:"High — sleep well, handle volume"}]},
-    {q:"What is your training experience?",k:"exp",o:[{v:"novice",l:"Novice — less than 1 year"},{v:"intermediate",l:"Intermediate — 1-3 years"},{v:"advanced",l:"Advanced — 3+ years"}]},
-    {q:"How consistent is your schedule?",k:"sched",o:[{v:"variable",l:"Variable — training times shift"},{v:"somewhat",l:"Somewhat — mostly similar weeks"},{v:"very",l:"Very — same time, same days"}]}
-  ];
+ // Trial-expired note inside the paywall modal, injected next to the code row.
+ function trialExpiredNote(){
+ var el = document.getElementById('trialExpiredNote');
+ var st = trialState(), sub = null;
+ try{ sub = JSON.parse(localStorage.getItem('mos_subscription')); }catch(e){}
+ if((sub && sub.active) || st.active){
+ if(el) el.style.display = 'none';
+ return;
+ }
+ if(!el){
+ el = document.createElement('div');
+ el.id = 'trialExpiredNote';
+ el.className = 'sub-error';
+ var modal = document.querySelector('.sub-modal');
+ var anchor = modal ? (modal.querySelector('#authStep2') || modal.lastElementChild) : null;
+ if(anchor) modal.insertBefore(el, anchor);
+ }
+ el.textContent = _('trial_expired_note');
+ el.style.display = 'block';
+ evLog('trial_expired', {}, 'once');
+ }
+ window.__trialExpiredNote = trialExpiredNote;
 
-  function determineSplit(a){
-    const d=parseInt(a.days||4),g=a.goal||'both',r=a.recovery||'moderate',e=a.exp||'intermediate',s=a.sched||'somewhat';
-    // Strength/Powerlifting recommendations
-    if(g==='strength'){
-      if(d>=4){if(e==='advanced')return{name:'Block Periodization (4-Day)',key:'block_4',note:_('split_advanced_periodization')};return{name:'5/3/1 (4-Day)',key:'five_three_one_4',note:_('split_wave_periodization')};}
-      if(d===3){if(e==='novice')return{name:'Linear Progression (3-Day)',key:'linear_3',note:_('split_add_weight')};return{name:'DUP (3-Day)',key:'dup_3',note:_('split_dup')};}
-      if(d===2)return{name:'Upper/Lower (2-Day)',key:'upper_lower_2',note:_('split_strength_maintenance')};
-      return{name:'5/3/1 (4-Day)',key:'five_three_one_4',note:_('split_try_531')};
-    }
-    if(d>=6){if(g==='both'||r==='high')return{name:'PPL + Arnold Hybrid (6-Day)',key:'ppl_arnold_6',note:_('split_ppl_arnold')};if(r==='low')return{name:'Upper/Lower 3x (6-Day)',key:'ul_3x_6',note:_('split_high_freq')};return{name:'PPL + Arnold Hybrid (6-Day)',key:'ppl_arnold_6',note:_('split_mix_compound')};}
-    if(d===5){if(r==='high')return{name:'PPL + Upper/Lower (5-Day)',key:'ppl_ul_5',note:_('split_ppl_ul')};if(e==='advanced')return{name:'Arnold + Upper/Lower (5-Day)',key:'arnold_ul_5',note:_('split_arnold_ul')};if(g==='hypertrophy')return{name:'PPL + Torso/Limbs (5-Day)',key:'ppl_tl_5',note:_('split_torso_limbs')};return{name:'PPL + Upper/Lower (5-Day)',key:'ppl_ul_5',note:_('split_5day_hybrid')};}
-    if(d===4){if(g==='both')return{name:'Upper/Lower (4-Day)',key:'upper_lower_4',note:_('split_industry_standard')};if(r==='low'||s==='variable')return{name:'Torso/Limbs (4-Day)',key:'torso_limbs_4',note:_('split_push_pull')};return{name:'Upper/Lower (4-Day)',key:'upper_lower_4',note:_('split_4day_popular')};}
-    if(d===3){if(e==='novice'||r==='low')return{name:'Full Body (3-Day)',key:'fullbody_3',note:_('split_max_frequency')};return{name:'Full Body (3-Day)',key:'fullbody_3',note:_('split_full_body')};}
-    if(d===2)return{name:'Upper/Lower (2-Day)',key:'upper_lower_2',note:_('split_2day')};
-    return{name:'Full Body (2-Day)',key:'upper_lower_2',note:_('split_start_simple')};
-  }
+ // Onboarding / paywall abandon tracking — page lifecycle hooks only.
+ function funnelSnapshot(){
+ var fields = ['userName','userAge','ta','goal'].filter(function(id){
+ var el = document.getElementById(id);
+ return el && el.value && el.value !== '0';
+ }).length;
+ return { step: typeof step !== 'undefined' ? step : 0, quizQ: typeof quizQ !== 'undefined' ? quizQ : -1, fields: fields, hasProgram: !!ls(K.PG, null) };
+ }
+ function onLeave(){
+ var s = funnelSnapshot();
+ var sub = null; try{ sub = JSON.parse(localStorage.getItem('mos_subscription')); }catch(e){}
+ var active = !!(sub && sub.active);
+ var ov = document.getElementById('subOverlay');
+ var paywallOpen = ov && ov.style.display === 'flex' && !active;
+ if(paywallOpen) evLog('paywall_abandon');
+ if(s.step === 1 && !s.hasProgram) evLog('onboard_abandon', { q: s.quizQ, fields: s.fields });
+ var st = trialState();
+ if(!active && !st.active) evLog('trial_expired', {}, 'once');
+ }
+ window.addEventListener('pagehide', onLeave);
+ document.addEventListener('visibilitychange', function(){ if(document.visibilityState === 'hidden') onLeave(); });
 
+ // ── Suggestion outcomes (read-time before/after vs LH e1RM) ──
+ // Suggestions with timestamps: deload_prompt, plateau_note, fat_gate.
+ function outcomeRows(){
+ var evs = eventsAll(), hist = loadHist();
+ if(!hist) return [];
+ var sug = { deload_prompt: 1, plateau_note: 1, fat_gate: 1 };
+ var seen = {}, rows = [];
+ evs.forEach(function(x){
+ if(!sug[x.e]) return;
