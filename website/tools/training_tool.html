@@ -1465,7 +1465,7 @@ select option{background:var(--card)}
  <div class="card">
  <div class="section-header" data-i18n="deload_hist">Deload History</div>
  <div id="deloadHistory"><p style="font-size:.6rem;color:rgba(250,250,248,.15);padding:10px;text-align:center" data-i18n="no_data">No deload data yet.</p></div>
- <button class="btn-primary" id="markDeloadBtn" style="background:rgba(244,201,59,.06);border:1px solid rgba(244,201,59,.15);color:#F4C93B;font-size:.65rem;padding:8px 0;margin-top:8px" data-i18n="deload_hist">Mark Deload This Week</button>
+ <button class="btn-primary" id="deloadQuizBtn" style="background:rgba(244,201,59,.06);border:1px solid rgba(244,201,59,.15);color:#F4C93B;font-size:.65rem;padding:8px 0;margin-top:8px">Take Deload Assessment</button>
  </div>
  <div class="card" id="compWidgetCard" style="display:none">
  <div class="section-header" data-i18n="track_progress">Compliance Dashboard <span class="section-sub">— last 28 days</span></div>
@@ -3784,7 +3784,14 @@ select option{background:var(--card)}
  else exp=_('suggest_continue_prog');
  if(adj>lw)trend='up';else if(adj<lw)trend='down';
  } else {exp=_('suggest_first_session');trend='start';}
- return{w:adj,r:rep,rpe:tRpe,e1RM:best,exp:exp,last:last,pct:pct,trend:trend};
+ var stalled = false;
+  if(hist && hist[ex] && hist[ex].length >= 3) {
+      var recent = hist[ex].slice().sort(function(a,b){return a.date<b.date?1:-1;}).slice(0,3);
+      if(recent.length === 3 && recent[0].w === recent[1].w && recent[1].w === recent[2].w && recent[0].rpe >= 8 && recent[1].rpe >= 8 && recent[2].rpe >= 8) {
+          stalled = true;
+      }
+  }
+  return{w:adj,r:rep,rpe:tRpe,e1RM:best,exp:exp,last:last,pct:pct,trend:trend,stalled:stalled};
  }
 
  function checkPR(ex,w,r,hist){
@@ -6817,7 +6824,8 @@ select option{background:var(--card)}
  suggestHtml='<div class="suggest-box"><div><span class="suggest-val" onclick="showPlateCalculator('+sugg.w+',event)" style="cursor:pointer" title="'+_('plate_title')+'">'+(sugg.w>0?sugg.w+' '+_('weight'):'—')+'</span></div><div class="suggest-detail"><strong>'+(sugg.w>0?sugg.w+' '+_('weight'):'—')+' '+sugg.r+' '+_('reps')+' @ '+_('rpe')+' '+sugg.rpe+'</strong>'+fatigueNote+mlNote+'<br>'+sugg.exp+(sugg.pct?' · '+(sugg.pct).toFixed(0)+_('pct_1rm'):'')+'</div></div>';
  suggestHtml+=renderWarmupHtml(ex.n,sugg,day.n);
  }else if(!sugg.blocked){suggestHtml='<div class="suggest-box"><div class="suggest-detail"><strong>'+_('start_training')+'</strong>'+fatigueNote+'<br>'+sugg.exp+'</div></div>';}
- var titleInnerHtml='<span class="ex-name">'+(ei+1)+'. '+exLinkHtml(ex.n)+'</span>'+prHtml+(ex.prehab?' <span class="prehab-chip" title="'+_('prehab_reason')+'">'+_('prehab_lbl')+'</span>':'')+perHtml+
+ var plateauHtml = (sugg && sugg.stalled) ? ' <span class="pr-badge" style="color:#f44336;border-color:rgba(244,67,54,.3);cursor:pointer;" onclick="this.closest(\'.ex-card\').querySelector(\'.sw-ex-btn\').click()" title="Plateau detected! Click to swap exercise.">?? Plateau</span>' : '';
+  var titleInnerHtml='<span class="ex-name">'+(ei+1)+'. '+exLinkHtml(ex.n)+'</span>'+prHtml+plateauHtml+(ex.prehab?' <span class="prehab-chip" title="'+_('prehab_reason')+'">'+_('prehab_lbl')+'</span>':'')+perHtml+
  '<span class="safety-badge '+safety.sev+'">'+(safety.sev==='safe'?'\u2713 '+_('green'):safety.sev==='warn'?'\u26A0 '+_('yellow'):'\u2715 '+_('red'))+'</span>'+
  '<span class="rm-ex-btn" data-ex="'+ex.n+'">✕</span>';
  var msubs=(m&&m.subs)||[],ceList=ls(K.CE,[]),sp=ls(K.SP,null),spSplit=sp&&SPLITS[sp.key];
@@ -6866,7 +6874,7 @@ select option{background:var(--card)}
  });
  }else{
  var padEmpty=(makeupDays[di]||lightDays[di])?Math.max(1,(ex.sets||3)-1):3;
- for(var i2=0;i2<padEmpty;i2++)sets.push({w:'',r:'',rpe:''});
+ for(var i2=0;i2<padEmpty;i2++)sets.push({w: (typeof sugg!=='undefined' && sugg && sugg.w > 0) ? String(sugg.w) : '', r: (typeof sugg!=='undefined' && sugg && sugg.r > 0) ? String(sugg.r) : '', rpe: (typeof sugg!=='undefined' && sugg && sugg.rpe > 0) ? String(sugg.rpe) : ''});
  }
  var h='<div class="set-log-area"><div class="set-log-header"><span style="line-height:1.25;white-space:normal;font-size:.42rem;letter-spacing:.2px">'+_('sets_work')+'</span><span>'+_('load')+'</span><span>'+_('reps')+'</span><span>'+_('rpe')+'</span><span></span></div><div class="set-rows-'+('c_'+di+'_'+ex.n).replace(/[^a-zA-Z0-9]/g,'_')+'">';
  sets.forEach(function(set,si){
@@ -7125,7 +7133,7 @@ select option{background:var(--card)}
  }
 
  function delSet(di,en,si){var logs=ls(K.LG,{}),td=new Date().toISOString().split('T')[0],prog=ls(K.PG,null),day=prog&&prog.days[di]?prog.days[di]:null,eid=day?day.n+'__'+en:en;if(logs[td]&&logs[td][eid]){var row=document.querySelector('.set-row[data-ex="'+en+'"][data-set="'+si+'"]');var wasWu=!!(row&&row.dataset.wu);logs[td][eid].sets.splice(si,1);if(wasWu)logs[td][eid].sets.splice(si,0,{w:'',r:'',rpe:'',wu:true});if(!logs[td][eid].sets.length)delete logs[td][eid];if(!Object.keys(logs[td][eid]||{}).length)delete logs[td][eid];ss(K.LG,logs);}renderDay(di);}
- function addSet(di,en){var logs=ls(K.LG,{}),td=new Date().toISOString().split('T')[0],prog=ls(K.PG,null),day=prog&&prog.days[di]?prog.days[di]:null,eid=day?day.n+'__'+en:en;if(!logs[td])logs[td]={};if(!logs[td][eid])logs[td][eid]={sets:[]};var wuCnt=0;document.querySelectorAll('.set-row[data-ex="'+en+'"][data-wu="1"]').forEach(function(r){var rs=parseInt(r.dataset.set)||0;if(rs+1>wuCnt)wuCnt=rs+1;});if(logs[td][eid].sets.length<wuCnt){for(var wi=logs[td][eid].sets.length;wi<wuCnt;wi++)logs[td][eid].sets[wi]={w:'',r:'',rpe:'',wu:true};}logs[td][eid].sets.push({w:'',r:'',rpe:''});ss(K.LG,logs);renderDay(di);}
+ function addSet(di,en){var logs=ls(K.LG,{}),td=new Date().toISOString().split('T')[0],prog=ls(K.PG,null),day=prog&&prog.days[di]?prog.days[di]:null,eid=day?day.n+'__'+en:en;if(!logs[td])logs[td]={};if(!logs[td][eid])logs[td][eid]={sets:[]};var wuCnt=0;document.querySelectorAll('.set-row[data-ex="'+en+'"][data-wu="1"]').forEach(function(r){var rs=parseInt(r.dataset.set)||0;if(rs+1>wuCnt)wuCnt=rs+1;});if(logs[td][eid].sets.length<wuCnt){for(var wi=logs[td][eid].sets.length;wi<wuCnt;wi++)logs[td][eid].sets[wi]={w:'',r:'',rpe:'',wu:true};}logs[td][eid].sets.push({w: (typeof sugg!=='undefined' && sugg && sugg.w > 0) ? String(sugg.w) : '', r: (typeof sugg!=='undefined' && sugg && sugg.r > 0) ? String(sugg.r) : '', rpe: (typeof sugg!=='undefined' && sugg && sugg.rpe > 0) ? String(sugg.rpe) : ''});ss(K.LG,logs);renderDay(di);}
  function rmEx(di,en){var logs=ls(K.LG,{}),td=new Date().toISOString().split('T')[0],prog=ls(K.PG,null),day=prog&&prog.days[di]?prog.days[di]:null,eid=day?day.n+'__'+en:en;if(logs[td]&&logs[td][eid]){delete logs[td][eid];if(!Object.keys(logs[td]).length)delete logs[td];ss(K.LG,logs);}renderDay(di);}
  function swapEx(di,idx,oldName,newName){
  if(!oldName||!newName||oldName===newName)return;
@@ -7348,7 +7356,53 @@ select option{background:var(--card)}
  '<div class="ft">Generated by Muscle OS Training App \u2014 <a href="https://wa.me/201040796017">Coach Anas Mo\'men</a></div>'+
  '<footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO\'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach \u2014 Coach Anas Mo\'men</div></footer>'+
  '<script src="../js/auth.js"><\/script>'+
-'</body></html>');
+'
+<!-- Deload Quiz Modal -->
+<div class="modal-overlay" id="deloadQuizModal" style="display:none" onclick="if(event.target===this)hideDeloadQuiz()">
+ <div class="modal-card">
+ <div class="modal-header"><span>Deload Assessment</span><span class="modal-close" onclick="hideDeloadQuiz()">?</span></div>
+ <p style="font-size:.6rem;color:rgba(250,250,248,.3);margin:6px 0 10px">Answer these questions to see if your body needs a deload week to shed fatigue and restore performance.</p>
+ 
+ <div style="margin-bottom:12px;">
+    <label style="font-size:.6rem;font-weight:600;color:var(--text);display:block;margin-bottom:6px;">1. How has your intensity been the last few sessions?</label>
+    <select id="dq_q1" style="width:100%;padding:8px 10px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;">
+        <option value="1">Too high / Constantly grinding or missing reps</option>
+        <option value="2">Hard but manageable / Hitting targets</option>
+        <option value="3">Perfect / Feeling strong and explosive</option>
+    </select>
+ </div>
+
+ <div style="margin-bottom:12px;">
+    <label style="font-size:.6rem;font-weight:600;color:var(--text);display:block;margin-bottom:6px;">2. How does your body feel physically right now?</label>
+    <select id="dq_q2" style="width:100%;padding:8px 10px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;">
+        <option value="1">Beat up / Joints aching / Heavy fatigue</option>
+        <option value="2">Okay / Normal muscle soreness</option>
+        <option value="3">Great / Fresh and energetic</option>
+    </select>
+ </div>
+
+ <div style="margin-bottom:12px;">
+    <label style="font-size:.6rem;font-weight:600;color:var(--text);display:block;margin-bottom:6px;">3. How is your recovery (sleep, stress, nutrition)?</label>
+    <select id="dq_q3" style="width:100%;padding:8px 10px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;">
+        <option value="1">Poor (bad sleep, high stress, eating poorly)</option>
+        <option value="2">Moderate (okay but could be better)</option>
+        <option value="3">Excellent (sleeping well, low stress, eating well)</option>
+    </select>
+ </div>
+
+ <div id="dq_result" style="display:none;background:rgba(250,250,248,.02);padding:10px;border-radius:6px;margin-bottom:12px;">
+    <div id="dq_result_text" style="font-size:.6rem;font-weight:600;margin-bottom:6px;"></div>
+    <div id="dq_result_desc" style="font-size:.55rem;color:rgba(250,250,248,.2);"></div>
+ </div>
+
+ <div style="display:flex;gap:8px;margin-top:16px;">
+    <button class="btn-primary" id="dq_submit" onclick="submitDeloadQuiz()" style="flex:1">Evaluate</button>
+    <button class="btn-primary" id="dq_mark" onclick="forceMarkDeload()" style="flex:1;display:none;background:rgba(76,175,80,.08);border-color:rgba(76,175,80,.15);color:#4CAF50">Proceed with Deload</button>
+ </div>
+ </div>
+</div>
+
+</body></html>');
  w.document.close();w.focus();setTimeout(function(){w.print();},500);
  });
 
@@ -7594,7 +7648,8 @@ select option{background:var(--card)}
  document.getElementById('trendRange').addEventListener('change',renderTrendHistory);
 
  document.getElementById('backToDashBtn').addEventListener('click',function(){go(4);renderDashboard();});
- document.getElementById('markDeloadBtn').addEventListener('click',function(){evLog('deload_marked',{src:'history'});
+ document.getElementById('deloadQuizBtn').addEventListener('click', function(){ showDeloadQuiz(); });
+// document.getElementById('markDeloadBtn').addEventListener('click',function(){evLog('deload_marked',{src:'history'});
  if(!confirm(_('confirm_mark_deload')))return;
  var dt=dlTracker();dt.lastDeload=new Date().toISOString().split('T')[0];dt.sessions=0;dt.overshoots=0;ss(K.DT,dt);
  alert(_('alert_deload_marked'));
@@ -8674,5 +8729,51 @@ if (window.self !== window.top) {
   document.head.appendChild(style);
 }
 </script>
+
+<!-- Deload Quiz Modal -->
+<div class="modal-overlay" id="deloadQuizModal" style="display:none" onclick="if(event.target===this)hideDeloadQuiz()">
+ <div class="modal-card">
+ <div class="modal-header"><span>Deload Assessment</span><span class="modal-close" onclick="hideDeloadQuiz()">?</span></div>
+ <p style="font-size:.6rem;color:rgba(250,250,248,.3);margin:6px 0 10px">Answer these questions to see if your body needs a deload week to shed fatigue and restore performance.</p>
+ 
+ <div style="margin-bottom:12px;">
+    <label style="font-size:.6rem;font-weight:600;color:var(--text);display:block;margin-bottom:6px;">1. How has your intensity been the last few sessions?</label>
+    <select id="dq_q1" style="width:100%;padding:8px 10px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;">
+        <option value="1">Too high / Constantly grinding or missing reps</option>
+        <option value="2">Hard but manageable / Hitting targets</option>
+        <option value="3">Perfect / Feeling strong and explosive</option>
+    </select>
+ </div>
+
+ <div style="margin-bottom:12px;">
+    <label style="font-size:.6rem;font-weight:600;color:var(--text);display:block;margin-bottom:6px;">2. How does your body feel physically right now?</label>
+    <select id="dq_q2" style="width:100%;padding:8px 10px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;">
+        <option value="1">Beat up / Joints aching / Heavy fatigue</option>
+        <option value="2">Okay / Normal muscle soreness</option>
+        <option value="3">Great / Fresh and energetic</option>
+    </select>
+ </div>
+
+ <div style="margin-bottom:12px;">
+    <label style="font-size:.6rem;font-weight:600;color:var(--text);display:block;margin-bottom:6px;">3. How is your recovery (sleep, stress, nutrition)?</label>
+    <select id="dq_q3" style="width:100%;padding:8px 10px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;">
+        <option value="1">Poor (bad sleep, high stress, eating poorly)</option>
+        <option value="2">Moderate (okay but could be better)</option>
+        <option value="3">Excellent (sleeping well, low stress, eating well)</option>
+    </select>
+ </div>
+
+ <div id="dq_result" style="display:none;background:rgba(250,250,248,.02);padding:10px;border-radius:6px;margin-bottom:12px;">
+    <div id="dq_result_text" style="font-size:.6rem;font-weight:600;margin-bottom:6px;"></div>
+    <div id="dq_result_desc" style="font-size:.55rem;color:rgba(250,250,248,.2);"></div>
+ </div>
+
+ <div style="display:flex;gap:8px;margin-top:16px;">
+    <button class="btn-primary" id="dq_submit" onclick="submitDeloadQuiz()" style="flex:1">Evaluate</button>
+    <button class="btn-primary" id="dq_mark" onclick="forceMarkDeload()" style="flex:1;display:none;background:rgba(76,175,80,.08);border-color:rgba(76,175,80,.15);color:#4CAF50">Proceed with Deload</button>
+ </div>
+ </div>
+</div>
+
 </body>
 </html>
