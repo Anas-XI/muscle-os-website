@@ -6512,6 +6512,112 @@ window.showBiofeedbackModal = function(di) {
   document.body.insertAdjacentHTML('beforeend', modalHtml);
 };
 
+window.generateShareCard = function(dayName, timeSec, sets, p, f, s) {
+  var canvas = document.createElement('canvas');
+  canvas.width = 1080;
+  canvas.height = 1920;
+  var ctx = canvas.getContext('2d');
+  
+  // Background
+  ctx.fillStyle = '#14151A';
+  ctx.fillRect(0, 0, 1080, 1920);
+  
+  // Header
+  ctx.fillStyle = '#F4C93B';
+  ctx.font = 'bold 80px "Oswald", sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('MUSCLE OS', 540, 200);
+  
+  ctx.fillStyle = '#FAFAF8';
+  ctx.font = '60px "Inter", sans-serif';
+  ctx.fillText('WORKOUT COMPLETE', 540, 300);
+  
+  // Day Name
+  ctx.fillStyle = '#F4C93B';
+  ctx.font = 'bold 120px "Oswald", sans-serif';
+  ctx.fillText(dayName.toUpperCase(), 540, 500);
+  
+  // Stats Boxes
+  function drawBox(x, y, label, val) {
+    ctx.fillStyle = 'rgba(20,21,26,1)';
+    ctx.strokeStyle = 'rgba(244,201,59,0.2)';
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.roundRect(x, y, 400, 250, 30);
+    ctx.fill();
+    ctx.stroke();
+    
+    ctx.fillStyle = '#FAFAF8';
+    ctx.font = 'bold 100px "Inter", sans-serif';
+    ctx.fillText(val, x + 200, y + 140);
+    
+    ctx.fillStyle = 'rgba(250,250,248,0.5)';
+    ctx.font = '40px "Inter", sans-serif';
+    ctx.fillText(label.toUpperCase(), x + 200, y + 210);
+  }
+  
+  var mins = Math.floor((timeSec||0)/60);
+  drawBox(100, 700, 'Minutes', mins > 0 ? mins : '--');
+  drawBox(580, 700, 'Working Sets', sets > 0 ? sets : '--');
+  
+  // Biofeedback
+  ctx.fillStyle = '#FAFAF8';
+  ctx.font = '50px "Inter", sans-serif';
+  ctx.fillText('BIOFEEDBACK LOGGED', 540, 1150);
+  
+  function drawBf(x, y, lbl, val) {
+    ctx.fillStyle = 'rgba(244,201,59,0.1)';
+    ctx.beginPath(); ctx.roundRect(x, y, 280, 150, 20); ctx.fill();
+    ctx.fillStyle = '#F4C93B';
+    ctx.font = 'bold 60px "Inter", sans-serif';
+    ctx.fillText(val + '/4', x + 140, y + 80);
+    ctx.fillStyle = 'rgba(250,250,248,0.5)';
+    ctx.font = '30px "Inter", sans-serif';
+    ctx.fillText(lbl, x + 140, y + 130);
+  }
+  
+  drawBf(60, 1250, 'PUMP', p);
+  drawBf(400, 1250, 'FATIGUE', f);
+  drawBf(740, 1250, 'SORENESS', s);
+  
+  // Footer
+  ctx.fillStyle = 'rgba(250,250,248,0.3)';
+  ctx.font = '35px "Inter", sans-serif';
+  ctx.fillText('muscleos.coach/tools/training', 540, 1800);
+  
+  return canvas.toDataURL('image/jpeg', 0.9);
+};
+
+window.showShareModal = function(dataUrl) {
+  var modalHtml = '<div id="shareModal" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,10,15,.95);z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;">' +
+    '<h2 style="font-family:\'Oswald\',sans-serif;font-size:1.5rem;color:#F4C93B;margin-bottom:10px;text-transform:uppercase;">Workout Saved!</h2>' +
+    '<p style="font-size:.8rem;color:rgba(250,250,248,.6);margin-bottom:20px;">Show off your hard work.</p>' +
+    '<img src="' + dataUrl + '" style="width:100%;max-width:300px;border-radius:12px;margin-bottom:24px;border:1px solid rgba(244,201,59,.2);">' +
+    '<div style="display:flex;gap:12px;width:100%;max-width:300px;">' +
+      '<button onclick="document.getElementById(\'shareModal\').remove();go(4);renderDashboard();" style="flex:1;padding:14px;background:transparent;border:1px solid rgba(250,250,248,.2);border-radius:8px;color:#FAFAF8;font-weight:600;font-size:.9rem;">Skip</button>' +
+      '<button id="nativeShareBtn" style="flex:1;padding:14px;background:#F4C93B;border:none;border-radius:8px;color:#14151A;font-weight:600;font-size:.9rem;">Share Image</button>' +
+    '</div>' +
+  '</div>';
+  document.body.insertAdjacentHTML('beforeend', modalHtml);
+  
+  document.getElementById('nativeShareBtn').addEventListener('click', function() {
+    fetch(dataUrl).then(res => res.blob()).then(blob => {
+      var file = new File([blob], 'muscleos-workout.jpg', { type: 'image/jpeg' });
+      if(navigator.canShare && navigator.canShare({ files: [file] })) {
+        navigator.share({
+          files: [file],
+          title: 'My MuscleOS Workout',
+          text: 'Just crushed a session on MuscleOS! #muscleos'
+        }).catch(err => {
+          var a = document.createElement('a'); a.href = dataUrl; a.download = 'muscleos-workout.jpg'; a.click();
+        });
+      } else {
+        var a = document.createElement('a'); a.href = dataUrl; a.download = 'muscleos-workout.jpg'; a.click();
+      }
+    });
+  });
+};
+
 window.saveBiofeedback = function(di, dayName) {
   var p = parseInt(document.getElementById('bfPump').value);
   var f = parseInt(document.getElementById('bfFatigue').value);
@@ -6530,9 +6636,12 @@ window.saveBiofeedback = function(di, dayName) {
   
   ss('mos_logs', logs);
   document.getElementById('bioModal').remove();
-  alert('Biofeedback saved! Tomorrow\'s volume will automatically adapt.');
-  go(4);
-  renderDashboard();
+  
+  var sessTime = (logs[today] && logs[today].time) ? logs[today].time : 0;
+  var sessSets = (logs[today] && logs[today].sets) ? logs[today].sets : 0;
+  var dataUrl = generateShareCard(dayName, sessTime, sessSets, p, f, s);
+  showShareModal(dataUrl);
+
 };
 
 function exportIcs(){
