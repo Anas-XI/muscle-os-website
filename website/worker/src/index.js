@@ -167,6 +167,10 @@ export default {
     if (url.pathname === '/api/notify-coach' && request.method === 'POST') {
       return handleNotifyCoach(request, env);
     }
+    // ---- AI Coach ----
+    if (url.pathname === '/api/ai-coach' && request.method === 'POST') {
+      return handleAiCoach(request, env);
+    }
     return json({ error: 'not_found' }, 404, env, request);
   }
 };
@@ -1153,7 +1157,49 @@ async function handleSyncPull(request, env, url) {
 }
 
 // ── POST /api/notify-coach (sends WhatsApp to coach via Meta Cloud API) ──
-async function handleNotifyCoach(request, env) {
+async function handleAiCoach(request, env) {
+  if (request.method === 'OPTIONS') return new Response(null, { headers: corsHeaders(env, request) });
+  
+  try {
+    if (!env.GEMINI_API_KEY) {
+      return json({ error: 'GEMINI_API_KEY not configured in worker environment' }, 500, env, request);
+    }
+    
+    const body = await request.json();
+    const geminiPayload = {
+      contents: body.contents,
+      systemInstruction: body.systemInstruction,
+      generationConfig: body.generationConfig
+    };
+
+    const response = await fetch(\https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:streamGenerateContent?alt=sse&key=\, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(geminiPayload)
+    });
+
+    if (!response.ok) {
+      const errText = await response.text();
+      return json({ error: 'Upstream API error', details: errText }, response.status, env, request);
+    }
+
+    return new Response(response.body, {
+      status: response.status,
+      headers: {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+        ...corsHeaders(env, request)
+      }
+    });
+
+  } catch (err) {
+    return json({ error: 'Internal error', msg: err.message }, 500, env, request);
+  }
+}
+\nasync function handleNotifyCoach(request, env) {
   const rateLimited = await checkRateLimit(request, env, 10);
   if (rateLimited) return json({ error: 'rate_limited' }, 429, env, request);
 
