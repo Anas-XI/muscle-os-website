@@ -6512,6 +6512,105 @@ window.showBiofeedbackModal = function(di) {
   document.body.insertAdjacentHTML('beforeend', modalHtml);
 };
 
+window.generateRadarCard = function() {
+  var logs = ls('mos_logs', {});
+  var hist = loadHist();
+  
+  function getBest(name) {
+    if(!hist[name] || !hist[name].length) return 0;
+    var max = 0;
+    hist[name].forEach(function(x) { if(x.e1RM > max) max = x.e1RM; });
+    return max;
+  }
+  
+  var benchB = 120;
+  var squatB = 160;
+  var deadB = 200;
+  var ohpB = 80;
+  var rowB = 100;
+  
+  var bench = getBest('Bench Press') || getBest('Barbell Bench Press') || 0;
+  var squat = getBest('Barbell Squat') || getBest('Squat') || 0;
+  var dead = getBest('Deadlift') || getBest('Barbell Deadlift') || 0;
+  var ohp = getBest('Overhead Press') || getBest('Barbell Overhead Press') || 0;
+  var row = getBest('Barbell Row') || getBest('Pendlay Row') || 0;
+  
+  var canvas = document.createElement('canvas');
+  canvas.width = 1080; canvas.height = 1080;
+  var ctx = canvas.getContext('2d');
+  
+  ctx.fillStyle = '#14151A'; ctx.fillRect(0, 0, 1080, 1080);
+  ctx.fillStyle = '#F4C93B'; ctx.font = 'bold 80px "Oswald", sans-serif';
+  ctx.textAlign = 'center'; ctx.fillText('STRENGTH RADAR', 540, 120);
+  ctx.fillStyle = '#FAFAF8'; ctx.font = '40px "Inter", sans-serif';
+  ctx.fillText('MuscleOS Benchmark', 540, 180);
+  
+  var cx = 540, cy = 600, r = 300;
+  var axes = [
+    { label: 'SQUAT', val: squat, max: squatB },
+    { label: 'BENCH', val: bench, max: benchB },
+    { label: 'OHP', val: ohp, max: ohpB },
+    { label: 'ROW', val: row, max: rowB },
+    { label: 'DEADLIFT', val: dead, max: deadB }
+  ];
+  
+  var sides = axes.length;
+  var angleStep = (Math.PI * 2) / sides;
+  
+  ctx.strokeStyle = 'rgba(250,250,248,0.2)';
+  ctx.lineWidth = 2;
+  for(var step = 1; step <= 5; step++) {
+    var radius = (r / 5) * step;
+    ctx.beginPath();
+    for(var i = 0; i < sides; i++) {
+      var angle = i * angleStep - Math.PI/2;
+      var x = cx + Math.cos(angle) * radius;
+      var y = cy + Math.sin(angle) * radius;
+      if(i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.closePath(); ctx.stroke();
+  }
+  
+  ctx.fillStyle = 'rgba(250,250,248,0.5)';
+  ctx.font = '30px "Inter", sans-serif';
+  for(var i = 0; i < sides; i++) {
+    var angle = i * angleStep - Math.PI/2;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + Math.cos(angle) * r, cy + Math.sin(angle) * r);
+    ctx.stroke();
+    
+    var lx = cx + Math.cos(angle) * (r + 50);
+    var ly = cy + Math.sin(angle) * (r + 50);
+    ctx.fillText(axes[i].label, lx, ly);
+    
+    ctx.fillStyle = '#F4C93B';
+    ctx.fillText(axes[i].val.toFixed(0) + ' kg', lx, ly + 40);
+    ctx.fillStyle = 'rgba(250,250,248,0.5)';
+  }
+  
+  ctx.fillStyle = 'rgba(244,201,59,0.3)';
+  ctx.strokeStyle = '#F4C93B';
+  ctx.lineWidth = 5;
+  ctx.beginPath();
+  for(var i = 0; i < sides; i++) {
+    var angle = i * angleStep - Math.PI/2;
+    var norm = Math.min(Math.max(axes[i].val / axes[i].max, 0), 1.2);
+    var dx = cx + Math.cos(angle) * (r * norm);
+    var dy = cy + Math.sin(angle) * (r * norm);
+    if(i === 0) ctx.moveTo(dx, dy); else ctx.lineTo(dx, dy);
+  }
+  ctx.closePath();
+  ctx.fill(); ctx.stroke();
+  
+  return canvas.toDataURL('image/jpeg', 0.9);
+};
+
+window.showRadarModal = function() {
+  var dataUrl = generateRadarCard();
+  showShareModal(dataUrl);
+};
+
 window.generateShareCard = function(dayName, timeSec, sets, p, f, s) {
   var canvas = document.createElement('canvas');
   canvas.width = 1080;
