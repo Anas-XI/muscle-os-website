@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>MuscleOS - Analytics & Insights</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  :root { --bg: #14151a; --surface: #1a1b22; --surface2: #22242e; --primary: #F4C93B; --primary-dim: rgba(244,201,59,0.1); --text: #FAFAF8; --text-muted: rgba(250,250,248,0.5); --border: rgba(250,250,248,0.08); --danger: #f44336; --success: #4caf50; }
+  body { margin:0; font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); padding-bottom:100px; padding-top: 10px; }
+  .container { max-width: 600px; margin: 0 auto; padding: 16px; display: flex; flex-direction: column; gap: 24px; }
+  .card { background: var(--surface); border-radius: 12px; padding: 20px; border: 1px solid var(--border); }
+  h2 { font-family: 'Oswald', sans-serif; text-transform: uppercase; margin: 0 0 16px 0; font-size: 1.2rem; letter-spacing: 0.5px; color: var(--primary); display: flex; justify-content: space-between; align-items: center; }
+  .chart-container { position: relative; height: 250px; width: 100%; }
+  
+  /* Heatmap */
+  .heatmap-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 8px; }
+  .heat-node { border-radius: 8px; background: var(--surface2); padding: 12px 8px; text-align: center; border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; gap: 4px; transition: all 0.2s; }
+  .heat-node .name { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; }
+  .heat-node .status { width: 12px; height: 12px; border-radius: 50%; background: #333; margin-top: 4px; }
+  .heat-node.recovered .status { background: var(--success); box-shadow: 0 0 8px rgba(76,175,80,0.5); }
+  .heat-node.sore .status { background: var(--primary); box-shadow: 0 0 8px rgba(244,201,59,0.5); }
+  .heat-node.fatigued .status { background: var(--danger); box-shadow: 0 0 8px rgba(244,67,54,0.5); }
+  
+  .empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 0.9rem; }
+  
+  /* KPI Row */
+  .kpi-row { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; }
+  .kpi-card { flex: 1; min-width: 120px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; text-align: center; }
+  .kpi-val { font-family: 'Oswald', sans-serif; font-size: 1.8rem; color: var(--text); line-height: 1.2; }
+  .kpi-lbl { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }
+  .kpi-trend { font-size: 0.75rem; font-weight: 600; margin-top: 4px; }
+  .trend-up { color: var(--success); }
+  .trend-down { color: var(--danger); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- KPIs -->
+  <div class="kpi-row" id="kpiRow">
+    <div class="kpi-card">
+      <div class="kpi-val" id="kpiSessions">-</div>
+      <div class="kpi-lbl">Sessions Logged</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-val" id="kpiWeight">-</div>
+      <div class="kpi-lbl">Current Weight</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-val" id="kpiTdee">-</div>
+      <div class="kpi-lbl">Est. TDEE</div>
+    </div>
+  </div>
+
+  <!-- Heatmap -->
+  <div class="card">
+    <h2>Muscle Recovery Heatmap</h2>
+    <div id="heatmapGrid" class="heatmap-grid">
+      <!-- Generated via JS -->
+    </div>
+  </div>
+
+  <!-- Charts -->
+  <div class="card">
+    <h2>Strength Radar <span style="font-size:0.7rem;color:var(--text-muted);text-transform:none;letter-spacing:0">Relative to Bodyweight</span></h2>
+    <div class="chart-container">
+      <canvas id="radarChart"></canvas>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Bodyweight & TDEE Trend</h2>
+    <div class="chart-container">
+      <canvas id="weightChart"></canvas>
+    </div>
+  </div>
+  
+  <div class="card">
+    <h2>Volume Progression <span style="font-size:0.7rem;color:var(--text-muted);text-transform:none;letter-spacing:0">Total Sets / Wk</span></h2>
+    <div class="chart-container">
+      <canvas id="volumeChart"></canvas>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // --- Data Loading ---
+  function ls(key, def) {
+    try { const r = localStorage.getItem(key); return r ? JSON.parse(r) : def; } 
+    catch(e) { return def; }
+  }
+
+  // Common styles for Chart.js
+  Chart.defaults.color = 'rgba(250,250,248,0.5)';
+  Chart.defaults.font.family = "'Inter', sans-serif";
+  const gridColor = 'rgba(250,250,248,0.05)';
+
+  function initAnalytics() {
+    const tdeeStore = ls('muscle_os_adaptive_tdee', {weights: []});
+    const logs = ls('mos_logs', {});
+    
+    // KPIs
+    const sessionCount = Object.keys(logs).length;
+    document.getElementById('kpiSessions').innerText = sessionCount;
+    
+    if (tdeeStore.weights && tdeeStore.weights.length > 0) {
+      const lastW = tdeeStore.weights[tdeeStore.weights.length - 1];
+      document.getElementById('kpiWeight').innerText = lastW.weight.toFixed(1) + 'kg';
+      
+      const dashboard = tdeeStore.dashboard || {};
+      if (dashboard.tdee) document.getElementById('kpiTdee').innerText = Math.round(dashboard.tdee) + ' kcal';
+    }
+
+    // Heatmap Logic
+    // We look at the last 4 days of logs to estimate fatigue.
+    const muscles = ['chest', 'back', 'quads', 'hamstrings', 'delts', 'biceps', 'triceps', 'calves', 'abs'];
+    const recentVolume = {};
+    muscles.forEach(m => recentVolume[m] = 0);
+    
+    const dates = Object.keys(logs).sort().slice(-4);
+    dates.forEach(d => {
+      const session = logs[d];
+      if(!session.exercises) return;
+      session.exercises.forEach(ex => {
+        // Very basic string matching for demo purposes
+        const name = ex.name.toLowerCase();
+        let target = 'abs';
+        if(name.includes('bench') || name.includes('pec') || name.includes('push')) target = 'chest';
+        if(name.includes('row') || name.includes('pull') || name.includes('lat')) target = 'back';
+        if(name.includes('squat') || name.includes('leg press') || name.includes('extension')) target = 'quads';
+        if(name.includes('curl') && name.includes('leg')) target = 'hamstrings';
+        if(name.includes('curl') && !name.includes('leg')) target = 'biceps';
+        if(name.includes('extension') && name.includes('tricep') || name.includes('pushdown')) target = 'triceps';
+        if(name.includes('press') && name.includes('shoulder') || name.includes('lateral')) target = 'delts';
+        if(name.includes('calf')) target = 'calves';
+        
+        recentVolume[target] += ex.sets.length;
+      });
+    });
+    
+    const grid = document.getElementById('heatmapGrid');
+    muscles.forEach(m => {
+      const vol = recentVolume[m];
+      let statusClass = 'recovered';
+      let statusText = 'Recovered';
+      
+      if(vol > 10) { statusClass = 'fatigued'; statusText = 'Fatigued'; }
+      else if(vol > 0) { statusClass = 'sore'; statusText = 'Recovering'; }
+      
+      grid.innerHTML += `
+        <div class="heat-node ${statusClass}">
+          <div class="name">${m}</div>
+          <div class="status"></div>
+          <div style="font-size:0.6rem;color:var(--text-muted);margin-top:2px">${statusText}</div>
+        </div>
+      `;
+    });
+
+    // Radar Chart
+    const ctxRadar = document.getElementById('radarChart').getContext('2d');
+    new Chart(ctxRadar, {
+      type: 'radar',
+      data: {
+        labels: ['Chest', 'Back', 'Quads', 'Hamstrings', 'Shoulders', 'Arms'],
+        datasets: [{
+          label: 'Strength Level',
+          data: [65, 59, 80, 81, 56, 55], // Mock data for now
+          backgroundColor: 'rgba(244,201,59,0.2)',
+          borderColor: '#F4C93B',
+          pointBackgroundColor: '#F4C93B',
+          pointBorderColor: '#fff',
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          r: {
+            angleLines: { color: gridColor },
+            grid: { color: gridColor },
+            pointLabels: { color: 'rgba(250,250,248,0.7)', font: { size: 11, family: 'Inter' } },
+            ticks: { display: false, max: 100, min: 0 }
+          }
+        }
+      }
+    });
+
+    // Weight Chart
+    if (tdeeStore.weights && tdeeStore.weights.length > 0) {
+      const wData = tdeeStore.weights.slice(-30);
+      const ctxWeight = document.getElementById('weightChart').getContext('2d');
+      new Chart(ctxWeight, {
+        type: 'line',
+        data: {
+          labels: wData.map(d => {
+            const dt = new Date(d.date);
+            return dt.getDate() + '/' + (dt.getMonth()+1);
+          }),
+          datasets: [{
+            label: 'Bodyweight (kg)',
+            data: wData.map(d => d.weight),
+            borderColor: '#F4C93B',
+            backgroundColor: 'rgba(244,201,59,0.1)',
+            borderWidth: 2,
+            pointRadius: 3,
+            fill: true,
+            tension: 0.3
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { grid: { color: gridColor } },
+            x: { grid: { display: false } }
+          }
+        }
+      });
+    }
+
+    // Volume Chart
+    const volData = [];
+    let currentWeekStr = '';
+    let currentWeekVol = 0;
+    
+    Object.keys(logs).sort().forEach(d => {
+      const dt = new Date(d);
+      // Group by week of year approx
+      const week = dt.getFullYear() + '-W' + Math.ceil(dt.getDate() / 7);
+      if(week !== currentWeekStr) {
+        if(currentWeekStr) volData.push({week: currentWeekStr, vol: currentWeekVol});
+        currentWeekStr = week;
+        currentWeekVol = 0;
+      }
+      const session = logs[d];
+      if(session.exercises) {
+        session.exercises.forEach(ex => currentWeekVol += ex.sets.length);
+      }
+    });
+    if(currentWeekStr) volData.push({week: currentWeekStr, vol: currentWeekVol});
+    
+    if (volData.length > 0) {
+      const ctxVol = document.getElementById('volumeChart').getContext('2d');
+      new Chart(ctxVol, {
+        type: 'bar',
+        data: {
+          labels: volData.slice(-10).map(d => d.week),
+          datasets: [{
+            label: 'Total Sets',
+            data: volData.slice(-10).map(d => d.vol),
+            backgroundColor: 'rgba(250,250,248,0.8)',
+            borderRadius: 4
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { grid: { color: gridColor }, beginAtZero: true },
+            x: { grid: { display: false } }
+          }
+        }
+      });
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', initAnalytics);
+</script>
+</body>
+</html>

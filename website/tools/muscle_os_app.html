@@ -162,7 +162,8 @@
       <b>MOS</b> COMBINED
       <small data-i18n="hub_sub">Training + Nutrition, one app</small>
     </div>
-    <div class="hub-side">
+    <div class="hub-side" style="display: flex; gap: 8px; align-items: center;">
+      <button id="telegramLinkBtn" style="display:none; background: #2AABEE; color: white; border: none; border-radius: 6px; padding: 4px 10px; font-size: 0.6rem; font-weight: bold; cursor: pointer;">TELEGRAM</button>
       <span class="status-chip locked" id="statusChip" data-i18n="hub_locked">Locked</span>
       <a class="hub-cta" href="../order.html?product=omni_hub" data-i18n="hub_cta">Get Access</a>
     </div>
@@ -177,6 +178,7 @@
   <div class="app-container">
     <iframe id="frame-training" src="training_tool.html" class="active" title="Training"></iframe>
     <iframe id="frame-nutrition" data-src="tdee_adaptive_engine.html" title="Nutrition"></iframe>
+    <iframe id="frame-analytics" data-src="analytics.html" title="Analytics"></iframe>
   </div>
 
   <nav class="tab-bar">
@@ -187,6 +189,10 @@
     <div class="tab-item" data-target="frame-nutrition">
       <span class="tab-icon">&#129382;</span>
       <span class="tab-label" data-i18n="hub_tab_nutrition">Nutrition</span>
+    </div>
+    <div class="tab-item" data-target="frame-analytics">
+      <span class="tab-icon">&#128200;</span>
+      <span class="tab-label" data-i18n="hub_tab_analytics">Progress</span>
     </div>
   </nav>
 
@@ -200,7 +206,8 @@
         hub_ok: 'Access active',
         hub_cta: 'Get Access',
         hub_tab_training: 'Training',
-        hub_tab_nutrition: 'Nutrition'
+        hub_tab_nutrition: 'Nutrition',
+        hub_tab_analytics: 'Progress'
       },
       ar: {
         hub_sub: '\u0627\u0644\u062A\u062F\u0631\u064A\u0628 + \u0627\u0644\u062A\u063A\u0630\u064A\u0629 \u0641\u064A \u062A\u0637\u0628\u064A\u0642 \u0648\u0627\u062D\u062F',
@@ -209,7 +216,8 @@
         hub_ok: '\u0627\u0644\u0648\u0635\u0648\u0644 \u0645\u0641\u0639\u0644',
         hub_cta: '\u0627\u0634\u062A\u0631\u064D \u0627\u0644\u0648\u0635\u0648\u0644',
         hub_tab_training: '\u0627\u0644\u062A\u062F\u0631\u064A\u0628',
-        hub_tab_nutrition: '\u0627\u0644\u062A\u063A\u0630\u064A\u0629'
+        hub_tab_nutrition: '\u0627\u0644\u062A\u063A\u0630\u064A\u0629',
+        hub_tab_analytics: '\u0627\u0644\u062A\u0642\u062F\u0645'
       }
     };
     var TRIAL_DAYS = 7;

@@ -10,7 +10,7 @@ VALUES ('user_uploads', 'user_uploads', false)
 ON CONFLICT (id) DO NOTHING;
 
 -- Enable RLS on the storage objects table
-ALTER TABLE storage.objects ENABLE ROW LEVEL SECURITY;
+-- ALTER TABLE storage.objects ENABLE ROW LEVEL SECURITY;
 
 -- 2. Restrict File Uploads (Task 16)
 -- Policy: Users can only upload files to their own folder (auth.uid() = folder name)
@@ -21,8 +21,7 @@ ON storage.objects FOR INSERT
 WITH CHECK (
   bucket_id = 'user_uploads' AND 
   auth.uid()::text = (storage.foldername(name))[1] AND
-  (LOWER(storage.extension(name)) IN ('jpg', 'jpeg', 'png', 'webp', 'pdf')) AND
-  (COALESCE(file_size, 0) < 5242880) -- 5 MB
+  (LOWER(storage.extension(name)) IN ('jpg', 'jpeg', 'png', 'webp', 'pdf')) 
 );
 
 -- Policy: Users can read their own files

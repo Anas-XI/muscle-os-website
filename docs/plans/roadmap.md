@@ -93,7 +93,7 @@ UI shells are bilingual but the deep clinical content — book texts, evidence s
 
 ---
 
-## Phase 1 — Wire the Decision Engine into Web Tools
+## Phase 1 — (✅ DONE) Wire the Decision Engine into Web Tools
 **Kills:** Entire RP Hypertrophy App value prop | **Effort:** Low (engine built, just not connected)
 
 The `decision-engine.js` already parses 33 rules and returns personalized recommendations. It just needs to be imported and called from `training_tool.html` with the user's intake profile.
@@ -128,7 +128,7 @@ const recommendations = engine.evaluate({
 
 ---
 
-## Phase 2 — Food Logging UI (DB Already Exists)
+## Phase 2 — (✅ DONE) Food Logging UI (DB Already Exists)
 **Kills:** MyFitnessPal's primary use case | **Effort:** Medium
 
 `food-database.json` exists. We need to build the meal logging interface that wraps it. The TDEE adaptive engine already accepts daily calorie totals — this fills in the missing input step.
@@ -148,7 +148,7 @@ const recommendations = engine.evaluate({
 
 ---
 
-## Phase 3 — Automated Progression Engine
+## Phase 3 — (✅ DONE) Automated Progression Engine
 **Kills:** Boostcamp, Strong's manual progression | **Effort:** Medium
 
 Currently the user decides when to add weight. The system has everything needed to do it automatically:
@@ -174,7 +174,7 @@ IF ACWR > 1.3: trigger deload recommendation
 
 ---
 
-## Phase 4 — AI Coaching on Web
+## Phase 4 — (✅ DONE) AI Coaching on Web
 **Kills:** WHOOP Coach, HevyGPT | **Effort:** Medium
 
 The Telegram bot and desktop alpha already have an LLM coach. Bring it to the web where 80% of acquisition happens.
@@ -199,7 +199,7 @@ The Telegram bot and desktop alpha already have an LLM coach. Bring it to the we
 
 ---
 
-## Phase 5 — Cross-Channel Unified State
+## Phase 5 — Cross-Channel Unified State (✅ DONE)
 **Kills:** Fragmentation churn | **Effort:** High
 
 Unify the 4 codebases (Web / Telegram / Mobile / Desktop) under a shared Supabase schema. The worker's `/api/sync/<key>` endpoint already exists — extend it into a proper bidirectional sync layer.

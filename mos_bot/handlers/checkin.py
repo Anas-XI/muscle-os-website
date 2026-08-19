@@ -188,7 +188,7 @@ async def checkin_top_sets_handler(update, context):
 
     store = CheckInStore(os.path.join(DATA_ROOT, "checkins"))
     store.add(user_id, record)
-    fire_push_measurement(int(user_id) if str(user_id).isdigit() else 0, ud.get("checkin_weight", 0))
+    fire_push_measurement(update.effective_user.id, ud.get("checkin_weight", 0))
 
     records = store.load_all(user_id)
     trends = analyse_trends(records)

@@ -522,6 +522,7 @@ select option{background:#1A1B26;color:#FAFAF8}
 
  function saveStore(store){
  localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
+ if(window.SyncManager) window.SyncManager.pushBodyweight(store);
  }
 
  // ─── Constants ───
