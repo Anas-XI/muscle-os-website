@@ -6625,7 +6625,6 @@ select option{background:var(--card)}
  if(wn.sessions>0)hist.innerHTML='<strong>'+_('nl_this_week')+':</strong> '+wn.sessions+' '+_('cardio_sessions')+', '+wn.minutes+' min';
  else hist.textContent='';
  }
-
  function renderCombinedLoadDash(){
  var el=document.getElementById('combinedLoadDash');
  if(!el)return;
@@ -7036,7 +7035,11 @@ select option{background:var(--card)}
  day.ex.forEach(function(ex,ei){html+=buildNormalExCard(ex,ei,di,day);});
  }
 
- container.innerHTML=html;
+  html += '<div style="margin-top:20px;margin-bottom:10px;text-align:center;">' +
+          '<button class="btn-primary" onclick="showBiofeedbackModal(' + di + ')" style="width:100%;padding:14px;background:rgba(244,201,59,.1);border:1px solid rgba(244,201,59,.25);color:#F4C93B;font-size:.8rem;box-shadow:0 0 10px rgba(244,201,59,0.1);font-weight:600;"><span style="margin-right:8px">⚡</span>Finish Session & Log Biofeedback</button>' +
+          '</div>';
+
+  container.innerHTML=html;
 
  // Wire inputs
  container.querySelectorAll('.set-row input').forEach(function(inp){inp.addEventListener('input',function(){saveSet(di,this.dataset.ex,parseInt(this.dataset.set),this.dataset.f,this.value,this.dataset.wu);});});

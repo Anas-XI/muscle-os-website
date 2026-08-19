@@ -115,19 +115,26 @@
       if (dashboard.tdee) document.getElementById('kpiTdee').innerText = Math.round(dashboard.tdee) + ' kcal';
     }
 
-    // Heatmap Logic
-    // We look at the last 4 days of logs to estimate fatigue.
+    // Heatmap Logic with Phase 6 Biofeedback Integration
     const muscles = ['chest', 'back', 'quads', 'hamstrings', 'delts', 'biceps', 'triceps', 'calves', 'abs'];
     const recentVolume = {};
-    muscles.forEach(m => recentVolume[m] = 0);
+    const exactSoreness = {};
+    muscles.forEach(m => { recentVolume[m] = 0; exactSoreness[m] = 1; });
     
     const dates = Object.keys(logs).sort().slice(-4);
     dates.forEach(d => {
       const session = logs[d];
-      if(!session.exercises) return;
-      session.exercises.forEach(ex => {
-        // Very basic string matching for demo purposes
-        const name = ex.name.toLowerCase();
+      
+      // Look for Phase 6 Biofeedback
+      const bf = session._biofeedback;
+      
+      Object.keys(session).forEach(key => {
+        if(key === '_biofeedback') return;
+        const exData = session[key];
+        if(!exData || !exData.sets) return;
+        
+        // Key format: "Push__Bench Press" or just "Bench Press"
+        const name = key.toLowerCase();
         let target = 'abs';
         if(name.includes('bench') || name.includes('pec') || name.includes('push')) target = 'chest';
         if(name.includes('row') || name.includes('pull') || name.includes('lat')) target = 'back';
@@ -138,18 +145,28 @@
         if(name.includes('press') && name.includes('shoulder') || name.includes('lateral')) target = 'delts';
         if(name.includes('calf')) target = 'calves';
         
-        recentVolume[target] += ex.sets.length;
+        recentVolume[target] += exData.sets.length;
+        
+        // If the user explicitly logged soreness for this session, lock it to this target
+        if(bf && bf.soreness > exactSoreness[target]) {
+           exactSoreness[target] = bf.soreness;
+        }
       });
     });
     
     const grid = document.getElementById('heatmapGrid');
     muscles.forEach(m => {
       const vol = recentVolume[m];
+      const sore = exactSoreness[m];
+      
       let statusClass = 'recovered';
       let statusText = 'Recovered';
       
-      if(vol > 10) { statusClass = 'fatigued'; statusText = 'Fatigued'; }
-      else if(vol > 0) { statusClass = 'sore'; statusText = 'Recovering'; }
+      // Auto-regulation biofeedback takes priority over volume guessing
+      if(sore >= 4) { statusClass = 'fatigued'; statusText = 'Fatigued'; }
+      else if(sore >= 3) { statusClass = 'sore'; statusText = 'Very Sore'; }
+      else if(sore === 2 || vol > 0) { statusClass = 'sore'; statusText = 'Recovering'; }
+      else if(vol > 15) { statusClass = 'fatigued'; statusText = 'High Volume'; }
       
       grid.innerHTML += `
         <div class="heat-node ${statusClass}">

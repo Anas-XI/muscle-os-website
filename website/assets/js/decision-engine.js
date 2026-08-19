@@ -318,6 +318,21 @@ const DecisionEngine = {
     async getInjuryMatrix() {
         await this._ensureVault();
         return this.vault ? this.vault.injury_matrix || null : null;
+    },
+
+    /**
+     * Phase 6: Biofeedback Volume Autoregulation
+     * Takes scores from 1-5 for Pump, Fatigue, Soreness.
+     * Returns a delta (-1, 0, +1) and the reason.
+     */
+    calculateVolumeAdjustment(pump, fatigue, soreness) {
+        if (pump <= 2 && fatigue <= 2) {
+            return { delta: 1, reason: "Low stimulus detected." };
+        }
+        if (fatigue >= 4 || soreness >= 4) {
+            return { delta: -1, reason: "High fatigue/soreness detected." };
+        }
+        return { delta: 0, reason: "Optimal stimulus." };
     }
 };
 
