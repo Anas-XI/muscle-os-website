@@ -6473,7 +6473,69 @@ select option{background:var(--card)}
  var p=function(x){return ('0'+x).slice(-2);};
  return ''+d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'T'+p(d.getHours())+p(d.getMinutes())+'00';
  }
- function exportIcs(){
+ function exportProgramUrl() { var prog = ls(K.PROG, null); if (!prog || !prog.splitName) { alert('No active program to share.'); return; } var slimProg = { s: prog.splitName, d: prog.days.map(d => ({ n: d.n, e: d.ex.map(ex => ({ n: ex.n, s: ex.sets })) })) }; var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(slimProg)))); var url = window.location.origin + window.location.pathname + '?import_split=' + base64; if (navigator.share) { navigator.share({ title: 'My MuscleOS Routine', url: url }).catch(function(){}); } else { navigator.clipboard.writeText(url).then(function() { alert('Routine link copied to clipboard!'); }); } }
+window.showBiofeedbackModal = function(di) {
+  var prog = ls(K.PROG);
+  if(!prog || !prog.days[di]) return;
+  var dayName = prog.days[di].n;
+  
+  var modalHtml = '<div id="bioModal" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,10,15,.9);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;">' +
+    '<div style="background:#14151A;border:1px solid rgba(250,250,248,.1);border-radius:12px;padding:24px;width:100%;max-width:400px;">' +
+      '<h2 style="font-family:\'Oswald\',sans-serif;font-size:1.2rem;color:#F4C93B;margin-bottom:16px;text-transform:uppercase;">Log Biofeedback</h2>' +
+      '<p style="font-size:.75rem;color:rgba(250,250,248,.6);margin-bottom:20px;">Rate your session to auto-regulate tomorrow\'s volume.</p>' +
+      
+      '<div style="margin-bottom:16px;">' +
+        '<label style="display:block;font-size:.7rem;margin-bottom:6px;color:#FAFAF8;">Pump (0-4)</label>' +
+        '<input type="range" id="bfPump" min="0" max="4" value="2" style="width:100%;accent-color:#F4C93B;">' +
+        '<div style="display:flex;justify-content:space-between;font-size:.6rem;color:rgba(250,250,248,.4);margin-top:4px;"><span>None</span><span>Extreme</span></div>' +
+      '</div>' +
+      
+      '<div style="margin-bottom:16px;">' +
+        '<label style="display:block;font-size:.7rem;margin-bottom:6px;color:#FAFAF8;">Fatigue (0-4)</label>' +
+        '<input type="range" id="bfFatigue" min="0" max="4" value="2" style="width:100%;accent-color:#F4C93B;">' +
+        '<div style="display:flex;justify-content:space-between;font-size:.6rem;color:rgba(250,250,248,.4);margin-top:4px;"><span>Fresh</span><span>Exhausted</span></div>' +
+      '</div>' +
+      
+      '<div style="margin-bottom:24px;">' +
+        '<label style="display:block;font-size:.7rem;margin-bottom:6px;color:#FAFAF8;">Target Muscle Soreness (0-4)</label>' +
+        '<input type="range" id="bfSoreness" min="0" max="4" value="2" style="width:100%;accent-color:#F4C93B;">' +
+        '<div style="display:flex;justify-content:space-between;font-size:.6rem;color:rgba(250,250,248,.4);margin-top:4px;"><span>None</span><span>Crippling</span></div>' +
+      '</div>' +
+      
+      '<div style="display:flex;gap:12px;">' +
+        '<button onclick="document.getElementById(\'bioModal\').remove()" style="flex:1;padding:12px;background:transparent;border:1px solid rgba(250,250,248,.2);border-radius:6px;color:#FAFAF8;font-weight:600;font-size:.8rem;">Cancel</button>' +
+        '<button onclick="saveBiofeedback(' + di + ', \'' + dayName.replace(/'/g, "\\'") + '\')" style="flex:1;padding:12px;background:#F4C93B;border:none;border-radius:6px;color:#14151A;font-weight:600;font-size:.8rem;">Save & Finish</button>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+  
+  document.body.insertAdjacentHTML('beforeend', modalHtml);
+};
+
+window.saveBiofeedback = function(di, dayName) {
+  var p = parseInt(document.getElementById('bfPump').value);
+  var f = parseInt(document.getElementById('bfFatigue').value);
+  var s = parseInt(document.getElementById('bfSoreness').value);
+  
+  var today = new Date().toISOString().split('T')[0];
+  var logs = ls('mos_logs', {});
+  if(!logs[today]) logs[today] = { bw: '', sets: 0, time: 0 };
+  
+  logs[today]._biofeedback = {
+    day: dayName,
+    pump: p,
+    fatigue: f,
+    soreness: s
+  };
+  
+  ss('mos_logs', logs);
+  document.getElementById('bioModal').remove();
+  alert('Biofeedback saved! Tomorrow\'s volume will automatically adapt.');
+  go(4);
+  renderDashboard();
+};
+
+function exportIcs(){
  var prog=ls(K.PG,null);if(!prog||!prog.days){alert(_('sync_fail'));return;}
  var today=new Date();today.setHours(17,0,0,0);
  var lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Muscle OS//Training App//EN','CALSCALE:GREGORIAN','METHOD:PUBLISH'];
@@ -7622,7 +7684,8 @@ select option{background:var(--card)}
  html+='<div style="font-size:.5rem;color:rgba(250,250,248,.15);margin-top:6px">'+_('trend_summary').replace('{s}',totSets).replace('{w}',weeks.length).replace('{m}',overMono)+'</div>';
  document.getElementById('trendContent').innerHTML=html;
  }
- document.getElementById('trendRange').addEventListener('change',renderTrendHistory);
+ var urlParams = new URLSearchParams(window.location.search); var importSplit = urlParams.get('import_split'); if (importSplit) { try { var imported = JSON.parse(decodeURIComponent(escape(atob(importSplit)))); if (imported && imported.s && imported.d) { if (confirm('Import routine: ' + imported.s + '? This will overwrite your current program.')) { var prog = { splitName: imported.s + ' (Imported)', totalEx: 0, totalSets: 0, days: [] }; imported.d.forEach(function(d) { var day = { n: d.n, ex: [] }; if (d.e) d.e.forEach(function(e) { var sets = typeof e.s === 'number' ? e.s : 3; day.ex.push({ n: e.n, sets: sets }); prog.totalEx++; prog.totalSets += sets; }); prog.days.push(day); }); ss(K.PROG, prog); alert('Routine imported successfully!'); window.location.href = window.location.pathname; } else { window.location.href = window.location.pathname; } } } catch (e) { alert('Invalid or corrupted routine link.'); window.location.href = window.location.pathname; } }
+document.getElementById('trendRange').addEventListener('change',renderTrendHistory);
 
  document.getElementById('backToDashBtn').addEventListener('click',function(){go(4);renderDashboard();});
  document.getElementById('deloadQuizBtn').addEventListener('click', function(){ showDeloadQuiz(); });
