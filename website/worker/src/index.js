@@ -171,6 +171,32 @@ export default {
     if (url.pathname === '/api/ai-coach' && request.method === 'POST') {
       return handleAiCoach(request, env);
     }
+
+    // ---- Phase 5: Supabase Sync ----
+    if (url.pathname === '/api/profile/save' && request.method === 'POST') {
+      return handleProfileSave(request, env);
+    }
+    if (url.pathname === '/api/profile/load' && request.method === 'GET') {
+      return handleProfileLoad(request, env);
+    }
+    if (url.pathname === '/api/sessions/save' && request.method === 'POST') {
+      return handleSessionSave(request, env);
+    }
+    if (url.pathname.startsWith('/api/sessions/load') && request.method === 'GET') {
+      return handleSessionLoad(request, env, url);
+    }
+    if (url.pathname === '/api/deload/save' && request.method === 'POST') {
+      return handleDeloadSave(request, env);
+    }
+    if (url.pathname === '/api/deload/load' && request.method === 'GET') {
+      return handleDeloadLoad(request, env);
+    }
+    if (url.pathname === '/api/bodyweight/save' && request.method === 'POST') {
+      return handleBodyweightSave(request, env);
+    }
+    if (url.pathname === '/api/link-telegram' && request.method === 'POST') {
+      return handleLinkTelegram(request, env);
+    }
     return json({ error: 'not_found' }, 404, env, request);
   }
 };
@@ -1437,6 +1463,168 @@ export class CodeCounter {
     record.revokedAt = Date.now();
     await this.state.storage.put('record', record);
     return new Response(JSON.stringify({ success: true, revoked: true }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+  }
+}
+
+
+// -- Supabase helpers ------------------------------------------------------
+async function sbFetch(env, method, table, body = null, params = '') {
+  if (!env.SUPABASE_URL || !env.SUPABASE_SERVICE_KEY) {
+    throw new Error('Supabase not configured');
+  }
+  const url = `${env.SUPABASE_URL}/rest/v1/${table}${params}`;
+  const headers = {
+    'apikey': env.SUPABASE_SERVICE_KEY,
+    'Authorization': `Bearer ${env.SUPABASE_SERVICE_KEY}`,
+    'Content-Type': 'application/json',
+    'Prefer': 'resolution=merge-duplicates,return=minimal',
+  };
+  const opts = { method, headers };
+  if (body) opts.body = JSON.stringify(body);
+  const res = await fetch(url, opts);
+  if (!res.ok) {
+    const t = await res.text();
+    throw new Error(`Supabase ${method} ${table}: ${res.status} ${t}`);
+  }
+  const ct = res.headers.get('content-type') || '';
+  if (ct.includes('json')) return res.json();
+  return null;
+}
+
+async function getUserIdFromJwt(request, env) {
+  // Reuse existing JWT verification from handleCheckToken logic
+  const auth = request.headers.get('Authorization') || '';
+  const token = auth.replace('Bearer ', '').trim();
+  if (!token) return null;
+  try {
+    const secret = await getSecret(env);
+    const { payload } = await jwtVerify(token, secret);
+    return payload.sub || null;
+  } catch (e) {
+    return null;
+  }
+}
+
+// -- Profile ----------------------------------------------------------------
+async function handleProfileSave(request, env) {
+  try {
+    const uid = await getUserIdFromJwt(request, env);
+    if (!uid) return json({ error: 'unauthorized' }, 401, env, request);
+    const body = await request.json();
+    const intake = body.intake || {};
+    await sbFetch(env, 'POST', 'user_profiles', {
+      id: uid,
+      intake,
+      goal: intake.goal || '',
+      experience: String(intake.ta || intake.experience_years || ''),
+      bodyweight_kg: intake.weight || intake.bodyweight_kg || null,
+    });
+    return json({ status: 'ok' }, 200, env, request);
+  } catch (e) {
+    return json({ error: e.message }, 500, env, request);
+  }
+}
+
+async function handleProfileLoad(request, env) {
+  try {
+    const uid = await getUserIdFromJwt(request, env);
+    if (!uid) return json({ error: 'unauthorized' }, 401, env, request);
+    const rows = await sbFetch(env, 'GET', 'user_profiles', null, `?id=eq.${uid}&select=intake,updated_at`);
+    return json({ intake: rows?.[0]?.intake || null }, 200, env, request);
+  } catch (e) {
+    return json({ error: e.message }, 500, env, request);
+  }
+}
+
+// -- Sessions ---------------------------------------------------------------
+async function handleSessionSave(request, env) {
+  try {
+    const uid = await getUserIdFromJwt(request, env);
+    if (!uid) return json({ error: 'unauthorized' }, 401, env, request);
+    const body = await request.json();
+    if (!body.date) return json({ error: 'missing date' }, 400, env, request);
+    await sbFetch(env, 'POST', 'workout_sessions', {
+      user_id: uid,
+      session_date: body.date,
+      log: body.log || {},
+      load_history: body.load_history || {},
+    });
+    return json({ status: 'ok' }, 200, env, request);
+  } catch (e) {
+    return json({ error: e.message }, 500, env, request);
+  }
+}
+
+async function handleSessionLoad(request, env, url) {
+  try {
+    const uid = await getUserIdFromJwt(request, env);
+    if (!uid) return json({ error: 'unauthorized' }, 401, env, request);
+    const days = parseInt(url.searchParams.get('days') || '60');
+    const since = new Date(Date.now() - days * 86400000).toISOString().split('T')[0];
+    const rows = await sbFetch(env, 'GET', 'workout_sessions', null,
+      `?user_id=eq.${uid}&session_date=gte.${since}&select=session_date,log,load_history&order=session_date.desc`
+    );
+    return json({ sessions: rows || [] }, 200, env, request);
+  } catch (e) {
+    return json({ error: e.message }, 500, env, request);
+  }
+}
+
+// -- Deload -----------------------------------------------------------------
+async function handleDeloadSave(request, env) {
+  try {
+    const uid = await getUserIdFromJwt(request, env);
+    if (!uid) return json({ error: 'unauthorized' }, 401, env, request);
+    const body = await request.json();
+    await sbFetch(env, 'POST', 'deload_tracker', { id: uid, state: body.state || {} });
+    return json({ status: 'ok' }, 200, env, request);
+  } catch (e) {
+    return json({ error: e.message }, 500, env, request);
+  }
+}
+
+async function handleDeloadLoad(request, env) {
+  try {
+    const uid = await getUserIdFromJwt(request, env);
+    if (!uid) return json({ error: 'unauthorized' }, 401, env, request);
+    const rows = await sbFetch(env, 'GET', 'deload_tracker', null, `?id=eq.${uid}&select=state`);
+    return json({ state: rows?.[0]?.state || null }, 200, env, request);
+  } catch (e) {
+    return json({ error: e.message }, 500, env, request);
+  }
+}
+
+
+// -- Bodyweight -------------------------------------------------------------
+async function handleBodyweightSave(request, env) {
+  try {
+    const uid = await getUserIdFromJwt(request, env);
+    if (!uid) return json({ error: 'unauthorized' }, 401, env, request);
+    const body = await request.json();
+    if (!body.weight_kg) return json({ error: 'missing weight_kg' }, 400, env, request);
+    await sbFetch(env, 'POST', 'mos_measurements', {
+      user_id: uid,
+      date: body.date || new Date().toISOString().split('T')[0],
+      weight: body.weight_kg,
+    });
+    return json({ status: 'ok' }, 200, env, request);
+  } catch (e) {
+    return json({ error: e.message }, 500, env, request);
+  }
+}
+
+// -- Telegram Link ---------------------------------------------------------
+async function handleLinkTelegram(request, env) {
+  try {
+    const uid = await getUserIdFromJwt(request, env);
+    if (!uid) return json({ error: 'unauthorized' }, 401, env, request);
+    const body = await request.json();
+    const tgId = parseInt(body.telegram_id);
+    if (!tgId) return json({ error: 'missing telegram_id' }, 400, env, request);
+    await sbFetch(env, 'POST', 'telegram_links', { telegram_id: tgId, user_id: uid });
+    return json({ status: 'ok', linked: true }, 200, env, request);
+  } catch (e) {
+    return json({ error: e.message }, 500, env, request);
   }
 }
 

@@ -9,6 +9,10 @@ from mos_bot.states import (
 from mos_bot.core.intake_builder import load_profile, parse_weight
 from mos_bot.core.analytics import track
 from mos_bot.config import DATA_ROOT
+try:
+    from mos_bot.core.supabase_sync import fire_push_measurement
+except Exception:
+    def fire_push_measurement(*a, **kw): pass
 
 try:
     from checkin_tracker import CheckInStore, CheckInRecord, analyse_trends, suggest_adjustments, format_trends, format_adjustments
@@ -184,6 +188,7 @@ async def checkin_top_sets_handler(update, context):
 
     store = CheckInStore(os.path.join(DATA_ROOT, "checkins"))
     store.add(user_id, record)
+    fire_push_measurement(int(user_id) if str(user_id).isdigit() else 0, ud.get("checkin_weight", 0))
 
     records = store.load_all(user_id)
     trends = analyse_trends(records)
