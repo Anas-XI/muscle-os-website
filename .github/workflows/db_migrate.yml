@@ -1,0 +1,19 @@
+name: DB Migrate
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '.github/workflows/db_migrate.yml'
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+      - name: Push Migrations
+        run: supabase db push --db-url "postgresql://postgres:bvrsuo4nyaf0z0U9@db.kddxpxbstnvmgwdgponc.supabase.co:5432/postgres"
