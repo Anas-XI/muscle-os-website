@@ -1161,23 +1161,36 @@ async function handleAiCoach(request, env) {
   if (request.method === 'OPTIONS') return new Response(null, { headers: corsHeaders(env, request) });
   
   try {
-    if (!env.GEMINI_API_KEY) {
-      return json({ error: 'GEMINI_API_KEY not configured in worker environment' }, 500, env, request);
+    if (!env.LLM_API_KEY) {
+      return json({ error: 'LLM_API_KEY not configured in worker environment' }, 500, env, request);
     }
     
     const body = await request.json();
-    const geminiPayload = {
-      contents: body.contents,
-      systemInstruction: body.systemInstruction,
-      generationConfig: body.generationConfig
+    const messages = [];
+    
+    if (body.systemInstruction) {
+      messages.push({ role: 'system', content: body.systemInstruction });
+    }
+    
+    if (body.contents) {
+      body.contents.forEach(msg => {
+        messages.push({ role: msg.role === 'model' ? 'assistant' : 'user', content: msg.text });
+      });
+    }
+
+    const payload = {
+      model: 'llama-3.3-70b-versatile',
+      messages: messages,
+      stream: true,
+      temperature: 0.7
     };
 
-    const response = await fetch(\https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:streamGenerateContent?alt=sse&key=\, {
+    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(geminiPayload)
+        'Content-Type': 'application/json',
+        'Authorization': Bearer       },
+      body: JSON.stringify(payload)
     });
 
     if (!response.ok) {
@@ -1199,7 +1212,8 @@ async function handleAiCoach(request, env) {
     return json({ error: 'Internal error', msg: err.message }, 500, env, request);
   }
 }
-\nasync function handleNotifyCoach(request, env) {
+
+async function handleNotifyCoach(request, env) {
   const rateLimited = await checkRateLimit(request, env, 10);
   if (rateLimited) return json({ error: 'rate_limited' }, 429, env, request);
 
