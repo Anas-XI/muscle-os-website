@@ -3461,7 +3461,7 @@ select option{background:var(--card)}
  var pill = document.getElementById('trialPill');
  var st = trialState(), sub = null;
  try{ sub = JSON.parse(localStorage.getItem('mos_subscription')); }catch(e){}
- var active = !!(sub && sub.active);
+ var active = true;
  if(active || !st.active){
  if(pill) pill.style.display = 'none';
  if(!active && !st.active) evLog('trial_expired', {}, 'once');
@@ -3517,7 +3517,7 @@ select option{background:var(--card)}
  function onLeave(){
  var s = funnelSnapshot();
  var sub = null; try{ sub = JSON.parse(localStorage.getItem('mos_subscription')); }catch(e){}
- var active = !!(sub && sub.active);
+ var active = true;
  var ov = document.getElementById('subOverlay');
  var paywallOpen = ov && ov.style.display === 'flex' && !active;
  if(paywallOpen) evLog('paywall_abandon');
@@ -8891,7 +8891,7 @@ if(!active){
  if(window.__evLog)window.__evLog('trial_gate_open', { days: _trial.daysLeft });
  if(window.__updateTrialPill)window.__updateTrialPill();
  } else {
- document.getElementById('subOverlay').style.display = 'flex';if(window.__evLog)window.__evLog('paywall_shown',{reason:'trial_expired'});
+ /* paywall removed */if(window.__evLog)window.__evLog('paywall_shown',{reason:'trial_expired'});
  if(window.__trialExpiredNote)window.__trialExpiredNote();
  var gs = getGs();
  var started = false;
