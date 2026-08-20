@@ -42,19 +42,19 @@ h1,h2,h3,h4,p,li,blockquote{overflow-wrap:break-word;word-break:break-word}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 .wrap{max-width:640px;margin:0 auto;padding:0 20px}
-::selection{background:#F4C93B;color:#14151A}
+::selection{background:#c026d3;color:#14151A}
 
 /* ── Nav ── */
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(15,16,21,.75);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.05)}
 .nav-inner{max-width:1180px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
 .brand{font-family:'Oswald',sans-serif;font-weight:700;font-size:16px;letter-spacing:.5px;text-transform:uppercase}
-.brand span{color:#F4C93B; text-shadow: 0 0 10px rgba(244,201,59,0.3);}
+.brand span{color:#c026d3; text-shadow: 0 0 10px rgba(192,38,211,0.3);}
 .nav-back{font-size:.75rem;color:rgba(250,250,248,.6);display:flex;align-items:center;gap:6px;transition:all .2s; font-weight: 500;}
-.nav-back:hover{color:#F4C93B; text-shadow: 0 0 8px rgba(244,201,59,0.3);}
+.nav-back:hover{color:#c026d3; text-shadow: 0 0 8px rgba(192,38,211,0.3);}
 
 /* ── Hero ── */
 .hero{padding-top:82px;padding-bottom:32px;text-align:center}
-.hero .eyebrow{font-size:.7rem;font-weight:700;color:#F4C93B;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:8px; text-shadow: 0 0 8px rgba(244,201,59,0.3);}
+.hero .eyebrow{font-size:.7rem;font-weight:700;color:#c026d3;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:8px; text-shadow: 0 0 8px rgba(192,38,211,0.3);}
 .hero h1{font-family:'Oswald',sans-serif;font-size:clamp(28px,5vw,44px);font-weight:700;text-transform:uppercase;line-height:1.05;max-width:600px;margin:0 auto;
  background: linear-gradient(to right, #fff, #ffd659);
  -webkit-background-clip: text;
@@ -63,7 +63,7 @@ a{color:inherit;text-decoration:none}
 
 /* ── Form card ── */
 .form-card{background:rgba(30, 32, 39, 0.6);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:32px 24px;margin-bottom:20px; backdrop-filter: blur(10px); box-shadow: 0 15px 40px rgba(0,0,0,0.4);}
-.form-card .fc-title{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:600;text-transform:uppercase;letter-spacing:.3px;color:#F4C93B;margin-bottom:6px}
+.form-card .fc-title{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:600;text-transform:uppercase;letter-spacing:.3px;color:#c026d3;margin-bottom:6px}
 .form-card .fc-sub{font-size:.75rem;color:#A0A3AB;margin-bottom:20px}
 .manual-only{display:none}
 .manual-only.show{display:block; animation: fadeSlideIn 0.3s ease;}
@@ -73,17 +73,17 @@ a{color:inherit;text-decoration:none}
 /* ── Payment method toggle ── */
 .pay-toggle{display:flex;gap:10px;margin-bottom:24px}
 .pay-toggle-btn{flex:1;padding:16px 12px;background:rgba(20,21,26,.6);border:1px solid rgba(255,255,255,.1);border-radius:12px;cursor:pointer;text-align:center;transition:all .3s ease;font-family:'Inter',sans-serif}
-.pay-toggle-btn:hover{border-color:rgba(244,201,59,.4); background: rgba(244,201,59,0.05); transform: translateY(-2px);}
-.pay-toggle-btn.selected{border-color:#F4C93B;background:rgba(244,201,59,.1); box-shadow: 0 4px 15px rgba(244,201,59,0.15);}
+.pay-toggle-btn:hover{border-color:rgba(192,38,211,.4); background: rgba(192,38,211,0.05); transform: translateY(-2px);}
+.pay-toggle-btn.selected{border-color:#c026d3;background:rgba(192,38,211,.1); box-shadow: 0 4px 15px rgba(192,38,211,0.15);}
 .pay-toggle-btn .pt-icon{display:block;font-size:1.4rem;margin-bottom:6px}
 .pay-toggle-btn .pt-label{display:block;font-size:.78rem;font-weight:600;color:#FAFAF8;text-transform:uppercase;letter-spacing:.3px}
 .pay-toggle-btn .pt-desc{display:block;font-size:.65rem;color:rgba(250,250,248,.4);margin-top:4px}
 @media(max-width:400px){.pay-toggle{flex-direction:column}.pay-toggle-btn{display:flex;align-items:center;gap:12px;text-align:left;padding:14px}.pay-toggle-btn .pt-icon{font-size:1.2rem;margin:0}}
 
 /* ── Payment info — highlighted ── */
-.payment-info{background:linear-gradient(135deg, rgba(244,201,59,.08), rgba(244,201,59,.02));border:1px solid rgba(244,201,59,.3);border-radius:12px;padding:20px;margin-bottom:24px; box-shadow: inset 0 0 20px rgba(244,201,59,0.05);}
-.payment-info .pi-title{font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:.3px;color:#F4C93B;margin-bottom:12px}
-.payment-info .pi-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(244,201,59,.1);font-size:.8rem}
+.payment-info{background:linear-gradient(135deg, rgba(192,38,211,.08), rgba(192,38,211,.02));border:1px solid rgba(192,38,211,.3);border-radius:12px;padding:20px;margin-bottom:24px; box-shadow: inset 0 0 20px rgba(192,38,211,0.05);}
+.payment-info .pi-title{font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:.3px;color:#c026d3;margin-bottom:12px}
+.payment-info .pi-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(192,38,211,.1);font-size:.8rem}
 .payment-info .pi-row:last-child{border-bottom:none}
 .payment-info .pi-label{color:rgba(250,250,248,.6)}
 .payment-info .pi-value{font-family:'JetBrains Mono',monospace;color:#fff;font-weight:600; font-size: .9rem;}
@@ -92,10 +92,10 @@ a{color:inherit;text-decoration:none}
 /* ── Product selector ── */
 .product-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
 .prod-opt{padding:14px 12px;background:rgba(20,21,26,.6);border:1px solid rgba(255,255,255,.08);border-radius:12px;cursor:pointer;transition:all .3s ease;text-align:center}
-.prod-opt:hover{border-color:rgba(244,201,59,.4); transform: translateY(-2px);}
-.prod-opt.selected{border-color:#F4C93B;background:rgba(244,201,59,.1); box-shadow: 0 4px 15px rgba(244,201,59,0.15);}
+.prod-opt:hover{border-color:rgba(192,38,211,.4); transform: translateY(-2px);}
+.prod-opt.selected{border-color:#c026d3;background:rgba(192,38,211,.1); box-shadow: 0 4px 15px rgba(192,38,211,0.15);}
 .prod-opt .po-name{font-family:'Oswald',sans-serif;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.3px;color:#FAFAF8}
-.prod-opt .po-price{font-size:.65rem;color:#F4C93B;font-family:'JetBrains Mono',monospace;margin-top:4px; font-weight: 600;}
+.prod-opt .po-price{font-size:.65rem;color:#c026d3;font-family:'JetBrains Mono',monospace;margin-top:4px; font-weight: 600;}
 .prod-opt .po-desc{font-size:.62rem;color:rgba(250,250,248,.4);margin-top:2px}
 @media(max-width:480px){.product-grid{gap:8px}.prod-opt{padding:12px 8px}.prod-opt .po-name{font-size:.68rem}}
 
@@ -105,14 +105,14 @@ a{color:inherit;text-decoration:none}
 .form-group label .req{color:#f44336;margin-left:2px}
 .form-group .hint{font-size:.65rem;color:rgba(250,250,248,.35);margin-top:4px}
 input,select{width:100%;padding:14px 16px;background:rgba(15,16,21,.7);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Inter',sans-serif;font-size:.9rem;outline:none;transition:all .3s ease; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);}
-input:focus,select:focus{border-color:#F4C93B; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2), 0 0 10px rgba(244,201,59,0.2);}
+input:focus,select:focus{border-color:#c026d3; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2), 0 0 10px rgba(192,38,211,0.2);}
 select{cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 12 8'%3E%3Cpath fill='%23FAFAF8' opacity='0.5' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:40px}
 select option{background:#1E1E2A;color:#FAFAF8}
 
 /* ── Submit ── */
-.submit-btn{width:100%;padding:16px 0;background:linear-gradient(135deg, var(--yellow), #ffd659);color:#14151A;border:none;border-radius:10px;font-family:'Oswald',sans-serif;font-size:1rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;transition:all .3s ease;margin-top:8px;min-height:56px; box-shadow: 0 4px 15px rgba(244,201,59,0.3);}
-.submit-btn:hover{transform: translateY(-2px); box-shadow: 0 8px 20px rgba(244,201,59,0.4); background: #fff;}
-.submit-btn:active{transform:scale(.98); box-shadow: 0 2px 10px rgba(244,201,59,0.3);}
+.submit-btn{width:100%;padding:16px 0;background:linear-gradient(135deg, var(--yellow), #ffd659);color:#14151A;border:none;border-radius:10px;font-family:'Oswald',sans-serif;font-size:1rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;transition:all .3s ease;margin-top:8px;min-height:56px; box-shadow: 0 4px 15px rgba(192,38,211,0.3);}
+.submit-btn:hover{transform: translateY(-2px); box-shadow: 0 8px 20px rgba(192,38,211,0.4); background: #fff;}
+.submit-btn:active{transform:scale(.98); box-shadow: 0 2px 10px rgba(192,38,211,0.3);}
 .submit-btn:disabled{opacity:.4;cursor:default;transform:none; background: #666; box-shadow: none; color: #ccc;}
 
 /* ── Error ── */
@@ -128,7 +128,7 @@ select option{background:#1E1E2A;color:#FAFAF8}
 .confirm-screen .cs-order{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:rgba(250,250,248,.4);margin-top:16px; background: rgba(255,255,255,0.05); padding: 8px; border-radius: 6px; display: inline-block;}
 .confirm-screen .cs-wa{display:inline-flex;align-items:center;gap:10px;margin-top:24px;padding:14px 28px;background:#25D366;color:#fff;border-radius:10px;font-size:.85rem;font-weight:600;text-decoration:none;transition:all .3s ease; box-shadow: 0 4px 15px rgba(37,211,102,0.3);}
 .confirm-screen .cs-wa:hover{transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37,211,102,0.4); background: #1ebe56;}
-.confirm-screen .cs-back{display:block;margin:24px auto 0;font-size:.75rem;color:#F4C93B;font-weight:600;cursor:pointer;background:none;border:none;font-family:'Inter',sans-serif; transition: color 0.2s;}
+.confirm-screen .cs-back{display:block;margin:24px auto 0;font-size:.75rem;color:#c026d3;font-weight:600;cursor:pointer;background:none;border:none;font-family:'Inter',sans-serif; transition: color 0.2s;}
 .confirm-screen .cs-back:hover { color: #fff; text-decoration: underline; }
 
 @keyframes fadeSlideIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
@@ -144,10 +144,10 @@ footer p{font-size:.7rem;color:rgba(250,250,248,.3)}
 .mobile-bottom-bar{display:block;position:fixed;bottom:0;left:0;right:0;z-index:90;background:rgba(15,16,21,.97);backdrop-filter:blur(15px);border-top:1px solid rgba(255,255,255,0.05);padding:10px 16px;padding-bottom:max(10px,env(safe-area-inset-bottom)); box-shadow: 0 -10px 30px rgba(0,0,0,0.5);}
 .mobile-bottom-bar .mbb-inner{display:flex;gap:12px;max-width:640px;margin:0 auto}
 .mobile-bottom-bar .mbb-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:10px;font-weight:700;font-size:.75rem;text-transform:uppercase;letter-spacing:.3px;border:none;cursor:pointer;min-height:48px;transition:all .3s ease}
-.mobile-bottom-bar .mbb-primary{background:linear-gradient(135deg, var(--yellow), #ffd659);color:#14151A; box-shadow: 0 4px 15px rgba(244,201,59,0.3);}
+.mobile-bottom-bar .mbb-primary{background:linear-gradient(135deg, var(--yellow), #ffd659);color:#14151A; box-shadow: 0 4px 15px rgba(192,38,211,0.3);}
 .mobile-bottom-bar .mbb-primary:active{background:#fff;transform:scale(.98);}
 .mobile-bottom-bar .mbb-ghost{background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(255,255,255,.15);}
-.mobile-bottom-bar .mbb-ghost:active{border-color:#F4C93B;}
+.mobile-bottom-bar .mbb-ghost:active{border-color:#c026d3;}
 body{padding-bottom:80px}
 
 /* ── Responsive ── */
@@ -212,7 +212,7 @@ input,select,textarea{font-size:16px!important}
  
  <div style="display:flex; justify-content:flex-end; margin-bottom: 10px;">
     <div style="background: rgba(15,16,21,.7); padding: 4px; border-radius: 20px; display:inline-flex; border: 1px solid rgba(255,255,255,.1);">
-    <button id="currencyEGP_order" class="btn" style="border:none; border-radius: 16px; background: #F4C93B; color: #000; padding: 4px 12px; font-size: 12px; font-weight:600; cursor:pointer;" onclick="setCurrency('egp')">🇪🇬 EGP</button>
+    <button id="currencyEGP_order" class="btn" style="border:none; border-radius: 16px; background: #c026d3; color: #000; padding: 4px 12px; font-size: 12px; font-weight:600; cursor:pointer;" onclick="setCurrency('egp')">🇪🇬 EGP</button>
     <button id="currencyUSD_order" class="btn" style="border:none; border-radius: 16px; background: transparent; color: #FAFAF8; padding: 4px 12px; font-size: 12px; font-weight:600; cursor:pointer;" onclick="setCurrency('usd')">🌍 USD</button>
     </div>
  </div>
@@ -224,7 +224,7 @@ input,select,textarea{font-size:16px!important}
  <div class="po-price"><span class="price-val egp">300 EGP</span><span class="price-val usd" style="display:none">$6</span></div>
  </div>
  <div class="prod-opt" data-product="training_tool_annual" onclick="selectProduct(this)">
- <div class="po-name">Training App <span style="font-size:.62rem;color:#F4C93B">(Annual)</span></div>
+ <div class="po-name">Training App <span style="font-size:.62rem;color:#c026d3">(Annual)</span></div>
  <div class="po-price"><span class="price-val egp">3,000 EGP</span><span class="price-val usd" style="display:none">$60</span></div>
  </div>
 
@@ -233,17 +233,17 @@ input,select,textarea{font-size:16px!important}
  <div class="po-price"><span class="price-val egp">300 EGP</span><span class="price-val usd" style="display:none">$5.99</span></div>
  </div>
  <div class="prod-opt" data-product="tdee_adaptive_engine_annual" onclick="selectProduct(this)">
- <div class="po-name">TDEE Engine <span style="font-size:.62rem;color:#F4C93B">(Annual)</span></div>
+ <div class="po-name">TDEE Engine <span style="font-size:.62rem;color:#c026d3">(Annual)</span></div>
  <div class="po-price"><span class="price-val egp">3,000 EGP</span><span class="price-val usd" style="display:none">$60</span></div>
  </div>
 
-<div class="prod-opt" data-product="omni_hub" onclick="selectProduct(this)" style="grid-column:1/-1;border-color:rgba(244,201,59,.4)">
+<div class="prod-opt" data-product="omni_hub" onclick="selectProduct(this)" style="grid-column:1/-1;border-color:rgba(192,38,211,.4)">
   <div class="po-name">OMNI HUB <span style="font-size:.62rem;text-transform:uppercase;letter-spacing:1px;color:#A0A3AB">(Monthly)</span></div>
   <div class="po-price"><span class="price-val egp">600 EGP</span><span class="price-val usd" style="display:none">$11.99</span></div>
   <div class="po-desc">Training + Nutrition</div>
 </div>
-<div class="prod-opt" data-product="omni_hub_annual" onclick="selectProduct(this)" style="grid-column:1/-1;border-color:rgba(244,201,59,.8)">
-  <div class="po-name">OMNI HUB <span style="font-size:.62rem;text-transform:uppercase;letter-spacing:1px;color:#F4C93B">(Annual)</span></div>
+<div class="prod-opt" data-product="omni_hub_annual" onclick="selectProduct(this)" style="grid-column:1/-1;border-color:rgba(192,38,211,.8)">
+  <div class="po-name">OMNI HUB <span style="font-size:.62rem;text-transform:uppercase;letter-spacing:1px;color:#c026d3">(Annual)</span></div>
   <div class="po-price"><span class="price-val egp">6,000 EGP</span><span class="price-val usd" style="display:none">$120</span></div>
   <div class="po-desc">2 Months Free</div>
 </div>
@@ -271,8 +271,8 @@ input,select,textarea{font-size:16px!important}
  <div class="po-price"><span class="price-val egp">300 EGP / mo</span><span class="price-val usd" style="display:none">$5.99 / mo</span></div>
  <div class="po-desc">Adaptive calorie tracker</div>
  </div>
-<div class="prod-opt" data-product="omni_hub" onclick="selectProduct(this)" style="grid-column:1/-1;border-color:rgba(244,201,59,.4)">
-  <div class="po-name">Combined App <span style="font-size:.62rem;text-transform:uppercase;letter-spacing:1px;color:#F4C93B">(OMNI HUB)</span></div>
+<div class="prod-opt" data-product="omni_hub" onclick="selectProduct(this)" style="grid-column:1/-1;border-color:rgba(192,38,211,.4)">
+  <div class="po-name">Combined App <span style="font-size:.62rem;text-transform:uppercase;letter-spacing:1px;color:#c026d3">(OMNI HUB)</span></div>
   <div class="po-price"><span class="price-val egp">600 EGP / mo</span><span class="price-val usd" style="display:none">$11.99 / mo</span></div>
   <div class="po-desc">Training + Nutrition together</div>
   </div>
@@ -323,7 +323,7 @@ input,select,textarea{font-size:16px!important}
  </div>
  <!-- Online payment note (shown when paying online) -->
  <div class="form-group online-only" id="onlineNote">
- <div style="background:rgba(244,201,59,.06);border:1px solid rgba(244,201,59,.12);border-radius:8px;padding:12px;font-size:.72rem;color:rgba(250,250,248,.5);text-align:center">
+ <div style="background:rgba(192,38,211,.06);border:1px solid rgba(192,38,211,.12);border-radius:8px;padding:12px;font-size:.72rem;color:rgba(250,250,248,.5);text-align:center">
  You'll be redirected to Paymob to complete your payment. Your access code will appear automatically after successful payment.
  </div>
  </div>
@@ -349,7 +349,7 @@ input,select,textarea{font-size:16px!important}
 <p class="security-note">&#128274; No card details processed on this site — payment and codes confirmed directly via WhatsApp.</p>
 
 <footer>
- <p>&copy; Anas Mo'men Coaching &middot; <a href="index.html" style="color:#F4C93B">Home</a></p>
+ <p>&copy; Anas Mo'men Coaching &middot; <a href="index.html" style="color:#c026d3">Home</a></p>
 </footer>
 
 <!-- Mobile bottom bar -->
@@ -598,10 +598,10 @@ input,select,textarea{font-size:16px!important}
     window.currentCurrency = curr;
     localStorage.setItem('mos_currency', curr);
     
-    document.getElementById('currencyEGP_order').style.background = (curr === 'egp') ? '#F4C93B' : 'transparent';
+    document.getElementById('currencyEGP_order').style.background = (curr === 'egp') ? '#c026d3' : 'transparent';
     document.getElementById('currencyEGP_order').style.color = (curr === 'egp') ? '#000' : '#FAFAF8';
     
-    document.getElementById('currencyUSD_order').style.background = (curr === 'usd') ? '#F4C93B' : 'transparent';
+    document.getElementById('currencyUSD_order').style.background = (curr === 'usd') ? '#c026d3' : 'transparent';
     document.getElementById('currencyUSD_order').style.color = (curr === 'usd') ? '#000' : '#FAFAF8';
     
     document.querySelectorAll('.price-val.egp').forEach(el => el.style.display = (curr === 'egp') ? 'inline' : 'none');
@@ -614,10 +614,10 @@ input,select,textarea{font-size:16px!important}
       manualBtn.style.display = 'none';
       selectPayMethod('online');
       // Update online payment text to indicate international support
-      document.getElementById('onlineNote').innerHTML = '<div style="background:rgba(244,201,59,.06);border:1px solid rgba(244,201,59,.12);border-radius:8px;padding:12px;font-size:.72rem;color:rgba(250,250,248,.5);text-align:center">For USD payments, please select "Pay Online" and complete the transaction. [Stripe coming soon. WhatsApp us for international payments]</div>';
+      document.getElementById('onlineNote').innerHTML = '<div style="background:rgba(192,38,211,.06);border:1px solid rgba(192,38,211,.12);border-radius:8px;padding:12px;font-size:.72rem;color:rgba(250,250,248,.5);text-align:center">For USD payments, please select "Pay Online" and complete the transaction. [Stripe coming soon. WhatsApp us for international payments]</div>';
     } else {
       manualBtn.style.display = 'block';
-      document.getElementById('onlineNote').innerHTML = '<div style="background:rgba(244,201,59,.06);border:1px solid rgba(244,201,59,.12);border-radius:8px;padding:12px;font-size:.72rem;color:rgba(250,250,248,.5);text-align:center">You\'ll be redirected to Paymob to complete your payment. Your access code will appear automatically after successful payment.</div>';
+      document.getElementById('onlineNote').innerHTML = '<div style="background:rgba(192,38,211,.06);border:1px solid rgba(192,38,211,.12);border-radius:8px;padding:12px;font-size:.72rem;color:rgba(250,250,248,.5);text-align:center">You\'ll be redirected to Paymob to complete your payment. Your access code will appear automatically after successful payment.</div>';
     }
   }
 
