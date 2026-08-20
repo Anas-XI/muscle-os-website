@@ -163,6 +163,7 @@
       <small data-i18n="hub_sub">Training + Nutrition, one app</small>
     </div>
     <div class="hub-side" style="display: flex; gap: 8px; align-items: center;">
+      <button id="hubSyncBtn" onclick="showSyncModal()" style="background: rgba(250,250,248,0.1); color: #FAFAF8; border: 1px solid rgba(250,250,248,0.2); border-radius: 6px; padding: 4px 10px; font-size: 0.6rem; font-weight: bold; cursor: pointer;">SYNC</button>
       <button id="telegramLinkBtn" style="display:none; background: #2AABEE; color: white; border: none; border-radius: 6px; padding: 4px 10px; font-size: 0.6rem; font-weight: bold; cursor: pointer;">TELEGRAM</button>
       <span class="status-chip locked" id="statusChip" data-i18n="hub_locked">Locked</span>
       <a class="hub-cta" href="../order.html?product=omni_hub" data-i18n="hub_cta">Get Access</a>
@@ -490,6 +491,150 @@
   });
 
 })();
+</script>
+
+<!-- Sync Modal -->
+<div class="modal-overlay" id="syncModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:9999;align-items:center;justify-content:center;" onclick="if(event.target===this)hideSyncModal()">
+  <div class="modal-card" style="background:#14151a;border:1px solid rgba(250,250,248,0.1);border-radius:12px;width:90%;max-width:360px;padding:20px;display:flex;flex-direction:column;">
+    <div class="modal-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+      <span style="font-weight:700;font-size:1rem;color:#FAFAF8;">Omni Data Sync</span>
+      <span class="modal-close" style="cursor:pointer;color:rgba(250,250,248,0.5);font-size:1.2rem;" onclick="hideSyncModal()">✕</span>
+    </div>
+    <p style="font-size:0.75rem;color:rgba(250,250,248,0.5);margin:0 0 15px;">Enter or create a Sync ID to transfer your Training & Nutrition data between devices.</p>
+    
+    <label style="font-size:0.65rem;text-transform:uppercase;letter-spacing:1px;color:rgba(250,250,248,0.5);margin-bottom:6px;">Sync ID</label>
+    <div style="display:flex;gap:8px;margin-bottom:12px;">
+      <input type="text" id="syncKeyInput" placeholder="e.g. 8f3a-9c2b" style="flex:1;padding:10px;background:rgba(20,21,26,0.5);border:1px solid rgba(250,250,248,0.1);border-radius:6px;color:#FAFAF8;font-size:0.8rem;outline:none;">
+      <button onclick="genSyncId()" title="New ID" style="background:rgba(244,201,59,0.1);border:1px solid rgba(244,201,59,0.3);color:#F4C93B;border-radius:6px;padding:0 12px;font-size:1rem;cursor:pointer;">↻</button>
+    </div>
+    
+    <label style="font-size:0.65rem;text-transform:uppercase;letter-spacing:1px;color:rgba(250,250,248,0.5);margin-bottom:6px;">Passphrase</label>
+    <input type="password" id="syncPwInput" placeholder="optional" style="width:100%;box-sizing:border-box;padding:10px;background:rgba(20,21,26,0.5);border:1px solid rgba(250,250,248,0.1);border-radius:6px;color:#FAFAF8;font-size:0.8rem;margin-bottom:20px;outline:none;">
+    
+    <div style="display:flex;gap:12px;">
+      <button onclick="doSyncUpload()" style="flex:1;background:#F4C93B;color:#14151a;border:none;border-radius:6px;padding:10px;font-weight:700;cursor:pointer;">Push</button>
+      <button onclick="doSyncDownload()" style="flex:1;background:rgba(76,175,80,0.15);border:1px solid rgba(76,175,80,0.3);color:#4CAF50;border-radius:6px;padding:10px;font-weight:700;cursor:pointer;">Pull</button>
+    </div>
+  </div>
+</div>
+
+
+  <script>
+  // --- Cross-Domain Omni Sync Logic ---
+  var SYNC_KEY = 'mos_omni_sync_key';
+  var SYNC_PW = 'mos_omni_sync_pw';
+  var SYNC_BASE = 'https://muscleos-access-control.muscleos.workers.dev/api/sync';
+
+  function showSyncModal() {
+    var saved = localStorage.getItem(SYNC_KEY) || '';
+    if(!saved){
+      saved = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : 'sync-' + Date.now().toString(36);
+      localStorage.setItem(SYNC_KEY, saved);
+    }
+    document.getElementById('syncKeyInput').value = saved;
+    document.getElementById('syncModal').style.display = 'flex';
+  }
+
+  function hideSyncModal() {
+    document.getElementById('syncModal').style.display = 'none';
+  }
+
+  function genSyncId() {
+    var id = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : 'sync-' + Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+    document.getElementById('syncKeyInput').value = id;
+    localStorage.setItem(SYNC_KEY, id);
+  }
+
+  function syncPayload() {
+    // Training Keys
+    var trainKeys = [
+      'mos_vault_intake','mos_program','mos_sessions','mos_logs','mos_load_history',
+      'mos_settings','mos_body_metrics','mos_biofeedback','mos_dl_tracker',
+      'mos_periodization','mos_week_count','mos_ex_choices','mos_pref','mos_card_density'
+    ];
+    // Diet Keys
+    var dietKeys = [
+      'muscle_os_adaptive_tdee', 'muscle_os_food_log', 'mos_tdee_trial_start'
+    ];
+    
+    var data = {};
+    trainKeys.concat(dietKeys).forEach(function(k){
+      var v = localStorage.getItem(k);
+      if(v) {
+        try { data[k] = JSON.parse(v); } catch(e) { data[k] = v; }
+      }
+    });
+    return data;
+  }
+
+  function doSyncUpload() {
+    var key = document.getElementById('syncKeyInput').value.trim();
+    var pw = document.getElementById('syncPwInput').value.trim();
+    if(!key || key.length < 4) { alert('Invalid Sync ID.'); return; }
+    if(!confirm('Push Omni data? This will overwrite data in the cloud.')) return;
+    
+    localStorage.setItem(SYNC_KEY, key);
+    localStorage.setItem(SYNC_PW, pw);
+    
+    var btn = event.target;
+    btn.textContent = 'Pushing...';
+    btn.disabled = true;
+
+    fetch(SYNC_BASE + '/' + encodeURIComponent(key), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Sync-Passphrase': pw },
+      body: JSON.stringify({ data: syncPayload() })
+    })
+    .then(r => r.json())
+    .then(j => {
+      btn.textContent = 'Push'; btn.disabled = false;
+      if(j.status === 'ok') { alert('Omni Sync Push Successful!'); hideSyncModal(); }
+      else alert('Sync failed: ' + (j.error || 'Unknown error'));
+    })
+    .catch(() => {
+      btn.textContent = 'Push'; btn.disabled = false;
+      alert('Network error during sync.');
+    });
+  }
+
+  function doSyncDownload() {
+    var key = document.getElementById('syncKeyInput').value.trim();
+    var pw = document.getElementById('syncPwInput').value.trim();
+    if(!key || key.length < 4) { alert('Invalid Sync ID.'); return; }
+    if(!confirm('Pull Omni data? This will overwrite your local device data.')) return;
+    
+    localStorage.setItem(SYNC_KEY, key);
+    localStorage.setItem(SYNC_PW, pw);
+    
+    var btn = event.target;
+    btn.textContent = 'Pulling...';
+    btn.disabled = true;
+
+    fetch(SYNC_BASE + '/' + encodeURIComponent(key), {
+      headers: { 'X-Sync-Passphrase': pw }
+    })
+    .then(r => r.json())
+    .then(j => {
+      btn.textContent = 'Pull'; btn.disabled = false;
+      if(j.data) {
+        Object.keys(j.data).forEach(function(k) {
+          var val = typeof j.data[k] === 'object' ? JSON.stringify(j.data[k]) : j.data[k];
+          localStorage.setItem(k, val);
+        });
+        alert('Omni Sync Pull Successful! Reloading...');
+        hideSyncModal();
+        location.reload();
+      } else if(j.error) {
+        alert('Sync failed: ' + j.error);
+      } else {
+        alert('No data found for this Sync ID.');
+      }
+    })
+    .catch(() => {
+      btn.textContent = 'Pull'; btn.disabled = false;
+      alert('Network error during sync.');
+    });
+  }
 </script>
 </body>
 </html>
