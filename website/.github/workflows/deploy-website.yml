@@ -2,7 +2,8 @@ name: Deploy Website to GitHub Pages (midnight only)
 
 # Daily midnight deploy (00:00 Morocco = 23:00 UTC). Live site only updates
 # at midnight — NO realtime deployments. Day-to-day work lands on `main`;
-# this scheduled run publishes `website/` and snapshots `main` onto `master`.
+# this scheduled run publishes the repo root (site lives at root) and
+# snapshots `main` onto `master`.
 on:
   schedule:
     - cron: '0 23 * * *'
@@ -49,7 +50,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "website"
+          path: "."
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

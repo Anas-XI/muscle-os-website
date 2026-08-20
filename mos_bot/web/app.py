@@ -63,7 +63,7 @@ def _llm_chat(messages: list[dict], system: str | None = None) -> str | None:
     if system:
         messages = [{"role": "system", "content": system}] + messages
     payload = {
-        "model": LLM_MODEL or "llama-3.3-70b-versatile",
+        "model": LLM_MODEL or "openai/gpt-oss-120b",
         "messages": messages,
         "temperature": 0.4,
         "max_tokens": 1024,
