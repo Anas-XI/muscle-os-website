@@ -206,45 +206,94 @@ input,select,textarea{font-size:16px!important}
  <div id="formError" class="form-error"></div>
 
  <!-- Product selector -->
+ 
  <div class="form-group">
  <label>Choose Product <span class="req">*</span></label>
+ 
+ <div style="display:flex; justify-content:flex-end; margin-bottom: 10px;">
+    <div style="background: rgba(15,16,21,.7); padding: 4px; border-radius: 20px; display:inline-flex; border: 1px solid rgba(255,255,255,.1);">
+    <button id="currencyEGP_order" class="btn" style="border:none; border-radius: 16px; background: #F4C93B; color: #000; padding: 4px 12px; font-size: 12px; font-weight:600; cursor:pointer;" onclick="setCurrency('egp')">🇪🇬 EGP</button>
+    <button id="currencyUSD_order" class="btn" style="border:none; border-radius: 16px; background: transparent; color: #FAFAF8; padding: 4px 12px; font-size: 12px; font-weight:600; cursor:pointer;" onclick="setCurrency('usd')">🌍 USD</button>
+    </div>
+ </div>
+
+ 
  <div class="product-grid" id="productGrid">
  <div class="prod-opt" data-product="training_tool" onclick="selectProduct(this)">
- <div class="po-name">Training App</div>
- <div class="po-price">300 EGP / mo</div>
- <div class="po-desc">Full training app</div>
+ <div class="po-name">Training App <span style="font-size:.62rem;color:#A0A3AB">(Monthly)</span></div>
+ <div class="po-price"><span class="price-val egp">300 EGP</span><span class="price-val usd" style="display:none">$6</span></div>
+ </div>
+ <div class="prod-opt" data-product="training_tool_annual" onclick="selectProduct(this)">
+ <div class="po-name">Training App <span style="font-size:.62rem;color:#F4C93B">(Annual)</span></div>
+ <div class="po-price"><span class="price-val egp">3,000 EGP</span><span class="price-val usd" style="display:none">$60</span></div>
+ </div>
+
+ <div class="prod-opt" data-product="tdee_adaptive_engine" onclick="selectProduct(this)">
+ <div class="po-name">TDEE Engine <span style="font-size:.62rem;color:#A0A3AB">(Monthly)</span></div>
+ <div class="po-price"><span class="price-val egp">300 EGP</span><span class="price-val usd" style="display:none">$5.99</span></div>
+ </div>
+ <div class="prod-opt" data-product="tdee_adaptive_engine_annual" onclick="selectProduct(this)">
+ <div class="po-name">TDEE Engine <span style="font-size:.62rem;color:#F4C93B">(Annual)</span></div>
+ <div class="po-price"><span class="price-val egp">3,000 EGP</span><span class="price-val usd" style="display:none">$60</span></div>
+ </div>
+
+<div class="prod-opt" data-product="omni_hub" onclick="selectProduct(this)" style="grid-column:1/-1;border-color:rgba(244,201,59,.4)">
+  <div class="po-name">OMNI HUB <span style="font-size:.62rem;text-transform:uppercase;letter-spacing:1px;color:#A0A3AB">(Monthly)</span></div>
+  <div class="po-price"><span class="price-val egp">600 EGP</span><span class="price-val usd" style="display:none">$11.99</span></div>
+  <div class="po-desc">Training + Nutrition</div>
+</div>
+<div class="prod-opt" data-product="omni_hub_annual" onclick="selectProduct(this)" style="grid-column:1/-1;border-color:rgba(244,201,59,.8)">
+  <div class="po-name">OMNI HUB <span style="font-size:.62rem;text-transform:uppercase;letter-spacing:1px;color:#F4C93B">(Annual)</span></div>
+  <div class="po-price"><span class="price-val egp">6,000 EGP</span><span class="price-val usd" style="display:none">$120</span></div>
+  <div class="po-desc">2 Months Free</div>
+</div>
+
+ <div class="prod-opt" data-product="training_book" onclick="selectProduct(this)">
+ <div class="po-name">Training Book</div>
+ <div class="po-price"><span class="price-val egp">750 EGP</span><span class="price-val usd" style="display:none">$15</span></div>
+ <div class="po-desc">Lifetime</div>
+ </div>
+ <div class="prod-opt" data-product="nutrition_book" onclick="selectProduct(this)">
+ <div class="po-name">Nutrition Book</div>
+ <div class="po-price"><span class="price-val egp">750 EGP</span><span class="price-val usd" style="display:none">$15</span></div>
+ <div class="po-desc">Lifetime</div>
+ </div>
+ <div class="prod-opt" data-product="both_books" onclick="selectProduct(this)" style="grid-column:1/-1">
+ <div class="po-name">Both Books <span style="font-size:.62rem;text-transform:uppercase;letter-spacing:1px;color:#f44336">(?? SAVE)</span></div>
+ <div class="po-price"><span class="price-val egp">1,200 EGP</span><span class="price-val usd" style="display:none">$22</span></div>
+ <div class="po-desc">Save money, get both</div>
+ </div>
+ </div>
+
  </div>
  <div class="prod-opt" data-product="tdee_adaptive_engine" onclick="selectProduct(this)">
  <div class="po-name">TDEE Engine</div>
- <div class="po-price">200 EGP / mo</div>
+ <div class="po-price"><span class="price-val egp">300 EGP / mo</span><span class="price-val usd" style="display:none">$5.99 / mo</span></div>
  <div class="po-desc">Adaptive calorie tracker</div>
  </div>
 <div class="prod-opt" data-product="omni_hub" onclick="selectProduct(this)" style="grid-column:1/-1;border-color:rgba(244,201,59,.4)">
   <div class="po-name">Combined App <span style="font-size:.62rem;text-transform:uppercase;letter-spacing:1px;color:#F4C93B">(OMNI HUB)</span></div>
-  <div class="po-price">400 EGP / mo</div>
-  <div class="po-desc">Training + Nutrition together &middot; saves 100 EGP / mo</div>
+  <div class="po-price"><span class="price-val egp">600 EGP / mo</span><span class="price-val usd" style="display:none">$11.99 / mo</span></div>
+  <div class="po-desc">Training + Nutrition together</div>
   </div>
  <div class="prod-opt" data-product="training_book" onclick="selectProduct(this)">
  <div class="po-name">Training Book</div>
- <div class="po-price">500 EGP</div>
+ <div class="po-price"><span class="price-val egp">750 EGP</span><span class="price-val usd" style="display:none">$15</span></div>
  <div class="po-desc">One-time, lifetime</div>
  </div>
  <div class="prod-opt" data-product="nutrition_book" onclick="selectProduct(this)">
  <div class="po-name">Nutrition Book</div>
- <div class="po-price">500 EGP</div>
+ <div class="po-price"><span class="price-val egp">750 EGP</span><span class="price-val usd" style="display:none">$15</span></div>
  <div class="po-desc">One-time, lifetime</div>
  </div>
- <div class="prod-opt" data-product="both_books" onclick="selectProduct(this)">
- <div class="po-name">Both Books</div>
- <div class="po-price">800 EGP</div>
- <div class="po-desc">Save 200 EGP</div>
- </div>
- <div class="prod-opt" data-product="all_access" onclick="selectProduct(this)" style="grid-column:1/-1">
- <div class="po-name">All Access</div>
- <div class="po-price">Contact for pricing</div>
- <div class="po-desc">Everything — tools + books</div>
+ <div class="prod-opt" data-product="both_books" onclick="selectProduct(this)" style="grid-column:1/-1">
+ <div class="po-name">Both Books <span style="font-size:.62rem;text-transform:uppercase;letter-spacing:1px;color:#f44336">(🔥 SAVE)</span></div>
+ <div class="po-price"><span class="price-val egp">1,200 EGP</span><span class="price-val usd" style="display:none">$22</span></div>
+ <div class="po-desc">Save money, get both</div>
  </div>
  </div>
+ </div>
+
  </div>
 
  <!-- Name -->
@@ -528,5 +577,54 @@ input,select,textarea{font-size:16px!important}
  });
 })();
 </script>
+
+ <script>
+  window.currentCurrency = 'usd';
+  
+  function detectCurrency() {
+    let saved = localStorage.getItem('mos_currency');
+    if (saved) return saved;
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const egyptZones = ['Africa/Cairo', 'Africa/Tripoli', 'Africa/Khartoum'];
+      const menaZones = ['Asia/Riyadh', 'Asia/Dubai', 'Asia/Kuwait', 'Asia/Bahrain',
+                         'Asia/Qatar', 'Asia/Amman', 'Asia/Beirut', 'Asia/Baghdad'];
+      if (egyptZones.includes(tz) || menaZones.includes(tz)) return 'egp';
+    } catch(e) {}
+    return 'usd';
+  }
+
+  window.setCurrency = function(curr) {
+    window.currentCurrency = curr;
+    localStorage.setItem('mos_currency', curr);
+    
+    document.getElementById('currencyEGP_order').style.background = (curr === 'egp') ? '#F4C93B' : 'transparent';
+    document.getElementById('currencyEGP_order').style.color = (curr === 'egp') ? '#000' : '#FAFAF8';
+    
+    document.getElementById('currencyUSD_order').style.background = (curr === 'usd') ? '#F4C93B' : 'transparent';
+    document.getElementById('currencyUSD_order').style.color = (curr === 'usd') ? '#000' : '#FAFAF8';
+    
+    document.querySelectorAll('.price-val.egp').forEach(el => el.style.display = (curr === 'egp') ? 'inline' : 'none');
+    document.querySelectorAll('.price-val.usd').forEach(el => el.style.display = (curr === 'usd') ? 'inline' : 'none');
+    
+    // Manage Payment Options
+    const manualBtn = document.querySelector('.pay-toggle-btn[data-method="manual"]');
+    if (curr === 'usd') {
+      // Hide manual (Vodafone Cash) and force online payment
+      manualBtn.style.display = 'none';
+      selectPayMethod('online');
+      // Update online payment text to indicate international support
+      document.getElementById('onlineNote').innerHTML = '<div style="background:rgba(244,201,59,.06);border:1px solid rgba(244,201,59,.12);border-radius:8px;padding:12px;font-size:.72rem;color:rgba(250,250,248,.5);text-align:center">For USD payments, please select "Pay Online" and complete the transaction. [Stripe coming soon. WhatsApp us for international payments]</div>';
+    } else {
+      manualBtn.style.display = 'block';
+      document.getElementById('onlineNote').innerHTML = '<div style="background:rgba(244,201,59,.06);border:1px solid rgba(244,201,59,.12);border-radius:8px;padding:12px;font-size:.72rem;color:rgba(250,250,248,.5);text-align:center">You\'ll be redirected to Paymob to complete your payment. Your access code will appear automatically after successful payment.</div>';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    setCurrency(detectCurrency());
+  });
+ </script>
+
 </body>
 </html>

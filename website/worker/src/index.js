@@ -32,6 +32,10 @@ const PRODUCT_CONFIG = {
   nutrition_book:       { prefix: 'BN', products: ['nutrition_book'], durationDays: 0, plan: 'single_product' },
   both_books:           { prefix: 'BB', products: ['training_book', 'nutrition_book'], durationDays: 0, plan: 'single_product' },
   all_access:           { prefix: 'MA', products: 'all', durationDays: 30, plan: 'master' },
+
+  training_tool_annual:        { prefix: 'TRA', products: ['training_tool'], durationDays: 365, plan: 'single_product' },
+  tdee_adaptive_engine_annual: { prefix: 'TDA', products: ['tdee_adaptive_engine'], durationDays: 365, plan: 'single_product' },
+  omni_hub_annual:             { prefix: 'OHA', products: ['omni_hub'], durationDays: 365, plan: 'single_product' },
 };
 const VALID_PRODUCTS = Object.keys(PRODUCT_CONFIG);
 const ORDER_TTL_SECONDS = 172800; // 48 hours
@@ -45,6 +49,10 @@ const PRODUCT_NAMES = {
   nutrition_book:       { en: 'Nutrition Book', ar: 'كتاب التغذية' },
   both_books:           { en: 'Books Bundle', ar: 'حزمة الكتب' },
   all_access:           { en: 'All Access', ar: 'الوصول الكامل' },
+
+  training_tool_annual:        { en: 'Training Tool (Annual)', ar: 'Training Tool (Annual)' },
+  tdee_adaptive_engine_annual: { en: 'TDEE Engine (Annual)', ar: 'TDEE Engine (Annual)' },
+  omni_hub_annual:             { en: 'OMNI HUB (Annual)', ar: 'OMNI HUB (Annual)' },
 };
 
 // ── Payment provider configuration ──
@@ -56,6 +64,10 @@ const PRODUCT_PRICES = {
   training_book:        { amountCents: 50000 },
   nutrition_book:       { amountCents: 50000 },
   both_books:           { amountCents: 80000 },
+
+  training_tool_annual:        { amountCents: 300000 },
+  tdee_adaptive_engine_annual: { amountCents: 300000 },
+  omni_hub_annual:             { amountCents: 600000 },
 };
 
 import { SignJWT, jwtVerify, createRemoteJWKSet } from 'jose';
@@ -1182,7 +1194,7 @@ async function handleSyncPull(request, env, url) {
   }
 }
 
-// ── POST /api/notify-coach (sends WhatsApp to coach via Meta Cloud API) ──
+// ── POST /api/ai-coach (proxies chat request to Groq LLM API) ──
 async function handleAiCoach(request, env) {
   if (request.method === 'OPTIONS') return new Response(null, { headers: corsHeaders(env, request) });
   
@@ -1205,7 +1217,7 @@ async function handleAiCoach(request, env) {
     }
 
     const payload = {
-      model: 'llama-3.3-70b-versatile',
+      model: env.LLM_MODEL || 'openai/gpt-oss-120b',
       messages: messages,
       stream: true,
       temperature: 0.7
@@ -1215,7 +1227,8 @@ async function handleAiCoach(request, env) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': Bearer       },
+        'Authorization': `Bearer ${env.LLM_API_KEY}`
+      },
       body: JSON.stringify(payload)
     });
 

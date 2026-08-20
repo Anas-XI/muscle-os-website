@@ -16,9 +16,9 @@
     --bg-card: rgba(20, 20, 25, 0.7);
     --text-main: #fafafa;
     --text-muted: #a1a1aa;
-    --accent-1: #c026d3; /* Neon Purple */
-    --accent-2: #3b82f6; /* Neon Blue */
-    --accent-3: #ec4899; /* Neon Pink */
+    --accent-1: #F4C93B; /* MOS Gold */
+    --accent-2: #E11D2E; /* MOS Red */
+    --accent-3: #FAFAF8; /* MOS White */
     --border: rgba(255, 255, 255, 0.1);
     --shadow: 0 10px 30px -10px rgba(192, 38, 211, 0.3);
     --glass: rgba(9, 9, 11, 0.6);
@@ -31,9 +31,9 @@
     --bg-card: rgba(255, 255, 255, 0.8);
     --text-main: #09090b;
     --text-muted: #52525b;
-    --accent-1: #d8b4e2; /* Pastel Purple */
-    --accent-2: #a7c7e7; /* Pastel Blue */
-    --accent-3: #ffb6c1; /* Pastel Pink */
+    --accent-1: #F4C93B; /* MOS Gold */
+    --accent-2: #E11D2E; /* MOS Red */
+    --accent-3: #14151A; /* MOS Dark */
     --border: rgba(0, 0, 0, 0.1);
     --shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.1);
     --glass: rgba(255, 255, 255, 0.7);
@@ -352,11 +352,11 @@
   <!-- Hero -->
   <section class="hero">
     <div>
-      <h1><span class="harsh-gradient">It's not a program.</span><br>It's an operating system. ✨</h1>
-      <p>Stop guessing with spreadsheets. Start progressing with the AI-powered coaching infrastructure built for elite performance. 🚀🔥</p>
+      <h1><span class="harsh-gradient">Your training. Your nutrition.</span><br>One operating system. ✨</h1>
+      <p>Evidence-based AI coaching built on 277 research documents — not guesswork.</p>
       <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
-        <a href="#pricing" class="btn btn-primary confirm-link">Start Coaching <i data-lucide="arrow-right"></i></a>
-        <a href="#features" class="btn btn-outline">Explore Features</a>
+        <a href="tools/training_tool.html" class="btn btn-primary">Start Free Trial <i data-lucide="arrow-right"></i></a>
+        <a href="#pricing" class="btn btn-outline">View Pricing</a>
       </div>
       
       <!-- Fake Terminal -->
@@ -365,10 +365,10 @@
           <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
         </div>
         <div class="terminal-body">
-          > mos init --client="Anas"<br>
-          <span class="green">✔</span> Analyzing biomechanics... done.<br>
-          <span class="green">✔</span> Syncing with nutrition API... done.<br>
-          > System ready. Commencing hypertrophy protocol.
+          > mos intake --goal=hypertrophy<br>
+          <span class="green">✔</span> 28-question intake complete<br>
+          <span class="green">✔</span> Vault RAG: 277 docs indexed<br>
+          > Generating program... done in 2.1s
         </div>
       </div>
     </div>
@@ -429,94 +429,192 @@
   </section>
 
   <!-- 3 Testimonials -->
+  
   <section class="container">
-    <h2 class="section-title">Don't just take my word for it.</h2>
+    <h2 class="section-title">Client Outcomes</h2>
     <div class="three-cards">
       <div class="card">
-        <p class="testi-text">"This changed my life! The synergy between my diet and training is unreal."</p>
+        <p class="testi-text">"[REPLACE: Real client testimonial about training outcomes and the app]"</p>
         <div class="testi-author">
-          <div class="avatar"></div>
-          <div><strong>John Doe</strong><br><span style="color:var(--text-muted); font-size:12px;">Powerlifter</span></div>
+          <div class="avatar" style="background:#F4C93B"></div>
+          <div><strong>[Client Name]</strong><br><span style="color:var(--text-muted); font-size:12px;">[Goal/Background]</span></div>
         </div>
       </div>
       <div class="card">
-        <p class="testi-text">"Finally, a coach who uses actual data instead of cookie-cutter templates."</p>
+        <p class="testi-text">"[REPLACE: Real client testimonial about nutrition and the TDEE engine]"</p>
         <div class="testi-author">
-          <div class="avatar"></div>
-          <div><strong>Sarah Smith</strong><br><span style="color:var(--text-muted); font-size:12px;">Bodybuilder</span></div>
+          <div class="avatar" style="background:#E11D2E"></div>
+          <div><strong>[Client Name]</strong><br><span style="color:var(--text-muted); font-size:12px;">[Goal/Background]</span></div>
         </div>
       </div>
       <div class="card">
-        <p class="testi-text">"I added 50kg to my total in 3 months. The Omni Hub is a game changer."</p>
+        <p class="testi-text">"[REPLACE: Real client testimonial about 1-on-1 coaching or overall results]"</p>
         <div class="testi-author">
-          <div class="avatar"></div>
-          <div><strong>Mike J.</strong><br><span style="color:var(--text-muted); font-size:12px;">Premium Client</span></div>
+          <div class="avatar" style="background:#FAFAF8"></div>
+          <div><strong>[Client Name]</strong><br><span style="color:var(--text-muted); font-size:12px;">[Goal/Background]</span></div>
         </div>
       </div>
     </div>
   </section>
+
 
   <!-- Pricing 3 Tiers -->
+  
   <section id="pricing" class="container">
-    <h2 class="section-title">Simple Pricing.</h2>
-    <div class="three-cards">
-      <div class="card pricing-tier">
-        <h3>Basic</h3>
-        <p>Self-guided tools.</p>
-        <div class="price">300<span style="font-size:20px;color:var(--text-muted)">EGP/mo</span></div>
-        <ul>
-          <li><i data-lucide="check" class="green"></i> Training App Only</li>
-          <li><i data-lucide="check" class="green"></i> Basic Logging</li>
-        </ul>
-        <a href="#" class="btn btn-outline confirm-link" style="width:100%; justify-content:center; margin-top:20px;">Choose Basic</a>
-      </div>
-      
-      <div class="card pricing-tier middle">
-        <h3><i data-lucide="sparkles" style="color:var(--accent-1)"></i> Pro</h3>
-        <p>Full Coaching.</p>
-        <div class="price">600<span style="font-size:20px;color:var(--text-muted)">EGP/mo</span></div>
-        <ul>
-          <li><i data-lucide="check" class="green"></i> Weekly check-ins</li>
-          <li><i data-lucide="check" class="green"></i> Full Omni Hub Access</li>
-          <li><i data-lucide="check" class="green"></i> Direct messaging</li>
-        </ul>
-        <a href="#" class="btn btn-primary confirm-link" style="width:100%; justify-content:center; margin-top:20px;">Choose Pro</a>
-      </div>
-
-      <div class="card pricing-tier">
-        <h3>Ultimate</h3>
-        <p>Elite Support.</p>
-        <div class="price">1000<span style="font-size:20px;color:var(--text-muted)">EGP/mo</span></div>
-        <ul>
-          <li><i data-lucide="check" class="green"></i> Everything in Pro</li>
-          <li><i data-lucide="check" class="green"></i> Video calls</li>
-          <li><i data-lucide="check" class="green"></i> Early Beta Access</li>
-        </ul>
-        <a href="#" class="btn btn-outline confirm-link" style="width:100%; justify-content:center; margin-top:20px;">Choose Ultimate</a>
+    <h2 class="section-title">Simple Pricing. No Guesswork.</h2>
+    
+    <div style="display:flex; justify-content:center; margin-bottom: 40px;">
+      <div style="background: var(--bg-card); padding: 5px; border-radius: 30px; display:inline-flex; border: 1px solid var(--border);">
+        <button id="currencyEGP" class="btn" style="border-radius: 25px; background: var(--accent-1); color: #000; padding: 8px 24px;" onclick="setCurrency('egp')">🇪🇬 EGP</button>
+        <button id="currencyUSD" class="btn" style="border-radius: 25px; background: transparent; color: var(--text-main); padding: 8px 24px;" onclick="setCurrency('usd')">🌍 USD</button>
       </div>
     </div>
+
+    <!-- TABS -->
+    <div style="display:flex; justify-content:center; gap: 10px; margin-bottom: 40px; flex-wrap: wrap;">
+      <button class="btn btn-outline" id="tabToolsBtn" onclick="switchTab('tools')" style="border-color: var(--accent-1);">Tools</button>
+      <button class="btn btn-outline" id="tabBooksBtn" onclick="switchTab('books')">Books</button>
+      <button class="btn btn-outline" id="tabCoachingBtn" onclick="switchTab('coaching')">Coaching</button>
+    </div>
+
+    <!-- TOOLS TAB -->
+    <div id="tabTools" class="three-cards">
+      <div class="card pricing-tier">
+        <h3>Training App</h3>
+        <p>Auto-regulated volume & logging.</p>
+        <div class="price"><span class="price-val egp">300 EGP</span><span class="price-val usd" style="display:none">$6</span><span style="font-size:20px;color:var(--text-muted)">/mo</span></div>
+        <div style="font-size: 14px; margin-bottom: 20px; color: var(--text-muted);">Annual: <span class="price-val egp">3,000 EGP</span><span class="price-val usd" style="display:none">$60</span> /yr (2 mos free)</div>
+        <ul>
+          <li><i data-lucide="check" class="green"></i> Split Selector & Logger</li>
+          <li><i data-lucide="check" class="green"></i> Biofeedback Auto-regulation</li>
+        </ul>
+        <a href="tools/training_tool.html" class="btn btn-outline confirm-link" style="width:100%; justify-content:center; margin-top:20px;">Start Free Trial</a>
+        <a href="order.html?product=training_tool" class="btn btn-primary confirm-link" style="width:100%; justify-content:center; margin-top:10px;">Buy Now</a>
+      </div>
+      
+      <div class="card pricing-tier">
+        <h3>TDEE Engine</h3>
+        <p>Adaptive calorie recalibration.</p>
+        <div class="price"><span class="price-val egp">300 EGP</span><span class="price-val usd" style="display:none">$5.99</span><span style="font-size:20px;color:var(--text-muted)">/mo</span></div>
+        <div style="font-size: 14px; margin-bottom: 20px; color: var(--text-muted);">Annual: <span class="price-val egp">3,000 EGP</span><span class="price-val usd" style="display:none">$60</span> /yr (2 mos free)</div>
+        <ul>
+          <li><i data-lucide="check" class="green"></i> Moving Average TDEE</li>
+          <li><i data-lucide="check" class="green"></i> Macro Splitting</li>
+        </ul>
+        <a href="tools/tdee_adaptive_engine.html" class="btn btn-outline confirm-link" style="width:100%; justify-content:center; margin-top:20px;">Start Free Trial</a>
+        <a href="order.html?product=tdee_adaptive_engine" class="btn btn-primary confirm-link" style="width:100%; justify-content:center; margin-top:10px;">Buy Now</a>
+      </div>
+
+      <div class="card pricing-tier middle">
+        <h3><i data-lucide="sparkles" style="color:var(--accent-1)"></i> Omni Hub</h3>
+        <p>Training + Nutrition together.</p>
+        <div class="price"><span class="price-val egp">600 EGP</span><span class="price-val usd" style="display:none">$11.99</span><span style="font-size:20px;color:var(--text-muted)">/mo</span></div>
+        <div style="font-size: 14px; margin-bottom: 20px; color: var(--text-muted);">Annual: <span class="price-val egp">6,000 EGP</span><span class="price-val usd" style="display:none">$120</span> /yr (2 mos free)</div>
+        <ul>
+          <li><i data-lucide="check" class="green"></i> Both Tools + Sync</li>
+          <li><i data-lucide="check" class="green"></i> AI Coach Access</li>
+        </ul>
+        <a href="tools/training_tool.html" class="btn btn-outline confirm-link" style="width:100%; justify-content:center; margin-top:20px;">Start Free Trial</a>
+        <a href="order.html?product=omni_hub" class="btn btn-primary confirm-link" style="width:100%; justify-content:center; margin-top:10px;">Buy Now</a>
+      </div>
+    </div>
+
+    <!-- BOOKS TAB -->
+    <div id="tabBooks" class="three-cards" style="display:none;">
+      <div class="card pricing-tier">
+        <h3>Training Book</h3>
+        <p>The definitive guide to muscle.</p>
+        <div class="price"><span class="price-val egp">750 EGP</span><span class="price-val usd" style="display:none">$15</span></div>
+        <ul>
+          <li><i data-lucide="check" class="green"></i> Lifetime Access</li>
+        </ul>
+        <a href="order.html?product=training_book" class="btn btn-primary confirm-link" style="width:100%; justify-content:center; margin-top:20px;">Buy Now</a>
+      </div>
+      
+      <div class="card pricing-tier">
+        <h3>Nutrition Book</h3>
+        <p>The definitive guide to fueling.</p>
+        <div class="price"><span class="price-val egp">750 EGP</span><span class="price-val usd" style="display:none">$15</span></div>
+        <ul>
+          <li><i data-lucide="check" class="green"></i> Lifetime Access</li>
+        </ul>
+        <a href="order.html?product=nutrition_book" class="btn btn-primary confirm-link" style="width:100%; justify-content:center; margin-top:20px;">Buy Now</a>
+      </div>
+
+      <div class="card pricing-tier middle">
+        <h3><i data-lucide="flame" style="color:#ff5f56"></i> Both Books</h3>
+        <p>Save money, get both.</p>
+        <div class="price"><span class="price-val egp">1,200 EGP</span><span class="price-val usd" style="display:none">$22</span></div>
+        <ul>
+          <li><i data-lucide="check" class="green"></i> Save 300 EGP / $8</li>
+          <li><i data-lucide="check" class="green"></i> The Complete OS</li>
+        </ul>
+        <a href="order.html?product=both_books" class="btn btn-primary confirm-link" style="width:100%; justify-content:center; margin-top:20px;">Buy Now</a>
+      </div>
+    </div>
+
+    <!-- COACHING TAB -->
+    <div id="tabCoaching" style="display:none; text-align:center; max-width: 600px; margin: 0 auto; padding: 40px; background: var(--bg-card); border-radius: 24px; border: 1px solid var(--border);">
+      <i data-lucide="user-check" size="64" style="color:var(--accent-1); margin-bottom: 20px;"></i>
+      <h3>1-on-1 Elite Coaching</h3>
+      <p style="color:var(--text-muted); margin: 20px 0;">Looking for highly personalized support, weekly check-ins, and direct access to Coach Anas?</p>
+      <a href="https://wa.me/201040796017" target="_blank" class="btn btn-primary" style="display:inline-flex;">Contact on WhatsApp</a>
+    </div>
+
   </section>
 
+  <!-- Quiz CTA -->
+  <section class="container" style="text-align:center; padding: 60px 24px; background: linear-gradient(135deg, rgba(244,201,59,0.1), transparent); border-radius: 24px; border: 1px solid var(--accent-1); margin-top: 60px;">
+    <h2>Not sure what you need?</h2>
+    <p style="color:var(--text-muted); margin: 20px 0;">Take our 2-minute split selector quiz to get a personalized recommendation.</p>
+    <a href="quiz/split_selector_quiz.html" class="btn btn-primary">Take the Quiz <i data-lucide="arrow-right"></i></a>
+  </section>
+
+
   <!-- FAQ -->
+  
   <section id="faq" class="container" style="max-width: 800px;">
     <h2 class="section-title">Frequently Asked Questions</h2>
     <details>
-      <summary>Do I need to be a powerlifter to join? <i data-lucide="chevron-down"></i></summary>
-      <p>No — we build programs for hypertrophy, general strength, and overall physique goals as well.</p>
+      <summary>What's the difference between the Training App and Omni Hub? <i data-lucide="chevron-down"></i></summary>
+      <p>The Training App handles your lifting (splits, volume, RPE logging). Omni Hub includes both the Training App AND the TDEE Adaptive Engine, linking them together so your nutrition automatically recalibrates based on your training fatigue.</p>
     </details>
     <details>
-      <summary>Is the Omni Hub an app I download? <i data-lucide="chevron-down"></i></summary>
-      <p>It is a Progressive Web App (PWA). You can access it via any browser and save it to your home screen.</p>
+      <summary>Is there a free trial? <i data-lucide="chevron-down"></i></summary>
+      <p>Yes! You can start a 7-day free trial of the tools directly from the links above. No credit card required upfront.</p>
+    </details>
+    <details>
+      <summary>Can I pay internationally? <i data-lucide="chevron-down"></i></summary>
+      <p>Yes. If you're outside Egypt, select the USD pricing. You can pay via international options or message Anas directly on WhatsApp for manual processing.</p>
+    </details>
+    <details>
+      <summary>How do I get my access code after purchase? <i data-lucide="chevron-down"></i></summary>
+      <p>If you pay online via card, your access code will be displayed instantly on the screen and emailed to you. If you pay manually via Vodafone Cash, it will be sent to your WhatsApp shortly after verification.</p>
     </details>
     <details>
       <summary>Do you offer refunds? <i data-lucide="chevron-down"></i></summary>
-      <p>Given the personalized nature of the programming, we do not offer refunds once the initial protocol is delivered.</p>
+      <p>Because the tools offer a 7-day free trial, and digital books are immediately downloaded, we do not offer refunds after purchase.</p>
+    </details>
+    <details>
+      <summary>Is it an app I download from the App Store? <i data-lucide="chevron-down"></i></summary>
+      <p>It is a Progressive Web App (PWA). You access it via any browser and can "Add to Home Screen" on iOS or Android, which makes it look and act exactly like a native app (works offline!).</p>
+    </details>
+    <details>
+      <summary>What's the AI Coach powered by? <i data-lucide="chevron-down"></i></summary>
+      <p>Our Omni Hub AI Coach is powered by the Groq Llama 3.3 70B model, fine-tuned specifically on the Muscle OS 277-document knowledge vault. It gives evidence-based answers, not generic AI hallucinations.</p>
     </details>
   </section>
+
 </main>
 
 <!-- Footer -->
+
+<div style="background: var(--accent-1); color: #000; padding: 20px; text-align: center; margin-top: 60px;">
+  <h3 style="margin-bottom: 10px; font-weight: 700;">Questions? Message Anas directly</h3>
+  <a href="https://wa.me/201040796017" target="_blank" class="btn" style="background: #25D366; color: #fff; display: inline-flex; border:none;"><i data-lucide="message-circle"></i> Chat on WhatsApp</a>
+</div>
 <footer>
+
   <div class="footer-grid">
     <div>
       <h3 style="font-size:24px; display:flex; align-items:center; gap:8px;"><i data-lucide="sparkles"></i> Muscle OS</h3>
@@ -768,5 +866,51 @@
     if(res.innerHTML === '') res.innerHTML = '<span style="color:var(--text-muted)">No results found.</span>';
   }
 </script>
+
+<script>
+  window.currentCurrency = 'usd';
+  
+  function detectCurrency() {
+    let saved = localStorage.getItem('mos_currency');
+    if (saved) return saved;
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const egyptZones = ['Africa/Cairo', 'Africa/Tripoli', 'Africa/Khartoum'];
+      const menaZones = ['Asia/Riyadh', 'Asia/Dubai', 'Asia/Kuwait', 'Asia/Bahrain',
+                         'Asia/Qatar', 'Asia/Amman', 'Asia/Beirut', 'Asia/Baghdad'];
+      if (egyptZones.includes(tz) || menaZones.includes(tz)) return 'egp';
+    } catch(e) {}
+    return 'usd';
+  }
+
+  function setCurrency(curr) {
+    window.currentCurrency = curr;
+    localStorage.setItem('mos_currency', curr);
+    
+    document.getElementById('currencyEGP').style.background = (curr === 'egp') ? 'var(--accent-1)' : 'transparent';
+    document.getElementById('currencyEGP').style.color = (curr === 'egp') ? '#000' : 'var(--text-main)';
+    
+    document.getElementById('currencyUSD').style.background = (curr === 'usd') ? 'var(--accent-1)' : 'transparent';
+    document.getElementById('currencyUSD').style.color = (curr === 'usd') ? '#000' : 'var(--text-main)';
+    
+    document.querySelectorAll('.price-val.egp').forEach(el => el.style.display = (curr === 'egp') ? 'inline' : 'none');
+    document.querySelectorAll('.price-val.usd').forEach(el => el.style.display = (curr === 'usd') ? 'inline' : 'none');
+  }
+
+  window.switchTab = function(tab) {
+    document.getElementById('tabTools').style.display = (tab === 'tools') ? 'grid' : 'none';
+    document.getElementById('tabBooks').style.display = (tab === 'books') ? 'grid' : 'none';
+    document.getElementById('tabCoaching').style.display = (tab === 'coaching') ? 'block' : 'none';
+    
+    document.getElementById('tabToolsBtn').style.borderColor = (tab === 'tools') ? 'var(--accent-1)' : 'var(--border)';
+    document.getElementById('tabBooksBtn').style.borderColor = (tab === 'books') ? 'var(--accent-1)' : 'var(--border)';
+    document.getElementById('tabCoachingBtn').style.borderColor = (tab === 'coaching') ? 'var(--accent-1)' : 'var(--border)';
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    setCurrency(detectCurrency());
+  });
+</script>
+
 </body>
 </html>

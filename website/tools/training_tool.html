@@ -9113,9 +9113,9 @@ if (window.self !== window.top) {
 
       // Assuming worker is configured in production, otherwise change endpoint.
       // In development, the user might test this locally using Wrangler.
-      const ENDPOINT = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+      const ENDPOINT = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') 
                        ? 'http://127.0.0.1:8787/api/ai-coach' 
-                       : '/api/ai-coach';
+                       : 'https://muscleos-access-control.muscleos.workers.dev/api/ai-coach';
 
       var res = await fetch(ENDPOINT, {
         method: 'POST',
@@ -9154,7 +9154,7 @@ if (window.self !== window.top) {
       chatHistory.push({ role: 'model', text: botText });
 
     } catch(err) {
-      botBubble.innerHTML = '<span style="color:#f44336">Error: Could not reach coach. Please make sure GEMINI_API_KEY is configured in the worker.</span>';
+      botBubble.innerHTML = '<span style="color:#f44336">Error: Could not reach AI Coach. Please try again later.</span>';
     }
   }
 
@@ -9165,5 +9165,5 @@ if (window.self !== window.top) {
 
 })();
 </script>
-\n</body>
+</body>
 </html>

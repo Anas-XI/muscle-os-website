@@ -206,12 +206,12 @@
  },
 
  /** Get stored access from localStorage */
- getAccess: function(productId) { return { active: true, plan: "master", expiry: "2099-12-31T23:59:59.000Z", token: "admin_override" };
+ getAccess: function(productId) {
  return getStoredAccess(productId);
  },
 
  /** Full check: first try Worker revalidation, then localStorage */
- checkAccess: function(productId) { return Promise.resolve({ active: true, plan: "master", expiry: "2099-12-31T23:59:59.000Z", token: "admin_override" });
+ checkAccess: function(productId) {
  return revalidateAccess(productId).then(function(access){
  return access || Promise.resolve(getStoredAccess(productId));
  });
@@ -453,3 +453,4 @@ window.mosGoogleInit = function() {
  MosAccess.initGoogleAuth(c.id);
  });
 };
+
