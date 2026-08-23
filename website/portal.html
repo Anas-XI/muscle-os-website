@@ -120,7 +120,12 @@
     <div class="brand">MUSCLE<span>OS</span></div>
     <div class="subtitle">Access your specialized fitness tools.</div>
     
-    <div id="googleSignInBtn" style="display:flex; justify-content:center; margin-bottom: 20px;"></div>
+    <div id="googleSignInBtn" style="display:flex; justify-content:center; margin-bottom: 8px; min-height: 44px;"></div>
+    
+    <div style="display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:18px; font-size:0.8rem; color:var(--text-muted); cursor:pointer;">
+      <input type="checkbox" id="staySignedIn" checked style="accent-color:var(--gold); width:15px; height:15px; cursor:pointer;">
+      <label for="staySignedIn" style="cursor:pointer; margin:0; text-transform:none; font-weight:400; font-size:0.8rem; color:inherit;">Stay signed in</label>
+    </div>
 
     <div style="display:flex; align-items:center; text-align:center; color:var(--text-muted); font-size:11px; margin-bottom: 20px; text-transform:uppercase; letter-spacing:1px;">
       <span style="flex:1; border-bottom:1px solid var(--border); margin-right:12px;"></span>
@@ -158,6 +163,7 @@
       var btn = document.getElementById('unlockBtn');
       var input = document.getElementById('accessCode');
       var err = document.getElementById('errorMsg');
+      var staySignedInEl = document.getElementById('staySignedIn');
 
       var ERR_MSGS = {
         invalid_code: 'Wrong code. Please check and try again.',
@@ -181,48 +187,58 @@
         }
       }
 
-        function attemptVerify(code) {
-          btn.disabled = true;
-          btn.textContent = 'Verifying...';
-          err.style.display = 'none';
+      function storeData(key, value) {
+        var stay = staySignedInEl ? staySignedInEl.checked : true;
+        if (stay) {
+          localStorage.setItem(key, value);
+        } else {
+          sessionStorage.setItem(key, value);
+          localStorage.removeItem(key);
+        }
+      }
 
-          fetch(API, { 
-            method: 'POST', 
-            headers: { 'Content-Type': 'application/json' }, 
-            body: JSON.stringify({ code: code, productId: 'any' }) 
-          })
-          .then(function(r){ return r.json().catch(function(){ return null; }).then(function(d){ return { ok: r.ok, d: d }; }); })
-          .then(function(res){
-            if (res.ok && res.d && res.d.valid) {
-              var actualProdId = res.d.productId || 'all_access';
-              localStorage.setItem(SUB_KEY, JSON.stringify({ 
-                active: true, 
-                plan: res.d.plan || 'pro_tool', 
-                expiry: (res.d.expiresAt || '').slice(0, 10), 
-                token: res.d.token || '', 
-                code: code, 
-                email: '', 
-                prodId: actualProdId 
-              }));
-              routeProduct(actualProdId);
-            } else {
-              btn.disabled = false;
-              btn.textContent = 'UNLOCK ACCESS';
-              err.style.display = 'block';
-              if (res.d && res.d.error) {
-                err.textContent = ERR_MSGS[res.d.error] || ERR_MSGS.invalid_code;
-              } else {
-                err.textContent = ERR_MSGS.network;
-              }
-            }
-          })
-          .catch(function(){ 
+      function attemptVerify(code) {
+        btn.disabled = true;
+        btn.textContent = 'Verifying...';
+        err.style.display = 'none';
+
+        fetch(API, { 
+          method: 'POST', 
+          headers: { 'Content-Type': 'application/json' }, 
+          body: JSON.stringify({ code: code, productId: 'any' }) 
+        })
+        .then(function(r){ return r.json().catch(function(){ return null; }).then(function(d){ return { ok: r.ok, d: d }; }); })
+        .then(function(res){
+          if (res.ok && res.d && res.d.valid) {
+            var actualProdId = res.d.productId || 'all_access';
+            storeData(SUB_KEY, JSON.stringify({ 
+              active: true, 
+              plan: res.d.plan || 'pro_tool', 
+              expiry: (res.d.expiresAt || '').slice(0, 10), 
+              token: res.d.token || '', 
+              code: code, 
+              email: '', 
+              prodId: actualProdId 
+            }));
+            routeProduct(actualProdId);
+          } else {
             btn.disabled = false;
             btn.textContent = 'UNLOCK ACCESS';
             err.style.display = 'block';
-            err.textContent = ERR_MSGS.network; 
-          });
-        }
+            if (res.d && res.d.error) {
+              err.textContent = ERR_MSGS[res.d.error] || ERR_MSGS.invalid_code;
+            } else {
+              err.textContent = ERR_MSGS.network;
+            }
+          }
+        })
+        .catch(function(){ 
+          btn.disabled = false;
+          btn.textContent = 'UNLOCK ACCESS';
+          err.style.display = 'block';
+          err.textContent = ERR_MSGS.network; 
+        });
+      }
 
       btn.addEventListener('click', function(){
         var code = (input.value || '').trim();
@@ -243,12 +259,17 @@
 
       function initGsi(){
         var host = document.getElementById('googleSignInBtn');
-        if(!host || host.getAttribute('data-gsi')) return;
-        host.setAttribute('data-gsi', '1');
+        if(!host) return;
+
+        // Ensure google script has loaded before marking initialized
         if(typeof google === 'undefined' || !google.accounts || !google.accounts.id){
-          setTimeout(initGsi, 300);
+          setTimeout(initGsi, 200);
           return;
         }
+
+        if(host.getAttribute('data-gsi')) return;
+        host.setAttribute('data-gsi', '1');
+
         google.accounts.id.initialize({
           client_id: GOOGLE_CLIENT_ID,
           callback: function(resp){
@@ -267,10 +288,10 @@
               btn.disabled = false;
               btn.textContent = 'UNLOCK ACCESS';
               if(data && data.valid){
-                localStorage.setItem('mos_google_session', JSON.stringify({ session: data.session, email: data.email, name: data.name || '', ts: Date.now() }));
+                storeData('mos_google_session', JSON.stringify({ session: data.session, email: data.email, name: data.name || '', ts: Date.now() }));
                 if(data.email.toUpperCase() === OWNER_EMAIL){
                   var expiry = new Date(); expiry.setMonth(expiry.getMonth() + 1);
-                  localStorage.setItem(SUB_KEY, JSON.stringify({
+                  storeData(SUB_KEY, JSON.stringify({
                     active: true, plan: 'master', expiry: expiry.toISOString().split('T')[0], code: 'OWNER', email: data.email, prodId: 'omni_hub'
                   }));
                   window.location.href = 'tools/muscle_os_app.html';
@@ -279,7 +300,7 @@
                 if(data.subscriptions && data.subscriptions.length > 0){
                   var sub = data.subscriptions[0];
                   var prod = Array.isArray(sub.products) ? sub.products[0] : (sub.products || 'all_access');
-                  localStorage.setItem(SUB_KEY, JSON.stringify({
+                  storeData(SUB_KEY, JSON.stringify({
                     active: true, plan: sub.plan || 'pro_tool', expiry: (sub.expiresAt || '').slice(0, 10), code: sub.code || '', email: data.email, prodId: prod
                   }));
                   routeProduct(prod);
@@ -298,8 +319,17 @@
             });
           }
         });
-        google.accounts.id.renderButton(host, { theme: 'outline', size: 'large', width: 280 });
+        
+        google.accounts.id.renderButton(host, { 
+          theme: 'outline', 
+          size: 'large', 
+          width: 300,
+          text: 'signin_with',
+          shape: 'rectangular',
+          logo_alignment: 'left'
+        });
       }
+
       initGsi();
       
     })();

@@ -206,6 +206,7 @@
       <small data-i18n="hub_sub">Training + Nutrition, one app</small>
     </div>
     <div class="hub-side">
+      <button id="hubAccountBtn" onclick="document.getElementById('hubPaywallOverlay').style.display='flex'" style="background:rgba(244,201,59,0.12); color:#F4C93B; border:1px solid rgba(244,201,59,0.3); border-radius:999px; font-size:0.68rem; font-weight:600; padding:5px 10px; cursor:pointer;">👤 Account</button>
       <span class="status-chip locked" id="statusChip" data-i18n="hub_locked">Locked</span>
       <a class="hub-cta" href="../order.html?product=omni_hub" data-i18n="hub_cta">Get Access</a>
     </div>
@@ -406,7 +407,8 @@ var sub = null;
 
   <!-- OMNI HUB PAYWALL OVERLAY -->
   <div id="hubPaywallOverlay" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(13,14,18,0.96); backdrop-filter:blur(10px); align-items:center; justify-content:center; padding:20px;">
-    <div style="background:#14151A; border:1px solid #2C2E37; border-radius:16px; padding:36px 28px; max-width:400px; width:100%; text-align:center; box-shadow:0 20px 40px rgba(0,0,0,0.5);">
+    <div style="background:#14151A; border:1px solid #2C2E37; border-radius:16px; padding:36px 28px; max-width:400px; width:100%; text-align:center; box-shadow:0 20px 40px rgba(0,0,0,0.5); position:relative;">
+      <button data-hub-close="1" onclick="document.getElementById('hubPaywallOverlay').style.display='none'" style="position:absolute; top:12px; right:14px; background:none; border:none; color:rgba(250,250,248,0.5); font-size:1.2rem; cursor:pointer; line-height:1;" title="Close">✕</button>
       <div style="font-size:40px; margin-bottom:12px;">🔒</div>
       <div style="font-family:'Oswald',sans-serif; font-size:1.4rem; font-weight:700; color:#FAFAF8; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">FREE TRIAL ENDED</div>
       <p style="font-size:0.85rem; color:rgba(250,250,248,0.6); margin-bottom:24px; line-height:1.5;">Your 7-day free trial has expired. Enter your access code or sign in with your Google account to continue.</p>

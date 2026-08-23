@@ -862,7 +862,8 @@ select option{background:var(--card)}
 <body>
 <nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a><a href="../index.html#packages">Coaching</a></div></div></nav>
 <div class="sub-overlay" id="subOverlay">
- <div class="sub-modal">
+ <div class="sub-modal" style="position:relative;">
+ <button data-modal-close="1" onclick="document.getElementById('subOverlay').style.display='none'" style="position:absolute; top:12px; right:14px; background:none; border:none; color:rgba(250,250,248,0.5); font-size:1.2rem; cursor:pointer; line-height:1;" title="Close">✕</button>
  <div class="lock-icon">&#128274;</div>
  <h2>Pro Tool</h2>
  <div class="sub-price">300 EGP / month</div>
@@ -890,7 +891,11 @@ select option{background:var(--card)}
  <div class="sub-divider" data-i18n="sub_or_google">or sign in with Google to link your account</div>
  <div id="authStep1">
  <div class="sub-divider" id="authWelcomeRow" style="display:none"><span id="authWelcome"></span></div>
- <div id="googleSignInBtn" style="display:flex;justify-content:center"></div>
+ <div id="googleSignInBtn" style="display:flex;justify-content:center; min-height:44px;"></div>
+ <div style="display:flex; align-items:center; justify-content:center; gap:6px; margin:8px 0; font-size:0.75rem; color:rgba(250,250,248,0.7); cursor:pointer;">
+   <input type="checkbox" id="staySignedInTool" checked style="accent-color:#F4C93B; width:14px; height:14px; cursor:pointer;">
+   <label for="staySignedInTool" style="cursor:pointer; margin:0; text-transform:none; font-weight:400; font-size:0.75rem; color:inherit;">Stay signed in</label>
+ </div>
  <div class="sub-error" id="authStep1Error" style="display:none">Google sign-in failed. Please try again.</div>
  <div style="text-align:center;margin-top:6px"><a href="#" id="subSignOut" style="display:none;font-size:.5rem;color:rgba(250,250,248,.3)" data-i18n="sub_auth_switch">Not you? Switch account</a></div>
  </div>
@@ -901,6 +906,7 @@ select option{background:var(--card)}
  <div class="header no-print">
  <div class="header-top">
  <h1 data-i18n="app_title">MOS-HYPERKINETIX</h1>
+ <button id="headerAccountBtn" onclick="document.getElementById('subOverlay').style.display='flex'; if(window.__initGsi) window.__initGsi();" style="display:inline-flex; align-items:center; gap:4px; font-size:0.65rem; font-weight:600; padding:4px 9px; border-radius:4px; border:1px solid rgba(244,201,59,0.3); background:rgba(244,201,59,0.1); color:#F4C93B; cursor:pointer; text-transform:uppercase; margin-left:auto; margin-right:8px;">👤 Account</button>
  <div class="lang-toggle" onclick="toggleLang()">
  <span class="lang-opt active" data-lang="en">EN</span>
  <span class="lang-opt" data-lang="ar">AR</span>

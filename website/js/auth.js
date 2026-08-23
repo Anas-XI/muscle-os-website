@@ -50,8 +50,12 @@
   <p id="mosAuthDesc">Sign in with Google to start your free trial, access your saved programs, or enter an access code.</p>
   
   <div id="mosAuthStep1">
-  <div id="mosGoogleSignInBtn" style="display:flex;justify-content:center"></div>
-  <div style="margin-top:16px; font-size:12px; color:rgba(250,250,248,0.7); text-align:left; display:flex; align-items:flex-start; gap:8px;">
+  <div id="mosGoogleSignInBtn" style="display:flex;justify-content:center; min-height:44px;"></div>
+  <div style="display:flex; align-items:center; justify-content:center; gap:8px; margin:10px 0 14px; font-size:12px; color:rgba(250,250,248,0.7); cursor:pointer;">
+    <input type="checkbox" id="mosStaySignedIn" checked style="accent-color:#F4C93B; width:14px; height:14px; cursor:pointer;">
+    <label for="mosStaySignedIn" style="cursor:pointer; margin:0;">Stay signed in</label>
+  </div>
+  <div style="margin-top:10px; font-size:12px; color:rgba(250,250,248,0.7); text-align:left; display:flex; align-items:flex-start; gap:8px;">
     <input type="checkbox" id="mosAuthConsent" checked style="margin-top:2px; accent-color:#F4C93B; width:14px; height:14px; cursor:pointer;">
     <label for="mosAuthConsent" style="cursor:pointer; line-height:1.4;">I accept the <a href="terms.html" target="_blank" style="color:#F4C93B; text-decoration:underline;">Terms of Service</a> & <a href="privacy.html" target="_blank" style="color:#F4C93B; text-decoration:underline;">Privacy Policy</a>, including fitness health screening.</label>
   </div>
@@ -200,20 +204,33 @@ function getGs(){ try { var g = JSON.parse(localStorage.getItem(GS_KEY)); return
     });
   }
 
+  function storeAuthData(k, v) {
+    var el = document.getElementById('mosStaySignedIn');
+    var stay = el ? el.checked : true;
+    if (stay) {
+      localStorage.setItem(k, v);
+    } else {
+      sessionStorage.setItem(k, v);
+      localStorage.removeItem(k);
+    }
+  }
+
   function finishGoogle(data) {
-    localStorage.setItem(GS_KEY, JSON.stringify({ session: data.session, email: data.email, name: data.name || '', ts: Date.now() }));
+    storeAuthData(GS_KEY, JSON.stringify({ session: data.session, email: data.email, name: data.name || '', ts: Date.now() }));
     window.location.reload();
   }
 
   function initGsi(){
     var host = document.getElementById('mosGoogleSignInBtn');
-    if(!host || host.getAttribute('data-gsi')) return;
-    host.setAttribute('data-gsi', '1');
-    
+    if(!host) return;
+
     if(typeof google === 'undefined' || !google.accounts || !google.accounts.id){ 
-      setTimeout(initGsi, 300); 
+      setTimeout(initGsi, 200); 
       return; 
     }
+
+    if(host.getAttribute('data-gsi')) return;
+    host.setAttribute('data-gsi', '1');
     
     google.accounts.id.initialize({
       client_id: GOOGLE_CLIENT_ID,
@@ -238,7 +255,14 @@ function getGs(){ try { var g = JSON.parse(localStorage.getItem(GS_KEY)); return
         });
       }
     });
-    google.accounts.id.renderButton(host, { theme: 'outline', size: 'large', width: 280 });
+    google.accounts.id.renderButton(host, { 
+      theme: 'outline', 
+      size: 'large', 
+      width: 280,
+      text: 'signin_with',
+      shape: 'rectangular',
+      logo_alignment: 'left'
+    });
   }
 
  document.getElementById('mosSubVerify').addEventListener('click', function(){
