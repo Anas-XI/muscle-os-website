@@ -6,9 +6,10 @@ import traceback
 from datetime import datetime
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request, Depends, Header
 from fastapi.responses import HTMLResponse, FileResponse, JSONResponse
 from fastapi.exceptions import RequestValidationError
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from mos_bot.config import DATA_ROOT, LLM_API_KEY, LLM_API_URL, LLM_MODEL, TRACKERS_DIR
@@ -17,6 +18,28 @@ from mos_bot.core.program_generator import generate_program
 from mos_bot.core.tracker_renderer import generate_tracker_html
 
 app = FastAPI(title="Muscle OS Web")
+
+# ── Security: API key auth ──
+MOS_API_KEY = os.environ.get("MOS_API_KEY", "")
+
+
+async def require_api_key(x_api_key: str = Header(None, alias="X-API-Key")):
+    """Require valid API key for all /api/ endpoints."""
+    if not MOS_API_KEY:
+        return  # No key configured = dev mode (allow all)
+    if x_api_key != MOS_API_KEY:
+        raise HTTPException(401, "Invalid or missing API key")
+
+
+# ── CORS: restrict to known origins ──
+ALLOWED_ORIGINS = os.environ.get("CORS_ORIGINS", "https://muscleos.coach").split(",")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=ALLOWED_ORIGINS,
+    allow_credentials=False,
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type", "X-API-Key"],
+)
 
 
 # ── Global exception handlers ──
@@ -138,7 +161,7 @@ async def coach_page():
     return HTMLResponse(load_coach_html())
 
 
-@app.get("/api/profile/{user_id}")
+@app.get("/api/profile/{user_id}", dependencies=[Depends(require_api_key)])
 async def get_profile(user_id: str):
     profile = load_profile(user_id)
     if profile is None:
@@ -146,7 +169,7 @@ async def get_profile(user_id: str):
     return profile
 
 
-@app.get("/api/profiles")
+@app.get("/api/profiles", dependencies=[Depends(require_api_key)])
 async def list_profiles():
     users_dir = Path(DATA_ROOT) / "users"
     if not users_dir.exists():
@@ -167,7 +190,7 @@ async def list_profiles():
     return profiles
 
 
-@app.post("/api/profile")
+@app.post("/api/profile", dependencies=[Depends(require_api_key)])
 async def create_profile(req: ProfileCreateRequest):
     raw = req.model_dump()
     raw["bodyweight_kg"] = str(raw["bodyweight_kg"])
@@ -178,7 +201,7 @@ async def create_profile(req: ProfileCreateRequest):
     return profile
 
 
-@app.get("/api/programs/{user_id}")
+@app.get("/api/programs/{user_id}", dependencies=[Depends(require_api_key)])
 async def get_programs(user_id: str):
     progs_dir = Path(DATA_ROOT) / "programs"
     if not progs_dir.exists():
@@ -193,7 +216,7 @@ async def get_programs(user_id: str):
     return programs
 
 
-@app.post("/api/generate")
+@app.post("/api/generate", dependencies=[Depends(require_api_key)])
 async def generate(req: ChatRequest):
     profile = load_profile(req.user_id)
     if profile is None:
@@ -212,7 +235,7 @@ COACH_SYSTEM = (
 )
 
 
-@app.post("/api/chat")
+@app.post("/api/chat", dependencies=[Depends(require_api_key)])
 async def chat(req: ChatRequest):
     profile = load_profile(req.user_id)
     context_parts = []
@@ -242,15 +265,16 @@ async def get_tracker_html(user_id: str):
     raise HTTPException(404, "Tracker not found — generate a program first")
 
 
-@app.post("/api/tracker/log")
+@app.post("/api/tracker/log", dependencies=[Depends(require_api_key)])
 async def submit_tracker_log(request: Request):
     """Receive a workout log / check-in submission from the client."""
     os.makedirs(TRACKER_LOGS_DIR, exist_ok=True)
     body = await request.json()
-    user_id = body.get("user_id")
-    if not user_id:
+    raw_user_id = body.get("user_id")
+    if not raw_user_id:
         raise HTTPException(400, "user_id is required")
-    date = body.get("exported_at", datetime.now().isoformat())[:10]
+    user_id = Path(str(raw_user_id)).name
+    date = Path(str(body.get("exported_at", datetime.now().isoformat())[:10])).name
     filename = f"{user_id}_{date}.json"
     file_path = os.path.join(TRACKER_LOGS_DIR, filename)
     with open(file_path, "w", encoding="utf-8") as f:
@@ -258,14 +282,15 @@ async def submit_tracker_log(request: Request):
     return {"status": "ok", "file": filename, "workouts": len(body.get("workouts", [])), "checkins": len(body.get("checkins", []))}
 
 
-@app.get("/api/tracker/{user_id}/logs")
+@app.get("/api/tracker/{user_id}/logs", dependencies=[Depends(require_api_key)])
 async def get_tracker_logs(user_id: str):
     """List all submitted tracker logs for a user."""
     if not os.path.isdir(TRACKER_LOGS_DIR):
         return []
+    clean_user_id = Path(user_id).name
     logs = []
     for f in sorted(os.listdir(TRACKER_LOGS_DIR)):
-        if f.startswith(f"{user_id}_") and f.endswith(".json"):
+        if f.startswith(f"{clean_user_id}_") and f.endswith(".json"):
             file_path = os.path.join(TRACKER_LOGS_DIR, f)
             logs.append({
                 "filename": f,
@@ -275,12 +300,18 @@ async def get_tracker_logs(user_id: str):
     return logs
 
 
-@app.get("/api/tracker/{user_id}/logs/{filename}")
+@app.get("/api/tracker/{user_id}/logs/{filename}", dependencies=[Depends(require_api_key)])
 async def get_tracker_log_detail(user_id: str, filename: str):
     """Return the full content of a specific tracker log."""
-    file_path = os.path.join(TRACKER_LOGS_DIR, filename)
+    clean_user_id = Path(user_id).name
+    clean_filename = Path(filename).name
+    if not clean_filename.endswith(".json"):
+        raise HTTPException(400, "Invalid filename")
+    file_path = os.path.join(TRACKER_LOGS_DIR, clean_filename)
     if not os.path.exists(file_path):
         raise HTTPException(404, "Log not found")
+    if not clean_filename.startswith(f"{clean_user_id}_"):
+        raise HTTPException(403, "Unauthorized access to log")
     return JSONResponse(json.loads(Path(file_path).read_text(encoding="utf-8")))
 
 

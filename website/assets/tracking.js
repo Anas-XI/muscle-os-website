@@ -8,34 +8,37 @@
  var MAX = 500;
  var SID_KEY = 'mos_session_id';
 
- // ── Session ID (persistent per visitor) ─────────────
- function getSessionId() {
- var sid = localStorage.getItem(SID_KEY);
- if (!sid) {
- sid = Math.random().toString(36).slice(2, 10) + Math.random().toString(36).slice(2, 10);
- localStorage.setItem(SID_KEY, sid);
- }
- return sid;
- }
+  // ── Session ID (persistent per visitor, only if consent given) ─────
+  function getSessionId() {
+    if (localStorage.getItem('cookiesAccepted') !== 'true') return 'anonymous';
+    var sid = localStorage.getItem(SID_KEY);
+    if (!sid) {
+      sid = Math.random().toString(36).slice(2, 10) + Math.random().toString(36).slice(2, 10);
+      localStorage.setItem(SID_KEY, sid);
+    }
+    return sid;
+  }
 
- // ── Helpers ─────────────────────────────────────────
- function now() { return new Date().toISOString(); }
+  // ── Helpers ─────────────────────────────────────────
+  function now() { return new Date().toISOString(); }
 
- function getPage() { return window.location.pathname.replace(/\/+$/,'') || '/'; }
+  function getPage() { return window.location.pathname.replace(/\/+$/,'') || '/'; }
 
- // ── localStorage log (existing, unchanged) ──────────
- function log(entry) {
- try {
- var arr = JSON.parse(localStorage.getItem(KEY) || '[]');
- arr.push(entry);
- if (arr.length > MAX) arr = arr.slice(arr.length - MAX);
- localStorage.setItem(KEY, JSON.stringify(arr));
- } catch(e) {}
- }
+  // ── localStorage log (existing, unchanged) ──────────
+  function log(entry) {
+    if (localStorage.getItem('cookiesAccepted') !== 'true') return;
+    try {
+      var arr = JSON.parse(localStorage.getItem(KEY) || '[]');
+      arr.push(entry);
+      if (arr.length > MAX) arr = arr.slice(arr.length - MAX);
+      localStorage.setItem(KEY, JSON.stringify(arr));
+    } catch(e) {}
+  }
 
- // ── Webhook POST (additive, never blocks) ───────────
- function webhookSend(data) {
- if (!FUNNEL_WEBHOOK_URL) return;
+  // ── Webhook POST (additive, never blocks) ───────────
+  function webhookSend(data) {
+    if (localStorage.getItem('cookiesAccepted') !== 'true') return;
+    if (!FUNNEL_WEBHOOK_URL) return;
  try {
  var body = JSON.stringify({
  page: data.page || '',
@@ -53,14 +56,20 @@
  } catch(e) { /* fire-and-forget, never throw */ }
  }
 
- // ── Deduplication guard ─────────────────────────────
- if (window.__mosTrackedThisLoad) return;
- window.__mosTrackedThisLoad = true;
+  // ── Deduplication & Consent guard ───────────────────
+  if (window.__mosTrackedThisLoad) return;
+  window.__mosTrackedThisLoad = true;
 
- // ── Pageview event ──────────────────────────────────
- var pageviewEntry = { page: getPage(), action: 'pageview', referrer: document.referrer || '', timestamp: now() };
- log(pageviewEntry);
- webhookSend(pageviewEntry);
+  function isConsentGiven() {
+    return localStorage.getItem('cookiesAccepted') === 'true';
+  }
+
+  // ── Pageview event (only if consent given) ───────────
+  if (isConsentGiven()) {
+    var pageviewEntry = { page: getPage(), action: 'pageview', referrer: document.referrer || '', timestamp: now() };
+    log(pageviewEntry);
+    webhookSend(pageviewEntry);
+  }
 
  // ── Click tracking for WhatsApp links ───────────────
  document.addEventListener('click', function(e) {

@@ -1,8 +1,8 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev; frame-ancestors 'self'; base-uri 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/client https://accounts.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com https://accounts.google.com; frame-src 'self' https://accounts.google.com/gsi/ https://accounts.google.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev https://accounts.google.com/gsi/ https://accounts.google.com; frame-ancestors 'self'; base-uri 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta charset="UTF-8">
@@ -1859,8 +1859,8 @@ pre, table, figure, img, svg, blockquote { max-width: 100%; box-sizing: border-b
 <footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo'men</div></footer>
 <script>
 (function(){
+ var API_BASE = 'https://muscleos-access-control.muscleos.workers.dev';
  var KEY = 'mos_book_training';
- var EMAIL_CODE = 'ANASSTEM2025@GMAIL.COM';
  var data = null;
  try { data = JSON.parse(localStorage.getItem(KEY)); } catch(e){}
  if(data && data.active){
@@ -1869,14 +1869,39 @@ pre, table, figure, img, svg, blockquote { max-width: 100%; box-sizing: border-b
  document.getElementById('poOverlay').style.display = 'flex';
  document.getElementById('poVerify').addEventListener('click', function(){
  var code = document.getElementById('poCode').value.trim().toUpperCase();
- if(code && (code.length >= 6 || code === EMAIL_CODE)){
- localStorage.setItem(KEY, JSON.stringify({ active: true, book: 'training', code: code }));
- document.getElementById('poError').style.display = 'none';
- document.getElementById('poSuccess').style.display = 'block';
- setTimeout(function(){ location.reload(); }, 1500);
- } else {
- document.getElementById('poError').style.display = 'block';
- }
+ var btn = document.getElementById('poVerify');
+ var errEl = document.getElementById('poError');
+ var overlay = document.getElementById('poOverlay');
+ var PRODUCT_ID = 'training_book';
+
+ if(!code) return;
+ btn.disabled = true;
+ btn.textContent = 'Verifying...';
+ fetch(API_BASE + '/api/verify-code', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ code: code, productId: PRODUCT_ID })
+ }).then(function(r){ return r.json(); }).then(function(data){
+  if(data && data.valid){
+   localStorage.setItem(KEY, JSON.stringify({ active: true, book: PRODUCT_ID, code: code, token: data.token, ts: Date.now() }));
+   overlay.style.display = 'none';
+   document.body.style.overflow = '';
+  } else {
+   var msg = 'Invalid code. Please check and try again.';
+   if(data && data.error === 'code_used_by_other') msg = 'This code is linked to another account.';
+   if(data && data.error === 'code_expired') msg = 'This code has expired.';
+   if(data && data.error === 'wrong_product') msg = 'This code is not for this book.';
+   errEl.textContent = msg;
+   errEl.style.display = 'block';
+  }
+  btn.disabled = false;
+  btn.textContent = 'Unlock';
+ }).catch(function(){
+  errEl.textContent = 'Network error. Please try again.';
+  errEl.style.display = 'block';
+  btn.disabled = false;
+  btn.textContent = 'Unlock';
+ });
  });
  document.getElementById('poCode').addEventListener('keydown', function(e){
  if(e.key === 'Enter') document.getElementById('poVerify').click();

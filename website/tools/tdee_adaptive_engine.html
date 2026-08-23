@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev; frame-ancestors 'self'; base-uri 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/client https://accounts.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com https://accounts.google.com; frame-src 'self' https://accounts.google.com/gsi/ https://accounts.google.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev https://accounts.google.com/gsi/ https://accounts.google.com; frame-ancestors 'self'; base-uri 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta charset="UTF-8">
@@ -142,27 +142,6 @@ select option{background:#1A1B26;color:#FAFAF8}
 .food-date-btn{background:none;border:none;color:#F4C93B;cursor:pointer;font-size:1rem;padding:0 8px}
 .food-date-display{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:#FAFAF8}
 
-/* ---- Phase 2: Macro Rings & Meal Groups ---- */
-.macro-rings-container{display:flex;gap:12px;justify-content:center;margin:16px 0}
-.macro-ring{position:relative;width:64px;height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.macro-ring svg{position:absolute;top:0;left:0;transform:rotate(-90deg);width:100%;height:100%}
-.macro-ring circle{fill:none;stroke-width:6;stroke-linecap:round}
-.macro-ring .bg{stroke:rgba(250,250,248,.1)}
-.macro-ring .fg{stroke:var(--ring-color);transition:stroke-dashoffset 0.5s ease}
-.macro-ring-val{font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:700;color:#FAFAF8;z-index:1}
-.macro-ring-lbl{font-size:.55rem;color:rgba(250,250,248,.6);z-index:1;text-transform:uppercase;margin-top:2px}
-
-.meal-group-header{display:flex;justify-content:space-between;align-items:center;background:rgba(244,201,59,.05);padding:8px 12px;border-radius:8px 8px 0 0;border:1px solid rgba(244,201,59,.2);border-bottom:none;margin-top:12px}
-.meal-group-title{font-size:.75rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:.5px}
-.meal-group-macros{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:rgba(250,250,248,.7)}
-.meal-group-list{background:rgba(20,21,26,.3);border:1px solid rgba(250,250,248,.08);border-top:none;border-radius:0 0 8px 8px;padding:6px;margin-bottom:8px}
-.meal-group-list .food-log-item{background:transparent;border:none;border-bottom:1px solid rgba(250,250,248,.04);border-radius:0;padding:8px 6px;margin-bottom:0}
-.meal-group-list .food-log-item:last-child{border-bottom:none}
-
-.meal-type-selector{display:flex;gap:4px;margin:10px 0;flex-wrap:wrap;justify-content:center}
-.meal-type-btn{background:rgba(250,250,248,.05);border:1px solid rgba(250,250,248,.1);color:rgba(250,250,248,.6);border-radius:6px;padding:6px 10px;font-size:.65rem;cursor:pointer;transition:all .2s}
-.meal-type-btn.active{background:rgba(244,201,59,.15);border-color:#F4C93B;color:#F4C93B;font-weight:600}
-
 /* ---- Category Filter Chips & Voice Search ---- */
 .cat-chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:10px;scrollbar-width:none}
 .cat-chips::-webkit-scrollbar{display:none}
@@ -285,7 +264,6 @@ select option{background:#1A1B26;color:#FAFAF8}
 <script>window.MOS_ASSET_ROOT='../assets/data';</script>
 <script src="../assets/js/decision-engine.js"></script>
 <script>if(window.DecisionEngine){window.DecisionEngine.init(window.MOS_ASSET_ROOT);}</script>
-<script src="/assets/js/sync-manager.js" defer></script>
 </head>
 <body>
 <nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a><a href="../index.html#packages">Coaching</a></div></div></nav>
@@ -522,7 +500,6 @@ select option{background:#1A1B26;color:#FAFAF8}
 
  function saveStore(store){
  localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
- if(window.SyncManager) window.SyncManager.pushBodyweight(store);
  }
 
  // ─── Constants ───
@@ -882,6 +859,277 @@ select option{background:#1A1B26;color:#FAFAF8}
    }
   }catch(e){}
 
+numbersHtml += '<div class="dash-macro-grid">' +
+ '<div class="dash-macro"><div class="dash-macro-val">'+protein+'</div><div class="dash-macro-lbl">Protein (g)</div></div>' +
+ '<div class="dash-macro"><div class="dash-macro-val">'+fat+'</div><div class="dash-macro-lbl">Fat (g)</div></div>' +
+ '<div class="dash-macro"><div class="dash-macro-val">'+carbs+'</div><div class="dash-macro-lbl">Carbs (g)</div></div>' +
+ '</div>';
+
+ numbersHtml += '<div class="bar-track">' +
+ '<div class="bar-seg bar-p" style="width:'+pP+'%">'+pP+'%</div>' +
+ '<div class="bar-seg bar-f" style="width:'+fP+'%">'+fP+'%</div>' +
+ '<div class="bar-seg bar-c" style="width:'+cP+'%">'+cP+'%</div>' +
+ '</div>' +
+ '<div class="bar-legend">' +
+ '<span class="bar-leg-item"><span class="bar-dot" style="background:#F4C93B"></span>Protein</span>' +
+ '<span class="bar-leg-item"><span class="bar-dot" style="background:#e8a83a"></span>Fat</span>' +
+ '<span class="bar-leg-item"><span class="bar-dot" style="background:#c48a30"></span>Carbs</span>' +
+ '</div>';
+
+ // Detailed breakdown
+ numbersHtml += '<div class="section-header" style="margin-top:10px">Breakdown</div>' +
+ '<div class="dash-row"><span class="l">BMR ('+r.bmrMethod+')</span><span class="v">'+r.bmr.toLocaleString()+' kcal</span></div>' +
+ '<div class="dash-row"><span class="l">NEAT (occupation + steps)</span><span class="v">'+r.neat+' kcal</span></div>' +
+ '<div class="dash-row"><span class="l">EAT (training)</span><span class="v">'+r.eat+' kcal</span></div>' +
+ '<div class="dash-row"><span class="l">Bio adjustment</span><span class="v">'+(r.bioAdj>=0?'+':'')+r.bioAdj+' kcal</span></div>';
+
+ if(r.safetyCapped){
+ numbersHtml += '<div class="dash-row"><span class="l">Safety cap (BF% too low for this goal)</span><span class="v" style="color:#F4C93B">Active</span></div>';
+ }
+
+ const cycleLabel = p.cyclePhase === 'luteal' ? ' (luteal +7%)' : '';
+ numbersHtml += '<div class="dash-row"><span class="l">Goal adjustment'+cycleLabel+'</span><span class="v">'+GOAL_LABELS[p.goal]+'</span></div>';
+
+ // Rationale
+ const allGood = !(adjustment && adjustment.adjusted);
+ numbersHtml += '<div class="rationale"><div class="r-title">Why These Numbers?</div>' +
+ '<strong>'+(allGood ? 'Initial estimate based on your profile' : 'Adjusted from real data')+'</strong><br>' +
+ 'Your BMR was calculated using <strong>'+r.bmrMethod+'</strong> ' +
+ (r.bmrMethod==='Katch-McArdle' ? 'because you provided body fat % (most accurate method).' : '(standard formula, ~200-300 kcal uncertainty without body fat %).') +
+ '<br>Activity estimated from: <strong>'+p.occupation+'</strong> occupation + <strong>'+p.steps+'</strong> steps range + <strong>'+p.trainDays+''+p.sessionLen+'min</strong> training.' +
+ '<br>Goal: <strong>'+GOAL_LABELS[p.goal]+'</strong> — applying <strong>'+(GOAL_MULT[p.goal]>1?'+'+(Math.round((GOAL_MULT[p.goal]-1)*100)):(Math.round((1-GOAL_MULT[p.goal])*100)))+'%</strong> adjustment from estimated TDEE.' +
+ (p.chronicDiet==='yes' ? '<br>Chronic dieting flag applied: <strong>-8% metabolic adaptation adjustment</strong>.' : '') +
+ (p.cyclePhase==='luteal' ? '<br>Luteal phase applied: <strong>+7% REE adjustment</strong>.' : '') +
+ (r.safetyCapped ? '<br><strong>Safety cap:</strong> Your goal was adjusted because aggressive targets are not appropriate at your current body fat level.' : '') +
+ '</div>';
+
+ document.getElementById('dash-numbers').innerHTML = numbersHtml;
+
+ // Weight tab in dashboard
+ document.getElementById('dash-weight').innerHTML = renderWeightTab();
+
+ // History tab in dashboard
+ document.getElementById('dash-history').innerHTML = renderHistory();
+
+ // Food Log tab in dashboard
+ renderFoodTab();
+
+ // Edit tab
+ document.getElementById('dash-edit').innerHTML = '<div class="section-header">Edit Profile</div><p style="font-size:.72rem;color:rgba(250,250,248,.4);margin-bottom:12px;line-height:1.5;">Changing your profile will reset the recalibration cycle (current weight log is preserved).</p><button class="btn-secondary" id="backToProfile">Edit Profile Settings</button><div style="margin-top:14px;border-top:1px solid rgba(250,250,248,.06);padding-top:14px"><div class="section-header" style="margin-top:0">Data Management</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn-secondary" id="exportTdeeBtn" style="flex:1;text-align:center">⬇ Export JSON</button><button class="btn-secondary" id="importTdeeBtn" style="flex:1;text-align:center">⬆ Import JSON</button><button class="btn-secondary" onclick="copyBackupToClipboard()" style="flex:1;text-align:center;color:#F4C93B"> Copy Backup Code</button><button class="btn-secondary" onclick="pasteBackupFromClipboard()" style="flex:1;text-align:center;color:#F4C93B"> Paste Backup Code</button></div></div><input type="file" id="tdeeImportInput" accept=".json" style="display:none">';
+ document.getElementById('backToProfile').addEventListener('click', function(){
+ document.getElementById('dashboardView').style.display = 'none';
+ document.getElementById('profileView').style.display = 'block';
+ document.getElementById('welcomeCard').style.display = 'none';
+ document.getElementById('profileFormCard').style.display = 'block';
+ populateProfileForm(store.profile);
+ });
+ document.getElementById('exportTdeeBtn').addEventListener('click', exportTdeeData);
+ document.getElementById('importTdeeBtn').addEventListener('click', function(){ document.getElementById('tdeeImportInput').click(); });
+ document.getElementById('tdeeImportInput').addEventListener('change', function(){
+ if(this.files && this.files[0]) importTdeeData(this.files[0]);
+ this.value = '';
+ });
+
+ document.getElementById('dashboardView').style.display = 'block';
+ document.getElementById('profileView').style.display = 'none';
+ syncOmniHub();
+ }
+
+ function syncOmniHub() {
+   if (window.parent !== window && window.store && store.profile) {
+     try {
+       const p = store.profile;
+       const r = calcTDEE(p.sex, p.w, p.h, p.a, p.bf, p.trainingAge, p.trainDays, p.sessionLen, p.occupation, p.steps, p.sleep, p.dietPattern, p.goal, p.chronicDiet, p.cyclePhase);
+       let tdeeGoal = r.tdeeGoal;
+       let adjustment = null;
+       if (store.adjustments && store.adjustments.length > 0) {
+         adjustment = store.adjustments[store.adjustments.length - 1];
+         if (adjustment.adjusted) {
+           tdeeGoal = Math.round(tdeeGoal * (1 + adjustment.factor));
+         }
+       }
+       const t = calcTargets(tdeeGoal, p.goal);
+       window.parent.postMessage({
+         type: 'OMNI_SYNC_N',
+         payload: {
+           tdee: tdeeGoal,
+           protein: t.p,
+           carbs: t.c,
+           fats: t.f
+         }
+       }, '*');
+     } catch(e) {}
+   }
+ }
+
+ function renderWeightTab(){
+ let html = '<div class="weight-input-row">' +
+ '<input type="number" id="dashWeightInput" step="0.1" placeholder="Enter weight (kg)">' +
+ '<button id="dashLogBtn">Log</button></div>' +
+ '<div class="section-header">Recent Entries</div><div class="weight-log" id="dashWeightLog"></div>';
+
+ // Defer rendering after DOM insert
+ return html;
+ }
+
+ function renderHistory(){
+ if(!store.adjustments || store.adjustments.length === 0){
+ return '<div class="section-header">Adjustment History</div><p style="font-size:.78rem;color:rgba(250,250,248,.3);text-align:center;padding:20px 0">No adjustments yet. Keep logging weight for 2+ weeks.</p>';
+ }
+ let html = '<div class="section-header">Adjustment History</div>';
+ [...store.adjustments].reverse().forEach(a => {
+ const diff = a.newGoal - a.oldGoal;
+ const cls = diff > 0 ? 'hist-up' : 'hist-down';
+ const sign = diff > 0 ? '+' : '';
+ const d = new Date(a.date);
+ html += '<div class="hist-entry">' +
+ '<div class="h-date">'+d.toLocaleDateString()+'</div>' +
+ '<div class="h-reason">'+a.reason+'</div>' +
+ '<div class="h-change '+cls+'">'+a.oldGoal+' &rarr; '+a.newGoal+' kcal ('+sign+diff+')</div></div>';
+ });
+ return html;
+ }
+
+ function renderWeightEntries(){
+ const containers = ['weightLog', 'dashWeightLog'];
+ containers.forEach(id => {
+ const el = document.getElementById(id);
+ if(!el) return;
+ if(!store.weights || store.weights.length === 0){
+ el.innerHTML = '<p style="font-size:.72rem;color:rgba(250,250,248,.2);text-align:center;padding:14px 0">No entries yet. Log your weight above.</p>';
+ return;
+ }
+ const sorted = [...store.weights].sort((a,b)=>new Date(b.date)-new Date(a.date));
+ el.innerHTML = sorted.slice(0,20).map(e =>
+ '<div class="weight-entry"><span class="d">'+new Date(e.date).toLocaleDateString()+'</span><span class="w">'+e.weight.toFixed(1)+' kg</span></div>'
+ ).join('');
+ });
+ }
+
+ function logWeight(val){
+ if(isNaN(val) || val <= 0) return;
+ store.weights.push({date:new Date().toISOString().split('T')[0], weight:Math.round(val*10)/10});
+ saveStore(store);
+ renderWeightEntries();
+ if(document.getElementById('dashboardView').style.display !== 'none'){
+ const dashEl = document.getElementById('dashStatus');
+ if(dashEl){
+ const trend = calcWeightTrend(store.weights);
+ dashEl.innerHTML = '<div class="status-banner status-ok animate-in"><strong>Weight Logged</strong><br>'+(trend?'Current trend: '+trend.direction+' at '+Math.abs(trend.weeklyTrend).toFixed(2)+' kg/week ('+store.weights.length+' entries).':'You have '+store.weights.length+' entries. Keep logging!')+'</div>';
+ }
+ }
+ }
+
+ function updateWelcomeCard(){
+ const welcomeCard = document.getElementById('welcomeCard');
+ const profileFormCard = document.getElementById('profileFormCard');
+ if(!welcomeCard || !profileFormCard) return;
+
+ if(store.profile){
+ const p = store.profile;
+ const userNameEl = document.getElementById('welcomeUserName');
+ const greetingTitle = document.getElementById('welcomeTitleText');
+ const hour = new Date().getHours();
+ let greeting = ' WELCOME BACK';
+ if(hour >= 5 && hour < 12) greeting = '☀ GOOD MORNING';
+ else if(hour >= 12 && hour < 17) greeting = ' GOOD AFTERNOON';
+ else if(hour >= 17 && hour < 22) greeting = ' GOOD EVENING';
+ else greeting = ' NIGHT SHIFT ACTIVE';
+
+ if(greetingTitle) greetingTitle.innerHTML = `${greeting}, <span id="welcomeUserName">${(p.name || 'ATHLETE').toUpperCase()}</span>!`;
+
+ const badgeEl = document.getElementById('welcomeBadge');
+ const nowStr = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+ if(badgeEl) badgeEl.innerHTML = `<span class="pulse-dot"></span> METABOLIC MATRIX ACTIVE // LIVE SYNC [${nowStr}]`;
+
+ const statsGrid = document.getElementById('welcomeStatsGrid');
+ const sortedW = (store.weights && store.weights.length > 0) 
+ ? [...store.weights].sort((a,b)=>new Date(b.date)-new Date(a.date))
+ : [];
+ const latestW = sortedW.length > 0 ? sortedW[0].weight : p.weight;
+ const initialW = p.weight;
+ const diffW = (latestW - initialW).toFixed(1);
+ const diffStr = diffW > 0 ? `(+${diffW} kg)` : diffW < 0 ? `(${diffW} kg)` : `(Baseline)`;
+
+ const r = calcTDEE(p.sex, latestW, p.height, p.age, p.bf, p.trainingAge,
+ p.trainDays, p.sessionLen, p.occupation, p.steps, p.sleep, p.dietPattern,
+ p.goal, p.chronicDiet, p.cyclePhase);
+ const recalibCount = (store.adjustments && store.adjustments.length) || 0;
+ const loggedDaysCount = sortedW.length;
+
+ const chronotype = localStorage.getItem('mos_chronotype') || 'early_lark';
+ const chronotypeStr = chronotype === 'early_lark' ? 'Early Lark (Morning GLUT4)' : 'Night Owl (Evening GLUT4)';
+
+ statsGrid.innerHTML = `
+ <div class="welcome-stat-item">
+ <div class="welcome-stat-lbl">Target Caloric Intake</div>
+ <div class="welcome-stat-val" style="color:#F4C93B">${Math.round(r.goalCal)} kcal/day</div>
+ <div class="welcome-stat-sub">TDEE Baseline: ${Math.round(r.tdee)} kcal</div>
+ </div>
+ <div class="welcome-stat-item">
+ <div class="welcome-stat-lbl">Active Goal &amp; Chronotype</div>
+ <div class="welcome-stat-val">${GOAL_LABELS[p.goal] || p.goal}</div>
+ <div class="welcome-stat-sub">${chronotypeStr}</div>
+ </div>
+ <div class="welcome-stat-item">
+ <div class="welcome-stat-lbl">Current Bodyweight</div>
+ <div class="welcome-stat-val">${latestW} kg</div>
+ <div class="welcome-stat-sub">Initial Delta: ${diffStr}</div>
+ </div>
+ <div class="welcome-stat-item">
+ <div class="welcome-stat-lbl">Adherence &amp; Engine Status</div>
+ <div class="welcome-stat-val" style="color:#4CAF50">${loggedDaysCount} Days Logged</div>
+ <div class="welcome-stat-sub">${recalibCount} Active Recalibrations</div>
+ </div>
+ `;
+
+ welcomeCard.style.display = 'block';
+ profileFormCard.style.display = 'none';
+ } else {
+ welcomeCard.style.display = 'none';
+ profileFormCard.style.display = 'block';
+ }
+ }
+
+ function populateProfileForm(p){
+ if(!p) return;
+ if(p.sex){
+ selectedSex = p.sex;
+ document.querySelectorAll('.sex-btn').forEach(b => {
+ b.classList.toggle('active', b.dataset.sex === p.sex);
+ });
+ if(p.sex === 'female'){
+ document.getElementById('cycleGroup').style.display = 'block';
+ } else {
+ document.getElementById('cycleGroup').style.display = 'none';
+ }
+ }
+ if(p.weight) document.getElementById('weight').value = p.weight;
+ if(p.height) document.getElementById('height').value = p.height;
+ if(p.age) document.getElementById('age').value = p.age;
+ if(p.bf !== undefined) document.getElementById('bf').value = p.bf;
+ if(p.trainingAge) document.getElementById('trainingAge').value = p.trainingAge;
+ if(p.trainDays !== undefined) document.getElementById('trainDays').value = p.trainDays;
+ if(p.sessionLen !== undefined) document.getElementById('sessionLen').value = p.sessionLen;
+ if(p.occupation) document.getElementById('occupation').value = p.occupation;
+ if(p.steps !== undefined) document.getElementById('steps').value = p.steps;
+ if(p.sleep) document.getElementById('sleep').value = p.sleep;
+ if(p.dietPattern) document.getElementById('dietPattern').value = p.dietPattern;
+ if(p.chronicDiet) document.getElementById('chronicDiet').value = p.chronicDiet;
+ if(p.cycleRegular) document.getElementById('cycleRegular').value = p.cycleRegular;
+ if(p.cyclePhase) document.getElementById('cyclePhase').value = p.cyclePhase;
+ if(p.goal) document.getElementById('goal').value = p.goal;
+ }
+
+ // ─── Initialize ───
+ sexInit();
+
+ // Show female-cycle group only if female selected
+ document.getElementById('cycleGroup').style.display = 'none';
+
+ // Setup welcome screen if profile exists
+ updateWelcomeCard();
+
  document.getElementById('welcomeResumeBtn').addEventListener('click', function(){
  if(store.profile) renderDashboard();
  });
@@ -1073,30 +1321,8 @@ select option{background:#1A1B26;color:#FAFAF8}
  if(raw) foodLogStore = JSON.parse(raw);
  }catch(e){}
  }
- function syncToTDEE(){
-  const todayLogs = foodLogStore[currentFoodDate] || [];
-  let totCal = 0;
-  todayLogs.forEach(item => totCal += item.cals || 0);
-  
-  let entry = store.weights.find(w => w.date === currentFoodDate);
-  if(entry){
-   entry.intake = Math.round(totCal);
-  } else {
-   let lastWeight = store.weights.length > 0 ? store.weights[store.weights.length-1].weight : store.profile.weight;
-   store.weights.push({
-    date: currentFoodDate,
-    weight: lastWeight,
-    intake: Math.round(totCal)
-   });
-   store.weights.sort((a,b) => new Date(a.date) - new Date(b.date));
-  }
-  saveStore(store);
-  if(typeof renderGraph === 'function') renderGraph();
- }
-
  function saveFoodLogs(){
-  localStorage.setItem(FOOD_STORAGE_KEY, JSON.stringify(foodLogStore));
-  syncToTDEE();
+ localStorage.setItem(FOOD_STORAGE_KEY, JSON.stringify(foodLogStore));
  }
  loadFoodLogs();
 
@@ -1135,31 +1361,28 @@ select option{background:#1A1B26;color:#FAFAF8}
  };
 
  window.quickAddMacros = function(){
-  const name = prompt('Meal / Food Name:', 'Custom Quick Meal');
-  if(!name) return;
-  const cals = parseFloat(prompt('Calories (kcal):', '350')) || 0;
-  const p = parseFloat(prompt('Protein (g):', '30')) || 0;
-  const c = parseFloat(prompt('Carbs (g):', '40')) || 0;
-  const f = parseFloat(prompt('Fat (g):', '10')) || 0;
-  let mealType = prompt('Meal (breakfast, lunch, dinner, snack):', 'lunch');
-  if(!['breakfast','lunch','dinner','snack'].includes(mealType)) mealType = 'lunch';
-  const leu = (p * 0.08);
+ const name = prompt('Meal / Food Name:', 'Custom Quick Meal');
+ if(!name) return;
+ const cals = parseFloat(prompt('Calories (kcal):', '350')) || 0;
+ const p = parseFloat(prompt('Protein (g):', '30')) || 0;
+ const c = parseFloat(prompt('Carbs (g):', '40')) || 0;
+ const f = parseFloat(prompt('Fat (g):', '10')) || 0;
+ const leu = (p * 0.08);
 
-  if(!foodLogStore[currentFoodDate]) foodLogStore[currentFoodDate] = [];
-  foodLogStore[currentFoodDate].push({
-   id: 'custom_' + Date.now(),
-   name: name,
-   amount: 1,
-   cals: cals,
-   p: p,
-   c: c,
-   f: f,
-   leu: leu,
-   mealType: mealType
-  });
-  saveFoodLogs();
-  playSoundEffect('success');
-  renderFoodTab();
+ if(!foodLogStore[currentFoodDate]) foodLogStore[currentFoodDate] = [];
+ foodLogStore[currentFoodDate].push({
+ id: 'custom_' + Date.now(),
+ name: name,
+ amount: 1,
+ cals: cals,
+ p: p,
+ c: c,
+ f: f,
+ leu: leu
+ });
+ saveFoodLogs();
+ playSoundEffect('success');
+ renderFoodTab();
  };
 
  window.addWater = function(ml){
@@ -1674,8 +1897,7 @@ select option{background:#1A1B26;color:#FAFAF8}
  try {
  voiceBtn.classList.add('recording');
  rec.start();
-   }
-  } catch(e) { voiceBtn.classList.remove('recording'); }
+ } catch(e) { voiceBtn.classList.remove('recording'); }
  });
 
  rec.onresult = function(e){
@@ -1691,30 +1913,6 @@ select option{background:#1A1B26;color:#FAFAF8}
  } else if(voiceBtn){
  voiceBtn.style.display = 'none';
  }
-
- const barcodeBtn = document.getElementById('barcodeScannerBtn');
- if(barcodeBtn && ('BarcodeDetector' in window)){
-  barcodeBtn.addEventListener('click', async function(){
-   try {
-    const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-    alert('Barcode scanner camera access granted. (Scanner UI scaffolded for future update)');
-    stream.getTracks().forEach(t => t.stop());
-   } catch(e) {
-    alert('Camera access denied or unavailable.');
-   }
-  });
- } else if (barcodeBtn) {
-  barcodeBtn.addEventListener('click', () => alert('Barcode scanning not supported on this device/browser.'));
- }
-
- let activeMealType = 'lunch';
- document.querySelectorAll('.meal-type-btn').forEach(btn => {
-  btn.addEventListener('click', function(){
-   document.querySelectorAll('.meal-type-btn').forEach(b => b.classList.remove('active'));
-   this.classList.add('active');
-   activeMealType = this.dataset.meal;
-  });
- });
 
  document.getElementById('foodAddBtn').addEventListener('click', function(){
  if(!currentFoodState) return;
@@ -1740,8 +1938,7 @@ select option{background:#1A1B26;color:#FAFAF8}
  zinc: (currentFoodState.zinc || 0) * ratio,
  mag: (currentFoodState.mag || 0) * ratio,
  pot: (currentFoodState.pot || 0) * ratio,
- sod: (currentFoodState.sod || 0) * ratio,
- mealType: activeMealType
+ sod: (currentFoodState.sod || 0) * ratio
  });
  
  playSoundEffect('success');
@@ -1759,14 +1956,14 @@ select option{background:#1A1B26;color:#FAFAF8}
  // ─── End Food Log ───
 
  console.log('Adaptive TDEE Engine loaded. Data stored in localStorage under key: '+STORAGE_KEY);
-}})();
+})();
 
 ;(function(){
  var SUB_KEY = 'mos_subscription';
  var GS_KEY = 'mos_google_session';
  var OWNER_EMAIL = 'ANASSTEM2025@GMAIL.COM';
  var API_BASE = 'https://muscleos-access-control.muscleos.workers.dev';
- var GOOGLE_CLIENT_ID = '22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com';
+ var GOOGLE_CLIENT_ID = '335156097845-vq52ttt74pak112mn2eet5j3s1k15fn9.apps.googleusercontent.com';
  var PRODUCT_ID = 'tdee_adaptive_engine';
  var HUB_PRODUCT = 'omni_hub';
  var hubMode = (window.self !== window.top) && (function(){ try { return sessionStorage.getItem('mos_hub_mode') === '1'; } catch(e){ return false; } })();
@@ -1863,138 +2060,168 @@ if(data && data.error === 'wrong_product') msg = 'This code unlocks the OMNI HUB
  btn.textContent = 'Verify';
  });
  }
- function finishGoogle(data){
- localStorage.setItem(GS_KEY, JSON.stringify({ session: data.session, email: data.email, name: data.name || '', ts: Date.now() }));
- if(data.email.toUpperCase() === OWNER_EMAIL){
- var expiry = new Date(); expiry.setMonth(expiry.getMonth() + 1);
- grantAndReload('pro_tdee', expiry.toISOString().split('T')[0], '', 'OWNER', data.email);
- return;
- }
-var linked = pickAccountSub(data.subscriptions);
-  if(linked){
-  grantAndReload(linked.plan || 'pro_tdee', (linked.expiresAt || '').slice(0, 10), '', linked.code, data.email, true, subProdOf(linked));
-  return;
-  }
-  document.getElementById('authWelcome').textContent = 'Signed in as ' + (data.name || data.email);
- showStep(2);
- showNoLink(true);
- }
- function initGsi(){
- var host = document.getElementById('googleSignInBtn');
- if(!host || host.getAttribute('data-gsi')) return;
- host.setAttribute('data-gsi', '1');
- if(typeof google === 'undefined' || !google.accounts || !google.accounts.id){ setTimeout(initGsi, 300); return; }
- google.accounts.id.initialize({
- client_id: GOOGLE_CLIENT_ID,
- callback: function(resp){
- if(!resp || !resp.credential){ showErr('authStep1Error', 'Google sign-in failed. Please try again.'); return; }
- fetch(API_BASE + '/api/auth/google', {
- method: 'POST',
- headers: { 'Content-Type': 'application/json' },
- body: JSON.stringify({ token: resp.credential })
- }).then(function(r){ return r.json(); }).then(function(data){
- if(data && data.valid) finishGoogle(data);
- else showErr('authStep1Error', 'Google sign-in failed. Please try again.');
- }).catch(function(){
- showErr('authStep1Error', 'Network error. Please try again.');
- });
- }
- });
- google.accounts.id.renderButton(host, { theme: 'outline', size: 'large', width: 280 });
- }
 
- if(!active){
-  // TDEE Trial Logic
+  function finishGoogle(data){
+    localStorage.setItem(GS_KEY, JSON.stringify({ session: data.session, email: data.email, name: data.name || '', ts: Date.now() }));
+    if(data.email.toUpperCase() === OWNER_EMAIL){
+      var expiry = new Date(); expiry.setMonth(expiry.getMonth() + 1);
+      grantAndReload('pro_tdee', expiry.toISOString().split('T')[0], '', 'OWNER', data.email);
+      return;
+    }
+    var linked = pickAccountSub(data.subscriptions);
+    if(linked){
+      grantAndReload(linked.plan || 'pro_tdee', (linked.expiresAt || '').slice(0, 10), '', linked.code, data.email, true, subProdOf(linked));
+      return;
+    }
+    document.getElementById('authWelcome').textContent = 'Signed in as ' + (data.name || data.email);
+    showStep(2);
+    showNoLink(true);
+  }
+
+  function initGsi(){
+    var host = document.getElementById('googleSignInBtn');
+    if(!host || host.getAttribute('data-gsi')) return;
+    host.setAttribute('data-gsi', '1');
+    if(typeof google === 'undefined' || !google.accounts || !google.accounts.id){ setTimeout(initGsi, 300); return; }
+    google.accounts.id.initialize({
+      client_id: GOOGLE_CLIENT_ID,
+      callback: function(resp){
+        if(!resp || !resp.credential){ showErr('authStep1Error', 'Google sign-in failed. Please try again.'); return; }
+        fetch(API_BASE + '/api/auth/google', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: resp.credential })
+        }).then(function(r){ return r.json(); }).then(function(data){
+          if(data && data.valid) finishGoogle(data);
+          else showErr('authStep1Error', 'Google sign-in failed. Please try again.');
+        }).catch(function(){
+          showErr('authStep1Error', 'Network error. Please try again.');
+        });
+      }
+    });
+    google.accounts.id.renderButton(host, { theme: 'outline', size: 'large', width: 280 });
+  }
+
+  // ─── Trial + Paywall Gate ───
   var TRIAL_DAYS = 7;
-  var mos_trial_start = localStorage.getItem('mos_tdee_trial_start');
-  if(!mos_trial_start){
-    mos_trial_start = new Date().toISOString();
-    localStorage.setItem('mos_tdee_trial_start', mos_trial_start);
+  function getTrialState(){
+    var start = localStorage.getItem('mos_tdee_trial_start') || localStorage.getItem('mos_trial_start');
+    if(!start){
+      start = new Date().toISOString();
+      localStorage.setItem('mos_tdee_trial_start', start);
+      if(!localStorage.getItem('mos_trial_start')) localStorage.setItem('mos_trial_start', start);
+    }
+    var daysLeft = TRIAL_DAYS - Math.floor((Date.now() - new Date(start).getTime()) / 864e5);
+    return { start: start, daysLeft: Math.max(0, daysLeft), active: daysLeft > 0 };
   }
-  var tdeeDaysLeft = TRIAL_DAYS - Math.floor((Date.now() - new Date(mos_trial_start).getTime()) / 864e5);
-  var tdeeTrialActive = tdeeDaysLeft > 0;
+  var trial = getTrialState();
 
-  if(tdeeTrialActive) {
-    var pill = document.createElement('span');
-    pill.style.cssText = 'display:inline-flex;align-items:center;gap:4px;font-size:.5rem;color:#F4C93B;border:1px solid rgba(244,201,59,.25);background:rgba(244,201,59,.06);border-radius:20px;padding:4px 12px;margin-top:8px;font-weight:600;letter-spacing:1px;text-transform:uppercase;';
-    pill.innerHTML = 'TRIAL: ' + tdeeDaysLeft + ' DAYS LEFT';
-    var header = document.querySelector('.header');
-    if(header) header.appendChild(pill);
-    return;
+  if(active){
+    if (sub && sub.token) {
+      fetch(API_BASE + '/api/check-token', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: sub.token, productId: 'tdee_adaptive_engine' })
+      }).then(function(r){ return r.json(); }).then(function(d){
+        if (d && !d.valid) {
+          localStorage.removeItem('mos_subscription');
+          location.reload();
+        }
+      }).catch(function(){});
+    }
+  } else if(trial.active){
+    var pill = document.getElementById('trialPill');
+    if(!pill){
+      pill = document.createElement('span');
+      pill.id = 'trialPill';
+      pill.style.cssText = 'display:inline-flex;align-items:center;gap:4px;font-size:.55rem;color:#F4C93B;border:1px solid rgba(244,201,59,.25);background:rgba(244,201,59,.06);border-radius:20px;padding:3px 10px;margin-top:6px;font-weight:600;letter-spacing:1px;text-transform:uppercase;';
+      pill.innerHTML = 'TRIAL: ' + trial.daysLeft + ' DAYS LEFT';
+      var header = document.querySelector('.header');
+      if(header) header.appendChild(pill);
+    }
+  } else {
+    var overlay = document.getElementById('subOverlay');
+    if(overlay) overlay.style.display = 'flex';
+    var modal = document.querySelector('.sub-modal');
+    var el = document.getElementById('trialExpiredNote');
+    if(!el && modal){
+      el = document.createElement('div');
+      el.id = 'trialExpiredNote';
+      el.className = 'sub-error';
+      el.style.display = 'block';
+      el.style.marginBottom = '15px';
+      el.textContent = 'Your 7-day trial has ended. Subscribe or enter code to continue.';
+      var anchor = modal.querySelector('#authStep2') || modal.lastElementChild;
+      if(anchor) modal.insertBefore(el, anchor);
+    }
+    var gs = getGs();
+    var started = false;
+    function start(){
+      if(started) return;
+      started = true;
+      if(gs){
+        fetch(API_BASE + '/api/check-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ session: gs.session })
+        }).then(function(r){ return r.json(); }).then(function(data){
+          if(data && data.valid){
+            var linked = pickAccountSub(data.subscriptions);
+            if(linked){
+              grantAndReload(linked.plan || 'pro_tdee', (linked.expiresAt || '').slice(0, 10), '', linked.code, gs.email, true, subProdOf(linked));
+              return;
+            }
+            document.getElementById('authWelcome').textContent = 'Signed in as ' + (gs.name || gs.email);
+            showStep(2);
+            showNoLink(true);
+          } else {
+            localStorage.removeItem(GS_KEY);
+            showStep(1);
+            showNoLink(false);
+            initGsi();
+          }
+        }).catch(function(){
+          document.getElementById('authWelcome').textContent = 'Signed in as ' + (gs.name || gs.email);
+          showStep(2);
+        });
+      } else {
+        showStep(1);
+        initGsi();
+      }
+    }
+    start();
+
+    var vBtn = document.getElementById('subVerify');
+    if(vBtn){
+      vBtn.addEventListener('click', function(){
+        var code = document.getElementById('subCode').value.trim().toUpperCase();
+        if(!code){ showErr('subError', 'Wrong code. Please check and try again.'); return; }
+        var g = getGs();
+        var email = g ? g.email : '';
+        if(email.toUpperCase() === OWNER_EMAIL){
+          var expiry = new Date(); expiry.setMonth(expiry.getMonth() + 1);
+          grantAndReload('pro_tdee', expiry.toISOString().split('T')[0], '', 'OWNER', email);
+          return;
+        }
+        verifyCode(code, email, vBtn);
+      });
+    }
+    var subCodeInput = document.getElementById('subCode');
+    if(subCodeInput){
+      subCodeInput.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' && vBtn) vBtn.click();
+      });
+    }
+    var subSignOutBtn = document.getElementById('subSignOut');
+    if(subSignOutBtn){
+      subSignOutBtn.addEventListener('click', function(e){
+        e.preventDefault();
+        localStorage.removeItem(GS_KEY);
+        showStep(1);
+        showNoLink(false);
+        initGsi();
+      });
+    }
   }
-  
-  // Trial Expired - attach paywall
-  document.getElementById('subOverlay').style.display = 'flex';
-  var modal = document.querySelector('.sub-modal');
-  var el = document.createElement('div');
-  el.className = 'sub-error';
-  el.style.display = 'block';
-  el.style.marginBottom = '15px';
-  el.textContent = 'Your 7-day trial has ended. Subscribe or enter code to continue.';
-  var anchor = modal ? (modal.querySelector('#authStep2') || modal.lastElementChild) : null;
-  if(anchor) modal.insertBefore(el, anchor);
-
- var gs = getGs();
- var started = false;
- function start(){
- if(started) return;
- started = true;
- if(gs){
- fetch(API_BASE + '/api/check-session', {
- method: 'POST',
- headers: { 'Content-Type': 'application/json' },
- body: JSON.stringify({ session: gs.session })
- }).then(function(r){ return r.json(); }).then(function(data){
- if(data && data.valid){
-var linked = pickAccountSub(data.subscriptions);
-  if(linked){
-  grantAndReload(linked.plan || 'pro_tdee', (linked.expiresAt || '').slice(0, 10), '', linked.code, gs.email, true, subProdOf(linked));
-  return;
-  }
- document.getElementById('authWelcome').textContent = 'Signed in as ' + (gs.name || gs.email);
- showStep(2);
- showNoLink(true);
- } else {
- localStorage.removeItem(GS_KEY);
- showStep(1);
- showNoLink(false);
- initGsi();
- }
- }).catch(function(){
- document.getElementById('authWelcome').textContent = 'Signed in as ' + (gs.name || gs.email);
- showStep(2);
- });
- } else {
- showStep(1);
- initGsi();
- }
- }
- start();
-
- document.getElementById('subVerify').addEventListener('click', function(){
- var btn = document.getElementById('subVerify');
- var code = document.getElementById('subCode').value.trim().toUpperCase();
- if(!code){ showErr('subError', 'Wrong code. Please check and try again.'); return; }
- var g = getGs();
- var email = g ? g.email : '';
- if(email.toUpperCase() === OWNER_EMAIL){
- var expiry = new Date(); expiry.setMonth(expiry.getMonth() + 1);
- grantAndReload('pro_tdee', expiry.toISOString().split('T')[0], '', 'OWNER', email);
- return;
- }
- verifyCode(code, email, btn);
- });
- document.getElementById('subCode').addEventListener('keydown', function(e){
- if(e.key === 'Enter') document.getElementById('subVerify').click();
- });
- document.getElementById('subSignOut').addEventListener('click', function(e){
- e.preventDefault();
- localStorage.removeItem(GS_KEY);
- showStep(1);
- showNoLink(false);
- initGsi();
- });
- }
 })();
 </script>
 
@@ -2011,159 +2238,6 @@ if (window.self !== window.top) {
   style.innerHTML = '#mobileCtaBar { display: none !important; } body { padding-bottom: 30px !important; }';
   document.head.appendChild(style);
 }
-</script>
-<!-- AI Coach FAB -->
-<button id="coachFab" style="position:fixed;bottom:20px;right:20px;padding:0 20px;width:auto;height:56px;border-radius:28px;background:#F4C93B;color:#14151a;border:none;box-shadow:0 4px 12px rgba(0,0,0,0.3);font-size:1rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;z-index:99;display:flex;align-items:center;justify-content:center;">AI Coach</button>
-
-<!-- AI Coach Drawer -->
-<div id="coachDrawer" style="position:fixed;top:0;right:-400px;width:400px;max-width:100%;height:100%;background:#1a1b22;box-shadow:-4px 0 15px rgba(0,0,0,0.5);z-index:100;transition:right 0.3s ease;display:flex;flex-direction:column;border-left:1px solid rgba(250,250,248,0.05);">
-  <div style="padding:16px;background:rgba(20,21,26,0.9);border-bottom:1px solid rgba(250,250,248,0.05);display:flex;justify-content:space-between;align-items:center;">
-    <strong style="color:#FAFAF8;font-size:1rem;">MuscleOS AI Coach</strong>
-    <button onclick="document.getElementById('coachDrawer').style.right='-400px'" style="background:none;border:none;color:rgba(250,250,248,0.5);font-size:1.2rem;cursor:pointer;">?</button>
-  </div>
-  <div id="coachChatLog" style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;">
-    <div style="align-self:flex-start;background:rgba(250,250,248,0.05);color:#FAFAF8;padding:10px 14px;border-radius:12px 12px 12px 2px;max-width:85%;font-size:0.8rem;line-height:1.4;">
-      Hello! I'm your AI Coach. How can I help you today?
-    </div>
-  </div>
-  <div style="padding:12px;background:rgba(20,21,26,0.9);border-top:1px solid rgba(250,250,248,0.05);display:flex;gap:8px;">
-    <input type="text" id="coachInput" placeholder="Ask about your progress, plateau, or fatigue..." style="flex:1;background:rgba(250,250,248,0.05);border:1px solid rgba(250,250,248,0.1);color:#FAFAF8;padding:10px 12px;border-radius:20px;font-size:0.8rem;outline:none;">
-    <button id="coachSendBtn" style="background:#F4C93B;color:#14151a;border:none;border-radius:20px;padding:0 16px;font-weight:600;cursor:pointer;">Send</button>
-  </div>
-</div>
-
-<script>
-(function() {
-  var fab = document.getElementById('coachFab');
-  var drawer = document.getElementById('coachDrawer');
-  var input = document.getElementById('coachInput');
-  var sendBtn = document.getElementById('coachSendBtn');
-  var log = document.getElementById('coachChatLog');
-
-  fab.addEventListener('click', function() {
-    drawer.style.right = '0px';
-  });
-
-  var chatHistory = [];
-
-  function ls(k,d){try{var r=localStorage.getItem(k);return r?JSON.parse(r):d}catch(e){return d}}
-  
-  function getSystemContext() {
-    var vi = ls('mos_vault_intake', {});
-    var goal = vi.goal || 'hypertrophy';
-    var ta = vi.ta || 'intermediate';
-    var logs = ls('mos_logs', {});
-    var hist = ls('mos_load_history', {});
-    var dt = ls('mos_dl_tracker', {});
-    
-    var context = "You are the MuscleOS AI Coach. You help users with their bodybuilding, hypertrophy, and strength goals.\n";
-    context += "User Profile: Goal: " + goal + ", Experience: " + ta + ".\n";
-    context += "Recent Deload Overshoots: " + (dt.overshoots || 0) + ".\n";
-    
-    var twoWeeksAgo = new Date(Date.now() - 14*86400000).toISOString().split('T')[0];
-    var recentWorkouts = Object.keys(logs).filter(function(d) { return d >= twoWeeksAgo; }).length;
-    context += "Workouts in last 14 days: " + recentWorkouts + ".\n";
-    
-    var stalledExs = [];
-    Object.keys(hist).forEach(function(ex) {
-      if(hist[ex] && hist[ex].length >= 3) {
-        var r = hist[ex].slice().sort(function(a,b){return a.date<b.date?1:-1}).slice(0,3);
-        if(r.length === 3 && r[0].w === r[1].w && r[1].w === r[2].w && r[0].rpe >= 8 && r[1].rpe >= 8 && r[2].rpe >= 8) {
-          stalledExs.push(ex);
-        }
-      }
-    });
-    if(stalledExs.length) {
-      context += "Exercises currently stalled (plateaued): " + stalledExs.join(', ') + ".\n";
-    }
-
-    return context;
-  }
-
-  async function sendMessage() {
-    var text = input.value.trim();
-    if(!text) return;
-    input.value = '';
-
-    var userBubble = document.createElement('div');
-    userBubble.style.cssText = 'align-self:flex-end;background:#F4C93B;color:#14151a;padding:10px 14px;border-radius:12px 12px 2px 12px;max-width:85%;font-size:0.8rem;line-height:1.4;';
-    userBubble.textContent = text;
-    log.appendChild(userBubble);
-    log.scrollTop = log.scrollHeight;
-
-    chatHistory.push({ role: 'user', text: text });
-
-    var botBubble = document.createElement('div');
-    botBubble.style.cssText = 'align-self:flex-start;background:rgba(250,250,248,0.05);color:#FAFAF8;padding:10px 14px;border-radius:12px 12px 12px 2px;max-width:85%;font-size:0.8rem;line-height:1.4;';
-    botBubble.innerHTML = '<span style="opacity:0.5">Typing...</span>';
-    log.appendChild(botBubble);
-    log.scrollTop = log.scrollHeight;
-
-    try {
-      var payload = {
-        contents: chatHistory,
-        systemInstruction: getSystemContext()
-      };
-
-      // Assuming worker is configured in production, otherwise change endpoint.
-      // In development, the user might test this locally using Wrangler.
-      const ENDPOINT = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
-                       ? 'http://127.0.0.1:8787/api/ai-coach' 
-                       : '/api/ai-coach';
-
-      var res = await fetch(ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-
-      if(!res.ok) throw new Error('API Error');
-      
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder("utf-8");
-      
-      botBubble.innerHTML = '';
-      let botText = '';
-      
-      while(true) {
-        const {done, value} = await reader.read();
-        if(done) break;
-        const chunk = decoder.decode(value, {stream: true});
-        const lines = chunk.split('\n');
-        for(let line of lines) {
-          if(line.startsWith('data: ') && line !== 'data: [DONE]') {
-            try {
-              const data = JSON.parse(line.substring(6));
-              if(data.choices && data.choices[0].delta && data.choices[0].delta.content) {
-                botText += data.choices[0].delta.content;
-                // Improved Markdown Renderer
-                  let htmlText = botText
-                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                    .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                    .replace(/\n/g, '<br>')
-                    .replace(/<br>\s*-\s/g, '<br>&bull; ')
-                    .replace(/^-\s/g, '&bull; ');
-                botBubble.innerHTML = htmlText;
-                log.scrollTop = log.scrollHeight;
-              }
-            } catch(e) {}
-          }
-        }
-      }
-
-      chatHistory.push({ role: 'model', text: botText });
-
-    } catch(err) {
-      botBubble.innerHTML = '<span style="color:#f44336">Error: Could not reach coach. Please make sure GEMINI_API_KEY is configured in the worker.</span>';
-    }
-  }
-
-  sendBtn.addEventListener('click', sendMessage);
-  input.addEventListener('keypress', function(e) {
-    if(e.key === 'Enter') sendMessage();
-  });
-
-})();
 </script>
 </body>
 </html>

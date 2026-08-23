@@ -271,7 +271,7 @@
 - CodeCounter DO gained POST /inspect (returns {record|null}, no mutation)
 
 ### Tools (training_tool.html + tdee_adaptive_engine.html, all 4 deploy copies each)
-- GIS script added in <head>; overlay reworked to two steps: step1 = Google sign-in button (#googleSignInBtn, client_id 22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com), step2 = code row (+#authWelcome, #subSignOut)
+- GIS script added in <head>; overlay reworked to two steps: step1 = Google sign-in button (#googleSignInBtn, client_id 335156097845-vq52ttt74pak112mn2eet5j3s1k15fn9.apps.googleusercontent.com), step2 = code row (+#authWelcome, #subSignOut)
 - Session stored in localStorage `mos_google_session` (same key as access-control.js MosAccess); validated via /api/check-session on load; sign-out clears it
 - verify-code request now includes session when present; new errors surfaced: code_used_by_other / code_exhausted / invalid_session / network
 - Owner email ANASSTEM2025@GMAIL.COM -> instant 30-day grant on Google sign-in (no verify-code call)
@@ -615,7 +615,7 @@ Books and tools already shared the gold/ink palette, but typography was split: I
 
 ### Root cause fixed: worker deployed WITHOUT Google config
 - `POST /api/auth/google` returned 501 `google_auth_not_configured` → worker had no GOOGLE_CLIENT_ID.
-- Fix: `website/worker/wrangler.toml` gained `[vars] GOOGLE_CLIENT_ID = "22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com"` (public by design; must match the GIS client in pages). JWT_SECRET (96 hex, generated fresh) via `wrangler secret put` on default/staging/production.
+- Fix: `website/worker/wrangler.toml` gained `[vars] GOOGLE_CLIENT_ID = "335156097845-vq52ttt74pak112mn2eet5j3s1k15fn9.apps.googleusercontent.com"` (public by design; must match the GIS client in pages). JWT_SECRET (96 hex, generated fresh) via `wrangler secret put` on default/staging/production.
 
 ### 4 free tools gated (rpe_load_calculator, volume_set_calculator, split_selector_quiz, tdee_macro_calculator)
 - Head: `<script async defer src="https://accounts.google.com/gsi/client">` (same GIS client as paid tools).

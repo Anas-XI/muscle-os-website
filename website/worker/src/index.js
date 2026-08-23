@@ -1542,7 +1542,7 @@ async function handleProfileLoad(request, env) {
   try {
     const uid = await getUserIdFromJwt(request, env);
     if (!uid) return json({ error: 'unauthorized' }, 401, env, request);
-    const rows = await sbFetch(env, 'GET', 'user_profiles', null, `?id=eq.${uid}&select=intake,updated_at`);
+    const rows = await sbFetch(env, 'GET', 'user_profiles', null, `?id=eq.${encodeURIComponent(uid)}&select=intake,updated_at`);
     return json({ intake: rows?.[0]?.intake || null }, 200, env, request);
   } catch (e) {
     return json({ error: e.message }, 500, env, request);
@@ -1575,7 +1575,7 @@ async function handleSessionLoad(request, env, url) {
     const days = parseInt(url.searchParams.get('days') || '60');
     const since = new Date(Date.now() - days * 86400000).toISOString().split('T')[0];
     const rows = await sbFetch(env, 'GET', 'workout_sessions', null,
-      `?user_id=eq.${uid}&session_date=gte.${since}&select=session_date,log,load_history&order=session_date.desc`
+      `?user_id=eq.${encodeURIComponent(uid)}&session_date=gte.${encodeURIComponent(since)}&select=session_date,log,load_history&order=session_date.desc`
     );
     return json({ sessions: rows || [] }, 200, env, request);
   } catch (e) {
@@ -1600,7 +1600,7 @@ async function handleDeloadLoad(request, env) {
   try {
     const uid = await getUserIdFromJwt(request, env);
     if (!uid) return json({ error: 'unauthorized' }, 401, env, request);
-    const rows = await sbFetch(env, 'GET', 'deload_tracker', null, `?id=eq.${uid}&select=state`);
+    const rows = await sbFetch(env, 'GET', 'deload_tracker', null, `?id=eq.${encodeURIComponent(uid)}&select=state`);
     return json({ state: rows?.[0]?.state || null }, 200, env, request);
   } catch (e) {
     return json({ error: e.message }, 500, env, request);

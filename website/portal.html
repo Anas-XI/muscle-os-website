@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/client https://accounts.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com https://accounts.google.com; frame-src 'self' https://accounts.google.com/gsi/ https://accounts.google.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev https://accounts.google.com/gsi/ https://accounts.google.com; frame-ancestors 'self'; base-uri 'self'">
   <title>Muscle OS - Portal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+  <script async defer src="https://accounts.google.com/gsi/client"></script>
   <style>
     :root {
       --bg: #0D0E12;
@@ -28,15 +30,16 @@
       align-items: center;
       justify-content: center;
       min-height: 100vh;
+      padding: 20px;
     }
     .portal-container {
       width: 100%;
-      max-width: 400px;
-      padding: 32px;
+      max-width: 440px;
+      padding: 40px;
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
       text-align: center;
     }
     .brand {
@@ -45,7 +48,7 @@
       letter-spacing: -0.5px;
       margin-bottom: 8px;
     }
-    .brand span { color: var(--accent); }
+    .brand span { color: var(--gold); }
     .subtitle {
       font-size: 0.9rem;
       color: var(--text-muted);
@@ -78,8 +81,8 @@
     }
     input:focus {
       outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(225, 29, 46, 0.15);
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(244, 201, 59, 0.15);
     }
     button {
       width: 100%;
@@ -117,6 +120,14 @@
     <div class="brand">MUSCLE<span>OS</span></div>
     <div class="subtitle">Access your specialized fitness tools.</div>
     
+    <div id="googleSignInBtn" style="display:flex; justify-content:center; margin-bottom: 20px;"></div>
+
+    <div style="display:flex; align-items:center; text-align:center; color:var(--text-muted); font-size:11px; margin-bottom: 20px; text-transform:uppercase; letter-spacing:1px;">
+      <span style="flex:1; border-bottom:1px solid var(--border); margin-right:12px;"></span>
+      OR ENTER ACCESS CODE
+      <span style="flex:1; border-bottom:1px solid var(--border); margin-left:12px;"></span>
+    </div>
+
     <div class="input-group">
       <label for="accessCode">Access Code</label>
       <input type="text" id="accessCode" placeholder="Enter your code (e.g. OH-...)" autocomplete="off">
@@ -124,8 +135,19 @@
     
     <button id="unlockBtn">UNLOCK ACCESS</button>
     <div id="errorMsg" class="error-msg">Invalid code. Please try again.</div>
-    
+
+    <div style="margin-top: 16px;">
+      <a href="tools/muscle_os_app.html" style="display:block; padding:12px; border-radius:8px; border:1px solid rgba(244,201,59,0.3); background:rgba(244,201,59,0.08); color:#F4C93B; font-weight:700; font-size:0.85rem; text-decoration:none; text-transform:uppercase; letter-spacing:0.5px; transition:all 0.2s;">Start 7-Day Free Trial &rarr;</a>
+    </div>
+
     <a href="order.html" class="get-access">No code? Get access here</a>
+    
+    <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 0.75rem; color: var(--text-muted);">
+      <a href="index.html" style="color: var(--text-muted); margin: 0 8px;">Home</a> &middot;
+      <a href="privacy.html" style="color: var(--text-muted); margin: 0 8px;">Privacy Policy</a> &middot;
+      <a href="terms.html" style="color: var(--text-muted); margin: 0 8px;">Terms</a> &middot;
+      <a href="refund.html" style="color: var(--text-muted); margin: 0 8px;">Refunds</a>
+    </div>
   </div>
 
   <script>
@@ -149,13 +171,13 @@
 
       function routeProduct(productId) {
         if (productId === 'omni_hub' || productId === 'all_access') {
-          window.location.href = '../tools/muscle_os_app.html';
+          window.location.href = 'tools/muscle_os_app.html';
         } else if (productId === 'training_tool') {
-          window.location.href = '../tools/training_tool.html';
+          window.location.href = 'tools/training_tool.html';
         } else if (productId === 'tdee_adaptive_engine') {
-          window.location.href = '../tools/tdee_adaptive_engine.html';
+          window.location.href = 'tools/tdee_adaptive_engine.html';
         } else {
-          window.location.href = '../index.html';
+          window.location.href = 'index.html';
         }
       }
 
@@ -213,6 +235,72 @@
           if(code) attemptVerify(code);
         }
       });
+
+      // Google Sign-In Integration
+      var GOOGLE_CLIENT_ID = '335156097845-vq52ttt74pak112mn2eet5j3s1k15fn9.apps.googleusercontent.com';
+      var API_BASE = 'https://muscleos-access-control.muscleos.workers.dev';
+      var OWNER_EMAIL = 'ANASSTEM2025@GMAIL.COM';
+
+      function initGsi(){
+        var host = document.getElementById('googleSignInBtn');
+        if(!host || host.getAttribute('data-gsi')) return;
+        host.setAttribute('data-gsi', '1');
+        if(typeof google === 'undefined' || !google.accounts || !google.accounts.id){
+          setTimeout(initGsi, 300);
+          return;
+        }
+        google.accounts.id.initialize({
+          client_id: GOOGLE_CLIENT_ID,
+          callback: function(resp){
+            if(!resp || !resp.credential){
+              err.style.display = 'block';
+              err.textContent = 'Google sign-in failed. Please try again.';
+              return;
+            }
+            btn.disabled = true;
+            btn.textContent = 'Signing in...';
+            fetch(API_BASE + '/api/auth/google', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ token: resp.credential })
+            }).then(function(r){ return r.json(); }).then(function(data){
+              btn.disabled = false;
+              btn.textContent = 'UNLOCK ACCESS';
+              if(data && data.valid){
+                localStorage.setItem('mos_google_session', JSON.stringify({ session: data.session, email: data.email, name: data.name || '', ts: Date.now() }));
+                if(data.email.toUpperCase() === OWNER_EMAIL){
+                  var expiry = new Date(); expiry.setMonth(expiry.getMonth() + 1);
+                  localStorage.setItem(SUB_KEY, JSON.stringify({
+                    active: true, plan: 'master', expiry: expiry.toISOString().split('T')[0], code: 'OWNER', email: data.email, prodId: 'omni_hub'
+                  }));
+                  window.location.href = 'tools/muscle_os_app.html';
+                  return;
+                }
+                if(data.subscriptions && data.subscriptions.length > 0){
+                  var sub = data.subscriptions[0];
+                  var prod = Array.isArray(sub.products) ? sub.products[0] : (sub.products || 'all_access');
+                  localStorage.setItem(SUB_KEY, JSON.stringify({
+                    active: true, plan: sub.plan || 'pro_tool', expiry: (sub.expiresAt || '').slice(0, 10), code: sub.code || '', email: data.email, prodId: prod
+                  }));
+                  routeProduct(prod);
+                  return;
+                }
+                window.location.href = 'tools/muscle_os_app.html';
+              } else {
+                err.style.display = 'block';
+                err.textContent = 'Google sign-in failed. Please try again.';
+              }
+            }).catch(function(){
+              btn.disabled = false;
+              btn.textContent = 'UNLOCK ACCESS';
+              err.style.display = 'block';
+              err.textContent = 'Network error. Please try again.';
+            });
+          }
+        });
+        google.accounts.id.renderButton(host, { theme: 'outline', size: 'large', width: 280 });
+      }
+      initGsi();
       
     })();
   </script>

@@ -3,7 +3,7 @@
  var GS_KEY = 'mos_google_session';
  var OWNER_EMAIL = 'ANASSTEM2025@GMAIL.COM';
  var API_BASE = 'https://muscleos-access-control.muscleos.workers.dev';
- var GOOGLE_CLIENT_ID = '22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com';
+ var GOOGLE_CLIENT_ID = '335156097845-vq52ttt74pak112mn2eet5j3s1k15fn9.apps.googleusercontent.com';
 
  // Inject Google GSI Library if not present
  if (!document.querySelector('script[src="https://accounts.google.com/gsi/client"]')) {
@@ -40,33 +40,43 @@
  `;
  document.head.appendChild(style);
 
- // Inject Modal HTML
- var overlay = document.createElement('div');
- overlay.className = 'mos-auth-overlay';
- overlay.id = 'mosAuthOverlay';
- overlay.innerHTML = `
- <div class="mos-auth-modal">
- <h2 id="mosAuthTitle">Sign In to Continue</h2>
- <p id="mosAuthDesc">Sign in with Google to start your 14-day free trial, or access your purchased tools.</p>
- 
- <div id="mosAuthStep1">
- <div id="mosGoogleSignInBtn" style="display:flex;justify-content:center"></div>
- <div class="mos-auth-error" id="mosAuthStep1Error">Sign-in failed. Please try again.</div>
- </div>
+  // Inject Modal HTML
+  var overlay = document.createElement('div');
+  overlay.className = 'mos-auth-overlay';
+  overlay.id = 'mosAuthOverlay';
+  overlay.innerHTML = `
+  <div class="mos-auth-modal">
+  <h2 id="mosAuthTitle">Sign In to Muscle OS</h2>
+  <p id="mosAuthDesc">Sign in with Google to start your free trial, access your saved programs, or enter an access code.</p>
+  
+  <div id="mosAuthStep1">
+  <div id="mosGoogleSignInBtn" style="display:flex;justify-content:center"></div>
+  <div style="margin-top:16px; font-size:12px; color:rgba(250,250,248,0.7); text-align:left; display:flex; align-items:flex-start; gap:8px;">
+    <input type="checkbox" id="mosAuthConsent" checked style="margin-top:2px; accent-color:#F4C93B; width:14px; height:14px; cursor:pointer;">
+    <label for="mosAuthConsent" style="cursor:pointer; line-height:1.4;">I accept the <a href="terms.html" target="_blank" style="color:#F4C93B; text-decoration:underline;">Terms of Service</a> & <a href="privacy.html" target="_blank" style="color:#F4C93B; text-decoration:underline;">Privacy Policy</a>, including fitness health screening.</label>
+  </div>
+  <div class="mos-auth-error" id="mosAuthStep1Error">Sign-in failed. Please try again.</div>
+  </div>
 
- <div id="mosAuthStep2" style="display:none">
- <div class="mos-auth-divider">Or enter access code</div>
- <div class="mos-auth-code-row">
- <input type="text" class="mos-auth-code-input" id="mosSubCode" placeholder="MOS-XXXX-XXXX" autocomplete="off">
- <button class="mos-auth-verify-btn" id="mosSubVerify">Verify</button>
- </div>
- <div class="mos-auth-error" id="mosSubError">Invalid code.</div>
- <div class="mos-auth-success" id="mosSubSuccess">Access granted! Reloading...</div>
- <a href="#" id="mosSignOut" style="color:rgba(250,250,248,0.5); font-size: 13px; text-decoration: underline;">Sign Out</a>
- </div>
- </div>
- `;
- document.body.appendChild(overlay);
+  <div id="mosAuthStep2" style="display:none">
+  <div id="mosUserGreeting" style="font-size:13px; color:rgba(250,250,248,0.8); margin-bottom:16px; padding:8px 12px; background:rgba(255,255,255,0.05); border-radius:8px;"></div>
+  <div id="mosUserPrograms" style="margin-bottom:20px; text-align:left; display:none;"></div>
+  
+  <div class="mos-auth-divider">Enter Access Code</div>
+  <div class="mos-auth-code-row">
+  <input type="text" class="mos-auth-code-input" id="mosSubCode" placeholder="MOS-XXXX-XXXX" autocomplete="off">
+  <button class="mos-auth-verify-btn" id="mosSubVerify">Unlock</button>
+  </div>
+  <div class="mos-auth-error" id="mosSubError">Invalid code.</div>
+  <div class="mos-auth-success" id="mosSubSuccess">Access granted! Reloading...</div>
+  <div style="margin-top:16px; font-size:13px; display:flex; justify-content:space-between; align-items:center;">
+    <a href="order.html" target="_blank" style="color:#F4C93B; text-decoration:underline;">Need a code? Get access</a>
+    <a href="#" id="mosSignOut" style="color:rgba(250,250,248,0.5); text-decoration: underline;">Sign Out</a>
+  </div>
+  </div>
+  </div>
+  `;
+  document.body.appendChild(overlay);
 
  // Inject Trial Banner
  var banner = document.createElement('div');
@@ -105,103 +115,131 @@ function getGs(){ try { var g = JSON.parse(localStorage.getItem(GS_KEY)); return
   }
 
   function checkAccess() {
-  var gate = getGate();
-  if (gate && gate.active) {
-  // Valid cached/verified subscription for this page's product — no gate needed.
-  document.getElementById('mosAuthOverlay').style.display = 'none';
-  var oldOv = document.getElementById('subOverlay');
-  if (oldOv) oldOv.style.display = 'none';
-  return;
-  }
-  var isHub = !!(gate && gate.hub);
-  var productId = getProductId();
-  var gs = getGs();
-  function hideLegacy(){ var o = document.getElementById('subOverlay'); if (o) o.style.display = 'none'; }
-  if (!gs) {
-  // No Google session: if the page has its own code-entry overlay (tool paywall),
-  // leave it visible instead of stacking our modal on top; otherwise show ours.
-  var subOverlay = document.getElementById('subOverlay');
-  if (subOverlay) return;
-  hideLegacy();
-  document.getElementById('mosAuthOverlay').style.display = 'flex';
-  initGsi();
-  return;
+    var gate = getGate();
+    if (gate && gate.active) {
+      // Valid cached/verified subscription for this page's product — no gate needed.
+      document.getElementById('mosAuthOverlay').style.display = 'none';
+      var oldOv = document.getElementById('subOverlay');
+      if (oldOv) oldOv.style.display = 'none';
+      return;
+    }
+    var isHub = !!(gate && gate.hub);
+    var productId = getProductId();
+    var gs = getGs();
+    function hideLegacy(){ var o = document.getElementById('subOverlay'); if (o) o.style.display = 'none'; }
+    if (!gs) {
+      // No Google session: if the page has its own code-entry overlay (tool paywall),
+      // leave it visible instead of stacking our modal on top; otherwise show ours.
+      var subOverlay = document.getElementById('subOverlay');
+      if (subOverlay) return;
+      hideLegacy();
+      document.getElementById('mosAuthOverlay').style.display = 'flex';
+      initGsi();
+      return;
+    }
+
+    fetch(API_BASE + '/api/check-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ session: gs.session })
+    }).then(r => r.json()).then(data => {
+      if (data && data.valid) {
+        var isProTool = !window.location.pathname.includes('/books/');
+        var hasActiveSub = data.subscriptions && hasProductSub(data.subscriptions, productId);
+
+        if (isProTool && !isHub && data.trialDaysRemaining > 0) {
+          // In trial and on a pro tool page (trial does not apply inside the OMNI HUB)
+          document.getElementById('mosAuthOverlay').style.display = 'none';
+          var bannerEl = document.getElementById('mosTrialBanner');
+          document.getElementById('mosTrialDays').innerText = data.trialDaysRemaining;
+          bannerEl.style.display = 'flex';
+        } else if (hasActiveSub) {
+          document.getElementById('mosAuthOverlay').style.display = 'none';
+        } else {
+          document.getElementById('mosAuthTitle').innerText = isProTool ? 'Enter Access Code' : 'Access Restricted';
+          document.getElementById('mosAuthDesc').innerText = isProTool ? 'Your 14-day free trial has expired. Enter an access code or choose an unlocked program.' : 'You need a verified access code to unlock this content.';
+          document.getElementById('mosAuthStep1').style.display = 'none';
+          document.getElementById('mosAuthStep2').style.display = 'block';
+          
+          var greetingEl = document.getElementById('mosUserGreeting');
+          if (greetingEl) {
+            greetingEl.innerHTML = '👤 Signed in as <strong>' + (data.email || gs.email || 'Google User') + '</strong>';
+          }
+          
+          var progsEl = document.getElementById('mosUserPrograms');
+          if (progsEl && data.subscriptions && data.subscriptions.length > 0) {
+            progsEl.style.display = 'block';
+            var html = '<div style="font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; color:rgba(250,250,248,0.6); margin-bottom:8px;">Your Active Programs & Tools</div>';
+            data.subscriptions.forEach(function(sub){
+              var label = Array.isArray(sub.products) ? sub.products.join(', ') : (sub.products || 'All Access');
+              html += '<div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:10px 12px; margin-bottom:6px;">' +
+                '<div><div style="font-size:13px; font-weight:600; color:#FAFAF8; text-transform:capitalize;">' + label.replace(/_/g, ' ') + '</div>' +
+                '<div style="font-size:11px; color:rgba(250,250,248,0.5);">Expires: ' + (sub.expiresAt ? sub.expiresAt.slice(0,10) : 'Lifetime') + '</div></div>' +
+                '<button onclick="window.location.reload()" style="background:#F4C93B; color:#0A0A0F; border:none; border-radius:6px; padding:6px 12px; font-size:12px; font-weight:700; cursor:pointer;">Open</button>' +
+                '</div>';
+            });
+            progsEl.innerHTML = html;
+          }
+          
+          hideLegacy();
+          document.getElementById('mosAuthOverlay').style.display = 'flex';
+        }
+      } else {
+        // Invalid session
+        localStorage.removeItem(GS_KEY);
+        hideLegacy();
+        document.getElementById('mosAuthOverlay').style.display = 'flex';
+        initGsi();
+      }
+    }).catch(e => {
+      if (gate && !gate.active) {
+        hideLegacy();
+        document.getElementById('mosAuthOverlay').style.display = 'flex';
+        initGsi();
+      }
+    });
   }
 
-  fetch(API_BASE + '/api/check-session', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ session: gs.session })
-  }).then(r => r.json()).then(data => {
-  if (data && data.valid) {
-  var isProTool = !window.location.pathname.includes('/books/');
-  var hasActiveSub = data.subscriptions && hasProductSub(data.subscriptions, productId);
-
-  if (isProTool && !isHub && data.trialDaysRemaining > 0) {
-  // In trial and on a pro tool page (trial does not apply inside the OMNI HUB)
-  document.getElementById('mosAuthOverlay').style.display = 'none';
-  var bannerEl = document.getElementById('mosTrialBanner');
-  document.getElementById('mosTrialDays').innerText = data.trialDaysRemaining;
-  bannerEl.style.display = 'flex';
-  } else if (hasActiveSub) {
-  document.getElementById('mosAuthOverlay').style.display = 'none';
-} else {
-  document.getElementById('mosAuthTitle').innerText = isProTool ? 'Trial Expired' : 'Access Restricted';
-  document.getElementById('mosAuthDesc').innerText = isProTool ? 'Your 14-day free trial has expired. Please enter an access code to continue.' : 'You need a verified access code to view this content.';
-  document.getElementById('mosAuthStep1').style.display = 'none';
-  document.getElementById('mosAuthStep2').style.display = 'block';
-  hideLegacy();
-  document.getElementById('mosAuthOverlay').style.display = 'flex';
-  }
-  } else {
-  // Invalid session
-  localStorage.removeItem(GS_KEY);
-  hideLegacy();
-  document.getElementById('mosAuthOverlay').style.display = 'flex';
-  initGsi();
-  }
-  }).catch(e => {
-  if (gate && !gate.active) {
-  hideLegacy();
-  document.getElementById('mosAuthOverlay').style.display = 'flex';
-  initGsi();
-  }
-  });
+  function finishGoogle(data) {
+    localStorage.setItem(GS_KEY, JSON.stringify({ session: data.session, email: data.email, name: data.name || '', ts: Date.now() }));
+    window.location.reload();
   }
 
- function finishGoogle(data) {
- localStorage.setItem(GS_KEY, JSON.stringify({ session: data.session, email: data.email, name: data.name || '', ts: Date.now() }));
- window.location.reload();
- }
-
- function initGsi(){
- var host = document.getElementById('mosGoogleSignInBtn');
- if(!host || host.getAttribute('data-gsi')) return;
- host.setAttribute('data-gsi', '1');
- 
- if(typeof google === 'undefined' || !google.accounts || !google.accounts.id){ 
- setTimeout(initGsi, 300); 
- return; 
- }
- 
- google.accounts.id.initialize({
- client_id: GOOGLE_CLIENT_ID,
- callback: function(resp){
- if(!resp || !resp.credential){ showErr('mosAuthStep1Error', 'Google sign-in failed.'); return; }
- fetch(API_BASE + '/api/auth/google', {
- method: 'POST',
- headers: { 'Content-Type': 'application/json' },
- body: JSON.stringify({ token: resp.credential })
- }).then(r => r.json()).then(data => {
- if(data && data.valid) finishGoogle(data);
- else showErr('mosAuthStep1Error', 'Google sign-in failed.');
- }).catch(e => {
- showErr('mosAuthStep1Error', 'Network error. Please try again.');
- });
- }
- });
- google.accounts.id.renderButton(host, { theme: 'outline', size: 'large', width: 280 });
- }
+  function initGsi(){
+    var host = document.getElementById('mosGoogleSignInBtn');
+    if(!host || host.getAttribute('data-gsi')) return;
+    host.setAttribute('data-gsi', '1');
+    
+    if(typeof google === 'undefined' || !google.accounts || !google.accounts.id){ 
+      setTimeout(initGsi, 300); 
+      return; 
+    }
+    
+    google.accounts.id.initialize({
+      client_id: GOOGLE_CLIENT_ID,
+      callback: function(resp){
+        if(!resp || !resp.credential){ showErr('mosAuthStep1Error', 'Google sign-in failed.'); return; }
+        
+        var consent = document.getElementById('mosAuthConsent');
+        if (consent && !consent.checked) {
+          showErr('mosAuthStep1Error', 'Please accept the Terms of Service & Privacy Policy to proceed.');
+          return;
+        }
+        
+        fetch(API_BASE + '/api/auth/google', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: resp.credential, termsAccepted: true })
+        }).then(r => r.json()).then(data => {
+          if(data && data.valid) finishGoogle(data);
+          else showErr('mosAuthStep1Error', 'Google sign-in failed.');
+        }).catch(e => {
+          showErr('mosAuthStep1Error', 'Network error. Please try again.');
+        });
+      }
+    });
+    google.accounts.id.renderButton(host, { theme: 'outline', size: 'large', width: 280 });
+  }
 
  document.getElementById('mosSubVerify').addEventListener('click', function(){
  var btn = this;

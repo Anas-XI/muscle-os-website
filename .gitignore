@@ -60,8 +60,28 @@ Thumbs.db
 # Credentials
 GOOGLE_CLIENT_ID.txt
 
+# Real client data — NEVER commit
+clients/
+
+# Plaintext access codes — NEVER commit
+codes/
+
+# Scripts with hardcoded credentials — NEVER commit
+run_migrations_pg.py
+bruteforce_port.py
+bruteforce_region.py
+run_setup.py
+
 # Generated tool output
 tools/output/
+
+# Backups and temporary files
+*.backup.html
+mos_bot/data/programs_json/
+/*.js
+/head.txt
+/scripts.txt
+scratch/
 
 # Agent prompts (not source code)
 docs/prompts/

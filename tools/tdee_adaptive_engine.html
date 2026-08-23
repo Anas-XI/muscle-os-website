@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev; frame-ancestors 'self'; base-uri 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/client https://accounts.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com https://accounts.google.com; frame-src 'self' https://accounts.google.com/gsi/ https://accounts.google.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev https://accounts.google.com/gsi/ https://accounts.google.com; frame-ancestors 'self'; base-uri 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta charset="UTF-8">
@@ -264,7 +264,6 @@ select option{background:#1A1B26;color:#FAFAF8}
 <script>window.MOS_ASSET_ROOT='../assets/data';</script>
 <script src="../assets/js/decision-engine.js"></script>
 <script>if(window.DecisionEngine){window.DecisionEngine.init(window.MOS_ASSET_ROOT);}</script>
-https://accounts.google.com/gsi/client"></script>
 </head>
 <body>
 <nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a><a href="../index.html#packages">Coaching</a></div></div></nav>
@@ -1964,7 +1963,7 @@ numbersHtml += '<div class="dash-macro-grid">' +
  var GS_KEY = 'mos_google_session';
  var OWNER_EMAIL = 'ANASSTEM2025@GMAIL.COM';
  var API_BASE = 'https://muscleos-access-control.muscleos.workers.dev';
- var GOOGLE_CLIENT_ID = '22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com';
+ var GOOGLE_CLIENT_ID = '335156097845-vq52ttt74pak112mn2eet5j3s1k15fn9.apps.googleusercontent.com';
  var PRODUCT_ID = 'tdee_adaptive_engine';
  var HUB_PRODUCT = 'omni_hub';
  var hubMode = (window.self !== window.top) && (function(){ try { return sessionStorage.getItem('mos_hub_mode') === '1'; } catch(e){ return false; } })();
@@ -2061,122 +2060,168 @@ if(data && data.error === 'wrong_product') msg = 'This code unlocks the OMNI HUB
  btn.textContent = 'Verify';
  });
  }
- function finishGoogle(data){
- localStorage.setItem(GS_KEY, JSON.stringify({ session: data.session, email: data.email, name: data.name || '', ts: Date.now() }));
- if(data.email.toUpperCase() === OWNER_EMAIL){
- var expiry = new Date(); expiry.setMonth(expiry.getMonth() + 1);
- grantAndReload('pro_tdee', expiry.toISOString().split('T')[0], '', 'OWNER', data.email);
- return;
- }
-var linked = pickAccountSub(data.subscriptions);
-  if(linked){
-  grantAndReload(linked.plan || 'pro_tdee', (linked.expiresAt || '').slice(0, 10), '', linked.code, data.email, true, subProdOf(linked));
-  return;
-  }
-  document.getElementById('authWelcome').textContent = 'Signed in as ' + (data.name || data.email);
- showStep(2);
- showNoLink(true);
- }
- function initGsi(){
- var host = document.getElementById('googleSignInBtn');
- if(!host || host.getAttribute('data-gsi')) return;
- host.setAttribute('data-gsi', '1');
- if(typeof google === 'undefined' || !google.accounts || !google.accounts.id){ setTimeout(initGsi, 300); return; }
- google.accounts.id.initialize({
- client_id: GOOGLE_CLIENT_ID,
- callback: function(resp){
- if(!resp || !resp.credential){ showErr('authStep1Error', 'Google sign-in failed. Please try again.'); return; }
- fetch(API_BASE + '/api/auth/google', {
- method: 'POST',
- headers: { 'Content-Type': 'application/json' },
- body: JSON.stringify({ token: resp.credential })
- }).then(function(r){ return r.json(); }).then(function(data){
- if(data && data.valid) finishGoogle(data);
- else showErr('authStep1Error', 'Google sign-in failed. Please try again.');
- }).catch(function(){
- showErr('authStep1Error', 'Network error. Please try again.');
- });
- }
- });
- google.accounts.id.renderButton(host, { theme: 'outline', size: 'large', width: 280 });
- }
 
- if(!active){
-  window.top.location.href = '../website/portal.html'; return;
-} else {
-  // Enforce secure server-side verification of the token
-  if (sub && sub.token) {
-    fetch('https://muscleos-access-control.muscleos.workers.dev/api/check-token', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token: sub.token, productId: 'tdee_adaptive_engine' })
-    }).then(function(r){ return r.json(); }).then(function(d){
-      if (!d.valid) {
-        localStorage.removeItem('mos_subscription');
-        window.top.location.href = '../website/portal.html';
+  function finishGoogle(data){
+    localStorage.setItem(GS_KEY, JSON.stringify({ session: data.session, email: data.email, name: data.name || '', ts: Date.now() }));
+    if(data.email.toUpperCase() === OWNER_EMAIL){
+      var expiry = new Date(); expiry.setMonth(expiry.getMonth() + 1);
+      grantAndReload('pro_tdee', expiry.toISOString().split('T')[0], '', 'OWNER', data.email);
+      return;
+    }
+    var linked = pickAccountSub(data.subscriptions);
+    if(linked){
+      grantAndReload(linked.plan || 'pro_tdee', (linked.expiresAt || '').slice(0, 10), '', linked.code, data.email, true, subProdOf(linked));
+      return;
+    }
+    document.getElementById('authWelcome').textContent = 'Signed in as ' + (data.name || data.email);
+    showStep(2);
+    showNoLink(true);
+  }
+
+  function initGsi(){
+    var host = document.getElementById('googleSignInBtn');
+    if(!host || host.getAttribute('data-gsi')) return;
+    host.setAttribute('data-gsi', '1');
+    if(typeof google === 'undefined' || !google.accounts || !google.accounts.id){ setTimeout(initGsi, 300); return; }
+    google.accounts.id.initialize({
+      client_id: GOOGLE_CLIENT_ID,
+      callback: function(resp){
+        if(!resp || !resp.credential){ showErr('authStep1Error', 'Google sign-in failed. Please try again.'); return; }
+        fetch(API_BASE + '/api/auth/google', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: resp.credential })
+        }).then(function(r){ return r.json(); }).then(function(data){
+          if(data && data.valid) finishGoogle(data);
+          else showErr('authStep1Error', 'Google sign-in failed. Please try again.');
+        }).catch(function(){
+          showErr('authStep1Error', 'Network error. Please try again.');
+        });
       }
-    }).catch(function(){}); // Allow on network failure to act as local fallback
+    });
+    google.accounts.id.renderButton(host, { theme: 'outline', size: 'large', width: 280 });
   }
-}
- var gs = getGs();
- var started = false;
- function start(){
- if(started) return;
- started = true;
- if(gs){
- fetch(API_BASE + '/api/check-session', {
- method: 'POST',
- headers: { 'Content-Type': 'application/json' },
- body: JSON.stringify({ session: gs.session })
- }).then(function(r){ return r.json(); }).then(function(data){
- if(data && data.valid){
-var linked = pickAccountSub(data.subscriptions);
-  if(linked){
-  grantAndReload(linked.plan || 'pro_tdee', (linked.expiresAt || '').slice(0, 10), '', linked.code, gs.email, true, subProdOf(linked));
-  return;
-  }
- document.getElementById('authWelcome').textContent = 'Signed in as ' + (gs.name || gs.email);
- showStep(2);
- showNoLink(true);
- } else {
- localStorage.removeItem(GS_KEY);
- showStep(1);
- showNoLink(false);
- initGsi();
- }
- }).catch(function(){
- document.getElementById('authWelcome').textContent = 'Signed in as ' + (gs.name || gs.email);
- showStep(2);
- });
- } else {
- showStep(1);
- initGsi();
- }
- }
- start();
 
- document.getElementById('subVerify').addEventListener('click', function(){
- var btn = document.getElementById('subVerify');
- var code = document.getElementById('subCode').value.trim().toUpperCase();
- if(!code){ showErr('subError', 'Wrong code. Please check and try again.'); return; }
- var g = getGs();
- var email = g ? g.email : '';
- if(email.toUpperCase() === OWNER_EMAIL){
- var expiry = new Date(); expiry.setMonth(expiry.getMonth() + 1);
- grantAndReload('pro_tdee', expiry.toISOString().split('T')[0], '', 'OWNER', email);
- return;
- }
- verifyCode(code, email, btn);
- });
- document.getElementById('subCode').addEventListener('keydown', function(e){
- if(e.key === 'Enter') document.getElementById('subVerify').click();
- });
- document.getElementById('subSignOut').addEventListener('click', function(e){
- e.preventDefault();
- localStorage.removeItem(GS_KEY);
- showStep(1);
- showNoLink(false);
- initGsi();
- });
+  // ─── Trial + Paywall Gate ───
+  var TRIAL_DAYS = 7;
+  function getTrialState(){
+    var start = localStorage.getItem('mos_tdee_trial_start') || localStorage.getItem('mos_trial_start');
+    if(!start){
+      start = new Date().toISOString();
+      localStorage.setItem('mos_tdee_trial_start', start);
+      if(!localStorage.getItem('mos_trial_start')) localStorage.setItem('mos_trial_start', start);
+    }
+    var daysLeft = TRIAL_DAYS - Math.floor((Date.now() - new Date(start).getTime()) / 864e5);
+    return { start: start, daysLeft: Math.max(0, daysLeft), active: daysLeft > 0 };
+  }
+  var trial = getTrialState();
+
+  if(active){
+    if (sub && sub.token) {
+      fetch(API_BASE + '/api/check-token', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: sub.token, productId: 'tdee_adaptive_engine' })
+      }).then(function(r){ return r.json(); }).then(function(d){
+        if (d && !d.valid) {
+          localStorage.removeItem('mos_subscription');
+          location.reload();
+        }
+      }).catch(function(){});
+    }
+  } else if(trial.active){
+    var pill = document.getElementById('trialPill');
+    if(!pill){
+      pill = document.createElement('span');
+      pill.id = 'trialPill';
+      pill.style.cssText = 'display:inline-flex;align-items:center;gap:4px;font-size:.55rem;color:#F4C93B;border:1px solid rgba(244,201,59,.25);background:rgba(244,201,59,.06);border-radius:20px;padding:3px 10px;margin-top:6px;font-weight:600;letter-spacing:1px;text-transform:uppercase;';
+      pill.innerHTML = 'TRIAL: ' + trial.daysLeft + ' DAYS LEFT';
+      var header = document.querySelector('.header');
+      if(header) header.appendChild(pill);
+    }
+  } else {
+    var overlay = document.getElementById('subOverlay');
+    if(overlay) overlay.style.display = 'flex';
+    var modal = document.querySelector('.sub-modal');
+    var el = document.getElementById('trialExpiredNote');
+    if(!el && modal){
+      el = document.createElement('div');
+      el.id = 'trialExpiredNote';
+      el.className = 'sub-error';
+      el.style.display = 'block';
+      el.style.marginBottom = '15px';
+      el.textContent = 'Your 7-day trial has ended. Subscribe or enter code to continue.';
+      var anchor = modal.querySelector('#authStep2') || modal.lastElementChild;
+      if(anchor) modal.insertBefore(el, anchor);
+    }
+    var gs = getGs();
+    var started = false;
+    function start(){
+      if(started) return;
+      started = true;
+      if(gs){
+        fetch(API_BASE + '/api/check-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ session: gs.session })
+        }).then(function(r){ return r.json(); }).then(function(data){
+          if(data && data.valid){
+            var linked = pickAccountSub(data.subscriptions);
+            if(linked){
+              grantAndReload(linked.plan || 'pro_tdee', (linked.expiresAt || '').slice(0, 10), '', linked.code, gs.email, true, subProdOf(linked));
+              return;
+            }
+            document.getElementById('authWelcome').textContent = 'Signed in as ' + (gs.name || gs.email);
+            showStep(2);
+            showNoLink(true);
+          } else {
+            localStorage.removeItem(GS_KEY);
+            showStep(1);
+            showNoLink(false);
+            initGsi();
+          }
+        }).catch(function(){
+          document.getElementById('authWelcome').textContent = 'Signed in as ' + (gs.name || gs.email);
+          showStep(2);
+        });
+      } else {
+        showStep(1);
+        initGsi();
+      }
+    }
+    start();
+
+    var vBtn = document.getElementById('subVerify');
+    if(vBtn){
+      vBtn.addEventListener('click', function(){
+        var code = document.getElementById('subCode').value.trim().toUpperCase();
+        if(!code){ showErr('subError', 'Wrong code. Please check and try again.'); return; }
+        var g = getGs();
+        var email = g ? g.email : '';
+        if(email.toUpperCase() === OWNER_EMAIL){
+          var expiry = new Date(); expiry.setMonth(expiry.getMonth() + 1);
+          grantAndReload('pro_tdee', expiry.toISOString().split('T')[0], '', 'OWNER', email);
+          return;
+        }
+        verifyCode(code, email, vBtn);
+      });
+    }
+    var subCodeInput = document.getElementById('subCode');
+    if(subCodeInput){
+      subCodeInput.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' && vBtn) vBtn.click();
+      });
+    }
+    var subSignOutBtn = document.getElementById('subSignOut');
+    if(subSignOutBtn){
+      subSignOutBtn.addEventListener('click', function(e){
+        e.preventDefault();
+        localStorage.removeItem(GS_KEY);
+        showStep(1);
+        showNoLink(false);
+        initGsi();
+      });
+    }
+  }
 })();
 </script>
 

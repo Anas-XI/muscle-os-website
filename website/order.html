@@ -328,6 +328,13 @@ input,select,textarea{font-size:16px!important}
  </div>
  </div>
 
+ <div class="form-group" style="margin-top:16px;">
+    <label style="display:flex;align-items:flex-start;gap:10px;font-size:.82rem;color:rgba(250,250,248,.8);font-weight:400;cursor:pointer;">
+      <input type="checkbox" id="agreeTerms" style="margin-top:3px;accent-color:#c026d3;width:16px;height:16px;">
+      <span>I have read and agree to the <a href="terms.html" target="_blank" style="color:#c026d3;text-decoration:underline;">Terms of Service</a>, <a href="refund.html" target="_blank" style="color:#c026d3;text-decoration:underline;">Refund Policy</a>, and <a href="privacy.html" target="_blank" style="color:#c026d3;text-decoration:underline;">Privacy Policy</a>. <span class="req">*</span></span>
+    </label>
+  </div>
+
  <div id="submitError" class="form-error"></div>
  <button id="submitBtn" class="submit-btn" onclick="submitOrder()">Submit Order</button>
  </div>
@@ -349,7 +356,7 @@ input,select,textarea{font-size:16px!important}
 <p class="security-note">&#128274; No card details processed on this site — payment and codes confirmed directly via WhatsApp.</p>
 
 <footer>
- <p>&copy; Anas Mo'men Coaching &middot; <a href="index.html" style="color:#c026d3">Home</a></p>
+ <p>&copy; Anas Mo'men Coaching &middot; <a href="index.html" style="color:#c026d3">Home</a> &middot; <a href="privacy.html" style="color:#c026d3">Privacy Policy</a> &middot; <a href="terms.html" style="color:#c026d3">Terms</a> &middot; <a href="refund.html" style="color:#c026d3">Refunds</a></p>
 </footer>
 
 <!-- Mobile bottom bar -->
@@ -453,6 +460,13 @@ input,select,textarea{font-size:16px!important}
 
  if (!selectedProduct) { showError('Please select a product.'); return; }
  if (!payMethod) { showError('Please select a payment method.'); return; }
+
+ var agree = document.getElementById('agreeTerms');
+ if (agree && !agree.checked) {
+ showError('You must agree to the Terms of Service and Privacy Policy to proceed.');
+ agree.focus();
+ return;
+ }
 
  var fields = getCommonFields();
  if (!fields) return;

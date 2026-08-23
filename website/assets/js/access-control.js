@@ -364,7 +364,7 @@
  }
 
  google.accounts.id.initialize({
- client_id: '22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com',
+ client_id: '335156097845-vq52ttt74pak112mn2eet5j3s1k15fn9.apps.googleusercontent.com',
  callback: function(response) {
  var idToken = response.credential;
  fetch(CONFIG.apiBase + '/api/auth/google', {

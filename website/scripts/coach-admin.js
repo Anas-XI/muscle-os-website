@@ -13,7 +13,7 @@ const crypto = require('crypto');
 const https = require('https');
 
 const API = 'https://muscleos-access-control.muscleos.workers.dev';
-const ADMIN_KEY = process.env.ADMIN_KEY || 'MOS-ADMIN-DEV-2026';
+const ADMIN_KEY = process.env.ADMIN_KEY || (() => { console.error('ERROR: ADMIN_KEY not set. Export ADMIN_KEY env var first.'); process.exit(1); })();
 
 const PRODUCTS = {
  training_tool: { label: 'Training App (1mo)', plan: 'training_tool', days: 30, multi: false },

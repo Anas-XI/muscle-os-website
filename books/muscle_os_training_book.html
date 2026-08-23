@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -1856,26 +1856,55 @@ pre, table, figure, img, svg, blockquote { max-width: 100%; box-sizing: border-b
 <script>
 (function(){
   var KEY = 'mos_book_training';
-  var EMAIL_CODE = 'ANASSTEM2025@GMAIL.COM';
+  var API_BASE = 'https://muscleos-access-control.muscleos.workers.dev';
   var data = null;
   try { data = JSON.parse(localStorage.getItem(KEY)); } catch(e){}
   if(data && data.active){
     document.getElementById('poOverlay').style.display = 'none';
   } else {
     document.getElementById('poOverlay').style.display = 'flex';
-    document.getElementById('poVerify').addEventListener('click', function(){
-      var code = document.getElementById('poCode').value.trim().toUpperCase();
-      if(code && (code.length >= 6 || code === EMAIL_CODE)){
-        localStorage.setItem(KEY, JSON.stringify({ active: true, book: 'training', code: code }));
-        document.getElementById('poError').style.display = 'none';
-        document.getElementById('poSuccess').style.display = 'block';
-        setTimeout(function(){ location.reload(); }, 1500);
-      } else {
-        document.getElementById('poError').style.display = 'block';
-      }
+    var btn = document.getElementById('poVerify');
+    var errEl = document.getElementById('poError');
+    var successEl = document.getElementById('poSuccess');
+    var inputEl = document.getElementById('poCode');
+
+    btn.addEventListener('click', function(){
+      var code = inputEl.value.trim().toUpperCase();
+      if(!code) return;
+      btn.disabled = true;
+      btn.textContent = 'Verifying...';
+      errEl.style.display = 'none';
+
+      fetch(API_BASE + '/api/verify-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: code, productId: 'training_book' })
+      }).then(function(r){ return r.json(); }).then(function(res){
+        if(res && res.valid){
+          localStorage.setItem(KEY, JSON.stringify({ active: true, book: 'training_book', code: code, token: res.token, ts: Date.now() }));
+          errEl.style.display = 'none';
+          successEl.style.display = 'block';
+          setTimeout(function(){ location.reload(); }, 1500);
+        } else {
+          var msg = 'Invalid code. Please check and try again.';
+          if(res && res.error === 'code_used_by_other') msg = 'This code is linked to another account.';
+          if(res && res.error === 'code_expired') msg = 'This code has expired.';
+          if(res && res.error === 'wrong_product') msg = 'This code is not for this book.';
+          errEl.textContent = msg;
+          errEl.style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = 'Unlock';
+        }
+      }).catch(function(){
+        errEl.textContent = 'Network error. Please try again.';
+        errEl.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Unlock';
+      });
     });
-    document.getElementById('poCode').addEventListener('keydown', function(e){
-      if(e.key === 'Enter') document.getElementById('poVerify').click();
+
+    inputEl.addEventListener('keydown', function(e){
+      if(e.key === 'Enter') btn.click();
     });
   }
 })();

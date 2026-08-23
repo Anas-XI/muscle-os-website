@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev; frame-ancestors 'self'; base-uri 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/client https://accounts.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com https://accounts.google.com; frame-src 'self' https://accounts.google.com/gsi/ https://accounts.google.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev https://accounts.google.com/gsi/ https://accounts.google.com; frame-ancestors 'self'; base-uri 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <!-- muscle-os training app · build v3.5 (decision engine integration — 33 evidence rules live) -->
@@ -8442,7 +8442,7 @@ window.closeTrainingTourModal = function(){
  var GS_KEY = 'mos_google_session';
  var OWNER_EMAIL = 'ANASSTEM2025@GMAIL.COM';
  var API_BASE = 'https://muscleos-access-control.muscleos.workers.dev';
- var GOOGLE_CLIENT_ID = '22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com';
+ var GOOGLE_CLIENT_ID = '335156097845-vq52ttt74pak112mn2eet5j3s1k15fn9.apps.googleusercontent.com';
  var PRODUCT_ID = 'training_tool';
  var HUB_PRODUCT = 'omni_hub';
  var hubMode = (window.self !== window.top) && (function(){ try { return sessionStorage.getItem('mos_hub_mode') === '1'; } catch(e){ return false; } })();

@@ -12,7 +12,7 @@ const fs = require('fs');
 const path = require('path');
 
 // ── Config ──
-const ADMIN_KEY = process.env.ADMIN_KEY || process.argv[4] || 'MOS-ADMIN-DEV-2026';
+const ADMIN_KEY = process.env.ADMIN_KEY || process.argv[4] || (() => { console.error('ERROR: ADMIN_KEY not set. Use env var or --admin flag.'); process.exit(1); })();
 const API_BASE = 'https://muscleos-access-control.muscleos.workers.dev';
 const WORKER_DIR = path.resolve(__dirname, '..', 'worker');
 

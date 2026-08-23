@@ -3,7 +3,7 @@ const { chromium } = require('E:/MoS/.opencode/skills/pdf/node_modules/playwrigh
 
 const PAGE_URL = 'file://E:/MoS/tools/tdee_adaptive_engine.html';
 const API = 'https://muscleos-access-control.muscleos.workers.dev';
-const CLIENT_ID = '22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com';
+const CLIENT_ID = '335156097845-vq52ttt74pak112mn2eet5j3s1k15fn9.apps.googleusercontent.com';
 
 (async () => {
   const browser = await chromium.launch();

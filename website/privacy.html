@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev; frame-ancestors 'self'; base-uri 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/client https://accounts.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com https://accounts.google.com; frame-src 'self' https://accounts.google.com/gsi/ https://accounts.google.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev https://accounts.google.com/gsi/ https://accounts.google.com; frame-ancestors 'self'; base-uri 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta charset="UTF-8">
@@ -40,42 +40,97 @@
  <h1>Privacy Policy</h1>
  <div class="updated">Last updated: August 2026</div>
 
- <p>This policy explains what data is collected on muscleos.coach (and its tools, books, and bundles), how it's used, and what you can do about it.</p>
+ <p>This privacy policy explains how Coach Anas Mo'men ("we", "us", or "our") collects, uses, and protects your personal data when you use muscleos.coach and associated tools, programs, and services.</p>
 
- <h2>What we collect</h2>
+ <h2>1. Data Controller</h2>
+ <p>The data controller is Coach Anas Mo'men (muscleos.coach). You can contact us directly via WhatsApp at <a href="https://wa.me/201040796017" target="_blank" rel="noopener">https://wa.me/201040796017</a>.</p>
+
+ <h2>2. What We Collect</h2>
  <ul>
- <li><strong>Contact &amp; coaching data:</strong> when you message via WhatsApp or sign up for coaching, we keep the conversation and any details you share (name, training history, goals, health notes).</li>
- <li><strong>Tool data:</strong> data you enter in our apps (training logs, weight, calories, programs) is stored locally in your browser and on our servers only where needed to run the service.</li>
- <li><strong>Order data:</strong> when you purchase access, the order page processes your details through Paymob or Vodafone Cash. We do not store card details.</li>
+ <li><strong>Google account info:</strong> Name, email address, and profile picture collected via Google Sign-In.</li>
+ <li><strong>Training data:</strong> Workout logs, RPE, volume, and exercise history, which are stored locally in your browser and optionally synced to the cloud.</li>
+ <li><strong>Nutrition data:</strong> Calories, macros, weight logs, and TDEE calculations.</li>
+ <li><strong>Health screening data:</strong> Injury history, cardiac conditions, SCOFF eating disorder screening, gut health, sleep, and alcohol habits, collected via Telegram bot intake.</li>
+ <li><strong>Order &amp; payment data:</strong> Name, WhatsApp number, email, and payment reference (processed securely via Paymob or Vodafone Cash).</li>
+ <li><strong>Usage analytics:</strong> Page views, session ID, and feature usage collected via localStorage.</li>
+ <li><strong>Device &amp; browser info:</strong> IP address and user agent via our hosting and CDN provider (Cloudflare).</li>
  </ul>
 
- <h2>How we use it</h2>
+ <h2>3. Legal Basis for Processing (GDPR Art. 6)</h2>
  <ul>
- <li>To deliver coaching, programs, and access to the tools you purchased.</li>
- <li>To adjust your programming based on your check-in and performance data.</li>
- <li>To verify payments and grant access codes.</li>
- <li>To improve the site and services (anonymized usage patterns).</li>
+ <li><strong>Contract performance:</strong> To deliver coaching services, training programs, and tool access you requested.</li>
+ <li><strong>Legitimate interest:</strong> For analytics, service improvement, and maintaining security.</li>
+ <li><strong>Consent:</strong> For processing health data (GDPR Art. 9), marketing communications, and tracking cookies/analytics.</li>
  </ul>
 
- <h2>What we don't do</h2>
+ <h2>4. Special Category Health Data (GDPR Art. 9)</h2>
+ <p>We collect health-related data (including injury history, cardiac screening, and eating disorder screening) ONLY with your explicit consent. This data is used solely for the purpose of personalizing your training program and ensuring your safety. You can withdraw your consent at any time; however, this will not affect the lawfulness of processing based on consent before its withdrawal.</p>
+
+ <h2>5. Third-Party Services</h2>
+ <p>We use trusted third-party services to operate our platform, which may process your data according to their own privacy policies:</p>
  <ul>
- <li>We never sell or rent your personal data to anyone.</li>
- <li>We don't share your data with third parties except where required to operate (payment processors, hosting) or by law.</li>
+ <li><strong>Google OAuth:</strong> Authentication (Google Privacy Policy)</li>
+ <li><strong>Cloudflare Workers &amp; KV:</strong> API, edge computing, and data storage (Cloudflare Privacy Policy)</li>
+ <li><strong>Supabase:</strong> Database and PostgreSQL infrastructure (Supabase Privacy Policy)</li>
+ <li><strong>Paymob &amp; Vodafone Cash:</strong> Payment processing (Paymob and Vodafone Privacy Policies)</li>
+ <li><strong>Groq:</strong> AI/LLM processing for coaching (Groq Privacy Policy)</li>
+ <li><strong>WhatsApp / Meta:</strong> Communication (Meta Privacy Policy)</li>
+ <li><strong>Google Fonts:</strong> Typography (Google Privacy Policy)</li>
  </ul>
 
- <h2>Third-party services</h2>
- <p>Paymob (payments), Vodafone Cash (payments), Google Fonts (typography), and our hosting provider may process limited data (e.g., IP address) as part of normal operation. Each is governed by its own privacy policy.</p>
+ <h2>6. Cookies &amp; Local Storage</h2>
+ <p>We do NOT use traditional HTTP cookies for tracking. Instead, we use local storage in your browser for essential functions and analytics, including:</p>
+ <ul>
+ <li><code>mos_session_id</code>: Anonymous analytics session identifier.</li>
+ <li><code>mos_google_session</code>: Google sign-in session token (7-day expiry).</li>
+ <li><code>mos_subscription</code>: Access code verification state.</li>
+ <li><code>cookiesAccepted</code>: Your consent preference.</li>
+ </ul>
+ <p>Training and nutrition tool data is also stored in localStorage. Analytics tracking only activates after you accept the cookie consent banner.</p>
 
- <h2>Data retention &amp; your rights</h2>
- <p>You can ask us at any time to see, correct, or delete the personal data we hold about you. Contact via WhatsApp and it will be handled. Deleting data may cancel access to purchased services.</p>
+ <h2>7. Data Retention</h2>
+ <ul>
+ <li><strong>Session tokens:</strong> 7 days</li>
+ <li><strong>Access codes:</strong> 30 days for tools, lifetime for books</li>
+ <li><strong>Training/nutrition logs:</strong> Retained until you clear your browser data or request deletion</li>
+ <li><strong>Cloud-synced data:</strong> Retained until you request account deletion</li>
+ <li><strong>Coaching conversations (WhatsApp/Telegram):</strong> Retained until you request deletion</li>
+ <li><strong>Order records:</strong> Retained for 5 years as required by Egyptian tax law</li>
+ <li><strong>Analytics data:</strong> Retained for 12 months</li>
+ </ul>
 
- <h2>Contact</h2>
- <p>Questions about this policy? Message on <a href="https://wa.me/201040796017" target="_blank" rel="noopener">WhatsApp</a> or email the coach directly.</p>
+ <h2>8. Your Rights (GDPR/CCPA)</h2>
+ <p>Depending on your location, you have rights regarding your personal data, including the right to:</p>
+ <ul>
+ <li><strong>Access:</strong> Request a copy of your personal data.</li>
+ <li><strong>Rectification:</strong> Request correction of inaccurate data.</li>
+ <li><strong>Erasure / Deletion:</strong> Request deletion of your personal data.</li>
+ <li><strong>Data Portability:</strong> Receive your data in a structured, commonly used format.</li>
+ <li><strong>Object:</strong> Object to processing based on legitimate interest.</li>
+ <li><strong>Withdraw Consent:</strong> Especially regarding the processing of health data.</li>
+ <li><strong>Opt-out of sale (CCPA):</strong> We do NOT sell your personal data.</li>
+ </ul>
+ <p>If you wish to exercise any of these rights, please contact us via WhatsApp at <a href="https://wa.me/201040796017" target="_blank" rel="noopener">https://wa.me/201040796017</a>. We will respond to your request within 30 days. You also have the right to lodge a complaint with a supervisory authority.</p>
+
+ <h2>9. International Data Transfers</h2>
+ <p>Your data may be processed outside of your country on Cloudflare (global edge network), Supabase (US), and Google (US). These transfers are protected by standard contractual clauses and service provider agreements to ensure your data remains secure.</p>
+
+ <h2>10. Children's Privacy</h2>
+ <p>Our services are not intended for anyone under the age of 13. We do not knowingly collect personal data from children under 13.</p>
+
+ <h2>11. Changes to This Policy</h2>
+ <p>We may update this privacy policy from time to time. The "Last updated" date at the top indicates when the latest changes were made. Your continued use of the service after changes have been made constitutes your acceptance of the updated policy.</p>
+
+ <h2>12. Contact</h2>
+ <p>If you have any questions or concerns about this privacy policy or our data practices, please contact us via WhatsApp at <a href="https://wa.me/201040796017" target="_blank" rel="noopener">https://wa.me/201040796017</a> or on Instagram <a href="https://instagram.com/anas_moamen1" target="_blank" rel="noopener">@anas_moamen1</a>.</p>
  </div>
 </main>
 <footer>
  <div class="wrap">
  <a href="index.html">Home</a>
+ <a href="privacy.html">Privacy Policy</a>
+ <a href="terms.html">Terms of Service</a>
+ <a href="refund.html">Refund Policy</a>
  <a href="https://wa.me/201040796017" target="_blank" rel="noopener">WhatsApp</a>
  <a href="https://instagram.com/anas_moamen1" target="_blank" rel="noopener">Instagram</a>
  </div>
