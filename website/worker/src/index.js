@@ -298,7 +298,7 @@ async function handleVerify(request, env) {
       await addAccountSub(env, email, { code: normalized, plan: record.plan, products: record.products, expiresAt: expiresAt.toISOString() });
       const secret = await getSecret(env);
       const effProductId = (record.products === 'all') ? 'all_access' : (Array.isArray(record.products) && record.products.length) ? record.products[0] : productId;
-      const token = await new SignJWT({ productId: effProductId, plan: record.plan, codePrefix: normalized.substring(0, 4) })
+      const token = await new SignJWT({ productId: effProductId, plan: record.plan, codePrefix: normalized.substring(0, 4), code: normalized })
         .setProtectedHeader({ alg: 'HS256' })
         .setIssuedAt()
         .setIssuer('muscleos-access-control')
@@ -375,7 +375,7 @@ async function handleVerify(request, env) {
 
   const secret = await getSecret(env);
   const effProductId = (doResult.products === 'all') ? 'all_access' : (Array.isArray(doResult.products) && doResult.products.length) ? doResult.products[0] : productId;
-  const token = await new SignJWT({ productId: effProductId, plan: doResult.plan, codePrefix: normalized.substring(0, 4) })
+  const token = await new SignJWT({ productId: effProductId, plan: doResult.plan, codePrefix: normalized.substring(0, 4), code: normalized })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
     .setIssuer('muscleos-access-control')
@@ -424,6 +424,11 @@ async function handleCheckToken(request, env) {
       issuer: 'muscleos-access-control',
       audience: 'muscleos-website',
     });
+    // Check if code was revoked
+    if (payload.code) {
+      const isRev = await env.ACCESS_CODES.get(`revoked:${payload.code}`);
+      if (isRev) return json({ valid: false, error: 'code_revoked' }, 401, env, request);
+    }
     // A master-plan token or matching productId is valid
     if (payload.plan !== 'master' && payload.productId !== productId) {
       // omni_hub code includes training_tool and tdee_adaptive_engine
@@ -509,6 +514,7 @@ async function handleRevokeCode(request, env) {
   existing.uses = -1;
   existing.revokedAt = Date.now();
   await env.ACCESS_CODES.put(`code:${normalized}`, JSON.stringify(existing));
+  await env.ACCESS_CODES.put(`revoked:${normalized}`, '1', { expirationTtl: 7776000 });
   // Revoke via Durable Object
   const doId = env.CODE_COUNTER.idFromName(normalized);
   const stub = env.CODE_COUNTER.get(doId);
@@ -1642,25 +1648,45 @@ async function handleLinkTelegram(request, env) {
 }
 
 function corsHeaders(env, request, isAuth = true) {
-  const ALLOWED_ORIGINS = ['https://anas-xi.github.io', 'https://muscleos.is-a.dev'];
+  const ALLOWED_ORIGINS = [
+    'https://muscleos.coach',
+    'https://www.muscleos.coach',
+    'https://anas-xi.github.io',
+    'https://muscleos.is-a.dev',
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+    'http://localhost:5500',
+    'http://127.0.0.1:5500',
+    'http://localhost:5173',
+    'http://127.0.0.1:5173'
+  ];
   let origin = env && env.CORS_ORIGIN ? env.CORS_ORIGIN : '';
   if (!origin && request) {
     const reqOrigin = request.headers.get('Origin');
-    if (reqOrigin && ALLOWED_ORIGINS.includes(reqOrigin)) {
-      origin = reqOrigin;
+    if (reqOrigin) {
+      if (ALLOWED_ORIGINS.includes(reqOrigin) || 
+          reqOrigin.endsWith('.muscleos.coach') || 
+          reqOrigin.endsWith('.github.io') ||
+          reqOrigin.startsWith('http://localhost:') || 
+          reqOrigin.startsWith('http://127.0.0.1:')) {
+        origin = reqOrigin;
+      }
     }
   }
+  if (!origin) origin = '*';
   const methods = isAuth ? 'POST, OPTIONS' : 'GET, OPTIONS';
   const headers = {
+    'Access-Control-Allow-Origin': origin,
     'Access-Control-Allow-Methods': methods,
     'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Admin-Key, X-Sync-Passphrase',
     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
     'X-Content-Type-Options': 'nosniff',
     'X-Frame-Options': 'DENY',
     'Referrer-Policy': 'no-referrer-when-downgrade',
-    'Content-Security-Policy': "default-src 'self'; style-src 'unsafe-inline' 'self' https://fonts.googleapis.com; script-src 'unsafe-inline' 'self' https://apis.google.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev https://anas-xi.github.io; frame-src https://accounts.google.com; img-src 'self' data:;",
+    'Content-Security-Policy': "default-src 'self'; style-src 'unsafe-inline' 'self' https://fonts.googleapis.com; script-src 'unsafe-inline' 'self' https://apis.google.com https://accounts.google.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev https://accounts.google.com https://anas-xi.github.io; frame-src https://accounts.google.com; img-src 'self' data: https://*.googleusercontent.com https://accounts.google.com;",
     'Vary': 'Origin'
   };
-  if (origin) headers['Access-Control-Allow-Origin'] = origin;
   return headers;
 }

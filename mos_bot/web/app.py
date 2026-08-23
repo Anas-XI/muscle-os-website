@@ -259,7 +259,8 @@ TRACKER_LOGS_DIR = os.path.join(DATA_ROOT, "tracker_logs")
 @app.get("/tracker/{user_id}")
 async def get_tracker_html(user_id: str):
     """Serve the HTML workout tracker for a user."""
-    tracker_file = os.path.join(TRACKERS_DIR, f"{user_id}_tracker.html")
+    clean_user_id = Path(user_id).name
+    tracker_file = os.path.join(TRACKERS_DIR, f"{clean_user_id}_tracker.html")
     if os.path.exists(tracker_file):
         return HTMLResponse(Path(tracker_file).read_text(encoding="utf-8"))
     raise HTTPException(404, "Tracker not found — generate a program first")

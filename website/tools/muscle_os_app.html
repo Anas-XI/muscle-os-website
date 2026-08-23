@@ -403,40 +403,61 @@ var sub = null;
     }
   })();
   </script>
-<script src="../assets/js/access-control.js"></script>
-<script>
-(function(){
-  function init(){
-    var gate = document.getElementById('googleGate');
-    if(!gate) return;
-    
-    // Secure background JWT check
-    if (window.MosAccess && typeof window.MosAccess.checkAccess === 'function') {
-      window.MosAccess.checkAccess('omni_hub').then(function(access) {
-        if (access && access.active) {
-          gate.classList.add('gate-hidden');
-        } else {
-          window.location.href = '../website/portal.html';
-        }
-      }).catch(function() {
-        window.location.href = '../website/portal.html';
-      });
-    } else {
-      window.location.href = '../website/portal.html';
-    }
-  }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 
-  window.addEventListener('storage', function(e){ 
-    if (e.key === 'mos_subscription') {
-      window.MosAccess.checkAccess('omni_hub').then(function(access) {
-        if (!access || !access.active) {
-          window.location.href = '../website/portal.html';
-        }
-      });
-    } 
-  });
-})();
-</script>
+  <!-- OMNI HUB PAYWALL OVERLAY -->
+  <div id="hubPaywallOverlay" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(13,14,18,0.96); backdrop-filter:blur(10px); align-items:center; justify-content:center; padding:20px;">
+    <div style="background:#14151A; border:1px solid #2C2E37; border-radius:16px; padding:36px 28px; max-width:400px; width:100%; text-align:center; box-shadow:0 20px 40px rgba(0,0,0,0.5);">
+      <div style="font-size:40px; margin-bottom:12px;">🔒</div>
+      <div style="font-family:'Oswald',sans-serif; font-size:1.4rem; font-weight:700; color:#FAFAF8; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">FREE TRIAL ENDED</div>
+      <p style="font-size:0.85rem; color:rgba(250,250,248,0.6); margin-bottom:24px; line-height:1.5;">Your 7-day free trial has expired. Enter your access code or sign in with your Google account to continue.</p>
+      <a href="../portal.html" style="display:block; width:100%; padding:14px; background:#F4C93B; color:#0D0E12; border-radius:8px; font-weight:700; font-size:0.9rem; text-decoration:none; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:12px; transition:transform 0.2s;">Unlock via Portal &rarr;</a>
+      <a href="../order.html?product=omni_hub" style="display:inline-block; font-size:0.8rem; color:rgba(250,250,248,0.5); text-decoration:underline;">Get Access Code</a>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    var TRIAL_DAYS = 7;
+    var TRIAL_MS = TRIAL_DAYS * 24 * 60 * 60 * 1000;
+    var HUB_PRODUCT = 'omni_hub';
+    function deriveProd(code, plan){
+      var p = (code || '').toUpperCase();
+      if (plan === 'master') return 'all_access';
+      if (p.indexOf('OH-') === 0) return 'omni_hub';
+      if (p.indexOf('TR-') === 0) return 'training_tool';
+      if (p.indexOf('MA-') === 0) return 'all_access';
+      if (p.indexOf('TD-') === 0) return 'tdee_adaptive_engine';
+      return 'training_tool';
+    }
+    function checkPaywall() {
+      var sub = null;
+      try { sub = JSON.parse(localStorage.getItem('mos_subscription') || 'null'); } catch(e){}
+      var subProd = sub ? (sub.prodId || deriveProd(sub.code, sub.plan)) : null;
+      var prodOk = !!sub && (sub.plan === 'master' || sub.code === 'OWNER' || subProd === HUB_PRODUCT || subProd === 'all_access');
+      var activeSub = !!(sub && sub.active && prodOk && sub.expiry && new Date(sub.expiry + 'T23:59:59') > new Date());
+      var trialStart = localStorage.getItem('mos_trial_start');
+      var trialActive = !!(trialStart && (Date.now() - new Date(trialStart).getTime()) < TRIAL_MS);
+
+      var ov = document.getElementById('hubPaywallOverlay');
+      if (!activeSub && !trialActive) {
+        if (ov) ov.style.display = 'flex';
+      } else {
+        if (ov) ov.style.display = 'none';
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', checkPaywall);
+    } else {
+      checkPaywall();
+    }
+
+    window.addEventListener('storage', function(e){
+      if (e.key === 'mos_subscription' || e.key === 'mos_trial_start') {
+        checkPaywall();
+      }
+    });
+  })();
+  </script>
 </body>
 </html>
