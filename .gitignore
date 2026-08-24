@@ -31,6 +31,8 @@ mos_bot/data/feedback/
 mos_bot/data/pdfs/
 mos_bot/data/programs/
 mos_bot/data/vault_index/
+mos_bot/data/chat_history/
+mos_bot/data/tracker_logs/
 
 # Wrangler local state
 .wrangler/
@@ -82,6 +84,8 @@ mos_bot/data/programs_json/
 /head.txt
 /scripts.txt
 scratch/
+temp_worker/
+*.js.map
 
 # Agent prompts (not source code)
 docs/prompts/

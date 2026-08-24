@@ -5,7 +5,7 @@ import json
 import logging
 from datetime import datetime
 from pathlib import Path
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, HTTPException, Request, Depends
 from fastapi.responses import HTMLResponse, FileResponse, JSONResponse
 from pydantic import BaseModel
 from typing import Optional, List
@@ -17,9 +17,10 @@ from mos_bot.core.coach_pipeline import (
     bulk_action, get_version_history, add_note,
 )
 from mos_bot.core.analytics import track
+from mos_bot.web.auth import require_api_key, sanitize_user_id, safe_resolve_path
 
 logger = logging.getLogger(__name__)
-router = APIRouter(prefix="/api/coach")
+router = APIRouter(prefix="/api/coach", dependencies=[Depends(require_api_key)])
 
 COACH_HTML: Optional[str] = None
 COACH_HTML_PATH = Path(__file__).parent.parent / "coach.html"
@@ -70,12 +71,13 @@ async def coach_page():
 
 @router.post("/generate/{user_id}")
 async def api_generate_draft(user_id: str):
-    result = generate_coach_draft(user_id)
+    clean_user_id = sanitize_user_id(user_id)
+    result = generate_coach_draft(clean_user_id)
     if "error" in result:
         if result.get("blocked"):
             raise HTTPException(403, result["error"])
         raise HTTPException(400, result["error"])
-    track("coach_api_generate", {"user_id": user_id, "draft_id": result["draft"]["draft_id"]})
+    track("coach_api_generate", {"user_id": clean_user_id, "draft_id": result["draft"]["draft_id"]})
     return result["draft"]
 
 
@@ -91,7 +93,8 @@ async def api_stats():
 
 @router.get("/draft/{draft_id}")
 async def api_get_draft(draft_id: str):
-    draft = load_draft(draft_id)
+    clean_draft_id = sanitize_user_id(draft_id)
+    draft = load_draft(clean_draft_id)
     if draft is None:
         raise HTTPException(404, "Draft not found")
     return draft
@@ -99,38 +102,45 @@ async def api_get_draft(draft_id: str):
 
 @router.put("/draft/{draft_id}/section/{section_id}")
 async def api_update_section(draft_id: str, section_id: str, req: SectionUpdateRequest):
-    success = update_section(draft_id, section_id,
+    clean_draft_id = sanitize_user_id(draft_id)
+    clean_section_id = sanitize_user_id(section_id)
+    success = update_section(clean_draft_id, clean_section_id,
                              content=req.content if req.content is not None else None,
                              status=req.status,
                              editor_notes=req.editor_notes)
     if not success:
         raise HTTPException(404, "Draft or section not found")
-    draft = load_draft(draft_id)
+    draft = load_draft(clean_draft_id)
     return {"status": "ok", "draft": draft}
 
 
 @router.post("/draft/{draft_id}/section/{section_id}/approve")
 async def api_approve_section(draft_id: str, section_id: str):
-    success = approve_section(draft_id, section_id)
+    clean_draft_id = sanitize_user_id(draft_id)
+    clean_section_id = sanitize_user_id(section_id)
+    success = approve_section(clean_draft_id, clean_section_id)
     if not success:
         raise HTTPException(404, "Draft or section not found")
-    draft = load_draft(draft_id)
+    draft = load_draft(clean_draft_id)
     return {"status": "ok", "draft": draft}
 
 
 @router.post("/draft/{draft_id}/section/{section_id}/reject")
 async def api_reject_section(draft_id: str, section_id: str, req: RejectWithReasonRequest = None):
+    clean_draft_id = sanitize_user_id(draft_id)
+    clean_section_id = sanitize_user_id(section_id)
     reason = req.reason if req else ""
-    success = reject_section(draft_id, section_id, reason)
+    success = reject_section(clean_draft_id, clean_section_id, reason)
     if not success:
         raise HTTPException(404, "Draft or section not found")
-    draft = load_draft(draft_id)
+    draft = load_draft(clean_draft_id)
     return {"status": "ok", "draft": draft}
 
 
 @router.post("/draft/{draft_id}/note")
 async def api_add_note(draft_id: str, req: AddNoteRequest):
-    note = add_note(draft_id, req.author, req.text)
+    clean_draft_id = sanitize_user_id(draft_id)
+    note = add_note(clean_draft_id, req.author, req.text)
     if "error" in note:
         raise HTTPException(404, note["error"])
     return {"status": "ok", "note": note}
@@ -138,13 +148,14 @@ async def api_add_note(draft_id: str, req: AddNoteRequest):
 
 @router.post("/draft/{draft_id}/notes")
 async def api_update_coach_notes(draft_id: str, req: CoachNotesRequest):
-    draft_data = load_draft(draft_id)
+    clean_draft_id = sanitize_user_id(draft_id)
+    draft_data = load_draft(clean_draft_id)
     if not draft_data:
         raise HTTPException(404, "Draft not found")
     draft_data["coach_notes"] = req.coach_notes
     draft_data["updated_at"] = datetime.now().isoformat()
     from mos_bot.core.coach_pipeline import DRAFTS_DIR
-    path = os.path.join(DRAFTS_DIR, f"{draft_id}.json")
+    path = os.path.join(DRAFTS_DIR, f"{clean_draft_id}.json")
     with open(path, "w", encoding="utf-8") as f:
         json.dump(draft_data, f, indent=2, ensure_ascii=False)
     return {"status": "ok"}
@@ -152,29 +163,34 @@ async def api_update_coach_notes(draft_id: str, req: CoachNotesRequest):
 
 @router.get("/draft/{draft_id}/safety")
 async def api_safety_flags(draft_id: str):
-    flags = get_safety_flags(draft_id)
-    return {"draft_id": draft_id, "flags": flags, "count": len(flags)}
+    clean_draft_id = sanitize_user_id(draft_id)
+    flags = get_safety_flags(clean_draft_id)
+    return {"draft_id": clean_draft_id, "flags": flags, "count": len(flags)}
 
 
 @router.get("/draft/{draft_id}/history")
 async def api_history(draft_id: str, section_id: str = None):
-    return get_version_history(draft_id, section_id)
+    clean_draft_id = sanitize_user_id(draft_id)
+    clean_section_id = sanitize_user_id(section_id) if section_id else None
+    return get_version_history(clean_draft_id, clean_section_id)
 
 
 @router.post("/draft/{draft_id}/bulk")
 async def api_bulk_action(draft_id: str, req: BulkActionRequest):
-    success = bulk_action(draft_id, req.action)
+    clean_draft_id = sanitize_user_id(draft_id)
+    success = bulk_action(clean_draft_id, req.action)
     if not success:
         raise HTTPException(404, "Draft not found or invalid action")
-    draft = load_draft(draft_id)
+    draft = load_draft(clean_draft_id)
     return {"status": "ok", "action": req.action, "draft": draft}
 
 
 @router.post("/draft/{draft_id}/export")
 async def api_export_draft(draft_id: str):
-    pdf_path = export_approved_draft(draft_id)
+    clean_draft_id = sanitize_user_id(draft_id)
+    pdf_path = export_approved_draft(clean_draft_id)
     if pdf_path is None:
-        draft_data = load_draft(draft_id)
+        draft_data = load_draft(clean_draft_id)
         if draft_data:
             approved = sum(1 for s in draft_data.get("sections", []) if s.get("status") == "approved")
             total = len(draft_data.get("sections", []))
@@ -185,11 +201,12 @@ async def api_export_draft(draft_id: str):
 
 @router.get("/draft/{draft_id}/pdf")
 async def api_download_pdf(draft_id: str):
-    draft_data = load_draft(draft_id)
+    clean_draft_id = sanitize_user_id(draft_id)
+    draft_data = load_draft(clean_draft_id)
     if not draft_data:
         raise HTTPException(404, "Draft not found")
     pdf_path = draft_data.get("export_path", "")
     if not pdf_path or not os.path.exists(pdf_path):
         raise HTTPException(404, "PDF not exported yet. POST /api/coach/draft/{id}/export first.")
     return FileResponse(pdf_path, media_type="application/pdf",
-                        filename=f"{draft_data.get('client_name', draft_id)}_program.pdf")
+                        filename=f"{draft_data.get('client_name', clean_draft_id)}_program.pdf")
