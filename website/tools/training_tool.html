@@ -8891,7 +8891,7 @@ var linked = pickAccountSub(data.subscriptions);
  }
 
 if(!active){
-  var _trial = (!hubMode && window.__trialState) ? window.__trialState() : null;
+  var _trial = (window.__trialState) ? window.__trialState() : null;
  if(_trial && _trial.active){
  // Additive gate: an active trial keeps the tool unlocked; the pill shows days left.
  if(window.__evLog)window.__evLog('trial_gate_open', { days: _trial.daysLeft });

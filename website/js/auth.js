@@ -121,19 +121,38 @@ function getGs(){ try { var g = JSON.parse(localStorage.getItem(GS_KEY)); return
   function checkAccess() {
     var gate = getGate();
     if (gate && gate.active) {
-      // Valid cached/verified subscription for this page's product — no gate needed.
       document.getElementById('mosAuthOverlay').style.display = 'none';
       var oldOv = document.getElementById('subOverlay');
       if (oldOv) oldOv.style.display = 'none';
+      var gGate = document.getElementById('googleGate');
+      if (gGate) gGate.classList.add('gate-hidden');
       return;
     }
-    var isHub = !!(gate && gate.hub);
+
+    var isBook = window.location.pathname.includes('/books/');
+    var TRIAL_DAYS = 7;
+    var trialStart = localStorage.getItem('mos_trial_start');
+    if (!trialStart && !isBook) {
+      trialStart = new Date().toISOString();
+      localStorage.setItem('mos_trial_start', trialStart);
+    }
+    var trialDaysRemaining = trialStart ? (TRIAL_DAYS - Math.floor((Date.now() - new Date(trialStart).getTime()) / 86400000)) : 0;
+    var isTrialActive = !isBook && trialDaysRemaining > 0;
+
+    if (isTrialActive) {
+      // 7-day trial is active: hide all overlays and let user use the tool freely!
+      document.getElementById('mosAuthOverlay').style.display = 'none';
+      var oldOv = document.getElementById('subOverlay');
+      if (oldOv) oldOv.style.display = 'none';
+      var gGate = document.getElementById('googleGate');
+      if (gGate) gGate.classList.add('gate-hidden');
+      return;
+    }
+
     var productId = getProductId();
     var gs = getGs();
     function hideLegacy(){ var o = document.getElementById('subOverlay'); if (o) o.style.display = 'none'; }
     if (!gs) {
-      // No Google session: if the page has its own code-entry overlay (tool paywall),
-      // leave it visible instead of stacking our modal on top; otherwise show ours.
       var subOverlay = document.getElementById('subOverlay');
       if (subOverlay) return;
       hideLegacy();
@@ -151,17 +170,13 @@ function getGs(){ try { var g = JSON.parse(localStorage.getItem(GS_KEY)); return
         var isProTool = !window.location.pathname.includes('/books/');
         var hasActiveSub = data.subscriptions && hasProductSub(data.subscriptions, productId);
 
-        if (isProTool && !isHub && data.trialDaysRemaining > 0) {
-          // In trial and on a pro tool page (trial does not apply inside the OMNI HUB)
+        if (hasActiveSub) {
           document.getElementById('mosAuthOverlay').style.display = 'none';
-          var bannerEl = document.getElementById('mosTrialBanner');
-          document.getElementById('mosTrialDays').innerText = data.trialDaysRemaining;
-          bannerEl.style.display = 'flex';
-        } else if (hasActiveSub) {
-          document.getElementById('mosAuthOverlay').style.display = 'none';
+          var gGate = document.getElementById('googleGate');
+          if (gGate) gGate.classList.add('gate-hidden');
         } else {
           document.getElementById('mosAuthTitle').innerText = isProTool ? 'Enter Access Code' : 'Access Restricted';
-          document.getElementById('mosAuthDesc').innerText = isProTool ? 'Your 14-day free trial has expired. Enter an access code or choose an unlocked program.' : 'You need a verified access code to unlock this content.';
+          document.getElementById('mosAuthDesc').innerText = isProTool ? 'Your 7-day free trial has expired. Enter an access code or choose an unlocked program.' : 'You need a verified access code to unlock this content.';
           document.getElementById('mosAuthStep1').style.display = 'none';
           document.getElementById('mosAuthStep2').style.display = 'block';
           
@@ -189,7 +204,6 @@ function getGs(){ try { var g = JSON.parse(localStorage.getItem(GS_KEY)); return
           document.getElementById('mosAuthOverlay').style.display = 'flex';
         }
       } else {
-        // Invalid session
         localStorage.removeItem(GS_KEY);
         hideLegacy();
         document.getElementById('mosAuthOverlay').style.display = 'flex';
@@ -203,110 +217,6 @@ function getGs(){ try { var g = JSON.parse(localStorage.getItem(GS_KEY)); return
       }
     });
   }
-
-  function storeAuthData(k, v) {
-    var el = document.getElementById('mosStaySignedIn');
-    var stay = el ? el.checked : true;
-    if (stay) {
-      localStorage.setItem(k, v);
-    } else {
-      sessionStorage.setItem(k, v);
-      localStorage.removeItem(k);
-    }
-  }
-
-  function finishGoogle(data) {
-    storeAuthData(GS_KEY, JSON.stringify({ session: data.session, email: data.email, name: data.name || '', ts: Date.now() }));
-    window.location.reload();
-  }
-
-  function initGsi(){
-    var host = document.getElementById('mosGoogleSignInBtn');
-    if(!host) return;
-
-    if(typeof google === 'undefined' || !google.accounts || !google.accounts.id){ 
-      setTimeout(initGsi, 200); 
-      return; 
-    }
-
-    if(host.getAttribute('data-gsi')) return;
-    host.setAttribute('data-gsi', '1');
-    
-    google.accounts.id.initialize({
-      client_id: GOOGLE_CLIENT_ID,
-      callback: function(resp){
-        if(!resp || !resp.credential){ showErr('mosAuthStep1Error', 'Google sign-in failed.'); return; }
-        
-        var consent = document.getElementById('mosAuthConsent');
-        if (consent && !consent.checked) {
-          showErr('mosAuthStep1Error', 'Please accept the Terms of Service & Privacy Policy to proceed.');
-          return;
-        }
-        
-        fetch(API_BASE + '/api/auth/google', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ token: resp.credential, termsAccepted: true })
-        }).then(r => r.json()).then(data => {
-          if(data && data.valid) finishGoogle(data);
-          else showErr('mosAuthStep1Error', 'Google sign-in failed.');
-        }).catch(e => {
-          showErr('mosAuthStep1Error', 'Network error. Please try again.');
-        });
-      }
-    });
-    google.accounts.id.renderButton(host, { 
-      theme: 'outline', 
-      size: 'large', 
-      width: 280,
-      text: 'signin_with',
-      shape: 'rectangular',
-      logo_alignment: 'left'
-    });
-  }
-
- document.getElementById('mosSubVerify').addEventListener('click', function(){
- var btn = this;
- var code = document.getElementById('mosSubCode').value.trim().toUpperCase();
- if(!code){ showErr('mosSubError', 'Invalid code.'); return; }
- 
- btn.disabled = true;
- btn.textContent = 'Checking...';
- var gs = getGs();
- 
-fetch(API_BASE + '/api/verify-code', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ code: code, productId: getProductId(), session: gs ? gs.session : undefined }) // Product-aware: page gate declares its product, fallback 'all_access'
-  }).then(r => r.json()).then(data => {
-  if(data && data.valid){
-  document.getElementById('mosSubError').style.display = 'none';
-  document.getElementById('mosSubSuccess').style.display = 'block';
-  setTimeout(() => window.location.reload(), 1500);
-  } else {
-  var msg = 'Invalid code. Please check and try again.';
-  if(data && data.error === 'code_used_by_other') msg = 'This code is already linked to another account.';
-  if(data && data.error === 'code_expired') msg = 'This code has expired.';
-  if(data && data.error === 'wrong_product') msg = 'This code does not grant access to this product.';
-  showErr('mosSubError', msg);
-  btn.disabled = false;
-  btn.textContent = 'Verify';
-  }
-  }).catch(e => {
- showErr('mosSubError', 'Network error.');
- btn.disabled = false;
- btn.textContent = 'Verify';
- });
- });
-
- document.getElementById('mosSignOut').addEventListener('click', function(e) {
- e.preventDefault();
- localStorage.removeItem(GS_KEY);
- window.location.reload();
- });
-
-// Hide the old per-tool overlay only when we're actually showing our own gate over it
-  // (handled inside checkAccess via hideLegacy()).
 
   // Start the check
   checkAccess();

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/client https://accounts.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com https://accounts.google.com; frame-src 'self' https://accounts.google.com/gsi/ https://accounts.google.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev https://accounts.google.com/gsi/ https://accounts.google.com; frame-ancestors 'self'; base-uri 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://www.gstatic.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.gstatic.com https://ssl.gstatic.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev https://accounts.google.com; frame-src https://accounts.google.com; frame-ancestors 'self'; base-uri 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <!-- muscle-os training app · build v3.5 (decision engine integration — 33 evidence rules live) -->
@@ -858,11 +858,13 @@ select option{background:var(--card)}
 </style>
 
 <script async defer src="https://accounts.google.com/gsi/client"></script>
+<script src="/assets/js/sync-manager.js" defer></script>
 </head>
 <body>
 <nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a><a href="../index.html#packages">Coaching</a></div></div></nav>
 <div class="sub-overlay" id="subOverlay">
- <div class="sub-modal">
+ <div class="sub-modal" style="position:relative;">
+ <button data-modal-close="1" onclick="document.getElementById('subOverlay').style.display='none'" style="position:absolute; top:12px; right:14px; background:none; border:none; color:rgba(250,250,248,0.5); font-size:1.2rem; cursor:pointer; line-height:1;" title="Close">✕</button>
  <div class="lock-icon">&#128274;</div>
  <h2>Pro Tool</h2>
  <div class="sub-price">300 EGP / month</div>
@@ -890,7 +892,11 @@ select option{background:var(--card)}
  <div class="sub-divider" data-i18n="sub_or_google">or sign in with Google to link your account</div>
  <div id="authStep1">
  <div class="sub-divider" id="authWelcomeRow" style="display:none"><span id="authWelcome"></span></div>
- <div id="googleSignInBtn" style="display:flex;justify-content:center"></div>
+ <div id="googleSignInBtn" style="display:flex;justify-content:center; min-height:44px;"></div>
+ <div style="display:flex; align-items:center; justify-content:center; gap:6px; margin:8px 0; font-size:0.75rem; color:rgba(250,250,248,0.7); cursor:pointer;">
+   <input type="checkbox" id="staySignedInTool" checked style="accent-color:#F4C93B; width:14px; height:14px; cursor:pointer;">
+   <label for="staySignedInTool" style="cursor:pointer; margin:0; text-transform:none; font-weight:400; font-size:0.75rem; color:inherit;">Stay signed in</label>
+ </div>
  <div class="sub-error" id="authStep1Error" style="display:none">Google sign-in failed. Please try again.</div>
  <div style="text-align:center;margin-top:6px"><a href="#" id="subSignOut" style="display:none;font-size:.5rem;color:rgba(250,250,248,.3)" data-i18n="sub_auth_switch">Not you? Switch account</a></div>
  </div>
@@ -901,6 +907,7 @@ select option{background:var(--card)}
  <div class="header no-print">
  <div class="header-top">
  <h1 data-i18n="app_title">MOS-HYPERKINETIX</h1>
+ <button id="headerAccountBtn" onclick="document.getElementById('subOverlay').style.display='flex'; if(window.__initGsi) window.__initGsi();" style="display:inline-flex; align-items:center; gap:4px; font-size:0.65rem; font-weight:600; padding:4px 9px; border-radius:4px; border:1px solid rgba(244,201,59,0.3); background:rgba(244,201,59,0.1); color:#F4C93B; cursor:pointer; text-transform:uppercase; margin-left:auto; margin-right:8px;">👤 Account</button>
  <div class="lang-toggle" onclick="toggleLang()">
  <span class="lang-opt active" data-lang="en">EN</span>
  <span class="lang-opt" data-lang="ar">AR</span>
@@ -1465,7 +1472,7 @@ select option{background:var(--card)}
  <div class="card">
  <div class="section-header" data-i18n="deload_hist">Deload History</div>
  <div id="deloadHistory"><p style="font-size:.6rem;color:rgba(250,250,248,.15);padding:10px;text-align:center" data-i18n="no_data">No deload data yet.</p></div>
- <button class="btn-primary" id="markDeloadBtn" style="background:rgba(244,201,59,.06);border:1px solid rgba(244,201,59,.15);color:#F4C93B;font-size:.65rem;padding:8px 0;margin-top:8px" data-i18n="deload_hist">Mark Deload This Week</button>
+ <button class="btn-primary" id="deloadQuizBtn" style="background:rgba(244,201,59,.06);border:1px solid rgba(244,201,59,.15);color:#F4C93B;font-size:.65rem;padding:8px 0;margin-top:8px">Take Deload Assessment</button>
  </div>
  <div class="card" id="compWidgetCard" style="display:none">
  <div class="section-header" data-i18n="track_progress">Compliance Dashboard <span class="section-sub">— last 28 days</span></div>
@@ -1737,7 +1744,7 @@ select option{background:var(--card)}
  ce_save:'Save Exercise',ce_none:'No custom exercises yet.',ce_add_custom:'+ Custom Exercise',
  ce_name_required:'Please enter an exercise name.',ce_saved:'Custom exercise saved.',
  ce_add_to_day:'+ Custom Exercise',ce_select:'Enter number to add',ce_invalid:'Invalid selection.',ce_duplicate:'Already in this day.',
- name_label:'Name',age_label:'Age',save_profile:'Save Profile',
+ name_label:'Name',age_label:'Age',weight_label:'Bodyweight (kg)',height_label:'Height (cm)',save_profile:'Save Profile',
  profile_saved:'Profile saved!',profile_greeting:'Welcome back',name_required:'Please enter your name first.',
  // Timer display
  rest_timer_label:'Rest Timer',swap_btn:'Swap',swap_title:'Swap Exercise',swap_hint:'Alternatives for the same muscles — sets, reps & RPE carry over.',swap_back:'Back to original',watch_video:'Watch',
@@ -2185,7 +2192,7 @@ select option{background:var(--card)}
  ce_save:'حفظ التمرين',ce_none:'مفيش تمارين مخصصة لسه.',ce_add_custom:'+ تمرين مخصص',
  ce_name_required:'من فضلك اكتب اسم التمرين.',ce_saved:'اتحفظ التمرين المخصص.',
  ce_add_to_day:'+ تمرين مخصص',ce_select:'اكتب رقم التمرين عشان تضيفه',ce_invalid:'اختيار غلط.',ce_duplicate:'موجود بالفعل في اليوم ده.',
- name_label:'الاسم',age_label:'العمر',save_profile:'حفظ البروفايل',
+ name_label:'الاسم',age_label:'العمر',weight_label:'الوزن (كجم)',height_label:'الطول (سم)',save_profile:'حفظ البروفايل',
  profile_saved:'اتحفظ البروفايل!',profile_greeting:'أهلاً بيك تاني',name_required:'من فضلك اكتب اسمك الأول.',
  // Timer display
  rest_timer_label:'مؤقت الراحة',swap_btn:'تبديل',swap_title:'تبديل التمرين',swap_hint:'بدائل لنفس العضلات — المجموعات والتكرارات وRPE هتنتقل تلقائيًا.',swap_back:'الرجوع للأصلي',watch_video:'شاهد',
@@ -3460,7 +3467,7 @@ select option{background:var(--card)}
  var pill = document.getElementById('trialPill');
  var st = trialState(), sub = null;
  try{ sub = JSON.parse(localStorage.getItem('mos_subscription')); }catch(e){}
- var active = !!(sub && sub.active);
+   var active = !!(sub && sub.active && new Date(sub.expiry + 'T23:59:59') > new Date());
  if(active || !st.active){
  if(pill) pill.style.display = 'none';
  if(!active && !st.active) evLog('trial_expired', {}, 'once');
@@ -3516,7 +3523,7 @@ select option{background:var(--card)}
  function onLeave(){
  var s = funnelSnapshot();
  var sub = null; try{ sub = JSON.parse(localStorage.getItem('mos_subscription')); }catch(e){}
- var active = !!(sub && sub.active);
+   var active = !!(sub && sub.active && new Date(sub.expiry + 'T23:59:59') > new Date());
  var ov = document.getElementById('subOverlay');
  var paywallOpen = ov && ov.style.display === 'flex' && !active;
  if(paywallOpen) evLog('paywall_abandon');
@@ -3784,7 +3791,14 @@ select option{background:var(--card)}
  else exp=_('suggest_continue_prog');
  if(adj>lw)trend='up';else if(adj<lw)trend='down';
  } else {exp=_('suggest_first_session');trend='start';}
- return{w:adj,r:rep,rpe:tRpe,e1RM:best,exp:exp,last:last,pct:pct,trend:trend};
+ var stalled = false;
+  if(hist && hist[ex] && hist[ex].length >= 3) {
+      var recent = hist[ex].slice().sort(function(a,b){return a.date<b.date?1:-1;}).slice(0,3);
+      if(recent.length === 3 && recent[0].w === recent[1].w && recent[1].w === recent[2].w && recent[0].rpe >= 8 && recent[1].rpe >= 8 && recent[2].rpe >= 8) {
+          stalled = true;
+      }
+  }
+  return{w:adj,r:rep,rpe:tRpe,e1RM:best,exp:exp,last:last,pct:pct,trend:trend,stalled:stalled};
  }
 
  function checkPR(ex,w,r,hist){
@@ -6465,7 +6479,277 @@ select option{background:var(--card)}
  var p=function(x){return ('0'+x).slice(-2);};
  return ''+d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'T'+p(d.getHours())+p(d.getMinutes())+'00';
  }
- function exportIcs(){
+ function exportProgramUrl() { var prog = ls(K.PROG, null); if (!prog || !prog.splitName) { alert('No active program to share.'); return; } var slimProg = { s: prog.splitName, d: prog.days.map(d => ({ n: d.n, e: d.ex.map(ex => ({ n: ex.n, s: ex.sets })) })) }; var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(slimProg)))); var url = window.location.origin + window.location.pathname + '?import_split=' + base64; if (navigator.share) { navigator.share({ title: 'My MuscleOS Routine', url: url }).catch(function(){}); } else { navigator.clipboard.writeText(url).then(function() { alert('Routine link copied to clipboard!'); }); } }
+window.showBiofeedbackModal = function(di) {
+  var prog = ls(K.PROG);
+  if(!prog || !prog.days[di]) return;
+  var dayName = prog.days[di].n;
+  
+  var modalHtml = '<div id="bioModal" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,10,15,.9);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;">' +
+    '<div style="background:#14151A;border:1px solid rgba(250,250,248,.1);border-radius:12px;padding:24px;width:100%;max-width:400px;">' +
+      '<h2 style="font-family:\'Oswald\',sans-serif;font-size:1.2rem;color:#F4C93B;margin-bottom:16px;text-transform:uppercase;">Log Biofeedback</h2>' +
+      '<p style="font-size:.75rem;color:rgba(250,250,248,.6);margin-bottom:20px;">Rate your session to auto-regulate tomorrow\'s volume.</p>' +
+      
+      '<div style="margin-bottom:16px;">' +
+        '<label style="display:block;font-size:.7rem;margin-bottom:6px;color:#FAFAF8;">Pump (0-4)</label>' +
+        '<input type="range" id="bfPump" min="0" max="4" value="2" style="width:100%;accent-color:#F4C93B;">' +
+        '<div style="display:flex;justify-content:space-between;font-size:.6rem;color:rgba(250,250,248,.4);margin-top:4px;"><span>None</span><span>Extreme</span></div>' +
+      '</div>' +
+      
+      '<div style="margin-bottom:16px;">' +
+        '<label style="display:block;font-size:.7rem;margin-bottom:6px;color:#FAFAF8;">Fatigue (0-4)</label>' +
+        '<input type="range" id="bfFatigue" min="0" max="4" value="2" style="width:100%;accent-color:#F4C93B;">' +
+        '<div style="display:flex;justify-content:space-between;font-size:.6rem;color:rgba(250,250,248,.4);margin-top:4px;"><span>Fresh</span><span>Exhausted</span></div>' +
+      '</div>' +
+      
+      '<div style="margin-bottom:24px;">' +
+        '<label style="display:block;font-size:.7rem;margin-bottom:6px;color:#FAFAF8;">Target Muscle Soreness (0-4)</label>' +
+        '<input type="range" id="bfSoreness" min="0" max="4" value="2" style="width:100%;accent-color:#F4C93B;">' +
+        '<div style="display:flex;justify-content:space-between;font-size:.6rem;color:rgba(250,250,248,.4);margin-top:4px;"><span>None</span><span>Crippling</span></div>' +
+      '</div>' +
+      
+      '<div style="display:flex;gap:12px;">' +
+        '<button onclick="document.getElementById(\'bioModal\').remove()" style="flex:1;padding:12px;background:transparent;border:1px solid rgba(250,250,248,.2);border-radius:6px;color:#FAFAF8;font-weight:600;font-size:.8rem;">Cancel</button>' +
+        '<button onclick="saveBiofeedback(' + di + ', \'' + dayName.replace(/'/g, "\\'") + '\')" style="flex:1;padding:12px;background:#F4C93B;border:none;border-radius:6px;color:#14151A;font-weight:600;font-size:.8rem;">Save & Finish</button>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+  
+  document.body.insertAdjacentHTML('beforeend', modalHtml);
+};
+
+window.generateRadarCard = function() {
+  var logs = ls('mos_logs', {});
+  var hist = loadHist();
+  
+  function getBest(name) {
+    if(!hist[name] || !hist[name].length) return 0;
+    var max = 0;
+    hist[name].forEach(function(x) { if(x.e1RM > max) max = x.e1RM; });
+    return max;
+  }
+  
+  var benchB = 120;
+  var squatB = 160;
+  var deadB = 200;
+  var ohpB = 80;
+  var rowB = 100;
+  
+  var bench = getBest('Bench Press') || getBest('Barbell Bench Press') || 0;
+  var squat = getBest('Barbell Squat') || getBest('Squat') || 0;
+  var dead = getBest('Deadlift') || getBest('Barbell Deadlift') || 0;
+  var ohp = getBest('Overhead Press') || getBest('Barbell Overhead Press') || 0;
+  var row = getBest('Barbell Row') || getBest('Pendlay Row') || 0;
+  
+  var canvas = document.createElement('canvas');
+  canvas.width = 1080; canvas.height = 1080;
+  var ctx = canvas.getContext('2d');
+  
+  ctx.fillStyle = '#14151A'; ctx.fillRect(0, 0, 1080, 1080);
+  ctx.fillStyle = '#F4C93B'; ctx.font = 'bold 80px "Oswald", sans-serif';
+  ctx.textAlign = 'center'; ctx.fillText('STRENGTH RADAR', 540, 120);
+  ctx.fillStyle = '#FAFAF8'; ctx.font = '40px "Inter", sans-serif';
+  ctx.fillText('MuscleOS Benchmark', 540, 180);
+  
+  var cx = 540, cy = 600, r = 300;
+  var axes = [
+    { label: 'SQUAT', val: squat, max: squatB },
+    { label: 'BENCH', val: bench, max: benchB },
+    { label: 'OHP', val: ohp, max: ohpB },
+    { label: 'ROW', val: row, max: rowB },
+    { label: 'DEADLIFT', val: dead, max: deadB }
+  ];
+  
+  var sides = axes.length;
+  var angleStep = (Math.PI * 2) / sides;
+  
+  ctx.strokeStyle = 'rgba(250,250,248,0.2)';
+  ctx.lineWidth = 2;
+  for(var step = 1; step <= 5; step++) {
+    var radius = (r / 5) * step;
+    ctx.beginPath();
+    for(var i = 0; i < sides; i++) {
+      var angle = i * angleStep - Math.PI/2;
+      var x = cx + Math.cos(angle) * radius;
+      var y = cy + Math.sin(angle) * radius;
+      if(i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.closePath(); ctx.stroke();
+  }
+  
+  ctx.fillStyle = 'rgba(250,250,248,0.5)';
+  ctx.font = '30px "Inter", sans-serif';
+  for(var i = 0; i < sides; i++) {
+    var angle = i * angleStep - Math.PI/2;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + Math.cos(angle) * r, cy + Math.sin(angle) * r);
+    ctx.stroke();
+    
+    var lx = cx + Math.cos(angle) * (r + 50);
+    var ly = cy + Math.sin(angle) * (r + 50);
+    ctx.fillText(axes[i].label, lx, ly);
+    
+    ctx.fillStyle = '#F4C93B';
+    ctx.fillText(axes[i].val.toFixed(0) + ' kg', lx, ly + 40);
+    ctx.fillStyle = 'rgba(250,250,248,0.5)';
+  }
+  
+  ctx.fillStyle = 'rgba(244,201,59,0.3)';
+  ctx.strokeStyle = '#F4C93B';
+  ctx.lineWidth = 5;
+  ctx.beginPath();
+  for(var i = 0; i < sides; i++) {
+    var angle = i * angleStep - Math.PI/2;
+    var norm = Math.min(Math.max(axes[i].val / axes[i].max, 0), 1.2);
+    var dx = cx + Math.cos(angle) * (r * norm);
+    var dy = cy + Math.sin(angle) * (r * norm);
+    if(i === 0) ctx.moveTo(dx, dy); else ctx.lineTo(dx, dy);
+  }
+  ctx.closePath();
+  ctx.fill(); ctx.stroke();
+  
+  return canvas.toDataURL('image/jpeg', 0.9);
+};
+
+window.showRadarModal = function() {
+  var dataUrl = generateRadarCard();
+  showShareModal(dataUrl);
+};
+
+window.generateShareCard = function(dayName, timeSec, sets, p, f, s) {
+  var canvas = document.createElement('canvas');
+  canvas.width = 1080;
+  canvas.height = 1920;
+  var ctx = canvas.getContext('2d');
+  
+  // Background
+  ctx.fillStyle = '#14151A';
+  ctx.fillRect(0, 0, 1080, 1920);
+  
+  // Header
+  ctx.fillStyle = '#F4C93B';
+  ctx.font = 'bold 80px "Oswald", sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('MUSCLE OS', 540, 200);
+  
+  ctx.fillStyle = '#FAFAF8';
+  ctx.font = '60px "Inter", sans-serif';
+  ctx.fillText('WORKOUT COMPLETE', 540, 300);
+  
+  // Day Name
+  ctx.fillStyle = '#F4C93B';
+  ctx.font = 'bold 120px "Oswald", sans-serif';
+  ctx.fillText(dayName.toUpperCase(), 540, 500);
+  
+  // Stats Boxes
+  function drawBox(x, y, label, val) {
+    ctx.fillStyle = 'rgba(20,21,26,1)';
+    ctx.strokeStyle = 'rgba(244,201,59,0.2)';
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.roundRect(x, y, 400, 250, 30);
+    ctx.fill();
+    ctx.stroke();
+    
+    ctx.fillStyle = '#FAFAF8';
+    ctx.font = 'bold 100px "Inter", sans-serif';
+    ctx.fillText(val, x + 200, y + 140);
+    
+    ctx.fillStyle = 'rgba(250,250,248,0.5)';
+    ctx.font = '40px "Inter", sans-serif';
+    ctx.fillText(label.toUpperCase(), x + 200, y + 210);
+  }
+  
+  var mins = Math.floor((timeSec||0)/60);
+  drawBox(100, 700, 'Minutes', mins > 0 ? mins : '--');
+  drawBox(580, 700, 'Working Sets', sets > 0 ? sets : '--');
+  
+  // Biofeedback
+  ctx.fillStyle = '#FAFAF8';
+  ctx.font = '50px "Inter", sans-serif';
+  ctx.fillText('BIOFEEDBACK LOGGED', 540, 1150);
+  
+  function drawBf(x, y, lbl, val) {
+    ctx.fillStyle = 'rgba(244,201,59,0.1)';
+    ctx.beginPath(); ctx.roundRect(x, y, 280, 150, 20); ctx.fill();
+    ctx.fillStyle = '#F4C93B';
+    ctx.font = 'bold 60px "Inter", sans-serif';
+    ctx.fillText(val + '/4', x + 140, y + 80);
+    ctx.fillStyle = 'rgba(250,250,248,0.5)';
+    ctx.font = '30px "Inter", sans-serif';
+    ctx.fillText(lbl, x + 140, y + 130);
+  }
+  
+  drawBf(60, 1250, 'PUMP', p);
+  drawBf(400, 1250, 'FATIGUE', f);
+  drawBf(740, 1250, 'SORENESS', s);
+  
+  // Footer
+  ctx.fillStyle = 'rgba(250,250,248,0.3)';
+  ctx.font = '35px "Inter", sans-serif';
+  ctx.fillText('muscleos.coach/tools/training', 540, 1800);
+  
+  return canvas.toDataURL('image/jpeg', 0.9);
+};
+
+window.showShareModal = function(dataUrl) {
+  var modalHtml = '<div id="shareModal" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,10,15,.95);z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;">' +
+    '<h2 style="font-family:\'Oswald\',sans-serif;font-size:1.5rem;color:#F4C93B;margin-bottom:10px;text-transform:uppercase;">Workout Saved!</h2>' +
+    '<p style="font-size:.8rem;color:rgba(250,250,248,.6);margin-bottom:20px;">Show off your hard work.</p>' +
+    '<img src="' + dataUrl + '" style="width:100%;max-width:300px;border-radius:12px;margin-bottom:24px;border:1px solid rgba(244,201,59,.2);">' +
+    '<div style="display:flex;gap:12px;width:100%;max-width:300px;">' +
+      '<button onclick="document.getElementById(\'shareModal\').remove();go(4);renderDashboard();" style="flex:1;padding:14px;background:transparent;border:1px solid rgba(250,250,248,.2);border-radius:8px;color:#FAFAF8;font-weight:600;font-size:.9rem;">Skip</button>' +
+      '<button id="nativeShareBtn" style="flex:1;padding:14px;background:#F4C93B;border:none;border-radius:8px;color:#14151A;font-weight:600;font-size:.9rem;">Share Image</button>' +
+    '</div>' +
+  '</div>';
+  document.body.insertAdjacentHTML('beforeend', modalHtml);
+  
+  document.getElementById('nativeShareBtn').addEventListener('click', function() {
+    fetch(dataUrl).then(res => res.blob()).then(blob => {
+      var file = new File([blob], 'muscleos-workout.jpg', { type: 'image/jpeg' });
+      if(navigator.canShare && navigator.canShare({ files: [file] })) {
+        navigator.share({
+          files: [file],
+          title: 'My MuscleOS Workout',
+          text: 'Just crushed a session on MuscleOS! #muscleos'
+        }).catch(err => {
+          var a = document.createElement('a'); a.href = dataUrl; a.download = 'muscleos-workout.jpg'; a.click();
+        });
+      } else {
+        var a = document.createElement('a'); a.href = dataUrl; a.download = 'muscleos-workout.jpg'; a.click();
+      }
+    });
+  });
+};
+
+window.saveBiofeedback = function(di, dayName) {
+  var p = parseInt(document.getElementById('bfPump').value);
+  var f = parseInt(document.getElementById('bfFatigue').value);
+  var s = parseInt(document.getElementById('bfSoreness').value);
+  
+  var today = new Date().toISOString().split('T')[0];
+  var logs = ls('mos_logs', {});
+  if(!logs[today]) logs[today] = { bw: '', sets: 0, time: 0 };
+  
+  logs[today]._biofeedback = {
+    day: dayName,
+    pump: p,
+    fatigue: f,
+    soreness: s
+  };
+  
+  ss('mos_logs', logs);
+  document.getElementById('bioModal').remove();
+  
+  var sessTime = (logs[today] && logs[today].time) ? logs[today].time : 0;
+  var sessSets = (logs[today] && logs[today].sets) ? logs[today].sets : 0;
+  var dataUrl = generateShareCard(dayName, sessTime, sessSets, p, f, s);
+  showShareModal(dataUrl);
+
+};
+
+function exportIcs(){
  var prog=ls(K.PG,null);if(!prog||!prog.days){alert(_('sync_fail'));return;}
  var today=new Date();today.setHours(17,0,0,0);
  var lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Muscle OS//Training App//EN','CALSCALE:GREGORIAN','METHOD:PUBLISH'];
@@ -6617,7 +6901,6 @@ select option{background:var(--card)}
  if(wn.sessions>0)hist.innerHTML='<strong>'+_('nl_this_week')+':</strong> '+wn.sessions+' '+_('cardio_sessions')+', '+wn.minutes+' min';
  else hist.textContent='';
  }
-
  function renderCombinedLoadDash(){
  var el=document.getElementById('combinedLoadDash');
  if(!el)return;
@@ -6817,7 +7100,8 @@ select option{background:var(--card)}
  suggestHtml='<div class="suggest-box"><div><span class="suggest-val" onclick="showPlateCalculator('+sugg.w+',event)" style="cursor:pointer" title="'+_('plate_title')+'">'+(sugg.w>0?sugg.w+' '+_('weight'):'—')+'</span></div><div class="suggest-detail"><strong>'+(sugg.w>0?sugg.w+' '+_('weight'):'—')+' '+sugg.r+' '+_('reps')+' @ '+_('rpe')+' '+sugg.rpe+'</strong>'+fatigueNote+mlNote+'<br>'+sugg.exp+(sugg.pct?' · '+(sugg.pct).toFixed(0)+_('pct_1rm'):'')+'</div></div>';
  suggestHtml+=renderWarmupHtml(ex.n,sugg,day.n);
  }else if(!sugg.blocked){suggestHtml='<div class="suggest-box"><div class="suggest-detail"><strong>'+_('start_training')+'</strong>'+fatigueNote+'<br>'+sugg.exp+'</div></div>';}
- var titleInnerHtml='<span class="ex-name">'+(ei+1)+'. '+exLinkHtml(ex.n)+'</span>'+prHtml+(ex.prehab?' <span class="prehab-chip" title="'+_('prehab_reason')+'">'+_('prehab_lbl')+'</span>':'')+perHtml+
+ var plateauHtml = (sugg && sugg.stalled) ? ' <span class="pr-badge" style="color:#f44336;border-color:rgba(244,67,54,.3);cursor:pointer;" onclick="this.closest(\'.ex-card\').querySelector(\'.sw-ex-btn\').click()" title="Plateau detected! Click to swap exercise.">🔥 Plateau</span>' : '';
+  var titleInnerHtml='<span class="ex-name">'+(ei+1)+'. '+exLinkHtml(ex.n)+'</span>'+prHtml+plateauHtml+(ex.prehab?' <span class="prehab-chip" title="'+_('prehab_reason')+'">'+_('prehab_lbl')+'</span>':'')+perHtml+
  '<span class="safety-badge '+safety.sev+'">'+(safety.sev==='safe'?'\u2713 '+_('green'):safety.sev==='warn'?'\u26A0 '+_('yellow'):'\u2715 '+_('red'))+'</span>'+
  '<span class="rm-ex-btn" data-ex="'+ex.n+'">✕</span>';
  var msubs=(m&&m.subs)||[],ceList=ls(K.CE,[]),sp=ls(K.SP,null),spSplit=sp&&SPLITS[sp.key];
@@ -6865,10 +7149,30 @@ select option{background:var(--card)}
  }
  });
  }else{
- var padEmpty=(makeupDays[di]||lightDays[di])?Math.max(1,(ex.sets||3)-1):3;
- for(var i2=0;i2<padEmpty;i2++)sets.push({w:'',r:'',rpe:''});
+ var baseSets = (ex.sets||3);
+ window._lastAutoRegNote = '';
+ if(window.DecisionEngine) {
+     var logs = ls('mos_logs',{});
+     var today = new Date().toISOString().split('T')[0];
+     var dayName = typeof prog !== 'undefined' ? prog.days[di].n : '';
+     var logDates = Object.keys(logs).sort().reverse();
+     for(var i=0; i<logDates.length; i++) {
+         if(logDates[i] < today && logs[logDates[i]]._biofeedback && logs[logDates[i]]._biofeedback.day === dayName) {
+             var bf = logs[logDates[i]]._biofeedback;
+             var adj = window.DecisionEngine.calculateVolumeAdjustment(bf.pump, bf.fatigue, bf.soreness);
+             if(adj && adj.delta !== 0) {
+                 baseSets = Math.max(1, baseSets + adj.delta);
+                 window._lastAutoRegNote = (adj.delta > 0 ? '+1 Set' : '-1 Set');
+             }
+             break;
+         }
+     }
  }
- var h='<div class="set-log-area"><div class="set-log-header"><span style="line-height:1.25;white-space:normal;font-size:.42rem;letter-spacing:.2px">'+_('sets_work')+'</span><span>'+_('load')+'</span><span>'+_('reps')+'</span><span>'+_('rpe')+'</span><span></span></div><div class="set-rows-'+('c_'+di+'_'+ex.n).replace(/[^a-zA-Z0-9]/g,'_')+'">';
+ var padEmpty=(makeupDays[di]||lightDays[di])?Math.max(1,baseSets-1):baseSets;
+ for(var i2=0;i2<padEmpty;i2++)sets.push({w: (typeof sugg!=='undefined' && sugg && sugg.w > 0) ? String(sugg.w) : '', r: (typeof sugg!=='undefined' && sugg && sugg.r > 0) ? String(sugg.r) : '', rpe: (typeof sugg!=='undefined' && sugg && sugg.rpe > 0) ? String(sugg.rpe) : ''});
+ }
+ var autoRegBadge = window._lastAutoRegNote ? '<div style="margin-bottom:8px;font-size:.6rem;color:#F4C93B;background:rgba(244,201,59,.1);padding:4px 8px;border-radius:4px;display:inline-block">⚡ Auto-Regulated: '+window._lastAutoRegNote+'</div>' : '';
+ var h='<div class="set-log-area">'+autoRegBadge+'<div class="set-log-header"><span style="line-height:1.25;white-space:normal;font-size:.42rem;letter-spacing:.2px">'+_('sets_work')+'</span><span>'+_('load')+'</span><span>'+_('reps')+'</span><span>'+_('rpe')+'</span><span></span></div><div class="set-rows-'+('c_'+di+'_'+ex.n).replace(/[^a-zA-Z0-9]/g,'_')+'">';
  sets.forEach(function(set,si){
  var isWu=!!set.wu;
  var wVal = set.w||'';
@@ -7027,7 +7331,11 @@ select option{background:var(--card)}
  day.ex.forEach(function(ex,ei){html+=buildNormalExCard(ex,ei,di,day);});
  }
 
- container.innerHTML=html;
+  html += '<div style="margin-top:20px;margin-bottom:10px;text-align:center;">' +
+          '<button class="btn-primary" onclick="showBiofeedbackModal(' + di + ')" style="width:100%;padding:14px;background:rgba(244,201,59,.1);border:1px solid rgba(244,201,59,.25);color:#F4C93B;font-size:.8rem;box-shadow:0 0 10px rgba(244,201,59,0.1);font-weight:600;"><span style="margin-right:8px">⚡</span>Finish Session & Log Biofeedback</button>' +
+          '</div>';
+
+  container.innerHTML=html;
 
  // Wire inputs
  container.querySelectorAll('.set-row input').forEach(function(inp){inp.addEventListener('input',function(){saveSet(di,this.dataset.ex,parseInt(this.dataset.set),this.dataset.f,this.value,this.dataset.wu);});});
@@ -7125,7 +7433,7 @@ select option{background:var(--card)}
  }
 
  function delSet(di,en,si){var logs=ls(K.LG,{}),td=new Date().toISOString().split('T')[0],prog=ls(K.PG,null),day=prog&&prog.days[di]?prog.days[di]:null,eid=day?day.n+'__'+en:en;if(logs[td]&&logs[td][eid]){var row=document.querySelector('.set-row[data-ex="'+en+'"][data-set="'+si+'"]');var wasWu=!!(row&&row.dataset.wu);logs[td][eid].sets.splice(si,1);if(wasWu)logs[td][eid].sets.splice(si,0,{w:'',r:'',rpe:'',wu:true});if(!logs[td][eid].sets.length)delete logs[td][eid];if(!Object.keys(logs[td][eid]||{}).length)delete logs[td][eid];ss(K.LG,logs);}renderDay(di);}
- function addSet(di,en){var logs=ls(K.LG,{}),td=new Date().toISOString().split('T')[0],prog=ls(K.PG,null),day=prog&&prog.days[di]?prog.days[di]:null,eid=day?day.n+'__'+en:en;if(!logs[td])logs[td]={};if(!logs[td][eid])logs[td][eid]={sets:[]};var wuCnt=0;document.querySelectorAll('.set-row[data-ex="'+en+'"][data-wu="1"]').forEach(function(r){var rs=parseInt(r.dataset.set)||0;if(rs+1>wuCnt)wuCnt=rs+1;});if(logs[td][eid].sets.length<wuCnt){for(var wi=logs[td][eid].sets.length;wi<wuCnt;wi++)logs[td][eid].sets[wi]={w:'',r:'',rpe:'',wu:true};}logs[td][eid].sets.push({w:'',r:'',rpe:''});ss(K.LG,logs);renderDay(di);}
+ function addSet(di,en){var logs=ls(K.LG,{}),td=new Date().toISOString().split('T')[0],prog=ls(K.PG,null),day=prog&&prog.days[di]?prog.days[di]:null,eid=day?day.n+'__'+en:en;if(!logs[td])logs[td]={};if(!logs[td][eid])logs[td][eid]={sets:[]};var wuCnt=0;document.querySelectorAll('.set-row[data-ex="'+en+'"][data-wu="1"]').forEach(function(r){var rs=parseInt(r.dataset.set)||0;if(rs+1>wuCnt)wuCnt=rs+1;});if(logs[td][eid].sets.length<wuCnt){for(var wi=logs[td][eid].sets.length;wi<wuCnt;wi++)logs[td][eid].sets[wi]={w:'',r:'',rpe:'',wu:true};}logs[td][eid].sets.push({w: (typeof sugg!=='undefined' && sugg && sugg.w > 0) ? String(sugg.w) : '', r: (typeof sugg!=='undefined' && sugg && sugg.r > 0) ? String(sugg.r) : '', rpe: (typeof sugg!=='undefined' && sugg && sugg.rpe > 0) ? String(sugg.rpe) : ''});ss(K.LG,logs);renderDay(di);}
  function rmEx(di,en){var logs=ls(K.LG,{}),td=new Date().toISOString().split('T')[0],prog=ls(K.PG,null),day=prog&&prog.days[di]?prog.days[di]:null,eid=day?day.n+'__'+en:en;if(logs[td]&&logs[td][eid]){delete logs[td][eid];if(!Object.keys(logs[td]).length)delete logs[td];ss(K.LG,logs);}renderDay(di);}
  function swapEx(di,idx,oldName,newName){
  if(!oldName||!newName||oldName===newName)return;
@@ -7346,9 +7654,8 @@ select option{background:var(--card)}
  '<div class="st" style="color:#F4C93B">Your Split &amp; Exercises</div>'+ph+
  gh+
  '<div class="ft">Generated by Muscle OS Training App \u2014 <a href="https://wa.me/201040796017">Coach Anas Mo\'men</a></div>'+
- '<footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO\'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach \u2014 Coach Anas Mo\'men</div></footer>'+
- '<script src="../js/auth.js"><\/script>'+
-'</body></html>');
+ '<footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO\'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo\'men</div></footer>'+
+ '</body></html>');
  w.document.close();w.focus();setTimeout(function(){w.print();},500);
  });
 
@@ -7591,15 +7898,11 @@ select option{background:var(--card)}
  html+='<div style="font-size:.5rem;color:rgba(250,250,248,.15);margin-top:6px">'+_('trend_summary').replace('{s}',totSets).replace('{w}',weeks.length).replace('{m}',overMono)+'</div>';
  document.getElementById('trendContent').innerHTML=html;
  }
- document.getElementById('trendRange').addEventListener('change',renderTrendHistory);
+ var urlParams = new URLSearchParams(window.location.search); var importSplit = urlParams.get('import_split'); if (importSplit) { try { var imported = JSON.parse(decodeURIComponent(escape(atob(importSplit)))); if (imported && imported.s && imported.d) { if (confirm('Import routine: ' + imported.s + '? This will overwrite your current program.')) { var prog = { splitName: imported.s + ' (Imported)', totalEx: 0, totalSets: 0, days: [] }; imported.d.forEach(function(d) { var day = { n: d.n, ex: [] }; if (d.e) d.e.forEach(function(e) { var sets = typeof e.s === 'number' ? e.s : 3; day.ex.push({ n: e.n, sets: sets }); prog.totalEx++; prog.totalSets += sets; }); prog.days.push(day); }); ss(K.PROG, prog); alert('Routine imported successfully!'); window.location.href = window.location.pathname; } else { window.location.href = window.location.pathname; } } } catch (e) { alert('Invalid or corrupted routine link.'); window.location.href = window.location.pathname; } }
+document.getElementById('trendRange').addEventListener('change',renderTrendHistory);
 
  document.getElementById('backToDashBtn').addEventListener('click',function(){go(4);renderDashboard();});
- document.getElementById('markDeloadBtn').addEventListener('click',function(){evLog('deload_marked',{src:'history'});
- if(!confirm(_('confirm_mark_deload')))return;
- var dt=dlTracker();dt.lastDeload=new Date().toISOString().split('T')[0];dt.sessions=0;dt.overshoots=0;ss(K.DT,dt);
- alert(_('alert_deload_marked'));
- renderHistory();
- });
+ document.getElementById('deloadQuizBtn').addEventListener('click', function(){ showDeloadQuiz(); });
 
  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
  // EXPORT / IMPORT / RESET
@@ -8588,7 +8891,7 @@ var linked = pickAccountSub(data.subscriptions);
  }
 
 if(!active){
-  var _trial = (!hubMode && window.__trialState) ? window.__trialState() : null;
+  var _trial = (window.__trialState) ? window.__trialState() : null;
  if(_trial && _trial.active){
  // Additive gate: an active trial keeps the tool unlocked; the pill shows days left.
  if(window.__evLog)window.__evLog('trial_gate_open', { days: _trial.daysLeft });
@@ -8673,6 +8976,206 @@ if (window.self !== window.top) {
   style.innerHTML = '#mobileCtaBar { display: none !important; } body { padding-bottom: 30px !important; }';
   document.head.appendChild(style);
 }
+</script>
+
+<!-- Deload Quiz Modal -->
+<div class="modal-overlay" id="deloadQuizModal" style="display:none" onclick="if(event.target===this)hideDeloadQuiz()">
+ <div class="modal-card">
+ <div class="modal-header"><span>Deload Assessment</span><span class="modal-close" onclick="hideDeloadQuiz()">?</span></div>
+ <p style="font-size:.6rem;color:rgba(250,250,248,.3);margin:6px 0 10px">Answer these questions to see if your body needs a deload week to shed fatigue and restore performance.</p>
+ 
+ <div style="margin-bottom:12px;">
+    <label style="font-size:.6rem;font-weight:600;color:var(--text);display:block;margin-bottom:6px;">1. How has your intensity been the last few sessions?</label>
+    <select id="dq_q1" style="width:100%;padding:8px 10px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;">
+        <option value="1">Too high / Constantly grinding or missing reps</option>
+        <option value="2">Hard but manageable / Hitting targets</option>
+        <option value="3">Perfect / Feeling strong and explosive</option>
+    </select>
+ </div>
+
+ <div style="margin-bottom:12px;">
+    <label style="font-size:.6rem;font-weight:600;color:var(--text);display:block;margin-bottom:6px;">2. How does your body feel physically right now?</label>
+    <select id="dq_q2" style="width:100%;padding:8px 10px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;">
+        <option value="1">Beat up / Joints aching / Heavy fatigue</option>
+        <option value="2">Okay / Normal muscle soreness</option>
+        <option value="3">Great / Fresh and energetic</option>
+    </select>
+ </div>
+
+ <div style="margin-bottom:12px;">
+    <label style="font-size:.6rem;font-weight:600;color:var(--text);display:block;margin-bottom:6px;">3. How is your recovery (sleep, stress, nutrition)?</label>
+    <select id="dq_q3" style="width:100%;padding:8px 10px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;">
+        <option value="1">Poor (bad sleep, high stress, eating poorly)</option>
+        <option value="2">Moderate (okay but could be better)</option>
+        <option value="3">Excellent (sleeping well, low stress, eating well)</option>
+    </select>
+ </div>
+
+ <div id="dq_result" style="display:none;background:rgba(250,250,248,.02);padding:10px;border-radius:6px;margin-bottom:12px;">
+    <div id="dq_result_text" style="font-size:.6rem;font-weight:600;margin-bottom:6px;"></div>
+    <div id="dq_result_desc" style="font-size:.55rem;color:rgba(250,250,248,.2);"></div>
+ </div>
+
+ <div style="display:flex;gap:8px;margin-top:16px;">
+    <button class="btn-primary" id="dq_submit" onclick="submitDeloadQuiz()" style="flex:1">Evaluate</button>
+    <button class="btn-primary" id="dq_mark" onclick="forceMarkDeload()" style="flex:1;display:none;background:rgba(76,175,80,.08);border-color:rgba(76,175,80,.15);color:#4CAF50">Proceed with Deload</button>
+ </div>
+ </div>
+</div>
+
+
+<!-- AI Coach FAB -->
+<button id="coachFab" style="position:fixed;bottom:20px;right:20px;padding:0 20px;width:auto;height:56px;border-radius:28px;background:#F4C93B;color:#14151a;border:none;box-shadow:0 4px 12px rgba(0,0,0,0.3);font-size:1rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;z-index:99;display:flex;align-items:center;justify-content:center;">AI Coach</button>
+
+<!-- AI Coach Drawer -->
+<div id="coachDrawer" style="position:fixed;top:0;right:-400px;width:400px;max-width:100%;height:100%;background:#1a1b22;box-shadow:-4px 0 15px rgba(0,0,0,0.5);z-index:100;transition:right 0.3s ease;display:flex;flex-direction:column;border-left:1px solid rgba(250,250,248,0.05);">
+  <div style="padding:16px;background:rgba(20,21,26,0.9);border-bottom:1px solid rgba(250,250,248,0.05);display:flex;justify-content:space-between;align-items:center;">
+    <strong style="color:#FAFAF8;font-size:1rem;">MuscleOS AI Coach</strong>
+    <button onclick="document.getElementById('coachDrawer').style.right='-400px'" style="background:none;border:none;color:rgba(250,250,248,0.5);font-size:1.2rem;cursor:pointer;">?</button>
+  </div>
+  <div id="coachChatLog" style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;">
+    <div style="align-self:flex-start;background:rgba(250,250,248,0.05);color:#FAFAF8;padding:10px 14px;border-radius:12px 12px 12px 2px;max-width:85%;font-size:0.8rem;line-height:1.4;">
+      Hello! I'm your AI Coach. How can I help you today?
+    </div>
+  </div>
+  <div style="padding:12px;background:rgba(20,21,26,0.9);border-top:1px solid rgba(250,250,248,0.05);display:flex;gap:8px;">
+    <input type="text" id="coachInput" placeholder="Ask about your progress, plateau, or fatigue..." style="flex:1;background:rgba(250,250,248,0.05);border:1px solid rgba(250,250,248,0.1);color:#FAFAF8;padding:10px 12px;border-radius:20px;font-size:0.8rem;outline:none;">
+    <button id="coachSendBtn" style="background:#F4C93B;color:#14151a;border:none;border-radius:20px;padding:0 16px;font-weight:600;cursor:pointer;">Send</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  var fab = document.getElementById('coachFab');
+  var drawer = document.getElementById('coachDrawer');
+  var input = document.getElementById('coachInput');
+  var sendBtn = document.getElementById('coachSendBtn');
+  var log = document.getElementById('coachChatLog');
+
+  fab.addEventListener('click', function() {
+    drawer.style.right = '0px';
+  });
+
+  var chatHistory = [];
+
+  function ls(k,d){try{var r=localStorage.getItem(k);return r?JSON.parse(r):d}catch(e){return d}}
+  
+  function getSystemContext() {
+    var vi = ls('mos_vault_intake', {});
+    var goal = vi.goal || 'hypertrophy';
+    var ta = vi.ta || 'intermediate';
+    var logs = ls('mos_logs', {});
+    var hist = ls('mos_load_history', {});
+    var dt = ls('mos_dl_tracker', {});
+    
+    var context = "You are the MuscleOS AI Coach. You help users with their bodybuilding, hypertrophy, and strength goals.\n";
+    context += "User Profile: Goal: " + goal + ", Experience: " + ta + ".\n";
+    context += "Recent Deload Overshoots: " + (dt.overshoots || 0) + ".\n";
+    
+    var twoWeeksAgo = new Date(Date.now() - 14*86400000).toISOString().split('T')[0];
+    var recentWorkouts = Object.keys(logs).filter(function(d) { return d >= twoWeeksAgo; }).length;
+    context += "Workouts in last 14 days: " + recentWorkouts + ".\n";
+    
+    var stalledExs = [];
+    Object.keys(hist).forEach(function(ex) {
+      if(hist[ex] && hist[ex].length >= 3) {
+        var r = hist[ex].slice().sort(function(a,b){return a.date<b.date?1:-1}).slice(0,3);
+        if(r.length === 3 && r[0].w === r[1].w && r[1].w === r[2].w && r[0].rpe >= 8 && r[1].rpe >= 8 && r[2].rpe >= 8) {
+          stalledExs.push(ex);
+        }
+      }
+    });
+    if(stalledExs.length) {
+      context += "Exercises currently stalled (plateaued): " + stalledExs.join(', ') + ".\n";
+    }
+
+    return context;
+  }
+
+  async function sendMessage() {
+    var text = input.value.trim();
+    if(!text) return;
+    input.value = '';
+
+    var userBubble = document.createElement('div');
+    userBubble.style.cssText = 'align-self:flex-end;background:#F4C93B;color:#14151a;padding:10px 14px;border-radius:12px 12px 2px 12px;max-width:85%;font-size:0.8rem;line-height:1.4;';
+    userBubble.textContent = text;
+    log.appendChild(userBubble);
+    log.scrollTop = log.scrollHeight;
+
+    chatHistory.push({ role: 'user', text: text });
+
+    var botBubble = document.createElement('div');
+    botBubble.style.cssText = 'align-self:flex-start;background:rgba(250,250,248,0.05);color:#FAFAF8;padding:10px 14px;border-radius:12px 12px 12px 2px;max-width:85%;font-size:0.8rem;line-height:1.4;';
+    botBubble.innerHTML = '<span style="opacity:0.5">Typing...</span>';
+    log.appendChild(botBubble);
+    log.scrollTop = log.scrollHeight;
+
+    try {
+      var payload = {
+        contents: chatHistory,
+        systemInstruction: getSystemContext()
+      };
+
+      // Assuming worker is configured in production, otherwise change endpoint.
+      // In development, the user might test this locally using Wrangler.
+      const ENDPOINT = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') 
+                       ? 'http://127.0.0.1:8787/api/ai-coach' 
+                       : 'https://muscleos-access-control.muscleos.workers.dev/api/ai-coach';
+
+      var res = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if(!res.ok) throw new Error('API Error');
+      
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder("utf-8");
+      
+      botBubble.innerHTML = '';
+      let botText = '';
+      
+      while(true) {
+        const {done, value} = await reader.read();
+        if(done) break;
+        const chunk = decoder.decode(value, {stream: true});
+        const lines = chunk.split('\n');
+        for(let line of lines) {
+          if(line.startsWith('data: ') && line !== 'data: [DONE]') {
+            try {
+              const data = JSON.parse(line.substring(6));
+              if(data.choices && data.choices[0].delta && data.choices[0].delta.content) {
+                botText += data.choices[0].delta.content;
+                // Improved Markdown Renderer
+                  let htmlText = botText
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                    .replace(/\n/g, '<br>')
+                    .replace(/<br>\s*-\s/g, '<br>&bull; ')
+                    .replace(/^-\s/g, '&bull; ');
+                botBubble.innerHTML = htmlText;
+                log.scrollTop = log.scrollHeight;
+              }
+            } catch(e) {}
+          }
+        }
+      }
+
+      chatHistory.push({ role: 'model', text: botText });
+
+    } catch(err) {
+      botBubble.innerHTML = '<span style="color:#f44336">Error: Could not reach AI Coach. Please try again later.</span>';
+    }
+  }
+
+  sendBtn.addEventListener('click', sendMessage);
+  input.addEventListener('keypress', function(e) {
+    if(e.key === 'Enter') sendMessage();
+  });
+
+})();
 </script>
 </body>
 </html>

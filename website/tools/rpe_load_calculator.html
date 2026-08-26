@@ -1504,7 +1504,16 @@ select option{background:#1E1E2A;color:#FAFAF8}
     network: 'Network error. Please try again.'
   };
   function getSub(){ try { return JSON.parse(localStorage.getItem(SUB_KEY) || 'null'); } catch(e){ return null; } }
-  function subOk(s){ return !!(s && s.active && (!s.expiry || new Date(s.expiry + 'T23:59:59') > new Date())); }
+  function subOk(s){
+    if (s && s.active && (!s.expiry || new Date(s.expiry + 'T23:59:59') > new Date())) return true;
+    var start = localStorage.getItem('mos_trial_start');
+    if (!start) {
+      start = new Date().toISOString();
+      localStorage.setItem('mos_trial_start', start);
+    }
+    var daysLeft = 7 - Math.floor((Date.now() - new Date(start).getTime()) / 86400000);
+    return daysLeft > 0;
+  }
   function hideGate(){ var g = document.getElementById('googleGate'); if (g) g.classList.add('gate-hidden'); }
   window.MosAccess = { requireGoogleAuth: function(o, cb){ try { cb(!!subOk(getSub())); } catch(e){ cb(false); } } };
   function buildCard(g){

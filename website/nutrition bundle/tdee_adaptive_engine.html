@@ -252,13 +252,24 @@ select option{background:#1A1B26;color:#FAFAF8}
  #mobileCtaBar{display:flex}
  body{padding-bottom:76px}
 }
+
+/* Decision Engine — Coach Intelligence card */
+.engine-recs-card{background:rgba(244,201,59,.04);border:1px solid rgba(244,201,59,.18);border-radius:10px;padding:10px 12px;margin-top:10px;font-size:.68rem}
+.engine-recs-card .ec-header{font-family:'Oswald',sans-serif;font-size:.72rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.engine-recs-card .ec-sub{font-size:.6rem;color:rgba(250,250,248,.45);margin-bottom:6px;line-height:1.4}
+.engine-rule-chip{display:inline-block;font-size:.5rem;background:rgba(244,201,59,.1);border:1px solid rgba(244,201,59,.3);color:#F4C93B;border-radius:10px;padding:1px 8px;margin:0 4px 4px 0;font-weight:600}
+.engine-note{font-size:.58rem;color:rgba(250,250,248,.6);line-height:1.4;padding-top:4px;border-top:1px solid rgba(250,250,248,.06);margin-top:4px}
 </style>
 <script async defer src="https://accounts.google.com/gsi/client"></script>
+<script>window.MOS_ASSET_ROOT='../assets/data';</script>
+<script src="../assets/js/decision-engine.js"></script>
+<script>if(window.DecisionEngine){window.DecisionEngine.init(window.MOS_ASSET_ROOT);}</script>
 </head>
 <body>
 <nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a><a href="../index.html#packages">Coaching</a></div></div></nav>
 <div class="sub-overlay" id="subOverlay">
- <div class="sub-modal">
+ <div class="sub-modal" style="position:relative;">
+ <button data-modal-close="1" onclick="document.getElementById('subOverlay').style.display='none'" style="position:absolute; top:12px; right:14px; background:none; border:none; color:rgba(250,250,248,0.5); font-size:1.2rem; cursor:pointer; line-height:1;" title="Close">✕</button>
  <div class="lock-icon">&#128274;</div>
  <h2>Pro Tool</h2>
  <div class="sub-price">200 EGP / month</div>
@@ -278,14 +289,18 @@ select option{background:#1A1B26;color:#FAFAF8}
  <input type="text" class="sub-code-input" id="subCode" placeholder="Enter your access code" autocomplete="off">
  <button class="sub-verify-btn" id="subVerify">Verify</button>
  </div>
- <div class="sub-error" id="subError">Invalid code. Please check and try again.</div>
+ <div class="sub-error" id="subError">Wrong code. Please check and try again.</div>
  <div class="sub-success" id="subSuccess">Access granted! Reloading tool...</div>
  <div class="sub-nolink" id="subNoLink" style="display:none">No active subscription linked to this account yet. Enter your code below to link it.</div>
  </div>
  <div class="sub-divider">or sign in with Google to link your account</div>
  <div id="authStep1">
  <div class="sub-divider" id="authWelcomeRow" style="display:none"><span id="authWelcome"></span></div>
- <div id="googleSignInBtn" style="display:flex;justify-content:center"></div>
+ <div id="googleSignInBtn" style="display:flex;justify-content:center; min-height:44px;"></div>
+ <div style="display:flex; align-items:center; justify-content:center; gap:6px; margin:8px 0; font-size:0.75rem; color:rgba(250,250,248,0.7); cursor:pointer;">
+   <input type="checkbox" id="staySignedInTdee" checked style="accent-color:#F4C93B; width:14px; height:14px; cursor:pointer;">
+   <label for="staySignedInTdee" style="cursor:pointer; margin:0; text-transform:none; font-weight:400; font-size:0.75rem; color:inherit;">Stay signed in</label>
+ </div>
  <div class="sub-error" id="authStep1Error" style="display:none">Google sign-in failed. Please try again.</div>
  <div style="text-align:center;margin-top:6px"><a href="#" id="subSignOut" style="display:none;font-size:.5rem;color:rgba(250,250,248,.3)">Not you? Switch account</a></div>
  </div>
@@ -296,6 +311,7 @@ select option{background:#1A1B26;color:#FAFAF8}
  <h1>MOS-METABOLIX</h1>
  <p>Adaptive Bio-Expenditure Matrix &amp; Pharmacokinetic Nutrition Engine</p>
  <span class="badge">FLAGSHIP MODULE // MOS-METABOLIX MVP</span>
+ <button id="headerAccountBtnTdee" onclick="document.getElementById('subOverlay').style.display='flex'; if(window.__initGsi) window.__initGsi();" style="display:inline-flex; align-items:center; gap:4px; font-size:0.65rem; font-weight:600; padding:4px 9px; border-radius:4px; border:1px solid rgba(244,201,59,0.3); background:rgba(244,201,59,0.1); color:#F4C93B; cursor:pointer; text-transform:uppercase; margin-left:8px;">👤 Account</button>
  <div style="margin-top:10px">
  <button class="btn-primary" onclick="startInteractiveTour()" style="width:auto;padding:8px 18px;font-size:.78rem;margin-top:0"> Get Started (Interactive Tour)</button>
  </div>
@@ -578,7 +594,18 @@ select option{background:#1A1B26;color:#FAFAF8}
  }
 
  // Macros
- const proteinG = PROTEIN_TARGETS[dietPattern] ? PROTEIN_TARGETS[dietPattern][goalVal] || 1.8 : 1.8;
+   // Muscle OS Decision Engine — protein override (SH-NU-01 / BB-NU-01)
+  let engProteinMult = null;
+  try{
+   if(typeof DecisionEngine !== 'undefined' && DecisionEngine.isLoaded){
+    const engGoal = (goalVal === 'aggressive_loss' || goalVal === 'moderate_loss') ? 'cut'
+      : (goalVal === 'aggressive_gain' || goalVal === 'moderate_gain') ? 'bulk' : 'maintain';
+    const engYrs = (trainingAge === 'novice') ? 1 : (trainingAge === 'advanced' ? 5 : 2);
+    const engRecs = DecisionEngine.applyBookRulesSync({goal: engGoal, experience_years: engYrs, age: a, sex: sex, bodyweight_kg: w, height_cm: h});
+    if(engRecs && engRecs.protein_per_kg) engProteinMult = engRecs.protein_per_kg;
+   }
+  }catch(e){}
+  const proteinG = (engProteinMult || (PROTEIN_TARGETS[dietPattern] ? PROTEIN_TARGETS[dietPattern][goalVal] || 1.8 : 1.8));
  const pG = Math.round(proteinG * w);
 
  const isFL = goalVal==='aggressive_loss'||goalVal==='moderate_loss';
@@ -818,7 +845,27 @@ select option{background:#1A1B26;color:#FAFAF8}
  '<div class="dash-card"><div class="dash-label">Estimated TDEE</div><div class="dash-val">'+targetTDEE+'</div><div class="dash-sub">'+r.bmrMethod+'</div></div>' +
  '</div>';
 
- numbersHtml += '<div class="dash-macro-grid">' +
+   // Decision Engine — Coach Intelligence card
+  try{
+   if(typeof DecisionEngine !== 'undefined' && DecisionEngine.isLoaded){
+    const engGoal2 = (p.goal === 'aggressive_loss' || p.goal === 'moderate_loss') ? 'cut'
+      : (p.goal === 'aggressive_gain' || p.goal === 'moderate_gain') ? 'bulk' : 'maintain';
+    const engYrs2 = (p.trainingAge === 'novice') ? 1 : (p.trainingAge === 'advanced' ? 5 : 2);
+    const eR = DecisionEngine.applyBookRulesSync({goal: engGoal2, experience_years: engYrs2, age: p.age, sex: p.sex, bodyweight_kg: p.weight, height_cm: p.height});
+    if(eR){
+     const eNotes = (eR.program_notes || []).concat(eR.nutrition_notes || []);
+     if(eR.protein_per_kg || eNotes.length){
+      numbersHtml += '<div class="engine-recs-card"><div class="ec-header">&#10003; Coach Intelligence</div><div class="ec-sub">Evidence-based adjustments from the Muscle OS Decision Engine (Schoenfeld, Nippard, NSCA, ACE, IPTA)</div>'+
+       (eR.protein_per_kg ? '<span class="engine-rule-chip">Protein '+eR.protein_per_kg.toFixed(1)+' g/kg</span>' : '') +
+       (eR.rep_range ? '<span class="engine-rule-chip">Rep Range '+eR.rep_range+'</span>' : '') +
+       eNotes.map(function(n){return '<div class="engine-note">&#8226; '+n+'</div>';}).join('') +
+       '</div>';
+     }
+    }
+   }
+  }catch(e){}
+
+numbersHtml += '<div class="dash-macro-grid">' +
  '<div class="dash-macro"><div class="dash-macro-val">'+protein+'</div><div class="dash-macro-lbl">Protein (g)</div></div>' +
  '<div class="dash-macro"><div class="dash-macro-val">'+fat+'</div><div class="dash-macro-lbl">Fat (g)</div></div>' +
  '<div class="dash-macro"><div class="dash-macro-val">'+carbs+'</div><div class="dash-macro-lbl">Carbs (g)</div></div>' +
@@ -891,6 +938,34 @@ select option{background:#1A1B26;color:#FAFAF8}
 
  document.getElementById('dashboardView').style.display = 'block';
  document.getElementById('profileView').style.display = 'none';
+ syncOmniHub();
+ }
+
+ function syncOmniHub() {
+   if (window.parent !== window && window.store && store.profile) {
+     try {
+       const p = store.profile;
+       const r = calcTDEE(p.sex, p.w, p.h, p.a, p.bf, p.trainingAge, p.trainDays, p.sessionLen, p.occupation, p.steps, p.sleep, p.dietPattern, p.goal, p.chronicDiet, p.cyclePhase);
+       let tdeeGoal = r.tdeeGoal;
+       let adjustment = null;
+       if (store.adjustments && store.adjustments.length > 0) {
+         adjustment = store.adjustments[store.adjustments.length - 1];
+         if (adjustment.adjusted) {
+           tdeeGoal = Math.round(tdeeGoal * (1 + adjustment.factor));
+         }
+       }
+       const t = calcTargets(tdeeGoal, p.goal);
+       window.parent.postMessage({
+         type: 'OMNI_SYNC_N',
+         payload: {
+           tdee: tdeeGoal,
+           protein: t.p,
+           carbs: t.c,
+           fats: t.f
+         }
+       }, '*');
+     } catch(e) {}
+   }
  }
 
  function renderWeightTab(){
@@ -1896,9 +1971,28 @@ select option{background:#1A1B26;color:#FAFAF8}
  var API_BASE = 'https://muscleos-access-control.muscleos.workers.dev';
  var GOOGLE_CLIENT_ID = '335156097845-vq52ttt74pak112mn2eet5j3s1k15fn9.apps.googleusercontent.com';
  var PRODUCT_ID = 'tdee_adaptive_engine';
+ var HUB_PRODUCT = 'omni_hub';
+ var hubMode = (window.self !== window.top) && (function(){ try { return sessionStorage.getItem('mos_hub_mode') === '1'; } catch(e){ return false; } })();
+ function deriveProd(code, plan){
+  var p = (code || '').toUpperCase();
+  if (plan === 'master') return 'all_access';
+  if (p.indexOf('OH-') === 0) return 'omni_hub';
+  if (p.indexOf('TR-') === 0) return 'training_tool';
+  if (p.indexOf('MA-') === 0) return 'all_access';
+  if (p.indexOf('TD-') === 0) return 'tdee_adaptive_engine';
+  if (p.indexOf('TB-') === 0) return 'both_tools';
+  if (p.indexOf('BK-') === 0) return 'training_book';
+  if (p.indexOf('BN-') === 0) return 'nutrition_book';
+  if (p.indexOf('BB-') === 0) return 'both_books';
+  return PRODUCT_ID;
+ }
  var sub = null;
  try { sub = JSON.parse(localStorage.getItem(SUB_KEY)); } catch(e){}
- var active = !!(sub && sub.active && new Date(sub.expiry + 'T23:59:59') > new Date());
+ var subProd = sub ? (sub.prodId || deriveProd(sub.code, sub.plan)) : null;
+ var prodOk = !!sub && (sub.plan === 'master' || sub.code === 'OWNER' || (hubMode ? subProd === HUB_PRODUCT : (subProd === PRODUCT_ID || subProd === HUB_PRODUCT)));
+ var active = !!(sub && sub.active && prodOk && new Date(sub.expiry + 'T23:59:59') > new Date());
+ window.__MOS_PRODUCT__ = hubMode ? HUB_PRODUCT : PRODUCT_ID;
+ window.__MOS_GATE__ = function(){ return { active: active, prodId: subProd, plan: sub ? sub.plan : null, hub: hubMode }; };
 
  function getGs(){ try { var g = JSON.parse(localStorage.getItem(GS_KEY)); return (g && g.session) ? g : null; } catch(e){ return null; } }
  function showStep(n){
@@ -1914,22 +2008,25 @@ select option{background:#1A1B26;color:#FAFAF8}
  var el = document.getElementById('subNoLink');
  if(el) el.style.display = show ? 'block' : 'none';
  }
- function pickAccountSub(subs){
- // Worker returns active account-bound subs sorted by expiry desc
- if(!Array.isArray(subs) || !subs.length) return null;
- for(var i = 0; i < subs.length; i++){
- var s = subs[i];
- if(!s) continue;
- if(s.products === 'all') return s;
- if(Array.isArray(s.products) && s.products.indexOf(PRODUCT_ID) !== -1) return s;
- }
- return null;
- }
- function setSub(plan, expiry, token, code, email){
- localStorage.setItem(SUB_KEY, JSON.stringify({ active: true, plan: plan, expiry: expiry, token: token || '', code: code, email: email || '' }));
- }
- function grantAndReload(plan, expiry, token, code, email, quiet){
- setSub(plan, expiry, token, code, email);
+function pickAccountSub(subs){
+  // Worker returns active account-bound subs sorted by expiry desc
+  if(!Array.isArray(subs) || !subs.length) return null;
+  var want = hubMode ? HUB_PRODUCT : PRODUCT_ID;
+  for(var i = 0; i < subs.length; i++){
+  var s = subs[i];
+  if(!s) continue;
+  if(s.products === 'all') return s;
+  if(Array.isArray(s.products) && s.products.indexOf(want) !== -1) return s;
+if(Array.isArray(s.products) && s.products.indexOf('omni_hub') !== -1 && (want === 'training_tool' || want === 'tdee_adaptive_engine')) return s;
+  }
+  return null;
+  }
+  function subProdOf(s){ return s ? (s.products === 'all' ? 'all_access' : (Array.isArray(s.products) && s.products.length === 1 ? s.products[0] : null)) : null; }
+  function setSub(plan, expiry, token, code, email, prodId){
+  localStorage.setItem(SUB_KEY, JSON.stringify({ active: true, plan: plan, expiry: expiry, token: token || '', code: code, email: email || '', prodId: prodId || deriveProd(code, plan) }));
+  }
+  function grantAndReload(plan, expiry, token, code, email, quiet, prodId){
+  setSub(plan, expiry, token, code, email, prodId);
  showStep(2);
  document.getElementById('subError').style.display = 'none';
  document.getElementById('subSuccess').style.display = 'block';
@@ -1943,14 +2040,15 @@ select option{background:#1A1B26;color:#FAFAF8}
  fetch(API_BASE + '/api/verify-code', {
  method: 'POST',
  headers: { 'Content-Type': 'application/json' },
- body: JSON.stringify({ code: code, productId: 'tdee_adaptive_engine', session: gs ? gs.session : undefined })
- }).then(function(r){ return r.json(); }).then(function(data){
- if(data && data.valid){
- grantAndReload(data.plan || 'pro_tdee', (data.expiresAt || '').slice(0, 10), data.token || '', code, email);
+body: JSON.stringify({ code: code, productId: hubMode ? 'omni_hub' : 'tdee_adaptive_engine', session: gs ? gs.session : undefined })
+  }).then(function(r){ return r.json(); }).then(function(data){
+  if(data && data.valid){
+  grantAndReload(data.plan || 'pro_tdee', (data.expiresAt || '').slice(0, 10), data.token || '', code, email, false, data.productId);
  } else {
- var msg = 'Invalid code. Please check and try again.';
+ var msg = 'Wrong code. Please check and try again.';
  if(data && data.error === 'code_used_by_other') msg = 'This code is already linked to another account.';
  if(data && data.error === 'code_exhausted') msg = 'This code has already been used.';
+if(data && data.error === 'wrong_product') msg = 'This code unlocks the OMNI HUB app — open the OMNI HUB to use it here.';
  if(data && data.error === 'invalid_session'){
  localStorage.removeItem(GS_KEY);
  showStep(1);
@@ -1968,109 +2066,168 @@ select option{background:#1A1B26;color:#FAFAF8}
  btn.textContent = 'Verify';
  });
  }
- function finishGoogle(data){
- localStorage.setItem(GS_KEY, JSON.stringify({ session: data.session, email: data.email, name: data.name || '', ts: Date.now() }));
- if(data.email.toUpperCase() === OWNER_EMAIL){
- var expiry = new Date(); expiry.setMonth(expiry.getMonth() + 1);
- grantAndReload('pro_tdee', expiry.toISOString().split('T')[0], '', 'OWNER', data.email);
- return;
- }
- var linked = pickAccountSub(data.subscriptions);
- if(linked){
- grantAndReload(linked.plan || 'pro_tdee', (linked.expiresAt || '').slice(0, 10), '', linked.code, data.email, true);
- return;
- }
- document.getElementById('authWelcome').textContent = 'Signed in as ' + (data.name || data.email);
- showStep(2);
- showNoLink(true);
- }
- function initGsi(){
- var host = document.getElementById('googleSignInBtn');
- if(!host || host.getAttribute('data-gsi')) return;
- host.setAttribute('data-gsi', '1');
- if(typeof google === 'undefined' || !google.accounts || !google.accounts.id){ setTimeout(initGsi, 300); return; }
- google.accounts.id.initialize({
- client_id: GOOGLE_CLIENT_ID,
- callback: function(resp){
- if(!resp || !resp.credential){ showErr('authStep1Error', 'Google sign-in failed. Please try again.'); return; }
- fetch(API_BASE + '/api/auth/google', {
- method: 'POST',
- headers: { 'Content-Type': 'application/json' },
- body: JSON.stringify({ token: resp.credential })
- }).then(function(r){ return r.json(); }).then(function(data){
- if(data && data.valid) finishGoogle(data);
- else showErr('authStep1Error', 'Google sign-in failed. Please try again.');
- }).catch(function(){
- showErr('authStep1Error', 'Network error. Please try again.');
- });
- }
- });
- google.accounts.id.renderButton(host, { theme: 'outline', size: 'large', width: 280 });
- }
 
- if(!active){
- document.getElementById('subOverlay').style.display = 'flex';
- var gs = getGs();
- var started = false;
- function start(){
- if(started) return;
- started = true;
- if(gs){
- fetch(API_BASE + '/api/check-session', {
- method: 'POST',
- headers: { 'Content-Type': 'application/json' },
- body: JSON.stringify({ session: gs.session })
- }).then(function(r){ return r.json(); }).then(function(data){
- if(data && data.valid){
- var linked = pickAccountSub(data.subscriptions);
- if(linked){
- grantAndReload(linked.plan || 'pro_tdee', (linked.expiresAt || '').slice(0, 10), '', linked.code, gs.email, true);
- return;
- }
- document.getElementById('authWelcome').textContent = 'Signed in as ' + (gs.name || gs.email);
- showStep(2);
- showNoLink(true);
- } else {
- localStorage.removeItem(GS_KEY);
- showStep(1);
- showNoLink(false);
- initGsi();
- }
- }).catch(function(){
- document.getElementById('authWelcome').textContent = 'Signed in as ' + (gs.name || gs.email);
- showStep(2);
- });
- } else {
- showStep(1);
- initGsi();
- }
- }
- start();
+  function finishGoogle(data){
+    localStorage.setItem(GS_KEY, JSON.stringify({ session: data.session, email: data.email, name: data.name || '', ts: Date.now() }));
+    if(data.email.toUpperCase() === OWNER_EMAIL){
+      var expiry = new Date(); expiry.setMonth(expiry.getMonth() + 1);
+      grantAndReload('pro_tdee', expiry.toISOString().split('T')[0], '', 'OWNER', data.email);
+      return;
+    }
+    var linked = pickAccountSub(data.subscriptions);
+    if(linked){
+      grantAndReload(linked.plan || 'pro_tdee', (linked.expiresAt || '').slice(0, 10), '', linked.code, data.email, true, subProdOf(linked));
+      return;
+    }
+    document.getElementById('authWelcome').textContent = 'Signed in as ' + (data.name || data.email);
+    showStep(2);
+    showNoLink(true);
+  }
 
- document.getElementById('subVerify').addEventListener('click', function(){
- var btn = document.getElementById('subVerify');
- var code = document.getElementById('subCode').value.trim().toUpperCase();
- if(!code){ showErr('subError', 'Invalid code. Please check and try again.'); return; }
- var g = getGs();
- var email = g ? g.email : '';
- if(email.toUpperCase() === OWNER_EMAIL){
- var expiry = new Date(); expiry.setMonth(expiry.getMonth() + 1);
- grantAndReload('pro_tdee', expiry.toISOString().split('T')[0], '', 'OWNER', email);
- return;
- }
- verifyCode(code, email, btn);
- });
- document.getElementById('subCode').addEventListener('keydown', function(e){
- if(e.key === 'Enter') document.getElementById('subVerify').click();
- });
- document.getElementById('subSignOut').addEventListener('click', function(e){
- e.preventDefault();
- localStorage.removeItem(GS_KEY);
- showStep(1);
- showNoLink(false);
- initGsi();
- });
- }
+  function initGsi(){
+    var host = document.getElementById('googleSignInBtn');
+    if(!host || host.getAttribute('data-gsi')) return;
+    host.setAttribute('data-gsi', '1');
+    if(typeof google === 'undefined' || !google.accounts || !google.accounts.id){ setTimeout(initGsi, 300); return; }
+    google.accounts.id.initialize({
+      client_id: GOOGLE_CLIENT_ID,
+      callback: function(resp){
+        if(!resp || !resp.credential){ showErr('authStep1Error', 'Google sign-in failed. Please try again.'); return; }
+        fetch(API_BASE + '/api/auth/google', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: resp.credential })
+        }).then(function(r){ return r.json(); }).then(function(data){
+          if(data && data.valid) finishGoogle(data);
+          else showErr('authStep1Error', 'Google sign-in failed. Please try again.');
+        }).catch(function(){
+          showErr('authStep1Error', 'Network error. Please try again.');
+        });
+      }
+    });
+    google.accounts.id.renderButton(host, { theme: 'outline', size: 'large', width: 280 });
+  }
+
+  // ─── Trial + Paywall Gate ───
+  var TRIAL_DAYS = 7;
+  function getTrialState(){
+    var start = localStorage.getItem('mos_tdee_trial_start') || localStorage.getItem('mos_trial_start');
+    if(!start){
+      start = new Date().toISOString();
+      localStorage.setItem('mos_tdee_trial_start', start);
+      if(!localStorage.getItem('mos_trial_start')) localStorage.setItem('mos_trial_start', start);
+    }
+    var daysLeft = TRIAL_DAYS - Math.floor((Date.now() - new Date(start).getTime()) / 864e5);
+    return { start: start, daysLeft: Math.max(0, daysLeft), active: daysLeft > 0 };
+  }
+  var trial = getTrialState();
+
+  if(active){
+    if (sub && sub.token) {
+      fetch(API_BASE + '/api/check-token', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: sub.token, productId: 'tdee_adaptive_engine' })
+      }).then(function(r){ return r.json(); }).then(function(d){
+        if (d && !d.valid) {
+          localStorage.removeItem('mos_subscription');
+          location.reload();
+        }
+      }).catch(function(){});
+    }
+  } else if(trial.active){
+    var pill = document.getElementById('trialPill');
+    if(!pill){
+      pill = document.createElement('span');
+      pill.id = 'trialPill';
+      pill.style.cssText = 'display:inline-flex;align-items:center;gap:4px;font-size:.55rem;color:#F4C93B;border:1px solid rgba(244,201,59,.25);background:rgba(244,201,59,.06);border-radius:20px;padding:3px 10px;margin-top:6px;font-weight:600;letter-spacing:1px;text-transform:uppercase;';
+      pill.innerHTML = 'TRIAL: ' + trial.daysLeft + ' DAYS LEFT';
+      var header = document.querySelector('.header');
+      if(header) header.appendChild(pill);
+    }
+  } else {
+    var overlay = document.getElementById('subOverlay');
+    if(overlay) overlay.style.display = 'flex';
+    var modal = document.querySelector('.sub-modal');
+    var el = document.getElementById('trialExpiredNote');
+    if(!el && modal){
+      el = document.createElement('div');
+      el.id = 'trialExpiredNote';
+      el.className = 'sub-error';
+      el.style.display = 'block';
+      el.style.marginBottom = '15px';
+      el.textContent = 'Your 7-day trial has ended. Subscribe or enter code to continue.';
+      var anchor = modal.querySelector('#authStep2') || modal.lastElementChild;
+      if(anchor) modal.insertBefore(el, anchor);
+    }
+    var gs = getGs();
+    var started = false;
+    function start(){
+      if(started) return;
+      started = true;
+      if(gs){
+        fetch(API_BASE + '/api/check-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ session: gs.session })
+        }).then(function(r){ return r.json(); }).then(function(data){
+          if(data && data.valid){
+            var linked = pickAccountSub(data.subscriptions);
+            if(linked){
+              grantAndReload(linked.plan || 'pro_tdee', (linked.expiresAt || '').slice(0, 10), '', linked.code, gs.email, true, subProdOf(linked));
+              return;
+            }
+            document.getElementById('authWelcome').textContent = 'Signed in as ' + (gs.name || gs.email);
+            showStep(2);
+            showNoLink(true);
+          } else {
+            localStorage.removeItem(GS_KEY);
+            showStep(1);
+            showNoLink(false);
+            initGsi();
+          }
+        }).catch(function(){
+          document.getElementById('authWelcome').textContent = 'Signed in as ' + (gs.name || gs.email);
+          showStep(2);
+        });
+      } else {
+        showStep(1);
+        initGsi();
+      }
+    }
+    start();
+
+    var vBtn = document.getElementById('subVerify');
+    if(vBtn){
+      vBtn.addEventListener('click', function(){
+        var code = document.getElementById('subCode').value.trim().toUpperCase();
+        if(!code){ showErr('subError', 'Wrong code. Please check and try again.'); return; }
+        var g = getGs();
+        var email = g ? g.email : '';
+        if(email.toUpperCase() === OWNER_EMAIL){
+          var expiry = new Date(); expiry.setMonth(expiry.getMonth() + 1);
+          grantAndReload('pro_tdee', expiry.toISOString().split('T')[0], '', 'OWNER', email);
+          return;
+        }
+        verifyCode(code, email, vBtn);
+      });
+    }
+    var subCodeInput = document.getElementById('subCode');
+    if(subCodeInput){
+      subCodeInput.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' && vBtn) vBtn.click();
+      });
+    }
+    var subSignOutBtn = document.getElementById('subSignOut');
+    if(subSignOutBtn){
+      subSignOutBtn.addEventListener('click', function(e){
+        e.preventDefault();
+        localStorage.removeItem(GS_KEY);
+        showStep(1);
+        showNoLink(false);
+        initGsi();
+      });
+    }
+  }
 })();
 </script>
 
@@ -2081,5 +2238,12 @@ select option{background:#1A1B26;color:#FAFAF8}
 </div>
 <script src="./update_notifier.js"></script>
 <script src="../js/auth.js"></script>
+<script>
+if (window.self !== window.top) {
+  var style = document.createElement('style');
+  style.innerHTML = '#mobileCtaBar { display: none !important; } body { padding-bottom: 30px !important; }';
+  document.head.appendChild(style);
+}
+</script>
 </body>
 </html>

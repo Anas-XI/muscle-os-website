@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muscle OS — Business Model</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f1015;
+    --ink-2: rgba(30, 32, 39, 0.6);
+    --ink-3: rgba(38, 40, 47, 0.7);
+    --yellow: #F4C93B;
+    --yellow-dim: #C9A227;
+    --yellow-glow: rgba(244, 201, 59, 0.3);
+    --paper: #FAFAF8;
+    --gray: #8A8D96;
+    --gray-dark: #5B5F68;
+    --line: rgba(244, 201, 59, 0.15);
+    --line-light: #E4E1D8;
+    --green: #34D399;
+    --red: #F87171;
+    --blue: #60A5FA;
+    --purple: #A78BFA;
+    --orange: #FB923C;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', Arial, sans-serif;
+    background: var(--ink);
+    background-image: radial-gradient(circle at top right, #1f1b0a 0%, #0f1015 50%);
+    color: #fff;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  .display { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  a { color: inherit; text-decoration: none; }
+
+  /* --- NAV --- */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(15,16,21,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding: 0 24px;
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .brand { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: 0.5px; text-transform: uppercase; }
+  .brand span { color: var(--yellow); }
+  .nav-links { display: flex; gap: 28px; font-size: 12px; font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase; }
+  .nav-links a { color: #999; transition: color .3s; }
+  .nav-links a:hover { color: var(--yellow); }
+
+  /* --- SECTIONS --- */
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 100px 0; }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    color: var(--yellow); text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 700; text-transform: uppercase;
+    line-height: 1.1; margin-bottom: 20px;
+  }
+  .section-sub {
+    font-size: 16px; color: var(--gray); max-width: 640px; line-height: 1.7;
+  }
+
+  /* --- HERO --- */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding-top: 60px;
+    position: relative; overflow: hidden;
+  }
+  .hero-shard {
+    position: absolute; top: 0; right: 0; width: 38%; height: 100%;
+    background: linear-gradient(135deg, var(--yellow), transparent);
+    opacity: 0.06;
+    transform: skewX(-12deg) translateX(15%);
+  }
+  .hero-content { position: relative; z-index: 2; padding: 80px 0; }
+  .hero h1 {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 700; text-transform: uppercase;
+    line-height: 0.95; margin-bottom: 24px;
+  }
+  .hero h1 span { color: var(--yellow); text-shadow: 0 0 30px var(--yellow-glow); }
+  .hero-sub { font-size: 18px; color: var(--gray); max-width: 560px; line-height: 1.7; margin-bottom: 40px; }
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+    max-width: 700px;
+  }
+  .hero-stat-val {
+    font-family: 'Oswald', sans-serif;
+    font-size: 36px; font-weight: 700; color: var(--yellow);
+  }
+  .hero-stat-label { font-size: 12px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+
+  /* --- CARDS --- */
+  .card-grid { display: grid; gap: 20px; }
+  .card-grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .card-grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .card-grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 32px;
+    transition: all .3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    border-color: var(--yellow);
+    box-shadow: 0 0 30px rgba(244,201,59,0.08);
+    transform: translateY(-2px);
+  }
+  .card-icon {
+    width: 48px; height: 48px;
+    background: rgba(244,201,59,0.1);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; margin-bottom: 20px;
+  }
+  .card h3 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 18px; font-weight: 600; text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .card p { font-size: 14px; color: var(--gray); line-height: 1.7; }
+  .card-badge {
+    position: absolute; top: 20px; right: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 700;
+    padding: 4px 10px; border-radius: 20px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .badge-live { background: rgba(52,211,153,0.15); color: var(--green); }
+  .badge-dev { background: rgba(96,165,250,0.15); color: var(--blue); }
+  .badge-explore { background: rgba(167,139,250,0.15); color: var(--purple); }
+  .badge-paid { background: rgba(244,201,59,0.15); color: var(--yellow); }
+  .badge-free { background: rgba(255,255,255,0.08); color: #aaa; }
+
+  /* --- PRICING TABLE --- */
+  .pricing-section { background: rgba(255,255,255,0.02); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); }
+  .pricing-header { text-align: center; padding: 48px 32px 0; }
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+  .pricing-col { padding: 32px; border-right: 1px solid rgba(255,255,255,0.05); }
+  .pricing-col:last-child { border-right: none; }
+  .pricing-col-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--gray); margin-bottom: 20px;
+  }
+  .pricing-item {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .pricing-item:last-child { border-bottom: none; }
+  .pricing-name { font-size: 14px; font-weight: 600; }
+  .pricing-price {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; font-weight: 700; color: var(--yellow);
+  }
+  .pricing-note { font-size: 11px; color: var(--gray-dark); margin-top: 2px; }
+
+  /* --- PIPELINE --- */
+  .pipeline { display: flex; align-items: stretch; gap: 0; position: relative; }
+  .pipeline::before {
+    content: ''; position: absolute; top: 50%; left: 40px; right: 40px;
+    height: 2px; background: linear-gradient(90deg, var(--yellow), var(--yellow-dim), transparent);
+    opacity: 0.3;
+  }
+  .pipe-step {
+    flex: 1; text-align: center; padding: 32px 16px;
+    position: relative; z-index: 1;
+  }
+  .pipe-num {
+    width: 40px; height: 40px;
+    background: var(--ink);
+    border: 2px solid var(--yellow);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 700; color: var(--yellow);
+    margin: 0 auto 16px;
+  }
+  .pipe-step h4 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px; font-weight: 600; text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .pipe-step p { font-size: 12px; color: var(--gray); line-height: 1.6; }
+
+  /* --- REVENUE TABLE --- */
+  table {
+    width: 100%; border-collapse: collapse;
+  }
+  table th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1px;
+    color: var(--yellow);
+    text-align: left;
+    padding: 16px 20px;
+    border-bottom: 2px solid rgba(244,201,59,0.2);
+  }
+  table td {
+    font-size: 14px;
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    color: #ccc;
+  }
+  table tr:hover td { background: rgba(244,201,59,0.03); }
+  .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 700;
+    padding: 3px 8px; border-radius: 4px;
+    text-transform: uppercase;
+  }
+  .tag-sub { background: rgba(244,201,59,0.12); color: var(--yellow); }
+  .tag-otp { background: rgba(52,211,153,0.12); color: var(--green); }
+  .tag-coach { background: rgba(167,139,250,0.12); color: var(--purple); }
+  .tag-free { background: rgba(255,255,255,0.06); color: #999; }
+
+  /* --- COMPETITOR --- */
+  .comp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .comp-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 24px;
+  }
+  .comp-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .comp-card .comp-price {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: var(--yellow); margin-bottom: 10px;
+  }
+  .comp-card p { font-size: 12px; color: var(--gray); line-height: 1.6; }
+
+  /* --- METRIC CARDS --- */
+  .metric-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .metric-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 24px; text-align: center;
+  }
+  .metric-val {
+    font-family: 'Oswald', sans-serif;
+    font-size: 32px; font-weight: 700; color: var(--yellow);
+  }
+  .metric-label { font-size: 12px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 6px; }
+
+  /* --- TIMELINE --- */
+  .timeline { position: relative; padding-left: 40px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 15px; top: 0; bottom: 0;
+    width: 2px; background: linear-gradient(180deg, var(--yellow), var(--yellow-dim), rgba(244,201,59,0.1));
+  }
+  .tl-item { position: relative; margin-bottom: 40px; }
+  .tl-item::before {
+    content: ''; position: absolute; left: -33px; top: 6px;
+    width: 12px; height: 12px;
+    background: var(--yellow); border-radius: 50%;
+    box-shadow: 0 0 10px var(--yellow-glow);
+  }
+  .tl-item .tl-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 700; color: var(--yellow);
+    text-transform: uppercase; letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .tl-item h4 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 18px; font-weight: 600; text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .tl-item p { font-size: 14px; color: var(--gray); line-height: 1.7; }
+
+  /* --- FOOTER --- */
+  footer {
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 40px 0;
+    text-align: center;
+    font-size: 13px; color: var(--gray-dark);
+  }
+  footer a { color: var(--yellow); }
+
+  /* --- DIVIDER --- */
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(244,201,59,0.2), transparent); margin: 0; }
+
+  /* --- FLOW CHART --- */
+  .flow-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 32px; }
+  .flow-box {
+    background: rgba(244,201,59,0.06);
+    border: 1px solid rgba(244,201,59,0.15);
+    border-radius: 8px;
+    padding: 20px 16px;
+    text-align: center;
+    position: relative;
+  }
+  .flow-box::after {
+    content: '→';
+    position: absolute; right: -18px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--yellow); font-size: 18px; font-weight: 700;
+    opacity: 0.5;
+  }
+  .flow-box:last-child::after { display: none; }
+  .flow-box h5 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px; font-weight: 600; text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .flow-box p { font-size: 11px; color: var(--gray); }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 1024px) {
+    .card-grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .metric-grid { grid-template-columns: repeat(2, 1fr); }
+    .pipeline { flex-wrap: wrap; }
+    .pipeline::before { display: none; }
+    .pipe-step { flex: 0 0 50%; }
+    .comp-grid { grid-template-columns: repeat(2, 1fr); }
+    .flow-grid { grid-template-columns: repeat(3, 1fr); }
+    .flow-box:nth-child(3)::after { display: none; }
+  }
+  @media (max-width: 768px) {
+    .card-grid-2, .card-grid-3, .pricing-grid { grid-template-columns: 1fr; }
+    .pricing-col { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .pricing-col:last-child { border-bottom: none; }
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    .comp-grid { grid-template-columns: 1fr; }
+    .flow-grid { grid-template-columns: 1fr; }
+    .flow-box::after { display: none; }
+    .nav-links { display: none; }
+    .pipe-step { flex: 0 0 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="brand">Muscle <span>OS</span></div>
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#products">Products</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#engine">Engine</a>
+      <a href="#revenue">Revenue</a>
+      <a href="#market">Market</a>
+      <a href="#roadmap">Roadmap</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-shard"></div>
+  <div class="wrap">
+    <div class="hero-content">
+      <div class="section-label">Business Model — 2026</div>
+      <h1>Muscle <span>OS</span></h1>
+      <p class="hero-sub">An AI-native, evidence-based fitness coaching ecosystem. Deterministic decision engines meet LLM-powered coaching — serving intermediate-to-advanced lifters who've outgrown generic advice.</p>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-val">6+</div>
+          <div class="hero-stat-label">Products</div>
+        </div>
+        <div>
+          <div class="hero-stat-val">9</div>
+          <div class="hero-stat-label">Delivery Channels</div>
+        </div>
+        <div>
+          <div class="hero-stat-val">277</div>
+          <div class="hero-stat-label">Vault Documents</div>
+        </div>
+        <div>
+          <div class="hero-stat-val">35+</div>
+          <div class="hero-stat-label">Decision Rules</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXECUTIVE OVERVIEW -->
+<section id="overview">
+  <div class="wrap">
+    <div class="section-label">01 — Executive Summary</div>
+    <div class="section-title">What We Build</div>
+    <p class="section-sub" style="margin-bottom:48px;">Muscle OS combines deterministic program generation, a 277-document research vault with FAISS semantic search and graph-enhanced RAG, and LLM-powered coaching — delivered across web tools, Telegram, mobile, and desktop.</p>
+
+    <div class="card-grid card-grid-4">
+      <div class="card">
+        <div class="card-icon">🧠</div>
+        <h3>Vault Intelligence</h3>
+        <p>277 documents, 1,563 RAG chunks, 606-node knowledge graph. Research from Schoenfeld, Nippard, NSCA, ACE, ISSA, IPTA.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h3>Decision Engine</h3>
+        <p>35+ rule BookDecisionEngine, 9-dimension safety triage, constraint resolution, and pillar assignment — all deterministic.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📱</div>
+        <h3>Multi-Channel</h3>
+        <p>Web tools, Telegram bot, mobile app (Expo), desktop (Electron). Same core engine across all channels.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌍</div>
+        <h3>Bilingual</h3>
+        <p>Full English and Arabic support with RTL. French variants for books. Dual-currency EGP/USD with geo-detection.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="wrap">
+    <div class="section-label">02 — Products & Services</div>
+    <div class="section-title">Complete Product Suite</div>
+    <p class="section-sub" style="margin-bottom:48px;">Three revenue tiers: subscription SaaS tools, one-time digital products, and high-touch coaching packages.</p>
+
+    <!-- PAID TOOLS -->
+    <h3 style="font-family:'Oswald',sans-serif; font-size:20px; text-transform:uppercase; margin-bottom:20px; color:var(--yellow);">Paid Subscription Tools</h3>
+    <div class="card-grid card-grid-3" style="margin-bottom:48px;">
+      <div class="card">
+        <span class="card-badge badge-live">Live</span>
+        <div class="card-icon">🏋️</div>
+        <h3>Training App PRO</h3>
+        <p>Full in-browser training application. 10-question intake → priority muscle scoring → split selection → exercise selection with evidence ranking → volume allocation (MEV/MAV/MRV) → mesocycle planning with deload protocols. Session logger with RPE/RIR, PR detection, ACWR monitoring, plateau detection. ~2,942 lines.</p>
+      </div>
+      <div class="card">
+        <span class="card-badge badge-live">Live</span>
+        <div class="card-icon">📊</div>
+        <h3>TDEE Adaptive Engine</h3>
+        <p>Dynamic TDEE calculation (Mifflin-St Jeor / Katch-McArdle), auto-recalibration from 2+ weeks of data, goal-oriented macro splitting, daily weight + calorie logging with trend graphs, CSV export, biometric adjustments.</p>
+      </div>
+      <div class="card">
+        <span class="card-badge badge-live">Live</span>
+        <div class="card-icon">🔗</div>
+        <h3>Omni Hub</h3>
+        <p>Unified dashboard combining Training + Nutrition. Cross-tool synergy: fatigue-driven nutrition (high fatigue → carb boost), deload caloric tapering, contextual fueling prompts. Shared state via postMessage bus.</p>
+      </div>
+    </div>
+
+    <!-- DIGITAL BOOKS -->
+    <h3 style="font-family:'Oswald',sans-serif; font-size:20px; text-transform:uppercase; margin-bottom:20px; color:var(--green);">Digital Books & Content</h3>
+    <div class="card-grid card-grid-3" style="margin-bottom:48px;">
+      <div class="card">
+        <span class="card-badge badge-paid">Paid</span>
+        <div class="card-icon">📖</div>
+        <h3>Training Book</h3>
+        <p>27 chapters, 200+ references. A4 print-ready PDF. Covers hypertrophy programming, periodization, exercise selection, volume landmarks, deload science.</p>
+      </div>
+      <div class="card">
+        <span class="card-badge badge-paid">Paid</span>
+        <div class="card-icon">🍎</div>
+        <h3>Nutrition Book</h3>
+        <p>33 chapters, 200+ references. A4 print-ready. Also available in Arabic and French. Covers macro science, diet periodization, carb cycling, recomp protocols.</p>
+      </div>
+      <div class="card">
+        <span class="card-badge badge-paid">Paid</span>
+        <div class="card-icon">📚</div>
+        <h3>Specialized Books</h3>
+        <p>Hormonal, Recovery, Sleep, Strength books. Plus a Master Book (all-in-one compilation). Sample versions available free.</p>
+      </div>
+    </div>
+
+    <!-- BUNDLES -->
+    <h3 style="font-family:'Oswald',sans-serif; font-size:20px; text-transform:uppercase; margin-bottom:20px; color:var(--purple);">Bundles</h3>
+    <div class="card-grid card-grid-2" style="margin-bottom:48px;">
+      <div class="card">
+        <div class="card-icon">📦</div>
+        <h3>Training Bundle — 500 EGP</h3>
+        <p>Training book + split quiz + volume calc + RPE calc + deload decision tree + quick start guide + TDEE engine + training app access.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📦</div>
+        <h3>Nutrition Bundle — 500 EGP</h3>
+        <p>Nutrition book + macro calc + consistency workbook + diet quick start + recomp cheat sheet + plateau decision tree + TDEE engine access.</p>
+      </div>
+    </div>
+
+    <!-- FREE TOOLS -->
+    <h3 style="font-family:'Oswald',sans-serif; font-size:20px; text-transform:uppercase; margin-bottom:20px; color:var(--gray);">Free Tools & Guides</h3>
+    <div class="card-grid card-grid-3" style="margin-bottom:48px;">
+      <div class="card">
+        <span class="card-badge badge-free">Free</span>
+        <div class="card-icon">🧮</div>
+        <h3>Calculators</h3>
+        <p>TDEE & Macro Calculator, Volume & Set Calculator, RPE Load Calculator. All browser-based, no login required.</p>
+      </div>
+      <div class="card">
+        <span class="card-badge badge-free">Free</span>
+        <div class="card-icon">🎯</div>
+        <h3>Split Selector Quiz</h3>
+        <p>8-question quiz that recommends the optimal training split (PPL/Upper-Lower/Full Body) based on experience, goals, and schedule.</p>
+      </div>
+      <div class="card">
+        <span class="card-badge badge-free">Free</span>
+        <div class="card-icon">📋</div>
+        <h3>Printable Guides</h3>
+        <p>Training Quick Start, Diet Quick Start, Deload Decision Tree, Plateau Decision Tree, Recomp Protocol Cheat Sheet, Consistency Workbook.</p>
+      </div>
+    </div>
+
+    <!-- COACHING -->
+    <h3 style="font-family:'Oswald',sans-serif; font-size:20px; text-transform:uppercase; margin-bottom:20px; color:var(--orange);">Coaching Packages</h3>
+    <div class="card-grid card-grid-2" style="margin-bottom:48px;">
+      <div class="card">
+        <div class="card-icon">🤝</div>
+        <h3>Standard Coaching</h3>
+        <p>600 EGP/mo or 1,500 EGP/3mo. Weekly check-ins, real-time adjustments, basic nutrition guidance, DM access, 66.6% off all tools.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">👑</div>
+        <h3>Premium Coaching</h3>
+        <p>1,000 EGP/mo or 2,500 EGP/3mo. Standard + custom nutrition/carb cycling, priority response, video calls, early Muscle OS access, all tools free.</p>
+      </div>
+    </div>
+
+    <!-- CHANNELS -->
+    <h3 style="font-family:'Oswald',sans-serif; font-size:20px; text-transform:uppercase; margin-bottom:20px; color:var(--blue);">Delivery Channels</h3>
+    <div class="card-grid card-grid-3">
+      <div class="card">
+        <span class="card-badge badge-live">Active</span>
+        <h3>Telegram Bot</h3>
+        <p>Primary channel. 28-question intake, safety triage, vault RAG program generation, PDF delivery, weekly check-ins, AI coach chat.</p>
+      </div>
+      <div class="card">
+        <span class="card-badge badge-live">Live</span>
+        <h3>Website & Tools</h3>
+        <p>Static HTML/JS PWA tools. Landing page with commerce, order system, Paymob integration, dual-currency pricing, admin dashboard.</p>
+      </div>
+      <div class="card">
+        <span class="card-badge badge-dev">In Dev</span>
+        <h3>Mobile App</h3>
+        <p>Expo (React Native) + Supabase. Auth, 8-screen onboarding, chat, tracker, program viewer. SSE streaming, weekly check-ins.</p>
+      </div>
+      <div class="card">
+        <span class="card-badge badge-dev">In Dev</span>
+        <h3>Desktop App</h3>
+        <p>React 19 + Electron + local LM Studio. Offline-first, local AI inference, full intake → triage → program pipeline.</p>
+      </div>
+      <div class="card">
+        <span class="card-badge badge-explore">Exploratory</span>
+        <h3>EliteFit (Flutter)</h3>
+        <p>Offline fitness tracker (AR/EN). Workout splits, diet plans, strength tiers, health intelligence. Being ported into Mobile.</p>
+      </div>
+      <div class="card">
+        <span class="card-badge badge-live">Live</span>
+        <h3>Admin & Analytics</h3>
+        <p>Cloudflare Worker backend, 14+ API endpoints, KV storage, Durable Objects, Paymob webhooks, Google Sheets analytics pipeline.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="section-label">03 — Pricing</div>
+    <div class="section-title">Pricing Structure</div>
+    <p class="section-sub" style="margin-bottom:48px;">Dual-currency pricing (EGP/USD) with geo-detection. 7-day free trial on all subscriptions. Annual plans save 2 months.</p>
+
+    <div class="pricing-section" style="overflow:hidden;">
+      <div class="pricing-header">
+        <div class="pricing-grid" style="border-bottom:1px solid rgba(255,255,255,0.05);">
+          <div class="pricing-col" style="text-align:center;">
+            <div class="pricing-col-title" style="font-size:18px; color:#fff;">Subscription Tools</div>
+          </div>
+          <div class="pricing-col" style="text-align:center;">
+            <div class="pricing-col-title" style="font-size:18px; color:#fff;">Digital Books</div>
+          </div>
+          <div class="pricing-col" style="text-align:center;">
+            <div class="pricing-col-title" style="font-size:18px; color:#fff;">Coaching</div>
+          </div>
+        </div>
+      </div>
+      <div class="pricing-grid">
+        <!-- SUBS -->
+        <div class="pricing-col">
+          <div class="pricing-item">
+            <div>
+              <div class="pricing-name">Training App PRO</div>
+              <div class="pricing-note">300 EGP/mo · 3,000 EGP/yr</div>
+            </div>
+            <div class="pricing-price">$6/mo<br>$60/yr</div>
+          </div>
+          <div class="pricing-item">
+            <div>
+              <div class="pricing-name">TDEE Adaptive Engine</div>
+              <div class="pricing-note">300 EGP/mo · 3,000 EGP/yr</div>
+            </div>
+            <div class="pricing-price">$5.99/mo<br>$60/yr</div>
+          </div>
+          <div class="pricing-item">
+            <div>
+              <div class="pricing-name">Omni Hub (Bundle)</div>
+              <div class="pricing-note">600 EGP/mo · 6,000 EGP/yr</div>
+            </div>
+            <div class="pricing-price">$11.99/mo<br>$120/yr</div>
+          </div>
+          <div style="padding:16px 0; font-size:12px; color:var(--gray-dark);">
+            All subscriptions include a <strong style="color:var(--green);">7-day free trial</strong>. Annual plans save 2 months.
+          </div>
+        </div>
+        <!-- BOOKS -->
+        <div class="pricing-col">
+          <div class="pricing-item">
+            <div>
+              <div class="pricing-name">Training Book</div>
+              <div class="pricing-note">27 chapters · 200+ refs</div>
+            </div>
+            <div class="pricing-price">750 EGP<br>$15</div>
+          </div>
+          <div class="pricing-item">
+            <div>
+              <div class="pricing-name">Nutrition Book</div>
+              <div class="pricing-note">33 chapters · EN/AR/FR</div>
+            </div>
+            <div class="pricing-price">750 EGP<br>$15</div>
+          </div>
+          <div class="pricing-item">
+            <div>
+              <div class="pricing-name">Both Books Bundle</div>
+              <div class="pricing-note">Save 20% vs separate</div>
+            </div>
+            <div class="pricing-price">1,200 EGP<br>$22</div>
+          </div>
+          <div class="pricing-item">
+            <div>
+              <div class="pricing-name">Training Bundle</div>
+              <div class="pricing-note">Book + tools + calculators</div>
+            </div>
+            <div class="pricing-price">500 EGP</div>
+          </div>
+          <div class="pricing-item">
+            <div>
+              <div class="pricing-name">Nutrition Bundle</div>
+              <div class="pricing-note">Book + tools + workbook</div>
+            </div>
+            <div class="pricing-price">500 EGP</div>
+          </div>
+        </div>
+        <!-- COACHING -->
+        <div class="pricing-col">
+          <div class="pricing-item">
+            <div>
+              <div class="pricing-name">Standard Coaching</div>
+              <div class="pricing-note">Weekly check-ins · DM access</div>
+            </div>
+            <div class="pricing-price">600 EGP/mo<br>1,500/3mo</div>
+          </div>
+          <div class="pricing-item">
+            <div>
+              <div class="pricing-name">Premium Coaching</div>
+              <div class="pricing-note">Video calls · Custom nutrition</div>
+            </div>
+            <div class="pricing-price">1,000 EGP/mo<br>2,500/3mo</div>
+          </div>
+          <div class="pricing-item">
+            <div>
+              <div class="pricing-name">1-on-1 Elite</div>
+              <div class="pricing-note">WhatsApp · Custom pricing</div>
+            </div>
+            <div class="pricing-price">Contact</div>
+          </div>
+          <div style="padding:16px 0; font-size:12px; color:var(--gray-dark);">
+            Standard gets 66.6% off tools. Premium gets all tools free.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ENGINE PIPELINE -->
+<section id="engine">
+  <div class="wrap">
+    <div class="section-label">04 — Core Engine</div>
+    <div class="section-title">Decision Pipeline</div>
+    <p class="section-sub" style="margin-bottom:48px;">The intelligence layer: a deterministic pipeline that runs before any LLM touches the output. Every program is evidence-based, safety-triaged, and vault-informed.</p>
+
+    <div class="flow-grid">
+      <div class="flow-box">
+        <h5>Safety Triage</h5>
+        <p>9-dimension risk assessment. Cardiac, ortho, ED, psychological, GI, sleep, medical, mobility, lifestyle.</p>
+      </div>
+      <div class="flow-box">
+        <h5>Vault RAG</h5>
+        <p>FAISS semantic search + graph expansion across 1,563 chunks. Wikilink, same-pillar, same-category edges.</p>
+      </div>
+      <div class="flow-box">
+        <h5>Vault Signals</h5>
+        <p>Extract pillar scores, nutrition/training/recovery guidance from RAG context before pillar selection.</p>
+      </div>
+      <div class="flow-box">
+        <h5>Book Engine</h5>
+        <p>35+ decision rules from Schoenfeld, Nippard, NSCA, ACE, ISSA, IPTA research.</p>
+      </div>
+      <div class="flow-box">
+        <h5>Program Output</h5>
+        <p>Vault-informed templates → markdown → professional PDF with cover, tables, metadata, branding.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:64px;">
+      <h3 style="font-family:'Oswald',sans-serif; font-size:20px; text-transform:uppercase; margin-bottom:24px;">Knowledge Vault Stats</h3>
+      <div class="metric-grid">
+        <div class="metric-card">
+          <div class="metric-val">277</div>
+          <div class="metric-label">Documents</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-val">1,563</div>
+          <div class="metric-label">RAG Chunks</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-val">606</div>
+          <div class="metric-label">Graph Nodes</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-val">5,448</div>
+          <div class="metric-label">Graph Edges</div>
+        </div>
+      </div>
+
+      <div style="margin-top:40px;">
+        <h3 style="font-family:'Oswald',sans-serif; font-size:20px; text-transform:uppercase; margin-bottom:24px;">10 Pillars (Master Protocol)</h3>
+        <div class="card-grid card-grid-4" style="grid-template-columns: repeat(5, 1fr);">
+          <div class="card" style="padding:20px; text-align:center;">
+            <div style="font-size:20px; margin-bottom:8px;">🥗</div>
+            <h3 style="font-size:13px;">Diet Maxing</h3>
+          </div>
+          <div class="card" style="padding:20px; text-align:center;">
+            <div style="font-size:20px; margin-bottom:8px;">🏋️</div>
+            <h3 style="font-size:13px;">Training Maxing</h3>
+          </div>
+          <div class="card" style="padding:20px; text-align:center;">
+            <div style="font-size:20px; margin-bottom:8px;">😴</div>
+            <h3 style="font-size:13px;">Sleep Maxing</h3>
+          </div>
+          <div class="card" style="padding:20px; text-align:center;">
+            <div style="font-size:20px; margin-bottom:8px;">🧊</div>
+            <h3 style="font-size:13px;">Recovery Maxing</h3>
+          </div>
+          <div class="card" style="padding:20px; text-align:center;">
+            <div style="font-size:20px; margin-bottom:8px;">💪</div>
+            <h3 style="font-size:13px;">Strength Maxing</h3>
+          </div>
+          <div class="card" style="padding:20px; text-align:center;">
+            <div style="font-size:20px; margin-bottom:8px;">⚡</div>
+            <h3 style="font-size:13px;">Fatigue Mgmt</h3>
+          </div>
+          <div class="card" style="padding:20px; text-align:center;">
+            <div style="font-size:20px; margin-bottom:8px;">🎯</div>
+            <h3 style="font-size:13px;">Adherence Eng.</h3>
+          </div>
+          <div class="card" style="padding:20px; text-align:center;">
+            <div style="font-size:20px; margin-bottom:8px;">🧬</div>
+            <h3 style="font-size:13px;">Individualization</h3>
+          </div>
+          <div class="card" style="padding:20px; text-align:center;">
+            <div style="font-size:20px; margin-bottom:8px;">📈</div>
+            <h3 style="font-size:13px;">Measurement</h3>
+          </div>
+          <div class="card" style="padding:20px; text-align:center;">
+            <div style="font-size:20px; margin-bottom:8px;">🔗</div>
+            <h3 style="font-size:13px;">Synergy Matrix</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- REVENUE MODEL -->
+<section id="revenue">
+  <div class="wrap">
+    <div class="section-label">05 — Revenue Streams</div>
+    <div class="section-title">Revenue Architecture</div>
+    <p class="section-sub" style="margin-bottom:48px;">Four distinct revenue streams: SaaS subscriptions, digital products, coaching retainers, and future marketplace revenue share.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Model</th>
+          <th>Price</th>
+          <th>Type</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Training App PRO</strong></td>
+          <td>Monthly / Annual</td>
+          <td class="mono" style="color:var(--yellow);">300 EGP/mo · $6/mo</td>
+          <td><span class="tag tag-sub">Subscription</span></td>
+          <td><span class="tag badge-live" style="background:rgba(52,211,153,0.12); color:var(--green);">Live</span></td>
+        </tr>
+        <tr>
+          <td><strong>TDEE Adaptive Engine</strong></td>
+          <td>Monthly / Annual</td>
+          <td class="mono" style="color:var(--yellow);">300 EGP/mo · $5.99/mo</td>
+          <td><span class="tag tag-sub">Subscription</span></td>
+          <td><span class="tag badge-live" style="background:rgba(52,211,153,0.12); color:var(--green);">Live</span></td>
+        </tr>
+        <tr>
+          <td><strong>Omni Hub</strong></td>
+          <td>Monthly / Annual</td>
+          <td class="mono" style="color:var(--yellow);">600 EGP/mo · $11.99/mo</td>
+          <td><span class="tag tag-sub">Subscription</span></td>
+          <td><span class="tag badge-live" style="background:rgba(52,211,153,0.12); color:var(--green);">Live</span></td>
+        </tr>
+        <tr>
+          <td><strong>Training Book</strong></td>
+          <td>One-time</td>
+          <td class="mono" style="color:var(--yellow);">750 EGP · $15</td>
+          <td><span class="tag tag-otp">One-time</span></td>
+          <td><span class="tag badge-live" style="background:rgba(52,211,153,0.12); color:var(--green);">Live</span></td>
+        </tr>
+        <tr>
+          <td><strong>Nutrition Book</strong></td>
+          <td>One-time</td>
+          <td class="mono" style="color:var(--yellow);">750 EGP · $15</td>
+          <td><span class="tag tag-otp">One-time</span></td>
+          <td><span class="tag badge-live" style="background:rgba(52,211,153,0.12); color:var(--green);">Live</span></td>
+        </tr>
+        <tr>
+          <td><strong>Both Books Bundle</strong></td>
+          <td>One-time</td>
+          <td class="mono" style="color:var(--yellow);">1,200 EGP · $22</td>
+          <td><span class="tag tag-otp">One-time</span></td>
+          <td><span class="tag badge-live" style="background:rgba(52,211,153,0.12); color:var(--green);">Live</span></td>
+        </tr>
+        <tr>
+          <td><strong>Training Bundle</strong></td>
+          <td>One-time</td>
+          <td class="mono" style="color:var(--yellow);">500 EGP</td>
+          <td><span class="tag tag-otp">One-time</span></td>
+          <td><span class="tag badge-live" style="background:rgba(52,211,153,0.12); color:var(--green);">Live</span></td>
+        </tr>
+        <tr>
+          <td><strong>Nutrition Bundle</strong></td>
+          <td>One-time</td>
+          <td class="mono" style="color:var(--yellow);">500 EGP</td>
+          <td><span class="tag tag-otp">One-time</span></td>
+          <td><span class="tag badge-live" style="background:rgba(52,211,153,0.12); color:var(--green);">Live</span></td>
+        </tr>
+        <tr>
+          <td><strong>Standard Coaching</strong></td>
+          <td>Monthly retainer</td>
+          <td class="mono" style="color:var(--yellow);">600 EGP/mo</td>
+          <td><span class="tag tag-coach">Coaching</span></td>
+          <td><span class="tag badge-live" style="background:rgba(52,211,153,0.12); color:var(--green);">Live</span></td>
+        </tr>
+        <tr>
+          <td><strong>Premium Coaching</strong></td>
+          <td>Monthly retainer</td>
+          <td class="mono" style="color:var(--yellow);">1,000 EGP/mo</td>
+          <td><span class="tag tag-coach">Coaching</span></td>
+          <td><span class="tag badge-live" style="background:rgba(52,211,153,0.12); color:var(--green);">Live</span></td>
+        </tr>
+        <tr>
+          <td><strong>Coach Marketplace</strong></td>
+          <td>Revenue share (80/20)</td>
+          <td class="mono" style="color:var(--yellow);">TBD</td>
+          <td><span class="tag tag-coach">Marketplace</span></td>
+          <td><span class="tag badge-dev" style="background:rgba(96,165,250,0.12); color:var(--blue);">Future</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:48px;">
+      <h3 style="font-family:'Oswald',sans-serif; font-size:20px; text-transform:uppercase; margin-bottom:24px;">Payment Infrastructure</h3>
+      <div class="card-grid card-grid-3">
+        <div class="card">
+          <h3>EGP Payments</h3>
+          <p>Paymob online (Visa/Mastercard auto-approve via webhook), Vodafone Cash, InstaPay, manual transfers. Admin dashboard for manual order approval.</p>
+        </div>
+        <div class="card">
+          <h3>USD Payments</h3>
+          <p>International bank transfer and PayPal (manual). Geo-detection via timezone auto-switches currency display.</p>
+        </div>
+        <div class="card">
+          <h3>Access Control</h3>
+          <p>Generated access codes (TR-/TD-/OH-/BK-/BN- prefixes). Cloudflare Durable Objects for atomic verification. 48h fallback code rotation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TARGET MARKET -->
+<section id="market">
+  <div class="wrap">
+    <div class="section-label">06 — Target Market</div>
+    <div class="section-title">Market Positioning</div>
+    <p class="section-sub" style="margin-bottom:48px;">Intermediate-to-advanced lifters (1-3+ years) who've hit plateaus. People who've outgrown YouTube advice but can't afford $200/mo personal training.</p>
+
+    <div class="card-grid card-grid-3" style="margin-bottom:48px;">
+      <div class="card" style="border-color:rgba(244,201,59,0.3);">
+        <div class="card-icon">👤</div>
+        <h3>Primary Persona</h3>
+        <p>25-35 year old male, 1-3 years lifting, knows basic programming but stuck. Wants evidence-based guidance without the influencer noise. Price-sensitive, Egyptian market primary.</p>
+      </div>
+      <div class="card" style="border-color:rgba(52,211,153,0.3);">
+        <div class="card-icon">👩</div>
+        <h3>Secondary Persona</h3>
+        <p>Female lifter, intermediate, interested in recomposition and carb cycling. Values the nutrition book and TDEE engine. Engages with Arabic content.</p>
+      </div>
+      <div class="card" style="border-color:rgba(96,165,250,0.3);">
+        <div class="card-icon">🏆</div>
+        <h3>Power User</h3>
+        <p>Competitive powerlifter or bodybuilder. Wants the full Omni Hub + Premium Coaching. Values ACWR monitoring, e1RM tracking, and deload automation.</p>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Oswald',sans-serif; font-size:20px; text-transform:uppercase; margin-bottom:24px;">Competitive Landscape</h3>
+    <div class="comp-grid">
+      <div class="comp-card">
+        <h4>RP Hypertrophy App</h4>
+        <div class="comp-price">$35/mo</div>
+        <p>Our moat: same engine, 1/6th the price. Biofeedback autoregulation exists but isn't wired yet. Deterministic vs black-box.</p>
+      </div>
+      <div class="comp-card">
+        <h4>MacroFactor</h4>
+        <div class="comp-price">$15/mo</div>
+        <p>Our moat: TDEE engine already built + training integration. MacroFactor has no training programming.</p>
+      </div>
+      <div class="comp-card">
+        <h4>WHOOP</h4>
+        <div class="comp-price">$30/mo + hardware</div>
+        <p>Our moat: phone-based recovery, no $300 hardware purchase. ACWR + fatigue gate covers same use case.</p>
+      </div>
+      <div class="comp-card">
+        <h4>MyFitnessPal</h4>
+        <div class="comp-price">Free / $20/mo</div>
+        <p>Our moat: evidence-based macro coaching, not just calorie counting. Training + nutrition unified view.</p>
+      </div>
+      <div class="comp-card">
+        <h4>Caliber</h4>
+        <div class="comp-price">$200/mo coaching</div>
+        <p>Our moat: AI-powered at fraction of cost. Same evidence base, automated with human coach oversight.</p>
+      </div>
+      <div class="comp-card">
+        <h4>Hevy / Strong</h4>
+        <div class="comp-price">Free / $5/mo</div>
+        <p>Our moat: program generation, not just logging. Full intake → program → progression → deload cycle.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COST STRUCTURE -->
+<section>
+  <div class="wrap">
+    <div class="section-label">07 — Cost Structure</div>
+    <div class="section-title">Operating Costs</div>
+    <p class="section-sub" style="margin-bottom:48px;">Lean infrastructure with near-zero marginal cost per user. Most costs are fixed.</p>
+
+    <div class="card-grid card-grid-2">
+      <div class="card">
+        <h3 style="color:var(--green);">Fixed Costs (Monthly)</h3>
+        <div style="margin-top:16px;">
+          <div class="pricing-item">
+            <div class="pricing-name">Cloudflare Workers + KV + DO</div>
+            <div class="pricing-price" style="color:#ccc;">~$5/mo</div>
+          </div>
+          <div class="pricing-item">
+            <div class="pricing-name">GitHub Pages (static hosting)</div>
+            <div class="pricing-price" style="color:#ccc;">Free</div>
+          </div>
+          <div class="pricing-item">
+            <div class="pricing-name">Domain (muscleos.xyz)</div>
+            <div class="pricing-price" style="color:#ccc;">~$1/mo</div>
+          </div>
+          <div class="pricing-item">
+            <div class="pricing-name">Paymob transaction fees</div>
+            <div class="pricing-price" style="color:#ccc;">~2.9% + 1 EGP</div>
+          </div>
+          <div class="pricing-item">
+            <div class="pricing-name">LLM API (cloud fallback)</div>
+            <div class="pricing-price" style="color:#ccc;">Usage-based</div>
+          </div>
+          <div class="pricing-item">
+            <div class="pricing-name">Supabase (mobile app)</div>
+            <div class="pricing-price" style="color:#ccc;">Free tier</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--green);">Zero-Cost Advantages</h3>
+        <div style="margin-top:16px;">
+          <div class="pricing-item">
+            <div class="pricing-name">Local LLM inference (LM Studio)</div>
+            <div class="pricing-price" style="color:#ccc;">Free</div>
+          </div>
+          <div class="pricing-item">
+            <div class="pricing-name">FAISS vector search (local)</div>
+            <div class="pricing-price" style="color:#ccc;">Free</div>
+          </div>
+          <div class="pricing-item">
+            <div class="pricing-name">Knowledge vault (Obsidian)</div>
+            <div class="pricing-price" style="color:#ccc;">Free</div>
+          </div>
+          <div class="pricing-item">
+            <div class="pricing-name">sentence-transformers (local)</div>
+            <div class="pricing-price" style="color:#ccc;">Free</div>
+          </div>
+          <div class="pricing-item">
+            <div class="pricing-name">Open-source stack (Python, Expo, Electron)</div>
+            <div class="pricing-price" style="color:#ccc;">Free</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- KEY METRICS -->
+<section>
+  <div class="wrap">
+    <div class="section-label">08 — Key Metrics</div>
+    <div class="section-title">PMF Validation Targets</div>
+    <p class="section-sub" style="margin-bottom:48px;">Current stage: Pre-PMF / Late MVP. Building is done. User validation is the priority.</p>
+
+    <div class="card-grid card-grid-2">
+      <div class="card" style="border-color:rgba(244,201,59,0.3);">
+        <h3 style="color:var(--yellow);">Day 30 Gates</h3>
+        <div class="metric-grid" style="grid-template-columns: repeat(2,1fr); margin-top:16px;">
+          <div class="metric-card">
+            <div class="metric-val">≥30%</div>
+            <div class="metric-label">Day 7 Retention</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val">3-5</div>
+            <div class="metric-label">Beta Users Active</div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="border-color:rgba(52,211,153,0.3);">
+        <h3 style="color:var(--green);">Day 60 Gates</h3>
+        <div class="metric-grid" style="grid-template-columns: repeat(2,1fr); margin-top:16px;">
+          <div class="metric-card">
+            <div class="metric-val">≥40%</div>
+            <div class="metric-label">Sean Ellis "Very Disappointed"</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val">15</div>
+            <div class="metric-label">Active Users</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:48px;">
+      <h3 style="font-family:'Oswald',sans-serif; font-size:20px; text-transform:uppercase; margin-bottom:24px;">Revenue Scenarios</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Scenario</th>
+            <th>Subscribers</th>
+            <th>Books Sold/mo</th>
+            <th>Coaching Clients</th>
+            <th>Monthly Revenue</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Conservative (Month 6)</strong></td>
+            <td>20</td>
+            <td>10</td>
+            <td>2</td>
+            <td class="mono" style="color:var(--yellow);">~$280/mo</td>
+          </tr>
+          <tr>
+            <td><strong>Growth (Month 12)</strong></td>
+            <td>100</td>
+            <td>30</td>
+            <td>5</td>
+            <td class="mono" style="color:var(--yellow);">~$1,400/mo</td>
+          </tr>
+          <tr>
+            <td><strong>Scale (Month 24)</strong></td>
+            <td>500</td>
+            <td>50</td>
+            <td>10</td>
+            <td class="mono" style="color:var(--yellow);">~$6,500/mo</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="wrap">
+    <div class="section-label">09 — Roadmap</div>
+    <div class="section-title">Growth Roadmap</div>
+    <p class="section-sub" style="margin-bottom:48px;">From PMF validation to competitive domination across 9 phases.</p>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-date">Phase 1 — Days 1-5</div>
+        <h4>Critical Fixes</h4>
+        <p>Fix critical bugs, security audit, measurement framework setup. Prepare the system for real users.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Phase 2 — Days 6-30</div>
+        <h4>Beta Validation</h4>
+        <p>Recruit 3-5 beta users, run first check-in cycle, execute Sean Ellis test. Gate: Day 7 retention ≥30%.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Phase 3 — Days 31-60</div>
+        <h4>Expand & Measure</h4>
+        <p>Expand to 15 users, PMF assessment decision gate. Gate: Sean Ellis ≥40% "very disappointed".</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Phase 4 — Month 3-4</div>
+        <h4>Mobile Launch</h4>
+        <p>Ship Expo mobile app with full onboarding, chat, tracker. App Store + Play Store submission.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Phase 5 — Month 4-6</div>
+        <h4>Desktop Launch</h4>
+        <p>Ship Electron desktop app with local LM Studio integration. Offline-first, full pipeline.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Phase 6 — Month 6-9</div>
+        <h4>Coach Marketplace</h4>
+        <p>Open platform to other coaches. 80/20 revenue share. Coach dashboard, client management, billing.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Phase 7 — Month 9-12</div>
+        <h4>International Expansion</h4>
+        <p>Full Arabic localization across all channels. French market entry. Additional payment methods.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Phase 8 — Month 12-18</div>
+        <h4>Advanced Features</h4>
+        <p>Biofeedback autoregulation wired. ACWR alerts. Social features, share cards, routine deep links.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Phase 9 — Month 18+</div>
+        <h4>Platform Play</h4>
+        <p>API for third-party integrations. Gym chain partnerships. Wearable device sync. Research partnerships.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <p style="margin-bottom:8px;">
+      <span class="display" style="font-size:14px;">Muscle <span style="color:var(--yellow);">OS</span></span>
+      &nbsp;·&nbsp; Business Model Document &nbsp;·&nbsp; August 2026
+    </p>
+    <p>
+      Built by <a href="https://muscleos.is-a.dev/">Coach Anas Mo'men</a>
+      &nbsp;·&nbsp;
+      <a href="https://instagram.com/anas_moamen1">Instagram</a>
+      &nbsp;·&nbsp;
+      <a href="https://wa.me/201040796017">WhatsApp</a>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
