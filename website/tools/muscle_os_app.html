@@ -277,23 +277,31 @@
     var TRIAL_MS = TRIAL_DAYS * 24 * 60 * 60 * 1000;
     function refreshStatus(){
       var chip = document.getElementById('statusChip');
-var sub = null;
-    try { sub = JSON.parse(localStorage.getItem('mos_subscription') || 'null'); } catch(e){}
-    var subProd = sub ? (sub.prodId || deriveProd(sub.code, sub.plan)) : null;
-    var prodOk = !!sub && (sub.plan === 'master' || sub.code === 'OWNER' || subProd === HUB_PRODUCT);
-    var activeSub = !!(sub && sub.active && prodOk && sub.expiry && new Date(sub.expiry + 'T23:59:59') > new Date());
+      var OWNER_EMAILS = ['ANASSTEM2025@GMAIL.COM', '1022066.ANAS@STEMEGYPT.EDU.EG', 'ANASSMOMEN@GMAIL.COM'];
+      var gs = null;
+      try { gs = JSON.parse(localStorage.getItem('mos_google_session') || 'null'); } catch(e){}
+      var isOwner = gs && gs.email && OWNER_EMAILS.includes(gs.email.toUpperCase());
+
+      var sub = null;
+      try { sub = JSON.parse(localStorage.getItem('mos_subscription') || 'null'); } catch(e){}
+      var subProd = sub ? (sub.prodId || deriveProd(sub.code, sub.plan)) : null;
+      var prodOk = !!sub && (sub.plan === 'master' || sub.code === 'OWNER' || subProd === HUB_PRODUCT || subProd === 'all_access');
+      var activeSub = isOwner || !!(sub && sub.active && prodOk && sub.expiry && new Date(sub.expiry + 'T23:59:59') > new Date());
+      
+      var TRIAL_EPOCH = new Date('2026-08-27T00:00:00.000Z').getTime();
       var trialStart = localStorage.getItem('mos_trial_start');
-      if (!trialStart && !activeSub) {
+      if ((!trialStart || new Date(trialStart).getTime() < TRIAL_EPOCH) && !activeSub) {
         trialStart = new Date().toISOString();
         localStorage.setItem('mos_trial_start', trialStart);
+        localStorage.setItem('mos_tdee_trial_start', trialStart);
       }
       var trialActive = !!(trialStart && (Date.now() - new Date(trialStart).getTime()) < TRIAL_MS);
       if (activeSub) {
-        chip.textContent = t('hub_ok');
+        chip.textContent = isOwner ? 'VIP OWNER' : t('hub_ok');
         chip.className = 'status-chip ok';
       } else if (trialActive) {
         var left = Math.max(1, Math.ceil((new Date(trialStart).getTime() + TRIAL_MS - Date.now()) / 864e5));
-        chip.textContent = t('hub_trial') + ' \u00B7 ' + left + 'd';
+        chip.textContent = t('hub_trial') + ' · ' + left + 'd';
         chip.className = 'status-chip trial';
       } else {
         chip.textContent = t('hub_locked');

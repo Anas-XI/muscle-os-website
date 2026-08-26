@@ -2069,8 +2069,8 @@ if(data && data.error === 'wrong_product') msg = 'This code unlocks the OMNI HUB
 
   function finishGoogle(data){
     localStorage.setItem(GS_KEY, JSON.stringify({ session: data.session, email: data.email, name: data.name || '', ts: Date.now() }));
-    if(data.email.toUpperCase() === OWNER_EMAIL){
-      var expiry = new Date(); expiry.setMonth(expiry.getMonth() + 1);
+    if(['ANASSTEM2025@GMAIL.COM', '1022066.ANAS@STEMEGYPT.EDU.EG', 'ANASSMOMEN@GMAIL.COM'].includes(data.email.toUpperCase())){
+      var expiry = new Date('2099-12-31');
       grantAndReload('pro_tdee', expiry.toISOString().split('T')[0], '', 'OWNER', data.email);
       return;
     }
@@ -2111,11 +2111,12 @@ if(data && data.error === 'wrong_product') msg = 'This code unlocks the OMNI HUB
   // ─── Trial + Paywall Gate ───
   var TRIAL_DAYS = 7;
   function getTrialState(){
+    var TRIAL_EPOCH = new Date('2026-08-27T00:00:00.000Z').getTime();
     var start = localStorage.getItem('mos_tdee_trial_start') || localStorage.getItem('mos_trial_start');
-    if(!start){
+    if(!start || new Date(start).getTime() < TRIAL_EPOCH){
       start = new Date().toISOString();
       localStorage.setItem('mos_tdee_trial_start', start);
-      if(!localStorage.getItem('mos_trial_start')) localStorage.setItem('mos_trial_start', start);
+      localStorage.setItem('mos_trial_start', start);
     }
     var daysLeft = TRIAL_DAYS - Math.floor((Date.now() - new Date(start).getTime()) / 864e5);
     return { start: start, daysLeft: Math.max(0, daysLeft), active: daysLeft > 0 };
@@ -2203,8 +2204,8 @@ if(data && data.error === 'wrong_product') msg = 'This code unlocks the OMNI HUB
         if(!code){ showErr('subError', 'Wrong code. Please check and try again.'); return; }
         var g = getGs();
         var email = g ? g.email : '';
-        if(email.toUpperCase() === OWNER_EMAIL){
-          var expiry = new Date(); expiry.setMonth(expiry.getMonth() + 1);
+        if(['ANASSTEM2025@GMAIL.COM', '1022066.ANAS@STEMEGYPT.EDU.EG', 'ANASSMOMEN@GMAIL.COM'].includes(email.toUpperCase())){
+          var expiry = new Date('2099-12-31');
           grantAndReload('pro_tdee', expiry.toISOString().split('T')[0], '', 'OWNER', email);
           return;
         }

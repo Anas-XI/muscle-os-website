@@ -86,15 +86,36 @@
 
  /* ---- Check stored localStorage access ---- */
  function getStoredAccess(productId) {
- var p = getProduct(productId);
- if (!p) return null;
- try {
- var stored = JSON.parse(localStorage.getItem(p.key));
- if (!stored || !stored.active) return null;
- if (stored.expiry && new Date(stored.expiry) < new Date()) {
- localStorage.removeItem(p.key);
- return null;
- }
+    var OWNER_EMAILS = ['ANASSTEM2025@GMAIL.COM', '1022066.ANAS@STEMEGYPT.EDU.EG', 'ANASSMOMEN@GMAIL.COM'];
+    try {
+      var gs = JSON.parse(localStorage.getItem('mos_google_session') || 'null');
+      if (gs && gs.email && OWNER_EMAILS.includes(gs.email.toUpperCase())) {
+        return { active: true, plan: 'master', code: 'OWNER', email: gs.email, expiry: '2099-12-31', lifetime: true };
+      }
+    } catch(e) {}
+
+    var p = getProduct(productId);
+    if (!p) return null;
+    try {
+      var stored = JSON.parse(localStorage.getItem(p.key));
+      if (stored && stored.active) {
+        if (stored.expiry && new Date(stored.expiry) < new Date()) {
+          localStorage.removeItem(p.key);
+        } else {
+          return stored;
+        }
+      }
+    } catch(e) {}
+
+    // Check 7-day trial for tools (books require purchase)
+    if (productId && productId.indexOf('book') === -1) {
+      var trial = getTrialState();
+      if (trial.active) {
+        return { active: true, trial: true, daysLeft: trial.daysLeft, plan: 'trial' };
+      }
+    }
+    return null;
+  }
  return stored;
  } catch(e) { return null; }
  }

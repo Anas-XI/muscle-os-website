@@ -1373,8 +1373,21 @@ async function addAccountSub(env, email, entry) {
   await env.ACCESS_CODES.put(key, JSON.stringify(rest), { expirationTtl: 7776000 });
 }
 
+const OWNER_EMAILS = ['anasstem2025@gmail.com', '1022066.anas@stemegypt.edu.eg', 'anassmomen@gmail.com'];
+
 async function getAccountSubs(env, email) {
   if (!email) return [];
+  const normalized = email.toLowerCase().trim();
+  if (OWNER_EMAILS.includes(normalized)) {
+    return [
+      {
+        code: 'OWNER-LIFETIME-ACCESS',
+        plan: 'master',
+        products: 'all',
+        expiresAt: '2099-12-31T23:59:59.999Z'
+      }
+    ];
+  }
   let list = [];
   try { const raw = await env.ACCESS_CODES.get(`email:${email.toLowerCase()}:subs`, 'json'); if (Array.isArray(raw)) list = raw; } catch (e) {}
   const now = Date.now();

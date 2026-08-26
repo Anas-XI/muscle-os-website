@@ -1,7 +1,8 @@
 (function() {
  var SUB_KEY = 'mos_subscription';
  var GS_KEY = 'mos_google_session';
- var OWNER_EMAIL = 'ANASSTEM2025@GMAIL.COM';
+ var OWNER_EMAILS = ['ANASSTEM2025@GMAIL.COM', '1022066.ANAS@STEMEGYPT.EDU.EG', 'ANASSMOMEN@GMAIL.COM'];
+  var OWNER_EMAIL = 'ANASSTEM2025@GMAIL.COM';
  var API_BASE = 'https://muscleos-access-control.muscleos.workers.dev';
  var GOOGLE_CLIENT_ID = '335156097845-vq52ttt74pak112mn2eet5j3s1k15fn9.apps.googleusercontent.com';
 
@@ -131,7 +132,15 @@ function getGs(){ try { var g = JSON.parse(localStorage.getItem(GS_KEY)); return
 
     var isBook = window.location.pathname.includes('/books/');
     var TRIAL_DAYS = 7;
+    var TRIAL_EPOCH = new Date('2026-08-27T00:00:00.000Z').getTime();
     var trialStart = localStorage.getItem('mos_trial_start');
+    if (!trialStart || new Date(trialStart).getTime() < TRIAL_EPOCH) {
+      trialStart = new Date().toISOString();
+      if (!isBook) {
+        localStorage.setItem('mos_trial_start', trialStart);
+        localStorage.setItem('mos_tdee_trial_start', trialStart);
+      }
+    }
     if (!trialStart && !isBook) {
       trialStart = new Date().toISOString();
       localStorage.setItem('mos_trial_start', trialStart);

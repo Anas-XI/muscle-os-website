@@ -289,11 +289,13 @@
               btn.textContent = 'UNLOCK ACCESS';
               if(data && data.valid){
                 storeData('mos_google_session', JSON.stringify({ session: data.session, email: data.email, name: data.name || '', ts: Date.now() }));
-                if(data.email.toUpperCase() === OWNER_EMAIL){
-                  var expiry = new Date(); expiry.setMonth(expiry.getMonth() + 1);
+                var OWNER_EMAILS = ['ANASSTEM2025@GMAIL.COM', '1022066.ANAS@STEMEGYPT.EDU.EG', 'ANASSMOMEN@GMAIL.COM'];
+                if(OWNER_EMAILS.includes(data.email.toUpperCase())){
                   storeData(SUB_KEY, JSON.stringify({
-                    active: true, plan: 'master', expiry: expiry.toISOString().split('T')[0], code: 'OWNER', email: data.email, prodId: 'omni_hub'
+                    active: true, plan: 'master', expiry: '2099-12-31', code: 'OWNER', email: data.email, prodId: 'all_access', lifetime: true
                   }));
+                  storeData('mos_book_training', JSON.stringify({ active: true, code: 'OWNER', book: 'training', expiry: '2099-12-31' }));
+                  storeData('mos_book_nutrition', JSON.stringify({ active: true, code: 'OWNER', book: 'nutrition', expiry: '2099-12-31' }));
                   window.location.href = 'tools/muscle_os_app.html';
                   return;
                 }
