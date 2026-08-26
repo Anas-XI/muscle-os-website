@@ -38,7 +38,17 @@ COACH_BASE_PERSONA = (
     "1. Keep responses clear, actionable, evidence-based, and concise (under 300 words unless detail is requested).\n"
     "2. When suggesting exercise substitutions, match the primary muscle mechanical tension curve and factor in user injuries.\n"
     "3. Use RPE (Rate of Perceived Exertion) and RIR (Reps in Reserve) principles.\n"
-    "4. Prioritize safety and recovery over arbitrary volume increases."
+    "4. Prioritize safety and recovery over arbitrary volume increases.\n\n"
+    "Program & Diet Modification Powers:\n"
+    "You have full authority to modify the athlete's active training program and diet plan! "
+    "When the athlete requests or agrees to modify an exercise, workout split, calorie/macro target, or logs an injury, "
+    "confirm the update and append a structured action block at the very end of your response:\n"
+    "```coach_action\n"
+    "{\n"
+    '  "action": "swap_exercise" | "add_exercise" | "remove_exercise" | "modify_exercise" | "update_nutrition_plan" | "log_injury_and_override",\n'
+    '  "params": { ... }\n'
+    "}\n"
+    "```\n"
 )
 
 
@@ -93,22 +103,40 @@ def save_chat_message(user_id: str, role: str, content: str):
 
 
 def _get_vault_context(query: str, profile: Optional[Dict[str, Any]]) -> str:
-    """Retrieve relevant scientific vault chunks based on query and user profile."""
+    """Retrieve relevant scientific vault chunks and GraphRAG subgraphs based on query."""
+    chunks_text = []
     try:
         from mos_bot.core.vault_rag import VaultIndexer, INDEX_DIR
         index_file = INDEX_DIR / "faiss_index.bin"
         chunks_file = INDEX_DIR / "chunks.pkl"
         if index_file.exists() and chunks_file.exists():
             indexer = VaultIndexer()
-            indexer.load(INDEX_DIR)
-            results = indexer.search(query, k=3)
+            indexer.load_index(INDEX_DIR)
+            results = indexer.search(query, top_k=3)
             if results:
-                chunks_text = []
                 for chunk, score in results:
-                    chunks_text.append(f"[{chunk.section_title}] (Score: {score:.2f}):\n{chunk.content[:400]}")
-                return "\n\n".join(chunks_text)
+                    pillar_label = f", Pillar: {chunk.pillar}" if chunk.pillar else ""
+                    chunks_text.append(f"[{chunk.section_title}] (Score: {score:.2f}{pillar_label}):\n{chunk.content[:500]}")
     except Exception as e:
-        logger.debug(f"Vault RAG search skipped: {e}")
+        logger.warning(f"Vault RAG search error: {e}")
+
+    # GraphRAG v2 Subgraph Expansion
+    try:
+        from mos_bot.core.vault_graph import INDEX_DIR as GRAPH_INDEX_DIR
+        import pickle
+        graph_file = GRAPH_INDEX_DIR / "vault_graph.pkl"
+        if graph_file.exists():
+            with open(graph_file, "rb") as f:
+                g = pickle.load(f)
+            subgraph = g.get_community_subgraph(query, max_nodes=4)
+            if subgraph:
+                graph_lines = [f"- {n['label']} ({n.get('pillar', 'General')}): via {n['reason']}" for n in subgraph]
+                chunks_text.append("### Connected Vault Concepts (GraphRAG v2):\n" + "\n".join(graph_lines))
+    except Exception as e:
+        logger.warning(f"GraphRAG subgraph error: {e}")
+
+    if chunks_text:
+        return "\n\n".join(chunks_text)
 
     # Fallback to rule-based vault context if available
     try:
@@ -130,14 +158,27 @@ def build_coach_system_prompt(user_id: str, query: str = "") -> str:
 
     # 1. User Profile Section
     if profile:
+        name_val = profile.get("name", "Athlete")
+        bw_val = profile.get("bodyweight_kg", 75)
         profile_lines = [
+            f"- Name: {name_val}",
             f"- Goal: {profile.get('goal', 'Hypertrophy')}",
             f"- Experience: {profile.get('situation', 'Intermediate')} ({profile.get('experience_years', '2')} years)",
-            f"- Bodyweight: {profile.get('bodyweight_kg', 75)} kg | Height: {profile.get('height_cm', 175)} cm | Age: {profile.get('age', 25)}",
+            f"- Bodyweight: {bw_val} kg | Height: {profile.get('height_cm', 175)} cm | Age: {profile.get('age', 25)}",
             f"- Training Split: {profile.get('current_split', 'PPL')} ({profile.get('training_days', 4)} days/wk, {profile.get('session_length_min', 60)} min/session)",
             f"- Daily Steps: {profile.get('daily_steps', 7500)} | Sleep: {profile.get('sleep_hours', 7.5)} hrs | Stress: {profile.get('stress_level', 5)}/10",
         ]
         sections.append("## User Profile\n" + "\n".join(profile_lines))
+
+        # InBody Scan Data
+        if profile.get("inbody"):
+            ib = profile["inbody"]
+            sections.append(
+                f"## InBody Body Composition Scan\n"
+                f"- Weight: {ib.get('weight_kg', 'N/A')} kg | Skeletal Muscle Mass (SMM): {ib.get('smm_kg', 'N/A')} kg\n"
+                f"- Body Fat % (PBF): {ib.get('pbf_pct', 'N/A')}% | Visceral Fat Level: {ib.get('visceral_fat_level', 'N/A')}\n"
+                f"- Extracellular Water Ratio (ECW): {ib.get('ecw_ratio', 'N/A')}"
+            )
 
     # 2. Clinical Safety & Injury Gating
     safety_lines = []
@@ -146,6 +187,14 @@ def build_coach_system_prompt(user_id: str, query: str = "") -> str:
         injuries = list(set(injuries + supplemental.get("injuries", [])))
     if injuries:
         safety_lines.append(f"- Active Injuries: {', '.join(injuries)}")
+        try:
+            from mos_bot.core.biomechanics_engine import get_injury_override
+            for inj in injuries:
+                ov = get_injury_override(inj)
+                if ov:
+                    safety_lines.append(f"  * {inj}: Avoid {', '.join(ov.contraindicated_movements[:2])} | Preserved: {', '.join(ov.preserved_patterns[:3])}")
+        except Exception:
+            pass
 
     medical = profile.get("medical", []) if profile else []
     if medical:
@@ -164,7 +213,35 @@ def build_coach_system_prompt(user_id: str, query: str = "") -> str:
             + "\n*Instruction:* Never prescribe exercises that aggravate listed injuries. Provide joint-friendly alternatives."
         )
 
-    # 3. Active Program Telemetry
+    # Postural deviation cue if mentioned in query
+    if any(w in query.lower() for w in ("posture", "upper crossed", "lower crossed", "pelvic tilt", "kyphosis")):
+        try:
+            from mos_bot.core.posture_engine import evaluate_posture
+            p_plan = evaluate_posture(query)
+            if p_plan:
+                sections.append(
+                    f"## Posture Clinical Protocol ({p_plan.syndrome_name})\n"
+                    f"- Overactive Muscles: {', '.join(p_plan.short_overactive_muscles)}\n"
+                    f"- Underactive Muscles: {', '.join(p_plan.long_underactive_muscles)}"
+                )
+        except Exception:
+            pass
+
+    # 3. Scientific Program Audit (Real-time Evaluation)
+    try:
+        from mos_bot.core.program_auditor import audit_user_program
+        audit_rep = audit_user_program(clean_id)
+        if audit_rep.scientific_validity_score > 0:
+            sections.append(
+                f"## Automated Scientific Program Audit (Score: {audit_rep.scientific_validity_score}/100 - {audit_rep.overall_status})\n"
+                f"- Volume Findings: {'; '.join([f.detail for f in audit_rep.findings if f.category == 'Volume'][:3]) or 'Optimal volume landmarks'}\n"
+                f"- Critical Alerts: {'; '.join([f.detail for f in audit_rep.findings if f.severity == 'critical']) or 'None'}\n"
+                f"- Key Science Recommendations: {'; '.join(audit_rep.recommended_modifications[:2]) or 'Program aligns with gold standard'}"
+            )
+    except Exception as e:
+        logger.warning(f"Program audit context failed: {e}")
+
+    # 4. Active Program & Mesocycle Telemetry
     progs_dir = Path(PROGRAMS_DIR)
     if progs_dir.exists():
         recent_progs = sorted(progs_dir.glob(f"{clean_id}*"), reverse=True)
@@ -175,7 +252,25 @@ def build_coach_system_prompt(user_id: str, query: str = "") -> str:
             except Exception:
                 pass
 
-    # 4. Semantic Vault RAG Citations
+    # 5. Recent Check-in Telemetry
+    checkins_dir = Path(DATA_ROOT) / "checkins"
+    checkin_file = checkins_dir / f"{clean_id}.json"
+    if checkin_file.exists():
+        try:
+            with open(checkin_file, "r", encoding="utf-8") as f:
+                c_data = json.load(f)
+            if c_data:
+                latest = c_data[-1]
+                sections.append(
+                    f"## Latest Check-in Telemetry\n"
+                    f"- Weight: {latest.get('weight_kg', 'N/A')} kg | Readiness: {latest.get('readiness', 'N/A')}/10\n"
+                    f"- Adherence: {latest.get('adherence_pct', 'N/A')}% | Sleep: {latest.get('sleep_hours', 'N/A')} hrs\n"
+                    f"- Soreness: {latest.get('soreness', 'N/A')}/5"
+                )
+        except Exception:
+            pass
+
+    # 6. Semantic Vault RAG & Graph Citations
     vault_ctx = _get_vault_context(query or (profile.get("goal", "hypertrophy") if profile else "hypertrophy"), profile)
     if vault_ctx:
         sections.append(f"## Evidence-Based Vault Citations\n{vault_ctx[:1500]}")
@@ -212,6 +307,39 @@ def _call_gemini_api_sync(messages: List[Dict[str, str]], model: str = "") -> Op
         return None
 
 
+def extract_and_execute_coach_actions(user_id: str, text: str) -> tuple[str, list[dict]]:
+    """Parse and execute any embedded coach actions, returning cleaned response text and execution results."""
+    import re
+    from mos_bot.core.coach_actions import execute_coach_action
+
+    actions_executed = []
+    patterns = [
+        r"```(?:coach_action|json:coach_action)\s*(\{.*?\})\s*```",
+        r"<coach_action>\s*(\{.*?\})\s*</coach_action>",
+    ]
+
+    cleaned_text = text
+    for pat in patterns:
+        for match in re.finditer(pat, text, re.DOTALL):
+            raw_json = match.group(1)
+            try:
+                data = json.loads(raw_json)
+                action_name = data.get("action")
+                params = data.get("params", {})
+                if action_name:
+                    res = execute_coach_action(user_id, action_name, params)
+                    actions_executed.append({
+                        "action": action_name,
+                        "params": params,
+                        "result": res,
+                    })
+            except Exception as e:
+                logger.warning(f"Failed to parse coach action JSON: {e}")
+            cleaned_text = cleaned_text.replace(match.group(0), "").strip()
+
+    return cleaned_text, actions_executed
+
+
 async def generate_coach_response(user_id: str, message: str, model: str = "") -> str:
     """Generate a non-blocking AI coach response with full context assembly and history."""
     clean_id = sanitize_user_id(user_id)
@@ -232,11 +360,18 @@ async def generate_coach_response(user_id: str, message: str, model: str = "") -
             "Please check your API key configuration or try again in a moment."
         )
 
+    # Extract & execute coach actions if present
+    cleaned_text, actions_executed = extract_and_execute_coach_actions(clean_id, response_text)
+    if actions_executed:
+        summaries = [f"- {a['result'].get('action', a['action'])}" for a in actions_executed if a['result'].get('success')]
+        if summaries:
+            cleaned_text += "\n\n**Program & Tracker Updated:**\n" + "\n".join(summaries)
+
     # Persist turns
     save_chat_message(clean_id, "user", message)
-    save_chat_message(clean_id, "assistant", response_text)
+    save_chat_message(clean_id, "assistant", cleaned_text)
 
-    return response_text
+    return cleaned_text
 
 
 async def stream_coach_response(user_id: str, message: str, model: str = "") -> AsyncGenerator[str, None]:

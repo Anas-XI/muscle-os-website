@@ -1,6 +1,6 @@
 {
-  "num_chunks": 1563,
+  "num_chunks": 1612,
   "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
   "dimension": 384,
-  "created_at": "2026-07-07T16:50:41.946306"
+  "created_at": "2026-08-25T02:21:12.444362"
 }

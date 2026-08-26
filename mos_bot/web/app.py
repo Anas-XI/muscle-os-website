@@ -54,6 +54,8 @@ from mos_bot.web.routers.supplemental import router as supplemental_router
 app.include_router(supplemental_router)
 from mos_bot.web.routers.coach import router as coach_router, load_coach_html
 app.include_router(coach_router)
+from mos_bot.web.routers.intelligence import router as intelligence_router
+app.include_router(intelligence_router)
 
 INDEX_HTML: str | None = None
 
