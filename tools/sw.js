@@ -1,21 +1,37 @@
-// Muscle OS Tools — Service Worker (v4.1.0 Offline-First)
-const CACHE_NAME = 'mos-tools-v4.1.0';
+// Muscle OS Tools — Offline-First Service Worker (v4.2.0 Modular Architecture)
+const CACHE_NAME = 'mos-tools-v4.2.0';
 const ASSETS = [
   './muscle_os_app.html',
   './training_tool.html',
   './tdee_adaptive_engine.html',
-  '../assets/data/food-database.json',
   './manifest.json',
   './icons/icon-192.png',
-  './icons/icon-512.png'
+  './icons/icon-512.png',
+  './css/base.css',
+  './css/components.css',
+  './css/hub.css',
+  './css/training.css',
+  './css/nutrition.css',
+  './js/services/storage.js',
+  './js/services/toast.js',
+  './js/services/modal.js',
+  './js/services/auth.js',
+  './js/services/streak.js',
+  './js/core/training-engine.js',
+  './js/core/tdee-engine.js',
+  './js/controllers/hub-app.js',
+  './js/controllers/training-app.js',
+  './js/controllers/nutrition-app.js',
+  '../assets/data/food-database.json',
+  '../assets/js/decision-engine.js'
 ];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then((cache) => cache.addAll(ASSETS))
+      .then((cache) => cache.addAll(ASSETS.map(url => new Request(url, {cache: 'reload'}))))
       .then(() => self.skipWaiting())
-      .catch((err) => console.warn('[MOS Tools SW] Partial install:', err))
+      .catch((err) => console.warn('[MOS Tools SW] Partial modular install:', err))
   );
 });
 
@@ -35,7 +51,7 @@ self.addEventListener('fetch', (event) => {
 
   const url = new URL(req.url);
 
-  // Network-First for HTML / JSON, cache fallback
+  // Network-First for HTML and JSON datasets
   if (req.headers.get('accept')?.includes('text/html') || url.pathname.endsWith('.json')) {
     event.respondWith(
       fetch(req).then((res) => {
@@ -51,7 +67,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Cache-First for static assets
+  // Cache-First for static assets (CSS, JS, images, icons)
   event.respondWith(
     caches.match(req).then((cached) => {
       if (cached) return cached;
