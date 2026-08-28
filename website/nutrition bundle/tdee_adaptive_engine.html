@@ -337,6 +337,41 @@ select option{background:#1A1B26;color:#FAFAF8}
 .btn-plate-step { min-width: 32px; min-height: 32px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 6px; font-weight: 700; cursor: pointer; }
 .btn-plate-step:hover { background: #F4C93B; color: #0A0B0E; }
 
+
+/* PWA Install Button Styles */
+.btn-pwa-install {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, rgba(244, 201, 59, 0.2), rgba(244, 201, 59, 0.08));
+  border: 1.5px solid var(--accent);
+  color: var(--accent);
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  min-height: 38px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+.btn-pwa-install:hover {
+  background: var(--accent);
+  color: #0A0B0E;
+  box-shadow: 0 0 15px rgba(244, 201, 59, 0.4);
+  transform: translateY(-1px);
+}
+.btn-pwa-install.pulse-ready {
+  animation: pwaGlow 2s infinite alternate;
+}
+@keyframes pwaGlow {
+  from { box-shadow: 0 0 6px rgba(244, 201, 59, 0.2); }
+  to { box-shadow: 0 0 16px rgba(244, 201, 59, 0.6); }
+}
+
 </style>
 <script async defer src="https://accounts.google.com/gsi/client"></script>
 <script>window.MOS_ASSET_ROOT='../assets/data';</script>
@@ -413,7 +448,8 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  </div>
 </div>
 <div class="container">
- <div class="header">
+ <div style="display:flex;justify-content:flex-end;margin-bottom:8px;"><button class="btn-pwa-install" onclick="installPWA()">📲 Install to Home Screen</button></div>
+<div class="header">
  <h1>MOS-METABOLIX</h1>
  <p>Adaptive Bio-Expenditure Matrix &amp; Pharmacokinetic Nutrition Engine</p>
  <span class="badge">FLAGSHIP MODULE // MOS-METABOLIX MVP</span>
@@ -2602,5 +2638,6 @@ window.quickAddMacros = function(){
 };
 </script>
 
+<script src="js/services/pwa-install.js"></script>
 </body>
 </html>

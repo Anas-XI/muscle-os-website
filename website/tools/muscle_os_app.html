@@ -35,6 +35,7 @@
       <small>Unified Training &amp; Nutrition Engine</small>
     </div>
     <div class="hub-side">
+      <button class="btn-pwa-install" id="pwaInstallBtn" onclick="installPWA()" title="Install App to Home Screen for 0-friction access">📲 Install App</button>
       <button class="btn btn-secondary" style="min-height:36px; padding:4px 12px; font-size:0.72rem;" onclick="document.getElementById('hubPaywallOverlay').style.display='flex'">👤 Account</button>
       <span class="status-chip trial" id="statusChip">Trial Active</span>
     </div>
@@ -245,6 +246,7 @@
   <script src="js/services/streak.js"></script>
   <script src="js/core/training-engine.js"></script>
   <script src="js/core/tdee-engine.js"></script>
+  <script src="js/services/pwa-install.js"></script>
   <script src="js/controllers/hub-app.js"></script>
 </body>
 </html>

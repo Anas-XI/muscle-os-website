@@ -116,6 +116,41 @@ footer a{color:var(--yellow)}
   .header-inner{flex-direction:column;gap:12px}
   .nav-links{flex-wrap:wrap;justify-content:center}
 }
+
+/* PWA Install Button Styles */
+.btn-pwa-install {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, rgba(244, 201, 59, 0.2), rgba(244, 201, 59, 0.08));
+  border: 1.5px solid var(--accent);
+  color: var(--accent);
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  min-height: 38px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+.btn-pwa-install:hover {
+  background: var(--accent);
+  color: #0A0B0E;
+  box-shadow: 0 0 15px rgba(244, 201, 59, 0.4);
+  transform: translateY(-1px);
+}
+.btn-pwa-install.pulse-ready {
+  animation: pwaGlow 2s infinite alternate;
+}
+@keyframes pwaGlow {
+  from { box-shadow: 0 0 6px rgba(244, 201, 59, 0.2); }
+  to { box-shadow: 0 0 16px rgba(244, 201, 59, 0.6); }
+}
+
 </style>
 </head>
 <body>
@@ -124,6 +159,7 @@ footer a{color:var(--yellow)}
   <div class="header-inner">
     <a href="../index.html" class="brand">ANAS MO'MEN <span>COACHING</span></a>
     <nav class="nav-links">
+      <button class="btn-pwa-install" onclick="installPWA()" style="margin-right:12px;">📲 Install App</button>
       <a href="../index.html">Home</a>
       <a href="../tools/" style="color:var(--yellow)">Tools</a>
       <a href="../knowledge-hub/">Knowledge Hub</a>
@@ -337,5 +373,6 @@ function filterCategory(cat) {
 }
 </script>
 <script src="../js/auth.js"></script>
+<script src="js/services/pwa-install.js"></script>
 </body>
 </html>
