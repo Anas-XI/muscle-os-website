@@ -10,6 +10,11 @@
 <title>Adaptive TDEE & Macro Engine — by Coach Anas Mo'men</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192.png">
+<meta name="theme-color" content="#F4C93B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -23,14 +28,14 @@ body{font-family:'Inter',sans-serif;background:#0D0E12;background-image:radial-g
 .card+.card{margin-top:18px}
 .card:hover{border-color:rgba(244,201,59,.32);box-shadow:0 20px 52px rgba(0,0,0,.7),inset 0 1px 0 rgba(244,201,59,.15)}
 .tab-bar{display:flex;gap:4px;background:rgba(13,14,18,.6);border-radius:12px;padding:4px;margin-bottom:22px;border:1px solid rgba(250,250,248,.05)}
-.tab{flex:1;text-align:center;padding:9px 8px;border-radius:8px;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:500;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.4);cursor:pointer;transition:all .2s;border:none;background:transparent}
+.tab{flex:1;text-align:center;padding:9px 8px;border-radius:8px;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:500;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.7);cursor:pointer;transition:all .2s;border:none;background:transparent}
 .tab:hover{color:rgba(250,250,248,.7)}
 .tab.active{background:linear-gradient(135deg,#F4C93B 0%,#E8A83A 100%);color:#0D0E12;font-weight:700;box-shadow:0 4px 16px rgba(244,201,59,.35)}
 .tab-content{display:none}
 .tab-content.active{display:block}
 .section-header{font-family:'Oswald',sans-serif;font-size:.9rem;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:#F4C93B;border-bottom:1px solid rgba(244,201,59,.15);padding-bottom:6px;margin:20px 0 12px}
 .section-header:first-of-type{margin-top:0}
-.section-sub{font-size:.62rem;color:rgba(250,250,248,.35);font-weight:400;text-transform:none;letter-spacing:0;font-family:'Inter',sans-serif}
+.section-sub{font-size:.62rem;color:rgba(250,250,248,.7);font-weight:400;text-transform:none;letter-spacing:0;font-family:'Inter',sans-serif}
 .form-group{margin-bottom:14px}
 .form-group label{display:block;font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(250,250,248,.5);margin-bottom:5px}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -43,7 +48,7 @@ input,select{width:100%;padding:10px 12px;background:rgba(13,14,18,.7);border:1.
 input:focus,select:focus{border-color:#F4C93B;box-shadow:0 0 14px rgba(244,201,59,.25);background:rgba(13,14,18,.9)}
 select{font-family:'Inter',sans-serif;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 12 8'%3E%3Cpath fill='%23F4C93B' opacity='0.8' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px}
 select option{background:#1A1B26;color:#FAFAF8}
-.tip{font-size:.6rem;color:rgba(250,250,248,.3);margin-top:4px;font-style:italic}
+.tip{font-size:.6rem;color:rgba(250,250,248,.65);margin-top:4px;font-style:italic}
 .check-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
 .check-item{display:flex;align-items:center;gap:6px;padding:6px 12px;background:rgba(13,14,18,.5);border:1.5px solid rgba(250,250,248,.08);border-radius:8px;cursor:pointer;font-size:.74rem;color:rgba(250,250,248,.6);transition:all .2s}
 .check-item:hover{border-color:rgba(244,201,59,.3)}
@@ -61,24 +66,24 @@ select option{background:#1A1B26;color:#FAFAF8}
 /* ---- Dashboard ---- */
 .dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
 .dash-card{background:rgba(20,21,26,.4);border-radius:10px;padding:12px 14px;text-align:center}
-.dash-label{font-size:.5rem;text-transform:uppercase;letter-spacing:1.5px;color:rgba(250,250,248,.35);font-weight:600;margin-bottom:2px}
+.dash-label{font-size:.5rem;text-transform:uppercase;letter-spacing:1.5px;color:rgba(250,250,248,.7);font-weight:600;margin-bottom:2px}
 .dash-val{font-family:'JetBrains Mono',monospace;font-size:1.6rem;font-weight:700;color:#F4C93B;line-height:1.1}
-.dash-sub{font-size:.6rem;color:rgba(250,250,248,.25);margin-top:1px}
+.dash-sub{font-size:.6rem;color:rgba(250,250,248,.65);margin-top:1px}
 .dash-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(250,250,248,.04);font-size:.72rem}
 .dash-row:last-child{border-bottom:none}
-.dash-row .l{color:rgba(250,250,248,.4)}
+.dash-row .l{color:rgba(250,250,248,.7)}
 .dash-row .v{font-family:'JetBrains Mono',monospace;color:#FAFAF8;font-weight:500}
 .dash-macro-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:14px 0}
 .dash-macro{text-align:center;padding:8px 4px;border-radius:8px;background:rgba(20,21,26,.4)}
 .dash-macro-val{font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:600;color:#FAFAF8}
-.dash-macro-lbl{font-size:.55rem;text-transform:uppercase;letter-spacing:1px;color:rgba(250,250,248,.3);margin-top:1px;font-weight:500}
+.dash-macro-lbl{font-size:.55rem;text-transform:uppercase;letter-spacing:1px;color:rgba(250,250,248,.65);margin-top:1px;font-weight:500}
 .bar-track{display:flex;height:22px;border-radius:6px;overflow:hidden;margin:6px 0}
 .bar-seg{display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.55rem;font-weight:600;color:#14151A;transition:width .4s ease}
 .bar-p{background:#F4C93B}
 .bar-f{background:#e8a83a}
 .bar-c{background:#c48a30}
 .bar-legend{display:flex;justify-content:center;gap:12px;margin-bottom:10px}
-.bar-leg-item{display:flex;align-items:center;gap:4px;font-size:.55rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.3);font-weight:500}
+.bar-leg-item{display:flex;align-items:center;gap:4px;font-size:.55rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.65);font-weight:500}
 .bar-dot{width:7px;height:7px;border-radius:2px}
 
 /* ---- Rationale block ---- */
@@ -93,7 +98,7 @@ select option{background:#1A1B26;color:#FAFAF8}
 .weight-input-row button:hover{opacity:.85}
 .weight-log{max-height:220px;overflow-y:auto}
 .weight-entry{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(250,250,248,.03);font-size:.72rem}
-.weight-entry .d{color:rgba(250,250,248,.25)}
+.weight-entry .d{color:rgba(250,250,248,.65)}
 .weight-entry .w{font-family:'JetBrains Mono',monospace;color:#FAFAF8;font-weight:500}
 
 /* ---- Status banner ---- */
@@ -107,7 +112,7 @@ select option{background:#1A1B26;color:#FAFAF8}
 /* ---- History ---- */
 .hist-entry{padding:8px 0;border-bottom:1px solid rgba(250,250,248,.04);font-size:.72rem;line-height:1.5}
 .hist-entry:last-child{border-bottom:none}
-.hist-entry .h-date{font-family:'JetBrains Mono',monospace;color:rgba(250,250,248,.25);font-size:.62rem}
+.hist-entry .h-date{font-family:'JetBrains Mono',monospace;color:rgba(250,250,248,.65);font-size:.62rem}
 .hist-entry .h-reason{color:rgba(250,250,248,.5);margin-top:2px}
 .hist-entry .h-change{font-family:'JetBrains Mono',monospace;font-weight:600}
 .hist-up{color:#4CAF50}
@@ -134,7 +139,7 @@ select option{background:#1A1B26;color:#FAFAF8}
 .food-log-item{display:flex;justify-content:space-between;align-items:center;background:rgba(20,21,26,.4);padding:8px 12px;border-radius:8px;border:1px solid rgba(250,250,248,.04)}
 .food-log-info{display:flex;flex-direction:column;gap:2px}
 .food-log-title{font-size:.72rem;font-weight:500;color:#FAFAF8}
-.food-log-macros{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:rgba(250,250,248,.4)}
+.food-log-macros{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:rgba(250,250,248,.7)}
 .food-log-actions{display:flex;align-items:center;gap:10px}
 .food-log-cals{font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:600;color:#F4C93B}
 .food-log-del{background:none;border:none;color:#f44336;cursor:pointer;font-size:.8rem;padding:2px 4px}
@@ -194,7 +199,7 @@ select option{background:#1A1B26;color:#FAFAF8}
 .mos-fnav a{color:rgba(250,250,248,.5);text-decoration:none;margin:0 8px;font-size:11px;font-weight:500}
 .mos-fnav a:hover{color:#F4C93B}
 .mos-fsocial a{color:#F4C93B;text-decoration:none;margin:0 8px;font-size:11px}
-.mos-fcopy{font-size:10px;color:rgba(250,250,248,.3);margin-top:6px}
+.mos-fcopy{font-size:10px;color:rgba(250,250,248,.65);margin-top:6px}
 .wa-link{font-family:'JetBrains Mono',monospace;color:#F4C93B;text-decoration:none}
 @media(max-width:600px){
  body{padding:12px 10px calc(80px + env(safe-area-inset-bottom))}
@@ -246,7 +251,7 @@ select option{background:#1A1B26;color:#FAFAF8}
 #mobileCtaBar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:950;background:rgba(20,21,26,.97);backdrop-filter:blur(10px);border-top:1px solid rgba(244,201,59,.25);padding:10px 14px calc(10px + env(safe-area-inset-bottom));gap:10px;box-shadow:0 -8px 24px rgba(0,0,0,.35)}
 #mobileCtaBar a{flex:1;text-align:center;padding:13px 8px;border-radius:10px;font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;text-decoration:none;transition:opacity .2s}
 #mobileCtaBar .cta-primary{background:#F4C93B;color:#14151A}
-#mobileCtaBar .cta-secondary{background:transparent;color:#FAFAF8;border:1.5px solid rgba(250,250,248,.25)}
+#mobileCtaBar .cta-secondary{background:transparent;color:#FAFAF8;border:1.5px solid rgba(250,250,248,.65)}
 #mobileCtaBar a:active{opacity:.85}
 @media(max-width:768px){
  #mobileCtaBar{display:flex}
@@ -259,6 +264,79 @@ select option{background:#1A1B26;color:#FAFAF8}
 .engine-recs-card .ec-sub{font-size:.6rem;color:rgba(250,250,248,.45);margin-bottom:6px;line-height:1.4}
 .engine-rule-chip{display:inline-block;font-size:.5rem;background:rgba(244,201,59,.1);border:1px solid rgba(244,201,59,.3);color:#F4C93B;border-radius:10px;padding:1px 8px;margin:0 4px 4px 0;font-weight:600}
 .engine-note{font-size:.58rem;color:rgba(250,250,248,.6);line-height:1.4;padding-top:4px;border-top:1px solid rgba(250,250,248,.06);margin-top:4px}
+
+/* === Phase 1: Mobile Touch Target Compliance & Contrast Enhancement === */
+.tab { min-height: 44px; padding: 10px 14px; display: inline-flex; align-items: center; justify-content: center; }
+.food-log-del { min-width: 44px; min-height: 44px; padding: 10px; display: inline-flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+.food-date-btn { min-width: 44px; min-height: 44px; padding: 8px 12px; display: inline-flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+.cat-chip { min-height: 44px; padding: 8px 14px; font-size: .72rem; display: inline-flex; align-items: center; justify-content: center; }
+.fav-star { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+.food-add-row button { min-height: 44px; padding: 0 20px; }
+.voice-search-btn { min-height: 44px; min-width: 44px; }
+.modal-close { min-width: 44px; min-height: 44px; padding: 10px; font-size: 1.2rem; display: inline-flex; align-items: center; justify-content: center; }
+
+/* iOS Safari auto-zoom prevention */
+@media (max-width: 768px) {
+  input, select, textarea { font-size: 16px !important; }
+}
+
+/* MOS Universal Toast Notifications */
+.mos-toast-container {
+  position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+  z-index: 100000; display: flex; flex-direction: column; gap: 8px;
+  pointer-events: none; width: 90%; max-width: 400px;
+}
+.mos-toast {
+  pointer-events: auto; display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px; background: rgba(20, 21, 26, 0.96);
+  border: 1px solid rgba(244, 201, 59, 0.4); border-radius: 12px;
+  color: #FAFAF8; font-size: 0.85rem; font-family: 'Inter', sans-serif;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(244, 201, 59, 0.15);
+  backdrop-filter: blur(12px); animation: mosToastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.3s, transform 0.3s;
+}
+.mos-toast.success { border-color: rgba(76, 175, 80, 0.6); }
+.mos-toast.error { border-color: rgba(244, 67, 54, 0.6); }
+.mos-toast.warning { border-color: rgba(244, 201, 59, 0.6); }
+.mos-toast-icon { font-size: 1.2rem; flex-shrink: 0; }
+.mos-toast-msg { flex: 1; line-height: 1.4; }
+@keyframes mosToastIn { from { opacity: 0; transform: translateY(-20px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+
+/* === Phase 1-4 Complete Nutrition Web Styles === */
+.plate-drawer-bar {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92%;
+  max-width: 540px;
+  background: rgba(20, 22, 29, 0.98);
+  border: 1.5px solid #F4C93B;
+  border-radius: 30px;
+  padding: 10px 18px;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.8), 0 0 20px rgba(244, 201, 59, 0.3);
+  backdrop-filter: blur(16px);
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 9999;
+  animation: plateSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes plateSlideUp { from { opacity: 0; transform: translate(-50%, 20px); } to { opacity: 1; transform: translate(-50%, 0); } }
+.plate-info { display: flex; align-items: center; gap: 8px; font-family: 'Oswald', sans-serif; font-size: 0.95rem; text-transform: uppercase; color: #fff; }
+.plate-count-badge { background: #F4C93B; color: #0A0B0E; font-weight: 800; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; }
+.btn-plate-action { background: #F4C93B; color: #0A0B0E; font-family: 'Oswald', sans-serif; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; padding: 8px 16px; border-radius: 20px; border: none; cursor: pointer; min-height: 38px; }
+.btn-plate-action:hover { background: #fff; box-shadow: 0 0 15px rgba(244, 201, 59, 0.5); }
+
+.plate-item-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.plate-item-info h5 { font-size: 0.85rem; color: #fff; margin-bottom: 2px; }
+.plate-item-info span { font-size: 0.72rem; color: rgba(250,250,248,0.58); }
+.plate-stepper { display: flex; align-items: center; gap: 6px; }
+.plate-stepper input { width: 60px; text-align: center; padding: 4px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+.btn-plate-step { min-width: 32px; min-height: 32px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 6px; font-weight: 700; cursor: pointer; }
+.btn-plate-step:hover { background: #F4C93B; color: #0A0B0E; }
+
 </style>
 <script async defer src="https://accounts.google.com/gsi/client"></script>
 <script>window.MOS_ASSET_ROOT='../assets/data';</script>
@@ -266,6 +344,34 @@ select option{background:#1A1B26;color:#FAFAF8}
 <script>if(window.DecisionEngine){window.DecisionEngine.init(window.MOS_ASSET_ROOT);}</script>
 </head>
 <body>
+
+<script>
+// Universal Toast Notification Handler
+window.mosToast = function(msg, type) {
+  type = type || 'info';
+  var icon = type === 'success' ? '✅' : (type === 'error' ? '❌' : (type === 'warning' ? '⚠️' : '⚡'));
+  var tc = document.getElementById('mos-toast-container');
+  if (!tc) {
+    tc = document.createElement('div');
+    tc.id = 'mos-toast-container';
+    tc.className = 'mos-toast-container';
+    tc.setAttribute('role', 'alert');
+    tc.setAttribute('aria-live', 'polite');
+    document.body.appendChild(tc);
+  }
+  var t = document.createElement('div');
+  t.className = 'mos-toast ' + type;
+  t.innerHTML = '<span class="mos-toast-icon">' + icon + '</span><span class="mos-toast-msg">' + (msg || '') + '</span>';
+  tc.appendChild(t);
+  setTimeout(function() {
+    t.style.opacity = '0';
+    t.style.transform = 'translateY(-10px)';
+    setTimeout(function() { t.remove(); }, 300);
+  }, 3800);
+};
+window.alert = function(msg) { window.mosToast(msg, 'info'); };
+</script>
+
 <nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a><a href="../index.html#packages">Coaching</a></div></div></nav>
 <div class="sub-overlay" id="subOverlay">
  <div class="sub-modal" style="position:relative;">
@@ -302,7 +408,7 @@ select option{background:#1A1B26;color:#FAFAF8}
    <label for="staySignedInTdee" style="cursor:pointer; margin:0; text-transform:none; font-weight:400; font-size:0.75rem; color:inherit;">Stay signed in</label>
  </div>
  <div class="sub-error" id="authStep1Error" style="display:none">Google sign-in failed. Please try again.</div>
- <div style="text-align:center;margin-top:6px"><a href="#" id="subSignOut" style="display:none;font-size:.5rem;color:rgba(250,250,248,.3)">Not you? Switch account</a></div>
+ <div style="text-align:center;margin-top:6px"><a href="#" id="subSignOut" style="display:none;font-size:.5rem;color:rgba(250,250,248,.65)">Not you? Switch account</a></div>
  </div>
  </div>
 </div>
@@ -458,7 +564,7 @@ select option{background:#1A1B26;color:#FAFAF8}
 
  <div id="tab-history" class="tab-content">
  <div class="section-header">Adjustment History</div>
- <div id="adjustmentHistory"><p style="font-size:.78rem;color:rgba(250,250,248,.3);text-align:center;padding:20px 0">No adjustments yet. Complete 2 weeks of weight logging to trigger the first recalibration.</p></div>
+ <div id="adjustmentHistory"><p style="font-size:.78rem;color:rgba(250,250,248,.65);text-align:center;padding:20px 0">No adjustments yet. Complete 2 weeks of weight logging to trigger the first recalibration.</p></div>
  </div>
  </div>
  </div>
@@ -921,7 +1027,7 @@ numbersHtml += '<div class="dash-macro-grid">' +
  renderFoodTab();
 
  // Edit tab
- document.getElementById('dash-edit').innerHTML = '<div class="section-header">Edit Profile</div><p style="font-size:.72rem;color:rgba(250,250,248,.4);margin-bottom:12px;line-height:1.5;">Changing your profile will reset the recalibration cycle (current weight log is preserved).</p><button class="btn-secondary" id="backToProfile">Edit Profile Settings</button><div style="margin-top:14px;border-top:1px solid rgba(250,250,248,.06);padding-top:14px"><div class="section-header" style="margin-top:0">Data Management</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn-secondary" id="exportTdeeBtn" style="flex:1;text-align:center">⬇ Export JSON</button><button class="btn-secondary" id="importTdeeBtn" style="flex:1;text-align:center">⬆ Import JSON</button><button class="btn-secondary" onclick="copyBackupToClipboard()" style="flex:1;text-align:center;color:#F4C93B"> Copy Backup Code</button><button class="btn-secondary" onclick="pasteBackupFromClipboard()" style="flex:1;text-align:center;color:#F4C93B"> Paste Backup Code</button></div></div><input type="file" id="tdeeImportInput" accept=".json" style="display:none">';
+ document.getElementById('dash-edit').innerHTML = '<div class="section-header">Edit Profile</div><p style="font-size:.72rem;color:rgba(250,250,248,.7);margin-bottom:12px;line-height:1.5;">Changing your profile will reset the recalibration cycle (current weight log is preserved).</p><button class="btn-secondary" id="backToProfile">Edit Profile Settings</button><div style="margin-top:14px;border-top:1px solid rgba(250,250,248,.06);padding-top:14px"><div class="section-header" style="margin-top:0">Data Management</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn-secondary" id="exportTdeeBtn" style="flex:1;text-align:center">⬇ Export JSON</button><button class="btn-secondary" id="importTdeeBtn" style="flex:1;text-align:center">⬆ Import JSON</button><button class="btn-secondary" onclick="copyBackupToClipboard()" style="flex:1;text-align:center;color:#F4C93B"> Copy Backup Code</button><button class="btn-secondary" onclick="pasteBackupFromClipboard()" style="flex:1;text-align:center;color:#F4C93B"> Paste Backup Code</button></div></div><input type="file" id="tdeeImportInput" accept=".json" style="display:none">';
  document.getElementById('backToProfile').addEventListener('click', function(){
  document.getElementById('dashboardView').style.display = 'none';
  document.getElementById('profileView').style.display = 'block';
@@ -980,7 +1086,7 @@ numbersHtml += '<div class="dash-macro-grid">' +
 
  function renderHistory(){
  if(!store.adjustments || store.adjustments.length === 0){
- return '<div class="section-header">Adjustment History</div><p style="font-size:.78rem;color:rgba(250,250,248,.3);text-align:center;padding:20px 0">No adjustments yet. Keep logging weight for 2+ weeks.</p>';
+ return '<div class="section-header">Adjustment History</div><p style="font-size:.78rem;color:rgba(250,250,248,.65);text-align:center;padding:20px 0">No adjustments yet. Keep logging weight for 2+ weeks.</p>';
  }
  let html = '<div class="section-header">Adjustment History</div>';
  [...store.adjustments].reverse().forEach(a => {
@@ -1541,7 +1647,7 @@ numbersHtml += '<div class="dash-macro-grid">' +
  <div style="font-family:'Oswald',sans-serif;font-size:1.15rem;color:#F4C93B;margin-bottom:8px">${step.title}</div>
  <div style="font-size:.78rem;line-height:1.6;color:rgba(250,250,248,.85);margin-bottom:16px">${step.desc}</div>
  <div style="display:flex;justify-content:space-between;align-items:center">
- <span style="font-size:.65rem;color:rgba(250,250,248,.4)">Step ${stepIdx + 1} of ${MOS_TOUR_STEPS.length}</span>
+ <span style="font-size:.65rem;color:rgba(250,250,248,.7)">Step ${stepIdx + 1} of ${MOS_TOUR_STEPS.length}</span>
  <div style="display:flex;gap:6px">
  ${stepIdx > 0 ? `<button class="btn-secondary" onclick="showTourStep(${stepIdx - 1})" style="padding:5px 10px;font-size:.65rem">◄ Back</button>` : ''}
  ${stepIdx < MOS_TOUR_STEPS.length - 1 ? `<button class="btn-primary" onclick="showTourStep(${stepIdx + 1})" style="margin:0;padding:5px 12px;font-size:.65rem">Next ➔</button>` : `<button class="btn-primary" onclick="closeTourModal()" style="margin:0;padding:5px 12px;font-size:.65rem">Finish Tour </button>`}
@@ -1586,7 +1692,7 @@ numbersHtml += '<div class="dash-macro-grid">' +
  let totCal = 0, totP = 0, totF = 0, totC = 0, totLeu = 0;
  let totVitC = 0, totVitD = 0, totB12 = 0, totIron = 0, totCalcium = 0, totZinc = 0, totMag = 0, totPot = 0, totSod = 0;
  
- let listHtml = todayLogs.length === 0 ? '<p style="font-size:.72rem;color:rgba(250,250,248,.3);text-align:center;padding:10px 0">No food logged for this date.</p>' : '';
+ let listHtml = todayLogs.length === 0 ? '<p style="font-size:.72rem;color:rgba(250,250,248,.65);text-align:center;padding:10px 0">No food logged for this date.</p>' : '';
  
  todayLogs.forEach((item, idx) => {
  totCal += item.cals || 0;
@@ -1703,14 +1809,14 @@ numbersHtml += '<div class="dash-macro-grid">' +
  <!-- Micronutrients & Minerals Profile Grid -->
  <div class="section-header" style="margin-top:12px">Vitamins &amp; Minerals Profile</div>
  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:8px 0;text-align:center">
- <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.4)">IRON</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${totIron.toFixed(1)}mg</div></div>
- <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.4)">CALCIUM</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${Math.round(totCalcium)}mg</div></div>
- <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.4)">ZINC</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${totZinc.toFixed(1)}mg</div></div>
- <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.4)">MAGNESIUM</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${Math.round(totMag)}mg</div></div>
- <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.4)">POTASSIUM</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${Math.round(totPot)}mg</div></div>
- <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.4)">VIT C</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${Math.round(totVitC)}mg</div></div>
- <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.4)">VIT D</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${totVitD.toFixed(1)}mcg</div></div>
- <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.4)">VIT B12</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${totB12.toFixed(1)}mcg</div></div>
+ <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">IRON</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${totIron.toFixed(1)}mg</div></div>
+ <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">CALCIUM</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${Math.round(totCalcium)}mg</div></div>
+ <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">ZINC</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${totZinc.toFixed(1)}mg</div></div>
+ <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">MAGNESIUM</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${Math.round(totMag)}mg</div></div>
+ <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">POTASSIUM</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${Math.round(totPot)}mg</div></div>
+ <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">VIT C</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${Math.round(totVitC)}mg</div></div>
+ <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">VIT D</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${totVitD.toFixed(1)}mcg</div></div>
+ <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">VIT B12</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${totB12.toFixed(1)}mcg</div></div>
  </div>
 
  <!-- Hydration & Electrolyte Balance Tracker -->
@@ -1784,7 +1890,7 @@ numbersHtml += '<div class="dash-macro-grid">' +
  }).join('');
  autocomplete.style.display = 'block';
  } else {
- autocomplete.innerHTML = '<div style="padding:10px;text-align:center;color:rgba(250,250,248,.3);font-size:.7rem">No food found.</div>';
+ autocomplete.innerHTML = '<div style="padding:10px;text-align:center;color:rgba(250,250,248,.65);font-size:.7rem">No food found.</div>';
  autocomplete.style.display = 'block';
  }
  });
@@ -2069,8 +2175,8 @@ if(data && data.error === 'wrong_product') msg = 'This code unlocks the OMNI HUB
 
   function finishGoogle(data){
     localStorage.setItem(GS_KEY, JSON.stringify({ session: data.session, email: data.email, name: data.name || '', ts: Date.now() }));
-    if(data.email.toUpperCase() === OWNER_EMAIL){
-      var expiry = new Date(); expiry.setMonth(expiry.getMonth() + 1);
+    if(['ANASSTEM2025@GMAIL.COM', '1022066.ANAS@STEMEGYPT.EDU.EG', 'ANASSMOMEN@GMAIL.COM'].includes(data.email.toUpperCase())){
+      var expiry = new Date('2099-12-31');
       grantAndReload('pro_tdee', expiry.toISOString().split('T')[0], '', 'OWNER', data.email);
       return;
     }
@@ -2111,11 +2217,12 @@ if(data && data.error === 'wrong_product') msg = 'This code unlocks the OMNI HUB
   // ─── Trial + Paywall Gate ───
   var TRIAL_DAYS = 7;
   function getTrialState(){
+    var TRIAL_EPOCH = new Date('2026-08-27T00:00:00.000Z').getTime();
     var start = localStorage.getItem('mos_tdee_trial_start') || localStorage.getItem('mos_trial_start');
-    if(!start){
+    if(!start || new Date(start).getTime() < TRIAL_EPOCH){
       start = new Date().toISOString();
       localStorage.setItem('mos_tdee_trial_start', start);
-      if(!localStorage.getItem('mos_trial_start')) localStorage.setItem('mos_trial_start', start);
+      localStorage.setItem('mos_trial_start', start);
     }
     var daysLeft = TRIAL_DAYS - Math.floor((Date.now() - new Date(start).getTime()) / 864e5);
     return { start: start, daysLeft: Math.max(0, daysLeft), active: daysLeft > 0 };
@@ -2203,8 +2310,8 @@ if(data && data.error === 'wrong_product') msg = 'This code unlocks the OMNI HUB
         if(!code){ showErr('subError', 'Wrong code. Please check and try again.'); return; }
         var g = getGs();
         var email = g ? g.email : '';
-        if(email.toUpperCase() === OWNER_EMAIL){
-          var expiry = new Date(); expiry.setMonth(expiry.getMonth() + 1);
+        if(['ANASSTEM2025@GMAIL.COM', '1022066.ANAS@STEMEGYPT.EDU.EG', 'ANASSMOMEN@GMAIL.COM'].includes(email.toUpperCase())){
+          var expiry = new Date('2099-12-31');
           grantAndReload('pro_tdee', expiry.toISOString().split('T')[0], '', 'OWNER', email);
           return;
         }
@@ -2245,5 +2352,255 @@ if (window.self !== window.top) {
   document.head.appendChild(style);
 }
 </script>
+
+<script>
+// === Phase 1-4 Complete Nutrition Engine Scripts ===
+
+window.currentPlate = [];
+
+window.addToPlate = function(itemData) {
+  if (!itemData) return;
+  var existing = window.currentPlate.find(p => p.id === itemData.id);
+  if (existing) {
+    existing.amount += (itemData.amount || 100);
+  } else {
+    window.currentPlate.push({
+      id: itemData.id || ('custom_' + Date.now()),
+      name: itemData.name || itemData.name_en || 'Custom Item',
+      cals: itemData.cals || itemData.calories || 0,
+      p: itemData.p || itemData.protein || 0,
+      c: itemData.c || itemData.carbs || 0,
+      f: itemData.f || itemData.fat || 0,
+      leu: itemData.leu || (itemData.p * 0.08) || 0,
+      amount: itemData.amount || 100
+    });
+  }
+  renderPlateBar();
+  if (window.mosToast) window.mosToast(`Added ${itemData.name || itemData.name_en} to Plate 🥗`, 'info');
+};
+
+function renderPlateBar() {
+  var bar = document.getElementById('plateDrawerBar');
+  if (!bar) {
+    bar = document.createElement('div');
+    bar.id = 'plateDrawerBar';
+    bar.className = 'plate-drawer-bar';
+    document.body.appendChild(bar);
+  }
+
+  if (window.currentPlate.length === 0) {
+    bar.style.display = 'none';
+    return;
+  }
+
+  var totalCals = 0;
+  window.currentPlate.forEach(p => {
+    totalCals += Math.round((p.cals * p.amount) / 100);
+  });
+
+  bar.innerHTML = `
+    <div class="plate-info">
+      <span>🥗 Meal Plate</span>
+      <span class="plate-count-badge">${window.currentPlate.length} items</span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:#F4C93B;">${totalCals} kcal</span>
+    </div>
+    <button class="btn-plate-action" onclick="openPlateDrawerModal()">Review &amp; Log &rarr;</button>
+  `;
+  bar.style.display = 'flex';
+}
+
+window.openPlateDrawerModal = function() {
+  var ov = document.createElement('div');
+  ov.className = 'mos-modal-overlay';
+  ov.id = 'plateModalOverlay';
+  ov.setAttribute('role', 'dialog');
+  ov.setAttribute('aria-modal', 'true');
+
+  var box = document.createElement('div');
+  box.className = 'mos-modal-box';
+  box.style.maxWidth = '480px';
+
+  function renderModalItems() {
+    var totalCals = 0, totalP = 0, totalC = 0, totalF = 0;
+    var itemsHtml = window.currentPlate.map((p, idx) => {
+      var itemCals = Math.round((p.cals * p.amount) / 100);
+      var itemP = Math.round((p.p * p.amount) / 100);
+      var itemC = Math.round((p.c * p.amount) / 100);
+      var itemF = Math.round((p.f * p.amount) / 100);
+
+      totalCals += itemCals;
+      totalP += itemP;
+      totalC += itemC;
+      totalF += itemF;
+
+      return `
+        <div class="plate-item-row">
+          <div class="plate-item-info">
+            <h5>${p.name}</h5>
+            <span>${itemCals} kcal | P: ${itemP}g | C: ${itemC}g | F: ${itemF}g</span>
+          </div>
+          <div class="plate-stepper">
+            <button class="btn-plate-step" onclick="adjustPlateGrams(${idx}, -25)">−25</button>
+            <input type="number" value="${p.amount}" onchange="setPlateGrams(${idx}, this.value)">
+            <button class="btn-plate-step" onclick="adjustPlateGrams(${idx}, 25)">+25</button>
+            <button style="background:none;border:none;color:#f44336;cursor:pointer;font-size:1rem;margin-left:4px;" onclick="removePlateItem(${idx})">🗑</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    box.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div class="mos-modal-title">🥗 Review Meal Plate</div>
+        <button id="closePlateModal" style="background:none;border:none;color:rgba(250,250,248,0.58);font-size:1.2rem;cursor:pointer;">✕</button>
+      </div>
+      <p class="mos-modal-desc">Adjust individual food portions before committing all to today's log.</p>
+      
+      <div style="max-height:280px;overflow-y:auto;margin:10px 0;">
+        ${itemsHtml}
+      </div>
+
+      <div style="background:rgba(0,0,0,0.4);padding:10px 14px;border-radius:10px;border:1px solid rgba(250,250,248,0.1);display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:0.85rem;margin-bottom:12px;">
+        <span style="color:#fff;font-weight:700;">Total: ${totalCals} kcal</span>
+        <span style="color:#60a5fa;">P: ${totalP}g</span>
+        <span style="color:#F4C93B;">C: ${totalC}g</span>
+        <span style="color:#ec4899;">F: ${totalF}g</span>
+      </div>
+
+      <div class="mos-modal-actions">
+        <button class="btn btn-secondary" onclick="clearPlate()">Clear Plate</button>
+        <button class="btn btn-primary" onclick="commitPlateToLog()">Log Entire Plate &rarr;</button>
+      </div>
+    `;
+
+    document.getElementById('closePlateModal').onclick = function() { ov.remove(); };
+  }
+
+  window.adjustPlateGrams = function(idx, delta) {
+    if (window.currentPlate[idx]) {
+      window.currentPlate[idx].amount = Math.max(10, window.currentPlate[idx].amount + delta);
+      renderModalItems();
+      renderPlateBar();
+    }
+  };
+
+  window.setPlateGrams = function(idx, val) {
+    if (window.currentPlate[idx]) {
+      window.currentPlate[idx].amount = Math.max(10, parseFloat(val) || 100);
+      renderModalItems();
+      renderPlateBar();
+    }
+  };
+
+  window.removePlateItem = function(idx) {
+    window.currentPlate.splice(idx, 1);
+    renderModalItems();
+    renderPlateBar();
+    if (window.currentPlate.length === 0) ov.remove();
+  };
+
+  window.clearPlate = function() {
+    window.currentPlate = [];
+    renderPlateBar();
+    ov.remove();
+  };
+
+  window.commitPlateToLog = function() {
+    if (!foodLogStore[currentFoodDate]) foodLogStore[currentFoodDate] = [];
+    window.currentPlate.forEach(p => {
+      foodLogStore[currentFoodDate].push({
+        id: p.id,
+        name: p.name,
+        amount: p.amount,
+        cals: Math.round((p.cals * p.amount) / 100),
+        p: Math.round((p.p * p.amount) / 100),
+        c: Math.round((p.c * p.amount) / 100),
+        f: Math.round((p.f * p.amount) / 100),
+        leu: (p.leu * p.amount) / 100
+      });
+    });
+
+    saveFoodLogs();
+    renderFoodTab();
+    window.currentPlate = [];
+    renderPlateBar();
+    ov.remove();
+    if (window.mosToast) window.mosToast('🎉 Meal plate successfully logged!', 'success');
+  };
+
+  ov.appendChild(box);
+  document.body.appendChild(ov);
+  renderModalItems();
+};
+
+// Replaces 5 sequential prompts with modern Bottom-Sheet Modal
+window.quickAddMacros = function(){
+  var ov = document.createElement('div');
+  ov.className = 'mos-modal-overlay';
+  ov.setAttribute('role', 'dialog');
+  ov.setAttribute('aria-modal', 'true');
+
+  var box = document.createElement('div');
+  box.className = 'mos-modal-box';
+
+  box.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <div class="mos-modal-title">⚡ Quick Add Custom Meal</div>
+      <button id="closeQuickAddModal" style="background:none;border:none;color:rgba(250,250,248,0.58);font-size:1.2rem;cursor:pointer;">✕</button>
+    </div>
+    <p class="mos-modal-desc">Directly log custom food or restaurant meal without database lookup.</p>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <input type="text" id="qaMealName" class="quick-input" placeholder="Meal Name (e.g. Steak Dinner)" style="width:100%;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <input type="number" id="qaCals" class="quick-input" placeholder="Calories (kcal)" style="width:100%;">
+        <input type="number" id="qaProtein" class="quick-input" placeholder="Protein (g)" style="width:100%;">
+        <input type="number" id="qaCarbs" class="quick-input" placeholder="Carbs (g)" style="width:100%;">
+        <input type="number" id="qaFats" class="quick-input" placeholder="Fats (g)" style="width:100%;">
+      </div>
+    </div>
+    <div class="mos-modal-actions">
+      <button class="btn btn-secondary" id="cancelQuickAddModal">Cancel</button>
+      <button class="btn btn-primary" id="submitQuickAddModal">Add to Today</button>
+    </div>
+  `;
+
+  ov.appendChild(box);
+  document.body.appendChild(ov);
+
+  document.getElementById('closeQuickAddModal').onclick = function() { ov.remove(); };
+  document.getElementById('cancelQuickAddModal').onclick = function() { ov.remove(); };
+  
+  document.getElementById('submitQuickAddModal').onclick = function() {
+    var name = document.getElementById('qaMealName').value.trim() || 'Custom Meal';
+    var cals = parseFloat(document.getElementById('qaCals').value) || 0;
+    var p = parseFloat(document.getElementById('qaProtein').value) || 0;
+    var c = parseFloat(document.getElementById('qaCarbs').value) || 0;
+    var f = parseFloat(document.getElementById('qaFats').value) || 0;
+
+    if (cals <= 0 && p <= 0 && c <= 0 && f <= 0) {
+      if (window.mosToast) window.mosToast('Please enter calories or macros.', 'warning');
+      return;
+    }
+
+    if (!foodLogStore[currentFoodDate]) foodLogStore[currentFoodDate] = [];
+    foodLogStore[currentFoodDate].push({
+      id: 'custom_' + Date.now(),
+      name: name,
+      amount: 1,
+      cals: cals,
+      p: p,
+      c: c,
+      f: f,
+      leu: (p * 0.08)
+    });
+
+    saveFoodLogs();
+    renderFoodTab();
+    ov.remove();
+    if (window.mosToast) window.mosToast('✅ Custom meal added to today!', 'success');
+  };
+};
+</script>
+
 </body>
 </html>
