@@ -4,25 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/client https://accounts.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com https://accounts.google.com; frame-src 'self' https://accounts.google.com/gsi/ https://accounts.google.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev https://accounts.google.com/gsi/ https://accounts.google.com; frame-ancestors 'self'; base-uri 'self'">
-  <title>Muscle OS - Portal</title>
+  <title>Muscle OS &mdash; Client Portal &amp; Access Unlock</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <script async defer src="https://accounts.google.com/gsi/client"></script>
   <style>
     :root {
-      --bg: #0D0E12;
+      --bg: #0A0B0E;
       --surface: #14151A;
-      --border: #2C2E37;
+      --surface-2: #1E2027;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-focus: #F4C93B;
       --text: #FAFAF8;
-      --text-muted: rgba(250, 250, 248, 0.6);
-      --accent: #E11D2E;
-      --accent-hover: #b91523;
-      --gold: #F4C93B;
+      --text-muted: rgba(250, 250, 248, 0.65);
+      --yellow: #F4C93B;
+      --yellow-glow: rgba(244, 201, 59, 0.35);
+      --red: #ff5252;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: var(--bg);
+      background: radial-gradient(circle at 50% 20%, #201b0c 0%, #0A0B0E 65%);
+      background-color: var(--bg);
       color: var(--text);
       font-family: 'Inter', sans-serif;
       display: flex;
@@ -30,128 +33,170 @@
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      padding: 20px;
+      padding: 24px 20px;
     }
     .portal-container {
       width: 100%;
       max-width: 440px;
-      padding: 40px;
+      padding: 38px 32px;
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      border-radius: 16px;
+      box-shadow: 0 16px 45px rgba(0,0,0,0.6);
       text-align: center;
+      position: relative;
     }
     .brand {
       font-family: 'Oswald', sans-serif;
-      font-size: 2rem;
-      letter-spacing: -0.5px;
-      margin-bottom: 8px;
+      font-size: 2.2rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
     }
-    .brand span { color: var(--gold); }
+    .brand span { color: var(--yellow); text-shadow: 0 0 12px var(--yellow-glow); }
     .subtitle {
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       color: var(--text-muted);
-      margin-bottom: 32px;
+      margin-bottom: 28px;
+      line-height: 1.5;
     }
     .input-group {
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       text-align: left;
     }
     .input-group label {
       display: block;
-      font-size: 0.8rem;
-      font-weight: 600;
+      font-size: 0.78rem;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       margin-bottom: 8px;
       color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
     }
-    input {
+    input[type="text"] {
       width: 100%;
-      padding: 14px 16px;
-      background: var(--bg);
-      border: 1px solid var(--border);
+      padding: 13px 16px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1.5px solid var(--border);
       border-radius: 8px;
       color: var(--text);
       font-size: 1rem;
-      font-family: 'Inter', sans-serif;
+      font-family: 'JetBrains Mono', monospace;
       text-transform: uppercase;
       transition: all 0.2s ease;
+      letter-spacing: 1px;
     }
-    input:focus {
+    input[type="text"]:focus {
       outline: none;
-      border-color: var(--gold);
-      box-shadow: 0 0 0 3px rgba(244, 201, 59, 0.15);
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(244, 201, 59, 0.2);
     }
-    button {
+    .btn-unlock {
       width: 100%;
       padding: 14px;
-      background: var(--accent);
-      color: white;
+      background: linear-gradient(135deg, var(--yellow), #ffd659);
+      color: #0A0B0E;
       border: none;
       border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 700;
+      font-size: 0.95rem;
+      font-weight: 800;
+      font-family: 'Oswald', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
       cursor: pointer;
       transition: all 0.2s ease;
+      box-shadow: 0 4px 15px var(--yellow-glow);
     }
-    button:hover { background: var(--accent-hover); }
-    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-unlock:hover { background: #fff; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(255,255,255,0.4); }
+    .btn-unlock:active { transform: scale(0.98); }
+    .btn-unlock:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    
     .error-msg {
-      color: #ff4b4b;
+      color: var(--red);
       font-size: 0.85rem;
       margin-top: 12px;
       display: none;
+      background: rgba(255, 82, 82, 0.1);
+      border: 1px solid rgba(255, 82, 82, 0.25);
+      padding: 8px 12px;
+      border-radius: 6px;
     }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+    .shake { animation: shake 0.35s ease; }
+
     .get-access {
       display: inline-block;
-      margin-top: 24px;
-      font-size: 0.85rem;
-      color: var(--text-muted);
+      margin-top: 22px;
+      font-size: 0.88rem;
+      color: var(--yellow);
+      font-weight: 600;
       text-decoration: underline;
     }
-    .get-access:hover { color: var(--text); }
+    .get-access:hover { color: #fff; }
+    
+    .trust-badges {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
   </style>
 </head>
 <body>
 
-  <div class="portal-container">
+  <div class="portal-container" id="portalCard">
     <div class="brand">MUSCLE<span>OS</span></div>
-    <div class="subtitle">Access your specialized fitness tools.</div>
+    <div class="subtitle">Client portal and pro suite activation.</div>
     
-    <div id="googleSignInBtn" style="display:flex; justify-content:center; margin-bottom: 8px; min-height: 44px;"></div>
+    <div id="googleSignInBtn" style="display:flex; justify-content:center; margin-bottom: 12px; min-height: 44px;"></div>
     
-    <div style="display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:18px; font-size:0.8rem; color:var(--text-muted); cursor:pointer;">
-      <input type="checkbox" id="staySignedIn" checked style="accent-color:var(--gold); width:15px; height:15px; cursor:pointer;">
-      <label for="staySignedIn" style="cursor:pointer; margin:0; text-transform:none; font-weight:400; font-size:0.8rem; color:inherit;">Stay signed in</label>
+    <div style="display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:20px; font-size:0.82rem; color:var(--text-muted); cursor:pointer;">
+      <input type="checkbox" id="staySignedIn" checked style="accent-color:var(--yellow); width:15px; height:15px; cursor:pointer;">
+      <label for="staySignedIn" style="cursor:pointer; margin:0; text-transform:none; font-weight:400;">Keep me signed in</label>
     </div>
 
-    <div style="display:flex; align-items:center; text-align:center; color:var(--text-muted); font-size:11px; margin-bottom: 20px; text-transform:uppercase; letter-spacing:1px;">
+    <div style="display:flex; align-items:center; text-align:center; color:var(--text-muted); font-size:11px; margin-bottom: 22px; text-transform:uppercase; letter-spacing:1px;">
       <span style="flex:1; border-bottom:1px solid var(--border); margin-right:12px;"></span>
-      OR ENTER ACCESS CODE
+      OR UNLOCK WITH ACCESS CODE
       <span style="flex:1; border-bottom:1px solid var(--border); margin-left:12px;"></span>
     </div>
 
     <div class="input-group">
-      <label for="accessCode">Access Code</label>
-      <input type="text" id="accessCode" placeholder="Enter your code (e.g. OH-...)" autocomplete="off">
+      <label for="accessCode">Pro Access Code</label>
+      <input type="text" id="accessCode" placeholder="OH-XXXX-XXXX" autocomplete="off">
     </div>
     
-    <button id="unlockBtn">UNLOCK ACCESS</button>
-    <div id="errorMsg" class="error-msg">Invalid code. Please try again.</div>
+    <button id="unlockBtn" class="btn-unlock">UNLOCK SUITE ACCESS</button>
+    <div id="errorMsg" class="error-msg">Invalid access code. Please check and try again.</div>
 
-    <div style="margin-top: 16px;">
-      <a href="tools/muscle_os_app.html" style="display:block; padding:12px; border-radius:8px; border:1px solid rgba(244,201,59,0.3); background:rgba(244,201,59,0.08); color:#F4C93B; font-weight:700; font-size:0.85rem; text-decoration:none; text-transform:uppercase; letter-spacing:0.5px; transition:all 0.2s;">Start 7-Day Free Trial &rarr;</a>
+    <div style="margin-top: 18px;">
+      <a href="tools/" style="font-size: 13px; color: var(--text-muted); text-decoration: underline;">Explore Free Calculators &rarr;</a>
     </div>
 
-    <a href="order.html" class="get-access">No code? Get access here</a>
+    <a href="order.html" class="get-access">Need a code? Order access here</a>
     
-    <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 0.75rem; color: var(--text-muted);">
-      <a href="index.html" style="color: var(--text-muted); margin: 0 8px;">Home</a> &middot;
-      <a href="privacy.html" style="color: var(--text-muted); margin: 0 8px;">Privacy Policy</a> &middot;
-      <a href="terms.html" style="color: var(--text-muted); margin: 0 8px;">Terms</a> &middot;
-      <a href="refund.html" style="color: var(--text-muted); margin: 0 8px;">Refunds</a>
+    <div class="trust-badges">
+      <span>🔒 Encrypted Access</span>
+      <span>•</span>
+      <span>⚡ Instant Sync</span>
+      <span>•</span>
+      <span>📱 PWA Ready</span>
+    </div>
+
+    <div style="margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 0.76rem; color: var(--text-muted);">
+      <a href="index.html" style="color: var(--text-muted); margin: 0 6px;">Home</a> &middot;
+      <a href="privacy.html" style="color: var(--text-muted); margin: 0 6px;">Privacy</a> &middot;
+      <a href="terms.html" style="color: var(--text-muted); margin: 0 6px;">Terms</a> &middot;
+      <a href="refund.html" style="color: var(--text-muted); margin: 0 6px;">Refunds</a>
     </div>
   </div>
 
@@ -163,16 +208,17 @@
       var btn = document.getElementById('unlockBtn');
       var input = document.getElementById('accessCode');
       var err = document.getElementById('errorMsg');
+      var portalCard = document.getElementById('portalCard');
       var staySignedInEl = document.getElementById('staySignedIn');
 
       var ERR_MSGS = {
-        invalid_code: 'Wrong code. Please check and try again.',
-        wrong_product: 'This code belongs to a different product.',
+        invalid_code: 'Wrong code. Please check your order confirmation.',
+        wrong_product: 'This code belongs to a different Muscle OS tool.',
         code_used_by_other: 'This code is already linked to another account.',
-        code_exhausted: 'This code has already been used.',
-        code_revoked: 'This code has been revoked.',
-        code_expired: 'This code has expired.',
-        network: 'Network error. Please try again.'
+        code_exhausted: 'This code has reached maximum activations.',
+        code_revoked: 'This access code has been revoked.',
+        code_expired: 'This access code has expired.',
+        network: 'Network connection issue. Please retry.'
       };
 
       function routeProduct(productId) {
@@ -183,7 +229,7 @@
         } else if (productId === 'tdee_adaptive_engine') {
           window.location.href = 'tools/tdee_adaptive_engine.html';
         } else {
-          window.location.href = 'index.html';
+          window.location.href = 'tools/';
         }
       }
 
@@ -197,9 +243,17 @@
         }
       }
 
+      function showError(msg) {
+        err.style.display = 'block';
+        err.textContent = msg;
+        portalCard.classList.remove('shake');
+        void portalCard.offsetWidth; // trigger reflow
+        portalCard.classList.add('shake');
+      }
+
       function attemptVerify(code) {
         btn.disabled = true;
-        btn.textContent = 'Verifying...';
+        btn.textContent = 'Verifying Code...';
         err.style.display = 'none';
 
         fetch(API, { 
@@ -223,20 +277,18 @@
             routeProduct(actualProdId);
           } else {
             btn.disabled = false;
-            btn.textContent = 'UNLOCK ACCESS';
-            err.style.display = 'block';
+            btn.textContent = 'UNLOCK SUITE ACCESS';
             if (res.d && res.d.error) {
-              err.textContent = ERR_MSGS[res.d.error] || ERR_MSGS.invalid_code;
+              showError(ERR_MSGS[res.d.error] || ERR_MSGS.invalid_code);
             } else {
-              err.textContent = ERR_MSGS.network;
+              showError(ERR_MSGS.network);
             }
           }
         })
         .catch(function(){ 
           btn.disabled = false;
-          btn.textContent = 'UNLOCK ACCESS';
-          err.style.display = 'block';
-          err.textContent = ERR_MSGS.network; 
+          btn.textContent = 'UNLOCK SUITE ACCESS';
+          showError(ERR_MSGS.network);
         });
       }
 
@@ -255,13 +307,11 @@
       // Google Sign-In Integration
       var GOOGLE_CLIENT_ID = '335156097845-vq52ttt74pak112mn2eet5j3s1k15fn9.apps.googleusercontent.com';
       var API_BASE = 'https://muscleos-access-control.muscleos.workers.dev';
-      var OWNER_EMAIL = 'ANASSTEM2025@GMAIL.COM';
 
       function initGsi(){
         var host = document.getElementById('googleSignInBtn');
         if(!host) return;
 
-        // Ensure google script has loaded before marking initialized
         if(typeof google === 'undefined' || !google.accounts || !google.accounts.id){
           setTimeout(initGsi, 200);
           return;
@@ -274,8 +324,7 @@
           client_id: GOOGLE_CLIENT_ID,
           callback: function(resp){
             if(!resp || !resp.credential){
-              err.style.display = 'block';
-              err.textContent = 'Google sign-in failed. Please try again.';
+              showError('Google sign-in was cancelled or failed.');
               return;
             }
             btn.disabled = true;
@@ -286,7 +335,7 @@
               body: JSON.stringify({ token: resp.credential })
             }).then(function(r){ return r.json(); }).then(function(data){
               btn.disabled = false;
-              btn.textContent = 'UNLOCK ACCESS';
+              btn.textContent = 'UNLOCK SUITE ACCESS';
               if(data && data.valid){
                 storeData('mos_google_session', JSON.stringify({ session: data.session, email: data.email, name: data.name || '', ts: Date.now() }));
                 var OWNER_EMAILS = ['ANASSTEM2025@GMAIL.COM', '1022066.ANAS@STEMEGYPT.EDU.EG', 'ANASSMOMEN@GMAIL.COM'];
@@ -310,22 +359,20 @@
                 }
                 window.location.href = 'tools/muscle_os_app.html';
               } else {
-                err.style.display = 'block';
-                err.textContent = 'Google sign-in failed. Please try again.';
+                showError('Google authentication failed. Please try again.');
               }
             }).catch(function(){
               btn.disabled = false;
-              btn.textContent = 'UNLOCK ACCESS';
-              err.style.display = 'block';
-              err.textContent = 'Network error. Please try again.';
+              btn.textContent = 'UNLOCK SUITE ACCESS';
+              showError('Network error during Google sign-in.');
             });
           }
         });
         
         google.accounts.id.renderButton(host, { 
-          theme: 'outline', 
+          theme: 'filled_black', 
           size: 'large', 
-          width: 300,
+          width: 320,
           text: 'signin_with',
           shape: 'rectangular',
           logo_alignment: 'left'
@@ -333,7 +380,6 @@
       }
 
       initGsi();
-      
     })();
   </script>
 </body>

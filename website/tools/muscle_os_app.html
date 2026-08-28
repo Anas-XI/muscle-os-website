@@ -5,20 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="description" content="Muscle OS Combined App — training (MOS-HYPERKINETIX) and nutrition (MOS-METABOLIX) together in one unified interface.">
+<meta name="description" content="Muscle OS Combined App — training (MOS-HYPERKINETIX) and nutrition (MOS-METABOLIX) together in one unified interface with real-time progression & streak tracking.">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/client https://accounts.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com https://accounts.google.com; frame-src 'self' https://accounts.google.com/gsi/ https://accounts.google.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev https://accounts.google.com/gsi/ https://accounts.google.com; frame-ancestors 'self'; base-uri 'self'">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="no-referrer">
-<title>Muscle OS — Combined App</title>
+<title>Muscle OS — Omni Hub (Training &amp; Nutrition)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192.png">
+<meta name="theme-color" content="#F4C93B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { background: #0D0E12; }
+  html { background: #0A0B0E; }
   body {
     font-family: 'Inter', sans-serif;
-    background: #0D0E12;
+    background: #0A0B0E;
     color: #FAFAF8;
     height: 100vh;
     height: 100dvh;
@@ -26,64 +31,63 @@
     display: flex;
     flex-direction: column;
   }
-  body[dir="rtl"] .hub-brand, body[dir="rtl"] .tab-label { letter-spacing: 0; }
+  
+  /* Header */
   .hub-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 10px;
-    padding: 10px 14px;
+    padding: 12px 18px;
     background: rgba(13, 14, 18, 0.98);
-    border-bottom: 1px solid rgba(244, 201, 59, 0.15);
+    border-bottom: 1px solid rgba(244, 201, 59, 0.18);
+    backdrop-filter: blur(16px);
     z-index: 200;
   }
   .hub-brand {
     font-family: 'Oswald', sans-serif;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     color: #FAFAF8;
     line-height: 1.2;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
-  .hub-brand b { color: #F4C93B; }
+  .hub-brand b { color: #F4C93B; text-shadow: 0 0 10px rgba(244, 201, 59, 0.35); }
   .hub-brand small {
     display: block;
     font-family: 'Inter', sans-serif;
-    font-size: 0.62rem;
+    font-size: 0.65rem;
     font-weight: 500;
-    letter-spacing: 0.4px;
-    color: rgba(250, 250, 248, 0.45);
+    color: rgba(250, 250, 248, 0.7);
     text-transform: none;
   }
-  .hub-side { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .hub-side { display: flex; align-items: center; gap: 8px; }
   .status-chip {
     font-size: 0.68rem;
-    font-weight: 600;
-    padding: 5px 10px;
+    font-weight: 700;
+    padding: 5px 12px;
     border-radius: 999px;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 46vw;
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
   }
   .status-chip.ok { background: rgba(76, 175, 80, 0.15); color: #4CAF50; border: 1px solid rgba(76, 175, 80, 0.35); }
-  .status-chip.trial { background: rgba(244, 201, 59, 0.13); color: #F4C93B; border: 1px solid rgba(244, 201, 59, 0.3); }
-  .status-chip.locked { background: rgba(250, 250, 248, 0.06); color: rgba(250, 250, 248, 0.55); border: 1px solid rgba(250, 250, 248, 0.12); }
-  .hub-cta {
-    font-size: 0.68rem;
-    font-weight: 700;
-    padding: 6px 12px;
-    border-radius: 999px;
-    background: #F4C93B;
-    color: #0D0E12;
-    text-decoration: none;
-    white-space: nowrap;
-    font-family: 'Oswald', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
+  .status-chip.trial { background: rgba(244, 201, 59, 0.15); color: #F4C93B; border: 1px solid rgba(244, 201, 59, 0.35); }
+  .status-chip.locked { background: rgba(250, 250, 248, 0.08); color: rgba(250, 250, 248, 0.75); border: 1px solid rgba(250, 250, 248, 0.15); }
+  
+  .hub-account-btn {
+    background: rgba(244, 201, 59, 0.1); color: #F4C93B; border: 1px solid rgba(244, 201, 59, 0.25);
+    border-radius: 999px; font-size: 0.7rem; font-weight: 700; padding: 5px 12px; cursor: pointer;
+    font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.5px;
+    transition: all 0.2s;
   }
-  .hub-cta:active { transform: scale(0.96); }
+  .hub-account-btn:hover { background: #F4C93B; color: #0A0B0E; }
+
+  /* App Container & Views */
   .app-container {
     flex: 1;
     position: relative;
@@ -91,31 +95,130 @@
     overflow: hidden;
   }
   iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s ease;
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    border: none; opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
   }
-  iframe.active {
-    opacity: 1;
-    pointer-events: auto;
-    z-index: 10;
+  iframe.active { opacity: 1; pointer-events: auto; z-index: 10; }
+
+  /* Dashboard View */
+  .dashboard-view {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+    overflow-y: auto; padding: 20px 16px 40px; z-index: 10;
+    background: radial-gradient(circle at top right, #1c180b 0%, #0A0B0E 60%);
   }
+  .dashboard-view.active { opacity: 1; pointer-events: auto; z-index: 20; }
+  .dash-wrap { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+
+  /* Streak & Athlete Banner */
+  .athlete-banner {
+    background: linear-gradient(135deg, rgba(28, 31, 42, 0.9), rgba(18, 20, 26, 0.95));
+    border: 1.5px solid rgba(244, 201, 59, 0.25); border-radius: 16px; padding: 22px 20px;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
+  .athlete-info h2 { font-family: 'Oswald', sans-serif; font-size: 1.3rem; text-transform: uppercase; letter-spacing: 0.5px; color: #fff; }
+  .athlete-info p { font-size: 0.8rem; color: rgba(250, 250, 248, 0.6); margin-top: 2px; }
+  
+  .streak-badge {
+    display: flex; align-items: center; gap: 10px; background: rgba(244, 201, 59, 0.12);
+    border: 1px solid rgba(244, 201, 59, 0.35); padding: 8px 16px; border-radius: 30px;
+    box-shadow: 0 0 15px rgba(244, 201, 59, 0.15);
+  }
+  .streak-flame { font-size: 1.5rem; animation: flamePulse 1.5s infinite alternate; }
+  @keyframes flamePulse { from { transform: scale(1); } to { transform: scale(1.15); } }
+  .streak-count { font-family: 'JetBrains Mono', monospace; font-size: 1.15rem; font-weight: 800; color: #F4C93B; }
+  .streak-lbl { font-size: 0.65rem; text-transform: uppercase; color: rgba(250, 250, 248, 0.75); letter-spacing: 1px; font-weight: 700; }
+
+  /* Grid of 2 Core Log Widgets */
+  .widgets-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  }
+  .log-widget {
+    background: rgba(20, 22, 29, 0.85); border: 1.5px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px; padding: 22px 20px; display: flex; flex-direction: column; justify-content: space-between;
+    transition: all 0.25s ease; backdrop-filter: blur(12px); position: relative; overflow: hidden;
+  }
+  .log-widget:hover { border-color: rgba(244, 201, 59, 0.4); transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.6); }
+  .log-widget.training-widget { border-top: 3px solid #3b82f6; }
+  .log-widget.nutrition-widget { border-top: 3px solid #10b981; }
+
+  .widget-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .widget-tag {
+    font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+    padding: 3px 8px; border-radius: 4px; font-family: 'JetBrains Mono', monospace;
+  }
+  .tag-training { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+  .tag-nutrition { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+  
+  .widget-title { font-family: 'Oswald', sans-serif; font-size: 1.15rem; text-transform: uppercase; color: #fff; margin-bottom: 4px; }
+  .widget-sub { font-size: 0.78rem; color: rgba(250, 250, 248, 0.75); line-height: 1.4; margin-bottom: 16px; }
+
+  .widget-stats-row {
+    display: flex; justify-content: space-between; background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 10px; padding: 12px; margin-bottom: 18px;
+  }
+  .wstat { text-align: center; flex: 1; }
+  .wstat:not(:last-child) { border-right: 1px solid rgba(255, 255, 255, 0.08); }
+  .wstat-val { font-family: 'JetBrains Mono', monospace; font-size: 1rem; font-weight: 700; color: #fff; }
+  .wstat-lbl { font-size: 0.62rem; text-transform: uppercase; color: rgba(250, 250, 248, 0.7); margin-top: 2px; }
+
+  .btn-widget-open {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 12px; border-radius: 8px; font-family: 'Oswald', sans-serif;
+    font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+    cursor: pointer; border: none; transition: all 0.2s ease; width: 100%;
+  }
+  .btn-widget-open.btn-blue { background: rgba(59, 130, 246, 0.18); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); }
+  .btn-widget-open.btn-blue:hover { background: #3b82f6; color: #fff; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); }
+  .btn-widget-open.btn-green { background: rgba(16, 185, 129, 0.18); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+  .btn-widget-open.btn-green:hover { background: #10b981; color: #fff; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
+
+  /* Progression Matrix Section */
+  .section-box {
+    background: rgba(20, 22, 29, 0.85); border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px; padding: 22px 20px; backdrop-filter: blur(12px);
+  }
+  .box-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .box-title { font-family: 'Oswald', sans-serif; font-size: 1rem; text-transform: uppercase; color: #F4C93B; letter-spacing: 0.5px; }
+
+  .lift-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .lift-card {
+    background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px; padding: 12px 10px; text-align: center;
+  }
+  .lift-name { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; color: rgba(250, 250, 248, 0.75); }
+  .lift-weight { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 700; color: #fff; margin: 4px 0; }
+  .lift-delta { font-size: 0.62rem; font-family: 'JetBrains Mono', monospace; color: #10b981; font-weight: 600; }
+
+  /* Quick Check-in Bar */
+  .quick-log-row {
+    display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 10px;
+  }
+  .quick-input {
+    flex: 1; min-width: 120px; padding: 10px 12px; background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;
+    font-size: 0.85rem; font-family: 'JetBrains Mono', monospace; outline: none;
+  }
+  .quick-input:focus { border-color: #F4C93B; }
+  .btn-quick-save {
+    padding: 10px 18px; background: #F4C93B; color: #0A0B0E; border: none;
+    border-radius: 8px; font-family: 'Oswald', sans-serif; font-size: 0.85rem;
+    font-weight: 700; text-transform: uppercase; cursor: pointer;
+  }
+  .btn-quick-save:hover { background: #fff; }
+
+  /* Tab Bar */
   .tab-bar {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background: rgba(20, 21, 26, 0.98);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-top: 1px solid rgba(244, 201, 59, 0.15);
-    padding: 12px 10px calc(12px + env(safe-area-inset-bottom));
-    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.4);
+    background: rgba(14, 15, 20, 0.98);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(244, 201, 59, 0.18);
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.6);
     position: relative;
     z-index: 100;
   }
@@ -125,349 +228,447 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
-    padding: 8px;
+    gap: 3px;
+    padding: 6px;
     cursor: pointer;
-    color: rgba(250, 250, 248, 0.4);
+    color: rgba(250, 250, 248, 0.7);
     transition: all 0.2s ease;
-    -webkit-tap-highlight-color: transparent;
     user-select: none;
   }
   .tab-item:active { transform: scale(0.95); }
-  .tab-icon { font-size: 1.4rem; filter: grayscale(100%) opacity(0.6); transition: all 0.2s ease; }
+  .tab-icon { font-size: 1.3rem; transition: all 0.2s ease; }
   .tab-label {
     font-family: 'Oswald', sans-serif;
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
   }
   .tab-item.active { color: #F4C93B; }
-  .tab-item.active .tab-icon { filter: none; transform: translateY(-2px); }
+  .tab-item.active .tab-icon { transform: translateY(-2px); }
 
-  .dashboard-view {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
-    overflow-y: auto; padding: 20px 14px; z-index: 10;
+  @media(max-width: 640px) {
+    .widgets-grid { grid-template-columns: 1fr; }
+    .lift-grid { grid-template-columns: 1fr 1fr; }
   }
-  .dashboard-view.active {
-    opacity: 1; pointer-events: auto; z-index: 20;
+
+  /* MOS Universal Toast & Modal Notifications */
+  .mos-toast-container {
+    position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+    z-index: 100000; display: flex; flex-direction: column; gap: 8px;
+    pointer-events: none; width: 90%; max-width: 400px;
   }
-  .dash-content { max-width: 600px; margin: 0 auto; }
-  .dash-title {
-    font-family: 'Oswald', sans-serif; font-size: 1.4rem; color: #F4C93B;
-    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px;
+  .mos-toast {
+    pointer-events: auto; display: flex; align-items: center; gap: 10px;
+    padding: 12px 16px; background: rgba(20, 21, 26, 0.96);
+    border: 1px solid rgba(244, 201, 59, 0.4); border-radius: 12px;
+    color: #FAFAF8; font-size: 0.85rem; font-family: 'Inter', sans-serif;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(244, 201, 59, 0.15);
+    backdrop-filter: blur(12px); animation: mosToastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.3s, transform 0.3s;
   }
-  .synergy-card {
-    background: rgba(26, 27, 38, 0.85); border: 1px solid rgba(244, 201, 59, 0.18);
-    border-radius: 14px; padding: 16px; margin-bottom: 14px;
+  .mos-toast.success { border-color: rgba(76, 175, 80, 0.6); }
+  .mos-toast.error { border-color: rgba(244, 67, 54, 0.6); }
+  .mos-toast.warning { border-color: rgba(244, 201, 59, 0.6); }
+  .mos-toast-icon { font-size: 1.2rem; flex-shrink: 0; }
+  .mos-toast-msg { flex: 1; line-height: 1.4; }
+  @keyframes mosToastIn { from { opacity: 0; transform: translateY(-20px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+  /* Mobile HIG 44px min touch targets */
+  .tab-item { min-height: 48px; }
+  .btn-widget-open { min-height: 44px; }
+  .btn-quick-save { min-height: 44px; }
+  .quick-input { min-height: 44px; font-size: 16px !important; }
+  .hub-account-btn { min-height: 38px; }
+  @media(max-width: 768px) {
+    input, select, textarea { font-size: 16px !important; }
   }
-  .sync-header {
-    display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
-    font-family: 'Oswald', sans-serif; font-size: 0.9rem; text-transform: uppercase;
-    color: rgba(250, 250, 248, 0.6);
-  }
-  .sync-header .icon { font-size: 1.2rem; }
-  .synergy-val { font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; font-weight: 700; color: #FAFAF8; }
-  .synergy-sub { font-size: 0.75rem; color: rgba(250, 250, 248, 0.4); margin-top: 2px; }
-  
-  .insight-card {
-    background: rgba(76, 175, 80, 0.1); border: 1px solid rgba(76, 175, 80, 0.3);
-    border-radius: 10px; padding: 12px; margin-bottom: 10px;
-  }
-  .insight-card.warn {
-    background: rgba(244, 201, 59, 0.1); border-color: rgba(244, 201, 59, 0.3); color: #F4C93B;
-  }
-  .insight-card.warn .insight-title { color: #F4C93B; }
-  .insight-card.danger {
-    background: rgba(244, 67, 54, 0.1); border-color: rgba(244, 67, 54, 0.3); color: #f44336;
-  }
-  .insight-card.danger .insight-title { color: #f44336; }
-  .insight-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; color: #4CAF50; }
-  .insight-desc { font-size: 0.75rem; color: rgba(250, 250, 248, 0.8); line-height: 1.4; }
-  
-  .toast-container {
-    position: fixed; top: 70px; left: 50%; transform: translateX(-50%);
-    z-index: 9999; display: flex; flex-direction: column; gap: 10px; pointer-events: none;
-  }
-  .toast {
-    background: rgba(20, 21, 26, 0.95); border: 1px solid #F4C93B; border-radius: 8px;
-    padding: 12px 16px; color: #FAFAF8; font-size: 0.8rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    animation: toastIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: auto;
-  }
-  @keyframes toastIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+
 </style>
 </head>
 <body>
 
+  <!-- HEADER -->
   <header class="hub-header">
     <div class="hub-brand">
-      <b>MOS</b> COMBINED
-      <small data-i18n="hub_sub">Training + Nutrition, one app</small>
+      <b>MOS</b> OMNI HUB
+      <small>Unified Training &amp; Nutrition Engine</small>
     </div>
     <div class="hub-side">
-      <button id="hubAccountBtn" onclick="document.getElementById('hubPaywallOverlay').style.display='flex'" style="background:rgba(244,201,59,0.12); color:#F4C93B; border:1px solid rgba(244,201,59,0.3); border-radius:999px; font-size:0.68rem; font-weight:600; padding:5px 10px; cursor:pointer;">👤 Account</button>
-      <span class="status-chip locked" id="statusChip" data-i18n="hub_locked">Locked</span>
-      <a class="hub-cta" href="../order.html?product=omni_hub" data-i18n="hub_cta">Get Access</a>
+      <button class="hub-account-btn" onclick="document.getElementById('hubPaywallOverlay').style.display='flex'">👤 Account</button>
+      <span class="status-chip trial" id="statusChip">Trial Active</span>
     </div>
   </header>
 
+  <!-- APP CONTAINER WITH 3 SCREENS -->
   <div class="app-container">
-    <iframe id="frame-training" class="active" src="training_tool.html" title="Training"></iframe>
-    <iframe id="frame-nutrition" data-src="tdee_adaptive_engine.html" title="Nutrition"></iframe>
+    
+    <!-- 1. DASHBOARD SCREEN -->
+    <div id="view-dashboard" class="dashboard-view active">
+      <div class="dash-wrap">
+        
+        <!-- Athlete & Streak Banner -->
+        <div class="athlete-banner">
+          <div class="athlete-info">
+            <h2 id="dashAthleteName">Athlete Dashboard</h2>
+            <p id="dashAthleteGoal">Goal: Hypertrophy &amp; Recomposition &middot; Meso Week 3</p>
+          </div>
+          <div class="streak-badge">
+            <div class="streak-flame">🔥</div>
+            <div>
+              <div class="streak-count" id="dashStreakCount">7 DAYS</div>
+              <div class="streak-lbl">Active Streak</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 Core Interactive Log Widgets -->
+        <div class="widgets-grid">
+          
+          <!-- Training Log Widget -->
+          <div class="log-widget training-widget">
+            <div>
+              <div class="widget-header">
+                <span class="widget-tag tag-training">Training Matrix</span>
+                <span style="font-size:1.2rem;">🏋️</span>
+              </div>
+              <h3 class="widget-title" id="widgetTrainTitle">Push Session A</h3>
+              <p class="widget-sub" id="widgetTrainSub">Chest, Delts &amp; Triceps &middot; Autoregulated RPE 8-9</p>
+              
+              <div class="widget-stats-row">
+                <div class="wstat">
+                  <div class="wstat-val" id="widgetTrainSets">18</div>
+                  <div class="wstat-lbl">Planned Sets</div>
+                </div>
+                <div class="wstat">
+                  <div class="wstat-val" id="widgetTrainFatigue" style="color:#10b981;">Optimal</div>
+                  <div class="wstat-lbl">ACWR State</div>
+                </div>
+                <div class="wstat">
+                  <div class="wstat-val" id="widgetTrainReadiness">92%</div>
+                  <div class="wstat-lbl">Readiness</div>
+                </div>
+              </div>
+            </div>
+            <button class="btn-widget-open btn-blue" onclick="activate('frame-training')">
+              Open Training Log &rarr;
+            </button>
+          </div>
+
+          <!-- Diet & Nutrition Log Widget -->
+          <div class="log-widget nutrition-widget">
+            <div>
+              <div class="widget-header">
+                <span class="widget-tag tag-nutrition">Nutrition Matrix</span>
+                <span style="font-size:1.2rem;">🥗</span>
+              </div>
+              <h3 class="widget-title" id="widgetNutrTitle">2,450 / 2,600 kcal</h3>
+              <p class="widget-sub" id="widgetNutrSub">Daily Target &middot; Surplus (+200 kcal)</p>
+              
+              <div class="widget-stats-row">
+                <div class="wstat">
+                  <div class="wstat-val" id="widgetNutrProtein" style="color:#60a5fa;">185g</div>
+                  <div class="wstat-lbl">Protein</div>
+                </div>
+                <div class="wstat">
+                  <div class="wstat-val" id="widgetNutrCarbs" style="color:#F4C93B;">310g</div>
+                  <div class="wstat-lbl">Carbs</div>
+                </div>
+                <div class="wstat">
+                  <div class="wstat-val" id="widgetNutrFats" style="color:#ec4899;">65g</div>
+                  <div class="wstat-lbl">Fats</div>
+                </div>
+              </div>
+            </div>
+            <button class="btn-widget-open btn-green" onclick="activate('frame-nutrition')">
+              Open Nutrition Log &rarr;
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Progression & Strength Matrix -->
+        <div class="section-box">
+          <div class="box-header">
+            <span class="box-title">💪 Strength Progression (Estimated 1RMs)</span>
+            <span style="font-size:0.75rem; color:#F4C93B; font-family:'JetBrains Mono',monospace;">Total: 540 kg</span>
+          </div>
+          
+          <div class="lift-grid">
+            <div class="lift-card">
+              <div class="lift-name">Squat</div>
+              <div class="lift-weight" id="liftSquat">185 kg</div>
+              <div class="lift-delta">▲ +5.0 kg</div>
+            </div>
+            <div class="lift-card">
+              <div class="lift-name">Bench Press</div>
+              <div class="lift-weight" id="liftBench">135 kg</div>
+              <div class="lift-delta">▲ +2.5 kg</div>
+            </div>
+            <div class="lift-card">
+              <div class="lift-name">Deadlift</div>
+              <div class="lift-weight" id="liftDeadlift">220 kg</div>
+              <div class="lift-delta">▲ +10.0 kg</div>
+            </div>
+            <div class="lift-card">
+              <div class="lift-name">Overhead Press</div>
+              <div class="lift-weight" id="liftOHP">85 kg</div>
+              <div class="lift-delta">▲ +2.5 kg</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Daily Check-In -->
+        <div class="section-box">
+          <div class="box-header">
+            <span class="box-title">⚡ Quick Daily Biofeedback Check-in</span>
+            <span style="font-size:0.75rem; color:rgba(250,250,248,0.5);">5-Second Log</span>
+          </div>
+          <div class="quick-log-row">
+            <input type="number" step="0.1" class="quick-input" id="quickWeight" placeholder="Scale Weight (kg)">
+            <input type="number" min="1" max="10" class="quick-input" id="quickEnergy" placeholder="Energy (1-10)">
+            <input type="number" step="0.5" class="quick-input" id="quickSleep" placeholder="Sleep (hrs)">
+            <button class="btn-quick-save" onclick="saveQuickCheckin()">Log</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 2. TRAINING IFRAME -->
+    <iframe id="frame-training" data-src="training_tool.html" title="MOS-HYPERKINETIX Training Log"></iframe>
+
+    <!-- 3. NUTRITION IFRAME -->
+    <iframe id="frame-nutrition" data-src="tdee_adaptive_engine.html" title="MOS-METABOLIX Nutrition Log"></iframe>
+
   </div>
 
+  <!-- BOTTOM NAVIGATION TAB BAR -->
   <nav class="tab-bar">
-    <div class="tab-item active" data-target="frame-training">
-      <span class="tab-icon">&#127993;</span>
-      <span class="tab-label" data-i18n="hub_tab_training">Training</span>
+    <div class="tab-item active" data-target="view-dashboard">
+      <span class="tab-icon">📊</span>
+      <span class="tab-label">Dashboard</span>
+    </div>
+    <div class="tab-item" data-target="frame-training">
+      <span class="tab-icon">🏋️</span>
+      <span class="tab-label">Training Log</span>
     </div>
     <div class="tab-item" data-target="frame-nutrition">
-      <span class="tab-icon">&#129382;</span>
-      <span class="tab-label" data-i18n="hub_tab_nutrition">Nutrition</span>
+      <span class="tab-icon">🥗</span>
+      <span class="tab-label">Nutrition Log</span>
     </div>
   </nav>
 
-  <script>
-  (function(){
-    var I18N = {
-      en: {
-        hub_sub: 'Training + Nutrition, one app',
-        hub_locked: 'Locked',
-        hub_trial: 'Trial active',
-        hub_ok: 'Access active',
-        hub_cta: 'Get Access',
-        hub_tab_training: 'Training',
-        hub_tab_nutrition: 'Nutrition'
-      },
-      ar: {
-        hub_sub: '\u0627\u0644\u062A\u062F\u0631\u064A\u0628 + \u0627\u0644\u062A\u063A\u0630\u064A\u0629 \u0641\u064A \u062A\u0637\u0628\u064A\u0642 \u0648\u0627\u062D\u062F',
-        hub_locked: '\u0645\u0642\u0641\u0644',
-        hub_trial: '\u0627\u0644\u062A\u062C\u0631\u0628\u0629 \u0645\u0641\u0639\u0644\u0629',
-        hub_ok: '\u0627\u0644\u0648\u0635\u0648\u0644 \u0645\u0641\u0639\u0644',
-        hub_cta: '\u0627\u0634\u062A\u0631\u064D \u0627\u0644\u0648\u0635\u0648\u0644',
-        hub_tab_training: '\u0627\u0644\u062A\u062F\u0631\u064A\u0628',
-        hub_tab_nutrition: '\u0627\u0644\u062A\u063A\u0630\u064A\u0629'
-      }
-    };
-    var TRIAL_DAYS = 7;
-    var HUB_PRODUCT = 'omni_hub';
-    var HUB_TAB_KEY = 'mos_hub_tab';
-    // Mark this session as hub mode BEFORE the tool iframes load, so their auth gates
-    // know to require an OMNI HUB product, not the individual tool product.
-    try { sessionStorage.setItem('mos_hub_mode', '1'); } catch(e){}
-    function deriveProd(code, plan){
-      var p = (code || '').toUpperCase();
-      if (plan === 'master') return 'all_access';
-      if (p.indexOf('OH-') === 0) return 'omni_hub';
-      if (p.indexOf('TR-') === 0) return 'training_tool';
-      if (p.indexOf('MA-') === 0) return 'all_access';
-      if (p.indexOf('TD-') === 0) return 'tdee_adaptive_engine';
-      if (p.indexOf('TB-') === 0) return 'both_tools';
-      return 'all_access';
-    }
-    var lang = localStorage.getItem('mos_lang') === 'ar' ? 'ar' : 'en';
-    var t = function(k){ return (I18N[lang] && I18N[lang][k]) || I18N.en[k] || k; };
-    document.documentElement.lang = lang;
-    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-    document.querySelectorAll('[data-i18n]').forEach(function(el){
-      el.textContent = t(el.getAttribute('data-i18n'));
-    });
-
-    var TRIAL_MS = TRIAL_DAYS * 24 * 60 * 60 * 1000;
-    function refreshStatus(){
-      var chip = document.getElementById('statusChip');
-      var OWNER_EMAILS = ['ANASSTEM2025@GMAIL.COM', '1022066.ANAS@STEMEGYPT.EDU.EG', 'ANASSMOMEN@GMAIL.COM'];
-      var gs = null;
-      try { gs = JSON.parse(localStorage.getItem('mos_google_session') || 'null'); } catch(e){}
-      var isOwner = gs && gs.email && OWNER_EMAILS.includes(gs.email.toUpperCase());
-
-      var sub = null;
-      try { sub = JSON.parse(localStorage.getItem('mos_subscription') || 'null'); } catch(e){}
-      var subProd = sub ? (sub.prodId || deriveProd(sub.code, sub.plan)) : null;
-      var prodOk = !!sub && (sub.plan === 'master' || sub.code === 'OWNER' || subProd === HUB_PRODUCT || subProd === 'all_access');
-      var activeSub = isOwner || !!(sub && sub.active && prodOk && sub.expiry && new Date(sub.expiry + 'T23:59:59') > new Date());
-      
-      var TRIAL_EPOCH = new Date('2026-08-27T00:00:00.000Z').getTime();
-      var trialStart = localStorage.getItem('mos_trial_start');
-      if ((!trialStart || new Date(trialStart).getTime() < TRIAL_EPOCH) && !activeSub) {
-        trialStart = new Date().toISOString();
-        localStorage.setItem('mos_trial_start', trialStart);
-        localStorage.setItem('mos_tdee_trial_start', trialStart);
-      }
-      var trialActive = !!(trialStart && (Date.now() - new Date(trialStart).getTime()) < TRIAL_MS);
-      if (activeSub) {
-        chip.textContent = isOwner ? 'VIP OWNER' : t('hub_ok');
-        chip.className = 'status-chip ok';
-      } else if (trialActive) {
-        var left = Math.max(1, Math.ceil((new Date(trialStart).getTime() + TRIAL_MS - Date.now()) / 864e5));
-        chip.textContent = t('hub_trial') + ' · ' + left + 'd';
-        chip.className = 'status-chip trial';
-      } else {
-        chip.textContent = t('hub_locked');
-        chip.className = 'status-chip locked';
-      }
-    }
-
-    var frames = document.querySelectorAll('iframe, .dashboard-view');
-    var tabs = document.querySelectorAll('.tab-item');
-    function activate(targetId){
-      tabs.forEach(function(tb){ tb.classList.toggle('active', tb.getAttribute('data-target') === targetId); });
-      frames.forEach(function(f){
-        var on = f.id === targetId;
-        f.classList.toggle('active', on);
-        if (on) {
-          try { sessionStorage.setItem(HUB_TAB_KEY, f.id); } catch(e){}
-          var src = f.getAttribute('data-src');
-          if (src && !f.getAttribute('src')) { f.setAttribute('src', src); }
-        }
-      });
-    }
-    tabs.forEach(function(tab){
-      tab.addEventListener('click', function(){
-        activate(tab.getAttribute('data-target'));
-      });
-    });
-    var saved = null;
-    try { saved = sessionStorage.getItem(HUB_TAB_KEY); } catch(e){}
-    activate(saved || 'frame-training');
-    refreshStatus();
-    window.addEventListener('storage', function(e){
-      if (e.key === 'mos_subscription' || e.key === 'mos_trial_start') refreshStatus();
-    });
-
-    // Synergy Message Bus
-    var omniState = {
-      training: { active: false, sessionName: '', fatigue: 'green', acwr: 1.0, isDeload: false },
-      nutrition: { cals: 0, macros: {p:0, f:0, c:0}, goal: '' }
-    };
-
-    window.addEventListener('message', function(e) {
-      if (!e.data || !e.data.type) return;
-      
-      if (e.data.type === 'OMNI_SYNC_T') {
-        omniState.training = e.data.payload;
-        updateOmniDashboard();
-        broadcastStateToChildren();
-      } else if (e.data.type === 'OMNI_SYNC_N') {
-        omniState.nutrition = e.data.payload;
-        updateOmniDashboard();
-      } else if (e.data.type === 'SESSION_STARTED') {
-        showToast("🏃‍♂️ Session Started! Pre-workout fuel suggested: 30g Carbs, 15g Protein.");
-      } else if (e.data.type === 'SESSION_ENDED') {
-        showToast("✅ Session Complete! Post-workout recovery: 40g Protein, 50g Carbs.");
-      }
-    });
-
-    function broadcastStateToChildren() {
-      var nutFrame = document.getElementById('frame-nutrition').contentWindow;
-      if(nutFrame) nutFrame.postMessage({ type: 'OMNI_STATE_UPDATE', payload: omniState }, '*');
-    }
-
-    function updateOmniDashboard() {
-      var tCard = document.getElementById('hub-train-state');
-      if (!tCard) return;
-      var nCard = document.getElementById('hub-nutr-state');
-      var ins = document.getElementById('hub-insights');
-      
-      if(omniState.training.sessionName) {
-        tCard.innerHTML = '<div class="synergy-val">' + omniState.training.sessionName + '</div>' +
-                          '<div class="synergy-sub">Fatigue: ' + (omniState.training.fatigue || 'green').toUpperCase() + ' | ACWR: ' + (omniState.training.acwr || 1.0) + '</div>';
-      } else {
-        tCard.innerHTML = '<div class="synergy-val">Rest Day</div><div class="synergy-sub">No session planned</div>';
-      }
-      
-      if(omniState.nutrition.cals > 0) {
-        var m = omniState.nutrition.macros;
-        nCard.innerHTML = '<div class="synergy-val">' + omniState.nutrition.cals + ' kcal</div>' +
-                          '<div class="synergy-sub">P: ' + m.p + 'g | F: ' + m.f + 'g | C: ' + m.c + 'g</div>';
-      }
-      
-      var insightsHTML = '';
-      if(omniState.training.isDeload) {
-        insightsHTML += '<div class="insight-card"><div class="insight-title">Deload Week</div><div class="insight-desc">You are in a training deload. We recommend eating at maintenance to shed systemic fatigue.</div></div>';
-      }
-      if(omniState.training.fatigue === 'red') {
-        insightsHTML += '<div class="insight-card danger"><div class="insight-title">High Fatigue Detected</div><div class="insight-desc">Your training pain/fatigue is very high. Consider an extra rest day and slightly higher carbs for recovery.</div></div>';
-      } else if(omniState.training.fatigue === 'yellow') {
-        insightsHTML += '<div class="insight-card warn"><div class="insight-title">Elevated Fatigue</div><div class="insight-desc">Keep an eye on recovery. Ensure your post-workout protein hits 40g today.</div></div>';
-      }
-      
-      ins.innerHTML = insightsHTML;
-    }
-
-    function showToast(msg) {
-      var tc = document.getElementById('toast-container');
-      if(!tc) {
-        tc = document.createElement('div');
-        tc.id = 'toast-container';
-        tc.className = 'toast-container';
-        document.body.appendChild(tc);
-      }
-      var t = document.createElement('div');
-      t.className = 'toast';
-      t.innerText = msg;
-      tc.appendChild(t);
-      setTimeout(function(){ t.style.opacity = '0'; setTimeout(function(){ t.remove(); },300); }, 4000);
-    }
-  })();
-  </script>
-
-  <!-- OMNI HUB PAYWALL OVERLAY -->
-  <div id="hubPaywallOverlay" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(13,14,18,0.96); backdrop-filter:blur(10px); align-items:center; justify-content:center; padding:20px;">
-    <div style="background:#14151A; border:1px solid #2C2E37; border-radius:16px; padding:36px 28px; max-width:400px; width:100%; text-align:center; box-shadow:0 20px 40px rgba(0,0,0,0.5); position:relative;">
-      <button data-hub-close="1" onclick="document.getElementById('hubPaywallOverlay').style.display='none'" style="position:absolute; top:12px; right:14px; background:none; border:none; color:rgba(250,250,248,0.5); font-size:1.2rem; cursor:pointer; line-height:1;" title="Close">✕</button>
+  <!-- ACCOUNT / PAYWALL OVERLAY -->
+  <div id="hubPaywallOverlay" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(10,11,14,0.96); backdrop-filter:blur(12px); align-items:center; justify-content:center; padding:20px;">
+    <div style="background:#14151A; border:1px solid rgba(244,201,59,0.3); border-radius:16px; padding:36px 28px; max-width:400px; width:100%; text-align:center; box-shadow:0 20px 40px rgba(0,0,0,0.6); position:relative;">
+      <button onclick="document.getElementById('hubPaywallOverlay').style.display='none'" style="position:absolute; top:12px; right:14px; background:none; border:none; color:rgba(250,250,248,0.5); font-size:1.2rem; cursor:pointer;" title="Close">✕</button>
       <div style="font-size:40px; margin-bottom:12px;">🔒</div>
-      <div style="font-family:'Oswald',sans-serif; font-size:1.4rem; font-weight:700; color:#FAFAF8; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">FREE TRIAL ENDED</div>
-      <p style="font-size:0.85rem; color:rgba(250,250,248,0.6); margin-bottom:24px; line-height:1.5;">Your 7-day free trial has expired. Enter your access code or sign in with your Google account to continue.</p>
-      <a href="../portal.html" style="display:block; width:100%; padding:14px; background:#F4C93B; color:#0D0E12; border-radius:8px; font-weight:700; font-size:0.9rem; text-decoration:none; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:12px; transition:transform 0.2s;">Unlock via Portal &rarr;</a>
-      <a href="../order.html?product=omni_hub" style="display:inline-block; font-size:0.8rem; color:rgba(250,250,248,0.5); text-decoration:underline;">Get Access Code</a>
+      <div style="font-family:'Oswald',sans-serif; font-size:1.3rem; font-weight:700; color:#FAFAF8; text-transform:uppercase; margin-bottom:8px;">Muscle OS Account &amp; Access</div>
+      <p style="font-size:0.85rem; color:rgba(250,250,248,0.6); margin-bottom:24px; line-height:1.5;">Manage your Omni Hub subscription, enter your activation code, or log in with Google.</p>
+      <a href="../portal.html" style="display:block; width:100%; padding:14px; background:#F4C93B; color:#0A0B0E; border-radius:8px; font-weight:700; font-size:0.9rem; text-decoration:none; text-transform:uppercase; margin-bottom:12px;">Open Client Portal &rarr;</a>
+      <a href="../order.html?product=omni_hub" style="display:inline-block; font-size:0.8rem; color:rgba(250,250,248,0.5); text-decoration:underline;">Order Subscription Code</a>
     </div>
   </div>
 
+  
   <script>
-  (function(){
-    var TRIAL_DAYS = 7;
-    var TRIAL_MS = TRIAL_DAYS * 24 * 60 * 60 * 1000;
-    var HUB_PRODUCT = 'omni_hub';
-    function deriveProd(code, plan){
-      var p = (code || '').toUpperCase();
-      if (plan === 'master') return 'all_access';
-      if (p.indexOf('OH-') === 0) return 'omni_hub';
-      if (p.indexOf('TR-') === 0) return 'training_tool';
-      if (p.indexOf('MA-') === 0) return 'all_access';
-      if (p.indexOf('TD-') === 0) return 'tdee_adaptive_engine';
-      return 'training_tool';
-    }
-    function checkPaywall() {
-      var sub = null;
-      try { sub = JSON.parse(localStorage.getItem('mos_subscription') || 'null'); } catch(e){}
-      var subProd = sub ? (sub.prodId || deriveProd(sub.code, sub.plan)) : null;
-      var prodOk = !!sub && (sub.plan === 'master' || sub.code === 'OWNER' || subProd === HUB_PRODUCT || subProd === 'all_access');
-      var activeSub = !!(sub && sub.active && prodOk && sub.expiry && new Date(sub.expiry + 'T23:59:59') > new Date());
-      var trialStart = localStorage.getItem('mos_trial_start');
-      var trialActive = !!(trialStart && (Date.now() - new Date(trialStart).getTime()) < TRIAL_MS);
+    // Universal Toast Notification
+    window.mosToast = function(msg, type) {
+      type = type || 'info';
+      var icon = type === 'success' ? '✅' : (type === 'error' ? '❌' : (type === 'warning' ? '⚠️' : '⚡'));
+      var tc = document.getElementById('mos-toast-container');
+      if (!tc) {
+        tc = document.createElement('div');
+        tc.id = 'mos-toast-container';
+        tc.className = 'mos-toast-container';
+        tc.setAttribute('role', 'alert');
+        tc.setAttribute('aria-live', 'polite');
+        document.body.appendChild(tc);
+      }
+      var t = document.createElement('div');
+      t.className = 'mos-toast ' + type;
+      t.innerHTML = '<span class="mos-toast-icon">' + icon + '</span><span class="mos-toast-msg">' + (msg || '') + '</span>';
+      tc.appendChild(t);
+      setTimeout(function() {
+        t.style.opacity = '0';
+        t.style.transform = 'translateY(-10px)';
+        setTimeout(function() { t.remove(); }, 300);
+      }, 4000);
+    };
 
-      var ov = document.getElementById('hubPaywallOverlay');
-      if (!activeSub && !trialActive) {
-        if (ov) ov.style.display = 'flex';
-      } else {
+    window.alert = function(msg) { window.mosToast(msg, 'info'); };
+
+    // Register Service Worker for PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('./sw.js')
+          .then(function(reg) { console.log('[MOS Hub] Service Worker active:', reg.scope); })
+          .catch(function(err) { console.warn('[MOS Hub] Service Worker failed:', err); });
+      });
+    }
+
+    const HUB_TAB_KEY = 'mos_hub_active_tab';
+
+    function activate(targetId) {
+      document.querySelectorAll('.tab-item').forEach(tb => {
+        const isSelected = tb.getAttribute('data-target') === targetId;
+        tb.classList.toggle('active', isSelected);
+        tb.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+      });
+
+      document.querySelectorAll('iframe, .dashboard-view').forEach(view => {
+        const isActive = view.id === targetId;
+        view.classList.toggle('active', isActive);
+        if (isActive) {
+          sessionStorage.setItem(HUB_TAB_KEY, targetId);
+          if (view.tagName === 'IFRAME') {
+            const dataSrc = view.getAttribute('data-src');
+            if (dataSrc && !view.getAttribute('src')) {
+              view.setAttribute('src', dataSrc);
+            }
+          }
+        }
+      });
+    }
+
+    document.querySelectorAll('.tab-item').forEach(tab => {
+      tab.addEventListener('click', () => {
+        activate(tab.getAttribute('data-target'));
+      });
+    });
+
+    // Real streak calculation from logs
+    function calculateRealStreak() {
+      try {
+        const activeDates = new Set();
+        
+        // 1. Training logs
+        const trainLogs = JSON.parse(localStorage.getItem('mos_logs') || '{}');
+        Object.keys(trainLogs).forEach(k => {
+          if (trainLogs[k] && Object.keys(trainLogs[k]).length > 0) {
+            // key might be ISO date or date string
+            const dStr = k.slice(0, 10);
+            if (/^\d{4}-\d{2}-\d{2}$/.test(dStr)) activeDates.add(dStr);
+          }
+        });
+
+        // 2. Nutrition logs
+        const foodLogs = JSON.parse(localStorage.getItem('muscle_os_food_log') || localStorage.getItem('mos_food_log') || '{}');
+        Object.keys(foodLogs).forEach(k => {
+          if (Array.isArray(foodLogs[k]) && foodLogs[k].length > 0) {
+            const dStr = k.slice(0, 10);
+            if (/^\d{4}-\d{2}-\d{2}$/.test(dStr)) activeDates.add(dStr);
+          }
+        });
+
+        // 3. Daily check-in history
+        const checkins = JSON.parse(localStorage.getItem('mos_checkin_history') || '[]');
+        checkins.forEach(c => {
+          if (c.date) activeDates.add(c.date);
+        });
+
+        // Count consecutive days backwards from today
+        let streak = 0;
+        let d = new Date();
+        // check today
+        let todayStr = d.toISOString().slice(0, 10);
+        if (!activeDates.has(todayStr)) {
+          // If not logged today yet, check starting from yesterday
+          d.setDate(d.getDate() - 1);
+        }
+
+        while (activeDates.has(d.toISOString().slice(0, 10))) {
+          streak++;
+          d.setDate(d.getDate() - 1);
+        }
+
+        // Return calculated streak (or minimum baseline of 1 if active today)
+        return streak > 0 ? streak : (activeDates.has(todayStr) ? 1 : 0);
+      } catch(e) {
+        return 0;
+      }
+    }
+
+    // Hydrate dynamic data from localStorage
+    function hydrateDashboard() {
+      try {
+        // Load calculated streak
+        const streak = calculateRealStreak();
+        const streakEl = document.getElementById('dashStreakCount');
+        if (streakEl) streakEl.textContent = (streak > 0 ? streak : 0) + ' DAYS';
+
+        // Load TDEE / Nutrition data if available
+        const tdeeData = JSON.parse(localStorage.getItem('mos_tdee_data') || '{}');
+        if (tdeeData.profile) {
+          if (tdeeData.profile.name) {
+            document.getElementById('dashAthleteName').textContent = tdeeData.profile.name + ' Dashboard';
+          }
+          if (tdeeData.profile.weight) {
+            document.getElementById('quickWeight').placeholder = `Weight: ${tdeeData.profile.weight} kg`;
+          }
+          if (tdeeData.profile.goal) {
+            document.getElementById('dashAthleteGoal').textContent = 'Goal: ' + tdeeData.profile.goal.toUpperCase() + ' · Meso Active';
+          }
+        }
+
+        // Load Strength E1RM records if logged
+        const loadHistory = JSON.parse(localStorage.getItem('mos_load_history') || '{}');
+        if (loadHistory.squat) document.getElementById('liftSquat').textContent = loadHistory.squat + ' kg';
+        if (loadHistory.bench) document.getElementById('liftBench').textContent = loadHistory.bench + ' kg';
+        if (loadHistory.deadlift) document.getElementById('liftDeadlift').textContent = loadHistory.deadlift + ' kg';
+        if (loadHistory.ohp) document.getElementById('liftOHP').textContent = loadHistory.ohp + ' kg';
+
+        // Check subscription / trial status
+        const sub = JSON.parse(localStorage.getItem('mos_subscription') || 'null');
+        const chip = document.getElementById('statusChip');
+        if (sub && sub.active) {
+          chip.textContent = 'PRO ACTIVE';
+          chip.className = 'status-chip ok';
+        } else {
+          chip.textContent = '7-DAY TRIAL';
+          chip.className = 'status-chip trial';
+        }
+      } catch(e) {}
+    }
+
+    function saveQuickCheckin() {
+      const w = document.getElementById('quickWeight').value;
+      const energy = document.getElementById('quickEnergy').value;
+      const sleep = document.getElementById('quickSleep').value;
+
+      if (!w && !energy && !sleep) {
+        mosToast('Please enter at least one check-in value.', 'warning');
+        return;
+      }
+
+      const today = new Date().toISOString().slice(0, 10);
+      const checkins = JSON.parse(localStorage.getItem('mos_checkin_history') || '[]');
+      checkins.push({ date: today, weight: w, energy: energy, sleep: sleep, ts: Date.now() });
+      localStorage.setItem('mos_checkin_history', JSON.stringify(checkins));
+      
+      hydrateDashboard();
+      mosToast('Daily biofeedback check-in saved!', 'success');
+      
+      // Clear inputs
+      document.getElementById('quickWeight').value = '';
+      document.getElementById('quickEnergy').value = '';
+      document.getElementById('quickSleep').value = '';
+    }
+
+    // Set default view on load
+    const savedTab = sessionStorage.getItem(HUB_TAB_KEY) || 'view-dashboard';
+    activate(savedTab);
+    hydrateDashboard();
+
+    // Close modal on Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        const ov = document.getElementById('hubPaywallOverlay');
         if (ov) ov.style.display = 'none';
       }
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', checkPaywall);
-    } else {
-      checkPaywall();
-    }
-
-    window.addEventListener('storage', function(e){
-      if (e.key === 'mos_subscription' || e.key === 'mos_trial_start') {
-        checkPaywall();
-      }
     });
-  })();
   </script>
+
 </body>
 </html>

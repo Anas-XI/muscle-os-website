@@ -1,81 +1,67 @@
-// Muscle OS Tools & Training App — service worker (Network-first for HTML/JSON, Cache-first for assets)
-const CACHE_NAME = 'mos-tools-v4.0.2';
+// Muscle OS Tools — Service Worker (v4.1.0 Offline-First)
+const CACHE_NAME = 'mos-tools-v4.1.0';
 const ASSETS = [
- './muscle_os_app.html',
- './training_tool.html',
- './tdee_adaptive_engine.html',
- '../assets/data/food-database.json',
- './manifest.json',
- './update_notifier.js',
- './icons/icon-192.png',
- './icons/icon-512.png'
+  './muscle_os_app.html',
+  './training_tool.html',
+  './tdee_adaptive_engine.html',
+  '../assets/data/food-database.json',
+  './manifest.json',
+  './icons/icon-192.png',
+  './icons/icon-512.png'
 ];
 
 self.addEventListener('install', (event) => {
- event.waitUntil(
- caches.open(CACHE_NAME)
- .then((cache) => cache.addAll(ASSETS))
- .then(() => self.skipWaiting())
- );
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then((cache) => cache.addAll(ASSETS))
+      .then(() => self.skipWaiting())
+      .catch((err) => console.warn('[MOS Tools SW] Partial install:', err))
+  );
 });
 
 self.addEventListener('activate', (event) => {
- event.waitUntil(
- caches.keys().then((keys) => {
- return Promise.all(
- keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
- );
- }).then(() => {
- return self.clients.claim();
- }).then(() => {
- // Notify open clients that a new version is active and trigger reload
- return self.clients.matchAll().then((clients) => {
- clients.forEach((client) => {
- client.postMessage({
- type: 'NEW_VERSION_AVAILABLE',
- message: 'v4.0.2 is live! Enhanced Welcome Back Matrix active.',
- forceReload: true
- });
- });
- });
- })
- );
+  event.waitUntil(
+    caches.keys().then((keys) => {
+      return Promise.all(
+        keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
+      );
+    }).then(() => self.clients.claim())
+  );
 });
 
 self.addEventListener('fetch', (event) => {
- const req = event.request;
- if (req.method !== 'GET') return;
+  const req = event.request;
+  if (req.method !== 'GET') return;
 
- const url = new URL(req.url);
- if (url.origin !== self.location.origin) return;
+  const url = new URL(req.url);
 
- // Network-First for HTML pages and JSON datasets (guarantees latest features online)
- if (req.headers.get('accept')?.includes('text/html') || url.pathname.endsWith('.json')) {
- event.respondWith(
- fetch(req).then((networkRes) => {
- if (networkRes.ok) {
- const clone = networkRes.clone();
- caches.open(CACHE_NAME).then((cache) => cache.put(req, clone));
- }
- return networkRes;
- }).catch(() => {
- return caches.match(req).then((cached) => cached || caches.match('./tdee_adaptive_engine.html'));
- })
- );
- return;
- }
+  // Network-First for HTML / JSON, cache fallback
+  if (req.headers.get('accept')?.includes('text/html') || url.pathname.endsWith('.json')) {
+    event.respondWith(
+      fetch(req).then((res) => {
+        if (res.ok) {
+          const clone = res.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, clone));
+        }
+        return res;
+      }).catch(() => {
+        return caches.match(req).then((cached) => cached || caches.match('./muscle_os_app.html'));
+      })
+    );
+    return;
+  }
 
- // Cache-First for static assets (images, icons, fonts)
- event.respondWith(
- caches.match(req).then((cached) => {
- if (cached) return cached;
- return fetch(req).then((res) => {
- if (res.ok) {
- const clone = res.clone();
- caches.open(CACHE_NAME).then((cache) => cache.put(req, clone));
- }
- return res;
- });
- })
- );
+  // Cache-First for static assets
+  event.respondWith(
+    caches.match(req).then((cached) => {
+      if (cached) return cached;
+      return fetch(req).then((res) => {
+        if (res.ok) {
+          const clone = res.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, clone));
+        }
+        return res;
+      });
+    })
+  );
 });

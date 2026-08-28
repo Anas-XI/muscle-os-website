@@ -25,9 +25,9 @@
  --card2:#26282F;
  --text:#FAFAF8;
  --text-soft:rgba(250,250,248,.65);
- --text-dim:rgba(250,250,248,.45);
- --text-muted:rgba(250,250,248,.28);
- --text-faint:rgba(250,250,248,.12);
+ --text-dim:rgba(250,250,248,.68);
+ --text-muted:rgba(250,250,248,.58);
+ --text-faint:rgba(250,250,248,.38);
  --line:rgba(250,250,248,.08);
  --line-strong:rgba(250,250,248,.15);
  --fill:rgba(250,250,248,.03);
@@ -855,12 +855,89 @@ select option{background:var(--card)}
 
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes pulseGlow { 0% { box-shadow: 0 0 15px rgba(244,201,59,.2); } 50% { box-shadow: 0 0 25px rgba(244,201,59,.6); } 100% { box-shadow: 0 0 15px rgba(244,201,59,.2); } }
+
+/* === Phase 1: Mobile Touch Target Compliance & Contrast Enhancement === */
+.acc-swatch { min-width: 44px; min-height: 44px; border-radius: 8px; }
+.prio-btn { min-height: 44px; padding: 10px 14px; font-size: .68rem; display: inline-flex; align-items: center; justify-content: center; }
+.rest-timer button { min-height: 44px; min-width: 44px; padding: 8px; font-size: .65rem; }
+.rt-sound { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+.pain-btn { min-width: 44px; min-height: 44px; padding: 8px; display: inline-flex; align-items: center; justify-content: center; }
+.del-set-btn { min-width: 44px; min-height: 44px; padding: 8px; font-size: .8rem; display: inline-flex; align-items: center; justify-content: center; }
+.add-set-btn { min-height: 44px; padding: 10px; font-size: .68rem; }
+.rm-ex-btn, .sw-ex-btn { min-height: 44px; min-width: 44px; padding: 8px 12px; font-size: .65rem; display: inline-flex; align-items: center; justify-content: center; }
+.swap-chip { min-height: 44px; padding: 8px 12px; font-size: .68rem; display: inline-flex; align-items: center; justify-content: center; }
+.vol-adjust button { min-width: 44px; min-height: 44px; font-size: .85rem; }
+.ex-sel-chip { min-height: 44px; padding: 8px 12px; font-size: .68rem; display: inline-flex; align-items: center; justify-content: center; }
+.f-chip { min-height: 44px; padding: 8px 14px; font-size: .68rem; display: inline-flex; align-items: center; justify-content: center; }
+.ex-sel-more { min-height: 44px; padding: 8px 12px; font-size: .65rem; }
+.ex-guide-toggle { min-height: 44px; padding: 8px 12px; font-size: .65rem; }
+.week-chip { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+.sync-toggle { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+.modal-close { min-width: 44px; min-height: 44px; padding: 10px; font-size: 1.1rem; display: inline-flex; align-items: center; justify-content: center; }
+.day-tab { min-height: 44px; padding: 10px 14px; }
+.step { min-height: 44px; display: flex; align-items: center; justify-content: center; }
+
+/* iOS Safari auto-zoom prevention */
+@media (max-width: 768px) {
+  input, select, textarea { font-size: 16px !important; }
+}
+
+/* MOS Universal Toast Notifications */
+.mos-toast-container {
+  position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+  z-index: 100000; display: flex; flex-direction: column; gap: 8px;
+  pointer-events: none; width: 90%; max-width: 400px;
+}
+.mos-toast {
+  pointer-events: auto; display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px; background: rgba(20, 21, 26, 0.96);
+  border: 1px solid rgba(244, 201, 59, 0.4); border-radius: 12px;
+  color: #FAFAF8; font-size: 0.85rem; font-family: 'Inter', sans-serif;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(244, 201, 59, 0.15);
+  backdrop-filter: blur(12px); animation: mosToastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.3s, transform 0.3s;
+}
+.mos-toast.success { border-color: rgba(76, 175, 80, 0.6); }
+.mos-toast.error { border-color: rgba(244, 67, 54, 0.6); }
+.mos-toast.warning { border-color: rgba(244, 201, 59, 0.6); }
+.mos-toast-icon { font-size: 1.2rem; flex-shrink: 0; }
+.mos-toast-msg { flex: 1; line-height: 1.4; }
+@keyframes mosToastIn { from { opacity: 0; transform: translateY(-20px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
 </style>
 
 <script async defer src="https://accounts.google.com/gsi/client"></script>
 <script src="/assets/js/sync-manager.js" defer></script>
 </head>
 <body>
+
+<script>
+// Universal Toast Notification Handler
+window.mosToast = function(msg, type) {
+  type = type || 'info';
+  var icon = type === 'success' ? '✅' : (type === 'error' ? '❌' : (type === 'warning' ? '⚠️' : '⚡'));
+  var tc = document.getElementById('mos-toast-container');
+  if (!tc) {
+    tc = document.createElement('div');
+    tc.id = 'mos-toast-container';
+    tc.className = 'mos-toast-container';
+    tc.setAttribute('role', 'alert');
+    tc.setAttribute('aria-live', 'polite');
+    document.body.appendChild(tc);
+  }
+  var t = document.createElement('div');
+  t.className = 'mos-toast ' + type;
+  t.innerHTML = '<span class="mos-toast-icon">' + icon + '</span><span class="mos-toast-msg">' + (msg || '') + '</span>';
+  tc.appendChild(t);
+  setTimeout(function() {
+    t.style.opacity = '0';
+    t.style.transform = 'translateY(-10px)';
+    setTimeout(function() { t.remove(); }, 300);
+  }, 3800);
+};
+window.alert = function(msg) { window.mosToast(msg, 'info'); };
+</script>
+
 <nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a><a href="../index.html#packages">Coaching</a></div></div></nav>
 <div class="sub-overlay" id="subOverlay">
  <div class="sub-modal" style="position:relative;">

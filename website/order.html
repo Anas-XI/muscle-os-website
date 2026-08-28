@@ -3,642 +3,317 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Purchase access to Muscle OS training apps, books, and bundles. Send payment via Vodafone Cash, then submit your order.">
+<meta name="description" content="Purchase access to Muscle OS pro training apps, reference books, and bundles. Secure payment via Vodafone Cash, InstaPay, or Card.">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev; img-src 'self' data:; frame-ancestors 'self'; base-uri 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
-<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-<title>Order — Purchase Muscle OS Training Apps & Books</title>
- <meta name="description" content="Purchase access to Muscle OS premium training apps and reference books by Coach Anas Mo'men. Unlock TDEE calculator, volume calculator, and full book library.">
- <meta property="og:title" content="Order — Purchase Muscle OS Training Apps & Books">
- <meta property="og:description" content="Purchase access to Muscle OS premium training apps and reference books by Coach Anas Mo'men. Unlock TDEE calculator, volume calculator, and full book library.">
- <meta property="og:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
- <meta property="og:image:width" content="1200">
- <meta property="og:image:height" content="1200">
- <meta property="og:type" content="website">
- <meta property="og:url" content="https://muscleos.is-a.dev/order.html">
- <meta name="twitter:card" content="summary_large_image">
- <meta name="twitter:title" content="Order — Purchase Muscle OS Training Apps & Books">
- <meta name="twitter:description" content="Purchase access to Muscle OS premium training apps and reference books by Coach Anas Mo'men. Unlock TDEE calculator, volume calculator, and full book library.">
- <meta name="twitter:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
+<title>Order &mdash; Muscle OS Training Suite &amp; Knowledge Base</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:72px}
-body{
- font-family:'Inter',sans-serif;
- background: radial-gradient(circle at top right, #1f1b0a 0%, #0f1015 50%);
- background-color: #0f1015;
- color:#FAFAF8;
- line-height:1.5;
- overflow-x:hidden;
- opacity:0;
- transition:opacity .6s ease;
+html{scroll-behavior:smooth}
+:root{
+  --ink:#0A0B0E;
+  --surface:#14151A;
+  --surface-2:#1E2027;
+  --yellow:#F4C93B;
+  --yellow-glow:rgba(244,201,59,0.35);
+  --border:rgba(255,255,255,0.08);
+  --border-focus:#F4C93B;
+  --text:#FAFAF8;
+  --text-muted:rgba(250,250,248,0.65);
 }
-body.loaded{opacity:1}
-h1,h2,h3,h4,p,li,blockquote{overflow-wrap:break-word;word-break:break-word}
-img{max-width:100%;display:block}
-a{color:inherit;text-decoration:none}
-.wrap{max-width:640px;margin:0 auto;padding:0 20px}
-::selection{background:#c026d3;color:#14151A}
+body{
+  font-family:'Inter',sans-serif;
+  background:radial-gradient(circle at top right, #241d09 0%, #0a0b0e 60%);
+  background-color:var(--ink);
+  color:var(--text);
+  line-height:1.5;
+  min-height:100vh;
+}
+.wrap{max-width:680px;margin:0 auto;padding:0 20px}
+::selection{background:var(--yellow);color:var(--ink)}
 
-/* ── Nav ── */
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(15,16,21,.75);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.05)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,11,14,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
 .nav-inner{max-width:1180px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
-.brand{font-family:'Oswald',sans-serif;font-weight:700;font-size:16px;letter-spacing:.5px;text-transform:uppercase}
-.brand span{color:#c026d3; text-shadow: 0 0 10px rgba(192,38,211,0.3);}
-.nav-back{font-size:.75rem;color:rgba(250,250,248,.6);display:flex;align-items:center;gap:6px;transition:all .2s; font-weight: 500;}
-.nav-back:hover{color:#c026d3; text-shadow: 0 0 8px rgba(192,38,211,0.3);}
+.brand{font-family:'Oswald',sans-serif;font-weight:700;font-size:17px;letter-spacing:.5px;text-transform:uppercase}
+.brand span{color:var(--yellow);text-shadow:0 0 10px var(--yellow-glow)}
+.nav-back{font-size:.8rem;color:var(--text-muted);display:flex;align-items:center;gap:6px;transition:color .2s;font-weight:600}
+.nav-back:hover{color:var(--yellow)}
 
-/* ── Hero ── */
-.hero{padding-top:82px;padding-bottom:32px;text-align:center}
-.hero .eyebrow{font-size:.7rem;font-weight:700;color:#c026d3;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:8px; text-shadow: 0 0 8px rgba(192,38,211,0.3);}
-.hero h1{font-family:'Oswald',sans-serif;font-size:clamp(28px,5vw,44px);font-weight:700;text-transform:uppercase;line-height:1.05;max-width:600px;margin:0 auto;
- background: linear-gradient(to right, #fff, #ffd659);
- -webkit-background-clip: text;
- -webkit-text-fill-color: transparent;}
-.hero p{font-size:.9rem;color:#A0A3AB;max-width:480px;margin:12px auto 0;line-height:1.6}
+.hero{padding-top:100px;padding-bottom:32px;text-align:center}
+.eyebrow{font-size:.75rem;font-weight:700;color:var(--yellow);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;display:inline-block}
+.hero h1{
+  font-family:'Oswald',sans-serif;font-size:clamp(28px,5vw,42px);font-weight:700;text-transform:uppercase;line-height:1.05;
+  background:linear-gradient(to right, #fff, #ffd659);-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero p{font-size:.92rem;color:var(--text-muted);max-width:500px;margin:10px auto 0;line-height:1.6}
 
-/* ── Form card ── */
-.form-card{background:rgba(30, 32, 39, 0.6);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:32px 24px;margin-bottom:20px; backdrop-filter: blur(10px); box-shadow: 0 15px 40px rgba(0,0,0,0.4);}
-.form-card .fc-title{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:600;text-transform:uppercase;letter-spacing:.3px;color:#c026d3;margin-bottom:6px}
-.form-card .fc-sub{font-size:.75rem;color:#A0A3AB;margin-bottom:20px}
-.manual-only{display:none}
-.manual-only.show{display:block; animation: fadeSlideIn 0.3s ease;}
-.online-only{display:none}
-.online-only.show{display:block; animation: fadeSlideIn 0.3s ease;}
+.form-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px 26px;
+  margin-bottom:24px;box-shadow:0 15px 40px rgba(0,0,0,0.5);backdrop-filter:blur(10px);
+}
+.fc-title{font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:600;text-transform:uppercase;letter-spacing:.3px;color:var(--yellow);margin-bottom:6px}
+.fc-sub{font-size:.8rem;color:var(--text-muted);margin-bottom:20px}
 
-/* ── Payment method toggle ── */
+/* Product Selector */
+.product-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+.prod-opt{
+  padding:16px 14px;background:var(--surface-2);border:1.5px solid var(--border);border-radius:12px;
+  cursor:pointer;transition:all .25s ease;text-align:center;user-select:none;
+}
+.prod-opt:hover{border-color:var(--yellow);transform:translateY(-2px)}
+.prod-opt.selected{border-color:var(--yellow);background:rgba(244,201,59,0.12);box-shadow:0 0 15px var(--yellow-glow)}
+.prod-opt .po-name{font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:600;text-transform:uppercase;color:#fff}
+.prod-opt .po-price{font-size:.8rem;color:var(--yellow);font-family:'JetBrains Mono',monospace;margin-top:4px;font-weight:700}
+.prod-opt .po-desc{font-size:.68rem;color:var(--text-muted);margin-top:4px}
+
+/* Payment Method Toggle */
 .pay-toggle{display:flex;gap:10px;margin-bottom:24px}
-.pay-toggle-btn{flex:1;padding:16px 12px;background:rgba(20,21,26,.6);border:1px solid rgba(255,255,255,.1);border-radius:12px;cursor:pointer;text-align:center;transition:all .3s ease;font-family:'Inter',sans-serif}
-.pay-toggle-btn:hover{border-color:rgba(192,38,211,.4); background: rgba(192,38,211,0.05); transform: translateY(-2px);}
-.pay-toggle-btn.selected{border-color:#c026d3;background:rgba(192,38,211,.1); box-shadow: 0 4px 15px rgba(192,38,211,0.15);}
-.pay-toggle-btn .pt-icon{display:block;font-size:1.4rem;margin-bottom:6px}
-.pay-toggle-btn .pt-label{display:block;font-size:.78rem;font-weight:600;color:#FAFAF8;text-transform:uppercase;letter-spacing:.3px}
-.pay-toggle-btn .pt-desc{display:block;font-size:.65rem;color:rgba(250,250,248,.4);margin-top:4px}
-@media(max-width:400px){.pay-toggle{flex-direction:column}.pay-toggle-btn{display:flex;align-items:center;gap:12px;text-align:left;padding:14px}.pay-toggle-btn .pt-icon{font-size:1.2rem;margin:0}}
+.pay-toggle-btn{
+  flex:1;padding:16px 12px;background:var(--surface-2);border:1.5px solid var(--border);border-radius:12px;
+  cursor:pointer;text-align:center;transition:all .25s ease;font-family:'Inter',sans-serif;
+}
+.pay-toggle-btn:hover{border-color:var(--yellow);background:rgba(244,201,59,0.06);transform:translateY(-2px)}
+.pay-toggle-btn.selected{border-color:var(--yellow);background:rgba(244,201,59,0.12);box-shadow:0 0 15px var(--yellow-glow)}
+.pay-toggle-btn .pt-icon{display:block;font-size:1.5rem;margin-bottom:6px}
+.pay-toggle-btn .pt-label{display:block;font-size:.82rem;font-weight:700;color:#FAFAF8;text-transform:uppercase}
+.pay-toggle-btn .pt-desc{display:block;font-size:.7rem;color:var(--text-muted);margin-top:4px}
 
-/* ── Payment info — highlighted ── */
-.payment-info{background:linear-gradient(135deg, rgba(192,38,211,.08), rgba(192,38,211,.02));border:1px solid rgba(192,38,211,.3);border-radius:12px;padding:20px;margin-bottom:24px; box-shadow: inset 0 0 20px rgba(192,38,211,0.05);}
-.payment-info .pi-title{font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:.3px;color:#c026d3;margin-bottom:12px}
-.payment-info .pi-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(192,38,211,.1);font-size:.8rem}
+/* Payment Info Box */
+.payment-info{
+  background:linear-gradient(135deg, rgba(244,201,59,.1), rgba(244,201,59,.02));
+  border:1.5px solid rgba(244,201,59,.35);border-radius:12px;padding:22px;margin-bottom:24px;
+}
+.payment-info .pi-title{font-family:'Oswald',sans-serif;font-size:.9rem;font-weight:600;text-transform:uppercase;color:var(--yellow);margin-bottom:12px}
+.payment-info .pi-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:.85rem}
 .payment-info .pi-row:last-child{border-bottom:none}
-.payment-info .pi-label{color:rgba(250,250,248,.6)}
-.payment-info .pi-value{font-family:'JetBrains Mono',monospace;color:#fff;font-weight:600; font-size: .9rem;}
-.payment-info .pi-note{font-size:.7rem;color:rgba(250,250,248,.4);margin-top:12px;font-style:italic}
+.payment-info .pi-label{color:var(--text-muted)}
+.payment-info .pi-value{font-family:'JetBrains Mono',monospace;color:#fff;font-weight:700;font-size:.95rem;display:flex;align-items:center;gap:8px}
+.copy-btn{
+  background:rgba(244,201,59,0.15);color:var(--yellow);border:1px solid rgba(244,201,59,0.3);
+  padding:3px 8px;border-radius:4px;font-size:10px;cursor:pointer;font-weight:bold;
+}
+.copy-btn:hover{background:var(--yellow);color:#000}
 
-/* ── Product selector ── */
-.product-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
-.prod-opt{padding:14px 12px;background:rgba(20,21,26,.6);border:1px solid rgba(255,255,255,.08);border-radius:12px;cursor:pointer;transition:all .3s ease;text-align:center}
-.prod-opt:hover{border-color:rgba(192,38,211,.4); transform: translateY(-2px);}
-.prod-opt.selected{border-color:#c026d3;background:rgba(192,38,211,.1); box-shadow: 0 4px 15px rgba(192,38,211,0.15);}
-.prod-opt .po-name{font-family:'Oswald',sans-serif;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.3px;color:#FAFAF8}
-.prod-opt .po-price{font-size:.65rem;color:#c026d3;font-family:'JetBrains Mono',monospace;margin-top:4px; font-weight: 600;}
-.prod-opt .po-desc{font-size:.62rem;color:rgba(250,250,248,.4);margin-top:2px}
-@media(max-width:480px){.product-grid{gap:8px}.prod-opt{padding:12px 8px}.prod-opt .po-name{font-size:.68rem}}
+.field-group{margin-bottom:16px;text-align:left}
+.field-group label{display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;font-family:'JetBrains Mono',monospace}
+.field-input{
+  width:100%;padding:12px 14px;background:rgba(0,0,0,0.4);border:1.5px solid var(--border);
+  border-radius:8px;color:#fff;font-size:.92rem;font-family:'Inter',sans-serif;transition:border-color .2s;
+}
+.field-input:focus{outline:none;border-color:var(--border-focus);box-shadow:0 0 0 3px rgba(244,201,59,0.15)}
 
-/* ── Form fields ── */
-.form-group{margin-bottom:18px}
-.form-group label{display:block;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(250,250,248,.5);margin-bottom:6px}
-.form-group label .req{color:#f44336;margin-left:2px}
-.form-group .hint{font-size:.65rem;color:rgba(250,250,248,.35);margin-top:4px}
-input,select{width:100%;padding:14px 16px;background:rgba(15,16,21,.7);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:'Inter',sans-serif;font-size:.9rem;outline:none;transition:all .3s ease; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);}
-input:focus,select:focus{border-color:#c026d3; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2), 0 0 10px rgba(192,38,211,0.2);}
-select{cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 12 8'%3E%3Cpath fill='%23FAFAF8' opacity='0.5' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:40px}
-select option{background:#1E1E2A;color:#FAFAF8}
+.btn-submit{
+  width:100%;padding:15px;background:linear-gradient(135deg, var(--yellow), #ffd659);
+  color:#0A0B0E;border:none;border-radius:8px;font-family:'Oswald',sans-serif;font-size:1.05rem;
+  font-weight:700;text-transform:uppercase;letter-spacing:.5px;cursor:pointer;transition:all .2s;
+  box-shadow:0 4px 18px var(--yellow-glow);
+}
+.btn-submit:hover{background:#fff;transform:translateY(-2px);box-shadow:0 6px 22px rgba(255,255,255,0.4)}
+.btn-submit:active{transform:scale(0.98)}
 
-/* ── Submit ── */
-.submit-btn{width:100%;padding:16px 0;background:linear-gradient(135deg, var(--yellow), #ffd659);color:#14151A;border:none;border-radius:10px;font-family:'Oswald',sans-serif;font-size:1rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;transition:all .3s ease;margin-top:8px;min-height:56px; box-shadow: 0 4px 15px rgba(192,38,211,0.3);}
-.submit-btn:hover{transform: translateY(-2px); box-shadow: 0 8px 20px rgba(192,38,211,0.4); background: #fff;}
-.submit-btn:active{transform:scale(.98); box-shadow: 0 2px 10px rgba(192,38,211,0.3);}
-.submit-btn:disabled{opacity:.4;cursor:default;transform:none; background: #666; box-shadow: none; color: #ccc;}
-
-/* ── Error ── */
-.form-error{display:none;background:rgba(244,67,54,.1);border:1px solid rgba(244,67,54,.3);border-radius:10px;padding:12px 16px;font-size:.8rem;color:#f44336;margin-bottom:16px;text-align:center; font-weight: 500;}
-.form-error.show{display:block; animation: fadeSlideIn 0.3s ease;}
-
-/* ── Confirmation screen ── */
-.confirm-screen{display:none;text-align:center;padding:50px 0}
-.confirm-screen.show{display:block;animation:fadeSlideIn .45s ease-out}
-.confirm-screen .cs-icon{font-size:3.5rem;margin-bottom:16px; text-shadow: 0 0 20px rgba(76,175,80,0.3);}
-.confirm-screen h2{font-family:'Oswald',sans-serif;font-size:1.5rem;font-weight:700;text-transform:uppercase;color:#4CAF50;margin-bottom:8px}
-.confirm-screen p{font-size:.9rem;color:rgba(250,250,248,.6);max-width:440px;margin:0 auto 12px;line-height:1.6}
-.confirm-screen .cs-order{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:rgba(250,250,248,.4);margin-top:16px; background: rgba(255,255,255,0.05); padding: 8px; border-radius: 6px; display: inline-block;}
-.confirm-screen .cs-wa{display:inline-flex;align-items:center;gap:10px;margin-top:24px;padding:14px 28px;background:#25D366;color:#fff;border-radius:10px;font-size:.85rem;font-weight:600;text-decoration:none;transition:all .3s ease; box-shadow: 0 4px 15px rgba(37,211,102,0.3);}
-.confirm-screen .cs-wa:hover{transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37,211,102,0.4); background: #1ebe56;}
-.confirm-screen .cs-back{display:block;margin:24px auto 0;font-size:.75rem;color:#c026d3;font-weight:600;cursor:pointer;background:none;border:none;font-family:'Inter',sans-serif; transition: color 0.2s;}
-.confirm-screen .cs-back:hover { color: #fff; text-decoration: underline; }
-
-@keyframes fadeSlideIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
-
-/* ── Footer ── */
-footer{padding:32px 0;text-align:center;border-top:1px solid rgba(255,255,255,.05); margin-top: 40px;}
-footer p{font-size:.7rem;color:rgba(250,250,248,.3)}
-
-/* ── Security note ── */
-.security-note{text-align:center;font-size:.7rem;color:rgba(250,250,248,.3);margin-top:20px; font-weight: 500;}
-
-/* ── Mobile bottom bar ── */
-.mobile-bottom-bar{display:block;position:fixed;bottom:0;left:0;right:0;z-index:90;background:rgba(15,16,21,.97);backdrop-filter:blur(15px);border-top:1px solid rgba(255,255,255,0.05);padding:10px 16px;padding-bottom:max(10px,env(safe-area-inset-bottom)); box-shadow: 0 -10px 30px rgba(0,0,0,0.5);}
-.mobile-bottom-bar .mbb-inner{display:flex;gap:12px;max-width:640px;margin:0 auto}
-.mobile-bottom-bar .mbb-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:10px;font-weight:700;font-size:.75rem;text-transform:uppercase;letter-spacing:.3px;border:none;cursor:pointer;min-height:48px;transition:all .3s ease}
-.mobile-bottom-bar .mbb-primary{background:linear-gradient(135deg, var(--yellow), #ffd659);color:#14151A; box-shadow: 0 4px 15px rgba(192,38,211,0.3);}
-.mobile-bottom-bar .mbb-primary:active{background:#fff;transform:scale(.98);}
-.mobile-bottom-bar .mbb-ghost{background:rgba(255,255,255,0.05);color:#fff;border:1px solid rgba(255,255,255,.15);}
-.mobile-bottom-bar .mbb-ghost:active{border-color:#c026d3;}
-body{padding-bottom:80px}
-
-/* ── Responsive ── */
-@media(min-width:640px){.form-card{padding:40px 32px}.product-grid{grid-template-columns:1fr 1fr 1fr}}
-input,select,textarea{font-size:16px!important}
+@media(max-width:480px){
+  .product-grid{grid-template-columns:1fr}
+  .pay-toggle{flex-direction:column}
+}
 </style>
 </head>
 <body>
 
-<!-- Nav -->
 <div class="nav">
- <div class="nav-inner">
- <a href="index.html" class="brand">ANAS MO'MEN <span>COACHING</span></a>
- <a href="index.html" class="nav-back">&larr; Back</a>
- </div>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">ANAS MO'MEN <span>COACHING</span></a>
+    <a href="index.html#packages" class="nav-back">&larr; Back to Packages</a>
+  </div>
 </div>
 
-<div class="wrap" style="padding-top:72px">
+<div class="wrap">
+  <div class="hero">
+    <span class="eyebrow">Instant Setup &middot; Fast Verification</span>
+    <h1>Order Muscle OS Access</h1>
+    <p>Select your package, transfer payment via Vodafone Cash or InstaPay, and submit your receipt for fast activation.</p>
+  </div>
 
- <!-- Hero -->
- <div class="hero">
- <div class="eyebrow">Self-Serve Order</div>
- <h1>Get Your Access Code</h1>
- <p>Pay online with card, or send via Vodafone Cash. Your access code is delivered instantly with online payment.</p>
- </div>
+  <div class="form-card">
+    <div class="fc-title">1. Select Package</div>
+    <div class="fc-sub">Choose the tool, book, or bundle you wish to unlock.</div>
 
- <!-- Payment method toggle -->
- <div class="pay-toggle">
- <button class="pay-toggle-btn selected" data-method="online" onclick="selectPayMethod('online')">
- <span class="pt-icon">&#128179;</span>
- <span class="pt-label">Pay Online</span>
- <span class="pt-desc">Card — instant delivery</span>
- </button>
- <button class="pay-toggle-btn" data-method="manual" onclick="selectPayMethod('manual')">
- <span class="pt-icon">&#128176;</span>
- <span class="pt-label">Manual Transfer</span>
- <span class="pt-desc">Vodafone Cash — 1-12 hrs</span>
- </button>
- </div>
-
- <!-- Payment Info (manual only) -->
- <div class="payment-info" id="paymentInfoManual">
- <div class="pi-title">Send Payment To</div>
- <div class="pi-row">
- <span class="pi-label">Vodafone Cash</span>
- <span class="pi-value">01040796017</span>
- </div>
- <div class="pi-note">After sending payment, fill the form below with the transaction reference number.</div>
- </div>
-
- <!-- Form -->
- <div class="form-card" id="orderFormCard">
- <div class="fc-title">Order Details</div>
- <div class="fc-sub">Select your product and fill in your details</div>
-
- <div id="formError" class="form-error"></div>
-
- <!-- Product selector -->
- 
- <div class="form-group">
- <label>Choose Product <span class="req">*</span></label>
- 
- <div style="display:flex; justify-content:flex-end; margin-bottom: 10px;">
-    <div style="background: rgba(15,16,21,.7); padding: 4px; border-radius: 20px; display:inline-flex; border: 1px solid rgba(255,255,255,.1);">
-    <button id="currencyEGP_order" class="btn" style="border:none; border-radius: 16px; background: #c026d3; color: #000; padding: 4px 12px; font-size: 12px; font-weight:600; cursor:pointer;" onclick="setCurrency('egp')">🇪🇬 EGP</button>
-    <button id="currencyUSD_order" class="btn" style="border:none; border-radius: 16px; background: transparent; color: #FAFAF8; padding: 4px 12px; font-size: 12px; font-weight:600; cursor:pointer;" onclick="setCurrency('usd')">🌍 USD</button>
+    <div class="product-grid" id="productGrid">
+      <div class="prod-opt selected" data-id="omni_hub" data-price="600" data-usd="12">
+        <div class="po-name">Omni Hub (Pro Suite)</div>
+        <div class="po-price">600 EGP / mo</div>
+        <div class="po-desc">Training + Nutrition Synchronized</div>
+      </div>
+      <div class="prod-opt" data-id="training_tool" data-price="300" data-usd="6">
+        <div class="po-name">Training App</div>
+        <div class="po-price">300 EGP / mo</div>
+        <div class="po-desc">MOS-HYPERKINETIX Auto-regulation</div>
+      </div>
+      <div class="prod-opt" data-id="tdee_adaptive_engine" data-price="300" data-usd="6">
+        <div class="po-name">TDEE Engine</div>
+        <div class="po-price">300 EGP / mo</div>
+        <div class="po-desc">MOS-METABOLIX Calorie Recalibration</div>
+      </div>
+      <div class="prod-opt" data-id="both_books" data-price="1200" data-usd="24">
+        <div class="po-name">Both Books Bundle</div>
+        <div class="po-price">1,200 EGP</div>
+        <div class="po-desc">Training + Nutrition Full Reference</div>
+      </div>
+      <div class="prod-opt" data-id="training_bundle" data-price="750" data-usd="15">
+        <div class="po-name">Training Bundle</div>
+        <div class="po-price">750 EGP</div>
+        <div class="po-desc">Book + Calculators + 50% App Off</div>
+      </div>
+      <div class="prod-opt" data-id="nutrition_bundle" data-price="750" data-usd="15">
+        <div class="po-name">Nutrition Bundle</div>
+        <div class="po-price">750 EGP</div>
+        <div class="po-desc">Book + Calculators + 50% Engine Off</div>
+      </div>
     </div>
- </div>
 
- 
- <div class="product-grid" id="productGrid">
- <div class="prod-opt" data-product="training_tool" onclick="selectProduct(this)">
- <div class="po-name">Training App <span style="font-size:.62rem;color:#A0A3AB">(Monthly)</span></div>
- <div class="po-price"><span class="price-val egp">300 EGP</span><span class="price-val usd" style="display:none">$6</span></div>
- </div>
- <div class="prod-opt" data-product="training_tool_annual" onclick="selectProduct(this)">
- <div class="po-name">Training App <span style="font-size:.62rem;color:#c026d3">(Annual)</span></div>
- <div class="po-price"><span class="price-val egp">3,000 EGP</span><span class="price-val usd" style="display:none">$60</span></div>
- </div>
+    <div class="fc-title">2. Select Payment Method</div>
+    <div class="fc-sub">Supported local and international transfer channels.</div>
 
- <div class="prod-opt" data-product="tdee_adaptive_engine" onclick="selectProduct(this)">
- <div class="po-name">TDEE Engine <span style="font-size:.62rem;color:#A0A3AB">(Monthly)</span></div>
- <div class="po-price"><span class="price-val egp">300 EGP</span><span class="price-val usd" style="display:none">$5.99</span></div>
- </div>
- <div class="prod-opt" data-product="tdee_adaptive_engine_annual" onclick="selectProduct(this)">
- <div class="po-name">TDEE Engine <span style="font-size:.62rem;color:#c026d3">(Annual)</span></div>
- <div class="po-price"><span class="price-val egp">3,000 EGP</span><span class="price-val usd" style="display:none">$60</span></div>
- </div>
+    <div class="pay-toggle">
+      <div class="pay-toggle-btn selected" onclick="selectPaymentMethod('vodafone')">
+        <span class="pt-icon">📱</span>
+        <span class="pt-label">Vodafone Cash</span>
+        <span class="pt-desc">Wallet transfer in Egypt</span>
+      </div>
+      <div class="pay-toggle-btn" onclick="selectPaymentMethod('instapay')">
+        <span class="pt-icon">⚡</span>
+        <span class="pt-label">InstaPay</span>
+        <span class="pt-desc">Instant bank / IPA transfer</span>
+      </div>
+    </div>
 
-<div class="prod-opt" data-product="omni_hub" onclick="selectProduct(this)" style="grid-column:1/-1;border-color:rgba(192,38,211,.4)">
-  <div class="po-name">OMNI HUB <span style="font-size:.62rem;text-transform:uppercase;letter-spacing:1px;color:#A0A3AB">(Monthly)</span></div>
-  <div class="po-price"><span class="price-val egp">600 EGP</span><span class="price-val usd" style="display:none">$11.99</span></div>
-  <div class="po-desc">Training + Nutrition</div>
-</div>
-<div class="prod-opt" data-product="omni_hub_annual" onclick="selectProduct(this)" style="grid-column:1/-1;border-color:rgba(192,38,211,.8)">
-  <div class="po-name">OMNI HUB <span style="font-size:.62rem;text-transform:uppercase;letter-spacing:1px;color:#c026d3">(Annual)</span></div>
-  <div class="po-price"><span class="price-val egp">6,000 EGP</span><span class="price-val usd" style="display:none">$120</span></div>
-  <div class="po-desc">2 Months Free</div>
-</div>
+    <!-- Payment info box -->
+    <div class="payment-info" id="paymentInfoBox">
+      <div class="pi-title" id="paymentInfoTitle">Vodafone Cash Payment Details</div>
+      <div class="pi-row">
+        <span class="pi-label">Send Amount:</span>
+        <span class="pi-value" id="displayAmount">600 EGP</span>
+      </div>
+      <div class="pi-row">
+        <span class="pi-label" id="targetLabel">Transfer Number:</span>
+        <span class="pi-value">
+          <span id="targetValue">01040796017</span>
+          <button class="copy-btn" onclick="copyNumber()">COPY</button>
+        </span>
+      </div>
+      <div class="pi-row">
+        <span class="pi-label">Account Holder:</span>
+        <span class="pi-value">Anas Mo'men</span>
+      </div>
+    </div>
 
- <div class="prod-opt" data-product="training_book" onclick="selectProduct(this)">
- <div class="po-name">Training Book</div>
- <div class="po-price"><span class="price-val egp">750 EGP</span><span class="price-val usd" style="display:none">$15</span></div>
- <div class="po-desc">Lifetime</div>
- </div>
- <div class="prod-opt" data-product="nutrition_book" onclick="selectProduct(this)">
- <div class="po-name">Nutrition Book</div>
- <div class="po-price"><span class="price-val egp">750 EGP</span><span class="price-val usd" style="display:none">$15</span></div>
- <div class="po-desc">Lifetime</div>
- </div>
- <div class="prod-opt" data-product="both_books" onclick="selectProduct(this)" style="grid-column:1/-1">
- <div class="po-name">Both Books <span style="font-size:.62rem;text-transform:uppercase;letter-spacing:1px;color:#f44336">(🔥 SAVE)</span></div>
- <div class="po-price"><span class="price-val egp">1,200 EGP</span><span class="price-val usd" style="display:none">$22</span></div>
- <div class="po-desc">Save money, get both</div>
- </div>
- </div>
+    <div class="fc-title">3. Order Confirmation</div>
+    <div class="fc-sub">Provide your details so we can generate and dispatch your activation code.</div>
 
- </div>
- <div class="prod-opt" data-product="tdee_adaptive_engine" onclick="selectProduct(this)">
- <div class="po-name">TDEE Engine</div>
- <div class="po-price"><span class="price-val egp">300 EGP / mo</span><span class="price-val usd" style="display:none">$5.99 / mo</span></div>
- <div class="po-desc">Adaptive calorie tracker</div>
- </div>
-<div class="prod-opt" data-product="omni_hub" onclick="selectProduct(this)" style="grid-column:1/-1;border-color:rgba(192,38,211,.4)">
-  <div class="po-name">Combined App <span style="font-size:.62rem;text-transform:uppercase;letter-spacing:1px;color:#c026d3">(OMNI HUB)</span></div>
-  <div class="po-price"><span class="price-val egp">600 EGP / mo</span><span class="price-val usd" style="display:none">$11.99 / mo</span></div>
-  <div class="po-desc">Training + Nutrition together</div>
+    <form id="orderForm" onsubmit="handleOrderSubmit(event)">
+      <div class="field-group">
+        <label for="clientName">Full Name</label>
+        <input type="text" id="clientName" class="field-input" placeholder="e.g. Youssef Mohamed" required>
+      </div>
+
+      <div class="field-group">
+        <label for="clientPhone">WhatsApp Phone Number</label>
+        <input type="tel" id="clientPhone" class="field-input" placeholder="e.g. 01012345678" required>
+      </div>
+
+      <div class="field-group">
+        <label for="senderPhone">Sender Wallet / Account Phone</label>
+        <input type="tel" id="senderPhone" class="field-input" placeholder="Phone number sent from" required>
+      </div>
+
+      <div class="field-group">
+        <label for="txRef">Transaction Reference / Code (Optional)</label>
+        <input type="text" id="txRef" class="field-input" placeholder="e.g. 98421890">
+      </div>
+
+      <button type="submit" class="btn-submit">SUBMIT ORDER &amp; DISPATCH ON WHATSAPP &rarr;</button>
+    </form>
   </div>
- <div class="prod-opt" data-product="training_book" onclick="selectProduct(this)">
- <div class="po-name">Training Book</div>
- <div class="po-price"><span class="price-val egp">750 EGP</span><span class="price-val usd" style="display:none">$15</span></div>
- <div class="po-desc">One-time, lifetime</div>
- </div>
- <div class="prod-opt" data-product="nutrition_book" onclick="selectProduct(this)">
- <div class="po-name">Nutrition Book</div>
- <div class="po-price"><span class="price-val egp">750 EGP</span><span class="price-val usd" style="display:none">$15</span></div>
- <div class="po-desc">One-time, lifetime</div>
- </div>
- <div class="prod-opt" data-product="both_books" onclick="selectProduct(this)" style="grid-column:1/-1">
- <div class="po-name">Both Books <span style="font-size:.62rem;text-transform:uppercase;letter-spacing:1px;color:#f44336">(🔥 SAVE)</span></div>
- <div class="po-price"><span class="price-val egp">1,200 EGP</span><span class="price-val usd" style="display:none">$22</span></div>
- <div class="po-desc">Save money, get both</div>
- </div>
- </div>
- </div>
-
- </div>
-
- <!-- Name -->
- <div class="form-group">
- <label>Your Name <span class="req">*</span></label>
- <input type="text" id="customerName" placeholder="e.g. Ahmed Hassan" autocomplete="name">
- </div>
-
- <!-- WhatsApp number -->
- <div class="form-group">
- <label>WhatsApp Number <span class="req">*</span></label>
- <input type="tel" id="whatsappNumber" placeholder="e.g. +201234567890" autocomplete="tel">
- <div class="hint">Include country code. We'll send your code here.</div>
- </div>
-
- <!-- Email (optional) -->
- <div class="form-group">
- <label>Email <span style="color:rgba(250,250,248,.25);font-weight:400">(optional — backup delivery)</span></label>
- <input type="email" id="email" placeholder="ahmed@example.com" autocomplete="email">
- </div>
-
- <!-- Payment reference (manual only) -->
- <div class="form-group manual-only" id="paymentRefGroup">
- <label>Transaction Reference <span class="req">*</span></label>
- <input type="text" id="paymentRef" placeholder="e.g. 123456789 or transaction ID" autocomplete="off">
- <div class="hint">The reference number from your Vodafone Cash transfer.</div>
- </div>
- <!-- Online payment note (shown when paying online) -->
- <div class="form-group online-only" id="onlineNote">
- <div style="background:rgba(192,38,211,.06);border:1px solid rgba(192,38,211,.12);border-radius:8px;padding:12px;font-size:.72rem;color:rgba(250,250,248,.5);text-align:center">
- You'll be redirected to Paymob to complete your payment. Your access code will appear automatically after successful payment.
- </div>
- </div>
-
- <div class="form-group" style="margin-top:16px;">
-    <label style="display:flex;align-items:flex-start;gap:10px;font-size:.82rem;color:rgba(250,250,248,.8);font-weight:400;cursor:pointer;">
-      <input type="checkbox" id="agreeTerms" style="margin-top:3px;accent-color:#c026d3;width:16px;height:16px;">
-      <span>I have read and agree to the <a href="terms.html" target="_blank" style="color:#c026d3;text-decoration:underline;">Terms of Service</a>, <a href="refund.html" target="_blank" style="color:#c026d3;text-decoration:underline;">Refund Policy</a>, and <a href="privacy.html" target="_blank" style="color:#c026d3;text-decoration:underline;">Privacy Policy</a>. <span class="req">*</span></span>
-    </label>
-  </div>
-
- <div id="submitError" class="form-error"></div>
- <button id="submitBtn" class="submit-btn" onclick="submitOrder()">Submit Order</button>
- </div>
-
- <!-- Confirmation (shown after manual submit) -->
- <div class="confirm-screen" id="confirmScreen">
- <div class="cs-icon" id="csIcon"></div>
- <h2 id="csTitle">Order Submitted</h2>
- <p id="csDesc">Thank you! Your order has been received. Anas will confirm payment and send your access code via WhatsApp within a few hours — usually much faster.</p>
- <p id="csHint" style="font-size:.78rem;color:rgba(250,250,248,.35)">Keep an eye on your WhatsApp messages.</p>
- <div class="cs-order" id="orderIdDisplay"></div>
- <a id="csWaBtn" href="https://wa.me/201040796017" target="_blank" rel="noopener noreferrer" class="cs-wa" data-wa-tag="order_confirmed_wa">Message Anas on WhatsApp</a>
- <button class="cs-back" onclick="resetForm()">Submit Another Order</button>
- </div>
-
 </div>
-
-<!-- Security note -->
-<p class="security-note">&#128274; No card details processed on this site — payment and codes confirmed directly via WhatsApp.</p>
-
-<footer>
- <p>&copy; Anas Mo'men Coaching &middot; <a href="index.html" style="color:#c026d3">Home</a> &middot; <a href="privacy.html" style="color:#c026d3">Privacy Policy</a> &middot; <a href="terms.html" style="color:#c026d3">Terms</a> &middot; <a href="refund.html" style="color:#c026d3">Refunds</a></p>
-</footer>
-
-<!-- Mobile bottom bar -->
-<div class="mobile-bottom-bar">
- <div class="mbb-inner">
- <a href="index.html" class="mbb-btn mbb-primary">Home</a>
- <a href="https://wa.me/201040796017" target="_blank" rel="noopener noreferrer" class="mbb-btn mbb-ghost" data-wa-tag="order_mbb_wa">WhatsApp</a>
- </div>
-</div>
-
-<script src="assets/tracking.js"></script>
 
 <script>
-(function(){
- 'use strict';
+let currentProduct = { id: 'omni_hub', name: 'Omni Hub (Pro Suite)', price: 600 };
+let currentPayment = 'vodafone';
 
- var API = 'https://muscleos-access-control.muscleos.workers.dev';
- var selectedProduct = null;
- var payMethod = null; // 'online' or 'manual'
+const PRODUCTS = {
+  omni_hub: { name: 'Omni Hub (Pro Suite)', price: 600 },
+  training_tool: { name: 'Training App', price: 300 },
+  tdee_adaptive_engine: { name: 'TDEE Engine', price: 300 },
+  both_books: { name: 'Both Books Bundle', price: 1200 },
+  training_bundle: { name: 'Training Bundle', price: 750 },
+  nutrition_bundle: { name: 'Nutrition Bundle', price: 750 }
+};
 
- // ── Product selector ──
- window.selectProduct = function(el) {
- document.querySelectorAll('.prod-opt').forEach(function(o){ o.classList.remove('selected'); });
- el.classList.add('selected');
- selectedProduct = el.getAttribute('data-product');
- updatePayToggle();
- };
-
- // ── Payment method toggle ──
- window.selectPayMethod = function(method) {
- payMethod = method;
- document.querySelectorAll('.pay-toggle-btn').forEach(function(b){ b.classList.remove('selected'); });
- document.querySelector('.pay-toggle-btn[data-method="' + method + '"]').classList.add('selected');
- // Show/hide manual-only and online-only fields
- document.getElementById('paymentInfoManual').style.display = method === 'manual' ? 'block' : 'none';
- var refGroup = document.getElementById('paymentRefGroup');
- if (method === 'manual') { refGroup.classList.add('show'); } else { refGroup.classList.remove('show'); }
- var onlineNote = document.getElementById('onlineNote');
- if (method === 'online') { onlineNote.classList.add('show'); } else { onlineNote.classList.remove('show'); }
- updateSubmitBtn();
- };
-
- function updatePayToggle() {
- // Auto-select online if no method chosen yet
- if (!payMethod) {
- var u = new URL(window.location.href);
- if (u.searchParams.get('manual') === '1') {
- selectPayMethod('manual');
- } else {
- selectPayMethod('online');
- }
- }
- }
-
- function updateSubmitBtn() {
- var btn = document.getElementById('submitBtn');
- if (payMethod === 'online') {
- btn.textContent = 'Continue to Payment';
- } else {
- btn.textContent = 'Submit Order';
- }
- }
-
- // ── Price map for button ──
- var PRODUCT_PRICES = {
- training_tool: 300, tdee_adaptive_engine: 300, omni_hub: 600,
- training_book: 750, nutrition_book: 750, both_books: 1200,
- };
-
- // ── Error helpers ──
- function showError(msg) {
- var el = document.getElementById('submitError');
- el.textContent = msg;
- el.classList.add('show');
- }
- function hideError() {
- document.getElementById('submitError').classList.remove('show');
- }
-
- function validatePhone(phone) {
- return /^\+?\d{7,15}$/.test(phone.replace(/[-\s()]/g, ''));
- }
- function validateEmail(email) {
- if (!email) return true;
- return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
- }
-
- function getCommonFields() {
- var name = document.getElementById('customerName').value.trim();
- if (!name) { showError('Please enter your name.'); document.getElementById('customerName').focus(); return null; }
- var phone = document.getElementById('whatsappNumber').value.trim();
- if (!phone || !validatePhone(phone)) { showError('Please enter a valid WhatsApp number with country code (e.g. +201234567890).'); document.getElementById('whatsappNumber').focus(); return null; }
- var email = document.getElementById('email').value.trim();
- if (email && !validateEmail(email)) { showError('Please enter a valid email address, or leave blank.'); document.getElementById('email').focus(); return null; }
- return { name: name, phone: phone, email: email || null };
- }
-
- // ── Submit ──
- window.submitOrder = function() {
- hideError();
-
- if (!selectedProduct) { showError('Please select a product.'); return; }
- if (!payMethod) { showError('Please select a payment method.'); return; }
-
- var agree = document.getElementById('agreeTerms');
- if (agree && !agree.checked) {
- showError('You must agree to the Terms of Service and Privacy Policy to proceed.');
- agree.focus();
- return;
- }
-
- var fields = getCommonFields();
- if (!fields) return;
-
- if (payMethod === 'manual') {
- submitManual(fields);
- } else {
- submitOnline(fields);
- }
- };
-
- function submitManual(fields) {
- var ref = document.getElementById('paymentRef').value.trim();
- if (!ref) { showError('Please enter the transaction reference from your payment.'); document.getElementById('paymentRef').focus(); return; }
-
- var btn = document.getElementById('submitBtn');
- btn.disabled = true;
- btn.textContent = 'Submitting...';
-
- var body = {
- product: selectedProduct, customerName: fields.name,
- whatsappNumber: fields.phone, email: fields.email,
- paymentMethod: 'vodafone_cash', paymentRef: ref,
- lang: document.documentElement.lang || 'ar'
- };
-
- fetch(API + '/api/create-order', {
- method: 'POST', headers: { 'Content-Type': 'application/json' },
- body: JSON.stringify(body)
- }).then(function(r){
- if (!r.ok) return r.json().then(function(d){ throw new Error(d.error || 'Server error'); });
- return r.json();
- }).then(function(data){
- document.getElementById('orderFormCard').style.display = 'none';
- document.getElementById('paymentInfoManual').style.display = 'none';
- document.getElementById('confirmScreen').classList.add('show');
- document.getElementById('orderIdDisplay').textContent = 'Order ID: ' + data.orderId;
- if (window.mosTrackEvent) {
- window.mosTrackEvent('order_submitted', selectedProduct, { order_id: data.orderId });
- }
- }).catch(function(err){
- showError(err.message || 'Network error. Please try again or message Anas on WhatsApp.');
- btn.disabled = false;
- btn.textContent = 'Submit Order';
- });
- }
-
- function submitOnline(fields) {
- var btn = document.getElementById('submitBtn');
- btn.disabled = true;
- btn.textContent = 'Creating Order...';
-
- var body = {
- product: selectedProduct, customerName: fields.name,
- whatsappNumber: fields.phone, email: fields.email,
- paymentMethod: 'online', paymentRef: 'paymob-' + Date.now(),
- lang: document.documentElement.lang || 'ar'
- };
-
- // Step 1: Create order
- fetch(API + '/api/create-order', {
- method: 'POST', headers: { 'Content-Type': 'application/json' },
- body: JSON.stringify(body)
- }).then(function(r){
- if (!r.ok) return r.json().then(function(d){ throw new Error(d.error || 'Server error'); });
- return r.json();
- }).then(function(data){
- var orderId = data.orderId;
- btn.textContent = 'Redirecting to Payment...';
-
- // Store orderId for success page
- localStorage.setItem('mos_pending_order_id', orderId);
-
- // Track
- if (window.mosTrackEvent) {
- window.mosTrackEvent('order_submitted', selectedProduct, { order_id: orderId, method: 'online' });
- }
-
- // Step 2: Create payment link
- return fetch(API + '/api/create-payment-link', {
- method: 'POST', headers: { 'Content-Type': 'application/json' },
- body: JSON.stringify({ orderId: orderId })
- }).then(function(r2){
- if (!r2.ok) return r2.json().then(function(d){
- if (d.error === 'payment_provider_not_configured') {
- throw new Error('Online payment is not set up yet. Please use Manual Transfer or message Anas on WhatsApp.');
- }
- throw new Error(d.error || 'Failed to create payment link');
- });
- return r2.json().then(function(payData){
- // Redirect to Paymob
- window.location.href = payData.paymentUrl;
- });
- });
- }).catch(function(err){
- showError(err.message || 'Network error. Please try again or choose Manual Transfer.');
- btn.disabled = false;
- updateSubmitBtn();
- localStorage.removeItem('mos_pending_order_id');
- });
- }
-
- window.resetForm = function() {
- document.getElementById('confirmScreen').classList.remove('show');
- document.getElementById('orderFormCard').style.display = 'block';
- document.getElementById('paymentInfoManual').style.display = 'block';
- document.getElementById('submitBtn').disabled = false;
- updateSubmitBtn();
- document.getElementById('paymentRef').value = '';
- };
-
- // ── Init ──
- document.addEventListener('DOMContentLoaded', function(){
- requestAnimationFrame(function(){ document.body.classList.add('loaded'); });
- var u = new URL(window.location.href);
- var prod = u.searchParams.get('product');
- if (prod) {
- var opt = document.querySelector('.prod-opt[data-product="' + prod + '"]');
- if (opt) { selectProduct(opt); opt.scrollIntoView({behavior:'smooth', block:'center'}); }
- }
- updatePayToggle();
- });
-})();
-</script>
-
- <script>
-  window.currentCurrency = 'usd';
-  
-  function detectCurrency() {
-    let saved = localStorage.getItem('mos_currency');
-    if (saved) return saved;
-    try {
-      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      const egyptZones = ['Africa/Cairo', 'Africa/Tripoli', 'Africa/Khartoum'];
-      const menaZones = ['Asia/Riyadh', 'Asia/Dubai', 'Asia/Kuwait', 'Asia/Bahrain',
-                         'Asia/Qatar', 'Asia/Amman', 'Asia/Beirut', 'Asia/Baghdad'];
-      if (egyptZones.includes(tz) || menaZones.includes(tz)) return 'egp';
-    } catch(e) {}
-    return 'usd';
-  }
-
-  window.setCurrency = function(curr) {
-    window.currentCurrency = curr;
-    localStorage.setItem('mos_currency', curr);
-    
-    document.getElementById('currencyEGP_order').style.background = (curr === 'egp') ? '#c026d3' : 'transparent';
-    document.getElementById('currencyEGP_order').style.color = (curr === 'egp') ? '#000' : '#FAFAF8';
-    
-    document.getElementById('currencyUSD_order').style.background = (curr === 'usd') ? '#c026d3' : 'transparent';
-    document.getElementById('currencyUSD_order').style.color = (curr === 'usd') ? '#000' : '#FAFAF8';
-    
-    document.querySelectorAll('.price-val.egp').forEach(el => el.style.display = (curr === 'egp') ? 'inline' : 'none');
-    document.querySelectorAll('.price-val.usd').forEach(el => el.style.display = (curr === 'usd') ? 'inline' : 'none');
-    
-    // Manage Payment Options
-    const manualBtn = document.querySelector('.pay-toggle-btn[data-method="manual"]');
-    if (curr === 'usd') {
-      // Hide manual (Vodafone Cash) and force online payment
-      manualBtn.style.display = 'none';
-      selectPayMethod('online');
-      // Update online payment text to indicate international support
-      document.getElementById('onlineNote').innerHTML = '<div style="background:rgba(192,38,211,.06);border:1px solid rgba(192,38,211,.12);border-radius:8px;padding:12px;font-size:.72rem;color:rgba(250,250,248,.5);text-align:center">For USD payments, please select "Pay Online" and complete the transaction. [Stripe coming soon. WhatsApp us for international payments]</div>';
-    } else {
-      manualBtn.style.display = 'block';
-      document.getElementById('onlineNote').innerHTML = '<div style="background:rgba(192,38,211,.06);border:1px solid rgba(192,38,211,.12);border-radius:8px;padding:12px;font-size:.72rem;color:rgba(250,250,248,.5);text-align:center">You\'ll be redirected to Paymob to complete your payment. Your access code will appear automatically after successful payment.</div>';
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    setCurrency(detectCurrency());
+document.querySelectorAll('.prod-opt').forEach(opt => {
+  opt.addEventListener('click', function() {
+    document.querySelectorAll('.prod-opt').forEach(o => o.classList.remove('selected'));
+    this.classList.add('selected');
+    const id = this.getAttribute('data-id');
+    currentProduct = { id: id, name: PRODUCTS[id].name, price: PRODUCTS[id].price };
+    updatePaymentBox();
   });
- </script>
+});
 
+function selectPaymentMethod(method) {
+  currentPayment = method;
+  document.querySelectorAll('.pay-toggle-btn').forEach((btn, i) => {
+    btn.classList.toggle('selected', (i === 0 && method === 'vodafone') || (i === 1 && method === 'instapay'));
+  });
+  updatePaymentBox();
+}
+
+function updatePaymentBox() {
+  document.getElementById('displayAmount').textContent = currentProduct.price + ' EGP';
+  if (currentPayment === 'vodafone') {
+    document.getElementById('paymentInfoTitle').textContent = 'Vodafone Cash Details';
+    document.getElementById('targetLabel').textContent = 'Vodafone Cash Number:';
+    document.getElementById('targetValue').textContent = '01040796017';
+  } else {
+    document.getElementById('paymentInfoTitle').textContent = 'InstaPay Details';
+    document.getElementById('targetLabel').textContent = 'InstaPay IPA / Phone:';
+    document.getElementById('targetValue').textContent = '01040796017';
+  }
+}
+
+function copyNumber() {
+  const num = document.getElementById('targetValue').textContent;
+  navigator.clipboard.writeText(num).then(() => {
+    alert('Copied to clipboard: ' + num);
+  });
+}
+
+function handleOrderSubmit(e) {
+  e.preventDefault();
+  const name = document.getElementById('clientName').value;
+  const phone = document.getElementById('clientPhone').value;
+  const sender = document.getElementById('senderPhone').value;
+  const tx = document.getElementById('txRef').value || 'Pending Verification';
+
+  const msg = `Hi Coach Anas! I just submitted an order for Muscle OS:%0A%0A` +
+              `📦 *Package:* ${currentProduct.name} (${currentProduct.price} EGP)%0A` +
+              `👤 *Name:* ${name}%0A` +
+              `📱 *Phone:* ${phone}%0A` +
+              `💳 *Payment:* ${currentPayment.toUpperCase()} from ${sender}%0A` +
+              `🔢 *Tx Ref:* ${tx}`;
+
+  window.open(`https://wa.me/201040796017?text=${msg}`, '_blank');
+}
+
+// Auto-select query param product if present
+const urlParams = new URLSearchParams(window.location.search);
+const queryProduct = urlParams.get('product');
+if (queryProduct && PRODUCTS[queryProduct]) {
+  const targetOpt = document.querySelector(`.prod-opt[data-id="${queryProduct}"]`);
+  if (targetOpt) targetOpt.click();
+}
+</script>
 </body>
 </html>
