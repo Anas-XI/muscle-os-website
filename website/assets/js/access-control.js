@@ -160,7 +160,7 @@
  return { valid: true, plan: data.plan, durationDays: data.durationDays, daysRemaining: data.daysRemaining };
  }).catch(function(){
  // Worker unreachable — fall back to local verification
- return verifyLocal(code, productId);
+ return checkOfflineGrace(productId);
  });
  }
 
@@ -172,31 +172,22 @@
  return 'assets/data/access-codes.json';
  })();
 
- /* ---- Verify code locally against access-codes.json (fallback) ---- */
- function verifyLocal(code, productId) {
- return fetch(ACCESS_DATA_URL + '?' + Date.now())
- .then(function(r) { return r.json(); })
- .then(function(db) {
- if (!db || !db.hashes) return { valid: false, reason: 'no_fallback_data' };
- return sha256(code).then(function(hash) {
- var match = db.hashes[hash];
- if (!match) return { valid: false, reason: 'invalid_code' };
- // Check product eligibility
- if (match.productId !== 'all' && match.productId.indexOf(productId) === -1) {
- return { valid: false, reason: 'product_mismatch' };
- }
- // Fallback-matched: grant 48h access (bounded intentionally)
- saveAccess(productId, code, match.plan, null, '', true);
- logFallbackUsage(productId, code);
- return { valid: true, plan: match.plan, durationDays: 2, fallback: true };
- });
- })
- .catch(function() {
- return { valid: false, reason: 'network_error' };
- });
- }
+ /* ---- Secure offline token grace ---- */
+  function checkOfflineGrace(productId) {
+    if (navigator.onLine) return Promise.resolve({ valid: false, reason: 'network_error' });
+    try {
+      var stored = getStoredAccess(productId);
+      if (stored && stored.token && stored.expiresAt) {
+        var exp = new Date(stored.expiresAt).getTime();
+        if (Date.now() - exp < 48 * 60 * 60 * 1000) {
+          return Promise.resolve({ valid: true, plan: stored.plan, durationDays: 2, fallback: true });
+        }
+      }
+    } catch(e) {}
+    return Promise.resolve({ valid: false, reason: 'offline_and_no_cached_token' });
+  }
 
- /* ---- Revalidate stored token server-side ---- */
+  /* ---- Revalidate stored token server-side ---- */
  function revalidateAccess(productId) {
  var stored = getStoredAccess(productId);
  if (!stored || !stored.token) return Promise.resolve(null);

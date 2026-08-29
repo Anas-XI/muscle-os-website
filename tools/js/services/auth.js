@@ -1,55 +1,129 @@
-// Muscle OS — Universal Auth & Subscription Gate Service
+// Muscle OS — Enhanced Client-Side & Server-Verified Auth Service
 (function(window) {
   'use strict';
 
   const TRIAL_DAYS = 7;
   const TRIAL_MS = TRIAL_DAYS * 24 * 60 * 60 * 1000;
-  const HUB_PRODUCT = 'omni_hub';
-
-  function deriveProd(code, plan) {
-    var p = (code || '').toUpperCase();
-    if (plan === 'master') return 'all_access';
-    if (p.indexOf('OH-') === 0) return 'omni_hub';
-    if (p.indexOf('TR-') === 0) return 'training_tool';
-    if (p.indexOf('MA-') === 0) return 'all_access';
-    if (p.indexOf('TD-') === 0) return 'tdee_adaptive_engine';
-    if (p.indexOf('TB-') === 0) return 'both_tools';
-    return 'all_access';
-  }
+  const OWNER_EMAILS = ['anas@muscleos.coach', 'anass.momen@gmail.com', 'anasstem2025@gmail.com', '1022066.anas@stemegypt.edu.eg'];
+  const API_BASE = 'https://muscleos-access-control.muscleos.workers.dev/api';
 
   const AuthService = {
-    deriveProduct: deriveProd,
+    // 1. Synchronous Quick Local Status Check
+    getStatus: function(productKey) {
+      productKey = productKey || 'omni_hub';
+      var email = window.MOS_Storage ? window.MOS_Storage.getString('mos_user_email', '') : '';
+      if (!email) {
+        var gs = window.MOS_Storage ? window.MOS_Storage.get('mos_google_session', null) : null;
+        if (gs && gs.email) email = gs.email;
+      }
+      if (email && OWNER_EMAILS.includes(email.toLowerCase())) {
+        return { activeSub: true, trialActive: false, daysRemaining: 999, statusLabel: 'Owner Lifetime Access' };
+      }
 
-    getStatus: function(requiredProduct) {
-      requiredProduct = requiredProduct || HUB_PRODUCT;
-      var OWNER_EMAILS = ['ANASSTEM2025@GMAIL.COM', '1022066.ANAS@STEMEGYPT.EDU.EG', 'ANASSMOMEN@GMAIL.COM'];
-      
-      var gs = window.MOS_Storage ? window.MOS_Storage.get('mos_google_session', null) : null;
-      var isOwner = gs && gs.email && OWNER_EMAILS.includes(gs.email.toUpperCase());
-
-      var sub = window.MOS_Storage ? window.MOS_Storage.get('mos_subscription', null) : null;
-      var subProd = sub ? (sub.prodId || deriveProd(sub.code, sub.plan)) : null;
-      var prodOk = !!sub && (sub.plan === 'master' || sub.code === 'OWNER' || subProd === requiredProduct || subProd === 'all_access' || subProd === 'both_tools');
-      var activeSub = isOwner || !!(sub && sub.active && prodOk && sub.expiry && new Date(sub.expiry + 'T23:59:59') > new Date());
-
-      var trialStart = window.MOS_Storage ? window.MOS_Storage.getString('mos_trial_start', null) : null;
-      if (!trialStart && !activeSub) {
-        trialStart = new Date().toISOString();
-        if (window.MOS_Storage) {
-          window.MOS_Storage.setString('mos_trial_start', trialStart);
-          window.MOS_Storage.setString('mos_tdee_trial_start', trialStart);
+      var tokenKey = 'mos_sub_' + productKey;
+      var subData = window.MOS_Storage ? window.MOS_Storage.get(tokenKey, null) : null;
+      if (!subData) {
+        var legacySub = window.MOS_Storage ? window.MOS_Storage.get('mos_subscription', null) : null;
+        if (legacySub && legacySub.active && (legacySub.plan === 'master' || legacySub.code === 'OWNER' || legacySub.prodId === productKey || legacySub.prodId === 'all_access')) {
+          subData = legacySub;
         }
       }
-      var trialActive = !!(trialStart && (Date.now() - new Date(trialStart).getTime()) < TRIAL_MS);
-      var daysLeft = trialActive ? Math.max(1, Math.ceil((new Date(trialStart).getTime() + TRIAL_MS - Date.now()) / 864e5)) : 0;
 
-      return {
-        isOwner: isOwner,
-        activeSub: activeSub,
-        trialActive: trialActive,
-        daysLeft: daysLeft,
-        statusLabel: activeSub ? (isOwner ? 'VIP OWNER' : 'PRO ACTIVE') : (trialActive ? `TRIAL · ${daysLeft}d` : 'LOCKED')
-      };
+      if (subData && subData.active) {
+        var exp = subData.expiry ? new Date(subData.expiry + (subData.expiry.includes('T') ? '' : 'T23:59:59')) : null;
+        if (exp && exp.getTime() > Date.now()) {
+          var days = Math.ceil((exp.getTime() - Date.now()) / (24 * 60 * 60 * 1000));
+          return { activeSub: true, trialActive: false, daysRemaining: days, statusLabel: 'PRO Active (' + days + 'd)' };
+        }
+      }
+
+      var trialStartKey = 'mos_trial_start_' + productKey;
+      var start = parseInt(window.MOS_Storage ? window.MOS_Storage.getString(trialStartKey, '0') : '0', 10);
+      var now = Date.now();
+
+      if (!start) {
+        start = now;
+        if (window.MOS_Storage) window.MOS_Storage.setString(trialStartKey, String(start));
+      }
+
+      var elapsed = now - start;
+      if (elapsed < TRIAL_MS) {
+        var daysLeft = Math.max(1, Math.ceil((TRIAL_MS - elapsed) / (24 * 60 * 60 * 1000)));
+        return { activeSub: false, trialActive: true, daysRemaining: daysLeft, statusLabel: 'Trial (' + daysLeft + 'd left)' };
+      }
+
+      return { activeSub: false, trialActive: false, daysRemaining: 0, statusLabel: 'Trial Expired' };
+    },
+
+    // 2. Cryptographic Server-Side Token Verification
+    verifySession: async function(productKey) {
+      productKey = productKey || 'omni_hub';
+      var status = this.getStatus(productKey);
+      if (status.trialActive || status.statusLabel.includes('Owner')) {
+        return { valid: true, status: status };
+      }
+
+      var tokenKey = 'mos_sub_' + productKey;
+      var subData = window.MOS_Storage ? window.MOS_Storage.get(tokenKey, null) : null;
+      if (!subData || !subData.token) {
+        var legacy = window.MOS_Storage ? window.MOS_Storage.get('mos_subscription', null) : null;
+        if (legacy && legacy.token) subData = legacy;
+      }
+
+      if (!subData || !subData.token) {
+        if (!navigator.onLine && subData && subData.active) {
+          var expiryTime = new Date(subData.expiry).getTime();
+          if (Date.now() - expiryTime < 48 * 60 * 60 * 1000) {
+            return { valid: true, offlineGrace: true, status: status };
+          }
+        }
+        return { valid: false, status: status };
+      }
+
+      try {
+        var res = await fetch(API_BASE + '/check-token', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: subData.token, productId: productKey })
+        });
+        if (!res.ok) {
+          return { valid: false, status: status };
+        }
+        var data = await res.json();
+        if (data.valid) {
+          return { valid: true, plan: data.plan, status: status };
+        } else {
+          if (window.MOS_Storage) {
+            window.MOS_Storage.remove(tokenKey);
+            window.MOS_Storage.remove('mos_subscription');
+          }
+          return { valid: false, error: data.error || 'token_invalid', status: this.getStatus(productKey) };
+        }
+      } catch (e) {
+        if (!navigator.onLine && status.activeSub) {
+          return { valid: true, offlineGrace: true, status: status };
+        }
+        return { valid: status.activeSub, status: status };
+      }
+    },
+
+    // 3. Periodic Background Re-Validation (15-min interval & visibilitychange)
+    startPeriodicCheck: function(productKey, onRevoked) {
+      var self = this;
+      async function runCheck() {
+        var res = await self.verifySession(productKey);
+        if (!res.valid) {
+          if (typeof onRevoked === 'function') onRevoked();
+        }
+      }
+
+      document.addEventListener('visibilitychange', function() {
+        if (document.visibilityState === 'visible') {
+          runCheck();
+        }
+      });
+
+      setInterval(runCheck, 15 * 60 * 1000);
     }
   };
 

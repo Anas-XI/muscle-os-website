@@ -1,7 +1,7 @@
 name: Deploy Website to GitHub Pages (midnight only)
 
 # Daily midnight deploy (00:00 Morocco = 23:00 UTC). Live site only updates
-# at midnight — NO realtime deployments. Day-to-day work lands on `main`;
+# at midnight  NO realtime deployments. Day-to-day work lands on `main`;
 # this scheduled run publishes `website/` and snapshots `main` onto `master`.
 on:
   schedule:
@@ -53,3 +53,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
