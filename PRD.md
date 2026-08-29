@@ -1,3 +1,5 @@
+> **Note:** See [MOS_PRODUCTS_MASTER_SPECIFICATION.md](./MOS_PRODUCTS_MASTER_SPECIFICATION.md) for the exhaustive product-by-product technical specification and post-optimization PRD.
+
 # Muscle OS — Product Requirements Document (All Projects)
 
 **Version:** 1.0 — snapshot of everything built so far
