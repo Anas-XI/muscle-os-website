@@ -43,6 +43,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify and sync mirrors
+        run: |
+          python scripts/sync_mirrors.py
+          python scripts/verify_mirrors.py
+          python scripts/update_csp.py --check
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:

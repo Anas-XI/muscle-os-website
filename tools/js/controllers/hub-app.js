@@ -378,13 +378,41 @@
     }
   }
 
-  function initHub() {
+  function lockHub() {
+    const ov = document.getElementById('hubPaywallOverlay');
+    if (ov) ov.style.display = 'flex';
+    const chip = document.getElementById('statusChip');
+    if (chip) {
+      chip.textContent = 'Access Required';
+      chip.className = 'status-chip locked';
+    }
+  }
+
+  async function initHub() {
     // Service Worker Registration
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
         navigator.serviceWorker.register('./sw.js')
           .then(function(reg) { console.log('[HubApp] Service Worker registered:', reg.scope); })
           .catch(function(err) { console.warn('[HubApp] SW failed:', err); });
+      });
+    }
+
+    // Verify session before rendering protected data
+    var authRes = { valid: false };
+    if (window.MOS_Auth) {
+      authRes = await window.MOS_Auth.verifySession('omni_hub');
+    }
+
+    if (!authRes.valid) {
+      lockHub();
+      return;
+    }
+
+    // Start background re-verification every 15 min & visibilitychange
+    if (window.MOS_Auth) {
+      window.MOS_Auth.startPeriodicCheck('omni_hub', function() {
+        lockHub();
       });
     }
 
@@ -399,7 +427,10 @@
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
         const ov = document.getElementById('hubPaywallOverlay');
-        if (ov) ov.style.display = 'none';
+        const auth = window.MOS_Auth ? window.MOS_Auth.getStatus('omni_hub') : null;
+        if (ov && auth && (auth.activeSub || auth.trialActive)) {
+          ov.style.display = 'none';
+        }
       }
     });
 

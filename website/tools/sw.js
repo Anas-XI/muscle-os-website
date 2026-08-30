@@ -81,3 +81,16 @@ self.addEventListener('fetch', (event) => {
     })
   );
 });
+
+// BackgroundSync for reliable offline workout session & measurement sync
+self.addEventListener('sync', (event) => {
+  if (event.tag === 'mos-sync-queue') {
+    event.waitUntil(
+      self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clients) => {
+        clients.forEach((client) => {
+          client.postMessage({ type: 'MOS_SYNC_TRIGGER' });
+        });
+      })
+    );
+  }
+});

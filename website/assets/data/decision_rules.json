@@ -10,7 +10,13 @@
     ],
     "program_note": "Per Schoenfeld: effective hypertrophy rep range is 5-30 RM, practical sweet spot 6-15 RM.",
     "matcher": {
-      "op": "always"
+      "field": "goal",
+      "op": "in",
+      "value": [
+        "hypertrophy",
+        "build muscle",
+        "recomp"
+      ]
     }
   },
   {
@@ -41,7 +47,13 @@
     "description": "Train each muscle group at least 2x/week for hypertrophy.",
     "program_note": "Per Schoenfeld: each muscle group trained 2x/week for optimal hypertrophy stimulus.",
     "matcher": {
-      "op": "always"
+      "field": "goal",
+      "op": "in",
+      "value": [
+        "hypertrophy",
+        "build muscle",
+        "strength"
+      ]
     }
   },
   {
@@ -62,7 +74,13 @@
     "surplus_cal_adjustment": 300,
     "nutrition_note": "Per Schoenfeld: modest 200-400 kcal surplus is permissive for maximal hypertrophy.",
     "matcher": {
-      "op": "always"
+      "field": "goal",
+      "op": "in",
+      "value": [
+        "hypertrophy",
+        "build muscle",
+        "recomp"
+      ]
     }
   },
   {
@@ -84,7 +102,9 @@
     ],
     "program_note": "Per Schoenfeld: older adults (65+) need 0.4-0.6 g/kg per meal to overcome anabolic resistance.",
     "matcher": {
-      "op": "always"
+      "field": "age",
+      "op": "gte",
+      "value": 65
     }
   },
   {
@@ -103,7 +123,13 @@
     "rep_range_override": "6-15",
     "program_note": "Per Nippard: 1-3 RIR on most sets. Failure reserved for last set of last exercise per muscle group.",
     "matcher": {
-      "op": "always"
+      "field": "goal",
+      "op": "in",
+      "value": [
+        "hypertrophy",
+        "build muscle",
+        "recomp"
+      ]
     }
   },
   {
@@ -124,7 +150,18 @@
     ],
     "program_note": "Per Nippard: weekly progress = beginner programming, regardless of training age.",
     "matcher": {
-      "op": "always"
+      "all": [
+        {
+          "field": "experience_years",
+          "op": "gt",
+          "value": 2
+        },
+        {
+          "field": "training_days",
+          "op": "lte",
+          "value": 3
+        }
+      ]
     }
   },
   {
@@ -204,7 +241,9 @@
     ],
     "program_note": "Per NSCA: masters athletes (50+) need 48-72h inter-session recovery and deload every 4-6 weeks.",
     "matcher": {
-      "op": "always"
+      "field": "age",
+      "op": "gte",
+      "value": 50
     }
   },
   {
@@ -216,7 +255,22 @@
     ],
     "program_note": "Per NSCA: female ACL risk 2-8x higher — include landing mechanics, hamstring strength, plyometric progression.",
     "matcher": {
-      "op": "always"
+      "all": [
+        {
+          "field": "sex",
+          "op": "eq",
+          "value": "female"
+        },
+        {
+          "field": "goal",
+          "op": "in",
+          "value": [
+            "hypertrophy",
+            "strength",
+            "fat_loss"
+          ]
+        }
+      ]
     }
   },
   {
@@ -240,7 +294,9 @@
     ],
     "program_note": "Per ACE: BMI >30 — start with non-weight-bearing exercise for 4-6 weeks to reduce joint stress.",
     "matcher": {
-      "op": "always"
+      "field": "bmi",
+      "op": "gt",
+      "value": 30
     }
   },
   {
@@ -279,7 +335,13 @@
     "rest_period_override": "3-5min compounds, 90-120s isolation",
     "program_note": "Per IPTA: strength rep range 1-6 — 4-6 is the practical sweet spot for heavy compound work.",
     "matcher": {
-      "op": "always"
+      "field": "goal",
+      "op": "in",
+      "value": [
+        "strength",
+        "powerlifting",
+        "strongman"
+      ]
     }
   },
   {
@@ -312,7 +374,9 @@
     ],
     "program_note": "Per IPTA: older adults (65+) need lower-impact exercise, 48-72h recovery, balance training 2-3x/week.",
     "matcher": {
-      "op": "always"
+      "field": "age",
+      "op": "gte",
+      "value": 65
     }
   },
   {
@@ -340,7 +404,12 @@
     "deficit_cal_adjustment": 500,
     "nutrition_note": "Per IPTA CNS: sustainable deficit 300-500 kcal/day. Exceeding 750 kcal or 12 weeks requires medical supervision.",
     "matcher": {
-      "op": "always"
+      "field": "goal",
+      "op": "in",
+      "value": [
+        "fat_loss",
+        "cut"
+      ]
     }
   },
   {
@@ -350,7 +419,14 @@
     "surplus_cal_adjustment": 300,
     "nutrition_note": "Per IPTA CNS: hypertrophy surplus 200-400 kcal/day, primarily from carbohydrates for training performance.",
     "matcher": {
-      "op": "always"
+      "field": "goal",
+      "op": "in",
+      "value": [
+        "hypertrophy",
+        "build muscle",
+        "strength",
+        "recomp"
+      ]
     }
   },
   {
@@ -387,7 +463,12 @@
     "description": "Bodybuilding volume: start at MEV 8-12 sets/muscle/week, progress to MAV 15-20. Bodybuilders tolerate higher volume.",
     "program_note": "Per IPTA Bodybuilding: MEV 8-12 → MAV 15-20 sets/muscle/week for hypertrophy. Bodybuilders tolerate higher volume than general clients.",
     "matcher": {
-      "op": "always"
+      "field": "goal",
+      "op": "in",
+      "value": [
+        "hypertrophy",
+        "build muscle"
+      ]
     }
   },
   {
@@ -398,7 +479,12 @@
     "protein_g_per_kg_override": 2.0,
     "nutrition_note": "Per IPTA Bodybuilding: off-season surplus 200-400 kcal, protein 1.6-2.2 g/kg, carbs 4-6 g/kg.",
     "matcher": {
-      "op": "always"
+      "field": "goal",
+      "op": "in",
+      "value": [
+        "hypertrophy",
+        "build muscle"
+      ]
     }
   },
   {

@@ -1094,7 +1094,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
 <nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a><a href="../index.html#packages">Coaching</a></div></div></nav>
 <div class="sub-overlay" id="subOverlay">
  <div class="sub-modal" style="position:relative;">
- <button data-modal-close="1" onclick="document.getElementById('subOverlay').style.display='none'" style="position:absolute; top:12px; right:14px; background:none; border:none; color:rgba(250,250,248,0.5); font-size:1.2rem; cursor:pointer; line-height:1;" title="Close">✕</button>
+ <button data-modal-close="1" onclick="if(window.__MOS_GATE__ && (window.__MOS_GATE__().active || (window.__trialState && window.__trialState().active))){ document.getElementById('subOverlay').style.display='none'; } else { if(window.mosToast) window.mosToast('Active subscription or trial required.', 'warning'); }" style="position:absolute; top:12px; right:14px; background:none; border:none; color:rgba(250,250,248,0.5); font-size:1.2rem; cursor:pointer; line-height:1;" title="Close">✕</button>
  <div class="lock-icon">&#128274;</div>
  <h2>Pro Tool</h2>
  <div class="sub-price">300 EGP / month</div>
@@ -9331,10 +9331,58 @@ window.closeTrainingTourModal = function(){
  var sub = null;
  try { sub = JSON.parse(localStorage.getItem(SUB_KEY)); } catch(e){}
  var subProd = sub ? (sub.prodId || deriveProd(sub.code, sub.plan)) : null;
-  var prodOk = !!sub && (sub.plan === 'master' || sub.code === 'OWNER' || (hubMode ? subProd === HUB_PRODUCT : (subProd === PRODUCT_ID || subProd === HUB_PRODUCT)));
- var active = !!(sub && sub.active && prodOk && new Date(sub.expiry + 'T23:59:59') > new Date());
+ var prodOk = !!sub && (sub.plan === 'master' || sub.code === 'OWNER' || (hubMode ? subProd === HUB_PRODUCT : (subProd === PRODUCT_ID || subProd === HUB_PRODUCT)));
+ var active = !!(sub && sub.active && prodOk && (sub.token || sub.code === 'OWNER') && new Date(sub.expiry + 'T23:59:59') > new Date());
  window.__MOS_PRODUCT__ = hubMode ? HUB_PRODUCT : PRODUCT_ID;
  window.__MOS_GATE__ = function(){ return { active: active, prodId: subProd, plan: sub ? sub.plan : null, hub: hubMode }; };
+
+ // Asynchronous cryptographic token validation on page load
+ if (active && sub && sub.token) {
+   fetch(API_BASE + '/api/check-token', {
+     method: 'POST',
+     headers: { 'Content-Type': 'application/json' },
+     body: JSON.stringify({ token: sub.token, productId: hubMode ? HUB_PRODUCT : PRODUCT_ID })
+   }).then(function(r){ return r.json(); }).then(function(d){
+     if (d && !d.valid) {
+       localStorage.removeItem(SUB_KEY);
+       location.reload();
+     }
+   }).catch(function(){
+     if (!navigator.onLine && sub.expiry) {
+       var expTime = new Date(sub.expiry + 'T23:59:59').getTime();
+       if (Date.now() - expTime > 48 * 60 * 60 * 1000) {
+         localStorage.removeItem(SUB_KEY);
+         location.reload();
+       }
+     }
+   });
+ }
+
+ // Periodic background token re-validation (15-min & visibilitychange)
+ function startPeriodicTokenCheck() {
+   async function recheck() {
+     var curSub = null;
+     try { curSub = JSON.parse(localStorage.getItem(SUB_KEY)); } catch(e){}
+     if (!curSub || !curSub.token) return;
+     try {
+       var res = await fetch(API_BASE + '/api/check-token', {
+         method: 'POST',
+         headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify({ token: curSub.token, productId: hubMode ? HUB_PRODUCT : PRODUCT_ID })
+       });
+       var data = await res.json();
+       if (data && !data.valid) {
+         localStorage.removeItem(SUB_KEY);
+         location.reload();
+       }
+     } catch(e) {}
+   }
+   document.addEventListener('visibilitychange', function() {
+     if (document.visibilityState === 'visible') recheck();
+   });
+   setInterval(recheck, 15 * 60 * 1000);
+ }
+ startPeriodicTokenCheck();
 
  function t(key, fb){ try { var v = _(key); return (v === key) ? (fb || v) : v; } catch(e){ return fb || key; } }
  function getGs(){ try { var g = JSON.parse(localStorage.getItem(GS_KEY)); return (g && g.session) ? g : null; } catch(e){ return null; } }

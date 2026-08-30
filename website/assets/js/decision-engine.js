@@ -17,8 +17,16 @@
     var op = matcher.op || 'eq';
 
     if (fieldVal === undefined || fieldVal === null) {
-      if (matcher.field === 'goal' && profile && profile.goal) fieldVal = profile.goal;
-      else return false;
+      if (matcher.field === 'goal' && profile && profile.goal) {
+        fieldVal = profile.goal;
+      } else if (matcher.field === 'bmi' && profile) {
+        var h = Number(profile.height_cm) || 0;
+        var w = Number(profile.bodyweight_kg) || 0;
+        if (h > 0 && w > 0) fieldVal = w / Math.pow(h / 100, 2);
+        else return false;
+      } else {
+        return false;
+      }
     }
 
     if (typeof fieldVal === 'string') fieldVal = fieldVal.toLowerCase().trim();
@@ -52,9 +60,15 @@
   var DecisionEngine = {
     rules: [],
 
-    init: async function() {
+    init: async function(assetRoot) {
       try {
-        var res = await fetch('/assets/data/decision_rules.json');
+        var root = assetRoot || (window.MOS_ASSET_ROOT) || '../assets/data';
+        var url = root.replace(/\/+$/, '') + '/decision_rules.json';
+        var res = await fetch(url);
+        if (!res.ok) {
+          // Fallback to relative or absolute path
+          res = await fetch('/assets/data/decision_rules.json');
+        }
         if (res.ok) {
           this.rules = await res.json();
         }
