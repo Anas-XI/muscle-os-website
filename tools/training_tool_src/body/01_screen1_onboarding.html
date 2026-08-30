@@ -1,0 +1,80 @@
+ <div class="sub-nolink" id="subNoLink" style="display:none" data-i18n="sub_no_link">No active subscription linked to this account yet. Enter your code below to link it.</div>
+ </div>
+ <div class="sub-divider" data-i18n="sub_or_google">or sign in with Google to link your account</div>
+ <div id="authStep1">
+ <div class="sub-divider" id="authWelcomeRow" style="display:none"><span id="authWelcome"></span></div>
+ <div id="googleSignInBtn" style="display:flex;justify-content:center"></div>
+ <div class="sub-error" id="authStep1Error" style="display:none">Google sign-in failed. Please try again.</div>
+ <div style="text-align:center;margin-top:6px"><a href="#" id="subSignOut" style="display:none;font-size:.5rem;color:rgba(250,250,248,.3)" data-i18n="sub_auth_switch">Not you? Switch account</a></div>
+ </div>
+ </div>
+</div>
+<div class="print-header"><h2>Training Log</h2><p id="printInfo"></p></div>
+<div class="container">
+ <div class="header no-print">
+ <div class="header-top">
+ <h1 data-i18n="app_title">MOS-HYPERKINETIX</h1>
+ <div class="lang-toggle" onclick="toggleLang()">
+ <span class="lang-opt active" data-lang="en">EN</span>
+ <span class="lang-opt" data-lang="ar">AR</span>
+ </div>
+ <div class="acc-picker no-print" id="accPicker">
+ <span class="acc-swatch" data-acc="yellow" style="background:#F4C93B"></span>
+ <span class="acc-swatch" data-acc="green" style="background:#4CAF50"></span>
+ <span class="acc-swatch" data-acc="cyan" style="background:#2196F3"></span>
+ <span class="acc-swatch" data-acc="purple" style="background:#9C27B0"></span>
+ </div>
+ <button class="install-btn no-print" id="installBtn" style="display:none"></button>
+ <div class="sync-toggle" id="syncBtn" onclick="showSync()" data-i18n="sync_title">☁</div>
+ <div class="sync-toggle" id="libBtn" onclick="showLibrary()" title="Exercise Library"></div>
+ </div>
+ <p data-i18n="header_sub">Autoregulated Hypertrophy &amp; Periodized Force Matrix</p>
+ <div style="text-align:center"><span style="display:inline-block;background:rgba(244,201,59,.12);color:#F4C93B;font-size:.55rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;padding:3px 10px;border-radius:20px;margin-top:6px;border:1px solid rgba(244,201,59,.25)">FLAGSHIP MODULE // MOS-HYPERKINETIX MVP</span></div>
+ <div style="text-align:center;margin-top:8px">
+ <button class="btn-primary" onclick="startTrainingTour()" style="width:auto;padding:8px 18px;font-size:.78rem;margin-top:0"> Get Started (Interactive Tour)</button>
+ </div>
+ <div id="profileGreeting" style="display:none;font-size:.6rem;color:#4CAF50;margin-top:4px;font-weight:500"></div>
+ </div>
+
+ <div class="stepper no-print" id="stepper">
+ <!-- Active Program Steps -->
+ <div class="step program-step" data-step="0" style="display:none"><span class="num"></span><span data-i18n="dashboard">Dashboard</span></div>
+ <div class="step program-step" data-step="3" style="display:none"><span class="num"></span><span data-i18n="generate">Program</span></div>
+ <div class="step program-step" data-step="35" style="display:none"><span class="num"></span><span>Meso</span></div>
+ <div class="step program-step" data-step="4" style="display:none"><span class="num">🏋</span><span data-i18n="today_train">Train</span></div>
+ <div class="step program-step" data-step="5" style="display:none"><span class="num"></span><span data-i18n="history">History</span></div>
+
+ <!-- Intake Steps -->
+ <div class="step intake-step active" data-step="1"><span class="num">1</span><span data-i18n="welcome">Setup</span></div>
+ <div class="step intake-step" data-step="2"><span class="num">2</span><span data-i18n="vol_targets">Split &amp; Exercises</span></div>
+ </div>
+
+ <!-- Screen 0: Dashboard (Welcome Back) -->
+ <div class="step-content" id="step0">
+  <!-- Empty State for New Users -->
+  <div id="hubEmptyState" style="display:none;text-align:center;padding:40px 20px;animation:fadeIn 0.5s ease-out">
+    <div style="margin-bottom:24px">
+      <h2 style="font-size:1.2rem;font-weight:700;color:#FAFAF8;margin-bottom:8px">Welcome to Muscle OS</h2>
+      <p style="font-size:0.75rem;color:rgba(250,250,248,.6);max-width:300px;margin:0 auto;line-height:1.4">Your autoregulated, periodized training journey begins here. Build a custom program tailored to your goals.</p>
+    </div>
+    <button class="btn-primary" onclick="startNewProgram()" style="font-size:0.9rem;padding:12px 24px;width:auto;box-shadow:0 0 15px rgba(244,201,59,.2);animation:pulseGlow 2s infinite">Build Your Program</button>
+  </div>
+
+  <!-- Active State for Returning Users -->
+  <div id="hubActiveState" style="display:none">
+    <div class="training-welcome-card" id="welcomeTrainingCard">
+ <div class="tw-badge" id="twBadge"><span class="pulse-dot"></span> HYPERKINETIC MATRIX ACTIVE // SYNCED</div>
+ <div class="tw-title" id="twTitleText"> WELCOME BACK, <span id="twUserName">ATHLETE</span>!</div>
+ <div class="tw-sub">Your periodized mesocycle, muscle volume landmarks (MEV/MAV/MRV), and readiness profiles are active.</div>
+ <div class="tw-grid" id="twGrid"></div>
+ <div class="tw-actions">
+ <button class="btn-primary" id="twResumeBtn"> Launch Workout Session</button>
+ <button class="btn-secondary" onclick="go(3)" style="background:rgba(244,201,59,.12);color:#F4C93B;border:1px solid rgba(244,201,59,.3)"> View Program</button>
+ <button class="btn-secondary" id="twEditBtn">⚙ Modify Program Parameters</button>
+ </div>
+ </div>
+  </div>
+ </div>
+
+ <!-- Screen 1: Onboarding -->
+ <div class="step-content active" id="step1">

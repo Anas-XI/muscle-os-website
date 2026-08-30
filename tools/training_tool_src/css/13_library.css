@@ -1,0 +1,21 @@
+ /* Exercise Library */
+ .lib-modal{max-width:560px;max-height:88vh;display:flex;flex-direction:column}
+ .lib-modal .modal-body{flex:1;overflow-y:auto;min-height:0;margin-top:10px}
+ .lib-filters{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+ .lib-fchip{padding:3px 9px;border-radius:12px;border:1.5px solid var(--line);background:transparent;color:var(--text-muted);font-size:.5rem;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
+ .lib-fchip:hover{border-color:var(--line-strong);color:var(--text)}
+ .lib-fchip.active{background:var(--accent-soft);border-color:var(--accent);color:var(--text);font-weight:600}
+ .lib-muscle{margin-top:8px}
+ .lib-muscle .ex-sel-muscle{display:flex;align-items:baseline;justify-content:space-between}
+ .lib-ex-row{display:flex;flex-direction:column;gap:4px;padding:5px 8px;background:var(--input-bg);border-radius:5px;margin-bottom:4px}
+ .lib-ex-top{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+ .lib-ex-name{font-size:.55rem;color:var(--text);font-weight:500;min-width:0;flex:1}
+ .lib-eq{font-size:.4rem;background:rgba(33,150,243,.08);color:#2196F3;border-color:rgba(33,150,243,.12);padding:1px 4px;margin-left:2px;text-transform:uppercase;letter-spacing:.5px;border-radius:3px;border:1px solid}
+ .lib-ex-row .ex-guide{display:none;margin:2px 0 0;width:100%}
+@media(max-width:600px){
+ body{padding:12px 10px calc(80px + env(safe-area-inset-bottom))}
+ .header h1{font-size:1.6rem;letter-spacing:.5px}
+ .header p{font-size:.72rem}
+ .card{padding:16px 12px}
+ .form-row,.form-row-3{grid-template-columns:1fr!important}
+ .welcome-grid,.tw-grid{grid-template-columns:1fr;gap:8px}

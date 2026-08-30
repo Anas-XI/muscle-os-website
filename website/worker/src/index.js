@@ -27,10 +27,15 @@ const PRODUCT_CONFIG = {
   training_tool:        { prefix: 'TR', products: ['training_tool'], durationDays: 30, plan: 'single_product' },
   tdee_adaptive_engine: { prefix: 'TD', products: ['tdee_adaptive_engine'], durationDays: 30, plan: 'single_product' },
   both_tools:           { prefix: 'TB', products: ['training_tool', 'tdee_adaptive_engine'], durationDays: 30, plan: 'single_product' },
+  omni_hub:             { prefix: 'OH', products: ['omni_hub'], durationDays: 30, plan: 'single_product' },
   training_book:        { prefix: 'BK', products: ['training_book'], durationDays: 0, plan: 'single_product' },
   nutrition_book:       { prefix: 'BN', products: ['nutrition_book'], durationDays: 0, plan: 'single_product' },
   both_books:           { prefix: 'BB', products: ['training_book', 'nutrition_book'], durationDays: 0, plan: 'single_product' },
   all_access:           { prefix: 'MA', products: 'all', durationDays: 30, plan: 'master' },
+
+  training_tool_annual:        { prefix: 'TRA', products: ['training_tool'], durationDays: 365, plan: 'single_product' },
+  tdee_adaptive_engine_annual: { prefix: 'TDA', products: ['tdee_adaptive_engine'], durationDays: 365, plan: 'single_product' },
+  omni_hub_annual:             { prefix: 'OHA', products: ['omni_hub'], durationDays: 365, plan: 'single_product' },
 };
 const VALID_PRODUCTS = Object.keys(PRODUCT_CONFIG);
 const ORDER_TTL_SECONDS = 172800; // 48 hours
@@ -39,10 +44,15 @@ const PRODUCT_NAMES = {
   training_tool:        { en: 'Training Tool', ar: 'أداة التدريب' },
   tdee_adaptive_engine: { en: 'TDEE Adaptive Engine', ar: 'محرك TDEE التكيفي' },
   both_tools:           { en: 'Training Tools Bundle', ar: 'حزمة أدوات التدريب' },
+  omni_hub:             { en: 'OMNI HUB', ar: 'أومني هب' },
   training_book:        { en: 'Training Book', ar: 'كتاب التدريب' },
   nutrition_book:       { en: 'Nutrition Book', ar: 'كتاب التغذية' },
   both_books:           { en: 'Books Bundle', ar: 'حزمة الكتب' },
   all_access:           { en: 'All Access', ar: 'الوصول الكامل' },
+
+  training_tool_annual:        { en: 'Training Tool (Annual)', ar: 'Training Tool (Annual)' },
+  tdee_adaptive_engine_annual: { en: 'TDEE Engine (Annual)', ar: 'TDEE Engine (Annual)' },
+  omni_hub_annual:             { en: 'OMNI HUB (Annual)', ar: 'OMNI HUB (Annual)' },
 };
 
 // ── Payment provider configuration ──
@@ -50,9 +60,14 @@ const PRODUCT_PRICES = {
   training_tool:        { amountCents: 30000 },
   tdee_adaptive_engine: { amountCents: 20000 },
   both_tools:           { amountCents: 40000 },
+  omni_hub:             { amountCents: 40000 },
   training_book:        { amountCents: 50000 },
   nutrition_book:       { amountCents: 50000 },
   both_books:           { amountCents: 80000 },
+
+  training_tool_annual:        { amountCents: 300000 },
+  tdee_adaptive_engine_annual: { amountCents: 300000 },
+  omni_hub_annual:             { amountCents: 600000 },
 };
 
 import { SignJWT, jwtVerify, createRemoteJWKSet } from 'jose';
@@ -74,7 +89,9 @@ const PDF_PRODUCT_MAP = {
 };
 
 async function getSecret(env) {
-  return encoder.encode(env.JWT_SECRET);
+  const s = env.JWT_SECRET || '';
+  if (s.length < 32) throw new Error('JWT_SECRET not configured');
+  return encoder.encode(s);
 }
 
 export default {
@@ -144,11 +161,15 @@ export default {
       return handleCheckOrderStatus(request, env);
     }
     // ---- Data sync (training tool) ----
-    if (url.pathname === '/api/sync/save' && request.method === 'POST') {
-      return handleSyncSave(request, env);
+    if (url.pathname === '/api/sync/save' || url.pathname === '/api/sync/load') {
+      return json({ error: 'endpoint_removed' }, 410, env, request);
     }
-    if (url.pathname === '/api/sync/load' && request.method === 'POST') {
-      return handleSyncLoad(request, env);
+    // ---- Data sync v2 (passphrase-guarded, key in path) ----
+    if (url.pathname.startsWith('/api/sync/') && request.method === 'POST') {
+      return handleSyncPush(request, env, url);
+    }
+    if (url.pathname.startsWith('/api/sync/') && request.method === 'GET') {
+      return handleSyncPull(request, env, url);
     }
     // ---- Data sync v2 (passphrase-guarded, key in path) ----
     if (url.pathname.startsWith('/api/sync/') && request.method === 'POST') {
@@ -165,6 +186,36 @@ export default {
     if (url.pathname === '/api/notify-coach' && request.method === 'POST') {
       return handleNotifyCoach(request, env);
     }
+    // ---- AI Coach ----
+    if (url.pathname === '/api/ai-coach' && request.method === 'POST') {
+      return handleAiCoach(request, env);
+    }
+
+    // ---- Phase 5: Supabase Sync ----
+    if (url.pathname === '/api/profile/save' && request.method === 'POST') {
+      return handleProfileSave(request, env);
+    }
+    if (url.pathname === '/api/profile/load' && request.method === 'GET') {
+      return handleProfileLoad(request, env);
+    }
+    if (url.pathname === '/api/sessions/save' && request.method === 'POST') {
+      return handleSessionSave(request, env);
+    }
+    if (url.pathname.startsWith('/api/sessions/load') && request.method === 'GET') {
+      return handleSessionLoad(request, env, url);
+    }
+    if (url.pathname === '/api/deload/save' && request.method === 'POST') {
+      return handleDeloadSave(request, env);
+    }
+    if (url.pathname === '/api/deload/load' && request.method === 'GET') {
+      return handleDeloadLoad(request, env);
+    }
+    if (url.pathname === '/api/bodyweight/save' && request.method === 'POST') {
+      return handleBodyweightSave(request, env);
+    }
+    if (url.pathname === '/api/link-telegram' && request.method === 'POST') {
+      return handleLinkTelegram(request, env);
+    }
     return json({ error: 'not_found' }, 404, env, request);
   }
 };
@@ -174,7 +225,7 @@ async function handleVerify(request, env) {
   try { body = await request.json(); } catch (e) {
     return json({ valid: false, error: 'invalid_json' }, 400, env, request);
   }
-  const { code, productId } = body;
+  const { code, productId, session } = body;
   if (!code || !productId) {
     return json({ valid: false, error: 'missing_fields' }, 400, env, request);
   }
@@ -184,6 +235,99 @@ async function handleVerify(request, env) {
   if (rateLimited) return json({ valid: false, error: 'rate_limited' }, 429, env, request);
 
   const normalized = code.trim().toUpperCase();
+
+  // Optional Google session — enables one-account binding when present
+  let email = null;
+  if (session) {
+    try {
+      const secret = await getSecret(env);
+      const { payload } = await jwtVerify(session, secret, {
+        audience: 'muscleos-website',
+        issuer: 'muscleos-access-control',
+      });
+      if (payload.type !== 'session' || !payload.email) {
+        return json({ valid: false, error: 'invalid_session' }, 401, env, request);
+      }
+      email = payload.email;
+    } catch (e) {
+      return json({ valid: false, error: 'invalid_session' }, 401, env, request);
+    }
+  }
+
+  // One-account / one-time binding
+  let binding = null;
+  if (email) {
+    binding = await env.ACCESS_CODES.get(`code:${normalized}:binding`, 'json');
+    if (binding && binding.email && binding.email.toLowerCase() !== email.toLowerCase()) {
+      await logAttempt(env, normalized, productId, false);
+      return json({ valid: false, error: 'code_used_by_other' }, 403, env, request);
+    }
+    // Same account re-activating: idempotent grant from the stored expiry, no re-consumption
+    if (binding && binding.email && binding.email.toLowerCase() === email.toLowerCase()) {
+      const doId = env.CODE_COUNTER.idFromName(normalized);
+      const stub = env.CODE_COUNTER.get(doId);
+      let record = null;
+      try {
+        const inspResp = await stub.fetch('http://do/inspect', { method: 'POST' });
+        const insp = await inspResp.json();
+        record = insp.record || null;
+        if (!record) {
+          const kvRecord = await env.ACCESS_CODES.get(`code:${normalized}`, 'json');
+          if (kvRecord) {
+            await stub.fetch('http://do/initialize', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(kvRecord)
+            });
+            const inspResp2 = await stub.fetch('http://do/inspect', { method: 'POST' });
+            const insp2 = await inspResp2.json();
+            record = insp2.record || null;
+          }
+        }
+      } catch (e) { record = null; }
+      if (!record) {
+        await logAttempt(env, normalized, productId, false);
+        return json({ valid: false, error: 'invalid_code' }, 401, env, request);
+      }
+      if (record.uses === -1) {
+        await logAttempt(env, normalized, productId, false);
+        return json({ valid: false, error: 'code_revoked' }, 401, env, request);
+      }
+      if (!productAllowed(record.products, productId)) {
+        await logAttempt(env, normalized, productId, false);
+        return json({ valid: false, error: 'wrong_product' }, 403, env, request);
+      }
+      const expiresAt = binding.expiresAt ? new Date(binding.expiresAt) : new Date(Date.now() + (record.durationDays || 30) * 86400000);
+      if (expiresAt.getTime() < Date.now()) {
+        await logAttempt(env, normalized, productId, false);
+        return json({ valid: false, error: 'code_expired' }, 401, env, request);
+      }
+      await addAccountSub(env, email, { code: normalized, plan: record.plan, products: record.products, expiresAt: expiresAt.toISOString() });
+      const secret = await getSecret(env);
+      const effProductId = (record.products === 'all') ? 'all_access' : (Array.isArray(record.products) && record.products.length) ? record.products[0] : productId;
+      const token = await new SignJWT({ productId: effProductId, plan: record.plan, codePrefix: normalized.substring(0, 4), code: normalized })
+        .setProtectedHeader({ alg: 'HS256' })
+        .setIssuedAt()
+        .setIssuer('muscleos-access-control')
+        .setAudience('muscleos-website')
+        .setSubject(normalized.substring(0, 4))
+        .setExpirationTime(Math.floor(expiresAt.getTime() / 1000))
+        .sign(secret);
+      await logAttempt(env, normalized, productId, true);
+      const now = Date.now();
+      const expTime = expiresAt.getTime();
+      return json({
+        valid: true,
+        productId: effProductId,
+        token,
+        expiresAt: expiresAt.toISOString(),
+        daysRemaining: expTime > now ? Math.ceil((expTime - now) / 86400000) : 0,
+        plan: record.plan,
+        durationDays: record.durationDays != null ? record.durationDays : 30,
+        boundEmail: binding.email
+      }, 200, env, request);
+    }
+  }
 
   // Atomic verification via Durable Object (eliminates TOCTOU race)
   const doId = env.CODE_COUNTER.idFromName(normalized);
@@ -216,6 +360,7 @@ async function handleVerify(request, env) {
           doResult.valid = true;
           doResult.plan = retryResult.plan;
           doResult.durationDays = retryResult.durationDays;
+          doResult.products = retryResult.products || kvRecord.products;
         } else {
           await logAttempt(env, normalized, productId, false);
           return json({ valid: false, error: retryResult.error }, retryResp.status, env, request);
@@ -236,7 +381,8 @@ async function handleVerify(request, env) {
     : new Date('2099-12-31'); // lifetime
 
   const secret = await getSecret(env);
-  const token = await new SignJWT({ productId, plan: doResult.plan, codePrefix: normalized.substring(0, 4) })
+  const effProductId = (doResult.products === 'all') ? 'all_access' : (Array.isArray(doResult.products) && doResult.products.length) ? doResult.products[0] : productId;
+  const token = await new SignJWT({ productId: effProductId, plan: doResult.plan, codePrefix: normalized.substring(0, 4), code: normalized })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
     .setIssuer('muscleos-access-control')
@@ -247,17 +393,26 @@ async function handleVerify(request, env) {
 
   await logAttempt(env, normalized, productId, true);
 
+  // Bind this code to the Google account on first successful activation
+  if (email) {
+    await env.ACCESS_CODES.put(`code:${normalized}:binding`, JSON.stringify({
+      email, expiresAt: expiresAt.toISOString(), plan: doResult.plan, ts: Date.now()
+    }), { expirationTtl: 7776000 });
+    await addAccountSub(env, email, { code: normalized, plan: doResult.plan, products: doResult.products, expiresAt: expiresAt.toISOString() });
+  }
+
   const now = Date.now();
   const expTime = expiresAt.getTime();
   const daysRemaining = expTime > now ? Math.ceil((expTime - now) / 86400000) : 0;
 
   return json({
     valid: true,
+    productId: effProductId,
     token,
     expiresAt: expiresAt.toISOString(),
     daysRemaining,
     plan: doResult.plan,
-    durationDays: doResult.durationDays || 30
+    durationDays: doResult.durationDays != null ? doResult.durationDays : 30
   }, 200, env, request);
 }
 
@@ -276,9 +431,17 @@ async function handleCheckToken(request, env) {
       issuer: 'muscleos-access-control',
       audience: 'muscleos-website',
     });
+    // Check if code was revoked
+    if (payload.code) {
+      const isRev = await env.ACCESS_CODES.get(`revoked:${payload.code}`);
+      if (isRev) return json({ valid: false, error: 'code_revoked' }, 401, env, request);
+    }
     // A master-plan token or matching productId is valid
     if (payload.plan !== 'master' && payload.productId !== productId) {
-      return json({ valid: false }, 403, env, request);
+      // omni_hub code includes training_tool and tdee_adaptive_engine
+      if (!(payload.productId === 'omni_hub' && (productId === 'training_tool' || productId === 'tdee_adaptive_engine'))) {
+        return json({ valid: false }, 403, env, request);
+      }
     }
     return json({ valid: true, plan: payload.plan, codePrefix: payload.codePrefix }, 200, env, request);
   } catch (e) {
@@ -294,6 +457,7 @@ async function handleIssueCode(request, env) {
   // Authenticate with a shared admin secret
   const authHeader = request.headers.get('X-Admin-Key');
   const key = env.ADMIN_KEY || '';
+  if (key.length < 16) return json({ error: 'server_not_configured' }, 503, env, request);
   if (!authHeader || !timingSafeEqual(authHeader, key)) {
     return json({ error: 'unauthorized' }, 401, env, request);
   }
@@ -341,6 +505,7 @@ async function handleRevokeCode(request, env) {
   if (adminLimited) return json({ error: 'rate_limited' }, 429, env, request);
   const authHeader = request.headers.get('X-Admin-Key');
   const key = env.ADMIN_KEY || '';
+  if (key.length < 16) return json({ error: 'server_not_configured' }, 503, env, request);
   if (!authHeader || !timingSafeEqual(authHeader, key)) {
     return json({ error: 'unauthorized' }, 401, env, request);
   }
@@ -356,6 +521,7 @@ async function handleRevokeCode(request, env) {
   existing.uses = -1;
   existing.revokedAt = Date.now();
   await env.ACCESS_CODES.put(`code:${normalized}`, JSON.stringify(existing));
+  await env.ACCESS_CODES.put(`revoked:${normalized}`, '1', { expirationTtl: 7776000 });
   // Revoke via Durable Object
   const doId = env.CODE_COUNTER.idFromName(normalized);
   const stub = env.CODE_COUNTER.get(doId);
@@ -572,6 +738,7 @@ async function handleCreateOrder(request, env) {
 async function handlePendingOrders(request, env) {
   const authHeader = request.headers.get('X-Admin-Key');
   const key = env.ADMIN_KEY || '';
+  if (key.length < 16) return json({ error: 'server_not_configured' }, 503, env, request);
   if (!authHeader || !timingSafeEqual(authHeader, key)) {
     return json({ error: 'unauthorized' }, 401, env, request);
   }
@@ -593,6 +760,7 @@ async function handlePendingOrders(request, env) {
 async function handleApproveOrder(request, env) {
   const authHeader = request.headers.get('X-Admin-Key');
   const key = env.ADMIN_KEY || '';
+  if (key.length < 16) return json({ error: 'server_not_configured' }, 503, env, request);
   if (!authHeader || !timingSafeEqual(authHeader, key)) {
     return json({ error: 'unauthorized' }, 401, env, request);
   }
@@ -614,6 +782,7 @@ async function handleApproveOrder(request, env) {
 async function handleRejectOrder(request, env) {
   const authHeader = request.headers.get('X-Admin-Key');
   const key = env.ADMIN_KEY || '';
+  if (key.length < 16) return json({ error: 'server_not_configured' }, 503, env, request);
   if (!authHeader || !timingSafeEqual(authHeader, key)) {
     return json({ error: 'unauthorized' }, 401, env, request);
   }
@@ -651,6 +820,9 @@ async function handleRejectOrder(request, env) {
 // ── POST /api/paymob-callback (Paymob webhook, HMAC-verified) ─────
 
 async function handlePaymobCallback(request, env) {
+  if (!env.PAYMOB_HMAC_SECRET || env.PAYMOB_HMAC_SECRET.length < 16) {
+    return json({ status: 'ignored', reason: 'not_configured' }, 503, env, request);
+  }
   let body;
   try { body = await request.json(); } catch (e) {
     return json({ status: 'ignored', reason: 'invalid_json' }, 200, env, request);
@@ -722,27 +894,56 @@ async function handleCreatePaymentLink(request, env) {
 
 // ── POST /api/check-order-status (public — returns status + code if approved) ──
 
+function maskAccessCode(code) {
+  const s = String(code || '');
+  return s.length > 7 ? s.slice(0, 7) + '***' : '***';
+}
+
+
 async function handleCheckOrderStatus(request, env) {
+  const rateLimited = await checkRateLimit(request, env, 20);
+  if (rateLimited) return json({ error: 'rate_limited' }, 429, env, request);
+
   let body;
   try { body = await request.json(); } catch (e) {
     return json({ error: 'invalid_json' }, 400, env, request);
   }
-  const { orderId } = body;
+
+  const { orderId, session } = body;
   if (!orderId) return json({ error: 'missing_order_id' }, 400, env, request);
+
   const order = await env.PENDING_ORDERS.get(`order:${orderId}`, 'json');
   if (!order) return json({ error: 'order_not_found' }, 404, env, request);
-  return json({
+
+  let sessionEmail = null;
+  if (session) {
+    try {
+      const secret = await getSecret(env);
+      const { payload } = await jwtVerify(session, secret, {
+        audience: 'muscleos-website',
+        issuer: 'muscleos-access-control',
+      });
+      if (payload.type === 'session' && payload.email) sessionEmail = payload.email;
+    } catch (e) {}
+  }
+
+  const match = !!sessionEmail && !!order.email && sessionEmail.toLowerCase() === order.email.toLowerCase();
+  const code = order.issuedCode || order.generatedCode || null;
+  const out = {
     status: order.status,
-    code: order.issuedCode || order.generatedCode || null,
+    code: match ? code : maskAccessCode(code),
     product: order.product,
-    customerName: order.customerName,
-  }, 200, env, request);
+  };
+  if (match) out.customerName = order.customerName;
+  return json(out, 200, env, request);
 }
+
 
 // ── POST /api/expiring-codes (admin-key protected) ────────────────
 async function handleExpiringCodes(request, env) {
   const authHeader = request.headers.get('X-Admin-Key');
   const key = env.ADMIN_KEY || '';
+  if (key.length < 16) return json({ error: 'server_not_configured' }, 503, env, request);
   if (!authHeader || !timingSafeEqual(authHeader, key)) {
     return json({ error: 'unauthorized' }, 401, env, request);
   }
@@ -819,7 +1020,7 @@ async function handleGoogleAuth(request, env) {
       .setSubject(email)
       .setExpirationTime(Math.floor(Date.now() / 1000) + 604800)
       .sign(secret);
-    return json({ valid: true, session: sessionToken, email, name: payload.name || '' }, 200, env, request);
+    return json({ valid: true, session: sessionToken, email, name: payload.name || '', subscriptions: await getAccountSubs(env, email) }, 200, env, request);
   } catch (e) {
     return json({ valid: false, error: 'invalid_google_token' }, 401, env, request);
   }
@@ -839,7 +1040,7 @@ async function handleCheckSession(request, env) {
       issuer: 'muscleos-access-control',
     });
     if (payload.type !== 'session') return json({ valid: false }, 403, env, request);
-    return json({ valid: true, email: payload.email, name: payload.name }, 200, env, request);
+    return json({ valid: true, email: payload.email, name: payload.name, subscriptions: await getAccountSubs(env, payload.email) }, 200, env, request);
   } catch (e) {
     return json({ valid: false, error: 'invalid_session' }, 401, env, request);
   }
@@ -943,40 +1144,205 @@ async function handlePdfProxy(request, env, url) {
 
 // In-memory sliding-window rate limiter (no TOCTOU race, per-isolate)
 // ── Data sync (training tool) ──
-async function handleSyncSave(request, env) {
+
+
+
+async function sha256Hex(s) {
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s || ''));
+  return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+function syncKeyFromPath(url) {
+  return url.pathname.replace('/api/sync/', '').replace(/[^a-zA-Z0-9_-]/g, '').toLowerCase();
+}
+
+// ── POST /api/sync/:key (passphrase-guarded push) ──
+async function handleSyncPush(request, env, url) {
   const rateLimited = await checkRateLimit(request, env, 30);
   if (rateLimited) return json({ error: 'rate_limited' }, 429, env, request);
+  const key = syncKeyFromPath(url);
+  if (key.length < 4 || key.length > 64) return json({ error: 'invalid_key' }, 400, env, request);
   let body;
   try { body = await request.json(); } catch (e) {
     return json({ error: 'invalid_json' }, 400, env, request);
   }
-  const { key, data } = body;
-  if (!key || key.length < 4) return json({ error: 'invalid_key' }, 400, env, request);
+  const data = body.data;
+
+  const pw = request.headers.get('X-Sync-Passphrase') || body.pw || '';
   if (!data) return json({ error: 'missing_data' }, 400, env, request);
   const payloadSize = new TextEncoder().encode(JSON.stringify(data)).length;
   if (payloadSize > 1_000_000) return json({ error: 'data_too_large' }, 413, env, request);
-  const sanitized = key.replace(/[^a-zA-Z0-9_-]/g, '').toLowerCase();
-  if (sanitized.length < 4) return json({ error: 'invalid_key' }, 400, env, request);
-  await env.ACCESS_CODES.put(`sync:${sanitized}:data`, JSON.stringify(data), { expirationTtl: 7776000 });
-  return json({ status: 'ok' }, 200, env, request);
+  const meta = await env.ACCESS_CODES.get(`sync:${key}:meta`, 'json');
+  const pwHash = pw ? await sha256Hex(pw) : null;
+  if (meta && meta.pwHash) {
+    if (!pwHash || !timingSafeEqual(pwHash, meta.pwHash)) {
+      return json({ error: 'bad_passphrase' }, 401, env, request);
+    }
+  }
+  await env.ACCESS_CODES.put(`sync:${key}:data`, JSON.stringify(data), { expirationTtl: 7776000 });
+  await env.ACCESS_CODES.put(`sync:${key}:meta`, JSON.stringify({ pwHash, ts: Date.now() }), { expirationTtl: 7776000 });
+  return json({ status: 'ok', ts: Date.now() }, 200, env, request);
 }
 
-async function handleSyncLoad(request, env) {
+// ── GET /api/sync/:key?pw= (passphrase-guarded pull) ──
+async function handleSyncPull(request, env, url) {
   const rateLimited = await checkRateLimit(request, env, 60);
   if (rateLimited) return json({ error: 'rate_limited' }, 429, env, request);
+  const key = syncKeyFromPath(url);
+  if (key.length < 4 || key.length > 64) return json({ error: 'invalid_key' }, 400, env, request);
+  const pw = request.headers.get('X-Sync-Passphrase') || '';
+  const meta = await env.ACCESS_CODES.get(`sync:${key}:meta`, 'json');
+  if (meta && meta.pwHash) {
+    const pwHash = pw ? await sha256Hex(pw) : null;
+    if (!pwHash || !timingSafeEqual(pwHash, meta.pwHash)) {
+      return json({ error: 'bad_passphrase' }, 401, env, request);
+    }
+  }
+  const raw = await env.ACCESS_CODES.get(`sync:${key}:data`);
+  if (!raw) return json({ data: null, ts: meta ? meta.ts : null }, 200, env, request);
+  try {
+    return json({ data: JSON.parse(raw), ts: meta ? meta.ts : null }, 200, env, request);
+  } catch (e) {
+    return json({ error: 'corrupt_data' }, 500, env, request);
+  }
+}
+
+// ── POST /api/ai-coach (proxies chat request to Groq LLM API) ──
+async function handleAiCoach(request, env) {
+  if (request.method === 'OPTIONS') return new Response(null, { headers: corsHeaders(env, request) });
+  
+  try {
+    if (!env.LLM_API_KEY) {
+      return json({ error: 'LLM_API_KEY not configured in worker environment' }, 500, env, request);
+    }
+    
+    const body = await request.json();
+    const messages = [];
+    
+    if (body.systemInstruction) {
+      messages.push({ role: 'system', content: body.systemInstruction });
+    }
+    
+    if (body.contents) {
+      body.contents.forEach(msg => {
+        messages.push({ role: msg.role === 'model' ? 'assistant' : 'user', content: msg.text });
+      });
+    }
+
+    const payload = {
+      model: env.LLM_MODEL || 'openai/gpt-oss-120b',
+      messages: messages,
+      stream: true,
+      temperature: 0.7
+    };
+
+    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${env.LLM_API_KEY}`
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+      const errText = await response.text();
+      return json({ error: 'Upstream API error', details: errText }, response.status, env, request);
+    }
+
+    return new Response(response.body, {
+      status: response.status,
+      headers: {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+        ...corsHeaders(env, request)
+      }
+    });
+
+  } catch (err) {
+    return json({ error: 'Internal error', msg: err.message }, 500, env, request);
+  }
+}
+
+async function handleNotifyCoach(request, env) {
+  const rateLimited = await checkRateLimit(request, env, 10);
+  if (rateLimited) return json({ error: 'rate_limited' }, 429, env, request);
+
   let body;
   try { body = await request.json(); } catch (e) {
     return json({ error: 'invalid_json' }, 400, env, request);
   }
-  const { key } = body;
-  if (!key || key.length < 4) return json({ error: 'invalid_key' }, 400, env, request);
-  const sanitized = key.replace(/[^a-zA-Z0-9_-]/g, '').toLowerCase();
-  const raw = await env.ACCESS_CODES.get(`sync:${sanitized}:data`);
-  if (!raw) return json({ data: null }, 200, env, request);
+
+  const phoneNumberId = env.WHATSAPP_PHONE_NUMBER_ID;
+  const accessToken = env.WHATSAPP_ACCESS_TOKEN;
+  const coachNumber = env.COACH_WHATSAPP || '201040796017';
+
+  const { type, data, session, token } = body;
+
+  let authed = false;
   try {
-    return json({ data: JSON.parse(raw) }, 200, env, request);
-  } catch (e) {
-    return json({ error: 'corrupt_data' }, 500, env, request);
+    const secret = await getSecret(env);
+    const { payload } = await jwtVerify(session || '', secret, {
+      audience: 'muscleos-website',
+      issuer: 'muscleos-access-control',
+    });
+    if (payload.type === 'session') authed = true;
+  } catch (e) {}
+  if (!authed && token) {
+    try {
+      const secret = await getSecret(env);
+      const { payload } = await jwtVerify(token, secret, {
+        audience: 'muscleos-website',
+        issuer: 'muscleos-access-control',
+      });
+      if (payload.productId) authed = true;
+    } catch (e) {}
+  }
+  if (!authed) return json({ error: 'unauthorized' }, 401, env, request);
+
+  if (!phoneNumberId || !accessToken) {
+    return json({ error: 'whatsapp_not_configured' }, 503, env, request);
+  }
+
+  let messageBody;
+
+  switch (type) {
+    case 'onboarding':
+      messageBody = `🆕 Onboarding Complete\n━━━━━━━━━━━━━━━\nName: ${data.name || '—'}\nAge: ${data.age || '—'}\nGoal: ${data.goal || '—'}\nDays/Week: ${data.days || '—'}\nTime: ${new Date().toLocaleString('en-EG')}`;
+      break;
+    case 'subscription':
+      messageBody = `✅ Subscription Activated\n━━━━━━━━━━━━━━━\nName: ${data.name || '—'}\nCode: ${data.code || '—'}\nPlan: ${data.plan || 'pro_training'}\nExpires: ${data.expiry || '—'}\nTime: ${new Date().toLocaleString('en-EG')}`;
+      break;
+    case 'checkin':
+      messageBody = `📊 Check-In Submitted\n━━━━━━━━━━━━━━━\nName: ${data.name || '—'}\nWeight: ${data.weight || '—'}\nReadiness: ${data.readiness || '—'}\nAdherence: ${data.adherence || '—'}\nTime: ${new Date().toLocaleString('en-EG')}`;
+      break;
+    default:
+      messageBody = `🔔 Coach Notification\n━━━━━━━━━━━━━━━\nType: ${type}\nData: ${JSON.stringify(data)}\nTime: ${new Date().toLocaleString('en-EG')}`;
+  }
+
+  try {
+    const resp = await fetch(`https://graph.facebook.com/v21.0/${phoneNumberId}/messages`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        messaging_product: 'whatsapp',
+        to: coachNumber,
+        type: 'text',
+        text: { body: messageBody },
+      }),
+    });
+
+    const result = await resp.json();
+    if (!resp.ok) {
+      return json({ error: 'whatsapp_api_error' }, 502, env, request);
+    }
+    return json({ status: 'ok', messageId: result.messages?.[0]?.id }, 200, env, request);
+  } catch (err) {
+    return json({ error: err.message }, 502, env, request);
   }
 }
 
@@ -1120,6 +1486,42 @@ async function logAttempt(env, code, productId, success) {
     { expirationTtl: 2592000 });
 }
 
+// ── Per-account subscription index (Google sign-in restore) ──
+// Key: email:<LOWERED_EMAIL>:subs → [{ code, plan, products, expiresAt, ts }] (TTL 90d)
+// Lets a returning Google account restore its bound codes without re-entering them.
+async function addAccountSub(env, email, entry) {
+  const key = `email:${(email || '').toLowerCase()}:subs`;
+  let existing = [];
+  try { const raw = await env.ACCESS_CODES.get(key, 'json'); if (Array.isArray(raw)) existing = raw; } catch (e) {}
+  const rest = existing.filter(s => s && s.code !== entry.code);
+  rest.push({ code: entry.code, plan: entry.plan, products: entry.products, expiresAt: entry.expiresAt, ts: Date.now() });
+  await env.ACCESS_CODES.put(key, JSON.stringify(rest), { expirationTtl: 7776000 });
+}
+
+const OWNER_EMAILS = ['anasstem2025@gmail.com', '1022066.anas@stemegypt.edu.eg', 'anassmomen@gmail.com'];
+
+async function getAccountSubs(env, email) {
+  if (!email) return [];
+  const normalized = email.toLowerCase().trim();
+  if (OWNER_EMAILS.includes(normalized)) {
+    return [
+      {
+        code: 'OWNER-LIFETIME-ACCESS',
+        plan: 'master',
+        products: 'all',
+        expiresAt: '2099-12-31T23:59:59.999Z'
+      }
+    ];
+  }
+  let list = [];
+  try { const raw = await env.ACCESS_CODES.get(`email:${email.toLowerCase()}:subs`, 'json'); if (Array.isArray(raw)) list = raw; } catch (e) {}
+  const now = Date.now();
+  return list
+    .filter(s => s && s.expiresAt && new Date(s.expiresAt).getTime() > now)
+    .map(s => ({ code: s.code, plan: s.plan, products: s.products, expiresAt: s.expiresAt }))
+    .sort((a, b) => new Date(b.expiresAt) - new Date(a.expiresAt));
+}
+
 /** Constant-time string comparison to prevent timing attacks */
 function timingSafeEqual(a, b) {
   if (typeof a !== 'string' || typeof b !== 'string') return false;
@@ -1134,6 +1536,21 @@ function json(obj, status = 200, env, request) {
     status,
     headers: { 'Content-Type': 'application/json', ...corsHeaders(env, request) }
   });
+}
+
+/**
+ * Product access rule:
+ * - 'all' grants everything
+ * - exact product match grants
+ * - an omni_hub (OMNI HUB) code is a superset: also valid on the two standalone tools
+ */
+function productAllowed(recordProducts, productId) {
+  if (productId === 'any') return true;
+  if (recordProducts === 'all') return true;
+  const list = Array.isArray(recordProducts) ? recordProducts : [];
+  if (list.includes(productId)) return true;
+  if (list.includes('omni_hub') && (productId === 'training_tool' || productId === 'tdee_adaptive_engine')) return true;
+  return false;
 }
 
 /**
@@ -1155,7 +1572,14 @@ export class CodeCounter {
     if (request.method === 'POST' && url.pathname === '/revoke') {
       return this.handleRevoke();
     }
+    if (request.method === 'POST' && url.pathname === '/inspect') {
+      return this.handleInspect();
+    }
     return new Response('Not found', { status: 404 });
+  }
+  async handleInspect() {
+    const record = await this.state.storage.get('record');
+    return new Response(JSON.stringify({ record: record || null }), { status: 200, headers: { 'Content-Type': 'application/json' } });
   }
   async handleVerify(request) {
     let productId;
@@ -1169,7 +1593,7 @@ export class CodeCounter {
     if (record.uses === -1) {
       return new Response(JSON.stringify({ valid: false, error: 'code_revoked' }), { status: 401, headers: { 'Content-Type': 'application/json' } });
     }
-    if (record.products !== 'all' && !record.products.includes(productId)) {
+    if (!productAllowed(record.products, productId)) {
       return new Response(JSON.stringify({ valid: false, error: 'wrong_product' }), { status: 403, headers: { 'Content-Type': 'application/json' } });
     }
     if (record.expiresAt && Date.now() > new Date(record.expiresAt).getTime()) {
@@ -1180,7 +1604,7 @@ export class CodeCounter {
     }
     record.uses = (record.uses || 0) + 1;
     await this.state.storage.put('record', record);
-    return new Response(JSON.stringify({ valid: true, uses: record.uses, plan: record.plan, durationDays: record.durationDays }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+    return new Response(JSON.stringify({ valid: true, uses: record.uses, plan: record.plan, durationDays: record.durationDays, products: record.products }), { status: 200, headers: { 'Content-Type': 'application/json' } });
   }
   async handleInitialize(request) {
     let record;
@@ -1199,26 +1623,208 @@ export class CodeCounter {
   }
 }
 
+
+// -- Supabase helpers ------------------------------------------------------
+async function sbFetch(env, method, table, body = null, params = '') {
+  if (!env.SUPABASE_URL || !env.SUPABASE_SERVICE_KEY) {
+    throw new Error('Supabase not configured');
+  }
+  const url = `${env.SUPABASE_URL}/rest/v1/${table}${params}`;
+  const headers = {
+    'apikey': env.SUPABASE_SERVICE_KEY,
+    'Authorization': `Bearer ${env.SUPABASE_SERVICE_KEY}`,
+    'Content-Type': 'application/json',
+    'Prefer': 'resolution=merge-duplicates,return=minimal',
+  };
+  const opts = { method, headers };
+  if (body) opts.body = JSON.stringify(body);
+  const res = await fetch(url, opts);
+  if (!res.ok) {
+    const t = await res.text();
+    throw new Error(`Supabase ${method} ${table}: ${res.status} ${t}`);
+  }
+  const ct = res.headers.get('content-type') || '';
+  if (ct.includes('json')) return res.json();
+  return null;
+}
+
+async function getUserIdFromJwt(request, env) {
+  // Reuse existing JWT verification from handleCheckToken logic
+  const auth = request.headers.get('Authorization') || '';
+  const token = auth.replace('Bearer ', '').trim();
+  if (!token) return null;
+  try {
+    const secret = await getSecret(env);
+    const { payload } = await jwtVerify(token, secret);
+    return payload.sub || null;
+  } catch (e) {
+    return null;
+  }
+}
+
+// -- Profile ----------------------------------------------------------------
+async function handleProfileSave(request, env) {
+  try {
+    const uid = await getUserIdFromJwt(request, env);
+    if (!uid) return json({ error: 'unauthorized' }, 401, env, request);
+    const body = await request.json();
+    const intake = body.intake || {};
+    await sbFetch(env, 'POST', 'user_profiles', {
+      id: uid,
+      intake,
+      goal: intake.goal || '',
+      experience: String(intake.ta || intake.experience_years || ''),
+      bodyweight_kg: intake.weight || intake.bodyweight_kg || null,
+    });
+    return json({ status: 'ok' }, 200, env, request);
+  } catch (e) {
+    return json({ error: e.message }, 500, env, request);
+  }
+}
+
+async function handleProfileLoad(request, env) {
+  try {
+    const uid = await getUserIdFromJwt(request, env);
+    if (!uid) return json({ error: 'unauthorized' }, 401, env, request);
+    const rows = await sbFetch(env, 'GET', 'user_profiles', null, `?id=eq.${encodeURIComponent(uid)}&select=intake,updated_at`);
+    return json({ intake: rows?.[0]?.intake || null }, 200, env, request);
+  } catch (e) {
+    return json({ error: e.message }, 500, env, request);
+  }
+}
+
+// -- Sessions ---------------------------------------------------------------
+async function handleSessionSave(request, env) {
+  try {
+    const uid = await getUserIdFromJwt(request, env);
+    if (!uid) return json({ error: 'unauthorized' }, 401, env, request);
+    const body = await request.json();
+    if (!body.date) return json({ error: 'missing date' }, 400, env, request);
+    await sbFetch(env, 'POST', 'workout_sessions', {
+      user_id: uid,
+      session_date: body.date,
+      log: body.log || {},
+      load_history: body.load_history || {},
+    });
+    return json({ status: 'ok' }, 200, env, request);
+  } catch (e) {
+    return json({ error: e.message }, 500, env, request);
+  }
+}
+
+async function handleSessionLoad(request, env, url) {
+  try {
+    const uid = await getUserIdFromJwt(request, env);
+    if (!uid) return json({ error: 'unauthorized' }, 401, env, request);
+    const days = parseInt(url.searchParams.get('days') || '60');
+    const since = new Date(Date.now() - days * 86400000).toISOString().split('T')[0];
+    const rows = await sbFetch(env, 'GET', 'workout_sessions', null,
+      `?user_id=eq.${encodeURIComponent(uid)}&session_date=gte.${encodeURIComponent(since)}&select=session_date,log,load_history&order=session_date.desc`
+    );
+    return json({ sessions: rows || [] }, 200, env, request);
+  } catch (e) {
+    return json({ error: e.message }, 500, env, request);
+  }
+}
+
+// -- Deload -----------------------------------------------------------------
+async function handleDeloadSave(request, env) {
+  try {
+    const uid = await getUserIdFromJwt(request, env);
+    if (!uid) return json({ error: 'unauthorized' }, 401, env, request);
+    const body = await request.json();
+    await sbFetch(env, 'POST', 'deload_tracker', { id: uid, state: body.state || {} });
+    return json({ status: 'ok' }, 200, env, request);
+  } catch (e) {
+    return json({ error: e.message }, 500, env, request);
+  }
+}
+
+async function handleDeloadLoad(request, env) {
+  try {
+    const uid = await getUserIdFromJwt(request, env);
+    if (!uid) return json({ error: 'unauthorized' }, 401, env, request);
+    const rows = await sbFetch(env, 'GET', 'deload_tracker', null, `?id=eq.${encodeURIComponent(uid)}&select=state`);
+    return json({ state: rows?.[0]?.state || null }, 200, env, request);
+  } catch (e) {
+    return json({ error: e.message }, 500, env, request);
+  }
+}
+
+
+// -- Bodyweight -------------------------------------------------------------
+async function handleBodyweightSave(request, env) {
+  try {
+    const uid = await getUserIdFromJwt(request, env);
+    if (!uid) return json({ error: 'unauthorized' }, 401, env, request);
+    const body = await request.json();
+    if (!body.weight_kg) return json({ error: 'missing weight_kg' }, 400, env, request);
+    await sbFetch(env, 'POST', 'mos_measurements', {
+      user_id: uid,
+      date: body.date || new Date().toISOString().split('T')[0],
+      weight: body.weight_kg,
+    });
+    return json({ status: 'ok' }, 200, env, request);
+  } catch (e) {
+    return json({ error: e.message }, 500, env, request);
+  }
+}
+
+// -- Telegram Link ---------------------------------------------------------
+async function handleLinkTelegram(request, env) {
+  try {
+    const uid = await getUserIdFromJwt(request, env);
+    if (!uid) return json({ error: 'unauthorized' }, 401, env, request);
+    const body = await request.json();
+    const tgId = parseInt(body.telegram_id);
+    if (!tgId) return json({ error: 'missing telegram_id' }, 400, env, request);
+    await sbFetch(env, 'POST', 'telegram_links', { telegram_id: tgId, user_id: uid });
+    return json({ status: 'ok', linked: true }, 200, env, request);
+  } catch (e) {
+    return json({ error: e.message }, 500, env, request);
+  }
+}
+
 function corsHeaders(env, request, isAuth = true) {
-  const ALLOWED_ORIGINS = ['https://anas-xi.github.io', 'https://muscleos.is-a.dev'];
+  const ALLOWED_ORIGINS = [
+    'https://muscleos.coach',
+    'https://www.muscleos.coach',
+    'https://anas-xi.github.io',
+    'https://muscleos.is-a.dev',
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+    'http://localhost:5500',
+    'http://127.0.0.1:5500',
+    'http://localhost:5173',
+    'http://127.0.0.1:5173'
+  ];
   let origin = env && env.CORS_ORIGIN ? env.CORS_ORIGIN : '';
   if (!origin && request) {
     const reqOrigin = request.headers.get('Origin');
-    if (reqOrigin && ALLOWED_ORIGINS.includes(reqOrigin)) {
-      origin = reqOrigin;
+    if (reqOrigin) {
+      if (ALLOWED_ORIGINS.includes(reqOrigin) || 
+          reqOrigin.endsWith('.muscleos.coach') || 
+          reqOrigin.endsWith('.github.io') ||
+          reqOrigin.startsWith('http://localhost:') || 
+          reqOrigin.startsWith('http://127.0.0.1:')) {
+        origin = reqOrigin;
+      }
     }
   }
+  if (!origin) origin = '*';
   const methods = isAuth ? 'POST, OPTIONS' : 'GET, OPTIONS';
   const headers = {
+    'Access-Control-Allow-Origin': origin,
     'Access-Control-Allow-Methods': methods,
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Admin-Key',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Admin-Key, X-Sync-Passphrase',
     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
     'X-Content-Type-Options': 'nosniff',
     'X-Frame-Options': 'DENY',
     'Referrer-Policy': 'no-referrer-when-downgrade',
-    'Content-Security-Policy': "default-src 'self'; style-src 'unsafe-inline' 'self' https://fonts.googleapis.com; script-src 'unsafe-inline' 'self' https://apis.google.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev https://anas-xi.github.io; frame-src https://accounts.google.com; img-src 'self' data:;",
+    'Content-Security-Policy': "default-src 'self'; style-src 'unsafe-inline' 'self' https://fonts.googleapis.com; script-src 'unsafe-inline' 'self' https://apis.google.com https://accounts.google.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev https://accounts.google.com https://anas-xi.github.io; frame-src https://accounts.google.com; img-src 'self' data: https://*.googleusercontent.com https://accounts.google.com;",
     'Vary': 'Origin'
   };
-  if (origin) headers['Access-Control-Allow-Origin'] = origin;
   return headers;
 }

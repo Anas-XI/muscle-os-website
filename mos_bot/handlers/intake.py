@@ -19,6 +19,10 @@ from mos_bot.core.intake_builder import (
     SLEEP_MAP, STRESS_MAP, STEPS_MAP, CAFFEINE_MAP,
 )
 from mos_bot.core.analytics import track
+try:
+    from mos_bot.core.supabase_sync import fire_push_profile
+except Exception:
+    def fire_push_profile(*a, **kw): pass
 from mos_bot.config import OWNER_ID
 try:
     from mos_cli import evaluate_ed_screening
@@ -747,6 +751,7 @@ async def crisis_intervention_handler(update, context):
     raw = _raw_profile_from_user_data(ud)
     profile = build_profile(raw)
     save_profile(profile)
+    fire_push_profile(update.effective_user.id, profile)
     track("intake_completed", profile["user_id"], {
         "goal": profile.get("goal", ""),
         "triage": profile.get("triage_result", ""),
@@ -863,6 +868,7 @@ async def confirm_handler(update, context):
 
     profile = build_profile(raw)
     save_profile(profile)
+    fire_push_profile(update.effective_user.id, profile)
     context.user_data["profile"] = profile
 
     await query.edit_message_text(

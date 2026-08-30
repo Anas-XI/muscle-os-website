@@ -3,6 +3,7 @@ from fastapi.responses import HTMLResponse
 import logging
 
 from mos_bot.core.intake_builder import save_supplemental, load_supplemental
+from mos_bot.web.auth import sanitize_user_id
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -123,6 +124,7 @@ SUCCESS_HTML = """
 
 @router.get("/supplemental/{user_id}", response_class=HTMLResponse)
 async def supplemental_form(user_id: str):
+    clean_user_id = sanitize_user_id(user_id)
     return HTMLResponse(FORM_HTML)
 
 
@@ -139,11 +141,12 @@ async def supplemental_submit(
     ED3: str = Form(...),
     ED4: str = Form(...),
 ):
+    clean_user_id = sanitize_user_id(user_id)
     def _split_csv(text: str) -> list[str]:
         return [item.strip() for item in text.split(",") if item.strip()]
 
     data = {
-        "user_id": user_id,
+        "user_id": clean_user_id,
         "mental_health_concern": mental_health_concern,
         "known_deficiencies": _split_csv(known_deficiencies),
         "deficiency_confirmed": deficiency_confirmed == "yes",
@@ -154,5 +157,5 @@ async def supplemental_submit(
         "ED3": ED3,
         "ED4": ED4,
     }
-    save_supplemental(user_id, data)
+    save_supplemental(clean_user_id, data)
     return HTMLResponse(SUCCESS_HTML)

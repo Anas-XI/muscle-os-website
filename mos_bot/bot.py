@@ -47,6 +47,7 @@ from mos_bot.handlers.checkin import (
 )
 from mos_bot.handlers.coach import coach_start, coach_chat_handler, coach_callback_handler
 from mos_bot.handlers.admin import status, users, clear_crisis, test_alert
+from mos_bot.handlers.link import link_command
 
 
 def main():
@@ -137,6 +138,7 @@ def main():
     app.add_handler(checkin_conv)
     app.add_handler(coach_conv)
     app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("link", link_command))
     app.add_handler(CommandHandler("upload_profile", upload_profile))
     app.add_handler(MessageHandler(filters.Document.ALL, handle_json_upload))
     app.add_handler(CommandHandler("help", help_command))

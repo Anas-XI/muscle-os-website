@@ -1,0 +1,23 @@
+/* Mesocycle Calendar */
+.meso-cal-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;flex-wrap:wrap}
+.meso-week-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:4px;margin-bottom:8px}
+.meso-week-card{background:var(--input-bg);border-radius:6px;padding:6px;text-align:center;cursor:pointer;transition:all .15s;border:1.5px solid var(--fill);position:relative}
+.meso-week-card:hover{border-color:var(--input-line)}
+.meso-week-card.active{background:var(--accent-soft);border-color:var(--accent)}
+.meso-week-card.done{opacity:.5}
+.meso-week-card .mw-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:2px}
+.meso-week-card .mw-num{font-family:'JetBrains Mono',monospace;font-size:.5rem;font-weight:700;color:var(--text-dim)}
+.meso-week-card .mw-phase{font-size:.4rem;font-weight:700;text-transform:uppercase;letter-spacing:.3px}
+.meso-week-card .mw-sets{font-size:.5rem;color:var(--text-muted);margin-bottom:2px}
+.meso-week-card .mw-bar{height:3px;background:var(--line);border-radius:2px;overflow:hidden;margin-bottom:3px}
+.meso-week-card .mw-bar-fill{height:100%;border-radius:2px;transition:width .3s}
+.meso-week-card .mw-done-check{position:absolute;top:2px;right:4px;font-size:.45rem;color:#4CAF50}
+.meso-train-btn{font-size:.4rem;padding:2px 4px;background:var(--accent);color:var(--bg);border:none;border-radius:3px;cursor:pointer;font-family:Oswald,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.5px;width:100%;margin-top:2px}
+.meso-train-btn:hover{opacity:.85}
+.meso-week-detail{margin-top:8px}
+.meso-day-card{background:var(--input-bg);border-radius:6px;padding:6px 8px;margin-bottom:4px;border-left:2px solid var(--line)}
+.meso-day-card .md-title{font-size:.55rem;font-weight:600;color:var(--text-soft);margin-bottom:3px}
+.meso-day-card .md-ex{display:flex;gap:6px;font-size:.5rem;padding:2px 0;border-bottom:1px solid var(--fill)}
+.meso-day-card .md-ex-n{flex:2;color:var(--text-dim)}
+.meso-day-card .md-ex-s{flex:1;text-align:center;color:var(--line-strong)}
+.meso-day-card .md-ex-rpe{flex:1;text-align:center;color:var(--accent);font-weight:600}

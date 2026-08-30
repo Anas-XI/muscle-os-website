@@ -58,7 +58,7 @@ app = FastAPI(title="Pillar Intake Server")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -265,10 +265,15 @@ async def generate(request: Request):
 
 @app.get("/download/{filename}")
 async def download_pdf(filename: str):
-    pdf_dir = PDFS_DIR if os.path.isdir(PDFS_DIR) else OUTPUT_DIR
-    filepath = os.path.join(pdf_dir, filename)
-    if os.path.exists(filepath):
-        return FileResponse(filepath, media_type="application/pdf", filename=filename)
+    clean_filename = Path(filename).name
+    if not clean_filename.endswith(".pdf") or not clean_filename.replace(".pdf", "").replace("-", "").replace("_", "").isalnum():
+        return JSONResponse({"error": "Invalid filename format"}, status_code=400)
+    pdf_dir = Path(PDFS_DIR if os.path.isdir(PDFS_DIR) else OUTPUT_DIR).resolve()
+    filepath = (pdf_dir / clean_filename).resolve()
+    if not str(filepath).startswith(str(pdf_dir)):
+        return JSONResponse({"error": "Unauthorized path"}, status_code=403)
+    if filepath.exists() and filepath.is_file():
+        return FileResponse(str(filepath), media_type="application/pdf", filename=clean_filename)
     return JSONResponse({"error": "File not found"}, status_code=404)
 
 

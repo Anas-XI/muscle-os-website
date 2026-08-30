@@ -9,6 +9,10 @@ from mos_bot.states import (
 from mos_bot.core.intake_builder import load_profile, parse_weight
 from mos_bot.core.analytics import track
 from mos_bot.config import DATA_ROOT
+try:
+    from mos_bot.core.supabase_sync import fire_push_measurement
+except Exception:
+    def fire_push_measurement(*a, **kw): pass
 
 try:
     from checkin_tracker import CheckInStore, CheckInRecord, analyse_trends, suggest_adjustments, format_trends, format_adjustments
@@ -184,6 +188,7 @@ async def checkin_top_sets_handler(update, context):
 
     store = CheckInStore(os.path.join(DATA_ROOT, "checkins"))
     store.add(user_id, record)
+    fire_push_measurement(update.effective_user.id, ud.get("checkin_weight", 0))
 
     records = store.load_all(user_id)
     trends = analyse_trends(records)
@@ -211,10 +216,41 @@ async def checkin_top_sets_handler(update, context):
             "weight_change": [t["change"] for t in trends if t["metric"] == "weight"][0],
         })
     else:
-        msg_parts.append(format_trends(trends))
-        msg_parts.append("")
-        msg_parts.append("=== Adjustments ===")
-        msg_parts.append(format_adjustments(adj))
+        try:
+            from mos_bot.core.telemetry_visualizer import render_ascii_telemetry_card
+            w_history = [r.weight_kg for r in records if r.weight_kg]
+            msg_parts.append(render_ascii_telemetry_card(
+                weights=w_history,
+                readiness=ud.get("checkin_readiness", 5),
+                sleep=float(ud.get("checkin_sleep", 7.0)),
+                adherence=ud.get("checkin_adherence", 100),
+            ))
+            msg_parts.append("")
+        except Exception:
+            msg_parts.append(format_trends(trends))
+            msg_parts.append("")
+        try:
+            from mos_bot.core.checkin_adjuster import CheckinTelemetry, evaluate_weekly_adjustments
+            w_history = [r.weight_kg for r in records if r.weight_kg]
+            telemetry = CheckinTelemetry(
+                weight_kg=ud.get("checkin_weight", 0.0),
+                goal=goal,
+                waist_cm=ud.get("checkin_waist"),
+                readiness=ud.get("checkin_readiness", 5),
+                adherence_pct=ud.get("checkin_adherence", 100),
+                soreness_duration_hours=72 if ud.get("checkin_soreness", 3) >= 4 else 24,
+                sleep_hours=ud.get("checkin_sleep", 7.0),
+                historical_weights=w_history,
+            )
+            engine_res = evaluate_weekly_adjustments(telemetry)
+            if engine_res.actions:
+                msg_parts.append(engine_res.format_summary())
+            else:
+                msg_parts.append("=== Adjustments ===")
+                msg_parts.append(format_adjustments(adj))
+        except Exception:
+            msg_parts.append("=== Adjustments ===")
+            msg_parts.append(format_adjustments(adj))
 
     track("checkin_completed", user_id, {
         "weight_kg": ud.get("checkin_weight"),

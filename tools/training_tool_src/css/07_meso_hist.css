@@ -1,0 +1,7 @@
+/* Mesocycle History */
+.meso-hist-item{background:var(--input-bg);border-radius:8px;padding:8px 10px;margin-bottom:6px;border-left:3px solid var(--accent-soft2)}
+.meso-hist-item .mh-header{display:flex;justify-content:space-between;margin-bottom:2px}
+.meso-hist-item .mh-type{font-family:Oswald,sans-serif;font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--accent)}
+.meso-hist-item .mh-dates{font-size:.45rem;color:var(--line-strong)}
+.meso-hist-item .mh-detail{font-size:.52rem;color:var(--text-dim);margin-bottom:2px}
+.meso-hist-item .mh-exs{font-size:.48rem;color:var(--line-strong)}

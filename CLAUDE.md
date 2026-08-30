@@ -1,15 +1,13 @@
 # Muscle OS — Project Context
 
 ## Overview
-Muscle OS is an AI-native fitness coaching system. It has 3 delivery channels:
-1. **Telegram bot** (Python) — primary channel, intake → program PDF → check-ins → coach
-2. **Alpha app** (TypeScript/React/Electron) — standalone desktop chat app (separate repo)
-3. **CLI** (Python stubs) — not yet functional
+Muscle OS is an AI-native fitness coaching system. It delivers through:
+1. **Web App & Interactive Tools** (Responsive HTML/JS: TDEE Adaptive Engine, Training App, Workout Tracker, Coach Chat)
+2. **Mobile App** (React Native / Expo in `mos-mobile/`)
+3. **Desktop App** (TypeScript/React/Electron)
 
-## Current Stage (per The Founder's Playbook)
-**Pre-PMF / Late MVP** — building is done, validation has not started. See `Muscle Operating System/00_META/Executive/Escalation Plan - PMF Sprint.md`.
-
-## Bot Architecture (mos_bot/)
+## Backend & Core Architecture (FastAPI + mos_bot/core/)
+The backend runs via **FastAPI** (`mos_bot/web/app.py` via `uvicorn`) powered by the deterministic core decision engine in `mos_bot/core/`.
 
 ```
 mos_bot/

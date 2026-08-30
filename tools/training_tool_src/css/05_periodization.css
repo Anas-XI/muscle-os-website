@@ -1,0 +1,5 @@
+/* Periodization badge */
+.per-badge{display:inline-block;background:rgba(33,150,243,.06);border:1px solid rgba(33,150,243,.1);border-radius:4px;padding:1px 5px;font-size:.45rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#2196F3;margin-left:4px}
+.per-detail{background:rgba(33,150,243,.03);border:1px solid rgba(33,150,243,.08);border-radius:8px;padding:8px 10px;margin:6px 0;font-size:.6rem;line-height:1.4}
+.per-detail strong{color:var(--text)}
+.per-detail .per-label{color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;font-size:.5rem}

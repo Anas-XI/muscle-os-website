@@ -1,1 +1,2 @@
-web: python -m mos_bot.bot
+web: uvicorn mos_bot.web.app:app --host 0.0.0.0 --port $PORT
+

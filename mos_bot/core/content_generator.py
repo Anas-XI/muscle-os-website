@@ -355,8 +355,10 @@ def program_to_markdown(pc: ProgramContent) -> str:
     lines.append("")
     lines.append(f"*   **Protocol Focus:** {_goal_label(c.goal)}-focused programming with {_experience_label(c.experience_years)}-appropriate volume landmarks.")
     lines.append(f"*   **Training Split:** {p.split}")
-    lines.append(f"*   **Schedule:** {p.weekly_schedule}")
-    lines.append(f"*   **Phasing:** Two-phase approach: **{p.phases[0].goal}** followed by **{p.phases[1].goal}** once movement quality is confirmed.")
+    if len(p.phases) >= 2:
+        lines.append(f"*   **Phasing:** Two-phase approach: **{p.phases[0].goal}** followed by **{p.phases[1].goal}** once movement quality is confirmed.")
+    elif len(p.phases) == 1:
+        lines.append(f"*   **Phasing:** Focused phase: **{p.phases[0].goal}**.")
     # Vault-informed program notes
     if pc.vault_insights:
         lines.append(f"*   **Evidence Base:** This program is informed by {len(pc.vault_insights)} decision rules from the Muscle OS knowledge vault.")

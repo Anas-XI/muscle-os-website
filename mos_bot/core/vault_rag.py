@@ -12,6 +12,8 @@ from dataclasses import dataclass, asdict
 from datetime import datetime
 
 import numpy as np
+import math
+from collections import defaultdict, Counter
 from sentence_transformers import SentenceTransformer
 import faiss
 
@@ -74,14 +76,76 @@ class VaultIndexer:
                 return line[3:].strip()
         return filepath.stem
 
-    def extract_pillar(self, path: Path) -> Optional[str]:
-        """Determine which pillar this document belongs to"""
-        parts = path.parts
-        for part in parts:
-            if part.startswith('Pillar') and 'Pillar' in part:
-                match = re.search(r'Pillar\s*(\d+)', part)
-                if match:
-                    return f"Pillar {match.group(1)}"
+    def extract_pillar(self, path: Path, content: str = "") -> Optional[str]:
+        """Determine which pillar this document belongs to via path, filename, or content."""
+        path_str = str(path).lower()
+
+        # Direct Pillar X in path or filename
+        match = re.search(r'pillar\s*(\d+)', path_str)
+        if match:
+            return f"Pillar {match.group(1)}"
+
+        # Folder / File keyword mappings
+        filename = path.stem.lower()
+
+        # Pillar 1 - Diet
+        if any(k in path_str for k in ["food database", "nutrition", "diet", "calorie", "protein", "macronutrient", "bulking", "cutting", "fat loss", "refeed", "reverse diet"]):
+            return "Pillar 1"
+
+        # Pillar 2 - Training
+        if any(k in path_str for k in ["exercises", "exercise index", "training", "hypertrophy", "split", "volume", "muscle ladder", "schoenfeld", "progressive overload"]):
+            return "Pillar 2"
+
+        # Pillar 3 - Sleep
+        if any(k in path_str for k in ["sleep", "circadian", "melatonin", "shift work"]):
+            return "Pillar 3"
+
+        # Pillar 4 - Recovery & Rehab
+        if any(k in path_str for k in ["rehab", "recovery", "mobility", "posture", "injury", "rotator cuff", "knee", "patellar", "sciatica", "scoliosis", "neck"]):
+            return "Pillar 4"
+
+        # Pillar 5 - Strength
+        if any(k in path_str for k in ["strength", "1rm", "powerlifting", "rate of force"]):
+            return "Pillar 5"
+
+        # Pillar 6 - Fatigue & Deload
+        if any(k in path_str for k in ["deload", "fatigue", "overreaching", "overtraining", "allostatic"]):
+            return "Pillar 6"
+
+        # Pillar 7 - Adherence
+        if any(k in path_str for k in ["gentle entry", "adherence", "habit", "consistency", "psychology"]):
+            return "Pillar 7"
+
+        # Pillar 8 - Individualization & Profiles
+        if any(k in path_str for k in ["07_profiles", "individualization", "biomechanics", "female physiology", "masters athlete", "profile"]):
+            return "Pillar 8"
+
+        # Pillar 9 - Measurement & Assessments
+        if any(k in path_str for k in ["03_assessments", "measurement", "tracking", "calculator", "biofeedback", "bloodwork"]):
+            return "Pillar 9"
+
+        # Pillar 10 - Integration & Systems
+        if any(k in path_str for k in ["05_systems", "06_synergy", "integration", "core engine", "master protocol", "periodization"]):
+            return "Pillar 10"
+
+        # Content-based fallback if content is available
+        if content:
+            cl = content[:1500].lower()
+            if "diet" in cl or "protein" in cl or "calorie" in cl:
+                return "Pillar 1"
+            if "hypertrophy" in cl or "exercise" in cl or "reps" in cl:
+                return "Pillar 2"
+            if "sleep" in cl or "circadian" in cl:
+                return "Pillar 3"
+            if "rehab" in cl or "injury" in cl or "mobility" in cl:
+                return "Pillar 4"
+            if "strength" in cl or "1rm" in cl:
+                return "Pillar 5"
+            if "deload" in cl or "fatigue" in cl:
+                return "Pillar 6"
+            if "adherence" in cl or "habit" in cl:
+                return "Pillar 7"
+
         return None
 
     def extract_tags(self, content: str, path: Path) -> List[str]:
@@ -186,7 +250,7 @@ class VaultIndexer:
                 continue
 
             section_title = self.extract_section_title(content, md_file)
-            pillar = self.extract_pillar(md_file)
+            pillar = self.extract_pillar(md_file, content)
             tags = self.extract_tags(content, md_file)
             rel_path = md_file.relative_to(VAULT_ROOT)
 
@@ -237,24 +301,90 @@ class VaultIndexer:
                 'created_at': datetime.now().isoformat(),
             }, f, indent=2)
 
-    def load_index(self):
+    def load_index(self, index_dir: Optional[Path] = None):
         """Load index and chunks from disk"""
-        self.index = faiss.read_index(str(INDEX_DIR / "faiss_index.bin"))
-        with open(INDEX_DIR / "chunks.pkl", 'rb') as f:
+        target_dir = index_dir or INDEX_DIR
+        self.index = faiss.read_index(str(target_dir / "faiss_index.bin"))
+        with open(target_dir / "chunks.pkl", 'rb') as f:
             self.chunks = pickle.load(f)
-        # Re-encode for verification (optional, skip for speed)
-        # self.embeddings = self.model.encode([c.content for c in self.chunks])
 
-    def search(self, query: str, top_k: int = 10, filter_pillar: Optional[str] = None,
-               filter_tags: Optional[List[str]] = None) -> List[Tuple[VaultChunk, float]]:
-        """Semantic search over vault chunks"""
+    def load(self, index_dir: Optional[Path] = None):
+        """Alias for load_index for backward compatibility"""
+        self.load_index(index_dir)
+
+    def _init_bm25(self):
+        """Build or verify in-memory BM25 lexical index over chunks."""
+        if hasattr(self, "_bm25_built") and self._bm25_built:
+            return
+
+        import math
+        self._doc_lengths = []
+        self._tf = []  # List of Counter per doc
+        self._df = defaultdict(int)  # Document frequencies per term
+        self._num_docs = len(self.chunks)
+
+        for chunk in self.chunks:
+            tokens = re.findall(r'\b[a-zA-Z0-9_\-]+\b', chunk.content.lower())
+            self._doc_lengths.append(len(tokens))
+            term_counts = Counter(tokens)
+            self._tf.append(term_counts)
+            for t in term_counts:
+                self._df[t] += 1
+
+        self._avg_doc_len = (sum(self._doc_lengths) / self._num_docs) if self._num_docs > 0 else 1.0
+        self._bm25_built = True
+
+    def search_bm25(self, query: str, top_k: int = 20, filter_pillar: Optional[str] = None,
+                    filter_tags: Optional[List[str]] = None) -> List[Tuple[VaultChunk, float]]:
+        """Lexical BM25 search for exact term matching."""
+        if not self.chunks:
+            self.load_index()
+        self._init_bm25()
+
+        query_tokens = re.findall(r'\b[a-zA-Z0-9_\-]+\b', query.lower())
+        if not query_tokens or self._num_docs == 0:
+            return []
+
+        k1 = 1.5
+        b = 0.75
+        scores = []
+
+        for idx, chunk in enumerate(self.chunks):
+            # Apply filters
+            if filter_pillar and chunk.pillar and filter_pillar.lower() not in chunk.pillar.lower():
+                continue
+            if filter_tags and not any(tag in chunk.tags for tag in filter_tags):
+                continue
+
+            doc_len = self._doc_lengths[idx]
+            tf_map = self._tf[idx]
+            doc_score = 0.0
+
+            for q in query_tokens:
+                if q in tf_map:
+                    freq = tf_map[q]
+                    df = self._df.get(q, 0)
+                    idf = max(0.1, math.log((self._num_docs - df + 0.5) / (df + 0.5) + 1.0))
+                    numerator = freq * (k1 + 1)
+                    denominator = freq + k1 * (1 - b + b * (doc_len / self._avg_doc_len))
+                    doc_score += idf * (numerator / denominator)
+
+            if doc_score > 0:
+                scores.append((chunk, doc_score))
+
+        scores.sort(key=lambda x: -x[1])
+        return scores[:top_k]
+
+    def search_dense(self, query: str, top_k: int = 20,
+                     filter_pillar: Optional[str] = None,
+                     filter_tags: Optional[List[str]] = None) -> List[Tuple[VaultChunk, float]]:
+        """Pure dense semantic search via FAISS embeddings."""
         if self.index is None:
             self.load_index()
 
         query_emb = self.model.encode([query]).astype('float32')
         faiss.normalize_L2(query_emb)
 
-        # Search more than needed for filtering
         search_k = min(top_k * 5, len(self.chunks))
         scores, indices = self.index.search(query_emb, search_k)
 
@@ -264,8 +394,7 @@ class VaultIndexer:
                 continue
             chunk = self.chunks[idx]
 
-            # Apply filters
-            if filter_pillar and chunk.pillar != filter_pillar:
+            if filter_pillar and chunk.pillar and filter_pillar.lower() not in chunk.pillar.lower():
                 continue
             if filter_tags and not any(tag in chunk.tags for tag in filter_tags):
                 continue
@@ -275,6 +404,32 @@ class VaultIndexer:
                 break
 
         return results
+
+    def search(self, query: str, top_k: int = 10, k: Optional[int] = None,
+               filter_pillar: Optional[str] = None,
+               filter_tags: Optional[List[str]] = None) -> List[Tuple[VaultChunk, float]]:
+        """Hybrid search combining Dense FAISS + Sparse BM25 via Reciprocal Rank Fusion (RRF)."""
+        if k is not None:
+            top_k = k
+
+        dense_results = self.search_dense(query, top_k=top_k * 3, filter_pillar=filter_pillar, filter_tags=filter_tags)
+        bm25_results = self.search_bm25(query, top_k=top_k * 3, filter_pillar=filter_pillar, filter_tags=filter_tags)
+
+        # Reciprocal Rank Fusion (RRF) with constant 60
+        rrf_scores = defaultdict(float)
+        chunk_map = {}
+
+        for rank, (chunk, score) in enumerate(dense_results):
+            rrf_scores[chunk.id] += 1.0 / (60.0 + rank + 1)
+            chunk_map[chunk.id] = chunk
+
+        for rank, (chunk, score) in enumerate(bm25_results):
+            rrf_scores[chunk.id] += 1.0 / (60.0 + rank + 1)
+            chunk_map[chunk.id] = chunk
+
+        fused = [(chunk_map[cid], rrf_score) for cid, rrf_score in rrf_scores.items()]
+        fused.sort(key=lambda x: -x[1])
+        return fused[:top_k]
 
     def get_relevant_context(self, query: str, max_chunks: int = 8,
                              pillars: Optional[List[str]] = None) -> str:
@@ -295,16 +450,17 @@ class VaultIndexer:
                 seen.add(chunk.source_path)
                 unique_results.append((chunk, score))
 
-        unique_results.sort(key=lambda x: x[1], reverse=True)
+        unique_results.sort(key=lambda x: -x[1])
         unique_results = unique_results[:max_chunks]
 
         if not unique_results:
             return "No relevant vault content found."
 
-        context_parts = ["=== VAULT CONTEXT ==="]
+        context_parts = ["=== VAULT CONTEXT (HYBRID RAG) ==="]
         for chunk, score in unique_results:
-            context_parts.append(f"\n--- {chunk.section_title} (from {chunk.source_path}) [score: {score:.3f}] ---")
-            context_parts.append(chunk.content[:1500])  # Limit chunk size
+            pillar_tag = f" [{chunk.pillar}]" if chunk.pillar else ""
+            context_parts.append(f"\n--- {chunk.section_title}{pillar_tag} (from {chunk.source_path}) [RRF score: {score:.4f}] ---")
+            context_parts.append(chunk.content[:1500])
 
         return '\n'.join(context_parts)
 

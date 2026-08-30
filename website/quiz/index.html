@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/client https://accounts.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style https://www.gstatic.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com https://accounts.google.com https://www.gstatic.com https://ssl.gstatic.com; frame-src 'self' https://accounts.google.com/gsi/ https://accounts.google.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev https://accounts.google.com/gsi/ https://accounts.google.com; frame-ancestors 'self'; base-uri 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Which Pillar Is Your Weakness? — Muscle OS</title>
+<title>Which Book Should You Read First? — Muscle OS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#14151A;--ink-2:#1E2027;--ink-3:#26282F;--yellow:#F4C93B;--paper:#FAFAF8;--gray:#8A8D96;--line:#2C2E37;--green:#4CAF50}
+:root{--ink:#14151A;--ink-2:#1E2027;--ink-3:#26282F;--yellow:#F4C93B;--paper:#FAFAF8;--gray:#8A8D96;--line:#2C2E37}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',sans-serif;background:var(--ink);color:#fff;line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
 a{color:var(--yellow);text-decoration:none}
@@ -22,85 +26,87 @@ header{background:rgba(20,21,26,.95);border-bottom:1px solid var(--line)}
 .nav-links a:hover{color:var(--yellow)}
 main{flex:1;padding:60px 0}
 .card{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:48px 40px}
-.q-badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 10px;border-radius:3px;margin-bottom:16px;background:rgba(255,215,0,.1);color:#FFD700;border:1px solid rgba(255,215,0,.2)}
-.card h1{font-family:'Oswald',sans-serif;font-size:clamp(26px,4vw,34px);font-weight:700;text-transform:uppercase;margin-bottom:8px;line-height:1.2}
+.badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 10px;border-radius:3px;margin-bottom:16px;background:rgba(255,215,0,.1);color:#FFD700;border:1px solid rgba(255,215,0,.2)}
+.card h1{font-family:'Oswald',sans-serif;font-size:clamp(26px,4vw,36px);font-weight:700;text-transform:uppercase;margin-bottom:10px;line-height:1.2}
 .card h1 span{color:var(--yellow)}
-.card .sub{color:var(--gray);font-size:15px;margin-bottom:24px;line-height:1.6}
-.progress-bar{height:4px;background:var(--line);border-radius:2px;margin-bottom:28px;overflow:hidden}
-.progress-fill{height:100%;background:var(--yellow);border-radius:2px;transition:width .4s ease}
-.question{display:none}
-.question.active{display:block}
-.qnum{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gray);margin-bottom:6px}
-.qtext{font-size:17px;font-weight:600;margin-bottom:20px;line-height:1.35}
+.card .sub{color:var(--gray);font-size:14px;margin-bottom:24px;line-height:1.6}
+.progress{display:flex;align-items:center;gap:10px;margin-bottom:28px}
+.progress .p-track{flex:1;height:4px;background:var(--line);border-radius:2px;overflow:hidden}
+.progress .p-fill{height:100%;background:var(--yellow);border-radius:2px;transition:width .4s ease}
+.progress .p-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gray);white-space:nowrap}
+.step{display:none}
+.step.active{display:block}
+.step .q-icon{font-size:36px;margin-bottom:8px;text-align:center}
+.step .q-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--gray);margin-bottom:8px;text-align:center}
+.step .q-text{font-size:18px;font-weight:600;margin-bottom:20px;line-height:1.35;text-align:center}
 .options{display:flex;flex-direction:column;gap:8px}
-.option{background:var(--ink-3);border:1px solid var(--line);border-radius:8px;padding:14px 18px;cursor:pointer;transition:all .2s;font-size:14px;line-height:1.4;position:relative}
+.option{background:var(--ink-3);border:1px solid var(--line);border-radius:8px;padding:15px 20px;cursor:pointer;transition:all .2s;font-size:14px;line-height:1.4}
 .option:hover{border-color:var(--yellow);background:rgba(244,201,59,.05)}
 .option.selected{border-color:var(--yellow);background:rgba(244,201,59,.1)}
-.option .opt-icon{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:16px;opacity:0;transition:opacity .2s}
-.option.selected .opt-icon{opacity:1}
 .nav-btns{display:flex;gap:12px;margin-top:24px}
 .btn{flex:1;padding:14px 24px;border-radius:8px;border:none;font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.5px;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif}
 .btn-prev{background:transparent;border:1px solid var(--line);color:var(--gray)}
 .btn-prev:hover{border-color:var(--yellow);color:#fff}
 .btn-next{background:var(--yellow);color:var(--ink)}
-.btn-next:hover{background:#fff}
-.btn-next:disabled{opacity:.4;cursor:not-allowed}
+.btn-next:hover{background:#fff}.btn-next:disabled{opacity:.4;cursor:not-allowed}
+/* Intro */
 .intro-pills{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:28px}
 .intro-pills span{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 10px;border-radius:3px;border:1px solid currentColor}
-.btn-start{display:inline-block;background:var(--yellow);color:var(--ink);font-weight:700;font-size:15px;padding:16px 40px;border-radius:8px;border:none;cursor:pointer;text-transform:uppercase;letter-spacing:.5px;font-family:'Inter',sans-serif;transition:background .2s;width:100%}
-.btn-start:hover{background:#fff}.btn-start:disabled{opacity:.4;cursor:not-allowed}
-.btn-restart{background:transparent;border:1px solid var(--line);color:var(--gray);font-weight:600;font-size:13px;padding:12px 24px;border-radius:8px;cursor:pointer;text-transform:uppercase;letter-spacing:.5px;margin-top:12px;font-family:'Inter',sans-serif;transition:all .2s}
-.btn-restart:hover{border-color:var(--yellow);color:#fff}
-.form-group{margin-bottom:16px;text-align:left}
+.form-group{margin-bottom:14px;text-align:left}
 .form-group label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--gray);margin-bottom:5px}
 .form-group input,.form-group select{width:100%;padding:12px 14px;background:var(--ink);border:1px solid var(--line);border-radius:6px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s}
-.form-group input:focus,.form-group select:focus{border-color:var(--yellow)}.form-group select option{background:var(--ink-2);color:#fff}
+.form-group input:focus,.form-group select:focus{border-color:var(--yellow)}
+.form-group select option{background:var(--ink-2);color:#fff}
 .form-row{display:flex;gap:12px}.form-row .form-group{flex:1}
-/* Results */
-.result{display:none}
+.btn-start{background:var(--yellow);color:var(--ink);font-weight:700;font-size:15px;padding:16px 40px;border-radius:8px;border:none;cursor:pointer;text-transform:uppercase;letter-spacing:.5px;font-family:'Inter',sans-serif;transition:background .2s;width:100%}
+.btn-start:hover{background:#fff}
+/* Result */
+.result{display:none;text-align:center}
 .result.active{display:block}
-.r-header{text-align:center;margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--line)}
 .r-icon{font-size:44px;margin-bottom:8px}
-.r-header h2{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;text-transform:uppercase}
-.r-header h2 span{color:var(--yellow)}
-.r-header .r-name{color:var(--gray);font-size:14px;margin-top:4px}
-.r-summary{background:var(--ink-3);border-radius:8px;padding:20px;margin-bottom:24px;border-left:3px solid}
-.r-summary .s-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--gray);margin-bottom:6px}
-.r-summary .s-title{font-family:'Oswald',sans-serif;font-size:18px;font-weight:700;margin-bottom:6px}
-.r-summary .s-desc{font-size:13px;color:var(--gray);line-height:1.55}
-.r-section-title{font-family:'Oswald',sans-serif;font-size:16px;font-weight:600;text-transform:uppercase;margin-bottom:12px;margin-top:24px;padding-bottom:6px;border-bottom:1px solid var(--line);color:var(--yellow)}
-.score-chart{margin-bottom:24px}
-.score-bar-wrap{display:flex;align-items:center;gap:8px;margin:5px 0}
-.score-bar-label{font-size:11px;font-weight:600;width:90px;text-align:right;color:var(--gray);text-transform:uppercase;letter-spacing:.3px;flex-shrink:0}
-.score-bar-track{flex:1;height:7px;background:var(--line);border-radius:4px;overflow:hidden}
-.score-bar-fill{height:100%;border-radius:4px;transition:width 1s ease}
-.score-bar-pct{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gray);width:28px;flex-shrink:0}
-.pillar-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
-.pillar-card{background:var(--ink-3);border:1px solid var(--line);border-radius:8px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.pillar-card .p-left{flex:1;min-width:0}
-.pillar-card .p-badge{display:inline-block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:2px 8px;border-radius:3px;margin-bottom:3px}
-.pillar-card .p-name{font-weight:600;font-size:14px;margin-bottom:2px}
-.pillar-card .p-advice{font-size:12px;color:var(--gray);line-height:1.4}
-.pillar-card .p-action{background:var(--yellow);color:var(--ink);font-weight:700;font-size:11px;padding:8px 14px;border-radius:6px;text-transform:uppercase;letter-spacing:.3px;white-space:nowrap;transition:background .2s;flex-shrink:0}
-.pillar-card .p-action:hover{background:#fff}
-.r-cta{text-align:center;border-top:1px solid var(--line);padding-top:20px}
-.r-cta .bundle-link{display:inline-block;font-size:13px;color:var(--yellow);margin:4px 0}
-.r-cta .email-opt{margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
-.r-cta .email-opt p{font-size:12px;color:var(--gray);margin-bottom:8px}
-.email-row{display:flex;gap:8px}
-.email-row input{flex:1;padding:10px 14px;background:var(--ink);border:1px solid var(--line);border-radius:6px;color:#fff;font-size:13px;outline:none;font-family:'Inter',sans-serif}
-.email-row input:focus{border-color:var(--yellow)}
-.email-row button{padding:10px 18px;background:var(--yellow);color:var(--ink);border:none;border-radius:6px;font-weight:700;font-size:12px;cursor:pointer;text-transform:uppercase;letter-spacing:.3px;font-family:'Inter',sans-serif}
-.email-row button:hover{background:#fff}
-.email-sent{font-size:12px;color:var(--green);margin-top:6px;display:none}
-.action-plan{background:var(--ink-3);border-radius:8px;padding:20px;margin-bottom:16px}
-.action-plan ol{margin:0;padding-left:20px}
-.action-plan li{margin:6px 0;font-size:13px;color:#C7C9D0;line-height:1.5;padding-left:4px}
-.action-plan li strong{color:#fff}
-.share-row{display:flex;gap:8px;justify-content:center;margin-top:12px}
-.share-btn{background:transparent;border:1px solid var(--line);border-radius:6px;padding:8px 16px;color:var(--gray);font-size:11px;cursor:pointer;text-transform:uppercase;letter-spacing:.3px;transition:all .2s;font-weight:600;font-family:'Inter',sans-serif}
-.share-btn:hover{border-color:var(--yellow);color:#fff}
-@media(max-width:500px){.card{padding:28px 20px}.nav-btns{flex-direction:column}.form-row{flex-direction:column}.pillar-card{flex-direction:column;align-items:stretch}.pillar-card .p-action{text-align:center}}
+.r-title{font-family:'Oswald',sans-serif;font-size:clamp(22px,3vw,28px);font-weight:700;text-transform:uppercase;margin-bottom:4px;line-height:1.2}
+.r-title span{color:var(--yellow)}
+.r-sub{color:var(--gray);font-size:14px;margin-bottom:20px}
+.r-book-card{background:var(--ink-3);border:2px solid;border-radius:12px;padding:28px;margin-bottom:20px;text-align:center}
+.r-book-card .r-badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 10px;border-radius:3px;margin-bottom:10px}
+.r-book-card .r-book-name{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;margin-bottom:4px}
+.r-book-card .r-book-desc{font-size:13px;color:var(--gray);line-height:1.5;margin-bottom:12px}
+.r-book-card .r-book-action{display:inline-block;font-weight:700;font-size:13px;padding:12px 28px;border-radius:8px;text-transform:uppercase;letter-spacing:.3px;transition:all .2s}
+.r-book-card .r-book-action:hover{opacity:.85}
+.r-why{text-align:left;background:var(--ink-2);border:1px solid var(--line);border-radius:8px;padding:18px;margin-bottom:20px}
+.r-why .w-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--gray);margin-bottom:6px}
+.r-why .w-text{font-size:13px;color:#C7C9D0;line-height:1.55}
+.r-alt{text-align:left;margin-bottom:20px}
+.r-alt .a-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--gray);margin-bottom:8px}
+.r-alt-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px}
+.r-alt-item:last-child{border-bottom:none}
+.r-alt-item .a-name{color:#C7C9D0}
+.r-alt-item .a-link{color:var(--yellow);font-weight:600;font-size:11px;text-transform:uppercase}
+.r-cta{border-top:1px solid var(--line);padding-top:20px;margin-top:8px}
+.r-cta p{font-size:13px;color:var(--gray);margin-bottom:10px}
+.r-cta .bundle-link{display:inline-block;font-size:14px;font-weight:700;color:var(--yellow)}
+.r-cta .sample-link{font-size:12px;color:var(--gray);margin-top:10px;display:inline-block}
+.full-check{display:inline-block;margin-top:16px;font-size:12px;color:var(--gray);cursor:pointer;border:none;background:none;font-family:'Inter',sans-serif;text-decoration:underline}
+.full-check:hover{color:#fff}
+.btn-restart{background:transparent;border:1px solid var(--line);color:var(--gray);font-weight:600;font-size:12px;padding:10px 20px;border-radius:8px;cursor:pointer;text-transform:uppercase;letter-spacing:.3px;margin-top:16px;font-family:'Inter',sans-serif;transition:all .2s}
+.btn-restart:hover{border-color:var(--yellow);color:#fff}
+/* Deep dive sliders */
+.deep-dive{display:none;margin-top:24px;padding-top:20px;border-top:1px solid var(--line);text-align:left}
+.deep-dive.active{display:block}
+.deep-dive .dd-title{font-family:'Oswald',sans-serif;font-size:16px;font-weight:600;text-transform:uppercase;margin-bottom:16px;color:var(--yellow)}
+.quick-q{margin-bottom:14px;padding:14px;background:var(--ink-3);border-radius:8px;border:1px solid var(--line)}
+.quick-q .qq-text{font-size:13px;font-weight:600;margin-bottom:8px}
+.quick-q .qq-options{display:flex;gap:6px;flex-wrap:wrap}
+.quick-q .qq-opt{padding:6px 14px;border-radius:4px;border:1px solid var(--line);background:transparent;color:var(--gray);cursor:pointer;font-size:12px;transition:all .2s;font-family:'Inter',sans-serif}
+.quick-q .qq-opt:hover{border-color:var(--yellow);color:#fff}
+.quick-q .qq-opt.selected{border-color:var(--yellow);background:var(--yellow);color:var(--ink);font-weight:600}
+.dd-score{margin-top:16px;padding:16px;background:var(--ink-3);border-radius:8px}
+.dd-score .ds-row{display:flex;align-items:center;gap:8px;margin:4px 0}
+.ds-row .ds-name{font-size:11px;font-weight:600;width:80px;text-align:right;color:var(--gray);text-transform:uppercase}
+.ds-row .ds-bar{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.ds-row .ds-fill{height:100%;border-radius:3px;transition:width .5s}
+.ds-row .ds-val{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gray);width:20px}
+@media(max-width:500px){.card{padding:28px 20px}.nav-btns{flex-direction:column}.form-row{flex-direction:column}}
 </style>
 </head>
 <body>
@@ -118,218 +124,291 @@ main{flex:1;padding:60px 0}
 <main>
 <div class="wrap">
 <div class="card" id="app">
-  <!-- INTRO -->
-  <div id="intro">
-    <div class="q-badge">2-Minute Assessment</div>
-    <h1>Which Pillar Is<br><span>Your Weakness?</span></h1>
-    <p class="sub">Answer a few quick questions about your training, nutrition, and recovery to identify which Muscle OS pillar needs the most attention &mdash; and get a personalised action plan with book recommendations.</p>
-    <div class="intro-pills">
-      <span style="color:#4CAF50">Diet</span>
-      <span style="color:#2196F3">Training</span>
-      <span style="color:#FF9800">Strength</span>
-      <span style="color:#CE93D8">Recovery</span>
-      <span style="color:#4DD0E1">Sleep</span>
-      <span style="color:#EF9A9A">Hormones</span>
-    </div>
-    <div class="form-row">
-      <div class="form-group"><label>Your name</label><input type="text" id="userName" placeholder="e.g. Ahmed" autocomplete="name"></div>
-      <div class="form-group"><label>Training experience</label><select id="userExp"><option value="beginner">&lt; 1 year</option><option value="intermediate" selected>1&#8211;3 years</option><option value="advanced">3+ years</option></select></div>
-    </div>
-    <button class="btn-start" onclick="startQuiz()" id="startBtn">Start the Assessment &rarr;</button>
-  </div>
+ <!-- INTRO -->
+ <div id="intro">
+ <div class="badge">60-Second Diagnostic</div>
+ <h1>Which Book Should<br><span>You Read First?</span></h1>
+ <p class="sub">Answer a few quick questions and we&#8217;ll match you to the one Muscle OS pillar that will make the biggest difference right now.</p>
+ <div class="intro-pills">
+ <span style="color:#4CAF50">P1 Diet</span>
+ <span style="color:#2196F3">P2 Training</span>
+ <span style="color:#FF9800">P3 Strength</span>
+ <span style="color:#CE93D8">P4 Recovery</span>
+ <span style="color:#4DD0E1">P5 Sleep</span>
+ <span style="color:#EF9A9A">P6 Hormones</span>
+ </div>
+ <div class="form-row">
+ <div class="form-group"><label>Your name</label><input type="text" id="userName" placeholder="e.g. Ahmed" autocomplete="name"></div>
+ <div class="form-group"><label>Experience</label><select id="userExp"><option value="beginner">&lt; 1 year</option><option value="intermediate" selected>1&#8211;3 years</option><option value="advanced">3+ years</option></select></div>
+ </div>
+ <button class="btn-start" onclick="startQuiz()">Find My Book &rarr;</button>
+ </div>
 
-  <!-- QUIZ -->
-  <div id="quiz" style="display:none">
-    <div class="q-badge" id="qBadge">Question 1 of 8</div>
-    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-    <div id="questionsContainer"></div>
-    <div class="nav-btns">
-      <button class="btn btn-prev" id="prevBtn" onclick="prevQuestion()">Back</button>
-      <button class="btn btn-next" id="nextBtn" onclick="nextQuestion()" disabled>Next</button>
-    </div>
-  </div>
+ <!-- QUIZ -->
+ <div id="quiz" style="display:none">
+ <div class="progress"><div class="p-num" id="pNum">Step 1 of 3</div><div class="p-track"><div class="p-fill" id="pFill" style="width:0%"></div></div></div>
+ <div id="stepsContainer"></div>
+ <div class="nav-btns">
+ <button class="btn btn-prev" id="prevBtn" onclick="prevStep()" style="display:none">Back</button>
+ <button class="btn btn-next" id="nextBtn" onclick="nextStep()" disabled>Next</button>
+ </div>
+ </div>
 
-  <!-- RESULTS -->
-  <div id="results" style="display:none"></div>
+ <!-- RESULT -->
+ <div id="result" class="result"></div>
 </div>
 </div>
 </main>
 <footer>&copy; muscleos.coach &mdash; <a href="https://wa.me/201040796017">Start your coaching journey &rarr;</a></footer>
 
 <script>
-const PILLARS = [
-  {id:'diet',name:'Diet & Nutrition',color:'#4CAF50',book:'../books/muscle_os_nutrition_book.html',badge:'P1',advice:{high:'Master energy balance, macronutrient periodisation, and meal timing to take your physique to the next level.',mid:'Strengthen your nutritional foundation &mdash; consistent tracking, protein targets, and structured meal timing will unlock your next phase of progress.',low:'You have a solid nutritional baseline. Focus on fine-tuning: micronutrient density, chrononutrition, and advanced cycling protocols.'}},
-  {id:'training',name:'Training & Programming',color:'#2196F3',book:'../books/muscle_os_training_book.html',badge:'P2',advice:{high:'You need a structured programme with clear progression. Volume landmarks, exercise selection, and periodisation will get you moving again.',mid:'Your training is decent but could benefit from more systematic periodisation and autoregulation techniques.',low:'You have strong programming fundamentals. Look into advanced periodisation models and special population protocols.'}},
-  {id:'strength',name:'Strength Maxing',color:'#FF9800',book:'../books/muscle_os_strength.html',badge:'P3',advice:{high:'Focus on neural adaptations and specific strength programming. Your squat, bench, and deadlift need targeted periodisation.',mid:'You have some strength base. Peaking protocols and autoregulation will help you break through plateaus.',low:'Your strength is well-developed. Advanced conjugate or block periodisation can push you further.'}},
-  {id:'recovery',name:'Recovery & Fatigue Mgmt',color:'#CE93D8',book:'../books/muscle_os_recovery.html',badge:'P4',advice:{high:'Recovery is your biggest bottleneck. HRV tracking, deload protocols, and stress management will transform your progress.',mid:'Your recovery could be better. Focus on sleep quality, active recovery sessions, and stress hormone management.',low:'You manage recovery well. Fine-tune with advanced modalities like cold/heat therapy and breathwork.'}},
-  {id:'sleep',name:'Sleep Optimization',color:'#4DD0E1',book:'../books/muscle_os_sleep.html',badge:'P5',advice:{high:'Sleep is undermining your results. Circadian alignment, sleep hygiene, and light management should be your top priority.',mid:'Sleep could be better. Chronotype alignment and wind-down routines will improve your sleep quality.',low:'Your sleep is managed well. Explore N-of-1 experiments to optimise further.'}},
-  {id:'hormones',name:'Hormonal Optimization',color:'#EF9A9A',book:'../books/muscle_os_hormonal_book.html',badge:'P6',advice:{high:'Hormonal factors may be limiting you. Biomarker assessment, stress hormone management, and endocrine-informed programming can help.',mid:'Your hormones may need fine-tuning. Check the foundational pillars first, then explore specific hormonal protocols.',low:'Your hormonal health appears stable. Monitor biomarkers periodically and maintain your current practices.'}}
-];
+var userName='',userExp='intermediate';
+var steps=[],currentStep=0,answers={},resultBook=null;
 
-const QUESTIONS = [
-  {q:'What is your #1 frustration right now?',options:[
-    {text:'I\'m not seeing visible changes in my body',s:{diet:2,training:1}},
-    {text:'My lifts have stalled and won\'t budge',s:{training:2,strength:2}},
-    {text:'I feel constantly tired and can\'t recover',s:{recovery:2,sleep:1}},
-    {text:'I struggle with cravings, consistency, and discipline',s:{diet:2}},
-    {text:'My mood, energy, or drive feels off',s:{hormones:2,sleep:1}}
-  ]},
-  {q:'How consistent is your nutrition?',options:[
-    {text:'Track everything, hit targets 90%+ of the time',s:{diet:0}},
-    {text:'Track loosely &mdash; know my targets but don\'t always hit them',s:{diet:1}},
-    {text:'No structured approach, eat by feel',s:{diet:2}},
-    {text:'Struggle with portion control on weekends / social events',s:{diet:1}},
-    {text:'Nutrition is my strong suit &mdash; dialled in',s:{diet:0}}
-  ]},
-  {q:'How is your training progression?',options:[
-    {text:'Steady progress, adding weight/reps regularly',s:{training:0,strength:0}},
-    {text:'Stuck at the same weights for weeks or months',s:{training:2,strength:1}},
-    {text:'Don\'t know what programme or split to follow',s:{training:2}},
-    {text:'Technique feels off, not sure what to fix',s:{training:1,strength:1}},
-    {text:'Keep getting nagging injuries or joint pain',s:{recovery:1,training:1}}
-  ]},
-  {q:'How would you describe your sleep?',options:[
-    {text:'7&#8211;9 hours, wake up feeling rested',s:{sleep:0}},
-    {text:'Enough hours but wake up unrefreshed',s:{sleep:1,recovery:1}},
-    {text:'Struggle to fall asleep or stay asleep',s:{sleep:2}},
-    {text:'Inconsistent schedule due to work / life',s:{sleep:2}},
-    {text:'Sleep is optional — I don\'t prioritise it',s:{sleep:2}}
-  ]},
-  {q:'How are your energy and stress levels?',options:[
-    {text:'Energised, motivated, handle stress well',s:{recovery:0,hormones:0}},
-    {text:'Drained by mid-afternoon most days',s:{recovery:1,sleep:1}},
-    {text:'Chronically stressed, can\'t switch off',s:{recovery:2,hormones:1}},
-    {text:'Mood swings, low motivation, or low libido',s:{hormones:2}},
-    {text:'Sore for days after hard sessions',s:{recovery:2}}
-  ]},
-  {q:'What describes your current strength levels?',options:[
-    {text:'I focus on strength and track my main lifts',s:{strength:0}},
-    {text:'I want to get stronger but don\'t have a plan',s:{strength:2,training:1}},
-    {text:'Not a priority right now &mdash; hypertrophy is my focus',s:{strength:0}},
-    {text:'I\'ve plateaued on my main lifts for weeks',s:{strength:2}},
-    {text:'I don\'t know what my 1RM or working max is',s:{strength:1}}
-  ]},
-  {q:'How many rest days do you take per week?',options:[
-    {text:'2&#8211;3 rest days, feel recovered between sessions',s:{recovery:0}},
-    {text:'1 or less &mdash; I train almost every day',s:{recovery:2,sleep:1}},
-    {text:'3+ rest days &mdash; I feel I need more recovery',s:{recovery:1}},
-    {text:'I take rest days but don\'t feel recovered on them',s:{recovery:2}},
-    {text:'My rest days are active (light cardio, walking)',s:{recovery:0}}
-  ]},
-  {q:'How would you rate your overall diet quality?',options:[
-    {text:'Whole foods, balanced meals, minimal processed food',s:{diet:0,hormones:0}},
-    {text:'Decent but too much takeout / eating out',s:{diet:1}},
-    {text:'Low protein, high carbs, or high fat consistently',s:{diet:1,hormones:1}},
-    {text:'I over-restrict then binge',s:{diet:2,recovery:1}},
-    {text:'I eat clean but probably not enough total food',s:{diet:1,sleep:0}}
-  ]}
-];
+function q(txt,opts){return{text:txt,options:opts}}
+function opt(txt,next){return{text:txt,next:next}}
 
-let userName='';let userExp='intermediate';let answers={};let currentQ=0;
+function buildTree(){
+ var S={};
+ S.start=q('What is your primary goal right now?',[
+ opt('Build muscle & improve my physique','physique'),
+ opt('Get stronger & lift more','strength'),
+ opt('Improve my health, energy & how I feel','health')
+ ]);
+ S.physique=q('What is blocking your physique progress the most?',[
+ opt('I don\u2019t know what or how much to eat','diet'),
+ opt('My training programme isn\u2019t structured','training'),
+ opt('I\u2019m not recovering or sleeping well','recovery_check')
+ ]);
+ S.strength=q('What is blocking your strength gains?',[
+ opt('I don\u2019t have a proper strength programme','training'),
+ opt('I\u2019ve been stuck at the same weights for weeks','strength_book')
+ ]);
+ S.health=q('What is affecting your health the most?',[
+ opt('Poor sleep quality or inconsistent sleep','sleep'),
+ opt('Chronic fatigue, poor recovery, high stress','recovery'),
+ opt('Hormonal issues \u2014 low libido, mood swings, energy','hormones')
+ ]);
+ S.recovery_check=q('What kind of recovery issues?',[
+ opt('Poor sleep despite trying everything','sleep'),
+ opt('General fatigue, stress, feeling overtrained','recovery')
+ ]);
+ steps=[S.start,S.physique,S.strength,S.health,S.recovery_check];
+ var idMap={
+ physique:'S.physique',strength:'S.strength',health:'S.health',
+ diet:'RESULT_diet',training:'RESULT_training',
+ strength_book:'RESULT_strength',sleep:'RESULT_sleep',
+ recovery:'RESULT_recovery',recovery_check:'S.recovery_check',
+ hormones:'RESULT_hormones'
+ };
+ S.start.options.forEach(function(o){o.nextKey=idMap[o.next]});
+ S.physique.options.forEach(function(o){o.nextKey=idMap[o.next]});
+ S.strength.options.forEach(function(o){o.nextKey=idMap[o.next]});
+ S.health.options.forEach(function(o){o.nextKey=idMap[o.next]});
+ S.recovery_check.options.forEach(function(o){o.nextKey=idMap[o.next]});
+ return S;
+}
+
+var tree=buildTree();
+var stepKeys=['start'];
 
 function startQuiz(){
-  var n=document.getElementById('userName').value.trim();userName=n||'there';userExp=document.getElementById('userExp').value;
-  document.getElementById('intro').style.display='none';document.getElementById('quiz').style.display='block';buildQuestions();showQuestion(0);
-  document.getElementById('startBtn').disabled=true}
-
-function buildQuestions(){var c=document.getElementById('questionsContainer');c.innerHTML='';
-  QUESTIONS.forEach(function(q,i){var d=document.createElement('div');d.className='question'+(i===0?' active':'');d.id='q'+i;
-  var html='<div class="qnum">QUESTION '+(i+1)+' OF 8</div><div class="qtext">'+q.q+'</div><div class="options">';
-  q.options.forEach(function(o,oi){var v=JSON.stringify(o.s);html+='<div class="option" onclick="selectOption('+i+','+oi+')"><span>'+o.text+'</span><span class="opt-icon">&#10003;</span></div>'});
-  html+='</div>';d.innerHTML=html;c.appendChild(d)})}
-
-function selectOption(qi,oi){var opts=document.querySelectorAll('#q'+qi+' .option');opts.forEach(function(o){o.classList.remove('selected')});opts[oi].classList.add('selected');
-  answers[qi]=JSON.parse(opts[oi].querySelector(':scope > span:first-child')?opts[oi].getAttribute('onclick').match(/\d+/g).map(Number):[]);var clicks=opts[oi].getAttribute('onclick');
-  var m=clicks.match(/selectOption\((\d+),(\d+)\)/);if(m&&parseInt(m[1])===qi){var idx=parseInt(m[2]);answers[qi]=JSON.parse(q.options[idx].s);}
-  document.getElementById('nextBtn').disabled=false}
-
-// Fix: rebuild selectOption to be cleaner
-function rebuildSelect(){var questions=document.querySelectorAll('.question');questions.forEach(function(q){q.innerHTML=q.innerHTML})}
-// Actually let's just reinitialize properly
-document.addEventListener('DOMContentLoaded',function(){
-  // Re-select stored answers on show
-});
-
-// Simpler selectOption that works
-window.selectOption = function(qi,oi){
-  var qData=QUESTIONS[qi];var opts=document.querySelectorAll('#q'+qi+' .option');
-  opts.forEach(function(o){o.classList.remove('selected')});opts[oi].classList.add('selected');
-  answers[qi]=qData.options[oi].s;document.getElementById('nextBtn').disabled=false;
+ userName=document.getElementById('userName').value.trim()||'there';
+ userExp=document.getElementById('userExp').value;
+ document.getElementById('intro').style.display='none';
+ document.getElementById('quiz').style.display='block';
+ answers={};currentStep=0;stepKeys=['start'];
+ renderStep('start');updateProgress();
 }
 
-function showQuestion(i){
-  var qs=document.querySelectorAll('.question');qs.forEach(function(q){q.classList.remove('active')});
-  document.getElementById('q'+i).classList.add('active');currentQ=i;
-  document.getElementById('qBadge').textContent='Question '+(i+1)+' of 8';
-  document.getElementById('progressFill').style.width=((i+1)/8*100)+'%';
-  document.getElementById('prevBtn').style.display=i===0?'none':'inline-block';
-  document.getElementById('nextBtn').textContent=i===7?'See Results':'Next';
-  document.getElementById('nextBtn').disabled=!answers[i];
-  if(answers[i]){var opts=document.querySelectorAll('#q'+i+' .option');
-    opts.forEach(function(o){var txt=o.textContent.replace('✓','').trim();var matchIdx=-1;QUESTIONS[i].options.forEach(function(qo,oi){if(qo.text.replace(/<[^>]+>/g,'').trim()===txt)matchIdx=oi});if(matchIdx>=0&&JSON.stringify(QUESTIONS[i].options[matchIdx].s)===JSON.stringify(answers[i]))o.classList.add('selected')})}
+function getStep(key){
+ if(key==='start')return tree.start;
+ if(key==='S.physique')return tree.physique;
+ if(key==='S.strength')return tree.strength;
+ if(key==='S.health')return tree.health;
+ if(key==='S.recovery_check')return tree.recovery_check;
+ return null;
 }
 
-function prevQuestion(){if(currentQ>0)showQuestion(currentQ-1)}
-function nextQuestion(){if(currentQ===7)showResults();else showQuestion(currentQ+1)}
+function renderStep(key){
+ var step=getStep(key);
+ if(!step)return;
+ var c=document.getElementById('stepsContainer');
+ var html='<div class="step active"><div class="q-label">STEP '+(currentStep+1)+'</div><div class="q-text">'+step.text+'</div><div class="options">';
+ step.options.forEach(function(o,i){
+ html+='<div class="option" onclick="selectAnswer('+currentStep+','+i+')"><span>'+o.text+'</span></div>';
+ });
+ html+='</div></div>';
+ c.innerHTML=html;
+ // Re-select if already answered
+ if(answers[key]!==undefined){
+ var idx=answers[key];
+ var opts=c.querySelectorAll('.option');
+ if(opts[idx]){opts[idx].classList.add('selected');document.getElementById('nextBtn').disabled=false;}
+ }else{
+ document.getElementById('nextBtn').disabled=true;
+ }
+ document.getElementById('prevBtn').style.display=currentStep===0?'none':'inline-block';
+ document.getElementById('nextBtn').textContent=step.options[0]&&step.options[0].nextKey&&step.options[0].nextKey.startsWith('RESULT')?'See My Book':'Next';
+ updateProgress();
+}
 
-function showResults(){
-  document.getElementById('quiz').style.display='none';
-  var scores={};PILLARS.forEach(function(p){scores[p.id]=0});
-  Object.values(answers).forEach(function(as){Object.keys(as).forEach(function(k){scores[k]=(scores[k]||0)+as[k]})});
-  var maxScore=Math.max.apply(null,Object.values(scores))||1;
-  var sorted=PILLARS.slice().sort(function(a,b){return(scores[b.id]||0)-(scores[a.id]||0)});
-  var top3=sorted.filter(function(p){return scores[p.id]>0}).slice(0,3);
-  var primary=top3[0];if(!primary)primary=PILLARS[0];
+function selectAnswer(si,oi){
+ var key=stepKeys[si];
+ var step=getStep(key);if(!step)return;
+ answers[key]=oi;
+ var opts=document.querySelectorAll('#stepsContainer .option');
+ opts.forEach(function(o){o.classList.remove('selected')});
+ opts[oi].classList.add('selected');
+ document.getElementById('nextBtn').disabled=false;
+}
 
-  var r=document.getElementById('results');r.style.display='block';
-  var html='<div class="r-header"><div class="r-icon">&#128202;</div><h2>Your Top Priority: <span>'+primary.name+'</span></h2><p class="r-name">for '+userName+' &middot; '+(userExp==='beginner'?'<1 year':userExp==='intermediate'?'1\u20133 years':'3+ years')+' experience</p></div>';
+function nextStep(){
+ var key=stepKeys[currentStep];
+ var step=getStep(key);if(!step)return;
+ if(answers[key]===undefined)return;
+ var chosen=step.options[answers[key]];
+ if(chosen&&chosen.nextKey){
+ if(chosen.nextKey.startsWith('RESULT')){
+ resultBook=chosen.nextKey.replace('RESULT_','');
+ showResult(resultBook);
+ return;
+ }
+ currentStep++;
+ stepKeys.push(chosen.nextKey);
+ renderStep(chosen.nextKey);
+ }
+}
 
-  var tier='high';if(scores[primary.id]<=3)tier='mid';if(scores[primary.id]<=1)tier='low';
-  html+='<div class="r-summary" style="border-color:'+primary.color+'"><div class="s-label">&#9889; Your Biggest Lever</div><div class="s-title" style="color:'+primary.color+'">'+primary.badge+' '+primary.name+'</div><div class="s-desc">'+primary.advice[tier]+'</div></div>';
+function prevStep(){
+ if(currentStep>0){
+ currentStep--;
+ stepKeys.pop();
+ renderStep(stepKeys[currentStep]);
+ }
+}
 
-  html+='<div class="r-section-title">Full Pillar Score Breakdown</div><div class="score-chart">';
-  PILLARS.forEach(function(p){var sc=scores[p.id]||0;var pct=Math.round(sc/maxScore*100);html+='<div class="score-bar-wrap"><div class="score-bar-label">'+p.badge+'</div><div class="score-bar-track"><div class="score-bar-fill" style="width:'+pct+'%;background:'+p.color+'"></div></div><div class="score-bar-pct">'+sc+'</div></div>'});
-  html+='</div>';
+function updateProgress(){
+ var total=4;
+ var pct=Math.round((currentStep+1)/total*100);
+ document.getElementById('pFill').style.width=pct+'%';
+ document.getElementById('pNum').textContent='Step '+(currentStep+1)+' of 3';
+}
 
-  html+='<div class="r-section-title">Your Personalised Action Plan</div><div class="action-plan"><ol>';
-  var planSteps=[];var pAdvice=primary.advice[tier];planSteps.push('Start with <strong>'+primary.name+'</strong> &mdash; '+pAdvice.charAt(0).toLowerCase()+pAdvice.slice(1));
-  if(top3[1]){var t2=top3[1];var st2=scores[t2.id]<=3?'mid':'high';planSteps.push('Once stable, address <strong>'+t2.name+'</strong> &mdash; '+t2.advice[st2])}
-  if(userExp==='beginner')planSteps.push('Focus on consistency over optimisation. Master the fundamentals before adding complexity.');
-  else if(userExp==='advanced')planSteps.push('You have a strong base. Target marginal gains through N-of-1 experiments and advanced periodisation.');
-  planSteps.push('Re-take this assessment in 4\u20136 weeks to track your progress.');
-  planSteps.forEach(function(s){html+='<li>'+s+'</li>'});
-  html+='</ol></div>';
+var BOOKS={
+ diet:{name:'Diet & Nutrition',badge:'P1',color:'#4CAF50',book:'../books/muscle_os_nutrition_book.html',desc:'Master energy balance, macronutrient timing, and the P-Ratio. 33 chapters on everything from calorie cycling to adherence psychology.',sample:'../samples/#diet'},
+ training:{name:'Training & Programming',badge:'P2',color:'#2196F3',book:'../books/muscle_os_training_book.html',desc:'Program design, periodisation, exercise selection, volume landmarks, and autoregulation. 27 chapters of evidence-based coaching.',sample:'../samples/#training'},
+ strength:{name:'Strength Maxing',badge:'P3',color:'#FF9800',book:'../books/muscle_os_strength.html',desc:'Neural adaptations, squat/bench/deadlift programming, peaking, meet prep, and plateau breaking. 24 chapters.',sample:'../samples/#strength'},
+ recovery:{name:'Recovery & Fatigue Management',badge:'P4',color:'#CE93D8',book:'../books/muscle_os_recovery.html',desc:'ANS regulation, stress hormones, active recovery, HRV, deloads, and illness return. 24 chapters.',sample:'../samples/#recovery'},
+ sleep:{name:'Sleep Optimization',badge:'P5',color:'#4DD0E1',book:'../books/muscle_os_sleep.html',desc:'Circadian biology, sleep hygiene, light management, chronotype, shift work. 25 chapters.',sample:'../samples/#sleep'},
+ hormones:{name:'Hormonal Optimization',badge:'P6',color:'#EF9A9A',book:'../books/muscle_os_hormonal_book.html',desc:'Steroid hormones, thyroid, cortisol, female cycle, biomarkers. 25 chapters.',sample:'../samples/#hormones'}
+};
 
-  html+='<div class="r-section-title">Recommended Books</div><div class="pillar-grid">';
-  top3.forEach(function(p){var sc=scores[p.id]||0;html+='<div class="pillar-card"><div class="p-left"><div class="p-badge" style="background:'+p.color.replace(')','.15)').replace('rgb','rgba')+';color:'+p.color+'">'+p.badge+'</div><div class="p-name">'+p.name+'</div><div class="p-advice">Priority: '+sc+'/8</div></div><a class="p-action" href="'+p.book+'">View Book &rarr;</a></div>'});
-  html+='</div>';
+function showResult(bookId){
+ var b=BOOKS[bookId];if(!b)return;
+ document.getElementById('quiz').style.display='none';
+ var r=document.getElementById('result');r.className='result active';
 
-  html+='<div class="r-cta"><p style="font-size:13px;color:var(--gray);margin-bottom:8px">Want all 6 pillars at half price?</p><a class="bundle-link" href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20purchase%20the%20Complete%20Muscle%20OS%20Bundle%20(all%206%20books)%20for%201500%20EGP%20(after%20taking%20the%20pillar%20quiz)" target="_blank">Complete Collection &mdash; 1,500 EGP &rarr;</a>';
+ var why='';
+ if(bookId==='diet')why='You identified nutrition as your primary gap. Most physique plateaus start in the kitchen \u2014 fixing your energy balance and macronutrient strategy will unlock your next level of progress.';
+ else if(bookId==='training')why='You identified programming as your bottleneck. A structured training approach with clear progression is the fastest path to breaking through your current plateau.';
+ else if(bookId==='strength')why='Getting stronger requires specific neural and programming adaptations. Your plateau is normal \u2014 it just needs the right periodisation strategy to break through.';
+ else if(bookId==='recovery')why='You identified recovery as your limiter. More training or stricter dieting won\u2019t work if your nervous system is overloaded. Fix recovery first.';
+ else if(bookId==='sleep')why='Sleep is the foundation of everything \u2014 muscle repair, hormone production, cognitive function, and appetite regulation. Improving sleep quality will amplify every other effort.';
+ else if(bookId==='hormones')why='Hormonal health affects body composition, energy, mood, and training response. Addressing hormone optimisation can unlock progress that training and diet alone cannot.';
 
-  html+='<div class="share-row"><button class="share-btn" onclick="copyResults()">Copy Results</button><button class="share-btn" onclick="shareWhatsApp()">Share on WhatsApp</button></div>';
+ var altIds=PILLAR_ORDER.filter(function(id){return id!==bookId});
+ var html='<div class="r-icon">&#128218;</div>';
+ html+='<div class="r-title">Start with <span>'+b.name+'</span></div>';
+ html+='<p class="r-sub">Recommended for '+userName+' &middot; '+(userExp==='beginner'?'<1 yr':userExp==='intermediate'?'1\u20133 yrs':'3+ yrs')+' experience</p>';
+ html+='<div class="r-book-card" style="border-color:'+b.color+'"><div class="r-badge" style="background:'+b.color.replace(')','.15)').replace('rgb','rgba')+';color:'+b.color+'">'+b.badge+'</div><div class="r-book-name" style="color:'+b.color+'">'+b.name+'</div><div class="r-book-desc">'+b.desc+'</div><a class="r-book-action" style="background:'+b.color+';color:#14151A" href="'+b.book+'">View Full Book &rarr;</a></div>';
+ html+='<div class="r-why"><div class="w-label">Why this book?</div><div class="w-text">'+why+'</div></div>';
 
-  html+='<div class="email-opt"><p>Send these results to your email:</p><div class="email-row"><input type="email" id="resultsEmail" placeholder="your@email.com"><button onclick="emailResults()">Send</button></div><div class="email-sent" id="emailSent">Check your inbox!</div></div>';
+ html+='<div class="r-alt"><div class="a-label">Also consider reading:</div>';
+ altIds.slice(0,3).forEach(function(id){
+ var ab=BOOKS[id];
+ html+='<div class="r-alt-item"><span class="a-name">'+ab.badge+' '+ab.name+'</span><a class="a-link" href="'+ab.book+'">View &rarr;</a></div>';
+ });
+ html+='</div>';
 
-  html+='<br><button class="btn-restart" onclick="restart()">Take the assessment again</button></div>';
-  r.innerHTML=html}
+ html+='<div class="r-cta"><p>Want all 6 books at half price?</p><a class="bundle-link" href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20purchase%20the%20Complete%20Muscle%20OS%20Bundle%20(all%206%20books)%20for%201500%20EGP%20(after%20taking%20the%20book%20quiz)" target="_blank">Complete Collection &mdash; 1,500 EGP &rarr;</a>';
+ html+='<br><a class="sample-link" href="../samples/">Download a free sample first &rarr;</a>';
+ html+='<br><button class="full-check" onclick="toggleDeepDive()">&#9660; Want a full breakdown of all 6 pillars?</button>';
+ html+='</div>';
 
-function restart(){answers={};currentQ=0;userName=document.getElementById('userName').value.trim()||'there';
-  document.getElementById('results').style.display='none';document.getElementById('quiz').style.display='none';document.getElementById('intro').style.display='block';document.getElementById('startBtn').disabled=false}
+ // Deep dive container
+ html+='<div class="deep-dive" id="deepDive"><div class="dd-title">Full Pillar Breakdown</div><div id="quickQuestions"></div><div id="ddScores" style="display:none"></div></div>';
 
-function copyResults(){var txt='My Muscle OS Pillar Assessment Results:\n';txt+='Top Priority: '+document.querySelector('.r-summary .s-title').textContent+'\n';
-  var bars=document.querySelectorAll('.score-bar-wrap');bars.forEach(function(b){var l=b.querySelector('.score-bar-label').textContent;var p=b.querySelector('.score-bar-pct').textContent;txt+=l+': '+p+'/8\n'});
-  txt+='\nTake the quiz: '+window.location.href;navigator.clipboard.writeText(txt);
-  var btn=event.target;btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy Results'},2000)}
+ html+='<br><button class="btn-restart" onclick="restart()">Take the assessment again</button>';
+ r.innerHTML=html;
 
-function shareWhatsApp(){var txt='My Muscle OS Pillar results: '+document.querySelector('.r-summary .s-title').textContent+'. Find your weakness at '+window.location.href;
-  window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank')}
+ // Build quick questions for full breakdown
+ buildQuickQuestions();
+}
 
-function emailResults(){
-  var email=document.getElementById('resultsEmail').value.trim();if(!email||!email.includes('@'))return;
-  var fd=new FormData();fd.append('email',email);fd.append('source','mos_quiz_results');
-  fd.append('results',document.querySelector('.r-summary')?document.querySelector('.r-summary .s-title').textContent:'');
-  fetch('https://formspree.io/f/xpwzazqk',{method:'POST',body:fd,mode:'no-cors'}).catch(function(){});
-  document.getElementById('emailSent').style.display='block';document.getElementById('resultsEmail').value=''}
+var PILLAR_ORDER=['diet','training','strength','recovery','sleep','hormones'];
+
+function buildQuickQuestions(){
+ var c=document.getElementById('quickQuestions');if(!c)return;
+ var Qs=[
+ {id:'diet',text:'How consistent is your nutrition?',opts:[{label:'Dialled in',s:0},{label:'Mostly on track',s:1},{label:'Struggling',s:3}]},
+ {id:'training',text:'How is your training progression?',opts:[{label:'Making gains',s:0},{label:'Stuck a bit',s:1},{label:'Completely stuck',s:3}]},
+ {id:'strength',text:'How are your strength levels?',opts:[{label:'Getting stronger',s:0},{label:'Plateaued',s:1},{label:'No progress',s:3}]},
+ {id:'recovery',text:'How well do you recover?',opts:[{label:'Recover well',s:0},{label:'Could be better',s:1},{label:'Always tired/sore',s:3}]},
+ {id:'sleep',text:'How is your sleep quality?',opts:[{label:'Great sleep',s:0},{label:'Decent',s:1},{label:'Poor',s:3}]},
+ {id:'hormones',text:'How are your energy &amp; mood?',opts:[{label:'Good',s:0},{label:'Okay',s:1},{label:'Off',s:3}]}
+ ];
+ var html='';var ddScores={};
+ Qs.forEach(function(q,i){
+ html+='<div class="quick-q"><div class="qq-text">'+q.text+'</div><div class="qq-options">';
+ q.opts.forEach(function(o,oi){
+ html+='<button class="qq-opt" onclick="setQuickScore('+i+','+oi+')" data-idx="'+oi+'">'+o.label+'</button>';
+ });
+ html+='</div></div>';
+ ddScores[q.id]=-1;
+ });
+ window.ddScores=ddScores;window.ddQuestions=Qs;
+ c.innerHTML=html;
+}
+
+function setQuickScore(qi,oi){
+ var q=window.ddQuestions[qi];var opts=document.querySelectorAll('.quick-q:nth-child('+(qi+1)+') .qq-opt');
+ opts.forEach(function(o){o.classList.remove('selected')});opts[oi].classList.add('selected');
+ window.ddScores[q.id]=q.opts[oi].s;
+ // Check if all answered
+ var allAnswered=true;Object.values(window.ddScores).forEach(function(v){if(v<0)allAnswered=false});
+ if(allAnswered)showDDScores();
+}
+
+function showDDScores(){
+ var container=document.getElementById('ddScores');
+ var maxVal=Math.max.apply(null,Object.values(window.ddScores))||1;
+ var sorted=PILLAR_ORDER.slice().sort(function(a,b){return(window.ddScores[b]||0)-(window.ddScores[a]||0)});
+ var html='<div class="dd-score">';
+ PILLAR_ORDER.forEach(function(id){
+ var sc=window.ddScores[id]||0;var pct=Math.round(sc/maxVal*100);
+ var b=BOOKS[id];if(!b)return;
+ html+='<div class="ds-row"><div class="ds-name" style="color:'+b.color+'">'+b.badge+'</div><div class="ds-bar"><div class="ds-fill" style="width:'+pct+'%;background:'+b.color+'"></div></div><div class="ds-val">'+sc+'</div></div>';
+ });
+ html+='</div>';
+ if(sorted[0]){
+ var top=BOOKS[sorted[0]];
+ html+='<p style="font-size:13px;color:#C7C9D0;margin-top:12px"><strong>Bottom line:</strong> Your biggest gap is <strong style="color:'+top.color+'">'+top.name+'</strong>. <a href="'+top.book+'" style="color:var(--yellow)">View book &rarr;</a></p>';
+ }
+ container.innerHTML=html;container.style.display='block';
+ container.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function toggleDeepDive(){
+ var dd=document.getElementById('deepDive');
+ if(dd.classList.contains('active')){dd.classList.remove('active')}else{dd.classList.add('active');dd.scrollIntoView({behavior:'smooth',block:'center'})}
+}
+
+function restart(){
+ document.getElementById('result').className='result';document.getElementById('result').innerHTML='';
+ document.getElementById('quiz').style.display='none';document.getElementById('intro').style.display='block';
+ currentStep=0;stepKeys=['start'];answers={};resultBook=null;
+}
 </script>
 </body>
 </html>

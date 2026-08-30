@@ -1,0 +1,25 @@
+/* Rehab */
+.rehab-panel{display:none;margin-bottom:12px}
+.rehab-panel.active{display:block}
+.rehab-card{background:rgba(244,67,54,.04);border:1px solid rgba(244,67,54,.15);border-radius:10px;padding:10px 12px;margin-bottom:8px}
+.rehab-card.rehab-yellow{background:rgba(255,152,0,.04);border-color:rgba(255,152,0,.15)}
+.rehab-card.rehab-red{background:rgba(244,67,54,.06);border-color:rgba(244,67,54,.2)}
+.rehab-card.rehab-prehab{background:rgba(76,175,80,.04);border-color:rgba(76,175,80,.18)}
+.rehab-card .rc-header{font-family:'Oswald',sans-serif;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.rehab-card .rc-severity{font-size:.5rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;padding:1px 5px;border-radius:3px}
+.rehab-card .rc-severity.warn{background:rgba(255,152,0,.1);color:#FF9800}
+.rehab-card .rc-severity.danger{background:rgba(244,67,54,.1);color:#f44336}
+.rehab-phase{margin:4px 0;padding:5px 8px;background:var(--input-bg);border-radius:5px;border-left:2px solid var(--line)}
+.rehab-phase .rp-label{font-size:.48rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--line-strong)}
+.rehab-phase .rp-text{font-size:.58rem;color:var(--text-soft);margin-top:1px;line-height:1.3}
+.rehab-ex-list{display:flex;flex-wrap:wrap;gap:3px;margin:4px 0}
+.rehab-ex-list .rel-safe{padding:2px 5px;font-size:.48rem;background:rgba(76,175,80,.08);color:#4CAF50;border-radius:3px}
+.rehab-ex-list .rel-avoid{padding:2px 5px;font-size:.48rem;background:rgba(244,67,54,.06);color:rgba(244,67,54,.5);border-radius:3px;text-decoration:line-through}
+.consult-cta{display:block;text-align:center;padding:8px 0;background:var(--accent);color:var(--bg);border:none;border-radius:8px;font-family:'Oswald',sans-serif;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;cursor:pointer;text-decoration:none;transition:opacity .2s;margin-top:6px}
+.consult-cta:hover{opacity:.9}
+.rehab-ex-blocked .ex-sel-chip{opacity:.2;pointer-events:none}
+.rehab-ex-safe .ex-sel-chip{background:rgba(76,175,80,.05);border-color:rgba(76,175,80,.1);color:#4CAF50}
+.ex-sel-chip.rehab-ex-blocked{opacity:.2;pointer-events:none}
+.ex-sel-chip.rehab-ex-safe{background:rgba(76,175,80,.05);border-color:rgba(76,175,80,.1);color:#4CAF50}
+@keyframes pulseWarn{0%,100%{opacity:1}50%{opacity:.4}}
+.safety-flash{animation:pulseWarn 1s ease-in-out 3}

@@ -1,0 +1,2 @@
+# Parts are exact byte slices of the built file — never normalize line endings.
+* -text

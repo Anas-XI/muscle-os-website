@@ -1,21 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/client https://accounts.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style https://www.gstatic.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com https://accounts.google.com https://www.gstatic.com https://ssl.gstatic.com; frame-src 'self' https://accounts.google.com/gsi/ https://accounts.google.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev https://accounts.google.com/gsi/ https://accounts.google.com; frame-ancestors 'self'; base-uri 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Training Split Selector Quiz — Coach Anas Mo'men | Muscle OS</title>
-  <meta name="description" content="Training split selector quiz by Coach Anas Mo'men. Answer a few questions to find the optimal workout split for your goals and schedule.">
-  <meta property="og:title" content="Training Split Selector Quiz — Coach Anas Mo'men | Muscle OS">
-  <meta property="og:description" content="Training split selector quiz by Coach Anas Mo'men. Answer a few questions to find the optimal workout split for your goals and schedule.">
-  <meta property="og:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="1200">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://muscleos.is-a.dev/tools/split_selector_quiz.html">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Training Split Selector Quiz — Coach Anas Mo'men | Muscle OS">
-  <meta name="twitter:description" content="Training split selector quiz by Coach Anas Mo'men. Answer a few questions to find the optimal workout split for your goals and schedule.">
-  <meta name="twitter:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
+<title>Split Selector Quiz — Train Maxing by Coach Anas Mo'men</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Georgia,'Times New Roman',Times,serif;background:#14151A;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 16px;line-height:1.7}
@@ -86,255 +78,380 @@ body{font-family:Georgia,'Times New Roman',Times,serif;background:#14151A;color:
 .styled-table tbody tr:nth-child(even){background:rgba(250,250,248,.02)}
 .styled-table tbody tr:hover{background:rgba(244,201,59,.05)}
 @media(max-width:500px){
-  body{padding:24px 12px}
-  .header h1{font-size:2rem}
-  .card{padding:18px 14px}
-  .rec-title{font-size:1.4rem}
+ body{padding:24px 12px}
+ .header h1{font-size:2rem}
+ .card{padding:18px 14px}
+ .rec-title{font-size:1.4rem}
 }
 </style>
 </head>
 <body>
 <nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a><a href="../index.html#packages">Coaching</a></div></div></nav>
 <div class="container">
-  <div class="header">
-    <h1>Split Selector</h1>
-    <p>Find your ideal training split in 30 seconds</p>
-  </div>
-  <div class="concept-box">
-    <strong>What is a Training Split?</strong> A training split determines how you organise your workouts across the week — how often each muscle group is trained, how much volume per session, and how recovery is structured. Choosing the right split (full body, upper/lower, PPL, bro split, or powerlifting) is one of the most important programming decisions you can make.
-    <span class="book-ref">This concept is covered in depth in the <a href="../books/muscle_os_training_book.html">Training &amp; Programming Book</a> (27 chapters, 200+ references).</span>
-  </div>
-  <div class="card" id="quizCard">
-    <div class="progress-bar" id="progressBar"></div>
-    <div id="questionArea"></div>
-  </div>
-  <div class="results" id="resultsSection">
-    <div class="results-card">
-      <div class="rec-badge">Recommended Split</div>
-      <div class="rec-title" id="recTitle">Upper / Lower</div>
-      <div class="rec-desc" id="recDesc">A balanced split for moderate frequency and volume.</div>
-      <div class="rec-detail" id="recDetail1"></div>
-      <div class="rec-detail" id="recDetail2"></div>
-      <div class="rec-detail" id="recDetail3"></div>
-      <button class="btn-restart" id="restartBtn">&larr; Take Again</button>
-    </div>
-  </div>
+ <div class="header">
+ <h1>Split Selector</h1>
+ <p>Find your ideal training split in 30 seconds</p>
+ </div>
+ <div class="concept-box">
+ <strong>What is a Training Split?</strong> A training split determines how you organise your workouts across the week — how often each muscle group is trained, how much volume per session, and how recovery is structured. Choosing the right split (full body, upper/lower, PPL, bro split, or powerlifting) is one of the most important programming decisions you can make.
+ <span class="book-ref">This concept is covered in depth in the <a href="../books/muscle_os_training_book.html">Training &amp; Programming Book</a> (27 chapters, 200+ references).</span>
+ </div>
+ <div class="card" id="quizCard">
+ <div class="progress-bar" id="progressBar"></div>
+ <div id="questionArea"></div>
+ </div>
+ <div class="results" id="resultsSection">
+ <div class="results-card">
+ <div class="rec-badge">Recommended Split</div>
+ <div class="rec-title" id="recTitle">Upper / Lower</div>
+ <div class="rec-desc" id="recDesc">A balanced split for moderate frequency and volume.</div>
+ <div class="rec-detail" id="recDetail1"></div>
+ <div class="rec-detail" id="recDetail2"></div>
+ <div class="rec-detail" id="recDetail3"></div>
+ <button class="btn-restart" id="restartBtn">&larr; Take Again</button>
+ </div>
+ </div>
 </div>
 <div class="upsell-box">
-  <h3>Want the full picture?</h3>
-  <p>This free calculator gives you a snapshot. The full Training &amp; Programming Book covers progressive overload, periodisation, exercise selection, fatigue management, and autoregulation across 27 chapters with 200+ scientific references.</p>
-  <a class="upsell-cta" href="../books/muscle_os_training_book.html">Get the Full Book — 500 EGP &rarr;</a>
+ <h3>Want the full picture?</h3>
+ <p>This free calculator gives you a snapshot. The full Training &amp; Programming Book covers progressive overload, periodisation, exercise selection, fatigue management, and autoregulation across 27 chapters with 200+ scientific references.</p>
+ <a class="upsell-cta" href="../books/muscle_os_training_book.html">Get the Full Book — 500 EGP &rarr;</a>
 </div>
 
 <script>
 (function(){
-  const QUESTIONS = [
-    {
-      q: "How many days per week can you consistently train?",
-      key: "days",
-      options: [
-        {value:"2", label:"2 days — tight schedule, two sessions max"},
-        {value:"3", label:"3 days — moderate availability"},
-        {value:"4", label:"4 days — good availability"},
-        {value:"5", label:"5 days — strong commitment"},
-        {value:"6", label:"6 days — training is a top priority"}
-      ]
-    },
-    {
-      q: "What is your primary training goal right now?",
-      key: "goal",
-      options: [
-        {value:"hypertrophy", label:"Hypertrophy — maximise muscle size and aesthetics"},
-        {value:"strength", label:"Strength — maximise weight on the bar (SBD)"},
-        {value:"both", label:"Both — balanced strength and size development"}
-      ]
-    },
-    {
-      q: "How would you describe your recovery capacity?",
-      key: "recovery",
-      options: [
-        {value:"low", label:"Low — I need more rest days, sleep is limited, high stress"},
-        {value:"moderate", label:"Moderate — I recover adequately with good sleep and nutrition"},
-        {value:"high", label:"High — I recover fast, sleep well, handle high volume"}
-      ]
-    },
-    {
-      q: "What is your training experience level?",
-      key: "experience",
-      options: [
-        {value:"novice", label:"Novice — less than 1 year of consistent training"},
-        {value:"intermediate", label:"Intermediate — 1-3 years, familiar with progressive overload"},
-        {value:"advanced", label:"Advanced — 3+ years, have run multiple programme types"}
-      ]
-    },
-    {
-      q: "How consistent is your weekly schedule?",
-      key: "schedule",
-      options: [
-        {value:"variable", label:"Variable — training times shift; need flexibility"},
-        {value:"somewhat", label:"Somewhat — most weeks are similar but not identical"},
-        {value:"very", label:"Very consistent — I train at the same time on the same days"}
-      ]
-    }
-  ];
+ const QUESTIONS = [
+ {
+ q: "How many days per week can you consistently train?",
+ key: "days",
+ options: [
+ {value:"2", label:"2 days — tight schedule, two sessions max"},
+ {value:"3", label:"3 days — moderate availability"},
+ {value:"4", label:"4 days — good availability"},
+ {value:"5", label:"5 days — strong commitment"},
+ {value:"6", label:"6 days — training is a top priority"}
+ ]
+ },
+ {
+ q: "What is your primary training goal right now?",
+ key: "goal",
+ options: [
+ {value:"hypertrophy", label:"Hypertrophy — maximise muscle size and aesthetics"},
+ {value:"strength", label:"Strength — maximise weight on the bar (SBD)"},
+ {value:"both", label:"Both — balanced strength and size development"}
+ ]
+ },
+ {
+ q: "How would you describe your recovery capacity?",
+ key: "recovery",
+ options: [
+ {value:"low", label:"Low — I need more rest days, sleep is limited, high stress"},
+ {value:"moderate", label:"Moderate — I recover adequately with good sleep and nutrition"},
+ {value:"high", label:"High — I recover fast, sleep well, handle high volume"}
+ ]
+ },
+ {
+ q: "What is your training experience level?",
+ key: "experience",
+ options: [
+ {value:"novice", label:"Novice — less than 1 year of consistent training"},
+ {value:"intermediate", label:"Intermediate — 1-3 years, familiar with progressive overload"},
+ {value:"advanced", label:"Advanced — 3+ years, have run multiple programme types"}
+ ]
+ },
+ {
+ q: "How consistent is your weekly schedule?",
+ key: "schedule",
+ options: [
+ {value:"variable", label:"Variable — training times shift; need flexibility"},
+ {value:"somewhat", label:"Somewhat — most weeks are similar but not identical"},
+ {value:"very", label:"Very consistent — I train at the same time on the same days"}
+ ]
+ }
+ ];
 
-  const RECOMMENDATIONS = {
-    ul: {
-      title: "Upper / Lower Split",
-      desc: "The most balanced and time-efficient split for most lifters. Trains each muscle group 2x/week with adequate recovery.",
-      detail1: "<h3>Why This Split</h3><p>With moderate frequency (2x per muscle group per week), the upper/lower split provides the best balance of stimulus and recovery for intermediate lifters training 4 days/week. Upper days target pressing, pulling, and overhead work. Lower days cover both anterior and posterior chain.</p>",
-      detail2: "<h3>Typical Schedule</h3><p>Day 1: Upper (chest, back, shoulders, arms)<br>Day 2: Lower (quads, hamstrings, glutes, calves)<br>Day 3: Rest<br>Day 4: Upper (different emphasis)<br>Day 5: Lower (different emphasis)<br>Days 6-7: Rest</p>",
-      detail3: "<h3>See the Book</h3><p>Full template and coaching notes in <a href='muscle_os_training_book.html#ch14'>Chapter 14: Upper/Lower Split Templates</a>.</p>"
-    },
-    ppl: {
-      title: "Push / Pull / Legs",
-      desc: "Great for lifters with 5-6 days available. Each session focuses on related movement patterns for excellent recovery between sessions.",
-      detail1: "<h3>Why This Split</h3><p>PPL organises training by movement pattern rather than body part, which means each session is synergistic — all pushing muscles work together, then all pulling muscles. This minimises pre-exhaustion conflicts and maximises recovery.</p>",
-      detail2: "<h3>Typical Schedule</h3><p>Day 1: Push (chest, front/side delts, triceps)<br>Day 2: Pull (back, rear delts, biceps, forearms)<br>Day 3: Legs (quads, hamstrings, glutes, calves)<br>Day 4: Rest<br>Days 5-7: Repeat (or add rest day if needed)</p>",
-      detail3: "<h3>See the Book</h3><p>Full template and coaching notes in <a href='muscle_os_training_book.html#ch15'>Chapter 15: Push/Pull/Legs Split Templates</a>.</p>"
-    },
-    fullbody: {
-      title: "Full-Body Split",
-      desc: "Best for novices or those with only 2-3 days available. Maximises frequency and neural adaptation.",
-      detail1: "<h3>Why This Split</h3><p>Full-body training maximises per-muscle frequency (3x/week or more), which is ideal for novices learning movement patterns and intermediates who recover quickly. Each session stimulates every major muscle group, keeping MPS elevated throughout the week.</p>",
-      detail2: "<h3>Typical Schedule</h3><p>Day 1: Full Body A (squat focus)<br>Day 2: Rest<br>Day 3: Full Body B (bench focus)<br>Day 4: Rest<br>Day 5: Full Body C (deadlift focus)<br>Days 6-7: Rest</p>",
-      detail3: "<h3>See the Book</h3><p>Full template and coaching notes in <a href='muscle_os_training_book.html#ch13'>Chapter 13: Full-Body Split Templates</a>.</p>"
-    },
-    bro: {
-      title: "Bro Split / Body-Part Split",
-      desc: "Classic bodybuilding approach. Each muscle group gets its own day for maximum volume and focus.",
-      detail1: "<h3>Why This Split</h3><p>The bro split delivers high volume per muscle group per session, making it ideal for advanced bodybuilders who need to exhaust a muscle thoroughly. Each session is 45-75 minutes focused entirely on one or two related groups.</p>",
-      detail2: "<h3>Typical Schedule</h3><p>Day 1: Chest + Front/Side Delts<br>Day 2: Back + Rear Delts<br>Day 3: Rest or Arms<br>Day 4: Legs (quad-focused)<br>Day 5: Shoulders + Arms<br>Days 6-7: Rest</p>",
-      detail3: "<h3>See the Book</h3><p>Full template and coaching notes in <a href='muscle_os_training_book.html#ch16'>Chapter 16: Bro Split / Body-Part Split Templates</a>.</p>"
-    },
-    powerlifting: {
-      title: "Powerlifting-Specific Split",
-      desc: "Designed around the three competition lifts. Ideal for strength-focused lifters.",
-      detail1: "<h3>Why This Split</h3><p>This split prioritises the squat, bench press, and deadlift with dedicated technique work, heavy sets, and accessory exercises selected to strengthen weak points in each lift. Frequency per lift is 2-3x/week.</p>",
-      detail2: "<h3>Typical Schedule</h3><p>Day 1: Squat focus + posterior chain accessories<br>Day 2: Bench focus + triceps/shoulders<br>Day 3: Deadlift focus + back accessories<br>Day 4: Rest or light bench + squat technique<br>Days 5-7: Rest</p>",
-      detail3: "<h3>See the Book</h3><p>Full template and coaching notes in <a href='muscle_os_training_book.html#ch17'>Chapter 17: Powerlifting-Specific Programming Templates</a>.</p>"
-    }
-  };
+ const RECOMMENDATIONS = {
+ ul: {
+ title: "Upper / Lower Split",
+ desc: "The most balanced and time-efficient split for most lifters. Trains each muscle group 2x/week with adequate recovery.",
+ detail1: "<h3>Why This Split</h3><p>With moderate frequency (2x per muscle group per week), the upper/lower split provides the best balance of stimulus and recovery for intermediate lifters training 4 days/week. Upper days target pressing, pulling, and overhead work. Lower days cover both anterior and posterior chain.</p>",
+ detail2: "<h3>Typical Schedule</h3><p>Day 1: Upper (chest, back, shoulders, arms)<br>Day 2: Lower (quads, hamstrings, glutes, calves)<br>Day 3: Rest<br>Day 4: Upper (different emphasis)<br>Day 5: Lower (different emphasis)<br>Days 6-7: Rest</p>",
+ detail3: "<h3>See the Book</h3><p>Full template and coaching notes in <a href='../books/muscle_os_training_book.html#ch14'>Chapter 14: Upper/Lower Split Templates</a>.</p>"
+ },
+ ppl: {
+ title: "Push / Pull / Legs",
+ desc: "Great for lifters with 5-6 days available. Each session focuses on related movement patterns for excellent recovery between sessions.",
+ detail1: "<h3>Why This Split</h3><p>PPL organises training by movement pattern rather than body part, which means each session is synergistic — all pushing muscles work together, then all pulling muscles. This minimises pre-exhaustion conflicts and maximises recovery.</p>",
+ detail2: "<h3>Typical Schedule</h3><p>Day 1: Push (chest, front/side delts, triceps)<br>Day 2: Pull (back, rear delts, biceps, forearms)<br>Day 3: Legs (quads, hamstrings, glutes, calves)<br>Day 4: Rest<br>Days 5-7: Repeat (or add rest day if needed)</p>",
+ detail3: "<h3>See the Book</h3><p>Full template and coaching notes in <a href='../books/muscle_os_training_book.html#ch15'>Chapter 15: Push/Pull/Legs Split Templates</a>.</p>"
+ },
+ fullbody: {
+ title: "Full-Body Split",
+ desc: "Best for novices or those with only 2-3 days available. Maximises frequency and neural adaptation.",
+ detail1: "<h3>Why This Split</h3><p>Full-body training maximises per-muscle frequency (3x/week or more), which is ideal for novices learning movement patterns and intermediates who recover quickly. Each session stimulates every major muscle group, keeping MPS elevated throughout the week.</p>",
+ detail2: "<h3>Typical Schedule</h3><p>Day 1: Full Body A (squat focus)<br>Day 2: Rest<br>Day 3: Full Body B (bench focus)<br>Day 4: Rest<br>Day 5: Full Body C (deadlift focus)<br>Days 6-7: Rest</p>",
+ detail3: "<h3>See the Book</h3><p>Full template and coaching notes in <a href='../books/muscle_os_training_book.html#ch13'>Chapter 13: Full-Body Split Templates</a>.</p>"
+ },
+ bro: {
+ title: "Bro Split / Body-Part Split",
+ desc: "Classic bodybuilding approach. Each muscle group gets its own day for maximum volume and focus.",
+ detail1: "<h3>Why This Split</h3><p>The bro split delivers high volume per muscle group per session, making it ideal for advanced bodybuilders who need to exhaust a muscle thoroughly. Each session is 45-75 minutes focused entirely on one or two related groups.</p>",
+ detail2: "<h3>Typical Schedule</h3><p>Day 1: Chest + Front/Side Delts<br>Day 2: Back + Rear Delts<br>Day 3: Rest or Arms<br>Day 4: Legs (quad-focused)<br>Day 5: Shoulders + Arms<br>Days 6-7: Rest</p>",
+ detail3: "<h3>See the Book</h3><p>Full template and coaching notes in <a href='../books/muscle_os_training_book.html#ch16'>Chapter 16: Bro Split / Body-Part Split Templates</a>.</p>"
+ },
+ powerlifting: {
+ title: "Powerlifting-Specific Split",
+ desc: "Designed around the three competition lifts. Ideal for strength-focused lifters.",
+ detail1: "<h3>Why This Split</h3><p>This split prioritises the squat, bench press, and deadlift with dedicated technique work, heavy sets, and accessory exercises selected to strengthen weak points in each lift. Frequency per lift is 2-3x/week.</p>",
+ detail2: "<h3>Typical Schedule</h3><p>Day 1: Squat focus + posterior chain accessories<br>Day 2: Bench focus + triceps/shoulders<br>Day 3: Deadlift focus + back accessories<br>Day 4: Rest or light bench + squat technique<br>Days 5-7: Rest</p>",
+ detail3: "<h3>See the Book</h3><p>Full template and coaching notes in <a href='../books/muscle_os_training_book.html#ch17'>Chapter 17: Powerlifting-Specific Programming Templates</a>.</p>"
+ }
+ };
 
-  let currentQ = 0;
-  const answers = {};
+ let currentQ = 0;
+ const answers = {};
 
-  const qArea = document.getElementById('questionArea');
-  const progressBar = document.getElementById('progressBar');
-  const resultsSection = document.getElementById('resultsSection');
+ const qArea = document.getElementById('questionArea');
+ const progressBar = document.getElementById('progressBar');
+ const resultsSection = document.getElementById('resultsSection');
 
-  function renderProgress(){
-    progressBar.innerHTML = QUESTIONS.map((_,i) => {
-      let cls = '';
-      if(i < currentQ) cls = 'done';
-      else if(i === currentQ) cls = 'active';
-      return '<div class="prog-step '+cls+'"></div>';
-    }).join('');
-  }
+ function renderProgress(){
+ progressBar.innerHTML = QUESTIONS.map((_,i) => {
+ let cls = '';
+ if(i < currentQ) cls = 'done';
+ else if(i === currentQ) cls = 'active';
+ return '<div class="prog-step '+cls+'"></div>';
+ }).join('');
+ }
 
-  function renderQuestion(){
-    if(currentQ >= QUESTIONS.length){
-      showResults();
-      return;
-    }
-    const q = QUESTIONS[currentQ];
-    const selected = answers[q.key];
-    qArea.innerHTML = '<div class="q-num">Question '+(currentQ+1)+' of '+QUESTIONS.length+'</div>' +
-      '<div class="q-text">'+q.q+'</div>' +
-      '<div class="options">' +
-        q.options.map(o =>
-          '<div class="option'+(selected===o.value?' selected':'')+'" data-value="'+o.value+'">' +
-          '<input type="radio" name="q_'+currentQ+'" value="'+o.value+(selected===o.value?' checked':'')+'>' +
-          '<span>'+o.label+'</span></div>'
-        ).join('') +
-      '</div>' +
-      '<button class="btn-next" id="nextBtn"'+(selected?'':' disabled')+'>' +
-      (currentQ < QUESTIONS.length-1 ? 'Next &rarr;' : 'See My Split &rarr;') +
-      '</button>';
+ function renderQuestion(){
+ if(currentQ >= QUESTIONS.length){
+ showResults();
+ return;
+ }
+ const q = QUESTIONS[currentQ];
+ const selected = answers[q.key];
+ qArea.innerHTML = '<div class="q-num">Question '+(currentQ+1)+' of '+QUESTIONS.length+'</div>' +
+ '<div class="q-text">'+q.q+'</div>' +
+ '<div class="options">' +
+ q.options.map(o =>
+ '<div class="option'+(selected===o.value?' selected':'')+'" data-value="'+o.value+'">' +
+ '<input type="radio" name="q_'+currentQ+'" value="'+o.value+(selected===o.value?' checked':'')+'>' +
+ '<span>'+o.label+'</span></div>'
+ ).join('') +
+ '</div>' +
+ '<button class="btn-next" id="nextBtn"'+(selected?'':' disabled')+'>' +
+ (currentQ < QUESTIONS.length-1 ? 'Next &rarr;' : 'See My Split &rarr;') +
+ '</button>';
 
-    document.querySelectorAll('.option').forEach(el => {
-      el.addEventListener('click', function(){
-        document.querySelectorAll('.option').forEach(x => x.classList.remove('selected'));
-        this.classList.add('selected');
-        const rb = this.querySelector('input[type="radio"]');
-        rb.checked = true;
-        answers[q.key] = this.dataset.value;
-        document.getElementById('nextBtn').disabled = false;
-      });
-    });
+ document.querySelectorAll('.option').forEach(el => {
+ el.addEventListener('click', function(){
+ document.querySelectorAll('.option').forEach(x => x.classList.remove('selected'));
+ this.classList.add('selected');
+ const rb = this.querySelector('input[type="radio"]');
+ rb.checked = true;
+ answers[q.key] = this.dataset.value;
+ document.getElementById('nextBtn').disabled = false;
+ });
+ });
 
-    document.getElementById('nextBtn').addEventListener('click', function(){
-      if(this.disabled) return;
-      currentQ++;
-      renderProgress();
-      renderQuestion();
-    });
-  }
+ document.getElementById('nextBtn').addEventListener('click', function(){
+ if(this.disabled) return;
+ currentQ++;
+ renderProgress();
+ renderQuestion();
+ });
+ }
 
-  function determineSplit(){
-    const days = parseInt(answers.days || 4);
-    const goal = answers.goal || 'both';
-    const recovery = answers.recovery || 'moderate';
-    const exp = answers.experience || 'intermediate';
-    const schedule = answers.schedule || 'somewhat';
+ function determineSplit(){
+ const days = parseInt(answers.days || 4);
+ const goal = answers.goal || 'both';
+ const recovery = answers.recovery || 'moderate';
+ const exp = answers.experience || 'intermediate';
+ const schedule = answers.schedule || 'somewhat';
 
-    // Logic tree
-    if(goal === 'strength' && (days === 3 || days === 4)){
-      return RECOMMENDATIONS.powerlifting;
-    }
-    if(days === 5 || days === 6){
-      if(goal === 'hypertrophy' && days === 6) return RECOMMENDATIONS.ppl;
-      if(schedule === 'very') return RECOMMENDATIONS.ppl;
-      return RECOMMENDATIONS.ppl;
-    }
-    if(days === 4){
-      if(recovery === 'low') return RECOMMENDATIONS.ul;
-      if(schedule === 'variable') return RECOMMENDATIONS.ul;
-      if(exp === 'advanced') return RECOMMENDATIONS.ppl;
-      return RECOMMENDATIONS.ul;
-    }
-    if(days === 3){
-      if(exp === 'novice' || recovery === 'low'){
-        return RECOMMENDATIONS.fullbody;
-      }
-      if(goal === 'hypertrophy') return RECOMMENDATIONS.ppl;
-      return RECOMMENDATIONS.fullbody;
-    }
-    if(days === 2){
-      return RECOMMENDATIONS.fullbody;
-    }
-    return RECOMMENDATIONS.ul;
-  }
+ // Logic tree
+ if(goal === 'strength' && (days === 3 || days === 4)){
+ return RECOMMENDATIONS.powerlifting;
+ }
+ if(days === 5 || days === 6){
+ if(goal === 'hypertrophy' && days === 6) return RECOMMENDATIONS.ppl;
+ if(schedule === 'very') return RECOMMENDATIONS.ppl;
+ return RECOMMENDATIONS.ppl;
+ }
+ if(days === 4){
+ if(recovery === 'low') return RECOMMENDATIONS.ul;
+ if(schedule === 'variable') return RECOMMENDATIONS.ul;
+ if(exp === 'advanced') return RECOMMENDATIONS.ppl;
+ return RECOMMENDATIONS.ul;
+ }
+ if(days === 3){
+ if(exp === 'novice' || recovery === 'low'){
+ return RECOMMENDATIONS.fullbody;
+ }
+ if(goal === 'hypertrophy') return RECOMMENDATIONS.ppl;
+ return RECOMMENDATIONS.fullbody;
+ }
+ if(days === 2){
+ return RECOMMENDATIONS.fullbody;
+ }
+ return RECOMMENDATIONS.ul;
+ }
 
-  function showResults(){
-    document.getElementById('quizCard').style.display = 'none';
-    const rec = determineSplit();
-    document.getElementById('recTitle').textContent = rec.title;
-    document.getElementById('recDesc').textContent = rec.desc;
-    document.getElementById('recDetail1').innerHTML = rec.detail1;
-    document.getElementById('recDetail2').innerHTML = rec.detail2;
-    document.getElementById('recDetail3').innerHTML = rec.detail3;
-    resultsSection.style.display = 'block';
-    resultsSection.scrollIntoView({behavior:'smooth',block:'start'});
-  }
+ function showResults(){
+ document.getElementById('quizCard').style.display = 'none';
+ const rec = determineSplit();
+ document.getElementById('recTitle').textContent = rec.title;
+ document.getElementById('recDesc').textContent = rec.desc;
+ document.getElementById('recDetail1').innerHTML = rec.detail1;
+ document.getElementById('recDetail2').innerHTML = rec.detail2;
+ document.getElementById('recDetail3').innerHTML = rec.detail3;
+ resultsSection.style.display = 'block';
+ resultsSection.scrollIntoView({behavior:'smooth',block:'start'});
+ }
 
-  document.getElementById('restartBtn').addEventListener('click', function(){
-    currentQ = 0;
-    answers.days = undefined;
-    answers.goal = undefined;
-    answers.recovery = undefined;
-    answers.experience = undefined;
-    answers.schedule = undefined;
-    resultsSection.style.display = 'none';
-    document.getElementById('quizCard').style.display = 'block';
-    renderProgress();
-    renderQuestion();
-  });
+ document.getElementById('restartBtn').addEventListener('click', function(){
+ currentQ = 0;
+ answers.days = undefined;
+ answers.goal = undefined;
+ answers.recovery = undefined;
+ answers.experience = undefined;
+ answers.schedule = undefined;
+ resultsSection.style.display = 'none';
+ document.getElementById('quizCard').style.display = 'block';
+ renderProgress();
+ renderQuestion();
+ });
 
-  renderProgress();
-  renderQuestion();
+ renderProgress();
+ renderQuestion();
 })();
 </script>
 <footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo'men</div></footer>
+<script src="../js/auth.js"></script>
+<script>
+(function(){
+  var SUB_KEY = 'mos_subscription';
+  var API = 'https://muscleos-access-control.muscleos.workers.dev/api/verify-code';
+  var ERR_MSGS = {
+    invalid_code: 'Wrong code. Please check and try again.',
+    wrong_product: 'This code belongs to a different product.',
+    code_used_by_other: 'This code is already linked to another account.',
+    code_exhausted: 'This code has already been used.',
+    code_revoked: 'This code has been revoked.',
+    code_expired: 'This code has expired.',
+    invalid_session: 'Session expired. Please sign in again.',
+    network: 'Network error. Please try again.'
+  };
+  function getSub(){ try { return JSON.parse(localStorage.getItem(SUB_KEY) || 'null'); } catch(e){ return null; } }
+  function subOk(s){
+    var OWNER_EMAILS = ['ANASSTEM2025@GMAIL.COM', '1022066.ANAS@STEMEGYPT.EDU.EG', 'ANASSMOMEN@GMAIL.COM'];
+    try {
+      var gs = JSON.parse(localStorage.getItem('mos_google_session') || 'null');
+      if (gs && gs.email && OWNER_EMAILS.includes(gs.email.toUpperCase())) return true;
+    } catch(e){}
+    if (s && s.active && (!s.expiry || new Date(s.expiry + 'T23:59:59') > new Date())) return true;
+    var TRIAL_EPOCH = new Date('2026-08-27T00:00:00.000Z').getTime();
+    var start = localStorage.getItem('mos_trial_start');
+    if (!start || new Date(start).getTime() < TRIAL_EPOCH) {
+      start = new Date().toISOString();
+      localStorage.setItem('mos_trial_start', start);
+      localStorage.setItem('mos_tdee_trial_start', start);
+    }
+    var daysLeft = 7 - Math.floor((Date.now() - new Date(start).getTime()) / 86400000);
+    return daysLeft > 0;
+  }
+  function hideGate(){ var g = document.getElementById('googleGate'); if (g) g.classList.add('gate-hidden'); }
+  window.MosAccess = { requireGoogleAuth: function(o, cb){ try { cb(!!subOk(getSub())); } catch(e){ cb(false); } } };
+  function buildCard(g){
+    var card = g.querySelector('.gate-card');
+    if (card) {
+      var old = card.querySelector('.gate-error');
+      if (old) old.parentNode.removeChild(old);
+      var p = card.querySelector('p');
+      if (p && p.parentNode) p.parentNode.removeChild(p);
+      var h2 = card.querySelector('h2');
+      if (h2) h2.textContent = 'SUBSCRIPTION REQUIRED';
+      return card;
+    }
+    card = document.createElement('div');
+    card.className = 'gate-card';
+    var lock = document.createElement('div');
+    lock.className = 'gate-lock';
+    lock.textContent = '🔒';
+    var h2 = document.createElement('h2');
+    h2.textContent = 'SUBSCRIPTION REQUIRED';
+    card.appendChild(lock);
+    card.appendChild(h2);
+    g.appendChild(card);
+    return card;
+  }
+  function wire(){
+    var g = document.getElementById('googleGate');
+    if (!g) {
+      g = document.createElement('div');
+      g.id = 'googleGate';
+      g.style.cssText = 'position:fixed;inset:0;z-index:9999;background:#14151A;display:flex;align-items:center;justify-content:center;padding:20px;font-family:Inter,sans-serif';
+      document.body.appendChild(g);
+    }
+    var card = buildCard(g);
+    var input = document.createElement('input');
+    input.type = 'text';
+    input.placeholder = 'Enter your code';
+    input.autocomplete = 'off';
+    input.style.cssText = 'width:100%;padding:11px 12px;border-radius:8px;border:1px solid #2C2E37;background:#14151A;color:#FAFAF8;font:600 .85rem Inter,sans-serif;letter-spacing:1px;text-align:center;margin-bottom:10px;box-sizing:border-box;text-transform:uppercase';
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = 'UNLOCK';
+    btn.style.cssText = 'width:100%;padding:11px;border-radius:8px;border:0;background:#E11D2E;color:#fff;font:700 .8rem Inter,sans-serif;cursor:pointer';
+    var err = document.createElement('div');
+    err.style.cssText = 'display:none;font-size:.7rem;color:#f44336;margin-top:10px';
+    var link = document.createElement('a');
+    link.href = '../order.html';
+    link.target = '_blank';
+    link.textContent = 'No code? Get access →';
+    link.style.cssText = 'display:inline-block;margin-top:14px;font-size:.72rem;color:rgba(250,250,248,.55);text-decoration:underline';
+    card.appendChild(input);
+    card.appendChild(btn);
+    card.appendChild(err);
+    card.appendChild(link);
+    btn.addEventListener('click', function(){
+      var code = (input.value || '').trim();
+      if (!code) return;
+      btn.disabled = true;
+      btn.textContent = 'Checking...';
+      err.style.display = 'none';
+      var tries = ['training_tool', 'tdee_adaptive_engine', 'omni_hub'];
+      var i = 0;
+      var lastError = 'network';
+      function fail(){
+        btn.disabled = false;
+        btn.textContent = 'UNLOCK';
+        err.style.display = 'block';
+        err.textContent = ERR_MSGS[lastError] || ERR_MSGS.invalid_code;
+      }
+      function attempt(){
+        if (i >= tries.length) return fail();
+        var prod = tries[i++];
+        fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code: code, productId: prod }) })
+          .then(function(r){ return r.json().catch(function(){ return null; }).then(function(d){ return { ok: r.ok, d: d }; }); })
+          .then(function(res){
+            if (res.ok && res.d && res.d.valid) {
+              localStorage.setItem(SUB_KEY, JSON.stringify({ active: true, plan: res.d.plan || 'pro_tool', expiry: (res.d.expiresAt || '').slice(0, 10), token: res.d.token || '', code: code, email: '', prodId: res.d.productId || 'all_access' }));
+              hideGate();
+            } else {
+              lastError = (res.d && res.d.error) ? res.d.error : 'network';
+              attempt();
+            }
+          })
+          .catch(function(){ lastError = 'network'; attempt(); });
+      }
+      attempt();
+    });
+  }
+  if (subOk(getSub())) { hideGate(); } else { wire(); }
+  window.addEventListener('storage', function(e){ if (e.key === SUB_KEY && subOk(getSub())) hideGate(); });
+})();
+</script>
 </body>
 </html>

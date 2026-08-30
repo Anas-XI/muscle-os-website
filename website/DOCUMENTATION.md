@@ -70,7 +70,8 @@
 │   └── analytics.html          ANALYTICS DASHBOARD (key-gated, funnel + order stats from Sheet)
 │
 ├── tools/
-│   ├── index.html              Tools listing (6 cards)
+│   ├── index.html              Tools listing (7 cards: combined + 2 pro + 4 free)
+│   ├── muscle_os_app.html      COMBINED APP: Training + Nutrition in one hub (tabbed iframes)
 │   ├── training_tool.html      FULL APP: program builder, session logger, periodization
 │   ├── tdee_adaptive_engine.html  Multi-tab TDEE tracker + dashboard + trend chart
 │   ├── tdee_macro_calculator.html  Free TDEE + macro calculator
@@ -160,7 +161,7 @@ NAV (sticky, hide-on-scroll)
 │   └── Cross-sell: bundle discount offers
 │
 ├── TOOL OVERVIEW (2 PRO tools)
-│   ├── Training Tool (300 EGP/mo) — feature list
+│   ├── Training App (300 EGP/mo) — feature list
 │   ├── TDEE Adaptive Engine (200 EGP/mo) — feature list
 │   ├── Gate: Sign In / WhatsApp subscribe (tools_gate)
 │   └── Feedback section (feedback tag)
@@ -216,7 +217,7 @@ NAV (sticky, hide-on-scroll)
 
 ## 4. Tool Pipeline
 
-### 4.1 Training Tool (`tools/training_tool.html` — 231 KB, 2942 lines)
+### 4.1 Training App (`tools/training_tool.html` — 231 KB, 2942 lines)
 
 **The most complex page on the site.** A full training application.
 
@@ -277,7 +278,40 @@ PAYWALL: MosAccess.checkOrShow('tdee_adaptive_engine')
 TAGS: tdee_subscribe_top, tdee_subscribe_bottom, footer_wa
 ```
 
-### 4.3 Free Tools (no paywall)
+### 4.3 Combined App (`tools/muscle_os_app.html`)
+
+```
+HUB SHELL:
+├── Header: MOS COMBINED brand + status chip (Access active / Trial ·Nd / Locked) + "Get Access" CTA → order?product=omni_hub
+├── Tab bar (bottom): Training (MOS-HYPERKINETIX) ⇄ Nutrition (MOS-METABOLIX)
+├── Iframes: same-origin → SHARED localStorage (subscription, trial, lang, theme) between hub and both apps
+├── Lazy load: inactive tab's iframe boots on first open
+├── Persistence: active tab restored from sessionStorage (mos_hub_tab)
+├── i18n: EN/AR via shared mos_lang key + RTL flip
+├── CSP: connect-src allows the access-control worker; nosniff + referrer policy
+├── Hub mode: shell sets sessionStorage mos_hub_mode='1' BEFORE iframes load — tool auth gates
+│   detect it (self !== top && mos_hub_mode) and require productId 'omni_hub' instead of their own
+└── Status chip logic: mos_subscription (prodId omni_hub OR master/OWNER, active+expiry) OR 7-day trial (mos_trial_start)
+
+ACCESS: dedicated product `omni_hub` — OH- codes, products ['omni_hub'], 400 EGP/mo.
+        Individual tool codes (TR-/TD-/TB-) are REJECTED inside the hub; MA (master) still unlocks it.
+        OMNI HUB is a SUPERSET: OH- codes ALSO work on the standalone tools (server productAllowed rule
+        accepts omni_hub for training_tool/tdee_adaptive_engine; verify-code returns the canonical
+        productId so one stored subscription unlocks hub + both tools everywhere).
+HUB-ONLY GATES: tools' auth IIFEs compute prodOk as (plan master|OWNER) OR
+        (hubMode ? prodId==='omni_hub' : (prodId===PRODUCT_ID || prodId==='omni_hub'));
+        trial is disabled in hub mode; js/auth.js verify posts window.__MOS_PRODUCT__ (omni_hub in hub) instead of all_access.
+PAYWALL: handled inside each embedded app; nutrition tab needs its own unlock (TDEE has no trial logic).
+OFFLINE: precached in tools/sw.js (ASSETS), network-first.
+```
+
+### 4.4 Auxiliary Tools (code-gated)
+
+All auxiliary tools are walled with the same subscription model as the pro apps.
+The wall (inline snippet, `tool-wall` pattern at the end of each page) accepts ANY valid code:
+TR-/TD-/OH-/MA- all unlock it (client tries `training_tool` → `tdee_adaptive_engine` → `omni_hub`
+in order; server `productAllowed` + `products: 'all'` cover the rest). Rejected/unknown codes show
+"Invalid code or wrong product" and nothing else is consumed. No trial on these pages.
 
 | Tool | Path | What It Does |
 |------|------|-------------|
@@ -285,6 +319,12 @@ TAGS: tdee_subscribe_top, tdee_subscribe_bottom, footer_wa
 | **Volume & Set Calculator** | `volume_set_calculator.html` | Per-muscle weekly set recs by experience/goal |
 | **RPE Load Calculator** | `rpe_load_calculator.html` | 1RM estimation + working weights + load history |
 | **Split Selector Quiz** | `split_selector_quiz.html` | 8-question quiz → recommended split + explanation |
+
+Notes: the pages already shipped a dormant `#googleGate` overlay driven by `../js/auth.js`
+(which 404s in the public repo — auth.js stays master-only). The wall reuses that overlay markup
+(populates the existing `.gate-card` with a code input; creates it from scratch on
+`split_selector_quiz.html` which has none). Valid local `mos_subscription` hides the gate;
+a `storage` listener hides it live if unlocked elsewhere.
 
 ---
 
@@ -294,9 +334,10 @@ TAGS: tdee_subscribe_top, tdee_subscribe_bottom, footer_wa
 
 | Product | Price | Type | Duration |
 |---------|-------|------|----------|
-| Training Tool | 300 EGP/mo | Subscription | 30 days |
+| Training App | 300 EGP/mo | Subscription | 30 days |
 | TDEE Adaptive Engine | 200 EGP/mo | Subscription | 30 days |
-| Both Tools (bundle) | 400 EGP/mo | Subscription | 30 days |
+| Both Tools (Combined App bundle) | 400 EGP/mo | Subscription | 30 days |
+| OMNI HUB (Combined App, standalone product) | 400 EGP/mo | Subscription | 30 days |
 | Training Book | 500 EGP | Purchase | Lifetime |
 | Nutrition Book | 500 EGP | Purchase | Lifetime |
 | Both Books | 800 EGP | Purchase | Lifetime |
@@ -306,8 +347,8 @@ TAGS: tdee_subscribe_top, tdee_subscribe_bottom, footer_wa
 
 | Package | Price | 3-Month | Features |
 |---------|-------|---------|----------|
-| Standard | 600 EGP/mo | 1500 EGP | Weekly check-ins, real-time adjustments, basic nutrition, DM, 50% off tools |
-| Premium | 1000 EGP/mo | 2500 EGP | Standard + custom nutrition/carb cycling, priority response, video calls, early Muscle OS access |
+| Standard | 600 EGP/mo | 1500 EGP | Weekly check-ins, real-time adjustments, basic nutrition, DM, 66.6% off tools |
+| Premium | 1000 EGP/mo | 2500 EGP | Standard + custom nutrition/carb cycling, priority response, video calls, early Muscle OS access, all tools free |
 
 ### 5.3 Auth Flow
 
@@ -347,7 +388,7 @@ TAGS: tdee_subscribe_top, tdee_subscribe_bottom, footer_wa
 
 | Prefix | Product | Example |
 |--------|---------|---------|
-| `TR-` | Training Tool | `TR-A2X7K9M3P5` |
+| `TR-` | Training App | `TR-A2X7K9M3P5` |
 | `TD-` | TDEE Engine | `TD-B4W6R8T1Y3` |
 | `TB-` | Both Tools | `TB-C5V7N9M2K4` |
 | `BK-` | Training Book | `BK-D8F2H5J7L9` |
@@ -599,6 +640,7 @@ When Anas approves an order, the Worker generates a code based on the product:
 | `training_tool` | `TR-` | `['training_tool']` | 30 days | `single_product` |
 | `tdee_adaptive_engine` | `TD-` | `['tdee_adaptive_engine']` | 30 days | `single_product` |
 | `both_tools` | `TB-` | `['training_tool', 'tdee_adaptive_engine']` | 30 days | `single_product` |
+| `omni_hub` | `OH-` | `['omni_hub']` | 30 days | `single_product` |
 | `training_book` | `BK-` | `['training_book']` | Lifetime | `single_product` |
 | `nutrition_book` | `BN-` | `['nutrition_book']` | Lifetime | `single_product` |
 | `both_books` | `BB-` | `['training_book', 'nutrition_book']` | Lifetime | `single_product` |
@@ -769,9 +811,9 @@ Every WhatsApp link on the site carries a `data-wa-tag` for tracking. Tags are o
 |-----|----------|---------|
 | `split_quiz_result_cta` | Split quiz results | After personalized recommendation |
 | `rpe_result_cta` | RPE calculator results | After calculation |
-| `train_generated_cta` | Training tool program | After program generation |
-| `train_footer_cta_bottom` | Training tool footer | During tool usage |
-| `train_subscribe_bottom` | Training tool (unlocked view) | When seeing features |
+| `train_generated_cta` | Training app program | After program generation |
+| `train_footer_cta_bottom` | Training app footer | During tool usage |
+| `train_subscribe_bottom` | Training app (unlocked view) | When seeing features |
 
 ### 11.3 Bottom of Funnel (Conversion)
 
@@ -791,7 +833,7 @@ Every WhatsApp link on the site carries a `data-wa-tag` for tracking. Tags are o
 | `feedback` | Feedback section | Existing user feedback |
 | `mbb_book` | Mobile bottom bar | Always accessible |
 
-### 11.5 Training Tool Rehab Tags (JS-generated)
+### 11.5 Training App Rehab Tags (JS-generated)
 
 | Tag | When | Meaning |
 |-----|------|---------|
@@ -915,3 +957,25 @@ Access-Control-Allow-Origin: (dynamically set)
 | jose (npm) | JWT signing/verification in Worker | Node dependency |
 | wrangler (npm) | Worker deployment | Dev dependency |
 
+
+---
+
+## Activation Checklist (owner-only)
+
+### 1. Google Analytics (GA4)
+
+`index.html` head contains the gtag.js scaffold with placeholder ID `G-XXXXXXXXXX`.
+To activate:
+1. Go to https://analytics.google.com and create a GA4 property (e.g. "muscleos.coach").
+2. Admin > Data Streams > Web > your stream, copy the Measurement ID (starts with `G-`).
+3. Replace both `G-XXXXXXXXXX` occurrences in `website/index.html` (script src + config call).
+
+### 2. Testimonials (social proof)
+
+The reviews section (`id="reviews"`) is intentionally HIDDEN (`style="display:none"`) until real client testimonials exist.
+To activate:
+1. Collect real client reviews (WhatsApp follow-ups are fine) with written consent to publish.
+2. Remove `style="display:none;"` from the `<section id="reviews">` tag.
+3. Replace the 3 placeholder cards: quote, real name (or first name), goal + duration.
+
+Do not ship fabricated testimonials � the section stays hidden until the quotes are real.

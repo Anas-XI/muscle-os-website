@@ -58,7 +58,7 @@ def _llm_chat(messages: list, system: str = None) -> Optional[str]:
         return None
     import requests as req
     payload = {
-        "model": LLM_MODEL or "llama-3.3-70b-versatile",
+        "model": LLM_MODEL or "openai/gpt-oss-120b",
         "messages": [{"role": "system", "content": system}] + messages if system else messages,
         "temperature": 0.4,
         "max_tokens": 2048,

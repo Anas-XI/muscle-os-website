@@ -13,6 +13,9 @@ muscle-os-alpha/
 mos-mobile/
 elitefit-master/
 
+# Website repo worktrees (deployed from public/main separately)
+public/
+
 # Python
 __pycache__/
 *.py[cod]
@@ -28,6 +31,8 @@ mos_bot/data/feedback/
 mos_bot/data/pdfs/
 mos_bot/data/programs/
 mos_bot/data/vault_index/
+mos_bot/data/chat_history/
+mos_bot/data/tracker_logs/
 
 # Wrangler local state
 .wrangler/
@@ -37,6 +42,8 @@ bot_err.txt
 bot_log.txt
 bot_output.log
 *.pdf
+!books/*.pdf
+!website/books/*.pdf
 test_e2e_pipeline.py
 
 # Auto-installed agent skills (reproducible via npx skills add)
@@ -55,8 +62,30 @@ Thumbs.db
 # Credentials
 GOOGLE_CLIENT_ID.txt
 
+# Real client data — NEVER commit
+clients/
+
+# Plaintext access codes — NEVER commit
+codes/
+
+# Scripts with hardcoded credentials — NEVER commit
+run_migrations_pg.py
+bruteforce_port.py
+bruteforce_region.py
+run_setup.py
+
 # Generated tool output
 tools/output/
+
+# Backups and temporary files
+*.backup.html
+mos_bot/data/programs_json/
+/*.js
+/head.txt
+/scripts.txt
+scratch/
+temp_worker/
+*.js.map
 
 # Agent prompts (not source code)
 docs/prompts/

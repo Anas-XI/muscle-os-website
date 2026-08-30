@@ -37,6 +37,7 @@ bot_err.txt
 bot_log.txt
 bot_output.log
 *.pdf
+!books/*.pdf
 test_e2e_pipeline.py
 
 # Auto-installed agent skills (reproducible via npx skills add)
@@ -51,3 +52,6 @@ test_e2e_pipeline.py
 # OS
 Thumbs.db
 .DS_Store
+
+# Worker secrets (contains DB credentials — never commit)
+worker/src/migrate.js

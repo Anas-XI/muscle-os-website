@@ -1,0 +1,148 @@
+/* ── Google Auth Gate ── */
+/* Gate visible by default to prevent FOUC — JS hides it once session confirmed */
+#googleGate {
+  position: fixed; inset: 0; z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(ellipse at center, #1a1a1e 0%, #0d0d0f 100%);
+}
+#googleGate.gate-hidden { display: none !important; }
+
+/* Content hidden by default — JS shows it after auth */
+#contentMain { display: none; }
+#contentMain.main-visible { display: block; }
+#googleGate .gate-card {
+  background: linear-gradient(135deg, #202025 0%, #18181b 100%);
+  border: 1px solid rgba(250,250,248,.08);
+  border-radius: 20px; padding: 3rem 2.5rem; max-width: 420px; width: 90%;
+  text-align: center; box-shadow: 0 24px 80px rgba(0,0,0,.5);
+}
+#googleGate .gate-card h2 {
+  font: 600 1.5rem/1.3 'Inter', system-ui, sans-serif; color: #fafaf8; margin: 0 0 .5rem;
+}
+#googleGate .gate-card p {
+  font-size: .9rem; color: rgba(250,250,248,.5); margin: 0 0 2rem; line-height: 1.5;
+}
+#googleGate .gate-card .gate-icon {
+  width: 56px; height: 56px; margin: 0 auto 1.5rem;
+  background: rgba(250,250,248,.05); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem;
+}
+#googleGate .gate-card .guest-link {
+  display: inline-block; margin-top: 1.5rem;
+  font-size: .8rem; color: rgba(250,250,248,.3);
+  text-decoration: underline; text-underline-offset: 2px;
+  cursor: pointer; transition: color .2s;
+}
+#googleGate .gate-card .guest-link:hover { color: rgba(250,250,248,.6); }
+
+/* ── Landing Section (pre-tool/book upsell) ── */
+.content-landing {
+  display: none; max-width: 720px; margin: 0 auto 3rem; padding: 2rem 1rem;
+}
+.content-landing.visible { display: block; }
+
+.lnd-hero {
+  text-align: center; padding: 3rem 1rem 2rem;
+}
+.lnd-hero h1 {
+  font: 700 2.4rem/1.2 'Inter', system-ui, sans-serif;
+  background: linear-gradient(135deg, #fafaf8 0%, #a0a09a 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; margin: 0 0 .75rem;
+}
+.lnd-hero p {
+  font-size: 1.05rem; color: rgba(250,250,248,.55); max-width: 560px; margin: 0 auto 1.5rem;
+  line-height: 1.6;
+}
+
+.lnd-section { margin: 2.5rem 0; }
+
+.lnd-section h2 {
+  font: 600 1.3rem/1.3 'Inter', system-ui, sans-serif;
+  color: #fafaf8; margin: 0 0 1rem;
+  display: flex; align-items: center; gap: .5rem;
+}
+
+.lnd-quickstart {
+  background: rgba(250,250,248,.03); border: 1px solid rgba(250,250,248,.06);
+  border-radius: 12px; padding: 1.5rem 2rem;
+}
+.lnd-quickstart ol {
+  margin: .5rem 0 0; padding-left: 1.5rem;
+  color: rgba(250,250,248,.7); line-height: 1.8;
+}
+.lnd-quickstart ol li::marker { color: #d4d4cd; font-weight: 600; }
+.lnd-quickstart code {
+  background: rgba(250,250,248,.06); padding: .1rem .4rem;
+  border-radius: 4px; font-size: .85em; color: #e0e0d8;
+}
+
+/* ── Concept Box ── */
+.lnd-concept {
+  background: rgba(66,133,244,.04); border-left: 3px solid rgba(66,133,244,.3);
+  border-radius: 0 8px 8px 0; padding: 1rem 1.5rem; margin: 1.5rem 0;
+}
+.lnd-concept p { margin: 0; color: rgba(250,250,248,.65); font-size: .9rem; line-height: 1.6; }
+.lnd-concept strong { color: #fafaf8; }
+
+/* ── Subscribe / Upsell Card ── */
+.lnd-subscribe {
+  margin: 3rem -1rem 0; padding: 2.5rem 2rem;
+  background: linear-gradient(135deg, rgba(66,133,244,.06) 0%, rgba(66,133,244,.02) 100%);
+  border: 1px solid rgba(66,133,244,.15);
+  border-radius: 16px; text-align: center;
+}
+.lnd-subscribe h3 {
+  font: 600 1.2rem/1.3 'Inter', system-ui, sans-serif; color: #fafaf8; margin: 0 0 .5rem;
+}
+.lnd-subscribe p {
+  font-size: .9rem; color: rgba(250,250,248,.5); margin: 0 0 1.5rem; max-width: 400px; margin-left: auto; margin-right: auto;
+}
+.lnd-subscribe .sub-code-area { max-width: 380px; margin: 0 auto; }
+.lnd-subscribe .sub-code-input {
+  width: 100%; padding: .75rem 1rem; border: 1px solid rgba(250,250,248,.12);
+  border-radius: 8px; background: rgba(0,0,0,.25); color: #fafaf8;
+  font: 500 .9rem 'Inter', sans-serif; text-align: center;
+  box-sizing: border-box; outline: none; transition: border-color .2s;
+}
+.lnd-subscribe .sub-code-input:focus { border-color: rgba(66,133,244,.4); }
+.lnd-subscribe .sub-verify-btn {
+  display: block; width: 100%; margin-top: .75rem; padding: .75rem;
+  background: #4285f4; color: #fff; border: none; border-radius: 8px;
+  font: 600 .9rem 'Inter', sans-serif; cursor: pointer; transition: opacity .2s;
+}
+.lnd-subscribe .sub-verify-btn:hover { opacity: .85; }
+.lnd-subscribe .sub-checkmark { display: none; font-size: .9rem; color: #34a853; margin-top: .75rem; }
+.lnd-subscribe .sub-error {
+  display: none; font-size: .8rem; color: #f44336; margin-top: .75rem;
+}
+
+/* ── Book TOC ── */
+.lnd-toc { margin: 1.5rem 0; }
+.lnd-toc-item {
+  display: flex; gap: .75rem; padding: .75rem 1rem;
+  border-bottom: 1px solid rgba(250,250,248,.04);
+  align-items: flex-start;
+}
+.lnd-toc-item:last-child { border-bottom: none; }
+.lnd-toc-num {
+  font: 600 .85rem 'Inter', monospace; color: rgba(250,250,248,.25);
+  min-width: 2rem; padding-top: .1rem;
+}
+.lnd-toc-text { color: rgba(250,250,248,.6); font-size: .9rem; line-height: 1.4; }
+.lnd-toc-text strong { color: #fafaf8; }
+
+/* ── Feature Grid ── */
+.lnd-features { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+@media (max-width: 500px) { .lnd-features { grid-template-columns: 1fr; } }
+.lnd-feat-card {
+  background: rgba(250,250,248,.02); border: 1px solid rgba(250,250,248,.06);
+  border-radius: 10px; padding: 1.25rem;
+}
+.lnd-feat-card h4 {
+  font: 600 .95rem/1.3 'Inter', sans-serif; color: #fafaf8; margin: 0 0 .35rem;
+}
+.lnd-feat-card p {
+  font-size: .82rem; color: rgba(250,250,248,.45); margin: 0; line-height: 1.5;
+}

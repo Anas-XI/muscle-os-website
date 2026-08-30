@@ -1,0 +1,5 @@
+/* ACWR bar */
+.acwr-bar{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;margin-bottom:6px;font-size:.55rem}
+.acwr-bar .acwr-val{font-family:'JetBrains Mono',monospace;font-size:1rem;font-weight:700}
+.acwr-bar .acwr-risk{font-size:.5rem;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+

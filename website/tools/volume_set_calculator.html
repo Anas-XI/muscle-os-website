@@ -1,32 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/client https://accounts.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style https://www.gstatic.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com https://accounts.google.com https://www.gstatic.com https://ssl.gstatic.com; frame-src 'self' https://accounts.google.com/gsi/ https://accounts.google.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev https://accounts.google.com/gsi/ https://accounts.google.com; frame-ancestors 'self'; base-uri 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Volume & Set Calculator — Coach Anas Mo'men | Muscle OS</title>
-  <meta name="description" content="Training volume & set calculator by Coach Anas Mo'men. Calculate optimal sets per muscle group based on your experience level and goals.">
-  <meta property="og:title" content="Volume & Set Calculator — Coach Anas Mo'men | Muscle OS">
-  <meta property="og:description" content="Training volume & set calculator by Coach Anas Mo'men. Calculate optimal sets per muscle group based on your experience level and goals.">
-  <meta property="og:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="1200">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://muscleos.is-a.dev/tools/volume_set_calculator.html">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Volume & Set Calculator — Coach Anas Mo'men | Muscle OS">
-  <meta name="twitter:description" content="Training volume & set calculator by Coach Anas Mo'men. Calculate optimal sets per muscle group based on your experience level and goals.">
-  <meta name="twitter:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+ <meta name="description" content="Training volume & set calculator by Coach Anas Mo'men. Calculate optimal sets per muscle group based on your experience level and goals.">
+ <meta property="og:title" content="Volume & Set Calculator — Coach Anas Mo'men | Muscle OS">
+ <meta property="og:description" content="Training volume & set calculator by Coach Anas Mo'men. Calculate optimal sets per muscle group based on your experience level and goals.">
+ <meta property="og:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
+ <meta property="og:image:width" content="1200">
+ <meta property="og:image:height" content="1200">
+ <meta property="og:type" content="website">
+ <meta property="og:url" content="https://muscleos.is-a.dev/tools/volume_set_calculator.html">
+ <meta name="twitter:card" content="summary_large_image">
+ <meta name="twitter:title" content="Volume & Set Calculator — Coach Anas Mo'men | Muscle OS">
+ <meta name="twitter:description" content="Training volume & set calculator by Coach Anas Mo'men. Calculate optimal sets per muscle group based on your experience level and goals.">
+ <meta name="twitter:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Georgia,'Times New Roman',Times,serif;background:#14151A;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 16px;line-height:1.7}
+body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 16px;line-height:1.7}
 .container{width:100%;max-width:720px}
 .header{text-align:center;margin-bottom:28px}
-.header h1{font-family:Georgia,'Times New Roman',Times,serif;font-size:2.4rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:1px;line-height:1.1}
+.header h1{font-family:'Inter',sans-serif;font-size:2.4rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:1px;line-height:1.1}
 .header p{font-size:.8rem;color:rgba(250,250,248,.5);margin-top:4px;font-weight:300;letter-spacing:.5px}
 .card{background:#1E1E2A;border-radius:16px;padding:24px 22px}
-.section-header{font-family:Georgia,'Times New Roman',Times,serif;font-size:.9rem;font-weight:500;text-transform:uppercase;letter-spacing:.5px;color:#F4C93B;border-bottom:1px solid rgba(250,250,248,.07);padding-bottom:5px;margin:20px 0 12px}
+.section-header{font-family:'Inter',sans-serif;font-size:.9rem;font-weight:500;text-transform:uppercase;letter-spacing:.5px;color:#F4C93B;border-bottom:1px solid rgba(250,250,248,.07);padding-bottom:5px;margin:20px 0 12px}
 .section-header:first-of-type{margin-top:0}
-.section-sub{font-size:.6rem;color:rgba(250,250,248,.35);font-weight:400;text-transform:none;letter-spacing:0;font-family:Georgia,'Times New Roman',Times,serif}
+.section-sub{font-size:.6rem;color:rgba(250,250,248,.35);font-weight:400;text-transform:none;letter-spacing:0;font-family:'Inter',sans-serif}
 .form-group{margin-bottom:14px}
 .form-group:last-of-type{margin-bottom:0}
 .form-group label{display:block;font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(250,250,248,.45);margin-bottom:5px}
@@ -34,17 +40,17 @@ body{font-family:Georgia,'Times New Roman',Times,serif;background:#14151A;color:
 .form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
 input,select{width:100%;padding:9px 11px;background:rgba(20,21,26,.6);border:1.5px solid rgba(250,250,248,.1);border-radius:8px;color:#FAFAF8;font-family:'Courier New',Courier,monospace;font-size:.85rem;outline:none;transition:border-color .2s}
 input:focus,select:focus{border-color:#F4C93B}
-select{font-family:Georgia,'Times New Roman',Times,serif;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 12 8'%3E%3Cpath fill='%23FAFAF8' opacity='0.5' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;padding-right:32px}
+select{font-family:'Inter',sans-serif;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 12 8'%3E%3Cpath fill='%23FAFAF8' opacity='0.5' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;padding-right:32px}
 select option{background:#1E1E2A;color:#FAFAF8}
 .tip{font-size:.6rem;color:rgba(250,250,248,.25);margin-top:3px;font-style:italic}
-.btn-calc{width:100%;margin-top:20px;padding:14px 0;background:#F4C93B;color:#14151A;border:none;border-radius:10px;font-family:Georgia,'Times New Roman',Times,serif;font-size:1.05rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;transition:opacity .2s,transform .15s}
+.btn-calc{width:100%;margin-top:20px;padding:14px 0;background:#F4C93B;color:#14151A;border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:1.05rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;transition:opacity .2s,transform .15s}
 .btn-calc:hover{opacity:.9}
 .btn-calc:active{transform:scale(.98)}
 .error{display:none;color:#F4C93B;font-size:.75rem;text-align:center;margin-top:10px;font-weight:500}
 .results{display:none;margin-top:22px;animation:fadeSlideIn .45s ease-out}
 @keyframes fadeSlideIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .results-card{background:#1E1E2A;border-radius:16px;border-top:3px solid #F4C93B;padding:24px 22px}
-.results-title{font-family:Georgia,'Times New Roman',Times,serif;font-size:1rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;text-align:center}
+.results-title{font-family:'Inter',sans-serif;font-size:1rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;text-align:center}
 .cal-section{text-align:center;margin-bottom:20px}
 .cal-label{font-size:.65rem;text-transform:uppercase;letter-spacing:1.5px;color:rgba(250,250,248,.4);font-weight:600}
 .cal-val{font-family:'Courier New',Courier,monospace;font-size:2.8rem;font-weight:700;color:#F4C93B;line-height:1.1;margin-top:2px}
@@ -59,7 +65,7 @@ select option{background:#1E1E2A;color:#FAFAF8}
 .summary-row:last-child{border-bottom:none}
 .summary-row .lbl{color:rgba(250,250,248,.45)}
 .summary-row .val{font-family:'Courier New',Courier,monospace;color:#FAFAF8;font-weight:600}
-.breakdown-title{font-family:Georgia,'Times New Roman',Times,serif;font-size:.8rem;font-weight:500;text-transform:uppercase;letter-spacing:.5px;color:#F4C93B;margin:14px 0 8px}
+.breakdown-title{font-family:'Inter',sans-serif;font-size:.8rem;font-weight:500;text-transform:uppercase;letter-spacing:.5px;color:#F4C93B;margin:14px 0 8px}
 .bar-section{margin-top:16px}
 .bar-title{font-size:.6rem;text-transform:uppercase;letter-spacing:1.2px;color:rgba(250,250,248,.35);margin-bottom:6px;font-weight:500}
 .bar-track{display:flex;height:20px;border-radius:6px;overflow:hidden}
@@ -70,302 +76,449 @@ select option{background:#1E1E2A;color:#FAFAF8}
 .legend-item{display:flex;align-items:center;gap:4px;font-size:.55rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.35);font-weight:500}
 .legend-dot{width:7px;height:7px;border-radius:2px}
 .rec-note{background:rgba(244,201,59,.08);border:1px solid rgba(244,201,59,.15);border-radius:8px;padding:10px 14px;margin-top:12px;font-size:.72rem;line-height:1.5;color:rgba(250,250,248,.6)}
-.concept-box{background:rgba(244,201,59,.08);border-left:3px solid #F4C93B;border-radius:8px;padding:16px 20px;margin-bottom:20px;font-family:Georgia,'Times New Roman',Times,serif;font-size:.85rem;line-height:1.7;color:rgba(250,250,248,.85)}
+.concept-box{background:rgba(244,201,59,.08);border-left:3px solid #F4C93B;border-radius:8px;padding:16px 20px;margin-bottom:20px;font-family:'Inter',sans-serif;font-size:.85rem;line-height:1.7;color:rgba(250,250,248,.85)}
 .concept-box strong{color:#F4C93B}
 .concept-box .book-ref{display:block;margin-top:8px;font-size:.75rem;color:rgba(250,250,248,.5);font-style:italic;border-top:1px solid rgba(244,201,59,.15);padding-top:8px}
 .concept-box .book-ref a{color:#F4C93B;font-weight:600;text-decoration:none}
 .upsell-box{background:#1E1E2A;border:1px solid rgba(244,201,59,.3);border-radius:12px;padding:24px;margin-top:24px;text-align:center}
-.upsell-box h3{font-family:Georgia,'Times New Roman',Times,serif;font-size:1.1rem;font-weight:700;color:#F4C93B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
-.upsell-box p{font-family:Georgia,'Times New Roman',Times,serif;font-size:.82rem;color:rgba(250,250,248,.7);line-height:1.6;margin-bottom:16px;max-width:480px;margin-left:auto;margin-right:auto}
-.upsell-cta{display:inline-block;background:#F4C93B;color:#14151A;font-family:Georgia,'Times New Roman',Times,serif;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:12px 28px;border-radius:6px;text-decoration:none;transition:opacity .2s}
+.upsell-box h3{font-family:'Inter',sans-serif;font-size:1.1rem;font-weight:700;color:#F4C93B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.upsell-box p{font-family:'Inter',sans-serif;font-size:.82rem;color:rgba(250,250,248,.7);line-height:1.6;margin-bottom:16px;max-width:480px;margin-left:auto;margin-right:auto}
+.upsell-cta{display:inline-block;background:#F4C93B;color:#14151A;font-family:'Inter',sans-serif;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:12px 28px;border-radius:6px;text-decoration:none;transition:opacity .2s}
 .upsell-cta:hover{opacity:.85}
-.styled-table{width:100%;border-collapse:collapse;margin:12px 0;font-family:Georgia,'Times New Roman',Times,serif;font-size:.82rem}
+.styled-table{width:100%;border-collapse:collapse;margin:12px 0;font-family:'Inter',sans-serif;font-size:.82rem}
 .styled-table thead{background:#F4C93B;color:#14151A}
 .styled-table th{padding:10px 12px;text-align:left;font-weight:700;text-transform:uppercase;letter-spacing:.5px;font-size:.7rem}
 .styled-table td{padding:8px 12px;border-bottom:1px solid rgba(250,250,248,.08)}
 .styled-table tbody tr:nth-child(even){background:rgba(250,250,248,.02)}
 .styled-table tbody tr:hover{background:rgba(244,201,59,.05)}
-.mos-nav{position:sticky;top:0;z-index:999;background:rgba(20,21,26,.95);backdrop-filter:blur(8px);border-bottom:1px solid #2C2E37;font-family:Georgia,'Times New Roman',Times,serif}
+.mos-nav{position:sticky;top:0;z-index:999;background:rgba(20,21,26,.95);backdrop-filter:blur(8px);border-bottom:1px solid #2C2E37;font-family:'Inter',sans-serif}
 .mos-nav-inner{max-width:1180px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
-.mos-brand{font-family:Georgia,'Times New Roman',Times,serif;font-weight:700;font-size:15px;letter-spacing:.5px;text-transform:uppercase;color:#fff;text-decoration:none}
+.mos-brand{font-family:'Inter',sans-serif;font-weight:700;font-size:15px;letter-spacing:.5px;text-transform:uppercase;color:#fff;text-decoration:none}
 .mos-brand span{color:#F4C93B}
 .mos-nav-links{display:flex;gap:20px;font-size:11px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
 .mos-nav-links a{color:#C7C9D0;text-decoration:none;transition:color .2s}
 .mos-nav-links a:hover{color:#F4C93B}
 @media(max-width:600px){.mos-nav-links{gap:10px;font-size:9px}.mos-nav-inner{padding:8px 16px}.mos-brand{font-size:12px}}
 @media print{.mos-nav{display:none!important}.mos-footer{display:none!important}}
-.mos-footer{padding:20px 24px;background:#14151A;border-top:1px solid #2C2E37;font-family:Georgia,'Times New Roman',Times,serif;text-align:center}
+.mos-footer{padding:20px 24px;background:#14151A;border-top:1px solid #2C2E37;font-family:'Inter',sans-serif;text-align:center}
 .mos-footer-inner{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
-.mos-fbrand{font-family:Georgia,'Times New Roman',Times,serif;font-weight:700;font-size:13px;letter-spacing:.5px;text-transform:uppercase;color:#fff}
+.mos-fbrand{font-family:'Inter',sans-serif;font-weight:700;font-size:13px;letter-spacing:.5px;text-transform:uppercase;color:#fff}
 .mos-fbrand span{color:#F4C93B}
 .mos-fnav a{color:rgba(250,250,248,.5);text-decoration:none;margin:0 8px;font-size:11px;font-weight:500}
 .mos-fnav a:hover{color:#F4C93B}
 .mos-fsocial a{color:#F4C93B;text-decoration:none;margin:0 8px;font-size:11px}
 .mos-fcopy{font-size:10px;color:rgba(250,250,248,.3);margin-top:6px}
 @media(max-width:600px){
-  body{padding:24px 12px}
-  .header h1{font-size:2rem}
-  .card{padding:18px 14px}
-  .form-row,.form-row-3{grid-template-columns:1fr}
-  .muscle-grid{grid-template-columns:1fr}
-  .cal-val{font-size:2.3rem}
+ body{padding:24px 12px}
+ .header h1{font-size:2rem}
+ .card{padding:18px 14px}
+ .form-row,.form-row-3{grid-template-columns:1fr}
+ .muscle-grid{grid-template-columns:1fr}
+ .cal-val{font-size:2.3rem}
 }
+#googleGate{position:fixed;inset:0;z-index:9999;background:#14151A;display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Inter',sans-serif}#googleGate.gate-hidden{display:none!important}.gate-card{background:#1E1E2A;border:1px solid #2C2E37;border-radius:16px;padding:36px 28px;max-width:420px;width:100%;text-align:center}.gate-card .gate-lock{font-size:36px;margin-bottom:10px}.gate-card h2{font-size:1.1rem;font-weight:600;color:#FAFAF8;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}.gate-card p{font-size:.75rem;color:rgba(250,250,248,.45);margin-bottom:20px;line-height:1.6}.gate-error{display:none;font-size:.7rem;color:#f44336;margin-top:12px}
 </style>
+<script async defer src="https://accounts.google.com/gsi/client"></script>
 </head>
 <body>
+<div id="googleGate">
+ <div class="gate-card">
+ <div class="gate-lock">&#128274;</div>
+ <h2>Sign In Required</h2>
+ <p>Sign in with Google to access this tool. A free Muscle OS account is required.</p>
+ <div id="googleSignIn"></div>
+ <p class="gate-error" id="gateError"></p>
+ </div>
+</div>
 <nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a><a href="../index.html#packages">Coaching</a></div></div></nav>
 <div class="container">
-  <div class="header">
-    <h1>Volume & Set Calculator</h1>
-    <p>Find your optimal weekly sets per muscle group</p>
-  </div>
-  <div class="concept-box">
-    <strong>What is Training Volume?</strong> Training volume — measured as the number of hard sets per muscle group per week — is the primary driver of muscle hypertrophy. Research shows each muscle group has a Minimum Effective Volume (MEV), a Maximum Adaptive Volume (MAV), and a Maximum Recoverable Volume (MRV). Getting these right prevents both under-training and overtraining.
-    <span class="book-ref">This concept is covered in depth in the <a href="../books/muscle_os_training_book.html">Training &amp; Programming Book</a> (27 chapters, 200+ references).</span>
-  </div>
-  <div class="card" id="formCard">
-    <div class="section-header">Your Profile</div>
-    <div class="form-row">
-      <div class="form-group">
-        <label>Training Age</label>
-        <select id="trainingAge">
-          <option value="novice">Novice (under 1 year)</option>
-          <option value="intermediate" selected>Intermediate (1–3 years)</option>
-          <option value="advanced">Advanced (3+ years)</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Primary Goal</label>
-        <select id="goal">
-          <option value="hypertrophy" selected>Hypertrophy (muscle size)</option>
-          <option value="strength">Strength (max force)</option>
-          <option value="both">Both (balanced)</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Days Per Week Available to Train</label>
-      <select id="daysPerWeek">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4" selected>4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-      </select>
-    </div>
+ <div class="header">
+ <h1>Volume & Set Calculator</h1>
+ <p>Find your optimal weekly sets per muscle group</p>
+ </div>
+ <div class="concept-box">
+ <strong>What is Training Volume?</strong> Training volume — measured as the number of hard sets per muscle group per week — is the primary driver of muscle hypertrophy. Research shows each muscle group has a Minimum Effective Volume (MEV), a Maximum Adaptive Volume (MAV), and a Maximum Recoverable Volume (MRV). Getting these right prevents both under-training and overtraining.
+ <span class="book-ref">This concept is covered in depth in the <a href="../books/muscle_os_training_book.html">Training &amp; Programming Book</a> (27 chapters, 200+ references).</span>
+ </div>
+ <div class="card" id="formCard">
+ <div class="section-header">Your Profile</div>
+ <div class="form-row">
+ <div class="form-group">
+ <label>Training Age</label>
+ <select id="trainingAge">
+ <option value="novice">Novice (under 1 year)</option>
+ <option value="intermediate" selected>Intermediate (1–3 years)</option>
+ <option value="advanced">Advanced (3+ years)</option>
+ </select>
+ </div>
+ <div class="form-group">
+ <label>Primary Goal</label>
+ <select id="goal">
+ <option value="hypertrophy" selected>Hypertrophy (muscle size)</option>
+ <option value="strength">Strength (max force)</option>
+ <option value="both">Both (balanced)</option>
+ </select>
+ </div>
+ </div>
+ <div class="form-group">
+ <label>Days Per Week Available to Train</label>
+ <select id="daysPerWeek">
+ <option value="1">1</option>
+ <option value="2">2</option>
+ <option value="3">3</option>
+ <option value="4" selected>4</option>
+ <option value="5">5</option>
+ <option value="6">6</option>
+ <option value="7">7</option>
+ </select>
+ </div>
 
-    <div class="section-header">Muscle Priority <span class="section-sub">— mark each as Focus or Maintenance</span></div>
-    <p style="font-size:.62rem;color:rgba(250,250,248,.35);margin-bottom:10px;line-height:1.4;">Focus muscles get MEV–MAV range. Maintenance muscles get reduced volume near MEV.</p>
-    <div id="priorityGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+ <div class="section-header">Muscle Priority <span class="section-sub">— mark each as Focus or Maintenance</span></div>
+ <p style="font-size:.62rem;color:rgba(250,250,248,.35);margin-bottom:10px;line-height:1.4;">Focus muscles get MEV–MAV range. Maintenance muscles get reduced volume near MEV.</p>
+ <div id="priorityGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
 
-    </div>
+ </div>
 
-    <div class="error" id="errorMsg">Select at least one Focus muscle group.</div>
-    <button class="btn-calc" id="calcBtn">Calculate My Volume</button>
-  </div>
+ <div class="error" id="errorMsg">Select at least one Focus muscle group.</div>
+ <button class="btn-calc" id="calcBtn">Calculate My Volume</button>
+ </div>
 
-  <div class="results" id="resultsSection">
-    <div class="results-card">
-      <div class="results-title">Weekly Set Recommendations</div>
-      <div class="cal-section">
-        <div class="cal-label">Total Weekly Working Sets</div>
-        <div class="cal-val" id="totalSets">0</div>
-        <div class="cal-unit">sets / week</div>
-      </div>
-      <div class="muscle-grid" id="muscleResults"></div>
-      <div id="volBreakdown"></div>
-      <div class="bar-section">
-        <div class="bar-title">Per-Session Volume Distribution</div>
-        <div class="bar-track" id="sessionBar"></div>
-        <div class="legend">
-          <span class="legend-item"><span class="legend-dot" style="background:#F4C93B"></span>Sessions</span>
-        </div>
-      </div>
-      <div class="rec-note" id="recNote"></div>
-    </div>
-  </div>
+ <div class="results" id="resultsSection">
+ <div class="results-card">
+ <div class="results-title">Weekly Set Recommendations</div>
+ <div class="cal-section">
+ <div class="cal-label">Total Weekly Working Sets</div>
+ <div class="cal-val" id="totalSets">0</div>
+ <div class="cal-unit">sets / week</div>
+ </div>
+ <div class="muscle-grid" id="muscleResults"></div>
+ <div id="volBreakdown"></div>
+ <div class="bar-section">
+ <div class="bar-title">Per-Session Volume Distribution</div>
+ <div class="bar-track" id="sessionBar"></div>
+ <div class="legend">
+ <span class="legend-item"><span class="legend-dot" style="background:#F4C93B"></span>Sessions</span>
+ </div>
+ </div>
+ <div class="rec-note" id="recNote"></div>
+ </div>
+ </div>
 </div>
 <div class="upsell-box">
-  <h3>Want the full picture?</h3>
-  <p>This free calculator gives you a snapshot. The full Training &amp; Programming Book covers progressive overload, periodisation, exercise selection, fatigue management, and autoregulation across 27 chapters with 200+ scientific references.</p>
-  <a class="upsell-cta" href="../books/muscle_os_training_book.html">Get the Full Book — 500 EGP &rarr;</a>
+ <h3>Want the full picture?</h3>
+ <p>This free calculator gives you a snapshot. The full Training &amp; Programming Book covers progressive overload, periodisation, exercise selection, fatigue management, and autoregulation across 27 chapters with 200+ scientific references.</p>
+ <a class="upsell-cta" href="../books/muscle_os_training_book.html">Get the Full Book — 500 EGP &rarr;</a>
 </div>
 <footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo'men</div></footer>
 
 <script>
 (function(){
-  const MUSCLES = [
-    {id:'chest', name:'Chest'},
-    {id:'back_lat', name:'Back (Lats)'},
-    {id:'back_upper', name:'Back (Upper/Mid)'},
-    {id:'shoulders', name:'Shoulders (Delts)'},
-    {id:'quads', name:'Quads (Front Thigh)'},
-    {id:'hamstrings', name:'Hamstrings'},
-    {id:'glutes', name:'Glutes'},
-    {id:'biceps', name:'Biceps'},
-    {id:'triceps', name:'Triceps'},
-    {id:'calves', name:'Calves'},
-    {id:'abs', name:'Abs / Core'},
-    {id:'traps', name:'Traps'},
-    {id:'forearms', name:'Forearms'}
-  ];
+ const MUSCLES = [
+ {id:'chest', name:'Chest'},
+ {id:'back_lat', name:'Back (Lats)'},
+ {id:'back_upper', name:'Back (Upper/Mid)'},
+ {id:'shoulders', name:'Shoulders (Delts)'},
+ {id:'quads', name:'Quads (Front Thigh)'},
+ {id:'hamstrings', name:'Hamstrings'},
+ {id:'glutes', name:'Glutes'},
+ {id:'biceps', name:'Biceps'},
+ {id:'triceps', name:'Triceps'},
+ {id:'calves', name:'Calves'},
+ {id:'abs', name:'Abs / Core'},
+ {id:'traps', name:'Traps'},
+ {id:'forearms', name:'Forearms'}
+ ];
 
-  const VOLUME_TABLES = {
-    novice: {
-      hypertrophy: {
-        chest:[6,10,14], back_lat:[8,12,18], back_upper:[8,12,16],
-        shoulders:[6,10,16], quads:[6,12,18], hamstrings:[6,10,14],
-        glutes:[6,10,14], biceps:[4,8,12], triceps:[4,8,12],
-        calves:[4,8,12], abs:[4,8,12], traps:[4,8,10], forearms:[4,6,10]
-      },
-      strength: {
-        chest:[4,7,12], back_lat:[5,9,14], back_upper:[5,9,12],
-        shoulders:[4,7,12], quads:[5,9,14], hamstrings:[4,7,12],
-        glutes:[4,7,12], biceps:[3,5,9], triceps:[3,5,9],
-        calves:[3,5,9], abs:[3,5,9], traps:[3,5,8], forearms:[3,4,8]
-      },
-      both: {
-        chest:[5,9,14], back_lat:[7,11,16], back_upper:[7,11,14],
-        shoulders:[5,9,14], quads:[6,10,16], hamstrings:[5,9,14],
-        glutes:[5,9,14], biceps:[3,7,11], triceps:[3,7,11],
-        calves:[3,7,11], abs:[3,7,11], traps:[3,6,10], forearms:[3,5,9]
-      }
-    },
-    intermediate: {
-      hypertrophy: {
-        chest:[8,14,20], back_lat:[10,16,22], back_upper:[10,15,20],
-        shoulders:[8,14,20], quads:[8,14,22], hamstrings:[8,12,18],
-        glutes:[8,12,18], biceps:[6,12,16], triceps:[6,12,16],
-        calves:[6,10,16], abs:[6,10,16], traps:[6,10,14], forearms:[6,8,14]
-      },
-      strength: {
-        chest:[5,10,16], back_lat:[7,12,18], back_upper:[7,12,16],
-        shoulders:[5,10,16], quads:[6,12,18], hamstrings:[5,10,16],
-        glutes:[5,10,16], biceps:[4,8,13], triceps:[4,8,13],
-        calves:[4,8,13], abs:[4,8,13], traps:[4,8,11], forearms:[4,6,11]
-      },
-      both: {
-        chest:[7,12,18], back_lat:[9,14,20], back_upper:[9,13,18],
-        shoulders:[7,12,18], quads:[7,13,20], hamstrings:[7,11,17],
-        glutes:[7,11,17], biceps:[5,10,14], triceps:[5,10,14],
-        calves:[5,9,14], abs:[5,9,14], traps:[5,9,12], forearms:[5,7,12]
-      }
-    },
-    advanced: {
-      hypertrophy: {
-        chest:[10,16,22], back_lat:[12,18,26], back_upper:[12,18,24],
-        shoulders:[10,16,24], quads:[10,16,24], hamstrings:[10,14,22],
-        glutes:[10,14,22], biceps:[8,14,20], triceps:[8,14,20],
-        calves:[8,12,18], abs:[8,12,18], traps:[8,12,16], forearms:[8,10,16]
-      },
-      strength: {
-        chest:[6,12,18], back_lat:[8,14,20], back_upper:[8,14,18],
-        shoulders:[6,12,18], quads:[7,14,20], hamstrings:[6,12,18],
-        glutes:[6,12,18], biceps:[5,10,15], triceps:[5,10,15],
-        calves:[5,9,15], abs:[5,9,15], traps:[5,9,13], forearms:[5,7,13]
-      },
-      both: {
-        chest:[8,14,20], back_lat:[10,16,22], back_upper:[10,16,20],
-        shoulders:[8,14,20], quads:[9,15,22], hamstrings:[8,13,20],
-        glutes:[8,13,20], biceps:[7,12,18], triceps:[7,12,18],
-        calves:[7,11,17], abs:[7,11,17], traps:[7,11,15], forearms:[7,9,15]
-      }
-    }
+ const VOLUME_TABLES = {
+ novice: {
+ hypertrophy: {
+ chest:[6,10,14], back_lat:[8,12,18], back_upper:[8,12,16],
+ shoulders:[6,10,16], quads:[6,12,18], hamstrings:[6,10,14],
+ glutes:[6,10,14], biceps:[4,8,12], triceps:[4,8,12],
+ calves:[4,8,12], abs:[4,8,12], traps:[4,8,10], forearms:[4,6,10]
+ },
+ strength: {
+ chest:[4,7,12], back_lat:[5,9,14], back_upper:[5,9,12],
+ shoulders:[4,7,12], quads:[5,9,14], hamstrings:[4,7,12],
+ glutes:[4,7,12], biceps:[3,5,9], triceps:[3,5,9],
+ calves:[3,5,9], abs:[3,5,9], traps:[3,5,8], forearms:[3,4,8]
+ },
+ both: {
+ chest:[5,9,14], back_lat:[7,11,16], back_upper:[7,11,14],
+ shoulders:[5,9,14], quads:[6,10,16], hamstrings:[5,9,14],
+ glutes:[5,9,14], biceps:[3,7,11], triceps:[3,7,11],
+ calves:[3,7,11], abs:[3,7,11], traps:[3,6,10], forearms:[3,5,9]
+ }
+ },
+ intermediate: {
+ hypertrophy: {
+ chest:[8,14,20], back_lat:[10,16,22], back_upper:[10,15,20],
+ shoulders:[8,14,20], quads:[8,14,22], hamstrings:[8,12,18],
+ glutes:[8,12,18], biceps:[6,12,16], triceps:[6,12,16],
+ calves:[6,10,16], abs:[6,10,16], traps:[6,10,14], forearms:[6,8,14]
+ },
+ strength: {
+ chest:[5,10,16], back_lat:[7,12,18], back_upper:[7,12,16],
+ shoulders:[5,10,16], quads:[6,12,18], hamstrings:[5,10,16],
+ glutes:[5,10,16], biceps:[4,8,13], triceps:[4,8,13],
+ calves:[4,8,13], abs:[4,8,13], traps:[4,8,11], forearms:[4,6,11]
+ },
+ both: {
+ chest:[7,12,18], back_lat:[9,14,20], back_upper:[9,13,18],
+ shoulders:[7,12,18], quads:[7,13,20], hamstrings:[7,11,17],
+ glutes:[7,11,17], biceps:[5,10,14], triceps:[5,10,14],
+ calves:[5,9,14], abs:[5,9,14], traps:[5,9,12], forearms:[5,7,12]
+ }
+ },
+ advanced: {
+ hypertrophy: {
+ chest:[10,16,22], back_lat:[12,18,26], back_upper:[12,18,24],
+ shoulders:[10,16,24], quads:[10,16,24], hamstrings:[10,14,22],
+ glutes:[10,14,22], biceps:[8,14,20], triceps:[8,14,20],
+ calves:[8,12,18], abs:[8,12,18], traps:[8,12,16], forearms:[8,10,16]
+ },
+ strength: {
+ chest:[6,12,18], back_lat:[8,14,20], back_upper:[8,14,18],
+ shoulders:[6,12,18], quads:[7,14,20], hamstrings:[6,12,18],
+ glutes:[6,12,18], biceps:[5,10,15], triceps:[5,10,15],
+ calves:[5,9,15], abs:[5,9,15], traps:[5,9,13], forearms:[5,7,13]
+ },
+ both: {
+ chest:[8,14,20], back_lat:[10,16,22], back_upper:[10,16,20],
+ shoulders:[8,14,20], quads:[9,15,22], hamstrings:[8,13,20],
+ glutes:[8,13,20], biceps:[7,12,18], triceps:[7,12,18],
+ calves:[7,11,17], abs:[7,11,17], traps:[7,11,15], forearms:[7,9,15]
+ }
+ }
+ };
+
+ const PRIORITY_MULT = {focus:1.0, maintenance:0.55};
+
+ // Render muscle priority grid
+ const grid = document.getElementById('priorityGrid');
+ MUSCLES.forEach(m => {
+ const div = document.createElement('div');
+ div.style.cssText = 'display:flex;align-items:center;gap:6px;padding:5px 8px;background:rgba(20,21,26,.4);border-radius:6px;';
+ div.innerHTML = '<span style="flex:1;font-size:.68rem;color:#FAFAF8;font-weight:500;">'+m.name+'</span>' +
+ '<label style="font-size:.55rem;color:rgba(250,250,248,.35);cursor:pointer;display:flex;align-items:center;gap:2px;"><input type="radio" name="p_'+m.id+'" value="focus" checked style="accent-color:#F4C93B;width:auto;margin:0;">Focus</label>' +
+ '<label style="font-size:.55rem;color:rgba(250,250,248,.25);cursor:pointer;display:flex;align-items:center;gap:2px;"><input type="radio" name="p_'+m.id+'" value="maintenance" style="accent-color:#F4C93B;width:auto;margin:0;">Maint</label>';
+ grid.appendChild(div);
+ });
+
+ function getPriority(id){
+ const r = document.querySelector('input[name="p_'+id+'"]:checked');
+ return r ? r.value : 'focus';
+ }
+
+ function getVol(muscleId, level, goal){
+ return VOLUME_TABLES[level][goal][muscleId] || [4,8,12];
+ }
+
+ document.getElementById('calcBtn').addEventListener('click', function(){
+ const err = document.getElementById('errorMsg');
+ const res = document.getElementById('resultsSection');
+ const level = document.getElementById('trainingAge').value;
+ const goal = document.getElementById('goal').value;
+ const days = parseInt(document.getElementById('daysPerWeek').value);
+
+ const focusCount = MUSCLES.filter(m => getPriority(m.id) === 'focus').length;
+ if(focusCount === 0){
+ err.style.display = 'block'; res.style.display = 'none'; return;
+ }
+ err.style.display = 'none';
+
+ const table = VOLUME_TABLES[level][goal];
+ let totalSets = 0;
+ let resultsHtml = '';
+ const muscleData = [];
+
+ MUSCLES.forEach(m => {
+ const vol = getVol(m.id, level, goal);
+ const priority = getPriority(m.id);
+ const mult = PRIORITY_MULT[priority];
+ const mev = Math.round(vol[0] * mult);
+ const mav = Math.round(vol[1] * mult);
+ const mrv = Math.round(vol[2] * mult);
+ const rec = Math.round((mev + mav) / 2);
+ muscleData.push({id:m.id, name:m.name, mev,mav,mrv,rec, priority});
+ totalSets += rec;
+ const barPct = Math.min(100, (rec / mrv) * 100);
+ resultsHtml += '<div class="muscle-card">' +
+ '<div><span class="muscle-name">'+m.name+' <span class="priority">'+(priority==='focus'?'FOCUS':'MAINT')+'</span></span></div>' +
+ '<div style="text-align:right"><span class="muscle-sets">'+rec+'</span> <span class="muscle-range">('+mev+'–'+mav+')</span></div>' +
+ '</div>' +
+ '<div class="bar-progress"><div class="bar-fill" style="width:'+barPct+'%"></div></div>';
+ });
+
+ document.getElementById('totalSets').textContent = totalSets;
+ document.getElementById('muscleResults').innerHTML = resultsHtml;
+
+ // Per-session breakdown
+ const totalFocus = muscleData.filter(m => m.priority === 'focus').reduce((s,m)=>s+m.rec,0);
+ const perSession = Math.round(totalSets / days);
+
+ let sessHtml = '';
+ for(let d=1; d<=days; d++){
+ const pct = 100/days;
+ sessHtml += '<div class="bar-seg" style="width:'+pct+'%;background:#F4C93B;font-size:.5rem;">'+Math.round(totalSets/days)+'</div>';
+ }
+ document.getElementById('sessionBar').innerHTML = sessHtml;
+
+ // Recommendation note
+ let note = '';
+ const setGoal = goal === 'hypertrophy' ? 'hypertrophy' : (goal === 'strength' ? 'strength' : 'balanced');
+ note = 'Training age: <strong>'+level+'</strong> · Goal: <strong>'+setGoal+'</strong> · Days/week: <strong>'+days+'</strong>. ';
+ if(level === 'novice'){
+ note += 'As a novice, you will respond to almost any volume within range. Start at the lower end of your MEV–MAV range and add sets only when progress stalls for 2+ weeks.';
+ } else if(level === 'intermediate'){
+ note += 'As an intermediate, your MEV is higher and your MRV is a real constraint. Stay within the recommended sweet spot (midpoint). If recovery suffers, reduce volume before reducing intensity.';
+ } else {
+ note += 'As an advanced lifter, you need substantial volume to drive progress and substantial recovery to manage it. Consider a weekly undulating volume pattern: higher volume early in the week, lower volume before rest days.';
+ }
+ if(totalSets > 25 && days <= 3){
+ note += ' With '+days+' days/week and '+totalSets+' total sets, each session will be long. Consider spreading to 4+ days or reducing maintenance volume.';
+ }
+ document.getElementById('recNote').innerHTML = note;
+
+ res.style.display = 'block';
+ res.scrollIntoView({behavior:'smooth',block:'start'});
+ });
+})();
+</script>
+<script src="../assets/js/access-control.js"></script>
+<script>
+(function(){
+ function init(){
+ var gate = document.getElementById('googleGate');
+ if(!gate) return;
+ MosAccess.requireGoogleAuth(null, function(ok){ if(ok) gate.classList.add('gate-hidden'); });
+ }
+ if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+</script>
+<script src="../js/auth.js"></script>
+<script>
+(function(){
+  var SUB_KEY = 'mos_subscription';
+  var API = 'https://muscleos-access-control.muscleos.workers.dev/api/verify-code';
+  var ERR_MSGS = {
+    invalid_code: 'Wrong code. Please check and try again.',
+    wrong_product: 'This code belongs to a different product.',
+    code_used_by_other: 'This code is already linked to another account.',
+    code_exhausted: 'This code has already been used.',
+    code_revoked: 'This code has been revoked.',
+    code_expired: 'This code has expired.',
+    invalid_session: 'Session expired. Please sign in again.',
+    network: 'Network error. Please try again.'
   };
-
-  const PRIORITY_MULT = {focus:1.0, maintenance:0.55};
-
-  // Render muscle priority grid
-  const grid = document.getElementById('priorityGrid');
-  MUSCLES.forEach(m => {
-    const div = document.createElement('div');
-    div.style.cssText = 'display:flex;align-items:center;gap:6px;padding:5px 8px;background:rgba(20,21,26,.4);border-radius:6px;';
-    div.innerHTML = '<span style="flex:1;font-size:.68rem;color:#FAFAF8;font-weight:500;">'+m.name+'</span>' +
-      '<label style="font-size:.55rem;color:rgba(250,250,248,.35);cursor:pointer;display:flex;align-items:center;gap:2px;"><input type="radio" name="p_'+m.id+'" value="focus" checked style="accent-color:#F4C93B;width:auto;margin:0;">Focus</label>' +
-      '<label style="font-size:.55rem;color:rgba(250,250,248,.25);cursor:pointer;display:flex;align-items:center;gap:2px;"><input type="radio" name="p_'+m.id+'" value="maintenance" style="accent-color:#F4C93B;width:auto;margin:0;">Maint</label>';
-    grid.appendChild(div);
-  });
-
-  function getPriority(id){
-    const r = document.querySelector('input[name="p_'+id+'"]:checked');
-    return r ? r.value : 'focus';
-  }
-
-  function getVol(muscleId, level, goal){
-    return VOLUME_TABLES[level][goal][muscleId] || [4,8,12];
-  }
-
-  document.getElementById('calcBtn').addEventListener('click', function(){
-    const err = document.getElementById('errorMsg');
-    const res = document.getElementById('resultsSection');
-    const level = document.getElementById('trainingAge').value;
-    const goal = document.getElementById('goal').value;
-    const days = parseInt(document.getElementById('daysPerWeek').value);
-
-    const focusCount = MUSCLES.filter(m => getPriority(m.id) === 'focus').length;
-    if(focusCount === 0){
-      err.style.display = 'block'; res.style.display = 'none'; return;
+  function getSub(){ try { return JSON.parse(localStorage.getItem(SUB_KEY) || 'null'); } catch(e){ return null; } }
+  function subOk(s){
+    var OWNER_EMAILS = ['ANASSTEM2025@GMAIL.COM', '1022066.ANAS@STEMEGYPT.EDU.EG', 'ANASSMOMEN@GMAIL.COM'];
+    try {
+      var gs = JSON.parse(localStorage.getItem('mos_google_session') || 'null');
+      if (gs && gs.email && OWNER_EMAILS.includes(gs.email.toUpperCase())) return true;
+    } catch(e){}
+    if (s && s.active && (!s.expiry || new Date(s.expiry + 'T23:59:59') > new Date())) return true;
+    var TRIAL_EPOCH = new Date('2026-08-27T00:00:00.000Z').getTime();
+    var start = localStorage.getItem('mos_trial_start');
+    if (!start || new Date(start).getTime() < TRIAL_EPOCH) {
+      start = new Date().toISOString();
+      localStorage.setItem('mos_trial_start', start);
+      localStorage.setItem('mos_tdee_trial_start', start);
     }
-    err.style.display = 'none';
-
-    const table = VOLUME_TABLES[level][goal];
-    let totalSets = 0;
-    let resultsHtml = '';
-    const muscleData = [];
-
-    MUSCLES.forEach(m => {
-      const vol = getVol(m.id, level, goal);
-      const priority = getPriority(m.id);
-      const mult = PRIORITY_MULT[priority];
-      const mev = Math.round(vol[0] * mult);
-      const mav = Math.round(vol[1] * mult);
-      const mrv = Math.round(vol[2] * mult);
-      const rec = Math.round((mev + mav) / 2);
-      muscleData.push({id:m.id, name:m.name, mev,mav,mrv,rec, priority});
-      totalSets += rec;
-      const barPct = Math.min(100, (rec / mrv) * 100);
-      resultsHtml += '<div class="muscle-card">' +
-        '<div><span class="muscle-name">'+m.name+' <span class="priority">'+(priority==='focus'?'FOCUS':'MAINT')+'</span></span></div>' +
-        '<div style="text-align:right"><span class="muscle-sets">'+rec+'</span> <span class="muscle-range">('+mev+'–'+mav+')</span></div>' +
-        '</div>' +
-        '<div class="bar-progress"><div class="bar-fill" style="width:'+barPct+'%"></div></div>';
+    var daysLeft = 7 - Math.floor((Date.now() - new Date(start).getTime()) / 86400000);
+    return daysLeft > 0;
+  }
+  function hideGate(){ var g = document.getElementById('googleGate'); if (g) g.classList.add('gate-hidden'); }
+  window.MosAccess = { requireGoogleAuth: function(o, cb){ try { cb(!!subOk(getSub())); } catch(e){ cb(false); } } };
+  function buildCard(g){
+    var card = g.querySelector('.gate-card');
+    if (card) {
+      var old = card.querySelector('.gate-error');
+      if (old) old.parentNode.removeChild(old);
+      var p = card.querySelector('p');
+      if (p && p.parentNode) p.parentNode.removeChild(p);
+      var h2 = card.querySelector('h2');
+      if (h2) h2.textContent = 'SUBSCRIPTION REQUIRED';
+      return card;
+    }
+    card = document.createElement('div');
+    card.className = 'gate-card';
+    var lock = document.createElement('div');
+    lock.className = 'gate-lock';
+    lock.textContent = '🔒';
+    var h2 = document.createElement('h2');
+    h2.textContent = 'SUBSCRIPTION REQUIRED';
+    card.appendChild(lock);
+    card.appendChild(h2);
+    g.appendChild(card);
+    return card;
+  }
+  function wire(){
+    var g = document.getElementById('googleGate');
+    if (!g) {
+      g = document.createElement('div');
+      g.id = 'googleGate';
+      g.style.cssText = 'position:fixed;inset:0;z-index:9999;background:#14151A;display:flex;align-items:center;justify-content:center;padding:20px;font-family:Inter,sans-serif';
+      document.body.appendChild(g);
+    }
+    var card = buildCard(g);
+    var input = document.createElement('input');
+    input.type = 'text';
+    input.placeholder = 'Enter your code';
+    input.autocomplete = 'off';
+    input.style.cssText = 'width:100%;padding:11px 12px;border-radius:8px;border:1px solid #2C2E37;background:#14151A;color:#FAFAF8;font:600 .85rem Inter,sans-serif;letter-spacing:1px;text-align:center;margin-bottom:10px;box-sizing:border-box;text-transform:uppercase';
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = 'UNLOCK';
+    btn.style.cssText = 'width:100%;padding:11px;border-radius:8px;border:0;background:#E11D2E;color:#fff;font:700 .8rem Inter,sans-serif;cursor:pointer';
+    var err = document.createElement('div');
+    err.style.cssText = 'display:none;font-size:.7rem;color:#f44336;margin-top:10px';
+    var link = document.createElement('a');
+    link.href = '../order.html';
+    link.target = '_blank';
+    link.textContent = 'No code? Get access →';
+    link.style.cssText = 'display:inline-block;margin-top:14px;font-size:.72rem;color:rgba(250,250,248,.55);text-decoration:underline';
+    card.appendChild(input);
+    card.appendChild(btn);
+    card.appendChild(err);
+    card.appendChild(link);
+    btn.addEventListener('click', function(){
+      var code = (input.value || '').trim();
+      if (!code) return;
+      btn.disabled = true;
+      btn.textContent = 'Checking...';
+      err.style.display = 'none';
+      var tries = ['training_tool', 'tdee_adaptive_engine', 'omni_hub'];
+      var i = 0;
+      var lastError = 'network';
+      function fail(){
+        btn.disabled = false;
+        btn.textContent = 'UNLOCK';
+        err.style.display = 'block';
+        err.textContent = ERR_MSGS[lastError] || ERR_MSGS.invalid_code;
+      }
+      function attempt(){
+        if (i >= tries.length) return fail();
+        var prod = tries[i++];
+        fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code: code, productId: prod }) })
+          .then(function(r){ return r.json().catch(function(){ return null; }).then(function(d){ return { ok: r.ok, d: d }; }); })
+          .then(function(res){
+            if (res.ok && res.d && res.d.valid) {
+              localStorage.setItem(SUB_KEY, JSON.stringify({ active: true, plan: res.d.plan || 'pro_tool', expiry: (res.d.expiresAt || '').slice(0, 10), token: res.d.token || '', code: code, email: '', prodId: res.d.productId || 'all_access' }));
+              hideGate();
+            } else {
+              lastError = (res.d && res.d.error) ? res.d.error : 'network';
+              attempt();
+            }
+          })
+          .catch(function(){ lastError = 'network'; attempt(); });
+      }
+      attempt();
     });
-
-    document.getElementById('totalSets').textContent = totalSets;
-    document.getElementById('muscleResults').innerHTML = resultsHtml;
-
-    // Per-session breakdown
-    const totalFocus = muscleData.filter(m => m.priority === 'focus').reduce((s,m)=>s+m.rec,0);
-    const perSession = Math.round(totalSets / days);
-
-    let sessHtml = '';
-    for(let d=1; d<=days; d++){
-      const pct = 100/days;
-      sessHtml += '<div class="bar-seg" style="width:'+pct+'%;background:#F4C93B;font-size:.5rem;">'+Math.round(totalSets/days)+'</div>';
-    }
-    document.getElementById('sessionBar').innerHTML = sessHtml;
-
-    // Recommendation note
-    let note = '';
-    const setGoal = goal === 'hypertrophy' ? 'hypertrophy' : (goal === 'strength' ? 'strength' : 'balanced');
-    note = 'Training age: <strong>'+level+'</strong> · Goal: <strong>'+setGoal+'</strong> · Days/week: <strong>'+days+'</strong>. ';
-    if(level === 'novice'){
-      note += 'As a novice, you will respond to almost any volume within range. Start at the lower end of your MEV–MAV range and add sets only when progress stalls for 2+ weeks.';
-    } else if(level === 'intermediate'){
-      note += 'As an intermediate, your MEV is higher and your MRV is a real constraint. Stay within the recommended sweet spot (midpoint). If recovery suffers, reduce volume before reducing intensity.';
-    } else {
-      note += 'As an advanced lifter, you need substantial volume to drive progress and substantial recovery to manage it. Consider a weekly undulating volume pattern: higher volume early in the week, lower volume before rest days.';
-    }
-    if(totalSets > 25 && days <= 3){
-      note += ' With '+days+' days/week and '+totalSets+' total sets, each session will be long. Consider spreading to 4+ days or reducing maintenance volume.';
-    }
-    document.getElementById('recNote').innerHTML = note;
-
-    res.style.display = 'block';
-    res.scrollIntoView({behavior:'smooth',block:'start'});
-  });
+  }
+  if (subOk(getSub())) { hideGate(); } else { wire(); }
+  window.addEventListener('storage', function(e){ if (e.key === SUB_KEY && subOk(getSub())) hideGate(); });
 })();
 </script>
 </body>

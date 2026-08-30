@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muscle OS &mdash; Client Assessment &amp; Intake Diagnostic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0A0B0E;
+    --surface: #14151A;
+    --surface-2: #1E2027;
+    --border: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(244, 201, 59, 0.4);
+    --yellow: #F4C93B;
+    --yellow-glow: rgba(244, 201, 59, 0.35);
+    --text: #FAFAF8;
+    --text-muted: rgba(250, 250, 248, 0.65);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: radial-gradient(circle at 80% 20%, #201b0c 0%, #0A0B0E 65%);
+    background-color: var(--ink);
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    padding-bottom: 60px;
+  }
+  h1, h2, h3, h4, h5, h6 { font-family: 'Oswald', sans-serif; font-weight: 600; line-height: 1.2; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .container { max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+  
+  .header-wrap { text-align: center; margin-bottom: 28px; }
+  h1 { font-size: 28px; margin-bottom: 6px; color: #fff; letter-spacing: 0.5px; text-transform: uppercase; }
+  h1 span { color: var(--yellow); text-shadow: 0 0 12px var(--yellow-glow); }
+  .subtitle { font-size: 13.5px; color: var(--text-muted); max-width: 540px; margin: 0 auto; }
+  
+  .progress-wrap { background: rgba(255, 255, 255, 0.06); border-radius: 8px; height: 8px; margin-bottom: 10px; overflow: hidden; }
+  .progress-bar { height: 100%; background: linear-gradient(90deg, var(--yellow), #ffd659); border-radius: 8px; transition: width 0.35s ease; box-shadow: 0 0 10px var(--yellow-glow); }
+  .step-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--yellow); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+  
+  .section {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+    padding: 28px; margin-bottom: 20px; box-shadow: 0 12px 35px rgba(0,0,0,0.5);
+    backdrop-filter: blur(10px); animation: fadeIn .3s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .section-badge { width: 34px; height: 34px; border-radius: 8px; background: rgba(244, 201, 59, 0.12); border: 1px solid var(--yellow); display: flex; align-items: center; justify-content: center; color: var(--yellow); font-weight: 700; font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+  .section-title { font-size: 18px; font-weight: 600; color: #fff; letter-spacing: 0.3px; text-transform: uppercase; }
+  .section-desc { font-size: 12.5px; color: var(--text-muted); margin: -6px 0 18px 46px; }
+  
+  .q { margin-bottom: 20px; }
+  .q:last-child { margin-bottom: 0; }
+  .q-label { font-size: 13.5px; color: var(--text); margin-bottom: 10px; line-height: 1.4; font-weight: 600; }
+  
+  .opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opts button, .opts label {
+    padding: 10px 16px; border-radius: 8px; font-size: 12.5px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s; border: 1.5px solid var(--border);
+    background: var(--surface-2); color: var(--text-muted); user-select: none; min-height: 44px;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .opts input[type="radio"] { display: none; }
+  .opts input[type="radio"]:checked + label, .opts button.selected {
+    background: rgba(244, 201, 59, 0.15); border-color: var(--yellow); color: var(--yellow); box-shadow: 0 0 12px var(--yellow-glow);
+  }
+  .opts label:hover, .opts button:hover { border-color: var(--yellow); color: #fff; }
+  
+  .fill-input {
+    width: 100%; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 8px;
+    font-size: 13.5px; font-family: 'Inter', sans-serif; background: rgba(0,0,0,0.3);
+    color: #fff; outline: none; transition: border-color .2s;
+  }
+  .fill-input:focus { border-color: var(--yellow); box-shadow: 0 0 0 3px rgba(244, 201, 59, 0.15); }
+  .fill-textarea { min-height: 70px; resize: vertical; }
+
+  .nav-btns { display: flex; gap: 12px; margin-top: 16px; }
+  .nav-spacer { flex: 1; }
+  .btn {
+    padding: 13px 24px; border-radius: 8px; font-size: 13px; font-weight: 700;
+    cursor: pointer; border: none; transition: all 0.2s; text-align: center;
+    display: inline-flex; align-items: center; gap: 6px; font-family: 'Oswald', sans-serif;
+    letter-spacing: 0.5px; text-transform: uppercase;
+  }
+  .btn-primary { background: linear-gradient(135deg, var(--yellow), #ffd659); color: var(--ink); box-shadow: 0 4px 15px var(--yellow-glow); }
+  .btn-primary:hover { background: #fff; transform: translateY(-1px); }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+  .btn-secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+  .btn-secondary:hover { border-color: var(--yellow); color: var(--yellow); }
+
+  .review-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
+  .review-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+  .review-card .label { font-size: 10px; text-transform: uppercase; letter-spacing: .05em; color: var(--yellow); margin-bottom: 4px; font-family: 'JetBrains Mono', monospace; }
+  .review-card .val { font-size: 13.5px; font-weight: 600; color: #fff; }
+  
+  @media(max-width: 540px) {
+    .review-grid { grid-template-columns: 1fr; }
+    .opts button, .opts label { flex: 1; min-width: 120px; }
+  }
+</style>
+</head>
+<body>
+<div class="container" id="app">
+  <div class="header-wrap">
+    <h1>MUSCLE <span>OS</span> INTAKE</h1>
+    <p class="subtitle">Evidence-based athlete intake protocol. Formulates your metabolic landmarks, training volume brackets, and custom split structure.</p>
+  </div>
+  
+  <div class="progress-wrap"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
+  <div class="step-label" id="stepLabel"></div>
+  
+  <div id="formBody"></div>
+  <div class="nav-btns" id="navArea"></div>
+  <div id="resultArea"></div>
+</div>
+
+<script>
+const SECTIONS = [
+  {
+    id: 1, title: 'Athlete Identity & Vitals', desc: 'Basic metrics required for baseline expenditure and biomechanical scaling.',
+    questions: [
+      { id:'name', type:'text', label:'Full name', placeholder:'e.g. Omar Khaled' },
+      { id:'age', label:'Age bracket', options:[{ value:'under_25', label:'Under 25' }, { value:'25_39', label:'25-39' }, { value:'40_54', label:'40-54' }, { value:'55_plus', label:'55+' }] },
+      { id:'sex', label:'Biological sex (for metabolic equations)', options:[{ value:'male', label:'Male' }, { value:'female', label:'Female' }] },
+      { id:'height', type:'number', label:'Height (cm)', placeholder:'e.g. 178' },
+      { id:'weight', type:'number', label:'Current body weight (kg)', placeholder:'e.g. 82.5' }
+    ]
+  },
+  {
+    id: 2, title: 'Primary Goal & Composition', desc: 'Sets your calorie baseline, rate of weight change, and macro distribution.',
+    questions: [
+      { id:'goal', label:'Primary training objective?', options:[
+        { value:'gain_muscle', label:'Lean Hypertrophy (Mass)' },
+        { value:'recomp', label:'Body Recomposition' },
+        { value:'cut_fat', label:'Fat Loss / Cutting Phase' },
+        { value:'strength', label:'Powerlifting / Strength Peaking' }
+      ]},
+      { id:'target_goal', type:'text', label:'Specific target milestone', placeholder:'e.g. Reach 78kg at 11% body fat, 200kg squat' },
+      { id:'est_bodyfat', label:'Estimated body fat %', options:[
+        { value:'under_12', label:'<12% (Very Lean)' }, { value:'12_18', label:'12-18% (Athletic)' }, { value:'18_25', label:'18-25% (Moderate)' }, { value:'over_25', label:'>25%' }
+      ]}
+    ]
+  },
+  {
+    id: 3, title: 'Training History & Volume', desc: 'Determines your Minimum Effective Volume (MEV) and recovery bandwidth.',
+    questions: [
+      { id:'exp_years', label:'Consistent resistance training experience?', options:[
+        { value:'beginner', label:'<1 year' }, { value:'intermediate', label:'1-3 years' }, { value:'advanced', label:'3-6 years' }, { value:'elite', label:'6+ years' }
+      ]},
+      { id:'frequency', label:'Available weekly training sessions?', options:[
+        { value:'3', label:'3 Days / Week' }, { value:'4', label:'4 Days / Week' }, { value:'5', label:'5 Days / Week' }, { value:'6', label:'6 Days / Week' }
+      ]},
+      { id:'current_split', label:'Current or preferred split?', options:[
+        { value:'ppl', label:'Push / Pull / Legs' }, { value:'upper_lower', label:'Upper / Lower' }, { value:'arnold', label:'Arnold Split' }, { value:'full_body', label:'Full Body' }
+      ]},
+      { id:'main_lifts', type:'textarea', label:'Main working weights or 1RMs (Optional)', placeholder:'e.g. Squat: 140kg x 5, Bench: 105kg x 3, Deadlift: 180kg x 2' }
+    ]
+  },
+  {
+    id: 4, title: 'Activity, Sleep & Recovery', desc: 'Lifestyle factors used to calculate adaptive expenditure and fatigue recovery.',
+    questions: [
+      { id:'steps', label:'Daily average step count?', options:[
+        { value:'sedentary', label:'<5,000 steps' }, { value:'moderate', label:'5,000 - 8,000 steps' }, { value:'active', label:'8,000 - 12,000 steps' }, { value:'very_active', label:'12,000+ steps' }
+      ]},
+      { id:'sleep', label:'Average sleep duration & quality?', options:[
+        { value:'poor', label:'<6 hours (Restless)' }, { value:'fair', label:'6-7 hours' }, { value:'optimal', label:'7-9 hours (Restful)' }
+      ]},
+      { id:'injuries', type:'textarea', label:'Joint discomfort, past injuries or limitations', placeholder:'e.g. Left shoulder impingement on flat bench, lower back tightness on conventional deadlift' }
+    ]
+  }
+];
+
+let currentStep = 0;
+let answers = JSON.parse(localStorage.getItem('mos_intake_draft') || '{}');
+
+function renderStep() {
+  const progressBar = document.getElementById('progressBar');
+  const stepLabel = document.getElementById('stepLabel');
+  const formBody = document.getElementById('formBody');
+  const navArea = document.getElementById('navArea');
+  const resultArea = document.getElementById('resultArea');
+
+  if (currentStep < SECTIONS.length) {
+    const sec = SECTIONS[currentStep];
+    const pct = Math.round(((currentStep) / SECTIONS.length) * 100);
+    progressBar.style.width = pct + '%';
+    stepLabel.textContent = `SECTION ${sec.id} OF ${SECTIONS.length} &mdash; ${sec.title}`;
+    
+    let html = `
+      <div class="section">
+        <div class="section-header">
+          <div class="section-badge">${sec.id}</div>
+          <h2 class="section-title">${sec.title}</h2>
+        </div>
+        <p class="section-desc">${sec.desc}</p>
+    `;
+
+    sec.questions.forEach(q => {
+      html += `<div class="q"><div class="q-label">${q.label}</div>`;
+      if (q.type === 'text' || q.type === 'number') {
+        html += `<input type="${q.type}" class="fill-input" id="q_${q.id}" value="${answers[q.id] || ''}" placeholder="${q.placeholder || ''}" onchange="saveField('${q.id}', this.value)">`;
+      } else if (q.type === 'textarea') {
+        html += `<textarea class="fill-input fill-textarea" id="q_${q.id}" placeholder="${q.placeholder || ''}" onchange="saveField('${q.id}', this.value)">${answers[q.id] || ''}</textarea>`;
+      } else if (q.options) {
+        html += `<div class="opts">`;
+        q.options.forEach(opt => {
+          const isChecked = answers[q.id] === opt.value;
+          html += `
+            <input type="radio" name="q_${q.id}" id="opt_${q.id}_${opt.value}" value="${opt.value}" ${isChecked ? 'checked' : ''} onchange="saveField('${q.id}', '${opt.value}')">
+            <label for="opt_${q.id}_${opt.value}">${opt.label}</label>
+          `;
+        });
+        html += `</div>`;
+      }
+      html += `</div>`;
+    });
+
+    html += `</div>`;
+    formBody.innerHTML = html;
+    resultArea.innerHTML = '';
+
+    navArea.innerHTML = `
+      ${currentStep > 0 ? '<button class="btn btn-secondary" onclick="prevStep()">&larr; Previous</button>' : ''}
+      <div class="nav-spacer"></div>
+      <button class="btn btn-primary" onclick="nextStep()">${currentStep === SECTIONS.length - 1 ? 'Review Assessment &rarr;' : 'Next Section &rarr;'}</button>
+    `;
+  } else {
+    // Review Summary Screen
+    progressBar.style.width = '100%';
+    stepLabel.textContent = 'ASSESSMENT COMPLETE &mdash; SUMMARY REVIEW';
+    formBody.innerHTML = '';
+
+    let html = `
+      <div class="section">
+        <div class="section-header">
+          <div class="section-badge">&#10003;</div>
+          <h2 class="section-title">Assessment Summary</h2>
+        </div>
+        <p class="section-desc">Review your intake data before dispatching to Coach Anas.</p>
+        
+        <div class="review-grid">
+          <div class="review-card"><div class="label">Athlete Name</div><div class="val">${answers.name || 'Not provided'}</div></div>
+          <div class="review-card"><div class="label">Vitals (Height / Weight)</div><div class="val">${answers.height || '--'} cm &middot; ${answers.weight || '--'} kg</div></div>
+          <div class="review-card"><div class="label">Primary Goal</div><div class="val">${(answers.goal || '').toUpperCase()}</div></div>
+          <div class="review-card"><div class="label">Target Milestone</div><div class="val">${answers.target_goal || 'General progress'}</div></div>
+          <div class="review-card"><div class="label">Experience Level</div><div class="val">${(answers.exp_years || '').toUpperCase()}</div></div>
+          <div class="review-card"><div class="label">Weekly Schedule</div><div class="val">${answers.frequency || '--'} Days &middot; ${(answers.current_split || '').toUpperCase()}</div></div>
+          <div class="review-card"><div class="label">Sleep & Activity</div><div class="val">${(answers.sleep || '').toUpperCase()} Sleep &middot; ${(answers.steps || '').toUpperCase()}</div></div>
+          <div class="review-card"><div class="label">Injuries / Notes</div><div class="val">${answers.injuries || 'None reported'}</div></div>
+        </div>
+
+        <button class="btn btn-primary" style="width:100%; justify-content:center; margin-top:8px;" onclick="dispatchIntake()">SUBMIT INTAKE TO COACH ON WHATSAPP &rarr;</button>
+        <button class="btn btn-secondary" style="width:100%; justify-content:center; margin-top:10px;" onclick="currentStep = 0; renderStep();">Edit Answers</button>
+      </div>
+    `;
+    resultArea.innerHTML = html;
+    navArea.innerHTML = '';
+  }
+}
+
+function saveField(id, val) {
+  answers[id] = val;
+  localStorage.setItem('mos_intake_draft', JSON.stringify(answers));
+}
+
+function nextStep() {
+  currentStep++;
+  renderStep();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function prevStep() {
+  if (currentStep > 0) currentStep--;
+  renderStep();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function dispatchIntake() {
+  const msg = `Hi Coach Anas! I've completed the Muscle OS Athlete Intake Assessment:%0A%0A` +
+              `👤 *Athlete:* ${answers.name || 'Athlete'}%0A` +
+              `📏 *Vitals:* ${answers.height || '--'} cm | ${answers.weight || '--'} kg%0A` +
+              `🎯 *Goal:* ${answers.goal || '--'} (${answers.target_goal || '--'})%0A` +
+              `🏋️ *Experience:* ${answers.exp_years || '--'} | ${answers.frequency || '--'} days/wk (${answers.current_split || '--'})%0A` +
+              `💤 *Sleep & Steps:* ${answers.sleep || '--'} | ${answers.steps || '--'}%0A` +
+              `⚠️ *Injuries/Notes:* ${answers.injuries || 'None'}%0A%0A` +
+              `Looking forward to receiving my customized program!`;
+
+  window.open(`https://wa.me/201040796017?text=${msg}`, '_blank');
+}
+
+renderStep();
+</script>
+</body>
+</html>
