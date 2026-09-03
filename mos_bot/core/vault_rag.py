@@ -14,8 +14,15 @@ from datetime import datetime
 import numpy as np
 import math
 from collections import defaultdict, Counter
-from sentence_transformers import SentenceTransformer
-import faiss
+try:
+    from sentence_transformers import SentenceTransformer
+except ImportError:
+    SentenceTransformer = None
+
+try:
+    import faiss
+except ImportError:
+    faiss = None
 
 VAULT_ROOT = Path(r"E:\MoS\Muscle Operating System")
 INDEX_DIR = Path(r"E:\MoS\mos_bot\data\vault_index")
@@ -48,9 +55,9 @@ class VaultIndexer:
     """Indexes the Muscle OS vault for RAG retrieval"""
 
     def __init__(self, model_name: str = EMBEDDING_MODEL):
-        self.model = SentenceTransformer(model_name)
+        self.model = SentenceTransformer(model_name) if SentenceTransformer is not None else None
         self.chunks: List[VaultChunk] = []
-        self.index: Optional[faiss.Index] = None
+        self.index: Any = None
         self.embeddings: Optional[np.ndarray] = None
 
     def should_index(self, path: Path) -> bool:
