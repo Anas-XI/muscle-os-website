@@ -2322,21 +2322,6 @@ if(data && data.error === 'wrong_product') msg = 'This code unlocks the OMNI HUB
           showErr('authStep1Error', 'Network error. Please try again.');
         });
       }
-    }
-    start();
-
-    document.getElementById('subVerify').addEventListener('click', function(){
-      var btn = document.getElementById('subVerify');
-      var code = document.getElementById('subCode').value.trim().toUpperCase();
-      if(!code){ showErr('subError', 'Invalid code. Please check and try again.'); return; }
-      var g = getGs();
-      var email = g ? g.email : '';
-      if(email.toUpperCase() === OWNER_EMAIL){
-        var expiry = new Date(); expiry.setMonth(expiry.getMonth() + 1);
-        grantAndReload('pro_tdee', expiry.toISOString().split('T')[0], '', 'OWNER', email);
-        return;
-      }
-      verifyCode(code, email, btn);
     });
     google.accounts.id.renderButton(host, { theme: 'outline', size: 'large', width: 280 });
   }
