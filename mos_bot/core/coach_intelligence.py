@@ -200,9 +200,20 @@ def build_coach_system_prompt(user_id: str, query: str = "") -> str:
     if medical:
         safety_lines.append(f"- Medical Considerations: {', '.join(medical)}")
 
+    has_mh_flag = False
+    try:
+        from mos_bot.core.mental_health_flags import has_active_mental_health_flag
+        has_mh_flag = has_active_mental_health_flag(clean_id)
+    except Exception:
+        has_mh_flag = False
+
+    if (supplemental and supplemental.get("mental_health_concern") in ("moderate", "significant")) or (profile and profile.get("mental_health_concern") in ("moderate", "significant")) or has_mh_flag:
+        safety_lines.append("- Active Mental Health Support Flag: User requires supportive, gentle coaching.")
+        safety_lines.append("  * RESTRICTION: Do NOT prescribe restrictive-calorie or aggressive-deficit recommendations.")
+        safety_lines.append("  * RESTRICTION: Do NOT emphasize body-composition critiques, scale weight obsession, or rapid fat loss.")
+        safety_lines.append("  * INSTRUCTION: Shift tone toward supportive/neutral, focusing on consistency, recovery, and overall wellbeing.")
+
     if supplemental:
-        if supplemental.get("mental_health_concern") in ("moderate", "significant"):
-            safety_lines.append(f"- Mental Health Concern: {supplemental['mental_health_concern']}")
         if supplemental.get("known_deficiencies"):
             safety_lines.append(f"- Nutrient Deficiencies: {', '.join(supplemental['known_deficiencies'])}")
 

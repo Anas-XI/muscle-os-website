@@ -57,7 +57,7 @@ def calculate_tdee(
     """Calculate BMR and TDEE with goal-adjusted caloric targets."""
     act_mult = ACTIVITY_MULTIPLIERS.get(activity_level.lower(), 1.55)
 
-    if body_fat_pct and 5.0 <= body_fat_pct <= 50.0:
+    if body_fat_pct is not None and 5.0 <= body_fat_pct <= 50.0:
         # Katch-McArdle Formula (Lean Mass Based)
         lean_mass_kg = weight_kg * (1.0 - (body_fat_pct / 100.0))
         bmr = 370 + (21.6 * lean_mass_kg)
@@ -114,18 +114,28 @@ def calculate_macro_split(
     # 2. Fat Target (Floor at 0.7 g/kg or ~20-25% calories)
     fat_g = max(round(weight_kg * 0.7), round((target_calories_kcal * 0.22) / 9.0))
 
-    # 3. Carb Cycling Distribution
+    # 3. Guard against protein + fat exceeding target calories
     cal_from_protein = protein_g * 4
     cal_from_fat = fat_g * 9
-    remaining_cal = max(0, target_calories_kcal - (cal_from_protein + cal_from_fat))
+    min_carbs_g = min(30, max(0, round((target_calories_kcal * 0.10) / 4.0)))
 
-    base_carbs_g = round(remaining_cal / 4.0)
+    if (cal_from_protein + cal_from_fat + (min_carbs_g * 4)) > target_calories_kcal and target_calories_kcal > 0:
+        avail_for_pf = max(target_calories_kcal - (min_carbs_g * 4), 600)
+        scale = avail_for_pf / max(cal_from_protein + cal_from_fat, 1)
+        protein_g = max(round(protein_g * scale), round(weight_kg * 1.6))
+        fat_g = max(round(fat_g * scale), round(weight_kg * 0.5))
+        cal_from_protein = protein_g * 4
+        cal_from_fat = fat_g * 9
+
+    # 4. Carb Cycling Distribution
+    remaining_cal = max(0, target_calories_kcal - (cal_from_protein + cal_from_fat))
+    base_carbs_g = max(min_carbs_g if remaining_cal == 0 else 0, round(remaining_cal / 4.0))
 
     if is_training_day:
-        carbs_g = round(base_carbs_g * 1.15)  # +15% carbs on training days
+        carbs_g = max(0, round(base_carbs_g * 1.15))  # +15% carbs on training days
         cycling_mode = "Training Day (+15% Carbs for glycogen replenishment)"
     else:
-        carbs_g = round(base_carbs_g * 0.85)  # -15% carbs on rest days
+        carbs_g = max(0, round(base_carbs_g * 0.85))  # -15% carbs on rest days
         cycling_mode = "Rest Day (-15% Carbs with higher fat/protein ratio)"
 
     total_cal = (protein_g * 4) + (fat_g * 9) + (carbs_g * 4)

@@ -236,7 +236,7 @@ body{font-family:Georgia,'Times New Roman',Times,serif;background:#14151A;color:
  '<div class="options">' +
  q.options.map(o =>
  '<div class="option'+(selected===o.value?' selected':'')+'" data-value="'+o.value+'">' +
- '<input type="radio" name="q_'+currentQ+'" value="'+o.value+(selected===o.value?' checked':'')+'>' +
+ '<input type="radio" name="q_'+currentQ+'" value="'+o.value+'"'+(selected===o.value?' checked':'')+'>' +
  '<span>'+o.label+'</span></div>'
  ).join('') +
  '</div>' +

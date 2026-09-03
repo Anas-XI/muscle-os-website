@@ -6,13 +6,26 @@ from telegram.ext import ContextTypes, ConversationHandler
 from mos_bot.states import COACH_CHAT
 from mos_bot.core.intake_builder import load_profile
 from mos_bot.core.models import ClientProfile
-from mos_bot.core.context_loader import format_crisis_resources
 from mos_bot.core.analytics import track
 from mos_bot.web.routers.arbitrate import arbitrate, ArbitrateRequest
 from mos_bot.config import DATA_ROOT, OWNER_ID
-from chatbot import chat_completion, check_server, LMSTUDIO_MODEL
-from checkin_tracker import CheckInStore
-from coaching_mode import QUICK_DECISION_PROMPT
+
+try:
+    from chatbot import chat_completion, check_server, LMSTUDIO_MODEL
+except ImportError:
+    chat_completion = None
+    check_server = lambda: False
+    LMSTUDIO_MODEL = "default"
+
+try:
+    from checkin_tracker import CheckInStore
+except ImportError:
+    CheckInStore = None
+
+try:
+    from coaching_mode import QUICK_DECISION_PROMPT
+except ImportError:
+    QUICK_DECISION_PROMPT = "You are an expert evidence-based fitness coach."
 
 logger = logging.getLogger(__name__)
 
@@ -69,8 +82,15 @@ async def coach_start(update, context):
 
         return ConversationHandler.END
 
-    store = CheckInStore(os.path.join(DATA_ROOT, "checkins"))
-    checkins = store.load_all(user_id)
+    if CheckInStore:
+        try:
+            store = CheckInStore(os.path.join(DATA_ROOT, "checkins"))
+            checkins = store.load_all(user_id)
+        except Exception as e:
+            logger.warning("Could not load check-ins for coach context: %s", e)
+            checkins = []
+    else:
+        checkins = []
 
     context_data = f"User Profile:\n{json.dumps(raw_profile, indent=2)}\n"
     if checkins:
@@ -97,7 +117,7 @@ async def coach_chat_handler(update, context):
         context.user_data.clear()
         return ConversationHandler.END
 
-    if not check_server():
+    if not check_server or not check_server():
         await update.message.reply_text(
             "I'm having trouble connecting to the AI engine. "
             "Make sure LM Studio is running with a model loaded, then try again."
@@ -114,7 +134,13 @@ async def coach_chat_handler(update, context):
 
     track("coach_question", context.user_data.get("coach_user_id", "?"), {"question_length": len(text)})
 
-    response = await chat_completion(messages, model=LMSTUDIO_MODEL, temperature=0.4, max_tokens=1024)
+    response = None
+    if chat_completion:
+        try:
+            response = await chat_completion(messages, model=LMSTUDIO_MODEL, temperature=0.4, max_tokens=1024)
+        except Exception as e:
+            logger.error("Chat completion error: %s", e)
+            response = None
 
     if response:
         kb = InlineKeyboardMarkup([
@@ -139,6 +165,12 @@ async def coach_callback_handler(update, context):
         await query.edit_message_text("Got it. Use /coach any time to ask more questions.")
         context.user_data.clear()
         return ConversationHandler.END
+
+    if query.data == "coach_followup":
+        await query.edit_message_text(
+            "What would you like to follow up on? Type your question below:"
+        )
+        return COACH_CHAT
 
     if query.data == "coach_science":
         await query.edit_message_text(

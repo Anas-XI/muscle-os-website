@@ -133,6 +133,24 @@ TRACKER_HTML_TEMPLATE = r"""<!DOCTYPE html>
 
 <div class="content">
   <div class="section active" id="sec-workout">
+    <div class="card rings-card" style="display:flex;align-items:center;gap:14px;margin-bottom:12px;padding:12px 14px;background:var(--card);border-radius:12px;box-shadow:0 1px 4px var(--shadow);">
+      <div id="workout-rings" style="width:105px;height:105px;flex-shrink:0;"></div>
+      <div style="flex:1;">
+        <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.8px;">Activity Targets</div>
+        <div style="font-size:12px;color:var(--text);margin-top:4px;">Session Sets: <span id="vol-ring-val" style="color:#F4C93B;font-weight:700;">0/0</span></div>
+        <div style="font-size:12px;color:var(--text);margin-top:2px;">Weekly Adherence: <span id="adh-ring-val" style="color:#22c55e;font-weight:700;">100%</span></div>
+        <div style="font-size:12px;color:var(--text);margin-top:2px;">System Readiness: <span id="rec-ring-val" style="color:#38bdf8;font-weight:700;">80%</span></div>
+      </div>
+    </div>
+    <div class="card whoop-card" id="whoop-strain-card" style="display:flex;align-items:center;justify-content:space-around;margin-bottom:14px;padding:12px;background:var(--card);border-radius:12px;box-shadow:0 1px 4px var(--shadow);flex-wrap:wrap;">
+      <div id="whoop-strain-dial" style="width:160px;height:160px;"></div>
+      <div style="font-size:12px;color:var(--text);margin:6px 0;">
+        <div style="font-weight:700;color:#f97316;text-transform:uppercase;margin-bottom:4px;">⚡ Workout Strain</div>
+        <div>Session Volume: <span id="session-tonnage" style="font-weight:700;color:var(--text);">0 kg</span></div>
+        <div>Completed Sets: <span id="session-sets-count" style="font-weight:700;color:var(--text);">0</span></div>
+        <div style="margin-top:4px;color:#F4C93B;">Target Strain: <span id="strain-corridor-label">14.0 – 17.0</span></div>
+      </div>
+    </div>
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
       <h2 style="margin:0;">Today's Session</h2>
       <span id="today-label" style="font-size:13px;color:var(--muted);"></span>
@@ -143,6 +161,17 @@ TRACKER_HTML_TEMPLATE = r"""<!DOCTYPE html>
   </div>
 
   <div class="section" id="sec-checkin">
+    <div class="card whoop-card" id="whoop-recovery-card" style="display:flex;align-items:center;justify-content:space-around;margin-bottom:14px;padding:14px;background:var(--card);border-radius:12px;box-shadow:0 1px 4px var(--shadow);flex-wrap:wrap;">
+      <div id="whoop-recovery-arc" style="width:180px;height:180px;"></div>
+      <div style="flex:1;min-width:180px;margin-left:12px;">
+        <div id="whoop-sleep-perf" style="margin-bottom:10px;"></div>
+        <div style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">Behavioral Habits:</div>
+        <div id="whoop-journal-tags"></div>
+      </div>
+    </div>
+    <div class="card gauge-card" style="display:flex;flex-direction:column;align-items:center;margin-bottom:14px;padding:12px;background:var(--card);border-radius:12px;box-shadow:0 1px 4px var(--shadow);">
+      <div id="checkin-gauge" style="width:220px;height:140px;"></div>
+    </div>
     <h2>Daily Check-in</h2>
     <p style="font-size:13px;color:var(--muted);margin-bottom:12px;">Fill this in every day — even rest days.</p>
     <div class="checkin-grid">
@@ -166,11 +195,16 @@ TRACKER_HTML_TEMPLATE = r"""<!DOCTYPE html>
     <div class="stats-row" id="stats-row"></div>
     <div class="chart-container" id="weight-chart-box" style="display:none;">
       <h3>⚖️ Weight Trend</h3>
-      <canvas id="weight-chart"></canvas>
+      <div id="weight-chart-container" style="width:100%;height:150px;"></div>
+      <canvas id="weight-chart" style="display:none;"></canvas>
     </div>
     <div class="chart-container" id="volume-chart-box" style="display:none;">
       <h3>💪 Volume Trend (total kg per session)</h3>
       <canvas id="volume-chart"></canvas>
+    </div>
+    <div class="chart-container" id="consistency-chart-box">
+      <h3>🔥 12-Week Consistency Heatmap</h3>
+      <div id="consistency-heatmap" style="overflow-x:auto;padding:6px 0;"></div>
     </div>
     <div style="display:flex;gap:8px;margin-bottom:12px;">
       <button class="btn btn-secondary btn-sm" id="export-logs">📥 Export JSON</button>
@@ -187,11 +221,10 @@ TRACKER_HTML_TEMPLATE = r"""<!DOCTYPE html>
 <script>
 const PROGRAM = {PROGRAM_JSON};
 
-const STORAGE_KEY = 'mos_tracker_' + PROGRAM.client.user_id;
-const THEME_KEY = 'mos_theme_' + PROGRAM.client.user_id;
+const STORAGE_KEY = 'mos_tracker_' + (PROGRAM.client?.user_id || PROGRAM.client?.name || 'default');
+const THEME_KEY = 'mos_theme_' + (PROGRAM.client?.user_id || PROGRAM.client?.name || 'default');
 let data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{{"workouts":[],"checkins":[]}}');
 let currentSessionIdx = 0;
-let restTimer = null;
 let restInterval = null;
 
 function saveData() {{
@@ -249,7 +282,8 @@ document.querySelectorAll('.tab').forEach(tab => {{
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
     tab.classList.add('active');
     document.getElementById('sec-' + tab.dataset.tab).classList.add('active');
-    if (tab.dataset.tab === 'workout') renderWorkout();
+    if (tab.dataset.tab === 'workout') {{ renderWorkout(); renderRings(); renderWhoopStrain(); }}
+    if (tab.dataset.tab === 'checkin') {{ renderGauge(); renderWhoopRecovery(); }}
     if (tab.dataset.tab === 'history') {{ renderStats(); renderCharts(); renderHistory(); }}
     if (tab.dataset.tab === 'program') renderProgram();
   }});
@@ -309,11 +343,19 @@ function renderWorkoutExercises() {{
     container.appendChild(card);
   }});
 
-  // checkbox → dim
+  // checkbox → dim & update strain/rings
   document.querySelectorAll('.set-done').forEach(cb => {{
     cb.addEventListener('change', () => {{
       const el = document.getElementById('si-' + cb.dataset.e + '-' + cb.dataset.s);
       if (el) el.classList.toggle('dimmed', cb.checked);
+      renderRings();
+      renderWhoopStrain();
+    }});
+  }});
+
+  document.querySelectorAll('.set-kg, .set-reps').forEach(inp => {{
+    inp.addEventListener('input', () => {{
+      renderWhoopStrain();
     }});
   }});
 
@@ -428,55 +470,462 @@ function renderStats() {{
     '<div class="stat-card"><div class="value">' + (totalVolume ? (totalVolume / 1000).toFixed(1) + 'k' : '-') + '</div><div class="label">Total Vol (kg)</div></div>';
 }}
 
+// ── Health Visualizers: Apple Health Rings & Samsung Health Gauge ──
+function renderRings() {{
+  const container = document.getElementById('workout-rings');
+  if (!container) return;
+  const session = getCurrentPhase().sessions[currentSessionIdx];
+  const existingLog = data.workouts.find(w => w.session === session?.day && w.date === getDateStr());
+  const doneSets = existingLog ? existingLog.sets.filter(s => s.done).length : 0;
+  const totalSets = session ? session.exercises.reduce((acc, ex) => acc + (ex.sets || 0), 0) : 10;
+  const volPct = Math.min(Math.round((doneSets / (totalSets || 1)) * 100), 100);
+
+  // Adherence: checkins in last 7 days
+  const today = new Date();
+  let past7Count = 0;
+  for (let i = 0; i < 7; i++) {{
+    const d = new Date(); d.setDate(today.getDate() - i);
+    const ds = d.toISOString().split('T')[0];
+    if (data.checkins.some(c => c.date === ds) || data.workouts.some(w => w.date === ds)) past7Count++;
+  }}
+  const adhPct = Math.min(Math.round((past7Count / 7) * 100), 100);
+
+  // Readiness from latest checkin
+  const latestCheckin = data.checkins.slice().sort((a, b) => b.date.localeCompare(a.date))[0];
+  const readinessPct = latestCheckin && latestCheckin.readiness ? Math.min(latestCheckin.readiness * 10, 100) : 80;
+
+  document.getElementById('vol-ring-val').textContent = doneSets + '/' + totalSets + ' (' + volPct + '%)';
+  document.getElementById('adh-ring-val').textContent = adhPct + '%';
+  document.getElementById('rec-ring-val').textContent = readinessPct + '%';
+
+  // Render Rings Canvas
+  container.innerHTML = '';
+  const canvas = document.createElement('canvas');
+  const size = 105;
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = size * dpr; canvas.height = size * dpr;
+  canvas.style.width = size + 'px'; canvas.style.height = size + 'px';
+  container.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  const cx = size / 2, cy = size / 2;
+  const rings = [
+    {{ r: 42, val: volPct, color: '#F4C93B' }},
+    {{ r: 31, val: adhPct, color: '#22c55e' }},
+    {{ r: 20, val: readinessPct, color: '#38bdf8' }}
+  ];
+
+  ctx.clearRect(0, 0, size, size);
+  rings.forEach(ring => {{
+    // track
+    ctx.beginPath();
+    ctx.arc(cx, cy, ring.r, 0, Math.PI * 2);
+    ctx.strokeStyle = ring.color;
+    ctx.globalAlpha = 0.18;
+    ctx.lineWidth = 7;
+    ctx.stroke();
+
+    // active
+    if (ring.val > 0) {{
+      ctx.globalAlpha = 1.0;
+      ctx.beginPath();
+      const start = -Math.PI / 2;
+      const end = start + (Math.PI * 2 * (ring.val / 100));
+      ctx.arc(cx, cy, ring.r, start, end, false);
+      ctx.strokeStyle = ring.color;
+      ctx.lineWidth = 7;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+    }}
+  }});
+  ctx.globalAlpha = 1.0;
+}}
+
+function renderGauge() {{
+  const container = document.getElementById('checkin-gauge');
+  if (!container) return;
+  const latestCheckin = data.checkins.slice().sort((a, b) => b.date.localeCompare(a.date))[0];
+  const score = latestCheckin && latestCheckin.readiness ? latestCheckin.readiness * 10 : 80;
+  const status = score >= 85 ? 'OPTIMAL' : (score >= 70 ? 'GOOD' : (score >= 50 ? 'MODERATE' : 'REST'));
+
+  container.innerHTML = '';
+  const canvas = document.createElement('canvas');
+  const w = 220, h = 135;
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = w * dpr; canvas.height = h * dpr;
+  canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+  container.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  const cx = w / 2, cy = h * 0.76;
+  const radius = 68;
+  const startAngle = Math.PI * 0.8;
+  const endAngle = Math.PI * 2.2;
+  const totalSpan = endAngle - startAngle;
+
+  // track
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius, startAngle, endAngle, false);
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+  ctx.lineWidth = 12;
+  ctx.lineCap = 'round';
+  ctx.stroke();
+
+  // active gradient
+  const activeEnd = startAngle + (totalSpan * (score / 100));
+  const grad = ctx.createLinearGradient(cx - radius, cy, cx + radius, cy);
+  grad.addColorStop(0, '#38bdf8');
+  grad.addColorStop(0.5, '#22c55e');
+  grad.addColorStop(1, '#F4C93B');
+
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius, startAngle, activeEnd, false);
+  ctx.strokeStyle = grad;
+  ctx.lineWidth = 12;
+  ctx.lineCap = 'round';
+  ctx.stroke();
+
+  // readout
+  ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--text').trim() || '#FAFAF8';
+  ctx.font = '700 32px monospace';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(score, cx, cy - 14);
+
+  ctx.fillStyle = score >= 70 ? '#F4C93B' : '#38bdf8';
+  ctx.font = '700 12px sans-serif';
+  ctx.fillText(status, cx, cy + 12);
+
+  ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--muted').trim() || 'rgba(250,250,248,0.5)';
+  ctx.font = '600 10px sans-serif';
+  ctx.fillText('READINESS SCORE', cx, cy + 28);
+}}
+
+// ── WHOOP Physiological Visualizers: Recovery & Strain ──
+let whoopHabitDelta = 0;
+const defaultHabits = [
+  {{ id: 'mag_zinc', label: 'Magnesium/Zinc', delta: 5, active: false }},
+  {{ id: 'sleep_8h', label: '8h+ Sleep', delta: 8, active: true }},
+  {{ id: 'hydration', label: 'Hydration Hit', delta: 4, active: true }},
+  {{ id: 'sauna', label: 'Sauna/Cold', delta: 3, active: false }},
+  {{ id: 'late_meal', label: 'Late Meal', delta: -4, active: false }},
+  {{ id: 'caffeine', label: 'Caffeine > 2pm', delta: -6, active: false }}
+];
+
+function renderWhoopRecovery() {{
+  const container = document.getElementById('whoop-recovery-arc');
+  if (!container) return;
+  const latestCheckin = data.checkins.slice().sort((a, b) => b.date.localeCompare(a.date))[0];
+  const baseReadiness = latestCheckin && latestCheckin.readiness ? latestCheckin.readiness * 10 : 80;
+  const baseSleep = latestCheckin && latestCheckin.sleep_hours ? latestCheckin.sleep_hours : 7.5;
+  const recoveryScore = Math.max(1, Math.min(100, Math.round(baseReadiness + whoopHabitDelta)));
+
+  // WHOOP Arc Colors
+  let zoneColor = '#22c55e', zoneLabel = 'GREEN RECOVERY', zoneDesc = 'Primed for High Strain';
+  if (recoveryScore < 34) {{
+    zoneColor = '#f43f5e'; zoneLabel = 'RED RECOVERY'; zoneDesc = 'Impaired · Active Rest';
+  }} else if (recoveryScore < 67) {{
+    zoneColor = '#fbbf24'; zoneLabel = 'YELLOW RECOVERY'; zoneDesc = 'Baseline · Moderate Strain';
+  }}
+
+  container.innerHTML = '';
+  const canvas = document.createElement('canvas');
+  const size = 180;
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = size * dpr; canvas.height = size * dpr;
+  canvas.style.width = size + 'px'; canvas.style.height = size + 'px';
+  container.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  const cx = size / 2, cy = size * 0.48;
+  const radius = size * 0.38;
+  const strokeW = 12;
+  const startAngle = Math.PI * 0.75;
+  const totalSweep = Math.PI * 1.5;
+
+  // Track
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius, startAngle, startAngle + totalSweep, false);
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+  ctx.lineWidth = strokeW;
+  ctx.lineCap = 'round';
+  ctx.stroke();
+
+  // Active
+  const sweep = totalSweep * (recoveryScore / 100);
+  ctx.save();
+  ctx.shadowColor = zoneColor;
+  ctx.shadowBlur = 12;
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius, startAngle, startAngle + sweep, false);
+  ctx.strokeStyle = zoneColor;
+  ctx.lineWidth = strokeW;
+  ctx.lineCap = 'round';
+  ctx.stroke();
+  ctx.restore();
+
+  // Text
+  ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--text').trim() || '#FAFAF8';
+  ctx.font = '700 34px monospace';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(recoveryScore + '%', cx, cy - 4);
+
+  ctx.fillStyle = zoneColor;
+  ctx.font = '700 11px sans-serif';
+  ctx.fillText(zoneLabel, cx, cy + 20);
+
+  ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--muted').trim() || 'rgba(250,250,248,0.5)';
+  ctx.font = '600 10px monospace';
+  ctx.fillText('HRV 68ms · RHR 54bpm', cx, cy + 36);
+
+  ctx.font = '400 9px sans-serif';
+  ctx.fillText(zoneDesc, cx, size * 0.92);
+
+  // Sleep Perf Bar
+  const sleepEl = document.getElementById('whoop-sleep-perf');
+  if (sleepEl) {{
+    const needH = 8.0;
+    const perfPct = Math.min(100, Math.round((baseSleep / needH) * 100));
+    const debtM = Math.round((baseSleep - needH) * 60);
+    sleepEl.innerHTML = '<div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:#38bdf8;margin-bottom:4px;"><span>SLEEP PERFORMANCE</span><span>' + perfPct + '%</span></div>' +
+      '<div style="font-size:11px;color:var(--muted);margin-bottom:6px;font-family:monospace;">' + baseSleep.toFixed(1) + 'h logged / ' + needH + 'h need (' + (debtM >= 0 ? '+' : '') + debtM + 'm)</div>' +
+      '<div style="height:8px;background:rgba(255,255,255,0.08);border-radius:4px;overflow:hidden;"><div style="width:' + perfPct + '%;background:#38bdf8;height:100%;border-radius:4px;"></div></div>';
+  }}
+
+  // Journal Tags
+  const tagsEl = document.getElementById('whoop-journal-tags');
+  if (tagsEl) {{
+    tagsEl.innerHTML = '';
+    tagsEl.style.display = 'flex';
+    tagsEl.style.flexWrap = 'wrap';
+    tagsEl.style.gap = '6px';
+    defaultHabits.forEach(h => {{
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.style.cssText = 'padding:4px 8px;border-radius:12px;font-size:10px;font-weight:600;cursor:pointer;transition:all .2s;' +
+        (h.active ? (h.delta > 0 ? 'background:rgba(34,197,94,0.2);border:1px solid #22c55e;color:#4ade80;' : 'background:rgba(244,63,94,0.2);border:1px solid #f43f5e;color:#fb7185;') : 'background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--muted);');
+      b.textContent = (h.active ? '✓ ' : '+ ') + h.label + ' (' + (h.delta > 0 ? '+' : '') + h.delta + '%)';
+      b.addEventListener('click', () => {{
+        h.active = !h.active;
+        whoopHabitDelta = defaultHabits.filter(x => x.active).reduce((sum, x) => sum + x.delta, 0);
+        renderWhoopRecovery();
+      }});
+      tagsEl.appendChild(b);
+    }});
+  }}
+}}
+
+function renderWhoopStrain() {{
+  const container = document.getElementById('whoop-strain-dial');
+  if (!container) return;
+
+  // Calculate live session tonnage and sets
+  const session = getCurrentPhase().sessions[currentSessionIdx];
+  let tonnage = 0, doneSets = 0;
+  document.querySelectorAll('.set-row').forEach(row => {{
+    const cb = row.querySelector('.set-done');
+    const repsInput = row.querySelector('.set-reps');
+    const kgInput = row.querySelector('.set-kg');
+    if (cb && cb.checked) {{
+      doneSets++;
+      const r = parseFloat(repsInput?.value) || 0;
+      const k = parseFloat(kgInput?.value) || 0;
+      tonnage += (r * k);
+    }}
+  }});
+
+  // Non-linear strain formula (0.0 to 21.0)
+  const strain = Math.min(21.0, (1 - Math.exp(-0.00032 * tonnage)) * 17.5 + (doneSets * 0.35));
+
+  // Determine recovery target corridor
+  const latestCheckin = data.checkins.slice().sort((a, b) => b.date.localeCompare(a.date))[0];
+  const rec = latestCheckin && latestCheckin.readiness ? latestCheckin.readiness * 10 : 80;
+  let targetMin = 14.0, targetMax = 17.5;
+  if (rec < 34) {{ targetMin = 6.0; targetMax = 10.0; }}
+  else if (rec < 67) {{ targetMin = 10.5; targetMax = 14.5; }}
+
+  // Update DOM labels
+  const tonEl = document.getElementById('session-tonnage');
+  const cntEl = document.getElementById('session-sets-count');
+  const corEl = document.getElementById('strain-corridor-label');
+  if (tonEl) tonEl.textContent = Math.round(tonnage).toLocaleString() + ' kg';
+  if (cntEl) cntEl.textContent = doneSets;
+  if (corEl) corEl.textContent = targetMin.toFixed(1) + ' – ' + targetMax.toFixed(1);
+
+  // Colors & tiers
+  let color = '#0284c7', cat = 'LIGHT STRAIN';
+  if (strain >= 18.0) {{ color = '#ef4444'; cat = 'ALL-OUT'; }}
+  else if (strain >= 14.0) {{ color = '#f97316'; cat = 'STRENUOUS'; }}
+  else if (strain >= 10.0) {{ color = '#8b5cf6'; cat = 'MODERATE'; }}
+
+  container.innerHTML = '';
+  const canvas = document.createElement('canvas');
+  const size = 160;
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = size * dpr; canvas.height = size * dpr;
+  canvas.style.width = size + 'px'; canvas.style.height = size + 'px';
+  container.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  const cx = size / 2, cy = size * 0.48;
+  const radius = size * 0.38;
+  const strokeW = 10;
+  const startAngle = Math.PI * 0.8;
+  const totalSweep = Math.PI * 1.4;
+
+  // Track
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius, startAngle, startAngle + totalSweep, false);
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+  ctx.lineWidth = strokeW;
+  ctx.lineCap = 'round';
+  ctx.stroke();
+
+  // Target corridor on track
+  const tStart = startAngle + (totalSweep * (targetMin / 21.0));
+  const tEnd = startAngle + (totalSweep * (targetMax / 21.0));
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius, tStart, tEnd, false);
+  ctx.strokeStyle = 'rgba(244, 201, 59, 0.35)';
+  ctx.lineWidth = strokeW + 4;
+  ctx.stroke();
+
+  // Active Arc
+  const currentSweep = totalSweep * (strain / 21.0);
+  if (currentSweep > 0.01) {{
+    ctx.save();
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 12;
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, startAngle, startAngle + currentSweep, false);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = strokeW;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+    ctx.restore();
+  }}
+
+  // Center strain
+  ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--text').trim() || '#FAFAF8';
+  ctx.font = '700 30px monospace';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(strain.toFixed(1), cx, cy - 6);
+
+  ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--muted').trim() || 'rgba(250,250,248,0.5)';
+  ctx.font = '600 10px monospace';
+  ctx.fillText('/ 21.0 STRAIN', cx, cy + 16);
+
+  ctx.fillStyle = color;
+  ctx.font = '700 10px sans-serif';
+  ctx.fillText(cat, cx, cy + 28);
+}}
+
 // ── Charts ──
 function renderCharts() {{
   renderWeightChart();
   renderVolumeChart();
+  renderHeatmap();
 }}
 
 function renderWeightChart() {{
   const box = document.getElementById('weight-chart-box');
-  const canvas = document.getElementById('weight-chart');
+  const container = document.getElementById('weight-chart-container');
   const checkins = data.checkins.filter(c => c.weight_kg).sort((a, b) => a.date.localeCompare(b.date));
   if (checkins.length < 2) {{ box.style.display = 'none'; return; }}
   box.style.display = 'block';
-  const ctx = canvas.getContext('2d');
+
+  container.innerHTML = '';
+  const canvas = document.createElement('canvas');
+  container.appendChild(canvas);
+
+  const rect = container.getBoundingClientRect();
+  const w = rect.width > 0 ? rect.width : 340;
+  const h = 150;
   const dpr = window.devicePixelRatio || 1;
-  const rect = canvas.parentElement.getBoundingClientRect();
-  const w = rect.width - 24;
-  const h = 140;
   canvas.width = w * dpr; canvas.height = h * dpr;
   canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+  const ctx = canvas.getContext('2d');
   ctx.scale(dpr, dpr);
-  const pad = {{ top: 10, bottom: 20, left: 40, right: 10 }};
-  const cw = w - pad.left - pad.right, ch = h - pad.top - pad.bottom;
+
+  const pad = {{ top: 16, bottom: 24, left: 38, right: 16 }};
+  const cw = w - pad.left - pad.right;
+  const ch = h - pad.top - pad.bottom;
   const vals = checkins.map(c => c.weight_kg);
-  const min = Math.min(...vals) - 1, max = Math.max(...vals) + 1;
-  const xScale = cw / (checkins.length - 1 || 1);
-  const yScale = ch / (max - min || 1);
-  ctx.clearRect(0, 0, w, h);
-  ctx.strokeStyle = getComputedStyle(document.body).getPropertyValue('--chart-line').trim() || '#F4C93B';
-  ctx.lineWidth = 2;
+  const min = Math.min(...vals) - 0.5;
+  const max = Math.max(...vals) + 0.5;
+  const spread = Math.max(max - min, 0.1);
+
+  const pts = checkins.map((c, i) => ({{
+    x: pad.left + (i * (cw / (checkins.length - 1 || 1))),
+    y: pad.top + ch - (((c.weight_kg - min) / spread) * ch),
+    date: c.date,
+    weight: c.weight_kg
+  }}));
+
+  // Area gradient
   ctx.beginPath();
-  checkins.forEach((c, i) => {{
-    const x = pad.left + i * xScale, y = pad.top + ch - (c.weight_kg - min) * yScale;
-    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-  }});
-  ctx.stroke();
-  // fill
-  const last = checkins[checkins.length - 1];
-  ctx.lineTo(pad.left + (checkins.length - 1) * xScale, pad.top + ch);
-  ctx.lineTo(pad.left, pad.top + ch);
+  ctx.moveTo(pts[0].x, pts[0].y);
+  for (let i = 0; i < pts.length - 1; i++) {{
+    const p0 = pts[i === 0 ? 0 : i - 1];
+    const p1 = pts[i];
+    const p2 = pts[i + 1];
+    const p3 = pts[i + 2 < pts.length ? i + 2 : i + 1];
+    const cp1x = p1.x + (p2.x - p0.x) / 6;
+    const cp1y = p1.y + (p2.y - p0.y) / 6;
+    const cp2x = p2.x - (p3.x - p1.x) / 6;
+    const cp2y = p2.y - (p3.y - p1.y) / 6;
+    ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, p2.x, p2.y);
+  }}
+  ctx.lineTo(pts[pts.length - 1].x, pad.top + ch);
+  ctx.lineTo(pts[0].x, pad.top + ch);
   ctx.closePath();
-  ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--chart-fill').trim() || 'rgba(233,69,96,0.15)';
+  const areaGrad = ctx.createLinearGradient(0, pad.top, 0, pad.top + ch);
+  areaGrad.addColorStop(0, 'rgba(244, 201, 59, 0.25)');
+  areaGrad.addColorStop(1, 'rgba(244, 201, 59, 0.0)');
+  ctx.fillStyle = areaGrad;
   ctx.fill();
-  // dots
-  checkins.forEach((c, i) => {{
-    const x = pad.left + i * xScale, y = pad.top + ch - (c.weight_kg - min) * yScale;
-    ctx.beginPath(); ctx.arc(x, y, 3, 0, Math.PI * 2); ctx.fillStyle = '#fff'; ctx.fill();
-    ctx.strokeStyle = getComputedStyle(document.body).getPropertyValue('--chart-line').trim() || '#F4C93B';
-    ctx.lineWidth = 1.5; ctx.stroke();
+
+  // Curve line
+  ctx.beginPath();
+  ctx.moveTo(pts[0].x, pts[0].y);
+  for (let i = 0; i < pts.length - 1; i++) {{
+    const p0 = pts[i === 0 ? 0 : i - 1];
+    const p1 = pts[i];
+    const p2 = pts[i + 1];
+    const p3 = pts[i + 2 < pts.length ? i + 2 : i + 1];
+    const cp1x = p1.x + (p2.x - p0.x) / 6;
+    const cp1y = p1.y + (p2.y - p0.y) / 6;
+    const cp2x = p2.x - (p3.x - p1.x) / 6;
+    const cp2y = p2.y - (p3.y - p1.y) / 6;
+    ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, p2.x, p2.y);
+  }}
+  ctx.strokeStyle = '#F4C93B';
+  ctx.lineWidth = 2.5;
+  ctx.stroke();
+
+  // Dots & min/max labels
+  pts.forEach(p => {{
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 3.5, 0, Math.PI * 2);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fill();
+    ctx.strokeStyle = '#F4C93B';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
   }});
+
+  ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--muted').trim() || '#8899aa';
+  ctx.font = '10px monospace';
+  ctx.textAlign = 'left';
+  ctx.fillText(vals[0] + ' kg', pad.left, h - 6);
+  ctx.textAlign = 'right';
+  ctx.fillText(vals[vals.length - 1] + ' kg', w - pad.right, h - 6);
 }}
 
 function renderVolumeChart() {{
@@ -497,23 +946,73 @@ function renderVolumeChart() {{
   canvas.width = w * dpr; canvas.height = h * dpr;
   canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
   ctx.scale(dpr, dpr);
-  const pad = {{ top: 10, bottom: 20, left: 40, right: 10 }};
+  const pad = {{ top: 10, bottom: 22, left: 40, right: 10 }};
   const cw = w - pad.left - pad.right, ch = h - pad.top - pad.bottom;
   const maxVol = Math.max(...vols.map(v => v.vol)) * 1.1;
-  const barW = cw / vols.length * 0.7;
-  const gap = cw / vols.length * 0.3;
+  const barW = Math.max((cw / vols.length) * 0.65, 8);
+  const gap = (cw / vols.length) * 0.35;
   ctx.clearRect(0, 0, w, h);
   vols.forEach((v, i) => {{
     const x = pad.left + i * (barW + gap) + gap / 2;
     const bh = (v.vol / maxVol) * ch;
     const y = pad.top + ch - bh;
-    ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--chart-line').trim() || '#F4C93B';
-    ctx.fillRect(x, y, barW, bh);
+    
+    // Rounded bar top
+    ctx.fillStyle = '#F4C93B';
+    ctx.beginPath();
+    ctx.roundRect ? ctx.roundRect(x, y, barW, bh, [4, 4, 0, 0]) : ctx.rect(x, y, barW, bh);
+    ctx.fill();
+
     ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--muted').trim() || '#8899aa';
     ctx.font = '9px sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText(v.session.substring(0, 3), x + barW / 2, h - 4);
+    ctx.fillText(v.session.substring(0, 3), x + barW / 2, h - 6);
   }});
+}}
+
+function renderHeatmap() {{
+  const container = document.getElementById('consistency-heatmap');
+  if (!container) return;
+  const logMap = {{}};
+  data.workouts.forEach(w => {{ logMap[w.date] = (logMap[w.date] || 0) + 1; }});
+  data.checkins.forEach(c => {{ logMap[c.date] = (logMap[c.date] || 0) + 1; }});
+
+  const weeks = 12;
+  const today = new Date();
+  const cellSize = 11, gap = 3;
+  const w = (weeks * (cellSize + gap)) + 16;
+  const h = (7 * (cellSize + gap)) + 10;
+
+  container.innerHTML = '';
+  const canvas = document.createElement('canvas');
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = w * dpr; canvas.height = h * dpr;
+  canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+  container.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  ctx.clearRect(0, 0, w, h);
+  for (let c = 0; c < weeks; c++) {{
+    for (let r = 0; r < 7; r++) {{
+      const dayOffset = ((weeks - 1 - c) * 7) + (6 - r);
+      const d = new Date();
+      d.setDate(today.getDate() - dayOffset);
+      const iso = d.toISOString().split('T')[0];
+      const count = logMap[iso] || 0;
+
+      let fill = 'rgba(255, 255, 255, 0.06)';
+      if (count >= 2) fill = '#F4C93B';
+      else if (count === 1) fill = 'rgba(244, 201, 59, 0.45)';
+
+      const x = 4 + (c * (cellSize + gap));
+      const y = 4 + (r * (cellSize + gap));
+      ctx.beginPath();
+      ctx.roundRect ? ctx.roundRect(x, y, cellSize, cellSize, 2) : ctx.rect(x, y, cellSize, cellSize);
+      ctx.fillStyle = fill;
+      ctx.fill();
+    }}
+  }}
 }}
 
 // ── History Tab ──
@@ -588,6 +1087,8 @@ function showToast(msg, isError) {{
 // ── Init ──
 currentSessionIdx = getTodaySessionIndex();
 renderWorkout();
+renderRings();
+renderWhoopStrain();
 
 // debounced chart redraw on resize
 let resizeTimer;
@@ -603,7 +1104,7 @@ window.addEventListener('resize', () => {{
 
 def generate_tracker_html(pc: ProgramContent) -> str:
     """Generate a self-contained HTML workout tracker from ProgramContent."""
-    program_json = pc.model_dump_json(indent=2)
+    program_json = pc.model_dump_json(indent=2).replace("</script>", "<\\/script>")
     client_name = pc.client.name or pc.client.user_id
     goal_label = pc.client.goal.replace("_", " ").title() if pc.client.goal else "Fitness"
     split_label = pc.program.split if pc.program.split else "Custom"

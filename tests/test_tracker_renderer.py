@@ -83,6 +83,10 @@ def test_generate_tracker_html_has_ui_elements():
     assert "save-checkin" in html
     assert "submit-logs" in html
     assert "export-logs" in html
+    assert "whoop-strain-card" in html
+    assert "whoop-recovery-card" in html
+    assert "whoop-strain-dial" in html
+    assert "whoop-recovery-arc" in html
 
 
 def test_generate_tracker_html_deadlift_icon():

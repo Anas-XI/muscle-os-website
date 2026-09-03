@@ -1,6 +1,7 @@
 """Context Loader: ED screening → Safety Triage → Pillar Assignment → Vault Context Retrieval"""
 
 import logging
+import os
 from typing import List, Tuple
 from mos_bot.config import VAULT_ROOT
 from mos_bot.core.models import ClientProfile, SafetyTriageResult, PillarAssignment, VaultSource, VaultInformedSignals
@@ -209,8 +210,19 @@ def run_safety_triage(profile: ClientProfile, ed_result: Tuple[str, List[str]]) 
     if profile.work_schedule in ("night", "rotating", "early"):
         modifiers.append("shift_work")
 
-    if profile.mental_health_concern in ("moderate", "significant"):
+    # Soft-gate for mental health concern or active moderate flag
+    has_flag = False
+    try:
+        from mos_bot.core.mental_health_flags import has_active_mental_health_flag
+        has_flag = has_active_mental_health_flag(getattr(profile, 'user_id', ''))
+    except Exception:
+        has_flag = False
+
+    if profile.mental_health_concern in ("moderate", "significant") or has_flag:
         modifiers.append("mental_health_support")
+        modifiers.append("no_calorie_deficit")
+        modifiers.append("no_food_tracking")
+        modifiers.append("gentle_entry")
 
     modifiers = list(set(modifiers))
 

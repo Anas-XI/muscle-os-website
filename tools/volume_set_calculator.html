@@ -22,6 +22,7 @@
  <meta name="twitter:title" content="Volume & Set Calculator — Coach Anas Mo'men | Muscle OS">
  <meta name="twitter:description" content="Training volume & set calculator by Coach Anas Mo'men. Calculate optimal sets per muscle group based on your experience level and goals.">
  <meta name="twitter:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
+ <script src="../assets/js/mos_charts.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 16px;line-height:1.7}
@@ -69,7 +70,7 @@ select option{background:#1E1E2A;color:#FAFAF8}
 .bar-section{margin-top:16px}
 .bar-title{font-size:.6rem;text-transform:uppercase;letter-spacing:1.2px;color:rgba(250,250,248,.35);margin-bottom:6px;font-weight:500}
 .bar-track{display:flex;height:20px;border-radius:6px;overflow:hidden}
-.bar-seg{display:flex;align-items:center;justify-content:center;font-family:'Courier New',Courier,monospace;font-size:.55rem;font-weight:600;color:#14151A;transition:width .4s ease;min-width:0}
+.bar-seg{display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:.6rem;font-weight:600;color:#14151A;transition:width .4s ease;min-width:24px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 2px}
 .bar-progress{height:6px;border-radius:3px;background:rgba(244,201,59,.15);margin-bottom:4px;overflow:hidden}
 .bar-fill{height:100%;border-radius:3px;background:#F4C93B;transition:width .6s ease}
 .legend{display:flex;justify-content:center;gap:12px;margin-top:6px;flex-wrap:wrap}
@@ -343,11 +344,18 @@ select option{background:#1E1E2A;color:#FAFAF8}
  muscleData.push({id:m.id, name:m.name, mev,mav,mrv,rec, priority});
  totalSets += rec;
  const barPct = Math.min(100, (rec / mrv) * 100);
+ const mevPct = Math.round((mev / mrv) * 100);
+ const mavPct = Math.round((mav / mrv) * 100);
  resultsHtml += '<div class="muscle-card">' +
  '<div><span class="muscle-name">'+m.name+' <span class="priority">'+(priority==='focus'?'FOCUS':'MAINT')+'</span></span></div>' +
- '<div style="text-align:right"><span class="muscle-sets">'+rec+'</span> <span class="muscle-range">('+mev+'–'+mav+')</span></div>' +
+ '<div style="text-align:right"><span class="muscle-sets">'+rec+' sets</span> <span class="muscle-range">(Target: '+mev+'–'+mav+')</span></div>' +
  '</div>' +
- '<div class="bar-progress"><div class="bar-fill" style="width:'+barPct+'%"></div></div>';
+ '<div class="bar-progress" style="position:relative;height:9px;border-radius:5px;overflow:hidden;background:rgba(255,255,255,0.06);margin-bottom:12px;">' +
+ '<div style="position:absolute;left:0;width:'+mevPct+'%;height:100%;background:rgba(56,189,248,0.22);" title="MEV ('+mev+'s)"></div>' +
+ '<div style="position:absolute;left:'+mevPct+'%;width:'+(mavPct-mevPct)+'%;height:100%;background:rgba(244,201,59,0.28);" title="MAV Sweet Spot ('+mev+'–'+mav+'s)"></div>' +
+ '<div style="position:absolute;left:'+mavPct+'%;right:0;height:100%;background:rgba(244,63,94,0.2);" title="MRV ('+mrv+'s)"></div>' +
+ '<div class="bar-fill" style="position:absolute;left:0;width:'+barPct+'%;height:100%;background:#F4C93B;border-radius:5px;box-shadow:0 0 8px rgba(244,201,59,0.45);"></div>' +
+ '</div>';
  });
 
  document.getElementById('totalSets').textContent = totalSets;
@@ -355,19 +363,22 @@ select option{background:#1E1E2A;color:#FAFAF8}
 
  // Per-session breakdown
  const totalFocus = muscleData.filter(m => m.priority === 'focus').reduce((s,m)=>s+m.rec,0);
- const perSession = Math.round(totalSets / days);
+ const baseSetsPerDay = Math.floor(totalSets / days);
+ const remainder = totalSets % days;
+ const colors = ['#F4C93B', '#E8BD35', '#DCB12F', '#D0A529', '#C49923', '#B88D1D', '#AC8117'];
 
  let sessHtml = '';
  for(let d=1; d<=days; d++){
- const pct = 100/days;
- sessHtml += '<div class="bar-seg" style="width:'+pct+'%;background:#F4C93B;font-size:.5rem;">'+Math.round(totalSets/days)+'</div>';
+ const daySets = baseSetsPerDay + (d <= remainder ? 1 : 0);
+ const pct = totalSets > 0 ? ((daySets / totalSets) * 100).toFixed(1) : (100 / days);
+ sessHtml += '<div class="bar-seg" style="width:'+pct+'%;background:'+colors[(d-1)%colors.length]+';font-size:.6rem;" title="Day '+d+': '+daySets+' sets">D'+d+': '+daySets+'s</div>';
  }
  document.getElementById('sessionBar').innerHTML = sessHtml;
 
  // Recommendation note
  let note = '';
  const setGoal = goal === 'hypertrophy' ? 'hypertrophy' : (goal === 'strength' ? 'strength' : 'balanced');
- note = 'Training age: <strong>'+level+'</strong> · Goal: <strong>'+setGoal+'</strong> · Days/week: <strong>'+days+'</strong>. ';
+ note = 'Training age: <strong>'+level+'</strong> · Goal: <strong>'+setGoal+'</strong> · Days/week: <strong>'+days+'</strong> · Focus Volume: <strong>'+totalFocus+'</strong> sets. ';
  if(level === 'novice'){
  note += 'As a novice, you will respond to almost any volume within range. Start at the lower end of your MEV–MAV range and add sets only when progress stalls for 2+ weeks.';
  } else if(level === 'intermediate'){

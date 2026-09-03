@@ -16,6 +16,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="../assets/js/mos_charts.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;background:#0D0E12;background-image:radial-gradient(circle at 50% 0%,rgba(244,201,59,.1) 0%,transparent 55%),radial-gradient(circle at 10% 80%,rgba(244,201,59,.04) 0%,transparent 45%);color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:32px 16px}
@@ -78,7 +79,7 @@ select option{background:#1A1B26;color:#FAFAF8}
 .dash-macro-val{font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:600;color:#FAFAF8}
 .dash-macro-lbl{font-size:.55rem;text-transform:uppercase;letter-spacing:1px;color:rgba(250,250,248,.65);margin-top:1px;font-weight:500}
 .bar-track{display:flex;height:22px;border-radius:6px;overflow:hidden;margin:6px 0}
-.bar-seg{display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.55rem;font-weight:600;color:#14151A;transition:width .4s ease}
+.bar-seg{display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.55rem;font-weight:600;color:#14151A;transition:width .4s ease;min-width:20px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 2px}
 .bar-p{background:#F4C93B}
 .bar-f{background:#e8a83a}
 .bar-c{background:#c48a30}
@@ -266,7 +267,7 @@ select option{background:#1A1B26;color:#FAFAF8}
 .engine-note{font-size:.58rem;color:rgba(250,250,248,.6);line-height:1.4;padding-top:4px;border-top:1px solid rgba(250,250,248,.06);margin-top:4px}
 
 /* === Phase 1: Mobile Touch Target Compliance & Contrast Enhancement === */
-.tab { min-height: 44px; padding: 10px 14px; display: inline-flex; align-items: center; justify-content: center; }
+.tab { min-height: 44px; flex: 1; padding: 10px 14px; display: inline-flex; align-items: center; justify-content: center; }
 .food-log-del { min-width: 44px; min-height: 44px; padding: 10px; display: inline-flex; align-items: center; justify-content: center; font-size: 1.1rem; }
 .food-date-btn { min-width: 44px; min-height: 44px; padding: 8px 12px; display: inline-flex; align-items: center; justify-content: center; font-size: 1.2rem; }
 .cat-chip { min-height: 44px; padding: 8px 14px; font-size: .72rem; display: inline-flex; align-items: center; justify-content: center; }
@@ -448,7 +449,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  </div>
 </div>
 <div class="container">
- <div style="display:flex;justify-content:flex-end;margin-bottom:8px;"><button class="btn-pwa-install" onclick="installPWA()">📲 Install to Home Screen</button></div>
+ <div style="display:flex;justify-content:flex-end;margin-bottom:8px;"><button class="btn-pwa-install" onclick="if(window.installPWA) window.installPWA();">📲 Install to Home Screen</button></div>
 <div class="header">
  <h1>MOS-METABOLIX</h1>
  <p>Adaptive Bio-Expenditure Matrix &amp; Pharmacokinetic Nutrition Engine</p>
@@ -468,7 +469,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  <div class="welcome-stats-grid" id="welcomeStatsGrid"></div>
  <div class="welcome-actions">
  <button class="btn-primary" id="welcomeResumeBtn"> Launch Dashboard</button>
- <button class="btn-secondary" onclick="document.querySelector('[data-tab=\'tab-food\']').click()" style="background:rgba(244,201,59,.12);color:#F4C93B;border:1px solid rgba(244,201,59,.3)"> Log Food Now</button>
+ <button class="btn-secondary" onclick="var t = document.querySelector('[data-tab=\'dash-food\']'); if(t) t.click();" style="background:rgba(244,201,59,.12);color:#F4C93B;border:1px solid rgba(244,201,59,.3)"> Log Food Now</button>
  <button class="btn-secondary" id="welcomeEditBtn">⚙ Edit Bio-Profile</button>
  </div>
  </div>
@@ -1015,43 +1016,54 @@ numbersHtml += '<div class="dash-macro-grid">' +
 
  numbersHtml += '<div class="bar-track">' +
  '<div class="bar-seg bar-p" style="width:'+pP+'%">'+pP+'%</div>' +
- '<div class="bar-seg bar-f" style="width:'+fP+'%">'+fP+'%</div>' +
- '<div class="bar-seg bar-c" style="width:'+cP+'%">'+cP+'%</div>' +
- '</div>' +
  '<div class="bar-legend">' +
- '<span class="bar-leg-item"><span class="bar-dot" style="background:#F4C93B"></span>Protein</span>' +
- '<span class="bar-leg-item"><span class="bar-dot" style="background:#e8a83a"></span>Fat</span>' +
- '<span class="bar-leg-item"><span class="bar-dot" style="background:#c48a30"></span>Carbs</span>' +
- '</div>';
+  '<span class="bar-leg-item"><span class="bar-dot" style="background:#F4C93B"></span>Protein</span>' +
+  '<span class="bar-leg-item"><span class="bar-dot" style="background:#e8a83a"></span>Fat</span>' +
+  '<span class="bar-leg-item"><span class="bar-dot" style="background:#c48a30"></span>Carbs</span>' +
+  '</div>' +
+  '<div style="display:flex;justify-content:center;align-items:center;margin:16px 0 10px;"><div id="dashMacroDonut" style="width:170px;height:170px;"></div></div>';
 
- // Detailed breakdown
- numbersHtml += '<div class="section-header" style="margin-top:10px">Breakdown</div>' +
- '<div class="dash-row"><span class="l">BMR ('+r.bmrMethod+')</span><span class="v">'+r.bmr.toLocaleString()+' kcal</span></div>' +
- '<div class="dash-row"><span class="l">NEAT (occupation + steps)</span><span class="v">'+r.neat+' kcal</span></div>' +
- '<div class="dash-row"><span class="l">EAT (training)</span><span class="v">'+r.eat+' kcal</span></div>' +
- '<div class="dash-row"><span class="l">Bio adjustment</span><span class="v">'+(r.bioAdj>=0?'+':'')+r.bioAdj+' kcal</span></div>';
+  // Detailed breakdown
+  numbersHtml += '<div class="section-header" style="margin-top:10px">Breakdown</div>' +
+  '<div class="dash-row"><span class="l">BMR ('+r.bmrMethod+')</span><span class="v">'+r.bmr.toLocaleString()+' kcal</span></div>' +
+  '<div class="dash-row"><span class="l">NEAT (occupation + steps)</span><span class="v">'+r.neat+' kcal</span></div>' +
+  '<div class="dash-row"><span class="l">EAT (training)</span><span class="v">'+r.eat+' kcal</span></div>' +
+  '<div class="dash-row"><span class="l">Bio adjustment</span><span class="v">'+(r.bioAdj>=0?'+':'')+r.bioAdj+' kcal</span></div>';
 
- if(r.safetyCapped){
- numbersHtml += '<div class="dash-row"><span class="l">Safety cap (BF% too low for this goal)</span><span class="v" style="color:#F4C93B">Active</span></div>';
- }
+  if(r.safetyCapped){
+  numbersHtml += '<div class="dash-row"><span class="l">Safety cap (BF% too low for this goal)</span><span class="v" style="color:#F4C93B">Active</span></div>';
+  }
 
- const cycleLabel = p.cyclePhase === 'luteal' ? ' (luteal +7%)' : '';
- numbersHtml += '<div class="dash-row"><span class="l">Goal adjustment'+cycleLabel+'</span><span class="v">'+GOAL_LABELS[p.goal]+'</span></div>';
+  const cycleLabel = p.cyclePhase === 'luteal' ? ' (luteal +7%)' : '';
+  numbersHtml += '<div class="dash-row"><span class="l">Goal adjustment'+cycleLabel+'</span><span class="v">'+GOAL_LABELS[p.goal]+'</span></div>';
 
- // Rationale
- const allGood = !(adjustment && adjustment.adjusted);
- numbersHtml += '<div class="rationale"><div class="r-title">Why These Numbers?</div>' +
- '<strong>'+(allGood ? 'Initial estimate based on your profile' : 'Adjusted from real data')+'</strong><br>' +
- 'Your BMR was calculated using <strong>'+r.bmrMethod+'</strong> ' +
- (r.bmrMethod==='Katch-McArdle' ? 'because you provided body fat % (most accurate method).' : '(standard formula, ~200-300 kcal uncertainty without body fat %).') +
- '<br>Activity estimated from: <strong>'+p.occupation+'</strong> occupation + <strong>'+p.steps+'</strong> steps range + <strong>'+p.trainDays+''+p.sessionLen+'min</strong> training.' +
- '<br>Goal: <strong>'+GOAL_LABELS[p.goal]+'</strong> — applying <strong>'+(GOAL_MULT[p.goal]>1?'+'+(Math.round((GOAL_MULT[p.goal]-1)*100)):(Math.round((1-GOAL_MULT[p.goal])*100)))+'%</strong> adjustment from estimated TDEE.' +
- (p.chronicDiet==='yes' ? '<br>Chronic dieting flag applied: <strong>-8% metabolic adaptation adjustment</strong>.' : '') +
- (p.cyclePhase==='luteal' ? '<br>Luteal phase applied: <strong>+7% REE adjustment</strong>.' : '') +
- (r.safetyCapped ? '<br><strong>Safety cap:</strong> Your goal was adjusted because aggressive targets are not appropriate at your current body fat level.' : '') +
- '</div>';
+  // Rationale
+  const allGood = !(adjustment && adjustment.adjusted);
+  numbersHtml += '<div class="rationale"><div class="r-title">Why These Numbers?</div>' +
+  '<strong>'+(allGood ? 'Initial estimate based on your profile' : 'Adjusted from real data')+'</strong><br>' +
+  'Your BMR was calculated using <strong>'+r.bmrMethod+'</strong> ' +
+  (r.bmrMethod==='Katch-McArdle' ? 'because you provided body fat % (most accurate method).' : '(standard formula, ~200-300 kcal uncertainty without body fat %).') +
+  '<br>Activity estimated from: <strong>'+p.occupation+'</strong> occupation + <strong>'+p.steps+'</strong> steps range + <strong>'+p.trainDays+''+p.sessionLen+'min</strong> training.' +
+  '<br>Goal: <strong>'+GOAL_LABELS[p.goal]+'</strong> — applying <strong>'+(GOAL_MULT[p.goal]>1?'+'+(Math.round((GOAL_MULT[p.goal]-1)*100)):(Math.round((1-GOAL_MULT[p.goal])*100)))+'%</strong> adjustment from estimated TDEE.' +
+  (p.chronicDiet==='yes' ? '<br>Chronic dieting flag applied: <strong>-8% metabolic adaptation adjustment</strong>.' : '') +
+  (p.cyclePhase==='luteal' ? '<br>Luteal phase applied: <strong>+7% REE adjustment</strong>.' : '') +
+  (r.safetyCapped ? '<br><strong>Safety cap:</strong> Your goal was adjusted because aggressive targets are not appropriate at your current body fat level.' : '') +
+  '</div>';
 
- document.getElementById('dash-numbers').innerHTML = numbersHtml;
+  document.getElementById('dash-numbers').innerHTML = numbersHtml;
+
+  if(window.MOS_Charts && document.getElementById('dashMacroDonut')){
+    MOS_Charts.createDonutChart(document.getElementById('dashMacroDonut'), {
+      size: 170,
+      segments: [
+        { label: 'Protein', value: protein, color: '#F4C93B' },
+        { label: 'Fats', value: fat, color: '#e8a83a' },
+        { label: 'Carbs', value: carbs, color: '#c48a30' }
+      ],
+      centerVal: targetCal.toLocaleString(),
+      centerLabel: 'KCAL / DAY'
+    });
+  }
 
  // Weight tab in dashboard
  document.getElementById('dash-weight').innerHTML = renderWeightTab();
@@ -1111,48 +1123,64 @@ numbersHtml += '<div class="dash-macro-grid">' +
  }
 
  function renderWeightTab(){
- let html = '<div class="weight-input-row">' +
- '<input type="number" id="dashWeightInput" step="0.1" placeholder="Enter weight (kg)">' +
- '<button id="dashLogBtn">Log</button></div>' +
- '<div class="section-header">Recent Entries</div><div class="weight-log" id="dashWeightLog"></div>';
+  let html = '<div class="weight-input-row">' +
+  '<input type="number" id="dashWeightInput" step="0.1" placeholder="Enter weight (kg)">' +
+  '<button id="dashLogBtn">Log</button></div>' +
+  '<div id="dashWeightChartBox" style="margin:16px 0;' + (store.weights && store.weights.length >= 2 ? '' : 'display:none;') + '">' +
+  '<div class="section-header" style="margin-top:0">Weight Trajectory &amp; Trend</div>' +
+  '<div id="dashWeightChart" style="height:170px;"></div></div>' +
+  '<div class="section-header">Recent Entries</div><div class="weight-log" id="dashWeightLog"></div>';
 
- // Defer rendering after DOM insert
- return html;
- }
+  return html;
+  }
 
- function renderHistory(){
- if(!store.adjustments || store.adjustments.length === 0){
- return '<div class="section-header">Adjustment History</div><p style="font-size:.78rem;color:rgba(250,250,248,.65);text-align:center;padding:20px 0">No adjustments yet. Keep logging weight for 2+ weeks.</p>';
- }
- let html = '<div class="section-header">Adjustment History</div>';
- [...store.adjustments].reverse().forEach(a => {
- const diff = a.newGoal - a.oldGoal;
- const cls = diff > 0 ? 'hist-up' : 'hist-down';
- const sign = diff > 0 ? '+' : '';
- const d = new Date(a.date);
- html += '<div class="hist-entry">' +
- '<div class="h-date">'+d.toLocaleDateString()+'</div>' +
- '<div class="h-reason">'+a.reason+'</div>' +
- '<div class="h-change '+cls+'">'+a.oldGoal+' &rarr; '+a.newGoal+' kcal ('+sign+diff+')</div></div>';
- });
- return html;
- }
+  function renderHistory(){
+  if(!store.adjustments || store.adjustments.length === 0){
+  return '<div class="section-header">Adjustment History</div><p style="font-size:.78rem;color:rgba(250,250,248,.65);text-align:center;padding:20px 0">No adjustments yet. Keep logging weight for 2+ weeks.</p>';
+  }
+  let html = '<div class="section-header">Adjustment History</div>';
+  [...store.adjustments].reverse().forEach(a => {
+  const diff = a.newGoal - a.oldGoal;
+  const cls = diff > 0 ? 'hist-up' : 'hist-down';
+  const sign = diff > 0 ? '+' : '';
+  const d = new Date(a.date);
+  html += '<div class="hist-entry">' +
+  '<div class="h-date">'+d.toLocaleDateString()+'</div>' +
+  '<div class="h-reason">'+a.reason+'</div>' +
+  '<div class="h-change '+cls+'">'+a.oldGoal+' &rarr; '+a.newGoal+' kcal ('+sign+diff+')</div></div>';
+  });
+  return html;
+  }
 
- function renderWeightEntries(){
- const containers = ['weightLog', 'dashWeightLog'];
- containers.forEach(id => {
- const el = document.getElementById(id);
- if(!el) return;
- if(!store.weights || store.weights.length === 0){
- el.innerHTML = '<p style="font-size:.72rem;color:rgba(250,250,248,.2);text-align:center;padding:14px 0">No entries yet. Log your weight above.</p>';
- return;
- }
- const sorted = [...store.weights].sort((a,b)=>new Date(b.date)-new Date(a.date));
- el.innerHTML = sorted.slice(0,20).map(e =>
- '<div class="weight-entry"><span class="d">'+new Date(e.date).toLocaleDateString()+'</span><span class="w">'+e.weight.toFixed(1)+' kg</span></div>'
- ).join('');
- });
- }
+  function renderWeightEntries(){
+  const containers = ['weightLog', 'dashWeightLog'];
+  containers.forEach(id => {
+  const el = document.getElementById(id);
+  if(!el) return;
+  if(!store.weights || store.weights.length === 0){
+  el.innerHTML = '<p style="font-size:.72rem;color:rgba(250,250,248,.2);text-align:center;padding:14px 0">No entries yet. Log your weight above.</p>';
+  return;
+  }
+  const sorted = [...store.weights].sort((a,b)=>new Date(b.date)-new Date(a.date));
+  el.innerHTML = sorted.slice(0,20).map(e =>
+  '<div class="weight-entry"><span class="d">'+new Date(e.date).toLocaleDateString()+'</span><span class="w">'+e.weight.toFixed(1)+' kg</span></div>'
+  ).join('');
+  });
+
+  const chartEl = document.getElementById('dashWeightChart');
+  const chartBox = document.getElementById('dashWeightChartBox');
+  if (chartEl && window.MOS_Charts && store.weights && store.weights.length >= 2) {
+    if (chartBox) chartBox.style.display = 'block';
+    const sortedAsc = [...store.weights].sort((a,b)=>new Date(a.date)-new Date(b.date));
+    MOS_Charts.createLineChart(chartEl, {
+      height: 170,
+      unit: 'kg',
+      lineColor: '#F4C93B',
+      fillColor: 'rgba(244, 201, 59, 0.2)',
+      data: sortedAsc.map(w => ({ date: w.date, value: w.weight }))
+    });
+  }
+  }
 
  function logWeight(val){
  if(isNaN(val) || val <= 0) return;
@@ -2294,6 +2322,21 @@ if(data && data.error === 'wrong_product') msg = 'This code unlocks the OMNI HUB
           showErr('authStep1Error', 'Network error. Please try again.');
         });
       }
+    }
+    start();
+
+    document.getElementById('subVerify').addEventListener('click', function(){
+      var btn = document.getElementById('subVerify');
+      var code = document.getElementById('subCode').value.trim().toUpperCase();
+      if(!code){ showErr('subError', 'Invalid code. Please check and try again.'); return; }
+      var g = getGs();
+      var email = g ? g.email : '';
+      if(email.toUpperCase() === OWNER_EMAIL){
+        var expiry = new Date(); expiry.setMonth(expiry.getMonth() + 1);
+        grantAndReload('pro_tdee', expiry.toISOString().split('T')[0], '', 'OWNER', email);
+        return;
+      }
+      verifyCode(code, email, btn);
     });
     google.accounts.id.renderButton(host, { theme: 'outline', size: 'large', width: 280 });
   }
@@ -2418,154 +2461,6 @@ if(data && data.error === 'wrong_product') msg = 'This code unlocks the OMNI HUB
         initGsi();
       });
     }
-  }
-})();
-
-(function(){
-  var SUB_KEY = 'mos_subscription';
-  var GS_KEY = 'mos_google_session';
-  var OWNER_EMAIL = 'ANASSTEM2025@GMAIL.COM';
-  var API_BASE = 'https://muscleos-access-control.muscleos.workers.dev';
-  var GOOGLE_CLIENT_ID = '22648364020234-gldbcsfl16cftjvd11o9iqpalesi1hsn.apps.googleusercontent.com';
-  var sub = null;
-  try { sub = JSON.parse(localStorage.getItem(SUB_KEY)); } catch(e){}
-  var active = !!(sub && sub.active && new Date(sub.expiry + 'T23:59:59') > new Date());
-
-  function getGs(){ try { var g = JSON.parse(localStorage.getItem(GS_KEY)); return (g && g.session) ? g : null; } catch(e){ return null; } }
-  function showStep(n){
-    document.getElementById('authStep1').style.display = n === 1 ? 'block' : 'none';
-    document.getElementById('authStep2').style.display = n === 2 ? 'block' : 'none';
-  }
-  function showErr(id, msg){ var el = document.getElementById(id); el.style.display = 'block'; el.textContent = msg; }
-  function setSub(plan, expiry, token, code, email){
-    localStorage.setItem(SUB_KEY, JSON.stringify({ active: true, plan: plan, expiry: expiry, token: token || '', code: code, email: email || '' }));
-  }
-  function grantAndReload(plan, expiry, token, code, email){
-    setSub(plan, expiry, token, code, email);
-    showStep(2);
-    document.getElementById('subError').style.display = 'none';
-    document.getElementById('subSuccess').style.display = 'block';
-    setTimeout(function(){ location.reload(); }, 1500);
-  }
-  function verifyCode(code, email, btn){
-    btn.disabled = true;
-    btn.textContent = 'Checking...';
-    var gs = getGs();
-    fetch(API_BASE + '/api/verify-code', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ code: code, productId: 'tdee_adaptive_engine', session: gs ? gs.session : undefined })
-    }).then(function(r){ return r.json(); }).then(function(data){
-      if(data && data.valid){
-        grantAndReload(data.plan || 'pro_tdee', (data.expiresAt || '').slice(0, 10), data.token || '', code, email);
-      } else {
-        var msg = 'Invalid code. Please check and try again.';
-        if(data && data.error === 'code_used_by_other') msg = 'This code is already linked to another account.';
-        if(data && data.error === 'code_exhausted') msg = 'This code has already been used.';
-        if(data && data.error === 'invalid_session'){
-          localStorage.removeItem(GS_KEY);
-          showStep(1);
-          msg = 'Session expired. Please sign in again.';
-          initGsi();
-        }
-        showErr('subError', msg);
-        btn.disabled = false;
-        btn.textContent = 'Verify';
-      }
-    }).catch(function(){
-      showErr('subError', 'Network error. Please try again.');
-      btn.disabled = false;
-      btn.textContent = 'Verify';
-    });
-  }
-  function finishGoogle(data){
-    localStorage.setItem(GS_KEY, JSON.stringify({ session: data.session, email: data.email, name: data.name || '', ts: Date.now() }));
-    if(data.email.toUpperCase() === OWNER_EMAIL){
-      var expiry = new Date(); expiry.setMonth(expiry.getMonth() + 1);
-      grantAndReload('pro_tdee', expiry.toISOString().split('T')[0], '', 'OWNER', data.email);
-      return;
-    }
-    document.getElementById('authWelcome').textContent = 'Signed in as ' + (data.name || data.email);
-    showStep(2);
-  }
-  function initGsi(){
-    var host = document.getElementById('googleSignInBtn');
-    if(!host || host.getAttribute('data-gsi')) return;
-    host.setAttribute('data-gsi', '1');
-    if(typeof google === 'undefined' || !google.accounts || !google.accounts.id){ setTimeout(initGsi, 300); return; }
-    google.accounts.id.initialize({
-      client_id: GOOGLE_CLIENT_ID,
-      callback: function(resp){
-        if(!resp || !resp.credential){ showErr('authStep1Error', 'Google sign-in failed. Please try again.'); return; }
-        fetch(API_BASE + '/api/auth/google', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ token: resp.credential })
-        }).then(function(r){ return r.json(); }).then(function(data){
-          if(data && data.valid) finishGoogle(data);
-          else showErr('authStep1Error', 'Google sign-in failed. Please try again.');
-        }).catch(function(){
-          showErr('authStep1Error', 'Network error. Please try again.');
-        });
-      }
-    });
-    google.accounts.id.renderButton(host, { theme: 'outline', size: 'large', width: 280 });
-  }
-
-  if(!active){
-    document.getElementById('subOverlay').style.display = 'flex';
-    var gs = getGs();
-    var started = false;
-    function start(){
-      if(started) return;
-      started = true;
-      if(gs){
-        fetch(API_BASE + '/api/check-session', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ session: gs.session })
-        }).then(function(r){ return r.json(); }).then(function(data){
-          if(data && data.valid){
-            document.getElementById('authWelcome').textContent = 'Signed in as ' + (gs.name || gs.email);
-            showStep(2);
-          } else {
-            localStorage.removeItem(GS_KEY);
-            showStep(1);
-            initGsi();
-          }
-        }).catch(function(){
-          document.getElementById('authWelcome').textContent = 'Signed in as ' + (gs.name || gs.email);
-          showStep(2);
-        });
-      } else {
-        showStep(1);
-        initGsi();
-      }
-    }
-    start();
-
-    document.getElementById('subVerify').addEventListener('click', function(){
-      var btn = document.getElementById('subVerify');
-      var code = document.getElementById('subCode').value.trim().toUpperCase();
-      if(!code){ showErr('subError', 'Invalid code. Please check and try again.'); return; }
-      var g = getGs();
-      var email = g ? g.email : '';
-      if(email.toUpperCase() === OWNER_EMAIL){
-        var expiry = new Date(); expiry.setMonth(expiry.getMonth() + 1);
-        grantAndReload('pro_tdee', expiry.toISOString().split('T')[0], '', 'OWNER', email);
-        return;
-      }
-      verifyCode(code, email, btn);
-    });
-    document.getElementById('subCode').addEventListener('keydown', function(e){
-      if(e.key === 'Enter') document.getElementById('subVerify').click();
-    });
-    document.getElementById('subSignOut').addEventListener('click', function(e){
-      e.preventDefault();
-      localStorage.removeItem(GS_KEY);
-      showStep(1);
-      initGsi();
-    });
   }
 })();
 </script>

@@ -1,7 +1,11 @@
-import re
+import logging
 import os
+import re
+from datetime import datetime, timezone
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ContextTypes, ConversationHandler
+
+logger = logging.getLogger(__name__)
 from mos_bot.states import (
     GOAL, SITUATION, EXPERIENCE, WEIGHT, HEIGHT, AGE,
     TRAINING_DAYS, SESSION_LENGTH, CURRENT_SPLIT, INJURIES,
@@ -35,8 +39,7 @@ TOTAL_SCREENS = 8
 
 def _incident_id() -> str:
     """Generate a unique crisis incident identifier (timestamp-based)."""
-    from datetime import datetime
-    return datetime.utcnow().strftime("%Y%m%d_%H%M%S")
+    return datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
 
 SCREEN_MAP = {
     GOAL: (1, "Your Goal"),
@@ -73,7 +76,6 @@ SCREEN_MAP = {
 
 
 def _sanitize_text(text: str, max_len: int = 500) -> str:
-    import re
     cleaned = re.sub(r'[<>\n\r\t]', ' ', text)
     cleaned = cleaned.strip()
     return cleaned[:max_len]
@@ -89,7 +91,7 @@ def _header(state_or_num):
     else:
         info = SCREEN_MAP.get(state_or_num, (0, ""))
         num, name = info
-    bar_size = 8
+    bar_size = TOTAL_SCREENS
     filled = "━" * num
     empty = "─" * (bar_size - num)
     return (
@@ -104,19 +106,6 @@ def _btn(label, data=None):
 
 def _keyboard(*rows):
     return InlineKeyboardMarkup([list(row) for row in rows])
-
-
-async def _send_screen(update_or_query, text, reply_markup=None, edit=True):
-    if edit and hasattr(update_or_query, "edit_message_text"):
-        return await update_or_query.edit_message_text(text, reply_markup=reply_markup)
-    elif hasattr(update_or_query, "message"):
-        return await update_or_query.message.reply_text(text, reply_markup=reply_markup)
-    return await update_or_query.reply_text(text, reply_markup=reply_markup)
-
-
-GOAL_EMOJIS = {"Lose fat": "🔥", "Build muscle": "💪", "Get stronger": "🏋️", "Recomposition": "⚖️"}
-SIT_EMOJIS = {"Just getting started": "🌱", "Not seeing results": "📉", "Feeling run down": "😮‍💨", "Coming back from a break": "🔄"}
-EXP_EMOJIS = {"Less than 1 year": "🌱", "1-3 years": "🌿", "3+ years": "🌳"}
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -554,6 +543,7 @@ async def _ask_water(query, ud):
             (_btn("4+ L", "water_4l"),),
         ),
     )
+    return HYDRATION
 
 
 async def water_handler(update, context):
@@ -578,6 +568,7 @@ async def _ask_alcohol(query, ud):
             (_btn("15+", "alc_15_plus"),),
         ),
     )
+    return ALCOHOL_WEEKLY
 
 
 async def alcohol_handler(update, context):
@@ -603,6 +594,7 @@ async def _ask_work_schedule(query, ud):
         "This helps me adapt your program around your daily rhythm.",
         reply_markup=kb,
     )
+    return WORK_SCHEDULE
 
 
 async def work_schedule_handler(update, context):
@@ -627,6 +619,7 @@ async def _ask_mobility(query, ud):
             (_btn("Multiple areas", "mob_multi"),),
         ),
     )
+    return MOBILITY
 
 
 async def mobility_handler(update, context):
@@ -652,6 +645,7 @@ async def _ask_bloodwork(query, ud):
             (_btn("Never had it done", "bw_never"),),
         ),
     )
+    return BLOODWORK
 
 
 async def bloodwork_handler(update, context):
@@ -702,13 +696,14 @@ async def _ask_mental_health(query, ud):
             (_btn("Significant — affects daily life", "mh_significant"),),
         ),
     )
+    return MENTAL_HEALTH
 
 
 async def mental_health_handler(update, context):
     query = update.callback_query
     await query.answer()
     ud = context.user_data
-    mh_map = {"mh_no": "no", "mh_mild": "mild", "mh_moderate": "moderate", "mh_significant": "significant"}
+    mh_map = {"mh_no": "none", "mh_mild": "none", "mh_moderate": "moderate", "mh_significant": "significant"}
     if query.data in mh_map:
         ud["mental_health_concern"] = mh_map[query.data]
     if query.data == "mh_significant":
@@ -822,8 +817,8 @@ def _raw_profile_from_user_data(ud: dict) -> dict:
     }
 
 
-async def _show_confirm(query, context):
-    ud = context.user_data
+async def _show_confirm(query, context_or_ud):
+    ud = context_or_ud.user_data if hasattr(context_or_ud, "user_data") else context_or_ud
     alc_labels = {"0": "None", "1_2": "1-2/wk", "3_7": "3-7/wk", "8_14": "8-14/wk", "15_plus": "15+/wk"}
     ws_labels = {"day_fixed": "Fixed day", "day_flexible": "Flex day", "night": "Night", "rotating": "Rotating", "student": "Student/Other"}
     lines = [
@@ -870,6 +865,17 @@ async def confirm_handler(update, context):
     save_profile(profile)
     fire_push_profile(update.effective_user.id, profile)
     context.user_data["profile"] = profile
+
+    if profile.get("mental_health_concern") == "moderate":
+        try:
+            from mos_bot.core.mental_health_flags import create_or_trigger_flag
+            create_or_trigger_flag(
+                user_id=str(update.effective_user.id),
+                trigger_context="Intake screening: moderate mental health concern reported",
+                actor="intake"
+            )
+        except Exception as e:
+            logger.error(f"Failed to create intake MH flag: {e}")
 
     await query.edit_message_text(
         "🚀 **Building your program...**\n\n"

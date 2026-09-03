@@ -210,3 +210,109 @@ async def api_download_pdf(draft_id: str):
         raise HTTPException(404, "PDF not exported yet. POST /api/coach/draft/{id}/export first.")
     return FileResponse(pdf_path, media_type="application/pdf",
                         filename=f"{draft_data.get('client_name', clean_draft_id)}_program.pdf")
+
+
+# ── Mental Health Concern Flag Routes ──
+
+from mos_bot.core.mental_health_flags import (
+    list_flags, get_flag, create_or_trigger_flag,
+    claim_flag, clear_flag, set_monitoring, escalate_flag,
+    get_flag_audit_trail, check_monitoring_and_sla_timeouts
+)
+
+
+class CreateFlagRequest(BaseModel):
+    user_id: str
+    trigger_context: str
+    actor: str = "coach"
+
+
+class ClaimFlagRequest(BaseModel):
+    claimed_by: str
+    note: str = ""
+
+
+class ClearFlagRequest(BaseModel):
+    cleared_by: str
+    clearance_note: str
+
+
+class MonitorFlagRequest(BaseModel):
+    recheck_at: str
+    actor: str
+    note: str = ""
+
+
+class EscalateFlagRequest(BaseModel):
+    escalated_by: str
+    reason: str
+
+
+@router.get("/flags")
+async def api_list_flags(user_id: Optional[str] = None, status: Optional[str] = None):
+    clean_user = sanitize_user_id(user_id) if user_id else None
+    flags = list_flags(user_id=clean_user, status=status)
+    return {"flags": [f.model_dump() for f in flags], "total": len(flags)}
+
+
+@router.post("/flags")
+async def api_create_flag(req: CreateFlagRequest):
+    clean_user = sanitize_user_id(req.user_id)
+    flag = create_or_trigger_flag(clean_user, req.trigger_context, actor=req.actor)
+    return flag.model_dump()
+
+
+@router.get("/flags/{flag_id}")
+async def api_get_flag(flag_id: str):
+    clean_id = sanitize_user_id(flag_id)
+    flag = get_flag(clean_id)
+    if not flag:
+        raise HTTPException(404, "Flag not found")
+    audit = get_flag_audit_trail(clean_id)
+    return {"flag": flag.model_dump(), "audit_trail": [a.model_dump() for a in audit]}
+
+
+@router.post("/flags/{flag_id}/claim")
+async def api_claim_flag(flag_id: str, req: ClaimFlagRequest):
+    clean_id = sanitize_user_id(flag_id)
+    try:
+        flag = claim_flag(clean_id, claimed_by=req.claimed_by, note=req.note)
+        return flag.model_dump()
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+
+
+@router.post("/flags/{flag_id}/clear")
+async def api_clear_flag(flag_id: str, req: ClearFlagRequest):
+    clean_id = sanitize_user_id(flag_id)
+    try:
+        flag = clear_flag(clean_id, cleared_by=req.cleared_by, clearance_note=req.clearance_note)
+        return flag.model_dump()
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+
+
+@router.post("/flags/{flag_id}/monitor")
+async def api_monitor_flag(flag_id: str, req: MonitorFlagRequest):
+    clean_id = sanitize_user_id(flag_id)
+    try:
+        flag = set_monitoring(clean_id, actor=req.actor, recheck_at=req.recheck_at, note=req.note)
+        return flag.model_dump()
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+
+
+@router.post("/flags/{flag_id}/escalate")
+async def api_escalate_flag(flag_id: str, req: EscalateFlagRequest):
+    clean_id = sanitize_user_id(flag_id)
+    try:
+        flag = escalate_flag(clean_id, escalated_by=req.escalated_by, reason=req.reason)
+        return flag.model_dump()
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+
+
+@router.post("/flags/scheduler/check")
+async def api_scheduler_check():
+    results = check_monitoring_and_sla_timeouts()
+    return results

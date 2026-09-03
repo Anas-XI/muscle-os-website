@@ -82,8 +82,18 @@ def evaluate_weekly_adjustments(current: CheckinTelemetry) -> CheckinAdjustmentR
 
         # Goal: Hypertrophy / Bulk / Surplus
         elif goal in ("hypertrophy", "build_muscle", "bulk", "strength"):
-            # Plateau in surplus: weight stable for 2+ weeks
-            if weekly_rate < 0.1 and weeks >= 2:
+            # Losing weight in surplus
+            if weekly_rate < 0.0 and weeks >= 2:
+                result.actions.append(
+                    f"**Unintended Weight Loss in Surplus:** Losing weight ({weekly_rate:.2f} kg/wk). "
+                    "Action: Increase calories by 200–300 kcal/day to establish a true anabolic surplus (ADJUSTMENTS.md:25)."
+                )
+                result.calorie_adjustment_kcal += 250
+                result.rules_applied.append("ADJ-NU-SURPLUS-LOSING")
+                result.status = "adjust_nutrition"
+
+            # Plateau in surplus: weight stable (0 to < 0.1 kg/wk) for 2+ weeks
+            elif 0.0 <= weekly_rate < 0.1 and weeks >= 2:
                 result.actions.append(
                     "**Surplus Stagnation:** Weight is stable. "
                     "Action: Increase calories by 100–200 kcal/day to sustain muscle growth (ADJUSTMENTS.md:25)."

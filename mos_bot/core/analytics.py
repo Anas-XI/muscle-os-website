@@ -36,24 +36,27 @@ def get_metrics() -> dict:
     checkins = 0
     coach = 0
 
-    with open(_EVENTS_FILE, "r", encoding="utf-8") as f:
-        for line in f:
-            line = line.strip()
-            if not line:
-                continue
-            try:
-                ev = json.loads(line)
-            except json.JSONDecodeError:
-                continue
-            uid = ev.get("user_id", "?")
-            users.add(uid)
-            evt = ev.get("event", "")
-            if evt == "intake_completed":
-                intakes += 1
-            elif evt == "checkin_completed":
-                checkins += 1
-            elif evt == "coach_question":
-                coach += 1
+    try:
+        with open(_EVENTS_FILE, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    ev = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                uid = ev.get("user_id", "?")
+                users.add(uid)
+                evt = ev.get("event", "")
+                if evt == "intake_completed":
+                    intakes += 1
+                elif evt == "checkin_completed":
+                    checkins += 1
+                elif evt == "coach_question":
+                    coach += 1
+    except OSError:
+        pass
 
     return {
         "users_total": len(users),

@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TDEE & Macro Calculator — Coach Anas Mo'men | Muscle OS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
  <meta name="description" content="Precision TDEE & macro calculator by Coach Anas Mo'men. Calculate your maintenance calories, optimal macros for cutting, bulking, or recomposition.">
  <meta property="og:title" content="TDEE & Macro Calculator — Coach Anas Mo'men | Muscle OS">
  <meta property="og:description" content="Precision TDEE & macro calculator by Coach Anas Mo'men. Calculate your maintenance calories, optimal macros for cutting, bulking, or recomposition.">
@@ -22,6 +22,7 @@
  <meta name="twitter:title" content="TDEE & Macro Calculator — Coach Anas Mo'men | Muscle OS">
  <meta name="twitter:description" content="Precision TDEE & macro calculator by Coach Anas Mo'men. Calculate your maintenance calories, optimal macros for cutting, bulking, or recomposition.">
  <meta name="twitter:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
+ <script src="../assets/js/mos_charts.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 16px;line-height:1.7}
@@ -42,7 +43,7 @@ body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:
 .sex-btn{flex:1;padding:9px 0;border:1.5px solid rgba(250,250,248,.12);border-radius:8px;background:transparent;color:#FAFAF8;font-family:'Inter',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;transition:all .2s;text-align:center}
 .sex-btn:hover{border-color:rgba(250,250,248,.25)}
 .sex-btn.active{background:#F4C93B;color:#14151A;border-color:#F4C93B;font-weight:600}
-input,select{width:100%;padding:9px 11px;background:rgba(20,21,26,.6);border:1.5px solid rgba(250,250,248,.1);border-radius:8px;color:#FAFAF8;font-family:'Courier New',Courier,monospace;font-size:.85rem;outline:none;transition:border-color .2s}
+input,select{width:100%;padding:9px 11px;background:rgba(20,21,26,.6);border:1.5px solid rgba(250,250,248,.1);border-radius:8px;color:#FAFAF8;font-family:'JetBrains Mono',monospace;font-size:.85rem;outline:none;transition:border-color .2s}
 input:focus,select:focus{border-color:#F4C93B}
 select{font-family:'Inter',sans-serif;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 12 8'%3E%3Cpath fill='%23FAFAF8' opacity='0.5' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;padding-right:32px}
 select option{background:#1E1E2A;color:#FAFAF8}
@@ -56,24 +57,24 @@ select option{background:#1E1E2A;color:#FAFAF8}
 .results-card{background:#1E1E2A;border-radius:16px;border-top:3px solid #F4C93B;padding:24px 22px}
 .cal-section{text-align:center;margin-bottom:20px}
 .cal-label{font-size:.65rem;text-transform:uppercase;letter-spacing:1.5px;color:rgba(250,250,248,.4);font-weight:600}
-.cal-val{font-family:'Courier New',Courier,monospace;font-size:2.8rem;font-weight:700;color:#F4C93B;line-height:1.1;margin-top:2px}
+.cal-val{font-family:'JetBrains Mono',monospace;font-size:2.8rem;font-weight:700;color:#F4C93B;line-height:1.1;margin-top:2px}
 .cal-unit{font-size:.8rem;color:rgba(250,250,248,.3);font-weight:300}
 .break-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px}
 .break-item{text-align:center;padding:8px 4px;border-radius:8px;background:rgba(20,21,26,.4)}
-.break-val{font-family:'Courier New',Courier,monospace;font-size:.95rem;font-weight:600;color:#FAFAF8}
+.break-val{font-family:'JetBrains Mono',monospace;font-size:.95rem;font-weight:600;color:#FAFAF8}
 .break-lbl{font-size:.55rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.3);margin-top:2px;font-weight:500}
 .breakdown-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(250,250,248,.05);font-size:.74rem}
 .breakdown-row:last-child{border-bottom:none}
 .breakdown-row .lbl{color:rgba(250,250,248,.45);text-transform:none;letter-spacing:0;font-size:.74rem}
-.breakdown-row .val{font-family:'Courier New',Courier,monospace;color:#FAFAF8}
+.breakdown-row .val{font-family:'JetBrains Mono',monospace;color:#FAFAF8}
 .macro-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:16px}
 .macro-item{text-align:center;padding:10px 6px;border-radius:10px;background:rgba(20,21,26,.4)}
-.macro-val{font-family:'Courier New',Courier,monospace;font-size:1.2rem;font-weight:600;color:#FAFAF8}
+.macro-val{font-family:'JetBrains Mono',monospace;font-size:1.2rem;font-weight:600;color:#FAFAF8}
 .macro-lbl{font-size:.6rem;text-transform:uppercase;letter-spacing:1px;color:rgba(250,250,248,.35);margin-top:2px;font-weight:500}
 .bar-section{margin-top:4px}
 .bar-title{font-size:.6rem;text-transform:uppercase;letter-spacing:1.2px;color:rgba(250,250,248,.35);margin-bottom:6px;font-weight:500}
 .bar-track{display:flex;height:26px;border-radius:6px;overflow:hidden}
-.bar-seg{display:flex;align-items:center;justify-content:center;font-family:'Courier New',Courier,monospace;font-size:.6rem;font-weight:600;color:#14151A;transition:width .4s ease}
+.bar-seg{display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:600;color:#14151A;transition:width .4s ease;min-width:24px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 2px}
 .bar-p{background:#F4C93B}
 .bar-f{background:#e8a83a}
 .bar-c{background:#c48a30}
@@ -173,7 +174,7 @@ html[dir="rtl"] select{background-position:left 11px center;padding-right:11px;p
  <div class="form-group">
  <label data-i18n="sexLabel">Sex</label>
  <div class="sex-group">
- <button type="button" class="sex-btn" data-sex="male" data-i18n="male">Male</button>
+ <button type="button" class="sex-btn active" data-sex="male" data-i18n="male">Male</button>
  <button type="button" class="sex-btn" data-sex="female" data-i18n="female">Female</button>
  </div>
  </div>
@@ -520,6 +521,21 @@ html[dir="rtl"] select{background-position:left 11px center;padding-right:11px;p
  <div class="macro-val" id="rCarbs">0</div>
  <div class="macro-lbl" data-i18n="carbsG">Carbs (g)</div>
  </div>
+ </div>
+ <div style="display:flex;justify-content:center;align-items:center;margin:18px 0 12px;">
+ <div id="macroDonutContainer" style="width:190px;height:190px;"></div>
+ </div>
+ <div class="waterfall-section" style="margin:16px 0 12px;">
+ <div class="bar-title" style="margin-bottom:6px;font-size:0.75rem;color:rgba(250,250,248,0.6);text-transform:uppercase;letter-spacing:0.5px;">Energy Expenditure Components (kcal)</div>
+ <div id="energyWaterfallContainer" style="width:100%;height:18px;display:flex;border-radius:6px;overflow:hidden;background:#14151A;border:1px solid rgba(255,255,255,0.08);"></div>
+ <div id="energyWaterfallLegend" style="display:flex;justify-content:space-between;font-size:9px;color:rgba(250,250,248,0.5);margin-top:4px;"></div>
+ </div>
+ <div class="whoop-strain-exp-box" style="margin:14px 0;padding:12px;background:rgba(20,21,26,.6);border-radius:10px;border:1px solid rgba(250,250,248,.08);">
+  <div style="display:flex;justify-content:space-between;align-items:center;">
+   <span style="font-size:0.72rem;font-weight:700;color:#f97316;text-transform:uppercase;">⚡ WHOOP Day Strain Correlation</span>
+   <span id="whoopStrainVal" style="font-size:0.8rem;font-weight:700;color:#FAFAF8;font-family:'JetBrains Mono',monospace;">14.2 Strain</span>
+  </div>
+  <p id="whoopStrainDesc" style="font-size:0.65rem;color:rgba(250,250,248,0.55);margin-top:4px;line-height:1.4;">Estimated workout &amp; cardiovascular demand: ~420 kcal activity burn. Recommended target strain corridor: 13.5 – 16.5.</p>
  </div>
  <div class="bar-section">
  <div class="bar-title" data-i18n="macroSplit">Macro Split by Calories</div>
@@ -888,8 +904,50 @@ html[dir="rtl"] select{background-position:left 11px center;padding-right:11px;p
  document.getElementById('barC').textContent=cP+'%';
 
  res.style.display='block';
- res.scrollIntoView({behavior:'smooth',block:'start'});
- });
+
+  // Render Macro Donut Chart via MOS_Charts
+  if (window.MOS_Charts && document.getElementById('macroDonutContainer')) {
+    MOS_Charts.createDonutChart(document.getElementById('macroDonutContainer'), {
+      size: 190,
+      segments: [
+        { label: 'Protein', value: pG, color: '#F4C93B' },
+        { label: 'Fats', value: fG, color: '#e8a83a' },
+        { label: 'Carbs', value: Math.max(0, cG), color: '#c48a30' }
+      ],
+      centerVal: goalCal.toLocaleString(),
+      centerLabel: 'KCAL / DAY'
+    });
+  }
+
+  // Energy Expenditure Waterfall
+  const wfContainer = document.getElementById('energyWaterfallContainer');
+  const wfLegend = document.getElementById('energyWaterfallLegend');
+  if (wfContainer && tdee > 0) {
+    const bmrPct = Math.min(Math.round((bmr / tdee) * 100), 100);
+    const neatPct = Math.min(Math.round((neatTotal / tdee) * 100), 100 - bmrPct);
+    const eatPct = Math.max(0, 100 - bmrPct - neatPct);
+    wfContainer.innerHTML =
+      '<div style="width:'+bmrPct+'%;background:#38bdf8;height:100%;" title="BMR: '+bmr+' kcal"></div>' +
+      '<div style="width:'+neatPct+'%;background:#22c55e;height:100%;" title="NEAT+TEF: '+neatTotal+' kcal"></div>' +
+      '<div style="width:'+eatPct+'%;background:#F4C93B;height:100%;" title="EAT+EPOC: '+dailyEat+' kcal"></div>';
+    wfLegend.innerHTML =
+      '<span><span style="color:#38bdf8;">■</span> BMR ('+bmr+' kcal)</span>' +
+      '<span><span style="color:#22c55e;">■</span> NEAT+TEF ('+neatTotal+' kcal)</span>' +
+      '<span><span style="color:#F4C93B;">■</span> EAT ('+dailyEat+' kcal)</span>';
+  }
+
+  const strainValEl = document.getElementById('whoopStrainVal');
+  const strainDescEl = document.getElementById('whoopStrainDesc');
+  if (strainValEl && dailyEat > 0) {
+    const estStrain = Math.min(21.0, Math.max(6.0, 7.0 + (dailyEat / 60.0))).toFixed(1);
+    strainValEl.textContent = estStrain + ' Strain';
+    if (strainDescEl) {
+      strainDescEl.innerHTML = 'Estimated workout &amp; cardiovascular demand: <strong>~' + dailyEat + ' kcal</strong> activity burn. Target strain corridor: <strong>' + (estStrain - 1.5).toFixed(1) + ' – ' + (parseFloat(estStrain) + 1.5).toFixed(1) + '</strong>.';
+    }
+  }
+
+  res.scrollIntoView({behavior:'smooth',block:'start'});
+  });
  translateUI();
 })();
 </script>

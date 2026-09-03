@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOS_Charts Engine — Visual Showcase & Test Harness</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #14151A;
+    color: #FAFAF8;
+    font-family: 'Inter', sans-serif;
+    padding: 32px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .container { width: 100%; max-width: 960px; }
+  header { text-align: center; margin-bottom: 32px; }
+  h1 { font-family: 'Oswald', sans-serif; font-size: 2.2rem; color: #F4C93B; letter-spacing: 1px; }
+  p.subtitle { color: rgba(250,250,248,0.5); font-size: 0.85rem; margin-top: 4px; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+  .card {
+    background: #1E1E2A;
+    border: 1px solid rgba(244, 201, 59, 0.18);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .card-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.85rem;
+    color: #F4C93B;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    width: 100%;
+    text-align: left;
+    border-bottom: 1px solid rgba(244, 201, 59, 0.12);
+    padding-bottom: 6px;
+  }
+  .full-width { grid-column: 1 / -1; align-items: stretch; }
+  .chart-box { width: 100%; display: flex; justify-content: center; align-items: center; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>MOS_Charts Engine Showcase</h1>
+    <p class="subtitle">Apple Health Rings · Samsung Health Gauges · Smooth Bezier Trends · Macro Donut</p>
+  </header>
+
+  <div class="grid">
+    <!-- 1. Apple Health Rings -->
+    <div class="card">
+      <div class="card-title">🍎 Apple Health Activity Rings</div>
+      <div class="chart-box" id="ringsBox"></div>
+    </div>
+
+    <!-- 2. Samsung Health Gauge -->
+    <div class="card">
+      <div class="card-title">⚡ Samsung Health Readiness Gauge</div>
+      <div class="chart-box" id="gaugeBox"></div>
+    </div>
+
+    <!-- 3. Macro Donut -->
+    <div class="card">
+      <div class="card-title">🥗 Nutrition Macro Donut</div>
+      <div class="chart-box" id="donutBox"></div>
+    </div>
+
+    <!-- 4. Interactive Bezier Weight Trend -->
+    <div class="card full-width">
+      <div class="card-title">📈 Smooth Weight Trajectory (Bezier + Crosshair Tooltip)</div>
+      <div class="chart-box" id="lineBox" style="height:200px;"></div>
+    </div>
+
+    <!-- 5. Consistency Micro-Heatmap -->
+    <div class="card full-width">
+      <div class="card-title">🔥 12-Week Consistency Heatmap</div>
+      <div class="chart-box" id="heatmapBox"></div>
+    </div>
+
+    <!-- 6. WHOOP Recovery Arc -->
+    <div class="card">
+      <div class="card-title">🟢 WHOOP Recovery Score (0–100%)</div>
+      <div class="chart-box" id="whoopRecoveryBox"></div>
+    </div>
+
+    <!-- 7. WHOOP Strain Dial -->
+    <div class="card">
+      <div class="card-title">⚡ WHOOP Strain Dial (0–21.0)</div>
+      <div class="chart-box" id="whoopStrainBox"></div>
+    </div>
+
+    <!-- 8. WHOOP Sleep Performance -->
+    <div class="card full-width">
+      <div class="card-title">🌙 WHOOP Sleep Performance & Stages Timeline</div>
+      <div class="chart-box" id="whoopSleepBox" style="display:block;"></div>
+    </div>
+
+    <!-- 9. WHOOP Behavioral Journal Tags -->
+    <div class="card full-width">
+      <div class="card-title">📝 WHOOP Behavioral Journal Impact Tags (Tap to toggle)</div>
+      <div class="chart-box" id="whoopJournalBox" style="display:block;"></div>
+      <div id="journalFeedback" style="font-size:0.75rem;color:#22c55e;font-family:'JetBrains Mono',monospace;margin-top:6px;">Net Recovery Impact: +12%</div>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/mos_charts.js"></script>
+<script>
+  window.addEventListener('DOMContentLoaded', function() {
+    // 1. Rings
+    MOS_Charts.createRings(document.getElementById('ringsBox'), {
+      size: 190,
+      rings: [
+        { label: 'Volume', value: 85, max: 100, color: '#F4C93B' },
+        { label: 'Adherence', value: 95, max: 100, color: '#22c55e' },
+        { label: 'Sleep', value: 75, max: 100, color: '#38bdf8' }
+      ],
+      centerLabel: 'COMPLIANCE'
+    });
+
+    // 2. Gauge
+    MOS_Charts.createGauge(document.getElementById('gaugeBox'), {
+      width: 250,
+      height: 170,
+      value: 88,
+      status: 'OPTIMAL',
+      title: 'NERVOUS SYSTEM READINESS'
+    });
+
+    // 3. Donut
+    MOS_Charts.createDonutChart(document.getElementById('donutBox'), {
+      size: 190,
+      segments: [
+        { label: 'Protein', value: 190, color: '#F4C93B' },
+        { label: 'Fats', value: 65, color: '#e8a83a' },
+        { label: 'Carbs', value: 260, color: '#c48a30' }
+      ],
+      centerVal: '2,385',
+      centerLabel: 'KCAL / DAY'
+    });
+
+    // 4. Line Chart
+    MOS_Charts.createLineChart(document.getElementById('lineBox'), {
+      height: 200,
+      unit: 'kg',
+      target: 80.0,
+      lineColor: '#F4C93B',
+      fillColor: 'rgba(244, 201, 59, 0.22)',
+      data: [
+        { date: 'May 1', value: 84.5 },
+        { date: 'May 8', value: 84.0 },
+        { date: 'May 15', value: 83.2 },
+        { date: 'May 22', value: 83.5 },
+        { date: 'May 29', value: 82.7 },
+        { date: 'Jun 5', value: 82.1 },
+        { date: 'Jun 12', value: 81.6 },
+        { date: 'Jun 19', value: 81.2 },
+        { date: 'Jun 26', value: 80.8 }
+      ]
+    });
+
+    // 5. Heatmap
+    var sampleLogs = [];
+    var dt = new Date();
+    for(var i=0; i<84; i++) {
+      if (Math.random() > 0.35) {
+        var d = new Date();
+        d.setDate(dt.getDate() - i);
+        sampleLogs.push({
+          date: d.toISOString().split('T')[0],
+          intensity: Math.floor(Math.random() * 3) + 1
+        });
+      }
+    }
+    MOS_Charts.createHeatmap(document.getElementById('heatmapBox'), {
+      weeks: 12,
+      logs: sampleLogs
+    });
+
+    // 6. WHOOP Recovery
+    MOS_Charts.createWhoopRecovery(document.getElementById('whoopRecoveryBox'), {
+      size: 210,
+      score: 88,
+      hrv: 74,
+      rhr: 51
+    });
+
+    // 7. WHOOP Strain
+    MOS_Charts.createWhoopStrain(document.getElementById('whoopStrainBox'), {
+      size: 210,
+      strain: 15.4,
+      targetMin: 13.5,
+      targetMax: 17.0
+    });
+
+    // 8. WHOOP Sleep
+    MOS_Charts.createSleepTimeline(document.getElementById('whoopSleepBox'), {
+      actualHours: 7.7,
+      needHours: 8.0,
+      stages: { deep: 1.9, rem: 2.1, light: 3.2, awake: 0.5 }
+    });
+
+    // 9. WHOOP Journal Tags
+    MOS_Charts.createJournalTags(document.getElementById('whoopJournalBox'), {
+      onChange: function(tags, netDelta) {
+        var el = document.getElementById('journalFeedback');
+        if(el) {
+          var sign = netDelta > 0 ? '+' : '';
+          el.textContent = 'Net Recovery Impact: ' + sign + netDelta + '%';
+          el.style.color = netDelta >= 0 ? '#22c55e' : '#f43f5e';
+        }
+      }
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,7 +1,10 @@
+import logging
 import os
 from datetime import datetime, timezone
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ContextTypes, ConversationHandler
+
+logger = logging.getLogger(__name__)
 from mos_bot.states import (
     CHECKIN_WEIGHT, CHECKIN_WAIST, CHECKIN_SLEEP, CHECKIN_READINESS,
     CHECKIN_SORENESS, CHECKIN_ADHERENCE, CHECKIN_TOP_SETS,
@@ -175,6 +178,12 @@ async def checkin_top_sets_handler(update, context):
     profile = ud["checkin_profile"]
     goal = profile.get("goal", "hypertrophy")
 
+    if CheckInRecord is None or CheckInStore is None:
+        logger.error("CheckInStore or CheckInRecord not available")
+        await query.edit_message_text("Check-in recording is currently unavailable. Please try again later.")
+        context.user_data.clear()
+        return ConversationHandler.END
+
     record = CheckInRecord(
         timestamp=datetime.now(timezone.utc).isoformat(),
         weight_kg=ud.get("checkin_weight"),
@@ -188,32 +197,38 @@ async def checkin_top_sets_handler(update, context):
 
     store = CheckInStore(os.path.join(DATA_ROOT, "checkins"))
     store.add(user_id, record)
-    fire_push_measurement(update.effective_user.id, ud.get("checkin_weight", 0))
+    fire_push_measurement(str(update.effective_user.id), ud.get("checkin_weight", 0))
 
     records = store.load_all(user_id)
     trends = analyse_trends(records)
-    adj = suggest_adjustments(trends, goal, current_calories=2500)
+    current_calories = profile.get("target_calories") or profile.get("calories") or 2500
+    adj = suggest_adjustments(trends, goal, current_calories=current_calories)
 
     msg_parts = ["\u2705 Check-in recorded!\n"]
 
     # Post-onboarding rapid weight loss gate (Safety Triage.md:B5 — RED)
     rapid_loss_flag = False
+    weight_change_val = 0.0
     for t in trends:
-        if t["metric"] == "weight" and t["change"] <= -5.0:
-            rapid_loss_flag = True
-            break
+        if t.get("metric") == "weight":
+            w_chg = t.get("change", 0.0)
+            if w_chg <= -5.0:
+                rapid_loss_flag = True
+                weight_change_val = w_chg
+                break
+
     if rapid_loss_flag:
         msg_parts.append(
-            "\u26a0\ufe0f **Rapid weight loss detected.** You've lost {:.0f} kg since "
+            "\u26a0\ufe0f **Rapid weight loss detected.** You've lost {:.1f} kg since "
             "your first check-in. This should be evaluated by a healthcare professional "
             "before continuing any fitness program.\n\n"
             "Your coach has been notified and will reach out to you. "
             "The current program is paused for safety.".format(
-                abs([t["change"] for t in trends if t["metric"] == "weight"][0])
+                abs(weight_change_val)
             )
         )
         track("checkin_rapid_weight_loss", user_id, {
-            "weight_change": [t["change"] for t in trends if t["metric"] == "weight"][0],
+            "weight_change": weight_change_val,
         })
     else:
         try:
@@ -226,21 +241,25 @@ async def checkin_top_sets_handler(update, context):
                 adherence=ud.get("checkin_adherence", 100),
             ))
             msg_parts.append("")
-        except Exception:
+        except Exception as e:
+            logger.warning("Telemetry visualizer render failed: %s", e)
             msg_parts.append(format_trends(trends))
             msg_parts.append("")
         try:
             from mos_bot.core.checkin_adjuster import CheckinTelemetry, evaluate_weekly_adjustments
             w_history = [r.weight_kg for r in records if r.weight_kg]
+            soreness_score = ud.get("checkin_soreness", 5)
+            soreness_hours = 72 if soreness_score >= 8 else (48 if soreness_score >= 5 else 24)
             telemetry = CheckinTelemetry(
                 weight_kg=ud.get("checkin_weight", 0.0),
                 goal=goal,
                 waist_cm=ud.get("checkin_waist"),
                 readiness=ud.get("checkin_readiness", 5),
                 adherence_pct=ud.get("checkin_adherence", 100),
-                soreness_duration_hours=72 if ud.get("checkin_soreness", 3) >= 4 else 24,
+                soreness_duration_hours=soreness_hours,
                 sleep_hours=ud.get("checkin_sleep", 7.0),
                 historical_weights=w_history,
+                current_calories=current_calories,
             )
             engine_res = evaluate_weekly_adjustments(telemetry)
             if engine_res.actions:
@@ -248,7 +267,8 @@ async def checkin_top_sets_handler(update, context):
             else:
                 msg_parts.append("=== Adjustments ===")
                 msg_parts.append(format_adjustments(adj))
-        except Exception:
+        except Exception as e:
+            logger.warning("Checkin adjuster evaluation failed: %s", e)
             msg_parts.append("=== Adjustments ===")
             msg_parts.append(format_adjustments(adj))
 

@@ -39,7 +39,6 @@ from mos_bot.core.content_generator import (
 )
 from mos_bot.core.book_engine import BookDecisionEngine, BookEngineResult
 from mos_bot.core.analytics import track
-from mos_bot.core.program_generator import generate_program_pipeline
 
 logger = logging.getLogger(__name__)
 

@@ -143,5 +143,125 @@
     "timestamp": "2026-08-25T17:46:21.145317",
     "action": "Updated nutrition targets: 2700 kcal | 175P / 320C / 70F",
     "summary": "Program & Tracker updated for coach_action_tester"
+  },
+  {
+    "timestamp": "2026-09-03T14:54:11.311908",
+    "action": "Swapped 'Barbell Bench Press' with 'Neutral-Grip DB Floor Press' (Anterior shoulder discomfort)",
+    "summary": "Program & Tracker updated for coach_action_tester"
+  },
+  {
+    "timestamp": "2026-09-03T14:54:11.361178",
+    "action": "Added exercise 'Face Pulls with External Rotation' to Day 1",
+    "summary": "Program & Tracker updated for coach_action_tester"
+  },
+  {
+    "timestamp": "2026-09-03T14:54:11.417807",
+    "action": "Removed exercise 'Tricep Pushdown'",
+    "summary": "Program & Tracker updated for coach_action_tester"
+  },
+  {
+    "timestamp": "2026-09-03T14:54:11.485101",
+    "action": "Modified parameters for 'Barbell Bent-Over Row'",
+    "summary": "Program & Tracker updated for coach_action_tester"
+  },
+  {
+    "timestamp": "2026-09-03T14:54:11.562843",
+    "action": "Updated nutrition targets: 2850 kcal | 190P / 350C / 75F",
+    "summary": "Program & Tracker updated for coach_action_tester"
+  },
+  {
+    "timestamp": "2026-09-03T14:54:11.612449",
+    "action": "Logged injury 'Shoulder Impingement' and substituted 1 exercises",
+    "summary": "Program & Tracker updated for coach_action_tester"
+  },
+  {
+    "timestamp": "2026-09-03T14:54:11.642109",
+    "action": "Swapped 'Incline DB Press' with 'Low Incline Cable Press' (Scapular freedom for shoulder health)",
+    "summary": "Program & Tracker updated for coach_action_tester"
+  },
+  {
+    "timestamp": "2026-09-03T14:54:11.785596",
+    "action": "Updated nutrition targets: 2700 kcal | 175P / 320C / 70F",
+    "summary": "Program & Tracker updated for coach_action_tester"
+  },
+  {
+    "timestamp": "2026-09-03T15:25:40.851970",
+    "action": "Swapped 'Barbell Bench Press' with 'Neutral-Grip DB Floor Press' (Anterior shoulder discomfort)",
+    "summary": "Program & Tracker updated for coach_action_tester"
+  },
+  {
+    "timestamp": "2026-09-03T15:25:40.897470",
+    "action": "Added exercise 'Face Pulls with External Rotation' to Day 1",
+    "summary": "Program & Tracker updated for coach_action_tester"
+  },
+  {
+    "timestamp": "2026-09-03T15:25:40.948462",
+    "action": "Removed exercise 'Tricep Pushdown'",
+    "summary": "Program & Tracker updated for coach_action_tester"
+  },
+  {
+    "timestamp": "2026-09-03T15:25:40.991382",
+    "action": "Modified parameters for 'Barbell Bent-Over Row'",
+    "summary": "Program & Tracker updated for coach_action_tester"
+  },
+  {
+    "timestamp": "2026-09-03T15:25:41.040450",
+    "action": "Updated nutrition targets: 2850 kcal | 190P / 350C / 75F",
+    "summary": "Program & Tracker updated for coach_action_tester"
+  },
+  {
+    "timestamp": "2026-09-03T15:25:41.113776",
+    "action": "Logged injury 'Shoulder Impingement' and substituted 1 exercises",
+    "summary": "Program & Tracker updated for coach_action_tester"
+  },
+  {
+    "timestamp": "2026-09-03T15:25:41.147634",
+    "action": "Swapped 'Incline DB Press' with 'Low Incline Cable Press' (Scapular freedom for shoulder health)",
+    "summary": "Program & Tracker updated for coach_action_tester"
+  },
+  {
+    "timestamp": "2026-09-03T15:25:41.210665",
+    "action": "Updated nutrition targets: 2700 kcal | 175P / 320C / 70F",
+    "summary": "Program & Tracker updated for coach_action_tester"
+  },
+  {
+    "timestamp": "2026-09-03T17:03:17.583445",
+    "action": "Swapped 'Barbell Bench Press' with 'Neutral-Grip DB Floor Press' (Anterior shoulder discomfort)",
+    "summary": "Program & Tracker updated for coach_action_tester"
+  },
+  {
+    "timestamp": "2026-09-03T17:03:17.636795",
+    "action": "Added exercise 'Face Pulls with External Rotation' to Day 1",
+    "summary": "Program & Tracker updated for coach_action_tester"
+  },
+  {
+    "timestamp": "2026-09-03T17:03:17.691470",
+    "action": "Removed exercise 'Tricep Pushdown'",
+    "summary": "Program & Tracker updated for coach_action_tester"
+  },
+  {
+    "timestamp": "2026-09-03T17:03:17.751142",
+    "action": "Modified parameters for 'Barbell Bent-Over Row'",
+    "summary": "Program & Tracker updated for coach_action_tester"
+  },
+  {
+    "timestamp": "2026-09-03T17:03:17.806428",
+    "action": "Updated nutrition targets: 2850 kcal | 190P / 350C / 75F",
+    "summary": "Program & Tracker updated for coach_action_tester"
+  },
+  {
+    "timestamp": "2026-09-03T17:03:17.863441",
+    "action": "Logged injury 'Shoulder Impingement' and substituted 1 exercises",
+    "summary": "Program & Tracker updated for coach_action_tester"
+  },
+  {
+    "timestamp": "2026-09-03T17:03:17.899768",
+    "action": "Swapped 'Incline DB Press' with 'Low Incline Cable Press' (Scapular freedom for shoulder health)",
+    "summary": "Program & Tracker updated for coach_action_tester"
+  },
+  {
+    "timestamp": "2026-09-03T17:03:18.029914",
+    "action": "Updated nutrition targets: 2700 kcal | 175P / 320C / 70F",
+    "summary": "Program & Tracker updated for coach_action_tester"
   }
 ]

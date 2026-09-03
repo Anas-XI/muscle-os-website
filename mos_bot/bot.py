@@ -1,5 +1,3 @@
-import threading
-
 from telegram.ext import (
     ApplicationBuilder, CommandHandler, MessageHandler,
     CallbackQueryHandler, ConversationHandler, filters,
@@ -147,7 +145,10 @@ def main():
     app.add_handler(CommandHandler("clear_crisis", clear_crisis))
     app.add_handler(CommandHandler("test_alert", test_alert))
 
-    start_in_thread()
+    try:
+        start_in_thread()
+    except Exception as e:
+        print(f"Warning: Web dashboard failed to start: {e}")
     print("Muscle OS Bot + Web started. Press Ctrl+C to stop.")
     app.run_polling()
 

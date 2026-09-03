@@ -22,6 +22,7 @@
  <meta name="twitter:title" content="RPE Load Calculator — Coach Anas Mo'men | Muscle OS">
  <meta name="twitter:description" content="RPE load calculator by Coach Anas Mo'men. Convert between RPE, percentages, and estimated 1RM for precise training intensity.">
  <meta name="twitter:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
+ <script src="../assets/js/mos_charts.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:32px 16px;line-height:1.7}
@@ -216,7 +217,7 @@ select option{background:#1E1E2A;color:#FAFAF8}
  <div id="sessionProfile" class="recap-box" style="display:none"></div>
  <div class="form-group" style="margin-bottom:14px">
  <label>Select Your Split</label>
- <select id="splitSelect"></select>
+ <select id="splitSelect"><option value="" disabled selected>Select a split...</option></select>
  </div>
  <div class="form-group" style="margin-bottom:14px">
  <label>Training Age</label>
@@ -271,6 +272,11 @@ select option{background:#1E1E2A;color:#FAFAF8}
  <div class="summary-card"><div class="summary-val" id="sumSets">0</div><div class="summary-lbl">Sets Logged</div></div>
  <div class="summary-card"><div class="summary-val" id="sumVol">0</div><div class="summary-lbl">Total Reps</div></div>
  <div class="summary-card"><div class="summary-val" id="sumEx">0</div><div class="summary-lbl">Exercises</div></div>
+ <div class="summary-card"><div class="summary-val" id="sumStrain" style="color:#f97316;">0.0</div><div class="summary-lbl">WHOOP Strain</div></div>
+ </div>
+ <div class="chart-container" id="rpeCurveBox" style="margin-top:16px;background:rgba(20,21,26,.6);border-radius:12px;padding:12px 14px;border:1px solid rgba(250,250,248,.08);">
+ <div style="font-size:.72rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">RPE vs % 1RM Intensity Curve</div>
+ <div id="rpeCurveChart" style="height:150px;"></div>
  </div>
 
  <div class="btn-group" style="flex-wrap:wrap">
@@ -1232,6 +1238,26 @@ select option{background:#1E1E2A;color:#FAFAF8}
  });
 
  updateSessionSummary();
+
+ if(window.MOS_Charts && document.getElementById('rpeCurveChart')){
+    MOS_Charts.createLineChart(document.getElementById('rpeCurveChart'), {
+      height: 150,
+      unit: '%',
+      lineColor: '#F4C93B',
+      fillColor: 'rgba(244, 201, 59, 0.18)',
+      data: [
+        { label: 'RPE 6.0', value: 80 },
+        { label: 'RPE 6.5', value: 82 },
+        { label: 'RPE 7.0', value: 84 },
+        { label: 'RPE 7.5', value: 86 },
+        { label: 'RPE 8.0', value: 88 },
+        { label: 'RPE 8.5', value: 90 },
+        { label: 'RPE 9.0', value: 93 },
+        { label: 'RPE 9.5', value: 96 },
+        { label: 'RPE 10', value: 100 }
+      ]
+    });
+  }
  }
 
  // ─── Session Summary ───
@@ -1239,19 +1265,28 @@ select option{background:#1E1E2A;color:#FAFAF8}
  const logs = lsGet('mos_logs', {});
  const today = new Date().toISOString().split('T')[0];
  const dayLog = logs[today] || {};
- let totalSets = 0, totalReps = 0, totalEx = 0;
+ let totalSets = 0, totalReps = 0, totalEx = 0, totalTonnage = 0;
 
  Object.keys(dayLog).forEach(eid => {
  const sets = dayLog[eid].sets || [];
  const valid = sets.filter(s => s && s.weight && parseFloat(s.weight) > 0);
  if(valid.length > 0) totalEx++;
  totalSets += valid.length;
- valid.forEach(s => { totalReps += parseInt(s.reps) || 0; });
+ valid.forEach(s => {
+  const r = parseInt(s.reps) || 0;
+  const w = parseFloat(s.weight) || 0;
+  totalReps += r;
+  totalTonnage += (r * w);
  });
+ });
+
+ const strain = Math.min(21.0, (1 - Math.exp(-0.00032 * totalTonnage)) * 17.5 + (totalSets * 0.35));
 
  document.getElementById('sumSets').textContent = totalSets;
  document.getElementById('sumVol').textContent = totalReps;
  document.getElementById('sumEx').textContent = totalEx;
+ const strainEl = document.getElementById('sumStrain');
+ if(strainEl) strainEl.textContent = strain.toFixed(1);
  }
 
  // ─── Logging Helpers ───
