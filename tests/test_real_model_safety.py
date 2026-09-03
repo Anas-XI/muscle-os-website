@@ -295,7 +295,10 @@ def test_mobile_path_crisis_gate_via_parse_mobile_profile():
     → load_context.  The mobile mapper now sets crisis_incident_id when
     mental_health is 'significant', so the gate should fire."""
     import sys, os
+    import pytest
     _mob = os.path.join(os.path.dirname(__file__), "..", "mos-mobile", "backend")
+    if not os.path.exists(_mob):
+        pytest.skip("mos-mobile repository not present in checkout")
     if _mob not in sys.path:
         sys.path.insert(0, _mob)
     from services.program import _parse_mobile_profile
@@ -317,7 +320,10 @@ def test_mobile_path_crisis_gate_via_parse_mobile_profile():
 def test_mobile_path_clearance_works():
     """Mobile user with cleared incident → no block."""
     import sys, os
+    import pytest
     _mob = os.path.join(os.path.dirname(__file__), "..", "mos-mobile", "backend")
+    if not os.path.exists(_mob):
+        pytest.skip("mos-mobile repository not present in checkout")
     if _mob not in sys.path:
         sys.path.insert(0, _mob)
     from services.program import _parse_mobile_profile

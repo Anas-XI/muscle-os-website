@@ -17,8 +17,10 @@ from collections import defaultdict
 from dataclasses import dataclass, field
 
 
-VAULT_ROOT = Path(r"E:\MoS\Muscle Operating System")
-INDEX_DIR = Path(r"E:\MoS\mos_bot\data\vault_index")
+from mos_bot.config import VAULT_ROOT as _CONFIG_VAULT_ROOT, DATA_ROOT as _CONFIG_DATA_ROOT
+
+VAULT_ROOT = Path(_CONFIG_VAULT_ROOT)
+INDEX_DIR = Path(_CONFIG_DATA_ROOT) / "vault_index"
 INDEX_DIR.mkdir(parents=True, exist_ok=True)
 
 

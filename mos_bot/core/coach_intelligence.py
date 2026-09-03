@@ -291,13 +291,15 @@ def build_coach_system_prompt(user_id: str, query: str = "") -> str:
 
 def _call_gemini_api_sync(messages: List[Dict[str, str]], model: str = "") -> Optional[str]:
     """Synchronous OpenAI-compatible call to Google Gemini."""
-    if not LLM_API_KEY or not LLM_API_URL:
+    api_key = os.getenv("LLM_API_KEY") or LLM_API_KEY
+    api_url = os.getenv("LLM_API_URL") or LLM_API_URL
+    if not api_key or not api_url:
         return None
 
-    use_model = model or LLM_MODEL or "gemini-2.0-flash"
-    url = f"{LLM_API_URL.rstrip('/')}/chat/completions"
+    use_model = model or os.getenv("LLM_MODEL") or LLM_MODEL or "gemini-2.0-flash"
+    url = f"{api_url.rstrip('/')}/chat/completions"
     headers = {
-        "Authorization": f"Bearer {LLM_API_KEY}",
+        "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json",
     }
     payload = {
