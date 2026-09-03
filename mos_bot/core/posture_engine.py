@@ -5,7 +5,7 @@ to structured 4-phase corrective protocols (Inhibition -> Lengthening -> Activat
 """
 
 from dataclasses import dataclass, field
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 
 @dataclass
