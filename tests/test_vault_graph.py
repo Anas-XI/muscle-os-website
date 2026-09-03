@@ -2,6 +2,7 @@
 
 import pytest
 from mos_bot.core.vault_graph import build_vault_graph, VaultGraph
+from tests.skip_helpers import skip_if_no_vault
 
 
 @pytest.fixture(scope="module")
@@ -9,6 +10,7 @@ def vault_graph() -> VaultGraph:
     return build_vault_graph(force_rebuild=True)
 
 
+@skip_if_no_vault
 class TestVaultGraph:
     def test_graph_node_and_edge_counts(self, vault_graph):
         assert len(vault_graph.nodes) >= 600

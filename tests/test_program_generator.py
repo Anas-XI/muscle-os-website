@@ -37,7 +37,11 @@ def test_generate_program_handles_fat_loss_goal():
     assert "P1 - Diet Maxing" in result
 
 
-def test_generate_program_handles_injuries():
+def test_generate_program_handles_injuries(monkeypatch):
+    from tests.skip_helpers import vault_available
+    if not vault_available:
+        monkeypatch.setattr("mos_bot.core.program_generator.evaluate_rag_impact", lambda p, rf: ("proceed", ""))
+
     profile = {"user_id": "test", "name": "Injured", "goal": "strength", "bodyweight_kg": 75,
                "height_cm": 170, "age": 28, "training_days": 4, "injries": ["Lower back disc"]}
 
