@@ -1600,27 +1600,8 @@ if(data && data.error === 'wrong_product') msg = 'This code unlocks the OMNI HUB
   }
 
   function initGsi(){
-    var host = document.getElementById('googleSignInBtn');
-    if(!host || host.getAttribute('data-gsi')) return;
-    host.setAttribute('data-gsi', '1');
-    if(typeof google === 'undefined' || !google.accounts || !google.accounts.id){ setTimeout(initGsi, 300); return; }
-    google.accounts.id.initialize({
-      client_id: GOOGLE_CLIENT_ID,
-      callback: function(resp){
-        if(!resp || !resp.credential){ showErr('authStep1Error', 'Google sign-in failed. Please try again.'); return; }
-        fetch(API_BASE + '/api/auth/google', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ token: resp.credential })
-        }).then(function(r){ return r.json(); }).then(function(data){
-          if(data && data.valid) finishGoogle(data);
-          else showErr('authStep1Error', 'Google sign-in failed. Please try again.');
-        }).catch(function(){
-          showErr('authStep1Error', 'Network error. Please try again.');
-        });
-      }
-    });
-    google.accounts.id.renderButton(host, { theme: 'outline', size: 'large', width: 280 });
+    // Deactivated for testing
+    return;
   }
 
   // ─── Trial + Paywall Gate ───

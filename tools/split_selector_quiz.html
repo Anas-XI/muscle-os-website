@@ -345,21 +345,7 @@ body{font-family:Georgia,'Times New Roman',Times,serif;background:#14151A;color:
   };
   function getSub(){ try { return JSON.parse(localStorage.getItem(SUB_KEY) || 'null'); } catch(e){ return null; } }
   function subOk(s){
-    var OWNER_EMAILS = ['ANASSTEM2025@GMAIL.COM', '1022066.ANAS@STEMEGYPT.EDU.EG', 'ANASSMOMEN@GMAIL.COM'];
-    try {
-      var gs = JSON.parse(localStorage.getItem('mos_google_session') || 'null');
-      if (gs && gs.email && OWNER_EMAILS.includes(gs.email.toUpperCase())) return true;
-    } catch(e){}
-    if (s && s.active && (!s.expiry || new Date(s.expiry + 'T23:59:59') > new Date())) return true;
-    var TRIAL_EPOCH = new Date('2026-08-27T00:00:00.000Z').getTime();
-    var start = localStorage.getItem('mos_trial_start');
-    if (!start || new Date(start).getTime() < TRIAL_EPOCH) {
-      start = new Date().toISOString();
-      localStorage.setItem('mos_trial_start', start);
-      localStorage.setItem('mos_tdee_trial_start', start);
-    }
-    var daysLeft = 7 - Math.floor((Date.now() - new Date(start).getTime()) / 86400000);
-    return daysLeft > 0;
+    return true; // Paywall deactivated for testing
   }
   function hideGate(){ var g = document.getElementById('googleGate'); if (g) g.classList.add('gate-hidden'); }
   window.MosAccess = { requireGoogleAuth: function(o, cb){ try { cb(!!subOk(getSub())); } catch(e){ cb(false); } } };

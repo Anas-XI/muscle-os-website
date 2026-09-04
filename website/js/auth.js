@@ -120,15 +120,17 @@ function getGs(){ try { var g = JSON.parse(localStorage.getItem(GS_KEY)); return
   }
 
   function checkAccess() {
-    var gate = getGate();
-    if (gate && gate.active) {
-      document.getElementById('mosAuthOverlay').style.display = 'none';
-      var oldOv = document.getElementById('subOverlay');
-      if (oldOv) oldOv.style.display = 'none';
-      var gGate = document.getElementById('googleGate');
-      if (gGate) gGate.classList.add('gate-hidden');
-      return;
-    }
+    // Paywall deactivated for testing
+    var mosOv = document.getElementById('mosAuthOverlay');
+    if (mosOv) mosOv.style.display = 'none';
+    var oldOv = document.getElementById('subOverlay');
+    if (oldOv) oldOv.style.display = 'none';
+    var gGate = document.getElementById('googleGate');
+    if (gGate) gGate.classList.add('gate-hidden');
+    var tBanner = document.getElementById('mosTrialBanner');
+    if (tBanner) tBanner.style.display = 'none';
+    return;
+  }
 
     var isBook = window.location.pathname.includes('/books/');
     var TRIAL_DAYS = 7;

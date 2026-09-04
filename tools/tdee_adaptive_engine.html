@@ -2160,9 +2160,9 @@ numbersHtml += '<div class="dash-macro-grid">' +
  try { sub = JSON.parse(localStorage.getItem(SUB_KEY)); } catch(e){}
  var subProd = sub ? (sub.prodId || deriveProd(sub.code, sub.plan)) : null;
  var prodOk = !!sub && (sub.plan === 'master' || sub.code === 'OWNER' || (hubMode ? subProd === HUB_PRODUCT : (subProd === PRODUCT_ID || subProd === HUB_PRODUCT)));
- var active = !!(sub && sub.active && prodOk && (sub.token || sub.code === 'OWNER') && new Date(sub.expiry + 'T23:59:59') > new Date());
+ var active = true; // Paywall deactivated for testing
  window.__MOS_PRODUCT__ = hubMode ? HUB_PRODUCT : PRODUCT_ID;
- window.__MOS_GATE__ = function(){ return { active: active, prodId: subProd, plan: sub ? sub.plan : null, hub: hubMode }; };
+ window.__MOS_GATE__ = function(){ return { active: true, prodId: subProd || PRODUCT_ID, plan: 'master', hub: hubMode }; };
 
  // Asynchronous cryptographic token validation on page load
  if (active && sub && sub.token) {
@@ -2303,27 +2303,8 @@ if(data && data.error === 'wrong_product') msg = 'This code unlocks the OMNI HUB
   }
 
   function initGsi(){
-    var host = document.getElementById('googleSignInBtn');
-    if(!host || host.getAttribute('data-gsi')) return;
-    host.setAttribute('data-gsi', '1');
-    if(typeof google === 'undefined' || !google.accounts || !google.accounts.id){ setTimeout(initGsi, 300); return; }
-    google.accounts.id.initialize({
-      client_id: GOOGLE_CLIENT_ID,
-      callback: function(resp){
-        if(!resp || !resp.credential){ showErr('authStep1Error', 'Google sign-in failed. Please try again.'); return; }
-        fetch(API_BASE + '/api/auth/google', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ token: resp.credential })
-        }).then(function(r){ return r.json(); }).then(function(data){
-          if(data && data.valid) finishGoogle(data);
-          else showErr('authStep1Error', 'Google sign-in failed. Please try again.');
-        }).catch(function(){
-          showErr('authStep1Error', 'Network error. Please try again.');
-        });
-      }
-    });
-    google.accounts.id.renderButton(host, { theme: 'outline', size: 'large', width: 280 });
+    // Deactivated for testing
+    return;
   }
 
   // ─── Trial + Paywall Gate ───
@@ -2341,7 +2322,7 @@ if(data && data.error === 'wrong_product') msg = 'This code unlocks the OMNI HUB
   }
   var trial = getTrialState();
 
-  if(active){
+  if(true){ // Paywall deactivated for testing
     if (sub && sub.token) {
       fetch(API_BASE + '/api/check-token', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },

@@ -221,54 +221,35 @@
  return getStoredAccess(productId);
  },
 
- /** Full check: first try Worker revalidation, then localStorage */
- checkAccess: function(productId) {
- return revalidateAccess(productId).then(function(access){
- return access || Promise.resolve(getStoredAccess(productId));
- });
- },
+  /** Full check: first try Worker revalidation, then localStorage */
+  checkAccess: function(productId) {
+    return Promise.resolve({ valid: true, plan: 'master', durationDays: 9999, active: true });
+  },
 
- /** Set ARIA attributes and manage focus for an overlay */
- _setupOverlayAria: function(overlay, productId, focusOnShow) {
- if (!overlay) return;
- if (overlay.getAttribute('role') !== 'dialog') {
- overlay.setAttribute('role', 'dialog');
- overlay.setAttribute('aria-modal', 'true');
- overlay.setAttribute('aria-label', 'Access code required for ' + (getProduct(productId) ? getProduct(productId).label : productId));
- }
- var codeInput = document.getElementById('subCode') || document.getElementById('poCode');
- if (focusOnShow && codeInput) setTimeout(function(){ codeInput.focus(); }, 100);
- var errorEl = document.getElementById('subError') || document.getElementById('poError');
- if (errorEl && !errorEl.getAttribute('role')) { errorEl.setAttribute('role', 'alert'); }
- var successEl = document.getElementById('subSuccess') || document.getElementById('poSuccess');
- if (successEl && !successEl.getAttribute('aria-live')) { successEl.setAttribute('aria-live', 'polite'); }
- },
+  /** Set ARIA attributes and manage focus for an overlay */
+  _setupOverlayAria: function(overlay, productId, focusOnShow) {
+  if (!overlay) return;
+  if (overlay.getAttribute('role') !== 'dialog') {
+  overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-modal', 'true');
+  overlay.setAttribute('aria-label', 'Access code required for ' + (getProduct(productId) ? getProduct(productId).label : productId));
+  }
+  var codeInput = document.getElementById('subCode') || document.getElementById('poCode');
+  if (focusOnShow && codeInput) setTimeout(function(){ codeInput.focus(); }, 100);
+  var errorEl = document.getElementById('subError') || document.getElementById('poError');
+  if (errorEl && !errorEl.getAttribute('role')) { errorEl.setAttribute('role', 'alert'); }
+  var successEl = document.getElementById('subSuccess') || document.getElementById('poSuccess');
+  if (successEl && !successEl.getAttribute('aria-live')) { successEl.setAttribute('aria-live', 'polite'); }
+  },
 
- /** Check access AND show/hide overlay. Returns access object or null. */
- checkOrShow: function(productId) {
- var overlay = document.getElementById('subOverlay') || document.getElementById('poOverlay');
- var successEl = document.getElementById('subSuccess') || document.getElementById('poSuccess');
- var errorEl = document.getElementById('subError') || document.getElementById('poError');
-
- return this.checkAccess(productId).then(function(access){
- if (access) {
- if (overlay) overlay.classList.remove('visible');
- // Show expiry warning if stored access is running out
- if (!access.fallback && access.expiry) {
- var daysLeft = Math.ceil((new Date(access.expiry) - Date.now()) / 86400000);
- if (daysLeft <= 7) {
- MosAccess.showExpiryWarning(productId, daysLeft);
- }
- }
- return access;
- }
- if (overlay) {
- overlay.classList.add('visible');
- MosAccess._setupOverlayAria(overlay, productId, true);
- }
- return null;
- });
- },
+  /** Check access AND show/hide overlay. Returns access object or null. */
+  checkOrShow: function(productId) {
+    var overlay = document.getElementById('subOverlay') || document.getElementById('poOverlay');
+    if (overlay) overlay.classList.remove('visible');
+    var gGate = document.getElementById('googleGate');
+    if (gGate) gGate.classList.add('gate-hidden');
+    return Promise.resolve({ valid: true, plan: 'master', active: true });
+  },
 
  /** Bind overlay form events for code entry */
  initOverlay: function(productId) {
@@ -362,93 +343,25 @@
  });
  },
 
- /** Initialize Google Sign-In button in a container element */
- initGoogleAuth: function(containerId) {
- var container = document.getElementById(containerId);
- if (!container) return;
- if (container.getAttribute('data-google-init')) return;
- container.setAttribute('data-google-init', '1');
-
- if (typeof google === 'undefined' || !google.accounts) {
- container.innerHTML = '<p style="color:rgba(250,250,248,.3);font-size:.8rem">Loading Google Sign-In...</p>';
- return;
- }
-
- google.accounts.id.initialize({
- client_id: '335156097845-vq52ttt74pak112mn2eet5j3s1k15fn9.apps.googleusercontent.com',
- callback: function(response) {
- var idToken = response.credential;
- fetch(CONFIG.apiBase + '/api/auth/google', {
- method: 'POST',
- headers: { 'Content-Type': 'application/json' },
- body: JSON.stringify({ token: idToken })
- }).then(function(r){ return r.json(); }).then(function(data){
- if (data.valid) {
- localStorage.setItem('mos_google_session', JSON.stringify({
- session: data.session,
- email: data.email,
- name: data.name,
- ts: Date.now()
- }));
- location.reload();
- } else {
- container.innerHTML = '<p style="color:#f44336;font-size:.8rem">Google verification failed. Please try again.</p>';
- }
- }).catch(function(){
- container.innerHTML = '<p style="color:#f44336;font-size:.8rem">Network error. Please try again.</p>';
- });
- }
- });
-
- google.accounts.id.renderButton(container, {
- theme: 'outline',
- size: 'large',
- width: container.offsetWidth > 300 ? 300 : container.offsetWidth
- });
- },
+  /** Initialize Google Sign-In button in a container element */
+  initGoogleAuth: function(containerId) {
+    // Deactivated for testing - bypass Google Sign-In
+    return;
+  },
 
  /** Gate the page: Google sign-in or content. CSS defaults: gate visible, content hidden. */
- requireGoogleAuth: function(productId, callback) {
- var gate = document.getElementById('googleGate');
- var landing = document.getElementById('contentLanding');
- var main = document.getElementById('contentMain');
- var overlay = document.getElementById('subOverlay') || document.getElementById('poOverlay');
+  requireGoogleAuth: function(productId, callback) {
+    var gate = document.getElementById('googleGate');
+    var landing = document.getElementById('contentLanding');
+    var main = document.getElementById('contentMain');
+    var overlay = document.getElementById('subOverlay') || document.getElementById('poOverlay');
 
- if (!gate) { if (callback) callback(true); return; }
-
- MosAccess.checkGoogleSession().then(function(session) {
- if (!session) {
- MosAccess.initGoogleAuth('googleSignIn');
- if (callback) callback(false);
- return;
- }
-
- // Session valid — hide gate, show appropriate content
- gate.classList.add('gate-hidden');
-
- if (!productId) {
- if (landing) landing.style.display = 'block';
- if (main) main.classList.add('main-visible');
- if (callback) callback(true);
- return;
- }
-
- // Has product ID — verify subscription
- MosAccess.checkAccess(productId).then(function(access) {
- if (access) {
- if (overlay) overlay.classList.remove('visible');
- if (landing) landing.style.display = 'block';
- if (main) main.classList.add('main-visible');
- if (callback) callback(true);
- return;
- }
- // Not subscribed — show landing + code entry overlay
- if (landing) landing.style.display = 'block';
- if (overlay) { overlay.classList.add('visible'); MosAccess.initOverlay(productId); }
- if (callback) callback(false);
- });
- });
- }
+    if (gate) gate.classList.add('gate-hidden');
+    if (overlay) overlay.classList.remove('visible');
+    if (landing) landing.style.display = 'block';
+    if (main) main.classList.add('main-visible');
+    if (callback) callback(true);
+  }
  };
 
  // Flush any pending fallback usage log entries on page load
@@ -457,11 +370,7 @@
 
 /* ── Global Google callback (for async GIS load) ── */
 window.mosGoogleInit = function() {
- // Re-init any gate containers that were rendered before GIS loaded
- var containers = document.querySelectorAll('[id^="googleSignIn"]');
- containers.forEach(function(c) {
- if (c.getAttribute('data-google-init')) return;
- MosAccess.initGoogleAuth(c.id);
- });
+  // Deactivated for testing
+  return;
 };
 
