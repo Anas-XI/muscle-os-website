@@ -315,85 +315,93 @@ select option{background:#1E1E2A;color:#FAFAF8}
  return VOLUME_TABLES[level][goal][muscleId] || [4,8,12];
  }
 
- document.getElementById('calcBtn').addEventListener('click', function(){
- const err = document.getElementById('errorMsg');
- const res = document.getElementById('resultsSection');
- const level = document.getElementById('trainingAge').value;
- const goal = document.getElementById('goal').value;
- const days = parseInt(document.getElementById('daysPerWeek').value);
+ function calculateVolume(shouldScroll){
+  const err = document.getElementById('errorMsg');
+  const res = document.getElementById('resultsSection');
+  const level = document.getElementById('trainingAge').value;
+  const goal = document.getElementById('goal').value;
+  const days = parseInt(document.getElementById('daysPerWeek').value);
 
- const focusCount = MUSCLES.filter(m => getPriority(m.id) === 'focus').length;
- if(focusCount === 0){
- err.style.display = 'block'; res.style.display = 'none'; return;
- }
- err.style.display = 'none';
+  const focusCount = MUSCLES.filter(m => getPriority(m.id) === 'focus').length;
+  if(focusCount === 0){
+    err.style.display = 'block'; res.style.display = 'none'; return;
+  }
+  err.style.display = 'none';
 
- const table = VOLUME_TABLES[level][goal];
- let totalSets = 0;
- let resultsHtml = '';
- const muscleData = [];
+  const table = VOLUME_TABLES[level][goal];
+  let totalSets = 0;
+  let resultsHtml = '';
+  const muscleData = [];
 
- MUSCLES.forEach(m => {
- const vol = getVol(m.id, level, goal);
- const priority = getPriority(m.id);
- const mult = PRIORITY_MULT[priority];
- const mev = Math.round(vol[0] * mult);
- const mav = Math.round(vol[1] * mult);
- const mrv = Math.round(vol[2] * mult);
- const rec = Math.round((mev + mav) / 2);
- muscleData.push({id:m.id, name:m.name, mev,mav,mrv,rec, priority});
- totalSets += rec;
- const barPct = Math.min(100, (rec / mrv) * 100);
- const mevPct = Math.round((mev / mrv) * 100);
- const mavPct = Math.round((mav / mrv) * 100);
- resultsHtml += '<div class="muscle-card">' +
- '<div><span class="muscle-name">'+m.name+' <span class="priority">'+(priority==='focus'?'FOCUS':'MAINT')+'</span></span></div>' +
- '<div style="text-align:right"><span class="muscle-sets">'+rec+' sets</span> <span class="muscle-range">(Target: '+mev+'–'+mav+')</span></div>' +
- '</div>' +
- '<div class="bar-progress" style="position:relative;height:9px;border-radius:5px;overflow:hidden;background:rgba(255,255,255,0.06);margin-bottom:12px;">' +
- '<div style="position:absolute;left:0;width:'+mevPct+'%;height:100%;background:rgba(56,189,248,0.22);" title="MEV ('+mev+'s)"></div>' +
- '<div style="position:absolute;left:'+mevPct+'%;width:'+(mavPct-mevPct)+'%;height:100%;background:rgba(244,201,59,0.28);" title="MAV Sweet Spot ('+mev+'–'+mav+'s)"></div>' +
- '<div style="position:absolute;left:'+mavPct+'%;right:0;height:100%;background:rgba(244,63,94,0.2);" title="MRV ('+mrv+'s)"></div>' +
- '<div class="bar-fill" style="position:absolute;left:0;width:'+barPct+'%;height:100%;background:#F4C93B;border-radius:5px;box-shadow:0 0 8px rgba(244,201,59,0.45);"></div>' +
- '</div>';
- });
+  MUSCLES.forEach(m => {
+    const vol = getVol(m.id, level, goal);
+    const priority = getPriority(m.id);
+    const mult = PRIORITY_MULT[priority];
+    const mev = Math.round(vol[0] * mult);
+    const mav = Math.round(vol[1] * mult);
+    const mrv = Math.round(vol[2] * mult);
+    const rec = Math.round((mev + mav) / 2);
+    muscleData.push({id:m.id, name:m.name, mev,mav,mrv,rec, priority});
+    totalSets += rec;
+    const barPct = Math.min(100, (rec / mrv) * 100);
+    const mevPct = Math.round((mev / mrv) * 100);
+    const mavPct = Math.round((mav / mrv) * 100);
+    resultsHtml += '<div class="muscle-card">' +
+      '<div><span class="muscle-name">'+m.name+' <span class="priority">'+(priority==='focus'?'FOCUS':'MAINT')+'</span></span></div>' +
+      '<div style="text-align:right"><span class="muscle-sets">'+rec+' sets</span> <span class="muscle-range">(Target: '+mev+'–'+mav+')</span></div>' +
+    '</div>' +
+    '<div class="bar-progress" style="position:relative;height:9px;border-radius:5px;overflow:hidden;background:rgba(255,255,255,0.06);margin-bottom:12px;">' +
+      '<div style="position:absolute;left:0;width:'+mevPct+'%;height:100%;background:rgba(56,189,248,0.22);" title="MEV ('+mev+'s)"></div>' +
+      '<div style="position:absolute;left:'+mevPct+'%;width:'+(mavPct-mevPct)+'%;height:100%;background:rgba(244,201,59,0.28);" title="MAV Sweet Spot ('+mev+'–'+mav+'s)"></div>' +
+      '<div style="position:absolute;left:'+mavPct+'%;right:0;height:100%;background:rgba(244,63,94,0.2);" title="MRV ('+mrv+'s)"></div>' +
+      '<div class="bar-fill" style="position:absolute;left:0;width:'+barPct+'%;height:100%;background:#F4C93B;border-radius:5px;box-shadow:0 0 8px rgba(244,201,59,0.45);"></div>' +
+    '</div>';
+  });
 
- document.getElementById('totalSets').textContent = totalSets;
- document.getElementById('muscleResults').innerHTML = resultsHtml;
+  document.getElementById('muscleResults').innerHTML = resultsHtml;
+  document.getElementById('totalSets').textContent = totalSets;
 
- // Per-session breakdown
- const totalFocus = muscleData.filter(m => m.priority === 'focus').reduce((s,m)=>s+m.rec,0);
- const baseSetsPerDay = Math.floor(totalSets / days);
- const remainder = totalSets % days;
- const colors = ['#F4C93B', '#E8BD35', '#DCB12F', '#D0A529', '#C49923', '#B88D1D', '#AC8117'];
+  // Breakdown by priority
+  const totalFocus = muscleData.filter(m => m.priority === 'focus').reduce((s,m) => s + m.rec, 0);
+  const totalMaint = muscleData.filter(m => m.priority === 'maintenance').reduce((s,m) => s + m.rec, 0);
+  document.getElementById('volBreakdown').innerHTML =
+    '<div class="breakdown-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">' +
+      '<div class="break-item" style="background:#14151A;border:1px solid #2C2E37;border-radius:8px;padding:10px;text-align:center;"><div style="font-size:0.6rem;color:rgba(250,250,248,0.4);">FOCUS VOLUME</div><div style="font-size:1.1rem;font-weight:700;color:#F4C93B;">'+totalFocus+' sets</div></div>' +
+      '<div class="break-item" style="background:#14151A;border:1px solid #2C2E37;border-radius:8px;padding:10px;text-align:center;"><div style="font-size:0.6rem;color:rgba(250,250,248,0.4);">MAINTENANCE VOLUME</div><div style="font-size:1.1rem;font-weight:700;color:rgba(250,250,248,0.7);">'+totalMaint+' sets</div></div>' +
+    '</div>';
 
- let sessHtml = '';
- for(let d=1; d<=days; d++){
- const daySets = baseSetsPerDay + (d <= remainder ? 1 : 0);
- const pct = totalSets > 0 ? ((daySets / totalSets) * 100).toFixed(1) : (100 / days);
- sessHtml += '<div class="bar-seg" style="width:'+pct+'%;background:'+colors[(d-1)%colors.length]+';font-size:.6rem;" title="Day '+d+': '+daySets+' sets">D'+d+': '+daySets+'s</div>';
- }
- document.getElementById('sessionBar').innerHTML = sessHtml;
+  // Per session bar
+  const avgPerDay = Math.round(totalSets / days);
+  let barHtml = '';
+  for(let i=0; i<days; i++){
+    barHtml += '<div class="bar-seg" style="flex:1;background:rgba(244,201,59,0.7);margin:0 2px;height:24px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:0.6rem;font-weight:700;color:#14151A;">D'+(i+1)+': ~'+avgPerDay+'s</div>';
+  }
+  document.getElementById('sessionBar').innerHTML = barHtml;
 
- // Recommendation note
- let note = '';
- const setGoal = goal === 'hypertrophy' ? 'hypertrophy' : (goal === 'strength' ? 'strength' : 'balanced');
- note = 'Training age: <strong>'+level+'</strong> · Goal: <strong>'+setGoal+'</strong> · Days/week: <strong>'+days+'</strong> · Focus Volume: <strong>'+totalFocus+'</strong> sets. ';
- if(level === 'novice'){
- note += 'As a novice, you will respond to almost any volume within range. Start at the lower end of your MEV–MAV range and add sets only when progress stalls for 2+ weeks.';
- } else if(level === 'intermediate'){
- note += 'As an intermediate, your MEV is higher and your MRV is a real constraint. Stay within the recommended sweet spot (midpoint). If recovery suffers, reduce volume before reducing intensity.';
- } else {
- note += 'As an advanced lifter, you need substantial volume to drive progress and substantial recovery to manage it. Consider a weekly undulating volume pattern: higher volume early in the week, lower volume before rest days.';
- }
- if(totalSets > 25 && days <= 3){
- note += ' With '+days+' days/week and '+totalSets+' total sets, each session will be long. Consider spreading to 4+ days or reducing maintenance volume.';
- }
- document.getElementById('recNote').innerHTML = note;
+  const setGoal = goal === 'hypertrophy' ? 'hypertrophy' : (goal === 'strength' ? 'strength' : 'balanced');
+  let note = 'Training age: <strong>'+level+'</strong> · Goal: <strong>'+setGoal+'</strong> · Days/week: <strong>'+days+'</strong> · Focus Volume: <strong>'+totalFocus+'</strong> sets. ';
+  if(level === 'novice'){
+    note += 'As a novice, you will respond to almost any volume within range. Start at the lower end of your MEV–MAV range and add sets only when progress stalls for 2+ weeks.';
+  } else if(level === 'intermediate'){
+    note += 'As an intermediate, your MEV is higher and your MRV is a real constraint. Stay within the recommended sweet spot (midpoint). If recovery suffers, reduce volume before reducing intensity.';
+  } else {
+    note += 'As an advanced lifter, you need substantial volume to drive progress and substantial recovery to manage it. Consider a weekly undulating volume pattern: higher volume early in the week, lower volume before rest days.';
+  }
+  if(totalSets > 25 && days <= 3){
+    note += ' With '+days+' days/week and '+totalSets+' total sets, each session will be long. Consider spreading to 4+ days or reducing maintenance volume.';
+  }
+  document.getElementById('recNote').innerHTML = note;
 
- res.style.display = 'block';
- res.scrollIntoView({behavior:'smooth',block:'start'});
- });
+  res.style.display = 'block';
+  if(shouldScroll) res.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+
+  document.getElementById('calcBtn').addEventListener('click', function(){
+    calculateVolume(true);
+  });
+
+  // Hick's Law: Instant visual feedback with smart defaults (no blank initial screen)
+  calculateVolume(false);
 })();
 </script>
 <script src="../assets/js/access-control.js"></script>

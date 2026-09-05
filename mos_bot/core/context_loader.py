@@ -97,7 +97,7 @@ def run_safety_triage(profile: ClientProfile, ed_result: Tuple[str, List[str]]) 
     # Fail-safe: unrecognized mental_health_concern values default to red
     # (catches typo'd values, schema drift, hand-edited profiles — same
     # silent-green failure mode as the known_deficiencies and ED1/ED2 bugs)
-    if profile.mental_health_concern not in ("", "none", "moderate", "significant"):
+    if profile.mental_health_concern not in ("", "none", "mild", "moderate", "significant"):
         return SafetyTriageResult(
             triage="red", ed_items=ed_items, blocked=True, block_reason="mental_health_unrecognized",
             caution_note=(

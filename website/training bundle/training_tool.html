@@ -47,7 +47,67 @@ html[data-accent="purple"]{--accent:#9C27B0;--accent2:#6A1B9A;--accent-soft:rgba
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:32px 16px}
 @media print{body{background:#fff;color:#000;padding:20px}body *{color:#000!important}
- .container{max-width:100%}.header,.header h1{color:#000!important}.card{background:#f5f5f5!important;border:1px solid #ddd!important}
+ .container{max-width:100%}.header,.header h1{color:#000!important}
+/* Hick's Law: Progressive Disclosure & Express Banner */
+.express-quickstart-banner {
+  background: linear-gradient(135deg, rgba(244,201,59,.15), rgba(20,21,26,.9));
+  border: 1.5px solid rgba(244,201,59,.35);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.adv-tuning-accordion {
+  margin: 16px 0;
+  background: rgba(20, 21, 26, 0.4);
+  border: 1px solid rgba(250, 250, 248, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+.adv-tuning-accordion[open] {
+  border-color: rgba(244, 201, 59, 0.35);
+  background: rgba(20, 21, 26, 0.65);
+}
+.adv-tuning-summary {
+  padding: 12px 14px;
+  cursor: pointer;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #F4C93B;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  background: rgba(244, 201, 59, 0.05);
+  list-style: none;
+}
+.adv-tuning-summary::-webkit-details-marker {
+  display: none;
+}
+.adv-tuning-summary:hover {
+  background: rgba(244, 201, 59, 0.1);
+}
+.adv-tuning-chevron {
+  font-size: 0.7rem;
+  opacity: 0.7;
+  transition: transform 0.2s ease;
+}
+.adv-tuning-accordion[open] .adv-tuning-chevron {
+  transform: rotate(180deg);
+}
+.adv-tuning-body {
+  padding: 14px 14px 4px;
+  border-top: 1px solid rgba(250, 250, 248, 0.08);
+}
+
+.card{background:#f5f5f5!important;border:1px solid #ddd!important}
  .stepper,.btn-primary,.btn-secondary,.suggest-box,.pain-group,.rest-timer,.add-set-btn,.del-set-btn,.rm-ex-btn,.sw-ex-btn,.swap-panel,.safety-badge,.deload-tracker,.footer{display:none!important}
  .ex-card{break-inside:avoid;background:#fff!important;border:1px solid #ddd!important}.ex-name{color:#000!important}
  .set-row input{border:1px solid #ccc!important;background:#fff!important;color:#000!important}
@@ -1199,34 +1259,50 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
 
  <p style="font-size:.6rem;color:rgba(250,250,248,.22);margin-bottom:10px;line-height:1.3" data-i18n="muscle_priorities_sub">Tell us about yourself and your goals. We'll calculate target volume for each muscle group and recommend a split.</p>
 
+ <div class="express-quickstart-banner">
+ <div>
+ <div style="font-size:0.6rem;font-weight:800;color:#F4C93B;letter-spacing:1px;text-transform:uppercase;">⚡ EXPRESS SETUP // HICK'S LAW FAST-PATH</div>
+ <div style="font-size:0.82rem;font-weight:700;color:#FAFAF8;margin-top:2px;">Standard 4-Day Evidence-Based Mesocycle</div>
+ <div style="font-size:0.62rem;color:rgba(250,250,248,.6);">Pre-calibrated with MEV/MAV volume landmarks &bull; 1-click generation</div>
+ </div>
+ <button type="button" id="expressOneClickBtn" class="btn-primary" style="width:auto;padding:8px 18px;font-size:0.75rem;margin:0;box-shadow:0 0 15px rgba(244,201,59,0.3);cursor:pointer;">⚡ 1-Click Generate &rarr;</button>
+ </div>
+
+
  <div class="form-row">
  <div class="form-group"><label data-i18n="name_label">Name</label>
- <input type="text" id="userName" placeholder="e.g. Ahmed" style="width:100%;padding:6px 8px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem"></div>
+ <input type="text" id="userName" value="Athlete" placeholder="e.g. Ahmed" style="width:100%;padding:6px 8px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem"></div>
  <div class="form-group"><label data-i18n="age_label">Age</label>
- <input type="number" id="userAge" placeholder="25" min="10" max="100" style="width:100%;padding:6px 8px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem"></div>
+ <input type="number" id="userAge" value="25" placeholder="25" min="10" max="100" style="width:100%;padding:6px 8px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem"></div>
  </div>
  <div class="form-row">
  <div class="form-group"><label data-i18n="ta_label">Training Age</label>
  <select id="ta"><option value="novice" data-i18n="novice">Novice (&lt;1 yr)</option><option value="intermediate" selected data-i18n="intermediate">Intermediate (1–3 yr)</option><option value="advanced" data-i18n="advanced">Advanced (3+ yr)</option></select></div>
  <div class="form-group"><label data-i18n="goal_label">Primary Goal</label>
- <select id="goal"><option value="hypertrophy" selected data-i18n="hypertrophy">Hypertrophy</option><option value="strength" data-i18n="strength">Strength</option><option value="both" data-i18n="balanced">Balanced</option></select></div>
+ <select id="goal"><option value="hypertrophy" selected data-i18n="hypertrophy">Hypertrophy (⭐ Recommended)</option><option value="strength" data-i18n="strength">Strength</option><option value="both" data-i18n="balanced">Balanced</option></select></div>
  </div>
  <div class="form-row">
  <div class="form-group"><label data-i18n="dow_label">Days/Week</label>
- <select id="dow"><option value="2">2</option><option value="3">3</option><option value="4" selected>4</option><option value="5">5</option><option value="6">6</option></select></div>
+ <select id="dow"><option value="2">2</option><option value="3">3</option><option value="4" selected>4 (⭐ Recommended)</option><option value="5">5</option><option value="6">6</option></select></div>
  <div class="form-group"><label data-i18n="rec_label">Recovery Factor</label>
  <select id="recFactor"><option value="low" data-i18n="low_rec">Low — limited sleep, high stress</option><option value="moderate" selected data-i18n="mod_rec">Moderate — balanced lifestyle</option><option value="high" data-i18n="high_rec">High — optimal recovery</option></select></div>
  </div>
 
- <div class="form-row">
+  <details class="adv-tuning-accordion" id="advTuningAccordion">
+ <summary class="adv-tuning-summary">
+ <span>⚙️ Advanced Tuning &amp; Muscle Priorities (Optional)</span>
+ <span class="adv-tuning-chevron">▼</span>
+ </summary>
+ <div class="adv-tuning-body">
+<div class="form-row">
  <div class="form-group"><label data-i18n="sex_label">Sex</label>
  <select id="userSex"><option value="male" data-i18n="sex_male">Male</option><option value="female" data-i18n="sex_female">Female</option></select></div>
  </div>
  <div class="form-row" id="bodyCompRow">
  <div class="form-group"><label data-i18n="weight_label">Bodyweight (kg)</label>
- <input type="number" id="userWeight" placeholder="75" min="30" max="300" step="0.5" style="width:100%;padding:6px 8px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem"></div>
+ <input type="number" id="userWeight" value="75" placeholder="75" min="30" max="300" step="0.5" style="width:100%;padding:6px 8px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem"></div>
  <div class="form-group"><label data-i18n="height_label">Height (cm) <span style="color:rgba(250,250,248,.3);font-size:.5rem">(optional)</span></label>
- <input type="number" id="userHeight" placeholder="175" min="100" max="250" step="1" style="width:100%;padding:6px 8px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem"></div>
+ <input type="number" id="userHeight" value="175" placeholder="175" min="100" max="250" step="1" style="width:100%;padding:6px 8px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem"></div>
  </div>
  <div class="form-row">
  <div class="form-group" id="cycleLenGroup" style="display:none"><label data-i18n="cycle_len_label">Cycle Length (days)</label>
@@ -1300,6 +1376,8 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  <div class="form-group"><label data-i18n="meet_date">Meet Date</label><input type="date" id="plMeetDate" style="display:none"></div>
  </div>
  </div>
+ </div>
+ </details>
 
  <div id="onboardErr" style="display:none;color:#F4C93B;font-size:.65rem;text-align:center;margin-top:6px;font-weight:500" data-i18n="focus_err">Select at least one Focus muscle.</div>
  <button class="btn-primary" id="onboardNext" data-i18n="calc_continue">Calculate &amp; Continue</button>
@@ -5451,6 +5529,29 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  document.getElementById('prioPanel').classList.remove('show');
  proceedToSplit();
  });
+
+ 
+ // Hick's Law: 1-Click Express Mesocycle Generator
+ (function(){
+   var expBtn = document.getElementById('expressOneClickBtn');
+   if(expBtn){
+     expBtn.addEventListener('click', function(){
+       var uName = document.getElementById('userName'); if(uName && !uName.value) uName.value = 'Athlete';
+       var uAge = document.getElementById('userAge'); if(uAge && !uAge.value) uAge.value = '25';
+       var uWeight = document.getElementById('userWeight'); if(uWeight && !uWeight.value) uWeight.value = '75';
+       var uHeight = document.getElementById('userHeight'); if(uHeight && !uHeight.value) uHeight.value = '175';
+       var dow = document.getElementById('dow'); if(dow) dow.value = '4';
+       var goal = document.getElementById('goal'); if(goal) goal.value = 'hypertrophy';
+       var ta = document.getElementById('ta'); if(ta) ta.value = 'intermediate';
+       var nextBtn = document.getElementById('onboardNext');
+       if(nextBtn) nextBtn.click();
+       setTimeout(function(){
+         var prioBtn = document.getElementById('prioContBtn');
+         if(prioBtn && !prioBtn.disabled) prioBtn.click();
+       }, 150);
+     });
+   }
+ })();
 
  window.__pmEngine={getPriority:getPriority,savePriority:savePriority,effortStyleOf:effortStyleOf,lastSessionSets:lastSessionSets,estimateRecoveryCost:estimateRecoveryCost,seededFreq:seededFreq,blendRecovery:blendRecovery,softGateActive:softGateActive,scheduledPriorityMuscles:scheduledPriorityMuscles,renderSorenessCards:renderSorenessCards,cycleLengthOf:cycleLengthOf,muscleFrequencyInSplit:muscleFrequencyInSplit,freq7Of:freq7Of,prioritySatisfaction:prioritySatisfaction,recommendSplit:recommendSplit,renderSplitConflict:renderSplitConflict,SBD_FAMILY:SBD_FAMILY,prHistoryOf:prHistoryOf,hasPrInLastDays:hasPrInLastDays,distributeVolume:distributeVolume,computeSelection:computeSelection,computeAllocation:computeAllocation,renderLiveVol:renderLiveVol,showVolReview:showVolReview,renderVolReview:renderVolReview,renderPrioPanel:renderPrioPanel,weekStartISO:weekStartISO,ls:ls,ss:ss,K:K,MUSCLES:MUSCLES,MUSCLE_NAME:MUSCLE_NAME,SPLITS:SPLITS,determineSplit:determineSplit};
 

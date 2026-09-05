@@ -25,6 +25,54 @@ body{font-family:'Inter',sans-serif;background:#0D0E12;background-image:radial-g
 .header h1{font-family:'Oswald',sans-serif;font-size:2.4rem;font-weight:700;background:linear-gradient(135deg,#FFFFFF 30%,#F4C93B 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-transform:uppercase;letter-spacing:1px;line-height:1.1;filter:drop-shadow(0 0 20px rgba(244,201,59,.2))}
 .header p{font-size:.8rem;color:rgba(250,250,248,.55);margin-top:6px;font-weight:300;letter-spacing:.5px}
 .header .badge{display:inline-block;background:rgba(244,201,59,.12);color:#F4C93B;font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;padding:4px 12px;border-radius:20px;margin-top:8px;border:1px solid rgba(244,201,59,.25);box-shadow:0 0 12px rgba(244,201,59,.15)}
+
+/* Hick's Law: Progressive Disclosure & Express Banner */
+.express-quickstart-banner {
+  background: linear-gradient(135deg, rgba(244,201,59,.15), rgba(26,27,38,.9));
+  border: 1.5px solid rgba(244,201,59,.35);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.adv-precision-accordion {
+  margin: 16px 0;
+  background: rgba(20, 21, 26, 0.4);
+  border: 1px solid rgba(250, 250, 248, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+.adv-precision-accordion[open] {
+  border-color: rgba(244, 201, 59, 0.35);
+  background: rgba(20, 21, 26, 0.65);
+}
+.adv-precision-summary {
+  padding: 12px 14px;
+  cursor: pointer;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #F4C93B;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  background: rgba(244, 201, 59, 0.04);
+  list-style: none;
+}
+.adv-precision-summary::-webkit-details-marker {
+  display: none;
+}
+.adv-precision-summary:hover {
+  background: rgba(244, 201, 59, 0.1);
+}
+
 .card{background:rgba(26,27,38,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(244,201,59,.18);border-radius:18px;padding:26px 24px;box-shadow:0 16px 48px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.08);transition:all .25s ease}
 .card+.card{margin-top:18px}
 .card:hover{border-color:rgba(244,201,59,.32);box-shadow:0 20px 52px rgba(0,0,0,.7),inset 0 1px 0 rgba(244,201,59,.15)}
@@ -482,21 +530,37 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  </div>
 
  <div id="tab-setup" class="tab-content active">
+
+ <div class="express-quickstart-banner">
+ <div>
+ <div style="font-size:0.6rem;font-weight:800;color:#F4C93B;letter-spacing:1px;text-transform:uppercase;">⚡ EXPRESS TDEE // HICK'S LAW FAST-PATH</div>
+ <div style="font-size:0.82rem;font-weight:700;color:#FAFAF8;margin-top:2px;">Instant Metabolic Expenditure &amp; Macros</div>
+ <div style="font-size:0.62rem;color:rgba(250,250,248,.6);">Standard Mifflin-St Jeor &bull; Balanced activity defaults</div>
+ </div>
+ <button type="button" id="expressTdeeBtn" class="btn-primary" style="width:auto;padding:8px 18px;font-size:0.75rem;margin:0;box-shadow:0 0 15px rgba(244,201,59,0.3);cursor:pointer;">⚡ Calculate in 1-Click &rarr;</button>
+ </div>
+
  <div class="section-header">Basic Info</div>
  <div class="form-group">
  <label>Sex</label>
  <div class="sex-group">
- <button type="button" class="sex-btn" data-sex="male">Male</button>
+ <button type="button" class="sex-btn active" data-sex="male">Male</button>
  <button type="button" class="sex-btn" data-sex="female">Female</button>
  </div>
  </div>
  <div class="form-row">
- <div class="form-group"><label>Weight (kg)</label><input type="number" id="weight" min="0" step="0.1" placeholder="e.g. 80"></div>
- <div class="form-group"><label>Height (cm)</label><input type="number" id="height" min="0" step="0.1" placeholder="e.g. 175"></div>
+ <div class="form-group"><label>Weight (kg)</label><input type="number" id="weight" min="0" step="0.1" value="75" placeholder="e.g. 75"></div>
+ <div class="form-group"><label>Height (cm)</label><input type="number" id="height" min="0" step="0.1" value="175" placeholder="e.g. 175"></div>
  </div>
  <div class="form-row">
- <div class="form-group"><label>Age</label><input type="number" id="age" min="0" step="1" placeholder="e.g. 30"></div>
- <div class="form-group"><label>Body Fat %</label>
+ <div class="form-group"><label>Age</label><input type="number" id="age" min="0" step="1" value="25" placeholder="e.g. 25"></div>
+  <details class="adv-precision-accordion" id="advPrecisionAccordion">
+ <summary class="adv-precision-summary">
+ <span>🔬 Precision Biomarkers &amp; Lifestyle Modifiers (Optional)</span>
+ <span style="font-size:0.7rem;opacity:0.7;">▼</span>
+ </summary>
+ <div style="padding:14px 14px 4px;border-top:1px solid rgba(250,250,248,.08);">
+<div class="form-group"><label>Body Fat %</label>
  <select id="bf"><option value="">Don't know (use Mifflin-St Jeor)</option>
  <option value="6">6% — Pro bodybuilder</option><option value="8">8% — Very lean</option>
  <option value="10">10% — Lean</option><option value="12">12% — Athletic</option>
@@ -573,6 +637,8 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  <div class="tip">Luteal phase increases REE by 5-10% — ignoring this causes false plateaus</div></div>
  </div>
  </div>
+ </div>
+ </details>
 
  <div class="section-header">Goal</div>
  <div class="form-group"><label>What's Your Goal?</label>
@@ -580,7 +646,8 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  <option value="aggressive_loss">Aggressive Fat Loss</option>
  <option value="moderate_loss">Moderate Fat Loss</option>
  <option value="recomp">Recomp</option>
- <option value="maintenance" selected>Maintenance</option>
+ <option value="moderate_loss" selected>Moderate Fat Loss (⭐ Popular)</option>
+ <option value="maintenance">Maintenance</option>
  <option value="lean_gain">Lean Gain</option>
  <option value="aggressive_gain">Aggressive Muscle Gain</option></select></div>
 
@@ -912,7 +979,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
 
  // ─── UI ───
  let store = loadStore();
- let selectedSex = null;
+ let selectedSex = 'male';
 
  function sexInit(){
  document.querySelectorAll('.sex-btn').forEach(b=>{
@@ -1299,6 +1366,23 @@ numbersHtml += '<div class="dash-macro-grid">' +
 
  // ─── Initialize ───
  sexInit();
+
+ document.addEventListener('DOMContentLoaded', function(){
+   var maleBtn = document.querySelector('.sex-btn[data-sex="male"]');
+   if(maleBtn && !document.querySelector('.sex-btn.active')) {
+     maleBtn.classList.add('active');
+     selectedSex = 'male';
+   }
+   var expBtn = document.getElementById('expressTdeeBtn');
+   if(expBtn){
+     expBtn.addEventListener('click', function(){
+       selectedSex = selectedSex || 'male';
+       var calc = document.getElementById('calcBtn');
+       if(calc) calc.click();
+     });
+   }
+ });
+
 
  // Show female-cycle group only if female selected
  document.getElementById('cycleGroup').style.display = 'none';

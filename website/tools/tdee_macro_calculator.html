@@ -181,17 +181,17 @@ html[dir="rtl"] select{background-position:left 11px center;padding-right:11px;p
  <div class="form-row">
  <div class="form-group">
  <label data-i18n="weightLabel">Weight (kg)</label>
- <input type="number" id="weight" min="0" step="0.1" placeholder="e.g. 80" data-i18n-ph="weightPh">
+ <input type="number" id="weight" min="0" step="0.1" value="75" placeholder="e.g. 75" data-i18n-ph="weightPh">
  </div>
  <div class="form-group">
  <label data-i18n="heightLabel">Height (cm)</label>
- <input type="number" id="height" min="0" step="0.1" placeholder="e.g. 175" data-i18n-ph="heightPh">
+ <input type="number" id="height" min="0" step="0.1" value="175" placeholder="e.g. 175" data-i18n-ph="heightPh">
  </div>
  </div>
  <div class="form-row">
  <div class="form-group">
  <label data-i18n="ageLabel">Age (years)</label>
- <input type="number" id="age" min="0" step="1" placeholder="e.g. 30" data-i18n-ph="agePh">
+ <input type="number" id="age" min="0" step="1" value="25" placeholder="e.g. 25" data-i18n-ph="agePh">
  </div>
  <div class="form-group">
  <label data-i18n="bfLabel">Body Fat %</label>
@@ -460,8 +460,8 @@ html[dir="rtl"] select{background-position:left 11px center;padding-right:11px;p
  <label data-i18n="goalLabel">Goal</label>
  <select id="goal">
  <option value="" data-i18n="goalSelect">Select your goal</option>
+ <option value="moderate_loss" selected data-i18n="goalModLoss">Moderate Fat Loss (-20% deficit) — ⭐ Recommended</option>
  <option value="aggressive_loss" data-i18n="goalAggLoss">Aggressive Fat Loss (-25% deficit)</option>
- <option value="moderate_loss" data-i18n="goalModLoss">Moderate Fat Loss (-20% deficit)</option>
  <option value="recomp" data-i18n="goalRecomp">Recomp (small deficit ~-100 cal)</option>
  <option value="maintenance" data-i18n="goalMaint">Maintenance (hold weight)</option>
  <option value="lean_gain" data-i18n="goalLeanGain">Lean Gain (+5% surplus)</option>
@@ -768,7 +768,7 @@ html[dir="rtl"] select{background-position:left 11px center;padding-right:11px;p
  });
  });
 
- document.getElementById('calcBtn').addEventListener('click',function(){
+ function doCalc(shouldScroll){
  const err=document.getElementById('errorMsg');
  const res=document.getElementById('resultsSection');
  const w=parseFloat(document.getElementById('weight').value);
@@ -946,9 +946,15 @@ html[dir="rtl"] select{background-position:left 11px center;padding-right:11px;p
     }
   }
 
-  res.scrollIntoView({behavior:'smooth',block:'start'});
+    if(shouldScroll) res.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+
+  document.getElementById('calcBtn').addEventListener('click',function(){
+    doCalc(true);
   });
- translateUI();
+  translateUI();
+  // Hick's Law: Instant feedback with smart pre-selected defaults (no empty state)
+  doCalc(false);
 })();
 </script>
 <script src="../assets/js/access-control.js"></script>

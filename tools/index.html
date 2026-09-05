@@ -63,6 +63,104 @@ main{flex:1;padding:60px 0 80px}
 .page-sub{color:var(--gray-light);font-size:16px;max-width:620px;margin:0 auto;line-height:1.6}
 
 /* Filter bar */
+
+/* Hick's Law Decision Matcher */
+.decision-matcher {
+  background: linear-gradient(135deg, rgba(26,27,38,0.9), rgba(15,16,21,0.95));
+  border: 1.5px solid rgba(244,201,59,0.3);
+  border-radius: 18px;
+  padding: 24px 20px;
+  margin-bottom: 36px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.5), 0 0 25px rgba(244,201,59,0.08);
+}
+.matcher-title {
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--yellow);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 16px;
+}
+.matcher-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+}
+.matcher-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(20,22,29,0.85);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 18px;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+.matcher-card:hover {
+  border-color: var(--yellow);
+  background: rgba(244,201,59,0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+.matcher-card.highlight-glow {
+  border-color: rgba(244,201,59,0.5);
+  background: linear-gradient(135deg, rgba(20,22,29,0.9), rgba(244,201,59,0.06));
+}
+.matcher-icon {
+  font-size: 26px;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(244,201,59,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.matcher-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.matcher-badge {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--yellow);
+  text-transform: uppercase;
+  font-family: 'JetBrains Mono', monospace;
+}
+.matcher-info strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+}
+.matcher-info span {
+  font-size: 11.5px;
+  color: var(--gray-light);
+  line-height: 1.3;
+}
+.matcher-arrow {
+  color: var(--yellow);
+  font-size: 18px;
+  font-weight: 700;
+  transition: transform 0.2s;
+}
+.matcher-card:hover .matcher-arrow {
+  transform: translateX(3px);
+}
+.badge-rec {
+  background: linear-gradient(135deg, rgba(244,201,59,0.25), rgba(244,201,59,0.08));
+  color: var(--yellow);
+  border: 1px solid var(--yellow);
+  box-shadow: 0 0 10px var(--yellow-glow);
+}
+
 .filter-bar{display:flex;justify-content:center;gap:8px;margin-bottom:40px;flex-wrap:wrap}
 .filter-btn{
   background:rgba(255,255,255,0.04);border:1px solid var(--line);color:var(--gray-light);
@@ -177,6 +275,40 @@ footer a{color:var(--yellow)}
       <p class="page-sub">Evidence-based calculators, autoregulated volume matrix engines, and metabolic expenditure trackers. Offline capable.</p>
     </div>
 
+    <!-- Hick's Law: 3-Choice Guided Decision Matcher -->
+    <div class="decision-matcher">
+      <div class="matcher-title">🎯 What is your primary objective today?</div>
+      <div class="matcher-grid">
+        <a href="training_tool.html" class="matcher-card highlight-glow">
+          <div class="matcher-icon">🏋️</div>
+          <div class="matcher-info">
+            <span class="matcher-badge">⭐ RECOMMENDED START</span>
+            <strong>Build a Workout Program</strong>
+            <span>Autoregulated mesocycle, split selection &amp; progression</span>
+          </div>
+          <span class="matcher-arrow">&rarr;</span>
+        </a>
+        <a href="tdee_adaptive_engine.html" class="matcher-card">
+          <div class="matcher-icon">🥗</div>
+          <div class="matcher-info">
+            <span class="matcher-badge">NUTRITION</span>
+            <strong>Calculate Calories &amp; Macros</strong>
+            <span>Adaptive TDEE, metabolic expenditure &amp; targets</span>
+          </div>
+          <span class="matcher-arrow">&rarr;</span>
+        </a>
+        <a href="muscle_os_app.html" class="matcher-card">
+          <div class="matcher-icon">⚡</div>
+          <div class="matcher-info">
+            <span class="matcher-badge">ALL-IN-ONE</span>
+            <strong>Unified Master Suite</strong>
+            <span>Both lifting &amp; diet synchronized in Omni Hub</span>
+          </div>
+          <span class="matcher-arrow">&rarr;</span>
+        </a>
+      </div>
+    </div>
+
     <!-- Filter Buttons -->
     <div class="filter-bar">
       <button class="filter-btn active" onclick="filterCategory('all')">All Tools</button>
@@ -223,7 +355,7 @@ footer a{color:var(--yellow)}
           <div class="card-top">
             <div class="card-icon-wrap">
               <div class="card-icon">&#127947;</div>
-              <span class="card-badge badge-pro">FLAGSHIP TRAINING</span>
+              <span class="card-badge badge-pro badge-rec">⭐ RECOMMENDED START // FLAGSHIP</span>
             </div>
             <h3 class="card-title">MOS-HYPERKINETIX</h3>
             <p class="card-desc">Autoregulated Hypertrophy Matrix: mesocycle generator, volume landmarks (MEV/MAV/MRV), plate math, and rest audio chimes.</p>
