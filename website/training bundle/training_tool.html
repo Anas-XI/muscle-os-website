@@ -1515,10 +1515,69 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  </div>
  </div>
  <div class="ex-sel-panel" id="customSplitPanel">
- <div class="section-header" data-i18n="cs_title">Custom Split Builder</div>
- <p style="font-size:.55rem;color:rgba(250,250,248,.2);margin-bottom:8px;line-height:1.2" data-i18n="cs_sub">Design your own weekly schedule — pick the muscles trained each day.</p>
- <div class="cs-name-row"><input type="text" id="csName" maxlength="40"></div>
- <div id="csDays"></div>
+  <div class="section-header" data-i18n="cs_title">Custom Split Builder</div>
+  <p style="font-size:.55rem;color:rgba(250,250,248,.2);margin-bottom:8px;line-height:1.2" data-i18n="cs_sub">Design your own weekly schedule — pick the muscles trained each day.</p>
+
+  <!-- Algorithmic Custom Split Generator -->
+  <div class="mos-algo-split-box originkit-spotlight">
+    <div class="mos-algo-header">
+      <div class="mos-algo-title">
+        <span>⚡</span> Smart Algorithmic Split Generator
+      </div>
+      <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:0.7rem;color:var(--mos-yellow);font-weight:600;">
+        <input type="checkbox" id="algoPlMode" style="accent-color:var(--mos-yellow);">
+        <span>🏋️ Powerlifter (SBD Days)</span>
+      </label>
+    </div>
+    <p style="font-size:0.6rem;color:var(--mos-text-muted);margin-bottom:8px;line-height:1.3;">
+      Auto-engineers an optimal schedule with 48h recovery pacing, prioritizing your favorite muscles and targeted accessories for your sticking points.
+    </p>
+
+    <div style="margin-bottom:8px;">
+      <span style="font-size:0.65rem;text-transform:uppercase;color:var(--mos-text-muted);font-weight:600;">Schedule Days / Week:</span>
+      <div class="mos-chip-group" id="algoDaysGroup">
+        <button type="button" class="mos-chip-item" data-days="3">3 Days</button>
+        <button type="button" class="mos-chip-item active" data-days="4">4 Days</button>
+        <button type="button" class="mos-chip-item" data-days="5">5 Days</button>
+        <button type="button" class="mos-chip-item" data-days="6">6 Days</button>
+      </div>
+    </div>
+
+    <div style="margin-bottom:8px;">
+      <span style="font-size:0.65rem;text-transform:uppercase;color:var(--mos-text-muted);font-weight:600;">Favorable / Priority Muscles:</span>
+      <div class="mos-chip-group" id="algoFavGroup">
+        <button type="button" class="mos-chip-item" data-muscle="chest">Chest</button>
+        <button type="button" class="mos-chip-item" data-muscle="back">Back</button>
+        <button type="button" class="mos-chip-item" data-muscle="shoulders">Shoulders</button>
+        <button type="button" class="mos-chip-item" data-muscle="quads">Quads</button>
+        <button type="button" class="mos-chip-item" data-muscle="hamstrings">Hamstrings</button>
+        <button type="button" class="mos-chip-item" data-muscle="biceps">Biceps</button>
+        <button type="button" class="mos-chip-item" data-muscle="triceps">Triceps</button>
+        <button type="button" class="mos-chip-item" data-muscle="glutes">Glutes</button>
+      </div>
+    </div>
+
+    <div style="margin-bottom:12px;">
+      <span style="font-size:0.65rem;text-transform:uppercase;color:var(--mos-text-muted);font-weight:600;">Weak Points &amp; Sticking Points:</span>
+      <div class="mos-chip-group" id="algoWeakGroup">
+        <button type="button" class="mos-chip-item" data-weak="bench_lockout">Bench Lockout (Triceps)</button>
+        <button type="button" class="mos-chip-item" data-weak="bench_chest">Bench Off Chest (Pecs)</button>
+        <button type="button" class="mos-chip-item" data-weak="squat_hole">Squat In The Hole</button>
+        <button type="button" class="mos-chip-item" data-weak="squat_mid">Squat Midpoint (Quads)</button>
+        <button type="button" class="mos-chip-item" data-weak="deadlift_floor">Deadlift Off Floor</button>
+        <button type="button" class="mos-chip-item" data-weak="deadlift_lockout">Deadlift Lockout (Glutes/Back)</button>
+        <button type="button" class="mos-chip-item" data-weak="lagging_arms">Lagging Arms</button>
+        <button type="button" class="mos-chip-item" data-weak="lagging_delts">Lagging Lateral Delts</button>
+      </div>
+    </div>
+
+    <button type="button" class="originkit-btn originkit-btn-primary" id="btnAlgoGenSplit" style="width:100%;justify-content:center;padding:10px;">
+      ⚡ Auto-Generate Optimal Split
+    </button>
+  </div>
+
+  <div class="cs-name-row"><input type="text" id="csName" maxlength="40"></div>
+  <div id="csDays"></div>
  <div class="btn-group" style="margin-top:8px">
  <button class="btn-secondary" id="csAddDay" data-i18n="cs_add_day">+ Training Day</button>
  <button class="btn-secondary" id="csAddRest" data-i18n="cs_add_rest">+ Rest Day</button>
@@ -1564,12 +1623,49 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  <p style="font-size:.6rem;color:rgba(250,250,248,.22);margin-bottom:8px;line-height:1.3">Configure your training block. The engine will ramp volume and RPE weekly, auto-progress loads based on your logged performance, and schedule a deload at the end.</p>
  <div id="mesoCfgProgram" class="recap-box" style="margin-bottom:8px"></div>
  <div class="form-row">
- <div class="form-group"><label data-i18n="goal_label">Mesocycle Type</label>
- <select id="mesoType"><option value="hypertrophy">Hypertrophy — volume-focused block</option><option value="strength">Strength — periodized intensity block</option><option value="mixed">Mixed — balanced progression</option></select></div>
- <div class="form-group"><label data-i18n="dow_label">Duration (weeks)</label>
- <select id="mesoWeeks"><option value="4">4 weeks (short)</option><option value="6">6 weeks</option><option value="8" selected>8 weeks (standard)</option><option value="10">10 weeks (extended)</option><option value="12">12 weeks (macrocycle)</option></select></div>
- </div>
- <div id="mesoPreview" style="background:rgba(20,21,26,.25);border-radius:8px;padding:10px;margin:8px 0">
+  <div class="form-group"><label data-i18n="goal_label">Mesocycle Type</label>
+  <select id="mesoType"><option value="hypertrophy">Hypertrophy — volume-focused block</option><option value="strength">Strength — periodized intensity block</option><option value="mixed">Mixed — balanced progression</option></select></div>
+  <div class="form-group"><label data-i18n="dow_label">Duration (weeks)</label>
+  <select id="mesoWeeks"><option value="4">4 weeks (short)</option><option value="6">6 weeks</option><option value="8" selected>8 weeks (standard)</option><option value="10">10 weeks (extended)</option><option value="12">12 weeks (macrocycle)</option></select></div>
+  </div>
+
+  <!-- Powerlifting Periodization Model & Single-Lift Specialization -->
+  <div id="mesoPeriodizationBox" style="margin: 10px 0; padding: 12px; background: rgba(20,21,26,0.5); border: 1px solid rgba(250,250,248,0.08); border-radius: 10px; display: none;">
+    <div class="form-group" style="margin-bottom: 8px;">
+      <label style="color:#F4C93B; font-weight:600; font-size:0.75rem;">Powerlifting Periodization Model</label>
+      <select id="mesoPeriodModel">
+        <option value="block">Block Periodization (All 3 Lifts: Accumulation → Intensification → Peak)</option>
+        <option value="linear">Linear Periodization (Single-Lift Specialization Focus)</option>
+      </select>
+    </div>
+
+    <!-- Specialization Lift Selector (visible when linear is chosen) -->
+    <div id="mesoSpecLiftRow" style="display: none; margin-top: 8px;">
+      <label style="font-size:0.65rem; text-transform:uppercase; color:var(--mos-text-muted); font-weight:600;">Choose Specialization Lift:</label>
+      <div class="mos-spec-lift-box">
+        <div class="mos-spec-chip active" data-lift="squat">
+          <div class="mos-spec-icon">🏋️‍♂️</div>
+          <div class="mos-spec-label">Squat Focus</div>
+          <div style="font-size:0.55rem; color:var(--mos-text-muted);">Linear Overload Ramp</div>
+        </div>
+        <div class="mos-spec-chip" data-lift="bench">
+          <div class="mos-spec-icon">⚡</div>
+          <div class="mos-spec-label">Bench Focus</div>
+          <div style="font-size:0.55rem; color:var(--mos-text-muted);">Linear Overload Ramp</div>
+        </div>
+        <div class="mos-spec-chip" data-lift="deadlift">
+          <div class="mos-spec-icon">💥</div>
+          <div class="mos-spec-label">Deadlift Focus</div>
+          <div style="font-size:0.55rem; color:var(--mos-text-muted);">Linear Overload Ramp</div>
+        </div>
+      </div>
+      <p style="font-size:0.55rem; color:rgba(250,250,248,0.4); line-height:1.3; margin-top:4px;">
+        Your selected lift will follow a dedicated linear intensity progression (75% → 95% 1RM) with stepped-down reps and climbing RPE, while your other lifts remain on steady technique maintenance volume.
+      </p>
+    </div>
+  </div>
+
+  <div id="mesoPreview" style="background:rgba(20,21,26,.25);border-radius:8px;padding:10px;margin:8px 0">
  <p style="font-size:.55rem;color:rgba(250,250,248,.12);padding:8px;text-align:center" data-i18n="no_data">Configure above and click Generate.</p>
  </div>
  <div class="btn-group">
@@ -4614,84 +4710,226 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  return base;
  }
 
- // ── Mesocycle Auto-Planner Engine ──
- function createMesocycle(type, weeks){
- var prog=ls(K.PG,null),vi=ls(K.VI,{}),pl=getPLProfile(),goal=vi.goal||'hypertrophy',age=vi.ta||'intermediate';
- if(!prog)return null;
- var maxWeeks=Math.min(Math.max(weeks||8,4),12);
- var id='meso_'+Date.now();
- var mesoDays=[];
- // Build week-by-week progression
- for(var w=1;w<=maxWeeks;w++){
- var isDeload=(w===maxWeeks); // Last week = deload
- var phase='accumulation';
- if(type==='strength'&&maxWeeks>=10){
- if(w<=4)phase='accumulation';
- else if(w<=8)phase='intensification';
- else if(w<=9)phase='peak';
- else phase='deload';
- } else if(isDeload){phase='deload';}
- // Volume ramp: sets increase from ~85% to 105% of program defaults
- var volFactor=isDeload?0.5:(0.85+(w/(maxWeeks-1||1))*0.2);
- // RPE ramp: 6 → 9 across weeks
- var rpeBase=isDeload?6:(6+Math.floor((w-1)/((maxWeeks-1||1)/3)));
- var weekDays=prog.days.map(function(day){
- if(day.restDay)return{n:day.n,restDay:true,ex:[]};
- return {n:day.n,ex:day.ex.map(function(ex){
- var sets=isDeload?Math.max(1,Math.round(ex.sets*0.5)):Math.max(1,Math.round(ex.sets*volFactor));
- var targetRpe=isDeload?6:Math.min(rpeBase+Math.round(Math.random()*0.5),9.5);
- return {n:ex.n,sets:sets,rl:ex.rl,rh:ex.rh,p:ex.p,se:ex.se,targetRpe:targetRpe,orig:ex.orig||null,prehab:ex.prehab||false,prehabJoint:ex.prehabJoint||null,optional:ex.optional||false};
- })};
- });
- mesoDays.push({week:w,phase:phase,days:weekDays,completed:false,logs:{}});
- }
- var meso={id:id,type:type||'hypertrophy',weeks:maxWeeks,goal:goal,age:age,
- startDate:new Date().toISOString().split('T')[0],endDate:null,
- days:mesoDays,completed:false,summary:null};
- ss(K.MP,meso);
- ss(K.MA,{mesoId:id,currentWeek:1,currentPhase:mesoDays[0].phase});
- return meso;
- }
+  // Helper to identify if an exercise matches a primary specialization lift
+  function isLiftMatch(exName, liftType){
+    var n = (exName || '').toLowerCase();
+    if(!liftType) return false;
+    if(liftType === 'squat'){
+      return n.indexOf('squat') >= 0 || n.indexOf('leg press') >= 0 || n.indexOf('hack') >= 0;
+    }
+    if(liftType === 'bench'){
+      return n.indexOf('bench') >= 0 || n.indexOf('chest press') >= 0 || (n.indexOf('press') >= 0 && n.indexOf('overhead') < 0 && n.indexOf('shoulder') < 0 && n.indexOf('leg') < 0);
+    }
+    if(liftType === 'deadlift'){
+      return n.indexOf('deadlift') >= 0 || n.indexOf('rdl') >= 0 || n.indexOf('rack pull') >= 0;
+    }
+    return false;
+  }
 
- function renderMesoConfig(){
- var prog=ls(K.PG,null);if(!prog)return;
- document.getElementById('mesoCfgProgram').innerHTML='<strong>'+prog.splitName+'</strong> · '+prog.totalSets+' '+_('weekly_sets')+' · '+prog.days.length+' '+_('sessions');
- // Preselect from existing
- var ma=ls(K.MA,null),mp=ls(K.MP,null);
- if(mp){
- document.getElementById('mesoType').value=mp.type||'hypertrophy';
- document.getElementById('mesoWeeks').value=mp.weeks||8;
- }
- renderMesoPreview(mp);
- }
+  // ── Mesocycle Auto-Planner Engine ──
+  function createMesocycle(type, weeks, periodModel, specLift){
+    var prog=ls(K.PG,null),vi=ls(K.VI,{}),pl=getPLProfile(),goal=vi.goal||'hypertrophy',age=vi.ta||'intermediate';
+    if(!prog)return null;
+    var maxWeeks=Math.min(Math.max(weeks||8,4),12);
+    var id='meso_'+Date.now();
+    var mesoDays=[];
+    var isPowerlifter = (type === 'strength') || !!pl;
+    var activePeriodModel = isPowerlifter ? (periodModel || (document.getElementById('mesoPeriodModel') ? document.getElementById('mesoPeriodModel').value : 'block')) : 'standard';
+    var activeSpecLift = specLift;
+    if(!activeSpecLift){
+      var activeChip = document.querySelector('#mesoSpecLiftRow .mos-spec-chip.active');
+      activeSpecLift = activeChip ? activeChip.dataset.lift : 'squat';
+    }
 
- function renderMesoPreview(mp){
- var el=document.getElementById('mesoPreview');
- if(!mp){el.innerHTML='<p style="font-size:.55rem;color:rgba(250,250,248,.12);padding:8px;text-align:center">'+_('meso_configure_first')+'</p>';return;}
- var html='<div style="font-size:.55rem;color:rgba(250,250,248,.3);margin-bottom:6px">'+_('meso_vol_rpe_progression')+' — <strong>'+mp.weeks+' '+_('meso_weeks')+'</strong> · '+mp.type+'</div>';
- html+='<div style="display:flex;gap:3px;align-items:flex-end;height:36px;padding:2px 0">';
- mp.days.forEach(function(w,i){
- var totalSets=w.days.reduce(function(s,d){return s+d.ex.reduce(function(a,e){return a+e.sets},0)},0);
- var h=Math.min(totalSets*2,36);
- var c=w.phase==='deload'?'#FF9800':w.phase==='peak'?'#f44336':w.phase==='intensification'?'#2196F3':'#4CAF50';
- html+='<div style="flex:1;display:flex;flex-direction:column;align-items:center"><div title="Week '+(i+1)+': '+totalSets+' '+_('sets')+' · '+_(w.phase==='deload'?'meso_phase_deload':w.phase==='peak'?'meso_phase_peak':w.phase==='intensification'?'meso_phase_intensification':'meso_phase_accumulation')+'" style="width:100%;height:'+Math.max(h,4)+'px;background:'+c+';border-radius:2px;opacity:'+(w.phase==='deload'?'.6':'.8')+';position:relative">'+
- '<span style="position:absolute;bottom:-13px;font-size:.4rem;color:rgba(250,250,248,.15);left:50%;transform:translateX(-50%)">'+(i+1)+'</span></div></div>';
- });
- html+='</div><div style="display:flex;gap:8px;margin-top:8px;font-size:.45rem;color:rgba(250,250,248,.15);flex-wrap:wrap">'+
- '<span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#4CAF50;vertical-align:middle;margin-right:2px"></span> '+_('meso_phase_accumulation')+'</span>'+
- '<span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#2196F3;vertical-align:middle;margin-right:2px"></span> '+_('meso_phase_intensification')+'</span>'+
- '<span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#f44336;vertical-align:middle;margin-right:2px"></span> '+_('meso_phase_peak')+'</span>'+
- '<span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#FF9800;vertical-align:middle;margin-right:2px"></span> '+_('meso_phase_deload')+'</span></div>';
- el.innerHTML=html;
- }
+    // Build week-by-week progression
+    for(var w=1;w<=maxWeeks;w++){
+      var isDeload=(w===maxWeeks); // Last week = deload
+      var phase='accumulation';
 
- function saveMesoPlan(){
- var type=document.getElementById('mesoType').value,weeks=parseInt(document.getElementById('mesoWeeks').value)||8;
- var meso=createMesocycle(type,weeks);
- if(!meso){alert(_('alert_gen_meso'));return;}
- renderMesoPreview(meso);
- go(35);
- }
+      if(isPowerlifter && activePeriodModel === 'linear'){
+        if(isDeload){
+          phase = 'deload';
+        } else if(w <= Math.round(maxWeeks * 0.35)){
+          phase = 'linear_base'; // Base volume & foundation (RPE 7-7.5)
+        } else if(w <= Math.round(maxWeeks * 0.75)){
+          phase = 'linear_ramp'; // Linear intensity ramp (RPE 8-8.5)
+        } else {
+          phase = 'linear_peak'; // Peak realization (RPE 9-9.5)
+        }
+      } else if(type==='strength'&&maxWeeks>=10){
+        if(w<=4)phase='accumulation';
+        else if(w<=8)phase='intensification';
+        else if(w<=9)phase='peak';
+        else phase='deload';
+      } else if(isDeload){
+        phase='deload';
+      }
+
+      var weekDays=prog.days.map(function(day){
+        if(day.restDay)return{n:day.n,restDay:true,ex:[]};
+        return {n:day.n,ex:day.ex.map(function(ex){
+          var isSpec = false;
+          if(isPowerlifter && activePeriodModel === 'linear'){
+            isSpec = isLiftMatch(ex.n, activeSpecLift);
+          }
+
+          var sets, targetRpe, rl = ex.rl, rh = ex.rh;
+
+          if(isDeload){
+            sets = Math.max(1, Math.round(ex.sets * 0.5));
+            targetRpe = 6.0;
+          } else if(isSpec){
+            // Linear Specialization Ramp for the chosen lift:
+            // Progression fraction from 0 to 1 across non-deload weeks
+            var rampProg = (w - 1) / Math.max(1, maxWeeks - 2);
+            rampProg = Math.min(1, Math.max(0, rampProg));
+
+            // Linear intensity RPE climb: 7.0 -> 9.5
+            targetRpe = Math.round((7.0 + rampProg * 2.5) * 10) / 10;
+
+            // Reps step down while load increases linearly:
+            if(rampProg < 0.35){
+              sets = Math.max(3, ex.sets);
+              rl = 6; rh = 8; // Foundation
+            } else if(rampProg < 0.75){
+              sets = Math.max(4, ex.sets + 1);
+              rl = 4; rh = 5; // Heavy ramp
+            } else {
+              sets = Math.max(3, ex.sets);
+              rl = 2; rh = 3; // Peak realization
+            }
+          } else if(isPowerlifter && activePeriodModel === 'linear'){
+            // Technical maintenance for non-specialized lifts:
+            sets = Math.max(2, Math.min(3, ex.sets));
+            targetRpe = 7.0; // Steady submaximal
+            rl = Math.max(5, ex.rl || 5);
+            rh = Math.max(6, ex.rh || 6);
+          } else {
+            // Volume ramp: sets increase from ~85% to 105% of program defaults
+            var volFactor=isDeload?0.5:(0.85+(w/(maxWeeks-1||1))*0.2);
+            sets=Math.max(1,Math.round(ex.sets*volFactor));
+            var rpeBase=isDeload?6:(6+Math.floor((w-1)/((maxWeeks-1||1)/3)));
+            targetRpe=Math.min(rpeBase+Math.round(Math.random()*0.5),9.5);
+          }
+
+          return {
+            n:ex.n,
+            sets:sets,
+            rl:rl,
+            rh:rh,
+            p:ex.p,
+            se:ex.se,
+            targetRpe:targetRpe,
+            isSpec:isSpec,
+            orig:ex.orig||null,
+            prehab:ex.prehab||false,
+            prehabJoint:ex.prehabJoint||null,
+            optional:ex.optional||false
+          };
+        })};
+      });
+      mesoDays.push({week:w,phase:phase,days:weekDays,completed:false,logs:{}});
+    }
+
+    var meso={
+      id:id,
+      type:type||'hypertrophy',
+      weeks:maxWeeks,
+      periodModel:activePeriodModel,
+      specLift:activeSpecLift,
+      goal:goal,
+      age:age,
+      startDate:new Date().toISOString().split('T')[0],
+      endDate:null,
+      days:mesoDays,
+      completed:false,
+      summary:null
+    };
+    ss(K.MP,meso);
+    ss(K.MA,{mesoId:id,currentWeek:1,currentPhase:mesoDays[0].phase});
+    return meso;
+  }
+
+  function updateMesoPeriodVisibility(){
+    var typeEl = document.getElementById('mesoType');
+    if(!typeEl) return;
+    var type = typeEl.value;
+    var box = document.getElementById('mesoPeriodizationBox');
+    if(!box) return;
+    var isStrength = (type === 'strength');
+    box.style.display = isStrength ? 'block' : 'none';
+    var modelSelect = document.getElementById('mesoPeriodModel');
+    var specRow = document.getElementById('mesoSpecLiftRow');
+    if(specRow && modelSelect){
+      specRow.style.display = (isStrength && modelSelect.value === 'linear') ? 'block' : 'none';
+    }
+  }
+
+  function renderMesoConfig(){
+    var prog=ls(K.PG,null);if(!prog)return;
+    document.getElementById('mesoCfgProgram').innerHTML='<strong>'+prog.splitName+'</strong> · '+prog.totalSets+' '+_('weekly_sets')+' · '+prog.days.length+' '+_('sessions');
+    // Preselect from existing
+    var ma=ls(K.MA,null),mp=ls(K.MP,null);
+    if(mp){
+      document.getElementById('mesoType').value=mp.type||'hypertrophy';
+      document.getElementById('mesoWeeks').value=mp.weeks||8;
+      if(document.getElementById('mesoPeriodModel') && mp.periodModel){
+        document.getElementById('mesoPeriodModel').value=mp.periodModel;
+      }
+      if(mp.specLift){
+        document.querySelectorAll('#mesoSpecLiftRow .mos-spec-chip').forEach(function(c){
+          c.classList.toggle('active', c.dataset.lift === mp.specLift);
+        });
+      }
+    }
+    updateMesoPeriodVisibility();
+    renderMesoPreview(mp);
+  }
+
+  function renderMesoPreview(mp){
+    var el=document.getElementById('mesoPreview');
+    if(!mp){el.innerHTML='<p style="font-size:.55rem;color:rgba(250,250,248,.12);padding:8px;text-align:center">'+_('meso_configure_first')+'</p>';return;}
+    var periodBadge = '';
+    if(mp.periodModel === 'linear'){
+      var sName = (mp.specLift || 'squat').toUpperCase();
+      periodBadge = '<div style="margin-top:6px;padding:6px 10px;border-radius:6px;background:rgba(244,201,59,0.12);border:1px solid rgba(244,201,59,0.3);color:#F4C93B;font-size:0.62rem;display:flex;align-items:center;gap:6px;">' +
+        '<span>⚡</span> <span><strong>Linear Specialization: ' + sName + '</strong> · Aggressive intensity ramp (RPE 7.0 → 9.5) · Technical maintenance on non-focus lifts.</span>' +
+      '</div>';
+    } else if(mp.periodModel === 'block' && mp.type === 'strength'){
+      periodBadge = '<div style="margin-top:6px;padding:6px 10px;border-radius:6px;background:rgba(33,150,243,0.12);border:1px solid rgba(33,150,243,0.3);color:#2196F3;font-size:0.62rem;display:flex;align-items:center;gap:6px;">' +
+        '<span>🛡️</span> <span><strong>Block Periodization (All 3 Lifts)</strong> · Accumulation → Intensification → Peak → Deload across SBD.</span>' +
+      '</div>';
+    }
+    var html='<div style="font-size:.55rem;color:rgba(250,250,248,.3);margin-bottom:6px">'+_('meso_vol_rpe_progression')+' — <strong>'+mp.weeks+' '+_('meso_weeks')+'</strong> · '+mp.type+'</div>';
+    html+=periodBadge;
+    html+='<div style="display:flex;gap:3px;align-items:flex-end;height:36px;padding:2px 0;margin-top:6px;">';
+    mp.days.forEach(function(w,i){
+      var totalSets=w.days.reduce(function(s,d){return s+d.ex.reduce(function(a,e){return a+e.sets},0)},0);
+      var h=Math.min(totalSets*2,36);
+      var c=w.phase==='deload'?'#FF9800':(w.phase==='peak'||w.phase==='linear_peak')?'#f44336':(w.phase==='intensification'||w.phase==='linear_ramp')?'#2196F3':'#4CAF50';
+      var pName = (w.phase==='linear_peak'?'Peak Realization':(w.phase==='linear_ramp'?'Linear Overload':(w.phase==='linear_base'?'Foundation':w.phase)));
+      html+='<div style="flex:1;display:flex;flex-direction:column;align-items:center"><div title="Week '+(i+1)+': '+totalSets+' '+_('sets')+' · '+pName+'" style="width:100%;height:'+Math.max(h,4)+'px;background:'+c+';border-radius:2px;opacity:'+(w.phase==='deload'?'.6':'.8')+';position:relative">'+
+      '<span style="position:absolute;bottom:-13px;font-size:.4rem;color:rgba(250,250,248,.15);left:50%;transform:translateX(-50%)">'+(i+1)+'</span></div></div>';
+    });
+    html+='</div><div style="display:flex;gap:8px;margin-top:8px;font-size:.45rem;color:rgba(250,250,248,.15);flex-wrap:wrap">'+
+    '<span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#4CAF50;vertical-align:middle;margin-right:2px"></span> '+(mp.periodModel==='linear'?'Linear Base / Acc':_('meso_phase_accumulation'))+'</span>'+
+    '<span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#2196F3;vertical-align:middle;margin-right:2px"></span> '+(mp.periodModel==='linear'?'Linear Overload':_('meso_phase_intensification'))+'</span>'+
+    '<span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#f44336;vertical-align:middle;margin-right:2px"></span> '+(mp.periodModel==='linear'?'Peak Realization':_('meso_phase_peak'))+'</span>'+
+    '<span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:#FF9800;vertical-align:middle;margin-right:2px"></span> '+_('meso_phase_deload')+'</span></div>';
+    el.innerHTML=html;
+  }
+
+  function saveMesoPlan(){
+    var type=document.getElementById('mesoType').value;
+    var weeks=parseInt(document.getElementById('mesoWeeks').value)||8;
+    var periodModel=document.getElementById('mesoPeriodModel')?document.getElementById('mesoPeriodModel').value:'block';
+    var activeSpec=document.querySelector('#mesoSpecLiftRow .mos-spec-chip.active');
+    var specLift=activeSpec?activeSpec.dataset.lift:'squat';
+    var meso=createMesocycle(type,weeks,periodModel,specLift);
+    if(!meso){alert(_('alert_gen_meso'));return;}
+    renderMesoPreview(meso);
+    go(35);
+  }
 
  function renderMesoCalendar(){
  var mp=ls(K.MP,null),ma=ls(K.MA,null);
@@ -4721,9 +4959,9 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  if(d.restDay){html+='<div class="meso-day-card" style="border-color:rgba(250,250,248,.08);background:rgba(250,250,248,.02)"><div class="md-title" style="color:rgba(250,250,248,.35)">'+_('day')+' '+(di+1)+': '+d.n+' — '+_('rest_day')+'</div></div>';return;}
  html+='<div class="meso-day-card"><div class="md-title">'+_('day')+' '+(di+1)+': '+d.n+'</div>';
  d.ex.forEach(function(e){
- html+='<div class="md-ex"><span class="md-ex-n">'+(EX_TR[e.n]?exDisplay(e.n):e.n)+(e.optional?' <span class="opt-badge">'+_('sess_optional')+'</span>':'')+'</span><span class="md-ex-s">'+e.sets+' '+_('sets')+'</span><span class="md-ex-rpe">@ '+_('rpe')+' '+e.targetRpe+'</span></div>';
+ var specBadge = e.isSpec ? '<span style="display:inline-block;padding:1px 6px;margin-left:4px;border-radius:3px;background:rgba(244,201,59,0.2);border:1px solid #F4C93B;color:#F4C93B;font-size:0.48rem;font-weight:700;">★ LINEAR FOCUS</span>' : '';
+ html+='<div class="md-ex"><span class="md-ex-n">'+(EX_TR[e.n]?exDisplay(e.n):e.n)+(e.optional?' <span class="opt-badge">'+_('sess_optional')+'</span>':'')+specBadge+'</span><span class="md-ex-s">'+e.sets+' '+_('sets')+'</span><span class="md-ex-rpe">@ '+_('rpe')+' '+e.targetRpe+'</span></div>';
  });
- html+='</div>';
  // Custom exercises (user-defined, available in this day)
  var ce=ls(K.CE,[]);
  var dayMuscles=d.ex.map(function(ex){return ex.n;});
@@ -6022,6 +6260,182 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  document.getElementById('splitGrid').style.display='grid';
  });
 
+ // ── Algorithmic Custom Split Generator ──
+ function mosGenerateSmartSplit(){
+   var plEl = document.getElementById('algoPlMode');
+   var isPl = plEl ? plEl.checked : false;
+   var dayChip = document.querySelector('#algoDaysGroup .mos-chip-item.active');
+   var numDays = dayChip ? parseInt(dayChip.dataset.days, 10) : 4;
+
+   var favMuscles = [];
+   document.querySelectorAll('#algoFavGroup .mos-chip-item.active').forEach(function(b){
+     if(b.dataset.muscle) favMuscles.push(b.dataset.muscle);
+   });
+
+   var weakPoints = [];
+   document.querySelectorAll('#algoWeakGroup .mos-chip-item.active').forEach(function(b){
+     if(b.dataset.weak) weakPoints.push(b.dataset.weak);
+   });
+
+   // Map weak points to accessory muscle groups
+   var weakAccessories = [];
+   weakPoints.forEach(function(wp){
+     if(wp === 'bench_lockout'){ weakAccessories.push('triceps'); }
+     else if(wp === 'bench_chest'){ weakAccessories.push('chest'); }
+     else if(wp === 'squat_hole'){ weakAccessories.push('quads'); weakAccessories.push('glutes'); }
+     else if(wp === 'squat_mid'){ weakAccessories.push('quads'); }
+     else if(wp === 'deadlift_floor'){ weakAccessories.push('hamstrings'); weakAccessories.push('quads'); }
+     else if(wp === 'deadlift_lockout'){ weakAccessories.push('glutes'); weakAccessories.push('back'); weakAccessories.push('traps'); }
+     else if(wp === 'lagging_arms'){ weakAccessories.push('biceps'); weakAccessories.push('triceps'); }
+     else if(wp === 'lagging_delts'){ weakAccessories.push('shoulders'); }
+   });
+
+   function dedupe(arr){
+     var out = [];
+     arr.forEach(function(x){ if(x && out.indexOf(x) < 0) out.push(x); });
+     return out;
+   }
+
+   var generatedDays = [];
+   var splitName = '';
+
+   if(isPl){
+     splitName = 'Powerlifter SBD (' + numDays + '-Day Smart Split)';
+     if(numDays === 3){
+       var d1 = dedupe(['quads', 'glutes', 'hamstrings'].concat(favMuscles.filter(function(m){ return ['quads','glutes','calves','abs'].indexOf(m)>=0; }), weakAccessories.filter(function(m){ return ['quads','glutes'].indexOf(m)>=0; })));
+       var d2 = dedupe(['chest', 'triceps', 'shoulders'].concat(favMuscles.filter(function(m){ return ['chest','triceps','shoulders'].indexOf(m)>=0; }), weakAccessories.filter(function(m){ return ['chest','triceps','shoulders'].indexOf(m)>=0; })));
+       var d3 = dedupe(['back', 'hamstrings', 'glutes', 'traps'].concat(favMuscles.filter(function(m){ return ['back','hamstrings','biceps'].indexOf(m)>=0; }), weakAccessories.filter(function(m){ return ['back','hamstrings','traps','forearms'].indexOf(m)>=0; })));
+
+       generatedDays.push({ n: '🏋️ Squat Day (Heavy SBD)', restDay: false, muscleGroups: d1 });
+       generatedDays.push({ n: 'Rest & Recovery', restDay: true, muscleGroups: [] });
+       generatedDays.push({ n: '⚡ Bench Day (Primary SBD)', restDay: false, muscleGroups: d2 });
+       generatedDays.push({ n: 'Rest & Recovery', restDay: true, muscleGroups: [] });
+       generatedDays.push({ n: '💥 Deadlift Day (Heavy SBD)', restDay: false, muscleGroups: d3 });
+     } else if(numDays === 4){
+       var d1 = dedupe(['quads', 'glutes', 'hamstrings', 'calves'].concat(favMuscles.filter(function(m){ return ['quads','glutes','calves'].indexOf(m)>=0; }), weakAccessories.filter(function(m){ return ['quads','glutes'].indexOf(m)>=0; })));
+       var d2 = dedupe(['chest', 'triceps', 'shoulders'].concat(favMuscles.filter(function(m){ return ['chest','triceps','shoulders'].indexOf(m)>=0; }), weakAccessories.filter(function(m){ return ['chest','triceps','shoulders'].indexOf(m)>=0; })));
+       var d3 = dedupe(['hamstrings', 'back', 'glutes', 'traps'].concat(favMuscles.filter(function(m){ return ['back','hamstrings'].indexOf(m)>=0; }), weakAccessories.filter(function(m){ return ['back','hamstrings','traps'].indexOf(m)>=0; })));
+       var d4 = dedupe(['chest', 'shoulders', 'biceps', 'triceps', 'back'].concat(favMuscles, weakAccessories)).slice(0, 5);
+
+       generatedDays.push({ n: '🏋️ Squat Day (Heavy SBD)', restDay: false, muscleGroups: d1 });
+       generatedDays.push({ n: '⚡ Bench Day (Primary SBD)', restDay: false, muscleGroups: d2 });
+       generatedDays.push({ n: 'Rest & Mobility', restDay: true, muscleGroups: [] });
+       generatedDays.push({ n: '💥 Deadlift Day (Heavy SBD)', restDay: false, muscleGroups: d3 });
+       generatedDays.push({ n: '⚡ Secondary SBD & Accessories', restDay: false, muscleGroups: d4 });
+     } else if(numDays === 5){
+       var d1 = dedupe(['quads', 'glutes', 'hamstrings'].concat(weakAccessories.filter(function(m){ return m==='quads'; })));
+       var d2 = dedupe(['chest', 'triceps', 'shoulders'].concat(weakAccessories.filter(function(m){ return m==='chest'||m==='triceps'; })));
+       var d3 = dedupe(['hamstrings', 'back', 'glutes', 'traps'].concat(weakAccessories.filter(function(m){ return m==='back'; })));
+       var d4 = dedupe(['quads', 'hamstrings', 'back', 'abs'].concat(favMuscles.filter(function(m){ return ['quads','back'].indexOf(m)>=0; })));
+       var d5 = dedupe(['chest', 'shoulders', 'triceps', 'biceps'].concat(favMuscles.filter(function(m){ return ['chest','biceps','triceps','shoulders'].indexOf(m)>=0; })));
+
+       generatedDays.push({ n: '🏋️ Squat Day 1 (Heavy)', restDay: false, muscleGroups: d1 });
+       generatedDays.push({ n: '⚡ Bench Day 1 (Heavy)', restDay: false, muscleGroups: d2 });
+       generatedDays.push({ n: '💥 Deadlift Day (Heavy SBD)', restDay: false, muscleGroups: d3 });
+       generatedDays.push({ n: '🏋️ Squat & Pull (SBD Hypertrophy)', restDay: false, muscleGroups: d4 });
+       generatedDays.push({ n: '⚡ Bench & Arms (SBD Accessories)', restDay: false, muscleGroups: d5 });
+     } else {
+       generatedDays.push({ n: '🏋️ Squat Day 1 (Heavy Strength)', restDay: false, muscleGroups: dedupe(['quads', 'glutes', 'hamstrings']) });
+       generatedDays.push({ n: '⚡ Bench Day 1 (Heavy Strength)', restDay: false, muscleGroups: dedupe(['chest', 'triceps', 'shoulders']) });
+       generatedDays.push({ n: '💥 Deadlift Day (Heavy Strength)', restDay: false, muscleGroups: dedupe(['back', 'hamstrings', 'glutes', 'traps']) });
+       generatedDays.push({ n: '🏋️ Squat Day 2 (Volume / Variation)', restDay: false, muscleGroups: dedupe(['quads', 'glutes', 'calves', 'abs'].concat(favMuscles.filter(function(m){ return m==='quads'; }))) });
+       generatedDays.push({ n: '⚡ Bench Day 2 (Volume / Close-Grip)', restDay: false, muscleGroups: dedupe(['chest', 'triceps', 'shoulders'].concat(weakAccessories.filter(function(m){ return m==='triceps'; }))) });
+       generatedDays.push({ n: '⚡ SBD Accessories & Weak Points', restDay: false, muscleGroups: dedupe(['back', 'biceps', 'triceps', 'shoulders'].concat(favMuscles, weakAccessories)).slice(0, 5) });
+     }
+   } else {
+     splitName = 'Hypertrophy (' + numDays + '-Day Smart Split)';
+     if(numDays === 3){
+       var favUpper = favMuscles.filter(function(m){ return ['chest','back','shoulders','biceps','triceps'].indexOf(m) >= 0; });
+       var favLower = favMuscles.filter(function(m){ return ['quads','hamstrings','glutes','calves'].indexOf(m) >= 0; });
+
+       var d1 = dedupe(favUpper.concat(['chest', 'back', 'quads', 'shoulders', 'triceps']).concat(weakAccessories)).slice(0, 6);
+       var d2 = dedupe(favLower.concat(['hamstrings', 'glutes', 'back', 'biceps', 'abs']).concat(weakAccessories)).slice(0, 6);
+       var d3 = dedupe(favMuscles.concat(['quads', 'chest', 'back', 'shoulders', 'biceps', 'triceps']).concat(weakAccessories)).slice(0, 6);
+
+       generatedDays.push({ n: 'Full Body A (Priority Focus)', restDay: false, muscleGroups: d1 });
+       generatedDays.push({ n: 'Rest & Recovery', restDay: true, muscleGroups: [] });
+       generatedDays.push({ n: 'Full Body B (Balanced Focus)', restDay: false, muscleGroups: d2 });
+       generatedDays.push({ n: 'Rest & Recovery', restDay: true, muscleGroups: [] });
+       generatedDays.push({ n: 'Full Body C (Weak Point Overload)', restDay: false, muscleGroups: d3 });
+     } else if(numDays === 4){
+       var uFav = favMuscles.filter(function(m){ return ['chest','back','shoulders','biceps','triceps','traps'].indexOf(m) >= 0; });
+       var lFav = favMuscles.filter(function(m){ return ['quads','hamstrings','glutes','calves','abs'].indexOf(m) >= 0; });
+       var uWeak = weakAccessories.filter(function(m){ return ['chest','back','shoulders','biceps','triceps'].indexOf(m) >= 0; });
+       var lWeak = weakAccessories.filter(function(m){ return ['quads','hamstrings','glutes'].indexOf(m) >= 0; });
+
+       var u1 = dedupe(uFav.concat(['chest', 'back', 'shoulders', 'biceps', 'triceps']));
+       var l1 = dedupe(lFav.concat(['quads', 'hamstrings', 'glutes', 'calves']));
+       var u2 = dedupe(uWeak.concat(['chest', 'back', 'shoulders', 'triceps', 'biceps']));
+       var l2 = dedupe(lWeak.concat(['hamstrings', 'quads', 'glutes', 'calves', 'abs']));
+
+       generatedDays.push({ n: 'Upper 1 (Priority Focus)', restDay: false, muscleGroups: u1 });
+       generatedDays.push({ n: 'Lower 1 (Priority Focus)', restDay: false, muscleGroups: l1 });
+       generatedDays.push({ n: 'Rest Day', restDay: true, muscleGroups: [] });
+       generatedDays.push({ n: 'Upper 2 (Weak Points & Hypertrophy)', restDay: false, muscleGroups: u2 });
+       generatedDays.push({ n: 'Lower 2 (Weak Points & Hypertrophy)', restDay: false, muscleGroups: l2 });
+     } else if(numDays === 5){
+       var d1 = dedupe(favMuscles.filter(function(m){ return ['chest','shoulders','triceps'].indexOf(m)>=0; }).concat(['chest','shoulders','triceps']).concat(weakAccessories.filter(function(m){ return ['chest','triceps','shoulders'].indexOf(m)>=0; })));
+       var d2 = dedupe(favMuscles.filter(function(m){ return ['back','biceps','traps'].indexOf(m)>=0; }).concat(['back','biceps','traps']).concat(weakAccessories.filter(function(m){ return ['back','traps'].indexOf(m)>=0; })));
+       var d3 = dedupe(favMuscles.filter(function(m){ return ['quads','hamstrings','glutes','calves'].indexOf(m)>=0; }).concat(['quads','hamstrings','glutes','calves']).concat(weakAccessories.filter(function(m){ return ['quads','glutes'].indexOf(m)>=0; })));
+       var d4 = dedupe(favMuscles.concat(['chest','back','shoulders','biceps','triceps'])).slice(0, 5);
+       var d5 = dedupe(['quads','hamstrings','glutes','calves','abs'].concat(weakAccessories.filter(function(m){ return ['quads','hamstrings','glutes'].indexOf(m)>=0; }))).slice(0, 5);
+
+       generatedDays.push({ n: 'Push (Chest & Delts Focus)', restDay: false, muscleGroups: d1 });
+       generatedDays.push({ n: 'Pull (Back & Biceps Focus)', restDay: false, muscleGroups: d2 });
+       generatedDays.push({ n: 'Legs (Quad & Calves Focus)', restDay: false, muscleGroups: d3 });
+       generatedDays.push({ n: 'Upper (Priority Overload)', restDay: false, muscleGroups: d4 });
+       generatedDays.push({ n: 'Lower (Hams & Posterior Focus)', restDay: false, muscleGroups: d5 });
+     } else {
+       generatedDays.push({ n: 'Push A (Heavy Chest Focus)', restDay: false, muscleGroups: dedupe(['chest', 'shoulders', 'triceps'].concat(weakAccessories.filter(function(m){ return m==='triceps'||m==='chest'; }))) });
+       generatedDays.push({ n: 'Pull A (Heavy Lat & Upper Back)', restDay: false, muscleGroups: dedupe(['back', 'biceps', 'traps']) });
+       generatedDays.push({ n: 'Legs A (Quad Dominant)', restDay: false, muscleGroups: dedupe(['quads', 'glutes', 'calves', 'abs']) });
+       generatedDays.push({ n: 'Push B (Delt & Tricep Hypertrophy)', restDay: false, muscleGroups: dedupe(['shoulders', 'chest', 'triceps']) });
+       generatedDays.push({ n: 'Pull B (Rowing & Arm Volume)', restDay: false, muscleGroups: dedupe(['back', 'biceps', 'forearms']) });
+       generatedDays.push({ n: 'Legs B (Hamstring & Posterior Chain)', restDay: false, muscleGroups: dedupe(['hamstrings', 'glutes', 'calves']) });
+     }
+   }
+
+   customSplit = {
+     id: CUSTOM_SPLIT_KEY,
+     name: splitName,
+     d: generatedDays.length,
+     days: generatedDays
+   };
+
+   var nameEl = document.getElementById('csName');
+   if(nameEl) nameEl.value = splitName;
+
+   renderCustomBuilder();
+   if(window.mosToast){
+     window.mosToast('⚡ Auto-generated ' + splitName + ' based on your goals!', 'success');
+   }
+ }
+
+ // Wire interactive chips for algorithmic generator
+ document.querySelectorAll('#algoDaysGroup .mos-chip-item').forEach(function(btn){
+   btn.addEventListener('click', function(){
+     document.querySelectorAll('#algoDaysGroup .mos-chip-item').forEach(function(b){ b.classList.remove('active'); });
+     this.classList.add('active');
+   });
+ });
+
+ document.querySelectorAll('#algoFavGroup .mos-chip-item').forEach(function(btn){
+   btn.addEventListener('click', function(){
+     this.classList.toggle('active');
+   });
+ });
+
+ document.querySelectorAll('#algoWeakGroup .mos-chip-item').forEach(function(btn){
+   btn.addEventListener('click', function(){
+     this.classList.toggle('active');
+   });
+ });
+
+ var btnAlgoGen = document.getElementById('btnAlgoGenSplit');
+ if(btnAlgoGen){
+   btnAlgoGen.addEventListener('click', mosGenerateSmartSplit);
+ }
+
  // ═══════════════════════════════════════
  // EXERCISE SELECTION (Screen 2.5)
  // ═══════════════════════════════════════
@@ -6235,14 +6649,69 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  });
  }
 
+ var currentExScreen = 0;
+ var currentMuscleScreens = [];
+ var MUSCLE_ICONS = {
+ chest: '💪', back: '🦅', shoulders: '🎯', quads: '🦵', hamstrings: '⚡', glutes: '🍑',
+ biceps: '🦾', triceps: '🔥', calves: '👟', abs: '🛡️', traps: '🔺', forearms: '✊'
+ };
+ function goToExScreen(idx){
+ var total = currentMuscleScreens.length;
+ if(total <= 0) return;
+ if(idx < 0) idx = 0;
+ if(idx >= total) idx = total - 1;
+ currentExScreen = idx;
+ var track = document.getElementById('exScreenTrack');
+ if(track) track.style.transform = 'translateX(-' + (idx * 100) + '%)';
+ document.querySelectorAll('#exScreenNavBar .ex-screen-pill').forEach(function(pill, pIdx){
+ var active = (pIdx === idx);
+ pill.classList.toggle('active', active);
+ if(active){ try{ pill.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }catch(e){} }
+ });
+ document.querySelectorAll('#exStepDots .ex-step-dot').forEach(function(dot, dIdx){
+ dot.classList.toggle('active', dIdx === idx);
+ });
+ var ind = document.getElementById('exScreenIndicator');
+ if(ind){
+ var curScreenObj = currentMuscleScreens[idx];
+ var name = curScreenObj ? curScreenObj.name : '';
+ ind.textContent = 'Screen ' + (idx + 1) + ' of ' + total + ' (' + name + ')';
+ }
+ var prevBtn = document.getElementById('btnExPrevScreen');
+ var nextBtn = document.getElementById('btnExNextScreen');
+ if(prevBtn){
+ prevBtn.disabled = (idx === 0);
+ prevBtn.style.opacity = (idx === 0) ? '0.35' : '1';
+ prevBtn.style.pointerEvents = (idx === 0) ? 'none' : 'auto';
+ }
+ if(nextBtn){
+ if(idx === total - 1){
+ nextBtn.textContent = 'Confirm & Lock In →';
+ nextBtn.classList.add('originkit-btn-primary');
+ } else {
+ nextBtn.textContent = 'Next Muscle →';
+ nextBtn.classList.remove('originkit-btn-primary');
+ }
+ }
+ }
+ window.addEventListener('keydown', function(e){
+ var panel = document.getElementById('exSelPanel');
+ if(!panel || !panel.classList.contains('show')) return;
+ if(e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+ if(e.key === 'ArrowRight'){
+ if(currentExScreen < currentMuscleScreens.length - 1) goToExScreen(currentExScreen + 1);
+ } else if(e.key === 'ArrowLeft'){
+ if(currentExScreen > 0) goToExScreen(currentExScreen - 1);
+ }
+ });
  function showExSelection(k){
  var split=SPLITS[k];if(!split)return;
+ currentExScreen = 0;
  document.getElementById('splitGrid').style.display='none';
  document.getElementById('splitBtnGroup').style.display='none';
  var panel=document.getElementById('exSelPanel');
  panel.classList.add('show');
  panel.classList.toggle('ex-compact',ls('mos_card_density','rich')==='compact');
- // Skeleton first, real render on next frame (load/filter/rank work is sync)
  var skel='';
  split.days.forEach(function(day){
  if(day.restDay)return;
@@ -6256,113 +6725,98 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  function renderExSelection(split){
  var pf=painFlags();
  var hist=ls(K.LH,{});
- var html='';
- // Rehab warning banner
+ var vi=ls(K.VI,{});
+ var userEq=vi.eq||[];
+ var muscleScreens=[];
+ var musMap={};
+ split.days.forEach(function(day, di){
+ if(day.restDay) return;
+ (day.ex||[]).forEach(function(ex){
+ var m = ex.p;
+ if(musMap[m] === undefined){
+ musMap[m] = muscleScreens.length;
+ muscleScreens.push({ muscle: m, name: MUSCLE_NAME[m] || m, slots: [] });
+ }
+ muscleScreens[musMap[m]].slots.push({ day: day, di: di, ex: ex });
+ });
+ });
+ currentMuscleScreens = muscleScreens;
+ if(currentExScreen >= muscleScreens.length) currentExScreen = Math.max(0, muscleScreens.length - 1);
+ var html = '';
  var rehabInfo=rehabSummary(pf);
- if(rehabInfo)html+='<div class="rehab-card rehab-'+(rehabInfo.hasRed?'red':'yellow')+'" style="margin-bottom:8px;font-size:.6rem">'+
+ if(rehabInfo) html+='<div class="rehab-card rehab-'+(rehabInfo.hasRed?'red':'yellow')+'" style="margin-bottom:8px;font-size:.6rem">'+
  '<div class="rc-header"> '+_('rehab_inj_safe')+'</div>'+
  '<div style="color:rgba(250,250,248,.5);line-height:1.2">'+rehabInfo.areas.map(function(a){return a.icon+' '+a.name+' ('+a.severity+')'}).join(', ')+
  '. '+_('rehab_ex_green')+' <span class="rel-safe">green</span> '+_('rehab_ex_risk')+
  ' <a href="https://wa.me/201040796017" target="_blank" style="color:#F4C93B">'+_('rehab_book_short')+'</a></div></div>';
- split.days.forEach(function(day,di){
- if(day.restDay){html+='<div class="ex-sel-day" style="opacity:.45"><div class="esd-title">'+_('day_prefix')+' '+(di+1)+': '+day.n+' — '+_('rest_day')+'</div></div>';return;}
- html+='<div class="ex-sel-day"><div class="esd-title">'+_('day_prefix')+' '+(di+1)+': '+day.n+'</div><div class="esd-est"><span id="estChip_'+di+'" class="est-chip"></span></div><div id="estWarn_'+di+'" class="est-warn" style="display:none"></div>';
- // Group slots by muscle group (preserve first-seen order)
- var musGroups=[],musIdx={};
- day.ex.forEach(function(ex){
- if(musIdx[ex.p]===undefined){musIdx[ex.p]=musGroups.length;musGroups.push({p:ex.p,slots:[]});}
- musGroups[musIdx[ex.p]].slots.push(ex);
- });
- musGroups.forEach(function(g){
- html+='<div class="ex-sel-muscle"><span class="esm-name">'+(MUSCLE_NAME[g.p]||g.p)+(g.slots.length>1?'<span class="esm-count">· '+g.slots.length+'</span>':'')+'</span>'+muscleHighlightHtml(g.p)+'</div>';
- html+='<div class="esm-search"><input type="text" class="esm-search-input" data-muscle="'+g.p+'" data-day="'+di+'" data-slotkey="'+g.slots[0].n+'" placeholder="'+_('search_ex')+'" aria-label="'+_('search_ex')+'"><div class="esm-search-res"></div></div>';
- g.slots.forEach(function(ex){
- var pf0=pf;
- var safety=isExerciseSafeForInjuries(ex.n,pf0);
- var exClass=pf0&&pf0[ex.n]==='red'?'rehab-ex-blocked':(!safety.ok?'rehab-ex-blocked':(safety.reason&&safety.reason.indexOf('🟡')>=0?'rehab-ex-safe':''));
- html+='<div class="ex-sel-row '+exClass+'" data-muscle="'+ex.p+'" data-day="'+di+'">'+
- '<span class="esr-lbl">'+exLinkHtml(ex.n)+'</span>'+
- rowBadgesHtml(ex.n)+
- lastPerfHtml(ex.n,hist)+
- '<button class="ex-guide-toggle" type="button" data-slot="'+esc(ex.n)+'" title="'+_('how_to')+'">'+_('how_to')+' ▾</button>'+
- slotChipsHtml(ex.n,ex.p,day);
- if(!safety.ok)html+='<span style="font-size:.45rem;color:#f44336;margin-left:4px">⛔ '+safety.reason+'</span>';
- else if(safety.reason)html+='<span style="font-size:.45rem;color:#FF9800;margin-left:4px">'+safety.reason+'</span>';
- html+='<div class="ex-guide" data-slot="'+esc(ex.n)+'"></div>';
- html+='</div>';
- });
- html+='<div class="vol-live" data-muscle="'+g.p+'"></div>';
- });
- html+='</div>';
- });
- document.getElementById('exSelContent').innerHTML=html;
- syncExFilterChips();
- document.querySelectorAll('#exSelContent .vol-live').forEach(function(el){renderLiveVol(el.dataset.muscle);});
- renderDayEstimates();
-
- // Wire chip clicks (re-rank in place via shared binder)
- document.querySelectorAll('#exSelContent .ex-sel-chip').forEach(bindChipClick);
- // Wire how-to toggles (expand / collapse per slot)
- document.querySelectorAll('#exSelContent .ex-guide-toggle').forEach(function(btn){
- btn.addEventListener('click',function(){
- var row=this.closest('.ex-sel-row');
- var g=row.querySelector('.ex-guide');
- if(!g)return;
- var open=g.style.display==='block';
- if(!open){
- var sel=row.querySelector('.ex-sel-chip.selected');
- var name=sel?sel.dataset.exval:this.dataset.slot;
- g.innerHTML=guideHtml(name);
+ if(!muscleScreens.length){
+ html += '<p style="text-align:center;padding:20px;color:rgba(250,250,248,.3);">' + _('no_data') + '</p>';
+ document.getElementById('exSelContent').innerHTML = html;
+ return;
  }
- g.style.display=open?'none':'block';
- this.textContent=(open?'':'▴ ')+_('how_to')+(open?' ▾':'');
+ html += '<div class="ex-screen-nav-bar" id="exScreenNavBar">';
+ muscleScreens.forEach(function(s, idx){
+ var icon = MUSCLE_ICONS[s.muscle] || '💪';
+ var activeCls = (idx === currentExScreen) ? ' active' : '';
+ html += '<button type="button" class="ex-screen-pill' + activeCls + '" data-screen="' + idx + '" title="' + s.name + '">';
+ html += '<span>' + icon + '</span>';
+ html += '<span>' + s.name + '</span>';
+ html += '<span class="pill-badge">' + s.slots.length + '</span>';
+ html += '</button>';
  });
+ html += '</div>';
+ html += '<div class="ex-screen-viewport" id="exScreenViewport">';
+ html += '<div class="ex-screen-track" id="exScreenTrack" style="transform:translateX(-' + (currentExScreen * 100) + '%);">';
+ muscleScreens.forEach(function(s, idx){
+ var icon = MUSCLE_ICONS[s.muscle] || '💪';
+ html += '<div class="ex-muscle-screen" data-screen="' + idx + '" data-muscle="' + s.muscle + '">';
+ html += '<div class="ex-screen-header"><div class="ex-screen-title"><span>' + icon + '</span><span>' + s.name + '</span><span style="font-size:0.65rem;color:var(--mos-text-muted);font-weight:400;text-transform:none;">(' + s.slots.length + ' ' + (s.slots.length === 1 ? 'Exercise Slot' : 'Exercise Slots') + ')</span></div><div style="font-size:0.65rem;color:var(--mos-yellow);display:flex;align-items:center;gap:4px;">' + muscleHighlightHtml(s.muscle) + '</div></div>';
+ html += '<div class="mos-chip-group ex-screen-eq-chips" data-screen-muscle="' + s.muscle + '" style="margin:2px 0 10px;align-items:center;"><span style="font-size:0.6rem;color:var(--mos-text-muted);font-weight:600;margin-right:4px;">⚡ Gym Equipment:</span><button type="button" class="mos-chip-item' + (!userEq.length ? ' active' : '') + '" data-eq="all">All</button><button type="button" class="mos-chip-item' + (userEq.indexOf('barbell') >= 0 ? ' active' : '') + '" data-eq="barbell">Barbell</button><button type="button" class="mos-chip-item' + (userEq.indexOf('dumbbell') >= 0 ? ' active' : '') + '" data-eq="dumbbell">Dumbbell</button><button type="button" class="mos-chip-item' + (userEq.indexOf('machine') >= 0 ? ' active' : '') + '" data-eq="machine">Machine</button><button type="button" class="mos-chip-item' + (userEq.indexOf('cable') >= 0 ? ' active' : '') + '" data-eq="cable">Cable</button><button type="button" class="mos-chip-item' + (userEq.indexOf('bodyweight') >= 0 ? ' active' : '') + '" data-eq="bodyweight">Bodyweight</button></div>';
+ html += '<div class="esm-search"><input type="text" class="esm-search-input" data-muscle="' + s.muscle + '" data-day="' + s.slots[0].di + '" data-slotkey="' + s.slots[0].ex.n + '" placeholder="' + _('search_ex') + ' ' + s.name + '..." aria-label="' + _('search_ex') + '"><div class="esm-search-res"></div></div>';
+ var curDay = -1;
+ s.slots.forEach(function(slot){
+ var day = slot.day, di = slot.di, ex = slot.ex;
+ if(curDay !== di){
+ curDay = di;
+ html += '<div style="display:flex;align-items:center;justify-content:space-between;margin:10px 0 4px;padding:3px 6px;border-bottom:1px solid rgba(250,250,248,0.06);background:rgba(255,255,255,0.02);border-radius:4px;"><span style="font-size:0.68rem;font-weight:600;color:#F4C93B;font-family:var(--font-display);letter-spacing:0.04em;">' + _('day_prefix') + ' ' + (di + 1) + ': ' + day.n + '</span><span id="estChip_' + di + '" class="est-chip" style="font-size:0.55rem;"></span><div id="estWarn_' + di + '" class="est-warn" style="display:none"></div></div>';
+ }
+ var pf0 = pf;
+ var safety = isExerciseSafeForInjuries(ex.n, pf0);
+ var exClass = pf0 && pf0[ex.n] === 'red' ? 'rehab-ex-blocked' : (!safety.ok ? 'rehab-ex-blocked' : (safety.reason && safety.reason.indexOf('🟡') >= 0 ? 'rehab-ex-safe' : ''));
+ html += '<div class="ex-sel-row ' + exClass + '" data-muscle="' + ex.p + '" data-day="' + di + '"><span class="esr-lbl">' + exLinkHtml(ex.n) + '</span>' + rowBadgesHtml(ex.n) + lastPerfHtml(ex.n, hist) + '<button class="ex-guide-toggle" type="button" data-slot="' + esc(ex.n) + '" title="' + _('how_to') + '">' + _('how_to') + ' ▾</button>' + slotChipsHtml(ex.n, ex.p, day);
+ if(!safety.ok) html += '<span style="font-size:.45rem;color:#f44336;margin-left:4px">⛔ ' + safety.reason + '</span>';
+ else if(safety.reason) html += '<span style="font-size:.45rem;color:#FF9800;margin-left:4px">' + safety.reason + '</span>';
+ html += '<div class="ex-guide" data-slot="' + esc(ex.n) + '"></div></div>';
  });
- // Empty-state action buttons (loosen the most restrictive filter)
- document.querySelectorAll('#exSelContent .ex-empty-btn').forEach(function(b){
- b.addEventListener('click',function(){
- var act=this.dataset.act;
- if(act==='cleareq'){var vi=ls(K.VI,{});vi.eq=null;ss(K.VI,vi);}
- else{exFilters.diff=[];exFilters.type=[];exFilters.pattern=[];}
+ html += '<div class="vol-live" data-muscle="' + s.muscle + '"></div></div>';
+ });
+ html += '</div></div>';
+ html += '<div class="ex-screen-footer" id="exScreenFooter"><button type="button" class="btn-secondary" id="btnExPrevScreen" style="font-size:0.7rem;padding:6px 14px;border-radius:20px;">← Previous Muscle</button><div style="display:flex;flex-direction:column;align-items:center;gap:4px;"><div class="ex-step-dots" id="exStepDots">';
+ muscleScreens.forEach(function(_, dIdx){ html += '<span class="ex-step-dot' + (dIdx === currentExScreen ? ' active' : '') + '" data-screen="' + dIdx + '"></span>'; });
+ html += '</div><span id="exScreenIndicator" style="font-size:0.58rem;color:var(--mos-text-muted);">Screen ' + (currentExScreen + 1) + ' of ' + muscleScreens.length + ' (' + (muscleScreens[currentExScreen] ? muscleScreens[currentExScreen].name : '') + ')</span></div><button type="button" class="btn-primary" id="btnExNextScreen" style="font-size:0.7rem;padding:6px 14px;border-radius:20px;">' + (currentExScreen === muscleScreens.length - 1 ? 'Confirm & Lock In →' : 'Next Muscle →') + '</button></div>';
+ document.getElementById('exSelContent').innerHTML = html;
  syncExFilterChips();
- refreshExSelection();
- });
- });
- // Per-muscle-group search (fast-path; selects via the same path as chips)
- document.querySelectorAll('#exSelContent .esm-search-input').forEach(function(inp){
- inp.addEventListener('input',function(){
- var q=this.value,res=this.parentNode.querySelector('.esm-search-res');
- var m=this.dataset.muscle,di=parseInt(this.dataset.day,10);
- var day=SPLITS[splitKey]&&SPLITS[splitKey].days[di]||null;
- var norm=normalizeSearch(q);
- if(norm.length<2){res.style.display='none';res.innerHTML='';return;}
- var pool=(EXERCISE_POOLS[m]||[]).filter(exFilterMatches);
- var ctx=buildRankCtx(day,{n:null});
- var userEq=ctx.userEq;
- var hits=[];
- pool.forEach(function(n){
- var eq=equipmentOf(n);
- if(!(!userEq||userEq.length===0||eq.length===0||eq.some(function(e){return userEq.indexOf(e)>=0;})))return;
- var dn=normalizeSearch(exDisplay(n)||n);
- var qq=searchQuality(dn,norm);
- if(qq>0)hits.push({n:n,qq:qq,rk:rankScoreOf(n,ctx)});
- });
- hits.sort(function(a,b){if(b.qq!==a.qq)return b.qq-a.qq;return b.rk-a.rk;});
- if(!hits.length){res.innerHTML='<div class="esm-res-none">'+_('search_none')+'</div>';res.style.display='block';return;}
- res.innerHTML=hits.slice(0,8).map(function(h){
- return '<button class="ex-sel-chip search-hit" data-ename="'+inp.dataset.slotkey+'" data-exval="'+h.n+'">'+(EX_TR[h.n]?exDisplay(h.n):h.n)+'</button>';
- }).join('');
- res.style.display='block';
- res.querySelectorAll('.search-hit').forEach(function(chip){
- chip.addEventListener('click',function(){
- var row=document.querySelector('#exSelContent .ex-sel-row[data-day="'+di+'"][data-muscle="'+m+'"]');
- if(!row)return;
- applyChipSelection(chip,row);
- inp.value='';res.style.display='none';res.innerHTML='';
- });
- });
- });
- });
+ document.querySelectorAll('#exSelContent .vol-live').forEach(function(el){ renderLiveVol(el.dataset.muscle); });
+ renderDayEstimates();
+ document.querySelectorAll('#exScreenNavBar .ex-screen-pill').forEach(function(pill){ pill.addEventListener('click', function(){ var s = parseInt(this.dataset.screen, 10); if(!isNaN(s)) goToExScreen(s); }); });
+ document.querySelectorAll('#exStepDots .ex-step-dot').forEach(function(dot){ dot.addEventListener('click', function(){ var s = parseInt(this.dataset.screen, 10); if(!isNaN(s)) goToExScreen(s); }); });
+ var prevBtn = document.getElementById('btnExPrevScreen');
+ if(prevBtn){ prevBtn.addEventListener('click', function(){ if(currentExScreen > 0) goToExScreen(currentExScreen - 1); }); }
+ var nextBtn = document.getElementById('btnExNextScreen');
+ if(nextBtn){ nextBtn.addEventListener('click', function(){ if(currentExScreen < currentMuscleScreens.length - 1){ goToExScreen(currentExScreen + 1); } else { confirmExSelection(); } }); }
+ document.querySelectorAll('#exSelContent .ex-screen-eq-chips .mos-chip-item').forEach(function(chip){ chip.addEventListener('click', function(){ var eqVal = this.dataset.eq; var vi = ls(K.VI, {}); if(eqVal === 'all'){ vi.eq = null; } else { vi.eq = [eqVal]; } ss(K.VI, vi); syncExFilterChips(); var cur = currentExScreen; renderExSelection(SPLITS[splitKey]); goToExScreen(cur); }); });
+ var viewport = document.getElementById('exScreenViewport');
+ if(viewport){
+ var touchStartX = 0, touchStartY = 0, touchDiffX = 0, touchDiffY = 0;
+ viewport.addEventListener('touchstart', function(e){ if(!e.touches || !e.touches[0]) return; touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; touchDiffX = 0; touchDiffY = 0; }, { passive: true });
+ viewport.addEventListener('touchmove', function(e){ if(!e.touches || !e.touches[0]) return; touchDiffX = e.touches[0].clientX - touchStartX; touchDiffY = e.touches[0].clientY - touchStartY; }, { passive: true });
+ viewport.addEventListener('touchend', function(e){ if(Math.abs(touchDiffX) > 40 && Math.abs(touchDiffX) > Math.abs(touchDiffY)){ if(touchDiffX < 0){ if(currentExScreen < currentMuscleScreens.length - 1) goToExScreen(currentExScreen + 1); } else { if(currentExScreen > 0) goToExScreen(currentExScreen - 1); } } }, { passive: true });
+ }
+ document.querySelectorAll('#exSelContent .ex-sel-chip').forEach(bindChipClick);
+ document.querySelectorAll('#exSelContent .ex-guide-toggle').forEach(function(btn){ btn.addEventListener('click', function(){ var row=this.closest('.ex-sel-row'); var g=row.querySelector('.ex-guide'); if(!g)return; var open=g.style.display==='block'; if(!open){ var sel=row.querySelector('.ex-sel-chip.selected'); var name=sel?sel.dataset.exval:this.dataset.slot; g.innerHTML=guideHtml(name); } g.style.display=open?'none':'block'; this.textContent=(open?'':'▴ ')+_('how_to')+(open?' ▾':''); }); });
+ document.querySelectorAll('#exSelContent .ex-empty-btn').forEach(function(b){ b.addEventListener('click', function(){ var act=this.dataset.act; if(act==='cleareq'){var vi=ls(K.VI,{});vi.eq=null;ss(K.VI,vi);} else{exFilters.diff=[];exFilters.type=[];exFilters.pattern=[];} syncExFilterChips(); refreshExSelection(); }); });
+ document.querySelectorAll('#exSelContent .esm-search-input').forEach(function(inp){ inp.addEventListener('input', function(){ var q=this.value, res=this.parentNode.querySelector('.esm-search-res'); var m=this.dataset.muscle, di=parseInt(this.dataset.day,10); var day=SPLITS[splitKey]&&SPLITS[splitKey].days[di]||null; var norm=normalizeSearch(q); if(norm.length<2){res.style.display='none';res.innerHTML='';return;} var pool=(EXERCISE_POOLS[m]||[]).filter(exFilterMatches); var ctx=buildRankCtx(day,{n:null}); var userEq=ctx.userEq; var hits=[]; pool.forEach(function(n){ var eq=equipmentOf(n); if(!(!userEq||userEq.length===0||eq.length===0||eq.some(function(e){return userEq.indexOf(e)>=0;})))return; var dn=normalizeSearch(exDisplay(n)||n); var qq=searchQuality(dn,norm); if(qq>0)hits.push({n:n,qq:qq,rk:rankScoreOf(n,ctx)}); }); hits.sort(function(a,b){if(b.qq!==a.qq)return b.qq-a.qq;return b.rk-a.rk;}); if(!hits.length){res.innerHTML='<div class="esm-res-none">'+_('search_none')+'</div>';res.style.display='block';return;} res.innerHTML=hits.slice(0,8).map(function(h){ return '<button class="ex-sel-chip search-hit" data-ename="'+inp.dataset.slotkey+'" data-exval="'+h.n+'">'+(EX_TR[h.n]?exDisplay(h.n):h.n)+'</button>'; }).join(''); res.style.display='block'; res.querySelectorAll('.search-hit').forEach(function(chip){ chip.addEventListener('click',function(){ var row=document.querySelector('#exSelContent .ex-sel-row[data-day="'+di+'"][data-muscle="'+m+'"]'); if(!row)return; applyChipSelection(chip,row); inp.value='';res.style.display='none';res.innerHTML=''; }); }); }); });
+ goToExScreen(currentExScreen);
  }
 
  function confirmExSelection(){
@@ -7985,15 +8439,27 @@ function exportIcs(){
  renderMesoCalendar();
  renderDashboard();
  });
- // Re-generate meso when type/weeks change
- document.getElementById('mesoType').addEventListener('change',function(){
- var mp=ls(K.MP,null);
- if(mp)renderMesoPreview(mp);
- });
- document.getElementById('mesoWeeks').addEventListener('change',function(){
- var mp=ls(K.MP,null);
- if(mp)renderMesoPreview(mp);
- });
+  // Re-generate meso when type/weeks change
+  document.getElementById('mesoType').addEventListener('change',function(){
+    updateMesoPeriodVisibility();
+    var mp=ls(K.MP,null);
+    if(mp)renderMesoPreview(mp);
+  });
+  document.getElementById('mesoWeeks').addEventListener('change',function(){
+    var mp=ls(K.MP,null);
+    if(mp)renderMesoPreview(mp);
+  });
+  if(document.getElementById('mesoPeriodModel')){
+    document.getElementById('mesoPeriodModel').addEventListener('change',function(){
+      updateMesoPeriodVisibility();
+    });
+  }
+  document.querySelectorAll('#mesoSpecLiftRow .mos-spec-chip').forEach(function(chip){
+    chip.addEventListener('click',function(){
+      document.querySelectorAll('#mesoSpecLiftRow .mos-spec-chip').forEach(function(c){ c.classList.remove('active'); });
+      this.classList.add('active');
+    });
+  });
 
  // ── PDF ──
  document.getElementById('exportIcsBtn').addEventListener('click',exportIcs);

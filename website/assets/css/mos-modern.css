@@ -504,3 +504,278 @@
     bottom: 84px;
   }
 }
+
+/* ══════════════════════════════════════════════════════
+   EXERCISE SELECTION MULTI-SCREEN CAROUSEL
+   ══════════════════════════════════════════════════════ */
+.ex-screen-viewport {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  touch-action: pan-y;
+  border-radius: var(--mos-radius);
+  margin-top: 14px;
+}
+
+.ex-screen-track {
+  display: flex;
+  width: 100%;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.ex-muscle-screen {
+  min-width: 100%;
+  max-width: 100%;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  padding: 4px 2px;
+}
+
+.ex-screen-nav-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 8px 4px;
+  margin-bottom: 12px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.ex-screen-nav-bar::-webkit-scrollbar { display: none; }
+
+.ex-screen-pill {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  background: var(--mos-surface);
+  border: 1px solid var(--mos-border);
+  border-radius: 20px;
+  color: var(--mos-text-muted);
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ex-screen-pill:hover {
+  border-color: var(--mos-border-focus);
+  color: #fff;
+}
+
+.ex-screen-pill.active {
+  background: linear-gradient(135deg, rgba(244, 201, 59, 0.2), rgba(244, 201, 59, 0.05));
+  border-color: var(--mos-yellow);
+  color: var(--mos-yellow);
+  box-shadow: 0 0 12px var(--mos-yellow-glow);
+}
+
+.ex-screen-pill .pill-badge {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1px 6px;
+  border-radius: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+}
+
+.ex-screen-header {
+  background: var(--mos-surface);
+  border: 1px solid var(--mos-border);
+  border-radius: var(--mos-radius);
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ex-screen-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ex-screen-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 4px 8px;
+  border-top: 1px solid var(--mos-border);
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.ex-step-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ex-step-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.ex-step-dot.active {
+  width: 22px;
+  border-radius: 4px;
+  background: var(--mos-yellow);
+  box-shadow: 0 0 8px var(--mos-yellow-glow);
+}
+
+/* ══════════════════════════════════════════════════════
+   ALGORITHMIC CUSTOM SPLIT GENERATOR & SBD BADGES
+   ══════════════════════════════════════════════════════ */
+.mos-algo-split-box {
+  background: linear-gradient(135deg, rgba(20, 21, 26, 0.95), rgba(28, 30, 38, 0.95));
+  border: 1px solid var(--mos-border-focus);
+  border-radius: var(--mos-radius);
+  padding: 16px;
+  margin-bottom: 18px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.mos-algo-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mos-algo-title {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--mos-yellow);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mos-chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0 12px;
+}
+
+.mos-chip-item {
+  padding: 5px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--mos-border);
+  border-radius: 16px;
+  color: var(--mos-text-muted);
+  font-size: 0.7rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.mos-chip-item:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.mos-chip-item.active {
+  background: rgba(244, 201, 59, 0.15);
+  border-color: var(--mos-yellow);
+  color: var(--mos-yellow);
+  box-shadow: 0 0 8px rgba(244, 201, 59, 0.25);
+  font-weight: 600;
+}
+
+/* SBD Badges */
+.mos-sbd-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mos-sbd-squat {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #f87171;
+}
+
+.mos-sbd-bench {
+  background: rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  color: #60a5fa;
+}
+
+.mos-sbd-deadlift {
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  color: #c084fc;
+}
+
+/* Linear Single-Lift Specialization Selection */
+.mos-spec-lift-box {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.mos-spec-chip {
+  background: var(--mos-surface);
+  border: 1.5px solid var(--mos-border);
+  border-radius: var(--mos-radius-sm);
+  padding: 12px 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mos-spec-chip:hover {
+  border-color: rgba(244, 201, 59, 0.4);
+}
+
+.mos-spec-chip.active {
+  background: rgba(244, 201, 59, 0.12);
+  border-color: var(--mos-yellow);
+  box-shadow: 0 0 12px var(--mos-yellow-glow);
+}
+
+.mos-spec-icon {
+  font-size: 1.3rem;
+  margin-bottom: 4px;
+}
+
+.mos-spec-label {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fff;
+}
+
