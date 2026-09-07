@@ -47,24 +47,34 @@ def run_sync():
         sync_dir(SOURCE_ASSETS, target)
         print(f"Synced assets: {os.path.relpath(SOURCE_ASSETS, ROOT_DIR)} -> {os.path.relpath(target, ROOT_DIR)}")
 
-    # Sync bundles
-    train_tool = os.path.join(SOURCE_TOOLS, "training_tool.html")
-    tdee_tool = os.path.join(SOURCE_TOOLS, "tdee_adaptive_engine.html")
-
-    bundle_targets = [
-        (os.path.join(ROOT_DIR, "website", "training bundle"), train_tool, "training_tool.html"),
-        (os.path.join(ROOT_DIR, "training bundle"), train_tool, "training_tool.html"),
-        (os.path.join(ROOT_DIR, "public", "main", "training bundle"), train_tool, "training_tool.html"),
-        (os.path.join(ROOT_DIR, "website", "nutrition bundle"), tdee_tool, "tdee_adaptive_engine.html"),
-        (os.path.join(ROOT_DIR, "nutrition bundle"), tdee_tool, "tdee_adaptive_engine.html"),
-        (os.path.join(ROOT_DIR, "public", "main", "nutrition bundle"), tdee_tool, "tdee_adaptive_engine.html"),
+    # Sync tools into bundles
+    bundle_dirs = [
+        os.path.join(ROOT_DIR, "website", "training bundle"),
+        os.path.join(ROOT_DIR, "training bundle"),
+        os.path.join(ROOT_DIR, "public", "main", "training bundle"),
+        os.path.join(ROOT_DIR, "website", "nutrition bundle"),
+        os.path.join(ROOT_DIR, "nutrition bundle"),
+        os.path.join(ROOT_DIR, "public", "main", "nutrition bundle"),
     ]
 
-    for b_dir, src_file, filename in bundle_targets:
+    bundle_tools = [
+        "training_tool.html",
+        "tdee_adaptive_engine.html",
+        "rpe_load_calculator.html",
+        "split_selector_quiz.html",
+        "tdee_macro_calculator.html",
+        "volume_set_calculator.html"
+    ]
+
+    for b_dir in bundle_dirs:
         if os.path.exists(b_dir):
-            dst = os.path.join(b_dir, filename)
-            shutil.copy2(src_file, dst)
-            print(f"Synced bundle: {os.path.relpath(dst, ROOT_DIR)}")
+            for t_file in bundle_tools:
+                src_path = os.path.join(SOURCE_TOOLS, t_file)
+                dst_path = os.path.join(b_dir, t_file)
+                if os.path.exists(dst_path) or t_file in ["training_tool.html", "tdee_adaptive_engine.html"]:
+                    if os.path.exists(src_path):
+                        shutil.copy2(src_path, dst_path)
+                        print(f"Synced bundle tool: {os.path.relpath(dst_path, ROOT_DIR)}")
 
     print("\nAll mirrors synchronized successfully!")
 

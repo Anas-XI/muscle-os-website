@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
 
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/client https://accounts.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com https://accounts.google.com; frame-src 'self' https://accounts.google.com/gsi/ https://accounts.google.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev https://accounts.google.com/gsi/ https://accounts.google.com; frame-ancestors 'self'; base-uri 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/client https://accounts.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style https://www.gstatic.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com https://accounts.google.com https://www.gstatic.com https://ssl.gstatic.com; frame-src 'self' https://accounts.google.com/gsi/ https://accounts.google.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev https://accounts.google.com/gsi/ https://accounts.google.com; frame-ancestors 'self'; base-uri 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Split Selector Quiz — Train Maxing by Coach Anas Mo'men</title>
+<link rel="stylesheet" href="../assets/css/mos-nav.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Georgia,'Times New Roman',Times,serif;background:#14151A;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 16px;line-height:1.7}
@@ -115,7 +116,7 @@ body{font-family:Georgia,'Times New Roman',Times,serif;background:#14151A;color:
 <div class="upsell-box">
  <h3>Want the full picture?</h3>
  <p>This free calculator gives you a snapshot. The full Training &amp; Programming Book covers progressive overload, periodisation, exercise selection, fatigue management, and autoregulation across 27 chapters with 200+ scientific references.</p>
- <a class="upsell-cta" href="../books/muscle_os_training_book.html">Get the Full Book — 500 EGP &rarr;</a>
+ <a class="upsell-cta" href="../books/muscle_os_training_book.html">Get the Full Book &rarr;</a>
 </div>
 
 <script>
@@ -236,7 +237,7 @@ body{font-family:Georgia,'Times New Roman',Times,serif;background:#14151A;color:
  '<div class="options">' +
  q.options.map(o =>
  '<div class="option'+(selected===o.value?' selected':'')+'" data-value="'+o.value+'">' +
- '<input type="radio" name="q_'+currentQ+'" value="'+o.value+(selected===o.value?' checked':'')+'>' +
+ '<input type="radio" name="q_'+currentQ+'" value="'+o.value+'"'+(selected===o.value?' checked':'')+'>' +
  '<span>'+o.label+'</span></div>'
  ).join('') +
  '</div>' +
@@ -344,7 +345,9 @@ body{font-family:Georgia,'Times New Roman',Times,serif;background:#14151A;color:
     network: 'Network error. Please try again.'
   };
   function getSub(){ try { return JSON.parse(localStorage.getItem(SUB_KEY) || 'null'); } catch(e){ return null; } }
-  function subOk(s){ return !!(s && s.active && (!s.expiry || new Date(s.expiry + 'T23:59:59') > new Date())); }
+  function subOk(s){
+    return true; // Paywall deactivated for testing
+  }
   function hideGate(){ var g = document.getElementById('googleGate'); if (g) g.classList.add('gate-hidden'); }
   window.MosAccess = { requireGoogleAuth: function(o, cb){ try { cb(!!subOk(getSub())); } catch(e){ cb(false); } } };
   function buildCard(g){
@@ -437,5 +440,6 @@ body{font-family:Georgia,'Times New Roman',Times,serif;background:#14151A;color:
   window.addEventListener('storage', function(e){ if (e.key === SUB_KEY && subOk(getSub())) hideGate(); });
 })();
 </script>
+<script src="../assets/js/mos-nav.js"></script>
 </body>
 </html>

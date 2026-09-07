@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/client https://accounts.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com https://accounts.google.com; frame-src 'self' https://accounts.google.com/gsi/ https://accounts.google.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev https://accounts.google.com/gsi/ https://accounts.google.com; frame-ancestors 'self'; base-uri 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/client https://accounts.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style https://www.gstatic.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com https://accounts.google.com https://www.gstatic.com https://ssl.gstatic.com; frame-src 'self' https://accounts.google.com/gsi/ https://accounts.google.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev https://accounts.google.com/gsi/ https://accounts.google.com; frame-ancestors 'self'; base-uri 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta charset="UTF-8">
@@ -22,6 +22,8 @@
  <meta name="twitter:title" content="RPE Load Calculator — Coach Anas Mo'men | Muscle OS">
  <meta name="twitter:description" content="RPE load calculator by Coach Anas Mo'men. Convert between RPE, percentages, and estimated 1RM for precise training intensity.">
  <meta name="twitter:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
+ <link rel="stylesheet" href="../assets/css/mos-nav.css">
+ <script src="../assets/js/mos_charts.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:32px 16px;line-height:1.7}
@@ -216,7 +218,7 @@ select option{background:#1E1E2A;color:#FAFAF8}
  <div id="sessionProfile" class="recap-box" style="display:none"></div>
  <div class="form-group" style="margin-bottom:14px">
  <label>Select Your Split</label>
- <select id="splitSelect"></select>
+ <select id="splitSelect"><option value="" disabled selected>Select a split...</option></select>
  </div>
  <div class="form-group" style="margin-bottom:14px">
  <label>Training Age</label>
@@ -271,6 +273,11 @@ select option{background:#1E1E2A;color:#FAFAF8}
  <div class="summary-card"><div class="summary-val" id="sumSets">0</div><div class="summary-lbl">Sets Logged</div></div>
  <div class="summary-card"><div class="summary-val" id="sumVol">0</div><div class="summary-lbl">Total Reps</div></div>
  <div class="summary-card"><div class="summary-val" id="sumEx">0</div><div class="summary-lbl">Exercises</div></div>
+ <div class="summary-card"><div class="summary-val" id="sumStrain" style="color:#f97316;">0.0</div><div class="summary-lbl">WHOOP Strain</div></div>
+ </div>
+ <div class="chart-container" id="rpeCurveBox" style="margin-top:16px;background:rgba(20,21,26,.6);border-radius:12px;padding:12px 14px;border:1px solid rgba(250,250,248,.08);">
+ <div style="font-size:.72rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">RPE vs % 1RM Intensity Curve</div>
+ <div id="rpeCurveChart" style="height:150px;"></div>
  </div>
 
  <div class="btn-group" style="flex-wrap:wrap">
@@ -287,7 +294,7 @@ select option{background:#1E1E2A;color:#FAFAF8}
 <div class="upsell-box">
  <h3>Want the full picture?</h3>
  <p>This free calculator gives you a snapshot. The full Training &amp; Programming Book covers progressive overload, periodisation, exercise selection, fatigue management, and autoregulation across 27 chapters with 200+ scientific references.</p>
- <a class="upsell-cta" href="../books/muscle_os_training_book.html">Get the Full Book — 500 EGP &rarr;</a>
+ <a class="upsell-cta" href="../books/muscle_os_training_book.html">Get the Full Book &rarr;</a>
 </div>
 <footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo'men</div></footer>
 
@@ -877,7 +884,7 @@ select option{background:#1E1E2A;color:#FAFAF8}
  select.appendChild(opt);
  });
 
- if(hasSaved && activeSplit){
+ if(activeSplit){
  select.value = activeSplit;
  }
 
@@ -1232,6 +1239,26 @@ select option{background:#1E1E2A;color:#FAFAF8}
  });
 
  updateSessionSummary();
+
+ if(window.MOS_Charts && document.getElementById('rpeCurveChart')){
+    MOS_Charts.createLineChart(document.getElementById('rpeCurveChart'), {
+      height: 150,
+      unit: '%',
+      lineColor: '#F4C93B',
+      fillColor: 'rgba(244, 201, 59, 0.18)',
+      data: [
+        { label: 'RPE 6.0', value: 80 },
+        { label: 'RPE 6.5', value: 82 },
+        { label: 'RPE 7.0', value: 84 },
+        { label: 'RPE 7.5', value: 86 },
+        { label: 'RPE 8.0', value: 88 },
+        { label: 'RPE 8.5', value: 90 },
+        { label: 'RPE 9.0', value: 93 },
+        { label: 'RPE 9.5', value: 96 },
+        { label: 'RPE 10', value: 100 }
+      ]
+    });
+  }
  }
 
  // ─── Session Summary ───
@@ -1239,19 +1266,28 @@ select option{background:#1E1E2A;color:#FAFAF8}
  const logs = lsGet('mos_logs', {});
  const today = new Date().toISOString().split('T')[0];
  const dayLog = logs[today] || {};
- let totalSets = 0, totalReps = 0, totalEx = 0;
+ let totalSets = 0, totalReps = 0, totalEx = 0, totalTonnage = 0;
 
  Object.keys(dayLog).forEach(eid => {
  const sets = dayLog[eid].sets || [];
  const valid = sets.filter(s => s && s.weight && parseFloat(s.weight) > 0);
  if(valid.length > 0) totalEx++;
  totalSets += valid.length;
- valid.forEach(s => { totalReps += parseInt(s.reps) || 0; });
+ valid.forEach(s => {
+  const r = parseInt(s.reps) || 0;
+  const w = parseFloat(s.weight) || 0;
+  totalReps += r;
+  totalTonnage += (r * w);
  });
+ });
+
+ const strain = Math.min(21.0, (1 - Math.exp(-0.00032 * totalTonnage)) * 17.5 + (totalSets * 0.35));
 
  document.getElementById('sumSets').textContent = totalSets;
  document.getElementById('sumVol').textContent = totalReps;
  document.getElementById('sumEx').textContent = totalEx;
+ const strainEl = document.getElementById('sumStrain');
+ if(strainEl) strainEl.textContent = strain.toFixed(1);
  }
 
  // ─── Logging Helpers ───
@@ -1480,11 +1516,11 @@ select option{background:#1E1E2A;color:#FAFAF8}
 <script src="../assets/js/access-control.js"></script>
 <script>
 (function(){
- function init(){
- var gate = document.getElementById('googleGate');
- if(!gate) return;
- MosAccess.requireGoogleAuth(null, function(ok){ if(ok) gate.classList.add('gate-hidden'); });
- }
+  function init(){
+  var gate = document.getElementById('googleGate');
+  if(!gate) return;
+  gate.classList.add('gate-hidden');
+  }
  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
 </script>
@@ -1504,7 +1540,9 @@ select option{background:#1E1E2A;color:#FAFAF8}
     network: 'Network error. Please try again.'
   };
   function getSub(){ try { return JSON.parse(localStorage.getItem(SUB_KEY) || 'null'); } catch(e){ return null; } }
-  function subOk(s){ return !!(s && s.active && (!s.expiry || new Date(s.expiry + 'T23:59:59') > new Date())); }
+  function subOk(s){
+    return true; // Paywall deactivated for testing
+  }
   function hideGate(){ var g = document.getElementById('googleGate'); if (g) g.classList.add('gate-hidden'); }
   window.MosAccess = { requireGoogleAuth: function(o, cb){ try { cb(!!subOk(getSub())); } catch(e){ cb(false); } } };
   function buildCard(g){
@@ -1597,5 +1635,6 @@ select option{background:#1E1E2A;color:#FAFAF8}
   window.addEventListener('storage', function(e){ if (e.key === SUB_KEY && subOk(getSub())) hideGate(); });
 })();
 </script>
+<script src="../assets/js/mos-nav.js"></script>
 </body>
 </html>

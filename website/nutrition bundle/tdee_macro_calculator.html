@@ -8,30 +8,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TDEE & Macro Calculator — Coach Anas Mo'men | Muscle OS</title>
- <meta name="description" content="Precision TDEE & macro calculator by Coach Anas Mo'men. Calculate maintenance calories and optimal macros.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+ <meta name="description" content="Precision TDEE & macro calculator by Coach Anas Mo'men. Calculate your maintenance calories, optimal macros for cutting, bulking, or recomposition.">
  <meta property="og:title" content="TDEE & Macro Calculator — Coach Anas Mo'men | Muscle OS">
- <meta property="og:description" content="Precision TDEE & macro calculator by Coach Anas Mo'men. Calculate maintenance calories and optimal macros.">
+ <meta property="og:description" content="Precision TDEE & macro calculator by Coach Anas Mo'men. Calculate your maintenance calories, optimal macros for cutting, bulking, or recomposition.">
  <meta property="og:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
  <meta property="og:image:width" content="1200">
  <meta property="og:image:height" content="1200">
  <meta property="og:type" content="website">
- <meta property="og:url" content="https://muscleos.is-a.dev/nutrition bundle/tdee_macro_calculator.html">
+ <meta property="og:url" content="https://muscleos.is-a.dev/tools/tdee_macro_calculator.html">
  <meta name="twitter:card" content="summary_large_image">
  <meta name="twitter:title" content="TDEE & Macro Calculator — Coach Anas Mo'men | Muscle OS">
- <meta name="twitter:description" content="Precision TDEE & macro calculator by Coach Anas Mo'men. Calculate maintenance calories and optimal macros.">
+ <meta name="twitter:description" content="Precision TDEE & macro calculator by Coach Anas Mo'men. Calculate your maintenance calories, optimal macros for cutting, bulking, or recomposition.">
  <meta name="twitter:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="../assets/css/mos-nav.css">
+ <script src="../assets/js/mos_charts.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 16px}
+body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 16px;line-height:1.7}
 .container{width:100%;max-width:640px}
 .header{text-align:center;margin-bottom:28px}
-.header h1{font-family:'Oswald',sans-serif;font-size:2.4rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:1px;line-height:1.1}
+.header h1{font-family:'Inter',sans-serif;font-size:2.4rem;font-weight:600;color:#F4C93B;text-transform:uppercase;letter-spacing:1px;line-height:1.1}
 .header p{font-size:.8rem;color:rgba(250,250,248,.5);margin-top:4px;font-weight:300;letter-spacing:.5px}
 .card{background: #1E1E2A; border-radius: 16px; padding: 24px 22px; }
-.section-header{font-family:'Oswald',sans-serif;font-size:.9rem;font-weight:500;text-transform:uppercase;letter-spacing:.5px;color:#F4C93B;border-bottom:1px solid rgba(250,250,248,.07);padding-bottom:5px;margin:20px 0 12px}
+.section-header{font-family:'Inter',sans-serif;font-size:.9rem;font-weight:500;text-transform:uppercase;letter-spacing:.5px;color:#F4C93B;border-bottom:1px solid rgba(250,250,248,.07);padding-bottom:5px;margin:20px 0 12px}
 .section-header:first-of-type{margin-top:0}
 .section-sub{font-size:.6rem;color:rgba(250,250,248,.35);font-weight:400;text-transform:none;letter-spacing:0;font-family:'Inter',sans-serif}
 .form-group{margin-bottom:14px}
@@ -48,7 +49,7 @@ input:focus,select:focus{border-color:#F4C93B}
 select{font-family:'Inter',sans-serif;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 12 8'%3E%3Cpath fill='%23FAFAF8' opacity='0.5' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;padding-right:32px}
 select option{background:#1E1E2A;color:#FAFAF8}
 .tip{font-size:.6rem;color:rgba(250,250,248,.25);margin-top:3px;font-style:italic}
-.btn-calc{width:100%;margin-top:20px;padding:14px 0;background:#F4C93B;color:#14151A;border:none;border-radius:10px;font-family:'Oswald',sans-serif;font-size:1.05rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;transition:opacity .2s,transform .15s}
+.btn-calc{width:100%;margin-top:20px;padding:14px 0;background:#F4C93B;color:#14151A;border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:1.05rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;transition:opacity .2s,transform .15s}
 .btn-calc:hover{opacity:.9}
 .btn-calc:active{transform:scale(.98)}
 .error{display:none;color:#F4C93B;font-size:.75rem;text-align:center;margin-top:10px;font-weight:500}
@@ -74,16 +75,30 @@ select option{background:#1E1E2A;color:#FAFAF8}
 .bar-section{margin-top:4px}
 .bar-title{font-size:.6rem;text-transform:uppercase;letter-spacing:1.2px;color:rgba(250,250,248,.35);margin-bottom:6px;font-weight:500}
 .bar-track{display:flex;height:26px;border-radius:6px;overflow:hidden}
-.bar-seg{display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:600;color:#14151A;transition:width .4s ease}
+.bar-seg{display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:600;color:#14151A;transition:width .4s ease;min-width:24px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 2px}
 .bar-p{background:#F4C93B}
 .bar-f{background:#e8a83a}
 .bar-c{background:#c48a30}
 .bar-legend{display:flex;justify-content:center;gap:16px;margin-top:6px}
 .bar-leg-item{display:flex;align-items:center;gap:4px;font-size:.6rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.35);font-weight:500}
 .bar-dot{width:7px;height:7px;border-radius:2px}
-.footer{text-align:center;margin-top:24px;font-size:.68rem;color:rgba(250,250,248,.25);font-weight:300}
-.footer a{color:#F4C93B;text-decoration:none;font-weight:500}
-.footer a:hover{text-decoration:underline}
+.mos-nav{position:sticky;top:0;z-index:999;background:rgba(20,21,26,.95);backdrop-filter:blur(8px);border-bottom:1px solid #2C2E37;font-family:'Inter',sans-serif}
+.mos-nav-inner{max-width:1180px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
+.mos-brand{font-family:'Inter',sans-serif;font-weight:700;font-size:15px;letter-spacing:.5px;text-transform:uppercase;color:#fff;text-decoration:none}
+.mos-brand span{color:#F4C93B}
+.mos-nav-links{display:flex;gap:20px;font-size:11px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
+.mos-nav-links a{color:#C7C9D0;text-decoration:none;transition:color .2s}
+.mos-nav-links a:hover{color:#F4C93B}
+@media(max-width:600px){.mos-nav-links{gap:10px;font-size:9px}.mos-nav-inner{padding:8px 16px}.mos-brand{font-size:12px}}
+@media print{.mos-nav{display:none!important}.mos-footer{display:none!important}}
+.mos-footer{padding:20px 24px;background:#14151A;border-top:1px solid #2C2E37;font-family:'Inter',sans-serif;text-align:center}
+.mos-footer-inner{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
+.mos-fbrand{font-family:'Inter',sans-serif;font-weight:700;font-size:13px;letter-spacing:.5px;text-transform:uppercase;color:#fff}
+.mos-fbrand span{color:#F4C93B}
+.mos-fnav a{color:rgba(250,250,248,.5);text-decoration:none;margin:0 8px;font-size:11px;font-weight:500}
+.mos-fnav a:hover{color:#F4C93B}
+.mos-fsocial a{color:#F4C93B;text-decoration:none;margin:0 8px;font-size:11px}
+.mos-fcopy{font-size:10px;color:rgba(250,250,248,.3);margin-top:6px}
 .lang-toggle{position:fixed;top:14px;right:14px;z-index:999;background:rgba(30,30,42,.85);border:1px solid rgba(250,250,248,.12);color:#FAFAF8;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:500;padding:6px 14px;border-radius:7px;cursor:pointer;backdrop-filter:blur(4px);transition:background .2s;letter-spacing:.3px}
 .lang-toggle:hover{background:rgba(244,201,59,.15);border-color:rgba(244,201,59,.3);color:#F4C93B}
 html[dir="rtl"] .lang-toggle{right:auto;left:14px}
@@ -91,6 +106,21 @@ html[dir="rtl"] .header{text-align:center}
 html[dir="rtl"] .sex-group,html[dir="rtl"] .bar-legend{direction:ltr}
 html[dir="rtl"] select{background-position:left 11px center;padding-right:11px;padding-left:32px}
 .num-highlight{color:#F4C93B}
+.concept-box{background:rgba(244,201,59,.08);border-left:3px solid #F4C93B;border-radius:8px;padding:16px 20px;margin-bottom:20px;font-family:'Inter',sans-serif;font-size:.85rem;line-height:1.7;color:rgba(250,250,248,.85)}
+.concept-box strong{color:#F4C93B}
+.concept-box .book-ref{display:block;margin-top:8px;font-size:.75rem;color:rgba(250,250,248,.5);font-style:italic;border-top:1px solid rgba(244,201,59,.15);padding-top:8px}
+.concept-box .book-ref a{color:#F4C93B;font-weight:600;text-decoration:none}
+.upsell-box{background:#1E1E2A;border:1px solid rgba(244,201,59,.3);border-radius:12px;padding:24px;margin-top:24px;text-align:center}
+.upsell-box h3{font-family:'Inter',sans-serif;font-size:1.1rem;font-weight:700;color:#F4C93B;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.upsell-box p{font-family:'Inter',sans-serif;font-size:.82rem;color:rgba(250,250,248,.7);line-height:1.6;margin-bottom:16px;max-width:480px;margin-left:auto;margin-right:auto}
+.upsell-cta{display:inline-block;background:#F4C93B;color:#14151A;font-family:'Inter',sans-serif;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:12px 28px;border-radius:6px;text-decoration:none;transition:opacity .2s}
+.upsell-cta:hover{opacity:.85}
+.styled-table{width:100%;border-collapse:collapse;margin:12px 0;font-family:'Inter',sans-serif;font-size:.82rem}
+.styled-table thead{background:#F4C93B;color:#14151A}
+.styled-table th{padding:10px 12px;text-align:left;font-weight:700;text-transform:uppercase;letter-spacing:.5px;font-size:.7rem}
+.styled-table td{padding:8px 12px;border-bottom:1px solid rgba(250,250,248,.08)}
+.styled-table tbody tr:nth-child(even){background:rgba(250,250,248,.02)}
+.styled-table tbody tr:hover{background:rgba(244,201,59,.05)}
 @media(max-width:580px){
  body{padding:24px 12px}
  .header h1{font-size:2rem}
@@ -114,14 +144,30 @@ html[dir="rtl"] select{background-position:left 11px center;padding-right:11px;p
  .bar-f{background:#e8a83a}
  .bar-c{background:#c48a30}
 }
+#googleGate{position:fixed;inset:0;z-index:9999;background:#14151A;display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Inter',sans-serif}#googleGate.gate-hidden{display:none!important}.gate-card{background:#1E1E2A;border:1px solid #2C2E37;border-radius:16px;padding:36px 28px;max-width:420px;width:100%;text-align:center}.gate-card .gate-lock{font-size:36px;margin-bottom:10px}.gate-card h2{font-size:1.1rem;font-weight:600;color:#FAFAF8;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}.gate-card p{font-size:.75rem;color:rgba(250,250,248,.45);margin-bottom:20px;line-height:1.6}.gate-error{display:none;font-size:.7rem;color:#f44336;margin-top:12px}
 </style>
+<script async defer src="https://accounts.google.com/gsi/client"></script>
 </head>
 <body>
+<div id="googleGate">
+ <div class="gate-card">
+ <div class="gate-lock">&#128274;</div>
+ <h2>Sign In Required</h2>
+ <p>Sign in with Google to access this tool. A free Muscle OS account is required.</p>
+ <div id="googleSignIn"></div>
+ <p class="gate-error" id="gateError"></p>
+ </div>
+</div>
+<nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a><a href="../index.html#packages">Coaching</a></div></div></nav>
 <div class="container">
  <button class="lang-toggle" onclick="toggleLang()" data-i18n="langBtn"> AR</button>
  <div class="header">
  <h1 data-i18n="title">TDEE Calculator</h1>
  <p data-i18n="subtitle">Precision Edition — every factor that affects your metabolism</p>
+ </div>
+ <div class="concept-box">
+ <strong>What is TDEE?</strong> TDEE (Total Daily Energy Expenditure) is the total number of calories your body burns each day — including your BMR (basal metabolic rate), NEAT (non-exercise activity thermogenesis), EAT (exercise activity thermogenesis), and TEF (thermic effect of food). Understanding your TDEE is the foundation of any nutrition plan, whether your goal is fat loss, muscle gain, or maintenance.
+ <span class="book-ref">This concept is covered in depth in the <a href="../books/muscle_os_nutrition_book.html">Diet &amp; Nutrition Book</a> (28 chapters, 200+ references).</span>
  </div>
  <div class="card" id="formCard">
 
@@ -129,24 +175,24 @@ html[dir="rtl"] select{background-position:left 11px center;padding-right:11px;p
  <div class="form-group">
  <label data-i18n="sexLabel">Sex</label>
  <div class="sex-group">
- <button type="button" class="sex-btn" data-sex="male" data-i18n="male">Male</button>
+ <button type="button" class="sex-btn active" data-sex="male" data-i18n="male">Male</button>
  <button type="button" class="sex-btn" data-sex="female" data-i18n="female">Female</button>
  </div>
  </div>
  <div class="form-row">
  <div class="form-group">
  <label data-i18n="weightLabel">Weight (kg)</label>
- <input type="number" id="weight" min="0" step="0.1" placeholder="e.g. 80" data-i18n-ph="weightPh">
+ <input type="number" id="weight" min="0" step="0.1" value="75" placeholder="e.g. 75" data-i18n-ph="weightPh">
  </div>
  <div class="form-group">
  <label data-i18n="heightLabel">Height (cm)</label>
- <input type="number" id="height" min="0" step="0.1" placeholder="e.g. 175" data-i18n-ph="heightPh">
+ <input type="number" id="height" min="0" step="0.1" value="175" placeholder="e.g. 175" data-i18n-ph="heightPh">
  </div>
  </div>
  <div class="form-row">
  <div class="form-group">
  <label data-i18n="ageLabel">Age (years)</label>
- <input type="number" id="age" min="0" step="1" placeholder="e.g. 30" data-i18n-ph="agePh">
+ <input type="number" id="age" min="0" step="1" value="25" placeholder="e.g. 25" data-i18n-ph="agePh">
  </div>
  <div class="form-group">
  <label data-i18n="bfLabel">Body Fat %</label>
@@ -415,8 +461,8 @@ html[dir="rtl"] select{background-position:left 11px center;padding-right:11px;p
  <label data-i18n="goalLabel">Goal</label>
  <select id="goal">
  <option value="" data-i18n="goalSelect">Select your goal</option>
+ <option value="moderate_loss" selected data-i18n="goalModLoss">Moderate Fat Loss (-20% deficit) — ⭐ Recommended</option>
  <option value="aggressive_loss" data-i18n="goalAggLoss">Aggressive Fat Loss (-25% deficit)</option>
- <option value="moderate_loss" data-i18n="goalModLoss">Moderate Fat Loss (-20% deficit)</option>
  <option value="recomp" data-i18n="goalRecomp">Recomp (small deficit ~-100 cal)</option>
  <option value="maintenance" data-i18n="goalMaint">Maintenance (hold weight)</option>
  <option value="lean_gain" data-i18n="goalLeanGain">Lean Gain (+5% surplus)</option>
@@ -477,6 +523,21 @@ html[dir="rtl"] select{background-position:left 11px center;padding-right:11px;p
  <div class="macro-lbl" data-i18n="carbsG">Carbs (g)</div>
  </div>
  </div>
+ <div style="display:flex;justify-content:center;align-items:center;margin:18px 0 12px;">
+ <div id="macroDonutContainer" style="width:190px;height:190px;"></div>
+ </div>
+ <div class="waterfall-section" style="margin:16px 0 12px;">
+ <div class="bar-title" style="margin-bottom:6px;font-size:0.75rem;color:rgba(250,250,248,0.6);text-transform:uppercase;letter-spacing:0.5px;">Energy Expenditure Components (kcal)</div>
+ <div id="energyWaterfallContainer" style="width:100%;height:18px;display:flex;border-radius:6px;overflow:hidden;background:#14151A;border:1px solid rgba(255,255,255,0.08);"></div>
+ <div id="energyWaterfallLegend" style="display:flex;justify-content:space-between;font-size:9px;color:rgba(250,250,248,0.5);margin-top:4px;"></div>
+ </div>
+ <div class="whoop-strain-exp-box" style="margin:14px 0;padding:12px;background:rgba(20,21,26,.6);border-radius:10px;border:1px solid rgba(250,250,248,.08);">
+  <div style="display:flex;justify-content:space-between;align-items:center;">
+   <span style="font-size:0.72rem;font-weight:700;color:#f97316;text-transform:uppercase;">⚡ WHOOP Day Strain Correlation</span>
+   <span id="whoopStrainVal" style="font-size:0.8rem;font-weight:700;color:#FAFAF8;font-family:'JetBrains Mono',monospace;">14.2 Strain</span>
+  </div>
+  <p id="whoopStrainDesc" style="font-size:0.65rem;color:rgba(250,250,248,0.55);margin-top:4px;line-height:1.4;">Estimated workout &amp; cardiovascular demand: ~420 kcal activity burn. Recommended target strain corridor: 13.5 – 16.5.</p>
+ </div>
  <div class="bar-section">
  <div class="bar-title" data-i18n="macroSplit">Macro Split by Calories</div>
  <div class="bar-track">
@@ -492,10 +553,13 @@ html[dir="rtl"] select{background-position:left 11px center;padding-right:11px;p
  </div>
  </div>
  </div>
- <div class="footer">
- <span data-i18n="footer">Free tool by Coach Anas Mo'men — </span><a href="https://wa.me/201040796017" data-i18n="footerLink">Start your coaching journey now</a>
- </div>
 </div>
+<div class="upsell-box">
+ <h3>Want the full picture?</h3>
+ <p>This free calculator gives you a snapshot. The full Diet &amp; Nutrition Book covers calorie cycling, macro periodisation, metabolic adaptation, refeeds, and nutrient timing across 28 chapters with 200+ scientific references.</p>
+ <a class="upsell-cta" href="../books/muscle_os_nutrition_book.html">Get the Full Book &rarr;</a>
+</div>
+<footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo'men</div></footer>
 <script>
 (function() {
  const I18N = {
@@ -705,7 +769,7 @@ html[dir="rtl"] select{background-position:left 11px center;padding-right:11px;p
  });
  });
 
- document.getElementById('calcBtn').addEventListener('click',function(){
+ function doCalc(shouldScroll){
  const err=document.getElementById('errorMsg');
  const res=document.getElementById('resultsSection');
  const w=parseFloat(document.getElementById('weight').value);
@@ -841,11 +905,181 @@ html[dir="rtl"] select{background-position:left 11px center;padding-right:11px;p
  document.getElementById('barC').textContent=cP+'%';
 
  res.style.display='block';
- res.scrollIntoView({behavior:'smooth',block:'start'});
- });
- translateUI();
+
+  // Render Macro Donut Chart via MOS_Charts
+  if (window.MOS_Charts && document.getElementById('macroDonutContainer')) {
+    MOS_Charts.createDonutChart(document.getElementById('macroDonutContainer'), {
+      size: 190,
+      segments: [
+        { label: 'Protein', value: pG, color: '#F4C93B' },
+        { label: 'Fats', value: fG, color: '#e8a83a' },
+        { label: 'Carbs', value: Math.max(0, cG), color: '#c48a30' }
+      ],
+      centerVal: goalCal.toLocaleString(),
+      centerLabel: 'KCAL / DAY'
+    });
+  }
+
+  // Energy Expenditure Waterfall
+  const wfContainer = document.getElementById('energyWaterfallContainer');
+  const wfLegend = document.getElementById('energyWaterfallLegend');
+  if (wfContainer && tdee > 0) {
+    const bmrPct = Math.min(Math.round((bmr / tdee) * 100), 100);
+    const neatPct = Math.min(Math.round((neatTotal / tdee) * 100), 100 - bmrPct);
+    const eatPct = Math.max(0, 100 - bmrPct - neatPct);
+    wfContainer.innerHTML =
+      '<div style="width:'+bmrPct+'%;background:#38bdf8;height:100%;" title="BMR: '+bmr+' kcal"></div>' +
+      '<div style="width:'+neatPct+'%;background:#22c55e;height:100%;" title="NEAT+TEF: '+neatTotal+' kcal"></div>' +
+      '<div style="width:'+eatPct+'%;background:#F4C93B;height:100%;" title="EAT+EPOC: '+dailyEat+' kcal"></div>';
+    wfLegend.innerHTML =
+      '<span><span style="color:#38bdf8;">■</span> BMR ('+bmr+' kcal)</span>' +
+      '<span><span style="color:#22c55e;">■</span> NEAT+TEF ('+neatTotal+' kcal)</span>' +
+      '<span><span style="color:#F4C93B;">■</span> EAT ('+dailyEat+' kcal)</span>';
+  }
+
+  const strainValEl = document.getElementById('whoopStrainVal');
+  const strainDescEl = document.getElementById('whoopStrainDesc');
+  if (strainValEl && dailyEat > 0) {
+    const estStrain = Math.min(21.0, Math.max(6.0, 7.0 + (dailyEat / 60.0))).toFixed(1);
+    strainValEl.textContent = estStrain + ' Strain';
+    if (strainDescEl) {
+      strainDescEl.innerHTML = 'Estimated workout &amp; cardiovascular demand: <strong>~' + dailyEat + ' kcal</strong> activity burn. Target strain corridor: <strong>' + (estStrain - 1.5).toFixed(1) + ' – ' + (parseFloat(estStrain) + 1.5).toFixed(1) + '</strong>.';
+    }
+  }
+
+    if(shouldScroll) res.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+
+  document.getElementById('calcBtn').addEventListener('click',function(){
+    doCalc(true);
+  });
+  translateUI();
+  // Hick's Law: Instant feedback with smart pre-selected defaults (no empty state)
+  doCalc(false);
+})();
+</script>
+<script src="../assets/js/access-control.js"></script>
+<script>
+(function(){
+ function init(){
+ var gate = document.getElementById('googleGate');
+ if(!gate) return;
+  gate.classList.add('gate-hidden'); // Paywall deactivated for testing
+ }
+ if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
 </script>
 <script src="../js/auth.js"></script>
+<script>
+(function(){
+  var SUB_KEY = 'mos_subscription';
+  var API = 'https://muscleos-access-control.muscleos.workers.dev/api/verify-code';
+  var ERR_MSGS = {
+    invalid_code: 'Wrong code. Please check and try again.',
+    wrong_product: 'This code belongs to a different product.',
+    code_used_by_other: 'This code is already linked to another account.',
+    code_exhausted: 'This code has already been used.',
+    code_revoked: 'This code has been revoked.',
+    code_expired: 'This code has expired.',
+    invalid_session: 'Session expired. Please sign in again.',
+    network: 'Network error. Please try again.'
+  };
+  function getSub(){ try { return JSON.parse(localStorage.getItem(SUB_KEY) || 'null'); } catch(e){ return null; } }
+  function subOk(s){
+    return true; // Paywall deactivated for testing
+  }
+  function hideGate(){ var g = document.getElementById('googleGate'); if (g) g.classList.add('gate-hidden'); }
+  window.MosAccess = { requireGoogleAuth: function(o, cb){ try { cb(!!subOk(getSub())); } catch(e){ cb(false); } } };
+  function buildCard(g){
+    var card = g.querySelector('.gate-card');
+    if (card) {
+      var old = card.querySelector('.gate-error');
+      if (old) old.parentNode.removeChild(old);
+      var p = card.querySelector('p');
+      if (p && p.parentNode) p.parentNode.removeChild(p);
+      var h2 = card.querySelector('h2');
+      if (h2) h2.textContent = 'SUBSCRIPTION REQUIRED';
+      return card;
+    }
+    card = document.createElement('div');
+    card.className = 'gate-card';
+    var lock = document.createElement('div');
+    lock.className = 'gate-lock';
+    lock.textContent = '🔒';
+    var h2 = document.createElement('h2');
+    h2.textContent = 'SUBSCRIPTION REQUIRED';
+    card.appendChild(lock);
+    card.appendChild(h2);
+    g.appendChild(card);
+    return card;
+  }
+  function wire(){
+    var g = document.getElementById('googleGate');
+    if (!g) {
+      g = document.createElement('div');
+      g.id = 'googleGate';
+      g.style.cssText = 'position:fixed;inset:0;z-index:9999;background:#14151A;display:flex;align-items:center;justify-content:center;padding:20px;font-family:Inter,sans-serif';
+      document.body.appendChild(g);
+    }
+    var card = buildCard(g);
+    var input = document.createElement('input');
+    input.type = 'text';
+    input.placeholder = 'Enter your code';
+    input.autocomplete = 'off';
+    input.style.cssText = 'width:100%;padding:11px 12px;border-radius:8px;border:1px solid #2C2E37;background:#14151A;color:#FAFAF8;font:600 .85rem Inter,sans-serif;letter-spacing:1px;text-align:center;margin-bottom:10px;box-sizing:border-box;text-transform:uppercase';
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = 'UNLOCK';
+    btn.style.cssText = 'width:100%;padding:11px;border-radius:8px;border:0;background:#E11D2E;color:#fff;font:700 .8rem Inter,sans-serif;cursor:pointer';
+    var err = document.createElement('div');
+    err.style.cssText = 'display:none;font-size:.7rem;color:#f44336;margin-top:10px';
+    var link = document.createElement('a');
+    link.href = '../order.html';
+    link.target = '_blank';
+    link.textContent = 'No code? Get access →';
+    link.style.cssText = 'display:inline-block;margin-top:14px;font-size:.72rem;color:rgba(250,250,248,.55);text-decoration:underline';
+    card.appendChild(input);
+    card.appendChild(btn);
+    card.appendChild(err);
+    card.appendChild(link);
+    btn.addEventListener('click', function(){
+      var code = (input.value || '').trim();
+      if (!code) return;
+      btn.disabled = true;
+      btn.textContent = 'Checking...';
+      err.style.display = 'none';
+      var tries = ['training_tool', 'tdee_adaptive_engine', 'omni_hub'];
+      var i = 0;
+      var lastError = 'network';
+      function fail(){
+        btn.disabled = false;
+        btn.textContent = 'UNLOCK';
+        err.style.display = 'block';
+        err.textContent = ERR_MSGS[lastError] || ERR_MSGS.invalid_code;
+      }
+      function attempt(){
+        if (i >= tries.length) return fail();
+        var prod = tries[i++];
+        fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code: code, productId: prod }) })
+          .then(function(r){ return r.json().catch(function(){ return null; }).then(function(d){ return { ok: r.ok, d: d }; }); })
+          .then(function(res){
+            if (res.ok && res.d && res.d.valid) {
+              localStorage.setItem(SUB_KEY, JSON.stringify({ active: true, plan: res.d.plan || 'pro_tool', expiry: (res.d.expiresAt || '').slice(0, 10), token: res.d.token || '', code: code, email: '', prodId: res.d.productId || 'all_access' }));
+              hideGate();
+            } else {
+              lastError = (res.d && res.d.error) ? res.d.error : 'network';
+              attempt();
+            }
+          })
+          .catch(function(){ lastError = 'network'; attempt(); });
+      }
+      attempt();
+    });
+  }
+  if (subOk(getSub())) { hideGate(); } else { wire(); }
+  window.addEventListener('storage', function(e){ if (e.key === SUB_KEY && subOk(getSub())) hideGate(); });
+})();
+</script>
+<script src="../assets/js/mos-nav.js"></script>
 </body>
 </html>

@@ -120,7 +120,7 @@ function getGs(){ try { var g = JSON.parse(localStorage.getItem(GS_KEY)); return
   }
 
   function checkAccess() {
-    // Paywall deactivated for testing
+    // 1-Month Free Trial for Everyone & Zero Paywall friction
     var mosOv = document.getElementById('mosAuthOverlay');
     if (mosOv) mosOv.style.display = 'none';
     var oldOv = document.getElementById('subOverlay');
@@ -129,12 +129,10 @@ function getGs(){ try { var g = JSON.parse(localStorage.getItem(GS_KEY)); return
     if (gGate) gGate.classList.add('gate-hidden');
     var tBanner = document.getElementById('mosTrialBanner');
     if (tBanner) tBanner.style.display = 'none';
-    return;
-  }
 
     var isBook = window.location.pathname.includes('/books/');
-    var TRIAL_DAYS = 7;
-    var TRIAL_EPOCH = new Date('2026-08-27T00:00:00.000Z').getTime();
+    var TRIAL_DAYS = 30;
+    var TRIAL_EPOCH = new Date('2026-09-01T00:00:00.000Z').getTime();
     var trialStart = localStorage.getItem('mos_trial_start');
     if (!trialStart || new Date(trialStart).getTime() < TRIAL_EPOCH) {
       trialStart = new Date().toISOString();
@@ -147,86 +145,6 @@ function getGs(){ try { var g = JSON.parse(localStorage.getItem(GS_KEY)); return
       trialStart = new Date().toISOString();
       localStorage.setItem('mos_trial_start', trialStart);
     }
-    var trialDaysRemaining = trialStart ? (TRIAL_DAYS - Math.floor((Date.now() - new Date(trialStart).getTime()) / 86400000)) : 0;
-    var isTrialActive = !isBook && trialDaysRemaining > 0;
-
-    if (isTrialActive) {
-      // 7-day trial is active: hide all overlays and let user use the tool freely!
-      document.getElementById('mosAuthOverlay').style.display = 'none';
-      var oldOv = document.getElementById('subOverlay');
-      if (oldOv) oldOv.style.display = 'none';
-      var gGate = document.getElementById('googleGate');
-      if (gGate) gGate.classList.add('gate-hidden');
-      return;
-    }
-
-    var productId = getProductId();
-    var gs = getGs();
-    function hideLegacy(){ var o = document.getElementById('subOverlay'); if (o) o.style.display = 'none'; }
-    if (!gs) {
-      var subOverlay = document.getElementById('subOverlay');
-      if (subOverlay) return;
-      hideLegacy();
-      document.getElementById('mosAuthOverlay').style.display = 'flex';
-      initGsi();
-      return;
-    }
-
-    fetch(API_BASE + '/api/check-session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ session: gs.session })
-    }).then(r => r.json()).then(data => {
-      if (data && data.valid) {
-        var isProTool = !window.location.pathname.includes('/books/');
-        var hasActiveSub = data.subscriptions && hasProductSub(data.subscriptions, productId);
-
-        if (hasActiveSub) {
-          document.getElementById('mosAuthOverlay').style.display = 'none';
-          var gGate = document.getElementById('googleGate');
-          if (gGate) gGate.classList.add('gate-hidden');
-        } else {
-          document.getElementById('mosAuthTitle').innerText = isProTool ? 'Enter Access Code' : 'Access Restricted';
-          document.getElementById('mosAuthDesc').innerText = isProTool ? 'Your 7-day free trial has expired. Enter an access code or choose an unlocked program.' : 'You need a verified access code to unlock this content.';
-          document.getElementById('mosAuthStep1').style.display = 'none';
-          document.getElementById('mosAuthStep2').style.display = 'block';
-          
-          var greetingEl = document.getElementById('mosUserGreeting');
-          if (greetingEl) {
-            greetingEl.innerHTML = '👤 Signed in as <strong>' + (data.email || gs.email || 'Google User') + '</strong>';
-          }
-          
-          var progsEl = document.getElementById('mosUserPrograms');
-          if (progsEl && data.subscriptions && data.subscriptions.length > 0) {
-            progsEl.style.display = 'block';
-            var html = '<div style="font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; color:rgba(250,250,248,0.6); margin-bottom:8px;">Your Active Programs & Tools</div>';
-            data.subscriptions.forEach(function(sub){
-              var label = Array.isArray(sub.products) ? sub.products.join(', ') : (sub.products || 'All Access');
-              html += '<div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:10px 12px; margin-bottom:6px;">' +
-                '<div><div style="font-size:13px; font-weight:600; color:#FAFAF8; text-transform:capitalize;">' + label.replace(/_/g, ' ') + '</div>' +
-                '<div style="font-size:11px; color:rgba(250,250,248,0.5);">Expires: ' + (sub.expiresAt ? sub.expiresAt.slice(0,10) : 'Lifetime') + '</div></div>' +
-                '<button onclick="window.location.reload()" style="background:#F4C93B; color:#0A0A0F; border:none; border-radius:6px; padding:6px 12px; font-size:12px; font-weight:700; cursor:pointer;">Open</button>' +
-                '</div>';
-            });
-            progsEl.innerHTML = html;
-          }
-          
-          hideLegacy();
-          document.getElementById('mosAuthOverlay').style.display = 'flex';
-        }
-      } else {
-        localStorage.removeItem(GS_KEY);
-        hideLegacy();
-        document.getElementById('mosAuthOverlay').style.display = 'flex';
-        initGsi();
-      }
-    }).catch(e => {
-      if (gate && !gate.active) {
-        hideLegacy();
-        document.getElementById('mosAuthOverlay').style.display = 'flex';
-        initGsi();
-      }
-    });
   }
 
   // Start the check

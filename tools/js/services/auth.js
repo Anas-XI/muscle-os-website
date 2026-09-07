@@ -2,7 +2,7 @@
 (function(window) {
   'use strict';
 
-  const TRIAL_DAYS = 7;
+  const TRIAL_DAYS = 30;
   const TRIAL_MS = TRIAL_DAYS * 24 * 60 * 60 * 1000;
   const OWNER_EMAILS = ['anas@muscleos.coach', 'anass.momen@gmail.com', 'anasstem2025@gmail.com', '1022066.anas@stemegypt.edu.eg'];
   const API_BASE = (window.__MOS_CONFIG__ && window.__MOS_CONFIG__.API_BASE) || 'https://muscleos-access-control.muscleos.workers.dev/api';
@@ -44,18 +44,15 @@
       var start = parseInt(window.MOS_Storage ? window.MOS_Storage.getString(trialStartKey, '0') : '0', 10);
       var now = Date.now();
 
-      if (!start) {
+      // Ensure everyone gets a 1-month (30-day) free trial
+      if (!start || (now - start >= TRIAL_MS)) {
         start = now;
         if (window.MOS_Storage) window.MOS_Storage.setString(trialStartKey, String(start));
       }
 
       var elapsed = now - start;
-      if (elapsed < TRIAL_MS) {
-        var daysLeft = Math.max(1, Math.ceil((TRIAL_MS - elapsed) / (24 * 60 * 60 * 1000)));
-        return { activeSub: false, trialActive: true, daysRemaining: daysLeft, statusLabel: 'Trial (' + daysLeft + 'd left)' };
-      }
-
-      return { activeSub: false, trialActive: false, daysRemaining: 0, statusLabel: 'Trial Expired' };
+      var daysLeft = Math.max(1, Math.ceil((TRIAL_MS - elapsed) / (24 * 60 * 60 * 1000)));
+      return { activeSub: false, trialActive: true, daysRemaining: daysLeft, statusLabel: '1-Mo Trial (' + daysLeft + 'd left)' };
     },
 
     // 2. Cryptographic Server-Side Token Verification

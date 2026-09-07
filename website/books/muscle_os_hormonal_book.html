@@ -178,10 +178,10 @@ pre,table,figure,img,svg,blockquote{max-width:100%;box-sizing:border-box}
 <body>
 <div class="po-overlay" id="poOverlay">
  <div class="po-modal">
- <div class="po-icon">&#128274;</div>
+ <div class="po-icon">&#127881;</div>
  <h2>Hormonal Optimization Book</h2>
- <div class="po-price">500 EGP &middot; one-time purchase</div>
- <p class="po-desc">Purchase this book to unlock the full 25-chapter reference with 30+ scientific references. One payment, lifetime access.</p>
+ <div class="po-price" style="color:#4CAF50;">1-Month Free Trial Active</div>
+ <p class="po-desc">Full unrestricted access to all 25 chapters with 30+ scientific references during the 1-month free trial.</p>
  <ul class="po-features">
  <li>Complete endocrine system foundations</li>
  <li>Sex hormones &amp; reproductive endocrinology</li>
@@ -190,8 +190,8 @@ pre,table,figure,img,svg,blockquote{max-width:100%;box-sizing:border-box}
  <li>Lab interpretation &amp; supplement reference</li>
  <li>Printable PDF-optimised layout</li>
  </ul>
- <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20purchase%20the%20Hormonal%20Optimization%20Book%20for%20500%20EGP" class="po-btn" target="_blank" rel="noopener">Buy via WhatsApp</a>
- <div class="po-divider">Already purchased?</div>
+ <button class="po-btn" style="border:none; cursor:pointer; width:100%; font-size:14px; font-weight:700;" onclick="document.getElementById('poOverlay').style.display='none';document.body.style.overflow='';">Start Reading Book (Free Trial Active) &rarr;</button>
+ <div class="po-divider">Have an access code?</div>
  <div class="po-code-row">
  <input type="text" class="po-code-input" id="poCode" placeholder="Enter your access code" autocomplete="off">
  <button class="po-verify-btn" id="poVerify">Unlock</button>
@@ -1322,7 +1322,8 @@ pre,table,figure,img,svg,blockquote{max-width:100%;box-sizing:border-box}
  var KEY = 'mos_hormonal_book_access';
  var access = null;
  try { access = JSON.parse(localStorage.getItem(KEY)); } catch(e){}
- if(access && access.active){
+ var TRIAL_ACTIVE = true;
+ if(TRIAL_ACTIVE || (access && access.active)){
  document.getElementById('poOverlay').style.display = 'none';
  } else {
  document.getElementById('poOverlay').style.display = 'flex';

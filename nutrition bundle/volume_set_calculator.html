@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/client https://accounts.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com https://accounts.google.com; frame-src 'self' https://accounts.google.com/gsi/ https://accounts.google.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev https://accounts.google.com/gsi/ https://accounts.google.com; frame-ancestors 'self'; base-uri 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/client https://accounts.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style https://www.gstatic.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com https://accounts.google.com https://www.gstatic.com https://ssl.gstatic.com; frame-src 'self' https://accounts.google.com/gsi/ https://accounts.google.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev https://accounts.google.com/gsi/ https://accounts.google.com; frame-ancestors 'self'; base-uri 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta charset="UTF-8">
@@ -22,6 +22,8 @@
  <meta name="twitter:title" content="Volume & Set Calculator — Coach Anas Mo'men | Muscle OS">
  <meta name="twitter:description" content="Training volume & set calculator by Coach Anas Mo'men. Calculate optimal sets per muscle group based on your experience level and goals.">
  <meta name="twitter:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
+ <link rel="stylesheet" href="../assets/css/mos-nav.css">
+ <script src="../assets/js/mos_charts.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;background:#14151A;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 16px;line-height:1.7}
@@ -69,7 +71,7 @@ select option{background:#1E1E2A;color:#FAFAF8}
 .bar-section{margin-top:16px}
 .bar-title{font-size:.6rem;text-transform:uppercase;letter-spacing:1.2px;color:rgba(250,250,248,.35);margin-bottom:6px;font-weight:500}
 .bar-track{display:flex;height:20px;border-radius:6px;overflow:hidden}
-.bar-seg{display:flex;align-items:center;justify-content:center;font-family:'Courier New',Courier,monospace;font-size:.55rem;font-weight:600;color:#14151A;transition:width .4s ease;min-width:0}
+.bar-seg{display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:.6rem;font-weight:600;color:#14151A;transition:width .4s ease;min-width:24px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 2px}
 .bar-progress{height:6px;border-radius:3px;background:rgba(244,201,59,.15);margin-bottom:4px;overflow:hidden}
 .bar-fill{height:100%;border-radius:3px;background:#F4C93B;transition:width .6s ease}
 .legend{display:flex;justify-content:center;gap:12px;margin-top:6px;flex-wrap:wrap}
@@ -207,7 +209,7 @@ select option{background:#1E1E2A;color:#FAFAF8}
 <div class="upsell-box">
  <h3>Want the full picture?</h3>
  <p>This free calculator gives you a snapshot. The full Training &amp; Programming Book covers progressive overload, periodisation, exercise selection, fatigue management, and autoregulation across 27 chapters with 200+ scientific references.</p>
- <a class="upsell-cta" href="../books/muscle_os_training_book.html">Get the Full Book — 500 EGP &rarr;</a>
+ <a class="upsell-cta" href="../books/muscle_os_training_book.html">Get the Full Book &rarr;</a>
 </div>
 <footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo'men</div></footer>
 
@@ -314,75 +316,93 @@ select option{background:#1E1E2A;color:#FAFAF8}
  return VOLUME_TABLES[level][goal][muscleId] || [4,8,12];
  }
 
- document.getElementById('calcBtn').addEventListener('click', function(){
- const err = document.getElementById('errorMsg');
- const res = document.getElementById('resultsSection');
- const level = document.getElementById('trainingAge').value;
- const goal = document.getElementById('goal').value;
- const days = parseInt(document.getElementById('daysPerWeek').value);
+ function calculateVolume(shouldScroll){
+  const err = document.getElementById('errorMsg');
+  const res = document.getElementById('resultsSection');
+  const level = document.getElementById('trainingAge').value;
+  const goal = document.getElementById('goal').value;
+  const days = parseInt(document.getElementById('daysPerWeek').value);
 
- const focusCount = MUSCLES.filter(m => getPriority(m.id) === 'focus').length;
- if(focusCount === 0){
- err.style.display = 'block'; res.style.display = 'none'; return;
- }
- err.style.display = 'none';
+  const focusCount = MUSCLES.filter(m => getPriority(m.id) === 'focus').length;
+  if(focusCount === 0){
+    err.style.display = 'block'; res.style.display = 'none'; return;
+  }
+  err.style.display = 'none';
 
- const table = VOLUME_TABLES[level][goal];
- let totalSets = 0;
- let resultsHtml = '';
- const muscleData = [];
+  const table = VOLUME_TABLES[level][goal];
+  let totalSets = 0;
+  let resultsHtml = '';
+  const muscleData = [];
 
- MUSCLES.forEach(m => {
- const vol = getVol(m.id, level, goal);
- const priority = getPriority(m.id);
- const mult = PRIORITY_MULT[priority];
- const mev = Math.round(vol[0] * mult);
- const mav = Math.round(vol[1] * mult);
- const mrv = Math.round(vol[2] * mult);
- const rec = Math.round((mev + mav) / 2);
- muscleData.push({id:m.id, name:m.name, mev,mav,mrv,rec, priority});
- totalSets += rec;
- const barPct = Math.min(100, (rec / mrv) * 100);
- resultsHtml += '<div class="muscle-card">' +
- '<div><span class="muscle-name">'+m.name+' <span class="priority">'+(priority==='focus'?'FOCUS':'MAINT')+'</span></span></div>' +
- '<div style="text-align:right"><span class="muscle-sets">'+rec+'</span> <span class="muscle-range">('+mev+'–'+mav+')</span></div>' +
- '</div>' +
- '<div class="bar-progress"><div class="bar-fill" style="width:'+barPct+'%"></div></div>';
- });
+  MUSCLES.forEach(m => {
+    const vol = getVol(m.id, level, goal);
+    const priority = getPriority(m.id);
+    const mult = PRIORITY_MULT[priority];
+    const mev = Math.round(vol[0] * mult);
+    const mav = Math.round(vol[1] * mult);
+    const mrv = Math.round(vol[2] * mult);
+    const rec = Math.round((mev + mav) / 2);
+    muscleData.push({id:m.id, name:m.name, mev,mav,mrv,rec, priority});
+    totalSets += rec;
+    const barPct = Math.min(100, (rec / mrv) * 100);
+    const mevPct = Math.round((mev / mrv) * 100);
+    const mavPct = Math.round((mav / mrv) * 100);
+    resultsHtml += '<div class="muscle-card">' +
+      '<div><span class="muscle-name">'+m.name+' <span class="priority">'+(priority==='focus'?'FOCUS':'MAINT')+'</span></span></div>' +
+      '<div style="text-align:right"><span class="muscle-sets">'+rec+' sets</span> <span class="muscle-range">(Target: '+mev+'–'+mav+')</span></div>' +
+    '</div>' +
+    '<div class="bar-progress" style="position:relative;height:9px;border-radius:5px;overflow:hidden;background:rgba(255,255,255,0.06);margin-bottom:12px;">' +
+      '<div style="position:absolute;left:0;width:'+mevPct+'%;height:100%;background:rgba(56,189,248,0.22);" title="MEV ('+mev+'s)"></div>' +
+      '<div style="position:absolute;left:'+mevPct+'%;width:'+(mavPct-mevPct)+'%;height:100%;background:rgba(244,201,59,0.28);" title="MAV Sweet Spot ('+mev+'–'+mav+'s)"></div>' +
+      '<div style="position:absolute;left:'+mavPct+'%;right:0;height:100%;background:rgba(244,63,94,0.2);" title="MRV ('+mrv+'s)"></div>' +
+      '<div class="bar-fill" style="position:absolute;left:0;width:'+barPct+'%;height:100%;background:#F4C93B;border-radius:5px;box-shadow:0 0 8px rgba(244,201,59,0.45);"></div>' +
+    '</div>';
+  });
 
- document.getElementById('totalSets').textContent = totalSets;
- document.getElementById('muscleResults').innerHTML = resultsHtml;
+  document.getElementById('muscleResults').innerHTML = resultsHtml;
+  document.getElementById('totalSets').textContent = totalSets;
 
- // Per-session breakdown
- const totalFocus = muscleData.filter(m => m.priority === 'focus').reduce((s,m)=>s+m.rec,0);
- const perSession = Math.round(totalSets / days);
+  // Breakdown by priority
+  const totalFocus = muscleData.filter(m => m.priority === 'focus').reduce((s,m) => s + m.rec, 0);
+  const totalMaint = muscleData.filter(m => m.priority === 'maintenance').reduce((s,m) => s + m.rec, 0);
+  document.getElementById('volBreakdown').innerHTML =
+    '<div class="breakdown-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">' +
+      '<div class="break-item" style="background:#14151A;border:1px solid #2C2E37;border-radius:8px;padding:10px;text-align:center;"><div style="font-size:0.6rem;color:rgba(250,250,248,0.4);">FOCUS VOLUME</div><div style="font-size:1.1rem;font-weight:700;color:#F4C93B;">'+totalFocus+' sets</div></div>' +
+      '<div class="break-item" style="background:#14151A;border:1px solid #2C2E37;border-radius:8px;padding:10px;text-align:center;"><div style="font-size:0.6rem;color:rgba(250,250,248,0.4);">MAINTENANCE VOLUME</div><div style="font-size:1.1rem;font-weight:700;color:rgba(250,250,248,0.7);">'+totalMaint+' sets</div></div>' +
+    '</div>';
 
- let sessHtml = '';
- for(let d=1; d<=days; d++){
- const pct = 100/days;
- sessHtml += '<div class="bar-seg" style="width:'+pct+'%;background:#F4C93B;font-size:.5rem;">'+Math.round(totalSets/days)+'</div>';
- }
- document.getElementById('sessionBar').innerHTML = sessHtml;
+  // Per session bar
+  const avgPerDay = Math.round(totalSets / days);
+  let barHtml = '';
+  for(let i=0; i<days; i++){
+    barHtml += '<div class="bar-seg" style="flex:1;background:rgba(244,201,59,0.7);margin:0 2px;height:24px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:0.6rem;font-weight:700;color:#14151A;">D'+(i+1)+': ~'+avgPerDay+'s</div>';
+  }
+  document.getElementById('sessionBar').innerHTML = barHtml;
 
- // Recommendation note
- let note = '';
- const setGoal = goal === 'hypertrophy' ? 'hypertrophy' : (goal === 'strength' ? 'strength' : 'balanced');
- note = 'Training age: <strong>'+level+'</strong> · Goal: <strong>'+setGoal+'</strong> · Days/week: <strong>'+days+'</strong>. ';
- if(level === 'novice'){
- note += 'As a novice, you will respond to almost any volume within range. Start at the lower end of your MEV–MAV range and add sets only when progress stalls for 2+ weeks.';
- } else if(level === 'intermediate'){
- note += 'As an intermediate, your MEV is higher and your MRV is a real constraint. Stay within the recommended sweet spot (midpoint). If recovery suffers, reduce volume before reducing intensity.';
- } else {
- note += 'As an advanced lifter, you need substantial volume to drive progress and substantial recovery to manage it. Consider a weekly undulating volume pattern: higher volume early in the week, lower volume before rest days.';
- }
- if(totalSets > 25 && days <= 3){
- note += ' With '+days+' days/week and '+totalSets+' total sets, each session will be long. Consider spreading to 4+ days or reducing maintenance volume.';
- }
- document.getElementById('recNote').innerHTML = note;
+  const setGoal = goal === 'hypertrophy' ? 'hypertrophy' : (goal === 'strength' ? 'strength' : 'balanced');
+  let note = 'Training age: <strong>'+level+'</strong> · Goal: <strong>'+setGoal+'</strong> · Days/week: <strong>'+days+'</strong> · Focus Volume: <strong>'+totalFocus+'</strong> sets. ';
+  if(level === 'novice'){
+    note += 'As a novice, you will respond to almost any volume within range. Start at the lower end of your MEV–MAV range and add sets only when progress stalls for 2+ weeks.';
+  } else if(level === 'intermediate'){
+    note += 'As an intermediate, your MEV is higher and your MRV is a real constraint. Stay within the recommended sweet spot (midpoint). If recovery suffers, reduce volume before reducing intensity.';
+  } else {
+    note += 'As an advanced lifter, you need substantial volume to drive progress and substantial recovery to manage it. Consider a weekly undulating volume pattern: higher volume early in the week, lower volume before rest days.';
+  }
+  if(totalSets > 25 && days <= 3){
+    note += ' With '+days+' days/week and '+totalSets+' total sets, each session will be long. Consider spreading to 4+ days or reducing maintenance volume.';
+  }
+  document.getElementById('recNote').innerHTML = note;
 
- res.style.display = 'block';
- res.scrollIntoView({behavior:'smooth',block:'start'});
- });
+  res.style.display = 'block';
+  if(shouldScroll) res.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+
+  document.getElementById('calcBtn').addEventListener('click', function(){
+    calculateVolume(true);
+  });
+
+  // Hick's Law: Instant visual feedback with smart defaults (no blank initial screen)
+  calculateVolume(false);
 })();
 </script>
 <script src="../assets/js/access-control.js"></script>
@@ -391,7 +411,7 @@ select option{background:#1E1E2A;color:#FAFAF8}
  function init(){
  var gate = document.getElementById('googleGate');
  if(!gate) return;
- MosAccess.requireGoogleAuth(null, function(ok){ if(ok) gate.classList.add('gate-hidden'); });
+  gate.classList.add('gate-hidden'); // Paywall deactivated for testing
  }
  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
@@ -412,7 +432,9 @@ select option{background:#1E1E2A;color:#FAFAF8}
     network: 'Network error. Please try again.'
   };
   function getSub(){ try { return JSON.parse(localStorage.getItem(SUB_KEY) || 'null'); } catch(e){ return null; } }
-  function subOk(s){ return !!(s && s.active && (!s.expiry || new Date(s.expiry + 'T23:59:59') > new Date())); }
+  function subOk(s){
+    return true; // Paywall deactivated for testing
+  }
   function hideGate(){ var g = document.getElementById('googleGate'); if (g) g.classList.add('gate-hidden'); }
   window.MosAccess = { requireGoogleAuth: function(o, cb){ try { cb(!!subOk(getSub())); } catch(e){ cb(false); } } };
   function buildCard(g){
@@ -505,5 +527,6 @@ select option{background:#1E1E2A;color:#FAFAF8}
   window.addEventListener('storage', function(e){ if (e.key === SUB_KEY && subOk(getSub())) hideGate(); });
 })();
 </script>
+<script src="../assets/js/mos-nav.js"></script>
 </body>
 </html>

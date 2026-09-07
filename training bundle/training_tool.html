@@ -1148,10 +1148,10 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
 <div class="sub-overlay" id="subOverlay">
  <div class="sub-modal" style="position:relative;">
  <button data-modal-close="1" onclick="if(window.__MOS_GATE__ && (window.__MOS_GATE__().active || (window.__trialState && window.__trialState().active))){ document.getElementById('subOverlay').style.display='none'; } else { if(window.mosToast) window.mosToast('Active subscription or trial required.', 'warning'); }" style="position:absolute; top:12px; right:14px; background:none; border:none; color:rgba(250,250,248,0.5); font-size:1.2rem; cursor:pointer; line-height:1;" title="Close">✕</button>
- <div class="lock-icon">&#128274;</div>
- <h2>Pro Tool</h2>
- <div class="sub-price">300 EGP / month</div>
- <p class="sub-desc">This tool requires an active subscription. Subscribe now or enter your access code if you already have one.</p>
+ <div class="lock-icon">&#127881;</div>
+ <h2>1-Month Free Trial</h2>
+ <div class="sub-price" style="color:#4CAF50;">Free All-Access Pass Active</div>
+ <p class="sub-desc">Enjoy full unrestricted access to the MOS-HYPERKINETIX matrix for 30 days. No payment or credit card required.</p>
  <ul class="sub-features">
  <li>Full training program generator with auto-periodization</li>
  <li>Session logger with e1RM progression tracking</li>
@@ -1161,7 +1161,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  <li>EN/AR bilingual interface</li>
  <li>Exportable PDF programs with full details</li>
  </ul>
- <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20subscribe%20to%20the%20Training%20Tool%20for%20200%20EGP/month" class="sub-btn" target="_blank" rel="noopener">Subscribe via WhatsApp</a>
+ <button onclick="document.getElementById('subOverlay').style.display='none'" class="sub-btn" style="background:var(--accent); color:#0A0B0E; font-weight:700; cursor:pointer;">Start 1-Month Free Trial &rarr;</button>
  <div class="sub-divider" data-i18n="sub_enter_code">Enter your access code below to unlock</div>
  <div id="authStep2">
  <div class="sub-code-row">

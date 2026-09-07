@@ -160,13 +160,13 @@ pre, table, figure, img, svg, blockquote { max-width: 100%; box-sizing: border-b
 <body>
 <div class="po-overlay" id="poOverlay">
  <div class="po-modal">
- <div class="po-icon">&#128274;</div>
+ <div class="po-icon">&#127881;</div>
  <h2>Strength Maxing Book</h2>
- <div class="po-price">500 EGP &middot; one-time purchase</div>
- <p class="po-desc">Purchase this book to unlock the full 24-chapter reference. One payment, lifetime access.</p>
+ <div class="po-price" style="color:#4CAF50;">1-Month Free Trial Active</div>
+ <p class="po-desc">Full unrestricted access to all 24 chapters during the 1-month free trial.</p>
  <ul class="po-features"> <li>Neural adaptations &amp; force production</li> <li>Squat, bench &amp; deadlift programming</li> <li>Periodization &amp; peaking protocols</li> <li>Meet prep, tapering &amp; weight cuts</li> <li>Plateau diagnosis &amp; breaking strategies</li> </ul>
- <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20want%20to%20purchase%20the%20Strength+Maxing%20book%20for%20500%20EGP" class="po-btn" target="_blank" rel="noopener">Buy via WhatsApp</a>
- <div class="po-divider">Already purchased?</div>
+ <button class="po-btn" style="border:none; cursor:pointer; width:100%; font-size:14px; font-weight:700;" onclick="document.getElementById('poOverlay').style.display='none';document.body.style.overflow='';">Start Reading Book (Free Trial Active) &rarr;</button>
+ <div class="po-divider">Have an access code?</div>
  <div class="po-code-row">
  <input type="text" class="po-code-input" id="poCode" placeholder="Enter your access code" autocomplete="off">
  <button class="po-verify-btn" id="poVerify">Unlock</button>
@@ -1576,7 +1576,8 @@ pre, table, figure, img, svg, blockquote { max-width: 100%; box-sizing: border-b
   var API_BASE = 'https://muscleos-access-control.muscleos.workers.dev';
   var data = null;
   try { data = JSON.parse(localStorage.getItem(KEY)); } catch(e){}
-  if(data && data.active){
+  var TRIAL_ACTIVE = true;
+  if(TRIAL_ACTIVE || (data && data.active)){
     document.getElementById('poOverlay').style.display = 'none';
   } else {
     document.getElementById('poOverlay').style.display = 'flex';
@@ -1629,8 +1630,8 @@ pre, table, figure, img, svg, blockquote { max-width: 100%; box-sizing: border-b
 
 <!-- STICKY MOBILE CTA -->
 <div id="mobileCtaBar">
- <a class="cta-primary" href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%27m%20interested%20in%20the%20Training%20Bundle." target="_blank" rel="noopener">WhatsApp</a>
- <a class="cta-secondary" href="../order.html?product=training_book">Buy Bundle</a>
+ <a class="cta-primary" href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%27m%20interested%20in%20the%20Strength%20Book." target="_blank" rel="noopener">WhatsApp</a>
+ <a class="cta-secondary" href="../books/index.html">All Books</a>
 </div>
 <script src="../js/auth.js"></script>
 </body>
