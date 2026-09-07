@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/client https://accounts.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style https://www.gstatic.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com https://accounts.google.com https://www.gstatic.com https://ssl.gstatic.com; frame-src 'self' https://accounts.google.com/gsi/ https://accounts.google.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev https://accounts.google.com/gsi/ https://accounts.google.com; frame-ancestors 'self'; base-uri 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proof of AI &amp; Technical Architecture — Muscle OS</title>
+<meta name="description" content="Technical architecture, algorithmic disclosure, and proof of AI for Muscle OS: FAISS vector RAG, deterministic physiological formulas, and LLM coaching pipelines.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/mos-consent.css">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#14151A;color:#FAFAF8;font-family:'Inter',sans-serif;line-height:1.75}
+  header{padding:28px 0;border-bottom:1px solid rgba(250,250,248,.08);background:rgba(20,21,26,0.95);position:sticky;top:0;z-index:100;backdrop-filter:blur(8px)}
+  .wrap{max-width:800px;margin:0 auto;padding:0 24px}
+  .header-inner{display:flex;align-items:center;justify-content:space-between}
+  .brand{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:1px;font-size:1.05rem;color:#fff;text-decoration:none}
+  .brand span{color:#F4C93B}
+  .nav-back{font-size:.8rem;color:#8A8D96;text-decoration:none;font-weight:600;text-transform:uppercase;letter-spacing:.5px;transition:color .2s}
+  .nav-back:hover{color:#F4C93B}
+  main{padding:48px 0 64px}
+  h1{font-family:'Oswald',sans-serif;font-size:2.2rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;color:#fff}
+  .updated{font-size:.75rem;color:#8A8D96;font-family:'JetBrains Mono',monospace;margin-bottom:32px}
+  .hero-box{background:linear-gradient(135deg, rgba(244,201,59,0.1), rgba(20,21,26,0.95));border:1.5px solid rgba(244,201,59,0.3);border-radius:12px;padding:24px;margin-bottom:36px}
+  .hero-box h3{font-family:'Oswald',sans-serif;font-size:1.2rem;color:#F4C93B;text-transform:uppercase;margin-bottom:8px;letter-spacing:.5px}
+  .hero-box p{font-size:.92rem;color:rgba(250,250,248,0.9);margin-bottom:0}
+  h2{font-family:'Oswald',sans-serif;font-size:1.2rem;text-transform:uppercase;letter-spacing:1.2px;color:#F4C93B;margin:36px 0 12px;border-bottom:1px solid rgba(244,201,59,0.2);padding-bottom:6px}
+  p{margin-bottom:14px;color:rgba(250,250,248,.8);font-size:.94rem}
+  ul, ol{margin:0 0 16px 22px;color:rgba(250,250,248,.8);font-size:.94rem}
+  li{margin-bottom:8px}
+  code{background:rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:.85rem;color:#F4C93B}
+  .spec-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:.88rem}
+  .spec-table th, .spec-table td{border:1px solid #2C2E37;padding:12px 14px;text-align:left}
+  .spec-table th{background:#1E2027;color:#fff;font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.5px}
+  .spec-table tr:nth-child(even){background:rgba(255,255,255,0.02)}
+  .code-block{background:#0D0E12;border:1px solid #2C2E37;border-radius:8px;padding:16px;margin:20px 0;font-family:'JetBrains Mono',monospace;font-size:.82rem;color:#8A8D96;overflow-x:auto;line-height:1.5}
+  .code-block span.hl{color:#F4C93B}
+  .code-block span.comment{color:#555}
+  footer{padding:32px 0;border-top:1px solid rgba(250,250,248,.08);text-align:center;font-size:.8rem;color:#8A8D96}
+  footer a{color:#8A8D96;margin:0 10px;text-decoration:none}
+  footer a:hover{color:#F4C93B}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap header-inner">
+    <a href="index.html" class="brand">ANAS MO'MEN <span>COACHING</span></a>
+    <a href="index.html" class="nav-back">&larr; Back to Home</a>
+  </div>
+</header>
+<main>
+  <div class="wrap">
+    <h1>Proof of AI &amp; Technical Architecture</h1>
+    <div class="updated">Published: September 2026 &middot; Technical Disclosure &amp; FTC Substantiation Specification</div>
+
+    <div class="hero-box">
+      <h3>FTC &amp; Regulatory Technical Substantiation</h3>
+      <p>This technical document substantiates all claims of "AI-powered", "algorithmic", and "adaptive" features within Muscle OS, in full compliance with the Federal Trade Commission's (FTC) Truth in Advertising standards and AI enforcement mandates. Muscle OS uses a verified hybrid architecture: deterministic sports science algorithms coupled with dense vector retrieval (RAG) and LLM coaching pipelines.</p>
+    </div>
+
+    <h2>1. The Four-Tier System Architecture</h2>
+    <p>Muscle OS does not make unsubstantiated marketing claims. Our system is composed of four distinctly verifiable engineering components:</p>
+
+    <table class="spec-table">
+      <thead>
+        <tr>
+          <th>Tier</th>
+          <th>Technology &amp; Models</th>
+          <th>Function</th>
+          <th>Verification Evidence</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. Deterministic Math Core</strong></td>
+          <td>Peer-reviewed physiological formulas implemented in TypeScript &amp; Python.</td>
+          <td>Calculates TDEE, macronutrient distributions, RPE loading curves, and weekly volume landmarks.</td>
+          <td>Mifflin-St Jeor (1990), Katch-McArdle, Helms &amp; Schoenfeld (2016). Deterministic unit tests.</td>
+        </tr>
+        <tr>
+          <td><strong>2. Vector RAG Engine</strong></td>
+          <td>FAISS (Facebook AI Similarity Search) + <code>all-MiniLM-L6-v2</code> 384-dim dense embeddings.</td>
+          <td>Semantic search over 1,563 research chunks extracted from Coach Anas's 277 scientific book chapters.</td>
+          <td>Local vector index cached at <code>mos_bot/vault_index/</code> with graph traversal edges.</td>
+        </tr>
+        <tr>
+          <td><strong>3. LLM Coaching Pipeline</strong></td>
+          <td>Google Gemini 1.5 Pro / Flash &amp; Groq LLaMA 3.3 70B inference via secured REST API.</td>
+          <td>Natural language question answering, qualitative fatigue evaluation, and check-in synthesis.</td>
+          <td>Zero-retention enterprise API keys with structured JSON schema outputs and safety system prompts.</td>
+        </tr>
+        <tr>
+          <td><strong>4. Human Coach Oversight</strong></td>
+          <td>Coach Anas Mo'men personal review &amp; escalation protocol.</td>
+          <td>Supervision of all red-flag intake responses, severe plateaus, and weekly check-ins.</td>
+          <td>Direct WhatsApp athlete communication channel and weekly audit logs.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>2. Vector RAG Engine Specification</h2>
+    <p>Our research retrieval engine (implemented in <code>mos_bot/core/vault_rag.py</code>) allows our system to synthesize answers based on empirical exercise literature rather than ungrounded LLM completions.</p>
+
+    <div class="code-block">
+<span class="comment"># Muscle OS FAISS Retrieval & Graph Expansion Pipeline</span>
+<span class="hl">Input:</span> Athlete Check-in / Coaching Query
+  &darr;
+<span class="hl">Embedding:</span> sentence-transformers/all-MiniLM-L6-v2 (384-dimensional dense vector)
+  &darr;
+<span class="hl">Vector Index:</span> FAISS IndexFlatIP (Cosine Similarity over 1,563 vault chunks)
+  &darr;
+<span class="hl">Graph Expansion:</span> BFS graph traversal across same-pillar & wikilink nodes
+  &darr;
+<span class="hl">Context Injection:</span> Top-k validated passages injected into LLM System Prompt with citations
+    </div>
+
+    <h2>3. Deterministic Physiological Guardrails</h2>
+    <p>Unlike pure generative AI chatbots that hallucinate arbitrary workout numbers, Muscle OS bounds all AI outputs with rigid physiological guardrails:</p>
+    <ul>
+      <li><strong>Caloric Floor Enforcer:</strong> Energy intake calculations enforce a mandatory biological floor based on Fat-Free Mass (FFM) and Mifflin-St Jeor basal metabolic rate (BMR). The engine physically refuses to prescribe deficits below safe thresholds.</li>
+      <li><strong>Volume Landmark Bounding:</strong> Weekly training volume is strictly bounded by Maintenance Volume (MV), Minimum Effective Volume (MEV), Maximum Adaptive Volume (MAV), and Maximum Recoverable Volume (MRV) matrices per muscle group.</li>
+      <li><strong>RPE-to-%1RM Validation:</strong> Working load conversions strictly adhere to the Mike Tuchscherer and Eric Helms RPE/RIR percentage conversion tables.</li>
+    </ul>
+
+    <h2>4. Independent Verification &amp; Auditing</h2>
+    <p>Muscle OS maintains open documentation and technical transparency. If an academic, regulatory, or technical body requests evidence of our AI systems or mathematical derivations, full technical demonstrations are available upon request.</p>
+    <p>For technical inquiries or algorithmic review, contact Coach Anas Mo'men directly at <a href="mailto:engineering@muscleos.coach">engineering@muscleos.coach</a>.</p>
+  </div>
+</main>
+<footer>
+  <div class="wrap">
+    <a href="index.html">Home</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+    <a href="dmca.html">DMCA</a>
+    <a href="ai-policy.html">AI Policy</a>
+    <a href="ai-architecture.html" style="color:#F4C93B;">AI Architecture</a>
+    <a href="security.html">Security</a>
+    <a href="unsubscribe.html">Unsubscribe</a>
+  </div>
+</footer>
+<script src="assets/js/mos-consent.js"></script>
+</body>
+</html>

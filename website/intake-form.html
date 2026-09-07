@@ -6,6 +6,7 @@
 <title>Muscle OS &mdash; Client Assessment &amp; Intake Diagnostic</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/mos-consent.css">
 <style>
   :root {
     --ink: #0A0B0E;
@@ -125,7 +126,7 @@ const SECTIONS = [
     id: 1, title: 'Athlete Identity & Vitals', desc: 'Basic metrics required for baseline expenditure and biomechanical scaling.',
     questions: [
       { id:'name', type:'text', label:'Full name', placeholder:'e.g. Omar Khaled' },
-      { id:'age', label:'Age bracket', options:[{ value:'under_25', label:'Under 25' }, { value:'25_39', label:'25-39' }, { value:'40_54', label:'40-54' }, { value:'55_plus', label:'55+' }] },
+      { id:'age', label:'Age bracket (18+ or 16+ with parental consent)', options:[{ value:'18_24', label:'18-24' }, { value:'25_39', label:'25-39' }, { value:'40_54', label:'40-54' }, { value:'55_plus', label:'55+' }, { value:'16_17_parental', label:'16-17 (Parental Consent)' }] },
       { id:'sex', label:'Biological sex (for metabolic equations)', options:[{ value:'male', label:'Male' }, { value:'female', label:'Female' }] },
       { id:'height', type:'number', label:'Height (cm)', placeholder:'e.g. 178' },
       { id:'weight', type:'number', label:'Current body weight (kg)', placeholder:'e.g. 82.5' }
@@ -254,6 +255,22 @@ function renderStep() {
           <div class="review-card"><div class="label">Injuries / Notes</div><div class="val">${answers.injuries || 'None reported'}</div></div>
         </div>
 
+        <div style="background:rgba(244,201,59,0.06); border:1px solid rgba(244,201,59,0.25); border-radius:8px; padding:12px; margin-bottom:14px; font-size:12px; color:var(--text-muted); line-height:1.45; text-align:left;">
+          <strong style="color:var(--yellow); display:block; margin-bottom:4px;">🔒 Biometric Privacy &amp; Photo Guidance (BIPA Notice)</strong>
+          When providing check-in photos, please crop or blur your face. Muscle OS does NOT perform facial recognition or collect biometric identifiers. Data is encrypted client-side.
+        </div>
+
+        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; padding:12px; margin-bottom:14px; text-align:left; display:flex; flex-direction:column; gap:10px;">
+          <label style="display:flex; align-items:flex-start; gap:10px; cursor:pointer; font-size:12px; color:var(--text); line-height:1.4;">
+            <input type="checkbox" id="intakeAgeClearance" checked style="accent-color:var(--yellow); width:16px; height:16px; margin-top:1px; flex-shrink:0;">
+            <span><strong>Age Verification &amp; Clearance:</strong> I confirm I am 18+ (or 16-17 with parental consent) and medically cleared for resistance training.</span>
+          </label>
+          <label style="display:flex; align-items:flex-start; gap:10px; cursor:pointer; font-size:12px; color:var(--text-muted); line-height:1.4;">
+            <input type="checkbox" id="intakeMarketingConsent" style="accent-color:var(--yellow); width:16px; height:16px; margin-top:1px; flex-shrink:0;">
+            <span>I agree to receive training updates and tips via WhatsApp. Unsubscribe anytime via the <a href="unsubscribe.html" target="_blank" style="color:var(--yellow); text-decoration:underline;">Unsubscribe Center</a>.</span>
+          </label>
+        </div>
+
         <button class="btn btn-primary" style="width:100%; justify-content:center; margin-top:8px;" onclick="dispatchIntake()">SUBMIT INTAKE TO COACH ON WHATSAPP &rarr;</button>
         <button class="btn btn-secondary" style="width:100%; justify-content:center; margin-top:10px;" onclick="currentStep = 0; renderStep();">Edit Answers</button>
       </div>
@@ -263,9 +280,25 @@ function renderStep() {
   }
 }
 
+function loadAnswers() {
+  try {
+    if (window.mosCrypto && typeof window.mosCrypto.getSecureItem === 'function') {
+      var sec = mosCrypto.getSecureItem('mos_intake_draft', true);
+      if (sec) return sec;
+    }
+    return JSON.parse(localStorage.getItem('mos_intake_draft') || '{}');
+  } catch(e) { return {}; }
+}
+
+let answers = loadAnswers();
+
 function saveField(id, val) {
   answers[id] = val;
-  localStorage.setItem('mos_intake_draft', JSON.stringify(answers));
+  if (window.mosCrypto && typeof window.mosCrypto.setSecureItem === 'function') {
+    mosCrypto.setSecureItem('mos_intake_draft', answers);
+  } else {
+    localStorage.setItem('mos_intake_draft', JSON.stringify(answers));
+  }
 }
 
 function nextStep() {
@@ -281,6 +314,12 @@ function prevStep() {
 }
 
 function dispatchIntake() {
+  const ageBox = document.getElementById('intakeAgeClearance');
+  if (ageBox && !ageBox.checked) {
+    alert('Please confirm you are at least 18 years of age (or 16+ with parental consent) and medically cleared for exercise.');
+    return;
+  }
+
   const msg = `Hi Coach Anas! I've completed the Muscle OS Athlete Intake Assessment:%0A%0A` +
               `👤 *Athlete:* ${answers.name || 'Athlete'}%0A` +
               `📏 *Vitals:* ${answers.height || '--'} cm | ${answers.weight || '--'} kg%0A` +
@@ -295,5 +334,20 @@ function dispatchIntake() {
 
 renderStep();
 </script>
+<footer style="margin-top:60px; padding:32px 20px; border-top:1px solid var(--border); text-align:center; font-size:0.78rem; color:var(--text-muted);">
+  <div style="display:flex; justify-content:center; flex-wrap:wrap; gap:16px; margin-bottom:14px;">
+    <a href="terms.html" style="color:var(--text-muted); text-decoration:none;">Terms of Service</a>
+    <a href="privacy.html" style="color:var(--text-muted); text-decoration:none;">Privacy Policy</a>
+    <a href="dmca.html" style="color:var(--text-muted); text-decoration:none;">DMCA Notice</a>
+    <a href="ai-policy.html" style="color:var(--text-muted); text-decoration:none;">AI Policy</a>
+    <a href="security.html" style="color:var(--text-muted); text-decoration:none;">Security &amp; Encryption</a>
+    <a href="unsubscribe.html" style="color:var(--text-muted); text-decoration:none;">Unsubscribe</a>
+    <a href="javascript:void(0)" onclick="if(window.openMosCookiePreferences) window.openMosCookiePreferences();" style="color:var(--yellow); text-decoration:underline;">Cookie Preferences</a>
+  </div>
+  <p>&copy; 2026 Muscle OS. All rights reserved. Non-medical physiological coaching platform.</p>
+</footer>
+<script src="assets/js/mos-crypto.js"></script>
+<script src="assets/js/mos-consent.js"></script>
+<script src="assets/tracking.js"></script>
 </body>
 </html>

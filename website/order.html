@@ -11,6 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/mos-consent.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -241,7 +242,22 @@ body{
         <input type="text" id="txRef" class="field-input" placeholder="e.g. Need help setting up initial training split">
       </div>
 
+      <div class="field-group" style="margin-top:20px; background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:8px; padding:14px;">
+        <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-family:'Inter',sans-serif;font-size:0.82rem;text-transform:none;color:var(--text);font-weight:500;line-height:1.4;margin-bottom:12px;">
+          <input type="checkbox" id="ageConsent" required style="accent-color:var(--yellow);width:17px;height:17px;margin-top:2px;flex-shrink:0;">
+          <span><strong>Age Verification &amp; Fitness Clearance:</strong> I certify that I am at least 18 years of age (or 16-17 with parental/guardian authorization) and medically cleared for resistance training.</span>
+        </label>
+        <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-family:'Inter',sans-serif;font-size:0.82rem;text-transform:none;color:var(--text-muted);font-weight:400;line-height:1.4;margin:0;">
+          <input type="checkbox" id="marketingConsent" style="accent-color:var(--yellow);width:17px;height:17px;margin-top:2px;flex-shrink:0;">
+          <span>I agree to receive training updates, protocol adjustments, and coaching tips via WhatsApp/SMS. I understand I can opt-out at any time by replying STOP or visiting the <a href="unsubscribe.html" target="_blank" style="color:var(--yellow);text-decoration:underline;">Unsubscribe Center</a>.</span>
+        </label>
+      </div>
+
       <button type="submit" class="btn-submit">ACTIVATE 1-MONTH FREE TRIAL ON WHATSAPP &rarr;</button>
+
+      <p style="font-size:0.75rem;color:var(--text-muted);text-align:center;margin-top:14px;line-height:1.5;">
+        By activating, you agree to our <a href="terms.html" style="color:var(--yellow);text-decoration:underline;">Terms</a>, <a href="privacy.html" style="color:var(--yellow);text-decoration:underline;">Privacy</a>, <a href="ai-policy.html" style="color:var(--yellow);text-decoration:underline;">AI Policy</a>, and <a href="dmca.html" style="color:var(--yellow);text-decoration:underline;">DMCA</a>.
+      </p>
     </form>
   </div>
 </div>
@@ -322,5 +338,20 @@ if (queryProduct && PRODUCTS[queryProduct]) {
   if (targetOpt) targetOpt.click();
 }
 </script>
+<footer style="margin-top:60px; padding:32px 20px; border-top:1px solid var(--border); text-align:center; font-size:0.78rem; color:var(--text-muted);">
+  <div style="display:flex; justify-content:center; flex-wrap:wrap; gap:16px; margin-bottom:14px;">
+    <a href="terms.html" style="color:var(--text-muted); text-decoration:none;">Terms of Service</a>
+    <a href="privacy.html" style="color:var(--text-muted); text-decoration:none;">Privacy Policy</a>
+    <a href="dmca.html" style="color:var(--text-muted); text-decoration:none;">DMCA Notice</a>
+    <a href="ai-policy.html" style="color:var(--text-muted); text-decoration:none;">AI Policy</a>
+    <a href="security.html" style="color:var(--text-muted); text-decoration:none;">Security &amp; Encryption</a>
+    <a href="unsubscribe.html" style="color:var(--text-muted); text-decoration:none;">Unsubscribe</a>
+    <a href="javascript:void(0)" onclick="if(window.openMosCookiePreferences) window.openMosCookiePreferences();" style="color:var(--yellow); text-decoration:underline;">Cookie Preferences</a>
+  </div>
+  <p>&copy; 2026 Muscle OS. All rights reserved. Non-medical physiological coaching platform.</p>
+</footer>
+<script src="assets/js/mos-crypto.js"></script>
+<script src="assets/js/mos-consent.js"></script>
+<script src="assets/tracking.js"></script>
 </body>
 </html>

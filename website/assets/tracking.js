@@ -57,19 +57,32 @@
  }
 
   // ── Deduplication & Consent guard ───────────────────
-  if (window.__mosTrackedThisLoad) return;
-  window.__mosTrackedThisLoad = true;
+  var pageviewSent = false;
 
   function isConsentGiven() {
+    if (window.mosHasConsent && typeof window.mosHasConsent === 'function') {
+      return window.mosHasConsent('analytics') || window.mosHasConsent('marketing');
+    }
     return localStorage.getItem('cookiesAccepted') === 'true';
   }
 
-  // ── Pageview event (only if consent given) ───────────
-  if (isConsentGiven()) {
+  function triggerPageview() {
+    if (pageviewSent || !isConsentGiven()) return;
+    pageviewSent = true;
     var pageviewEntry = { page: getPage(), action: 'pageview', referrer: document.referrer || '', timestamp: now() };
     log(pageviewEntry);
     webhookSend(pageviewEntry);
   }
+
+  // ── Pageview event (only if consent given) ───────────
+  triggerPageview();
+
+  // Listen for consent updates from mos-consent.js
+  window.addEventListener('mos_consent_updated', function(e) {
+    if (e.detail && (e.detail.analytics || e.detail.marketing)) {
+      triggerPageview();
+    }
+  });
 
  // ── Click tracking for WhatsApp links ───────────────
  document.addEventListener('click', function(e) {

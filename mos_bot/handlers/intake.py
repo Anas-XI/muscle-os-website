@@ -222,8 +222,9 @@ async def age_handler(update, context):
     age = int(text)
     if age < 16:
         await update.message.reply_text(
-            "I'm sorry, but I can only work with users aged 16 and over. "
-            "Please consult a qualified professional for guidance."
+            "⚠️ Under Muscle OS Safety & Compliance Policy, autonomous training programs are "
+            "restricted to individuals 18 years and older (or 16+ with verified parental consent). "
+            "We cannot formulate programs for minors under 16."
         )
         return ConversationHandler.END
     if age > 75:
@@ -232,6 +233,8 @@ async def age_handler(update, context):
             "exercise or nutrition program."
         )
         return ConversationHandler.END
+    if 16 <= age < 18:
+        context.user_data["parental_consent_verified"] = True
     context.user_data["age"] = str(age)
 
     line = "\n".join([

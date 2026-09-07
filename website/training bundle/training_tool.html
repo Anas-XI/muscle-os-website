@@ -4477,9 +4477,10 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  var photos=ms.filter(function(m){return m.photo});
  if(photos.length){
  html+='<div style="font-size:.4rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.1);margin:4px 0 2px">'+_('meas_progress_photos')+'</div>';
+ html+='<div style="font-size:.32rem;color:rgba(250,250,248,.35);margin:2px 0 4px;line-height:1.3;">🔒 <em>Biometric Privacy: Please crop or blur your face. Muscle OS does not process facial recognition or biometric templates.</em></div>';
  html+='<div style="display:flex;gap:4px;overflow-x:auto;padding:2px 0">';
  photos.slice(-5).reverse().forEach(function(m){
- html+='<div style="flex-shrink:0;width:55px;height:65px;border-radius:4px;overflow:hidden;background:rgba(250,250,248,.02);cursor:pointer" onclick="window.open(\''+m.photo+'\')"><img src="'+m.photo+'" style="width:100%;height:100%;object-fit:cover"><div style="font-size:.3rem;text-align:center;color:rgba(250,250,248,.1);margin-top:1px">'+m.date.slice(5)+'</div></div>';
+ html+='<div style="flex-shrink:0;width:55px;height:65px;border-radius:4px;overflow:hidden;background:rgba(250,250,248,.02);cursor:pointer" onclick="window.open(\''+m.photo+'\')"><img src="'+m.photo+'" alt="Physique check-in progress thumbnail" style="width:100%;height:100%;object-fit:cover"><div style="font-size:.3rem;text-align:center;color:rgba(250,250,248,.1);margin-top:1px">'+m.date.slice(5)+'</div></div>';
  });
  html+='</div>';
  }
@@ -7048,7 +7049,7 @@ window.showShareModal = function(dataUrl) {
   var modalHtml = '<div id="shareModal" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,10,15,.95);z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;">' +
     '<h2 style="font-family:\'Oswald\',sans-serif;font-size:1.5rem;color:#F4C93B;margin-bottom:10px;text-transform:uppercase;">Workout Saved!</h2>' +
     '<p style="font-size:.8rem;color:rgba(250,250,248,.6);margin-bottom:20px;">Show off your hard work.</p>' +
-    '<img src="' + dataUrl + '" style="width:100%;max-width:300px;border-radius:12px;margin-bottom:24px;border:1px solid rgba(244,201,59,.2);">' +
+    '<img src="' + dataUrl + '" alt="Workout summary card preview" style="width:100%;max-width:300px;border-radius:12px;margin-bottom:24px;border:1px solid rgba(244,201,59,.2);">' +
     '<div style="display:flex;gap:12px;width:100%;max-width:300px;">' +
       '<button onclick="document.getElementById(\'shareModal\').remove();go(4);renderDashboard();" style="flex:1;padding:14px;background:transparent;border:1px solid rgba(250,250,248,.2);border-radius:8px;color:#FAFAF8;font-weight:600;font-size:.9rem;">Skip</button>' +
       '<button id="nativeShareBtn" style="flex:1;padding:14px;background:#F4C93B;border:none;border-radius:8px;color:#14151A;font-weight:600;font-size:.9rem;">Share Image</button>' +

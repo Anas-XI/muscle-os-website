@@ -62,10 +62,28 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "/intake - Step-by-step chat intake\n"
         "/checkin - Weekly check-in to track progress\n"
         "/coach - Ask me anything about your program\n"
+        "/stop or /unsubscribe - Opt out of automated messages\n"
         "/cancel - Cancel current conversation\n"
         "/help - Show this message"
     )
     await update.message.reply_text(text)
+
+
+async def stop_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Handle /stop or /unsubscribe (CAN-SPAM, GDPR Art. 21, and messaging compliance)."""
+    user_id = str(update.effective_user.id)
+    context.user_data["unsubscribed"] = True
+    context.user_data.clear()
+    track("user_unsubscribed", user_id, {"source": "stop_command"})
+
+    text = (
+        "🛑 You have successfully unsubscribed from automated Muscle OS messages and reminders.\n\n"
+        "• Your active conversations and check-in prompts have been halted.\n"
+        "• To re-activate at any time, simply send /start.\n"
+        "• You can also update communication preferences at: https://muscleos.coach/unsubscribe.html"
+    )
+    await update.message.reply_text(text)
+    return ConversationHandler.END
 
 
 async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):

@@ -18,7 +18,7 @@ from mos_bot.states import (
     HYDRATION, ALCOHOL_WEEKLY, WORK_SCHEDULE, MOBILITY, BLOODWORK,
     RAPID_WEIGHT_LOSS, MENTAL_HEALTH, CRISIS_INTERVENTION,
 )
-from mos_bot.handlers.start import start, help_command, cancel
+from mos_bot.handlers.start import start, help_command, cancel, stop_command
 from mos_bot.handlers.upload_profile import upload_profile, handle_json_upload
 from mos_bot.handlers.intake import (
     start as intake_start,
@@ -140,6 +140,8 @@ def main():
     app.add_handler(CommandHandler("upload_profile", upload_profile))
     app.add_handler(MessageHandler(filters.Document.ALL, handle_json_upload))
     app.add_handler(CommandHandler("help", help_command))
+    app.add_handler(CommandHandler("stop", stop_command))
+    app.add_handler(CommandHandler("unsubscribe", stop_command))
     app.add_handler(CommandHandler("status", status))
     app.add_handler(CommandHandler("users", users))
     app.add_handler(CommandHandler("clear_crisis", clear_crisis))
