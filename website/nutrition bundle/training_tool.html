@@ -1122,7 +1122,7 @@ select option{background:var(--card)}
 // Universal Toast Notification Handler
 window.mosToast = function(msg, type) {
   type = type || 'info';
-  var icon = type === 'success' ? '✅' : (type === 'error' ? '❌' : (type === 'warning' ? '⚠️' : '⚡'));
+  var icon = type === 'success' ? '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M5 8l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>' : (type === 'error' ? '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M5.5 5.5l5 5M10.5 5.5l-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>' : (type === 'warning' ? '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 2L1 14h14z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M8 6v4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="8" cy="12" r=".7" fill="currentColor"/></svg>' : '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M9 1L4 9h4l-1 6 5-8H8z" fill="currentColor"/></svg>'));
   var tc = document.getElementById('mos-toast-container');
   if (!tc) {
     tc = document.createElement('div');
@@ -1148,7 +1148,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
 <nav class="mos-nav"><div class="mos-nav-inner"><a href="../index.html" class="mos-brand">ANAS MO'MEN <span>COACHING</span></a><div class="mos-nav-links"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a><a href="../index.html#packages">Coaching</a></div></div></nav>
 <div class="sub-overlay" id="subOverlay">
  <div class="sub-modal" style="position:relative;">
- <button data-modal-close="1" onclick="if(window.__MOS_GATE__ && (window.__MOS_GATE__().active || (window.__trialState && window.__trialState().active))){ document.getElementById('subOverlay').style.display='none'; } else { if(window.mosToast) window.mosToast('Active subscription or trial required.', 'warning'); }" style="position:absolute; top:12px; right:14px; background:none; border:none; color:rgba(250,250,248,0.5); font-size:1.2rem; cursor:pointer; line-height:1;" title="Close">✕</button>
+ <button data-modal-close="1" onclick="if(window.__MOS_GATE__ && (window.__MOS_GATE__().active || (window.__trialState && window.__trialState().active))){ document.getElementById('subOverlay').style.display='none'; } else { if(window.mosToast) window.mosToast('Active subscription or trial required.', 'warning'); }" style="position:absolute; top:12px; right:14px; background:none; border:none; color:rgba(250,250,248,0.5); font-size:1.2rem; cursor:pointer; line-height:1;" title="Close"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
  <div class="lock-icon">&#127881;</div>
  <h2>1-Month Free Trial</h2>
  <div class="sub-price" style="color:#4CAF50;">Free All-Access Pass Active</div>
@@ -1191,7 +1191,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  <div class="header no-print">
  <div class="header-top">
  <h1 data-i18n="app_title">MOS-HYPERKINETIX</h1>
- <button id="headerAccountBtn" onclick="document.getElementById('subOverlay').style.display='flex'; if(window.__initGsi) window.__initGsi();" style="display:inline-flex; align-items:center; gap:4px; font-size:0.65rem; font-weight:600; padding:4px 9px; border-radius:4px; border:1px solid rgba(244,201,59,0.3); background:rgba(244,201,59,0.1); color:#F4C93B; cursor:pointer; text-transform:uppercase; margin-left:auto; margin-right:8px;">👤 Account</button>
+ <button id="headerAccountBtn" onclick="document.getElementById('subOverlay').style.display='flex'; if(window.__initGsi) window.__initGsi();" style="display:inline-flex; align-items:center; gap:4px; font-size:0.65rem; font-weight:600; padding:4px 9px; border-radius:4px; border:1px solid rgba(244,201,59,0.3); background:rgba(244,201,59,0.1); color:#F4C93B; cursor:pointer; text-transform:uppercase; margin-left:auto; margin-right:8px;"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="5" r="2.5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M3 14c0-3 2-5 5-5s5 2 5 5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Account</button>
  <div class="lang-toggle" onclick="toggleLang()">
  <span class="lang-opt active" data-lang="en">EN</span>
  <span class="lang-opt" data-lang="ar">AR</span>
@@ -1203,7 +1203,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  <span class="acc-swatch" data-acc="purple" style="background:#9C27B0"></span>
  </div>
  <button class="install-btn no-print" id="installBtn" style="display:none"></button>
- <div class="sync-toggle" id="syncBtn" onclick="showSync()" data-i18n="sync_title">☁</div>
+ <div class="sync-toggle" id="syncBtn" onclick="showSync()" data-i18n="sync_title"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M4 11a3 3 0 0 1-.5-5.9A4.5 4.5 0 0 1 12 6a3 3 0 0 1 0 5H4z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg></div>
  <div class="sync-toggle" id="libBtn" onclick="showLibrary()" title="Exercise Library"></div>
  </div>
  <p data-i18n="header_sub">Autoregulated Hypertrophy &amp; Periodized Force Matrix</p>
@@ -1219,7 +1219,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  <div class="step program-step" data-step="0" style="display:none"><span class="num"></span><span data-i18n="dashboard">Dashboard</span></div>
  <div class="step program-step" data-step="3" style="display:none"><span class="num"></span><span data-i18n="generate">Program</span></div>
  <div class="step program-step" data-step="35" style="display:none"><span class="num"></span><span>Meso</span></div>
- <div class="step program-step" data-step="4" style="display:none"><span class="num">🏋</span><span data-i18n="today_train">Train</span></div>
+ <div class="step program-step" data-step="4" style="display:none"><span class="num"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M2 8h12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><rect x="3" y="5" width="2" height="6" rx=".5" fill="currentColor"/><rect x="11" y="5" width="2" height="6" rx=".5" fill="currentColor"/></svg></span><span data-i18n="today_train">Train</span></div>
  <div class="step program-step" data-step="5" style="display:none"><span class="num"></span><span data-i18n="history">History</span></div>
 
  <!-- Intake Steps -->
@@ -1248,7 +1248,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  <div class="tw-actions">
  <button class="btn-primary" id="twResumeBtn"> Launch Workout Session</button>
  <button class="btn-secondary" onclick="go(3)" style="background:rgba(244,201,59,.12);color:#F4C93B;border:1px solid rgba(244,201,59,.3)"> View Program</button>
- <button class="btn-secondary" id="twEditBtn">⚙ Modify Program Parameters</button>
+ <button class="btn-secondary" id="twEditBtn"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3 3l1.5 1.5M11.5 11.5L13 13M13 3l-1.5 1.5M4.5 11.5L3 13" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg> Modify Program Parameters</button>
  </div>
     </div>
 
@@ -1256,7 +1256,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
     <div class="bklit-chart-wrap originkit-spotlight" style="margin-top:16px;">
       <div class="bklit-chart-header">
         <div class="bklit-chart-title">
-          <span>⚡</span> Muscle Volume Balance &amp; Landmarks
+          <span><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M9 1L4 9h4l-1 6 5-8H8z" fill="currentColor"/></svg></span> Muscle Volume Balance &amp; Landmarks
         </div>
         <div class="bklit-chart-badge">Bklit MEV/MAV Radar</div>
       </div>
@@ -1290,11 +1290,11 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
 
  <div class="express-quickstart-banner">
  <div>
- <div style="font-size:0.6rem;font-weight:800;color:#F4C93B;letter-spacing:1px;text-transform:uppercase;">⚡ EXPRESS SETUP // HICK'S LAW FAST-PATH</div>
+ <div style="font-size:0.6rem;font-weight:800;color:#F4C93B;letter-spacing:1px;text-transform:uppercase;"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M9 1L4 9h4l-1 6 5-8H8z" fill="currentColor"/></svg> EXPRESS SETUP // HICK'S LAW FAST-PATH</div>
  <div style="font-size:0.82rem;font-weight:700;color:#FAFAF8;margin-top:2px;">Standard 4-Day Evidence-Based Mesocycle</div>
  <div style="font-size:0.62rem;color:rgba(250,250,248,.6);">Pre-calibrated with MEV/MAV volume landmarks &bull; 1-click generation</div>
  </div>
- <button type="button" id="expressOneClickBtn" class="btn-primary" style="width:auto;padding:8px 18px;font-size:0.75rem;margin:0;box-shadow:0 0 15px rgba(244,201,59,0.3);cursor:pointer;">⚡ 1-Click Generate &rarr;</button>
+ <button type="button" id="expressOneClickBtn" class="btn-primary" style="width:auto;padding:8px 18px;font-size:0.75rem;margin:0;box-shadow:0 0 15px rgba(244,201,59,0.3);cursor:pointer;"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M9 1L4 9h4l-1 6 5-8H8z" fill="currentColor"/></svg> 1-Click Generate &rarr;</button>
  </div>
 
 
@@ -1308,19 +1308,19 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  <div class="form-group"><label data-i18n="ta_label">Training Age</label>
  <select id="ta"><option value="novice" data-i18n="novice">Novice (&lt;1 yr)</option><option value="intermediate" selected data-i18n="intermediate">Intermediate (1–3 yr)</option><option value="advanced" data-i18n="advanced">Advanced (3+ yr)</option></select></div>
  <div class="form-group"><label data-i18n="goal_label">Primary Goal</label>
- <select id="goal"><option value="hypertrophy" selected data-i18n="hypertrophy">Hypertrophy (⭐ Recommended)</option><option value="strength" data-i18n="strength">Strength</option><option value="both" data-i18n="balanced">Balanced</option></select></div>
+ <select id="goal"><option value="hypertrophy" selected data-i18n="hypertrophy">Hypertrophy (<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 2l1.8 3.7L14 6.3l-3 2.9.7 4.1L8 11.2 4.3 13.3l.7-4.1-3-2.9 4.2-.6z" fill="currentColor"/></svg> Recommended)</option><option value="strength" data-i18n="strength">Strength</option><option value="both" data-i18n="balanced">Balanced</option></select></div>
  </div>
  <div class="form-row">
  <div class="form-group"><label data-i18n="dow_label">Days/Week</label>
- <select id="dow"><option value="2">2</option><option value="3">3</option><option value="4" selected>4 (⭐ Recommended)</option><option value="5">5</option><option value="6">6</option></select></div>
+ <select id="dow"><option value="2">2</option><option value="3">3</option><option value="4" selected>4 (<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 2l1.8 3.7L14 6.3l-3 2.9.7 4.1L8 11.2 4.3 13.3l.7-4.1-3-2.9 4.2-.6z" fill="currentColor"/></svg> Recommended)</option><option value="5">5</option><option value="6">6</option></select></div>
  <div class="form-group"><label data-i18n="rec_label">Recovery Factor</label>
  <select id="recFactor"><option value="low" data-i18n="low_rec">Low — limited sleep, high stress</option><option value="moderate" selected data-i18n="mod_rec">Moderate — balanced lifestyle</option><option value="high" data-i18n="high_rec">High — optimal recovery</option></select></div>
  </div>
 
   <details class="adv-tuning-accordion" id="advTuningAccordion">
  <summary class="adv-tuning-summary">
- <span>⚙️ Advanced Tuning &amp; Muscle Priorities (Optional)</span>
- <span class="adv-tuning-chevron">▼</span>
+ <span><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3 3l1.5 1.5M11.5 11.5L13 13M13 3l-1.5 1.5M4.5 11.5L3 13" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg> Advanced Tuning &amp; Muscle Priorities (Optional)</span>
+ <span class="adv-tuning-chevron"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
  </summary>
  <div class="adv-tuning-body">
 <div class="form-row">
@@ -1465,7 +1465,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  </p>
  <div style="display:flex;justify-content:flex-end;margin-bottom:4px;gap:4px">
  <button class="btn-secondary" id="densityBtn" style="font-size:.5rem;padding:3px 10px" data-i18n="density_on">Compact</button>
- <button class="btn-secondary" id="adjustExBtn" style="font-size:.5rem;padding:3px 10px" data-i18n="adjust">Adjust ▾</button>
+ <button class="btn-secondary" id="adjustExBtn" style="font-size:.5rem;padding:3px 10px" data-i18n="adjust">Adjust <svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M5 6.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
  </div>
  <div class="ex-filter-bar" id="exFilterBar" style="display:none">
  <div class="ef-row"><span class="ef-lbl" data-i18n="my_gym">My Gym</span>
@@ -1522,11 +1522,11 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
   <div class="mos-algo-split-box originkit-spotlight">
     <div class="mos-algo-header">
       <div class="mos-algo-title">
-        <span>⚡</span> Smart Algorithmic Split Generator
+        <span><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M9 1L4 9h4l-1 6 5-8H8z" fill="currentColor"/></svg></span> Smart Algorithmic Split Generator
       </div>
       <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:0.7rem;color:var(--mos-yellow);font-weight:600;">
         <input type="checkbox" id="algoPlMode" style="accent-color:var(--mos-yellow);">
-        <span>🏋️ Powerlifter (SBD Days)</span>
+        <span><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 5h10M4 5v-2M12 5v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M8 5v4M6 9c0 2 1 3 2 4 1-1 2-2 2-4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg> Powerlifter (SBD Days)</span>
       </label>
     </div>
     <p style="font-size:0.6rem;color:var(--mos-text-muted);margin-bottom:8px;line-height:1.3;">
@@ -1572,7 +1572,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
     </div>
 
     <button type="button" class="originkit-btn originkit-btn-primary" id="btnAlgoGenSplit" style="width:100%;justify-content:center;padding:10px;">
-      ⚡ Auto-Generate Optimal Split
+      <svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M9 1L4 9h4l-1 6 5-8H8z" fill="currentColor"/></svg> Auto-Generate Optimal Split
     </button>
   </div>
 
@@ -1644,17 +1644,17 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
       <label style="font-size:0.65rem; text-transform:uppercase; color:var(--mos-text-muted); font-weight:600;">Choose Specialization Lift:</label>
       <div class="mos-spec-lift-box">
         <div class="mos-spec-chip active" data-lift="squat">
-          <div class="mos-spec-icon">🏋️‍♂️</div>
+          <div class="mos-spec-icon"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 5h10M4 5v-2M12 5v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M8 5v4M6 9c0 2 1 3 2 4 1-1 2-2 2-4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div class="mos-spec-label">Squat Focus</div>
           <div style="font-size:0.55rem; color:var(--mos-text-muted);">Linear Overload Ramp</div>
         </div>
         <div class="mos-spec-chip" data-lift="bench">
-          <div class="mos-spec-icon">⚡</div>
+          <div class="mos-spec-icon"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="2" cy="6" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="14" cy="6" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><path d="M6 9h4M8 6v3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
           <div class="mos-spec-label">Bench Focus</div>
           <div style="font-size:0.55rem; color:var(--mos-text-muted);">Linear Overload Ramp</div>
         </div>
         <div class="mos-spec-chip" data-lift="deadlift">
-          <div class="mos-spec-icon">💥</div>
+          <div class="mos-spec-icon"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="2" cy="8" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="14" cy="8" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><path d="M8 8V4M6 4l2-2 2 2" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div class="mos-spec-label">Deadlift Focus</div>
           <div style="font-size:0.55rem; color:var(--mos-text-muted);">Linear Overload Ramp</div>
         </div>
@@ -1715,7 +1715,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
 
  <div id="nudgeBar" class="nudge-bar" style="display:none">
  <div class="nudge-text" id="nudgeText"></div>
- <button class="nudge-dismiss" id="nudgeDismissBtn" title="Dismiss">✕</button>
+ <button class="nudge-dismiss" id="nudgeDismissBtn" title="Dismiss"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
  </div>
 
  <div id="plateauCard" class="plateau-card" style="display:none"></div>
@@ -1737,9 +1737,9 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  </div>
 
  <div class="rpe-guide" id="rpeGuide">
- <div class="rg-header" onclick="var c=this.nextElementSibling;c.style.display=c.style.display==='none'?'block':'none';this.querySelector('.rg-arrow').textContent=c.style.display==='none'?'▶':'▼'">
+ <div class="rg-header" onclick="var c=this.nextElementSibling;c.style.display=c.style.display==='none'?'block':'none';this.querySelector('.rg-arrow').textContent=c.style.display==='none'?'<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><polygon points="5,3 13,8 5,13" fill="currentColor"/></svg>':'<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'">
  <span data-i18n="rpe_guide_title"> RPE / RIR Guide</span>
- <span class="rg-arrow">▼</span>
+ <span class="rg-arrow"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
  </div>
  <div class="rg-body">
  <div class="rg-intro" data-i18n="rpe_intro">RPE (Rate of Perceived Exertion) and RIR (Reps In Reserve) help you auto-regulate intensity based on how you feel that day. Use the table below to find your target RPE for each rep range.</div>
@@ -1780,7 +1780,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
 
  <div class="cardio-section">
  <div class="cardio-toggle" id="cardioToggle">
- <span class="ci-icon">❤</span>
+ <span class="ci-icon"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 13l-5-5a3 3 0 0 1 5-3 3 3 0 0 1 5 3z" fill="currentColor"/></svg></span>
  <span data-i18n="log_cardio">Log Cardio Session</span>
  <span id="cardioTodayBadge" style="margin-left:auto;font-size:.5rem;color:rgba(250,250,248,.15)"></span>
  </div>
@@ -2408,7 +2408,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  sr_gate_keep:'Keep {F}x', sr_gate_drop:'Drop to 2x this week',
  sr_gate_dropped:'{M}: {F}x → 2x this week (your call)',
  // Session time estimator (2a)
- est_label:'⏱ ~{M} min',
+ est_label:'<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="9" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M8 6v3l2 1" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 1v2M6 1h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> ~{M} min',
  est_over:'Exceeds your {M}-min session window',
  est_trim:'Trim: drop {X} (saves ~{M} min) or reduce its sets',
  est_review_head:'Estimated session time',
@@ -2549,7 +2549,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  gen_warmup_default1:'نط 30 ثانية',gen_warmup_default2:'أعظم إطالة في العالم 5x',
  // Rehab
  rehab_acute:'المرحلة الحادة',rehab_recovery:'مرحلة التعافي (لما يروح الألم)',rehab_safe:'تمارين آمنة:',rehab_avoid:'تجنب:',
- rehab_stop_all:'⛔ وقف كل التمارين اللي بتوجعك لغاية ما الألم يروح.',
+ rehab_stop_all:'<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5 5l6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg> وقف كل التمارين اللي بتوجعك لغاية ما الألم يروح.',
  rehab_book_consult:' احجز استشارة مجانية',rehab_injury:'إصابة',rehab_inflammation:'التهاب خفيف',
  // Fatigue
  fatigue_sleep:'جودة النوم',fatigue_stress:'الضغط النفسي',fatigue_doms:'ألم العضلات',
@@ -2838,7 +2838,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  sr_gate_keep:'أبقِ {F}', sr_gate_drop:'خفّض إلى 2 هذا الأسبوع',
  sr_gate_dropped:'{M}: {F} ← 2 هذا الأسبوع (قرارك)',
  // Session time estimator (2a)
- est_label:'⏱ ~{M} دقيقة',
+ est_label:'<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="9" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M8 6v3l2 1" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 1v2M6 1h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> ~{M} دقيقة',
  est_over:'أطول من نافذة الجلسة ({M} دقيقة)',
  est_trim:'اقتراح: شيل {X} (توفر ~{M} دقيقة) أو قلّل مجموعاته',
  est_review_head:'الزمن المتوقع للجلسة',
@@ -2951,7 +2951,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  }
  const INJURY_PROTOCOLS = {
  shoulder:{
- name:'Shoulder',icon:'🏋',
+ name:'Shoulder',icon:'<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M2 8h12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><rect x="3" y="5" width="2" height="6" rx=".5" fill="currentColor"/><rect x="11" y="5" width="2" height="6" rx=".5" fill="currentColor"/></svg>',
  acute:'Stop all overhead and pressing work. Apply ice 15min every 2-3h. Avoid any movement that reproduces pain. Band pull-aparts only if pain-free.',
  recovery:'Band external rotation, scapular retractions, YTWLs, face pulls, dead hangs. Progress to neutral-grip pressing at <50% load.',
  return:'Gradually reintroduce incline pressing at RPE 6. No behind-neck work. Avoid heavy dips. Stay at RPE ≤7 for 2 weeks.',
@@ -3033,7 +3033,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  safe:['Lat Pulldown','Seated Row','Barbell Squat','Leg Extensions','Leg Curls','Lateral Raises','Rear Delt Flies','Calf Raises','Hip Thrust','Machine Chest Flies','RDL'],
  avoid:['Preacher Curls','Bicep Curl (barbell, stretch-loaded)','Hammer Curls (heavy)','Triceps Pushdown (full stretch)','Skull Crusher','Close-Grip Bench','JM Press','Dips','Reverse Curl'],
  reviewNote:'Elbow tendon guidance is drafted as general loading principles and awaits clinical review before any user-visible use.'},
- rotator_cuff:{name:'Rotator Cuff',icon:'🏋',joint:'shoulder',pendingClinicalReview:true,
+ rotator_cuff:{name:'Rotator Cuff',icon:'<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M2 8h12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><rect x="3" y="5" width="2" height="6" rx=".5" fill="currentColor"/><rect x="11" y="5" width="2" height="6" rx=".5" fill="currentColor"/></svg>',joint:'shoulder',pendingClinicalReview:true,
  acute:'Stop overhead and heavy pushing patterns that reproduce pain. Keep the shoulder moving through pain-free ranges daily; light band work only if completely pain-free.',
  recovery:'Pain-free isometric pressing and external-rotation holds, then slow-tempo band rotations and scapular work. Keep loads light; the cuff adapts to frequent, low-load input.',
  return:'Gradually reintroduce pressing at controlled speeds and reduced range before full range. Load rises in small weekly steps; heavy dips and behind-neck work stay out for now.',
@@ -3644,7 +3644,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  var disp=esc(EX_TR[ex]?exDisplay(ex):ex);
  var id=V_VIDS[ex];
  if(id)return '<a class="ex-vid-link" href="https://www.youtube.com/watch?v='+id+'" target="_blank" title="'+_('watch_video')+'"><span class="ex-vid-name">'+disp+'</span><img class="ex-vid-thumb" loading="lazy" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" alt="'+disp+'"></a>';
- return '<a class="ex-vid-link" href="'+vidUrl(ex)+'" target="_blank" title="'+_('watch_video')+'">'+disp+' ▶</a>';
+ return '<a class="ex-vid-link" href="'+vidUrl(ex)+'" target="_blank" title="'+_('watch_video')+'">'+disp+' <svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><polygon points="5,3 13,8 5,13" fill="currentColor"/></svg></a>';
  }
 
  // ── RPE ──
@@ -4015,7 +4015,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  el.style.display = 'block';
  var html = '';
  rows.forEach(function(r){
- var icon = r.dir === 'up' ? '▲' : r.dir === 'down' ? '▼' : '•';
+ var icon = r.dir === 'up' ? '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M4 10l4-4 4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' : r.dir === 'down' ? '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' : '•';
  var color = r.dir === 'up' ? '#81C784' : r.dir === 'down' ? '#f44336' : 'rgba(250,250,248,.25)';
  var p = r.dir === 'up' ? _('outcome_up').replace('{d}', (Math.round(r.delta * 2) / 2).toFixed(1)).replace('{w}', _('weight'))
  : r.dir === 'down' ? _('outcome_down').replace('{d}', (Math.round(-r.delta * 2) / 2).toFixed(1)).replace('{w}', _('weight'))
@@ -4248,7 +4248,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  var m=meta(ex),warn=[],blocked=false,sub=null,sev='safe',pain=pf[ex]||'green';
  // Rehab-aware safety
  var rehabCheck=isExerciseSafeForInjuries(ex,pf);
- if(!rehabCheck.ok){blocked=true;sub=m.subs&&m.subs[0];sev='danger';warn.push("⛔ "+rehabCheck.reason+(sub?' '+_('sel_try')+': '+sub:'')+' · <a href="https://wa.me/201040796017" target="_blank" style="color:#F4C93B">'+_('hist_book_consult')+'</a>');}
+ if(!rehabCheck.ok){blocked=true;sub=m.subs&&m.subs[0];sev='danger';warn.push("<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5 5l6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg> "+rehabCheck.reason+(sub?' '+_('sel_try')+': '+sub:'')+' · <a href="https://wa.me/201040796017" target="_blank" style="color:#F4C93B">'+_('hist_book_consult')+'</a>');}
  else if(pain==='red'){blocked=true;sub=m.subs&&m.subs[0];sev='danger';warn.push("🔴 "+_('safety_pain_reported')+(sub?' '+_('sel_try')+': '+sub:'')+' · <a href="https://wa.me/201040796017" target="_blank" style="color:#F4C93B">'+_('hist_book_injury')+'</a>');}
  else if(pain==='yellow'){sev='warn';warn.push("🟡 "+_('safety_inflammation'));}
  else if(rehabCheck.reason&&rehabCheck.reason.indexOf('🟡')>=0){sev='warn';warn.push(rehabCheck.reason);}
@@ -4293,7 +4293,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  var html='<div class="warmup-box"><div class="wu-header" onclick="this.parentNode.classList.toggle(\'wu-open\')">'+
  '<span class="wu-icon"></span><span class="wu-label">'+_('warmup')+'</span>'+
  '<span class="wu-count">'+warmupSets+' '+_('ramp_sets')+'</span>'+
- '<span class="wu-arrow">▼</span></div><div class="wu-body">'+
+ '<span class="wu-arrow"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><div class="wu-body">'+
  '<div class="wu-row wu-head"><span>'+_('set')+'</span><span>'+_('weight')+'</span><span>'+_('reps')+'</span><span>'+_('warmup_pct')+'</span></div>';
  warmups.forEach(function(w){
  html+='<div class="wu-row"><span>'+(w.label.indexOf('Ramp')>=0?_('warmup_ramp')+' '+(w.set):w.label)+'</span><span class="wu-weight">'+(w.weight>0?w.weight+' '+_('weight'):'Bar')+'</span><span>'+w.reps+'</span><span>'+w.pct+'%</span></div>';
@@ -4601,7 +4601,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  var photos=ms.filter(function(m){return m.photo});
  if(photos.length){
  html+='<div style="font-size:.4rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.1);margin:4px 0 2px">'+_('meas_progress_photos')+'</div>';
- html+='<div style="font-size:.32rem;color:rgba(250,250,248,.35);margin:2px 0 4px;line-height:1.3;">🔒 <em>Biometric Privacy: Please crop or blur your face. Muscle OS does not process facial recognition or biometric templates.</em></div>';
+ html+='<div style="font-size:.32rem;color:rgba(250,250,248,.35);margin:2px 0 4px;line-height:1.3;"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="7" width="8" height="6" rx="1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M6 7V5a2 2 0 0 1 4 0v2" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> <em>Biometric Privacy: Please crop or blur your face. Muscle OS does not process facial recognition or biometric templates.</em></div>';
  html+='<div style="display:flex;gap:4px;overflow-x:auto;padding:2px 0">';
  photos.slice(-5).reverse().forEach(function(m){
  html+='<div style="flex-shrink:0;width:55px;height:65px;border-radius:4px;overflow:hidden;background:rgba(250,250,248,.02);cursor:pointer" onclick="window.open(\''+m.photo+'\')"><img src="'+m.photo+'" alt="Physique check-in progress thumbnail" style="width:100%;height:100%;object-fit:cover"><div style="font-size:.3rem;text-align:center;color:rgba(250,250,248,.1);margin-top:1px">'+m.date.slice(5)+'</div></div>';
@@ -4648,8 +4648,8 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  '<div class="rehab-ex-list"><span style="font-size:.48rem;color:rgba(250,250,248,.15);margin-right:4px">'+_('rehab_safe')+'</span>'+
  a.protocol.safe.slice(0,5).map(function(e){return'<span class="rel-safe"> '+e+'</span>'}).join('')+'</div>'+
  '<div class="rehab-ex-list"><span style="font-size:.48rem;color:rgba(250,250,248,.15);margin-right:4px">'+_('rehab_avoid')+'</span>'+
- a.protocol.avoid.slice(0,5).map(function(e){return'<span class="rel-avoid">✕ '+e+'</span>'}).join('')+'</div>';
- else html+='<div style="font-size:.6rem;color:#f44336;padding:4px 0;font-weight:600">⛔ '+_('rehab_stop_all')+'</div>';
+ a.protocol.avoid.slice(0,5).map(function(e){return'<span class="rel-avoid"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> '+e+'</span>'}).join('')+'</div>';
+ else html+='<div style="font-size:.6rem;color:#f44336;padding:4px 0;font-weight:600"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5 5l6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg> '+_('rehab_stop_all')+'</div>';
  html+='</div>';
  });
  // P5: prehab suggestion card when a joint keeps getting flagged
@@ -4700,7 +4700,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  // Rehab-aware exercise suggestion
  function rehabSuggest(ex,goal,age,hist,pf,fatigueAdj){
  var safety=isExerciseSafeForInjuries(ex,pf);
- if(!safety.ok)return{w:null,r:null,rpe:null,e1RM:null,exp:'⛔ INJURY: '+safety.reason,blocked:true,safety:safety};
+ if(!safety.ok)return{w:null,r:null,rpe:null,e1RM:null,exp:'<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5 5l6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg> INJURY: '+safety.reason,blocked:true,safety:safety};
  var base=suggestLoad(ex,goal,age,hist,fatigueAdj);
  // If inflammation, cap RPE further
  if(safety.reason&&safety.reason.indexOf('🟡')>=0&&base.w>0){
@@ -4893,11 +4893,11 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
     if(mp.periodModel === 'linear'){
       var sName = (mp.specLift || 'squat').toUpperCase();
       periodBadge = '<div style="margin-top:6px;padding:6px 10px;border-radius:6px;background:rgba(244,201,59,0.12);border:1px solid rgba(244,201,59,0.3);color:#F4C93B;font-size:0.62rem;display:flex;align-items:center;gap:6px;">' +
-        '<span>⚡</span> <span><strong>Linear Specialization: ' + sName + '</strong> · Aggressive intensity ramp (RPE 7.0 → 9.5) · Technical maintenance on non-focus lifts.</span>' +
+        '<span><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M9 1L4 9h4l-1 6 5-8H8z" fill="currentColor"/></svg></span> <span><strong>Linear Specialization: ' + sName + '</strong> · Aggressive intensity ramp (RPE 7.0 → 9.5) · Technical maintenance on non-focus lifts.</span>' +
       '</div>';
     } else if(mp.periodModel === 'block' && mp.type === 'strength'){
       periodBadge = '<div style="margin-top:6px;padding:6px 10px;border-radius:6px;background:rgba(33,150,243,0.12);border:1px solid rgba(33,150,243,0.3);color:#2196F3;font-size:0.62rem;display:flex;align-items:center;gap:6px;">' +
-        '<span>🛡️</span> <span><strong>Block Periodization (All 3 Lifts)</strong> · Accumulation → Intensification → Peak → Deload across SBD.</span>' +
+        '<span><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="2" width="8" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4 5.5h8M4 8.5h8M4 11.5h8M8 2v12" stroke="currentColor" stroke-width=".9"/></svg></span> <span><strong>Block Periodization (All 3 Lifts)</strong> · Accumulation → Intensification → Peak → Deload across SBD.</span>' +
       '</div>';
     }
     var html='<div style="font-size:.55rem;color:rgba(250,250,248,.3);margin-bottom:6px">'+_('meso_vol_rpe_progression')+' — <strong>'+mp.weeks+' '+_('meso_weeks')+'</strong> · '+mp.type+'</div>';
@@ -4959,7 +4959,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  if(d.restDay){html+='<div class="meso-day-card" style="border-color:rgba(250,250,248,.08);background:rgba(250,250,248,.02)"><div class="md-title" style="color:rgba(250,250,248,.35)">'+_('day')+' '+(di+1)+': '+d.n+' — '+_('rest_day')+'</div></div>';return;}
  html+='<div class="meso-day-card"><div class="md-title">'+_('day')+' '+(di+1)+': '+d.n+'</div>';
  d.ex.forEach(function(e){
- var specBadge = e.isSpec ? '<span style="display:inline-block;padding:1px 6px;margin-left:4px;border-radius:3px;background:rgba(244,201,59,0.2);border:1px solid #F4C93B;color:#F4C93B;font-size:0.48rem;font-weight:700;">★ LINEAR FOCUS</span>' : '';
+ var specBadge = e.isSpec ? '<span style="display:inline-block;padding:1px 6px;margin-left:4px;border-radius:3px;background:rgba(244,201,59,0.2);border:1px solid #F4C93B;color:#F4C93B;font-size:0.48rem;font-weight:700;"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 2l1.8 3.7L14 6.3l-3 2.9.7 4.1L8 11.2 4.3 13.3l.7-4.1-3-2.9 4.2-.6z" fill="currentColor"/></svg> LINEAR FOCUS</span>' : '';
  html+='<div class="md-ex"><span class="md-ex-n">'+(EX_TR[e.n]?exDisplay(e.n):e.n)+(e.optional?' <span class="opt-badge">'+_('sess_optional')+'</span>':'')+specBadge+'</span><span class="md-ex-s">'+e.sets+' '+_('sets')+'</span><span class="md-ex-rpe">@ '+_('rpe')+' '+e.targetRpe+'</span></div>';
  });
  // Custom exercises (user-defined, available in this day)
@@ -4971,7 +4971,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  var saved=ls('mos_ex_choices',{});
  var chosen=saved[c.name]||c.name;
  html+='<div class="ex-sel-row">'+
- '<span class="esr-lbl"><span style="color:rgba(250,250,248,.15);font-size:.45rem">✦ </span>'+c.name+' <span style="font-size:.42rem;color:rgba(250,250,248,.1)">('+c.t+')</span></span>'+
+ '<span class="esr-lbl"><span style="color:rgba(250,250,248,.15);font-size:.45rem"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 1l1 4 4 1-4 1-1 4-1-4-4-1 4-1z" fill="currentColor"/></svg> </span>'+c.name+' <span style="font-size:.42rem;color:rgba(250,250,248,.1)">('+c.t+')</span></span>'+
  '<button class="ex-sel-chip'+(chosen===c.name?' selected':'')+'" data-ename="'+c.name+'" data-exval="'+c.name+'">'+c.name+'</button></div>';
  });
  });
@@ -6019,7 +6019,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  // Split grid — recommended split highlighted (badge + why), never pre-selected
  var grid=document.getElementById('splitGrid');grid.innerHTML='';var first=null;
  var rec=recommendSplit();
- document.getElementById('splitWhy').innerHTML=rec.why?'<div class="rec-why"><span class="rec-badge">✦ '+_('split_rec_badge')+'</span> '+rec.why+'</div>':'';
+ document.getElementById('splitWhy').innerHTML=rec.why?'<div class="rec-why"><span class="rec-badge"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 1l1 4 4 1-4 1-1 4-1-4-4-1 4-1z" fill="currentColor"/></svg> '+_('split_rec_badge')+'</span> '+rec.why+'</div>':'';
  Object.keys(SPLITS).forEach(function(k){
  var s=SPLITS[k];if(s.d!==dd)return;
  if(g!=='strength'&&s.g==='strength')return;
@@ -6029,8 +6029,8 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  var sTrain=(s.days||[]).filter(function(x){return !x.restDay;}).length;
  var avgSetsPerSession = sTrain > 0 ? Math.round(total / sTrain) : 0;
  var estStrain = Math.min(21.0, 9.5 + (avgSetsPerSession * 0.42)).toFixed(1);
- var strainBadge = ' <span style="background:rgba(249,115,22,0.15);color:#f97316;font-size:0.5rem;font-weight:700;padding:2px 6px;border-radius:4px;border:1px solid rgba(249,115,22,0.3);margin-left:4px;">⚡ '+estStrain+' Strain</span>';
- card.innerHTML='<div class="s-name">'+s.name+plTag+(rec.key===k?'<span class="rec-badge">✦ '+_('split_rec_badge')+'</span>':'')+(sRest?'<span class="rest-badge">'+sRest+' '+_('rest_day')+'</span>':'')+'</div><div class="s-detail">'+sTrain+' '+_('sessions')+strainBadge+'</div>';
+ var strainBadge = ' <span style="background:rgba(249,115,22,0.15);color:#f97316;font-size:0.5rem;font-weight:700;padding:2px 6px;border-radius:4px;border:1px solid rgba(249,115,22,0.3);margin-left:4px;"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M9 1L4 9h4l-1 6 5-8H8z" fill="currentColor"/></svg> '+estStrain+' Strain</span>';
+ card.innerHTML='<div class="s-name">'+s.name+plTag+(rec.key===k?'<span class="rec-badge"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 1l1 4 4 1-4 1-1 4-1-4-4-1 4-1z" fill="currentColor"/></svg> '+_('split_rec_badge')+'</span>':'')+(sRest?'<span class="rest-badge">'+sRest+' '+_('rest_day')+'</span>':'')+'</div><div class="s-detail">'+sTrain+' '+_('sessions')+strainBadge+'</div>';
  card.addEventListener('click',function(){
  grid.querySelectorAll('.split-card').forEach(function(c){c.classList.remove('selected')});
  this.classList.add('selected');splitKey=k;
@@ -6041,7 +6041,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  // Custom split builder card — always available as a third option
  var bcard=document.createElement('div');
  bcard.className='split-card build-card';bcard.dataset.key='__builder__';
- bcard.innerHTML='<div class="s-name" style="color:var(--accent)">✚ '+_('cs_build')+'</div><div class="s-detail">'+_('cs_build_sub')+'</div>';
+ bcard.innerHTML='<div class="s-name" style="color:var(--accent)"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> '+_('cs_build')+'</div><div class="s-detail">'+_('cs_build_sub')+'</div>';
  bcard.addEventListener('click',function(){openCustomBuilder();});
  grid.appendChild(bcard);
  if(!first)return;
@@ -6166,11 +6166,11 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  html+='<div class="cs-day-head"><span class="cs-day-num">'+(day.restDay?_('rest_day'):_('day_prefix')+' '+(di+1))+'</span>';
  html+='<input class="cs-day-lbl" type="text" maxlength="24" value="'+csEsc(day.n||'')+'" data-di="'+di+'">';
  html+='<span class="cs-ops">';
- html+='<button class="cs-op" data-di="'+di+'" data-op="rest" title="'+_('cs_rest_toggle')+'">'+(day.restDay?'🏋':'')+'</button>';
+ html+='<button class="cs-op" data-di="'+di+'" data-op="rest" title="'+_('cs_rest_toggle')+'">'+(day.restDay?'<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M2 8h12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><rect x="3" y="5" width="2" height="6" rx=".5" fill="currentColor"/><rect x="11" y="5" width="2" height="6" rx=".5" fill="currentColor"/></svg>':'')+'</button>';
  html+='<button class="cs-op" data-di="'+di+'" data-op="dup" title="'+_('cs_dup')+'">⧉</button>';
  html+='<button class="cs-op" data-di="'+di+'" data-op="up" title="'+_('cs_up')+'"'+(di===0?' disabled':'')+'>↑</button>';
  html+='<button class="cs-op" data-di="'+di+'" data-op="down" title="'+_('cs_down')+'"'+(di===customSplit.days.length-1?' disabled':'')+'>↓</button>';
- html+='<button class="cs-op cs-del" data-di="'+di+'" data-op="del" title="'+_('cs_delete')+'">✕</button>';
+ html+='<button class="cs-op cs-del" data-di="'+di+'" data-op="del" title="'+_('cs_delete')+'"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>';
  html+='</span></div><div class="cs-muscle-grid">';
  MUSCLES.forEach(function(m){
  var on=mg.indexOf(m.id)>=0;
@@ -6306,22 +6306,22 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
        var d2 = dedupe(['chest', 'triceps', 'shoulders'].concat(favMuscles.filter(function(m){ return ['chest','triceps','shoulders'].indexOf(m)>=0; }), weakAccessories.filter(function(m){ return ['chest','triceps','shoulders'].indexOf(m)>=0; })));
        var d3 = dedupe(['back', 'hamstrings', 'glutes', 'traps'].concat(favMuscles.filter(function(m){ return ['back','hamstrings','biceps'].indexOf(m)>=0; }), weakAccessories.filter(function(m){ return ['back','hamstrings','traps','forearms'].indexOf(m)>=0; })));
 
-       generatedDays.push({ n: '🏋️ Squat Day (Heavy SBD)', restDay: false, muscleGroups: d1 });
+       generatedDays.push({ n: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 5h10M4 5v-2M12 5v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M8 5v4M6 9c0 2 1 3 2 4 1-1 2-2 2-4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg> Squat Day (Heavy SBD)', restDay: false, muscleGroups: d1 });
        generatedDays.push({ n: 'Rest & Recovery', restDay: true, muscleGroups: [] });
-       generatedDays.push({ n: '⚡ Bench Day (Primary SBD)', restDay: false, muscleGroups: d2 });
+       generatedDays.push({ n: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="2" cy="6" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="14" cy="6" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><path d="M6 9h4M8 6v3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> Bench Day (Primary SBD)', restDay: false, muscleGroups: d2 });
        generatedDays.push({ n: 'Rest & Recovery', restDay: true, muscleGroups: [] });
-       generatedDays.push({ n: '💥 Deadlift Day (Heavy SBD)', restDay: false, muscleGroups: d3 });
+       generatedDays.push({ n: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="2" cy="8" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="14" cy="8" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><path d="M8 8V4M6 4l2-2 2 2" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg> Deadlift Day (Heavy SBD)', restDay: false, muscleGroups: d3 });
      } else if(numDays === 4){
        var d1 = dedupe(['quads', 'glutes', 'hamstrings', 'calves'].concat(favMuscles.filter(function(m){ return ['quads','glutes','calves'].indexOf(m)>=0; }), weakAccessories.filter(function(m){ return ['quads','glutes'].indexOf(m)>=0; })));
        var d2 = dedupe(['chest', 'triceps', 'shoulders'].concat(favMuscles.filter(function(m){ return ['chest','triceps','shoulders'].indexOf(m)>=0; }), weakAccessories.filter(function(m){ return ['chest','triceps','shoulders'].indexOf(m)>=0; })));
        var d3 = dedupe(['hamstrings', 'back', 'glutes', 'traps'].concat(favMuscles.filter(function(m){ return ['back','hamstrings'].indexOf(m)>=0; }), weakAccessories.filter(function(m){ return ['back','hamstrings','traps'].indexOf(m)>=0; })));
        var d4 = dedupe(['chest', 'shoulders', 'biceps', 'triceps', 'back'].concat(favMuscles, weakAccessories)).slice(0, 5);
 
-       generatedDays.push({ n: '🏋️ Squat Day (Heavy SBD)', restDay: false, muscleGroups: d1 });
-       generatedDays.push({ n: '⚡ Bench Day (Primary SBD)', restDay: false, muscleGroups: d2 });
+       generatedDays.push({ n: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 5h10M4 5v-2M12 5v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M8 5v4M6 9c0 2 1 3 2 4 1-1 2-2 2-4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg> Squat Day (Heavy SBD)', restDay: false, muscleGroups: d1 });
+       generatedDays.push({ n: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="2" cy="6" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="14" cy="6" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><path d="M6 9h4M8 6v3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> Bench Day (Primary SBD)', restDay: false, muscleGroups: d2 });
        generatedDays.push({ n: 'Rest & Mobility', restDay: true, muscleGroups: [] });
-       generatedDays.push({ n: '💥 Deadlift Day (Heavy SBD)', restDay: false, muscleGroups: d3 });
-       generatedDays.push({ n: '⚡ Secondary SBD & Accessories', restDay: false, muscleGroups: d4 });
+       generatedDays.push({ n: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="2" cy="8" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="14" cy="8" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><path d="M8 8V4M6 4l2-2 2 2" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg> Deadlift Day (Heavy SBD)', restDay: false, muscleGroups: d3 });
+       generatedDays.push({ n: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="2" cy="6" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="14" cy="6" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><path d="M6 9h4M8 6v3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> Secondary SBD & Accessories', restDay: false, muscleGroups: d4 });
      } else if(numDays === 5){
        var d1 = dedupe(['quads', 'glutes', 'hamstrings'].concat(weakAccessories.filter(function(m){ return m==='quads'; })));
        var d2 = dedupe(['chest', 'triceps', 'shoulders'].concat(weakAccessories.filter(function(m){ return m==='chest'||m==='triceps'; })));
@@ -6329,18 +6329,18 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
        var d4 = dedupe(['quads', 'hamstrings', 'back', 'abs'].concat(favMuscles.filter(function(m){ return ['quads','back'].indexOf(m)>=0; })));
        var d5 = dedupe(['chest', 'shoulders', 'triceps', 'biceps'].concat(favMuscles.filter(function(m){ return ['chest','biceps','triceps','shoulders'].indexOf(m)>=0; })));
 
-       generatedDays.push({ n: '🏋️ Squat Day 1 (Heavy)', restDay: false, muscleGroups: d1 });
-       generatedDays.push({ n: '⚡ Bench Day 1 (Heavy)', restDay: false, muscleGroups: d2 });
-       generatedDays.push({ n: '💥 Deadlift Day (Heavy SBD)', restDay: false, muscleGroups: d3 });
-       generatedDays.push({ n: '🏋️ Squat & Pull (SBD Hypertrophy)', restDay: false, muscleGroups: d4 });
-       generatedDays.push({ n: '⚡ Bench & Arms (SBD Accessories)', restDay: false, muscleGroups: d5 });
+       generatedDays.push({ n: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 5h10M4 5v-2M12 5v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M8 5v4M6 9c0 2 1 3 2 4 1-1 2-2 2-4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg> Squat Day 1 (Heavy)', restDay: false, muscleGroups: d1 });
+       generatedDays.push({ n: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="2" cy="6" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="14" cy="6" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><path d="M6 9h4M8 6v3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> Bench Day 1 (Heavy)', restDay: false, muscleGroups: d2 });
+       generatedDays.push({ n: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="2" cy="8" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="14" cy="8" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><path d="M8 8V4M6 4l2-2 2 2" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg> Deadlift Day (Heavy SBD)', restDay: false, muscleGroups: d3 });
+       generatedDays.push({ n: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 5h10M4 5v-2M12 5v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M8 5v4M6 9c0 2 1 3 2 4 1-1 2-2 2-4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg> Squat & Pull (SBD Hypertrophy)', restDay: false, muscleGroups: d4 });
+       generatedDays.push({ n: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="2" cy="6" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="14" cy="6" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><path d="M6 9h4M8 6v3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> Bench & Arms (SBD Accessories)', restDay: false, muscleGroups: d5 });
      } else {
-       generatedDays.push({ n: '🏋️ Squat Day 1 (Heavy Strength)', restDay: false, muscleGroups: dedupe(['quads', 'glutes', 'hamstrings']) });
-       generatedDays.push({ n: '⚡ Bench Day 1 (Heavy Strength)', restDay: false, muscleGroups: dedupe(['chest', 'triceps', 'shoulders']) });
-       generatedDays.push({ n: '💥 Deadlift Day (Heavy Strength)', restDay: false, muscleGroups: dedupe(['back', 'hamstrings', 'glutes', 'traps']) });
-       generatedDays.push({ n: '🏋️ Squat Day 2 (Volume / Variation)', restDay: false, muscleGroups: dedupe(['quads', 'glutes', 'calves', 'abs'].concat(favMuscles.filter(function(m){ return m==='quads'; }))) });
-       generatedDays.push({ n: '⚡ Bench Day 2 (Volume / Close-Grip)', restDay: false, muscleGroups: dedupe(['chest', 'triceps', 'shoulders'].concat(weakAccessories.filter(function(m){ return m==='triceps'; }))) });
-       generatedDays.push({ n: '⚡ SBD Accessories & Weak Points', restDay: false, muscleGroups: dedupe(['back', 'biceps', 'triceps', 'shoulders'].concat(favMuscles, weakAccessories)).slice(0, 5) });
+       generatedDays.push({ n: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 5h10M4 5v-2M12 5v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M8 5v4M6 9c0 2 1 3 2 4 1-1 2-2 2-4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg> Squat Day 1 (Heavy Strength)', restDay: false, muscleGroups: dedupe(['quads', 'glutes', 'hamstrings']) });
+       generatedDays.push({ n: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="2" cy="6" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="14" cy="6" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><path d="M6 9h4M8 6v3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> Bench Day 1 (Heavy Strength)', restDay: false, muscleGroups: dedupe(['chest', 'triceps', 'shoulders']) });
+       generatedDays.push({ n: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="2" cy="8" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="14" cy="8" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><path d="M8 8V4M6 4l2-2 2 2" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg> Deadlift Day (Heavy Strength)', restDay: false, muscleGroups: dedupe(['back', 'hamstrings', 'glutes', 'traps']) });
+       generatedDays.push({ n: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 5h10M4 5v-2M12 5v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M8 5v4M6 9c0 2 1 3 2 4 1-1 2-2 2-4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg> Squat Day 2 (Volume / Variation)', restDay: false, muscleGroups: dedupe(['quads', 'glutes', 'calves', 'abs'].concat(favMuscles.filter(function(m){ return m==='quads'; }))) });
+       generatedDays.push({ n: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="2" cy="6" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="14" cy="6" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><path d="M6 9h4M8 6v3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> Bench Day 2 (Volume / Close-Grip)', restDay: false, muscleGroups: dedupe(['chest', 'triceps', 'shoulders'].concat(weakAccessories.filter(function(m){ return m==='triceps'; }))) });
+       generatedDays.push({ n: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="2" cy="6" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="14" cy="6" r="1.2" fill="none" stroke="currentColor" stroke-width="1"/><path d="M6 9h4M8 6v3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> SBD Accessories & Weak Points', restDay: false, muscleGroups: dedupe(['back', 'biceps', 'triceps', 'shoulders'].concat(favMuscles, weakAccessories)).slice(0, 5) });
      }
    } else {
      splitName = 'Hypertrophy (' + numDays + '-Day Smart Split)';
@@ -6407,7 +6407,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
 
    renderCustomBuilder();
    if(window.mosToast){
-     window.mosToast('⚡ Auto-generated ' + splitName + ' based on your goals!', 'success');
+     window.mosToast('<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M9 1L4 9h4l-1 6 5-8H8z" fill="currentColor"/></svg> Auto-generated ' + splitName + ' based on your goals!', 'success');
    }
  }
 
@@ -6615,9 +6615,9 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  var chipCls='ex-sel-chip'+(chosen===name?' selected':'')+(blocked?' rehab-ex-blocked':'')+(safeWarn?' rehab-ex-safe':'')+(isTop?' pref-top':'')+(ri>=0&&ri<3?' chip-rec':'');
  var eq=equipTag(name);
  html+='<button class="'+chipCls+'" data-ename="'+esc(en)+'" data-exval="'+esc(name)+'" title="'+esc(name)+'">'
- +(blocked?'⛔ ':(safeWarn?' ':''))
- +(isTop?'<span class="pref-star">★ </span>':'')
- +(ri===0?'<span class="rec-badge">✦ '+_('rec_badge')+'</span>':(ri===1||ri===2?'<span class="rec-badge">✦</span>':''))
+ +(blocked?'<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5 5l6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg> ':(safeWarn?' ':''))
+ +(isTop?'<span class="pref-star"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 2l1.8 3.7L14 6.3l-3 2.9.7 4.1L8 11.2 4.3 13.3l.7-4.1-3-2.9 4.2-.6z" fill="currentColor"/></svg> </span>':'')
+ +(ri===0?'<span class="rec-badge"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 1l1 4 4 1-4 1-1 4-1-4-4-1 4-1z" fill="currentColor"/></svg> '+_('rec_badge')+'</span>':(ri===1||ri===2?'<span class="rec-badge"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 1l1 4 4 1-4 1-1 4-1-4-4-1 4-1z" fill="currentColor"/></svg></span>':''))
  +(EX_TR[name]?exDisplay(name):esc(name))
  +(ri>=0&&ri<3&&whyBy[name]&&whyBy[name]!=='balanced'?'<span class="why-chip">'+_('why_'+whyBy[name])+'</span>':'')
  +(eq?'<span class="equip-tag">'+eq+'</span>':'')+'</button>';
@@ -6652,8 +6652,8 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  var currentExScreen = 0;
  var currentMuscleScreens = [];
  var MUSCLE_ICONS = {
- chest: '💪', back: '🦅', shoulders: '🎯', quads: '🦵', hamstrings: '⚡', glutes: '🍑',
- biceps: '🦾', triceps: '🔥', calves: '👟', abs: '🛡️', traps: '🔺', forearms: '✊'
+ chest: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 7c0-2.5 2-4.5 5-4.5s5 2 5 4.5c0 2-1.5 3.5-3 4l-2 1.5-2-1.5c-1.5-.5-3-2-3-4z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>', back: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 2l-4 3v4l4 5 4-5V5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 2v12" stroke="currentColor" stroke-width="1" stroke-dasharray="2 1.5"/></svg>', shoulders: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="8" cy="8" r="1" fill="currentColor"/><path d="M5 8H1M11 8h4M8 5V1M8 11v4" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>', quads: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M6 2v5c0 2-1 4-1 6s1 2 2 2h2c1 0 2 0 2-2s-1-4-1-6V2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>', hamstrings: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M4 3l2 5 2 6M12 3l-2 5-2 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M6 8h4" stroke="currentColor" stroke-width="1" stroke-dasharray="1.5 1"/></svg>', glutes: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M4 6c0-1 1.5-2 4-2s4 1 4 2c0 3-1.5 6-4 6S4 9 4 6z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 4v8" stroke="currentColor" stroke-width="1" stroke-dasharray="2 1.5"/></svg>',
+ biceps: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M5 13V9c0-1 0-2 1-3l2-3c.5-.7 1.5-.7 2 0l1 2c.5 1 .5 2 0 3l-2 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="7" r="1.5" fill="none" stroke="currentColor" stroke-width="1"/></svg>', triceps: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M6 3v4c0 1.5.5 3 2 4s2 2 2 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M10 3v3c0 1-.5 2-1 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="9" r="1" fill="currentColor"/></svg>', calves: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M6 2c0 2-.5 4-.5 6s.5 3 1 4l1.5 2 1.5-2c.5-1 1-2 1-4S10 4 10 2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>', abs: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="2" width="8" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4 5.5h8M4 8.5h8M4 11.5h8M8 2v12" stroke="currentColor" stroke-width=".9"/></svg>', traps: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 3L3 7v3l5 3 5-3V7z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 3v10" stroke="currentColor" stroke-width="1"/></svg>', forearms: '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M6 2l-1 6 1 3v3M10 2l1 6-1 3v3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 8h6" stroke="currentColor" stroke-width="1"/></svg>'
  };
  function goToExScreen(idx){
  var total = currentMuscleScreens.length;
@@ -6756,7 +6756,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  }
  html += '<div class="ex-screen-nav-bar" id="exScreenNavBar">';
  muscleScreens.forEach(function(s, idx){
- var icon = MUSCLE_ICONS[s.muscle] || '💪';
+ var icon = MUSCLE_ICONS[s.muscle] || '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 7c0-2.5 2-4.5 5-4.5s5 2 5 4.5c0 2-1.5 3.5-3 4l-2 1.5-2-1.5c-1.5-.5-3-2-3-4z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>';
  var activeCls = (idx === currentExScreen) ? ' active' : '';
  html += '<button type="button" class="ex-screen-pill' + activeCls + '" data-screen="' + idx + '" title="' + s.name + '">';
  html += '<span>' + icon + '</span>';
@@ -6768,10 +6768,10 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  html += '<div class="ex-screen-viewport" id="exScreenViewport">';
  html += '<div class="ex-screen-track" id="exScreenTrack" style="transform:translateX(-' + (currentExScreen * 100) + '%);">';
  muscleScreens.forEach(function(s, idx){
- var icon = MUSCLE_ICONS[s.muscle] || '💪';
+ var icon = MUSCLE_ICONS[s.muscle] || '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 7c0-2.5 2-4.5 5-4.5s5 2 5 4.5c0 2-1.5 3.5-3 4l-2 1.5-2-1.5c-1.5-.5-3-2-3-4z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>';
  html += '<div class="ex-muscle-screen" data-screen="' + idx + '" data-muscle="' + s.muscle + '">';
  html += '<div class="ex-screen-header"><div class="ex-screen-title"><span>' + icon + '</span><span>' + s.name + '</span><span style="font-size:0.65rem;color:var(--mos-text-muted);font-weight:400;text-transform:none;">(' + s.slots.length + ' ' + (s.slots.length === 1 ? 'Exercise Slot' : 'Exercise Slots') + ')</span></div><div style="font-size:0.65rem;color:var(--mos-yellow);display:flex;align-items:center;gap:4px;">' + muscleHighlightHtml(s.muscle) + '</div></div>';
- html += '<div class="mos-chip-group ex-screen-eq-chips" data-screen-muscle="' + s.muscle + '" style="margin:2px 0 10px;align-items:center;"><span style="font-size:0.6rem;color:var(--mos-text-muted);font-weight:600;margin-right:4px;">⚡ Gym Equipment:</span><button type="button" class="mos-chip-item' + (!userEq.length ? ' active' : '') + '" data-eq="all">All</button><button type="button" class="mos-chip-item' + (userEq.indexOf('barbell') >= 0 ? ' active' : '') + '" data-eq="barbell">Barbell</button><button type="button" class="mos-chip-item' + (userEq.indexOf('dumbbell') >= 0 ? ' active' : '') + '" data-eq="dumbbell">Dumbbell</button><button type="button" class="mos-chip-item' + (userEq.indexOf('machine') >= 0 ? ' active' : '') + '" data-eq="machine">Machine</button><button type="button" class="mos-chip-item' + (userEq.indexOf('cable') >= 0 ? ' active' : '') + '" data-eq="cable">Cable</button><button type="button" class="mos-chip-item' + (userEq.indexOf('bodyweight') >= 0 ? ' active' : '') + '" data-eq="bodyweight">Bodyweight</button></div>';
+ html += '<div class="mos-chip-group ex-screen-eq-chips" data-screen-muscle="' + s.muscle + '" style="margin:2px 0 10px;align-items:center;"><span style="font-size:0.6rem;color:var(--mos-text-muted);font-weight:600;margin-right:4px;"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M9 1L4 9h4l-1 6 5-8H8z" fill="currentColor"/></svg> Gym Equipment:</span><button type="button" class="mos-chip-item' + (!userEq.length ? ' active' : '') + '" data-eq="all">All</button><button type="button" class="mos-chip-item' + (userEq.indexOf('barbell') >= 0 ? ' active' : '') + '" data-eq="barbell">Barbell</button><button type="button" class="mos-chip-item' + (userEq.indexOf('dumbbell') >= 0 ? ' active' : '') + '" data-eq="dumbbell">Dumbbell</button><button type="button" class="mos-chip-item' + (userEq.indexOf('machine') >= 0 ? ' active' : '') + '" data-eq="machine">Machine</button><button type="button" class="mos-chip-item' + (userEq.indexOf('cable') >= 0 ? ' active' : '') + '" data-eq="cable">Cable</button><button type="button" class="mos-chip-item' + (userEq.indexOf('bodyweight') >= 0 ? ' active' : '') + '" data-eq="bodyweight">Bodyweight</button></div>';
  html += '<div class="esm-search"><input type="text" class="esm-search-input" data-muscle="' + s.muscle + '" data-day="' + s.slots[0].di + '" data-slotkey="' + s.slots[0].ex.n + '" placeholder="' + _('search_ex') + ' ' + s.name + '..." aria-label="' + _('search_ex') + '"><div class="esm-search-res"></div></div>';
  var curDay = -1;
  s.slots.forEach(function(slot){
@@ -6783,8 +6783,8 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  var pf0 = pf;
  var safety = isExerciseSafeForInjuries(ex.n, pf0);
  var exClass = pf0 && pf0[ex.n] === 'red' ? 'rehab-ex-blocked' : (!safety.ok ? 'rehab-ex-blocked' : (safety.reason && safety.reason.indexOf('🟡') >= 0 ? 'rehab-ex-safe' : ''));
- html += '<div class="ex-sel-row ' + exClass + '" data-muscle="' + ex.p + '" data-day="' + di + '"><span class="esr-lbl">' + exLinkHtml(ex.n) + '</span>' + rowBadgesHtml(ex.n) + lastPerfHtml(ex.n, hist) + '<button class="ex-guide-toggle" type="button" data-slot="' + esc(ex.n) + '" title="' + _('how_to') + '">' + _('how_to') + ' ▾</button>' + slotChipsHtml(ex.n, ex.p, day);
- if(!safety.ok) html += '<span style="font-size:.45rem;color:#f44336;margin-left:4px">⛔ ' + safety.reason + '</span>';
+ html += '<div class="ex-sel-row ' + exClass + '" data-muscle="' + ex.p + '" data-day="' + di + '"><span class="esr-lbl">' + exLinkHtml(ex.n) + '</span>' + rowBadgesHtml(ex.n) + lastPerfHtml(ex.n, hist) + '<button class="ex-guide-toggle" type="button" data-slot="' + esc(ex.n) + '" title="' + _('how_to') + '">' + _('how_to') + ' <svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M5 6.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>' + slotChipsHtml(ex.n, ex.p, day);
+ if(!safety.ok) html += '<span style="font-size:.45rem;color:#f44336;margin-left:4px"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5 5l6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg> ' + safety.reason + '</span>';
  else if(safety.reason) html += '<span style="font-size:.45rem;color:#FF9800;margin-left:4px">' + safety.reason + '</span>';
  html += '<div class="ex-guide" data-slot="' + esc(ex.n) + '"></div></div>';
  });
@@ -6813,7 +6813,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  viewport.addEventListener('touchend', function(e){ if(Math.abs(touchDiffX) > 40 && Math.abs(touchDiffX) > Math.abs(touchDiffY)){ if(touchDiffX < 0){ if(currentExScreen < currentMuscleScreens.length - 1) goToExScreen(currentExScreen + 1); } else { if(currentExScreen > 0) goToExScreen(currentExScreen - 1); } } }, { passive: true });
  }
  document.querySelectorAll('#exSelContent .ex-sel-chip').forEach(bindChipClick);
- document.querySelectorAll('#exSelContent .ex-guide-toggle').forEach(function(btn){ btn.addEventListener('click', function(){ var row=this.closest('.ex-sel-row'); var g=row.querySelector('.ex-guide'); if(!g)return; var open=g.style.display==='block'; if(!open){ var sel=row.querySelector('.ex-sel-chip.selected'); var name=sel?sel.dataset.exval:this.dataset.slot; g.innerHTML=guideHtml(name); } g.style.display=open?'none':'block'; this.textContent=(open?'':'▴ ')+_('how_to')+(open?' ▾':''); }); });
+ document.querySelectorAll('#exSelContent .ex-guide-toggle').forEach(function(btn){ btn.addEventListener('click', function(){ var row=this.closest('.ex-sel-row'); var g=row.querySelector('.ex-guide'); if(!g)return; var open=g.style.display==='block'; if(!open){ var sel=row.querySelector('.ex-sel-chip.selected'); var name=sel?sel.dataset.exval:this.dataset.slot; g.innerHTML=guideHtml(name); } g.style.display=open?'none':'block'; this.textContent=(open?'':'<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M5 9.5l3-3 3 3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg> ')+_('how_to')+(open?' <svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M5 6.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>':''); }); });
  document.querySelectorAll('#exSelContent .ex-empty-btn').forEach(function(b){ b.addEventListener('click', function(){ var act=this.dataset.act; if(act==='cleareq'){var vi=ls(K.VI,{});vi.eq=null;ss(K.VI,vi);} else{exFilters.diff=[];exFilters.type=[];exFilters.pattern=[];} syncExFilterChips(); refreshExSelection(); }); });
  document.querySelectorAll('#exSelContent .esm-search-input').forEach(function(inp){ inp.addEventListener('input', function(){ var q=this.value, res=this.parentNode.querySelector('.esm-search-res'); var m=this.dataset.muscle, di=parseInt(this.dataset.day,10); var day=SPLITS[splitKey]&&SPLITS[splitKey].days[di]||null; var norm=normalizeSearch(q); if(norm.length<2){res.style.display='none';res.innerHTML='';return;} var pool=(EXERCISE_POOLS[m]||[]).filter(exFilterMatches); var ctx=buildRankCtx(day,{n:null}); var userEq=ctx.userEq; var hits=[]; pool.forEach(function(n){ var eq=equipmentOf(n); if(!(!userEq||userEq.length===0||eq.length===0||eq.some(function(e){return userEq.indexOf(e)>=0;})))return; var dn=normalizeSearch(exDisplay(n)||n); var qq=searchQuality(dn,norm); if(qq>0)hits.push({n:n,qq:qq,rk:rankScoreOf(n,ctx)}); }); hits.sort(function(a,b){if(b.qq!==a.qq)return b.qq-a.qq;return b.rk-a.rk;}); if(!hits.length){res.innerHTML='<div class="esm-res-none">'+_('search_none')+'</div>';res.style.display='block';return;} res.innerHTML=hits.slice(0,8).map(function(h){ return '<button class="ex-sel-chip search-hit" data-ename="'+inp.dataset.slotkey+'" data-exval="'+h.n+'">'+(EX_TR[h.n]?exDisplay(h.n):h.n)+'</button>'; }).join(''); res.style.display='block'; res.querySelectorAll('.search-hit').forEach(function(chip){ chip.addEventListener('click',function(){ var row=document.querySelector('#exSelContent .ex-sel-row[data-day="'+di+'"][data-muscle="'+m+'"]'); if(!row)return; applyChipSelection(chip,row); inp.value='';res.style.display='none';res.innerHTML=''; }); }); }); });
  goToExScreen(currentExScreen);
@@ -6868,7 +6868,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  var bar=document.getElementById('exFilterBar');
  var open=bar.style.display!=='none';
  bar.style.display=open?'none':'block';
- this.textContent=_('adjust')+(open?' ▾':' ▴');
+ this.textContent=_('adjust')+(open?' <svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M5 6.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>':' <svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M5 9.5l3-3 3 3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>');
  });
  var densityBtn=document.getElementById('densityBtn');
  if(densityBtn){
@@ -7014,7 +7014,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
   if(recs&&recs.applied_rules.length){
    var chips=recs.applied_rules.map(function(r){return'<span class="engine-rule-chip" title="'+esc(r.rule_id||'')+'">'+esc(r.source||r.rule_id||'')+'</span>';}).join('');
    var notes=[].concat(recs.program_notes||[],recs.nutrition_notes||[]).slice(0,6).map(function(n){return'<div style="padding:2px 0;border-bottom:1px solid rgba(250,250,248,.04)">\u2022 '+n+'</div>';}).join('');
-   ciEl.innerHTML='<div class="section-header" style="cursor:pointer;user-select:none" onclick="var b=document.getElementById(\'ciBody\');b.style.display=b.style.display===\'none\'?\'block\':\'none\'">✓ Coach Intelligence <span style="font-size:.45rem;color:rgba(250,250,248,.3);float:right">tap to expand ▼</span></div>'+
+   ciEl.innerHTML='<div class="section-header" style="cursor:pointer;user-select:none" onclick="var b=document.getElementById(\'ciBody\');b.style.display=b.style.display===\'none\'?\'block\':\'none\'"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 8l4 4 6-8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Coach Intelligence <span style="font-size:.45rem;color:rgba(250,250,248,.3);float:right">tap to expand <svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>'+
     '<div id="ciBody" style="display:none;margin-top:8px">'+
     '<div style="margin-bottom:6px">'+chips+'</div>'+
     '<div style="font-size:.55rem;background:rgba(13,14,18,.4);border-radius:6px;padding:8px 10px;line-height:1.8">'+
@@ -7030,7 +7030,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
   var dailyP=recs?Math.round(recs.protein_per_kg*bw):Math.round(1.6*bw);
   var pbEl=document.getElementById('proteinTargetBanner');
   if(!pbEl){pbEl=document.createElement('div');pbEl.id='proteinTargetBanner';pbEl.className='engine-protein-banner';}
-  pbEl.innerHTML='🥩 <strong style="color:#81C784">Daily Protein Target:</strong> '+dailyP+'g '+(recs?'('+recs.protein_per_kg+' g/kg × '+bw+' kg)':'')+(recs&&recs.meal_timing?' — <em style="color:rgba(250,250,248,.4)">'+recs.meal_timing.split('.')[0]+'.</em>':'');
+  pbEl.innerHTML='<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M5 3c-1 0-2 1-2 3s1 4 2 5l3 3 3-3c1-1 2-3 2-5s-1-3-2-3" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 6h4" stroke="currentColor" stroke-width="1"/></svg> <strong style="color:#81C784">Daily Protein Target:</strong> '+dailyP+'g '+(recs?'('+recs.protein_per_kg+' g/kg × '+bw+' kg)':'')+(recs&&recs.meal_timing?' — <em style="color:rgba(250,250,248,.4)">'+recs.meal_timing.split('.')[0]+'.</em>':'');
   var progCard2=document.getElementById('step3')&&document.getElementById('step3').querySelector('.card');
   if(progCard2&&!progCard2.contains(pbEl))progCard2.insertBefore(pbEl,progCard2.querySelector('#progOutput'));
   // Deload trigger check
@@ -7041,7 +7041,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
    if((sess>0&&sess%deloadInterval===0)||deloadNote){
     var dlEl=document.getElementById('engineDeloadBanner');
     if(!dlEl){dlEl=document.createElement('div');dlEl.id='engineDeloadBanner';dlEl.className='engine-deload-banner';dlEl.onclick=function(){this.style.display='none';};}
-    dlEl.innerHTML='💤 <strong style="color:#F4C93B">Deload Week Recommended</strong> — '+(deloadNote||'You\'ve completed '+sess+' sessions. Take a deload: 50% volume, 70% intensity.')+' <span style="opacity:.4;float:right">✕</span>';
+    dlEl.innerHTML='<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M9 3H5l4 3H5M12 5H9l3 3H9M7 9H4l3 3H4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg> <strong style="color:#F4C93B">Deload Week Recommended</strong> — '+(deloadNote||'You\'ve completed '+sess+' sessions. Take a deload: 50% volume, 70% intensity.')+' <span style="opacity:.4;float:right"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>';
     var s4el=document.getElementById('step4');if(s4el&&!s4el.contains(dlEl))s4el.prepend(dlEl);
     dlEl.style.display='block';
     evLog('deload_prompt',{sessions:sess,source:'engine'});
@@ -7055,7 +7055,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
    if(!safetyNotes.length)return;
    var saEl=document.getElementById('engineSafetyAlert');
    if(!saEl){saEl=document.createElement('div');saEl.id='engineSafetyAlert';saEl.className='engine-safety-alert';}
-   saEl.innerHTML='⚠️ <strong style="color:#ef5350">Health Notice</strong><br>'+safetyNotes.map(function(n){return'• '+n;}).join('<br>');
+   saEl.innerHTML='<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 2L1 14h14z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M8 6v4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="8" cy="12" r=".7" fill="currentColor"/></svg> <strong style="color:#ef5350">Health Notice</strong><br>'+safetyNotes.map(function(n){return'• '+n;}).join('<br>');
    var s1el=document.getElementById('step1');if(s1el&&!s1el.contains(saEl))s1el.prepend(saEl);
   })();
  })();
@@ -7877,7 +7877,7 @@ function exportIcs(){
  document.body.appendChild(modal);
  }
  var platesHtml = result.plates.length ? result.plates.join(' + ') : _('plate_unachievable');
- modal.innerHTML = '<div class="modal-card"><div class="modal-header"><span data-i18n="plate_title">'+_('plate_title')+'</span><span class="modal-close" onclick="hidePlateCalculator()">✕</span></div>'+
+ modal.innerHTML = '<div class="modal-card"><div class="modal-header"><span data-i18n="plate_title">'+_('plate_title')+'</span><span class="modal-close" onclick="hidePlateCalculator()"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>'+
  '<div style="font-size:.65rem;color:var(--text-soft);margin-bottom:10px"><strong>'+_('plate_bar')+':</strong> '+BAR_WEIGHT+' kg</div>'+
  '<div style="font-size:.65rem;color:var(--text);margin-bottom:10px"><strong>'+_('plate_per_side')+':</strong> '+platesHtml+' kg</div>'+
  '<div style="font-size:.7rem;font-weight:600;color:var(--accent);margin-bottom:6px">Total: '+result.achieved+' kg</div>'+
@@ -7928,7 +7928,7 @@ function exportIcs(){
  var safetyHtml='';
  if(safety.warn.length>0){
  var bl=safety.sub;
- safetyHtml='<div class="safety-block">'+safety.warn.map(function(w){return'<strong>⛔</strong> '+w}).join('<br>')+(bl?'<div class="sub-option">Try: <strong>'+bl+'</strong></div>':'')+'</div>';
+ safetyHtml='<div class="safety-block">'+safety.warn.map(function(w){return'<strong><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5 5l6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></strong> '+w}).join('<br>')+(bl?'<div class="sub-option">Try: <strong>'+bl+'</strong></div>':'')+'</div>';
  }
  var fatigueNote='';
  if(fatigueAdj<0)fatigueNote=' <span style="color:'+(fatigueAdj<=-1?'#f44336':'#FF9800')+';font-size:.5rem;font-weight:600">Readiness fatigue: RPE −'+(Math.abs(fatigueAdj).toFixed(1))+'</span>';
@@ -7939,14 +7939,14 @@ function exportIcs(){
  suggestHtml='<div class="suggest-box"><div><span class="suggest-val" onclick="showPlateCalculator('+sugg.w+',event)" style="cursor:pointer" title="'+_('plate_title')+'">'+(sugg.w>0?sugg.w+' '+_('weight'):'—')+'</span></div><div class="suggest-detail"><strong>'+(sugg.w>0?sugg.w+' '+_('weight'):'—')+' '+sugg.r+' '+_('reps')+' @ '+_('rpe')+' '+sugg.rpe+'</strong>'+fatigueNote+mlNote+'<br>'+sugg.exp+(sugg.pct?' · '+(sugg.pct).toFixed(0)+_('pct_1rm'):'')+'</div></div>';
  suggestHtml+=renderWarmupHtml(ex.n,sugg,day.n);
  }else if(!sugg.blocked){suggestHtml='<div class="suggest-box"><div class="suggest-detail"><strong>'+_('start_training')+'</strong>'+fatigueNote+'<br>'+sugg.exp+'</div></div>';}
- var plateauHtml = (sugg && sugg.stalled) ? ' <span class="pr-badge" style="color:#f44336;border-color:rgba(244,67,54,.3);cursor:pointer;" onclick="this.closest(\'.ex-card\').querySelector(\'.sw-ex-btn\').click()" title="Plateau detected! Click to swap exercise.">🔥 Plateau</span>' : '';
+ var plateauHtml = (sugg && sugg.stalled) ? ' <span class="pr-badge" style="color:#f44336;border-color:rgba(244,67,54,.3);cursor:pointer;" onclick="this.closest(\'.ex-card\').querySelector(\'.sw-ex-btn\').click()" title="Plateau detected! Click to swap exercise."><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M6 3v4c0 1.5.5 3 2 4s2 2 2 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M10 3v3c0 1-.5 2-1 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="9" r="1" fill="currentColor"/></svg> Plateau</span>' : '';
   var titleInnerHtml='<span class="ex-name">'+(ei+1)+'. '+exLinkHtml(ex.n)+'</span>'+prHtml+plateauHtml+(ex.prehab?' <span class="prehab-chip" title="'+_('prehab_reason')+'">'+_('prehab_lbl')+'</span>':'')+perHtml+
  '<span class="safety-badge '+safety.sev+'">'+(safety.sev==='safe'?'\u2713 '+_('green'):safety.sev==='warn'?'\u26A0 '+_('yellow'):'\u2715 '+_('red'))+'</span>'+
- '<span class="rm-ex-btn" data-ex="'+ex.n+'">✕</span>';
+ '<span class="rm-ex-btn" data-ex="'+ex.n+'"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>';
  var msubs=(m&&m.subs)||[],ceList=ls(K.CE,[]),sp=ls(K.SP,null),spSplit=sp&&SPLITS[sp.key];
  var orig=ex.prehab?null:(ex.orig||(spSplit&&spSplit.days[di]&&spSplit.days[di].ex[ei]?spSplit.days[di].ex[ei].n:null));
  var swapChips='';
- if(orig&&orig!==ex.n)swapChips+='<button class="swap-chip original" data-di="'+di+'" data-idx="'+ei+'" data-ex="'+ex.n+'" data-to="'+orig+'">↩ '+_('swap_back')+' ('+(EX_TR[orig]?exDisplay(orig):orig)+')</button>';
+ if(orig&&orig!==ex.n)swapChips+='<button class="swap-chip original" data-di="'+di+'" data-idx="'+ei+'" data-ex="'+ex.n+'" data-to="'+orig+'"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M4 7h6a3 3 0 0 1 0 6H8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M7 4L4 7l3 3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg> '+_('swap_back')+' ('+(EX_TR[orig]?exDisplay(orig):orig)+')</button>';
  msubs.forEach(function(s){if(s!==ex.n)swapChips+='<button class="swap-chip" data-di="'+di+'" data-idx="'+ei+'" data-ex="'+ex.n+'" data-to="'+s+'">'+(EX_TR[s]?exDisplay(s):s)+'</button>';});
  ceList.forEach(function(c){if(c.name!==ex.n&&(c.f===ex.p||ex.se.indexOf(c.f)>=0))swapChips+='<button class="swap-chip" data-di="'+di+'" data-idx="'+ei+'" data-ex="'+ex.n+'" data-to="'+c.name+'">'+(EX_TR[c.name]?exDisplay(c.name):c.name)+'</button>';});
  
@@ -8010,7 +8010,7 @@ function exportIcs(){
  var padEmpty=(makeupDays[di]||lightDays[di])?Math.max(1,baseSets-1):baseSets;
  for(var i2=0;i2<padEmpty;i2++)sets.push({w: (typeof sugg!=='undefined' && sugg && sugg.w > 0) ? String(sugg.w) : '', r: (typeof sugg!=='undefined' && sugg && sugg.r > 0) ? String(sugg.r) : '', rpe: (typeof sugg!=='undefined' && sugg && sugg.rpe > 0) ? String(sugg.rpe) : ''});
  }
- var autoRegBadge = window._lastAutoRegNote ? '<div style="margin-bottom:8px;font-size:.6rem;color:#F4C93B;background:rgba(244,201,59,.1);padding:4px 8px;border-radius:4px;display:inline-block">⚡ Auto-Regulated: '+window._lastAutoRegNote+'</div>' : '';
+ var autoRegBadge = window._lastAutoRegNote ? '<div style="margin-bottom:8px;font-size:.6rem;color:#F4C93B;background:rgba(244,201,59,.1);padding:4px 8px;border-radius:4px;display:inline-block"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M9 1L4 9h4l-1 6 5-8H8z" fill="currentColor"/></svg> Auto-Regulated: '+window._lastAutoRegNote+'</div>' : '';
  var h='<div class="set-log-area">'+autoRegBadge+'<div class="set-log-header"><span style="line-height:1.25;white-space:normal;font-size:.42rem;letter-spacing:.2px">'+_('sets_work')+'</span><span>'+_('load')+'</span><span>'+_('reps')+'</span><span>'+_('rpe')+'</span><span></span></div><div class="set-rows-'+('c_'+di+'_'+ex.n).replace(/[^a-zA-Z0-9]/g,'_')+'">';
  sets.forEach(function(set,si){
  var isWu=!!set.wu;
@@ -8024,7 +8024,7 @@ function exportIcs(){
  '<input type="number" step="0.5" placeholder="'+_('weight')+'" value="'+wVal+'" data-ex="'+ex.n+'" data-set="'+si+'" data-f="w"'+wuAttr+' '+wClick+'>'+
  '<input type="number" step="1" placeholder="'+_('reps')+'" value="'+(set.r||'')+'" data-ex="'+ex.n+'" data-set="'+si+'" data-f="r"'+wuAttr+'>'+
  '<input type="number" step="0.5" placeholder="'+_('rpe')+'" value="'+(set.rpe||'')+'" data-ex="'+ex.n+'" data-set="'+si+'" data-f="rpe"'+wuAttr+'>'+
- '<button class="del-set-btn" data-ex="'+ex.n+'" data-set="'+si+'">✕</button></div>';
+ '<button class="del-set-btn" data-ex="'+ex.n+'" data-set="'+si+'"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button></div>';
  });
  h+='</div><button class="add-set-btn" data-ex="'+ex.n+'">+ '+_('set')+'</button>';
   var safeExName = (ex.n||'').replace(/'/g, "\\'");
@@ -8033,8 +8033,8 @@ function exportIcs(){
   h += '<button type="button" class="originkit-btn originkit-btn-ghost" style="padding:3px 8px;font-size:0.65rem;" onclick="window.mosQuickAddWeight('+di+', \''+safeExName+'\', 1.25)">+1.25</button>';
   h += '<button type="button" class="originkit-btn originkit-btn-ghost" style="padding:3px 8px;font-size:0.65rem;" onclick="window.mosQuickAddWeight('+di+', \''+safeExName+'\', 2.5)">+2.5</button>';
   h += '<button type="button" class="originkit-btn originkit-btn-ghost" style="padding:3px 8px;font-size:0.65rem;" onclick="window.mosQuickAddWeight('+di+', \''+safeExName+'\', 5.0)">+5.0</button>';
-  h += '<button type="button" class="originkit-btn originkit-btn-ghost" style="padding:3px 8px;font-size:0.65rem;margin-left:auto;" onclick="window.mosOpenBarbellPlates(\''+safeExName+'\')">🏋 Plates</button>';
-  h += '<button type="button" class="originkit-btn originkit-btn-ghost" style="padding:3px 8px;font-size:0.65rem;color:#22c55e;border-color:rgba(34,197,94,0.3);" onclick="window.mosCoachFormCheck('+di+', \''+safeExName+'\')">📹 Form Check</button>';
+  h += '<button type="button" class="originkit-btn originkit-btn-ghost" style="padding:3px 8px;font-size:0.65rem;margin-left:auto;" onclick="window.mosOpenBarbellPlates(\''+safeExName+'\')"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M2 8h12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><rect x="3" y="5" width="2" height="6" rx=".5" fill="currentColor"/><rect x="11" y="5" width="2" height="6" rx=".5" fill="currentColor"/></svg> Plates</button>';
+  h += '<button type="button" class="originkit-btn originkit-btn-ghost" style="padding:3px 8px;font-size:0.65rem;color:#22c55e;border-color:rgba(34,197,94,0.3);" onclick="window.mosCoachFormCheck('+di+', \''+safeExName+'\')"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="12" height="9" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="8" cy="8.5" r="2.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 4l1-2h4l1 2" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg> Form Check</button>';
   h += '</div></div>';
   return h;
  }
@@ -8180,7 +8180,7 @@ function exportIcs(){
  }
 
   html += '<div style="margin-top:20px;margin-bottom:10px;text-align:center;">' +
-          '<button class="btn-primary" onclick="showBiofeedbackModal(' + di + ')" style="width:100%;padding:14px;background:rgba(244,201,59,.1);border:1px solid rgba(244,201,59,.25);color:#F4C93B;font-size:.8rem;box-shadow:0 0 10px rgba(244,201,59,0.1);font-weight:600;"><span style="margin-right:8px">⚡</span>Finish Session & Log Biofeedback</button>' +
+          '<button class="btn-primary" onclick="showBiofeedbackModal(' + di + ')" style="width:100%;padding:14px;background:rgba(244,201,59,.1);border:1px solid rgba(244,201,59,.25);color:#F4C93B;font-size:.8rem;box-shadow:0 0 10px rgba(244,201,59,0.1);font-weight:600;"><span style="margin-right:8px"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M9 1L4 9h4l-1 6 5-8H8z" fill="currentColor"/></svg></span>Finish Session & Log Biofeedback</button>' +
           '</div>';
 
   container.innerHTML=html;
@@ -8859,8 +8859,8 @@ document.getElementById('trendRange').addEventListener('change',renderTrendHisto
  <div style="display:flex;justify-content:space-between;align-items:center">
  <span style="font-size:.65rem;color:rgba(250,250,248,.4)">Step ${stepIdx + 1} of ${MOS_TRAIN_TOUR.length}</span>
  <div style="display:flex;gap:6px">
- ${stepIdx > 0 ? `<button class="btn-secondary" onclick="showTrainingTourStep(${stepIdx - 1})" style="padding:5px 10px;font-size:.65rem">◄ Back</button>` : ''}
- ${stepIdx < MOS_TRAIN_TOUR.length - 1 ? `<button class="btn-primary" onclick="showTrainingTourStep(${stepIdx + 1})" style="margin:0;padding:5px 12px;font-size:.65rem">Next ➔</button>` : `<button class="btn-primary" onclick="closeTrainingTourModal()" style="margin:0;padding:5px 12px;font-size:.65rem">Finish Tour </button>`}
+ ${stepIdx > 0 ? `<button class="btn-secondary" onclick="showTrainingTourStep(${stepIdx - 1})" style="padding:5px 10px;font-size:.65rem"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Back</button>` : ''}
+ ${stepIdx < MOS_TRAIN_TOUR.length - 1 ? `<button class="btn-primary" onclick="showTrainingTourStep(${stepIdx + 1})" style="margin:0;padding:5px 12px;font-size:.65rem">Next <svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>` : `<button class="btn-primary" onclick="closeTrainingTourModal()" style="margin:0;padding:5px 12px;font-size:.65rem">Finish Tour </button>`}
  <button class="btn-secondary" onclick="closeTrainingTourModal()" style="padding:5px 8px;font-size:.65rem">Skip</button>
  </div>
  </div>
@@ -8910,7 +8910,7 @@ window.closeTrainingTourModal = function(){
  var greetingTitle = document.getElementById('twTitleText');
  var hour = new Date().getHours();
  let greeting = ' WELCOME BACK';
- if(hour >= 5 && hour < 12) greeting = '☀ GOOD MORNING';
+ if(hour >= 5 && hour < 12) greeting = '<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.5 3.5l1.4 1.4M11.1 11.1l1.4 1.4M12.5 3.5l-1.4 1.4M4.9 11.1L3.5 12.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg> GOOD MORNING';
  else if(hour >= 12 && hour < 17) greeting = ' GOOD AFTERNOON';
  else if(hour >= 17 && hour < 22) greeting = ' GOOD EVENING';
  else greeting = ' NIGHT SHIFT ACTIVE';
@@ -9181,7 +9181,7 @@ window.closeTrainingTourModal = function(){
  if(!el)return;
  var ce=ls(K.CE,[]);
  if(!ce.length){el.innerHTML='<p style="font-size:.5rem;color:rgba(250,250,248,.12);text-align:center" data-i18n="ce_none">No custom exercises yet.</p>';return;}
- el.innerHTML=ce.map(function(e){return '<div style="display:flex;align-items:center;justify-content:space-between;padding:4px 6px;border-bottom:1px solid rgba(250,250,248,.04);font-size:.55rem"><span>'+e.name+' <span style="color:rgba(250,250,248,.15);font-size:.5rem">('+e.t+', '+e.rr[0]+'-'+e.rr[1]+' reps)</span></span><span onclick="rmCustomEx(\''+e.name+'\');renderCeList()" style="color:#f44336;cursor:pointer;font-size:.55rem">✕</span></div>';}).join('');
+ el.innerHTML=ce.map(function(e){return '<div style="display:flex;align-items:center;justify-content:space-between;padding:4px 6px;border-bottom:1px solid rgba(250,250,248,.04);font-size:.55rem"><span>'+e.name+' <span style="color:rgba(250,250,248,.15);font-size:.5rem">('+e.t+', '+e.rr[0]+'-'+e.rr[1]+' reps)</span></span><span onclick="rmCustomEx(\''+e.name+'\');renderCeList()" style="color:#f44336;cursor:pointer;font-size:.55rem"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>';}).join('');
  }
 
  // ── Exercise Library ──
@@ -9222,7 +9222,7 @@ window.closeTrainingTourModal = function(){
  (equipTag(n)?'<span class="lib-eq">'+equipTag(n)+'</span>':'')+
  (meta(n).metadataSource==='inferred'?'<span class="badge-pill bp-inferred" title="'+_('meta_inferred_tip')+'">'+_('meta_inferred')+'</span>':'')+
  '<a class="lib-vid" href="'+vidUrl(n)+'" target="_blank">'+_('watch_video')+'</a>'+
- '<button class="ex-guide-toggle" type="button" data-lib="'+n+'" title="'+_('how_to')+'">'+_('how_to')+' ▾</button>'+
+ '<button class="ex-guide-toggle" type="button" data-lib="'+n+'" title="'+_('how_to')+'">'+_('how_to')+' <svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M5 6.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>'+
  '</div><div class="ex-guide" data-lib="'+n+'"></div></div>';
  });
  });
@@ -9234,7 +9234,7 @@ window.closeTrainingTourModal = function(){
  var open=g.style.display==='block';
  if(!open)g.innerHTML=guideHtml(name);
  g.style.display=open?'none':'block';
- this.textContent=(open?'':'▴ ')+_('how_to')+(open?' ▾':'');
+ this.textContent=(open?'':'<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M5 9.5l3-3 3 3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg> ')+_('how_to')+(open?' <svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M5 6.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>':'');
  });
  });
  }
@@ -9558,7 +9558,7 @@ window.closeTrainingTourModal = function(){
 <!-- Sync Modal -->
 <div class="modal-overlay" id="syncModal" style="display:none" onclick="if(event.target===this)hideSync()">
  <div class="modal-card">
- <div class="modal-header"><span data-i18n="sync_title">Data Sync</span><span class="modal-close" onclick="hideSync()">✕</span></div>
+ <div class="modal-header"><span data-i18n="sync_title">Data Sync</span><span class="modal-close" onclick="hideSync()"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>
  <p style="font-size:.6rem;color:rgba(250,250,248,.2);margin:6px 0 10px" data-i18n="sync_desc">Enter or create a sync ID to transfer your training data between devices.</p>
  <label style="font-size:.5rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.25);display:block;margin-bottom:4px">Sync ID</label>
  <div style="display:flex;gap:6px">
@@ -9577,7 +9577,7 @@ window.closeTrainingTourModal = function(){
 <!-- Custom Exercise Modal -->
 <div class="modal-overlay" id="ceModal" style="display:none" onclick="if(event.target===this)hideCeModal()">
  <div class="modal-card">
- <div class="modal-header"><span data-i18n="ce_title">Custom Exercise</span><span class="modal-close" onclick="hideCeModal()">✕</span></div>
+ <div class="modal-header"><span data-i18n="ce_title">Custom Exercise</span><span class="modal-close" onclick="hideCeModal()"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>
  <p style="font-size:.6rem;color:rgba(250,250,248,.2);margin:6px 0 10px" data-i18n="ce_desc">Add an exercise not in our database. It will be available for program generation.</p>
  <input type="text" id="ceName" placeholder="e.g. Bulgarian Split Squat" style="width:100%;padding:8px 10px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;margin-bottom:8px">
  <div class="form-row" style="margin-bottom:6px">
@@ -9598,7 +9598,7 @@ window.closeTrainingTourModal = function(){
 <!-- Exercise Library Modal -->
 <div class="modal-overlay" id="libModal" style="display:none" onclick="if(event.target===this)hideLibrary()">
  <div class="modal-card lib-modal">
- <div class="modal-header"><span data-i18n="lib_title">Exercise Library</span><span class="modal-close" onclick="hideLibrary()">✕</span></div>
+ <div class="modal-header"><span data-i18n="lib_title">Exercise Library</span><span class="modal-close" onclick="hideLibrary()"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>
  <div class="modal-body" id="libContent"></div>
  </div>
 </div>
@@ -10106,7 +10106,7 @@ function triggerFloatingTimer(seconds) {
     bar.id = 'floatingRestTimerBar';
     bar.className = 'floating-rest-timer';
     bar.innerHTML = `
-      <span style="font-size:1.2rem;">⏱️</span>
+      <span style="font-size:1.2rem;"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="9" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M8 6v3l2 1" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 1v2M6 1h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></span>
       <div>
         <div style="font-size:0.62rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-weight:700;">Rest Timer</div>
         <div class="floating-timer-time" id="floatingTimerDisplay">01:30</div>
@@ -10115,7 +10115,7 @@ function triggerFloatingTimer(seconds) {
         <button class="btn-timer-adj" onclick="adjustRestTimer(-30)">−30s</button>
         <button class="btn-timer-adj" onclick="adjustRestTimer(30)">+30s</button>
       </div>
-      <button class="btn-timer-close" onclick="closeRestTimer()">✕</button>
+      <button class="btn-timer-close" onclick="closeRestTimer()"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
     `;
     document.body.appendChild(bar);
   }
@@ -10136,7 +10136,7 @@ function triggerFloatingTimer(seconds) {
       clearInterval(activeRestInterval);
       playRestChime();
       if (window.navigator.vibrate) window.navigator.vibrate([100, 50, 100]);
-      if (window.mosToast) window.mosToast('🔔 Rest Time Complete! Next Set Ready.', 'success');
+      if (window.mosToast) window.mosToast('<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 1.5c-3 0-4 2.5-4 5 0 2-1 3-1 4h10c0-1-1-2-1-4 0-2.5-1-5-4-5z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M6.5 12.5a1.5 1.5 0 0 0 3 0" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> Rest Time Complete! Next Set Ready.', 'success');
       bar.style.display = 'none';
     } else {
       updateDisplay();
@@ -10180,7 +10180,7 @@ window.quickCompleteSet = function(btn, di, exName, si) {
 
   // Trigger Rest Timer
   triggerFloatingTimer(90);
-  if (window.mosToast) window.mosToast(`✓ Set ${si + 1} logged: ${wInp.value}kg × ${rInp.value} reps`, 'info');
+  if (window.mosToast) window.mosToast(`<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 8l4 4 6-8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Set ${si + 1} logged: ${wInp.value}kg × ${rInp.value} reps`, 'info');
 };
 
 function fireConfetti() {
@@ -10218,7 +10218,7 @@ function checkPR(exName, weight, reps, rpe) {
       fireConfetti();
       if (window.mosUI && typeof window.mosUI.playConfetti === 'function') window.mosUI.playConfetti();
       if (window.navigator.vibrate) window.navigator.vibrate([80, 40, 80, 40, 150]);
-      if (window.mosToast) window.mosToast(`🏆 NEW PR! ${exName}: ${currentE1RM}kg e1RM (+${delta}kg)`, 'success');
+      if (window.mosToast) window.mosToast(`<svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M5 2h6v4c0 2-1.5 3-3 3s-3-1-3-3z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M5 3H3c0 2 1 3 2 3M11 3h2c0 2-1 3-2 3" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><path d="M8 9v2M6 11h4M6 13h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> NEW PR! ${exName}: ${currentE1RM}kg e1RM (+${delta}kg)`, 'success');
     } else if (prevMax === 0) {
       localStorage.setItem(prKey, currentE1RM);
     }
@@ -10311,23 +10311,23 @@ window.finishWorkoutSession = function(di) {
 <!-- OriginKit Floating Bottom Execution Dock -->
 <nav class="originkit-bottom-dock no-print" aria-label="Quick Execution Bar">
   <button type="button" class="originkit-dock-item active" onclick="go(4); if(typeof renderDashboard==='function') renderDashboard();">
-    <span class="dock-icon">⚡</span>
+    <span class="dock-icon"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M9 1L4 9h4l-1 6 5-8H8z" fill="currentColor"/></svg></span>
     <span>Today</span>
   </button>
   <button type="button" class="originkit-dock-item" onclick="if(window.mosUI) mosUI.openPlateCalculator(60);">
-    <span class="dock-icon">🏋</span>
+    <span class="dock-icon"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M2 8h12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><rect x="3" y="5" width="2" height="6" rx=".5" fill="currentColor"/><rect x="11" y="5" width="2" height="6" rx=".5" fill="currentColor"/></svg></span>
     <span>Plates</span>
   </button>
   <button type="button" class="originkit-dock-item" onclick="go(0);">
-    <span class="dock-icon">📊</span>
+    <span class="dock-icon"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="8" width="3" height="6" rx=".5" fill="currentColor" opacity=".7"/><rect x="6.5" y="4" width="3" height="10" rx=".5" fill="currentColor" opacity=".85"/><rect x="11" y="6" width="3" height="8" rx=".5" fill="currentColor"/></svg></span>
     <span>Radar</span>
   </button>
   <button type="button" class="originkit-dock-item" onclick="go(5);">
-    <span class="dock-icon">📈</span>
+    <span class="dock-icon"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M2 12l3-4 3 2 3-5 3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
     <span>Stats</span>
   </button>
   <button type="button" class="originkit-dock-item" style="color:var(--mos-yellow);" onclick="if(window.mosUI) mosUI.openCoachingUpsell({ exercise: 'VIP Coaching Inquiry' });">
-    <span class="dock-icon">⭐</span>
+    <span class="dock-icon"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 2l1.8 3.7L14 6.3l-3 2.9.7 4.1L8 11.2 4.3 13.3l.7-4.1-3-2.9 4.2-.6z" fill="currentColor"/></svg></span>
     <span>Coach Anas</span>
   </button>
 </nav>
