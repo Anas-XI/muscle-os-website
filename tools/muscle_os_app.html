@@ -25,6 +25,7 @@
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/hub.css">
+<link rel="stylesheet" href="../assets/css/mos-nav.css">
 </head>
 <body>
 
@@ -36,6 +37,7 @@
     </div>
     <div class="hub-side">
       <button class="btn-pwa-install" id="pwaInstallBtn" onclick="installPWA()" title="Install App to Home Screen for 0-friction access">📲 Install App</button>
+      <button class="btn btn-secondary" style="min-height:36px; padding:4px 12px; font-size:0.72rem;" onclick="if(window.openMosDrawer){window.openMosDrawer();}else{location.href='index.html';}">⚡ Tools</button>
       <button class="btn btn-secondary" style="min-height:36px; padding:4px 12px; font-size:0.72rem;" onclick="document.getElementById('hubPaywallOverlay').style.display='flex'">👤 Account</button>
       <span class="status-chip trial" id="statusChip">Trial Active</span>
     </div>
@@ -224,6 +226,10 @@
       <span class="tab-icon">🥗</span>
       <span class="tab-label">Nutrition Log</span>
     </div>
+    <div class="tab-item" id="tab-tools" onclick="if(window.openMosDrawer){window.openMosDrawer();}else{location.href='index.html';}" role="tab" aria-selected="false">
+      <span class="tab-icon">⚡</span>
+      <span class="tab-label">Tools</span>
+    </div>
   </nav>
 
   <!-- ACCOUNT / PAYWALL OVERLAY -->
@@ -248,5 +254,6 @@
   <script src="js/core/tdee-engine.js"></script>
   <script src="js/services/pwa-install.js"></script>
   <script src="js/controllers/hub-app.js"></script>
+  <script src="../assets/js/mos-nav.js"></script>
 </body>
 </html>

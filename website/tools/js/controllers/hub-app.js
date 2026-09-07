@@ -5,7 +5,8 @@
   const HUB_TAB_KEY = 'mos_hub_active_tab';
 
   function activateTab(targetId) {
-    document.querySelectorAll('.tab-item').forEach(function(tb) {
+    if (!targetId) return;
+    document.querySelectorAll('.tab-item[data-target]').forEach(function(tb) {
       const isSelected = tb.getAttribute('data-target') === targetId;
       tb.classList.toggle('active', isSelected);
       tb.setAttribute('aria-selected', isSelected ? 'true' : 'false');
@@ -417,7 +418,7 @@
     }
 
     // Tab event bindings
-    document.querySelectorAll('.tab-item').forEach(function(tab) {
+    document.querySelectorAll('.tab-item[data-target]').forEach(function(tab) {
       tab.addEventListener('click', function() {
         activateTab(tab.getAttribute('data-target'));
       });

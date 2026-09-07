@@ -15,6 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/mos-nav.css">
 <script src="https://unpkg.com/lucide@latest"></script>
 <style>
 :root{
@@ -253,19 +254,7 @@ footer a{color:var(--yellow)}
 </head>
 <body>
 
-<header>
-  <div class="header-inner">
-    <a href="../index.html" class="brand">ANAS MO'MEN <span>COACHING</span></a>
-    <nav class="nav-links">
-      <button class="btn-pwa-install" onclick="installPWA()" style="margin-right:12px;">📲 Install App</button>
-      <a href="../index.html">Home</a>
-      <a href="../tools/" style="color:var(--yellow)">Tools</a>
-      <a href="../knowledge-hub/">Knowledge Hub</a>
-      <a href="../index.html#packages">Pricing</a>
-      <a href="../portal.html">Client Portal</a>
-    </nav>
-  </div>
-</header>
+<nav class="mos-nav"></nav>
 
 <main>
   <div class="wrap">
@@ -506,5 +495,6 @@ function filterCategory(cat) {
 </script>
 <script src="../js/auth.js"></script>
 <script src="js/services/pwa-install.js"></script>
+<script src="../assets/js/mos-nav.js"></script>
 </body>
 </html>
