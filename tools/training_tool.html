@@ -16,6 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/mos-nav.css">
+<link rel="stylesheet" href="../assets/css/mos-modern.css">
 <!-- Decision Engine — evidence-based rule evaluator (33 rules from Schoenfeld, Nippard, NSCA, ACE, IPTA) -->
 <script>window.MOS_ASSET_ROOT = '../assets/data';</script>
 <script src="../assets/js/decision-engine.js"></script>
@@ -1249,7 +1250,34 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  <button class="btn-secondary" onclick="go(3)" style="background:rgba(244,201,59,.12);color:#F4C93B;border:1px solid rgba(244,201,59,.3)"> View Program</button>
  <button class="btn-secondary" id="twEditBtn">⚙ Modify Program Parameters</button>
  </div>
- </div>
+    </div>
+
+    <!-- Bklit UI Volume Radar Landmark Visualization -->
+    <div class="bklit-chart-wrap originkit-spotlight" style="margin-top:16px;">
+      <div class="bklit-chart-header">
+        <div class="bklit-chart-title">
+          <span>⚡</span> Muscle Volume Balance &amp; Landmarks
+        </div>
+        <div class="bklit-chart-badge">Bklit MEV/MAV Radar</div>
+      </div>
+      <div id="mosDashboardVolumeRadar" style="display:flex; justify-content:center; padding:10px 0;"></div>
+      <div style="font-size:0.75rem; color:var(--mos-text-muted); text-align:center; margin-top:6px;">
+        Hexagonal kinetic chain volume distribution plotted against minimum effective &amp; maximum recoverable thresholds.
+      </div>
+    </div>
+
+    <!-- 10x Free Trial Status & VIP Coaching Upsell -->
+    <div class="mos-trial-dock originkit-spotlight">
+      <div class="mos-trial-info">
+        <span class="mos-trial-badge">1-Month Free Pass</span>
+        <div class="mos-trial-text">
+          Free All-Access Active &middot; <strong>Coach Anas VIP Split Audit Available</strong>
+        </div>
+      </div>
+      <button type="button" class="originkit-btn originkit-btn-primary" onclick="if(window.mosUI) mosUI.openCoachingUpsell({ exercise: 'Mesocycle Volume Audit' });">
+        Audit Split On WhatsApp &rarr;
+      </button>
+    </div>
   </div>
  </div>
 
@@ -7337,6 +7365,7 @@ function exportIcs(){
  el.querySelector('.rt-stop').style.display='none';
  if(rtd)rtd.textContent=_('time_up');
  if(timerSoundEnabled(ex))playTimerBeep();
+ if(window.mosUI && typeof window.mosUI.playRestChime === 'function') window.mosUI.playRestChime();
  }
  },1000);
  }
@@ -7379,6 +7408,10 @@ function exportIcs(){
  return {weight: totalWeight, plates: plates, perSideWeight: perSide, achieved: achieved, note: note};
  }
  function showPlateCalculator(weight, event){evLog('plate_calc',{w:weight});
+ if(window.mosUI && typeof window.mosUI.openPlateCalculator === 'function'){
+   window.mosUI.openPlateCalculator(weight);
+   return;
+ }
  var result = calculatePlates(weight);
  var modal = document.getElementById('plateModal');
  if(!modal){
@@ -7539,8 +7572,17 @@ function exportIcs(){
  '<input type="number" step="0.5" placeholder="'+_('rpe')+'" value="'+(set.rpe||'')+'" data-ex="'+ex.n+'" data-set="'+si+'" data-f="rpe"'+wuAttr+'>'+
  '<button class="del-set-btn" data-ex="'+ex.n+'" data-set="'+si+'">✕</button></div>';
  });
- h+='</div><button class="add-set-btn" data-ex="'+ex.n+'">+ '+_('set')+'</button></div>';
- return h;
+ h+='</div><button class="add-set-btn" data-ex="'+ex.n+'">+ '+_('set')+'</button>';
+  var safeExName = (ex.n||'').replace(/'/g, "\\'");
+  h += '<div class="mos-quick-inc-bar" style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;">';
+  h += '<span style="font-size:0.6rem;color:rgba(250,250,248,0.4);font-weight:600;text-transform:uppercase;">Quick +kg:</span>';
+  h += '<button type="button" class="originkit-btn originkit-btn-ghost" style="padding:3px 8px;font-size:0.65rem;" onclick="window.mosQuickAddWeight('+di+', \''+safeExName+'\', 1.25)">+1.25</button>';
+  h += '<button type="button" class="originkit-btn originkit-btn-ghost" style="padding:3px 8px;font-size:0.65rem;" onclick="window.mosQuickAddWeight('+di+', \''+safeExName+'\', 2.5)">+2.5</button>';
+  h += '<button type="button" class="originkit-btn originkit-btn-ghost" style="padding:3px 8px;font-size:0.65rem;" onclick="window.mosQuickAddWeight('+di+', \''+safeExName+'\', 5.0)">+5.0</button>';
+  h += '<button type="button" class="originkit-btn originkit-btn-ghost" style="padding:3px 8px;font-size:0.65rem;margin-left:auto;" onclick="window.mosOpenBarbellPlates(\''+safeExName+'\')">🏋 Plates</button>';
+  h += '<button type="button" class="originkit-btn originkit-btn-ghost" style="padding:3px 8px;font-size:0.65rem;color:#22c55e;border-color:rgba(34,197,94,0.3);" onclick="window.mosCoachFormCheck('+di+', \''+safeExName+'\')">📹 Form Check</button>';
+  h += '</div></div>';
+  return h;
  }
  function buildNormalExCard(ex,ei,di,day){
  var c=exCtx(ex,ei,di,day);
@@ -8443,6 +8485,11 @@ window.closeTrainingTourModal = function(){
  </div>
  `;
  }
+
+  var radarEl = document.getElementById('mosDashboardVolumeRadar');
+  if(radarEl && window.mosUI && typeof window.mosUI.renderVolumeRadar === 'function'){
+    window.mosUI.renderVolumeRadar(radarEl);
+  }
 
  var resumeBtn = document.getElementById('twResumeBtn');
  if(resumeBtn){
@@ -9703,6 +9750,7 @@ function checkPR(exName, weight, reps, rpe) {
       var delta = (currentE1RM - prevMax).toFixed(1);
       localStorage.setItem(prKey, currentE1RM);
       fireConfetti();
+      if (window.mosUI && typeof window.mosUI.playConfetti === 'function') window.mosUI.playConfetti();
       if (window.navigator.vibrate) window.navigator.vibrate([80, 40, 80, 40, 150]);
       if (window.mosToast) window.mosToast(`🏆 NEW PR! ${exName}: ${currentE1RM}kg e1RM (+${delta}kg)`, 'success');
     } else if (prevMax === 0) {
@@ -9710,6 +9758,64 @@ function checkPR(exName, weight, reps, rpe) {
     }
   } catch(e) {}
 }
+
+window.mosQuickAddWeight = function(di, exName, delta) {
+  var logs = ls(K.LG, {}), td = new Date().toISOString().split('T')[0];
+  var prog = ls(K.PG, null), day = prog && prog.days[di] ? prog.days[di] : null;
+  var eid = day ? day.n + '__' + exName : exName;
+  if (!logs[td]) logs[td] = {};
+  if (!logs[td][eid]) logs[td][eid] = { sets: [] };
+  var sets = logs[td][eid].sets;
+  if (!sets || sets.length === 0) {
+    sets = [{ w: String(delta), r: '10', rpe: '7' }];
+    logs[td][eid].sets = sets;
+  } else {
+    var targetSet = sets[sets.length - 1];
+    for (var i = 0; i < sets.length; i++) {
+      if (!sets[i].wu && (!sets[i].w || parseFloat(sets[i].w) === 0)) { targetSet = sets[i]; break; }
+    }
+    var curW = parseFloat(targetSet.w) || 0;
+    targetSet.w = String(Math.max(0, curW + delta));
+  }
+  ss(K.LG, logs);
+  if (window.mosUI) window.mosUI.toast('Incremented ' + exName + ' +' + delta + 'kg', 'success');
+  renderDay(di);
+};
+
+window.mosOpenBarbellPlates = function(exName) {
+  var logs = ls(K.LG, {}), td = new Date().toISOString().split('T')[0];
+  var currentW = 60;
+  Object.keys(logs[td] || {}).forEach(function(eid) {
+    if (eid.indexOf(exName) >= 0 && logs[td][eid].sets) {
+      logs[td][eid].sets.forEach(function(s) {
+        if (s.w && parseFloat(s.w) > 0) currentW = parseFloat(s.w);
+      });
+    }
+  });
+  if (window.mosUI && typeof window.mosUI.openPlateCalculator === 'function') {
+    window.mosUI.openPlateCalculator(currentW);
+  } else if (typeof showPlateCalculator === 'function') {
+    showPlateCalculator(currentW);
+  }
+};
+
+window.mosCoachFormCheck = function(di, exName) {
+  var logs = ls(K.LG, {}), td = new Date().toISOString().split('T')[0];
+  var lastW = 0, lastR = 0;
+  Object.keys(logs[td] || {}).forEach(function(eid) {
+    if (eid.indexOf(exName) >= 0 && logs[td][eid].sets) {
+      logs[td][eid].sets.forEach(function(s) {
+        if (s.w && parseFloat(s.w) > 0) { lastW = parseFloat(s.w); lastR = parseInt(s.r) || 0; }
+      });
+    }
+  });
+  if (window.mosUI && typeof window.mosUI.openCoachingUpsell === 'function') {
+    window.mosUI.openCoachingUpsell({ exercise: exName, weight: lastW, reps: lastR });
+  } else {
+    var text = encodeURIComponent("Hey Coach Anas, please check my form on " + exName + " (" + (lastW > 0 ? lastW + "kg x " + lastR + " reps" : "work sets") + "). Here's my video:");
+    window.open("https://wa.me/201040796017?text=" + text, "_blank");
+  }
+};
 
 window.finishWorkoutSession = function(di) {
   var logs = ls(K.LG, {});
@@ -9727,6 +9833,7 @@ window.finishWorkoutSession = function(di) {
   });
 
   fireConfetti();
+  if (window.mosUI && typeof window.mosUI.playConfetti === 'function') window.mosUI.playConfetti();
   if (window.parent && window.parent.postMessage) {
     window.parent.postMessage({ type: 'SESSION_ENDED', date: td, tonnage: totalTonnage }, '*');
   }
@@ -9735,6 +9842,31 @@ window.finishWorkoutSession = function(di) {
 };
 </script>
 
+<!-- OriginKit Floating Bottom Execution Dock -->
+<nav class="originkit-bottom-dock no-print" aria-label="Quick Execution Bar">
+  <button type="button" class="originkit-dock-item active" onclick="go(4); if(typeof renderDashboard==='function') renderDashboard();">
+    <span class="dock-icon">⚡</span>
+    <span>Today</span>
+  </button>
+  <button type="button" class="originkit-dock-item" onclick="if(window.mosUI) mosUI.openPlateCalculator(60);">
+    <span class="dock-icon">🏋</span>
+    <span>Plates</span>
+  </button>
+  <button type="button" class="originkit-dock-item" onclick="go(0);">
+    <span class="dock-icon">📊</span>
+    <span>Radar</span>
+  </button>
+  <button type="button" class="originkit-dock-item" onclick="go(5);">
+    <span class="dock-icon">📈</span>
+    <span>Stats</span>
+  </button>
+  <button type="button" class="originkit-dock-item" style="color:var(--mos-yellow);" onclick="if(window.mosUI) mosUI.openCoachingUpsell({ exercise: 'VIP Coaching Inquiry' });">
+    <span class="dock-icon">⭐</span>
+    <span>Coach Anas</span>
+  </button>
+</nav>
+
+<script src="../assets/js/mos-ui-core.js"></script>
 <script src="js/services/pwa-install.js"></script>
 <script src="../assets/js/mos-nav.js"></script>
 </body>

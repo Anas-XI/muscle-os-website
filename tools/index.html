@@ -16,6 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/mos-nav.css">
+<link rel="stylesheet" href="../assets/css/mos-modern.css">
 <script src="https://unpkg.com/lucide@latest"></script>
 <style>
 :root{
@@ -252,7 +253,7 @@ footer a{color:var(--yellow)}
 
 </style>
 </head>
-<body>
+<body class="mos-bg-topo">
 
 <nav class="mos-nav"></nav>
 
@@ -296,6 +297,17 @@ footer a{color:var(--yellow)}
           <span class="matcher-arrow">&rarr;</span>
         </a>
       </div>
+    <!-- 10x Free Trial Status & VIP Coaching Upsell -->
+    <div class="mos-trial-dock originkit-spotlight" style="margin: 20px 0;">
+      <div class="mos-trial-info">
+        <span class="mos-trial-badge">1-Month Free Pass Active</span>
+        <div class="mos-trial-text">
+          Full Interactive Suite Unlocked &middot; <strong>Need a 1-on-1 Personalized Plan by Coach Anas?</strong>
+        </div>
+      </div>
+      <button type="button" class="originkit-btn originkit-btn-primary" onclick="if(window.mosUI) mosUI.openCoachingUpsell({ exercise: 'Complete Suite Protocol Audit' }); else window.open('https://wa.me/201040796017', '_blank');">
+        Inquire On WhatsApp &rarr;
+      </button>
     </div>
 
     <!-- Filter Buttons -->
@@ -316,7 +328,7 @@ footer a{color:var(--yellow)}
 
       <div class="tool-grid">
         <!-- Omni Hub -->
-        <div class="tool-card pro-card" data-category="pro training nutrition">
+        <div class="tool-card originkit-spotlight pro-card" data-category="pro training nutrition">
           <div class="card-top">
             <div class="card-icon-wrap">
               <div class="card-icon">⚡</div>
@@ -340,7 +352,7 @@ footer a{color:var(--yellow)}
         </div>
 
         <!-- Hyperkinetix -->
-        <div class="tool-card pro-card" data-category="pro training">
+        <div class="tool-card originkit-spotlight pro-card" data-category="pro training">
           <div class="card-top">
             <div class="card-icon-wrap">
               <div class="card-icon">&#127947;</div>
@@ -364,7 +376,7 @@ footer a{color:var(--yellow)}
         </div>
 
         <!-- Metabolix -->
-        <div class="tool-card pro-card" data-category="pro nutrition">
+        <div class="tool-card originkit-spotlight pro-card" data-category="pro nutrition">
           <div class="card-top">
             <div class="card-icon-wrap">
               <div class="card-icon">&#128293;</div>
@@ -398,7 +410,7 @@ footer a{color:var(--yellow)}
 
       <div class="tool-grid">
         <!-- TDEE & Macro Calculator -->
-        <div class="tool-card" data-category="free nutrition">
+        <div class="tool-card originkit-spotlight" data-category="free nutrition">
           <div class="card-top">
             <div class="card-icon-wrap">
               <div class="card-icon">&#9878;</div>
@@ -414,7 +426,7 @@ footer a{color:var(--yellow)}
         </div>
 
         <!-- Volume & Set Calculator -->
-        <div class="tool-card" data-category="free training">
+        <div class="tool-card originkit-spotlight" data-category="free training">
           <div class="card-top">
             <div class="card-icon-wrap">
               <div class="card-icon">&#128202;</div>
@@ -430,7 +442,7 @@ footer a{color:var(--yellow)}
         </div>
 
         <!-- RPE Load Calculator -->
-        <div class="tool-card" data-category="free training">
+        <div class="tool-card originkit-spotlight" data-category="free training">
           <div class="card-top">
             <div class="card-icon-wrap">
               <div class="card-icon">&#127919;</div>
@@ -446,7 +458,7 @@ footer a{color:var(--yellow)}
         </div>
 
         <!-- Split Selector Quiz -->
-        <div class="tool-card" data-category="free training">
+        <div class="tool-card originkit-spotlight" data-category="free training">
           <div class="card-top">
             <div class="card-icon-wrap">
               <div class="card-icon">&#129513;</div>
@@ -493,6 +505,7 @@ function filterCategory(cat) {
   });
 }
 </script>
+<script src="../assets/js/mos-ui-core.js"></script>
 <script src="../js/auth.js"></script>
 <script src="js/services/pwa-install.js"></script>
 <script src="../assets/js/mos-nav.js"></script>

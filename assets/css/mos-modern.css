@@ -1,0 +1,506 @@
+/* ==========================================================================
+   Muscle OS — Modern UI/UX Architecture (mos-modern.css)
+   Synthesizing: shadcn/ui, 10x UX, Haikei SVGs, Lottie, Fontjoy, OriginKit, Bklit UI
+   ========================================================================== */
+
+:root {
+  /* Fontjoy Typographic Hierarchy */
+  --font-display: 'Oswald', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* shadcn/ui Dark System Tokens */
+  --mos-bg: #0A0B0E;
+  --mos-surface: #14151A;
+  --mos-surface-2: #1E2027;
+  --mos-surface-3: #262933;
+  --mos-border: rgba(255, 255, 255, 0.08);
+  --mos-border-subtle: rgba(255, 255, 255, 0.04);
+  --mos-border-focus: rgba(244, 201, 59, 0.5);
+
+  --mos-yellow: #F4C93B;
+  --mos-yellow-hover: #FADB6A;
+  --mos-yellow-glow: rgba(244, 201, 59, 0.28);
+  --mos-green: #34D399;
+  --mos-green-glow: rgba(52, 211, 153, 0.25);
+  --mos-blue: #38BDF8;
+  --mos-purple: #A855F7;
+  --mos-red: #F87171;
+
+  --mos-text: #FAFAF8;
+  --mos-text-muted: #8A8D96;
+  --mos-text-dim: rgba(250, 250, 248, 0.38);
+
+  --mos-radius: 12px;
+  --mos-radius-sm: 8px;
+  --mos-radius-full: 9999px;
+
+  /* Haikei Procedural Topographic & Mesh Patterns */
+  --mos-topo-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800'%3E%3Cpath d='M0,350 C150,330 300,380 450,340 C600,300 700,370 800,350 L800,800 L0,800 Z' fill='none' stroke='rgba(244,201,59,0.035)' stroke-width='1.5'/%3E%3Cpath d='M0,450 C200,430 350,490 500,440 C650,400 750,460 800,450' fill='none' stroke='rgba(255,255,255,0.025)' stroke-width='1.5'/%3E%3Cpath d='M0,550 C120,530 280,570 420,530 C580,500 680,560 800,550' fill='none' stroke='rgba(244,201,59,0.025)' stroke-width='1.5'/%3E%3Cpath d='M0,650 C180,630 320,680 480,640 C620,610 720,670 800,650' fill='none' stroke='rgba(255,255,255,0.02)' stroke-width='1.5'/%3E%3C/svg%3E");
+  
+  --mos-mesh-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z' fill='none' stroke='rgba(255,255,255,0.018)' stroke-width='1'/%3E%3C/svg%3E");
+}
+
+/* Base Typographic Precision (Fontjoy Scale) */
+.mos-font-display {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mos-font-body {
+  font-family: var(--font-body);
+}
+
+.mos-font-mono {
+  font-family: var(--font-mono);
+  font-feature-settings: "tnum" 1, "zero" 1;
+}
+
+/* Haikei Background Accents */
+.mos-bg-topo {
+  background-image: var(--mos-topo-svg), radial-gradient(circle at 85% 15%, #221b08 0%, #0A0B0E 65%);
+  background-repeat: repeat-y, no-repeat;
+  background-size: 100% auto, cover;
+}
+
+.mos-bg-mesh {
+  background-image: var(--mos-mesh-svg);
+  background-repeat: repeat;
+}
+
+.mos-glow-gold {
+  position: relative;
+}
+.mos-glow-gold::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, var(--mos-yellow-glow) 0%, rgba(244, 201, 59, 0) 70%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+/* OriginKit Interactive Spotlight Cards */
+.originkit-spotlight {
+  position: relative;
+  background: var(--mos-surface);
+  border: 1px solid var(--mos-border);
+  border-radius: var(--mos-radius);
+  overflow: hidden;
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+}
+
+.originkit-spotlight::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(244, 201, 59, 0.12), transparent 40%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.originkit-spotlight:hover::after {
+  opacity: 1;
+}
+
+.originkit-spotlight:hover {
+  border-color: rgba(244, 201, 59, 0.35);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(244, 201, 59, 0.08);
+  transform: translateY(-2px);
+}
+
+/* OriginKit Spring Buttons */
+.originkit-btn {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  padding: 10px 18px;
+  border-radius: var(--mos-radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s, box-shadow 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  user-select: none;
+}
+
+.originkit-btn:active {
+  transform: scale(0.96);
+}
+
+.originkit-btn-primary {
+  background: linear-gradient(135deg, var(--mos-yellow), var(--mos-yellow-hover));
+  color: var(--mos-bg);
+  box-shadow: 0 4px 14px var(--mos-yellow-glow);
+}
+
+.originkit-btn-primary:hover {
+  background: #fff;
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.35);
+}
+
+.originkit-btn-ghost {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--mos-text);
+  border-color: var(--mos-border);
+}
+
+.originkit-btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* OriginKit / shadcn Sliding Pill Tabs */
+.originkit-pill-tabs {
+  position: relative;
+  display: inline-flex;
+  background: var(--mos-surface);
+  border: 1px solid var(--mos-border);
+  border-radius: var(--mos-radius-full);
+  padding: 4px;
+  gap: 4px;
+  user-select: none;
+}
+
+.originkit-pill-tab {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--mos-text-muted);
+  padding: 8px 18px;
+  border-radius: var(--mos-radius-full);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+
+.originkit-pill-tab.active {
+  color: var(--mos-bg);
+  background: var(--mos-yellow);
+  font-weight: 700;
+  box-shadow: 0 2px 10px var(--mos-yellow-glow);
+}
+
+.originkit-pill-tab:hover:not(.active) {
+  color: #fff;
+}
+
+/* 10x Quick-Log Increment Pill Bar */
+.mos-quick-inc-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.mos-quick-inc-btn {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--mos-border);
+  color: var(--mos-text-muted);
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.mos-quick-inc-btn:hover {
+  background: rgba(244, 201, 59, 0.15);
+  border-color: var(--mos-yellow);
+  color: var(--mos-yellow);
+}
+
+.mos-quick-inc-btn:active {
+  transform: scale(0.92);
+}
+
+/* Bklit UI Chart & Radar Containers */
+.bklit-chart-wrap {
+  position: relative;
+  background: var(--mos-surface);
+  border: 1px solid var(--mos-border);
+  border-radius: var(--mos-radius);
+  padding: 20px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.bklit-chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.bklit-chart-title {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fff;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bklit-chart-badge {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--mos-yellow);
+  background: rgba(244, 201, 59, 0.12);
+  border: 1px solid rgba(244, 201, 59, 0.25);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.bklit-tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: rgba(15, 16, 21, 0.95);
+  border: 1px solid var(--mos-border-focus);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.75);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #fff;
+  transform: translate(-50%, -120%);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  white-space: nowrap;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+}
+
+/* Lottie Micro-Animation Containers */
+.mos-lottie-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+}
+
+/* OriginKit Mobile Bottom Execution Dock */
+.originkit-bottom-dock {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(15, 16, 21, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--mos-border);
+  padding: 10px 16px env(safe-area-inset-bottom, 10px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 12px;
+  box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.7);
+}
+
+.originkit-dock-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  background: transparent;
+  border: none;
+  color: var(--mos-text-muted);
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: color 0.2s, transform 0.15s;
+  text-decoration: none;
+  min-width: 58px;
+}
+
+.originkit-dock-item:hover, .originkit-dock-item.active {
+  color: var(--mos-yellow);
+}
+
+.originkit-dock-item:active {
+  transform: scale(0.92);
+}
+
+/* Plate Calculator Bottom Sheet */
+.mos-sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 100000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: mosFadeIn 0.2s ease-out;
+}
+
+.mos-sheet-drawer {
+  background: #14151A;
+  border-top: 1.5px solid var(--mos-border-focus);
+  border-radius: 20px 20px 0 0;
+  width: 100%;
+  max-width: 540px;
+  padding: 24px;
+  box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.85);
+  animation: mosSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--mos-text);
+  font-family: var(--font-body);
+}
+
+.mos-plate-barbell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 90px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--mos-border);
+  border-radius: 8px;
+  margin: 16px 0;
+  padding: 0 16px;
+  overflow-x: auto;
+}
+
+.mos-plate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  animation: mosPopIn 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.plate-25 { width: 18px; height: 75px; background: #E53E3E; border: 1px solid #FC8181; }
+.plate-20 { width: 16px; height: 70px; background: #3182CE; border: 1px solid #63B3ED; }
+.plate-15 { width: 15px; height: 60px; background: #D69E2E; border: 1px solid #ECC94B; }
+.plate-10 { width: 14px; height: 50px; background: #38A169; border: 1px solid #68D391; }
+.plate-5  { width: 12px; height: 40px; background: #FAFAF8; color: #000; }
+.plate-2_5{ width: 10px; height: 32px; background: #718096; }
+.plate-1_25{ width: 8px; height: 26px; background: #4A5568; }
+
+/* 10x Upsell & Free Trial Floating Bar */
+.mos-trial-dock {
+  background: linear-gradient(135deg, rgba(20, 21, 26, 0.96), rgba(30, 32, 40, 0.98));
+  border: 1px solid var(--mos-border-focus);
+  border-radius: var(--mos-radius);
+  padding: 12px 18px;
+  margin: 18px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 15px var(--mos-yellow-glow);
+}
+
+.mos-trial-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mos-trial-badge {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  background: var(--mos-yellow);
+  color: var(--mos-bg);
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.mos-trial-text {
+  font-size: 0.85rem;
+  color: var(--mos-text);
+}
+
+.mos-trial-text strong {
+  color: var(--mos-yellow);
+}
+
+/* Sonner-Style Stacked Toasts */
+.mos-toast-container {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  z-index: 9999999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.mos-toast {
+  pointer-events: auto;
+  background: #14151A;
+  border: 1px solid var(--mos-border);
+  border-left: 4px solid var(--mos-yellow);
+  border-radius: var(--mos-radius-sm);
+  padding: 12px 18px;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: mosToastIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: 340px;
+}
+
+@keyframes mosToastIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes mosPopIn {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+  .mos-trial-dock {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  .mos-trial-info {
+    flex-direction: column;
+  }
+  .mos-toast-container {
+    left: 20px;
+    right: 20px;
+    bottom: 84px;
+  }
+}

@@ -17,6 +17,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/mos-nav.css">
+<link rel="stylesheet" href="../assets/css/mos-modern.css">
 <script src="../assets/js/mos_charts.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -1118,6 +1119,14 @@ numbersHtml += '<div class="dash-macro-grid">' +
   (r.safetyCapped ? '<br><strong>Safety cap:</strong> Your goal was adjusted because aggressive targets are not appropriate at your current body fat level.' : '') +
   '</div>';
 
+  numbersHtml += '<div class="mos-trial-dock originkit-spotlight" style="margin-top:16px;">' +
+    '<div class="mos-trial-info">' +
+      '<span class="mos-trial-badge">1-Month Free Pass</span>' +
+      '<div class="mos-trial-text">Nutrition Engine Active &middot; <strong>Get 1-on-1 Macro &amp; Bloodwork Review with Coach Anas</strong></div>' +
+    '</div>' +
+    '<button type="button" class="originkit-btn originkit-btn-primary" onclick="if(window.mosUI) mosUI.openCoachingUpsell({ exercise: \'Adaptive TDEE & Nutrition Audit\' });">Audit Plan On WhatsApp &rarr;</button>' +
+  '</div>';
+
   document.getElementById('dash-numbers').innerHTML = numbersHtml;
 
   if(window.MOS_Charts && document.getElementById('dashMacroDonut')){
@@ -1237,16 +1246,26 @@ numbersHtml += '<div class="dash-macro-grid">' +
 
   const chartEl = document.getElementById('dashWeightChart');
   const chartBox = document.getElementById('dashWeightChartBox');
-  if (chartEl && window.MOS_Charts && store.weights && store.weights.length >= 2) {
+  if (chartEl && store.weights && store.weights.length >= 2) {
     if (chartBox) chartBox.style.display = 'block';
     const sortedAsc = [...store.weights].sort((a,b)=>new Date(a.date)-new Date(b.date));
-    MOS_Charts.createLineChart(chartEl, {
-      height: 170,
-      unit: 'kg',
-      lineColor: '#F4C93B',
-      fillColor: 'rgba(244, 201, 59, 0.2)',
-      data: sortedAsc.map(w => ({ date: w.date, value: w.weight }))
-    });
+    if (window.mosUI && typeof window.mosUI.renderAreaChart === 'function') {
+      window.mosUI.renderAreaChart(chartEl, {
+        height: 180,
+        unit: 'kg',
+        lineColor: '#F4C93B',
+        fillColor: 'rgba(244, 201, 59, 0.18)',
+        data: sortedAsc.map(w => ({ date: w.date, value: w.weight }))
+      });
+    } else if (window.MOS_Charts) {
+      MOS_Charts.createLineChart(chartEl, {
+        height: 170,
+        unit: 'kg',
+        lineColor: '#F4C93B',
+        fillColor: 'rgba(244, 201, 59, 0.2)',
+        data: sortedAsc.map(w => ({ date: w.date, value: w.weight }))
+      });
+    }
   }
   }
 
@@ -2780,6 +2799,7 @@ window.quickAddMacros = function(){
 };
 </script>
 
+<script src="../assets/js/mos-ui-core.js"></script>
 <script src="js/services/pwa-install.js"></script>
 <script src="../assets/js/mos-nav.js"></script>
 </body>
