@@ -6,12 +6,15 @@
 
 :root {
   --mos-nav-bg: rgba(13, 14, 18, 0.94);
-  --mos-nav-surface: #14151A;
-  --mos-nav-card: #1A1B22;
+  --mos-nav-surface: #14161F;
+  --mos-nav-card: #1E2029;
   --mos-nav-border: #2C2E37;
-  --mos-nav-border-gold: rgba(244, 201, 59, 0.3);
-  --mos-nav-gold: #F4C93B;
-  --mos-nav-gold-glow: rgba(244, 201, 59, 0.35);
+  --mos-nav-border-gold: rgba(226, 232, 240, 0.25);
+  --mos-nav-border-silver: rgba(226, 232, 240, 0.25);
+  --mos-nav-gold: #E2E8F0;
+  --mos-nav-silver: #E2E8F0;
+  --mos-nav-gold-glow: rgba(226, 232, 240, 0.30);
+  --mos-nav-silver-glow: rgba(226, 232, 240, 0.30);
   --mos-nav-text: #FAFAF8;
   --mos-nav-muted: rgba(250, 250, 248, 0.55);
   --mos-nav-dock-height: 60px;
@@ -81,7 +84,7 @@
   letter-spacing: 0.8px;
   text-transform: uppercase;
   color: var(--mos-nav-gold);
-  background: rgba(244, 201, 59, 0.08);
+  background: rgba(226, 232, 240, 0.08);
   border: 1px solid var(--mos-nav-border-gold);
   border-radius: 6px;
   padding: 3px 8px;
@@ -129,10 +132,10 @@
 
 .mos-switcher-btn:hover,
 .mos-switcher-btn.active {
-  background: rgba(244, 201, 59, 0.12);
+  background: rgba(226, 232, 240, 0.12);
   border-color: var(--mos-nav-gold);
   color: var(--mos-nav-gold);
-  box-shadow: 0 0 12px rgba(244, 201, 59, 0.2);
+  box-shadow: 0 0 12px rgba(226, 232, 240, 0.2);
 }
 
 .mos-switcher-icon {
@@ -220,7 +223,7 @@
 }
 
 .mos-menu-item.is-current {
-  background: rgba(244, 201, 59, 0.08);
+  background: rgba(226, 232, 240, 0.08);
   border-color: var(--mos-nav-border-gold);
 }
 
@@ -237,8 +240,8 @@
 }
 
 .mos-menu-item.is-current .mos-item-icon {
-  background: rgba(244, 201, 59, 0.15);
-  box-shadow: 0 0 8px rgba(244, 201, 59, 0.25);
+  background: rgba(226, 232, 240, 0.15);
+  box-shadow: 0 0 8px rgba(226, 232, 240, 0.25);
 }
 
 .mos-item-info {
@@ -275,7 +278,7 @@
 }
 
 .mos-badge-flagship {
-  background: rgba(244, 201, 59, 0.2);
+  background: rgba(226, 232, 240, 0.2);
   color: var(--mos-nav-gold);
 }
 
@@ -448,7 +451,7 @@
 
 .mos-dock-item.active .mos-dock-icon {
   transform: translateY(-1px);
-  filter: drop-shadow(0 0 6px rgba(244, 201, 59, 0.5));
+  filter: drop-shadow(0 0 6px rgba(226, 232, 240, 0.5));
 }
 
 .mos-dock-item.active::before {
@@ -579,7 +582,7 @@
 }
 
 .mos-drawer-link.active {
-  background: rgba(244, 201, 59, 0.1);
+  background: rgba(226, 232, 240, 0.1);
   color: var(--mos-nav-gold);
   border: 1px solid var(--mos-nav-border-gold);
 }

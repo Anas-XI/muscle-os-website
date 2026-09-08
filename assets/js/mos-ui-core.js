@@ -103,7 +103,7 @@
     canvas.height = window.innerHeight;
 
     var pieces = [];
-    var colors = ['#F4C93B', '#34D399', '#38BDF8', '#FAFAF8', '#E53E3E'];
+    var colors = ['#E2E8F0', '#34D399', '#38BDF8', '#FAFAF8', '#E53E3E'];
     for (var i = 0; i < 60; i++) {
       pieces.push({
         x: canvas.width / 2,
@@ -171,7 +171,7 @@
     options = options || {};
     var height = options.height || 180;
     var width = container.clientWidth || 500;
-    var color = options.color || '#F4C93B';
+    var color = options.color || '#E2E8F0';
 
     var vals = data.map(function (d) { return d.y; });
     var minY = Math.min.apply(null, vals);
@@ -307,11 +307,11 @@
         return '<line x1="' + center + '" y1="' + center + '" x2="' + ex + '" y2="' + ey + '" stroke="rgba(255,255,255,0.08)" />';
       }).join(''),
       '  <!-- Volume Distribution Polygon -->',
-      '  <polygon points="' + dataPts.join(' ') + '" fill="rgba(244,201,59,0.22)" stroke="#F4C93B" stroke-width="2" stroke-linejoin="round" />',
+      '  <polygon points="' + dataPts.join(' ') + '" fill="rgba(226,232,240,0.22)" stroke="#E2E8F0" stroke-width="2" stroke-linejoin="round" />',
       '  <!-- Data Points -->',
       dataPts.map(function (p) {
         var coords = p.split(',');
-        return '<circle cx="' + coords[0] + '" cy="' + coords[1] + '" r="3" fill="#F4C93B" />';
+        return '<circle cx="' + coords[0] + '" cy="' + coords[1] + '" r="3" fill="#E2E8F0" />';
       }).join(''),
       '  <!-- Labels -->',
       labels.map(function (l) {
@@ -368,7 +368,7 @@
       '<div class="mos-sheet-drawer" role="dialog" aria-label="Olympic Plate Math">',
       '  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">',
       '    <div style="font-family:Oswald,sans-serif; font-size:1.15rem; font-weight:700; text-transform:uppercase; color:#fff;">',
-      '      Olympic Plate Math &middot; <span style="color:#F4C93B;">' + targetWeight + ' kg</span>',
+      '      Olympic Plate Math &middot; <span style="color:#E2E8F0;">' + targetWeight + ' kg</span>',
       '    </div>',
       '    <button type="button" id="mos-plate-close" style="background:transparent; border:none; color:#8A8D96; font-size:1.4rem; cursor:pointer;">&times;</button>',
       '  </div>',
@@ -411,7 +411,7 @@
     var toast = document.createElement('div');
     toast.className = 'mos-toast';
     var icon = type === 'success' ? '✓' : (type === 'error' ? '✕' : 'ℹ');
-    toast.innerHTML = '<span style="color:#F4C93B; font-weight:bold;">' + icon + '</span><span>' + msg + '</span>';
+    toast.innerHTML = '<span style="color:#E2E8F0; font-weight:bold;">' + icon + '</span><span>' + msg + '</span>';
     container.appendChild(toast);
 
     setTimeout(function () {

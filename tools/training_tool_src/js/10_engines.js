@@ -262,8 +262,8 @@
  var m=meta(ex),warn=[],blocked=false,sub=null,sev='safe',pain=pf[ex]||'green';
  // Rehab-aware safety
  var rehabCheck=isExerciseSafeForInjuries(ex,pf);
- if(!rehabCheck.ok){blocked=true;sub=m.subs&&m.subs[0];sev='danger';warn.push("⛔ "+rehabCheck.reason+(sub?' '+_('sel_try')+': '+sub:'')+' · <a href="https://wa.me/201040796017" target="_blank" style="color:#F4C93B">'+_('hist_book_consult')+'</a>');}
- else if(pain==='red'){blocked=true;sub=m.subs&&m.subs[0];sev='danger';warn.push("🔴 "+_('safety_pain_reported')+(sub?' '+_('sel_try')+': '+sub:'')+' · <a href="https://wa.me/201040796017" target="_blank" style="color:#F4C93B">'+_('hist_book_injury')+'</a>');}
+ if(!rehabCheck.ok){blocked=true;sub=m.subs&&m.subs[0];sev='danger';warn.push("⛔ "+rehabCheck.reason+(sub?' '+_('sel_try')+': '+sub:'')+' · <a href="https://wa.me/201040796017" target="_blank" style="color:#E2E8F0">'+_('hist_book_consult')+'</a>');}
+ else if(pain==='red'){blocked=true;sub=m.subs&&m.subs[0];sev='danger';warn.push("🔴 "+_('safety_pain_reported')+(sub?' '+_('sel_try')+': '+sub:'')+' · <a href="https://wa.me/201040796017" target="_blank" style="color:#E2E8F0">'+_('hist_book_injury')+'</a>');}
  else if(pain==='yellow'){sev='warn';warn.push("🟡 "+_('safety_inflammation'));}
  else if(rehabCheck.reason&&rehabCheck.reason.indexOf('🟡')>=0){sev='warn';warn.push(rehabCheck.reason);}
  if(!blocked&&sugg&&sugg.w){
@@ -312,7 +312,7 @@
  warmups.forEach(function(w){
  html+='<div class="wu-row"><span>'+(w.label.indexOf('Ramp')>=0?_('warmup_ramp')+' '+(w.set):w.label)+'</span><span class="wu-weight">'+(w.weight>0?w.weight+' '+_('weight'):'Bar')+'</span><span>'+w.reps+'</span><span>'+w.pct+'%</span></div>';
  });
- html+='<div class="wu-row wu-work"><span>'+_('warmup_work')+'</span><span class="wu-weight" style="color:#F4C93B">'+sugg.w+' '+_('weight')+'</span><span>'+sugg.r+'</span><span>100%</span></div>';
+ html+='<div class="wu-row wu-work"><span>'+_('warmup_work')+'</span><span class="wu-weight" style="color:#E2E8F0">'+sugg.w+' '+_('weight')+'</span><span>'+sugg.r+'</span><span>100%</span></div>';
  html+='<p class="wu-tip">'+warmupTip(exName,dayName)+'</p></div></div>';
  return html;
  }
@@ -607,7 +607,7 @@
  html+='<div style="display:flex;align-items:flex-end;gap:3px;height:35px;padding:2px 0">';
  weightData.forEach(function(m){
  var h=(m.weight-minW)/range*30;
- html+='<div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="width:100%;height:'+Math.max(h,3)+'px;background:#F4C93B;border-radius:2px;opacity:.6" title="'+m.date+': '+m.weight+' kg"></div><span style="font-size:.35rem;color:rgba(250,250,248,.08);margin-top:1px">'+m.date.slice(5)+'</span></div>';
+ html+='<div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="width:100%;height:'+Math.max(h,3)+'px;background:#E2E8F0;border-radius:2px;opacity:.6" title="'+m.date+': '+m.weight+' kg"></div><span style="font-size:.35rem;color:rgba(250,250,248,.08);margin-top:1px">'+m.date.slice(5)+'</span></div>';
  });
  html+='</div>';
  }
@@ -806,7 +806,7 @@
  var mp=ls(K.MP,null),ma=ls(K.MA,null);
  if(!mp||!ma){document.getElementById('mesoCalContent').innerHTML='<p style="font-size:.55rem;color:rgba(250,250,248,.15);padding:10px;text-align:center">'+_('no_data')+'</p>';return;}
  var cw=ma.currentWeek||1,html='<div class="meso-cal-header">'+
- '<span style="color:#F4C93B;font-family:Oswald,sans-serif;font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px">'+_('generate_meso')+': '+mp.type+'</span>'+
+ '<span style="color:#E2E8F0;font-family:Oswald,sans-serif;font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px">'+_('generate_meso')+': '+mp.type+'</span>'+
  '<span style="font-size:.55rem;color:rgba(250,250,248,.2)">'+_('day')+' '+cw+' of '+mp.weeks+' · '+mp.days[cw-1].phase+'</span></div>';
  html+='<div class="meso-week-grid">';
  mp.days.forEach(function(w,i){

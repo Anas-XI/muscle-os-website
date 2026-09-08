@@ -29,7 +29,7 @@ html[dir="rtl"] .week-row .wr-lbl{margin-right:0;margin-left:auto}
 .missed-banner .mb-text strong{color:#FF9800}
 .missed-banner .mb-actions{display:flex;gap:6px}
 .mb-btn{font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:6px 12px;border-radius:6px;border:1px solid var(--text-muted);background:transparent;color:var(--text-soft);cursor:pointer;transition:opacity .15s}
-.mb-btn.primary{background:#FF9800;border-color:#FF9800;color:#14151A}
+.mb-btn.primary{background:#FF9800;border-color:#FF9800;color:#08090C}
 .makeup-chip{display:inline-block;font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#FF9800;background:rgba(255,152,0,.1);border:1px solid rgba(255,152,0,.3);border-radius:6px;padding:3px 8px;margin-left:6px;vertical-align:middle}
 html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
 .ss-toggle{font-size:.5rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:5px 10px;border-radius:6px;border:1px solid var(--text-muted);background:transparent;color:var(--text-soft);cursor:pointer;white-space:nowrap;transition:all .15s}

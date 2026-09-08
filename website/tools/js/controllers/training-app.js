@@ -1938,7 +1938,7 @@
  if(!pill){
  pill = document.createElement('span');
  pill.id = 'trialPill';
- pill.style.cssText = 'display:inline-flex;align-items:center;gap:4px;font-size:.5rem;color:#F4C93B;border:1px solid rgba(244,201,59,.25);background:rgba(244,201,59,.06);border-radius:20px;padding:2px 8px;margin-left:6px;white-space:nowrap;cursor:default';
+ pill.style.cssText = 'display:inline-flex;align-items:center;gap:4px;font-size:.5rem;color:#E2E8F0;border:1px solid rgba(226,232,240,.25);background:rgba(226,232,240,.06);border-radius:20px;padding:2px 8px;margin-left:6px;white-space:nowrap;cursor:default';
  pill.innerHTML = '<span data-i18n="trial_pill_pre"></span><b id="trialDays" style="font-weight:700"></b><span data-i18n="trial_pill_post"></span>';
  var top = document.querySelector('.header-top');
  if(top) top.appendChild(pill);
@@ -2276,8 +2276,8 @@
  var m=meta(ex),warn=[],blocked=false,sub=null,sev='safe',pain=pf[ex]||'green';
  // Rehab-aware safety
  var rehabCheck=isExerciseSafeForInjuries(ex,pf);
- if(!rehabCheck.ok){blocked=true;sub=m.subs&&m.subs[0];sev='danger';warn.push("⛔ "+rehabCheck.reason+(sub?' '+_('sel_try')+': '+sub:'')+' · <a href="https://wa.me/201040796017" target="_blank" style="color:#F4C93B">'+_('hist_book_consult')+'</a>');}
- else if(pain==='red'){blocked=true;sub=m.subs&&m.subs[0];sev='danger';warn.push("🔴 "+_('safety_pain_reported')+(sub?' '+_('sel_try')+': '+sub:'')+' · <a href="https://wa.me/201040796017" target="_blank" style="color:#F4C93B">'+_('hist_book_injury')+'</a>');}
+ if(!rehabCheck.ok){blocked=true;sub=m.subs&&m.subs[0];sev='danger';warn.push("⛔ "+rehabCheck.reason+(sub?' '+_('sel_try')+': '+sub:'')+' · <a href="https://wa.me/201040796017" target="_blank" style="color:#E2E8F0">'+_('hist_book_consult')+'</a>');}
+ else if(pain==='red'){blocked=true;sub=m.subs&&m.subs[0];sev='danger';warn.push("🔴 "+_('safety_pain_reported')+(sub?' '+_('sel_try')+': '+sub:'')+' · <a href="https://wa.me/201040796017" target="_blank" style="color:#E2E8F0">'+_('hist_book_injury')+'</a>');}
  else if(pain==='yellow'){sev='warn';warn.push("🟡 "+_('safety_inflammation'));}
  else if(rehabCheck.reason&&rehabCheck.reason.indexOf('🟡')>=0){sev='warn';warn.push(rehabCheck.reason);}
  if(!blocked&&sugg&&sugg.w){
@@ -2326,7 +2326,7 @@
  warmups.forEach(function(w){
  html+='<div class="wu-row"><span>'+(w.label.indexOf('Ramp')>=0?_('warmup_ramp')+' '+(w.set):w.label)+'</span><span class="wu-weight">'+(w.weight>0?w.weight+' '+_('weight'):'Bar')+'</span><span>'+w.reps+'</span><span>'+w.pct+'%</span></div>';
  });
- html+='<div class="wu-row wu-work"><span>'+_('warmup_work')+'</span><span class="wu-weight" style="color:#F4C93B">'+sugg.w+' '+_('weight')+'</span><span>'+sugg.r+'</span><span>100%</span></div>';
+ html+='<div class="wu-row wu-work"><span>'+_('warmup_work')+'</span><span class="wu-weight" style="color:#E2E8F0">'+sugg.w+' '+_('weight')+'</span><span>'+sugg.r+'</span><span>100%</span></div>';
  html+='<p class="wu-tip">'+warmupTip(exName,dayName)+'</p></div></div>';
  return html;
  }
@@ -2621,7 +2621,7 @@
  html+='<div style="display:flex;align-items:flex-end;gap:3px;height:35px;padding:2px 0">';
  weightData.forEach(function(m){
  var h=(m.weight-minW)/range*30;
- html+='<div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="width:100%;height:'+Math.max(h,3)+'px;background:#F4C93B;border-radius:2px;opacity:.6" title="'+m.date+': '+m.weight+' kg"></div><span style="font-size:.35rem;color:rgba(250,250,248,.08);margin-top:1px">'+m.date.slice(5)+'</span></div>';
+ html+='<div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="width:100%;height:'+Math.max(h,3)+'px;background:#E2E8F0;border-radius:2px;opacity:.6" title="'+m.date+': '+m.weight+' kg"></div><span style="font-size:.35rem;color:rgba(250,250,248,.08);margin-top:1px">'+m.date.slice(5)+'</span></div>';
  });
  html+='</div>';
  }
@@ -2821,7 +2821,7 @@
  var mp=ls(K.MP,null),ma=ls(K.MA,null);
  if(!mp||!ma){document.getElementById('mesoCalContent').innerHTML='<p style="font-size:.55rem;color:rgba(250,250,248,.15);padding:10px;text-align:center">'+_('no_data')+'</p>';return;}
  var cw=ma.currentWeek||1,html='<div class="meso-cal-header">'+
- '<span style="color:#F4C93B;font-family:Oswald,sans-serif;font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px">'+_('generate_meso')+': '+mp.type+'</span>'+
+ '<span style="color:#E2E8F0;font-family:Oswald,sans-serif;font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px">'+_('generate_meso')+': '+mp.type+'</span>'+
  '<span style="font-size:.55rem;color:rgba(250,250,248,.2)">'+_('day')+' '+cw+' of '+mp.weeks+' · '+mp.days[cw-1].phase+'</span></div>';
  html+='<div class="meso-week-grid">';
  mp.days.forEach(function(w,i){
@@ -3152,7 +3152,7 @@
  var rec=determineSplit(quizA);
  document.getElementById('quizProgress').innerHTML=QUIZ.map(function(){return'<div class="prog-step done"></div>'}).join('');
  document.getElementById('quizArea').innerHTML=
- '<div style="padding:8px 0;font-size:.7rem;color:#FAFAF8;font-weight:600;margin-bottom:6px">'+_('rec_split_recommended')+': <span style="color:#F4C93B">'+rec.name+'</span></div>'+
+ '<div style="padding:8px 0;font-size:.7rem;color:#FAFAF8;font-weight:600;margin-bottom:6px">'+_('rec_split_recommended')+': <span style="color:#E2E8F0">'+rec.name+'</span></div>'+
  '<p style="font-size:.6rem;color:rgba(250,250,248,.35);margin-bottom:10px">'+rec.note+'</p>'+
  '<div class="recap-box" style="margin-bottom:6px"><div class="rb-title">'+_('quiz_summary')+'</div><strong>'+rec.key+'</strong> · '+
  quizA.days+' days · '+quizA.goal+' · '+quizA.exp+'</div>'+
@@ -3222,7 +3222,7 @@
  if(vi.cyclePhase==='skip'||!m.phase){info.innerHTML='';return;}
  var lbl=(m.phase==='menstrual'?_('cyc_menstrual'):m.phase==='follicular'?_('cyc_follicular'):m.phase==='ovulation'?_('cyc_ovulation'):_('cyc_luteal'));
  var txt='';
- if(vi.cyclePhase==='auto'&&ph&&day)txt='<span style="color:#F4C93B">'+_('cyc_detected')+'</span> '+lbl+' ('+CYCLE_PHASES[ph].days+') \u00b7 '+_('cyc_day')+' '+day+'/'+vi.cycleLen;
+ if(vi.cyclePhase==='auto'&&ph&&day)txt='<span style="color:#E2E8F0">'+_('cyc_detected')+'</span> '+lbl+' ('+CYCLE_PHASES[ph].days+') \u00b7 '+_('cyc_day')+' '+day+'/'+vi.cycleLen;
  else if(vi.cyclePhase!=='auto')txt=_('cyc_manual')+' '+lbl+' ('+CYCLE_PHASES[vi.cyclePhase].days+')';
  if(txt)info.innerHTML=txt+' \u00b7 '+cycleModText(m);
  }
@@ -3232,8 +3232,8 @@
  var vi=ls(K.VI,{}),cm=cycleMods(vi),day=cycleDayOf(vi);
  if(!cm.phase){bn.style.display='none';return;}
  var lbl=(cm.phase==='menstrual'?_('cyc_menstrual'):cm.phase==='follicular'?_('cyc_follicular'):cm.phase==='ovulation'?_('cyc_ovulation'):_('cyc_luteal'));
- bn.innerHTML='<div style="background:rgba(244,201,59,.05);border:1px solid rgba(244,201,59,.15);border-radius:8px;padding:8px 10px;margin-top:8px;font-size:.6rem;line-height:1.5">'+
- '<div style="font-weight:600;color:#F4C93B;margin-bottom:2px">'+_('cyc_banner_head')+'</div>'+
+ bn.innerHTML='<div style="background:rgba(226,232,240,.05);border:1px solid rgba(226,232,240,.15);border-radius:8px;padding:8px 10px;margin-top:8px;font-size:.6rem;line-height:1.5">'+
+ '<div style="font-weight:600;color:#E2E8F0;margin-bottom:2px">'+_('cyc_banner_head')+'</div>'+
  '<div>'+_('cyc_phase')+': <strong>'+lbl+'</strong>'+(day?' \u00b7 '+_('cyc_day')+' '+day+(vi.cycleLen?'/'+vi.cycleLen:''):'')+' \u00b7 '+cycleModText(cm)+'</div>'+
  '<div style="color:rgba(250,250,248,.55);margin-top:2px">'+_(cm.note)+'</div></div>';
  bn.style.display='block';
@@ -4346,7 +4346,7 @@
  '<div class="rc-header"> '+_('rehab_inj_safe')+'</div>'+
  '<div style="color:rgba(250,250,248,.5);line-height:1.2">'+rehabInfo.areas.map(function(a){return a.icon+' '+a.name+' ('+a.severity+')'}).join(', ')+
  '. '+_('rehab_ex_green')+' <span class="rel-safe">green</span> '+_('rehab_ex_risk')+
- ' <a href="https://wa.me/201040796017" target="_blank" style="color:#F4C93B">'+_('rehab_book_short')+'</a></div></div>';
+ ' <a href="https://wa.me/201040796017" target="_blank" style="color:#E2E8F0">'+_('rehab_book_short')+'</a></div></div>';
  split.days.forEach(function(day,di){
  if(day.restDay){html+='<div class="ex-sel-day" style="opacity:.45"><div class="esd-title">'+_('day_prefix')+' '+(di+1)+': '+day.n+' — '+_('rest_day')+'</div></div>';return;}
  html+='<div class="ex-sel-day"><div class="esd-title">'+_('day_prefix')+' '+(di+1)+': '+day.n+'</div><div class="esd-est"><span id="estChip_'+di+'" class="est-chip"></span></div><div id="estWarn_'+di+'" class="est-warn" style="display:none"></div>';
@@ -4622,8 +4622,8 @@
  var html='';
  progDays.forEach(function(day,di){
  if(day.restDay){html+='<div class="rest-card" style="margin:4px 0 10px"><div class="rc-title">'+_('rest_day')+'</div><div class="rc-tip">'+_('rest_day_recover')+'</div></div>';return;}
- html+='<div class="ex-card" style="border-left-color:rgba(244,201,59,.2)"><div class="ex-name" style="margin-bottom:4px">'+_('day')+' '+(di+1)+': '+day.n+'</div>';
- if(day.ssSuggested)html+='<div style="font-size:.5rem;color:#F4C93B;margin-bottom:4px"> '+_('sess_suggest_ss')+'</div>';
+ html+='<div class="ex-card" style="border-left-color:rgba(226,232,240,.2)"><div class="ex-name" style="margin-bottom:4px">'+_('day')+' '+(di+1)+': '+day.n+'</div>';
+ if(day.ssSuggested)html+='<div style="font-size:.5rem;color:#E2E8F0;margin-bottom:4px"> '+_('sess_suggest_ss')+'</div>';
  day.ex.forEach(function(ex){
  var rest=ex.rl<=6?_('gen_rest_2_3'):ex.rl<=10?_('gen_rest_90_120'):_('gen_rest_60_90');
  html+='<div style="display:flex;gap:8px;padding:3px 0;font-size:.62rem;border-bottom:1px solid rgba(250,250,248,.02)"><span style="flex:2;color:#FAFAF8;font-weight:500">'+exLinkHtml(ex.n)+(ex.optional?' <span class="opt-badge">'+_('sess_optional')+'</span>':'')+'</span><span style="flex:1;text-align:center;color:rgba(250,250,248,.4)">'+ex.sets+'×'+ex.rl+'-'+ex.rh+'</span><span style="flex:1;text-align:center;color:rgba(250,250,248,.3);font-size:.55rem">'+rest+'</span></div>';
@@ -4647,8 +4647,8 @@
     '<div id="ciBody" style="display:none;margin-top:8px">'+
     '<div style="margin-bottom:6px">'+chips+'</div>'+
     '<div style="font-size:.55rem;background:rgba(13,14,18,.4);border-radius:6px;padding:8px 10px;line-height:1.8">'+
-    '<strong style="color:#F4C93B">Rep Range:</strong> '+esc(recs.rep_range)+' &nbsp;|&nbsp; <strong style="color:#F4C93B">Rest Compounds:</strong> '+esc(recs.rest_compounds)+' &nbsp;|&nbsp; <strong style="color:#F4C93B">Rest Isolation:</strong> '+esc(recs.rest_isolation)+'<br>'+
-    '<strong style="color:#F4C93B">Protein:</strong> '+recs.protein_per_kg+' g/kg/day</div>'+
+    '<strong style="color:#E2E8F0">Rep Range:</strong> '+esc(recs.rep_range)+' &nbsp;|&nbsp; <strong style="color:#E2E8F0">Rest Compounds:</strong> '+esc(recs.rest_compounds)+' &nbsp;|&nbsp; <strong style="color:#E2E8F0">Rest Isolation:</strong> '+esc(recs.rest_isolation)+'<br>'+
+    '<strong style="color:#E2E8F0">Protein:</strong> '+recs.protein_per_kg+' g/kg/day</div>'+
     (notes?'<div style="font-size:.52rem;color:rgba(250,250,248,.55);margin-top:6px;line-height:1.7">'+notes+'</div>':'')+
     '</div>';
    var progCard=document.getElementById('step3')&&document.getElementById('step3').querySelector('.card');
@@ -4670,7 +4670,7 @@
    if((sess>0&&sess%deloadInterval===0)||deloadNote){
     var dlEl=document.getElementById('engineDeloadBanner');
     if(!dlEl){dlEl=document.createElement('div');dlEl.id='engineDeloadBanner';dlEl.className='engine-deload-banner';dlEl.onclick=function(){this.style.display='none';};}
-    dlEl.innerHTML='💤 <strong style="color:#F4C93B">Deload Week Recommended</strong> — '+(deloadNote||'You\'ve completed '+sess+' sessions. Take a deload: 50% volume, 70% intensity.')+' <span style="opacity:.4;float:right">✕</span>';
+    dlEl.innerHTML='💤 <strong style="color:#E2E8F0">Deload Week Recommended</strong> — '+(deloadNote||'You\'ve completed '+sess+' sessions. Take a deload: 50% volume, 70% intensity.')+' <span style="opacity:.4;float:right">✕</span>';
     var s4el=document.getElementById('step4');if(s4el&&!s4el.contains(dlEl))s4el.prepend(dlEl);
     dlEl.style.display='block';
     evLog('deload_prompt',{sessions:sess,source:'engine'});
@@ -4731,22 +4731,22 @@
  var W=1080,H=1350,c=document.getElementById('shareCanvas'),ctx=c.getContext('2d');
  c.width=W;c.height=H;
  ctx.fillStyle='#14151A';ctx.fillRect(0,0,W,H);
- ctx.fillStyle='#F4C93B';ctx.fillRect(0,0,W,16);
+ ctx.fillStyle='#E2E8F0';ctx.fillRect(0,0,W,16);
  ctx.fillStyle='#1E2027';ctx.fillRect(0,16,W,120);
- ctx.fillStyle='#F4C93B';ctx.font='800 46px Arial,Helvetica,sans-serif';ctx.fillText('MUSCLE OS',60,95);
+ ctx.fillStyle='#E2E8F0';ctx.font='800 46px Arial,Helvetica,sans-serif';ctx.fillText('MUSCLE OS',60,95);
  ctx.fillStyle='rgba(250,250,248,.55)';ctx.font='600 24px Arial,Helvetica,sans-serif';ctx.fillText('TRAINING PROGRAM',60,128);
  ctx.fillStyle='#FAFAF8';ctx.font='800 64px Arial,Helvetica,sans-serif';
  var y=wrapText(ctx,splitName,60,300,W-120,76,3);
  ctx.fillStyle='rgba(250,250,248,.4)';ctx.font='600 26px Arial,Helvetica,sans-serif';
  ctx.fillText(prog.days.length+' days/week · '+goal+' · '+ta,60,y+30);
- ctx.fillStyle='#F4C93B';ctx.font='700 30px Arial,Helvetica,sans-serif';ctx.fillText('TOP EXERCISES',60,y+120);
+ ctx.fillStyle='#E2E8F0';ctx.font='700 30px Arial,Helvetica,sans-serif';ctx.fillText('TOP EXERCISES',60,y+120);
  ctx.fillStyle='#FAFAF8';ctx.font='600 40px Arial,Helvetica,sans-serif';
  top.forEach(function(ex,i){
  var ly=y+170+i*66;
- ctx.fillStyle='#F4C93B';ctx.font='800 30px Arial,Helvetica,sans-serif';ctx.fillText(String(i+1).padStart(2,'0'),60,ly);
+ ctx.fillStyle='#E2E8F0';ctx.font='800 30px Arial,Helvetica,sans-serif';ctx.fillText(String(i+1).padStart(2,'0'),60,ly);
  ctx.fillStyle='#FAFAF8';ctx.font='600 38px Arial,Helvetica,sans-serif';ctx.fillText(ex,130,ly);
  });
- ctx.fillStyle='#F4C93B';ctx.fillRect(60,H-170,W-120,4);
+ ctx.fillStyle='#E2E8F0';ctx.fillRect(60,H-170,W-120,4);
  ctx.fillStyle='rgba(250,250,248,.7)';ctx.font='700 30px Arial,Helvetica,sans-serif';ctx.fillText('muscleos.coach',60,H-100);
  ctx.fillStyle='rgba(250,250,248,.35)';ctx.font='500 22px Arial,Helvetica,sans-serif';ctx.fillText('Coach Anas Mo\u2019men',60,H-62);
  var a=document.createElement('a');
@@ -4950,30 +4950,30 @@ window.showBiofeedbackModal = function(di) {
   
   var modalHtml = '<div id="bioModal" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,10,15,.9);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;">' +
     '<div style="background:#14151A;border:1px solid rgba(250,250,248,.1);border-radius:12px;padding:24px;width:100%;max-width:400px;">' +
-      '<h2 style="font-family:\'Oswald\',sans-serif;font-size:1.2rem;color:#F4C93B;margin-bottom:16px;text-transform:uppercase;">Log Biofeedback</h2>' +
+      '<h2 style="font-family:\'Oswald\',sans-serif;font-size:1.2rem;color:#E2E8F0;margin-bottom:16px;text-transform:uppercase;">Log Biofeedback</h2>' +
       '<p style="font-size:.75rem;color:rgba(250,250,248,.6);margin-bottom:20px;">Rate your session to auto-regulate tomorrow\'s volume.</p>' +
       
       '<div style="margin-bottom:16px;">' +
         '<label style="display:block;font-size:.7rem;margin-bottom:6px;color:#FAFAF8;">Pump (0-4)</label>' +
-        '<input type="range" id="bfPump" min="0" max="4" value="2" style="width:100%;accent-color:#F4C93B;">' +
+        '<input type="range" id="bfPump" min="0" max="4" value="2" style="width:100%;accent-color:#E2E8F0;">' +
         '<div style="display:flex;justify-content:space-between;font-size:.6rem;color:rgba(250,250,248,.4);margin-top:4px;"><span>None</span><span>Extreme</span></div>' +
       '</div>' +
       
       '<div style="margin-bottom:16px;">' +
         '<label style="display:block;font-size:.7rem;margin-bottom:6px;color:#FAFAF8;">Fatigue (0-4)</label>' +
-        '<input type="range" id="bfFatigue" min="0" max="4" value="2" style="width:100%;accent-color:#F4C93B;">' +
+        '<input type="range" id="bfFatigue" min="0" max="4" value="2" style="width:100%;accent-color:#E2E8F0;">' +
         '<div style="display:flex;justify-content:space-between;font-size:.6rem;color:rgba(250,250,248,.4);margin-top:4px;"><span>Fresh</span><span>Exhausted</span></div>' +
       '</div>' +
       
       '<div style="margin-bottom:24px;">' +
         '<label style="display:block;font-size:.7rem;margin-bottom:6px;color:#FAFAF8;">Target Muscle Soreness (0-4)</label>' +
-        '<input type="range" id="bfSoreness" min="0" max="4" value="2" style="width:100%;accent-color:#F4C93B;">' +
+        '<input type="range" id="bfSoreness" min="0" max="4" value="2" style="width:100%;accent-color:#E2E8F0;">' +
         '<div style="display:flex;justify-content:space-between;font-size:.6rem;color:rgba(250,250,248,.4);margin-top:4px;"><span>None</span><span>Crippling</span></div>' +
       '</div>' +
       
       '<div style="display:flex;gap:12px;">' +
         '<button onclick="document.getElementById(\'bioModal\').remove()" style="flex:1;padding:12px;background:transparent;border:1px solid rgba(250,250,248,.2);border-radius:6px;color:#FAFAF8;font-weight:600;font-size:.8rem;">Cancel</button>' +
-        '<button onclick="saveBiofeedback(' + di + ', \'' + dayName.replace(/'/g, "\\'") + '\')" style="flex:1;padding:12px;background:#F4C93B;border:none;border-radius:6px;color:#14151A;font-weight:600;font-size:.8rem;">Save & Finish</button>' +
+        '<button onclick="saveBiofeedback(' + di + ', \'' + dayName.replace(/'/g, "\\'") + '\')" style="flex:1;padding:12px;background:#E2E8F0;border:none;border-radius:6px;color:#14151A;font-weight:600;font-size:.8rem;">Save & Finish</button>' +
       '</div>' +
     '</div>' +
   '</div>';
@@ -5009,7 +5009,7 @@ window.generateRadarCard = function() {
   var ctx = canvas.getContext('2d');
   
   ctx.fillStyle = '#14151A'; ctx.fillRect(0, 0, 1080, 1080);
-  ctx.fillStyle = '#F4C93B'; ctx.font = 'bold 80px "Oswald", sans-serif';
+  ctx.fillStyle = '#E2E8F0'; ctx.font = 'bold 80px "Oswald", sans-serif';
   ctx.textAlign = 'center'; ctx.fillText('STRENGTH RADAR', 540, 120);
   ctx.fillStyle = '#FAFAF8'; ctx.font = '40px "Inter", sans-serif';
   ctx.fillText('MuscleOS Benchmark', 540, 180);
@@ -5053,13 +5053,13 @@ window.generateRadarCard = function() {
     var ly = cy + Math.sin(angle) * (r + 50);
     ctx.fillText(axes[i].label, lx, ly);
     
-    ctx.fillStyle = '#F4C93B';
+    ctx.fillStyle = '#E2E8F0';
     ctx.fillText(axes[i].val.toFixed(0) + ' kg', lx, ly + 40);
     ctx.fillStyle = 'rgba(250,250,248,0.5)';
   }
   
-  ctx.fillStyle = 'rgba(244,201,59,0.3)';
-  ctx.strokeStyle = '#F4C93B';
+  ctx.fillStyle = 'rgba(226,232,240,0.3)';
+  ctx.strokeStyle = '#E2E8F0';
   ctx.lineWidth = 5;
   ctx.beginPath();
   for(var i = 0; i < sides; i++) {
@@ -5091,7 +5091,7 @@ window.generateShareCard = function(dayName, timeSec, sets, p, f, s) {
   ctx.fillRect(0, 0, 1080, 1920);
   
   // Header
-  ctx.fillStyle = '#F4C93B';
+  ctx.fillStyle = '#E2E8F0';
   ctx.font = 'bold 80px "Oswald", sans-serif';
   ctx.textAlign = 'center';
   ctx.fillText('MUSCLE OS', 540, 200);
@@ -5101,14 +5101,14 @@ window.generateShareCard = function(dayName, timeSec, sets, p, f, s) {
   ctx.fillText('WORKOUT COMPLETE', 540, 300);
   
   // Day Name
-  ctx.fillStyle = '#F4C93B';
+  ctx.fillStyle = '#E2E8F0';
   ctx.font = 'bold 120px "Oswald", sans-serif';
   ctx.fillText(dayName.toUpperCase(), 540, 500);
   
   // Stats Boxes
   function drawBox(x, y, label, val) {
     ctx.fillStyle = 'rgba(20,21,26,1)';
-    ctx.strokeStyle = 'rgba(244,201,59,0.2)';
+    ctx.strokeStyle = 'rgba(226,232,240,0.2)';
     ctx.lineWidth = 4;
     ctx.beginPath();
     ctx.roundRect(x, y, 400, 250, 30);
@@ -5134,9 +5134,9 @@ window.generateShareCard = function(dayName, timeSec, sets, p, f, s) {
   ctx.fillText('BIOFEEDBACK LOGGED', 540, 1150);
   
   function drawBf(x, y, lbl, val) {
-    ctx.fillStyle = 'rgba(244,201,59,0.1)';
+    ctx.fillStyle = 'rgba(226,232,240,0.1)';
     ctx.beginPath(); ctx.roundRect(x, y, 280, 150, 20); ctx.fill();
-    ctx.fillStyle = '#F4C93B';
+    ctx.fillStyle = '#E2E8F0';
     ctx.font = 'bold 60px "Inter", sans-serif';
     ctx.fillText(val + '/4', x + 140, y + 80);
     ctx.fillStyle = 'rgba(250,250,248,0.5)';
@@ -5158,12 +5158,12 @@ window.generateShareCard = function(dayName, timeSec, sets, p, f, s) {
 
 window.showShareModal = function(dataUrl) {
   var modalHtml = '<div id="shareModal" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,10,15,.95);z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;">' +
-    '<h2 style="font-family:\'Oswald\',sans-serif;font-size:1.5rem;color:#F4C93B;margin-bottom:10px;text-transform:uppercase;">Workout Saved!</h2>' +
+    '<h2 style="font-family:\'Oswald\',sans-serif;font-size:1.5rem;color:#E2E8F0;margin-bottom:10px;text-transform:uppercase;">Workout Saved!</h2>' +
     '<p style="font-size:.8rem;color:rgba(250,250,248,.6);margin-bottom:20px;">Show off your hard work.</p>' +
-    '<img src="' + dataUrl + '" alt="Workout summary card preview" style="width:100%;max-width:300px;border-radius:12px;margin-bottom:24px;border:1px solid rgba(244,201,59,.2);">' +
+    '<img src="' + dataUrl + '" alt="Workout summary card preview" style="width:100%;max-width:300px;border-radius:12px;margin-bottom:24px;border:1px solid rgba(226,232,240,.2);">' +
     '<div style="display:flex;gap:12px;width:100%;max-width:300px;">' +
       '<button onclick="document.getElementById(\'shareModal\').remove();go(4);renderDashboard();" style="flex:1;padding:14px;background:transparent;border:1px solid rgba(250,250,248,.2);border-radius:8px;color:#FAFAF8;font-weight:600;font-size:.9rem;">Skip</button>' +
-      '<button id="nativeShareBtn" style="flex:1;padding:14px;background:#F4C93B;border:none;border-radius:8px;color:#14151A;font-weight:600;font-size:.9rem;">Share Image</button>' +
+      '<button id="nativeShareBtn" style="flex:1;padding:14px;background:linear-gradient(135deg, #FFFFFF, #CBD5E1);border:none;border-radius:8px;color:#08090C;font-weight:600;font-size:.9rem;">Share Image</button>' +
     '</div>' +
   '</div>';
   document.body.insertAdjacentHTML('beforeend', modalHtml);
@@ -5334,6 +5334,29 @@ function exportIcs(){
  renderFatigueForm(fCheck);
  }
 
+ function _fgColor(v){
+ var n=parseFloat(v)||5;
+ if(n>=8)return'#4CAF50';
+ if(n>=6)return'#8BC34A';
+ if(n>=5)return'#FFC107';
+ if(n>=3.5)return'#FF9800';
+ return'#f44336';
+ }
+ function _updateLiveFatigue(){
+ var f={};
+ document.querySelectorAll('#fatigueGrid input').forEach(function(inp){
+ f[inp.dataset.fk]=parseInt(inp.value,10)||5;
+ });
+ var fs=fatigueScore(f);
+ var bar=document.getElementById('fatigueBar');
+ if(bar){bar.className='fatigue-bar checked '+fs.color;}
+ var sEl=document.getElementById('fatigueScore');
+ if(sEl)sEl.textContent=fs.score.toFixed(1);
+ var lEl=document.getElementById('fatigueLabel');
+ if(lEl)lEl.textContent=fs.label;
+ var aEl=document.getElementById('fatigueAdjust');
+ if(aEl)aEl.textContent=fs.adjust<0?_('fatigue_rpe_adjusted'):_('fatigue_ready');
+ }
  function renderFatigueForm(f){
  var grid=document.getElementById('fatigueGrid');
  if(!grid)return;
@@ -5343,7 +5366,13 @@ function exportIcs(){
  var def=defaultFatigue();
  grid.innerHTML=fields.map(function(k){
  var v=f&&f[k]!==undefined?f[k]:def[k];
- return '<div class="fg-item"><label>'+labels[k]+' <span style="font-weight:400;color:rgba(250,250,248,.1)">'+hints[k]+'</span></label><input type="number" min="1" max="10" step="1" value="'+v+'" data-fk="'+k+'"></div>';
+ var col=_fgColor(v);
+ var hparts=(hints[k]||'').split(/[,،]/);
+ var h1=hparts[0]?hparts[0].trim():'1';
+ var h2=hparts[1]?hparts[1].trim():'10';
+ return '<div class="fg-item"><label><span>'+labels[k]+'</span><span class="fg-val" id="fgv_'+k+'" style="color:'+col+'">'+v+'/10</span></label>'+
+ '<input type="range" min="1" max="10" step="1" value="'+v+'" data-fk="'+k+'" style="--thumb-color:'+col+'" oninput="var b=document.getElementById(\'fgv_'+k+'\');if(b){var c=_fgColor(this.value);b.textContent=this.value+\'/10\';b.style.color=c;this.style.setProperty(\'--thumb-color\',c);}_updateLiveFatigue();">'+
+ '<div style="display:flex;justify-content:space-between;font-size:.38rem;color:rgba(250,250,248,.35);margin-top:2px"><span style="color:#f44336">'+h1+'</span><span style="color:#4CAF50">'+h2+'</span></div></div>';
  }).join('');
  }
 
@@ -5374,8 +5403,8 @@ function exportIcs(){
  var monoColor=ms.mono>2?'#f44336':ms.mono>1.5?'#FF9800':'#4CAF50';
  document.getElementById('combinedLoadContent').innerHTML=
  '<div style="display:flex;gap:8px;flex-wrap:wrap">'+
- '<span>'+_('cl_today')+': <strong style="color:#F4C93B">'+cl.today.combined+'</strong></span>'+
- '<span>'+_('cl_week')+': <strong style="color:#F4C93B">'+cl.week.combined+'</strong> <span style="font-size:.45rem;color:rgba(250,250,248,.15)">('+_('cl_lift')+' '+cl.week.lift.toFixed(0)+' kg · '+_('cl_nonlift')+' '+cl.week.nonlift.toFixed(0)+')</span></span>'+
+ '<span>'+_('cl_today')+': <strong style="color:#E2E8F0">'+cl.today.combined+'</strong></span>'+
+ '<span>'+_('cl_week')+': <strong style="color:#E2E8F0">'+cl.week.combined+'</strong> <span style="font-size:.45rem;color:rgba(250,250,248,.15)">('+_('cl_lift')+' '+cl.week.lift.toFixed(0)+' kg · '+_('cl_nonlift')+' '+cl.week.nonlift.toFixed(0)+')</span></span>'+
  '<span style="margin-left:auto">'+_('mono_label')+': <strong style="color:'+monoColor+'">'+ms.mono.toFixed(2)+'</strong></span>'+
  '</div>';
  }
@@ -5542,7 +5571,7 @@ function exportIcs(){
  var sid=('c_'+di+'_'+ex.n).replace(/[^a-zA-Z0-9]/g,'_');
  var pr=null;
  if(sugg&&sugg.w&&sugg.r)pr=checkPR(ex.n,sugg.w,sugg.r,hist);
- var prHtml=pr?pr.isPR?' <span class="pr-badge" style="color:#F4C93B;border-color:#F4C93B">'+_('pr_badge_pr')+'</span>':pr.note.includes('nearby')?' <span class="pr-badge" style="color:#FF9800;border-color:rgba(255,152,0,.3)">'+_('pr_badge_close')+'</span>':'':'';if(pr&&pr.isPR)evLog('pr_badge',{ex:ex.n});
+ var prHtml=pr?pr.isPR?' <span class="pr-badge" style="color:#E2E8F0;border-color:#E2E8F0">'+_('pr_badge_pr')+'</span>':pr.note.includes('nearby')?' <span class="pr-badge" style="color:#FF9800;border-color:rgba(255,152,0,.3)">'+_('pr_badge_close')+'</span>':'':'';if(pr&&pr.isPR)evLog('pr_badge',{ex:ex.n});
  var isMain=MAIN_LIFTS.indexOf(ex.n)>=0;
  var perHtml='';
  if(peri&&isMain){mainLiftRPE(peri,wkCount||1,goal,day.n);perHtml=' <span class="per-badge">'+peri.name+'</span>';}
@@ -5590,6 +5619,13 @@ function exportIcs(){
  var restLabel=m.t==='compound'?_('timer_compound'):_('timer_isolation');
  return {cc:cc,sid:sid,titleInnerHtml:titleInnerHtml,metaHtml:metaHtml,prNoteHtml:prNoteHtml,safetyHtml:safetyHtml,suggestHtml:suggestHtml,painHtml:painHtml,swapHtml:swapHtml,restSec:restSec,restLabel:restLabel,sugg:sugg};
  }
+ function _rpeRirInfo(rpeVal){
+ var r=parseFloat(rpeVal);
+ if(isNaN(r)||r<=0)r=6;
+ var rir=Math.max(0,Math.round((10-r)*10)/10);
+ var col=r>=9.5?'#f44336':r>=8.5?'#FF9800':r>=7.5?'#FFC107':r>=6.5?'#8BC34A':'#4CAF50';
+ return {rpe:r,rir:rir,color:col};
+ }
  function setLoggerHTML(ex,di,dayName,today,logs,sugg,prefix){
  var eid=dayName+'__'+ex.n,dl=logs[today]&&logs[today][eid]?logs[today][eid]:null;
  var storedSets=(dl&&dl.sets&&dl.sets.length)?dl.sets:null;
@@ -5634,8 +5670,9 @@ function exportIcs(){
  var padEmpty=(makeupDays[di]||lightDays[di])?Math.max(1,baseSets-1):baseSets;
  for(var i2=0;i2<padEmpty;i2++)sets.push({w: (typeof sugg!=='undefined' && sugg && sugg.w > 0) ? String(sugg.w) : '', r: (typeof sugg!=='undefined' && sugg && sugg.r > 0) ? String(sugg.r) : '', rpe: (typeof sugg!=='undefined' && sugg && sugg.rpe > 0) ? String(sugg.rpe) : ''});
  }
- var autoRegBadge = window._lastAutoRegNote ? '<div style="margin-bottom:8px;font-size:.6rem;color:#F4C93B;background:rgba(244,201,59,.1);padding:4px 8px;border-radius:4px;display:inline-block">⚡ Auto-Regulated: '+window._lastAutoRegNote+'</div>' : '';
- var h='<div class="set-log-area">'+autoRegBadge+'<div class="set-log-header"><span style="line-height:1.25;white-space:normal;font-size:.42rem;letter-spacing:.2px">'+_('sets_work')+'</span><span>'+_('load')+'</span><span>'+_('reps')+'</span><span>'+_('rpe')+'</span><span></span></div><div class="set-rows-'+('c_'+di+'_'+ex.n).replace(/[^a-zA-Z0-9]/g,'_')+'">';
+ var autoRegBadge = window._lastAutoRegNote ? '<div style="margin-bottom:8px;font-size:.6rem;color:#E2E8F0;background:rgba(226,232,240,.1);padding:4px 8px;border-radius:4px;display:inline-block">⚡ Auto-Regulated: '+window._lastAutoRegNote+'</div>' : '';
+ var rpeHeader = _('rpe') + ' / ' + _('rir');
+ var h='<div class="set-log-area">'+autoRegBadge+'<div class="set-log-header"><span style="line-height:1.25;white-space:normal;font-size:.42rem;letter-spacing:.2px">'+_('sets_work')+'</span><span>'+_('load')+'</span><span>'+_('reps')+'</span><span>'+rpeHeader+'</span><span></span></div><div class="set-rows-'+('c_'+di+'_'+ex.n).replace(/[^a-zA-Z0-9]/g,'_')+'">';
  sets.forEach(function(set,si){
  var isWu=!!set.wu;
  var wVal = set.w||'';
@@ -5644,10 +5681,13 @@ function exportIcs(){
  var rowCls=isWu?' set-row wu-row':'set-row';
  var lbl=prefix+(isWu?' '+_('warmup_row')+' '+(si+1):(si+1));
  if(!isWu&&wuCount>0&&si===wuCount)h+='<div class="wu-divider">'+_('warmup_lbl')+'</div>';
+ var info=_rpeRirInfo(set.rpe||6);
+ var uid='rpev_'+ex.n.replace(/[^a-zA-Z0-9]/g,'_')+'_'+si;
+ var badgeText=info.rpe+' ('+info.rir+' RIR)';
  h+='<div class="'+rowCls+'" data-ex="'+ex.n+'" data-set="'+si+'"'+(isWu?' data-wu="1"':'')+'><span class="set-lbl">'+lbl+'</span>'+
  '<input type="number" step="0.5" placeholder="'+_('weight')+'" value="'+wVal+'" data-ex="'+ex.n+'" data-set="'+si+'" data-f="w"'+wuAttr+' '+wClick+'>'+
  '<input type="number" step="1" placeholder="'+_('reps')+'" value="'+(set.r||'')+'" data-ex="'+ex.n+'" data-set="'+si+'" data-f="r"'+wuAttr+'>'+
- '<input type="number" step="0.5" placeholder="'+_('rpe')+'" value="'+(set.rpe||'')+'" data-ex="'+ex.n+'" data-set="'+si+'" data-f="rpe"'+wuAttr+'>'+
+ '<div class="rpe-slider-wrap"><input type="range" min="5" max="10" step="0.5" value="'+info.rpe+'" data-ex="'+ex.n+'" data-set="'+si+'" data-f="rpe"'+wuAttr+' style="--thumb-color:'+info.color+'" oninput="var inf=_rpeRirInfo(this.value);this.style.setProperty(\'--thumb-color\',inf.color);var b=document.getElementById(\''+uid+'\');if(b){b.textContent=inf.rpe+\' (\'+inf.rir+\' RIR)\';b.style.color=inf.color;}"><span class="rpe-slider-val" id="'+uid+'" style="color:'+info.color+'" title="RPE '+info.rpe+' • '+info.rir+' Reps In Reserve">'+badgeText+'</span></div>'+
  '<button class="del-set-btn" data-ex="'+ex.n+'" data-set="'+si+'">✕</button></div>';
  });
  h+='</div><button class="add-set-btn" data-ex="'+ex.n+'">+ '+_('set')+'</button></div>';
@@ -5765,7 +5805,7 @@ function exportIcs(){
 
  // General warm-up for this day
  html+=renderGeneralWarmup(day.n);
- if(day.ssSuggested)html+='<div style="font-size:.5rem;color:#F4C93B;text-align:center;margin:2px 0 6px"> '+_('sess_suggest_ss')+'</div>';
+ if(day.ssSuggested)html+='<div style="font-size:.5rem;color:#E2E8F0;text-align:center;margin:2px 0 6px"> '+_('sess_suggest_ss')+'</div>';
 
  if(fs&&fs.adjust<=-1&&!lightDays[di]&&!lightProceed[di]){evLog('fat_gate',{di:di,score:fs.score});
  html+='<div class="fat-light-banner"><span class="flb-title">'+_('fat_light_title')+'</span>'+
@@ -5795,7 +5835,7 @@ function exportIcs(){
  }
 
   html += '<div style="margin-top:20px;margin-bottom:10px;text-align:center;">' +
-          '<button class="btn-primary" onclick="showBiofeedbackModal(' + di + ')" style="width:100%;padding:14px;background:rgba(244,201,59,.1);border:1px solid rgba(244,201,59,.25);color:#F4C93B;font-size:.8rem;box-shadow:0 0 10px rgba(244,201,59,0.1);font-weight:600;"><span style="margin-right:8px">⚡</span>Finish Session & Log Biofeedback</button>' +
+          '<button class="btn-primary" onclick="showBiofeedbackModal(' + di + ')" style="width:100%;padding:14px;background:rgba(226,232,240,.1);border:1px solid rgba(226,232,240,.25);color:#E2E8F0;font-size:.8rem;box-shadow:0 0 10px rgba(226,232,240,0.1);font-weight:600;"><span style="margin-right:8px">⚡</span>Finish Session & Log Biofeedback</button>' +
           '</div>';
 
   container.innerHTML=html;
@@ -6076,9 +6116,9 @@ function exportIcs(){
  // Program days
  var ph='';prog.days.forEach(function(day,di){ph+='<div class="db"><div class="dt">'+_('day_prefix')+' '+(di+1)+': '+day.n+'</div><table><thead><tr><th>Exercise</th><th class="c">'+_('sets')+'</th><th class="c">'+_('reps')+'</th><th class="c">'+_('rest')+'</th></tr></thead><tbody>';if(day.restDay){ph+='<tr><td colspan="4" style="text-align:center;color:rgba(250,250,248,.25)">'+_('rest_day')+' - '+_('rest_day_recover')+'</td></tr>';}else{day.ex.forEach(function(ex){var r=ex.rl<=6?_('gen_rest_2_3'):ex.rl<=10?_('gen_rest_90_120'):_('gen_rest_60_90');ph+='<tr><td>'+(EX_TR[ex.n]?exDisplay(ex.n):ex.n)+'</td><td class="c">'+ex.sets+'</td><td class="c">'+ex.rl+'\u2013'+ex.rh+'</td><td class="c">'+r+'</td></tr>';});}ph+='</tbody></table></div>';});
  // RPE/RIR/Volume educational section
- var edu='<div class="sec"><div class="st" style="color:#F4C93B">Understanding RPE, RIR &amp; Volume</div><div class="ec"><div class="ecard"><div class="ect">RPE Scale (Rate of Perceived Exertion)</div><table class="rpet"><thead><tr><th>RPE</th><th>Effort Level</th><th>RIR</th></tr></thead><tbody><tr><td class="c" style="font-weight:600">10</td><td>Max effort, cannot add another rep</td><td class="c">0</td></tr><tr><td class="c" style="font-weight:600;color:#F4C93B">9</td><td>Very hard, 1 rep left in the tank</td><td class="c" style="color:#F4C93B">1</td></tr><tr><td class="c" style="font-weight:600;color:#F4C93B">8</td><td>Challenging, 2 reps left</td><td class="c" style="color:#F4C93B">2</td></tr><tr><td class="c" style="font-weight:600">7</td><td>Moderately hard, 3 reps left</td><td class="c">3</td></tr><tr><td class="c" style="font-weight:600">6</td><td>Light, 4+ reps left (warm-up zone)</td><td class="c">4+</td></tr></tbody></table><div class="etip">RIR = 10 \u2212 RPE. Example: RPE 8 = 2 reps in reserve. Stay at RPE 7\u20139 for working sets. Training to failure every session increases fatigue without extra muscle gain.</div></div><div class="ecard"><div class="ect">Volume Guide — Weekly Sets Per Muscle</div><table><thead><tr><th>Zone</th><th>Meaning</th></tr></thead><tbody><tr><td style="font-weight:600;color:#4CAF50">MEV</td><td>Minimum Effective Volume \u2014 the least weekly sets to stimulate growth</td></tr><tr><td style="font-weight:600;color:#F4C93B">MAV</td><td>Maximum Adaptive Volume \u2014 the sweet spot for optimal muscle growth</td></tr><tr><td style="font-weight:600;color:#f44336">MRV</td><td>Maximum Recoverable Volume \u2014 the ceiling before overtraining</td></tr></tbody></table><div class="etip"><strong>Progressive Overload:</strong> Start at MEV or slightly above. Add 1\u20132 sets per week as you adapt. If progress stalls for 2+ weeks, deload or increase toward MAV. Stay below MRV to avoid excessive fatigue.<br><br><strong>Rest Periods:</strong> 2\u20133 min for compound lifts (squat, bench, deadlift, row). 90\u2013120s for most isolation work. 60\u201390s for accessories.</div></div></div></div>';
+ var edu='<div class="sec"><div class="st" style="color:#E2E8F0">Understanding RPE, RIR &amp; Volume</div><div class="ec"><div class="ecard"><div class="ect">RPE Scale (Rate of Perceived Exertion)</div><table class="rpet"><thead><tr><th>RPE</th><th>Effort Level</th><th>RIR</th></tr></thead><tbody><tr><td class="c" style="font-weight:600">10</td><td>Max effort, cannot add another rep</td><td class="c">0</td></tr><tr><td class="c" style="font-weight:600;color:#E2E8F0">9</td><td>Very hard, 1 rep left in the tank</td><td class="c" style="color:#E2E8F0">1</td></tr><tr><td class="c" style="font-weight:600;color:#E2E8F0">8</td><td>Challenging, 2 reps left</td><td class="c" style="color:#E2E8F0">2</td></tr><tr><td class="c" style="font-weight:600">7</td><td>Moderately hard, 3 reps left</td><td class="c">3</td></tr><tr><td class="c" style="font-weight:600">6</td><td>Light, 4+ reps left (warm-up zone)</td><td class="c">4+</td></tr></tbody></table><div class="etip">RIR = 10 \u2212 RPE. Example: RPE 8 = 2 reps in reserve. Stay at RPE 7\u20139 for working sets. Training to failure every session increases fatigue without extra muscle gain.</div></div><div class="ecard"><div class="ect">Volume Guide — Weekly Sets Per Muscle</div><table><thead><tr><th>Zone</th><th>Meaning</th></tr></thead><tbody><tr><td style="font-weight:600;color:#4CAF50">MEV</td><td>Minimum Effective Volume \u2014 the least weekly sets to stimulate growth</td></tr><tr><td style="font-weight:600;color:#E2E8F0">MAV</td><td>Maximum Adaptive Volume \u2014 the sweet spot for optimal muscle growth</td></tr><tr><td style="font-weight:600;color:#f44336">MRV</td><td>Maximum Recoverable Volume \u2014 the ceiling before overtraining</td></tr></tbody></table><div class="etip"><strong>Progressive Overload:</strong> Start at MEV or slightly above. Add 1\u20132 sets per week as you adapt. If progress stalls for 2+ weeks, deload or increase toward MAV. Stay below MRV to avoid excessive fatigue.<br><br><strong>Rest Periods:</strong> 2\u20133 min for compound lifts (squat, bench, deadlift, row). 90\u2013120s for most isolation work. 60\u201390s for accessories.</div></div></div></div>';
  // User guide
- var gh='<div class="sec"><div class="st" style="color:#F4C93B">How to Use Your Training App</div><div class="gs"><span class="gn">1</span><div><strong>Set Up Your Profile</strong> \u2014 Select training age, goal, days per week, and recovery factor. Mark muscles as Focus (full volume) or Maintain (~half volume).</div></div><div class="gs"><span class="gn">2</span><div><strong>Choose Your Split</strong> \u2014 Browse available splits matching your schedule, or take the built-in quiz for a personalised recommendation.</div></div><div class="gs"><span class="gn">3</span><div><strong>Generate &amp; Save Program</strong> \u2014 Review your program with sets, rep ranges, and rest periods. Optionally configure a mesocycle plan with progression phases and deload scheduling.</div></div><div class="gs"><span class="gn">4</span><div><strong>Train Each Day</strong> \u2014 Log weights, reps, and RPE for every set. The dashboard shows pre-session readiness, deload reminders, and fatigue tracking.</div></div><div class="gs"><span class="gn">5</span><div><strong>Track Progress</strong> \u2014 Review volume compliance, personal records, e1RM charts, ACWR (acute:chronic workload ratio), and deload history on the History page.</div></div><div class="gs"><span class="gn">6</span><div><strong>Export &amp; Share</strong> \u2014 Save your program as PDF, or export/import your data as JSON for backup across devices.</div></div></div>';
+ var gh='<div class="sec"><div class="st" style="color:#E2E8F0">How to Use Your Training App</div><div class="gs"><span class="gn">1</span><div><strong>Set Up Your Profile</strong> \u2014 Select training age, goal, days per week, and recovery factor. Mark muscles as Focus (full volume) or Maintain (~half volume).</div></div><div class="gs"><span class="gn">2</span><div><strong>Choose Your Split</strong> \u2014 Browse available splits matching your schedule, or take the built-in quiz for a personalised recommendation.</div></div><div class="gs"><span class="gn">3</span><div><strong>Generate &amp; Save Program</strong> \u2014 Review your program with sets, rep ranges, and rest periods. Optionally configure a mesocycle plan with progression phases and deload scheduling.</div></div><div class="gs"><span class="gn">4</span><div><strong>Train Each Day</strong> \u2014 Log weights, reps, and RPE for every set. The dashboard shows pre-session readiness, deload reminders, and fatigue tracking.</div></div><div class="gs"><span class="gn">5</span><div><strong>Track Progress</strong> \u2014 Review volume compliance, personal records, e1RM charts, ACWR (acute:chronic workload ratio), and deload history on the History page.</div></div><div class="gs"><span class="gn">6</span><div><strong>Export &amp; Share</strong> \u2014 Save your program as PDF, or export/import your data as JSON for backup across devices.</div></div></div>';
  var w=window.open('','_blank','width=900,height=700');
  w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Training Program \u2014 '+prog.splitName+'</title><style>'+
  '@page{margin:15mm 12mm}@media print{body{background:#14151A!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}}'+
@@ -6086,24 +6126,24 @@ function exportIcs(){
  'body{background:#14151A;color:#FAFAF8;font-family:"Inter","Segoe UI",Arial,sans-serif;max-width:800px;margin:0 auto;padding:30px 24px}'+
  'h1{font-family:"Oswald","Impact",sans-serif;font-size:1.8rem;text-transform:uppercase;letter-spacing:2px;color:#FAFAF8;margin-bottom:4px}'+
  '.sb{font-size:.7rem;color:rgba(250,250,248,.3);margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid rgba(250,250,248,.05)}'+
- '.st{font-family:"Oswald",sans-serif;font-size:.95rem;text-transform:uppercase;letter-spacing:1.5px;margin:16px 0 8px;padding-bottom:3px;border-bottom:1px solid rgba(244,201,59,.15)}'+
+ '.st{font-family:"Oswald",sans-serif;font-size:.95rem;text-transform:uppercase;letter-spacing:1.5px;margin:16px 0 8px;padding-bottom:3px;border-bottom:1px solid rgba(226,232,240,.15)}'+
  '.rp{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 12px}'+
  '.rp>div{flex:1;min-width:70px;background:rgba(20,21,26,.4);border-radius:6px;padding:7px 8px;text-align:center;border:1px solid rgba(250,250,248,.03)}'+
- '.rp .v{font-size:1rem;font-weight:700;color:#F4C93B}.rp .l{font-size:.48rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.2);margin-top:1px}'+
+ '.rp .v{font-size:1rem;font-weight:700;color:#E2E8F0}.rp .l{font-size:.48rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.2);margin-top:1px}'+
  'table{width:100%;border-collapse:collapse;margin:4px 0 8px}'+
  'th{text-align:left;font-size:.52rem;text-transform:uppercase;letter-spacing:1px;color:rgba(250,250,248,.25);padding:5px 6px 3px;border-bottom:1px solid rgba(250,250,248,.06);font-weight:500}'+
  'td{padding:4px 6px;font-size:.65rem;border-bottom:1px solid rgba(250,250,248,.02);color:rgba(250,250,248,.7)}'+
  '.c{text-align:center}.db{margin:8px 0 12px;background:rgba(20,21,26,.4);border-radius:8px;padding:8px 10px;border:1px solid rgba(250,250,248,.03)}'+
- '.dt{font-family:"Oswald",sans-serif;font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:#F4C93B;margin-bottom:4px}'+
+ '.dt{font-family:"Oswald",sans-serif;font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:#E2E8F0;margin-bottom:4px}'+
  '.sec{margin:16px 0;page-break-inside:avoid}.ec{display:flex;flex-direction:column;gap:8px}'+
  '.ecard{background:rgba(20,21,26,.35);border-radius:8px;padding:8px 10px;border:1px solid rgba(250,250,248,.03)}'+
  '.ect{font-size:.65rem;font-weight:600;color:#FAFAF8;margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px}'+
  '.etip{font-size:.6rem;color:rgba(250,250,248,.45);margin-top:6px;line-height:1.4}'+
  '.gs{display:flex;gap:8px;align-items:flex-start;padding:6px 8px;background:rgba(20,21,26,.25);border-radius:6px;margin-bottom:4px;border:1px solid rgba(250,250,248,.02)}'+
- '.gn{width:22px;height:22px;border-radius:50%;background:#F4C93B;color:#14151A;font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}'+
+ '.gn{width:22px;height:22px;border-radius:50%;background:#E2E8F0;color:#08090C;font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}'+
  '.gs div{font-size:.62rem;color:rgba(250,250,248,.6);line-height:1.4}.gs div strong{color:#FAFAF8}'+
  '.ft{text-align:center;margin-top:24px;padding-top:10px;border-top:1px solid rgba(250,250,248,.04);font-size:.55rem;color:rgba(250,250,248,.2)}'+
- '.ft a{color:rgba(244,201,59,.35);text-decoration:none}'+
+ '.ft a{color:rgba(226,232,240,.35);text-decoration:none}'+
  '</style></head><body>'+
  '<h1>Your Training Program</h1>'+
  '<div class="sb">'+dateF+' \u2014 '+prog.splitName+' \u2014 '+ta+' \u2014 '+goal+' \u2014 '+dd+' days/wk</div>'+
@@ -6112,9 +6152,9 @@ function exportIcs(){
  '<div><div class="v">'+prog.totalEx+'</div><div class="l">Exercises</div></div>'+
  '<div><div class="v" style="text-transform:capitalize;font-size:.8rem">'+rec+'</div><div class="l">Recovery</div></div></div>'+
  edu+
- '<div class="st" style="color:#F4C93B">Your Volume Targets</div>'+
+ '<div class="st" style="color:#E2E8F0">Your Volume Targets</div>'+
  '<table><thead><tr><th>Muscle</th><th class="c">Priority</th><th class="c">MEV</th><th class="c">MAV</th><th class="c">MRV</th><th class="c">Target</th></tr></thead><tbody>'+vh+'</tbody></table>'+
- '<div class="st" style="color:#F4C93B">Your Split &amp; Exercises</div>'+ph+
+ '<div class="st" style="color:#E2E8F0">Your Split &amp; Exercises</div>'+ph+
  gh+
  '<div class="ft">Generated by Muscle OS Training App \u2014 <a href="https://wa.me/201040796017">Coach Anas Mo\'men</a></div>'+
  '<footer class="mos-footer"><div class="mos-footer-inner"><div class="mos-fbrand">ANAS MO\'MEN <span>COACHING</span></div><div class="mos-fnav"><a href="../index.html">Home</a><a href="../tools/">Tools</a><a href="../guides/">Guides</a><a href="../books/">Books</a></div><div class="mos-fsocial"><a href="https://wa.me/201040796017">WhatsApp</a><a href="https://instagram.com/anas_moamen1">Instagram</a></div></div><div class="mos-fcopy">muscleos.coach — Coach Anas Mo\'men</div></footer>'+
@@ -6199,7 +6239,7 @@ function exportIcs(){
  document.getElementById('histSessionsHeader').innerHTML=_('session_timer')+' <span class="section-sub">'+_('session_len')+'</span>';
  shEl.innerHTML='<strong>'+sess.length+'</strong> '+_('history')+' · '+_('session_len')+' <strong>'+fmtClock(Math.round(avgS))+'</strong> · <strong>'+sph.toFixed(1)+'</strong> '+_('sets_per_hour');
  var last14=sess.slice(-14),mx=Math.max.apply(null,last14.map(function(x){return x.durationSec}).concat([1]));
- sbEl.innerHTML=last14.map(function(x){var h=Math.max(3,Math.round(x.durationSec/mx*46));return '<div title="'+x.date+' — '+fmtClock(x.durationSec)+'" style="width:12px;height:'+h+'px;background:rgba(244,201,59,.45);border-radius:2px"></div>'}).join('');
+ sbEl.innerHTML=last14.map(function(x){var h=Math.max(3,Math.round(x.durationSec/mx*46));return '<div title="'+x.date+' — '+fmtClock(x.durationSec)+'" style="width:12px;height:'+h+'px;background:rgba(226,232,240,.45);border-radius:2px"></div>'}).join('');
  } else {
  document.getElementById('histSessionsHeader').innerHTML=_('session_timer');
  shEl.innerHTML='<span style="color:rgba(250,250,248,.15)">'+_('hist_log_more')+'</span>';
@@ -6238,7 +6278,7 @@ function exportIcs(){
  var protocol=rehabForExercise(ex,pf);
  rh+='<div style="padding:4px 0;border-bottom:1px solid rgba(250,250,248,.02)"><strong>'+(pf[ex]==='red'?'🔴':'🟡')+' '+ex+'</strong> → ';
  rh+=protocol?protocol.name+' <span style="font-size:.5rem;color:rgba(250,250,248,.2)">('+protocol.icon+')</span>':'—';
- rh+=' · <a href="https://wa.me/201040796017?text='+encodeURIComponent('Hi Coach Anas, I need help with my '+ex+' injury ('+(protocol?protocol.name:ex)+'). Please advise.')+'" target="_blank" style="color:#F4C93B;font-size:.5rem">'+_('hist_book_consult')+'</a></div>';
+ rh+=' · <a href="https://wa.me/201040796017?text='+encodeURIComponent('Hi Coach Anas, I need help with my '+ex+' injury ('+(protocol?protocol.name:ex)+'). Please advise.')+'" target="_blank" style="color:#E2E8F0;font-size:.5rem">'+_('hist_book_consult')+'</a></div>';
  }
  });
  rh+='</div>';
@@ -6316,7 +6356,7 @@ function exportIcs(){
  });
  html+='</div><div style="display:flex;justify-content:space-between;font-size:.4rem;color:rgba(250,250,248,.12);margin-top:2px">';
  sorted.forEach(function(e){html+='<span>'+e.date.slice(5)+'</span>';});
- html+='</div><div style="margin-top:6px;font-size:.55rem;color:rgba(250,250,248,.2)">e1RM: <strong style="color:#F4C93B">'+sorted[0].e1RM+'</strong> → <strong style="color:#F4C93B">'+sorted[sorted.length-1].e1RM+'</strong> kg ('+(((sorted[sorted.length-1].e1RM-sorted[0].e1RM)/sorted[0].e1RM*100)||0).toFixed(1)+'%)</div>';
+ html+='</div><div style="margin-top:6px;font-size:.55rem;color:rgba(250,250,248,.2)">e1RM: <strong style="color:#E2E8F0">'+sorted[0].e1RM+'</strong> → <strong style="color:#E2E8F0">'+sorted[sorted.length-1].e1RM+'</strong> kg ('+(((sorted[sorted.length-1].e1RM-sorted[0].e1RM)/sorted[0].e1RM*100)||0).toFixed(1)+'%)</div>';
  document.getElementById('histChart').innerHTML=html;
  }
 
@@ -6346,7 +6386,7 @@ function exportIcs(){
  var mxCl=Math.max.apply(null,weeks.map(function(w){return w.combined}).concat([1]));
  var html='';
  html+='<div style="font-size:.5rem;color:rgba(250,250,248,.2);margin:6px 0 2px">'+_('trend_volume')+' <span style="font-size:.42rem;color:rgba(250,250,248,.1)">— '+_('weekly_sets')+'</span></div>';
- html+='<div style="display:flex;align-items:flex-end;gap:2px;height:44px">'+weeks.map(function(w){var h=Math.max(3,Math.round(w.sets/mxSets*40));return '<div title="'+w.label+': '+w.sets+' sets" style="flex:1;height:'+h+'px;background:rgba(244,201,59,.45);border-radius:2px"></div>';}).join('')+'</div>';
+ html+='<div style="display:flex;align-items:flex-end;gap:2px;height:44px">'+weeks.map(function(w){var h=Math.max(3,Math.round(w.sets/mxSets*40));return '<div title="'+w.label+': '+w.sets+' sets" style="flex:1;height:'+h+'px;background:rgba(226,232,240,.45);border-radius:2px"></div>';}).join('')+'</div>';
  html+='<div style="font-size:.5rem;color:rgba(250,250,248,.2);margin:8px 0 2px">'+_('trend_combined')+'</div>';
  html+='<div style="display:flex;align-items:flex-end;gap:2px;height:44px">'+weeks.map(function(w){var h=Math.max(3,Math.round(w.combined/mxCl*40));return '<div title="'+w.label+': '+w.combined+' u" style="flex:1;height:'+h+'px;background:rgba(33,150,243,.45);border-radius:2px"></div>';}).join('')+'</div>';
  html+='<div style="font-size:.5rem;color:rgba(250,250,248,.2);margin:8px 0 2px">'+_('mono_label')+' <span style="font-size:.42rem;color:rgba(250,250,248,.1)">— '+_('mono_thresh')+'</span></div>';
@@ -6354,7 +6394,7 @@ function exportIcs(){
  var pr=ls(K.PR,null);
  if(pr&&pr.muscles&&pr.muscles.length){
  var names=pr.muscles.map(function(m){for(var i2=0;i2<MUSCLES.length;i2++){if(MUSCLES[i2].id===m)return MUSCLES[i2].name;}return m;}).join(', ');
- html+='<div style="font-size:.5rem;color:rgba(250,250,248,.2);margin-top:8px">'+_('trend_priority')+': <strong style="color:#F4C93B">'+names+'</strong> <span style="font-size:.45rem;color:rgba(250,250,248,.15)">— '+_('trend_updated')+': '+(pr.updated||'—')+'</span></div>';
+ html+='<div style="font-size:.5rem;color:rgba(250,250,248,.2);margin-top:8px">'+_('trend_priority')+': <strong style="color:#E2E8F0">'+names+'</strong> <span style="font-size:.45rem;color:rgba(250,250,248,.15)">— '+_('trend_updated')+': '+(pr.updated||'—')+'</span></div>';
  }
  var overMono=weeks.filter(function(w){return w.mono>2}).length;
  var totSets=weeks.reduce(function(a,w){return a+w.sets},0);
@@ -6456,8 +6496,8 @@ document.getElementById('trendRange').addEventListener('change',renderTrendHisto
  }
  var step = MOS_TRAIN_TOUR[stepIdx];
  modal.innerHTML = `
- <div class="card animate-in" style="max-width:440px;width:90%;border:1.5px solid #F4C93B;box-shadow:0 0 32px rgba(244,201,59,.35);background:#1A1B26">
- <div style="font-family:'Oswald',sans-serif;font-size:1.15rem;color:#F4C93B;margin-bottom:8px">${step.title}</div>
+ <div class="card animate-in" style="max-width:440px;width:90%;border:1.5px solid #E2E8F0;box-shadow:0 0 32px rgba(226,232,240,.35);background:#1A1B26">
+ <div style="font-family:'Oswald',sans-serif;font-size:1.15rem;color:#E2E8F0;margin-bottom:8px">${step.title}</div>
  <div style="font-size:.78rem;line-height:1.6;color:rgba(250,250,248,.85);margin-bottom:16px">${step.desc}</div>
  <div style="display:flex;justify-content:space-between;align-items:center">
  <span style="font-size:.65rem;color:rgba(250,250,248,.4)">Step ${stepIdx + 1} of ${MOS_TRAIN_TOUR.length}</span>
@@ -6539,7 +6579,7 @@ window.closeTrainingTourModal = function(){
  </div>
  <div class="tw-item">
  <div class="tw-lbl">Target Volume Allocation</div>
- <div class="tw-val" style="color:#F4C93B">${totalSets}</div>
+ <div class="tw-val" style="color:#E2E8F0">${totalSets}</div>
  <div class="tw-subval">Autoregulated MEV-MRV</div>
  </div>
  <div class="tw-item">
@@ -7291,7 +7331,7 @@ function fireConfetti() {
   container.className = 'mos-confetti-container';
   document.body.appendChild(container);
 
-  var colors = ['#F4C93B', '#ffffff', '#60a5fa', '#34d399', '#f472b6'];
+  var colors = ['#E2E8F0', '#ffffff', '#60a5fa', '#34d399', '#f472b6'];
   for (var i = 0; i < 40; i++) {
     var piece = document.createElement('div');
     piece.className = 'mos-confetti-piece';

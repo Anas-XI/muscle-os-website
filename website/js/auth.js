@@ -53,12 +53,12 @@
   <div id="mosAuthStep1">
   <div id="mosGoogleSignInBtn" style="display:flex;justify-content:center; min-height:44px;"></div>
   <div style="display:flex; align-items:center; justify-content:center; gap:8px; margin:10px 0 14px; font-size:12px; color:rgba(250,250,248,0.7); cursor:pointer;">
-    <input type="checkbox" id="mosStaySignedIn" checked style="accent-color:#F4C93B; width:14px; height:14px; cursor:pointer;">
+    <input type="checkbox" id="mosStaySignedIn" checked style="accent-color:#E2E8F0; width:14px; height:14px; cursor:pointer;">
     <label for="mosStaySignedIn" style="cursor:pointer; margin:0;">Stay signed in</label>
   </div>
   <div style="margin-top:10px; font-size:12px; color:rgba(250,250,248,0.7); text-align:left; display:flex; align-items:flex-start; gap:8px;">
-    <input type="checkbox" id="mosAuthConsent" checked style="margin-top:2px; accent-color:#F4C93B; width:14px; height:14px; cursor:pointer;">
-    <label for="mosAuthConsent" style="cursor:pointer; line-height:1.4;">I accept the <a href="terms.html" target="_blank" style="color:#F4C93B; text-decoration:underline;">Terms of Service</a> & <a href="privacy.html" target="_blank" style="color:#F4C93B; text-decoration:underline;">Privacy Policy</a>, including fitness health screening.</label>
+    <input type="checkbox" id="mosAuthConsent" checked style="margin-top:2px; accent-color:#E2E8F0; width:14px; height:14px; cursor:pointer;">
+    <label for="mosAuthConsent" style="cursor:pointer; line-height:1.4;">I accept the <a href="terms.html" target="_blank" style="color:#E2E8F0; text-decoration:underline;">Terms of Service</a> & <a href="privacy.html" target="_blank" style="color:#E2E8F0; text-decoration:underline;">Privacy Policy</a>, including fitness health screening.</label>
   </div>
   <div class="mos-auth-error" id="mosAuthStep1Error">Sign-in failed. Please try again.</div>
   </div>
@@ -75,7 +75,7 @@
   <div class="mos-auth-error" id="mosSubError">Invalid code.</div>
   <div class="mos-auth-success" id="mosSubSuccess">Access granted! Reloading...</div>
   <div style="margin-top:16px; font-size:13px; display:flex; justify-content:space-between; align-items:center;">
-    <a href="order.html" target="_blank" style="color:#F4C93B; text-decoration:underline;">Need a code? Get access</a>
+    <a href="order.html" target="_blank" style="color:#E2E8F0; text-decoration:underline;">Need a code? Get access</a>
     <a href="#" id="mosSignOut" style="color:rgba(250,250,248,0.5); text-decoration: underline;">Sign Out</a>
   </div>
   </div>

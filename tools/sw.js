@@ -1,5 +1,5 @@
-// Muscle OS Tools — Offline-First Service Worker (v4.2.0 Modular Architecture)
-const CACHE_NAME = 'mos-tools-v4.2.0';
+// Muscle OS Tools — Offline-First Service Worker (v5.0.0 Modular Architecture)
+const CACHE_NAME = 'mos-omni-v5.0.0';
 const ASSETS = [
   './muscle_os_app.html',
   './training_tool.html',

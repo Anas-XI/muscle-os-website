@@ -85,8 +85,8 @@
  }
  var step = MOS_TRAIN_TOUR[stepIdx];
  modal.innerHTML = `
- <div class="card animate-in" style="max-width:440px;width:90%;border:1.5px solid #F4C93B;box-shadow:0 0 32px rgba(244,201,59,.35);background:#1A1B26">
- <div style="font-family:'Oswald',sans-serif;font-size:1.15rem;color:#F4C93B;margin-bottom:8px">${step.title}</div>
+ <div class="card animate-in" style="max-width:440px;width:90%;border:1.5px solid #E2E8F0;box-shadow:0 0 32px rgba(226, 232, 240,.35);background:#1A1B26">
+ <div style="font-family:'Oswald',sans-serif;font-size:1.15rem;color:#E2E8F0;margin-bottom:8px">${step.title}</div>
  <div style="font-size:.78rem;line-height:1.6;color:rgba(250,250,248,.85);margin-bottom:16px">${step.desc}</div>
  <div style="display:flex;justify-content:space-between;align-items:center">
  <span style="font-size:.65rem;color:rgba(250,250,248,.4)">Step ${stepIdx + 1} of ${MOS_TRAIN_TOUR.length}</span>
@@ -168,7 +168,7 @@ window.closeTrainingTourModal = function(){
  </div>
  <div class="tw-item">
  <div class="tw-lbl">Target Volume Allocation</div>
- <div class="tw-val" style="color:#F4C93B">${totalSets}</div>
+ <div class="tw-val" style="color:#E2E8F0">${totalSets}</div>
  <div class="tw-subval">Autoregulated MEV-MRV</div>
  </div>
  <div class="tw-item">

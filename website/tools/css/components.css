@@ -20,21 +20,26 @@
   user-select: none;
 }
 .btn-primary {
-  background: var(--accent);
-  color: #0A0B0E;
+  background: linear-gradient(135deg, #FFFFFF 0%, #CBD5E1 100%);
+  color: #08090C;
+  font-weight: 700;
+  box-shadow: 0 4px 20px rgba(226, 232, 240, 0.15);
+  border: none;
 }
 .btn-primary:hover {
-  background: #fff;
-  box-shadow: 0 0 15px rgba(244, 201, 59, 0.4);
+  background: #FFFFFF;
+  box-shadow: 0 0 25px rgba(226, 232, 240, 0.35);
+  transform: translateY(-1px);
 }
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.08);
+  background: #161822;
   color: var(--text-soft);
   border: 1px solid var(--line);
 }
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
+  background: #222532;
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
 /* Status Chips */
@@ -58,7 +63,7 @@
 .status-chip.trial {
   background: var(--accent-soft);
   color: var(--accent);
-  border: 1px solid rgba(244, 201, 59, 0.35);
+  border: 1px solid rgba(226, 232, 240, 0.35);
 }
 .status-chip.locked {
   background: rgba(250, 250, 248, 0.08);
@@ -87,19 +92,19 @@
   gap: 10px;
   padding: 12px 16px;
   background: rgba(20, 21, 26, 0.96);
-  border: 1px solid rgba(244, 201, 59, 0.4);
+  border: 1px solid rgba(226, 232, 240, 0.4);
   border-radius: 12px;
   color: var(--text);
   font-size: 0.85rem;
   font-family: 'Inter', sans-serif;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(244, 201, 59, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(226, 232, 240, 0.15);
   backdrop-filter: blur(12px);
   animation: mosToastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   transition: opacity 0.3s, transform 0.3s;
 }
 .mos-toast.success { border-color: rgba(76, 175, 80, 0.6); }
 .mos-toast.error { border-color: rgba(244, 67, 54, 0.6); }
-.mos-toast.warning { border-color: rgba(244, 201, 59, 0.6); }
+.mos-toast.warning { border-color: rgba(226, 232, 240, 0.6); }
 .mos-toast-icon { font-size: 1.2rem; flex-shrink: 0; }
 .mos-toast-msg { flex: 1; line-height: 1.4; }
 @keyframes mosToastIn {
@@ -122,7 +127,7 @@
 }
 .mos-modal-box {
   background: var(--surface);
-  border: 1.5px solid rgba(244, 201, 59, 0.3);
+  border: 1.5px solid rgba(226, 232, 240, 0.3);
   border-radius: 16px;
   padding: 24px 22px;
   max-width: 440px;
@@ -160,7 +165,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: linear-gradient(135deg, rgba(244, 201, 59, 0.2), rgba(244, 201, 59, 0.08));
+  background: linear-gradient(135deg, rgba(226, 232, 240, 0.2), rgba(226, 232, 240, 0.08));
   border: 1.5px solid var(--accent);
   color: var(--accent);
   font-family: 'Oswald', sans-serif;
@@ -178,13 +183,13 @@
 .btn-pwa-install:hover {
   background: var(--accent);
   color: #0A0B0E;
-  box-shadow: 0 0 15px rgba(244, 201, 59, 0.4);
+  box-shadow: 0 0 15px rgba(226, 232, 240, 0.4);
   transform: translateY(-1px);
 }
 .btn-pwa-install.pulse-ready {
   animation: pwaGlow 2s infinite alternate;
 }
 @keyframes pwaGlow {
-  from { box-shadow: 0 0 6px rgba(244, 201, 59, 0.2); }
-  to { box-shadow: 0 0 16px rgba(244, 201, 59, 0.6); }
+  from { box-shadow: 0 0 6px rgba(226, 232, 240, 0.2); }
+  to { box-shadow: 0 0 16px rgba(226, 232, 240, 0.6); }
 }

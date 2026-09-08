@@ -6,7 +6,8 @@
 :root {
   --mos-consent-bg: rgba(20, 21, 26, 0.96);
   --mos-consent-border: #2C2E37;
-  --mos-consent-yellow: #F4C93B;
+  --mos-consent-silver: #E2E8F0;
+  --mos-consent-yellow: #E2E8F0;
   --mos-consent-text: #FAFAF8;
   --mos-consent-muted: #8A8D96;
   --mos-consent-green: #34D399;
@@ -22,7 +23,7 @@
   margin: 0 auto;
   background: var(--mos-consent-bg);
   border: 1px solid var(--mos-consent-border);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(244, 201, 59, 0.15);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(226, 232, 240, 0.15);
   border-radius: 12px;
   padding: 18px 24px;
   z-index: 999999;

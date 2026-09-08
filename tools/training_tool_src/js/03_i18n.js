@@ -18,7 +18,7 @@
  <div class="card">
  <div class="section-header" data-i18n="deload_hist">Deload History</div>
  <div id="deloadHistory"><p style="font-size:.6rem;color:rgba(250,250,248,.15);padding:10px;text-align:center" data-i18n="no_data">No deload data yet.</p></div>
- <button class="btn-primary" id="markDeloadBtn" style="background:rgba(244,201,59,.06);border:1px solid rgba(244,201,59,.15);color:#F4C93B;font-size:.65rem;padding:8px 0;margin-top:8px" data-i18n="deload_hist">Mark Deload This Week</button>
+ <button class="btn-primary" id="markDeloadBtn" style="background:rgba(226, 232, 240,.06);border:1px solid rgba(226, 232, 240,.15);color:#E2E8F0;font-size:.65rem;padding:8px 0;margin-top:8px" data-i18n="deload_hist">Mark Deload This Week</button>
  </div>
  <div class="card" id="compWidgetCard" style="display:none">
  <div class="section-header" data-i18n="track_progress">Compliance Dashboard <span class="section-sub">— last 28 days</span></div>

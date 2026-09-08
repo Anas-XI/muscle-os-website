@@ -1,5 +1,5 @@
 (function() {
- const APP_VERSION = 'v4.0.2';
+ const APP_VERSION = 'v5.0.0';
  
  // Auto force refresh if client version is older than v3.1.0
  try {
@@ -26,8 +26,8 @@
  z-index: 99999;
  width: 90%;
  max-width: 480px;
- background: #1E1E2A;
- border: 1.5px solid #F4C93B;
+ background: #16181F;
+ border: 1.5px solid #E2E8F0;
  border-radius: 14px;
  padding: 14px 18px;
  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
@@ -48,7 +48,7 @@
  .update-banner-title {
  font-size: 0.85rem;
  font-weight: 700;
- color: #F4C93B;
+ color: #E2E8F0;
  margin-bottom: 2px;
  display: flex;
  align-items: center;
@@ -60,8 +60,8 @@
  line-height: 1.3;
  }
  .update-btn-action {
- background: #F4C93B;
- color: #14151A;
+ background: linear-gradient(135deg, #FFFFFF, #CBD5E1);
+ color: #08090C;
  border: none;
  border-radius: 8px;
  padding: 8px 14px;
@@ -72,7 +72,7 @@
  transition: transform 0.15s, background 0.15s;
  }
  .update-btn-action:hover {
- background: #e8a83a;
+ background: #E2E8F0;
  transform: scale(1.03);
  }
  .update-btn-close {

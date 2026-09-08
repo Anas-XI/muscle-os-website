@@ -12,13 +12,13 @@
     --ink: #0f1015;
     --ink-2: rgba(30, 32, 39, 0.6);
     --ink-3: rgba(38, 40, 47, 0.7);
-    --yellow: #F4C93B;
-    --yellow-dim: #C9A227;
-    --yellow-glow: rgba(244, 201, 59, 0.3);
+    --yellow: #E2E8F0;
+    --yellow-dim: #94A3B8;
+    --yellow-glow: rgba(226, 232, 240, 0.3);
     --paper: #FAFAF8;
     --gray: #8A8D96;
     --gray-dark: #5B5F68;
-    --line: rgba(244, 201, 59, 0.15);
+    --line: rgba(226, 232, 240, 0.15);
     --line-light: #E4E1D8;
     --green: #34D399;
     --red: #F87171;
@@ -126,12 +126,12 @@
   }
   .card:hover {
     border-color: var(--yellow);
-    box-shadow: 0 0 30px rgba(244,201,59,0.08);
+    box-shadow: 0 0 30px rgba(226, 232, 240,0.08);
     transform: translateY(-2px);
   }
   .card-icon {
     width: 48px; height: 48px;
-    background: rgba(244,201,59,0.1);
+    background: rgba(226, 232, 240,0.1);
     border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
     font-size: 22px; margin-bottom: 20px;
@@ -152,7 +152,7 @@
   .badge-live { background: rgba(52,211,153,0.15); color: var(--green); }
   .badge-dev { background: rgba(96,165,250,0.15); color: var(--blue); }
   .badge-explore { background: rgba(167,139,250,0.15); color: var(--purple); }
-  .badge-paid { background: rgba(244,201,59,0.15); color: var(--yellow); }
+  .badge-paid { background: rgba(226, 232, 240,0.15); color: var(--yellow); }
   .badge-free { background: rgba(255,255,255,0.08); color: #aaa; }
 
   /* --- PRICING TABLE --- */
@@ -218,7 +218,7 @@
     color: var(--yellow);
     text-align: left;
     padding: 16px 20px;
-    border-bottom: 2px solid rgba(244,201,59,0.2);
+    border-bottom: 2px solid rgba(226, 232, 240,0.2);
   }
   table td {
     font-size: 14px;
@@ -226,7 +226,7 @@
     border-bottom: 1px solid rgba(255,255,255,0.04);
     color: #ccc;
   }
-  table tr:hover td { background: rgba(244,201,59,0.03); }
+  table tr:hover td { background: rgba(226, 232, 240,0.03); }
   .tag {
     display: inline-block;
     font-family: 'JetBrains Mono', monospace;
@@ -234,7 +234,7 @@
     padding: 3px 8px; border-radius: 4px;
     text-transform: uppercase;
   }
-  .tag-sub { background: rgba(244,201,59,0.12); color: var(--yellow); }
+  .tag-sub { background: rgba(226, 232, 240,0.12); color: var(--yellow); }
   .tag-otp { background: rgba(52,211,153,0.12); color: var(--green); }
   .tag-coach { background: rgba(167,139,250,0.12); color: var(--purple); }
   .tag-free { background: rgba(255,255,255,0.06); color: #999; }
@@ -272,7 +272,7 @@
   .timeline { position: relative; padding-left: 40px; }
   .timeline::before {
     content: ''; position: absolute; left: 15px; top: 0; bottom: 0;
-    width: 2px; background: linear-gradient(180deg, var(--yellow), var(--yellow-dim), rgba(244,201,59,0.1));
+    width: 2px; background: linear-gradient(180deg, var(--yellow), var(--yellow-dim), rgba(226, 232, 240,0.1));
   }
   .tl-item { position: relative; margin-bottom: 40px; }
   .tl-item::before {
@@ -304,13 +304,13 @@
   footer a { color: var(--yellow); }
 
   /* --- DIVIDER --- */
-  .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(244,201,59,0.2), transparent); margin: 0; }
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(226, 232, 240,0.2), transparent); margin: 0; }
 
   /* --- FLOW CHART --- */
   .flow-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 32px; }
   .flow-box {
-    background: rgba(244,201,59,0.06);
-    border: 1px solid rgba(244,201,59,0.15);
+    background: rgba(226, 232, 240,0.06);
+    border: 1px solid rgba(226, 232, 240,0.15);
     border-radius: 8px;
     padding: 20px 16px;
     text-align: center;
@@ -935,7 +935,7 @@
     <p class="section-sub" style="margin-bottom:48px;">Intermediate-to-advanced lifters (1-3+ years) who've hit plateaus. People who've outgrown YouTube advice but can't afford $200/mo personal training.</p>
 
     <div class="card-grid card-grid-3" style="margin-bottom:48px;">
-      <div class="card" style="border-color:rgba(244,201,59,0.3);">
+      <div class="card" style="border-color:rgba(226, 232, 240,0.3);">
         <div class="card-icon">👤</div>
         <h3>Primary Persona</h3>
         <p>25-35 year old male, 1-3 years lifting, knows basic programming but stuck. Wants evidence-based guidance without the influencer noise. Price-sensitive, Egyptian market primary.</p>
@@ -1066,7 +1066,7 @@
     <p class="section-sub" style="margin-bottom:48px;">Current stage: Pre-PMF / Late MVP. Building is done. User validation is the priority.</p>
 
     <div class="card-grid card-grid-2">
-      <div class="card" style="border-color:rgba(244,201,59,0.3);">
+      <div class="card" style="border-color:rgba(226, 232, 240,0.3);">
         <h3 style="color:var(--yellow);">Day 30 Gates</h3>
         <div class="metric-grid" style="grid-template-columns: repeat(2,1fr); margin-top:16px;">
           <div class="metric-card">

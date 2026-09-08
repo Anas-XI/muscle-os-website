@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/client https://accounts.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style https://www.gstatic.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com https://accounts.google.com https://www.gstatic.com https://ssl.gstatic.com; frame-src 'self' https://accounts.google.com/gsi/ https://accounts.google.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev https://accounts.google.com/gsi/ https://accounts.google.com; frame-ancestors 'self'; base-uri 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev; frame-ancestors 'self'; base-uri 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
@@ -41,8 +41,8 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
         <span>All Products</span>
       </a>
-      <a class="nav-cta" href="../books/sample_training.html">
-        <span>Read Book Syllabus</span>
+      <a class="nav-cta" href="../order.html?product=training_book">
+        <span>Buy Book (750 EGP)</span>
       </a>
     </div>
   </div>
@@ -58,11 +58,11 @@
       <p class="hero-sub">A rigorous 27-chapter scientific manual synthesizing neuromuscular physiology, biomechanical moment arms, SFR exercise tiering, autoregulated periodization, and fatigue kinetics into actionable programming protocols.</p>
       
       <div class="hero-ctas">
-        <a href="../books/sample_training.html" class="btn btn-primary btn-lg">
-          Read Free Sample Chapter
+        <a href="../order.html?product=training_book" class="btn btn-primary btn-lg">
+          Buy Lifetime Access (750 EGP)
         </a>
-        <a href="../books/index.html" class="btn btn-ghost btn-lg">
-          View Complete Syllabus
+        <a href="../books/sample_training.html" class="btn btn-ghost btn-lg">
+          Read Free Sample Chapter
         </a>
       </div>
 
@@ -373,24 +373,34 @@
 <section class="section-pad" id="pricing">
   <div class="wrap">
     <div class="section-header center">
-      <span class="eyebrow eyebrow-center">Evidence-Based Reference</span>
+      <span class="eyebrow eyebrow-center">Transparent Pricing</span>
       <h2 class="section-title">Upgrade Your Physique Engine</h2>
-      <p class="section-subtitle">Explore the complete 27-chapter table of contents and read free preview chapters.</p>
+      <p class="section-subtitle">Select your currency and start progressing immediately.</p>
     </div>
 
     <div class="pricing-wrapper">
       <div class="pricing-card">
         <div class="pricing-badge">LIFETIME REFERENCE MANUAL</div>
+        
+        <div class="currency-switch-wrap">
+          <div class="currency-switch">
+            <button id="currEGP" class="curr-btn active" onclick="setCurrency('egp')">🇪🇬 EGP</button>
+            <button id="currUSD" class="curr-btn" onclick="setCurrency('usd')">🌍 USD</button>
+          </div>
+        </div>
 
-        <h3 class="display" style="font-size:24px; color:var(--yellow); margin-top:16px;">TRAINING & PROGRAMMING BOOK</h3>
+        <h3 class="display" style="font-size:24px; color:var(--yellow);">TRAINING & PROGRAMMING BOOK</h3>
         <p style="font-size:13.5px; color:var(--gray);">27 Chapters · 200+ Citations · Lifetime Web & PDF Access</p>
 
         <div class="price-display">
           <div class="price-amount">
-            <span class="price-val" style="color:var(--yellow); font-size:32px;">DIGITAL SYLLABUS & PREVIEW</span>
+            <span class="price-val egp">750 EGP</span>
+            <span class="price-val usd" style="display:none;">$15.00</span>
           </div>
-          <div class="price-period">Full Digital Reference Manual · Open Syllabus & Free Chapters</div>
+          <div class="price-period">one-time payment · lifetime access</div>
         </div>
+
+        <div class="price-annual-note">Includes Free Interactive Web Reader + Downloadable PDF Edition</div>
 
         <ul class="pricing-features-list">
           
@@ -428,14 +438,14 @@
           </li>
         </ul>
 
-        <a href="../books/sample_training.html" class="btn btn-primary btn-block btn-lg">
-          Read Sample Chapter & Syllabus
+        <a href="../order.html?product=training_book" class="btn btn-primary btn-block btn-lg">
+          Buy Book Access (750 EGP)
         </a>
-        <a href="../books/index.html" class="btn btn-ghost btn-block" style="margin-top:10px;">Explore All Books &rarr;</a>
+        <a href="../books/sample_training.html" class="btn btn-ghost btn-block" style="margin-top:10px;">Read Sample Chapter First</a>
 
         <div class="guarantee-note">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-          <span>Full Open Syllabus &bull; 200+ Scientific Citations &bull; Instant Access</span>
+          <span>Instant code issuance &bull; 100% Secure Checkout &bull; Card / Vodafone Cash</span>
         </div>
       </div>
     </div>
@@ -494,18 +504,18 @@
           <div class="cross-sell-desc">Complete the set with our 33-chapter master manual on metabolic fueling.</div>
         </div>
         <div>
-          <div class="cross-sell-price">Digital Reference</div>
+          <div class="cross-sell-price">750 EGP (Lifetime)</div>
           <a href="nutrition-book.html" class="btn btn-ghost btn-block" style="font-size:12px; padding:10px 16px;">Read Nutrition Book &rarr;</a>
         </div>
       </div>
       <div class="cross-sell-card">
         <div>
           <div class="cross-sell-title">Both Books Collection</div>
-          <div class="cross-sell-desc">Get both the Training and Nutrition books together in one reference library.</div>
+          <div class="cross-sell-desc">Get both the Training and Nutrition books together and save 300 EGP.</div>
         </div>
         <div>
-          <div class="cross-sell-price">Digital Reference Suite</div>
-          <a href="../books/index.html" class="btn btn-ghost btn-block" style="font-size:12px; padding:10px 16px;">Explore All Books &rarr;</a>
+          <div class="cross-sell-price">1,200 EGP (Save 300 EGP)</div>
+          <a href="../order.html?product=both_books" class="btn btn-ghost btn-block" style="font-size:12px; padding:10px 16px;">Get Both Books &rarr;</a>
         </div>
       </div>
       <div class="cross-sell-card">
@@ -514,7 +524,7 @@
           <div class="cross-sell-desc">Put the book's periodization and volume landmarks on autopilot.</div>
         </div>
         <div>
-          <div class="cross-sell-price">1-Month Free Trial</div>
+          <div class="cross-sell-price">300 EGP / mo</div>
           <a href="training-app.html" class="btn btn-ghost btn-block" style="font-size:12px; padding:10px 16px;">Explore App &rarr;</a>
         </div>
       </div>
@@ -527,11 +537,11 @@
   <div class="wrap final-cta-inner">
     <div class="eyebrow eyebrow-center">Ready To Level Up?</div>
     <h2 class="hero-title" style="font-size:clamp(32px, 4.5vw, 52px); margin-bottom:16px;">Master The Science of Hypertrophy.</h2>
-    <p class="section-subtitle" style="margin-bottom:32px;">Explore the 27-chapter training reference manual and read preview chapters today.</p>
+    <p class="section-subtitle" style="margin-bottom:32px;">Get lifetime access to the 27-chapter training reference manual today.</p>
     
     <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
-      <a href="../books/sample_training.html" class="btn btn-primary btn-lg">
-        Read Sample Chapters Now
+      <a href="../order.html?product=training_book" class="btn btn-primary btn-lg">
+        Buy Training Book (750 EGP)
       </a>
       <a href="https://wa.me/201040796017?text=Hi%20Anas%2C%20I%20have%20a%20question%20about%20training-book.html" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-lg">
         Ask On WhatsApp
@@ -557,8 +567,8 @@
 
 <!-- MOBILE STICKY CTA -->
 <div id="mobileCtaBar">
-  <a href="../books/sample_training.html" class="btn-primary" style="display:flex; align-items:center; justify-content:center; border-radius:6px;">
-    Read Book Syllabus
+  <a href="../order.html?product=training_book" class="btn-primary" style="display:flex; align-items:center; justify-content:center; border-radius:6px;">
+    Buy Book (750 EGP)
   </a>
   <a href="https://wa.me/201040796017" target="_blank" rel="noopener noreferrer" class="btn-ghost" style="display:flex; align-items:center; justify-content:center; border-radius:6px;">
     WhatsApp

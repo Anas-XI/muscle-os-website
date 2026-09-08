@@ -74,7 +74,7 @@
  document.getElementById('histSessionsHeader').innerHTML=_('session_timer')+' <span class="section-sub">'+_('session_len')+'</span>';
  shEl.innerHTML='<strong>'+sess.length+'</strong> '+_('history')+' · '+_('session_len')+' <strong>'+fmtClock(Math.round(avgS))+'</strong> · <strong>'+sph.toFixed(1)+'</strong> '+_('sets_per_hour');
  var last14=sess.slice(-14),mx=Math.max.apply(null,last14.map(function(x){return x.durationSec}).concat([1]));
- sbEl.innerHTML=last14.map(function(x){var h=Math.max(3,Math.round(x.durationSec/mx*46));return '<div title="'+x.date+' — '+fmtClock(x.durationSec)+'" style="width:12px;height:'+h+'px;background:rgba(244,201,59,.45);border-radius:2px"></div>'}).join('');
+ sbEl.innerHTML=last14.map(function(x){var h=Math.max(3,Math.round(x.durationSec/mx*46));return '<div title="'+x.date+' — '+fmtClock(x.durationSec)+'" style="width:12px;height:'+h+'px;background:rgba(226, 232, 240,.45);border-radius:2px"></div>'}).join('');
  } else {
  document.getElementById('histSessionsHeader').innerHTML=_('session_timer');
  shEl.innerHTML='<span style="color:rgba(250,250,248,.15)">'+_('hist_log_more')+'</span>';
@@ -113,7 +113,7 @@
  var protocol=rehabForExercise(ex,pf);
  rh+='<div style="padding:4px 0;border-bottom:1px solid rgba(250,250,248,.02)"><strong>'+(pf[ex]==='red'?'🔴':'🟡')+' '+ex+'</strong> → ';
  rh+=protocol?protocol.name+' <span style="font-size:.5rem;color:rgba(250,250,248,.2)">('+protocol.icon+')</span>':'—';
- rh+=' · <a href="https://wa.me/201040796017?text='+encodeURIComponent('Hi Coach Anas, I need help with my '+ex+' injury ('+(protocol?protocol.name:ex)+'). Please advise.')+'" target="_blank" style="color:#F4C93B;font-size:.5rem">'+_('hist_book_consult')+'</a></div>';
+ rh+=' · <a href="https://wa.me/201040796017?text='+encodeURIComponent('Hi Coach Anas, I need help with my '+ex+' injury ('+(protocol?protocol.name:ex)+'). Please advise.')+'" target="_blank" style="color:#E2E8F0;font-size:.5rem">'+_('hist_book_consult')+'</a></div>';
  }
  });
  rh+='</div>';

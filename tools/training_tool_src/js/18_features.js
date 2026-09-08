@@ -178,8 +178,8 @@
  var html='';
  progDays.forEach(function(day,di){
  if(day.restDay){html+='<div class="rest-card" style="margin:4px 0 10px"><div class="rc-title">'+_('rest_day')+'</div><div class="rc-tip">'+_('rest_day_recover')+'</div></div>';return;}
- html+='<div class="ex-card" style="border-left-color:rgba(244,201,59,.2)"><div class="ex-name" style="margin-bottom:4px">'+_('day')+' '+(di+1)+': '+day.n+'</div>';
- if(day.ssSuggested)html+='<div style="font-size:.5rem;color:#F4C93B;margin-bottom:4px"> '+_('sess_suggest_ss')+'</div>';
+ html+='<div class="ex-card" style="border-left-color:rgba(226, 232, 240,.2)"><div class="ex-name" style="margin-bottom:4px">'+_('day')+' '+(di+1)+': '+day.n+'</div>';
+ if(day.ssSuggested)html+='<div style="font-size:.5rem;color:#E2E8F0;margin-bottom:4px"> '+_('sess_suggest_ss')+'</div>';
  day.ex.forEach(function(ex){
  var rest=ex.rl<=6?_('gen_rest_2_3'):ex.rl<=10?_('gen_rest_90_120'):_('gen_rest_60_90');
  html+='<div style="display:flex;gap:8px;padding:3px 0;font-size:.62rem;border-bottom:1px solid rgba(250,250,248,.02)"><span style="flex:2;color:#FAFAF8;font-weight:500">'+exLinkHtml(ex.n)+(ex.optional?' <span class="opt-badge">'+_('sess_optional')+'</span>':'')+'</span><span style="flex:1;text-align:center;color:rgba(250,250,248,.4)">'+ex.sets+'×'+ex.rl+'-'+ex.rh+'</span><span style="flex:1;text-align:center;color:rgba(250,250,248,.3);font-size:.55rem">'+rest+'</span></div>';
@@ -203,8 +203,8 @@
     '<div id="ciBody" style="display:none;margin-top:8px">'+
     '<div style="margin-bottom:6px">'+chips+'</div>'+
     '<div style="font-size:.55rem;background:rgba(13,14,18,.4);border-radius:6px;padding:8px 10px;line-height:1.8">'+
-    '<strong style="color:#F4C93B">Rep Range:</strong> '+esc(recs.rep_range)+' &nbsp;|&nbsp; <strong style="color:#F4C93B">Rest Compounds:</strong> '+esc(recs.rest_compounds)+' &nbsp;|&nbsp; <strong style="color:#F4C93B">Rest Isolation:</strong> '+esc(recs.rest_isolation)+'<br>'+
-    '<strong style="color:#F4C93B">Protein:</strong> '+recs.protein_per_kg+' g/kg/day</div>'+
+    '<strong style="color:#E2E8F0">Rep Range:</strong> '+esc(recs.rep_range)+' &nbsp;|&nbsp; <strong style="color:#E2E8F0">Rest Compounds:</strong> '+esc(recs.rest_compounds)+' &nbsp;|&nbsp; <strong style="color:#E2E8F0">Rest Isolation:</strong> '+esc(recs.rest_isolation)+'<br>'+
+    '<strong style="color:#E2E8F0">Protein:</strong> '+recs.protein_per_kg+' g/kg/day</div>'+
     (notes?'<div style="font-size:.52rem;color:rgba(250,250,248,.55);margin-top:6px;line-height:1.7">'+notes+'</div>':'')+
     '</div>';
    var progCard=document.getElementById('step3')&&document.getElementById('step3').querySelector('.card');
@@ -226,7 +226,7 @@
    if((sess>0&&sess%deloadInterval===0)||deloadNote){
     var dlEl=document.getElementById('engineDeloadBanner');
     if(!dlEl){dlEl=document.createElement('div');dlEl.id='engineDeloadBanner';dlEl.className='engine-deload-banner';dlEl.onclick=function(){this.style.display='none';};}
-    dlEl.innerHTML='💤 <strong style="color:#F4C93B">Deload Week Recommended</strong> — '+(deloadNote||'You\'ve completed '+sess+' sessions. Take a deload: 50% volume, 70% intensity.')+' <span style="opacity:.4;float:right">✕</span>';
+    dlEl.innerHTML='💤 <strong style="color:#E2E8F0">Deload Week Recommended</strong> — '+(deloadNote||'You\'ve completed '+sess+' sessions. Take a deload: 50% volume, 70% intensity.')+' <span style="opacity:.4;float:right">✕</span>';
     var s4el=document.getElementById('step4');if(s4el&&!s4el.contains(dlEl))s4el.prepend(dlEl);
     dlEl.style.display='block';
     evLog('deload_prompt',{sessions:sess,source:'engine'});
@@ -287,22 +287,22 @@
  var W=1080,H=1350,c=document.getElementById('shareCanvas'),ctx=c.getContext('2d');
  c.width=W;c.height=H;
  ctx.fillStyle='#14151A';ctx.fillRect(0,0,W,H);
- ctx.fillStyle='#F4C93B';ctx.fillRect(0,0,W,16);
+ ctx.fillStyle='#E2E8F0';ctx.fillRect(0,0,W,16);
  ctx.fillStyle='#1E2027';ctx.fillRect(0,16,W,120);
- ctx.fillStyle='#F4C93B';ctx.font='800 46px Arial,Helvetica,sans-serif';ctx.fillText('MUSCLE OS',60,95);
+ ctx.fillStyle='#E2E8F0';ctx.font='800 46px Arial,Helvetica,sans-serif';ctx.fillText('MUSCLE OS',60,95);
  ctx.fillStyle='rgba(250,250,248,.55)';ctx.font='600 24px Arial,Helvetica,sans-serif';ctx.fillText('TRAINING PROGRAM',60,128);
  ctx.fillStyle='#FAFAF8';ctx.font='800 64px Arial,Helvetica,sans-serif';
  var y=wrapText(ctx,splitName,60,300,W-120,76,3);
  ctx.fillStyle='rgba(250,250,248,.4)';ctx.font='600 26px Arial,Helvetica,sans-serif';
  ctx.fillText(prog.days.length+' days/week · '+goal+' · '+ta,60,y+30);
- ctx.fillStyle='#F4C93B';ctx.font='700 30px Arial,Helvetica,sans-serif';ctx.fillText('TOP EXERCISES',60,y+120);
+ ctx.fillStyle='#E2E8F0';ctx.font='700 30px Arial,Helvetica,sans-serif';ctx.fillText('TOP EXERCISES',60,y+120);
  ctx.fillStyle='#FAFAF8';ctx.font='600 40px Arial,Helvetica,sans-serif';
  top.forEach(function(ex,i){
  var ly=y+170+i*66;
- ctx.fillStyle='#F4C93B';ctx.font='800 30px Arial,Helvetica,sans-serif';ctx.fillText(String(i+1).padStart(2,'0'),60,ly);
+ ctx.fillStyle='#E2E8F0';ctx.font='800 30px Arial,Helvetica,sans-serif';ctx.fillText(String(i+1).padStart(2,'0'),60,ly);
  ctx.fillStyle='#FAFAF8';ctx.font='600 38px Arial,Helvetica,sans-serif';ctx.fillText(ex,130,ly);
  });
- ctx.fillStyle='#F4C93B';ctx.fillRect(60,H-170,W-120,4);
+ ctx.fillStyle='#E2E8F0';ctx.fillRect(60,H-170,W-120,4);
  ctx.fillStyle='rgba(250,250,248,.7)';ctx.font='700 30px Arial,Helvetica,sans-serif';ctx.fillText('muscleos.coach',60,H-100);
  ctx.fillStyle='rgba(250,250,248,.35)';ctx.font='500 22px Arial,Helvetica,sans-serif';ctx.fillText('Coach Anas Mo\u2019men',60,H-62);
  var a=document.createElement('a');
@@ -661,8 +661,8 @@
  var monoColor=ms.mono>2?'#f44336':ms.mono>1.5?'#FF9800':'#4CAF50';
  document.getElementById('combinedLoadContent').innerHTML=
  '<div style="display:flex;gap:8px;flex-wrap:wrap">'+
- '<span>'+_('cl_today')+': <strong style="color:#F4C93B">'+cl.today.combined+'</strong></span>'+
- '<span>'+_('cl_week')+': <strong style="color:#F4C93B">'+cl.week.combined+'</strong> <span style="font-size:.45rem;color:rgba(250,250,248,.15)">('+_('cl_lift')+' '+cl.week.lift.toFixed(0)+' kg · '+_('cl_nonlift')+' '+cl.week.nonlift.toFixed(0)+')</span></span>'+
+ '<span>'+_('cl_today')+': <strong style="color:#E2E8F0">'+cl.today.combined+'</strong></span>'+
+ '<span>'+_('cl_week')+': <strong style="color:#E2E8F0">'+cl.week.combined+'</strong> <span style="font-size:.45rem;color:rgba(250,250,248,.15)">('+_('cl_lift')+' '+cl.week.lift.toFixed(0)+' kg · '+_('cl_nonlift')+' '+cl.week.nonlift.toFixed(0)+')</span></span>'+
  '<span style="margin-left:auto">'+_('mono_label')+': <strong style="color:'+monoColor+'">'+ms.mono.toFixed(2)+'</strong></span>'+
  '</div>';
  }
@@ -829,7 +829,7 @@
  var sid=('c_'+di+'_'+ex.n).replace(/[^a-zA-Z0-9]/g,'_');
  var pr=null;
  if(sugg&&sugg.w&&sugg.r)pr=checkPR(ex.n,sugg.w,sugg.r,hist);
- var prHtml=pr?pr.isPR?' <span class="pr-badge" style="color:#F4C93B;border-color:#F4C93B">'+_('pr_badge_pr')+'</span>':pr.note.includes('nearby')?' <span class="pr-badge" style="color:#FF9800;border-color:rgba(255,152,0,.3)">'+_('pr_badge_close')+'</span>':'':'';if(pr&&pr.isPR)evLog('pr_badge',{ex:ex.n});
+ var prHtml=pr?pr.isPR?' <span class="pr-badge" style="color:#E2E8F0;border-color:#E2E8F0">'+_('pr_badge_pr')+'</span>':pr.note.includes('nearby')?' <span class="pr-badge" style="color:#FF9800;border-color:rgba(255,152,0,.3)">'+_('pr_badge_close')+'</span>':'':'';if(pr&&pr.isPR)evLog('pr_badge',{ex:ex.n});
  var isMain=MAIN_LIFTS.indexOf(ex.n)>=0;
  var perHtml='';
  if(peri&&isMain){mainLiftRPE(peri,wkCount||1,goal,day.n);perHtml=' <span class="per-badge">'+peri.name+'</span>';}

@@ -259,7 +259,7 @@
  var rec=determineSplit(quizA);
  document.getElementById('quizProgress').innerHTML=QUIZ.map(function(){return'<div class="prog-step done"></div>'}).join('');
  document.getElementById('quizArea').innerHTML=
- '<div style="padding:8px 0;font-size:.7rem;color:#FAFAF8;font-weight:600;margin-bottom:6px">'+_('rec_split_recommended')+': <span style="color:#F4C93B">'+rec.name+'</span></div>'+
+ '<div style="padding:8px 0;font-size:.7rem;color:#FAFAF8;font-weight:600;margin-bottom:6px">'+_('rec_split_recommended')+': <span style="color:#E2E8F0">'+rec.name+'</span></div>'+
  '<p style="font-size:.6rem;color:rgba(250,250,248,.35);margin-bottom:10px">'+rec.note+'</p>'+
  '<div class="recap-box" style="margin-bottom:6px"><div class="rb-title">'+_('quiz_summary')+'</div><strong>'+rec.key+'</strong> · '+
  quizA.days+' days · '+quizA.goal+' · '+quizA.exp+'</div>'+
@@ -329,7 +329,7 @@
  if(vi.cyclePhase==='skip'||!m.phase){info.innerHTML='';return;}
  var lbl=(m.phase==='menstrual'?_('cyc_menstrual'):m.phase==='follicular'?_('cyc_follicular'):m.phase==='ovulation'?_('cyc_ovulation'):_('cyc_luteal'));
  var txt='';
- if(vi.cyclePhase==='auto'&&ph&&day)txt='<span style="color:#F4C93B">'+_('cyc_detected')+'</span> '+lbl+' ('+CYCLE_PHASES[ph].days+') \u00b7 '+_('cyc_day')+' '+day+'/'+vi.cycleLen;
+ if(vi.cyclePhase==='auto'&&ph&&day)txt='<span style="color:#E2E8F0">'+_('cyc_detected')+'</span> '+lbl+' ('+CYCLE_PHASES[ph].days+') \u00b7 '+_('cyc_day')+' '+day+'/'+vi.cycleLen;
  else if(vi.cyclePhase!=='auto')txt=_('cyc_manual')+' '+lbl+' ('+CYCLE_PHASES[vi.cyclePhase].days+')';
  if(txt)info.innerHTML=txt+' \u00b7 '+cycleModText(m);
  }
@@ -339,8 +339,8 @@
  var vi=ls(K.VI,{}),cm=cycleMods(vi),day=cycleDayOf(vi);
  if(!cm.phase){bn.style.display='none';return;}
  var lbl=(cm.phase==='menstrual'?_('cyc_menstrual'):cm.phase==='follicular'?_('cyc_follicular'):cm.phase==='ovulation'?_('cyc_ovulation'):_('cyc_luteal'));
- bn.innerHTML='<div style="background:rgba(244,201,59,.05);border:1px solid rgba(244,201,59,.15);border-radius:8px;padding:8px 10px;margin-top:8px;font-size:.6rem;line-height:1.5">'+
- '<div style="font-weight:600;color:#F4C93B;margin-bottom:2px">'+_('cyc_banner_head')+'</div>'+
+ bn.innerHTML='<div style="background:rgba(226, 232, 240,.05);border:1px solid rgba(226, 232, 240,.15);border-radius:8px;padding:8px 10px;margin-top:8px;font-size:.6rem;line-height:1.5">'+
+ '<div style="font-weight:600;color:#E2E8F0;margin-bottom:2px">'+_('cyc_banner_head')+'</div>'+
  '<div>'+_('cyc_phase')+': <strong>'+lbl+'</strong>'+(day?' \u00b7 '+_('cyc_day')+' '+day+(vi.cycleLen?'/'+vi.cycleLen:''):'')+' \u00b7 '+cycleModText(cm)+'</div>'+
  '<div style="color:rgba(250,250,248,.55);margin-top:2px">'+_(cm.note)+'</div></div>';
  bn.style.display='block';

@@ -140,7 +140,7 @@
 
  // General warm-up for this day
  html+=renderGeneralWarmup(day.n);
- if(day.ssSuggested)html+='<div style="font-size:.5rem;color:#F4C93B;text-align:center;margin:2px 0 6px"> '+_('sess_suggest_ss')+'</div>';
+ if(day.ssSuggested)html+='<div style="font-size:.5rem;color:#E2E8F0;text-align:center;margin:2px 0 6px"> '+_('sess_suggest_ss')+'</div>';
 
  if(fs&&fs.adjust<=-1&&!lightDays[di]&&!lightProceed[di]){evLog('fat_gate',{di:di,score:fs.score});
  html+='<div class="fat-light-banner"><span class="flb-title">'+_('fat_light_title')+'</span>'+

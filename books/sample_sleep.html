@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/client https://accounts.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style https://www.gstatic.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com https://accounts.google.com https://www.gstatic.com https://ssl.gstatic.com; frame-src 'self' https://accounts.google.com/gsi/ https://accounts.google.com; connect-src 'self' https://muscleos-access-control.muscleos.workers.dev https://accounts.google.com/gsi/ https://accounts.google.com; frame-ancestors 'self'; base-uri 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Muscle OS — Free Sample: Sleep Optimization (P5)</title>
@@ -12,44 +16,44 @@ h1,h2,h3{font-family:'Oswald',sans-serif;font-weight:600;line-height:1.2}
 @page{size:A4;margin:2.5cm 2cm;@top-center{content:string(doctitle);font-family:'Inter',sans-serif;font-size:9pt;color:#8A8D96}@bottom-center{content:counter(page);font-family:'JetBrains Mono',monospace;font-size:8pt;color:#8A8D96}}
 @page :first{margin:0;@top-center{content:none}@bottom-center{content:none}}
 body{string-set:doctitle""}h1{string-set:doctitle content()}
-.cover{width:210mm;height:297mm;margin:0;background:#14151A;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;page-break-after:always}
-.cover-accent-top{position:absolute;top:0;left:0;right:0;height:4px;background:#F4C93B}.cover-accent-bottom{position:absolute;bottom:0;left:0;right:0;height:4px;background:#F4C93B}
+.cover{width:210mm;height:297mm;margin:0;background:#08090C;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;page-break-after:always}
+.cover-accent-top{position:absolute;top:0;left:0;right:0;height:4px;background:#E2E8F0}.cover-accent-bottom{position:absolute;bottom:0;left:0;right:0;height:4px;background:#E2E8F0}
 .cover-corner{position:absolute;width:18mm;height:18mm}
-.cover-corner-tl{top:12mm;left:12mm;border-top:1px solid rgba(244,201,59,0.12);border-left:1px solid rgba(244,201,59,0.12)}
-.cover-corner-tr{top:12mm;right:12mm;border-top:1px solid rgba(244,201,59,0.12);border-right:1px solid rgba(244,201,59,0.12)}
-.cover-corner-bl{bottom:12mm;left:12mm;border-bottom:1px solid rgba(244,201,59,0.12);border-left:1px solid rgba(244,201,59,0.12)}
-.cover-corner-br{bottom:12mm;right:12mm;border-bottom:1px solid rgba(244,201,59,0.12);border-right:1px solid rgba(244,201,59,0.12)}
-.cover-label{font-family:'Oswald',sans-serif;font-size:16pt;color:rgba(244,201,59,0.5);letter-spacing:8px;text-transform:uppercase;margin-bottom:8pt}
-.cover-pillar{font-family:'Oswald',sans-serif;font-size:9pt;color:rgba(244,201,59,0.45);letter-spacing:5px;text-transform:uppercase;margin-bottom:8pt;border:1px solid rgba(244,201,59,0.12);padding:3px 14px;display:inline-block}
-.cover-diamond{font-size:7pt;color:#F4C93B;opacity:0.3;margin-bottom:20pt}
-.cover-title{font-family:'Oswald',sans-serif;font-size:24pt;font-weight:700;color:#F4C93B;line-height:1.15;margin-bottom:6pt;letter-spacing:0.5px}
+.cover-corner-tl{top:12mm;left:12mm;border-top:1px solid rgba(226, 232, 240,0.12);border-left:1px solid rgba(226, 232, 240,0.12)}
+.cover-corner-tr{top:12mm;right:12mm;border-top:1px solid rgba(226, 232, 240,0.12);border-right:1px solid rgba(226, 232, 240,0.12)}
+.cover-corner-bl{bottom:12mm;left:12mm;border-bottom:1px solid rgba(226, 232, 240,0.12);border-left:1px solid rgba(226, 232, 240,0.12)}
+.cover-corner-br{bottom:12mm;right:12mm;border-bottom:1px solid rgba(226, 232, 240,0.12);border-right:1px solid rgba(226, 232, 240,0.12)}
+.cover-label{font-family:'Oswald',sans-serif;font-size:16pt;color:rgba(226, 232, 240,0.5);letter-spacing:8px;text-transform:uppercase;margin-bottom:8pt}
+.cover-pillar{font-family:'Oswald',sans-serif;font-size:9pt;color:rgba(226, 232, 240,0.45);letter-spacing:5px;text-transform:uppercase;margin-bottom:8pt;border:1px solid rgba(226, 232, 240,0.12);padding:3px 14px;display:inline-block}
+.cover-diamond{font-size:7pt;color:#E2E8F0;opacity:0.3;margin-bottom:20pt}
+.cover-title{font-family:'Oswald',sans-serif;font-size:24pt;font-weight:700;color:#E2E8F0;line-height:1.15;margin-bottom:6pt;letter-spacing:0.5px}
 .cover-tagline{font-family:'Inter',sans-serif;font-size:9pt;font-weight:400;color:#FAFAF8;opacity:0.45;letter-spacing:0;line-height:1.4;margin-bottom:0}
 .cover-author-main{font-family:'Inter',sans-serif;font-size:10pt;color:#FAFAF8;letter-spacing:1.5px;text-transform:uppercase;opacity:0.55;margin:0}
-.cover-divider{width:60px;height:2px;background:#F4C93B;margin-bottom:14pt;opacity:0.5}
+.cover-divider{width:60px;height:2px;background:#E2E8F0;margin-bottom:14pt;opacity:0.5}
 .cover-subtitle{font-family:'Inter',sans-serif;font-size:10pt;font-weight:400;color:#FAFAF8;margin-bottom:0;opacity:0.5;letter-spacing:0;line-height:1.5}
-h1{font-family:'Oswald',sans-serif;font-size:20pt;font-weight:700;color:#14151A;margin:1.5cm 0 0.5cm;page-break-before:auto;page-break-after:avoid;border-bottom:2.5px solid #F4C93B;padding-bottom:6px;letter-spacing:0.3px}
+h1{font-family:'Oswald',sans-serif;font-size:20pt;font-weight:700;color:#14151A;margin:1.5cm 0 0.5cm;page-break-before:auto;page-break-after:avoid;border-bottom:2.5px solid #E2E8F0;padding-bottom:6px;letter-spacing:0.3px}
 h2{font-family:'Oswald',sans-serif;font-size:14pt;font-weight:600;color:#14151A;margin:1cm 0 0.4cm;page-break-after:avoid;letter-spacing:0.3px}
 h3{font-size:12pt;font-weight:600;color:#1E2027;margin:0.6cm 0 0.3cm;page-break-after:avoid}
 p{margin:0.3cm 0}strong{color:#14151A;font-weight:600}
 table{width:100%;max-width:100%;border-collapse:collapse;margin:0.5cm 0;font-size:9.5pt;box-sizing:border-box;font-family:'JetBrains Mono',monospace}
 thead{display:table-header-group}
-thead tr{border-top:2.5px solid #F4C93B;border-bottom:1.5px solid #14151A}
+thead tr{border-top:2.5px solid #E2E8F0;border-bottom:1.5px solid #14151A}
 thead th{padding:6px 8px;text-align:left;font-weight:600;color:#14151A;font-family:'Oswald',sans-serif;font-size:10pt;letter-spacing:0.5px;text-transform:uppercase}
 tbody td{padding:5px 8px;vertical-align:top}
 tbody tr{border-bottom:0.5px solid #E4E1D8}
-tbody tr:last-child{border-bottom:2.5px solid #F4C93B}
+tbody tr:last-child{border-bottom:2.5px solid #E2E8F0}
 tbody tr:nth-child(even){background:#f5f5f3}
 caption{text-align:left;font-weight:600;margin-bottom:4px;font-size:10pt;font-family:'Oswald',sans-serif;color:#14151A;letter-spacing:0.3px}
-caption::before{content:attr(data-label)"  ";font-weight:700}
+caption::before{content:attr(data-label)" ";font-weight:700}
 tr{page-break-inside:avoid}
-.callout{background:#14151A;color:#FAFAF8;padding:10pt 14pt;margin:0.5cm 0;font-size:10pt;line-height:1.55}
-.callout-title{font-weight:700;color:#F4C93B;margin-bottom:4px}.callout p{color:#FAFAF8;margin:4px 0}
+.callout{background:#08090C;color:#FAFAF8;padding:10pt 14pt;margin:0.5cm 0;font-size:10pt;line-height:1.55}
+.callout-title{font-weight:700;color:#E2E8F0;margin-bottom:4px}.callout p{color:#FAFAF8;margin:4px 0}
 .chapter-summary{border:1.5px solid #14151A;padding:14px 18px;margin:0.6cm 0;background:#FAFAF8;page-break-inside:avoid}
-.chapter-summary .summary-title{font-family:'Oswald',sans-serif;font-weight:600;font-size:10pt;color:#FAF8F8;background:#14151A;display:inline-block;padding:2px 10px;margin-bottom:8px;letter-spacing:0.5px;text-transform:uppercase}
+.chapter-summary .summary-title{font-family:'Oswald',sans-serif;font-weight:600;font-size:10pt;color:#FAF8F8;background:#08090C;display:inline-block;padding:2px 10px;margin-bottom:8px;letter-spacing:0.5px;text-transform:uppercase}
 .chapter-summary p{margin:4px 0;font-size:10.5pt;color:#14151A}
 ul{margin:0.3cm 0;padding-left:1.5em}li{margin:4px 0}
 .sample-footer{margin-top:1cm;text-align:center;font-family:'Oswald',sans-serif;font-size:12pt;color:#8A8D96;border-top:1px solid #E4E1D8;padding-top:12pt}
-.sample-footer a{color:#C9A227;text-decoration:none}
+.sample-footer a{color:#94A3B8;text-decoration:none}
 .section-break{page-break-before:always}
 </style>
 </head>
@@ -122,5 +126,6 @@ ul{margin:0.3cm 0;padding-left:1.5em}li{margin:4px 0}
 <p>This is a free sample from the Muscle OS Reference Library &mdash; Sleep Optimization (P5).<br>
 <a href="../knowledge-hub/">Explore the complete collection &rarr;</a></p>
 </div>
+<script src="../js/auth.js"></script>
 </body>
 </html>

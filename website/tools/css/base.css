@@ -1,29 +1,31 @@
 /* Muscle OS — Base Design Tokens, Typography, Resets & Safe Area */
 :root {
-  --bg: #0A0B0E;
-  --surface: #14151A;
-  --surface-2: #1E2027;
-  --card: #1E2027;
-  --card2: #26282F;
+  --bg: #08090C;
+  --bg-deep: #020304;
+  --surface: #12141A;
+  --surface-2: #161822;
+  --card: #161822;
+  --card2: #222532;
   --text: #FAFAF8;
-  --text-soft: rgba(250, 250, 248, 0.78);
-  --text-dim: rgba(250, 250, 248, 0.68);
-  --text-muted: rgba(250, 250, 248, 0.58);
-  --text-faint: rgba(250, 250, 248, 0.38);
-  --line: rgba(250, 250, 248, 0.1);
-  --line-strong: rgba(250, 250, 248, 0.2);
+  --text-soft: #CBD5E1;
+  --text-dim: #94A3B8;
+  --text-muted: #64748B;
+  --text-faint: rgba(250, 250, 248, 0.3);
+  --line: #262936;
+  --line-strong: rgba(255, 255, 255, 0.16);
   --fill: rgba(250, 250, 248, 0.04);
-  --input-bg: rgba(20, 21, 26, 0.6);
-  --input-line: rgba(250, 250, 248, 0.15);
-  --accent: #F4C93B;
-  --accent-soft: rgba(244, 201, 59, 0.12);
-  --accent-soft2: rgba(244, 201, 59, 0.25);
-  --green: #4CAF50;
-  --green-soft: rgba(76, 175, 80, 0.15);
-  --red: #f44336;
-  --red-soft: rgba(244, 67, 54, 0.15);
-  --blue: #3b82f6;
-  --blue-soft: rgba(59, 130, 246, 0.15);
+  --input-bg: rgba(18, 20, 26, 0.85);
+  --input-line: #262936;
+  --accent: #E2E8F0;
+  --accent-pure: #FFFFFF;
+  --accent-soft: rgba(226, 232, 240, 0.12);
+  --accent-soft2: rgba(226, 232, 240, 0.25);
+  --green: #10B981;
+  --green-soft: rgba(16, 185, 129, 0.15);
+  --red: #EF4444;
+  --red-soft: rgba(239, 68, 68, 0.15);
+  --blue: #38BDF8;
+  --blue-soft: rgba(56, 189, 248, 0.15);
 }
 
 *, *::before, *::after {

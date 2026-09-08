@@ -25,5 +25,5 @@
  });
  html+='</div><div style="display:flex;justify-content:space-between;font-size:.4rem;color:rgba(250,250,248,.12);margin-top:2px">';
  sorted.forEach(function(e){html+='<span>'+e.date.slice(5)+'</span>';});
- html+='</div><div style="margin-top:6px;font-size:.55rem;color:rgba(250,250,248,.2)">e1RM: <strong style="color:#F4C93B">'+sorted[0].e1RM+'</strong> → <strong style="color:#F4C93B">'+sorted[sorted.length-1].e1RM+'</strong> kg ('+(((sorted[sorted.length-1].e1RM-sorted[0].e1RM)/sorted[0].e1RM*100)||0).toFixed(1)+'%)</div>';
+ html+='</div><div style="margin-top:6px;font-size:.55rem;color:rgba(250,250,248,.2)">e1RM: <strong style="color:#E2E8F0">'+sorted[0].e1RM+'</strong> → <strong style="color:#E2E8F0">'+sorted[sorted.length-1].e1RM+'</strong> kg ('+(((sorted[sorted.length-1].e1RM-sorted[0].e1RM)/sorted[0].e1RM*100)||0).toFixed(1)+'%)</div>';
  document.getElementById('histChart').innerHTML=html;

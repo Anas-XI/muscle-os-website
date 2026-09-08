@@ -9,34 +9,56 @@
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  /* shadcn/ui Dark System Tokens */
-  --mos-bg: #0A0B0E;
-  --mos-surface: #14151A;
-  --mos-surface-2: #1E2027;
-  --mos-surface-3: #262933;
-  --mos-border: rgba(255, 255, 255, 0.08);
-  --mos-border-subtle: rgba(255, 255, 255, 0.04);
-  --mos-border-focus: rgba(244, 201, 59, 0.5);
-
-  --mos-yellow: #F4C93B;
-  --mos-yellow-hover: #FADB6A;
-  --mos-yellow-glow: rgba(244, 201, 59, 0.28);
-  --mos-green: #34D399;
-  --mos-green-glow: rgba(52, 211, 153, 0.25);
+  /* Brand System Tokens: Black, Charcoal, Grey & Silver */
+  --mos-black: #08090C;
+  --mos-black-deep: #020304;
+  --mos-bg: #08090C;
+  
+  --mos-charcoal-1: #12141A;
+  --mos-charcoal-2: #161822;
+  --mos-charcoal-3: #222532;
+  --mos-surface: #12141A;
+  --mos-surface-2: #161822;
+  --mos-surface-3: #222532;
+  --mos-card: #161822;
+  
+  --mos-border: #262936;
+  --mos-border-subtle: rgba(255, 255, 255, 0.05);
+  --mos-border-focus: rgba(226, 232, 240, 0.6);
+  
+  --mos-grey: #64748B;
+  --mos-grey-light: #94A3B8;
+  --mos-grey-slate: #94A3B8;
+  
+  --mos-silver: #E2E8F0;
+  --mos-silver-dim: #CBD5E1;
+  --mos-silver-hover: #FFFFFF;
+  --mos-silver-pure: #FFFFFF;
+  --mos-silver-glow: rgba(226, 232, 240, 0.25);
+  
+  /* Compatibility aliases mapped directly to Silver */
+  --mos-yellow: #E2E8F0;
+  --mos-yellow-hover: #FFFFFF;
+  --mos-yellow-glow: rgba(226, 232, 240, 0.25);
+  
+  /* Functional Biomechanical Indicators (Preserved) */
+  --mos-green: #10B981;
+  --mos-green-glow: rgba(16, 185, 129, 0.25);
+  --mos-amber: #F59E0B;
   --mos-blue: #38BDF8;
   --mos-purple: #A855F7;
-  --mos-red: #F87171;
+  --mos-red: #EF4444;
 
   --mos-text: #FAFAF8;
-  --mos-text-muted: #8A8D96;
-  --mos-text-dim: rgba(250, 250, 248, 0.38);
+  --mos-text-muted: #94A3B8;
+  --mos-text-dim: #64748B;
 
   --mos-radius: 12px;
   --mos-radius-sm: 8px;
   --mos-radius-full: 9999px;
 
   /* Haikei Procedural Topographic & Mesh Patterns */
-  --mos-topo-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800'%3E%3Cpath d='M0,350 C150,330 300,380 450,340 C600,300 700,370 800,350 L800,800 L0,800 Z' fill='none' stroke='rgba(244,201,59,0.035)' stroke-width='1.5'/%3E%3Cpath d='M0,450 C200,430 350,490 500,440 C650,400 750,460 800,450' fill='none' stroke='rgba(255,255,255,0.025)' stroke-width='1.5'/%3E%3Cpath d='M0,550 C120,530 280,570 420,530 C580,500 680,560 800,550' fill='none' stroke='rgba(244,201,59,0.025)' stroke-width='1.5'/%3E%3Cpath d='M0,650 C180,630 320,680 480,640 C620,610 720,670 800,650' fill='none' stroke='rgba(255,255,255,0.02)' stroke-width='1.5'/%3E%3C/svg%3E");
+  --mos-topo-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800'%3E%3Cpath d='M0,350 C150,330 300,380 450,340 C600,300 700,370 800,350 L800,800 L0,800 Z' fill='none' stroke='rgba(226,232,240,0.04)' stroke-width='1.5'/%3E%3Cpath d='M0,450 C200,430 350,490 500,440 C650,400 750,460 800,450' fill='none' stroke='rgba(255,255,255,0.025)' stroke-width='1.5'/%3E%3Cpath d='M0,550 C120,530 280,570 420,530 C580,500 680,560 800,550' fill='none' stroke='rgba(226,232,240,0.03)' stroke-width='1.5'/%3E%3Cpath d='M0,650 C180,630 320,680 480,640 C620,610 720,670 800,650' fill='none' stroke='rgba(255,255,255,0.02)' stroke-width='1.5'/%3E%3C/svg%3E");
   
   --mos-mesh-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z' fill='none' stroke='rgba(255,255,255,0.018)' stroke-width='1'/%3E%3C/svg%3E");
 }
@@ -59,7 +81,7 @@
 
 /* Haikei Background Accents */
 .mos-bg-topo {
-  background-image: var(--mos-topo-svg), radial-gradient(circle at 85% 15%, #221b08 0%, #0A0B0E 65%);
+  background-image: var(--mos-topo-svg), radial-gradient(circle at 85% 15%, #1C1E26 0%, #08090C 65%);
   background-repeat: repeat-y, no-repeat;
   background-size: 100% auto, cover;
 }
@@ -79,7 +101,7 @@
   right: -50px;
   width: 260px;
   height: 260px;
-  background: radial-gradient(circle, var(--mos-yellow-glow) 0%, rgba(244, 201, 59, 0) 70%);
+  background: radial-gradient(circle, var(--mos-yellow-glow) 0%, rgba(226, 232, 240, 0) 70%);
   pointer-events: none;
   z-index: 0;
   opacity: 0.6;
@@ -100,7 +122,7 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(244, 201, 59, 0.12), transparent 40%);
+  background: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(226, 232, 240, 0.12), transparent 40%);
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
@@ -112,8 +134,8 @@
 }
 
 .originkit-spotlight:hover {
-  border-color: rgba(244, 201, 59, 0.35);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(244, 201, 59, 0.08);
+  border-color: rgba(226, 232, 240, 0.35);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(226, 232, 240, 0.08);
   transform: translateY(-2px);
 }
 
@@ -224,7 +246,7 @@
 }
 
 .mos-quick-inc-btn:hover {
-  background: rgba(244, 201, 59, 0.15);
+  background: rgba(226, 232, 240, 0.15);
   border-color: var(--mos-yellow);
   color: var(--mos-yellow);
 }
@@ -267,8 +289,8 @@
   font-family: var(--font-mono);
   font-size: 0.72rem;
   color: var(--mos-yellow);
-  background: rgba(244, 201, 59, 0.12);
-  border: 1px solid rgba(244, 201, 59, 0.25);
+  background: rgba(226, 232, 240, 0.12);
+  border: 1px solid rgba(226, 232, 240, 0.25);
   padding: 2px 8px;
   border-radius: 4px;
 }
@@ -568,7 +590,7 @@
 }
 
 .ex-screen-pill.active {
-  background: linear-gradient(135deg, rgba(244, 201, 59, 0.2), rgba(244, 201, 59, 0.05));
+  background: linear-gradient(135deg, rgba(226, 232, 240, 0.2), rgba(226, 232, 240, 0.05));
   border-color: var(--mos-yellow);
   color: var(--mos-yellow);
   box-shadow: 0 0 12px var(--mos-yellow-glow);
@@ -699,10 +721,10 @@
 }
 
 .mos-chip-item.active {
-  background: rgba(244, 201, 59, 0.15);
+  background: rgba(226, 232, 240, 0.15);
   border-color: var(--mos-yellow);
   color: var(--mos-yellow);
-  box-shadow: 0 0 8px rgba(244, 201, 59, 0.25);
+  box-shadow: 0 0 8px rgba(226, 232, 240, 0.25);
   font-weight: 600;
 }
 
@@ -757,11 +779,11 @@
 }
 
 .mos-spec-chip:hover {
-  border-color: rgba(244, 201, 59, 0.4);
+  border-color: rgba(226, 232, 240, 0.4);
 }
 
 .mos-spec-chip.active {
-  background: rgba(244, 201, 59, 0.12);
+  background: rgba(226, 232, 240, 0.12);
   border-color: var(--mos-yellow);
   box-shadow: 0 0 12px var(--mos-yellow-glow);
 }

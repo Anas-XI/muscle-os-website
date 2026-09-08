@@ -26,7 +26,7 @@
  var mxCl=Math.max.apply(null,weeks.map(function(w){return w.combined}).concat([1]));
  var html='';
  html+='<div style="font-size:.5rem;color:rgba(250,250,248,.2);margin:6px 0 2px">'+_('trend_volume')+' <span style="font-size:.42rem;color:rgba(250,250,248,.1)">— '+_('weekly_sets')+'</span></div>';
- html+='<div style="display:flex;align-items:flex-end;gap:2px;height:44px">'+weeks.map(function(w){var h=Math.max(3,Math.round(w.sets/mxSets*40));return '<div title="'+w.label+': '+w.sets+' sets" style="flex:1;height:'+h+'px;background:rgba(244,201,59,.45);border-radius:2px"></div>';}).join('')+'</div>';
+ html+='<div style="display:flex;align-items:flex-end;gap:2px;height:44px">'+weeks.map(function(w){var h=Math.max(3,Math.round(w.sets/mxSets*40));return '<div title="'+w.label+': '+w.sets+' sets" style="flex:1;height:'+h+'px;background:rgba(226, 232, 240,.45);border-radius:2px"></div>';}).join('')+'</div>';
  html+='<div style="font-size:.5rem;color:rgba(250,250,248,.2);margin:8px 0 2px">'+_('trend_combined')+'</div>';
  html+='<div style="display:flex;align-items:flex-end;gap:2px;height:44px">'+weeks.map(function(w){var h=Math.max(3,Math.round(w.combined/mxCl*40));return '<div title="'+w.label+': '+w.combined+' u" style="flex:1;height:'+h+'px;background:rgba(33,150,243,.45);border-radius:2px"></div>';}).join('')+'</div>';
  html+='<div style="font-size:.5rem;color:rgba(250,250,248,.2);margin:8px 0 2px">'+_('mono_label')+' <span style="font-size:.42rem;color:rgba(250,250,248,.1)">— '+_('mono_thresh')+'</span></div>';
@@ -34,7 +34,7 @@
  var pr=ls(K.PR,null);
  if(pr&&pr.muscles&&pr.muscles.length){
  var names=pr.muscles.map(function(m){for(var i2=0;i2<MUSCLES.length;i2++){if(MUSCLES[i2].id===m)return MUSCLES[i2].name;}return m;}).join(', ');
- html+='<div style="font-size:.5rem;color:rgba(250,250,248,.2);margin-top:8px">'+_('trend_priority')+': <strong style="color:#F4C93B">'+names+'</strong> <span style="font-size:.45rem;color:rgba(250,250,248,.15)">— '+_('trend_updated')+': '+(pr.updated||'—')+'</span></div>';
+ html+='<div style="font-size:.5rem;color:rgba(250,250,248,.2);margin-top:8px">'+_('trend_priority')+': <strong style="color:#E2E8F0">'+names+'</strong> <span style="font-size:.45rem;color:rgba(250,250,248,.15)">— '+_('trend_updated')+': '+(pr.updated||'—')+'</span></div>';
  }
  var overMono=weeks.filter(function(w){return w.mono>2}).length;
  var totSets=weeks.reduce(function(a,w){return a+w.sets},0);

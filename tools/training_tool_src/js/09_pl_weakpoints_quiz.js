@@ -97,7 +97,7 @@
  if(!pill){
  pill = document.createElement('span');
  pill.id = 'trialPill';
- pill.style.cssText = 'display:inline-flex;align-items:center;gap:4px;font-size:.5rem;color:#F4C93B;border:1px solid rgba(244,201,59,.25);background:rgba(244,201,59,.06);border-radius:20px;padding:2px 8px;margin-left:6px;white-space:nowrap;cursor:default';
+ pill.style.cssText = 'display:inline-flex;align-items:center;gap:4px;font-size:.5rem;color:#E2E8F0;border:1px solid rgba(226, 232, 240,.25);background:rgba(226, 232, 240,.06);border-radius:20px;padding:2px 8px;margin-left:6px;white-space:nowrap;cursor:default';
  pill.innerHTML = '<span data-i18n="trial_pill_pre"></span><b id="trialDays" style="font-weight:700"></b><span data-i18n="trial_pill_post"></span>';
  var top = document.querySelector('.header-top');
  if(top) top.appendChild(pill);

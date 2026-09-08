@@ -1,5 +1,5 @@
-// Muscle OS Omni Hub — Service Worker (v4.1.0 Offline-First + Stale-While-Revalidate)
-const CACHE_NAME = 'mos-omni-v4.1.0';
+// Muscle OS Omni Hub — Service Worker (v5.0.0 Offline-First + Stale-While-Revalidate)
+const CACHE_NAME = 'mos-omni-v5.0.0';
 const CORE_ASSETS = [
   './',
   './index.html',

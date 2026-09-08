@@ -9,18 +9,20 @@
 
   var MOS_Charts = {};
 
-  // Color Tokens
+  // Color Tokens: Black, Charcoal, Grey & Silver
   var THEME = {
-    bg: '#14151A',
-    card: '#1E1E2A',
-    cardBorder: 'rgba(244, 201, 59, 0.18)',
-    text: '#FAFAF8',
-    muted: 'rgba(250, 250, 248, 0.45)',
-    accent: '#F4C93B',
-    accentGrad: ['#F4C93B', '#E8A83A'],
-    green: '#22c55e',
-    blue: '#38bdf8',
-    red: '#f43f5e',
+    bg: '#08090C',
+    card: '#161822',
+    cardBorder: '#262936',
+    text: '#FFFFFF',
+    muted: '#94A3B8',
+    subtle: '#64748B',
+    accent: '#E2E8F0',
+    accentGrad: ['#FFFFFF', '#CBD5E1', '#94A3B8'],
+    green: '#10B981',
+    blue: '#38BDF8',
+    red: '#EF4444',
+    amber: '#F59E0B',
     fontSans: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
     fontMono: "'JetBrains Mono', monospace",
     fontDisplay: "'Oswald', sans-serif"
@@ -52,7 +54,7 @@
     var opts = options || {};
     var size = opts.size || 180;
     var rings = opts.rings || [
-      { label: 'Volume', value: 85, max: 100, color: '#F4C93B' },
+      { label: 'Volume', value: 85, max: 100, color: '#E2E8F0' },
       { label: 'Adherence', value: 92, max: 100, color: '#22c55e' },
       { label: 'Recovery', value: 78, max: 100, color: '#38bdf8' }
     ];
@@ -175,7 +177,7 @@
         var grad = ctx.createLinearGradient(cx - radius, cy, cx + radius, cy);
         grad.addColorStop(0, '#38bdf8');
         grad.addColorStop(0.5, '#22c55e');
-        grad.addColorStop(1, '#F4C93B');
+        grad.addColorStop(1, '#E2E8F0');
 
         ctx.save();
         ctx.beginPath();
@@ -183,7 +185,7 @@
         ctx.strokeStyle = grad;
         ctx.lineWidth = arcWidth;
         ctx.lineCap = 'round';
-        ctx.shadowColor = '#F4C93B';
+        ctx.shadowColor = '#E2E8F0';
         ctx.shadowBlur = 8;
         ctx.stroke();
         ctx.restore();
@@ -323,8 +325,8 @@
       ctx.lineTo(pts[0].x, pad.top + plotH);
       ctx.closePath();
       var areaGrad = ctx.createLinearGradient(0, pad.top, 0, pad.top + plotH);
-      areaGrad.addColorStop(0, opts.fillColor || 'rgba(244, 201, 59, 0.25)');
-      areaGrad.addColorStop(1, 'rgba(244, 201, 59, 0.0)');
+      areaGrad.addColorStop(0, opts.fillColor || 'rgba(226, 232, 240, 0.25)');
+      areaGrad.addColorStop(1, 'rgba(226, 232, 240, 0.0)');
       ctx.fillStyle = areaGrad;
       ctx.fill();
       ctx.restore();
@@ -431,9 +433,9 @@
     var opts = options || {};
     var size = opts.size || 190;
     var segments = opts.segments || [
-      { label: 'Protein', value: 180, color: '#F4C93B' },
-      { label: 'Fats', value: 65, color: '#e8a83a' },
-      { label: 'Carbs', value: 240, color: '#c48a30' }
+      { label: 'Protein', value: 180, color: '#E2E8F0' },
+      { label: 'Fats', value: 65, color: '#64748B' },
+      { label: 'Carbs', value: 240, color: '#94A3B8' }
     ];
 
     var total = segments.reduce(function(acc, s) { return acc + (s.value || 0); }, 0);
@@ -541,9 +543,9 @@
         col.forEach(function(cell, rIdx) {
           var y = 8 + (rIdx * (cellSize + gap));
           var fill = 'rgba(255, 255, 255, 0.05)';
-          if (cell.level >= 3) fill = '#F4C93B';
-          else if (cell.level === 2) fill = 'rgba(244, 201, 59, 0.65)';
-          else if (cell.level === 1) fill = 'rgba(244, 201, 59, 0.3)';
+          if (cell.level >= 3) fill = '#E2E8F0';
+          else if (cell.level === 2) fill = 'rgba(226, 232, 240, 0.65)';
+          else if (cell.level === 1) fill = 'rgba(226, 232, 240, 0.3)';
 
           ctx.beginPath();
           ctx.roundRect ? ctx.roundRect(x, y, cellSize, cellSize, 2) : ctx.rect(x, y, cellSize, cellSize);
@@ -705,7 +707,7 @@
         var tEnd = startAngle + (totalSweep * (targetMax / 21.0));
         ctx.beginPath();
         ctx.arc(cx, cy, radius, tStart, tEnd, false);
-        ctx.strokeStyle = 'rgba(244, 201, 59, 0.35)';
+        ctx.strokeStyle = 'rgba(226, 232, 240, 0.35)';
         ctx.lineWidth = strokeW + 4;
         ctx.stroke();
       }
@@ -743,7 +745,7 @@
       ctx.fillText(cat, cx, cy + (size * 0.20));
 
       // 6. Target Corridor Footnote
-      ctx.fillStyle = 'rgba(244, 201, 59, 0.85)';
+      ctx.fillStyle = 'rgba(226, 232, 240, 0.85)';
       ctx.font = '500 ' + Math.max(Math.round(size * 0.044), 9) + 'px ' + THEME.fontSans;
       ctx.fillText('TARGET CORRIDOR: ' + targetMin.toFixed(1) + ' – ' + targetMax.toFixed(1), cx, size * 0.92);
 

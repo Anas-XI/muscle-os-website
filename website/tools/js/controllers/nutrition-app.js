@@ -392,8 +392,8 @@ numbersHtml += '<div class="dash-macro-grid">' +
  '<div class="bar-seg bar-c" style="width:'+cP+'%">'+cP+'%</div>' +
  '</div>' +
  '<div class="bar-legend">' +
- '<span class="bar-leg-item"><span class="bar-dot" style="background:#F4C93B"></span>Protein</span>' +
- '<span class="bar-leg-item"><span class="bar-dot" style="background:#e8a83a"></span>Fat</span>' +
+ '<span class="bar-leg-item"><span class="bar-dot" style="background:#E2E8F0"></span>Protein</span>' +
+ '<span class="bar-leg-item"><span class="bar-dot" style="background:#E2E8F0"></span>Fat</span>' +
  '<span class="bar-leg-item"><span class="bar-dot" style="background:#c48a30"></span>Carbs</span>' +
  '</div>';
 
@@ -405,7 +405,7 @@ numbersHtml += '<div class="dash-macro-grid">' +
  '<div class="dash-row"><span class="l">Bio adjustment</span><span class="v">'+(r.bioAdj>=0?'+':'')+r.bioAdj+' kcal</span></div>';
 
  if(r.safetyCapped){
- numbersHtml += '<div class="dash-row"><span class="l">Safety cap (BF% too low for this goal)</span><span class="v" style="color:#F4C93B">Active</span></div>';
+ numbersHtml += '<div class="dash-row"><span class="l">Safety cap (BF% too low for this goal)</span><span class="v" style="color:#E2E8F0">Active</span></div>';
  }
 
  const cycleLabel = p.cyclePhase === 'luteal' ? ' (luteal +7%)' : '';
@@ -436,7 +436,7 @@ numbersHtml += '<div class="dash-macro-grid">' +
  renderFoodTab();
 
  // Edit tab
- document.getElementById('dash-edit').innerHTML = '<div class="section-header">Edit Profile</div><p style="font-size:.72rem;color:rgba(250,250,248,.7);margin-bottom:12px;line-height:1.5;">Changing your profile will reset the recalibration cycle (current weight log is preserved).</p><button class="btn-secondary" id="backToProfile">Edit Profile Settings</button><div style="margin-top:14px;border-top:1px solid rgba(250,250,248,.06);padding-top:14px"><div class="section-header" style="margin-top:0">Data Management</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn-secondary" id="exportTdeeBtn" style="flex:1;text-align:center">⬇ Export JSON</button><button class="btn-secondary" id="importTdeeBtn" style="flex:1;text-align:center">⬆ Import JSON</button><button class="btn-secondary" onclick="copyBackupToClipboard()" style="flex:1;text-align:center;color:#F4C93B"> Copy Backup Code</button><button class="btn-secondary" onclick="pasteBackupFromClipboard()" style="flex:1;text-align:center;color:#F4C93B"> Paste Backup Code</button></div></div><input type="file" id="tdeeImportInput" accept=".json" style="display:none">';
+ document.getElementById('dash-edit').innerHTML = '<div class="section-header">Edit Profile</div><p style="font-size:.72rem;color:rgba(250,250,248,.7);margin-bottom:12px;line-height:1.5;">Changing your profile will reset the recalibration cycle (current weight log is preserved).</p><button class="btn-secondary" id="backToProfile">Edit Profile Settings</button><div style="margin-top:14px;border-top:1px solid rgba(250,250,248,.06);padding-top:14px"><div class="section-header" style="margin-top:0">Data Management</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn-secondary" id="exportTdeeBtn" style="flex:1;text-align:center">⬇ Export JSON</button><button class="btn-secondary" id="importTdeeBtn" style="flex:1;text-align:center">⬆ Import JSON</button><button class="btn-secondary" onclick="copyBackupToClipboard()" style="flex:1;text-align:center;color:#E2E8F0"> Copy Backup Code</button><button class="btn-secondary" onclick="pasteBackupFromClipboard()" style="flex:1;text-align:center;color:#E2E8F0"> Paste Backup Code</button></div></div><input type="file" id="tdeeImportInput" accept=".json" style="display:none">';
  document.getElementById('backToProfile').addEventListener('click', function(){
  document.getElementById('dashboardView').style.display = 'none';
  document.getElementById('profileView').style.display = 'block';
@@ -584,7 +584,7 @@ numbersHtml += '<div class="dash-macro-grid">' +
  statsGrid.innerHTML = `
  <div class="welcome-stat-item">
  <div class="welcome-stat-lbl">Target Caloric Intake</div>
- <div class="welcome-stat-val" style="color:#F4C93B">${Math.round(r.goalCal)} kcal/day</div>
+ <div class="welcome-stat-val" style="color:#E2E8F0">${Math.round(r.goalCal)} kcal/day</div>
  <div class="welcome-stat-sub">TDEE Baseline: ${Math.round(r.tdee)} kcal</div>
  </div>
  <div class="welcome-stat-item">
@@ -1052,8 +1052,8 @@ numbersHtml += '<div class="dash-macro-grid">' +
  }
  const step = MOS_TOUR_STEPS[stepIdx];
  modal.innerHTML = `
- <div class="card animate-in" style="max-width:440px;width:90%;border:1.5px solid #F4C93B;box-shadow:0 0 32px rgba(244,201,59,.35);background:#1A1B26">
- <div style="font-family:'Oswald',sans-serif;font-size:1.15rem;color:#F4C93B;margin-bottom:8px">${step.title}</div>
+ <div class="card animate-in" style="max-width:440px;width:90%;border:1.5px solid #E2E8F0;box-shadow:0 0 32px rgba(226, 232, 240, .35);background:#1A1B26">
+ <div style="font-family:'Oswald',sans-serif;font-size:1.15rem;color:#E2E8F0;margin-bottom:8px">${step.title}</div>
  <div style="font-size:.78rem;line-height:1.6;color:rgba(250,250,248,.85);margin-bottom:16px">${step.desc}</div>
  <div style="display:flex;justify-content:space-between;align-items:center">
  <span style="font-size:.65rem;color:rgba(250,250,248,.7)">Step ${stepIdx + 1} of ${MOS_TOUR_STEPS.length}</span>
@@ -1160,14 +1160,14 @@ numbersHtml += '<div class="dash-macro-grid">' +
  <!-- Dynamic Carb Cycling & Chronotype Controller -->
  <div class="section-header" style="margin-top:14px">Dynamic Carb Cycling &amp; Chronotype Eating</div>
  <div style="background:rgba(20,21,26,.5);padding:10px;border-radius:10px;border:1px solid rgba(250,250,248,.08);margin:8px 0;font-size:.7rem">
- <div style="font-weight:600;color:#F4C93B;margin-bottom:4px"> Carb Cycling Mode Today:</div>
+ <div style="font-weight:600;color:#E2E8F0;margin-bottom:4px"> Carb Cycling Mode Today:</div>
  <div style="display:flex;gap:6px;margin-bottom:8px">
  <button class="sex-btn ${(localStorage.getItem('mos_carb_cycle_'+currentFoodDate)||'mod')==='high'?'active':''}" onclick="setCarbCycleDay('high')" style="padding:4px;font-size:.6rem"> High Carb (+25% Legs/Back)</button>
  <button class="sex-btn ${(localStorage.getItem('mos_carb_cycle_'+currentFoodDate)||'mod')==='mod'?'active':''}" onclick="setCarbCycleDay('mod')" style="padding:4px;font-size:.6rem">⚖ Moderate (Upper Body)</button>
  <button class="sex-btn ${(localStorage.getItem('mos_carb_cycle_'+currentFoodDate)||'mod')==='low'?'active':''}" onclick="setCarbCycleDay('low')" style="padding:4px;font-size:.6rem"> Low Carb (-35% Rest Day)</button>
  </div>
 
- <div style="font-weight:600;color:#F4C93B;margin-bottom:4px"> Chronotype &amp; Circadian Rhythm Timing:</div>
+ <div style="font-weight:600;color:#E2E8F0;margin-bottom:4px"> Chronotype &amp; Circadian Rhythm Timing:</div>
  <div style="display:flex;gap:6px;margin-bottom:6px">
  <button class="sex-btn ${(localStorage.getItem('mos_chronotype')||'lark')==='lark'?'active':''}" onclick="setChronotype('lark')" style="padding:4px;font-size:.6rem"> Early Lark (60% Carbs before 2pm)</button>
  <button class="sex-btn ${(localStorage.getItem('mos_chronotype')||'lark')==='owl'?'active':''}" onclick="setChronotype('owl')" style="padding:4px;font-size:.6rem"> Night Owl (Backload Carbs)</button>
@@ -1233,7 +1233,7 @@ numbersHtml += '<div class="dash-macro-grid">' +
  <div style="background:rgba(20,21,26,.5);padding:10px;border-radius:10px;border:1px solid rgba(250,250,248,.08);margin:8px 0">
  <div style="display:flex;justify-content:space-between;font-size:.72rem;margin-bottom:6px">
  <span> Daily Water Intake: <strong>${((parseFloat(localStorage.getItem('mos_water_'+currentFoodDate))||0)/1000).toFixed(2)}L / 3.5L Target</strong></span>
- <span style="color:${totPot>0 && (totSod/totPot)<=0.8?'#4CAF50':'#F4C93B'}">Na:K Ratio: <strong>${totPot>0?(totSod/totPot).toFixed(2):'0.00'}</strong> (Ideal &lt; 0.8)</span>
+ <span style="color:${totPot>0 && (totSod/totPot)<=0.8?'#4CAF50':'#E2E8F0'}">Na:K Ratio: <strong>${totPot>0?(totSod/totPot).toFixed(2):'0.00'}</strong> (Ideal &lt; 0.8)</span>
  </div>
  <div style="display:flex;gap:6px">
  <button class="btn-secondary" onclick="addWater(250)" style="flex:1;padding:4px;font-size:.65rem">+250 ml</button>
@@ -1636,7 +1636,7 @@ if(data && data.error === 'wrong_product') msg = 'This code unlocks the OMNI HUB
     if(!pill){
       pill = document.createElement('span');
       pill.id = 'trialPill';
-      pill.style.cssText = 'display:inline-flex;align-items:center;gap:4px;font-size:.55rem;color:#F4C93B;border:1px solid rgba(244,201,59,.25);background:rgba(244,201,59,.06);border-radius:20px;padding:3px 10px;margin-top:6px;font-weight:600;letter-spacing:1px;text-transform:uppercase;';
+      pill.style.cssText = 'display:inline-flex;align-items:center;gap:4px;font-size:.55rem;color:#E2E8F0;border:1px solid rgba(226, 232, 240, .25);background:rgba(226, 232, 240, .06);border-radius:20px;padding:3px 10px;margin-top:6px;font-weight:600;letter-spacing:1px;text-transform:uppercase;';
       pill.innerHTML = 'TRIAL: ' + trial.daysLeft + ' DAYS LEFT';
       var header = document.querySelector('.header');
       if(header) header.appendChild(pill);

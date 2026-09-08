@@ -10,7 +10,7 @@
 
  <div class="btn-group">
  <button class="btn-primary" id="changeSplitBtn" style="background:transparent;border:1.5px solid rgba(250,250,248,.08);color:rgba(250,250,248,.35);font-size:.65rem;padding:8px 0;flex:.5" data-i18n="change_split">Change Split</button>
- <button class="btn-primary" id="savePdfBtn" style="background:rgba(244,201,59,.06);border:1px solid rgba(244,201,59,.15);color:#F4C93B;font-size:.65rem;padding:8px 0;flex:.5" data-i18n="save_pdf">Save PDF</button>
+ <button class="btn-primary" id="savePdfBtn" style="background:rgba(226, 232, 240,.06);border:1px solid rgba(226, 232, 240,.15);color:#E2E8F0;font-size:.65rem;padding:8px 0;flex:.5" data-i18n="save_pdf">Save PDF</button>
  <button class="btn-primary" id="exportIcsBtn" style="background:rgba(33,150,243,.06);border:1px solid rgba(33,150,243,.12);color:#2196F3;font-size:.65rem;padding:8px 0;flex:.5" data-i18n="export_cal">Export Calendar</button>
  <button class="btn-primary" id="goToHistBtn" style="font-size:.65rem;padding:8px 0;flex:.5" data-i18n="history">History &amp; Stats</button>
  </div>

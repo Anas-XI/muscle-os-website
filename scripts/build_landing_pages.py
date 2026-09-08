@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 import os
 
 OUTPUT_DIR = os.path.join("website", "products")
@@ -7,27 +7,35 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 # 1. SHARED CSS
 SHARED_CSS = """/* ── Muscle OS Product Landing Pages Shared Stylesheet ── */
 :root {
-  --ink: #0f1015;
-  --ink-2: rgba(22, 24, 30, 0.75);
-  --ink-3: rgba(30, 33, 42, 0.85);
-  --card-bg: rgba(20, 22, 28, 0.7);
-  --card-border: rgba(255, 255, 255, 0.08);
-  --card-hover-border: rgba(244, 201, 59, 0.35);
-  --yellow: #F4C93B;
-  --yellow-light: #ffd659;
-  --yellow-dim: #C9A227;
-  --yellow-glow: rgba(244, 201, 59, 0.25);
+  --ink: #08090C;
+  --ink-deep: #020304;
+  --ink-2: rgba(18, 20, 26, 0.85);
+  --ink-3: rgba(22, 24, 34, 0.95);
+  --charcoal-1: #12141A;
+  --charcoal-2: #161822;
+  --charcoal-3: #222532;
+  --card-bg: rgba(22, 24, 34, 0.88);
+  --card-border: #262936;
+  --card-hover-border: rgba(226, 232, 240, 0.4);
+  --silver: #E2E8F0;
+  --silver-pure: #FFFFFF;
+  --silver-dim: #CBD5E1;
+  --silver-glow: rgba(226, 232, 240, 0.22);
+  --yellow: #E2E8F0;
+  --yellow-light: #FFFFFF;
+  --yellow-dim: #94A3B8;
+  --yellow-glow: rgba(226, 232, 240, 0.22);
   --paper: #FAFAF8;
-  --gray: #9ca3af;
-  --gray-light: #d1d5db;
-  --gray-dark: #4b5563;
-  --line: rgba(244, 201, 59, 0.15);
-  --line-subtle: rgba(255, 255, 255, 0.06);
+  --gray: #94A3B8;
+  --gray-light: #CBD5E1;
+  --gray-dark: #64748B;
+  --line: #262936;
+  --line-subtle: rgba(255, 255, 255, 0.05);
   --green: #10b981;
   --green-glow: rgba(16, 185, 129, 0.25);
-  --blue: #3b82f6;
+  --blue: #38BDF8;
   --purple: #c026d3;
-  --gradient-bg: radial-gradient(circle at top right, #1f1b0a 0%, #0f1015 55%);
+  --gradient-bg: radial-gradient(circle at top right, #161822 0%, #08090C 60%);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -127,7 +135,7 @@ header {
 }
 .nav-cta:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(244, 201, 59, 0.4);
+  box-shadow: 0 6px 20px rgba(226, 232, 240, 0.4);
   background: #fff;
 }
 .nav-back-link {
@@ -182,7 +190,7 @@ header {
 .btn-ghost:hover {
   border-color: var(--yellow);
   color: var(--yellow);
-  background: rgba(244, 201, 59, 0.06);
+  background: rgba(226, 232, 240, 0.06);
   transform: translateY(-2px);
 }
 .btn-green {
@@ -217,9 +225,9 @@ header {
   font-family: 'JetBrains Mono', monospace;
 }
 .badge-yellow {
-  background: rgba(244, 201, 59, 0.12);
+  background: rgba(226, 232, 240, 0.12);
   color: var(--yellow);
-  border: 1px solid rgba(244, 201, 59, 0.3);
+  border: 1px solid rgba(226, 232, 240, 0.3);
 }
 .badge-green {
   background: rgba(16, 185, 129, 0.12);
@@ -286,7 +294,7 @@ h1.hero-title .accent {
   background: linear-gradient(to right, var(--yellow), #ffdf70);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 20px rgba(244, 201, 59, 0.2);
+  text-shadow: 0 0 20px rgba(226, 232, 240, 0.2);
 }
 h2.section-title {
   font-family: 'Oswald', sans-serif;
@@ -316,7 +324,7 @@ h2.section-title {
   right: 15%;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(244, 201, 59, 0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(226, 232, 240, 0.08) 0%, transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
@@ -376,7 +384,7 @@ h2.section-title {
 }
 .hero-visual-card:hover {
   border-color: var(--card-hover-border);
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6), 0 0 30px rgba(244, 201, 59, 0.1);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6), 0 0 30px rgba(226, 232, 240, 0.1);
 }
 .mockup-header {
   display: flex;
@@ -480,14 +488,14 @@ h2.section-title {
 .feature-card:hover {
   transform: translateY(-5px);
   border-color: var(--card-hover-border);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(244, 201, 59, 0.08);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(226, 232, 240, 0.08);
 }
 .feature-icon-wrap {
   width: 48px;
   height: 48px;
   border-radius: 10px;
-  background: rgba(244, 201, 59, 0.1);
-  border: 1px solid rgba(244, 201, 59, 0.25);
+  background: rgba(226, 232, 240, 0.1);
+  border: 1px solid rgba(226, 232, 240, 0.25);
   color: var(--yellow);
   display: flex;
   align-items: center;
@@ -535,14 +543,14 @@ h2.section-title {
   transition: all 0.3s ease;
 }
 .step-card:hover {
-  border-color: rgba(244, 201, 59, 0.3);
+  border-color: rgba(226, 232, 240, 0.3);
   transform: translateY(-3px);
 }
 .step-number {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: rgba(244, 201, 59, 0.1);
+  background: rgba(226, 232, 240, 0.1);
   border: 1px solid var(--yellow);
   color: var(--yellow);
   display: flex;
@@ -593,8 +601,8 @@ h2.section-title {
   transition: all 0.2s ease;
 }
 .breakdown-item:hover {
-  background: rgba(244, 201, 59, 0.03);
-  border-color: rgba(244, 201, 59, 0.2);
+  background: rgba(226, 232, 240, 0.03);
+  border-color: rgba(226, 232, 240, 0.2);
 }
 .breakdown-item svg {
   color: var(--green);
@@ -619,10 +627,10 @@ h2.section-title {
 }
 .pricing-card {
   background: linear-gradient(145deg, rgba(32, 28, 12, 0.8), var(--ink-2));
-  border: 1px solid rgba(244, 201, 59, 0.4);
+  border: 1px solid rgba(226, 232, 240, 0.4);
   border-radius: 20px;
   padding: 44px 36px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(244, 201, 59, 0.15);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(226, 232, 240, 0.15);
   position: relative;
   text-align: center;
   backdrop-filter: blur(12px);
@@ -790,7 +798,7 @@ h2.section-title {
   transition: border-color 0.3s ease;
 }
 .faq-item:hover {
-  border-color: rgba(244, 201, 59, 0.3);
+  border-color: rgba(226, 232, 240, 0.3);
 }
 .faq-item summary {
   display: flex;
@@ -840,7 +848,7 @@ h2.section-title {
   justify-content: space-between;
 }
 .cross-sell-card:hover {
-  border-color: rgba(244, 201, 59, 0.35);
+  border-color: rgba(226, 232, 240, 0.35);
   transform: translateY(-4px);
 }
 .cross-sell-title {
@@ -1447,7 +1455,7 @@ TRAINING_APP_CFG = {
             <div style="color:#fff; font-weight:700; font-size:14px; margin-top:2px;">1.12 <span style="color:#10b981; font-size:11px;">(OPTIMAL)</span></div>
           </div>
         </div>
-        <div style="display:flex; align-items:center; justify-content:space-between; background:rgba(244,201,59,0.08); border:1px solid rgba(244,201,59,0.2); padding:8px 12px; border-radius:6px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; background:rgba(226, 232, 240,0.08); border:1px solid rgba(226, 232, 240,0.2); padding:8px 12px; border-radius:6px;">
           <span style="color:var(--yellow); font-weight:600;">REST TIMER: 02:45</span>
           <span style="color:#fff; font-size:11px;">CHIME ACTIVE 🔔</span>
         </div>
@@ -1705,7 +1713,7 @@ OMNI_HUB_CFG = {
             <div style="color:#10b981; font-size:11px;">P: 210g · C: 350g · F: 65g</div>
           </div>
         </div>
-        <div style="background:rgba(244,201,59,0.04); border:1px solid rgba(244,201,59,0.15); padding:10px; border-radius:6px; font-size:11px; color:#d1d5db;">
+        <div style="background:rgba(226, 232, 240,0.04); border:1px solid rgba(226, 232, 240,0.15); padding:10px; border-radius:6px; font-size:11px; color:#d1d5db;">
           <b style="color:var(--yellow);">UNIFIED PROGRESSION:</b> Weekly volume load perfectly matched to energetic surplus for optimal muscle protein synthesis and zero fat spillover.
         </div>
       </div>
@@ -2080,7 +2088,7 @@ TRAINING_BUNDLE_CFG = {
           <span>3. RPE & Load Calculator</span>
           <span style="color:#10b981;">FREE TOOL &check;</span>
         </div>
-        <div style="background:rgba(244,201,59,0.08); border:1px solid rgba(244,201,59,0.25); padding:10px; border-radius:6px; font-size:11px; color:#fff;">
+        <div style="background:rgba(226, 232, 240,0.08); border:1px solid rgba(226, 232, 240,0.25); padding:10px; border-radius:6px; font-size:11px; color:#fff;">
           <b style="color:var(--yellow);">VOUCHER INCLUDED:</b> 50% OFF MOS-HYPERKINETIX Training App PRO for your first month (150 EGP instead of 300 EGP).
         </div>
       </div>
