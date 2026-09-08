@@ -6458,68 +6458,134 @@ document.getElementById('trendRange').addEventListener('change',renderTrendHisto
  go(1);renderPriorities();
  });
 
- // MOS Interactive Training Tour Engine
- var MOS_TRAIN_TOUR = [
- {
- title: ' Step 1: Athlete Onboarding & Volume Calibration',
- desc: 'Welcome to MOS-HYPERKINETIX! Select your Training Age, Primary Goal (Hypertrophy / Strength), Days/Week, and Recovery Factor. The engine calculates your exact muscle volume landmarks (MEV, MAV, MRV).'
- },
- {
- title: ' Step 2: Intelligent Split Selector & Muscle Priorities',
- desc: 'Choose your optimal weekly split (Push/Pull/Legs, Upper/Lower, Arnold Split, Full Body) or build a custom schedule. Adjust muscle priority sliders to assign extra set allocations to lagging bodyparts!'
- },
- {
- title: ' Step 3: Autoregulated Mesocycle Generator',
- desc: 'Generate a periodized 4-to-12 week mesocycle. The system plans progressive overload set ramp-ups week over week, leading to a calculated Deload Week for systemic CNS recovery.'
- },
- {
- title: ' Step 4: Active Workout Logger & Pre-Session Readiness',
- desc: 'Check in before every session with the Pre-Session Readiness slider (Sleep, Stress, Soreness). If fatigue is high, load targets automatically scale down to prevent injury. Log sets with built-in rest timer chimes & plate calculators!'
- },
- {
- title: ' Step 5: History, Volume Charts & Backup Engine',
- desc: 'Review weekly volume landmark charts, PR tracking tables, and mesocycle history. Use Copy Backup Code to instant-sync your workout logs across devices!'
- }
- ];
+   // MOS Interactive Training Tour Engine
+  var MOS_TRAIN_TOUR = [
+    {
+      screen: 1,
+      title: '🏋️ Step 1: Athlete Onboarding & Volume Calibration',
+      desc: 'Welcome to MOS-HYPERKINETIX! Select your Training Age, Primary Goal (Hypertrophy / Strength), Days/Week, and Recovery Factor. The engine calculates your exact muscle volume landmarks (MEV, MAV, MRV).'
+    },
+    {
+      screen: 2,
+      title: '📊 Step 2: Intelligent Split Selector & Muscle Priorities',
+      desc: 'Choose your optimal weekly split (Push/Pull/Legs, Upper/Lower, Arnold Split, Full Body) or build a custom schedule. Adjust muscle priority sliders to assign extra set allocations to lagging bodyparts!'
+    },
+    {
+      screen: 35,
+      title: '⚡ Step 3: Autoregulated Mesocycle Generator',
+      desc: 'Generate a periodized 4-to-12 week mesocycle. The system plans progressive overload set ramp-ups week over week, leading to a calculated Deload Week for systemic CNS recovery.'
+    },
+    {
+      screen: 4,
+      title: '📝 Step 4: Active Workout Logger & Pre-Session Readiness',
+      desc: 'Check in before every session with the Pre-Session Readiness slider (Sleep, Stress, Soreness). If fatigue is high, load targets automatically scale down to prevent injury. Log sets with built-in rest timer chimes & plate calculators!'
+    },
+    {
+      screen: 5,
+      title: '📈 Step 5: History, Volume Charts & Backup Engine',
+      desc: 'Review weekly volume landmark charts, PR tracking tables, and mesocycle history. Use Copy Backup Code to instant-sync your workout logs across devices!'
+    }
+  ];
 
- window.startTrainingTour = function(){
- showTrainingTourStep(0);
- };
+  window.startTrainingTour = function(){
+    showTrainingTourStep(0);
+  };
 
- window.showTrainingTourStep = function(stepIdx){
- var modal = document.getElementById('mosTrainTourModal');
- if(!modal){
- modal = document.createElement('div');
- modal.id = 'mosTrainTourModal';
- modal.className = 'modal-overlay';
- document.body.appendChild(modal);
- }
- var step = MOS_TRAIN_TOUR[stepIdx];
- modal.innerHTML = `
- <div class="card animate-in" style="max-width:440px;width:90%;border:1.5px solid #E2E8F0;box-shadow:0 0 32px rgba(226,232,240,.35);background:#161822">
- <div style="font-family:'Oswald',sans-serif;font-size:1.15rem;color:#E2E8F0;margin-bottom:8px">${step.title}</div>
- <div style="font-size:.78rem;line-height:1.6;color:rgba(250,250,248,.85);margin-bottom:16px">${step.desc}</div>
- <div style="display:flex;justify-content:space-between;align-items:center">
- <span style="font-size:.65rem;color:rgba(250,250,248,.4)">Step ${stepIdx + 1} of ${MOS_TRAIN_TOUR.length}</span>
- <div style="display:flex;gap:6px">
- ${stepIdx > 0 ? `<button class="btn-secondary" onclick="showTrainingTourStep(${stepIdx - 1})" style="padding:5px 10px;font-size:.65rem">◄ Back</button>` : ''}
- ${stepIdx < MOS_TRAIN_TOUR.length - 1 ? `<button class="btn-primary" onclick="showTrainingTourStep(${stepIdx + 1})" style="margin:0;padding:5px 12px;font-size:.65rem">Next ➔</button>` : `<button class="btn-primary" onclick="closeTrainingTourModal()" style="margin:0;padding:5px 12px;font-size:.65rem">Finish Tour </button>`}
- <button class="btn-secondary" onclick="closeTrainingTourModal()" style="padding:5px 8px;font-size:.65rem">Skip</button>
- </div>
- </div>
- </div>
- `;
- modal.style.display = 'flex';
- };
+  window.showTrainingTourStep = function(stepIdx){
+    if(stepIdx < 0 || stepIdx >= MOS_TRAIN_TOUR.length) return;
+    var modal = document.getElementById('mosTrainTourModal');
+    if(!modal){
+      modal = document.createElement('div');
+      modal.id = 'mosTrainTourModal';
+      document.body.appendChild(modal);
+    }
+    var step = MOS_TRAIN_TOUR[stepIdx];
 
- window.startNewProgram = function(){
-  setAppMode('intake');
-  go(1);
-};
-window.closeTrainingTourModal = function(){
- var modal = document.getElementById('mosTrainTourModal');
- if(modal) modal.style.display = 'none';
- };
+    // Smoothly transition the user directly to the screen explained
+    try {
+      if(step.screen === 1){
+        setAppMode('intake');
+        go(1);
+        if(typeof renderPriorities === 'function') renderPriorities();
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      } else if(step.screen === 2){
+        setAppMode('intake');
+        var vi = ls(K.VI, {});
+        if(!vi.days){ vi = { name: 'Athlete', age: 25, ta: 'intermediate', goal: 'hypertrophy', days: 4, rec: 'medium' }; ss(K.VI, vi); }
+        var targets = ls(K.VT, {});
+        if(!targets || Object.keys(targets).length === 0){
+          targets = {};
+          MUSCLES.forEach(function(m){ targets[m.id] = { mev: 4, mav: 8, mrv: 12, rec: 6 }; });
+          ss(K.VT, targets);
+        }
+        if(typeof proceedToSplit === 'function') proceedToSplit(); else go(2);
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      } else if(step.screen === 35){
+        var prog = ls(K.PG, null);
+        if(!prog){
+          var vi = ls(K.VI, {});
+          if(!vi.days){ vi = { name: 'Athlete', age: 25, ta: 'intermediate', goal: 'hypertrophy', days: 4, rec: 'medium' }; ss(K.VI, vi); }
+          var targets = ls(K.VT, {});
+          if(!targets || Object.keys(targets).length === 0){
+            targets = {};
+            MUSCLES.forEach(function(m){ targets[m.id] = { mev: 4, mav: 8, mrv: 12, rec: 6 }; });
+            ss(K.VT, targets);
+          }
+          var spKey = Object.keys(SPLITS).find(function(k){ return SPLITS[k].d === parseInt(vi.days || 4, 10); }) || Object.keys(SPLITS)[0];
+          var sp = SPLITS[spKey];
+          if(sp && typeof generateProgramFromSplit === 'function'){
+            prog = generateProgramFromSplit(sp, targets, vi);
+            if(prog) ss(K.PG, prog);
+          }
+        }
+        setAppMode('program');
+        go(35);
+        if(typeof renderMesoConfig === 'function') renderMesoConfig();
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      } else if(step.screen === 4){
+        setAppMode('program');
+        go(4);
+        if(typeof renderDashboard === 'function') renderDashboard();
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      } else if(step.screen === 5){
+        setAppMode('program');
+        go(5);
+        if(typeof renderHistory === 'function') renderHistory();
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      }
+    } catch(err){
+      console.warn('Tour screen transition error:', err);
+    }
+
+    modal.innerHTML = `
+      <div class="card" style="max-width:480px;width:92%;border:1.5px solid #262936;box-shadow:0 20px 50px rgba(0,0,0,0.85), 0 0 24px rgba(226,232,240,.18);background:rgba(22,24,34,0.96);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:16px;padding:20px;">
+        <div style="font-family:'Oswald',sans-serif;font-size:1.15rem;color:#E2E8F0;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;">
+          <span>${step.title}</span>
+          <span style="font-family:'Inter',sans-serif;font-size:0.65rem;color:rgba(250,250,248,0.4);font-weight:600;">Screen ${step.screen === 35 ? '3.5' : step.screen}</span>
+        </div>
+        <div style="font-size:.78rem;line-height:1.6;color:rgba(250,250,248,.88);margin-bottom:16px;">${step.desc}</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:.65rem;color:rgba(250,250,248,.4);font-weight:600;">Step ${stepIdx + 1} of ${MOS_TRAIN_TOUR.length}</span>
+          <div style="display:flex;gap:6px;">
+            ${stepIdx > 0 ? `<button class="btn-secondary" onclick="showTrainingTourStep(${stepIdx - 1})" style="padding:6px 12px;font-size:.7rem;"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Back</button>` : ''}
+            ${stepIdx < MOS_TRAIN_TOUR.length - 1 ? `<button class="btn-primary" onclick="showTrainingTourStep(${stepIdx + 1})" style="margin:0;padding:6px 14px;font-size:.7rem;">Next <svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>` : `<button class="btn-primary" onclick="closeTrainingTourModal()" style="margin:0;padding:6px 14px;font-size:.7rem;">Finish Tour ✓</button>`}
+            <button class="btn-secondary" onclick="closeTrainingTourModal()" style="padding:6px 10px;font-size:.7rem;">Skip</button>
+          </div>
+        </div>
+      </div>
+    `;
+    modal.style.display = 'flex';
+  };
+
+  window.startNewProgram = function(){
+    setAppMode('intake');
+    go(1);
+  };
+
+  window.closeTrainingTourModal = function(){
+    var modal = document.getElementById('mosTrainTourModal');
+    if(modal) modal.style.display = 'none';
+  };
 
 
  // ═══════════════════════════════════════

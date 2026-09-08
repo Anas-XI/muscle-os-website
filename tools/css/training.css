@@ -1109,3 +1109,35 @@ select option{background:var(--card)}
   box-shadow: 0 8px 30px rgba(16, 185, 129, 0.6);
   transform: translateY(-2px);
 }
+
+/* Interactive Walkthrough Tour HUD */
+#mosTrainTourModal, #mosTourModal {
+  position: fixed !important;
+  inset: auto 0 24px 0 !important;
+  width: auto !important;
+  height: auto !important;
+  background: transparent !important;
+  pointer-events: none !important;
+  z-index: 10000 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: flex-end !important;
+  padding: 0 16px calc(env(safe-area-inset-bottom, 0px) + 16px) !important;
+}
+#mosTrainTourModal .card, #mosTourModal .card {
+  pointer-events: auto !important;
+  max-width: 480px !important;
+  width: 100% !important;
+  background: rgba(22, 24, 34, 0.96) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1.5px solid #262936 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.85), 0 0 24px rgba(226,232,240,0.18) !important;
+  padding: 20px !important;
+  animation: tourFadeSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+@keyframes tourFadeSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
