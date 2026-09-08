@@ -286,9 +286,9 @@
  var splitName=split?split.name:(prog.splitName||'My Program');
  var W=1080,H=1350,c=document.getElementById('shareCanvas'),ctx=c.getContext('2d');
  c.width=W;c.height=H;
- ctx.fillStyle='#14151A';ctx.fillRect(0,0,W,H);
+ ctx.fillStyle='#08090C';ctx.fillRect(0,0,W,H);
  ctx.fillStyle='#E2E8F0';ctx.fillRect(0,0,W,16);
- ctx.fillStyle='#1E2027';ctx.fillRect(0,16,W,120);
+ ctx.fillStyle='#161822';ctx.fillRect(0,16,W,120);
  ctx.fillStyle='#E2E8F0';ctx.font='800 46px Arial,Helvetica,sans-serif';ctx.fillText('MUSCLE OS',60,95);
  ctx.fillStyle='rgba(250,250,248,.55)';ctx.font='600 24px Arial,Helvetica,sans-serif';ctx.fillText('TRAINING PROGRAM',60,128);
  ctx.fillStyle='#FAFAF8';ctx.font='800 64px Arial,Helvetica,sans-serif';

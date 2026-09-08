@@ -85,7 +85,7 @@
  }
  var step = MOS_TRAIN_TOUR[stepIdx];
  modal.innerHTML = `
- <div class="card animate-in" style="max-width:440px;width:90%;border:1.5px solid #E2E8F0;box-shadow:0 0 32px rgba(226, 232, 240,.35);background:#1A1B26">
+ <div class="card animate-in" style="max-width:440px;width:90%;border:1.5px solid #E2E8F0;box-shadow:0 0 32px rgba(226, 232, 240,.35);background:#161822">
  <div style="font-family:'Oswald',sans-serif;font-size:1.15rem;color:#E2E8F0;margin-bottom:8px">${step.title}</div>
  <div style="font-size:.78rem;line-height:1.6;color:rgba(250,250,248,.85);margin-bottom:16px">${step.desc}</div>
  <div style="display:flex;justify-content:space-between;align-items:center">

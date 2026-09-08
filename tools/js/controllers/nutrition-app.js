@@ -394,7 +394,7 @@ numbersHtml += '<div class="dash-macro-grid">' +
  '<div class="bar-legend">' +
  '<span class="bar-leg-item"><span class="bar-dot" style="background:#E2E8F0"></span>Protein</span>' +
  '<span class="bar-leg-item"><span class="bar-dot" style="background:#E2E8F0"></span>Fat</span>' +
- '<span class="bar-leg-item"><span class="bar-dot" style="background:#c48a30"></span>Carbs</span>' +
+ '<span class="bar-leg-item"><span class="bar-dot" style="background:#94A3B8"></span>Carbs</span>' +
  '</div>';
 
  // Detailed breakdown
@@ -1052,7 +1052,7 @@ numbersHtml += '<div class="dash-macro-grid">' +
  }
  const step = MOS_TOUR_STEPS[stepIdx];
  modal.innerHTML = `
- <div class="card animate-in" style="max-width:440px;width:90%;border:1.5px solid #E2E8F0;box-shadow:0 0 32px rgba(226, 232, 240, .35);background:#1A1B26">
+ <div class="card animate-in" style="max-width:440px;width:90%;border:1.5px solid #E2E8F0;box-shadow:0 0 32px rgba(226, 232, 240, .35);background:#161822">
  <div style="font-family:'Oswald',sans-serif;font-size:1.15rem;color:#E2E8F0;margin-bottom:8px">${step.title}</div>
  <div style="font-size:.78rem;line-height:1.6;color:rgba(250,250,248,.85);margin-bottom:16px">${step.desc}</div>
  <div style="display:flex;justify-content:space-between;align-items:center">
@@ -1159,7 +1159,7 @@ numbersHtml += '<div class="dash-macro-grid">' +
 
  <!-- Dynamic Carb Cycling & Chronotype Controller -->
  <div class="section-header" style="margin-top:14px">Dynamic Carb Cycling &amp; Chronotype Eating</div>
- <div style="background:rgba(20,21,26,.5);padding:10px;border-radius:10px;border:1px solid rgba(250,250,248,.08);margin:8px 0;font-size:.7rem">
+ <div style="background:rgba(8, 9, 12,.5);padding:10px;border-radius:10px;border:1px solid rgba(250,250,248,.08);margin:8px 0;font-size:.7rem">
  <div style="font-weight:600;color:#E2E8F0;margin-bottom:4px"> Carb Cycling Mode Today:</div>
  <div style="display:flex;gap:6px;margin-bottom:8px">
  <button class="sex-btn ${(localStorage.getItem('mos_carb_cycle_'+currentFoodDate)||'mod')==='high'?'active':''}" onclick="setCarbCycleDay('high')" style="padding:4px;font-size:.6rem"> High Carb (+25% Legs/Back)</button>
@@ -1218,19 +1218,19 @@ numbersHtml += '<div class="dash-macro-grid">' +
  <!-- Micronutrients & Minerals Profile Grid -->
  <div class="section-header" style="margin-top:12px">Vitamins &amp; Minerals Profile</div>
  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:8px 0;text-align:center">
- <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">IRON</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${totIron.toFixed(1)}mg</div></div>
- <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">CALCIUM</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${Math.round(totCalcium)}mg</div></div>
- <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">ZINC</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${totZinc.toFixed(1)}mg</div></div>
- <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">MAGNESIUM</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${Math.round(totMag)}mg</div></div>
- <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">POTASSIUM</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${Math.round(totPot)}mg</div></div>
- <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">VIT C</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${Math.round(totVitC)}mg</div></div>
- <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">VIT D</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${totVitD.toFixed(1)}mcg</div></div>
- <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">VIT B12</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${totB12.toFixed(1)}mcg</div></div>
+ <div style="background:rgba(8, 9, 12,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">IRON</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${totIron.toFixed(1)}mg</div></div>
+ <div style="background:rgba(8, 9, 12,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">CALCIUM</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${Math.round(totCalcium)}mg</div></div>
+ <div style="background:rgba(8, 9, 12,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">ZINC</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${totZinc.toFixed(1)}mg</div></div>
+ <div style="background:rgba(8, 9, 12,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">MAGNESIUM</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${Math.round(totMag)}mg</div></div>
+ <div style="background:rgba(8, 9, 12,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">POTASSIUM</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${Math.round(totPot)}mg</div></div>
+ <div style="background:rgba(8, 9, 12,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">VIT C</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${Math.round(totVitC)}mg</div></div>
+ <div style="background:rgba(8, 9, 12,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">VIT D</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${totVitD.toFixed(1)}mcg</div></div>
+ <div style="background:rgba(8, 9, 12,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">VIT B12</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${totB12.toFixed(1)}mcg</div></div>
  </div>
 
  <!-- Hydration & Electrolyte Balance Tracker -->
  <div class="section-header" style="margin-top:12px">Hydration &amp; Electrolyte Balance</div>
- <div style="background:rgba(20,21,26,.5);padding:10px;border-radius:10px;border:1px solid rgba(250,250,248,.08);margin:8px 0">
+ <div style="background:rgba(8, 9, 12,.5);padding:10px;border-radius:10px;border:1px solid rgba(250,250,248,.08);margin:8px 0">
  <div style="display:flex;justify-content:space-between;font-size:.72rem;margin-bottom:6px">
  <span> Daily Water Intake: <strong>${((parseFloat(localStorage.getItem('mos_water_'+currentFoodDate))||0)/1000).toFixed(2)}L / 3.5L Target</strong></span>
  <span style="color:${totPot>0 && (totSod/totPot)<=0.8?'#4CAF50':'#E2E8F0'}">Na:K Ratio: <strong>${totPot>0?(totSod/totPot).toFixed(2):'0.00'}</strong> (Ideal &lt; 0.8)</span>
@@ -1244,7 +1244,7 @@ numbersHtml += '<div class="dash-macro-grid">' +
 
  <!-- Pharmacokinetic Supplement Stack Checklist -->
  <div class="section-header" style="margin-top:14px">Pharmacokinetic Supplement Stack</div>
- <div style="background:rgba(20,21,26,.5);padding:10px;border-radius:10px;border:1px solid rgba(250,250,248,.08);margin:8px 0;font-size:.7rem">
+ <div style="background:rgba(8, 9, 12,.5);padding:10px;border-radius:10px;border:1px solid rgba(250,250,248,.08);margin:8px 0;font-size:.7rem">
  <div style="display:flex;flex-direction:column;gap:6px">
  <label style="display:flex;align-items:center;gap:6px;cursor:pointer">
  <input type="checkbox" ${localStorage.getItem('mos_supp_'+currentFoodDate+'_creatine')==='1'?'checked':''} onchange="toggleSupp('creatine')" style="width:auto">

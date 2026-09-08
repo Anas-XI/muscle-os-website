@@ -14,10 +14,10 @@ body{font-family:'Inter',sans-serif;background:#08090C;color:#FAFAF8;min-height:
 .header{text-align:center;margin-bottom:16px}
 .header h1{font-family:'Oswald',sans-serif;font-size:1.8rem;font-weight:600;color:#E2E8F0;text-transform:uppercase;letter-spacing:1px}
 .header p{font-size:.7rem;color:rgba(250,250,248,.35);margin-top:4px}
-.stepper{display:flex;gap:0;background:rgba(20,21,26,.4);border-radius:10px;padding:3px;margin-bottom:16px}
+.stepper{display:flex;gap:0;background:rgba(8, 9, 12,.4);border-radius:10px;padding:3px;margin-bottom:16px}
 .step{flex:1;text-align:center;padding:8px 3px;font-size:.52rem;font-weight:600;text-transform:uppercase;letter-spacing:.3px;color:rgba(250,250,248,.2);cursor:pointer;transition:all .2s;border-radius:8px}
 .step:hover{color:rgba(250,250,248,.4)}
-.step.active{background:#E2E8F0;color:#14151A}
+.step.active{background:#E2E8F0;color:#08090C}
 .step.done{color:rgba(250,250,248,.45)}
 .step .num{display:inline-block;width:15px;height:15px;line-height:15px;border-radius:50%;font-size:.45rem;font-weight:700;text-align:center;margin-right:3px}
 .step.active .num{background:#08090C;color:#E2E8F0}
@@ -25,20 +25,20 @@ body{font-family:'Inter',sans-serif;background:#08090C;color:#FAFAF8;min-height:
 .step-content{display:none;animation:fadeSlideIn .35s ease-out}
 .step-content.active{display:block}
 @keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.card{background:#16181F;border-radius:16px;padding:20px;margin-bottom:14px}
+.card{background:#161822;border-radius:16px;padding:20px;margin-bottom:14px}
 .card-title{font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:500;text-transform:uppercase;letter-spacing:.5px;color:#E2E8F0;border-bottom:1px solid rgba(250,250,248,.07);padding-bottom:6px;margin-bottom:14px}
 .form-group{margin-bottom:12px}
 .form-group label{display:block;font-size:.55rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(250,250,248,.38);margin-bottom:4px}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-input,select,textarea{width:100%;padding:9px 11px;background:rgba(20,21,26,.6);border:1.5px solid rgba(250,250,248,.07);border-radius:8px;color:#FAFAF8;font-family:'JetBrains Mono',monospace;font-size:.78rem;outline:none;transition:border-color .2s}
+input,select,textarea{width:100%;padding:9px 11px;background:rgba(8, 9, 12,.6);border:1.5px solid rgba(250,250,248,.07);border-radius:8px;color:#FAFAF8;font-family:'JetBrains Mono',monospace;font-size:.78rem;outline:none;transition:border-color .2s}
 input:focus,select:focus{border-color:#E2E8F0}
 textarea{font-family:'Inter',sans-serif;resize:vertical;min-height:50px}
 select{font-family:'Inter',sans-serif;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 12 8'%3E%3Cpath fill='%23FAFAF8' opacity='0.5' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;padding-right:32px}
-select option{background:#16181F;color:#FAFAF8}
+select option{background:#161822;color:#FAFAF8}
 
 /* Pillar Cards */
-.pillar-card{background:rgba(20,21,26,.35);border-radius:12px;padding:14px 16px;margin-bottom:10px;border:1.5px solid rgba(250,250,248,.04);transition:border-color .2s}
+.pillar-card{background:rgba(8, 9, 12,.35);border-radius:12px;padding:14px 16px;margin-bottom:10px;border:1.5px solid rgba(250,250,248,.04);transition:border-color .2s}
 .pillar-card:hover{border-color:rgba(250,250,248,.1)}
 .pillar-card .p-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
 .pillar-card .p-name{font-family:'Oswald',sans-serif;font-size:.7rem;font-weight:600;color:#FAFAF8;text-transform:uppercase;letter-spacing:.4px}
@@ -50,9 +50,9 @@ select option{background:#16181F;color:#FAFAF8}
 .slider-label.desired{color:#E2E8F0}
 .slider-wrap{position:relative;padding:4px 0}
 .slider-wrap input[type=range]{width:100%;height:4px;-webkit-appearance:none;appearance:none;background:rgba(250,250,248,.1);border-radius:4px;outline:none;cursor:pointer}
-.slider-wrap input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:#E2E8F0;cursor:pointer;border:2px solid #1E1E2A;transition:transform .15s}
+.slider-wrap input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:#E2E8F0;cursor:pointer;border:2px solid #161822;transition:transform .15s}
 .slider-wrap input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
-.slider-wrap input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:#E2E8F0;cursor:pointer;border:2px solid #1E1E2A}
+.slider-wrap input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:#E2E8F0;cursor:pointer;border:2px solid #161822}
 .slider-value{font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:700;text-align:center;min-width:20px}
 .slider-value.current{color:rgba(250,250,248,.55)}
 .slider-value.desired{color:#E2E8F0}
@@ -77,7 +77,7 @@ select option{background:#16181F;color:#FAFAF8}
 .btn-secondary:hover{border-color:rgba(250,250,248,.18);color:#FAFAF8}
 
 /* Results */
-.result-box{display:none;background:#16181F;border-radius:16px;padding:24px 20px;margin-top:14px;text-align:center;border:1.5px solid rgba(226, 232, 240,.15)}
+.result-box{display:none;background:#161822;border-radius:16px;padding:24px 20px;margin-top:14px;text-align:center;border:1.5px solid rgba(226, 232, 240,.15)}
 .result-box.show{display:block;animation:fadeSlideIn .4s ease-out}
 .result-box .rb-icon{font-size:2.5rem;margin-bottom:8px}
 .result-box .rb-title{font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:600;color:#E2E8F0;text-transform:uppercase;letter-spacing:.5px}
@@ -89,7 +89,7 @@ select option{background:#16181F;color:#FAFAF8}
 
 /* Summary review */
 .review-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
-.review-item{padding:8px 10px;background:rgba(20,21,26,.25);border-radius:8px}
+.review-item{padding:8px 10px;background:rgba(8, 9, 12,.25);border-radius:8px}
 .review-item .ri-label{font-size:.45rem;text-transform:uppercase;letter-spacing:.8px;color:rgba(250,250,248,.2);font-weight:600}
 .review-item .ri-value{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#FAFAF8;margin-top:2px}
 .review-section{margin-bottom:12px}
@@ -405,7 +405,7 @@ function buildReview() {
   container.innerHTML = gaps.map(g => {
     const cls = g.gap >= 4 ? 'high' : g.gap >= 2 ? 'medium' : g.gap > 0 ? 'low' : 'zero';
     const lbl = g.gap >= 4 ? 'Priority' : g.gap >= 2 ? 'Moderate' : g.gap > 0 ? 'Minor' : g.gap === 0 ? 'Maintain' : 'Already set';
-    return `<div style="display:flex;justify-content:space-between;padding:3px 6px;background:rgba(20,21,26,.2);border-radius:5px;margin-bottom:3px;font-size:.6rem">
+    return `<div style="display:flex;justify-content:space-between;padding:3px 6px;background:rgba(8, 9, 12,.2);border-radius:5px;margin-bottom:3px;font-size:.6rem">
       <span style="color:#FAFAF8;font-weight:500">${g.name}</span>
       <span style="display:flex;gap:8px">
         <span style="color:rgba(250,250,248,.3)">${g.cur} → ${g.des}</span>

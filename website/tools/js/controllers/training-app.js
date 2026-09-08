@@ -4730,9 +4730,9 @@
  var splitName=split?split.name:(prog.splitName||'My Program');
  var W=1080,H=1350,c=document.getElementById('shareCanvas'),ctx=c.getContext('2d');
  c.width=W;c.height=H;
- ctx.fillStyle='#14151A';ctx.fillRect(0,0,W,H);
+ ctx.fillStyle='#08090C';ctx.fillRect(0,0,W,H);
  ctx.fillStyle='#E2E8F0';ctx.fillRect(0,0,W,16);
- ctx.fillStyle='#1E2027';ctx.fillRect(0,16,W,120);
+ ctx.fillStyle='#161822';ctx.fillRect(0,16,W,120);
  ctx.fillStyle='#E2E8F0';ctx.font='800 46px Arial,Helvetica,sans-serif';ctx.fillText('MUSCLE OS',60,95);
  ctx.fillStyle='rgba(250,250,248,.55)';ctx.font='600 24px Arial,Helvetica,sans-serif';ctx.fillText('TRAINING PROGRAM',60,128);
  ctx.fillStyle='#FAFAF8';ctx.font='800 64px Arial,Helvetica,sans-serif';
@@ -4948,8 +4948,8 @@ window.showBiofeedbackModal = function(di) {
   if(!prog || !prog.days[di]) return;
   var dayName = prog.days[di].n;
   
-  var modalHtml = '<div id="bioModal" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,10,15,.9);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;">' +
-    '<div style="background:#14151A;border:1px solid rgba(250,250,248,.1);border-radius:12px;padding:24px;width:100%;max-width:400px;">' +
+  var modalHtml = '<div id="bioModal" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(8, 9, 12,.9);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;">' +
+    '<div style="background:#08090C;border:1px solid rgba(250,250,248,.1);border-radius:12px;padding:24px;width:100%;max-width:400px;">' +
       '<h2 style="font-family:\'Oswald\',sans-serif;font-size:1.2rem;color:#E2E8F0;margin-bottom:16px;text-transform:uppercase;">Log Biofeedback</h2>' +
       '<p style="font-size:.75rem;color:rgba(250,250,248,.6);margin-bottom:20px;">Rate your session to auto-regulate tomorrow\'s volume.</p>' +
       
@@ -4973,7 +4973,7 @@ window.showBiofeedbackModal = function(di) {
       
       '<div style="display:flex;gap:12px;">' +
         '<button onclick="document.getElementById(\'bioModal\').remove()" style="flex:1;padding:12px;background:transparent;border:1px solid rgba(250,250,248,.2);border-radius:6px;color:#FAFAF8;font-weight:600;font-size:.8rem;">Cancel</button>' +
-        '<button onclick="saveBiofeedback(' + di + ', \'' + dayName.replace(/'/g, "\\'") + '\')" style="flex:1;padding:12px;background:#E2E8F0;border:none;border-radius:6px;color:#14151A;font-weight:600;font-size:.8rem;">Save & Finish</button>' +
+        '<button onclick="saveBiofeedback(' + di + ', \'' + dayName.replace(/'/g, "\\'") + '\')" style="flex:1;padding:12px;background:#E2E8F0;border:none;border-radius:6px;color:#08090C;font-weight:600;font-size:.8rem;">Save & Finish</button>' +
       '</div>' +
     '</div>' +
   '</div>';
@@ -5008,7 +5008,7 @@ window.generateRadarCard = function() {
   canvas.width = 1080; canvas.height = 1080;
   var ctx = canvas.getContext('2d');
   
-  ctx.fillStyle = '#14151A'; ctx.fillRect(0, 0, 1080, 1080);
+  ctx.fillStyle = '#08090C'; ctx.fillRect(0, 0, 1080, 1080);
   ctx.fillStyle = '#E2E8F0'; ctx.font = 'bold 80px "Oswald", sans-serif';
   ctx.textAlign = 'center'; ctx.fillText('STRENGTH RADAR', 540, 120);
   ctx.fillStyle = '#FAFAF8'; ctx.font = '40px "Inter", sans-serif';
@@ -5087,7 +5087,7 @@ window.generateShareCard = function(dayName, timeSec, sets, p, f, s) {
   var ctx = canvas.getContext('2d');
   
   // Background
-  ctx.fillStyle = '#14151A';
+  ctx.fillStyle = '#08090C';
   ctx.fillRect(0, 0, 1080, 1920);
   
   // Header
@@ -5107,7 +5107,7 @@ window.generateShareCard = function(dayName, timeSec, sets, p, f, s) {
   
   // Stats Boxes
   function drawBox(x, y, label, val) {
-    ctx.fillStyle = 'rgba(20,21,26,1)';
+    ctx.fillStyle = 'rgba(8, 9, 12,1)';
     ctx.strokeStyle = 'rgba(226,232,240,0.2)';
     ctx.lineWidth = 4;
     ctx.beginPath();
@@ -5157,7 +5157,7 @@ window.generateShareCard = function(dayName, timeSec, sets, p, f, s) {
 };
 
 window.showShareModal = function(dataUrl) {
-  var modalHtml = '<div id="shareModal" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,10,15,.95);z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;">' +
+  var modalHtml = '<div id="shareModal" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(8, 9, 12,.95);z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;">' +
     '<h2 style="font-family:\'Oswald\',sans-serif;font-size:1.5rem;color:#E2E8F0;margin-bottom:10px;text-transform:uppercase;">Workout Saved!</h2>' +
     '<p style="font-size:.8rem;color:rgba(250,250,248,.6);margin-bottom:20px;">Show off your hard work.</p>' +
     '<img src="' + dataUrl + '" alt="Workout summary card preview" style="width:100%;max-width:300px;border-radius:12px;margin-bottom:24px;border:1px solid rgba(226,232,240,.2);">' +
@@ -6121,25 +6121,25 @@ function exportIcs(){
  var gh='<div class="sec"><div class="st" style="color:#E2E8F0">How to Use Your Training App</div><div class="gs"><span class="gn">1</span><div><strong>Set Up Your Profile</strong> \u2014 Select training age, goal, days per week, and recovery factor. Mark muscles as Focus (full volume) or Maintain (~half volume).</div></div><div class="gs"><span class="gn">2</span><div><strong>Choose Your Split</strong> \u2014 Browse available splits matching your schedule, or take the built-in quiz for a personalised recommendation.</div></div><div class="gs"><span class="gn">3</span><div><strong>Generate &amp; Save Program</strong> \u2014 Review your program with sets, rep ranges, and rest periods. Optionally configure a mesocycle plan with progression phases and deload scheduling.</div></div><div class="gs"><span class="gn">4</span><div><strong>Train Each Day</strong> \u2014 Log weights, reps, and RPE for every set. The dashboard shows pre-session readiness, deload reminders, and fatigue tracking.</div></div><div class="gs"><span class="gn">5</span><div><strong>Track Progress</strong> \u2014 Review volume compliance, personal records, e1RM charts, ACWR (acute:chronic workload ratio), and deload history on the History page.</div></div><div class="gs"><span class="gn">6</span><div><strong>Export &amp; Share</strong> \u2014 Save your program as PDF, or export/import your data as JSON for backup across devices.</div></div></div>';
  var w=window.open('','_blank','width=900,height=700');
  w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Training Program \u2014 '+prog.splitName+'</title><style>'+
- '@page{margin:15mm 12mm}@media print{body{background:#14151A!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}}'+
+ '@page{margin:15mm 12mm}@media print{body{background:#08090C!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}}'+
  '*{margin:0;padding:0;box-sizing:border-box}'+
- 'body{background:#14151A;color:#FAFAF8;font-family:"Inter","Segoe UI",Arial,sans-serif;max-width:800px;margin:0 auto;padding:30px 24px}'+
+ 'body{background:#08090C;color:#FAFAF8;font-family:"Inter","Segoe UI",Arial,sans-serif;max-width:800px;margin:0 auto;padding:30px 24px}'+
  'h1{font-family:"Oswald","Impact",sans-serif;font-size:1.8rem;text-transform:uppercase;letter-spacing:2px;color:#FAFAF8;margin-bottom:4px}'+
  '.sb{font-size:.7rem;color:rgba(250,250,248,.3);margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid rgba(250,250,248,.05)}'+
  '.st{font-family:"Oswald",sans-serif;font-size:.95rem;text-transform:uppercase;letter-spacing:1.5px;margin:16px 0 8px;padding-bottom:3px;border-bottom:1px solid rgba(226,232,240,.15)}'+
  '.rp{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 12px}'+
- '.rp>div{flex:1;min-width:70px;background:rgba(20,21,26,.4);border-radius:6px;padding:7px 8px;text-align:center;border:1px solid rgba(250,250,248,.03)}'+
+ '.rp>div{flex:1;min-width:70px;background:rgba(8, 9, 12,.4);border-radius:6px;padding:7px 8px;text-align:center;border:1px solid rgba(250,250,248,.03)}'+
  '.rp .v{font-size:1rem;font-weight:700;color:#E2E8F0}.rp .l{font-size:.48rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.2);margin-top:1px}'+
  'table{width:100%;border-collapse:collapse;margin:4px 0 8px}'+
  'th{text-align:left;font-size:.52rem;text-transform:uppercase;letter-spacing:1px;color:rgba(250,250,248,.25);padding:5px 6px 3px;border-bottom:1px solid rgba(250,250,248,.06);font-weight:500}'+
  'td{padding:4px 6px;font-size:.65rem;border-bottom:1px solid rgba(250,250,248,.02);color:rgba(250,250,248,.7)}'+
- '.c{text-align:center}.db{margin:8px 0 12px;background:rgba(20,21,26,.4);border-radius:8px;padding:8px 10px;border:1px solid rgba(250,250,248,.03)}'+
+ '.c{text-align:center}.db{margin:8px 0 12px;background:rgba(8, 9, 12,.4);border-radius:8px;padding:8px 10px;border:1px solid rgba(250,250,248,.03)}'+
  '.dt{font-family:"Oswald",sans-serif;font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:#E2E8F0;margin-bottom:4px}'+
  '.sec{margin:16px 0;page-break-inside:avoid}.ec{display:flex;flex-direction:column;gap:8px}'+
- '.ecard{background:rgba(20,21,26,.35);border-radius:8px;padding:8px 10px;border:1px solid rgba(250,250,248,.03)}'+
+ '.ecard{background:rgba(8, 9, 12,.35);border-radius:8px;padding:8px 10px;border:1px solid rgba(250,250,248,.03)}'+
  '.ect{font-size:.65rem;font-weight:600;color:#FAFAF8;margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px}'+
  '.etip{font-size:.6rem;color:rgba(250,250,248,.45);margin-top:6px;line-height:1.4}'+
- '.gs{display:flex;gap:8px;align-items:flex-start;padding:6px 8px;background:rgba(20,21,26,.25);border-radius:6px;margin-bottom:4px;border:1px solid rgba(250,250,248,.02)}'+
+ '.gs{display:flex;gap:8px;align-items:flex-start;padding:6px 8px;background:rgba(8, 9, 12,.25);border-radius:6px;margin-bottom:4px;border:1px solid rgba(250,250,248,.02)}'+
  '.gn{width:22px;height:22px;border-radius:50%;background:#E2E8F0;color:#08090C;font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}'+
  '.gs div{font-size:.62rem;color:rgba(250,250,248,.6);line-height:1.4}.gs div strong{color:#FAFAF8}'+
  '.ft{text-align:center;margin-top:24px;padding-top:10px;border-top:1px solid rgba(250,250,248,.04);font-size:.55rem;color:rgba(250,250,248,.2)}'+
@@ -6496,7 +6496,7 @@ document.getElementById('trendRange').addEventListener('change',renderTrendHisto
  }
  var step = MOS_TRAIN_TOUR[stepIdx];
  modal.innerHTML = `
- <div class="card animate-in" style="max-width:440px;width:90%;border:1.5px solid #E2E8F0;box-shadow:0 0 32px rgba(226,232,240,.35);background:#1A1B26">
+ <div class="card animate-in" style="max-width:440px;width:90%;border:1.5px solid #E2E8F0;box-shadow:0 0 32px rgba(226,232,240,.35);background:#161822">
  <div style="font-family:'Oswald',sans-serif;font-size:1.15rem;color:#E2E8F0;margin-bottom:8px">${step.title}</div>
  <div style="font-size:.78rem;line-height:1.6;color:rgba(250,250,248,.85);margin-bottom:16px">${step.desc}</div>
  <div style="display:flex;justify-content:space-between;align-items:center">

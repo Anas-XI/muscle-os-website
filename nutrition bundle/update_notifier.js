@@ -26,7 +26,7 @@
  z-index: 99999;
  width: 90%;
  max-width: 480px;
- background: #16181F;
+ background: #161822;
  border: 1.5px solid #E2E8F0;
  border-radius: 14px;
  padding: 14px 18px;

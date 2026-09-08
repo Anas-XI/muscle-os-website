@@ -1,6 +1,6 @@
 .btn-primary:active,.btn-secondary:active,.day-tab:active,.pain-btn:active,.rt-start:active,.rt-stop:active,.ex-sel-chip:active,.swap-chip:active,.meso-train-btn:active{transform:scale(.97)}
  #shareCanvas{position:fixed;left:-9999px;top:0}
- #shareToast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:rgba(20,21,26,.95);border:1px solid var(--line-strong);color:var(--text-soft);font-size:.7rem;font-weight:600;padding:10px 18px;border-radius:999px;z-index:999;opacity:0;pointer-events:none;transition:opacity .25s;white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis}
+ #shareToast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:rgba(8, 9, 12,.95);border:1px solid var(--line-strong);color:var(--text-soft);font-size:.7rem;font-weight:600;padding:10px 18px;border-radius:999px;z-index:999;opacity:0;pointer-events:none;transition:opacity .25s;white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis}
  #shareToast.show{opacity:1}
 .day-tab,.ex-sel-chip,.swap-chip,.ex-vid-link,.meso-train-btn,.pain-btn{transition:color .15s,background .15s,border-color .15s,transform .12s}
 .mw-bar-fill{transition:width .45s ease}

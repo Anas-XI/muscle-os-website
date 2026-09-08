@@ -20,7 +20,7 @@
 <script src="https://unpkg.com/lucide@latest"></script>
 <style>
 :root{
-  --ink:#0A0B0E;
+  --ink:#08090C;
   --ink-2:rgba(20,22,29,0.75);
   --ink-3:rgba(28,31,40,0.85);
   --card-bg:rgba(20,22,29,0.85);
@@ -28,7 +28,7 @@
   --yellow-dim:#94A3B8;
   --yellow-glow:rgba(226,232,240,0.35);
   --paper:#FAFAF8;
-  --gray:#8A8D96;
+  --gray:#94A3B8;
   --gray-light:#C7C9D0;
   --line:rgba(255,255,255,0.08);
   --border-hover:rgba(226,232,240,0.4);
@@ -36,7 +36,7 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{
   font-family:'Inter',sans-serif;
-  background:radial-gradient(circle at 80% 15%, #181a22 0%, #0a0b0e 65%);
+  background:radial-gradient(circle at 80% 15%, #181a22 0%, #08090C 65%);
   background-color:var(--ink);
   color:#fff;
   line-height:1.5;
@@ -50,7 +50,7 @@ a{color:inherit;text-decoration:none}
 .wrap{max-width:980px;margin:0 auto;padding:0 24px;width:100%}
 ::selection{background:var(--yellow);color:var(--ink)}
 
-header{background:rgba(10,11,14,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:100}
+header{background:rgba(8, 9, 12,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:100}
 .header-inner{max-width:1180px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between}
 .brand{font-family:'Oswald',sans-serif;font-weight:700;font-size:17px;letter-spacing:.5px;text-transform:uppercase}
 .brand span{color:var(--yellow);text-shadow:0 0 10px var(--yellow-glow)}
@@ -190,7 +190,7 @@ main{flex:1;padding:60px 0 80px}
 .card-icon{width:42px;height:42px;border-radius:10px;background:rgba(226,232,240,0.1);border:1px solid rgba(226,232,240,0.2);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--yellow)}
 .card-badge{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;padding:4px 10px;border-radius:4px}
 .badge-free{background:rgba(76,175,80,0.15);color:#4CAF50;border:1px solid rgba(76,175,80,0.3)}
-.badge-pro{background:linear-gradient(135deg,rgba(255,215,0,.25),rgba(226,232,240,.1));color:#FFD700;border:1px solid rgba(255,215,0,.4)}
+.badge-pro{background:linear-gradient(135deg,rgba(226,232,240,.25),rgba(226,232,240,.1));color:#E2E8F0;border:1px solid rgba(255,215,0,.4)}
 
 .card-title{font-family:'Oswald',sans-serif;font-size:20px;font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px}
 .card-desc{font-size:13.8px;color:var(--gray-light);line-height:1.6;margin-bottom:12px}
@@ -200,7 +200,7 @@ main{flex:1;padding:60px 0 80px}
 .card-features li::before{content:"•";color:var(--yellow);font-weight:bold}
 
 .card-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid var(--line)}
-.card-price{font-size:12px;color:#FFD700;font-family:'JetBrains Mono',monospace;font-weight:700}
+.card-price{font-size:12px;color:#E2E8F0;font-family:'JetBrains Mono',monospace;font-weight:700}
 .btn-launch{
   background:linear-gradient(135deg, var(--yellow), #CBD5E1);color:var(--ink);
   padding:8px 16px;border-radius:6px;font-size:12px;font-weight:700;text-transform:uppercase;
@@ -239,7 +239,7 @@ footer a{color:var(--yellow)}
 }
 .btn-pwa-install:hover {
   background: var(--accent);
-  color: #0A0B0E;
+  color: #08090C;
   box-shadow: 0 0 15px rgba(226,232,240, 0.4);
   transform: translateY(-1px);
 }

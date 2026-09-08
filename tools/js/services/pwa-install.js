@@ -52,15 +52,15 @@
       
       <div style="display:flex;flex-direction:column;gap:12px;text-align:left;margin:16px 0;background:rgba(0,0,0,0.35);padding:14px;border-radius:12px;border:1px solid var(--line);">
         <div style="display:flex;align-items:center;gap:12px;">
-          <div style="background:var(--accent);color:#0A0B0E;font-weight:800;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;">1</div>
+          <div style="background:var(--accent);color:#08090C;font-weight:800;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;">1</div>
           <div style="font-size:0.8rem;color:#fff;">Tap the <b>Share button</b> <span style="font-size:1.1rem;vertical-align:middle;">⎋</span> or <span style="font-size:1.1rem;vertical-align:middle;">📤</span> in Safari's bottom toolbar.</div>
         </div>
         <div style="display:flex;align-items:center;gap:12px;">
-          <div style="background:var(--accent);color:#0A0B0E;font-weight:800;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;">2</div>
+          <div style="background:var(--accent);color:#08090C;font-weight:800;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;">2</div>
           <div style="font-size:0.8rem;color:#fff;">Scroll down and tap <b>'Add to Home Screen'</b> <span style="font-size:1.1rem;vertical-align:middle;">➕</span>.</div>
         </div>
         <div style="display:flex;align-items:center;gap:12px;">
-          <div style="background:var(--accent);color:#0A0B0E;font-weight:800;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;">3</div>
+          <div style="background:var(--accent);color:#08090C;font-weight:800;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;">3</div>
           <div style="font-size:0.8rem;color:#fff;">Tap <b>'Add'</b> in the top-right corner. Done!</div>
         </div>
       </div>

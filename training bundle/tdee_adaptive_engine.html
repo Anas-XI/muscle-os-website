@@ -21,7 +21,7 @@
 <script src="../assets/js/mos_charts.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:#0D0E12;background-image:radial-gradient(circle at 50% 0%,rgba(226,232,240,.1) 0%,transparent 55%),radial-gradient(circle at 10% 80%,rgba(226,232,240,.04) 0%,transparent 45%);color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:32px 16px}
+body{font-family:'Inter',sans-serif;background:#08090C;background-image:radial-gradient(circle at 50% 0%,rgba(226,232,240,.1) 0%,transparent 55%),radial-gradient(circle at 10% 80%,rgba(226,232,240,.04) 0%,transparent 45%);color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:32px 16px}
 .container{width:100%;max-width:720px}
 .header{text-align:center;margin-bottom:24px}
 .header h1{font-family:'Oswald',sans-serif;font-size:2.4rem;font-weight:700;background:linear-gradient(135deg,#FFFFFF 30%,#94A3B8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-transform:uppercase;letter-spacing:1px;line-height:1.1;filter:drop-shadow(0 0 20px rgba(226,232,240,.2))}
@@ -43,7 +43,7 @@ body{font-family:'Inter',sans-serif;background:#0D0E12;background-image:radial-g
 }
 .adv-precision-accordion {
   margin: 16px 0;
-  background: rgba(20, 21, 26, 0.4);
+  background: rgba(8, 9, 12, 0.4);
   border: 1px solid rgba(250, 250, 248, 0.1);
   border-radius: 10px;
   overflow: hidden;
@@ -51,7 +51,7 @@ body{font-family:'Inter',sans-serif;background:#0D0E12;background-image:radial-g
 }
 .adv-precision-accordion[open] {
   border-color: rgba(226,232,240, 0.35);
-  background: rgba(20, 21, 26, 0.65);
+  background: rgba(8, 9, 12, 0.65);
 }
 .adv-precision-summary {
   padding: 12px 14px;
@@ -97,8 +97,8 @@ body{font-family:'Inter',sans-serif;background:#0D0E12;background-image:radial-g
 .sex-btn.active{background:linear-gradient(135deg,#FFFFFF 0%,#E2E8F0 60%,#CBD5E1 100%);color:#08090C;border-color:#E2E8F0;font-weight:700;box-shadow:0 4px 14px rgba(226,232,240,.3)}
 input,select{width:100%;padding:10px 12px;background:rgba(13,14,18,.7);border:1.5px solid rgba(250,250,248,.1);border-radius:10px;color:#FAFAF8;font-family:'JetBrains Mono',monospace;font-size:.85rem;outline:none;transition:all .2s}
 input:focus,select:focus{border-color:#E2E8F0;box-shadow:0 0 14px rgba(226,232,240,.25);background:rgba(13,14,18,.9)}
-select{font-family:'Inter',sans-serif;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 12 8'%3E%3Cpath fill='%23F4C93B' opacity='0.8' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px}
-select option{background:#1A1B26;color:#FAFAF8}
+select{font-family:'Inter',sans-serif;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 12 8'%3E%3Cpath fill='%23E2E8F0' opacity='0.8' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px}
+select option{background:#161822;color:#FAFAF8}
 .tip{font-size:.6rem;color:rgba(250,250,248,.65);margin-top:4px;font-style:italic}
 .check-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
 .check-item{display:flex;align-items:center;gap:6px;padding:6px 12px;background:rgba(13,14,18,.5);border:1.5px solid rgba(250,250,248,.08);border-radius:8px;cursor:pointer;font-size:.74rem;color:rgba(250,250,248,.6);transition:all .2s}
@@ -116,7 +116,7 @@ select option{background:#1A1B26;color:#FAFAF8}
 
 /* ---- Dashboard ---- */
 .dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
-.dash-card{background:rgba(20,21,26,.4);border-radius:10px;padding:12px 14px;text-align:center}
+.dash-card{background:rgba(8, 9, 12,.4);border-radius:10px;padding:12px 14px;text-align:center}
 .dash-label{font-size:.5rem;text-transform:uppercase;letter-spacing:1.5px;color:rgba(250,250,248,.7);font-weight:600;margin-bottom:2px}
 .dash-val{font-family:'JetBrains Mono',monospace;font-size:1.6rem;font-weight:700;color:#E2E8F0;line-height:1.1}
 .dash-sub{font-size:.6rem;color:rgba(250,250,248,.65);margin-top:1px}
@@ -125,11 +125,11 @@ select option{background:#1A1B26;color:#FAFAF8}
 .dash-row .l{color:rgba(250,250,248,.7)}
 .dash-row .v{font-family:'JetBrains Mono',monospace;color:#FAFAF8;font-weight:500}
 .dash-macro-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:14px 0}
-.dash-macro{text-align:center;padding:8px 4px;border-radius:8px;background:rgba(20,21,26,.4)}
+.dash-macro{text-align:center;padding:8px 4px;border-radius:8px;background:rgba(8, 9, 12,.4)}
 .dash-macro-val{font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:600;color:#FAFAF8}
 .dash-macro-lbl{font-size:.55rem;text-transform:uppercase;letter-spacing:1px;color:rgba(250,250,248,.65);margin-top:1px;font-weight:500}
 .bar-track{display:flex;height:22px;border-radius:6px;overflow:hidden;margin:6px 0}
-.bar-seg{display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.55rem;font-weight:600;color:#14151A;transition:width .4s ease;min-width:20px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 2px}
+.bar-seg{display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.55rem;font-weight:600;color:#08090C;transition:width .4s ease;min-width:20px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 2px}
 .bar-p{background:#E2E8F0}
 .bar-f{background:#94A3B8}
 .bar-c{background:#64748B}
@@ -145,7 +145,7 @@ select option{background:#1A1B26;color:#FAFAF8}
 /* ---- Weight log ---- */
 .weight-input-row{display:flex;gap:8px;margin-bottom:10px}
 .weight-input-row input{flex:1}
-.weight-input-row button{width:auto;padding:8px 16px;background:#E2E8F0;color:#14151A;border:none;border-radius:8px;font-family:'Oswald',sans-serif;font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;cursor:pointer;transition:opacity .2s;white-space:nowrap}
+.weight-input-row button{width:auto;padding:8px 16px;background:#E2E8F0;color:#08090C;border:none;border-radius:8px;font-family:'Oswald',sans-serif;font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;cursor:pointer;transition:opacity .2s;white-space:nowrap}
 .weight-input-row button:hover{opacity:.85}
 .weight-log{max-height:220px;overflow-y:auto}
 .weight-entry{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(250,250,248,.03);font-size:.72rem}
@@ -171,39 +171,39 @@ select option{background:#1A1B26;color:#FAFAF8}
 
 /* ---- Food Log ---- */
 .food-search-wrapper{position:relative;margin-bottom:12px}
-.food-search-input{width:100%;padding:10px 14px;background:rgba(20,21,26,.6);border:1.5px solid rgba(250,250,248,.08);border-radius:10px;color:#FAFAF8;font-family:'Inter',sans-serif;font-size:.82rem;outline:none}
+.food-search-input{width:100%;padding:10px 14px;background:rgba(8, 9, 12,.6);border:1.5px solid rgba(250,250,248,.08);border-radius:10px;color:#FAFAF8;font-family:'Inter',sans-serif;font-size:.82rem;outline:none}
 .food-search-input:focus{border-color:#E2E8F0}
-.food-autocomplete{position:absolute;top:100%;left:0;right:0;background:#1E1E2A;border:1px solid rgba(250,250,248,.1);border-radius:8px;margin-top:4px;max-height:200px;overflow-y:auto;z-index:50;display:none;box-shadow:0 4px 12px rgba(0,0,0,.5)}
+.food-autocomplete{position:absolute;top:100%;left:0;right:0;background:#161822;border:1px solid rgba(250,250,248,.1);border-radius:8px;margin-top:4px;max-height:200px;overflow-y:auto;z-index:50;display:none;box-shadow:0 4px 12px rgba(0,0,0,.5)}
 .food-ac-item{padding:8px 12px;cursor:pointer;border-bottom:1px solid rgba(250,250,248,.03);display:flex;justify-content:space-between;align-items:center}
 .food-ac-item:last-child{border-bottom:none}
 .food-ac-item:hover{background:rgba(226,232,240,.1)}
 .food-ac-name{font-size:.75rem;font-weight:500;color:#FAFAF8}
 .food-ac-name-ar{font-size:.65rem;color:rgba(250,250,248,.5);margin-left:8px}
 .food-ac-macros{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:#E2E8F0}
-.food-add-modal{display:none;padding:12px;background:rgba(20,21,26,.6);border:1px solid rgba(226,232,240,.2);border-radius:10px;margin-bottom:14px}
+.food-add-modal{display:none;padding:12px;background:rgba(8, 9, 12,.6);border:1px solid rgba(226,232,240,.2);border-radius:10px;margin-bottom:14px}
 .food-add-modal h4{font-family:'Inter',sans-serif;font-size:.8rem;color:#FAFAF8;margin-bottom:4px}
 .food-add-modal .macros-preview{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:rgba(250,250,248,.5);margin-bottom:10px}
 .food-add-row{display:flex;gap:8px}
 .food-add-row input{flex:1;background:rgba(250,250,248,.05)}
-.food-add-row button{padding:0 16px;background:#E2E8F0;color:#14151A;border:none;border-radius:8px;font-weight:600;cursor:pointer}
+.food-add-row button{padding:0 16px;background:#E2E8F0;color:#08090C;border:none;border-radius:8px;font-weight:600;cursor:pointer}
 .food-log-list{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;max-height:250px;overflow-y:auto}
-.food-log-item{display:flex;justify-content:space-between;align-items:center;background:rgba(20,21,26,.4);padding:8px 12px;border-radius:8px;border:1px solid rgba(250,250,248,.04)}
+.food-log-item{display:flex;justify-content:space-between;align-items:center;background:rgba(8, 9, 12,.4);padding:8px 12px;border-radius:8px;border:1px solid rgba(250,250,248,.04)}
 .food-log-info{display:flex;flex-direction:column;gap:2px}
 .food-log-title{font-size:.72rem;font-weight:500;color:#FAFAF8}
 .food-log-macros{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:rgba(250,250,248,.7)}
 .food-log-actions{display:flex;align-items:center;gap:10px}
 .food-log-cals{font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:600;color:#E2E8F0}
 .food-log-del{background:none;border:none;color:#f44336;cursor:pointer;font-size:.8rem;padding:2px 4px}
-.food-date-selector{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;background:rgba(20,21,26,.4);padding:6px 12px;border-radius:8px}
+.food-date-selector{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;background:rgba(8, 9, 12,.4);padding:6px 12px;border-radius:8px}
 .food-date-btn{background:none;border:none;color:#E2E8F0;cursor:pointer;font-size:1rem;padding:0 8px}
 .food-date-display{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:#FAFAF8}
 
 /* ---- Category Filter Chips & Voice Search ---- */
 .cat-chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:10px;scrollbar-width:none}
 .cat-chips::-webkit-scrollbar{display:none}
-.cat-chip{background:rgba(20,21,26,.6);border:1px solid rgba(250,250,248,.1);border-radius:20px;padding:4px 10px;font-size:.65rem;color:rgba(250,250,248,.6);cursor:pointer;white-space:nowrap;transition:all .15s}
-.cat-chip.active{background:#E2E8F0;color:#14151A;font-weight:600;border-color:#E2E8F0}
-.voice-search-btn{background:rgba(20,21,26,.6);border:1px solid rgba(250,250,248,.1);border-radius:10px;color:#E2E8F0;padding:0 12px;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center}
+.cat-chip{background:rgba(8, 9, 12,.6);border:1px solid rgba(250,250,248,.1);border-radius:20px;padding:4px 10px;font-size:.65rem;color:rgba(250,250,248,.6);cursor:pointer;white-space:nowrap;transition:all .15s}
+.cat-chip.active{background:#E2E8F0;color:#08090C;font-weight:600;border-color:#E2E8F0}
+.voice-search-btn{background:rgba(8, 9, 12,.6);border:1px solid rgba(250,250,248,.1);border-radius:10px;color:#E2E8F0;padding:0 12px;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center}
 .voice-search-btn.recording{background:#f44336;color:#fff;animation:pulse 1s infinite}
 @keyframes pulse{0%{opacity:1}50%{opacity:.5}100%{opacity:1}}
 .fav-star{cursor:pointer;font-size:.9rem;color:rgba(250,250,248,.2);transition:color .15s;padding:2px 4px}
@@ -230,11 +230,11 @@ select option{background:#1A1B26;color:#FAFAF8}
 /* ---- Adherence check modal ---- */
 .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:100;align-items:center;justify-content:center;padding:20px}
 .modal-overlay.show{display:flex}
-.modal{background:#1E1E2A;border-radius:16px;padding:24px;max-width:480px;width:100%;max-height:80vh;overflow-y:auto}
+.modal{background:#161822;border-radius:16px;padding:24px;max-width:480px;width:100%;max-height:80vh;overflow-y:auto}
 .modal h3{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:600;color:#E2E8F0;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
 .modal p{font-size:.78rem;line-height:1.5;color:rgba(250,250,248,.5);margin-bottom:14px}
 
-.mos-nav{position:sticky;top:0;z-index:999;background:rgba(20,21,26,.95);backdrop-filter:blur(8px);border-bottom:1px solid #2C2E37;font-family:'Inter',sans-serif}
+.mos-nav{position:sticky;top:0;z-index:999;background:rgba(8, 9, 12,.95);backdrop-filter:blur(8px);border-bottom:1px solid #262936;font-family:'Inter',sans-serif}
 .mos-nav-inner{max-width:1180px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
 .mos-brand{font-family:'Oswald',sans-serif;font-weight:700;font-size:15px;letter-spacing:.5px;text-transform:uppercase;color:#fff;text-decoration:none}
 .mos-brand span{color:#E2E8F0}
@@ -243,7 +243,7 @@ select option{background:#1A1B26;color:#FAFAF8}
 .mos-nav-links a:hover{color:#E2E8F0}
 @media(max-width:600px){.mos-nav-links{gap:10px;font-size:9px}.mos-nav-inner{padding:8px 16px}.mos-brand{font-size:12px}}
 @media print{.mos-nav{display:none!important}.mos-footer{display:none!important}}
-.mos-footer{padding:20px 24px;background:#14151A;border-top:1px solid #2C2E37;font-family:'Inter',sans-serif;text-align:center}
+.mos-footer{padding:20px 24px;background:#08090C;border-top:1px solid #262936;font-family:'Inter',sans-serif;text-align:center}
 .mos-footer-inner{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
 .mos-fbrand{font-family:'Oswald',sans-serif;font-weight:700;font-size:13px;letter-spacing:.5px;text-transform:uppercase;color:#fff}
 .mos-fbrand span{color:#E2E8F0}
@@ -276,32 +276,32 @@ select option{background:#1A1B26;color:#FAFAF8}
  .modal-overlay .card,.modal-overlay .modal{border-bottom-left-radius:0;border-bottom-right-radius:0;width:100%;max-width:100%;margin:0;max-height:85vh;overflow-y:auto}
 }
 /* Subscription paywall */
-.sub-overlay{position:fixed;inset:0;z-index:9999;background:rgba(20,21,26,.97);display:flex;align-items:center;justify-content:center;padding:24px}
-.sub-modal{max-width:520px;width:100%;background:#1E1E2A;border:1px solid #2C2E37;border-radius:16px;padding:40px 32px;text-align:center}
+.sub-overlay{position:fixed;inset:0;z-index:9999;background:rgba(8, 9, 12,.97);display:flex;align-items:center;justify-content:center;padding:24px}
+.sub-modal{max-width:520px;width:100%;background:#161822;border:1px solid #262936;border-radius:16px;padding:40px 32px;text-align:center}
 .sub-modal .lock-icon{font-size:48px;margin-bottom:8px}
 .sub-modal h2{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;color:#E2E8F0;text-transform:uppercase;margin-bottom:4px;letter-spacing:.5px}
 .sub-modal .sub-price{font-family:'JetBrains Mono',monospace;font-size:14px;color:rgba(255,215,0,.6);margin-bottom:20px}
-.sub-modal .sub-desc{font-size:14px;color:#8A8D96;line-height:1.6;margin-bottom:24px}
+.sub-modal .sub-desc{font-size:14px;color:#94A3B8;line-height:1.6;margin-bottom:24px}
 .sub-features{text-align:left;margin-bottom:24px;padding:0;list-style:none}
 .sub-features li{padding:6px 0 6px 24px;position:relative;font-size:13px;color:#C7C9D0;border-bottom:1px solid rgba(255,255,255,.04)}
 .sub-features li::before{content:"\2713";color:#E2E8F0;position:absolute;left:0;font-weight:700}
-.sub-btn{display:inline-block;background:#E2E8F0;color:#14151A;font-weight:700;font-size:14px;padding:14px 32px;border-radius:8px;text-decoration:none;text-transform:uppercase;letter-spacing:.5px;margin-bottom:16px;width:100%;text-align:center}
+.sub-btn{display:inline-block;background:#E2E8F0;color:#08090C;font-weight:700;font-size:14px;padding:14px 32px;border-radius:8px;text-decoration:none;text-transform:uppercase;letter-spacing:.5px;margin-bottom:16px;width:100%;text-align:center}
 .sub-btn:hover{background:#fff}
-.sub-divider{display:flex;align-items:center;gap:12px;margin:16px 0;color:#5B5F68;font-size:11px;text-transform:uppercase;letter-spacing:1px}
-.sub-divider::before,.sub-divider::after{content:"";flex:1;height:1px;background:#2C2E37}
+.sub-divider{display:flex;align-items:center;gap:12px;margin:16px 0;color:#64748B;font-size:11px;text-transform:uppercase;letter-spacing:1px}
+.sub-divider::before,.sub-divider::after{content:"";flex:1;height:1px;background:#262936}
 .sub-code-row{display:flex;gap:8px}
-.sub-code-input{flex:1;padding:10px 14px;background:#14151A;border:1px solid #2C2E37;border-radius:6px;color:#fff;font-family:'JetBrains Mono',monospace;font-size:13px;outline:none}
+.sub-code-input{flex:1;padding:10px 14px;background:#08090C;border:1px solid #262936;border-radius:6px;color:#fff;font-family:'JetBrains Mono',monospace;font-size:13px;outline:none}
 .sub-code-input:focus{border-color:#E2E8F0}
 .sub-verify-btn{padding:10px 20px;background:transparent;border:1px solid #E2E8F0;color:#E2E8F0;border-radius:6px;cursor:pointer;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
 .sub-verify-btn:hover{background:rgba(226,232,240,.1)}
 .sub-error{font-size:12px;color:#f44336;margin-top:6px;display:none}
 .sub-success{font-size:12px;color:#4CAF50;margin-top:6px;display:none}
-.sub-nolink{font-size:12px;color:#b3a06b;margin-top:6px;display:none}
+.sub-nolink{font-size:12px;color:#94A3B8;margin-top:6px;display:none}
 
 /* Sticky mobile CTA bar */
-#mobileCtaBar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:950;background:rgba(20,21,26,.97);backdrop-filter:blur(10px);border-top:1px solid rgba(226,232,240,.25);padding:10px 14px calc(10px + env(safe-area-inset-bottom));gap:10px;box-shadow:0 -8px 24px rgba(0,0,0,.35)}
+#mobileCtaBar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:950;background:rgba(8, 9, 12,.97);backdrop-filter:blur(10px);border-top:1px solid rgba(226,232,240,.25);padding:10px 14px calc(10px + env(safe-area-inset-bottom));gap:10px;box-shadow:0 -8px 24px rgba(0,0,0,.35)}
 #mobileCtaBar a{flex:1;text-align:center;padding:13px 8px;border-radius:10px;font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;text-decoration:none;transition:opacity .2s}
-#mobileCtaBar .cta-primary{background:#E2E8F0;color:#14151A}
+#mobileCtaBar .cta-primary{background:#E2E8F0;color:#08090C}
 #mobileCtaBar .cta-secondary{background:transparent;color:#FAFAF8;border:1.5px solid rgba(250,250,248,.65)}
 #mobileCtaBar a:active{opacity:.85}
 @media(max-width:768px){
@@ -339,7 +339,7 @@ select option{background:#1A1B26;color:#FAFAF8}
 }
 .mos-toast {
   pointer-events: auto; display: flex; align-items: center; gap: 10px;
-  padding: 12px 16px; background: rgba(20, 21, 26, 0.96);
+  padding: 12px 16px; background: rgba(8, 9, 12, 0.96);
   border: 1px solid rgba(226,232,240, 0.4); border-radius: 12px;
   color: #FAFAF8; font-size: 0.85rem; font-family: 'Inter', sans-serif;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(226,232,240, 0.15);
@@ -376,8 +376,8 @@ select option{background:#1A1B26;color:#FAFAF8}
 }
 @keyframes plateSlideUp { from { opacity: 0; transform: translate(-50%, 20px); } to { opacity: 1; transform: translate(-50%, 0); } }
 .plate-info { display: flex; align-items: center; gap: 8px; font-family: 'Oswald', sans-serif; font-size: 0.95rem; text-transform: uppercase; color: #fff; }
-.plate-count-badge { background: #E2E8F0; color: #0A0B0E; font-weight: 800; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; }
-.btn-plate-action { background: #E2E8F0; color: #0A0B0E; font-family: 'Oswald', sans-serif; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; padding: 8px 16px; border-radius: 20px; border: none; cursor: pointer; min-height: 38px; }
+.plate-count-badge { background: #E2E8F0; color: #08090C; font-weight: 800; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; }
+.btn-plate-action { background: #E2E8F0; color: #08090C; font-family: 'Oswald', sans-serif; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; padding: 8px 16px; border-radius: 20px; border: none; cursor: pointer; min-height: 38px; }
 .btn-plate-action:hover { background: #fff; box-shadow: 0 0 15px rgba(226,232,240, 0.5); }
 
 .plate-item-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
@@ -386,7 +386,7 @@ select option{background:#1A1B26;color:#FAFAF8}
 .plate-stepper { display: flex; align-items: center; gap: 6px; }
 .plate-stepper input { width: 60px; text-align: center; padding: 4px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
 .btn-plate-step { min-width: 32px; min-height: 32px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 6px; font-weight: 700; cursor: pointer; }
-.btn-plate-step:hover { background: #E2E8F0; color: #0A0B0E; }
+.btn-plate-step:hover { background: #E2E8F0; color: #08090C; }
 
 
 /* PWA Install Button Styles */
@@ -411,7 +411,7 @@ select option{background:#1A1B26;color:#FAFAF8}
 }
 .btn-pwa-install:hover {
   background: var(--accent);
-  color: #0A0B0E;
+  color: #08090C;
   box-shadow: 0 0 15px rgba(226,232,240, 0.4);
   transform: translateY(-1px);
 }
@@ -474,7 +474,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  <li>Data export &amp; import for backup</li>
  <li>No ads, no limits — unlimited daily entries</li>
  </ul>
- <button onclick="document.getElementById('subOverlay').style.display='none'" class="sub-btn" style="background:#E2E8F0; color:#0A0B0E; font-weight:700; cursor:pointer;">Start 1-Month Free Trial &rarr;</button>
+ <button onclick="document.getElementById('subOverlay').style.display='none'" class="sub-btn" style="background:#E2E8F0; color:#08090C; font-weight:700; cursor:pointer;">Start 1-Month Free Trial &rarr;</button>
  <div class="sub-divider">Enter your access code below to unlock</div>
  <div id="authStep2">
  <div class="sub-code-row">
@@ -1088,7 +1088,7 @@ numbersHtml += '<div class="dash-macro-grid">' +
  '<div class="bar-legend">' +
   '<span class="bar-leg-item"><span class="bar-dot" style="background:#E2E8F0"></span>Protein</span>' +
   '<span class="bar-leg-item"><span class="bar-dot" style="background:#94A3B8"></span>Fat</span>' +
-  '<span class="bar-leg-item"><span class="bar-dot" style="background:#c48a30"></span>Carbs</span>' +
+  '<span class="bar-leg-item"><span class="bar-dot" style="background:#94A3B8"></span>Carbs</span>' +
   '</div>' +
   '<div style="display:flex;justify-content:center;align-items:center;margin:16px 0 10px;"><div id="dashMacroDonut" style="width:170px;height:170px;"></div></div>';
 
@@ -1135,7 +1135,7 @@ numbersHtml += '<div class="dash-macro-grid">' +
       segments: [
         { label: 'Protein', value: protein, color: '#E2E8F0' },
         { label: 'Fats', value: fat, color: '#94A3B8' },
-        { label: 'Carbs', value: carbs, color: '#c48a30' }
+        { label: 'Carbs', value: carbs, color: '#94A3B8' }
       ],
       centerVal: targetCal.toLocaleString(),
       centerLabel: 'KCAL / DAY'
@@ -1811,7 +1811,7 @@ numbersHtml += '<div class="dash-macro-grid">' +
  }
  const step = MOS_TOUR_STEPS[stepIdx];
  modal.innerHTML = `
- <div class="card animate-in" style="max-width:440px;width:90%;border:1.5px solid #E2E8F0;box-shadow:0 0 32px rgba(226,232,240,.35);background:#1A1B26">
+ <div class="card animate-in" style="max-width:440px;width:90%;border:1.5px solid #E2E8F0;box-shadow:0 0 32px rgba(226,232,240,.35);background:#161822">
  <div style="font-family:'Oswald',sans-serif;font-size:1.15rem;color:#E2E8F0;margin-bottom:8px">${step.title}</div>
  <div style="font-size:.78rem;line-height:1.6;color:rgba(250,250,248,.85);margin-bottom:16px">${step.desc}</div>
  <div style="display:flex;justify-content:space-between;align-items:center">
@@ -1918,7 +1918,7 @@ numbersHtml += '<div class="dash-macro-grid">' +
 
  <!-- Dynamic Carb Cycling & Chronotype Controller -->
  <div class="section-header" style="margin-top:14px">Dynamic Carb Cycling &amp; Chronotype Eating</div>
- <div style="background:rgba(20,21,26,.5);padding:10px;border-radius:10px;border:1px solid rgba(250,250,248,.08);margin:8px 0;font-size:.7rem">
+ <div style="background:rgba(8, 9, 12,.5);padding:10px;border-radius:10px;border:1px solid rgba(250,250,248,.08);margin:8px 0;font-size:.7rem">
  <div style="font-weight:600;color:#E2E8F0;margin-bottom:4px"> Carb Cycling Mode Today:</div>
  <div style="display:flex;gap:6px;margin-bottom:8px">
  <button class="sex-btn ${(localStorage.getItem('mos_carb_cycle_'+currentFoodDate)||'mod')==='high'?'active':''}" onclick="setCarbCycleDay('high')" style="padding:4px;font-size:.6rem"> High Carb (+25% Legs/Back)</button>
@@ -1977,19 +1977,19 @@ numbersHtml += '<div class="dash-macro-grid">' +
  <!-- Micronutrients & Minerals Profile Grid -->
  <div class="section-header" style="margin-top:12px">Vitamins &amp; Minerals Profile</div>
  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:8px 0;text-align:center">
- <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">IRON</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${totIron.toFixed(1)}mg</div></div>
- <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">CALCIUM</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${Math.round(totCalcium)}mg</div></div>
- <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">ZINC</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${totZinc.toFixed(1)}mg</div></div>
- <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">MAGNESIUM</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${Math.round(totMag)}mg</div></div>
- <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">POTASSIUM</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${Math.round(totPot)}mg</div></div>
- <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">VIT C</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${Math.round(totVitC)}mg</div></div>
- <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">VIT D</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${totVitD.toFixed(1)}mcg</div></div>
- <div style="background:rgba(20,21,26,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">VIT B12</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${totB12.toFixed(1)}mcg</div></div>
+ <div style="background:rgba(8, 9, 12,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">IRON</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${totIron.toFixed(1)}mg</div></div>
+ <div style="background:rgba(8, 9, 12,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">CALCIUM</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${Math.round(totCalcium)}mg</div></div>
+ <div style="background:rgba(8, 9, 12,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">ZINC</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${totZinc.toFixed(1)}mg</div></div>
+ <div style="background:rgba(8, 9, 12,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">MAGNESIUM</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${Math.round(totMag)}mg</div></div>
+ <div style="background:rgba(8, 9, 12,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">POTASSIUM</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${Math.round(totPot)}mg</div></div>
+ <div style="background:rgba(8, 9, 12,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">VIT C</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${Math.round(totVitC)}mg</div></div>
+ <div style="background:rgba(8, 9, 12,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">VIT D</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${totVitD.toFixed(1)}mcg</div></div>
+ <div style="background:rgba(8, 9, 12,.5);padding:6px;border-radius:6px;border:1px solid rgba(250,250,248,.05)"><div style="font-size:.55rem;color:rgba(250,250,248,.7)">VIT B12</div><div style="font-size:.75rem;font-weight:600;color:#FAFAF8">${totB12.toFixed(1)}mcg</div></div>
  </div>
 
  <!-- Hydration & Electrolyte Balance Tracker -->
  <div class="section-header" style="margin-top:12px">Hydration &amp; Electrolyte Balance</div>
- <div style="background:rgba(20,21,26,.5);padding:10px;border-radius:10px;border:1px solid rgba(250,250,248,.08);margin:8px 0">
+ <div style="background:rgba(8, 9, 12,.5);padding:10px;border-radius:10px;border:1px solid rgba(250,250,248,.08);margin:8px 0">
  <div style="display:flex;justify-content:space-between;font-size:.72rem;margin-bottom:6px">
  <span> Daily Water Intake: <strong>${((parseFloat(localStorage.getItem('mos_water_'+currentFoodDate))||0)/1000).toFixed(2)}L / 3.5L Target</strong></span>
  <span style="color:${totPot>0 && (totSod/totPot)<=0.8?'#4CAF50':'#F4C93B'}">Na:K Ratio: <strong>${totPot>0?(totSod/totPot).toFixed(2):'0.00'}</strong> (Ideal &lt; 0.8)</span>
@@ -2003,7 +2003,7 @@ numbersHtml += '<div class="dash-macro-grid">' +
 
  <!-- Pharmacokinetic Supplement Stack Checklist -->
  <div class="section-header" style="margin-top:14px">Pharmacokinetic Supplement Stack</div>
- <div style="background:rgba(20,21,26,.5);padding:10px;border-radius:10px;border:1px solid rgba(250,250,248,.08);margin:8px 0;font-size:.7rem">
+ <div style="background:rgba(8, 9, 12,.5);padding:10px;border-radius:10px;border:1px solid rgba(250,250,248,.08);margin:8px 0;font-size:.7rem">
  <div style="display:flex;flex-direction:column;gap:6px">
  <label style="display:flex;align-items:center;gap:6px;cursor:pointer">
  <input type="checkbox" ${localStorage.getItem('mos_supp_'+currentFoodDate+'_creatine')==='1'?'checked':''} onchange="toggleSupp('creatine')" style="width:auto">

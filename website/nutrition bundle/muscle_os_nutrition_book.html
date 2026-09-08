@@ -29,14 +29,14 @@
 /* ---- Reset & Base ---- */
 * { box-sizing: border-box; }
 html { font-size: 11pt; }
-body { margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; font-size: 11pt; line-height: 1.6; color: #14151A; background: #FAFAF8; text-align: justify; text-align-last: left; -webkit-font-smoothing: antialiased; }
+body { margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; font-size: 11pt; line-height: 1.6; color: #08090C; background: #FAFAF8; text-align: justify; text-align-last: left; -webkit-font-smoothing: antialiased; }
 
 /* ---- Fonts ---- */
 h1, h2, h3, h4, h5, h6 { font-family: 'Oswald', sans-serif; font-weight: 600; line-height: 1.2; }
 .mono, .num { font-family: 'JetBrains Mono', monospace; }
 
 /* ---- Page Setup ---- */
-@page { size: A4; margin: 2.5cm 2cm; @top-center { content: string(doctitle); font-family: 'Inter', sans-serif; font-size: 9pt; color: #8A8D96; } @bottom-center { content: counter(page); font-family: 'JetBrains Mono', monospace; font-size: 8pt; color: #8A8D96; } }
+@page { size: A4; margin: 2.5cm 2cm; @top-center { content: string(doctitle); font-family: 'Inter', sans-serif; font-size: 9pt; color: #94A3B8; } @bottom-center { content: counter(page); font-family: 'JetBrains Mono', monospace; font-size: 8pt; color: #94A3B8; } }
 @page :first { margin: 0; @top-center { content: none; } @bottom-center { content: none; } }
 @page cover { @top-center { content: none; } @bottom-center { content: none; } }
 @page toc { @top-center { content: none; } @bottom-center { content: none; } }
@@ -54,37 +54,37 @@ h1 { string-set: doctitle content(); }
 
 /* ---- TOC ---- */
 .toc-page { page: toc; page-break-after: always; }
-.toc-page h2 { font-family: 'Oswald', sans-serif; font-size: 22pt; font-weight: 700; color: #14151A; margin-bottom: 0.8cm; text-align: center; letter-spacing: 0.5px; text-transform: uppercase; }
+.toc-page h2 { font-family: 'Oswald', sans-serif; font-size: 22pt; font-weight: 700; color: #08090C; margin-bottom: 0.8cm; text-align: center; letter-spacing: 0.5px; text-transform: uppercase; }
 .toc { list-style: none; padding: 0; margin: 0; }
 .toc li { margin: 3px 0; font-size: 10.5pt; }
-.toc a { color: #14151A; text-decoration: none; display: block; }
-.toc a::after { content: leader('.') target-counter(attr(href url), page); font-family: 'JetBrains Mono', monospace; color: #8A8D96; }
+.toc a { color: #08090C; text-decoration: none; display: block; }
+.toc a::after { content: leader('.') target-counter(attr(href url), page); font-family: 'JetBrains Mono', monospace; color: #94A3B8; }
 .toc .toc-l1 { font-weight: 700; margin-top: 8px; font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.5px; font-size: 11pt; }
 .toc .toc-l2 { padding-left: 1.5em; font-weight: 400; }
-.toc .toc-l3 { padding-left: 3em; font-weight: 400; font-size: 10pt; color: #5B5F68; }
+.toc .toc-l3 { padding-left: 3em; font-weight: 400; font-size: 10pt; color: #64748B; }
 
 /* ---- Headings ---- */
-h1 { font-family: 'Oswald', sans-serif; font-size: 20pt; font-weight: 700; color: #14151A; margin: 1.5cm 0 0.5cm; page-break-before: auto; page-break-after: avoid; border-bottom: 2.5px solid #E2E8F0; padding-bottom: 6px; letter-spacing: 0.3px; }
+h1 { font-family: 'Oswald', sans-serif; font-size: 20pt; font-weight: 700; color: #08090C; margin: 1.5cm 0 0.5cm; page-break-before: auto; page-break-after: avoid; border-bottom: 2.5px solid #E2E8F0; padding-bottom: 6px; letter-spacing: 0.3px; }
 h1:first-of-type { page-break-before: auto; }
-h2 { font-family: 'Oswald', sans-serif; font-size: 14pt; font-weight: 600; color: #14151A; margin: 1cm 0 0.4cm; page-break-after: avoid; letter-spacing: 0.3px; }
-h3 { font-family: 'Oswald', sans-serif; font-size: 12pt; font-weight: 600; color: #1E2027; margin: 0.6cm 0 0.3cm; page-break-after: avoid; letter-spacing: 0.3px; }
-h4 { font-size: 11pt; font-weight: 600; color: #14151A; margin: 0.4cm 0 0.2cm; page-break-after: avoid; }
+h2 { font-family: 'Oswald', sans-serif; font-size: 14pt; font-weight: 600; color: #08090C; margin: 1cm 0 0.4cm; page-break-after: avoid; letter-spacing: 0.3px; }
+h3 { font-family: 'Oswald', sans-serif; font-size: 12pt; font-weight: 600; color: #161822; margin: 0.6cm 0 0.3cm; page-break-after: avoid; letter-spacing: 0.3px; }
+h4 { font-size: 11pt; font-weight: 600; color: #08090C; margin: 0.4cm 0 0.2cm; page-break-after: avoid; }
 
 /* ---- Content ---- */
 p { margin: 0.3cm 0; }
-strong { color: #14151A; font-weight: 600; }
+strong { color: #08090C; font-weight: 600; }
 a { color: #94A3B8; word-break: break-all; }
 
 /* ---- Tables (Three-line, yellow/ink brand) ---- */
 table { width: 100%; max-width: 100%; border-collapse: collapse; margin: 0.5cm 0; font-size: 9.5pt; box-sizing: border-box; font-family: 'JetBrains Mono', monospace; }
 thead { display: table-header-group; }
-thead tr { border-top: 2.5px solid #E2E8F0; border-bottom: 1.5px solid #14151A; }
-thead th { padding: 6px 8px; text-align: left; font-weight: 600; color: #14151A; font-family: 'Oswald', sans-serif; font-size: 10pt; letter-spacing: 0.5px; text-transform: uppercase; }
+thead tr { border-top: 2.5px solid #E2E8F0; border-bottom: 1.5px solid #08090C; }
+thead th { padding: 6px 8px; text-align: left; font-weight: 600; color: #08090C; font-family: 'Oswald', sans-serif; font-size: 10pt; letter-spacing: 0.5px; text-transform: uppercase; }
 tbody td { padding: 5px 8px; vertical-align: top; }
 tbody tr { border-bottom: 0.5px solid #E4E1D8; }
 tbody tr:last-child { border-bottom: 2.5px solid #E2E8F0; }
 tbody tr:nth-child(even) { background: #f5f5f3; }
-caption { text-align: left; font-weight: 600; margin-bottom: 4px; font-size: 10pt; font-family: 'Oswald', sans-serif; color: #14151A; letter-spacing: 0.3px; }
+caption { text-align: left; font-weight: 600; margin-bottom: 4px; font-size: 10pt; font-family: 'Oswald', sans-serif; color: #08090C; letter-spacing: 0.3px; }
 caption::before { content: attr(data-label) " "; font-weight: 700; }
 tr { page-break-inside: avoid; }
 td.mono, .table-mono td { font-family: 'JetBrains Mono', monospace; }
@@ -101,18 +101,18 @@ li { margin: 3px 0; }
 .callout-title { font-weight: 700; color: #E2E8F0; margin-bottom: 4px; }
 .callout p { color: #FAFAF8; margin: 4px 0; }
 .callout strong { color: #E2E8F0; }
-.definition { border-left: 3px solid #14151A; padding: 10px 14px; margin: 0.5cm 0; background: #FAFAF8; }
-.definition-title { font-weight: 700; color: #14151A; }
-.theorem { border-left: 3px solid #14151A; padding: 10px 14px; margin: 0.5cm 0; }
+.definition { border-left: 3px solid #08090C; padding: 10px 14px; margin: 0.5cm 0; background: #FAFAF8; }
+.definition-title { font-weight: 700; color: #08090C; }
+.theorem { border-left: 3px solid #08090C; padding: 10px 14px; margin: 0.5cm 0; }
 .theorem-title { font-weight: 700; }
 .theorem-content { font-style: italic; }
-.algorithm { border: 1.5px solid #14151A; padding: 10px 14px; margin: 0.5cm 0; background: #FAFAF8; }
+.algorithm { border: 1.5px solid #08090C; padding: 10px 14px; margin: 0.5cm 0; background: #FAFAF8; }
 .algorithm-title { font-weight: 700; margin-bottom: 6px; }
 
 /* ---- Figures ---- */
 figure { margin: 0.5cm 0; text-align: center; page-break-inside: avoid; }
 figure img, figure svg { max-width: 80%; max-height: 40vh; height: auto; }
-figcaption { font-size: 9.5pt; color: #5B5F68; margin-top: 4px; }
+figcaption { font-size: 9.5pt; color: #64748B; margin-top: 4px; }
 figcaption::before { content: attr(data-label) " "; font-weight: 600; }
 
 /* ---- Code ---- */
@@ -132,7 +132,7 @@ pre, table, figure, img, svg, blockquote { max-width: 100%; box-sizing: border-b
 /* ---- Equation numbering ---- */
 .equation { margin: 0.5cm 0; display: flex; align-items: center; }
 .equation .eq-content { flex: 1; }
-.equation .eq-number { width: 3em; text-align: right; font-size: 10pt; color: #5B5F68; font-family: 'JetBrains Mono', monospace; }
+.equation .eq-number { width: 3em; text-align: right; font-size: 10pt; color: #64748B; font-family: 'JetBrains Mono', monospace; }
 
 /* ---- Mermaid ---- */
 .mermaid { text-align: center; margin: 0.5cm 0; max-width: 100%; }
@@ -142,16 +142,16 @@ pre, table, figure, img, svg, blockquote { max-width: 100%; box-sizing: border-b
 .appendix { }
 
 /* ---- Chapter Summary ---- */
-.chapter-summary { border: 1.5px solid #14151A; padding: 14px 18px; margin: 0.6cm 0; background: #FAFAF8; page-break-inside: avoid; }
+.chapter-summary { border: 1.5px solid #08090C; padding: 14px 18px; margin: 0.6cm 0; background: #FAFAF8; page-break-inside: avoid; }
 .chapter-summary .summary-title { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 10pt; color: #FAF8F8; background: #08090C; display: inline-block; padding: 2px 10px; margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase; }
 .chapter-summary p { margin: 4px 0; font-size: 10.5pt; color: #333; }
 
 /* ---- Case Study ---- */
-.case-study { border: 2px solid #14151A; padding: 16px 20px; margin: 0.8cm 0; background: #FAFAF8; page-break-inside: avoid; }
+.case-study { border: 2px solid #08090C; padding: 16px 20px; margin: 0.8cm 0; background: #FAFAF8; page-break-inside: avoid; }
 .case-study .case-label { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 9pt; color: #FAFAF8; background: #08090C; display: inline-block; padding: 2px 10px; margin-bottom: 8px; letter-spacing: 1px; }
-.case-study .case-title { font-weight: 700; color: #14151A; margin-bottom: 6px; font-size: 11pt; }
+.case-study .case-title { font-weight: 700; color: #08090C; margin-bottom: 6px; font-size: 11pt; }
 .case-study p { margin: 4px 0; font-size: 10.5pt; }
-.case-study p strong { color: #14151A; }
+.case-study p strong { color: #08090C; }
 
 /* ---- Page footer (CTA) ---- */
 .page-footer { display: none; }

@@ -8,7 +8,7 @@
 <!-- muscle-os training app · build v3.5 (decision engine integration — 33 evidence rules live) -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0A0A0F">
+<meta name="theme-color" content="#08090C">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 <title>Training App — Unified — by Coach Anas Mo'men</title>
@@ -24,8 +24,8 @@
 <script>if(window.DecisionEngine){window.DecisionEngine.init(window.MOS_ASSET_ROOT);}</script>
 <style>:root{
  --bg:#08090C;
- --card:#16181F;
- --card2:#22252E;
+ --card:#161822;
+ --card2:#262936;
  --text:#FAFAF8;
  --text-soft:rgba(250,250,248,.65);
  --text-dim:rgba(250,250,248,.68);
@@ -53,7 +53,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
  .container{max-width:100%}.header,.header h1{color:#000!important}
 /* Hick's Law: Progressive Disclosure & Express Banner */
 .express-quickstart-banner {
-  background: linear-gradient(135deg, rgba(226,232,240,.15), rgba(20,21,26,.9));
+  background: linear-gradient(135deg, rgba(226,232,240,.15), rgba(8, 9, 12,.9));
   border: 1.5px solid rgba(226,232,240,.35);
   border-radius: 12px;
   padding: 14px 16px;
@@ -66,7 +66,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 }
 .adv-tuning-accordion {
   margin: 16px 0;
-  background: rgba(20, 21, 26, 0.4);
+  background: rgba(8, 9, 12, 0.4);
   border: 1px solid rgba(250, 250, 248, 0.1);
   border-radius: 10px;
   overflow: hidden;
@@ -74,7 +74,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 }
 .adv-tuning-accordion[open] {
   border-color: rgba(226,232,240, 0.35);
-  background: rgba(20, 21, 26, 0.65);
+  background: rgba(8, 9, 12, 0.65);
 }
 .adv-tuning-summary {
   padding: 12px 14px;
@@ -152,7 +152,7 @@ html[dir="rtl"] .header-top{flex-direction:row-reverse}
 .sync-toggle{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:6px;background:var(--input-bg);border:1px solid var(--line);cursor:pointer;font-size:1rem;transition:all .15s}
 .sync-toggle:hover{background:var(--line);border-color:var(--line-strong)}
 .modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--overlay);z-index:9999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
-.modal-card{background:#1E1E2A;border-radius:16px;padding:22px 20px;width:90%;max-width:380px;box-shadow:0 20px 60px var(--overlay)}
+.modal-card{background:#161822;border-radius:16px;padding:22px 20px;width:90%;max-width:380px;box-shadow:0 20px 60px var(--overlay)}
 .modal-header{font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:500;text-transform:uppercase;letter-spacing:.5px;color:var(--accent);display:flex;justify-content:space-between;align-items:center}
 .modal-close{font-size:.7rem;cursor:pointer;color:var(--text-muted);padding:4px}
 .modal-close:hover{color:var(--text)}
@@ -310,7 +310,7 @@ html[dir="rtl"] .header-top{flex-direction:row-reverse}
 .session-chip{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 10px;background:rgba(250,250,248,.02);border:1px solid rgba(250,250,248,.06);border-radius:8px;margin-bottom:10px}
 .session-chip.running{border-color:rgba(226,232,240,.35);background:rgba(226,232,240,.06)}
 .session-chip .st-display{font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;color:var(--accent);letter-spacing:1px}
-.session-chip .st-toggle{background:var(--accent);color:#0A0A0F;border:none;border-radius:6px;padding:4px 12px;font-size:.6rem;font-weight:700;cursor:pointer}
+.session-chip .st-toggle{background:var(--accent);color:#08090C;border:none;border-radius:6px;padding:4px 12px;font-size:.6rem;font-weight:700;cursor:pointer}
 .session-chip.running .st-toggle{background:#f44336;color:#fff}
 .notif-row{display:flex;margin-bottom:10px}
 .notif-toggle{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:rgba(250,250,248,.02);border:1px solid rgba(250,250,248,.06);border-radius:8px;color:rgba(250,250,248,.35);font-size:.55rem;cursor:pointer;transition:all .15s}
@@ -339,7 +339,7 @@ html[dir="rtl"] .session-chip .st-display{direction:ltr;unicode-bidi:embed}
 .safety-block strong{color:#f44336}
 .sub-option{font-size:.55rem;color:var(--text-dim);margin-top:3px;font-style:italic}
 .explanation{font-size:.55rem;color:var(--text-dim);margin-top:3px;line-height:1.2}
-.mos-nav{position:sticky;top:0;z-index:999;background:rgba(20,21,26,.95);backdrop-filter:blur(8px);border-bottom:1px solid #2C2E37;font-family:'Inter',sans-serif}
+.mos-nav{position:sticky;top:0;z-index:999;background:rgba(8, 9, 12,.95);backdrop-filter:blur(8px);border-bottom:1px solid #262936;font-family:'Inter',sans-serif}
 .mos-nav-inner{max-width:1180px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
 .mos-brand{font-family:'Oswald',sans-serif;font-weight:700;font-size:15px;letter-spacing:.5px;text-transform:uppercase;color:#fff;text-decoration:none}
 .mos-brand span{color:var(--accent)}
@@ -348,7 +348,7 @@ html[dir="rtl"] .session-chip .st-display{direction:ltr;unicode-bidi:embed}
 .mos-nav-links a:hover{color:var(--accent)}
 @media(max-width:600px){.mos-nav-links{gap:10px;font-size:9px}.mos-nav-inner{padding:8px 16px}.mos-brand{font-size:12px}}
 @media print{.mos-nav{display:none!important}.mos-footer{display:none!important}}
-.mos-footer{padding:20px 24px;background:var(--bg);border-top:1px solid #2C2E37;font-family:'Inter',sans-serif;text-align:center}
+.mos-footer{padding:20px 24px;background:var(--bg);border-top:1px solid #262936;font-family:'Inter',sans-serif;text-align:center}
 .mos-footer-inner{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
 .mos-fbrand{font-family:'Oswald',sans-serif;font-weight:700;font-size:13px;letter-spacing:.5px;text-transform:uppercase;color:#fff}
 .mos-fbrand span{color:var(--accent)}
@@ -552,7 +552,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid var(-
 /* Exercise selection */
 .ex-sel-panel{display:none;margin-top:8px}
 .ex-sel-panel.show{display:block}
-.vol-live{margin:2px 0 10px 4px;padding:6px 8px;background:rgba(20,21,26,.35);border:1px solid rgba(250,250,248,.05);border-radius:8px;font-size:.5rem;color:rgba(250,250,248,.5)}
+.vol-live{margin:2px 0 10px 4px;padding:6px 8px;background:rgba(8, 9, 12,.35);border:1px solid rgba(250,250,248,.05);border-radius:8px;font-size:.5rem;color:rgba(250,250,248,.5)}
 .vol-live-head{display:flex;justify-content:space-between;margin-bottom:4px}
 .vl-bar{position:relative;height:8px;background:var(--input-bg);border-radius:6px;overflow:hidden;margin-bottom:4px}
 .vl-fill{position:absolute;top:0;left:0;bottom:0;border-radius:6px}
@@ -699,7 +699,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid var(-
  .ex-region .ex-sel-chip{margin:2px 4px 2px 0}
  .ex-guide-toggle{font-size:.45rem;padding:1px 6px;border-radius:3px;border:1px dashed var(--line-strong);background:transparent;color:var(--text-dim);cursor:pointer;font-family:'Inter',sans-serif}
  .ex-guide-toggle:hover{color:var(--accent);border-color:var(--accent)}
- .ex-guide{display:none;margin:4px 0 6px;padding:7px 9px;background:rgba(20,21,26,.55);border:1px solid var(--line);border-radius:5px;font-size:.52rem;line-height:1.45}
+ .ex-guide{display:none;margin:4px 0 6px;padding:7px 9px;background:rgba(8, 9, 12,.55);border:1px solid var(--line);border-radius:5px;font-size:.52rem;line-height:1.45}
  .eg-line{margin-bottom:5px}
  .eg-line:last-child{margin-bottom:0}
  .eg-k{font-weight:700;color:var(--accent);text-transform:uppercase;font-size:.45rem;letter-spacing:.4px;margin-right:5px}
@@ -710,7 +710,7 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid var(-
  .esm-search{margin:3px 0 4px}
  .esm-search-input{width:100%;padding:4px 8px;border-radius:6px;border:1.5px solid var(--line);background:var(--input-bg);color:var(--text);font-size:.52rem;font-family:'Inter',sans-serif}
  .esm-search-input:focus{outline:none;border-color:var(--accent)}
- .esm-search-res{display:none;margin-top:3px;padding:4px;background:rgba(20,21,26,.6);border:1px solid var(--line);border-radius:6px}
+ .esm-search-res{display:none;margin-top:3px;padding:4px;background:rgba(8, 9, 12,.6);border:1px solid var(--line);border-radius:6px}
  .esm-res-none{font-size:.48rem;color:var(--text-dim);padding:2px 4px}
  .esm-search-res .search-hit{display:inline-block;margin:2px}
  .ex-empty{display:flex;flex-direction:column;gap:4px;margin:3px 0 2px;padding:8px;background:rgba(255,152,0,.05);border:1px solid rgba(255,152,0,.25);border-radius:6px}
@@ -767,31 +767,31 @@ html[dir="rtl"] .rpe-guide .rg-tip{border-left:none;border-right:2px solid var(-
 }
 /* Subscription paywall */
 .sub-overlay{position:fixed;inset:0;z-index:9999;background:var(--overlay);display:none;align-items:center;justify-content:center;padding:24px}
-.sub-modal{max-width:520px;width:100%;background:#1E1E2A;border:1px solid #2C2E37;border-radius:16px;padding:40px 32px;text-align:center}
+.sub-modal{max-width:520px;width:100%;background:#161822;border:1px solid #262936;border-radius:16px;padding:40px 32px;text-align:center}
 .sub-modal .lock-icon{font-size:48px;margin-bottom:8px}
 .sub-modal h2{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;color:var(--accent);text-transform:uppercase;margin-bottom:4px;letter-spacing:.5px}
 .sub-modal .sub-price{font-family:'JetBrains Mono',monospace;font-size:14px;color:rgba(255,215,0,.6);margin-bottom:20px}
-.sub-modal .sub-desc{font-size:14px;color:#8A8D96;line-height:1.6;margin-bottom:24px}
+.sub-modal .sub-desc{font-size:14px;color:#94A3B8;line-height:1.6;margin-bottom:24px}
 .sub-features{text-align:left;margin-bottom:24px;padding:0;list-style:none}
 .sub-features li{padding:6px 0 6px 24px;position:relative;font-size:13px;color:#C7C9D0;border-bottom:1px solid rgba(255,255,255,.04)}
 .sub-features li::before{content:"\2713";color:var(--accent);position:absolute;left:0;font-weight:700}
 .sub-btn{display:inline-block;background:var(--accent);color:var(--bg);font-weight:700;font-size:14px;padding:14px 32px;border-radius:8px;text-decoration:none;text-transform:uppercase;letter-spacing:.5px;margin-bottom:16px;width:100%;text-align:center}
 .sub-btn:hover{background:#fff}
-.sub-divider{display:flex;align-items:center;gap:12px;margin:16px 0;color:#5B5F68;font-size:11px;text-transform:uppercase;letter-spacing:1px}
-.sub-divider::before,.sub-divider::after{content:"";flex:1;height:1px;background:#2C2E37}
+.sub-divider{display:flex;align-items:center;gap:12px;margin:16px 0;color:#64748B;font-size:11px;text-transform:uppercase;letter-spacing:1px}
+.sub-divider::before,.sub-divider::after{content:"";flex:1;height:1px;background:#262936}
 .sub-code-row{display:flex;gap:8px}
-.sub-code-input{flex:1;padding:10px 14px;background:var(--bg);border:1px solid #2C2E37;border-radius:6px;color:#fff;font-family:'JetBrains Mono',monospace;font-size:13px;outline:none}
+.sub-code-input{flex:1;padding:10px 14px;background:var(--bg);border:1px solid #262936;border-radius:6px;color:#fff;font-family:'JetBrains Mono',monospace;font-size:13px;outline:none}
 .sub-code-input:focus{border-color:var(--accent)}
 .sub-verify-btn{padding:10px 20px;background:transparent;border:1px solid var(--accent);color:var(--accent);border-radius:6px;cursor:pointer;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
 .sub-verify-btn:hover{background:var(--accent-soft)}
 .sub-error{font-size:12px;color:#f44336;margin-top:6px;display:none}
 .sub-success{font-size:12px;color:#4CAF50;margin-top:6px;display:none}
-.sub-nolink{font-size:12px;color:#b3a06b;margin-top:6px;display:none}
+.sub-nolink{font-size:12px;color:#94A3B8;margin-top:6px;display:none}
 
 /* ── A6: animation polish ── */
 .btn-primary:active,.btn-secondary:active,.day-tab:active,.pain-btn:active,.rt-start:active,.rt-stop:active,.ex-sel-chip:active,.swap-chip:active,.meso-train-btn:active{transform:scale(.97)}
  #shareCanvas{position:fixed;left:-9999px;top:0}
- #shareToast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:rgba(20,21,26,.95);border:1px solid var(--line-strong);color:var(--text-soft);font-size:.7rem;font-weight:600;padding:10px 18px;border-radius:999px;z-index:999;opacity:0;pointer-events:none;transition:opacity .25s;white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis}
+ #shareToast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:rgba(8, 9, 12,.95);border:1px solid var(--line-strong);color:var(--text-soft);font-size:.7rem;font-weight:600;padding:10px 18px;border-radius:999px;z-index:999;opacity:0;pointer-events:none;transition:opacity .25s;white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis}
  #shareToast.show{opacity:1}
 .day-tab,.ex-sel-chip,.swap-chip,.ex-vid-link,.meso-train-btn,.pain-btn{transition:color .15s,background .15s,border-color .15s,transform .12s}
 .mw-bar-fill{transition:width .45s ease}
@@ -820,14 +820,14 @@ html[dir="rtl"] .week-row .wr-lbl{margin-right:0;margin-left:auto}
 .missed-banner .mb-text strong{color:#FF9800}
 .missed-banner .mb-actions{display:flex;gap:6px}
 .mb-btn{font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:6px 12px;border-radius:6px;border:1px solid var(--text-muted);background:transparent;color:var(--text-soft);cursor:pointer;transition:opacity .15s}
-.mb-btn.primary{background:#FF9800;border-color:#FF9800;color:#14151A}
+.mb-btn.primary{background:#FF9800;border-color:#FF9800;color:#08090C}
 .makeup-chip{display:inline-block;font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#FF9800;background:rgba(255,152,0,.1);border:1px solid rgba(255,152,0,.3);border-radius:6px;padding:3px 8px;margin-left:6px;vertical-align:middle}
 html[dir="rtl"] .makeup-chip{margin-left:0;margin-right:6px}
 .ss-toggle{font-size:.5rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:5px 10px;border-radius:6px;border:1px solid var(--text-muted);background:transparent;color:var(--text-soft);cursor:pointer;white-space:nowrap;transition:all .15s}
-.ss-toggle.on{background:var(--accent);border-color:var(--accent);color:#14151A}
+.ss-toggle.on{background:var(--accent);border-color:var(--accent);color:#08090C}
 .superset-card .ss-title-row{display:flex;gap:8px;margin-bottom:6px}
 .superset-card .ss-title{flex:1;min-width:0;background:rgba(250,250,248,.02);border-radius:8px;padding:6px 8px}
-.superset-card .ss-title .ss-badge{display:inline-block;font-size:.5rem;font-weight:800;background:var(--accent);color:#14151A;border-radius:4px;padding:1px 5px;margin-right:5px;vertical-align:middle}
+.superset-card .ss-title .ss-badge{display:inline-block;font-size:.5rem;font-weight:800;background:var(--accent);color:#08090C;border-radius:4px;padding:1px 5px;margin-right:5px;vertical-align:middle}
 .superset-card .ss-title.a .ss-badge{background:#4CAF50}
 .superset-card .ss-title.b .ss-badge{background:#2196F3}
 .superset-card .ss-meta-row{display:flex;gap:8px;margin-bottom:6px}
@@ -900,9 +900,9 @@ select option{background:var(--card)}
 @media (prefers-reduced-motion: reduce){.btn-primary:hover,.pc-btn:hover,.consult-cta:hover,.sub-btn:hover,.week-chip:hover,.btn-secondary:hover{transform:none;box-shadow:var(--shadow-accent)}}
 
 /* Sticky mobile CTA bar */
-#mobileCtaBar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:950;background:rgba(20,21,26,.97);backdrop-filter:blur(10px);border-top:1px solid rgba(226,232,240,.25);padding:10px 14px calc(10px + env(safe-area-inset-bottom));gap:10px;box-shadow:0 -8px 24px rgba(0,0,0,.35)}
+#mobileCtaBar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:950;background:rgba(8, 9, 12,.97);backdrop-filter:blur(10px);border-top:1px solid rgba(226,232,240,.25);padding:10px 14px calc(10px + env(safe-area-inset-bottom));gap:10px;box-shadow:0 -8px 24px rgba(0,0,0,.35)}
 #mobileCtaBar a{flex:1;text-align:center;padding:13px 8px;border-radius:10px;font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;text-decoration:none;transition:opacity .2s}
-#mobileCtaBar .cta-primary{background:#E2E8F0;color:#14151A}
+#mobileCtaBar .cta-primary{background:#E2E8F0;color:#08090C}
 #mobileCtaBar .cta-secondary{background:transparent;color:#FAFAF8;border:1.5px solid rgba(250,250,248,.25)}
 #mobileCtaBar a:active{opacity:.85}
 /* ---- Welcome Back Card ---- */
@@ -959,7 +959,7 @@ select option{background:var(--card)}
 }
 .mos-toast {
   pointer-events: auto; display: flex; align-items: center; gap: 10px;
-  padding: 12px 16px; background: rgba(20, 21, 26, 0.96);
+  padding: 12px 16px; background: rgba(8, 9, 12, 0.96);
   border: 1px solid rgba(226,232,240, 0.4); border-radius: 12px;
   color: #FAFAF8; font-size: 0.85rem; font-family: 'Inter', sans-serif;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(226,232,240, 0.15);
@@ -1009,7 +1009,7 @@ select option{background:var(--card)}
 .set-row.completed .btn-complete-set {
   background: #10b981 !important;
   border-color: #10b981 !important;
-  color: #0A0B0E !important;
+  color: #08090C !important;
   box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
 }
 .set-row, .set-log-header {
@@ -1056,7 +1056,7 @@ select option{background:var(--card)}
   font-weight: 700;
   cursor: pointer;
 }
-.btn-timer-adj:hover { background: var(--accent); color: #0A0B0E; }
+.btn-timer-adj:hover { background: var(--accent); color: #08090C; }
 .btn-timer-close {
   background: none;
   border: none;
@@ -1114,7 +1114,7 @@ select option{background:var(--card)}
 }
 .btn-pwa-install:hover {
   background: var(--accent);
-  color: #0A0B0E;
+  color: #08090C;
   box-shadow: 0 0 15px rgba(226,232,240, 0.4);
   transform: translateY(-1px);
 }
@@ -1177,7 +1177,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  <li>EN/AR bilingual interface</li>
  <li>Exportable PDF programs with full details</li>
  </ul>
- <button onclick="document.getElementById('subOverlay').style.display='none'" class="sub-btn" style="background:var(--accent); color:#0A0B0E; font-weight:700; cursor:pointer;">Start 1-Month Free Trial &rarr;</button>
+ <button onclick="document.getElementById('subOverlay').style.display='none'" class="sub-btn" style="background:var(--accent); color:#08090C; font-weight:700; cursor:pointer;">Start 1-Month Free Trial &rarr;</button>
  <div class="sub-divider" data-i18n="sub_enter_code">Enter your access code below to unlock</div>
  <div id="authStep2">
  <div class="sub-code-row">
@@ -1315,9 +1315,9 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
 
  <div class="form-row">
  <div class="form-group"><label data-i18n="name_label">Name</label>
- <input type="text" id="userName" value="Athlete" placeholder="e.g. Ahmed" style="width:100%;padding:6px 8px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem"></div>
+ <input type="text" id="userName" value="Athlete" placeholder="e.g. Ahmed" style="width:100%;padding:6px 8px;background:rgba(8, 9, 12,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem"></div>
  <div class="form-group"><label data-i18n="age_label">Age</label>
- <input type="number" id="userAge" value="25" placeholder="25" min="10" max="100" style="width:100%;padding:6px 8px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem"></div>
+ <input type="number" id="userAge" value="25" placeholder="25" min="10" max="100" style="width:100%;padding:6px 8px;background:rgba(8, 9, 12,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem"></div>
  </div>
  <div class="form-row">
  <div class="form-group"><label data-i18n="ta_label">Training Age</label>
@@ -1344,9 +1344,9 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  </div>
  <div class="form-row" id="bodyCompRow">
  <div class="form-group"><label data-i18n="weight_label">Bodyweight (kg)</label>
- <input type="number" id="userWeight" value="75" placeholder="75" min="30" max="300" step="0.5" style="width:100%;padding:6px 8px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem"></div>
+ <input type="number" id="userWeight" value="75" placeholder="75" min="30" max="300" step="0.5" style="width:100%;padding:6px 8px;background:rgba(8, 9, 12,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem"></div>
  <div class="form-group"><label data-i18n="height_label">Height (cm) <span style="color:rgba(250,250,248,.3);font-size:.5rem">(optional)</span></label>
- <input type="number" id="userHeight" value="175" placeholder="175" min="100" max="250" step="1" style="width:100%;padding:6px 8px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem"></div>
+ <input type="number" id="userHeight" value="175" placeholder="175" min="100" max="250" step="1" style="width:100%;padding:6px 8px;background:rgba(8, 9, 12,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem"></div>
  </div>
  <div class="form-row">
  <div class="form-group" id="cycleLenGroup" style="display:none"><label data-i18n="cycle_len_label">Cycle Length (days)</label>
@@ -1377,7 +1377,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  <div class="section-header" data-i18n="cycle_title">Menstrual Cycle</div>
  <p style="font-size:.55rem;color:rgba(250,250,248,.2);margin-bottom:6px;line-height:1.3" data-i18n="cycle_sub">Tell us where you are in your cycle and we'll tune weekly volume, RPE and recovery notes. Optional — you can skip for a balanced program.</p>
  <div class="form-row">
- <div class="form-group"><label data-i18n="cycle_last_label">First day of your last period</label><input type="date" id="cycleLastDate" style="width:100%;padding:6px 8px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem;color-scheme:dark"></div>
+ <div class="form-group"><label data-i18n="cycle_last_label">First day of your last period</label><input type="date" id="cycleLastDate" style="width:100%;padding:6px 8px;background:rgba(8, 9, 12,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.55rem;color-scheme:dark"></div>
  <div class="form-group"><label data-i18n="cycle_phase_label">Current Phase</label>
  <select id="cyclePhaseSel"><option value="auto" data-i18n="cycle_auto">Auto (from dates)</option><option value="menstrual" data-i18n="cyc_menstrual">Menstruation (days 1–5)</option><option value="follicular" data-i18n="cyc_follicular">Follicular (days 6–13)</option><option value="ovulation" data-i18n="cyc_ovulation">Ovulation (~day 14)</option><option value="luteal" data-i18n="cyc_luteal">Luteal (days 15–28)</option><option value="skip" data-i18n="cycle_skip">Skip — balanced program</option></select></div>
  </div>
@@ -1452,7 +1452,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  </p>
  <div id="volSummary" class="recap-box"></div>
  <div id="volBars"></div>
- <div class="card" id="mesoRampBox" style="margin-top:14px;background:rgba(20,21,26,.5);border-radius:12px;padding:12px 14px;border:1px solid rgba(250,250,248,.06);">
+ <div class="card" id="mesoRampBox" style="margin-top:14px;background:rgba(8, 9, 12,.5);border-radius:12px;padding:12px 14px;border:1px solid rgba(250,250,248,.06);">
   <div style="font-size:.7rem;font-weight:600;color:#E2E8F0;text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px;">4-Week Mesocycle Volume Load Ramp</div>
   <div id="mesoRampChart" style="height:140px;"></div>
   </div>
@@ -1645,7 +1645,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
   </div>
 
   <!-- Powerlifting Periodization Model & Single-Lift Specialization -->
-  <div id="mesoPeriodizationBox" style="margin: 10px 0; padding: 12px; background: rgba(20,21,26,0.5); border: 1px solid rgba(250,250,248,0.08); border-radius: 10px; display: none;">
+  <div id="mesoPeriodizationBox" style="margin: 10px 0; padding: 12px; background: rgba(8, 9, 12,0.5); border: 1px solid rgba(250,250,248,0.08); border-radius: 10px; display: none;">
     <div class="form-group" style="margin-bottom: 8px;">
       <label style="color:#E2E8F0; font-weight:600; font-size:0.75rem;">Powerlifting Periodization Model</label>
       <select id="mesoPeriodModel">
@@ -1680,7 +1680,7 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
     </div>
   </div>
 
-  <div id="mesoPreview" style="background:rgba(20,21,26,.25);border-radius:8px;padding:10px;margin:8px 0">
+  <div id="mesoPreview" style="background:rgba(8, 9, 12,.25);border-radius:8px;padding:10px;margin:8px 0">
  <p style="font-size:.55rem;color:rgba(250,250,248,.12);padding:8px;text-align:center" data-i18n="no_data">Configure above and click Generate.</p>
  </div>
  <div class="btn-group">
@@ -7116,9 +7116,9 @@ window.alert = function(msg) { window.mosToast(msg, 'info'); };
  var splitName=split?split.name:(prog.splitName||'My Program');
  var W=1080,H=1350,c=document.getElementById('shareCanvas'),ctx=c.getContext('2d');
  c.width=W;c.height=H;
- ctx.fillStyle='#14151A';ctx.fillRect(0,0,W,H);
+ ctx.fillStyle='#08090C';ctx.fillRect(0,0,W,H);
  ctx.fillStyle='#E2E8F0';ctx.fillRect(0,0,W,16);
- ctx.fillStyle='#1E2027';ctx.fillRect(0,16,W,120);
+ ctx.fillStyle='#161822';ctx.fillRect(0,16,W,120);
  ctx.fillStyle='#E2E8F0';ctx.font='800 46px Arial,Helvetica,sans-serif';ctx.fillText('MUSCLE OS',60,95);
  ctx.fillStyle='rgba(250,250,248,.55)';ctx.font='600 24px Arial,Helvetica,sans-serif';ctx.fillText('TRAINING PROGRAM',60,128);
  ctx.fillStyle='#FAFAF8';ctx.font='800 64px Arial,Helvetica,sans-serif';
@@ -7334,8 +7334,8 @@ window.showBiofeedbackModal = function(di) {
   if(!prog || !prog.days[di]) return;
   var dayName = prog.days[di].n;
   
-  var modalHtml = '<div id="bioModal" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,10,15,.9);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;">' +
-    '<div style="background:#14151A;border:1px solid rgba(250,250,248,.1);border-radius:12px;padding:24px;width:100%;max-width:400px;">' +
+  var modalHtml = '<div id="bioModal" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(8, 9, 12,.9);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;">' +
+    '<div style="background:#08090C;border:1px solid rgba(250,250,248,.1);border-radius:12px;padding:24px;width:100%;max-width:400px;">' +
       '<h2 style="font-family:\'Oswald\',sans-serif;font-size:1.2rem;color:#E2E8F0;margin-bottom:16px;text-transform:uppercase;">Log Biofeedback</h2>' +
       '<p style="font-size:.75rem;color:rgba(250,250,248,.6);margin-bottom:20px;">Rate your session to auto-regulate tomorrow\'s volume.</p>' +
       
@@ -7359,7 +7359,7 @@ window.showBiofeedbackModal = function(di) {
       
       '<div style="display:flex;gap:12px;">' +
         '<button onclick="document.getElementById(\'bioModal\').remove()" style="flex:1;padding:12px;background:transparent;border:1px solid rgba(250,250,248,.2);border-radius:6px;color:#FAFAF8;font-weight:600;font-size:.8rem;">Cancel</button>' +
-        '<button onclick="saveBiofeedback(' + di + ', \'' + dayName.replace(/'/g, "\\'") + '\')" style="flex:1;padding:12px;background:#E2E8F0;border:none;border-radius:6px;color:#14151A;font-weight:600;font-size:.8rem;">Save & Finish</button>' +
+        '<button onclick="saveBiofeedback(' + di + ', \'' + dayName.replace(/'/g, "\\'") + '\')" style="flex:1;padding:12px;background:#E2E8F0;border:none;border-radius:6px;color:#08090C;font-weight:600;font-size:.8rem;">Save & Finish</button>' +
       '</div>' +
     '</div>' +
   '</div>';
@@ -7394,7 +7394,7 @@ window.generateRadarCard = function() {
   canvas.width = 1080; canvas.height = 1080;
   var ctx = canvas.getContext('2d');
   
-  ctx.fillStyle = '#14151A'; ctx.fillRect(0, 0, 1080, 1080);
+  ctx.fillStyle = '#08090C'; ctx.fillRect(0, 0, 1080, 1080);
   ctx.fillStyle = '#E2E8F0'; ctx.font = 'bold 80px "Oswald", sans-serif';
   ctx.textAlign = 'center'; ctx.fillText('STRENGTH RADAR', 540, 120);
   ctx.fillStyle = '#FAFAF8'; ctx.font = '40px "Inter", sans-serif';
@@ -7473,7 +7473,7 @@ window.generateShareCard = function(dayName, timeSec, sets, p, f, s) {
   var ctx = canvas.getContext('2d');
   
   // Background
-  ctx.fillStyle = '#14151A';
+  ctx.fillStyle = '#08090C';
   ctx.fillRect(0, 0, 1080, 1920);
   
   // Header
@@ -7493,7 +7493,7 @@ window.generateShareCard = function(dayName, timeSec, sets, p, f, s) {
   
   // Stats Boxes
   function drawBox(x, y, label, val) {
-    ctx.fillStyle = 'rgba(20,21,26,1)';
+    ctx.fillStyle = 'rgba(8, 9, 12,1)';
     ctx.strokeStyle = 'rgba(226,232,240,0.2)';
     ctx.lineWidth = 4;
     ctx.beginPath();
@@ -7543,13 +7543,13 @@ window.generateShareCard = function(dayName, timeSec, sets, p, f, s) {
 };
 
 window.showShareModal = function(dataUrl) {
-  var modalHtml = '<div id="shareModal" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,10,15,.95);z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;">' +
+  var modalHtml = '<div id="shareModal" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(8, 9, 12,.95);z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;">' +
     '<h2 style="font-family:\'Oswald\',sans-serif;font-size:1.5rem;color:#E2E8F0;margin-bottom:10px;text-transform:uppercase;">Workout Saved!</h2>' +
     '<p style="font-size:.8rem;color:rgba(250,250,248,.6);margin-bottom:20px;">Show off your hard work.</p>' +
     '<img src="' + dataUrl + '" alt="Workout summary card preview" style="width:100%;max-width:300px;border-radius:12px;margin-bottom:24px;border:1px solid rgba(226,232,240,.2);">' +
     '<div style="display:flex;gap:12px;width:100%;max-width:300px;">' +
       '<button onclick="document.getElementById(\'shareModal\').remove();go(4);renderDashboard();" style="flex:1;padding:14px;background:transparent;border:1px solid rgba(250,250,248,.2);border-radius:8px;color:#FAFAF8;font-weight:600;font-size:.9rem;">Skip</button>' +
-      '<button id="nativeShareBtn" style="flex:1;padding:14px;background:#E2E8F0;border:none;border-radius:8px;color:#14151A;font-weight:600;font-size:.9rem;">Share Image</button>' +
+      '<button id="nativeShareBtn" style="flex:1;padding:14px;background:#E2E8F0;border:none;border-radius:8px;color:#08090C;font-weight:600;font-size:.9rem;">Share Image</button>' +
     '</div>' +
   '</div>';
   document.body.insertAdjacentHTML('beforeend', modalHtml);
@@ -8533,26 +8533,26 @@ function exportIcs(){
  var gh='<div class="sec"><div class="st" style="color:#E2E8F0">How to Use Your Training App</div><div class="gs"><span class="gn">1</span><div><strong>Set Up Your Profile</strong> \u2014 Select training age, goal, days per week, and recovery factor. Mark muscles as Focus (full volume) or Maintain (~half volume).</div></div><div class="gs"><span class="gn">2</span><div><strong>Choose Your Split</strong> \u2014 Browse available splits matching your schedule, or take the built-in quiz for a personalised recommendation.</div></div><div class="gs"><span class="gn">3</span><div><strong>Generate &amp; Save Program</strong> \u2014 Review your program with sets, rep ranges, and rest periods. Optionally configure a mesocycle plan with progression phases and deload scheduling.</div></div><div class="gs"><span class="gn">4</span><div><strong>Train Each Day</strong> \u2014 Log weights, reps, and RPE for every set. The dashboard shows pre-session readiness, deload reminders, and fatigue tracking.</div></div><div class="gs"><span class="gn">5</span><div><strong>Track Progress</strong> \u2014 Review volume compliance, personal records, e1RM charts, ACWR (acute:chronic workload ratio), and deload history on the History page.</div></div><div class="gs"><span class="gn">6</span><div><strong>Export &amp; Share</strong> \u2014 Save your program as PDF, or export/import your data as JSON for backup across devices.</div></div></div>';
  var w=window.open('','_blank','width=900,height=700');
  w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Training Program \u2014 '+prog.splitName+'</title><style>'+
- '@page{margin:15mm 12mm}@media print{body{background:#14151A!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}}'+
+ '@page{margin:15mm 12mm}@media print{body{background:#08090C!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}}'+
  '*{margin:0;padding:0;box-sizing:border-box}'+
- 'body{background:#14151A;color:#FAFAF8;font-family:"Inter","Segoe UI",Arial,sans-serif;max-width:800px;margin:0 auto;padding:30px 24px}'+
+ 'body{background:#08090C;color:#FAFAF8;font-family:"Inter","Segoe UI",Arial,sans-serif;max-width:800px;margin:0 auto;padding:30px 24px}'+
  'h1{font-family:"Oswald","Impact",sans-serif;font-size:1.8rem;text-transform:uppercase;letter-spacing:2px;color:#FAFAF8;margin-bottom:4px}'+
  '.sb{font-size:.7rem;color:rgba(250,250,248,.3);margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid rgba(250,250,248,.05)}'+
  '.st{font-family:"Oswald",sans-serif;font-size:.95rem;text-transform:uppercase;letter-spacing:1.5px;margin:16px 0 8px;padding-bottom:3px;border-bottom:1px solid rgba(226,232,240,.15)}'+
  '.rp{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 12px}'+
- '.rp>div{flex:1;min-width:70px;background:rgba(20,21,26,.4);border-radius:6px;padding:7px 8px;text-align:center;border:1px solid rgba(250,250,248,.03)}'+
+ '.rp>div{flex:1;min-width:70px;background:rgba(8, 9, 12,.4);border-radius:6px;padding:7px 8px;text-align:center;border:1px solid rgba(250,250,248,.03)}'+
  '.rp .v{font-size:1rem;font-weight:700;color:#E2E8F0}.rp .l{font-size:.48rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.2);margin-top:1px}'+
  'table{width:100%;border-collapse:collapse;margin:4px 0 8px}'+
  'th{text-align:left;font-size:.52rem;text-transform:uppercase;letter-spacing:1px;color:rgba(250,250,248,.25);padding:5px 6px 3px;border-bottom:1px solid rgba(250,250,248,.06);font-weight:500}'+
  'td{padding:4px 6px;font-size:.65rem;border-bottom:1px solid rgba(250,250,248,.02);color:rgba(250,250,248,.7)}'+
- '.c{text-align:center}.db{margin:8px 0 12px;background:rgba(20,21,26,.4);border-radius:8px;padding:8px 10px;border:1px solid rgba(250,250,248,.03)}'+
+ '.c{text-align:center}.db{margin:8px 0 12px;background:rgba(8, 9, 12,.4);border-radius:8px;padding:8px 10px;border:1px solid rgba(250,250,248,.03)}'+
  '.dt{font-family:"Oswald",sans-serif;font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:#E2E8F0;margin-bottom:4px}'+
  '.sec{margin:16px 0;page-break-inside:avoid}.ec{display:flex;flex-direction:column;gap:8px}'+
- '.ecard{background:rgba(20,21,26,.35);border-radius:8px;padding:8px 10px;border:1px solid rgba(250,250,248,.03)}'+
+ '.ecard{background:rgba(8, 9, 12,.35);border-radius:8px;padding:8px 10px;border:1px solid rgba(250,250,248,.03)}'+
  '.ect{font-size:.65rem;font-weight:600;color:#FAFAF8;margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px}'+
  '.etip{font-size:.6rem;color:rgba(250,250,248,.45);margin-top:6px;line-height:1.4}'+
- '.gs{display:flex;gap:8px;align-items:flex-start;padding:6px 8px;background:rgba(20,21,26,.25);border-radius:6px;margin-bottom:4px;border:1px solid rgba(250,250,248,.02)}'+
- '.gn{width:22px;height:22px;border-radius:50%;background:#E2E8F0;color:#14151A;font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}'+
+ '.gs{display:flex;gap:8px;align-items:flex-start;padding:6px 8px;background:rgba(8, 9, 12,.25);border-radius:6px;margin-bottom:4px;border:1px solid rgba(250,250,248,.02)}'+
+ '.gn{width:22px;height:22px;border-radius:50%;background:#E2E8F0;color:#08090C;font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}'+
  '.gs div{font-size:.62rem;color:rgba(250,250,248,.6);line-height:1.4}.gs div strong{color:#FAFAF8}'+
  '.ft{text-align:center;margin-top:24px;padding-top:10px;border-top:1px solid rgba(250,250,248,.04);font-size:.55rem;color:rgba(250,250,248,.2)}'+
  '.ft a{color:rgba(226,232,240,.35);text-decoration:none}'+
@@ -8908,7 +8908,7 @@ document.getElementById('trendRange').addEventListener('change',renderTrendHisto
  }
  var step = MOS_TRAIN_TOUR[stepIdx];
  modal.innerHTML = `
- <div class="card animate-in" style="max-width:440px;width:90%;border:1.5px solid #E2E8F0;box-shadow:0 0 32px rgba(226,232,240,.35);background:#1A1B26">
+ <div class="card animate-in" style="max-width:440px;width:90%;border:1.5px solid #E2E8F0;box-shadow:0 0 32px rgba(226,232,240,.35);background:#161822">
  <div style="font-family:'Oswald',sans-serif;font-size:1.15rem;color:#E2E8F0;margin-bottom:8px">${step.title}</div>
  <div style="font-size:.78rem;line-height:1.6;color:rgba(250,250,248,.85);margin-bottom:16px">${step.desc}</div>
  <div style="display:flex;justify-content:space-between;align-items:center">
@@ -9617,11 +9617,11 @@ window.closeTrainingTourModal = function(){
  <p style="font-size:.6rem;color:rgba(250,250,248,.2);margin:6px 0 10px" data-i18n="sync_desc">Enter or create a sync ID to transfer your training data between devices.</p>
  <label style="font-size:.5rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.25);display:block;margin-bottom:4px">Sync ID</label>
  <div style="display:flex;gap:6px">
- <input type="text" id="syncKeyInput" placeholder="e.g. 8f3a-9c2b" style="flex:1;min-width:0;padding:8px 10px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;margin-bottom:10px">
+ <input type="text" id="syncKeyInput" placeholder="e.g. 8f3a-9c2b" style="flex:1;min-width:0;padding:8px 10px;background:rgba(8, 9, 12,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;margin-bottom:10px">
  <button onclick="genSyncId()" title="New ID" style="background:rgba(33,150,243,.1);border:1px solid rgba(33,150,243,.25);color:#2196F3;border-radius:6px;padding:0 10px;font-size:.7rem;cursor:pointer;margin-bottom:10px">↻</button>
  </div>
  <label style="font-size:.5rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.25);display:block;margin-bottom:4px" data-i18n="sync_pw">Passphrase</label>
- <input type="password" id="syncPwInput" placeholder="optional" style="width:100%;padding:8px 10px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;margin-bottom:10px">
+ <input type="password" id="syncPwInput" placeholder="optional" style="width:100%;padding:8px 10px;background:rgba(8, 9, 12,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;margin-bottom:10px">
  <div id="syncLastRow" style="font-size:.5rem;color:rgba(250,250,248,.25);margin-bottom:10px;display:none"><span data-i18n="sync_last">Last synced</span>: <span id="syncLastTs"></span></div>
  <div style="display:flex;gap:8px">
  <button class="btn-primary" onclick="doSyncUpload()" style="flex:1" data-i18n="sync_push">Push</button>
@@ -9634,7 +9634,7 @@ window.closeTrainingTourModal = function(){
  <div class="modal-card">
  <div class="modal-header"><span data-i18n="ce_title">Custom Exercise</span><span class="modal-close" onclick="hideCeModal()"><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>
  <p style="font-size:.6rem;color:rgba(250,250,248,.2);margin:6px 0 10px" data-i18n="ce_desc">Add an exercise not in our database. It will be available for program generation.</p>
- <input type="text" id="ceName" placeholder="e.g. Bulgarian Split Squat" style="width:100%;padding:8px 10px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;margin-bottom:8px">
+ <input type="text" id="ceName" placeholder="e.g. Bulgarian Split Squat" style="width:100%;padding:8px 10px;background:rgba(8, 9, 12,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;margin-bottom:8px">
  <div class="form-row" style="margin-bottom:6px">
  <div class="form-group"><label data-i18n="ce_type">Type</label><select id="ceType"><option value="compound">Compound</option><option value="isolation">Isolation</option></select></div>
  <div class="form-group"><label data-i18n="ce_focus">Focus</label><select id="ceFocus"><option value="push">Push</option><option value="pull">Pull</option><option value="legs">Legs</option><option value="core">Core</option></select></div>
@@ -9642,9 +9642,9 @@ window.closeTrainingTourModal = function(){
  </div>
  <div style="display:flex;gap:4px;margin-bottom:10px;align-items:center">
  <span style="font-size:.5rem;color:rgba(250,250,248,.18);font-weight:600;text-transform:uppercase;letter-spacing:.5px" data-i18n="ce_minrep">Min Reps</span>
- <input type="number" id="ceMinRep" value="6" min="1" max="30" style="width:50px;padding:4px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:4px;color:#FAFAF8;font-size:.55rem;text-align:center">
+ <input type="number" id="ceMinRep" value="6" min="1" max="30" style="width:50px;padding:4px;background:rgba(8, 9, 12,.5);border:1px solid rgba(250,250,248,.08);border-radius:4px;color:#FAFAF8;font-size:.55rem;text-align:center">
  <span style="font-size:.5rem;color:rgba(250,250,248,.18);font-weight:600;text-transform:uppercase;letter-spacing:.5px" data-i18n="ce_maxrep">Max Reps</span>
- <input type="number" id="ceMaxRep" value="12" min="1" max="30" style="width:50px;padding:4px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:4px;color:#FAFAF8;font-size:.55rem;text-align:center">
+ <input type="number" id="ceMaxRep" value="12" min="1" max="30" style="width:50px;padding:4px;background:rgba(8, 9, 12,.5);border:1px solid rgba(250,250,248,.08);border-radius:4px;color:#FAFAF8;font-size:.55rem;text-align:center">
  </div>
  <button class="btn-primary" onclick="saveCustomExFromModal()" style="width:100%" data-i18n="ce_save">Save Exercise</button>
  <div id="ceList" style="margin-top:10px;max-height:150px;overflow-y:auto"></div>
@@ -9935,7 +9935,7 @@ if (window.self !== window.top) {
  
  <div style="margin-bottom:12px;">
     <label style="font-size:.6rem;font-weight:600;color:var(--text);display:block;margin-bottom:6px;">1. How has your intensity been the last few sessions?</label>
-    <select id="dq_q1" style="width:100%;padding:8px 10px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;">
+    <select id="dq_q1" style="width:100%;padding:8px 10px;background:rgba(8, 9, 12,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;">
         <option value="1">Too high / Constantly grinding or missing reps</option>
         <option value="2">Hard but manageable / Hitting targets</option>
         <option value="3">Perfect / Feeling strong and explosive</option>
@@ -9944,7 +9944,7 @@ if (window.self !== window.top) {
 
  <div style="margin-bottom:12px;">
     <label style="font-size:.6rem;font-weight:600;color:var(--text);display:block;margin-bottom:6px;">2. How does your body feel physically right now?</label>
-    <select id="dq_q2" style="width:100%;padding:8px 10px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;">
+    <select id="dq_q2" style="width:100%;padding:8px 10px;background:rgba(8, 9, 12,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;">
         <option value="1">Beat up / Joints aching / Heavy fatigue</option>
         <option value="2">Okay / Normal muscle soreness</option>
         <option value="3">Great / Fresh and energetic</option>
@@ -9953,7 +9953,7 @@ if (window.self !== window.top) {
 
  <div style="margin-bottom:12px;">
     <label style="font-size:.6rem;font-weight:600;color:var(--text);display:block;margin-bottom:6px;">3. How is your recovery (sleep, stress, nutrition)?</label>
-    <select id="dq_q3" style="width:100%;padding:8px 10px;background:rgba(20,21,26,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;">
+    <select id="dq_q3" style="width:100%;padding:8px 10px;background:rgba(8, 9, 12,.5);border:1px solid rgba(250,250,248,.08);border-radius:6px;color:#FAFAF8;font-size:.6rem;">
         <option value="1">Poor (bad sleep, high stress, eating poorly)</option>
         <option value="2">Moderate (okay but could be better)</option>
         <option value="3">Excellent (sleeping well, low stress, eating well)</option>
@@ -9974,11 +9974,11 @@ if (window.self !== window.top) {
 
 
 <!-- AI Coach FAB -->
-<button id="coachFab" style="position:fixed;bottom:20px;right:20px;padding:0 20px;width:auto;height:56px;border-radius:28px;background:#E2E8F0;color:#14151a;border:none;box-shadow:0 4px 12px rgba(0,0,0,0.3);font-size:1rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;z-index:99;display:flex;align-items:center;justify-content:center;">AI Coach</button>
+<button id="coachFab" style="position:fixed;bottom:20px;right:20px;padding:0 20px;width:auto;height:56px;border-radius:28px;background:#E2E8F0;color:#08090C;border:none;box-shadow:0 4px 12px rgba(0,0,0,0.3);font-size:1rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;z-index:99;display:flex;align-items:center;justify-content:center;">AI Coach</button>
 
 <!-- AI Coach Drawer -->
 <div id="coachDrawer" style="position:fixed;top:0;right:-400px;width:400px;max-width:100%;height:100%;background:#1a1b22;box-shadow:-4px 0 15px rgba(0,0,0,0.5);z-index:100;transition:right 0.3s ease;display:flex;flex-direction:column;border-left:1px solid rgba(250,250,248,0.05);">
-  <div style="padding:16px;background:rgba(20,21,26,0.9);border-bottom:1px solid rgba(250,250,248,0.05);display:flex;justify-content:space-between;align-items:center;">
+  <div style="padding:16px;background:rgba(8, 9, 12,0.9);border-bottom:1px solid rgba(250,250,248,0.05);display:flex;justify-content:space-between;align-items:center;">
     <strong style="color:#FAFAF8;font-size:1rem;">MuscleOS AI Coach</strong>
     <button onclick="document.getElementById('coachDrawer').style.right='-400px'" style="background:none;border:none;color:rgba(250,250,248,0.5);font-size:1.2rem;cursor:pointer;">?</button>
   </div>
@@ -9987,9 +9987,9 @@ if (window.self !== window.top) {
       Hello! I'm your AI Coach. How can I help you today?
     </div>
   </div>
-  <div style="padding:12px;background:rgba(20,21,26,0.9);border-top:1px solid rgba(250,250,248,0.05);display:flex;gap:8px;">
+  <div style="padding:12px;background:rgba(8, 9, 12,0.9);border-top:1px solid rgba(250,250,248,0.05);display:flex;gap:8px;">
     <input type="text" id="coachInput" placeholder="Ask about your progress, plateau, or fatigue..." style="flex:1;background:rgba(250,250,248,0.05);border:1px solid rgba(250,250,248,0.1);color:#FAFAF8;padding:10px 12px;border-radius:20px;font-size:0.8rem;outline:none;">
-    <button id="coachSendBtn" style="background:#E2E8F0;color:#14151a;border:none;border-radius:20px;padding:0 16px;font-weight:600;cursor:pointer;">Send</button>
+    <button id="coachSendBtn" style="background:#E2E8F0;color:#08090C;border:none;border-radius:20px;padding:0 16px;font-weight:600;cursor:pointer;">Send</button>
   </div>
 </div>
 
@@ -10047,7 +10047,7 @@ if (window.self !== window.top) {
     input.value = '';
 
     var userBubble = document.createElement('div');
-    userBubble.style.cssText = 'align-self:flex-end;background:#E2E8F0;color:#14151a;padding:10px 14px;border-radius:12px 12px 2px 12px;max-width:85%;font-size:0.8rem;line-height:1.4;';
+    userBubble.style.cssText = 'align-self:flex-end;background:#E2E8F0;color:#08090C;padding:10px 14px;border-radius:12px 12px 2px 12px;max-width:85%;font-size:0.8rem;line-height:1.4;';
     userBubble.textContent = text;
     log.appendChild(userBubble);
     log.scrollTop = log.scrollHeight;
