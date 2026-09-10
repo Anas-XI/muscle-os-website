@@ -7,8 +7,8 @@ from mos_bot.core.program_generator import generate_program_pipeline
 
 def _incident_id() -> str:
     """Generate a unique crisis incident identifier (timestamp-based)."""
-    from datetime import datetime
-    return datetime.utcnow().strftime("%Y%m%d_%H%M%S")
+    from datetime import datetime, timezone
+    return datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
 
 
 # ── Field mapping helpers ──
