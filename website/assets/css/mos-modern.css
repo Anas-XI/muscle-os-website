@@ -323,49 +323,93 @@
   vertical-align: middle;
 }
 
-/* OriginKit Mobile Bottom Execution Dock */
+/* OriginKit Mobile Bottom Execution Dock — Obsidian & Silver Spring Physics */
 .originkit-bottom-dock {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(15, 16, 21, 0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-top: 1px solid var(--mos-border);
-  padding: 10px 16px env(safe-area-inset-bottom, 10px);
+  background: rgba(8, 9, 12, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(226, 232, 240, 0.12);
+  padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 10px));
   z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  gap: 12px;
-  box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.7);
+  gap: 8px;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .originkit-dock-item {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 3px;
   background: transparent;
-  border: none;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 6px 12px;
   color: var(--mos-text-muted);
   font-family: var(--font-display);
   font-size: 0.72rem;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   cursor: pointer;
-  transition: color 0.2s, transform 0.15s;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
   min-width: 58px;
+  user-select: none;
 }
 
-.originkit-dock-item:hover, .originkit-dock-item.active {
-  color: var(--mos-yellow);
+.originkit-dock-item .dock-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.25s ease;
+}
+
+.originkit-dock-item:hover {
+  color: #FFFFFF;
+  background: rgba(226, 232, 240, 0.04);
+}
+
+.originkit-dock-item.active {
+  color: #FFFFFF;
+  background: rgba(226, 232, 240, 0.08);
+  border-color: rgba(226, 232, 240, 0.22);
+  box-shadow: 0 0 16px rgba(226, 232, 240, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.originkit-dock-item.active .dock-icon {
+  transform: translateY(-2px) scale(1.12);
+  filter: drop-shadow(0 0 8px rgba(226, 232, 240, 0.6));
+}
+
+.originkit-dock-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  width: 14px;
+  height: 2px;
+  background: #E2E8F0;
+  border-radius: 2px;
+  box-shadow: 0 0 8px #FFFFFF;
+  animation: mosSpringDot 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes mosSpringDot {
+  from { transform: scaleX(0); opacity: 0; }
+  to { transform: scaleX(1); opacity: 1; }
 }
 
 .originkit-dock-item:active {
   transform: scale(0.92);
+  transition-duration: 0.08s;
 }
 
 /* Plate Calculator Bottom Sheet */
@@ -422,13 +466,118 @@
   animation: mosPopIn 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.plate-25 { width: 18px; height: 75px; background: #E53E3E; border: 1px solid #FC8181; }
-.plate-20 { width: 16px; height: 70px; background: #3182CE; border: 1px solid #63B3ED; }
-.plate-15 { width: 15px; height: 60px; background: #D69E2E; border: 1px solid #ECC94B; }
-.plate-10 { width: 14px; height: 50px; background: #38A169; border: 1px solid #68D391; }
-.plate-5  { width: 12px; height: 40px; background: #FAFAF8; color: #000; }
-.plate-2_5{ width: 10px; height: 32px; background: #718096; }
-.plate-1_25{ width: 8px; height: 26px; background: #4A5568; }
+.plate-25 { width: 20px; height: 78px; background: linear-gradient(180deg, #EF4444 0%, #B91C1C 100%); border: 1px solid #FCA5A5; }
+.plate-20 { width: 18px; height: 72px; background: linear-gradient(180deg, #3B82F6 0%, #1D4ED8 100%); border: 1px solid #93C5FD; }
+.plate-15 { width: 16px; height: 62px; background: linear-gradient(180deg, #F59E0B 0%, #B45309 100%); border: 1px solid #FCD34D; }
+.plate-10 { width: 15px; height: 52px; background: linear-gradient(180deg, #10B981 0%, #047857 100%); border: 1px solid #6EE7B7; }
+.plate-5  { width: 13px; height: 42px; background: linear-gradient(180deg, #F8FAFC 0%, #CBD5E1 100%); color: #08090C; border: 1px solid #FFFFFF; }
+.plate-2_5{ width: 11px; height: 34px; background: linear-gradient(180deg, #64748B 0%, #334155 100%); border: 1px solid #94A3B8; }
+.plate-1_25{ width: 9px; height: 28px; background: linear-gradient(180deg, #475569 0%, #1E293B 100%); border: 1px solid #64748B; }
+
+/* Interactive Plate Stepper Controls & Badges */
+.mos-plate-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.mos-plate-input-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.mos-plate-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(8, 9, 12, 0.7);
+  border: 1px solid rgba(226, 232, 240, 0.25);
+  border-radius: 8px;
+  padding: 4px 12px;
+}
+
+.mos-plate-input {
+  background: transparent;
+  border: none;
+  color: #FFFFFF;
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-weight: 700;
+  width: 90px;
+  text-align: right;
+  outline: none;
+}
+
+.mos-plate-steppers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+
+.mos-plate-step-btn {
+  background: rgba(226, 232, 240, 0.06);
+  border: 1px solid rgba(226, 232, 240, 0.18);
+  border-radius: 6px;
+  color: #E2E8F0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.mos-plate-step-btn:hover {
+  background: rgba(226, 232, 240, 0.14);
+  border-color: #FFFFFF;
+  color: #FFFFFF;
+}
+
+.mos-plate-step-btn:active {
+  transform: scale(0.92);
+}
+
+.mos-plate-presets {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.mos-plate-preset-chip {
+  background: rgba(20, 22, 29, 0.8);
+  border: 1px solid rgba(226, 232, 240, 0.12);
+  border-radius: 9999px;
+  color: var(--mos-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 4px 10px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.mos-plate-preset-chip:hover {
+  border-color: #E2E8F0;
+  color: #FFFFFF;
+}
+
+.mos-plate-count-badge {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(226, 232, 240, 0.05);
+  border: 1px solid rgba(226, 232, 240, 0.15);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.78rem;
+  color: #E2E8F0;
+}
 
 /* 10x Upsell & Free Trial Floating Bar */
 .mos-trial-dock {

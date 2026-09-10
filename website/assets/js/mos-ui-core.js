@@ -254,73 +254,120 @@
 
   mosUI.renderVolumeRadar = function (container, muscleGroups) {
     if (!container) return;
-    // muscleGroups: [{ name: 'Chest', current: 14, mev: 10, mrv: 20 }, ...]
-    var size = 260;
+    // muscleGroups: [{ name: 'Chest', val: 0.8, sets: 16, mev: 10, mav: 16, mrv: 22 }, ...]
+    var size = 280;
     var center = size / 2;
-    var radius = size * 0.38;
-    var groups = muscleGroups || [
-      { name: 'Chest', val: 0.75 },
-      { name: 'Back', val: 0.85 },
-      { name: 'Quads', val: 0.65 },
-      { name: 'Hamstrings', val: 0.6 },
-      { name: 'Shoulders', val: 0.8 },
-      { name: 'Arms', val: 0.9 }
+    var radius = size * 0.36;
+
+    // Use passed muscleGroups or rich calibrated baseline
+    var groups = (muscleGroups && muscleGroups.length > 0) ? muscleGroups : [
+      { name: 'Chest', val: 0.80, sets: 16, mev: 10, mav: 16, mrv: 22 },
+      { name: 'Back', val: 0.90, sets: 18, mev: 12, mav: 18, mrv: 25 },
+      { name: 'Quads', val: 0.70, sets: 14, mev: 8, mav: 14, mrv: 20 },
+      { name: 'Hamstrings', val: 0.65, sets: 12, mev: 6, mav: 12, mrv: 18 },
+      { name: 'Shoulders', val: 0.78, sets: 15, mev: 8, mav: 16, mrv: 22 },
+      { name: 'Arms', val: 0.72, sets: 14, mev: 8, mav: 14, mrv: 20 }
     ];
     var total = groups.length;
 
-    var gridLevels = [0.33, 0.66, 1.0];
-    var gridPaths = gridLevels.map(function (level) {
+    var gridLevels = [
+      { level: 0.45, label: 'MEV' },
+      { level: 0.75, label: 'MAV' },
+      { level: 1.00, label: 'MRV' }
+    ];
+
+    var gridPaths = gridLevels.map(function (gl) {
       var pts = [];
       for (var i = 0; i < total; i++) {
         var angle = (Math.PI * 2 * i) / total - Math.PI / 2;
-        var r = radius * level;
-        pts.push((center + r * Math.cos(angle)) + ',' + (center + r * Math.sin(angle)));
+        var r = radius * gl.level;
+        pts.push((center + r * Math.cos(angle)).toFixed(1) + ',' + (center + r * Math.sin(angle)).toFixed(1));
       }
-      return pts.join(' ');
+      return { path: pts.join(' '), level: gl.level, label: gl.label };
     });
 
     var dataPts = [];
     var labels = [];
     for (var i = 0; i < total; i++) {
       var angle = (Math.PI * 2 * i) / total - Math.PI / 2;
-      var r = radius * Math.min(Math.max(groups[i].val || 0.5, 0.1), 1.15);
-      var px = center + r * Math.cos(angle);
-      var py = center + r * Math.sin(angle);
-      dataPts.push(px + ',' + py);
+      var rawVal = groups[i].val !== undefined ? groups[i].val : ((groups[i].sets || 12) / (groups[i].mrv || 20));
+      var r = radius * Math.min(Math.max(rawVal || 0.6, 0.2), 1.15);
+      var px = (center + r * Math.cos(angle)).toFixed(1);
+      var py = (center + r * Math.sin(angle)).toFixed(1);
+      dataPts.push({ x: px, y: py, group: groups[i] });
 
-      var lx = center + (radius + 22) * Math.cos(angle);
-      var ly = center + (radius + 22) * Math.sin(angle);
-      labels.push({ x: lx, y: ly, text: groups[i].name });
+      var lx = (center + (radius + 24) * Math.cos(angle)).toFixed(1);
+      var ly = (center + (radius + 24) * Math.sin(angle)).toFixed(1);
+      labels.push({ x: lx, y: ly, text: groups[i].name, sets: groups[i].sets || Math.round(rawVal * 20) });
     }
 
+    var polygonCoords = dataPts.map(function(p) { return p.x + ',' + p.y; }).join(' ');
+    var radarGradId = 'bklit-radar-grad-' + Math.random().toString(36).substring(2, 7);
+
     var svg = [
-      '<svg viewBox="0 0 ' + size + ' ' + size + '" width="100%" height="' + size + '">',
-      '  <!-- Grid Rings -->',
-      gridPaths.map(function (p) {
-        return '<polygon points="' + p + '" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1" />';
+      '<div style="position:relative; width:100%; max-width:' + size + 'px; margin:0 auto;">',
+      '<svg viewBox="0 0 ' + size + ' ' + size + '" width="100%" height="' + size + '" style="overflow:visible;">',
+      '  <defs>',
+      '    <linearGradient id="' + radarGradId + '" x1="0" y1="0" x2="1" y2="1">',
+      '      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.35" />',
+      '      <stop offset="50%" stop-color="#E2E8F0" stop-opacity="0.18" />',
+      '      <stop offset="100%" stop-color="#64748B" stop-opacity="0.05" />',
+      '    </linearGradient>',
+      '    <filter id="radarGlow" x="-20%" y="-20%" width="140%" height="140%">',
+      '      <feGaussianBlur stdDeviation="3" result="blur" />',
+      '      <feComposite in="SourceGraphic" in2="blur" operator="over" />',
+      '    </filter>',
+      '  </defs>',
+      '  <!-- Landmark Concentric Hexagons -->',
+      gridPaths.map(function (gp) {
+        var strokeStyle = gp.level === 0.75 ? 'stroke="rgba(226,232,240,0.3)" stroke-dasharray="3,3"' : 'stroke="rgba(255,255,255,0.08)"';
+        return '<polygon points="' + gp.path + '" fill="none" ' + strokeStyle + ' stroke-width="1" />';
       }).join(''),
-      '  <!-- Axis Lines -->',
+      '  <!-- Kinetic Spoke Axes -->',
       groups.map(function (_, i) {
         var angle = (Math.PI * 2 * i) / total - Math.PI / 2;
-        var ex = center + radius * Math.cos(angle);
-        var ey = center + radius * Math.sin(angle);
-        return '<line x1="' + center + '" y1="' + center + '" x2="' + ex + '" y2="' + ey + '" stroke="rgba(255,255,255,0.08)" />';
+        var ex = (center + radius * Math.cos(angle)).toFixed(1);
+        var ey = (center + radius * Math.sin(angle)).toFixed(1);
+        return '<line x1="' + center + '" y1="' + center + '" x2="' + ex + '" y2="' + ey + '" stroke="rgba(226,232,240,0.12)" stroke-width="1" />';
       }).join(''),
       '  <!-- Volume Distribution Polygon -->',
-      '  <polygon points="' + dataPts.join(' ') + '" fill="rgba(226,232,240,0.22)" stroke="#E2E8F0" stroke-width="2" stroke-linejoin="round" />',
-      '  <!-- Data Points -->',
+      '  <polygon points="' + polygonCoords + '" fill="url(#' + radarGradId + ')" stroke="#FFFFFF" stroke-width="2.2" stroke-linejoin="round" filter="url(#radarGlow)" />',
+      '  <!-- Interactive Vertices -->',
       dataPts.map(function (p) {
-        var coords = p.split(',');
-        return '<circle cx="' + coords[0] + '" cy="' + coords[1] + '" r="3" fill="#E2E8F0" />';
+        return '<circle class="radar-vertex" cx="' + p.x + '" cy="' + p.y + '" r="4" fill="#FFFFFF" stroke="#08090C" stroke-width="1.8" style="cursor:pointer;transition:transform 0.2s;" data-tip="' + p.group.name + ': ' + (p.group.sets || 14) + ' sets/wk" />';
       }).join(''),
-      '  <!-- Labels -->',
+      '  <!-- Axis Labels -->',
       labels.map(function (l) {
-        return '<text x="' + l.x + '" y="' + l.y + '" fill="#FAFAF8" font-family="Oswald, sans-serif" font-size="10" font-weight="600" text-anchor="middle" dominant-baseline="central">' + l.text + '</text>';
+        return '<text x="' + l.x + '" y="' + l.y + '" fill="#FAFAF8" font-family="Oswald, sans-serif" font-size="10.5" font-weight="600" text-anchor="middle" dominant-baseline="central" letter-spacing="0.5">' +
+               l.text + ' <tspan fill="#94A3B8" font-size="9" font-family="JetBrains Mono, monospace">(' + l.sets + ')</tspan></text>';
       }).join(''),
-      '</svg>'
+      '</svg>',
+      '<div id="radarTooltip" style="position:absolute;display:none;background:#161822;border:1px solid rgba(226,232,240,0.3);border-radius:6px;padding:4px 8px;font-size:0.7rem;font-family:JetBrains Mono,monospace;color:#FFF;pointer-events:none;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,0.6);white-space:nowrap;"></div>',
+      '<div style="display:flex;justify-content:center;gap:14px;margin-top:10px;font-family:JetBrains Mono,monospace;font-size:0.68rem;color:#94A3B8;">',
+      '  <span style="color:#94A3B8;">⬡ MEV: ' + (groups[0].mev || 8) + '+</span>',
+      '  <span style="color:#FFFFFF;font-weight:700;">★ MAV Peak: ' + (groups[0].mav || 16) + '</span>',
+      '  <span style="color:#EF4444;">▲ MRV Cap: ' + (groups[0].mrv || 22) + '</span>',
+      '</div>',
+      '</div>'
     ].join('');
 
     container.innerHTML = svg;
+
+    var tip = container.querySelector('#radarTooltip');
+    container.querySelectorAll('.radar-vertex').forEach(function(dot) {
+      dot.addEventListener('mouseenter', function(e) {
+        if (!tip) return;
+        tip.textContent = dot.getAttribute('data-tip');
+        tip.style.display = 'block';
+        tip.style.left = (parseFloat(dot.getAttribute('cx')) - 30) + 'px';
+        tip.style.top = (parseFloat(dot.getAttribute('cy')) - 26) + 'px';
+        dot.setAttribute('r', '6');
+      });
+      dot.addEventListener('mouseleave', function() {
+        if (tip) tip.style.display = 'none';
+        dot.setAttribute('r', '4');
+      });
+    });
   };
 
   // ── 4. OriginKit Interactive Effects & Plate Calculator ──────────────────
@@ -337,64 +384,187 @@
   };
 
   mosUI.openPlateCalculator = function (targetWeight) {
-    targetWeight = Number(targetWeight) || 100;
-    var barWeight = 20;
-    var sideWeight = Math.max(0, (targetWeight - barWeight) / 2);
-
-    var availablePlates = [25, 20, 15, 10, 5, 2.5, 1.25];
-    var loaded = [];
-    var rem = sideWeight;
-
-    availablePlates.forEach(function (p) {
-      while (rem >= p) {
-        loaded.push(p);
-        rem = Math.round((rem - p) * 100) / 100;
-      }
-    });
+    var weight = Number(targetWeight);
+    if (!weight || isNaN(weight) || weight < 20) {
+      // Check if user has active working weight stored or default to 100 kg
+      var storedWeight = 100;
+      try {
+        var lastEx = localStorage.getItem('mos_last_working_weight');
+        if (lastEx) storedWeight = parseFloat(lastEx) || 100;
+      } catch (e) {}
+      weight = storedWeight;
+    }
 
     var modalId = 'mos-plate-modal';
     var existing = document.getElementById(modalId);
     if (existing) existing.remove();
 
-    var platesHtml = loaded.map(function (p) {
-      var cls = 'plate-' + String(p).replace('.', '_');
-      return '<div class="mos-plate ' + cls + '">' + p + '</div>';
-    }).join('');
-
     var sheet = document.createElement('div');
     sheet.id = modalId;
     sheet.className = 'mos-sheet-backdrop';
-    sheet.innerHTML = [
-      '<div class="mos-sheet-drawer" role="dialog" aria-label="Olympic Plate Math">',
-      '  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">',
-      '    <div style="font-family:Oswald,sans-serif; font-size:1.15rem; font-weight:700; text-transform:uppercase; color:#fff;">',
-      '      Olympic Plate Math &middot; <span style="color:#E2E8F0;">' + targetWeight + ' kg</span>',
-      '    </div>',
-      '    <button type="button" id="mos-plate-close" style="background:transparent; border:none; color:#8A8D96; font-size:1.4rem; cursor:pointer;">&times;</button>',
-      '  </div>',
-      '  <p style="font-size:0.82rem; color:#8A8D96; margin:0 0 12px;">Standard 20 kg bar &middot; Load <strong>' + sideWeight.toFixed(2) + ' kg</strong> on each side:</p>',
-      '  <div class="mos-plate-barbell">',
-      '    <div style="width:12px; height:45px; background:#4A5568; border-radius:2px; margin-right:4px;" title="Barbell Collar"></div>',
-      loaded.length ? platesHtml : '<span style="color:#8A8D96; font-size:0.85rem;">Empty Bar (20 kg)</span>',
-      '  </div>',
-      '  <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px;">',
-      '    <div style="font-family:JetBrains Mono, monospace; font-size:0.8rem; color:#FAFAF8;">',
-      '      Exact Plates / Side: ' + (loaded.length ? loaded.join(', ') + ' kg' : 'None'),
-      '    </div>',
-      '    <button type="button" class="originkit-btn originkit-btn-primary" id="mos-plate-done">Got It</button>',
-      '  </div>',
-      '</div>'
-    ].join('');
+
+    function calculatePlatesForWeight(w) {
+      var barWeight = 20;
+      var sideWeight = Math.max(0, (w - barWeight) / 2);
+      var availablePlates = [25, 20, 15, 10, 5, 2.5, 1.25];
+      var loaded = [];
+      var counts = {};
+      var rem = sideWeight;
+
+      availablePlates.forEach(function (p) {
+        counts[p] = 0;
+        while (rem >= p) {
+          loaded.push(p);
+          counts[p]++;
+          rem = Math.round((rem - p) * 100) / 100;
+        }
+      });
+
+      var breakdownParts = [];
+      availablePlates.forEach(function(p) {
+        if (counts[p] > 0) breakdownParts.push(counts[p] + '× ' + p + 'kg');
+      });
+
+      return {
+        targetWeight: w,
+        sideWeight: sideWeight,
+        loaded: loaded,
+        counts: counts,
+        totalPlatesSide: loaded.length,
+        totalPlatesBar: loaded.length * 2,
+        breakdownText: breakdownParts.length ? breakdownParts.join(' · ') : 'None (Empty Bar)'
+      };
+    }
+
+    function renderDrawer(curWeight) {
+      var data = calculatePlatesForWeight(curWeight);
+      var platesHtml = data.loaded.map(function (p) {
+        var cls = 'plate-' + String(p).replace('.', '_');
+        return '<div class="mos-plate ' + cls + '">' + p + '</div>';
+      }).join('');
+
+      var lbsVal = Math.round(curWeight * 2.20462);
+
+      sheet.innerHTML = [
+        '<div class="mos-sheet-drawer" role="dialog" aria-label="Olympic Plate Math">',
+        '  <!-- Header -->',
+        '  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">',
+        '    <div>',
+        '      <div style="font-family:Oswald,sans-serif; font-size:1.15rem; font-weight:700; text-transform:uppercase; color:#fff; display:flex; align-items:center; gap:8px;">',
+        '        <span><svg class="mos-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M2 8h12" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="4" width="2.5" height="8" rx=".5" fill="currentColor"/><rect x="10.5" y="4" width="2.5" height="8" rx=".5" fill="currentColor"/></svg></span>',
+        '        Olympic Plate Math',
+        '      </div>',
+        '      <div style="font-size:0.75rem; color:#94A3B8;">Standard 20 kg Barbell &middot; Load <strong>' + data.sideWeight.toFixed(2) + ' kg</strong> per side</div>',
+        '    </div>',
+        '    <button type="button" id="mos-plate-close" style="background:none; border:none; color:#94A3B8; font-size:1.5rem; cursor:pointer; line-height:1;">&times;</button>',
+        '  </div>',
+        '',
+        '  <!-- Barbell Visualization -->',
+        '  <div class="mos-plate-barbell">',
+        '    <div style="width:14px; height:48px; background:#475569; border-radius:3px; margin-right:4px; border:1px solid #64748B;" title="Barbell Collar"></div>',
+        '    <div style="width:8px; height:24px; background:#334155; margin-right:4px;"></div>',
+        data.loaded.length ? platesHtml : '<span style="color:#94A3B8; font-family:JetBrains Mono, monospace; font-size:0.85rem;">Empty Bar (20 kg / 45 lbs)</span>',
+        '  </div>',
+        '',
+        '  <!-- Plate Count & Breakdown Badge -->',
+        '  <div class="mos-plate-count-badge">',
+        '    <div>',
+        '      <div style="font-weight:700; font-family:JetBrains Mono, monospace; color:#FFFFFF;">',
+        '        ' + data.totalPlatesBar + ' Plates Total <span style="color:#94A3B8; font-weight:400;">(' + data.totalPlatesSide + ' per side)</span>',
+        '      </div>',
+        '      <div style="font-size:0.7rem; color:#94A3B8; margin-top:2px;">',
+        '        ' + data.breakdownText,
+        '      </div>',
+        '    </div>',
+        '    <div style="text-align:right;">',
+        '      <span style="font-family:JetBrains Mono, monospace; font-size:1.15rem; font-weight:700; color:#E2E8F0;">' + curWeight + ' kg</span>',
+        '      <div style="font-size:0.68rem; color:#94A3B8;">~' + lbsVal + ' lbs</div>',
+        '    </div>',
+        '  </div>',
+        '',
+        '  <!-- Interactive Steppers & Controls -->',
+        '  <div class="mos-plate-controls">',
+        '    <div class="mos-plate-input-row">',
+        '      <span style="font-family:Oswald,sans-serif; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.5px; color:#94A3B8;">Direct Target:</span>',
+        '      <div class="mos-plate-input-wrap">',
+        '        <input type="number" id="mos-plate-num" class="mos-plate-input" value="' + curWeight + '" step="2.5" min="20" max="500">',
+        '        <span style="font-family:JetBrains Mono, monospace; font-size:0.8rem; color:#94A3B8;">kg</span>',
+        '      </div>',
+        '    </div>',
+        '',
+        '    <div class="mos-plate-steppers">',
+        '      <button type="button" class="mos-plate-step-btn" data-step="-20">&minus;20kg</button>',
+        '      <button type="button" class="mos-plate-step-btn" data-step="-10">&minus;10kg</button>',
+        '      <button type="button" class="mos-plate-step-btn" data-step="-2.5">&minus;2.5kg</button>',
+        '      <button type="button" class="mos-plate-step-btn" data-step="2.5">+2.5kg</button>',
+        '      <button type="button" class="mos-plate-step-btn" data-step="10">+10kg</button>',
+        '      <button type="button" class="mos-plate-step-btn" data-step="20">+20kg</button>',
+        '    </div>',
+        '',
+        '    <!-- Quick Presets -->',
+        '    <div class="mos-plate-presets">',
+        '      <button type="button" class="mos-plate-preset-chip" data-w="60">60 kg (135 lbs)</button>',
+        '      <button type="button" class="mos-plate-preset-chip" data-w="100">100 kg (225 lbs)</button>',
+        '      <button type="button" class="mos-plate-preset-chip" data-w="140">140 kg (315 lbs)</button>',
+        '      <button type="button" class="mos-plate-preset-chip" data-w="180">180 kg (405 lbs)</button>',
+        '      <button type="button" class="mos-plate-preset-chip" data-w="220">220 kg (495 lbs)</button>',
+        '    </div>',
+        '  </div>',
+        '',
+        '  <div style="display:flex; justify-content:flex-end; margin-top:16px;">',
+        '    <button type="button" class="originkit-btn originkit-btn-primary" id="mos-plate-done" style="width:100%; justify-content:center; padding:10px;">Done &middot; Ready to Lift</button>',
+        '  </div>',
+        '</div>'
+      ].join('');
+
+      bindEvents(curWeight);
+    }
+
+    function bindEvents(curWeight) {
+      var closeBtn = document.getElementById('mos-plate-close');
+      var doneBtn = document.getElementById('mos-plate-done');
+      var numInput = document.getElementById('mos-plate-num');
+
+      function close() {
+        if (sheet && sheet.parentNode) sheet.parentNode.removeChild(sheet);
+      }
+
+      if (closeBtn) closeBtn.onclick = close;
+      if (doneBtn) doneBtn.onclick = close;
+
+      if (numInput) {
+        numInput.onchange = function() {
+          var val = Math.max(20, Math.round((parseFloat(numInput.value) || 20) * 2) / 2);
+          if (navigator.vibrate) navigator.vibrate(15);
+          renderDrawer(val);
+        };
+      }
+
+      sheet.querySelectorAll('.mos-plate-step-btn').forEach(function(btn) {
+        btn.onclick = function() {
+          var delta = parseFloat(btn.getAttribute('data-step')) || 0;
+          var next = Math.max(20, curWeight + delta);
+          if (navigator.vibrate) navigator.vibrate(20);
+          renderDrawer(next);
+        };
+      });
+
+      sheet.querySelectorAll('.mos-plate-preset-chip').forEach(function(chip) {
+        chip.onclick = function() {
+          var target = parseFloat(chip.getAttribute('data-w')) || 100;
+          if (navigator.vibrate) navigator.vibrate(25);
+          renderDrawer(target);
+        };
+      });
+    }
 
     document.body.appendChild(sheet);
+    renderDrawer(weight);
 
-    function close() {
-      if (sheet && sheet.parentNode) sheet.parentNode.removeChild(sheet);
-    }
-    document.getElementById('mos-plate-close').onclick = close;
-    document.getElementById('mos-plate-done').onclick = close;
     sheet.onclick = function (e) {
-      if (e.target === sheet) close();
+      if (e.target === sheet && sheet.parentNode) {
+        sheet.parentNode.removeChild(sheet);
+      }
     };
   };
 
