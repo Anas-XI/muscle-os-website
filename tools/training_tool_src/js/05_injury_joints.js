@@ -94,20 +94,14 @@
  }
  window.toggleLang=toggleLang;
  function applyAccent(acc){
- acc=acc||'yellow';
- if(acc!=='yellow')document.documentElement.setAttribute('data-accent',acc);
- else document.documentElement.removeAttribute('data-accent');
- localStorage.setItem('mos_accent',acc);
- var sw=document.querySelectorAll('.acc-swatch');
- for(var i=0;i<sw.length;i++)sw[i].classList.toggle('active',sw[i].dataset.acc===acc);
+ document.documentElement.removeAttribute('data-accent');
+ try{localStorage.removeItem('mos_accent');}catch(e){}
  }
  window.applyAccent=applyAccent;
  function initTheme(){
  document.documentElement.setAttribute('data-theme','dark');
- localStorage.setItem('mos_theme','dark');
- applyAccent(localStorage.getItem('mos_accent')||'yellow');
- var sws=document.querySelectorAll('.acc-swatch');
- for(var i=0;i<sws.length;i++)sws[i].addEventListener('click',function(){applyAccent(this.dataset.acc);});
+ try{localStorage.setItem('mos_theme','dark');localStorage.removeItem('mos_accent');}catch(e){}
+ document.documentElement.removeAttribute('data-accent');
  }
  window.initTheme=initTheme;
  var deferredPrompt=null;
@@ -140,8 +134,7 @@
  document.querySelectorAll('[data-i18n]').forEach(function(el){el.textContent=_(el.dataset.i18n);});
  document.querySelectorAll('[data-i18n-ph]').forEach(function(el){el.placeholder=_(el.dataset.i18nPh);});
  document.querySelectorAll('[data-i18n-val]').forEach(function(el){el.value=_(el.dataset.i18nVal);});
- var ap=document.getElementById('accPicker');
- if(ap)ap.title=_('accent');
+ 
  var ibtn=document.getElementById('installBtn');
  if(ibtn)ibtn.title=_('install_app');
  document.title=_('app_title')+' \u2014 '+_('header_sub');

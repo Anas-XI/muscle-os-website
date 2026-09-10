@@ -27,9 +27,9 @@
  --accent-line:rgba(226, 232, 240,.35);
  --overlay:rgba(0,0,0,.7);
 }
-html[data-accent="green"]{--accent:#4CAF50;--accent2:#388E3C;--accent-soft:rgba(76,175,80,.12);--accent-soft2:rgba(76,175,80,.2);--accent-line:rgba(76,175,80,.4)}
-html[data-accent="cyan"]{--accent:#2196F3;--accent2:#1565C0;--accent-soft:rgba(33,150,243,.12);--accent-soft2:rgba(33,150,243,.2);--accent-line:rgba(33,150,243,.4)}
-html[data-accent="purple"]{--accent:#9C27B0;--accent2:#6A1B9A;--accent-soft:rgba(156,39,176,.14);--accent-soft2:rgba(156,39,176,.24);--accent-line:rgba(156,39,176,.4)}
+
+
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:32px 16px}
 @media print{body{background:#fff;color:#000;padding:20px}body *{color:#000!important}
@@ -56,10 +56,10 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .lang-toggle{display:flex;background:var(--input-bg);border-radius:6px;padding:2px;border:1px solid var(--line);margin-left:10px}
 .lang-opt{padding:3px 8px;font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;cursor:pointer;border-radius:4px;color:var(--text-dim);transition:all .2s;font-family:'Inter',sans-serif;user-select:none}
  .lang-opt.active{background:var(--accent);color:var(--bg)}
- .acc-picker{display:flex;gap:3px;background:var(--input-bg);border:1px solid var(--line);border-radius:6px;padding:3px}
- .acc-swatch{width:12px;height:12px;border-radius:50%;cursor:pointer;opacity:.45;transition:all .2s;border:1px solid transparent;box-sizing:border-box}
- .acc-swatch:hover{opacity:.9;transform:scale(1.15)}
- .acc-swatch.active{opacity:1;border-color:var(--text);transform:scale(1.1)}
+ 
+ 
+ 
+ 
  .install-btn{background:var(--input-bg);border:1px solid var(--line);border-radius:6px;color:var(--text);font-size:.7rem;padding:4px 8px;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;line-height:1;margin-left:6px}
  .install-btn:hover{border-color:var(--accent-line);color:var(--accent)}
  html[dir="rtl"] .install-btn{margin-left:0;margin-right:6px}
