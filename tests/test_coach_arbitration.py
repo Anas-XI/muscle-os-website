@@ -5,8 +5,8 @@ Simulates what coach_start() does: load raw profile dict → ClientProfile.from_
 session-start re-arbitration boundaries.
 """
 
-from mos_bot.core.models import ClientProfile
-from mos_bot.web.routers.arbitrate import arbitrate, ArbitrateResponse, ArbitrateRequest
+from mos_os.core.models import ClientProfile
+from mos_os.web.routers.arbitrate import arbitrate, ArbitrateResponse, ArbitrateRequest
 
 
 def _coach_arbitrate(raw_profile: dict) -> ArbitrateResponse:

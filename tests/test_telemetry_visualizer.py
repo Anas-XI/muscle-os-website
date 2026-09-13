@@ -1,7 +1,7 @@
 """Tests for Interactive Telemetry Visualizer."""
 
 import pytest
-from mos_bot.core.telemetry_visualizer import (
+from mos_os.core.telemetry_visualizer import (
     calculate_ema,
     generate_ascii_bar,
     generate_ascii_sparkline,

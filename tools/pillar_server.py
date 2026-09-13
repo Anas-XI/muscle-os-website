@@ -19,19 +19,19 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 import uvicorn
 
-from mos_bot.core.models import (
+from mos_os.core.models import (
     ClientProfile, SafetyTriageResult, PillarAssignment,
     VaultInformedSignals, VaultSource,
 )
-from mos_bot.core.context_loader import (
+from mos_os.core.context_loader import (
     evaluate_ed_screening, run_safety_triage,
     _build_vault_context, _extract_vault_signals,
 )
-from mos_bot.core.book_engine import BookDecisionEngine
-from mos_bot.core.content_generator import generate_program, program_to_markdown
-from mos_bot.core.pdf_renderer import generate_program_pdf
-from mos_bot.core.analytics import track
-from mos_bot.config import USERS_DIR, PROGRAMS_DIR, PDFS_DIR
+from mos_os.core.book_engine import BookDecisionEngine
+from mos_os.core.content_generator import generate_program, program_to_markdown
+from mos_os.core.pdf_renderer import generate_program_pdf
+from mos_os.core.analytics import track
+from mos_os.config import USERS_DIR, PROGRAMS_DIR, PDFS_DIR
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s")
 logger = logging.getLogger("pillar_server")
@@ -68,12 +68,12 @@ def _build_profile(data: dict) -> ClientProfile:
     weight_raw = data.get("bodyweight", "70")
     height_raw = data.get("height", "175")
     try:
-        from mos_bot.core.intake_builder import parse_weight, parse_height
+        from mos_os.core.intake_builder import parse_weight, parse_height
         weight_kg = float(parse_weight(weight_raw))
     except Exception:
         weight_kg = float(weight_raw)
     try:
-        from mos_bot.core.intake_builder import parse_height
+        from mos_os.core.intake_builder import parse_height
         height_cm = float(parse_height(height_raw))
     except Exception:
         height_cm = float(height_raw)
@@ -187,7 +187,7 @@ def _run_pipeline(data: dict) -> dict:
         pillars.modifications.extend(book_result.extra_modifiers)
     except Exception as e:
         logger.warning(f"Book engine failed (continuing without): {e}")
-        from mos_bot.core.book_engine import BookEngineResult
+        from mos_os.core.book_engine import BookEngineResult
         book_result = BookEngineResult()
 
     pc = generate_program(profile, triage, pillars, vault_sources, vault_context, book_result, vault_signals)
@@ -284,7 +284,7 @@ async def health():
 
 def _check_vault() -> bool:
     try:
-        from mos_bot.config import VAULT_ROOT
+        from mos_os.config import VAULT_ROOT
         return os.path.isdir(VAULT_ROOT)
     except Exception:
         return False

@@ -1,22 +1,22 @@
 """Full pipeline test — simulates exact form JSON output through the entire bot pipeline."""
 import sys, os, json, tempfile, pytest
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "mos_bot"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "mos_os"))
 sys.path.insert(0, os.path.dirname(__file__))
 
 from unittest.mock import patch, AsyncMock, MagicMock
 
 from skip_helpers import skip_if_no_vault
-from mos_bot.handlers.upload_profile import (
+from mos_os.handlers.upload_profile import (
     map_form_json, _process_json_file,
     _download_json, handle_json_upload,
     upload_profile, MAX_JSON_BYTES,
 )
-from mos_bot.core.intake_builder import build_profile, save_profile, load_profile
-from mos_bot.core.vault_context import get_vault_context
-from mos_bot.core.program_generator import generate_program
-from mos_bot.core.pdf_renderer import generate_program_pdf
-from mos_bot.config import USERS_DIR
+from mos_os.core.intake_builder import build_profile, save_profile, load_profile
+from mos_os.core.vault_context import get_vault_context
+from mos_os.core.program_generator import generate_program
+from mos_os.core.pdf_renderer import generate_program_pdf
+from mos_os.config import USERS_DIR
 
 
 # ── Realistic form JSON output (matches what saveJSON() produces) ──
@@ -311,7 +311,7 @@ def test_generate_program_pipeline_generates_deterministically():
 
 def test_mocked_program_pdf():
     """Verify PDF generation works from mocked program output."""
-    from mos_bot.config import PDFS_DIR
+    from mos_os.config import PDFS_DIR
     mock_program = (
         "# Coaching Program for Test\n\n"
         "## Profile Summary\n- Name: Test\n\n"
@@ -366,7 +366,7 @@ def test_form_json_with_all_edge_cases():
 def test_missing_json_keys():
     """Verify graceful handling of missing optional keys."""
     form = {"answers": {"Q45": "NoKeys", "Q46": "70"}}
-    with patch("mos_bot.handlers.upload_profile._process_json_file"):
+    with patch("mos_os.handlers.upload_profile._process_json_file"):
         raw = map_form_json(form, "missing_keys_test")
         profile = build_profile(raw)
         assert profile["name"] == "NoKeys"

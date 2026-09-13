@@ -3,8 +3,8 @@ Exercises the full safety pipeline (load_context, evaluate_rag_impact,
 run_safety_triage) with realistic profile data, no mocking.
 """
 
-from mos_bot.core.models import ClientProfile
-from mos_bot.core.context_loader import (
+from mos_os.core.models import ClientProfile
+from mos_os.core.context_loader import (
     load_context, evaluate_rag_impact, run_safety_triage, format_crisis_resources
 )
 
@@ -75,7 +75,7 @@ def test_crisis_gate_format_crisis_resources_returns_content():
 def test_crisis_gate_owner_notification_payload():
     """The DM template in _notify_owner_crisis includes actionable info.
     (exercised via program.py import path)"""
-    from mos_bot.core.program_generator import generate_program
+    from mos_os.core.program_generator import generate_program
     p = {
         "user_id": "test_crisis_notify",
         "name": "Notify Test",

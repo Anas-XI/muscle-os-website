@@ -1,7 +1,7 @@
 """Unit tests for Kinetic Chain Biomechanics & Injury Override Engine."""
 
 import pytest
-from mos_bot.core.biomechanics_engine import (
+from mos_os.core.biomechanics_engine import (
     get_injury_override,
     suggest_exercise_substitutions,
 )

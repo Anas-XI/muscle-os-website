@@ -338,4 +338,4 @@ Certified coaches publish multi-week programs. Existing order infrastructure han
 > **Do you have a Gemini API key** for the AI Coach endpoint? (Free tier available at ai.google.dev)
 
 > [!NOTE]
-> **Cross-channel sync (Phase 5)** — The Supabase schema from our security work is already laid out. Do you want the Telegram bot data (JSON files in `mos_bot/data`) migrated to Supabase as part of Phase 5?
+> **Cross-channel sync (Phase 5)** — The Supabase schema from our security work is already laid out. Do you want the Telegram bot data (JSON files in `mos_os/data`) migrated to Supabase as part of Phase 5?

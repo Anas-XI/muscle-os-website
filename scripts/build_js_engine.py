@@ -4,7 +4,7 @@ import ast
 import glob
 
 MOS_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-BOOK_ENGINE_PATH = os.path.join(MOS_ROOT, "mos_bot", "core", "book_engine.py")
+BOOK_ENGINE_PATH = os.path.join(MOS_ROOT, "mos_os", "core", "book_engine.py")
 VAULT_ROOT = os.path.join(MOS_ROOT, "Muscle Operating System")
 DATA_OUT_DIR = os.path.join(MOS_ROOT, "website", "assets", "data")
 

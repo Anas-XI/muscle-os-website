@@ -1,0 +1,62 @@
+﻿blender.exe : TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+At line:1 char:1
++ & "C:\Program Files\Blender Foundation\Blender 4.2\blender.exe" --bac ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (TBBmalloc: skip...function _msize:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+MESH objects: 4569
+body-classified: 1929  |  mesh objects with 0 tris: 1605
+sample bodies:
+    ' Posterior transverse collateral sulcus.l' 504
+    ' Posterior transverse collateral sulcus.r' 504
+    '(Abdominal part of pectoralis major muscle).l' 4524
+    '(Abdominal part of pectoralis major muscle).r' 4524
+    '(Accessory parotid gland).l' 31
+    '(Accessory parotid gland).r' 31
+    '(Adductor minimus).l' 2844
+    '(Adductor minimus).r' 2844
+    '(Anterior tibial node).l' 360
+    '(Anterior tibial node).r' 360
+    '(Fibular node).l' 360
+    '(Fibular node).r' 360
+    '(Iliopectineal bursa).l' 736
+    '(Iliopectineal bursa).r' 736
+    '(Intermediate deep inguinal node).l' 360
+    '(Intermediate deep inguinal node).r' 360
+    '(Lateral lacunar node).l' 360
+    '(Lateral lacunar node).r' 360
+    '(Opponens digiti minimi muscle of foot).l' 708
+    '(Opponens digiti minimi muscle of foot).r' 708
+sample 0-tris:
+    '(Canal for vertebral artery).j'
+    '(External occipital crest).j'
+    '(Intermediate lacunar node).l'
+    '(Intermediate lacunar node).r'
+    '(Internal occipital crest).j'
+    '(Mandibular symphysis).j'
+    '(Medial lacunar node).l'
+    '(Medial lacunar node).r'
+    '(Middle clinoid process).j'
+    '(Pancreatic impression of spleen).j'
+Blender 4.2.16 LTS (hash 39502cae951c built 2025-11-18 01:34:37)
+Read blend: "E:\MoS\z-anatomy-tmp\extracted_z_anatomy\Z-Anatomy\Startup.blend"
+Warning: region type 5 missing in space type "Text" (id: 9) - removing region
+scripts disabled for "E:\MoS\z-anatomy-tmp\extracted_z_anatomy\Z-Anatomy\Startup.blend", skipping 'z-anatomy.py'
+Dependency cycle detected:
+  OBOesophagus-profile/TRANSFORM_INIT() depends on
+  OBOesophagus/GEOMETRY_EVAL() via 'Curve Follow Parent'
+  OBOesophagus/MODIFIER(Solidify) via 'modifier stack order'
+  OBOesophagus/GEOMETRY_EVAL_INIT() via 'Modifier'
+  CUOesophagus/GEOMETRY_EVAL_DONE() via 'Object Geometry Base Data'
+  CUOesophagus/GEOMETRY_EVAL() via 'ObData Geom Eval Done'
+  OBOesophagus-profile/TRANSFORM_FINAL() via 'Curve Bevel Transform'
+  OBOesophagus-profile/TRANSFORM_SIMULATION_INIT() via 'Simulation -> Final Transform'
+  OBOesophagus-profile/TRANSFORM_EVAL() via 'Transform Eval -> Simulation Init'
+  OBOesophagus-profile/TRANSFORM_PARENT() via 'Eval'
+  OBOesophagus-profile/TRANSFORM_LOCAL() via 'ObLocal -> ObParent'
+  OBOesophagus-profile/TRANSFORM_INIT() via 'Transform Init'
+Detected 1 dependency cycles
+
+Blender quit
+Error: Not freed memory blocks: 322, total unfreed memory 0.002457 MB

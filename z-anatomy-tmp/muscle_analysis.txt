@@ -1,0 +1,1964 @@
+== SUMMARY ==
+{
+  "body": {
+    "count": 1929,
+    "tris": 3489908
+  },
+  "empty": {
+    "count": 1605,
+    "tris": 0
+  },
+  "group": {
+    "count": 11,
+    "tris": 7189
+  },
+  "insertion": {
+    "count": 186,
+    "tris": 13866
+  },
+  "joint": {
+    "count": 1,
+    "tris": 2
+  },
+  "origin": {
+    "count": 269,
+    "tris": 31097
+  },
+  "other": {
+    "count": 568,
+    "tris": 557415
+  }
+}
+
+== MUSCLE BODY OBJECTS (name	stem	parent	tris) ==
+External intercostal muscles.l	External intercostal muscles	Muscles of thorax.g	41410
+External intercostal muscles.r	External intercostal muscles	Muscles of thorax.g	41410
+Internal intercostal muscles.l	Internal intercostal muscles	Muscles of thorax.g	40184
+Internal intercostal muscles.r	Internal intercostal muscles	Muscles of thorax.g	40184
+Innermost intercostal muscles.l	Innermost intercostal muscles	Muscles of thorax.g	38254
+Innermost intercostal muscles.r	Innermost intercostal muscles	Muscles of thorax.g	38254
+Transversus abdominis muscle.l	Transversus abdominis muscle	Muscles of abdomen.g	34328
+Transversus abdominis muscle.r	Transversus abdominis muscle	Muscles of abdomen.g	34328
+External abdominal oblique muscle.l	External abdominal oblique muscle	Muscles of abdomen.g	29622
+External abdominal oblique muscle.r	External abdominal oblique muscle	Muscles of abdomen.g	29622
+Internal abdominal oblique muscle.l	Internal abdominal oblique muscle	Muscles of abdomen.g	28869
+Internal abdominal oblique muscle.r	Internal abdominal oblique muscle	Muscles of abdomen.g	28869
+Serratus anterior muscle.l	Serratus anterior muscle	Muscles of thorax.g	25240
+Serratus anterior muscle.r	Serratus anterior muscle	Muscles of thorax.g	25240
+Latissimus dorsi muscle.l	Latissimus dorsi muscle	Hypaxial muscles of back.g	21580
+Latissimus dorsi muscle.r	Latissimus dorsi muscle	Hypaxial muscles of back.g	21580
+Rectus abdominis muscle.l	Rectus abdominis muscle	Muscles of abdomen.g	20604
+Rectus abdominis muscle.r	Rectus abdominis muscle	Muscles of abdomen.g	20604
+Epicranial aponeurosis.l	Epicranial aponeurosis	Epicranius muscle.g	20118
+Epicranial aponeurosis.r	Epicranial aponeurosis	Epicranius muscle.g	20118
+Palatopharyngeus muscle.l	Palatopharyngeus muscle	Muscles of soft palate.g	15282
+Palatopharyngeus muscle.r	Palatopharyngeus muscle	Muscles of soft palate.g	15282
+Fascia lata.l	Fascia lata	Fasciae of lower limb.g	12907
+Fascia lata.r	Fascia lata	Fasciae of lower limb.g	12907
+Temporoparietalis muscle.l	Temporoparietalis muscle	Epicranius muscle.g	11972
+Temporoparietalis muscle.r	Temporoparietalis muscle	Epicranius muscle.g	11972
+Investing abdominal fascia.l	Investing abdominal fascia	Fasciae of abdomen.g	11106
+Investing abdominal fascia.r	Investing abdominal fascia	Fasciae of abdomen.g	11106
+Crural fascia.l	Crural fascia	Fasciae of lower limb.g	10875
+Crural fascia.r	Crural fascia	Fasciae of lower limb.g	10875
+Temporalis muscle.l	Temporalis muscle	Masticatory muscles.g	10260
+Temporalis muscle.r	Temporalis muscle	Masticatory muscles.g	10260
+Iliocostalis lumborum muscle.l	Iliocostalis lumborum muscle	Iliocostalis muscles.g	10038
+Iliocostalis lumborum muscle.r	Iliocostalis lumborum muscle	Iliocostalis muscles.g	10038
+Longissimus thoracis muscle.l	Longissimus thoracis muscle	Longissimus muscles.g	9652
+Longissimus thoracis muscle.r	Longissimus thoracis muscle	Longissimus muscles.g	9652
+Stylopharyngeus muscle.l	Stylopharyngeus muscle	Pharyngeal muscles.g	9478
+Stylopharyngeus muscle.r	Stylopharyngeus muscle	Pharyngeal muscles.g	9478
+Vastus lateralis muscle.l	Vastus lateralis muscle	Anterior compartment of thigh.g	9356
+Vastus lateralis muscle.r	Vastus lateralis muscle	Anterior compartment of thigh.g	9356
+Serratus posterior inferior muscle.l	Serratus posterior inferior muscle	Hypaxial muscles of back.g	8958
+Serratus posterior inferior muscle.r	Serratus posterior inferior muscle	Hypaxial muscles of back.g	8958
+Rectus femoris muscle.l	Rectus femoris muscle	Anterior compartment of thigh.g	8276
+Rectus femoris muscle.r	Rectus femoris muscle	Anterior compartment of thigh.g	8276
+Semimembranosus muscle.l	Semimembranosus muscle	Posterior compartment of thigh.g	7442
+Semimembranosus muscle.r	Semimembranosus muscle	Posterior compartment of thigh.g	7442
+Brachioradialis muscle.l	Brachioradialis muscle	Superficial part of posterior compartment of forearm.g	7312
+Brachioradialis muscle.r	Brachioradialis muscle	Superficial part of posterior compartment of forearm.g	7312
+Soleus muscle.l	Soleus muscle	Superficial part of posterior compartment of leg.g	6774
+Soleus muscle.r	Soleus muscle	Superficial part of posterior compartment of leg.g	6774
+Descending part of trapezius muscle.l	Descending part of trapezius muscle	Trapezius muscle.g	6760
+Descending part of trapezius muscle.r	Descending part of trapezius muscle	Trapezius muscle.g	6760
+Vastus medialis muscle.l	Vastus medialis muscle	Anterior compartment of thigh.g	6460
+Vastus medialis muscle.r	Vastus medialis muscle	Anterior compartment of thigh.g	6460
+Longus colli muscle.l	Longus colli muscle	Muscles of neck.g	6294
+Longus colli muscle.r	Longus colli muscle	Muscles of neck.g	6294
+Gluteus minimus muscle.l	Gluteus minimus muscle	Superficial gluteal muscles.g	6250
+Gluteus minimus muscle.r	Gluteus minimus muscle	Superficial gluteal muscles.g	6250
+Vastus intermedius muscle.l	Vastus intermedius muscle	Anterior compartment of thigh.g	6164
+Vastus intermedius muscle.r	Vastus intermedius muscle	Anterior compartment of thigh.g	6164
+Frontalis muscle.l	Frontalis muscle	Epicranius muscle.g	5874
+Frontalis muscle.r	Frontalis muscle	Epicranius muscle.g	5874
+Iliocostalis thoracis muscle.l	Iliocostalis thoracis muscle	Iliocostalis muscles.g	5772
+Iliocostalis thoracis muscle.r	Iliocostalis thoracis muscle	Iliocostalis muscles.g	5772
+Spinalis thoracis muscle.l	Spinalis thoracis muscle	Spinalis muscles.g	5532
+Spinalis thoracis muscle.r	Spinalis thoracis muscle	Spinalis muscles.g	5532
+Tibialis posterior muscle.l	Tibialis posterior muscle	Deep part of posterior compartment of leg.g	5526
+Tibialis posterior muscle.r	Tibialis posterior muscle	Deep part of posterior compartment of leg.g	5526
+Fibularis longus muscle.l	Fibularis longus muscle	Lateral compartment of leg.g	5522
+Fibularis longus muscle.r	Fibularis longus muscle	Lateral compartment of leg.g	5522
+Serratus posterior superior muscle.l	Serratus posterior superior muscle	Hypaxial muscles of back.g	5518
+Serratus posterior superior muscle.r	Serratus posterior superior muscle	Hypaxial muscles of back.g	5518
+Suspensory ligament of eyeball.l	Suspensory ligament of eyeball	Accessory visual structures.g	5502
+Suspensory ligament of eyeball.r	Suspensory ligament of eyeball	Accessory visual structures.g	5502
+Splenius capitis muscle.l	Splenius capitis muscle	Splenius muscles.g	5262
+Splenius capitis muscle.r	Splenius capitis muscle	Splenius muscles.g	5262
+Tendon of extensor digitorum longus.l	Tendon of extensor digitorum longus	Extensor digitorum longus.l	5184
+Tendon of extensor digitorum longus.r	Tendon of extensor digitorum longus	Extensor digitorum longus.r	5184
+Gluteus medius muscle.l	Gluteus medius muscle	Superficial gluteal muscles.g	5176
+Gluteus medius muscle.r	Gluteus medius muscle	Superficial gluteal muscles.g	5176
+Semispinalis thoracis muscle.l	Semispinalis thoracis muscle	Semispinalis muscles.g	4972
+Semispinalis thoracis muscle.r	Semispinalis thoracis muscle	Semispinalis muscles.g	4972
+Sartorius muscle.l	Sartorius muscle	Anterior compartment of thigh.g	4966
+Sartorius muscle.r	Sartorius muscle	Anterior compartment of thigh.g	4966
+Sternocleidomastoid muscle.l	Sternocleidomastoid muscle	Muscles of neck.g	4952
+Sternocleidomastoid muscle.r	Sternocleidomastoid muscle	Muscles of neck.g	4952
+Gracilis muscle.l	Gracilis muscle	Medial compartment of thigh.g	4812
+Gracilis muscle.r	Gracilis muscle	Medial compartment of thigh.g	4812
+Rhomboid major muscle.l	Rhomboid major muscle	Hypaxial muscles of back.g	4800
+Rhomboid major muscle.r	Rhomboid major muscle	Hypaxial muscles of back.g	4800
+Plantaris muscle.l	Plantaris muscle	Superficial part of posterior compartment of leg.g	4698
+Plantaris muscle.r	Plantaris muscle	Superficial part of posterior compartment of leg.g	4698
+Ascending part of trapezius muscle.l	Ascending part of trapezius muscle	Trapezius muscle.g	4596
+Ascending part of trapezius muscle.r	Ascending part of trapezius muscle	Trapezius muscle.g	4596
+Antebrachial fascia.l	Antebrachial fascia	Fasciae of upper limb.g	4460
+Antebrachial fascia.r	Antebrachial fascia	Fasciae of upper limb.g	4460
+Scapular spinal part of deltoid muscle.l	Scapular spinal part of deltoid muscle	Deltoid muscle.g	4378
+Scapular spinal part of deltoid muscle.r	Scapular spinal part of deltoid muscle	Deltoid muscle.g	4378
+Calcaneal tendon.l	Calcaneal tendon	Superficial part of posterior compartment of leg.g	4377
+Calcaneal tendon.r	Calcaneal tendon	Superficial part of posterior compartment of leg.g	4377
+Palmaris longus muscle.l	Palmaris longus muscle	Superficial part of anterior compartment of forearm.g	4374
+Palmaris longus muscle.r	Palmaris longus muscle	Superficial part of anterior compartment of forearm.g	4374
+Iliacus muscle.l	Iliacus muscle	Iliopsoas muscle.g	4354
+Iliacus muscle.r	Iliacus muscle	Iliopsoas muscle.g	4354
+Semitendinosus muscle.l	Semitendinosus muscle	Posterior compartment of thigh.g	4316
+Semitendinosus muscle.r	Semitendinosus muscle	Posterior compartment of thigh.g	4316
+Splenius colli muscle.l	Splenius colli muscle	Splenius muscles.g	4314
+Splenius colli muscle.r	Splenius colli muscle	Splenius muscles.g	4314
+Pectoralis minor muscle.l	Pectoralis minor muscle	Muscles of thorax.g	4142
+Pectoralis minor muscle.r	Pectoralis minor muscle	Muscles of thorax.g	4142
+Multifidus thoracis muscle.l	Multifidus thoracis muscle	Multifidus muscles.g	3902
+Multifidus thoracis muscle.r	Multifidus thoracis muscle	Multifidus muscles.g	3902
+Genioglossus muscle.l	Genioglossus muscle	Muscles of tongue.g	3746
+Genioglossus muscle.r	Genioglossus muscle	Muscles of tongue.g	3746
+Deltoid fascia.l	Deltoid fascia	Fasciae of upper limb.g	3541
+Deltoid fascia.r	Deltoid fascia	Fasciae of upper limb.g	3541
+Tibialis anterior muscle.l	Tibialis anterior muscle	Anterior compartment of leg.g	3526
+Tibialis anterior muscle.r	Tibialis anterior muscle	Anterior compartment of leg.g	3526
+Long plantar ligament.l	Long plantar ligament	Intertarsal joints.g	3486
+Long plantar ligament.r	Long plantar ligament	Intertarsal joints.g	3486
+Brachialis muscle.l	Brachialis muscle	Anterior compartment of arm.g	3478
+Brachialis muscle.r	Brachialis muscle	Anterior compartment of arm.g	3478
+Fibularis brevis muscle.l	Fibularis brevis muscle	Lateral compartment of leg.g	3446
+Fibularis brevis muscle.r	Fibularis brevis muscle	Lateral compartment of leg.g	3446
+Superficial investing cervical fascia.l	Superficial investing cervical fascia	Cervical fasciae.g	3336
+Superficial investing cervical fascia.r	Superficial investing cervical fascia	Cervical fasciae.g	3336
+Gluteus maximus muscle.l	Gluteus maximus muscle	Superficial gluteal muscles.g	3326
+Gluteus maximus muscle.r	Gluteus maximus muscle	Superficial gluteal muscles.g	3326
+Sternocostal head of pectoralis major muscle.l	Sternocostal head of pectoralis major muscle	Pectoralis major muscle.g	3222
+Sternocostal head of pectoralis major muscle.r	Sternocostal head of pectoralis major muscle	Pectoralis major muscle.g	3222
+Infraspinatus muscle.l	Infraspinatus muscle	Rotator cuff muscles.g	3166
+Infraspinatus muscle.r	Infraspinatus muscle	Rotator cuff muscles.g	3166
+Cricopharyngeal ligament.l	Cricopharyngeal ligament	Crico-arytenoid joint.g	3119
+Cricopharyngeal ligament.r	Cricopharyngeal ligament	Crico-arytenoid joint.g	3119
+Thyro-epiglottic part of thyro-arytenoid muscle.l	Thyro-epiglottic part of thyro-arytenoid muscle	Laryngeal muscles.g	3110
+Thyro-epiglottic part of thyro-arytenoid muscle.r	Thyro-epiglottic part of thyro-arytenoid muscle	Laryngeal muscles.g	3110
+Brachial fascia.l	Brachial fascia	Fasciae of upper limb.g	3018
+Brachial fascia.r	Brachial fascia	Fasciae of upper limb.g	3018
+Transverse part of trapezius muscle.l	Transverse part of trapezius muscle	Trapezius muscle.g	2992
+Transverse part of trapezius muscle.r	Transverse part of trapezius muscle	Trapezius muscle.g	2992
+Acromial part of deltoid muscle.l	Acromial part of deltoid muscle	Deltoid muscle.g	2964
+Acromial part of deltoid muscle.r	Acromial part of deltoid muscle	Deltoid muscle.g	2964
+Subscapularis muscle.l	Subscapularis muscle	Rotator cuff muscles.g	2954
+Subscapularis muscle.r	Subscapularis muscle	Rotator cuff muscles.g	2954
+Clavicular part of deltoid muscle.l	Clavicular part of deltoid muscle	Deltoid muscle.g	2902
+Clavicular part of deltoid muscle.r	Clavicular part of deltoid muscle	Deltoid muscle.g	2902
+Quadratus lumborum muscle.l	Quadratus lumborum muscle	Muscles of abdomen.g	2832
+Quadratus lumborum muscle.r	Quadratus lumborum muscle	Muscles of abdomen.g	2832
+Multifidus lumborum muscle.l	Multifidus lumborum muscle	Multifidus muscles.g	2820
+Multifidus lumborum muscle.r	Multifidus lumborum muscle	Multifidus muscles.g	2820
+Pectoral fascia.l	Pectoral fascia	Fasciae of thorax.g	2709
+Pectoral fascia.r	Pectoral fascia	Fasciae of thorax.g	2709
+Omohyoid muscle.l	Omohyoid muscle	Infrahyoid muscles.g	2706
+Omohyoid muscle.r	Omohyoid muscle	Infrahyoid muscles.g	2706
+Occipitalis muscle.l	Occipitalis muscle	Epicranius muscle.g	2602
+Occipitalis muscle.r	Occipitalis muscle	Epicranius muscle.g	2602
+Semispinalis colli muscle.l	Semispinalis colli muscle	Semispinalis muscles.g	2584
+Semispinalis colli muscle.r	Semispinalis colli muscle	Semispinalis muscles.g	2584
+Spinalis capitis muscle.l	Spinalis capitis muscle	Spinalis muscles.g	2560
+Spinalis capitis muscle.r	Spinalis capitis muscle	Spinalis muscles.g	2560
+Pubococcygeus muscle.l	Pubococcygeus muscle	Levator ani.g	2512
+Pubococcygeus muscle.r	Pubococcygeus muscle	Levator ani.g	2512
+External part of thyro-arytenoid muscle.l	External part of thyro-arytenoid muscle	Laryngeal muscles.g	2236
+External part of thyro-arytenoid muscle.r	External part of thyro-arytenoid muscle	Laryngeal muscles.g	2236
+Scalenus medius muscle.l	Scalenus medius muscle	Muscles of neck.g	2078
+Scalenus medius muscle.r	Scalenus medius muscle	Muscles of neck.g	2078
+Oblique part of cricothyroid muscle.l	Oblique part of cricothyroid muscle	Laryngeal muscles.g	2060
+Oblique part of cricothyroid muscle.r	Oblique part of cricothyroid muscle	Laryngeal muscles.g	2060
+Iliocostalis colli muscle.r	Iliocostalis colli muscle	Iliocostalis muscles.g	2050
+Longus capitis muscle.l	Longus capitis muscle	Muscles of neck.g	1980
+Longus capitis muscle.r	Longus capitis muscle	Muscles of neck.g	1980
+Iliococcygeus muscle.l	Iliococcygeus muscle	Levator ani.g	1962
+Iliococcygeus muscle.r	Iliococcygeus muscle	Levator ani.g	1962
+Pectineus muscle.l	Pectineus muscle	Medial compartment of thigh.g	1952
+Pectineus muscle.r	Pectineus muscle	Medial compartment of thigh.g	1952
+Dorsal interossei muscles of foot.l	Dorsal interossei muscles of foot	Muscles of foot.g	1946
+Dorsal interossei muscles of foot.r	Dorsal interossei muscles of foot	Muscles of foot.g	1946
+Orbicularis oris muscle.l	Orbicularis oris muscle	Facial muscles.g	1880
+Orbicularis oris muscle.r	Orbicularis oris muscle	Facial muscles.g	1880
+Tensor fasciae latae.l	Tensor fasciae latae	Superficial gluteal muscles.g	1862
+Tensor fasciae latae.r	Tensor fasciae latae	Superficial gluteal muscles.g	1862
+Longissimus colli muscle.l	Longissimus colli muscle	Longissimus muscles.g	1826
+Longissimus colli muscle.r	Longissimus colli muscle	Longissimus muscles.g	1826
+Posterior crico-arytenoid muscle.l	Posterior crico-arytenoid muscle	Laryngeal muscles.g	1812
+Posterior crico-arytenoid muscle.r	Posterior crico-arytenoid muscle	Laryngeal muscles.g	1812
+Superior oblique muscle.l	Superior oblique muscle	Extra-ocular muscles.g	1750
+Superior oblique muscle.r	Superior oblique muscle	Extra-ocular muscles.g	1750
+Inferior rectus muscle.l	Inferior rectus muscle	Extra-ocular muscles.g	1736
+Inferior rectus muscle.r	Inferior rectus muscle	Extra-ocular muscles.g	1736
+Transversus thoracis muscle.l	Transversus thoracis muscle	Muscles of thorax.g	1670
+Transversus thoracis muscle.r	Transversus thoracis muscle	Muscles of thorax.g	1670
+Quadratus femoris muscle.l	Quadratus femoris muscle	Deep gluteal muscles.g	1646
+Quadratus femoris muscle.r	Quadratus femoris muscle	Deep gluteal muscles.g	1646
+Lateral crico-arytenoid muscle.l	Lateral crico-arytenoid muscle	Laryngeal muscles.g	1624
+Lateral crico-arytenoid muscle.r	Lateral crico-arytenoid muscle	Laryngeal muscles.g	1624
+Iliopsoas fascia.l	Iliopsoas fascia	Endo-abdominal fascia.g	1602
+Iliopsoas fascia.r	Iliopsoas fascia	Endo-abdominal fascia.g	1602
+Lateral rectus muscle.l	Lateral rectus muscle	Extra-ocular muscles.g	1600
+Lateral rectus muscle.r	Lateral rectus muscle	Extra-ocular muscles.g	1600
+Anterior cruciate ligament.l	Anterior cruciate ligament	Knee joint.g	1576
+Anterior cruciate ligament.r	Anterior cruciate ligament	Knee joint.g	1576
+Longissimus capitis muscle.l	Longissimus capitis muscle	Longissimus muscles.g	1574
+Longissimus capitis muscle.r	Longissimus capitis muscle	Longissimus muscles.g	1574
+Teres minor muscle.l	Teres minor muscle	Rotator cuff muscles.g	1522
+Teres minor muscle.r	Teres minor muscle	Rotator cuff muscles.g	1522
+(Abdominal part of pectoralis major muscle).l	(Abdominal part of pectoralis major muscle)	Pectoralis major muscle.g	1508
+(Abdominal part of pectoralis major muscle).r	(Abdominal part of pectoralis major muscle)	Pectoralis major muscle.g	1508
+Piriformis muscle.l	Piriformis muscle	Deep gluteal muscles.g	1500
+Piriformis muscle.r	Piriformis muscle	Deep gluteal muscles.g	1500
+Rhomboid minor muscle.l	Rhomboid minor muscle	Hypaxial muscles of back.g	1494
+Rhomboid minor muscle.r	Rhomboid minor muscle	Hypaxial muscles of back.g	1494
+Dorsal fascia of hand.l	Dorsal fascia of hand	Fasciae of upper limb.g	1445
+Dorsal fascia of hand.r	Dorsal fascia of hand	Fasciae of upper limb.g	1445
+Anconeus muscle.l	Anconeus muscle	Superficial part of posterior compartment of forearm.g	1442
+Anconeus muscle.r	Anconeus muscle	Superficial part of posterior compartment of forearm.g	1442
+Pubo-analis muscle.l	Pubo-analis muscle	Levator ani.g	1440
+Pubo-analis muscle.r	Pubo-analis muscle	Levator ani.g	1440
+Supraspinatus muscle.l	Supraspinatus muscle	Rotator cuff muscles.g	1430
+Supraspinatus muscle.r	Supraspinatus muscle	Rotator cuff muscles.g	1430
+Hyoglossus muscle.l	Hyoglossus muscle	Muscles of tongue.g	1424
+Hyoglossus muscle.r	Hyoglossus muscle	Muscles of tongue.g	1424
+Sternohyoid muscle.l	Sternohyoid muscle	Infrahyoid muscles.g	1394
+Sternohyoid muscle.r	Sternohyoid muscle	Infrahyoid muscles.g	1394
+Multifidus colli muscle.l	Multifidus colli muscle	Multifidus muscles.g	1390
+Multifidus colli muscle.r	Multifidus colli muscle	Multifidus muscles.g	1390
+Scalenus anterior muscle.l	Scalenus anterior muscle	Muscles of neck.g	1386
+Scalenus anterior muscle.r	Scalenus anterior muscle	Muscles of neck.g	1386
+Lumbrical muscles of hand.l	Lumbrical muscles of hand	Muscles of hand.g	1368
+Lumbrical muscles of hand.r	Lumbrical muscles of hand	Muscles of hand.g	1368
+Dorsal interossei muscles of hand.l	Dorsal interossei muscles of hand	Muscles of hand.g	1364
+Dorsal interossei muscles of hand.r	Dorsal interossei muscles of hand	Muscles of hand.g	1364
+Scalenus posterior muscle.l	Scalenus posterior muscle	Muscles of neck.g	1326
+Scalenus posterior muscle.r	Scalenus posterior muscle	Muscles of neck.g	1326
+Palmar aponeurosis.l	Palmar aponeurosis	Fasciae of upper limb.g	1284
+Palmar aponeurosis.r	Palmar aponeurosis	Fasciae of upper limb.g	1284
+Superior rectus muscle.l	Superior rectus muscle	Extra-ocular muscles.g	1284
+Superior rectus muscle.r	Superior rectus muscle	Extra-ocular muscles.g	1284
+Clavipectoral fascia.l	Clavipectoral fascia	Fasciae of thorax.g	1280
+Clavipectoral fascia.r	Clavipectoral fascia	Fasciae of thorax.g	1280
+Posterior belly of digastric muscle.l	Posterior belly of digastric muscle	Digastric muscle.g	1276
+Posterior belly of digastric muscle.r	Posterior belly of digastric muscle	Digastric muscle.g	1276
+Medial rectus muscle.l	Medial rectus muscle	Extra-ocular muscles.g	1252
+Medial rectus muscle.r	Medial rectus muscle	Extra-ocular muscles.g	1252
+Plantar interossei muscles.l	Plantar interossei muscles	Muscles of foot.g	1242
+Plantar interossei muscles.r	Plantar interossei muscles	Muscles of foot.g	1242
+Straight part of cricothyroid muscle.l	Straight part of cricothyroid muscle	Laryngeal muscles.g	1180
+Straight part of cricothyroid muscle.r	Straight part of cricothyroid muscle	Laryngeal muscles.g	1180
+Quadratus plantae muscle.l	Quadratus plantae muscle	Muscles of foot.g	1176
+Quadratus plantae muscle.r	Quadratus plantae muscle	Muscles of foot.g	1176
+Coracobrachialis muscle.l	Coracobrachialis muscle	Anterior compartment of arm.g	1160
+Coracobrachialis muscle.r	Coracobrachialis muscle	Anterior compartment of arm.g	1160
+Teres major muscle.l	Teres major muscle	Scapulohumeral muscles.g	1154
+Teres major muscle.r	Teres major muscle	Scapulohumeral muscles.g	1154
+Inferior oblique muscle.l	Inferior oblique muscle	Extra-ocular muscles.g	1148
+Inferior oblique muscle.r	Inferior oblique muscle	Extra-ocular muscles.g	1148
+Popliteus muscle.l	Popliteus muscle	Deep part of posterior compartment of leg.g	1132
+Popliteus muscle.r	Popliteus muscle	Deep part of posterior compartment of leg.g	1132
+Mylohyoid muscle.l	Mylohyoid muscle	Suprahyoid muscles.g	1122
+Mylohyoid muscle.r	Mylohyoid muscle	Suprahyoid muscles.g	1122
+Pyramidalis muscle.l	Pyramidalis muscle	Muscles of abdomen.g	1112
+Pyramidalis muscle.r	Pyramidalis muscle	Muscles of abdomen.g	1112
+Sternothyroid muscle.l	Sternothyroid muscle	Infrahyoid muscles.g	1088
+Sternothyroid muscle.r	Sternothyroid muscle	Infrahyoid muscles.g	1088
+Inguinal ligament.l	Inguinal ligament	External abdominal oblique muscle.l	1056
+Inguinal ligament.r	Inguinal ligament	External abdominal oblique muscle.r	1056
+Coccygeus muscle.l	Coccygeus muscle	Pelvic diaphragm.g	1034
+Coccygeus muscle.r	Coccygeus muscle	Pelvic diaphragm.g	1034
+Ary-epiglottic part of oblique arytenoid muscle.l	Ary-epiglottic part of oblique arytenoid muscle	Laryngeal muscles.g	1022
+Ary-epiglottic part of oblique arytenoid muscle.r	Ary-epiglottic part of oblique arytenoid muscle	Laryngeal muscles.g	1022
+Ventral parts of lateral intertransversarii lumborum muscles.l	Ventral parts of lateral intertransversarii lumborum muscles	Hypaxial muscles of back.g	996
+Ventral parts of lateral intertransversarii lumborum muscles.r	Ventral parts of lateral intertransversarii lumborum muscles	Hypaxial muscles of back.g	996
+Inferior gemellus muscle.l	Inferior gemellus muscle	Deep gluteal muscles.g	976
+Inferior gemellus muscle.r	Inferior gemellus muscle	Deep gluteal muscles.g	976
+Piriformis fascia.l	Piriformis fascia	Fasciae of lower limb.g	926
+Piriformis fascia.r	Piriformis fascia	Fasciae of lower limb.g	926
+Lateral thyrohyoid ligament.l	Lateral thyrohyoid ligament	Thyrohyoid membrane.g	912
+Lateral thyrohyoid ligament.r	Lateral thyrohyoid ligament	Thyrohyoid membrane.g	912
+Common flexor tendon sheath.l	Common flexor tendon sheath	Palmar carpal tendon sheaths.g	864
+Common flexor tendon sheath.r	Common flexor tendon sheath	Palmar carpal tendon sheaths.g	864
+Clavicular head of pectoralis major muscle.l	Clavicular head of pectoralis major muscle	Pectoralis major muscle.g	850
+Clavicular head of pectoralis major muscle.r	Clavicular head of pectoralis major muscle	Pectoralis major muscle.g	850
+Zygomaticus major muscle.l	Zygomaticus major muscle	Facial muscles.g	798
+Zygomaticus major muscle.r	Zygomaticus major muscle	Facial muscles.g	798
+Subclavius muscle.l	Subclavius muscle	Muscles of thorax.g	794
+Subclavius muscle.r	Subclavius muscle	Muscles of thorax.g	794
+Posterior cruciate ligament.l	Posterior cruciate ligament	Knee joint.g	788
+Posterior cruciate ligament.r	Posterior cruciate ligament	Knee joint.g	788
+Rectus posterior major capitis muscle.l	Rectus posterior major capitis muscle	Suboccipital muscles.g	788
+Rectus posterior major capitis muscle.r	Rectus posterior major capitis muscle	Suboccipital muscles.g	788
+Dorsal parts of lateral intertransversarii lumborum muscles.l	Dorsal parts of lateral intertransversarii lumborum muscles	Hypaxial muscles of back.g	720
+Dorsal parts of lateral intertransversarii lumborum muscles.r	Dorsal parts of lateral intertransversarii lumborum muscles	Hypaxial muscles of back.g	720
+Nasalis muscle.l	Nasalis muscle	Facial muscles.g	704
+Nasalis muscle.r	Nasalis muscle	Facial muscles.g	704
+Thyrohyoid muscle.l	Thyrohyoid muscle	Infrahyoid muscles.g	700
+Thyrohyoid muscle.r	Thyrohyoid muscle	Infrahyoid muscles.g	700
+Stylohyoid muscle.l	Stylohyoid muscle	Suprahyoid muscles.g	694
+Stylohyoid muscle.r	Stylohyoid muscle	Suprahyoid muscles.g	694
+Superficial layer of temporal fascia.l	Superficial layer of temporal fascia	Fasciae of head.g	685
+Superficial layer of temporal fascia.r	Superficial layer of temporal fascia	Fasciae of head.g	685
+Tendon sheath - abd. pollicis longus - ext. pollicis brevis.l	Tendon sheath - abd. pollicis longus - ext. pollicis brevis	Dorsal carpal tendon sheaths.g	680
+Tendon sheath - abd. pollicis longus - ext. pollicis brevis.r	Tendon sheath - abd. pollicis longus - ext. pollicis brevis	Dorsal carpal tendon sheaths.g	680
+Obliquus superior capitis muscle.l	Obliquus superior capitis muscle	Suboccipital muscles.g	654
+Obliquus superior capitis muscle.r	Obliquus superior capitis muscle	Suboccipital muscles.g	654
+Spinalis colli muscle.l	Spinalis colli muscle	Spinalis muscles.g	596
+Spinalis colli muscle.r	Spinalis colli muscle	Spinalis muscles.g	596
+Risorius muscle.l	Risorius muscle	Facial muscles.g	592
+Risorius muscle.r	Risorius muscle	Facial muscles.g	592
+Fibularis tertius muscle.l	Fibularis tertius muscle	Anterior compartment of leg.g	586
+Fibularis tertius muscle.r	Fibularis tertius muscle	Anterior compartment of leg.g	586
+Interspinales lumborum muscles.l	Interspinales lumborum muscles	Interspinales muscles.g	562
+Interspinales lumborum muscles.r	Interspinales lumborum muscles	Interspinales muscles.g	562
+Procerus muscle.l	Procerus muscle	Facial muscles.g	546
+Procerus muscle.r	Procerus muscle	Facial muscles.g	546
+Obliquus inferior capitis muscle.l	Obliquus inferior capitis muscle	Suboccipital muscles.g	540
+Obliquus inferior capitis muscle.r	Obliquus inferior capitis muscle	Suboccipital muscles.g	540
+Geniohyoid muscle.l	Geniohyoid muscle	Suprahyoid muscles.g	530
+Geniohyoid muscle.r	Geniohyoid muscle	Suprahyoid muscles.g	530
+Medial pterygoid muscle.l	Medial pterygoid muscle	Masticatory muscles.g	496
+Medial pterygoid muscle.r	Medial pterygoid muscle	Masticatory muscles.g	496
+Popliteal fascia.l	Popliteal fascia	Fasciae of lower limb.g	488
+Popliteal fascia.r	Popliteal fascia	Fasciae of lower limb.g	488
+Interspinales colli muscles.l	Interspinales colli muscles	Interspinales muscles.g	444
+Interspinales colli muscles.r	Interspinales colli muscles	Interspinales muscles.g	444
+Rectus posterior minor capitis muscle.l	Rectus posterior minor capitis muscle	Suboccipital muscles.g	432
+Rectus posterior minor capitis muscle.r	Rectus posterior minor capitis muscle	Suboccipital muscles.g	432
+Tendon sheath of flexor hallucis longus.l	Tendon sheath of flexor hallucis longus	Tibial tarsal tendon sheaths.g	432
+Tendon sheath of flexor hallucis longus.r	Tendon sheath of flexor hallucis longus	Tibial tarsal tendon sheaths.g	432
+Zygomaticus minor muscle.l	Zygomaticus minor muscle	Facial muscles.g	432
+Zygomaticus minor muscle.r	Zygomaticus minor muscle	Facial muscles.g	432
+Opponens digiti minimi muscle of hand.l	Opponens digiti minimi muscle of hand	Muscles of hand.g	420
+Opponens digiti minimi muscle of hand.r	Opponens digiti minimi muscle of hand	Muscles of hand.g	420
+Lumbrical muscles of foot.l	Lumbrical muscles of foot	Muscles of foot.g	418
+Lumbrical muscles of foot.r	Lumbrical muscles of foot	Muscles of foot.g	418
+Plantar aponeurosis.l	Plantar aponeurosis	Fasciae of lower limb.g	406
+Plantar aponeurosis.r	Plantar aponeurosis	Fasciae of lower limb.g	406
+Superior gemellus muscle.l	Superior gemellus muscle	Deep gluteal muscles.g	404
+Superior gemellus muscle.r	Superior gemellus muscle	Deep gluteal muscles.g	404
+Masseteric fascia.l	Masseteric fascia	Fasciae of head.g	398
+Masseteric fascia.r	Masseteric fascia	Fasciae of head.g	398
+Rectus anterior capitis muscle.l	Rectus anterior capitis muscle	Muscles of neck.g	396
+Rectus anterior capitis muscle.r	Rectus anterior capitis muscle	Muscles of neck.g	396
+Anterior belly of digastric muscle.l	Anterior belly of digastric muscle	Digastric muscle.g	392
+Anterior belly of digastric muscle.r	Anterior belly of digastric muscle	Digastric muscle.g	392
+Common tendon sheath of fibularis muscles.l	Common tendon sheath of fibularis muscles	Fibular tarsal tendon sheaths.g	384
+Common tendon sheath of fibularis muscles.r	Common tendon sheath of fibularis muscles	Fibular tarsal tendon sheaths.g	384
+Opponens pollicis muscle.l	Opponens pollicis muscle	Muscles of hand.g	384
+Opponens pollicis muscle.r	Opponens pollicis muscle	Muscles of hand.g	384
+Rectus lateralis capitis muscle.l	Rectus lateralis capitis muscle	Muscles of neck.g	360
+Rectus lateralis capitis muscle.r	Rectus lateralis capitis muscle	Muscles of neck.g	360
+Bursa of piriformis muscle.l	Bursa of piriformis muscle	Bursae of lower limb.g	352
+Bursa of piriformis muscle.r	Bursa of piriformis muscle	Bursae of lower limb.g	352
+Sciatic bursa of gluteus maximus muscle.l	Sciatic bursa of gluteus maximus muscle	Bursae of lower limb.g	352
+Sciatic bursa of gluteus maximus muscle.r	Sciatic bursa of gluteus maximus muscle	Bursae of lower limb.g	352
+Subtendinous bursa of iliacus muscle.l	Subtendinous bursa of iliacus muscle	Bursae of lower limb.g	352
+Subtendinous bursa of iliacus muscle.r	Subtendinous bursa of iliacus muscle	Bursae of lower limb.g	352
+Subtendinous bursa of infraspinatus muscle.l	Subtendinous bursa of infraspinatus muscle	Bursae of upper limb.g	352
+Subtendinous bursa of infraspinatus muscle.r	Subtendinous bursa of infraspinatus muscle	Bursae of upper limb.g	352
+Subtendinous bursa of teres major muscle.l	Subtendinous bursa of teres major muscle	Bursae of upper limb.g	352
+Subtendinous bursa of teres major muscle.r	Subtendinous bursa of teres major muscle	Bursae of upper limb.g	352
+Subtendinous bursa of trapezius muscle.l	Subtendinous bursa of trapezius muscle	Bursae of upper limb.g	352
+Subtendinous bursa of trapezius muscle.r	Subtendinous bursa of trapezius muscle	Bursae of upper limb.g	352
+Subtendinous bursa of triceps brachii muscle.l	Subtendinous bursa of triceps brachii muscle	Bursae of upper limb.g	352
+Subtendinous bursa of triceps brachii muscle.r	Subtendinous bursa of triceps brachii muscle	Bursae of upper limb.g	352
+Superior bursa of biceps femoris muscle.l	Superior bursa of biceps femoris muscle	Bursae of lower limb.g	352
+Superior bursa of biceps femoris muscle.r	Superior bursa of biceps femoris muscle	Bursae of lower limb.g	352
+Trochanteric bursa of gluteus maximus muscle.l	Trochanteric bursa of gluteus maximus muscle	Bursae of lower limb.g	352
+Trochanteric bursa of gluteus maximus muscle.r	Trochanteric bursa of gluteus maximus muscle	Bursae of lower limb.g	352
+Trochanteric bursa of gluteus medius muscle.l	Trochanteric bursa of gluteus medius muscle	Bursae of lower limb.g	352
+Trochanteric bursa of gluteus medius muscle.r	Trochanteric bursa of gluteus medius muscle	Bursae of lower limb.g	352
+Trochanteric bursa of gluteus minimus muscle.l	Trochanteric bursa of gluteus minimus muscle	Bursae of lower limb.g	352
+Trochanteric bursa of gluteus minimus muscle.r	Trochanteric bursa of gluteus minimus muscle	Bursae of lower limb.g	352
+Inferior head of lateral pterygoid muscle.l	Inferior head of lateral pterygoid muscle	Masticatory muscles.g	326
+Inferior head of lateral pterygoid muscle.r	Inferior head of lateral pterygoid muscle	Masticatory muscles.g	326
+Posterior layer of thoracolumbar fascia.l	Posterior layer of thoracolumbar fascia	Thoracolumbar fascia.g	313
+Posterior layer of thoracolumbar fascia.r	Posterior layer of thoracolumbar fascia	Thoracolumbar fascia.g	313
+Radiate ligament of head of rib.l	Radiate ligament of head of rib	Joint of head of rib.g	288
+Radiate ligament of head of rib.r	Radiate ligament of head of rib	Joint of head of rib.g	288
+Tendon sheath of tibialis posterior muscle.l	Tendon sheath of tibialis posterior muscle	Tibial tarsal tendon sheaths.g	286
+Tendon sheath of tibialis posterior muscle.r	Tendon sheath of tibialis posterior muscle	Tibial tarsal tendon sheaths.g	286
+Tendon sheath of flexor digitorum longus.l	Tendon sheath of flexor digitorum longus	Tibial tarsal tendon sheaths.g	256
+Tendon sheath of flexor digitorum longus.r	Tendon sheath of flexor digitorum longus	Tibial tarsal tendon sheaths.g	256
+Tendon sheath of tibialis anterior.l	Tendon sheath of tibialis anterior	Anterior tarsal tendon sheaths.g	240
+Tendon sheath of tibialis anterior.r	Tendon sheath of tibialis anterior	Anterior tarsal tendon sheaths.g	240
+(Opponens digiti minimi muscle of foot).l	(Opponens digiti minimi muscle of foot)	Muscles of foot.g	236
+(Opponens digiti minimi muscle of foot).r	(Opponens digiti minimi muscle of foot)	Muscles of foot.g	236
+Collateral interphalangeal ligaments of foot.l	Collateral interphalangeal ligaments of foot	Interphalangeal joints of foot.g	233
+Collateral interphalangeal ligaments of foot.r	Collateral interphalangeal ligaments of foot	Interphalangeal joints of foot.g	233
+Intermediate tendon of digastric muscle.l	Intermediate tendon of digastric muscle	Digastric muscle.g	228
+Intermediate tendon of digastric muscle.r	Intermediate tendon of digastric muscle	Digastric muscle.g	228
+Superior head of lateral pterygoid muscle.l	Superior head of lateral pterygoid muscle	Masticatory muscles.g	226
+Superior head of lateral pterygoid muscle.r	Superior head of lateral pterygoid muscle	Masticatory muscles.g	226
+Interspinales thoracis muscles.l	Interspinales thoracis muscles	Interspinales muscles.g	198
+Interspinales thoracis muscles.r	Interspinales thoracis muscles	Interspinales muscles.g	198
+Ligament of head of femur.l	Ligament of head of femur	Hip joint.g	192
+Ligament of head of femur.r	Ligament of head of femur	Hip joint.g	192
+Trochlea of superior oblique muscle.l	Trochlea of superior oblique muscle	Extra-ocular muscles.g	192
+Trochlea of superior oblique muscle.r	Trochlea of superior oblique muscle	Extra-ocular muscles.g	192
+Anterior layer of thoracolumbar fascia.l	Anterior layer of thoracolumbar fascia	Thoracolumbar fascia.g	176
+Anterior layer of thoracolumbar fascia.r	Anterior layer of thoracolumbar fascia	Thoracolumbar fascia.g	176
+Palmar interossei muscles.l	Palmar interossei muscles	Muscles of hand.g	174
+Palmar interossei muscles.r	Palmar interossei muscles	Muscles of hand.g	174
+Mentalis muscle.l	Mentalis muscle	Facial muscles.g	166
+Mentalis muscle.r	Mentalis muscle	Facial muscles.g	166
+Middle layer of thoracolumbar fascia.l	Middle layer of thoracolumbar fascia	Thoracolumbar fascia.g	160
+Middle layer of thoracolumbar fascia.r	Middle layer of thoracolumbar fascia	Thoracolumbar fascia.g	160
+Plantar tendon sheath of fibularis longus muscle.l	Plantar tendon sheath of fibularis longus muscle	Fibular tarsal tendon sheaths.g	160
+Plantar tendon sheath of fibularis longus muscle.r	Plantar tendon sheath of fibularis longus muscle	Fibular tarsal tendon sheaths.g	160
+Stylohyoid ligament.l	Stylohyoid ligament	Cranial syndesmoses.g	156
+Stylohyoid ligament.r	Stylohyoid ligament	Cranial syndesmoses.g	156
+Collateral interphalangeal ligaments of hand.l	Collateral interphalangeal ligaments of hand	Interphalangeal joints of hand.g	152
+Collateral interphalangeal ligaments of hand.r	Collateral interphalangeal ligaments of hand	Interphalangeal joints of hand.g	152
+Posterior sacro-iliac ligament.l	Posterior sacro-iliac ligament	Sacro-iliac joint.g	151
+Posterior sacro-iliac ligament.r	Posterior sacro-iliac ligament	Sacro-iliac joint.g	151
+Plantar interphalangeal ligaments.l	Plantar interphalangeal ligaments	Interphalangeal joints of foot.g	148
+Plantar interphalangeal ligaments.r	Plantar interphalangeal ligaments	Interphalangeal joints of foot.g	148
+Tendon sheath of extensor digitorum and extensor indicis.l	Tendon sheath of extensor digitorum and extensor indicis	Dorsal carpal tendon sheaths.g	148
+Tendon sheath of extensor digitorum and extensor indicis.r	Tendon sheath of extensor digitorum and extensor indicis	Dorsal carpal tendon sheaths.g	148
+Tendon sheath of extensors carpi radialis.l	Tendon sheath of extensors carpi radialis	Dorsal carpal tendon sheaths.g	146
+Tendon sheath of extensors carpi radialis.r	Tendon sheath of extensors carpi radialis	Dorsal carpal tendon sheaths.g	146
+Collateral metatarsophalangeal ligaments.l	Collateral metatarsophalangeal ligaments	Metatarsophalangeal joints.g	144
+Collateral metatarsophalangeal ligaments.r	Collateral metatarsophalangeal ligaments	Metatarsophalangeal joints.g	144
+Subtendinous bursa of sartorius muscle.l	Subtendinous bursa of sartorius muscle	Bursae of lower limb.g	132
+Subtendinous bursa of sartorius muscle.r	Subtendinous bursa of sartorius muscle	Bursae of lower limb.g	132
+Tendon sheath of extensor digitorum longus.l	Tendon sheath of extensor digitorum longus	Anterior tarsal tendon sheaths.g	128
+Tendon sheath of extensor digitorum longus.r	Tendon sheath of extensor digitorum longus	Anterior tarsal tendon sheaths.g	128
+Superficial transverse metatarsal ligament.l	Superficial transverse metatarsal ligament	Fasciae of lower limb.g	99
+Superficial transverse metatarsal ligament.r	Superficial transverse metatarsal ligament	Fasciae of lower limb.g	99
+Inferior subtendinous bursa of biceps femoris muscle.l	Inferior subtendinous bursa of biceps femoris muscle	Bursae of lower limb.g	96
+Inferior subtendinous bursa of biceps femoris muscle.r	Inferior subtendinous bursa of biceps femoris muscle	Bursae of lower limb.g	96
+Lateral subtendinous bursa of gastrocnemius muscle.l	Lateral subtendinous bursa of gastrocnemius muscle	Bursae of lower limb.g	96
+Lateral subtendinous bursa of gastrocnemius muscle.r	Lateral subtendinous bursa of gastrocnemius muscle	Bursae of lower limb.g	96
+Costotransverse ligament.l	Costotransverse ligament	Costotransverse joint.g	88
+Costotransverse ligament.r	Costotransverse ligament	Costotransverse joint.g	88
+Collateral metacarpophalangeal ligaments.l	Collateral metacarpophalangeal ligaments	Metacarpophalangeal joints.g	80
+Collateral metacarpophalangeal ligaments.r	Collateral metacarpophalangeal ligaments	Metacarpophalangeal joints.g	80
+Medial subtendinous bursa of gastrocnemius muscle.l	Medial subtendinous bursa of gastrocnemius muscle	Bursae of lower limb.g	80
+Medial subtendinous bursa of gastrocnemius muscle.r	Medial subtendinous bursa of gastrocnemius muscle	Bursae of lower limb.g	80
+Plantar metatarsophalangeal ligaments.l	Plantar metatarsophalangeal ligaments	Metatarsophalangeal joints.g	80
+Plantar metatarsophalangeal ligaments.r	Plantar metatarsophalangeal ligaments	Metatarsophalangeal joints.g	80
+Palmar interphalangeal ligaments.l	Palmar interphalangeal ligaments	Interphalangeal joints of hand.g	72
+Palmar interphalangeal ligaments.r	Palmar interphalangeal ligaments	Interphalangeal joints of hand.g	72
+Ischiofemoral ligament.l	Ischiofemoral ligament	Hip joint.g	71
+Ischiofemoral ligament.r	Ischiofemoral ligament	Hip joint.g	71
+Descending part of iliofemoral ligament.l	Descending part of iliofemoral ligament	Hip joint.g	64
+Descending part of iliofemoral ligament.r	Descending part of iliofemoral ligament	Hip joint.g	64
+Superficial transverse metacarpal ligament.l	Superficial transverse metacarpal ligament	Fasciae of upper limb.g	64
+Superficial transverse metacarpal ligament.r	Superficial transverse metacarpal ligament	Fasciae of upper limb.g	64
+Transverse acetabular ligament.l	Transverse acetabular ligament	Hip joint.g	60
+Transverse acetabular ligament.r	Transverse acetabular ligament	Hip joint.g	60
+Anterior sacro-iliac ligament.l	Anterior sacro-iliac ligament	Sacro-iliac joint.g	52
+Anterior sacro-iliac ligament.r	Anterior sacro-iliac ligament	Sacro-iliac joint.g	52
+Transverse ligament of knee.l	Transverse ligament of knee	Knee joint.g	48
+Transverse ligament of knee.r	Transverse ligament of knee	Knee joint.g	48
+Transverse part of iliofemoral ligament.l	Transverse part of iliofemoral ligament	Hip joint.g	48
+Transverse part of iliofemoral ligament.r	Transverse part of iliofemoral ligament	Hip joint.g	48
+Sacrotuberous ligament.l	Sacrotuberous ligament	Fibrous joints of pelvic girdle.g	47
+Sacrotuberous ligament.r	Sacrotuberous ligament	Fibrous joints of pelvic girdle.g	47
+Pubofemoral ligament.l	Pubofemoral ligament	Hip joint.g	40
+Pubofemoral ligament.r	Pubofemoral ligament	Hip joint.g	40
+Talocalcaneal interosseous ligament.l	Talocalcaneal interosseous ligament	Intertarsal joints.g	40
+Talocalcaneal interosseous ligament.r	Talocalcaneal interosseous ligament	Intertarsal joints.g	40
+Dorsal intercarpal ligaments.l	Dorsal intercarpal ligaments	Intercarpal joints.g	39
+Dorsal intercarpal ligaments.r	Dorsal intercarpal ligaments	Intercarpal joints.g	39
+Annular ligament of radius.l	Annular ligament of radius	Elbow joint.g	36
+Annular ligament of radius.r	Annular ligament of radius	Elbow joint.g	36
+Oblique popliteal ligament.l	Oblique popliteal ligament	Knee joint.g	35
+Oblique popliteal ligament.r	Oblique popliteal ligament	Knee joint.g	35
+Radiate carpal ligament.l	Radiate carpal ligament	Intercarpal joints.g	35
+Radiate carpal ligament.r	Radiate carpal ligament	Intercarpal joints.g	35
+Arcuate popliteal ligament.l	Arcuate popliteal ligament	Knee joint.g	31
+Arcuate popliteal ligament.r	Arcuate popliteal ligament	Knee joint.g	31
+Posterior meniscotibial ligament (Medial meniscus).l	Posterior meniscotibial ligament (Medial meniscus)	Knee joint.g	30
+Posterior meniscotibial ligament (Medial meniscus).r	Posterior meniscotibial ligament (Medial meniscus)	Knee joint.g	30
+Inferior glenohumeral ligament.l	Inferior glenohumeral ligament	Glenohumeral joint.g	29
+Inferior glenohumeral ligament.r	Inferior glenohumeral ligament	Glenohumeral joint.g	29
+Palmar carpometacarpal ligaments.l	Palmar carpometacarpal ligaments	Carpometacarpal joints.g	29
+Palmar carpometacarpal ligaments.r	Palmar carpometacarpal ligaments	Carpometacarpal joints.g	29
+Dorsal tarsometatarsal ligaments.l	Dorsal tarsometatarsal ligaments	Tarsometatarsal joints.g	28
+Dorsal tarsometatarsal ligaments.r	Dorsal tarsometatarsal ligaments	Tarsometatarsal joints.g	28
+Dorsal carpometacarpal ligaments.l	Dorsal carpometacarpal ligaments	Carpometacarpal joints.g	26
+Dorsal carpometacarpal ligaments.r	Dorsal carpometacarpal ligaments	Carpometacarpal joints.g	26
+Sphenomandibular ligament.l	Sphenomandibular ligament	Cranial syndesmoses.g	26
+Sphenomandibular ligament.r	Sphenomandibular ligament	Cranial syndesmoses.g	26
+Middle glenohumeral ligament.l	Middle glenohumeral ligament	Glenohumeral joint.g	25
+Middle glenohumeral ligament.r	Middle glenohumeral ligament	Glenohumeral joint.g	25
+Anterior meniscotibial ligament (Lateral meniscus).l	Anterior meniscotibial ligament (Lateral meniscus)	Knee joint.g	24
+Anterior meniscotibial ligament (Lateral meniscus).r	Anterior meniscotibial ligament (Lateral meniscus)	Knee joint.g	24
+Anterior tibiofibular ligament.l	Anterior tibiofibular ligament	Tibiofibular syndesmosis.g	24
+Anterior tibiofibular ligament.r	Anterior tibiofibular ligament	Tibiofibular syndesmosis.g	24
+Lateral temporomandibular ligament.l	Lateral temporomandibular ligament	Temporomandibular joint.g	24
+Lateral temporomandibular ligament.r	Lateral temporomandibular ligament	Temporomandibular joint.g	24
+Posterior tibiofibular ligament.l	Posterior tibiofibular ligament	Tibiofibular syndesmosis.g	24
+Posterior tibiofibular ligament.r	Posterior tibiofibular ligament	Tibiofibular syndesmosis.g	24
+Popliteofibular ligament.l	Popliteofibular ligament	Knee joint.g	22
+Popliteofibular ligament.r	Popliteofibular ligament	Knee joint.g	22
+Cuneocuboid interosseous ligament.l	Cuneocuboid interosseous ligament	Intertarsal joints.g	20
+Cuneocuboid interosseous ligament.r	Cuneocuboid interosseous ligament	Intertarsal joints.g	20
+Deep part of tibial collateral ligament.l	Deep part of tibial collateral ligament	Knee joint.g	20
+Deep part of tibial collateral ligament.r	Deep part of tibial collateral ligament	Knee joint.g	20
+Dorsal radiocarpal ligament.l	Dorsal radiocarpal ligament	Radiocarpal joint.g	20
+Dorsal radiocarpal ligament.r	Dorsal radiocarpal ligament	Radiocarpal joint.g	20
+Pisotriquetral ligament.l	Pisotriquetral ligament	Intercarpal joints.g	20
+Pisotriquetral ligament.r	Pisotriquetral ligament	Intercarpal joints.g	20
+Plantar tarsometatarsal ligaments.l	Plantar tarsometatarsal ligaments	Tarsometatarsal joints.g	20
+Plantar tarsometatarsal ligaments.r	Plantar tarsometatarsal ligaments	Tarsometatarsal joints.g	20
+Tibionavicular ligament.l	Tibionavicular ligament	Medial collateral ligament of ankle.g	20
+Tibionavicular ligament.r	Tibionavicular ligament	Medial collateral ligament of ankle.g	20
+Intra-articular ligament of head of rib.r	Intra-articular ligament of head of rib	Joint of head of rib.g	18
+Posterior meniscotibial ligament (Lateral meniscus).l	Posterior meniscotibial ligament (Lateral meniscus)	Knee joint.g	18
+Posterior meniscotibial ligament (Lateral meniscus).r	Posterior meniscotibial ligament (Lateral meniscus)	Knee joint.g	18
+Sacrospinous ligament.l	Sacrospinous ligament	Fibrous joints of pelvic girdle.g	17
+Sacrospinous ligament.r	Sacrospinous ligament	Fibrous joints of pelvic girdle.g	17
+Coracohumeral ligament.l	Coracohumeral ligament	Glenohumeral joint.g	16
+Coracohumeral ligament.r	Coracohumeral ligament	Glenohumeral joint.g	16
+Interosseous sacro-iliac ligament.l	Interosseous sacro-iliac ligament	Sacro-iliac joint.g	16
+Interosseous sacro-iliac ligament.r	Interosseous sacro-iliac ligament	Sacro-iliac joint.g	16
+Intersesamoid ligament.l	Intersesamoid ligament	Intermetatarsal joints.g	16
+Intersesamoid ligament.r	Intersesamoid ligament	Intermetatarsal joints.g	16
+Posterior ligament of fibular head.l	Posterior ligament of fibular head	Superior tibiofibular joint.g	16
+Posterior ligament of fibular head.r	Posterior ligament of fibular head	Superior tibiofibular joint.g	16
+Superior glenohumeral ligament.l	Superior glenohumeral ligament	Glenohumeral joint.g	15
+Superior glenohumeral ligament.r	Superior glenohumeral ligament	Glenohumeral joint.g	15
+Deep transverse metacarpal ligament.l	Deep transverse metacarpal ligament	Metacarpophalangeal joints.g	12
+Deep transverse metacarpal ligament.r	Deep transverse metacarpal ligament	Metacarpophalangeal joints.g	12
+Dorsal cuneonavicular ligaments.l	Dorsal cuneonavicular ligaments	Intertarsal joints.g	12
+Dorsal cuneonavicular ligaments.r	Dorsal cuneonavicular ligaments	Intertarsal joints.g	12
+Medial talocalcaneal ligament.l	Medial talocalcaneal ligament	Intertarsal joints.g	12
+Medial talocalcaneal ligament.r	Medial talocalcaneal ligament	Intertarsal joints.g	12
+Meniscopatellar ligament.l	Meniscopatellar ligament	Knee joint.g	12
+Meniscopatellar ligament.r	Meniscopatellar ligament	Knee joint.g	12
+Plantar calcaneocuboid ligament.l	Plantar calcaneocuboid ligament	Intertarsal joints.g	12
+Plantar calcaneocuboid ligament.r	Plantar calcaneocuboid ligament	Intertarsal joints.g	12
+Posterior sternoclavicular ligament.l	Posterior sternoclavicular ligament	Sternoclavicular joint.g	12
+Posterior sternoclavicular ligament.r	Posterior sternoclavicular ligament	Sternoclavicular joint.g	12
+Radial collateral ligament of wrist joint.l	Radial collateral ligament of wrist joint	Radiocarpal joint.g	12
+Radial collateral ligament of wrist joint.r	Radial collateral ligament of wrist joint	Intercarpal joints.g	12
+Scaphotrapeziotrapezoidal ligament.l	Scaphotrapeziotrapezoidal ligament	Intercarpal joints.g	12
+Scaphotrapeziotrapezoidal ligament.r	Scaphotrapeziotrapezoidal ligament	Intercarpal joints.g	12
+Superficial part of tibial collateral ligament.l	Superficial part of tibial collateral ligament	Knee joint.g	12
+Superficial part of tibial collateral ligament.r	Superficial part of tibial collateral ligament	Knee joint.g	12
+Talonavicular ligament.l	Talonavicular ligament	Intertarsal joints.g	12
+Talonavicular ligament.r	Talonavicular ligament	Intertarsal joints.g	12
+Transverse humeral ligament.l	Transverse humeral ligament	Glenohumeral joint.g	12
+Transverse humeral ligament.r	Transverse humeral ligament	Glenohumeral joint.g	12
+Ulnar collateral ligament.l	Ulnar collateral ligament	Elbow joint.g	12
+Ulnar collateral ligament.r	Ulnar collateral ligament	Elbow joint.g	12
+Deep transverse metatarsal ligament.l	Deep transverse metatarsal ligament	Metatarsophalangeal joints.g	10
+Deep transverse metatarsal ligament.r	Deep transverse metatarsal ligament	Metatarsophalangeal joints.g	10
+Dorsal metatarsal ligaments.l	Dorsal metatarsal ligaments	Intermetatarsal joints.g	10
+Dorsal metatarsal ligaments.r	Dorsal metatarsal ligaments	Intermetatarsal joints.g	10
+Plantar cuneonavicular ligaments.l	Plantar cuneonavicular ligaments	Intertarsal joints.g	10
+Plantar cuneonavicular ligaments.r	Plantar cuneonavicular ligaments	Intertarsal joints.g	10
+Stylomandibular ligament.l	Stylomandibular ligament	Cranial syndesmoses.g	10
+Stylomandibular ligament.r	Stylomandibular ligament	Cranial syndesmoses.g	10
+Ulnar collateral ligament of wrist joint.l	Ulnar collateral ligament of wrist joint	Radiocarpal joint.g	10
+Ulnar collateral ligament of wrist joint.r	Ulnar collateral ligament of wrist joint	Intercarpal joints.g	10
+Ulnocapitate ligament.l	Ulnocapitate ligament	Radiocarpal joint.g	10
+Ulnocapitate ligament.r	Ulnocapitate ligament	Radiocarpal joint.g	10
+Anterior meniscotibial ligament (Medial meniscus).l	Anterior meniscotibial ligament (Medial meniscus)	Knee joint.g	9
+Anterior meniscotibial ligament (Medial meniscus).r	Anterior meniscotibial ligament (Medial meniscus)	Knee joint.g	9
+Acromioclavicular ligament.l	Acromioclavicular ligament	Acromioclavicular joint.g	8
+Acromioclavicular ligament.r	Acromioclavicular ligament	Acromioclavicular joint.g	8
+Anterior ligament of fibular head.l	Anterior ligament of fibular head	Superior tibiofibular joint.g	8
+Anterior ligament of fibular head.r	Anterior ligament of fibular head	Superior tibiofibular joint.g	8
+Anterior sternoclavicular ligament.l	Anterior sternoclavicular ligament	Sternoclavicular joint.g	8
+Anterior sternoclavicular ligament.r	Anterior sternoclavicular ligament	Sternoclavicular joint.g	8
+Anterior talocalcaneal ligament.l	Anterior talocalcaneal ligament	Intertarsal joints.g	8
+Anterior talocalcaneal ligament.r	Anterior talocalcaneal ligament	Intertarsal joints.g	8
+Calcaneocuboid ligament.l	Calcaneocuboid ligament	Intertarsal joints.g	8
+Calcaneocuboid ligament.r	Calcaneocuboid ligament	Intertarsal joints.g	8
+Calcaneonavicular ligament.l	Calcaneonavicular ligament	Intertarsal joints.g	8
+Calcaneonavicular ligament.r	Calcaneonavicular ligament	Intertarsal joints.g	8
+Dorsal metacarpal ligaments.l	Dorsal metacarpal ligaments	Intermetacarpal joints.g	8
+Dorsal metacarpal ligaments.r	Dorsal metacarpal ligaments	Intermetacarpal joints.g	8
+Dorsal scaphotriquetral ligament.l	Dorsal scaphotriquetral ligament	Dorsal intercarpal ligaments.l	8
+Dorsal scaphotriquetral ligament.r	Dorsal scaphotriquetral ligament	Dorsal intercarpal ligaments.r	8
+Dorsal ulnocarpal ligament.l	Dorsal ulnocarpal ligament	Intercarpal joints.g	8
+Dorsal ulnocarpal ligament.r	Dorsal ulnocarpal ligament	Intercarpal joints.g	8
+Iliolumbar ligament.l	Iliolumbar ligament	Fibrous joints of pelvic girdle.g	8
+Iliolumbar ligament.r	Iliolumbar ligament	Fibrous joints of pelvic girdle.g	8
+Interosseous metacarpal ligaments.l	Interosseous metacarpal ligaments	Intermetacarpal joints.g	8
+Interosseous metacarpal ligaments.r	Interosseous metacarpal ligaments	Intermetacarpal joints.g	8
+Metatarsal interosseous ligaments.l	Metatarsal interosseous ligaments	Intermetatarsal joints.g	8
+Metatarsal interosseous ligaments.r	Metatarsal interosseous ligaments	Intermetatarsal joints.g	8
+Palmar metacarpal ligaments.l	Palmar metacarpal ligaments	Intermetacarpal joints.g	8
+Palmar metacarpal ligaments.r	Palmar metacarpal ligaments	Intermetacarpal joints.g	8
+Plantar cuneocuboid ligament.l	Plantar cuneocuboid ligament	Intertarsal joints.g	8
+Plantar cuneocuboid ligament.r	Plantar cuneocuboid ligament	Intertarsal joints.g	8
+Plantar metatarsal ligaments.l	Plantar metatarsal ligaments	Intermetatarsal joints.g	8
+Plantar metatarsal ligaments.r	Plantar metatarsal ligaments	Intermetatarsal joints.g	8
+Radial collateral ligament.l	Radial collateral ligament	Elbow joint.g	8
+Radial collateral ligament.r	Radial collateral ligament	Elbow joint.g	8
+Transverse tibiofibular ligament.l	Transverse tibiofibular ligament	Tibiofibular syndesmosis.g	8
+Transverse tibiofibular ligament.r	Transverse tibiofibular ligament	Tibiofibular syndesmosis.g	8
+Ulnolunate ligament.l	Ulnolunate ligament	Radiocarpal joint.g	8
+Ulnolunate ligament.r	Ulnolunate ligament	Radiocarpal joint.g	8
+Cuneometatarsal interosseous ligaments.l	Cuneometatarsal interosseous ligaments	Tarsometatarsal joints.g	6
+Cuneometatarsal interosseous ligaments.r	Cuneometatarsal interosseous ligaments	Tarsometatarsal joints.g	6
+Fibular collateral ligament.l	Fibular collateral ligament	Knee joint.g	6
+Fibular collateral ligament.r	Fibular collateral ligament	Knee joint.g	6
+Interclavicular ligament.l	Interclavicular ligament	Sternoclavicular joint.g	6
+Interclavicular ligament.r	Interclavicular ligament	Sternoclavicular joint.g	6
+Palmar radio-ulnar ligament.l	Palmar radio-ulnar ligament	Distal radio-ulnar joint.g	6
+Palmar radio-ulnar ligament.r	Palmar radio-ulnar ligament	Distal radio-ulnar joint.g	6
+Palmar scaphotriquetral ligament.l	Palmar scaphotriquetral ligament	Intercarpal joints.g	6
+Palmar scaphotriquetral ligament.r	Palmar scaphotriquetral ligament	Intercarpal joints.g	6
+Posterior talocalcaneal ligament.l	Posterior talocalcaneal ligament	Intertarsal joints.g	6
+Posterior talocalcaneal ligament.r	Posterior talocalcaneal ligament	Intertarsal joints.g	6
+Conoid ligament.l	Conoid ligament	Acromioclavicular joint.g	4
+Conoid ligament.r	Conoid ligament	Acromioclavicular joint.g	4
+Dorsal intercuneiform ligaments.l	Dorsal intercuneiform ligaments	Intertarsal joints.g	4
+Dorsal intercuneiform ligaments.r	Dorsal intercuneiform ligaments	Intertarsal joints.g	4
+Intercornual ligament.l	Intercornual ligament	Fibrous joints of vertebral column.g	4
+Intercornual ligament.r	Intercornual ligament	Fibrous joints of vertebral column.g	4
+Intercuneiform interosseous ligaments.l	Intercuneiform interosseous ligaments	Intertarsal joints.g	4
+Intercuneiform interosseous ligaments.r	Intercuneiform interosseous ligaments	Intertarsal joints.g	4
+Lateral talocalcaneal ligament.l	Lateral talocalcaneal ligament	Intertarsal joints.g	4
+Lateral talocalcaneal ligament.r	Lateral talocalcaneal ligament	Intertarsal joints.g	4
+Plantar intercuneiform ligaments.l	Plantar intercuneiform ligaments	Intertarsal joints.g	4
+Plantar intercuneiform ligaments.r	Plantar intercuneiform ligaments	Intertarsal joints.g	4
+Posterior tibiotalar ligament.l	Posterior tibiotalar ligament	Medial collateral ligament of ankle.g	4
+Posterior tibiotalar ligament.r	Posterior tibiotalar ligament	Medial collateral ligament of ankle.g	4
+Radioscaphocapitate ligament.l	Radioscaphocapitate ligament	Radiocarpal joint.g	4
+Radioscaphocapitate ligament.r	Radioscaphocapitate ligament	Radiocarpal joint.g	4
+Tibiocalcaneal ligament.l	Tibiocalcaneal ligament	Medial collateral ligament of ankle.g	4
+Tibiocalcaneal ligament.r	Tibiocalcaneal ligament	Medial collateral ligament of ankle.g	4
+Trapezoid ligament.l	Trapezoid ligament	Acromioclavicular joint.g	4
+Trapezoid ligament.r	Trapezoid ligament	Acromioclavicular joint.g	4
+Triquetrocapitate ligament.l	Triquetrocapitate ligament	Intercarpal joints.g	4
+Triquetrocapitate ligament.r	Triquetrocapitate ligament	Intercarpal joints.g	4
+Ulnotriquetral ligament.l	Ulnotriquetral ligament	Radiocarpal joint.g	4
+Ulnotriquetral ligament.r	Ulnotriquetral ligament	Radiocarpal joint.g	4
+Anterior talofibular ligament.l	Anterior talofibular ligament	Lateral collateral ligament of ankle.g	2
+Anterior talofibular ligament.r	Anterior talofibular ligament	Lateral collateral ligament of ankle.g	2
+Calcaneofibular ligament.l	Calcaneofibular ligament	Lateral collateral ligament of ankle.g	2
+Calcaneofibular ligament.r	Calcaneofibular ligament	Lateral collateral ligament of ankle.g	2
+Capitohamate interosseous ligament.l	Capitohamate interosseous ligament	Intercarpal joints.g	2
+Capitohamate interosseous ligament.r	Capitohamate interosseous ligament	Intercarpal joints.g	2
+Coraco-acromial ligament.l	Coraco-acromial ligament	Fibrous joints of pectoral girdle.g	2
+Coraco-acromial ligament.r	Coraco-acromial ligament	Fibrous joints of pectoral girdle.g	2
+Costoclavicular ligament.l	Costoclavicular ligament	Sternoclavicular joint.g	2
+Costoclavicular ligament.r	Costoclavicular ligament	Sternoclavicular joint.g	2
+Dorsal calcaneocuboid ligament.l	Dorsal calcaneocuboid ligament	Intertarsal joints.g	2
+Dorsal calcaneocuboid ligament.r	Dorsal calcaneocuboid ligament	Intertarsal joints.g	2
+Dorsal cuboideonavicular ligament.l	Dorsal cuboideonavicular ligament	Intertarsal joints.g	2
+Dorsal cuboideonavicular ligament.r	Dorsal cuboideonavicular ligament	Intertarsal joints.g	2
+Dorsal cuneocuboid ligament.l	Dorsal cuneocuboid ligament	Intertarsal joints.g	2
+Dorsal cuneocuboid ligament.r	Dorsal cuneocuboid ligament	Intertarsal joints.g	2
+Dorsal radio-ulnar ligament.l	Dorsal radio-ulnar ligament	Distal radio-ulnar joint.g	2
+Dorsal radio-ulnar ligament.r	Dorsal radio-ulnar ligament	Distal radio-ulnar joint.g	2
+Inferior transverse scapular ligament.l	Inferior transverse scapular ligament	Fibrous joints of pectoral girdle.g	2
+Inferior transverse scapular ligament.r	Inferior transverse scapular ligament	Fibrous joints of pectoral girdle.g	2
+Lunotriquetral interosseous ligament.l	Lunotriquetral interosseous ligament	Intercarpal joints.g	2
+Lunotriquetral interosseous ligament.r	Lunotriquetral interosseous ligament	Intercarpal joints.g	2
+Palmar capitohamate ligament.l	Palmar capitohamate ligament	Intercarpal joints.g	2
+Palmar capitohamate ligament.r	Palmar capitohamate ligament	Intercarpal joints.g	2
+Palmar lunotriquetral ligament.l	Palmar lunotriquetral ligament	Intercarpal joints.g	2
+Palmar lunotriquetral ligament.r	Palmar lunotriquetral ligament	Intercarpal joints.g	2
+Palmar trapezoideocapitate ligament.l	Palmar trapezoideocapitate ligament	Intercarpal joints.g	2
+Palmar trapezoideocapitate ligament.r	Palmar trapezoideocapitate ligament	Intercarpal joints.g	2
+Pisohamate ligament.l	Pisohamate ligament	Intercarpal joints.g	2
+Pisohamate ligament.r	Pisohamate ligament	Intercarpal joints.g	2
+Pisometacarpal ligament.l	Pisometacarpal ligament	Intercarpal joints.g	2
+Pisometacarpal ligament.r	Pisometacarpal ligament	Intercarpal joints.g	2
+Plantar calcaneonavicular ligament.l	Plantar calcaneonavicular ligament	Intertarsal joints.g	2
+Plantar calcaneonavicular ligament.r	Plantar calcaneonavicular ligament	Intertarsal joints.g	2
+Plantar cuboideonavicular ligament.l	Plantar cuboideonavicular ligament	Intertarsal joints.g	2
+Plantar cuboideonavicular ligament.r	Plantar cuboideonavicular ligament	Intertarsal joints.g	2
+Posterior talofibular ligament.l	Posterior talofibular ligament	Lateral collateral ligament of ankle.g	2
+Posterior talofibular ligament.r	Posterior talofibular ligament	Lateral collateral ligament of ankle.g	2
+Pterygospinous ligament.l	Pterygospinous ligament	Cranial syndesmoses.g	2
+Pterygospinous ligament.r	Pterygospinous ligament	Cranial syndesmoses.g	2
+Quadrate ligament.l	Quadrate ligament	Elbow joint.g	2
+Quadrate ligament.r	Quadrate ligament	Elbow joint.g	2
+Radiocapitate ligament.l	Radiocapitate ligament	Radiocarpal joint.g	2
+Radiocapitate ligament.r	Radiocapitate ligament	Radiocarpal joint.g	2
+Scaphocapitate ligament.l	Scaphocapitate ligament	Intercarpal joints.g	2
+Scaphocapitate ligament.r	Scaphocapitate ligament	Intercarpal joints.g	2
+Scapholunate interosseous ligament.l	Scapholunate interosseous ligament	Intercarpal joints.g	2
+Scapholunate interosseous ligament.r	Scapholunate interosseous ligament	Intercarpal joints.g	2
+Superior transverse scapular ligament.l	Superior transverse scapular ligament	Fibrous joints of pectoral girdle.g	2
+Superior transverse scapular ligament.r	Superior transverse scapular ligament	Fibrous joints of pectoral girdle.g	2
+Trapeziotrapezoidal interosseous ligament.l	Trapeziotrapezoidal interosseous ligament	Intercarpal joints.g	2
+Trapeziotrapezoidal interosseous ligament.r	Trapeziotrapezoidal interosseous ligament	Intercarpal joints.g	2
+Trapezoideocapitate interosseous ligament.l	Trapezoideocapitate interosseous ligament	Intercarpal joints.g	2
+Trapezoideocapitate interosseous ligament.r	Trapezoideocapitate interosseous ligament	Intercarpal joints.g	2
+Triquetrohamate ligament.l	Triquetrohamate ligament	Intercarpal joints.g	2
+Triquetrohamate ligament.r	Triquetrohamate ligament	Intercarpal joints.g	2
+Ulnopisiform ligament.l	Ulnopisiform ligament	Radiocarpal joint.g	2
+
+== OTHER BODY OBJECTS WITHOUT MUSCLE KEYWORD ==
+White matter of telencephalon.l	White matter of telencephalon	Telencephalon.g	135288
+White matter of telencephalon.r	White matter of telencephalon	Telencephalon.g	135288
+Iliotibial tract.l	Iliotibial tract	Tensor fasciae latae.l	48612
+Iliotibial tract.r	Iliotibial tract	Tensor fasciae latae.r	48612
+Scapula.l	Scapula	Bones of pectoral girdle.g	25326
+Scapula.r	Scapula	Bones of pectoral girdle.g	25326
+Temporal bone.l	Temporal bone	Bones of cranium.g	14094
+Temporal bone.r	Temporal bone	Bones of cranium.g	14094
+Humero-ulnar head of flexor digitorum superficialis.l	Humero-ulnar head of flexor digitorum superficialis	Superficial part of anterior compartment of forearm.g	12798
+Humero-ulnar head of flexor digitorum superficialis.r	Humero-ulnar head of flexor digitorum superficialis	Superficial part of anterior compartment of forearm.g	12798
+Interosseous membrane of leg.l	Interosseous membrane of leg	Fibrous joints of free lower limb.g	12642
+Interosseous membrane of leg.r	Interosseous membrane of leg	Fibrous joints of free lower limb.g	12642
+Pons.l	Pons	Brainstem.g	10171
+Pons.r	Pons	Brainstem.g	10171
+Sixth rib.l	Sixth rib	True ribs.g	10132
+Sixth rib.r	Sixth rib	True ribs.g	10132
+Seventh rib.l	Seventh rib	True ribs.g	9776
+Seventh rib.r	Seventh rib	True ribs.g	9776
+Fifth rib.l	Fifth rib	True ribs.g	9376
+Fifth rib.r	Fifth rib	True ribs.g	9376
+Biventral lobule.l	Biventral lobule	Cerebellum.g	8902
+Biventral lobule.r	Biventral lobule	Cerebellum.g	8902
+Superior semilunar lobule.l	Superior semilunar lobule	Cerebellum.g	8688
+Superior semilunar lobule.r	Superior semilunar lobule	Cerebellum.g	8688
+Fourth rib.l	Fourth rib	True ribs.g	8646
+Fourth rib.r	Fourth rib	True ribs.g	8646
+Superior cerebellar peduncle.l	Superior cerebellar peduncle	Cerebellum.g	8474
+Superior cerebellar peduncle.r	Superior cerebellar peduncle	Cerebellum.g	8474
+Eighth rib.l	Eighth rib	False ribs.g	8270
+Eighth rib.r	Eighth rib	False ribs.g	8270
+Adductor magnus.l	Adductor magnus	Medial compartment of thigh.g	8192
+Adductor magnus.r	Adductor magnus	Medial compartment of thigh.g	8192
+Inferior semilunar lobule.l	Inferior semilunar lobule	Cerebellum.g	7787
+Inferior semilunar lobule.r	Inferior semilunar lobule	Cerebellum.g	7787
+Ninth rib.l	Ninth rib	False ribs.g	7778
+Ninth rib.r	Ninth rib	False ribs.g	7778
+Medial femoral intermuscular septum.l	Medial femoral intermuscular septum	Fasciae of lower limb.g	7714
+Medial femoral intermuscular septum.r	Medial femoral intermuscular septum	Fasciae of lower limb.g	7714
+Long head of biceps femoris.l	Long head of biceps femoris	Posterior compartment of thigh.g	7258
+Long head of biceps femoris.r	Long head of biceps femoris	Posterior compartment of thigh.g	7258
+Flexor digitorum profundus.l	Flexor digitorum profundus	Deep part of anterior compartment of forearm.g	7110
+Flexor digitorum profundus.r	Flexor digitorum profundus	Deep part of anterior compartment of forearm.g	7110
+Tenth rib.l	Tenth rib	False ribs.g	7026
+Tenth rib.r	Tenth rib	False ribs.g	7026
+Third rib.l	Third rib	True ribs.g	6980
+Third rib.r	Third rib	True ribs.g	6980
+Gracile lobule.l	Gracile lobule	Cerebellum.g	6961
+Gracile lobule.r	Gracile lobule	Cerebellum.g	6961
+Parietal bone.l	Parietal bone	Bones of cranium.g	6886
+Flexor digitorum longus.l	Flexor digitorum longus	Deep part of posterior compartment of leg.g	6836
+Flexor digitorum longus.r	Flexor digitorum longus	Deep part of posterior compartment of leg.g	6836
+Parietal bone.r	Parietal bone	Bones of cranium.g	6780
+Platysma.l	Platysma	Muscles of neck.g	6548
+Platysma.r	Platysma	Muscles of neck.g	6548
+Anterior quadrangular lobule.l	Anterior quadrangular lobule	Cerebellum.g	6520
+Anterior quadrangular lobule.r	Anterior quadrangular lobule	Cerebellum.g	6520
+Rotatores.l	Rotatores	Rotatores.g	6518
+Rotatores.r	Rotatores	Rotatores.g	6518
+Medial head of gastrocnemius.l	Medial head of gastrocnemius	Superficial part of posterior compartment of leg.g	6462
+Medial head of gastrocnemius.r	Medial head of gastrocnemius	Superficial part of posterior compartment of leg.g	6462
+Extensor digitorum.l	Extensor digitorum	Superficial part of posterior compartment of forearm.g	6410
+Extensor digitorum.r	Extensor digitorum	Superficial part of posterior compartment of forearm.g	6410
+Midbrain.l	Midbrain	Midbrain.g	6092
+Midbrain.r	Midbrain	Midbrain.g	6092
+Medulla oblongata.l	Medulla oblongata	Brainstem.g	6080
+Medulla oblongata.r	Medulla oblongata	Brainstem.g	6080
+Levatores longi costarum.l	Levatores longi costarum	Levatores costarum.g	5930
+Levatores longi costarum.r	Levatores longi costarum	Levatores costarum.g	5930
+Flexor hallucis longus.l	Flexor hallucis longus	Deep part of posterior compartment of leg.g	5878
+Flexor hallucis longus.r	Flexor hallucis longus	Deep part of posterior compartment of leg.g	5878
+Psoas major.l	Psoas major	Iliopsoas muscle.g	5474
+Psoas major.r	Psoas major	Iliopsoas muscle.g	5474
+Vitreous body.l	Vitreous body	Posterior segment of eyeball.l	5436
+Vitreous body.r	Vitreous body	Posterior segment of eyeball.r	5436
+Second rib.l	Second rib	True ribs.g	5364
+Second rib.r	Second rib	True ribs.g	5364
+Superior pharyngeal constrictor.l	Superior pharyngeal constrictor	Pharyngeal muscles.g	5334
+Superior pharyngeal constrictor.r	Superior pharyngeal constrictor	Pharyngeal muscles.g	5334
+Globus pallidus.l	Globus pallidus	Corpus striatum.g	5276
+Globus pallidus.r	Globus pallidus	Corpus striatum.g	5276
+Base of peduncle.l	Base of peduncle	Cerebral peduncle.g	5046
+Base of peduncle.r	Base of peduncle	Cerebral peduncle.g	5046
+Eleventh rib.l	Eleventh rib	Floating ribs.g	5034
+Eleventh rib.r	Eleventh rib	Floating ribs.g	5034
+Lateral head of gastrocnemius.l	Lateral head of gastrocnemius	Superficial part of posterior compartment of leg.g	4908
+Lateral head of gastrocnemius.r	Lateral head of gastrocnemius	Superficial part of posterior compartment of leg.g	4908
+Maxilla.l	Maxilla	Bones of cranium.g	4798
+Maxilla.r	Maxilla	Bones of cranium.g	4798
+Quadrangular membrane.l	Quadrangular membrane	Fibro-elastic membrane of larynx.g	4592
+Quadrangular membrane.r	Quadrangular membrane	Fibro-elastic membrane of larynx.g	4592
+Lower first molar tooth.l	Lower first molar tooth	Posterior teeth.g	4508
+Lower first molar tooth.r	Lower first molar tooth	Posterior teeth.g	4508
+Stapes.l	Stapes	Auditory ossicles.g	4342
+Stapes.r	Stapes	Auditory ossicles.g	4342
+Humerus.l	Humerus	Bones of free part of upper limb.g	4280
+Humerus.r	Humerus	Bones of free part of upper limb.g	4280
+Suprarenal gland.l	Suprarenal gland	Endocrine glands.g	3996
+Malleus.l	Malleus	Auditory ossicles.g	3982
+Malleus.r	Malleus	Auditory ossicles.g	3982
+Long head of triceps brachii.l	Long head of triceps brachii	Triceps brachii muscle.g	3950
+Long head of triceps brachii.r	Long head of triceps brachii	Triceps brachii muscle.g	3950
+Humeral head of flexor carpi ulnaris.l	Humeral head of flexor carpi ulnaris	Superficial part of anterior compartment of forearm.g	3912
+Humeral head of flexor carpi ulnaris.r	Humeral head of flexor carpi ulnaris	Superficial part of anterior compartment of forearm.g	3912
+Femur.l	Femur	Bones of free part of lower limb.g	3794
+Femur.r	Femur	Bones of free part of lower limb.g	3794
+Hip bone.l	Hip bone	Bones of pelvic girdle.g	3788
+Hip bone.r	Hip bone	Bones of pelvic girdle.g	3788
+Obturator internus.l	Obturator internus	Deep gluteal muscles.g	3760
+Obturator internus.r	Obturator internus	Deep gluteal muscles.g	3760
+Superior frontal gyrus.l	Superior frontal gyrus	Frontal lobe.g	3735
+Superior frontal gyrus.r	Superior frontal gyrus	Frontal lobe.g	3735
+Adductor longus.l	Adductor longus	Medial compartment of thigh.g	3714
+Adductor longus.r	Adductor longus	Medial compartment of thigh.g	3714
+Extensor carpi radialis longus.l	Extensor carpi radialis longus	Superficial part of posterior compartment of forearm.g	3706
+Extensor carpi radialis longus.r	Extensor carpi radialis longus	Superficial part of posterior compartment of forearm.g	3706
+Inferior pharyngeal constrictor.l	Inferior pharyngeal constrictor	Pharyngeal muscles.g	3696
+Inferior pharyngeal constrictor.r	Inferior pharyngeal constrictor	Pharyngeal muscles.g	3696
+Flocculus.l	Flocculus	Cerebellum.g	3660
+Flocculus.r	Flocculus	Cerebellum.g	3660
+Tonsil of cerebellum.l	Tonsil of cerebellum	Cerebellum.g	3638
+Tonsil of cerebellum.r	Tonsil of cerebellum	Cerebellum.g	3638
+Lateral head of triceps brachii.l	Lateral head of triceps brachii	Triceps brachii muscle.g	3628
+Lateral head of triceps brachii.r	Lateral head of triceps brachii	Triceps brachii muscle.g	3628
+Posterior quadrangular lobule.l	Posterior quadrangular lobule	Cerebellum.g	3618
+Posterior quadrangular lobule.r	Posterior quadrangular lobule	Cerebellum.g	3618
+Iris.l	Iris	Eyeball.g	3248
+Iris.r	Iris	Eyeball.g	3248
+Flexor digitorum brevis.l	Flexor digitorum brevis	Muscles of foot.g	3224
+Flexor digitorum brevis.r	Flexor digitorum brevis	Muscles of foot.g	3224
+Long head of biceps brachii.l	Long head of biceps brachii	Biceps brachii muscle.g	3218
+Long head of biceps brachii.r	Long head of biceps brachii	Biceps brachii muscle.g	3218
+First rib.l	First rib	True ribs.g	3210
+First rib.r	First rib	True ribs.g	3210
+Extensor digitorum brevis.l	Extensor digitorum brevis	Muscles of foot.g	3184
+Extensor digitorum brevis.r	Extensor digitorum brevis	Muscles of foot.g	3184
+Extensor digitorum longus.l	Extensor digitorum longus	Anterior compartment of leg.g	3176
+Extensor digitorum longus.r	Extensor digitorum longus	Anterior compartment of leg.g	3176
+Wing of central lobule.l	Wing of central lobule	Cerebellum.g	3144
+Wing of central lobule.r	Wing of central lobule	Cerebellum.g	3144
+Extensor carpi radialis brevis.l	Extensor carpi radialis brevis	Superficial part of posterior compartment of forearm.g	3142
+Extensor carpi radialis brevis.r	Extensor carpi radialis brevis	Superficial part of posterior compartment of forearm.g	3142
+Levator scapulae.l	Levator scapulae	Hypaxial muscles of back.g	3082
+Levator scapulae.r	Levator scapulae	Hypaxial muscles of back.g	3082
+Twelfth rib.l	Twelfth rib	Floating ribs.g	3002
+Twelfth rib.r	Twelfth rib	Floating ribs.g	3002
+Kidney.l	Kidney	Urinary system.g	2982
+Middle pharyngeal constrictor.l	Middle pharyngeal constrictor	Pharyngeal muscles.g	2948
+Middle pharyngeal constrictor.r	Middle pharyngeal constrictor	Pharyngeal muscles.g	2948
+Lateral ventricle.l	Lateral ventricle	Telencephalon.g	2898
+Lateral ventricle.r	Lateral ventricle	Telencephalon.g	2898
+Interosseous membrane of forearm.l	Interosseous membrane of forearm	Radio-ulnar syndesmoses.g	2766
+Interosseous membrane of forearm.r	Interosseous membrane of forearm	Radio-ulnar syndesmoses.g	2766
+Supinator.l	Supinator	Deep part of posterior compartment of forearm.g	2754
+Supinator.r	Supinator	Deep part of posterior compartment of forearm.g	2754
+Short head of biceps brachii.l	Short head of biceps brachii	Biceps brachii muscle.g	2696
+Short head of biceps brachii.r	Short head of biceps brachii	Biceps brachii muscle.g	2696
+Levatores breves costarum.l	Levatores breves costarum	Levatores costarum.g	2690
+Levatores breves costarum.r	Levatores breves costarum	Levatores costarum.g	2690
+Medial head of triceps brachii.l	Medial head of triceps brachii	Triceps brachii muscle.g	2686
+Medial head of triceps brachii.r	Medial head of triceps brachii	Triceps brachii muscle.g	2686
+Choroid plexus.l	Choroid plexus	Cranial pia.g	2647
+Choroid plexus.r	Choroid plexus	Cranial pia.g	2647
+Caudate nucleus.l	Caudate nucleus	Dorsal striatum.g	2570
+Caudate nucleus.r	Caudate nucleus	Dorsal striatum.g	2570
+Superficial head of pronator teres.l	Superficial head of pronator teres	Superficial part of anterior compartment of forearm.g	2546
+Superficial head of pronator teres.r	Superficial head of pronator teres	Superficial part of anterior compartment of forearm.g	2546
+Incus.l	Incus	Auditory ossicles.g	2532
+Incus.r	Incus	Auditory ossicles.g	2532
+Short head of biceps femoris.l	Short head of biceps femoris	Posterior compartment of thigh.g	2476
+Short head of biceps femoris.r	Short head of biceps femoris	Posterior compartment of thigh.g	2476
+Abductor pollicis longus.l	Abductor pollicis longus	Deep part of posterior compartment of forearm.g	2462
+Abductor pollicis longus.r	Abductor pollicis longus	Deep part of posterior compartment of forearm.g	2462
+Orbital part of orbicularis oculi.l	Orbital part of orbicularis oculi	Facial muscles.g	2390
+Orbital part of orbicularis oculi.r	Orbital part of orbicularis oculi	Facial muscles.g	2390
+Superior temporal sulcus.l	Superior temporal sulcus	Temporal lobe.g	2374
+Superior temporal sulcus.r	Superior temporal sulcus	Temporal lobe.g	2374
+Peduncle of flocculus.l	Peduncle of flocculus	Cerebellum.g	2368
+Peduncle of flocculus.r	Peduncle of flocculus	Cerebellum.g	2368
+Extensor hallucis longus.l	Extensor hallucis longus	Anterior compartment of leg.g	2362
+Extensor hallucis longus.r	Extensor hallucis longus	Anterior compartment of leg.g	2362
+Optic tract.l	Optic tract	Diencephalon.g	2332
+Optic tract.r	Optic tract	Diencephalon.g	2332
+Kidney.r	Kidney	Urinary system.g	2322
+Costal cartilage of seventh rib.l	Costal cartilage of seventh rib	Costal cartilages.g	2294
+Costal cartilage of seventh rib.r	Costal cartilage of seventh rib	Costal cartilages.g	2294
+Suprarenal gland.r	Suprarenal gland	Endocrine glands.g	2294
+Middle frontal gyrus.l	Middle frontal gyrus	Frontal lobe.g	2277
+Middle frontal gyrus.r	Middle frontal gyrus	Frontal lobe.g	2277
+Upper first molar tooth.l	Upper first molar tooth	Posterior teeth.g	2176
+Upper first molar tooth.r	Upper first molar tooth	Posterior teeth.g	2176
+Fornix.l	Fornix	Projection fibres of telencephalon.g	2158
+Fornix.r	Fornix	Projection fibres of telencephalon.g	2158
+Extensor digiti minimi.l	Extensor digiti minimi	Superficial part of posterior compartment of forearm.g	2152
+Extensor digiti minimi.r	Extensor digiti minimi	Superficial part of posterior compartment of forearm.g	2152
+Levator palpebrae superioris.l	Levator palpebrae superioris	Extra-ocular muscles.g	2152
+Levator palpebrae superioris.r	Levator palpebrae superioris	Extra-ocular muscles.g	2152
+Vestibule.l	Vestibule	Internal ear.g	2152
+Vestibule.r	Vestibule	Internal ear.g	2152
+Lentiform nucleus.l	Lentiform nucleus	Corpus striatum.g	2144
+Lentiform nucleus.r	Lentiform nucleus	Corpus striatum.g	2144
+Adductor brevis.l	Adductor brevis	Medial compartment of thigh.g	2132
+Adductor brevis.r	Adductor brevis	Medial compartment of thigh.g	2132
+Tentorium cerebelli.l	Tentorium cerebelli	Cranial dura.g	2108
+Tentorium cerebelli.r	Tentorium cerebelli	Cranial dura.g	2108
+Intercostal nodes.l	Intercostal nodes	Parietal thoracic lymph nodes.g	2016
+Intercostal nodes.r	Intercostal nodes	Parietal thoracic lymph nodes.g	2016
+Dorsal surfaces of digits of hand.l	Dorsal surfaces of digits of hand	Regions of digits of hand.g	1905
+Dorsal surfaces of digits of hand.r	Dorsal surfaces of digits of hand	Regions of digits of hand.g	1905
+Upper second molar tooth.l	Upper second molar tooth	Posterior teeth.g	1844
+Upper second molar tooth.r	Upper second molar tooth	Posterior teeth.g	1844
+Lacrimal gland.l	Lacrimal gland	Lacrimal apparatus.g	1810
+Lacrimal gland.r	Lacrimal gland	Lacrimal apparatus.g	1810
+Palmar surfaces of digits of hand.l	Palmar surfaces of digits of hand	Regions of digits of hand.g	1694
+Palmar surfaces of digits of hand.r	Palmar surfaces of digits of hand	Regions of digits of hand.g	1694
+Abductor hallucis.l	Abductor hallucis	Muscles of foot.g	1688
+Abductor hallucis.r	Abductor hallucis	Muscles of foot.g	1688
+Upper first premolar.l	Upper first premolar	Posterior teeth.g	1684
+Upper first premolar.r	Upper first premolar	Posterior teeth.g	1684
+Spinal ganglion.l	Spinal ganglion	Ganglia.g	1680
+Spinal ganglion.r	Spinal ganglion	Ganglia.g	1680
+Lower second molar tooth.l	Lower second molar tooth	Posterior teeth.g	1676
+Lower second molar tooth.r	Lower second molar tooth	Posterior teeth.g	1676
+Tibia.l	Tibia	Bones of free part of lower limb.g	1670
+Tibia.r	Tibia	Bones of free part of lower limb.g	1670
+Flexor carpi radialis.l	Flexor carpi radialis	Superficial part of anterior compartment of forearm.g	1666
+Flexor carpi radialis.r	Flexor carpi radialis	Superficial part of anterior compartment of forearm.g	1666
+Flexor pollicis longus.l	Flexor pollicis longus	Deep part of anterior compartment of forearm.g	1666
+Flexor pollicis longus.r	Flexor pollicis longus	Deep part of anterior compartment of forearm.g	1666
+Lingual gyrus.l	Lingual gyrus	Occipital lobe.g	1658
+Lingual gyrus.r	Lingual gyrus	Occipital lobe.g	1658
+Parieto-occipital sulcus.l	Parieto-occipital sulcus	Interlobar sulci.g	1636
+Parieto-occipital sulcus.r	Parieto-occipital sulcus	Interlobar sulci.g	1636
+Extensor pollicis longus.l	Extensor pollicis longus	Deep part of posterior compartment of forearm.g	1602
+Extensor pollicis longus.r	Extensor pollicis longus	Deep part of posterior compartment of forearm.g	1602
+Posterior segment of eyeball.l	Posterior segment of eyeball	Eyeball.g	1600
+Posterior segment of eyeball.r	Posterior segment of eyeball	Eyeball.g	1600
+Lens.l	Lens	Eyeball.g	1598
+Lens.r	Lens	Eyeball.g	1598
+Tympanic membrane.l	Tympanic membrane	External ear.g	1572
+Tympanic membrane.r	Tympanic membrane	External ear.g	1572
+Upper second premolar.l	Upper second premolar	Posterior teeth.g	1554
+Upper second premolar.r	Upper second premolar	Posterior teeth.g	1554
+Clavicle.l	Clavicle	Bones of pectoral girdle.g	1550
+Clavicle.r	Clavicle	Bones of pectoral girdle.g	1550
+Retina.l	Retina	Eyeball.g	1544
+Retina.r	Retina	Eyeball.g	1544
+Cochlea.l	Cochlea	Internal ear.g	1540
+Cochlea.r	Cochlea	Internal ear.g	1540
+Precentral gyrus.l	Precentral gyrus	Frontal lobe.g	1532
+Precentral gyrus.r	Precentral gyrus	Frontal lobe.g	1532
+Orbital gyri.l	Orbital gyri	Frontal lobe.g	1512
+Orbital gyri.r	Orbital gyri	Frontal lobe.g	1512
+Angular gyrus.l	Angular gyrus	Parietal lobe.g	1511
+Angular gyrus.r	Angular gyrus	Parietal lobe.g	1511
+Supramarginal gyrus.l	Supramarginal gyrus	Parietal lobe.g	1510
+Supramarginal gyrus.r	Supramarginal gyrus	Parietal lobe.g	1510
+Inferior temporal gyrus.l	Inferior temporal gyrus	Temporal lobe.g	1498
+Inferior temporal gyrus.r	Inferior temporal gyrus	Temporal lobe.g	1498
+Upper canine.l	Upper canine	Anterior teeth.g	1470
+Upper canine.r	Upper canine	Anterior teeth.g	1470
+Ulnar head of flexor carpi ulnaris.l	Ulnar head of flexor carpi ulnaris	Superficial part of anterior compartment of forearm.g	1466
+Ulnar head of flexor carpi ulnaris.r	Ulnar head of flexor carpi ulnaris	Superficial part of anterior compartment of forearm.g	1466
+Palatine bone.l	Palatine bone	Bones of cranium.g	1460
+Palatine bone.r	Palatine bone	Bones of cranium.g	1460
+Upper lateral incisor.l	Upper lateral incisor	Anterior teeth.g	1454
+Upper lateral incisor.r	Upper lateral incisor	Anterior teeth.g	1454
+Renal pelvis.l	Renal pelvis	Urinary system.g	1450
+Calcaneus.l	Calcaneus	Tarsal bones.g	1448
+Calcaneus.r	Calcaneus	Tarsal bones.g	1448
+Central sulcus.l	Central sulcus	Interlobar sulci.g	1440
+Central sulcus.r	Central sulcus	Interlobar sulci.g	1440
+Ganglia of sympathetic trunk.l	Ganglia of sympathetic trunk	Sympathetic trunk.l	1440
+Ganglia of sympathetic trunk.r	Ganglia of sympathetic trunk	Sympathetic trunk.r	1440
+Superficial part of masseter.l	Superficial part of masseter	Masticatory muscles.g	1404
+Superficial part of masseter.r	Superficial part of masseter	Masticatory muscles.g	1404
+Upper medial incisor.l	Upper medial incisor	Anterior teeth.g	1368
+Upper medial incisor.r	Upper medial incisor	Anterior teeth.g	1368
+Costal cartilage of sixth rib.l	Costal cartilage of sixth rib	Costal cartilages.g	1354
+Costal cartilage of sixth rib.r	Costal cartilage of sixth rib	Costal cartilages.g	1354
+Talus.l	Talus	Tarsal bones.g	1350
+Talus.r	Talus	Tarsal bones.g	1350
+Medial external iliac nodes.l	Medial external iliac nodes	External iliac nodes.g	1344
+Medial external iliac nodes.r	Medial external iliac nodes	External iliac nodes.g	1344
+Parasternal nodes.l	Parasternal nodes	Parietal thoracic lymph nodes.g	1344
+Parasternal nodes.r	Parasternal nodes	Parietal thoracic lymph nodes.g	1344
+Zygomatic bone.l	Zygomatic bone	Bones of cranium.g	1328
+Zygomatic bone.r	Zygomatic bone	Bones of cranium.g	1328
+Middle temporal gyrus.l	Middle temporal gyrus	Temporal lobe.g	1312
+Middle temporal gyrus.r	Middle temporal gyrus	Temporal lobe.g	1312
+Precuneus.l	Precuneus	Parietal lobe.g	1300
+Precuneus.r	Precuneus	Parietal lobe.g	1300
+Superior frontal sulcus.l	Superior frontal sulcus	Frontal lobe.g	1290
+Superior frontal sulcus.r	Superior frontal sulcus	Frontal lobe.g	1290
+Abductor digiti minimi of foot.l	Abductor digiti minimi of foot	Muscles of foot.g	1280
+Abductor digiti minimi of foot.r	Abductor digiti minimi of foot	Muscles of foot.g	1280
+Lower canine.l	Lower canine	Anterior teeth.g	1276
+Lower canine.r	Lower canine	Anterior teeth.g	1276
+Radial head of flexor digitorum superficialis.l	Radial head of flexor digitorum superficialis	Superficial part of anterior compartment of forearm.g	1276
+Radial head of flexor digitorum superficialis.r	Radial head of flexor digitorum superficialis	Superficial part of anterior compartment of forearm.g	1276
+Fibula.l	Fibula	Bones of free part of lower limb.g	1264
+Fibula.r	Fibula	Bones of free part of lower limb.g	1264
+Renal pelvis.r	Renal pelvis	Urinary system.g	1262
+Lower first premolar.l	Lower first premolar	Posterior teeth.g	1222
+Lower first premolar.r	Lower first premolar	Posterior teeth.g	1222
+Superior parietal lobule.l	Superior parietal lobule	Parietal lobe.g	1199
+Superior parietal lobule.r	Superior parietal lobule	Parietal lobe.g	1199
+Postcentral sulcus.l	Postcentral sulcus	Parietal lobe.g	1189
+Postcentral sulcus.r	Postcentral sulcus	Parietal lobe.g	1189
+Lower second premolar.l	Lower second premolar	Posterior teeth.g	1180
+Lower second premolar.r	Lower second premolar	Posterior teeth.g	1180
+Extensor pollicis brevis.l	Extensor pollicis brevis	Deep part of posterior compartment of forearm.g	1176
+Extensor pollicis brevis.r	Extensor pollicis brevis	Deep part of posterior compartment of forearm.g	1176
+Intermediate external iliac nodes.l	Intermediate external iliac nodes	External iliac nodes.g	1176
+Intermediate external iliac nodes.r	Intermediate external iliac nodes	External iliac nodes.g	1176
+Dorsal surfaces of digits of foot.l	Dorsal surfaces of digits of foot	Regions of digits of foot.g	1157
+Dorsal surfaces of digits of foot.r	Dorsal surfaces of digits of foot	Regions of digits of foot.g	1157
+Obturator externus.l	Obturator externus	Medial compartment of thigh.g	1156
+Obturator externus.r	Obturator externus	Medial compartment of thigh.g	1156
+Postcentral gyrus.l	Postcentral gyrus	Parietal lobe.g	1153
+Postcentral gyrus.r	Postcentral gyrus	Parietal lobe.g	1153
+Putamen.l	Putamen	Dorsal striatum.g	1150
+Putamen.r	Putamen	Dorsal striatum.g	1150
+Collateral sulcus.l	Collateral sulcus	Interlobar sulci.g	1142
+Collateral sulcus.r	Collateral sulcus	Interlobar sulci.g	1142
+Extensor indicis.l	Extensor indicis	Deep part of posterior compartment of forearm.g	1142
+Extensor indicis.r	Extensor indicis	Deep part of posterior compartment of forearm.g	1142
+Sclera.l	Sclera	Eyeball.g	1120
+Sclera.r	Sclera	Eyeball.g	1120
+Extensor hallucis brevis.l	Extensor hallucis brevis	Muscles of foot.g	1118
+Extensor hallucis brevis.r	Extensor hallucis brevis	Muscles of foot.g	1118
+Deep head of pronator teres.l	Deep head of pronator teres	Superficial part of anterior compartment of forearm.g	1114
+Deep head of pronator teres.r	Deep head of pronator teres	Superficial part of anterior compartment of forearm.g	1114
+First metatarsal bone.l	First metatarsal bone	Metatarsal bones.g	1088
+First metatarsal bone.r	First metatarsal bone	Metatarsal bones.g	1088
+Costal cartilage of fifth rib.l	Costal cartilage of fifth rib	Costal cartilages.g	1082
+Costal cartilage of fifth rib.r	Costal cartilage of fifth rib	Costal cartilages.g	1082
+Superior temporal gyrus (Lateral part).l	Superior temporal gyrus (Lateral part)	Temporal lobe.g	1072
+Superior temporal gyrus (Lateral part).r	Superior temporal gyrus (Lateral part)	Temporal lobe.g	1072
+Lower lateral incisor.l	Lower lateral incisor	Anterior teeth.g	1040
+Lower lateral incisor.r	Lower lateral incisor	Anterior teeth.g	1040
+Hippocampus.l	Hippocampus	Limbic lobe.g	1020
+Hippocampus.r	Hippocampus	Limbic lobe.g	1020
+Pronator quadratus.l	Pronator quadratus	Deep part of anterior compartment of forearm.g	1020
+Pronator quadratus.r	Pronator quadratus	Deep part of anterior compartment of forearm.g	1020
+Transverse head of adductor pollicis.l	Transverse head of adductor pollicis	Muscles of hand.g	1014
+Transverse head of adductor pollicis.r	Transverse head of adductor pollicis	Muscles of hand.g	1014
+Anterior axillary nodes.l	Anterior axillary nodes	Axillary nodes.g	1008
+Anterior axillary nodes.r	Anterior axillary nodes	Axillary nodes.g	1008
+Anterior inferior jugular nodes.l	Anterior inferior jugular nodes	Inferior deep lateral cervical nodes.l	1008
+Anterior inferior jugular nodes.r	Anterior inferior jugular nodes	Inferior deep lateral cervical nodes.r	1008
+Cubital nodes.l	Cubital nodes	Lymph nodes of upper limb.g	1008
+Cubital nodes.r	Cubital nodes	Lymph nodes of upper limb.g	1008
+Lateral vesical nodes.l	Lateral vesical nodes	Paravesical nodes.g	1008
+Lateral vesical nodes.r	Lateral vesical nodes	Paravesical nodes.g	1008
+Posterior axillary nodes.l	Posterior axillary nodes	Axillary nodes.g	1008
+Posterior axillary nodes.r	Posterior axillary nodes	Axillary nodes.g	1008
+Superficial lateral cervical nodes.l	Superficial lateral cervical nodes	Lateral cervical nodes.g	1008
+Superficial lateral cervical nodes.r	Superficial lateral cervical nodes	Lateral cervical nodes.g	1008
+Cuboid bone.l	Cuboid bone	Tarsal bones.g	998
+Cuboid bone.r	Cuboid bone	Tarsal bones.g	998
+Deep part of masseter.l	Deep part of masseter	Masticatory muscles.g	994
+Deep part of masseter.r	Deep part of masseter	Masticatory muscles.g	994
+Medial cuneiform bone.l	Medial cuneiform bone	Tarsal bones.g	992
+Medial cuneiform bone.r	Medial cuneiform bone	Tarsal bones.g	992
+Lower medial incisor.l	Lower medial incisor	Anterior teeth.g	984
+Lower medial incisor.r	Lower medial incisor	Anterior teeth.g	984
+Lateral head of flexor hallucis brevis.l	Lateral head of flexor hallucis brevis	Flexor hallucis brevis.g	966
+Lateral head of flexor hallucis brevis.r	Lateral head of flexor hallucis brevis	Flexor hallucis brevis.g	966
+Olive.l	Olive	Medulla oblongata.l	960
+Olive.r	Olive	Medulla oblongata.r	960
+Pyramid of medulla oblongata.l	Pyramid of medulla oblongata	Medulla oblongata.l	960
+Pyramid of medulla oblongata.r	Pyramid of medulla oblongata	Medulla oblongata.r	960
+Occipital pole.l	Occipital pole	Occipital lobe.g	954
+Occipital pole.r	Occipital pole	Occipital lobe.g	954
+(Adductor minimus).l	(Adductor minimus)	Adductor magnus.l	948
+(Adductor minimus).r	(Adductor minimus)	Adductor magnus.r	948
+Cuneus.l	Cuneus	Occipital lobe.g	946
+Cuneus.r	Cuneus	Occipital lobe.g	946
+Oblique head of adductor hallucis.l	Oblique head of adductor hallucis	Adductor hallucis.g	904
+Oblique head of adductor hallucis.r	Oblique head of adductor hallucis	Adductor hallucis.g	904
+Ulna.l	Ulna	Bones of free part of upper limb.g	904
+Ulna.r	Ulna	Bones of free part of upper limb.g	904
+Fifth metatarsal bone.l	Fifth metatarsal bone	Metatarsal bones.g	894
+Fifth metatarsal bone.r	Fifth metatarsal bone	Metatarsal bones.g	894
+Inferior occipital gyrus and sulcus*.l	Inferior occipital gyrus and sulcus*	Occipital lobe.g	894
+Inferior occipital gyrus and sulcus*.r	Inferior occipital gyrus and sulcus*	Occipital lobe.g	894
+Optic chiasm.l	Optic chiasm	Diencephalon.g	890
+Optic chiasm.r	Optic chiasm	Diencephalon.g	890
+Bucinator.l	Bucinator	Facial muscles.g	884
+Bucinator.r	Bucinator	Facial muscles.g	884
+Plantar surfaces of digits of foot.l	Plantar surfaces of digits of foot	Regions of digits of foot.g	878
+Plantar surfaces of digits of foot.r	Plantar surfaces of digits of foot	Regions of digits of foot.g	878
+Calcarine sulcus.l	Calcarine sulcus	Occipital lobe.g	872
+Calcarine sulcus.r	Calcarine sulcus	Occipital lobe.g	872
+Lateral occipitotemporal gyrus.l	Lateral occipitotemporal gyrus	Temporal lobe.g	866
+Lateral occipitotemporal gyrus.r	Lateral occipitotemporal gyrus	Temporal lobe.g	866
+Medial occipitotemporal gyrus (Parahippocampal*).l	Medial occipitotemporal gyrus (Parahippocampal*)	Temporal lobe.g	858
+Medial occipitotemporal gyrus (Parahippocampal*).r	Medial occipitotemporal gyrus (Parahippocampal*)	Temporal lobe.g	858
+Lateral occipital gyrus (Middle occipital gyrus*).l	Lateral occipital gyrus (Middle occipital gyrus*)	Occipital lobe.g	854
+Lateral occipital gyrus (Middle occipital gyrus*).r	Lateral occipital gyrus (Middle occipital gyrus*)	Occipital lobe.g	854
+Intraparietal sulcus.l	Intraparietal sulcus	Parietal lobe.g	852
+Intraparietal sulcus.r	Intraparietal sulcus	Parietal lobe.g	852
+Anterior region of thigh.l	Anterior region of thigh	Anterior region of thigh.g	844
+Anterior region of thigh.r	Anterior region of thigh	Anterior region of thigh.g	844
+Stria medullaris thalami.l	Stria medullaris thalami	White matter of diencephalon.g	842
+Stria medullaris thalami.r	Stria medullaris thalami	White matter of diencephalon.g	842
+Brachial nodes.l	Brachial nodes	Lymph nodes of upper limb.g	840
+Brachial nodes.r	Brachial nodes	Lymph nodes of upper limb.g	840
+Infraclavicular nodes.l	Infraclavicular nodes	Lymph nodes of upper limb.g	840
+Infraclavicular nodes.r	Infraclavicular nodes	Lymph nodes of upper limb.g	840
+Interpectoral nodes.l	Interpectoral nodes	Lymph nodes of upper limb.g	840
+Interpectoral nodes.r	Interpectoral nodes	Lymph nodes of upper limb.g	840
+Lateral sacral nodes.l	Lateral sacral nodes	Internal iliac nodes.g	840
+Lateral sacral nodes.r	Lateral sacral nodes	Internal iliac nodes.g	840
+Lateral superior jugular node.l	Lateral superior jugular node	Superior deep lateral nodes.g	840
+Lateral superior jugular node.r	Lateral superior jugular node	Superior deep lateral nodes.g	840
+Mastoid nodes.l	Mastoid nodes	Lymph nodes of head.g	840
+Mastoid nodes.r	Mastoid nodes	Lymph nodes of head.g	840
+Supratrochlear nodes.l	Supratrochlear nodes	Cubital nodes.l	840
+Supratrochlear nodes.r	Supratrochlear nodes	Cubital nodes.r	840
+Fourth metatarsal bone.l	Fourth metatarsal bone	Metatarsal bones.g	834
+Fourth metatarsal bone.r	Fourth metatarsal bone	Metatarsal bones.g	834
+Anterior segment of eyeball.l	Anterior segment of eyeball	Eyeball.g	832
+Anterior segment of eyeball.r	Anterior segment of eyeball	Eyeball.g	832
+Depressor labii inferioris.l	Depressor labii inferioris	Facial muscles.g	832
+Depressor labii inferioris.r	Depressor labii inferioris	Facial muscles.g	832
+Humeral head of extensor carpi ulnaris.l	Humeral head of extensor carpi ulnaris	Superficial part of posterior compartment of forearm.g	830
+Humeral head of extensor carpi ulnaris.r	Humeral head of extensor carpi ulnaris	Superficial part of posterior compartment of forearm.g	830
+Palpebral part of orbicularis oculi.l	Palpebral part of orbicularis oculi	Facial muscles.g	830
+Palpebral part of orbicularis oculi.r	Palpebral part of orbicularis oculi	Facial muscles.g	830
+Third metatarsal bone.l	Third metatarsal bone	Metatarsal bones.g	814
+Third metatarsal bone.r	Third metatarsal bone	Metatarsal bones.g	814
+Circular sulcus of insula.l	Circular sulcus of insula	Interlobar sulci.g	798
+Circular sulcus of insula.r	Circular sulcus of insula	Interlobar sulci.g	798
+Hairs of eyebrow.l	Hairs of eyebrow	Hairs.g	794
+Hairs of eyebrow.r	Hairs of eyebrow	Hairs.g	794
+Radius.l	Radius	Bones of free part of upper limb.g	784
+Radius.r	Radius	Bones of free part of upper limb.g	784
+Precentral sulcus (inferior part)*.l	Precentral sulcus (inferior part)*	Frontal lobe.g	780
+Precentral sulcus (inferior part)*.r	Precentral sulcus (inferior part)*	Frontal lobe.g	780
+Second metacarpal bone.l	Second metacarpal bone	Bones of free part of upper limb.g	764
+Second metacarpal bone.r	Second metacarpal bone	Bones of free part of upper limb.g	764
+Articular capsule of elbow joint.l	Articular capsule of elbow joint	Elbow joint.g	762
+Articular capsule of elbow joint.r	Articular capsule of elbow joint	Elbow joint.g	762
+Orbital sulci (H-shaped orbital sulci*).l	Orbital sulci (H-shaped orbital sulci*)	Frontal lobe.g	762
+Orbital sulci (H-shaped orbital sulci*).r	Orbital sulci (H-shaped orbital sulci*)	Frontal lobe.g	762
+Thalamus.l	Thalamus	Diencephalon.g	758
+Thalamus.r	Thalamus	Diencephalon.g	758
+Tendinous arch of levator ani.l	Tendinous arch of levator ani	Levator ani.g	750
+Tendinous arch of levator ani.r	Tendinous arch of levator ani	Levator ani.g	750
+External intercostal membrane.l	External intercostal membrane	Fibrous joints of thorax.g	748
+External intercostal membrane.r	External intercostal membrane	Fibrous joints of thorax.g	748
+Costal cartilage of fourth rib.l	Costal cartilage of fourth rib	Costal cartilages.g	746
+Costal cartilage of fourth rib.r	Costal cartilage of fourth rib	Costal cartilages.g	746
+Deep head of flexor pollicis brevis.l	Deep head of flexor pollicis brevis	Muscles of hand.g	746
+Deep head of flexor pollicis brevis.r	Deep head of flexor pollicis brevis	Muscles of hand.g	746
+Paracentral gyrus and sulcus*.l	Paracentral gyrus and sulcus*	Frontal lobe.g	746
+Paracentral gyrus and sulcus*.r	Paracentral gyrus and sulcus*	Frontal lobe.g	746
+Stria terminalis.l	Stria terminalis	White matter of telencephalon.l	746
+Stria terminalis.r	Stria terminalis	White matter of telencephalon.l	746
+Inferior frontal sulcus.l	Inferior frontal sulcus	Frontal lobe.g	742
+Inferior frontal sulcus.r	Inferior frontal sulcus	Frontal lobe.g	742
+Insula (Subcentral gyrus and ant. and post. sulci*).l	Insula (Subcentral gyrus and ant. and post. sulci*)	Insula.g	740
+Insula (Subcentral gyrus and ant. and post. sulci*).r	Insula (Subcentral gyrus and ant. and post. sulci*)	Insula.g	740
+Opercular part of inferior frontal gyrus.l	Opercular part of inferior frontal gyrus	Frontal lobe.g	740
+Opercular part of inferior frontal gyrus.r	Opercular part of inferior frontal gyrus	Frontal lobe.g	740
+Cingulate gyrus and sulcus (Middle anterior part).l	Cingulate gyrus and sulcus (Middle anterior part)	Limbic lobe.g	736
+Cingulate gyrus and sulcus (Middle anterior part).r	Cingulate gyrus and sulcus (Middle anterior part)	Limbic lobe.g	736
+Navicular bone.l	Navicular bone	Tarsal bones.g	732
+Navicular bone.r	Navicular bone	Tarsal bones.g	732
+Articular capsule of knee joint.l	Articular capsule of knee joint	Knee joint.g	726
+Articular capsule of knee joint.r	Articular capsule of knee joint	Knee joint.g	726
+Third metacarpal bone.l	Third metacarpal bone	Bones of free part of upper limb.g	708
+Third metacarpal bone.r	Third metacarpal bone	Bones of free part of upper limb.g	708
+Second metatarsal bone.l	Second metatarsal bone	Metatarsal bones.g	690
+Second metatarsal bone.r	Second metatarsal bone	Metatarsal bones.g	690
+Transverse occipital sulcus.l	Transverse occipital sulcus	Occipital lobe.g	686
+Transverse occipital sulcus.r	Transverse occipital sulcus	Occipital lobe.g	686
+First metacarpal bone.l	First metacarpal bone	Bones of free part of upper limb.g	682
+First metacarpal bone.r	First metacarpal bone	Bones of free part of upper limb.g	682
+Abductor digiti minimi of hand.l	Abductor digiti minimi of hand	Muscles of hand.g	672
+Abductor digiti minimi of hand.r	Abductor digiti minimi of hand	Muscles of hand.g	672
+Inferior deep lateral cervical nodes.l	Inferior deep lateral cervical nodes	Inferior deep lateral cervical nodes.g	672
+Inferior deep lateral cervical nodes.r	Inferior deep lateral cervical nodes	Inferior deep lateral cervical nodes.g	672
+Inferior gluteal nodes.l	Inferior gluteal nodes	Gluteal nodes.g	672
+Inferior gluteal nodes.r	Inferior gluteal nodes	Gluteal nodes.g	672
+Inferior superficial inguinal nodes.l	Inferior superficial inguinal nodes	Superficial inguinal nodes.g	672
+Inferior superficial inguinal nodes.r	Inferior superficial inguinal nodes	Superficial inguinal nodes.g	672
+Obturator nodes.l	Obturator nodes	External iliac nodes.g	672
+Obturator nodes.r	Obturator nodes	External iliac nodes.g	672
+Sensory root of trigeminal nerve.l	Sensory root of trigeminal nerve	Trigeminal nerve (V).l	672
+Sensory root of trigeminal nerve.r	Sensory root of trigeminal nerve	Trigeminal nerve (V).r	672
+Submental nodes.l	Submental nodes	Lymph nodes of neck.g	672
+Submental nodes.r	Submental nodes	Lymph nodes of neck.g	672
+Superior gluteal nodes.l	Superior gluteal nodes	Gluteal nodes.g	672
+Superior gluteal nodes.r	Superior gluteal nodes	Gluteal nodes.g	672
+Supraclavicular nodes.l	Supraclavicular nodes	Lymph nodes of neck.g	672
+Supraclavicular nodes.r	Supraclavicular nodes	Lymph nodes of neck.g	672
+Superior occipital gyri.l	Superior occipital gyri	Occipital lobe.g	670
+Superior occipital gyri.r	Superior occipital gyri	Occipital lobe.g	670
+Paracentral sulcus.l	Paracentral sulcus	Frontal lobe.g	668
+Paracentral sulcus.r	Paracentral sulcus	Frontal lobe.g	668
+Orbital gyri (Frontomarginal gyrus and sulcus*).l	Orbital gyri (Frontomarginal gyrus and sulcus*)	Frontal lobe.g	656
+Orbital gyri (Frontomarginal gyrus and sulcus*).r	Orbital gyri (Frontomarginal gyrus and sulcus*)	Frontal lobe.g	656
+Costal cartilage of eighth rib.l	Costal cartilage of eighth rib	Costal cartilages.g	652
+Costal cartilage of eighth rib.r	Costal cartilage of eighth rib	Costal cartilages.g	652
+Fourth metacarpal bone.l	Fourth metacarpal bone	Bones of free part of upper limb.g	642
+Fourth metacarpal bone.r	Fourth metacarpal bone	Bones of free part of upper limb.g	642
+Arytenoid cartilage.l	Arytenoid cartilage	Laryngeal cartilages.g	640
+Arytenoid cartilage.r	Arytenoid cartilage	Laryngeal cartilages.g	640
+Cornea.l	Cornea	Eyeball.g	640
+Cornea.r	Cornea	Eyeball.g	640
+Lateral cuneiform bone.l	Lateral cuneiform bone	Tarsal bones.g	638
+Lateral cuneiform bone.r	Lateral cuneiform bone	Tarsal bones.g	638
+Abductor pollicis brevis.l	Abductor pollicis brevis	Muscles of hand.g	624
+Abductor pollicis brevis.r	Abductor pollicis brevis	Muscles of hand.g	624
+Cavernous sinus.l	Cavernous sinus	Inferior petrosal sinus.r	608
+Cavernous sinus.r	Cavernous sinus	Inferior petrosal sinus.r	608
+Lateral geniculate body.l	Lateral geniculate body	Diencephalon.g	604
+Lateral geniculate body.r	Lateral geniculate body	Diencephalon.g	604
+Cingulate gyrus and sulcus (Middle posterior part).l	Cingulate gyrus and sulcus (Middle posterior part)	Limbic lobe.g	600
+Cingulate gyrus and sulcus (Middle posterior part).r	Cingulate gyrus and sulcus (Middle posterior part)	Limbic lobe.g	600
+Costal cartilage of third rib.l	Costal cartilage of third rib	Costal cartilages.g	600
+Costal cartilage of third rib.r	Costal cartilage of third rib	Costal cartilages.g	600
+Depressor anguli oris.l	Depressor anguli oris	Facial muscles.g	594
+Depressor anguli oris.r	Depressor anguli oris	Facial muscles.g	594
+Posterior region of forearm.l	Posterior region of forearm	Antebrachial region.g	594
+Posterior region of forearm.r	Posterior region of forearm	Antebrachial region.g	594
+Lacrimal bone.l	Lacrimal bone	Bones of cranium.g	588
+Lacrimal bone.r	Lacrimal bone	Bones of cranium.g	588
+Lateral femoral intermuscular septum.l	Lateral femoral intermuscular septum	Fasciae of lower limb.g	588
+Lateral femoral intermuscular septum.r	Lateral femoral intermuscular septum	Fasciae of lower limb.g	588
+Ulnar head of extensor carpi ulnaris.l	Ulnar head of extensor carpi ulnaris	Superficial part of posterior compartment of forearm.g	582
+Ulnar head of extensor carpi ulnaris.r	Ulnar head of extensor carpi ulnaris	Superficial part of posterior compartment of forearm.g	582
+Costal cartilage of second rib.l	Costal cartilage of second rib	Costal cartilages.g	568
+Costal cartilage of second rib.r	Costal cartilage of second rib	Costal cartilages.g	568
+Precentral sulcus (Superior part)*.l	Precentral sulcus (Superior part)*	Frontal lobe.g	568
+Precentral sulcus (Superior part)*.r	Precentral sulcus (Superior part)*	Frontal lobe.g	568
+Urogenital region.l	Urogenital region	Regions of perineum.g	566
+Urogenital region.r	Urogenital region	Regions of perineum.g	566
+Subparietal sulcus.l	Subparietal sulcus	Interlobar sulci.g	561
+Subparietal sulcus.r	Subparietal sulcus	Interlobar sulci.g	561
+Anterior region of leg.l	Anterior region of leg	Leg region.g	560
+Anterior region of leg.r	Anterior region of leg	Leg region.g	560
+Proximal phalanx of fifth finger of hand.l	Proximal phalanx of fifth finger of hand	Bones of free part of upper limb.g	560
+Proximal phalanx of fifth finger of hand.r	Proximal phalanx of fifth finger of hand	Bones of free part of upper limb.g	560
+Temporal plane.l	Temporal plane	Temporal lobe.g	556
+Temporal plane.r	Temporal plane	Temporal lobe.g	556
+Olfactory sulcus.l	Olfactory sulcus	Frontal lobe.g	548
+Olfactory sulcus.r	Olfactory sulcus	Frontal lobe.g	548
+Cingulate sulcus (Marginal part*).l	Cingulate sulcus (Marginal part*)	Limbic lobe.g	544
+Cingulate sulcus (Marginal part*).r	Cingulate sulcus (Marginal part*)	Limbic lobe.g	544
+Posterior region of leg.l	Posterior region of leg	Leg region.g	544
+Posterior region of leg.r	Posterior region of leg	Leg region.g	544
+Levator labii superioris.l	Levator labii superioris	Facial muscles.g	540
+Levator labii superioris.r	Levator labii superioris	Facial muscles.g	540
+Hamate bone.l	Hamate bone	Bones of free part of upper limb.g	536
+Hamate bone.r	Hamate bone	Bones of free part of upper limb.g	536
+Proximal phalanx of first finger of foot.l	Proximal phalanx of first finger of foot	Phalanges of foot.g	532
+Proximal phalanx of first finger of foot.r	Proximal phalanx of first finger of foot	Phalanges of foot.g	532
+Temporal pole.l	Temporal pole	Temporal lobe.g	523
+Temporal pole.r	Temporal pole	Temporal lobe.g	523
+Anterior region of forearm.l	Anterior region of forearm	Antebrachial region.g	520
+Anterior region of forearm.r	Anterior region of forearm	Antebrachial region.g	520
+Proximal phalanx of fifth finger of foot.l	Proximal phalanx of fifth finger of foot	Phalanges of foot.g	516
+Proximal phalanx of fifth finger of foot.r	Proximal phalanx of fifth finger of foot	Phalanges of foot.g	516
+Internal intercostal membrane.l	Internal intercostal membrane	Fibrous joints of thorax.g	515
+Internal intercostal membrane.r	Internal intercostal membrane	Fibrous joints of thorax.g	515
+Medial head of flexor hallucis brevis.l	Medial head of flexor hallucis brevis	Flexor hallucis brevis.g	514
+Medial head of flexor hallucis brevis.r	Medial head of flexor hallucis brevis	Flexor hallucis brevis.g	514
+Anterior chamber of eyeball.l	Anterior chamber of eyeball	Anterior segment of eyeball.l	512
+Anterior chamber of eyeball.r	Anterior chamber of eyeball	Anterior segment of eyeball.r	512
+Fifth metacarpal bone.l	Fifth metacarpal bone	Bones of free part of upper limb.g	512
+Fifth metacarpal bone.r	Fifth metacarpal bone	Bones of free part of upper limb.g	512
+Straight gyrus (Gyrus rectus).l	Straight gyrus (Gyrus rectus)	Frontal lobe.g	508
+Straight gyrus (Gyrus rectus).r	Straight gyrus (Gyrus rectus)	Frontal lobe.g	508
+Bucinator node.l	Bucinator node	Facial nodes.g	504
+Bucinator node.r	Bucinator node	Facial nodes.g	504
+Intraglandular parotid nodes.l	Intraglandular parotid nodes	Deep parotid nodes.g	504
+Intraglandular parotid nodes.r	Intraglandular parotid nodes	Deep parotid nodes.g	504
+Mandibular node.l	Mandibular node	Facial nodes.g	504
+Mandibular node.r	Mandibular node	Facial nodes.g	504
+Pre-auricular nodes.l	Pre-auricular nodes	Deep parotid nodes.g	504
+Pre-auricular nodes.r	Pre-auricular nodes	Deep parotid nodes.g	504
+Pretracheal nodes.l	Pretracheal nodes	Deep anterior cervical nodes.g	504
+Pretracheal nodes.r	Pretracheal nodes	Deep anterior cervical nodes.g	504
+Submandibular nodes.l	Submandibular nodes	Lymph nodes of neck.g	504
+Submandibular nodes.r	Submandibular nodes	Lymph nodes of neck.g	504
+Superficial parotid nodes.l	Superficial parotid nodes	Lymph nodes of head.g	504
+Superficial parotid nodes.r	Superficial parotid nodes	Lymph nodes of head.g	504
+Superolateral superficial inguinal nodes.l	Superolateral superficial inguinal nodes	Superficial inguinal nodes.g	504
+Superolateral superficial inguinal nodes.r	Superolateral superficial inguinal nodes	Superficial inguinal nodes.g	504
+Superomedial superficial inguinal nodes.l	Superomedial superficial inguinal nodes	Superficial inguinal nodes.g	504
+Superomedial superficial inguinal nodes.r	Superomedial superficial inguinal nodes	Superficial inguinal nodes.g	504
+Triangular part of inferior frontal gyrus.l	Triangular part of inferior frontal gyrus	Frontal lobe.g	504
+Triangular part of inferior frontal gyrus.r	Triangular part of inferior frontal gyrus	Frontal lobe.g	504
+Trapezium bone.l	Trapezium bone	Bones of free part of upper limb.g	500
+Trapezium bone.r	Trapezium bone	Bones of free part of upper limb.g	500
+Transverse intermuscular septum of leg.l	Transverse intermuscular septum of leg	Fasciae of lower limb.g	495
+Transverse intermuscular septum of leg.r	Transverse intermuscular septum of leg	Fasciae of lower limb.g	495
+Costal cartilage of ninth rib.l	Costal cartilage of ninth rib	Costal cartilages.g	488
+Costal cartilage of ninth rib.r	Costal cartilage of ninth rib	Costal cartilages.g	488
+Occipitotemporal sulcus (Lateral part*).l	Occipitotemporal sulcus (Lateral part*)	Temporal lobe.g	487
+Occipitotemporal sulcus (Lateral part*).r	Occipitotemporal sulcus (Lateral part*)	Temporal lobe.g	487
+Lat_Fis-post.l	Lat_Fis-post	Interlobar sulci.g	480
+Lat_Fis-post.r	Lat_Fis-post	Interlobar sulci.g	480
+Inferior nasal concha bone.l	Inferior nasal concha bone	Bones of cranium.g	476
+Inferior nasal concha bone.r	Inferior nasal concha bone	Bones of cranium.g	476
+Helix.l	Helix	Auricular region.g	473
+Helix.r	Helix	Auricular region.g	473
+Capitate bone.l	Capitate bone	Bones of free part of upper limb.g	472
+Capitate bone.r	Capitate bone	Bones of free part of upper limb.g	472
+Distal phalanx of first finger of foot.l	Distal phalanx of first finger of foot	Phalanges of foot.g	466
+Distal phalanx of first finger of foot.r	Distal phalanx of first finger of foot	Phalanges of foot.g	466
+Flexor digiti minimi of foot.l	Flexor digiti minimi of foot	Muscles of foot.g	464
+Flexor digiti minimi of foot.r	Flexor digiti minimi of foot	Muscles of foot.g	464
+Inferior colliculus.l	Inferior colliculus	Tectum of midbrain.g	464
+Inferior colliculus.r	Inferior colliculus	Tectum of midbrain.g	464
+Costal cartilage of first rib.l	Costal cartilage of first rib	Costal cartilages.g	462
+Costal cartilage of first rib.r	Costal cartilage of first rib	Costal cartilages.g	462
+Proximal phalanx of fourth finger of foot.l	Proximal phalanx of fourth finger of foot	Phalanges of foot.g	460
+Proximal phalanx of fourth finger of foot.r	Proximal phalanx of fourth finger of foot	Phalanges of foot.g	460
+Proximal phalanx of third finger of foot.l	Proximal phalanx of third finger of foot	Phalanges of foot.g	460
+Proximal phalanx of third finger of foot.r	Proximal phalanx of third finger of foot	Phalanges of foot.g	460
+Superior colliculus.l	Superior colliculus	Tectum of midbrain.g	458
+Superior colliculus.r	Superior colliculus	Tectum of midbrain.g	458
+Oblique head of adductor pollicis.l	Oblique head of adductor pollicis	Muscles of hand.g	450
+Oblique head of adductor pollicis.r	Oblique head of adductor pollicis	Muscles of hand.g	450
+Middle phalanx of fourth finger of foot.l	Middle phalanx of fourth finger of foot	Phalanges of foot.g	448
+Middle phalanx of fourth finger of foot.r	Middle phalanx of fourth finger of foot	Phalanges of foot.g	448
+Middle phalanx of fourth finger of hand.l	Middle phalanx of fourth finger of hand	Bones of free part of upper limb.g	446
+Middle phalanx of fourth finger of hand.r	Middle phalanx of fourth finger of hand	Bones of free part of upper limb.g	446
+Intermediate cuneiform bone.l	Intermediate cuneiform bone	Tarsal bones.g	444
+Intermediate cuneiform bone.r	Intermediate cuneiform bone	Tarsal bones.g	444
+Nasolacrimal duct.l	Nasolacrimal duct	Lacrimal apparatus.g	444
+Nasolacrimal duct.r	Nasolacrimal duct	Lacrimal apparatus.g	444
+Posterior region of thigh.l	Posterior region of thigh	Femoral region.g	442
+Posterior region of thigh.r	Posterior region of thigh	Femoral region.g	442
+Proximal phalanx of third finger of hand.l	Proximal phalanx of third finger of hand	Bones of free part of upper limb.g	440
+Proximal phalanx of third finger of hand.r	Proximal phalanx of third finger of hand	Bones of free part of upper limb.g	440
+Articular capsules of metatarsophalangeal joints.l	Articular capsules of metatarsophalangeal joints	Metatarsophalangeal joints.g	438
+Articular capsules of metatarsophalangeal joints.r	Articular capsules of metatarsophalangeal joints	Metatarsophalangeal joints.g	438
+Synovial sheaths of digits of hand.l	Synovial sheaths of digits of hand	Tendon sheaths of digits of hand.g	436
+Synovial sheaths of digits of hand.r	Synovial sheaths of digits of hand	Tendon sheaths of digits of hand.g	436
+Proximal phalanx of second finger of foot.l	Proximal phalanx of second finger of foot	Phalanges of foot.g	426
+Proximal phalanx of second finger of foot.r	Proximal phalanx of second finger of foot	Phalanges of foot.g	426
+Proximal phalanx of second finger of hand.l	Proximal phalanx of second finger of hand	Bones of free part of upper limb.g	414
+Proximal phalanx of second finger of hand.r	Proximal phalanx of second finger of hand	Bones of free part of upper limb.g	414
+Anterior region of arm.l	Anterior region of arm	Brachial region.g	412
+Anterior region of arm.r	Anterior region of arm	Brachial region.g	412
+Lacrimal canaliculus.l	Lacrimal canaliculus	Lacrimal apparatus.g	411
+Lacrimal canaliculus.r	Lacrimal canaliculus	Lacrimal apparatus.g	411
+Cingulate gyrus and sulcus (Posterior dorsal part).l	Cingulate gyrus and sulcus (Posterior dorsal part)	Limbic lobe.g	410
+Cingulate gyrus and sulcus (Posterior dorsal part).r	Cingulate gyrus and sulcus (Posterior dorsal part)	Limbic lobe.g	410
+Middle phalanx of third finger of foot.l	Middle phalanx of third finger of foot	Phalanges of foot.g	400
+Middle phalanx of third finger of foot.r	Middle phalanx of third finger of foot	Phalanges of foot.g	400
+Posterior region of arm.l	Posterior region of arm	Brachial region.g	395
+Posterior region of arm.r	Posterior region of arm	Brachial region.g	395
+Articular capsules of metacarpophalangeal joints.l	Articular capsules of metacarpophalangeal joints	Metacarpophalangeal joints.g	392
+Articular capsules of metacarpophalangeal joints.r	Articular capsules of metacarpophalangeal joints	Metacarpophalangeal joints.g	392
+Submandibular gland.l	Submandibular gland	Major salivary glands.g	392
+Submandibular gland.r	Submandibular gland	Major salivary glands.g	392
+Scaphoid bone.l	Scaphoid bone	Bones of free part of upper limb.g	390
+Scaphoid bone.r	Scaphoid bone	Bones of free part of upper limb.g	390
+Amygdaloid body.l	Amygdaloid body	Basal forebrain.g	384
+Amygdaloid body.r	Amygdaloid body	Basal forebrain.g	384
+Lacrimal sac.l	Lacrimal sac	Lacrimal apparatus.g	384
+Lacrimal sac.r	Lacrimal sac	Lacrimal apparatus.g	384
+Lunate sulcus.l	Lunate sulcus	Occipital lobe.g	382
+Lunate sulcus.r	Lunate sulcus	Occipital lobe.g	382
+Middle phalanx of second finger of foot.l	Middle phalanx of second finger of foot	Phalanges of foot.g	382
+Middle phalanx of second finger of foot.r	Middle phalanx of second finger of foot	Phalanges of foot.g	382
+Costal cartilage of tenth rib.l	Costal cartilage of tenth rib	Costal cartilages.g	378
+Costal cartilage of tenth rib.r	Costal cartilage of tenth rib	Costal cartilages.g	378
+Articular capsules of distal interphalangeal joints.l	Articular capsules of distal interphalangeal joints	Interphalangeal joints of hand.g	376
+Articular capsules of distal interphalangeal joints.r	Articular capsules of distal interphalangeal joints	Interphalangeal joints of hand.g	376
+Vestibular nuclei.l	Vestibular nuclei	Grey matter of pontine tegmentum.g	376
+Vestibular nuclei.r	Vestibular nuclei	Grey matter of pontine tegmentum.g	376
+Proximal phalanx of fourth finger of hand.l	Proximal phalanx of fourth finger of hand	Bones of free part of upper limb.g	368
+Proximal phalanx of fourth finger of hand.r	Proximal phalanx of fourth finger of hand	Bones of free part of upper limb.g	368
+Articular capsule of glenohumeral joint.l	Articular capsule of glenohumeral joint	Glenohumeral joint.g	367
+Articular capsule of glenohumeral joint.r	Articular capsule of glenohumeral joint	Glenohumeral joint.g	367
+Articular capsules of proximal interphalangeal joints of foot.l	Articular capsules of proximal interphalangeal joints of foot	Interphalangeal joints of foot.g	366
+Articular capsules of proximal interphalangeal joints of foot.r	Articular capsules of proximal interphalangeal joints of foot	Interphalangeal joints of foot.g	366
+Transverse head of adductor hallucis.l	Transverse head of adductor hallucis	Adductor hallucis.g	366
+Transverse head of adductor hallucis.r	Transverse head of adductor hallucis	Adductor hallucis.g	366
+Anterior occipital sulcus*.l	Anterior occipital sulcus*	Interlobar sulci.g	364
+Anterior occipital sulcus*.r	Anterior occipital sulcus*	Interlobar sulci.g	364
+Trapezoid bone.l	Trapezoid bone	Bones of free part of upper limb.g	364
+Trapezoid bone.r	Trapezoid bone	Bones of free part of upper limb.g	364
+Common tendinous ring.l	Common tendinous ring	Extra-ocular muscles.g	362
+Common tendinous ring.r	Common tendinous ring	Extra-ocular muscles.g	362
+Middle phalanx of third finger of hand.l	Middle phalanx of third finger of hand	Bones of free part of upper limb.g	360
+Middle phalanx of third finger of hand.r	Middle phalanx of third finger of hand	Bones of free part of upper limb.g	360
+Seminal gland.l	Seminal gland	Male internal genitalia.g	360
+Seminal gland.r	Seminal gland	Male internal genitalia.g	360
+Sulcus interm_prim-Jensen.l	Sulcus interm_prim-Jensen	Interlobar sulci.g	360
+Sulcus interm_prim-Jensen.r	Sulcus interm_prim-Jensen	Interlobar sulci.g	360
+Articular capsules of distal interphalangeal joints of foot.l	Articular capsules of distal interphalangeal joints of foot	Interphalangeal joints of foot.g	356
+Articular capsules of distal interphalangeal joints of foot.r	Articular capsules of distal interphalangeal joints of foot	Interphalangeal joints of foot.g	356
+Gluteal region.l	Gluteal region	Gluteal region.g	356
+Gluteal region.r	Gluteal region	Gluteal region.g	356
+(Iliopectineal bursa).l	(Iliopectineal bursa)	Bursae of lower limb.g	352
+(Iliopectineal bursa).r	(Iliopectineal bursa)	Bursae of lower limb.g	352
+Acetabular labrum.l	Acetabular labrum	Hip joint.g	352
+Acetabular labrum.r	Acetabular labrum	Hip joint.g	352
+Bicipitoradial bursa.l	Bicipitoradial bursa	Bursae of upper limb.g	352
+Bicipitoradial bursa.r	Bicipitoradial bursa	Bursae of upper limb.g	352
+Coracobrachial bursa.l	Coracobrachial bursa	Bursae of upper limb.g	352
+Coracobrachial bursa.r	Coracobrachial bursa	Bursae of upper limb.g	352
+Sciatic bursa of obturator internus.l	Sciatic bursa of obturator internus	Bursae of lower limb.g	352
+Sciatic bursa of obturator internus.r	Sciatic bursa of obturator internus	Bursae of lower limb.g	352
+Subacromial bursa.l	Subacromial bursa	Bursae of upper limb.g	352
+Subacromial bursa.r	Subacromial bursa	Bursae of upper limb.g	352
+Subcutaneous acromial bursa.l	Subcutaneous acromial bursa	Bursae of upper limb.g	352
+Subcutaneous acromial bursa.r	Subcutaneous acromial bursa	Bursae of upper limb.g	352
+Subcutaneous bursa of tuberosity of tibia.l	Subcutaneous bursa of tuberosity of tibia	Bursae of lower limb.g	352
+Subcutaneous bursa of tuberosity of tibia.r	Subcutaneous bursa of tuberosity of tibia	Bursae of lower limb.g	352
+Subcutaneous infrapatellar bursa.l	Subcutaneous infrapatellar bursa	Bursae of lower limb.g	352
+Subcutaneous infrapatellar bursa.r	Subcutaneous infrapatellar bursa	Bursae of lower limb.g	352
+Subcutaneous trochanteric bursa.l	Subcutaneous trochanteric bursa	Bursae of lower limb.g	352
+Subcutaneous trochanteric bursa.r	Subcutaneous trochanteric bursa	Bursae of lower limb.g	352
+Subdeltoid bursa.l	Subdeltoid bursa	Bursae of upper limb.g	352
+Subdeltoid bursa.r	Subdeltoid bursa	Bursae of upper limb.g	352
+Subtendinous bursa of obturator internus.l	Subtendinous bursa of obturator internus	Bursae of lower limb.g	352
+Subtendinous bursa of obturator internus.r	Subtendinous bursa of obturator internus	Bursae of lower limb.g	352
+Articular capsules of proximal interphalangeal joints.l	Articular capsules of proximal interphalangeal joints	Interphalangeal joints of hand.g	348
+Articular capsules of proximal interphalangeal joints.r	Articular capsules of proximal interphalangeal joints	Interphalangeal joints of hand.g	348
+Lunate bone.l	Lunate bone	Bones of free part of upper limb.g	348
+Lunate bone.r	Lunate bone	Bones of free part of upper limb.g	348
+Lateral process of nasal septal cartilage.l	Lateral process of nasal septal cartilage	Nasal cartilages.g	347
+Lateral process of nasal septal cartilage.r	Lateral process of nasal septal cartilage	Nasal cartilages.g	347
+Major alar cartilage.l	Major alar cartilage	Nasal cartilages.g	344
+Major alar cartilage.r	Major alar cartilage	Nasal cartilages.g	344
+Apical axillary nodes.l	Apical axillary nodes	Axillary nodes.g	336
+Apical axillary nodes.r	Apical axillary nodes	Axillary nodes.g	336
+Central axillary nodes.l	Central axillary nodes	Axillary nodes.g	336
+Central axillary nodes.r	Central axillary nodes	Axillary nodes.g	336
+Deep popliteal nodes.l	Deep popliteal nodes	Popliteal nodes.g	336
+Deep popliteal nodes.r	Deep popliteal nodes	Popliteal nodes.g	336
+Inferior epigastric nodes.l	Inferior epigastric nodes	Parietal abdominal lymph nodes.g	336
+Inferior epigastric nodes.r	Inferior epigastric nodes	Parietal abdominal lymph nodes.g	336
+Infra-auricular nodes.l	Infra-auricular nodes	Deep parotid nodes.g	336
+Infra-auricular nodes.r	Infra-auricular nodes	Deep parotid nodes.g	336
+Lateral axillary nodes.l	Lateral axillary nodes	Axillary nodes.g	336
+Lateral axillary nodes.r	Lateral axillary nodes	Axillary nodes.g	336
+Occipital nodes.l	Occipital nodes	Lymph nodes of head.g	336
+Occipital nodes.r	Occipital nodes	Lymph nodes of head.g	336
+Retropharyngeal nodes.l	Retropharyngeal nodes	Lymph nodes of neck.g	336
+Retropharyngeal nodes.r	Retropharyngeal nodes	Lymph nodes of neck.g	336
+Superficial popliteal nodes.l	Superficial popliteal nodes	Popliteal nodes.g	336
+Superficial popliteal nodes.r	Superficial popliteal nodes	Popliteal nodes.g	336
+Thyroid nodes.l	Thyroid nodes	Deep anterior cervical nodes.g	336
+Thyroid nodes.r	Thyroid nodes	Deep anterior cervical nodes.g	336
+Articular capsule of radiocarpal joint.l	Articular capsule of radiocarpal joint	Radiocarpal joint.g	331
+Articular capsule of radiocarpal joint.r	Articular capsule of radiocarpal joint	Radiocarpal joint.g	331
+Levator anguli oris.l	Levator anguli oris	Facial muscles.g	330
+Levator anguli oris.r	Levator anguli oris	Facial muscles.g	330
+Proximal phalanx of first finger of hand.l	Proximal phalanx of first finger of hand	Bones of free part of upper limb.g	328
+Proximal phalanx of first finger of hand.r	Proximal phalanx of first finger of hand	Bones of free part of upper limb.g	328
+Lateral region of thorax.l	Lateral region of thorax	Regions of thorax.g	324
+Lateral region of thorax.r	Lateral region of thorax	Regions of thorax.g	324
+Sublingual gland.l	Sublingual gland	Major salivary glands.g	324
+Sublingual gland.r	Sublingual gland	Major salivary glands.g	324
+Anterior region of knee.l	Anterior region of knee	Knee region.g	322
+Anterior region of knee.r	Anterior region of knee	Knee region.g	322
+Distal phalanx of third finger of foot.l	Distal phalanx of third finger of foot	Phalanges of foot.g	318
+Distal phalanx of third finger of foot.r	Distal phalanx of third finger of foot	Phalanges of foot.g	318
+Middle phalanx of second finger of hand.l	Middle phalanx of second finger of hand	Bones of free part of upper limb.g	314
+Middle phalanx of second finger of hand.r	Middle phalanx of second finger of hand	Bones of free part of upper limb.g	314
+Medial intermuscular septum of arm.l	Medial intermuscular septum of arm	Fasciae of upper limb.g	312
+Medial intermuscular septum of arm.r	Medial intermuscular septum of arm	Fasciae of upper limb.g	312
+Flexor digiti minimi of hand.l	Flexor digiti minimi of hand	Muscles of hand.g	308
+Flexor digiti minimi of hand.r	Flexor digiti minimi of hand	Muscles of hand.g	308
+Dorsum of hand.l	Dorsum of hand	Regions of hand.g	301
+Dorsum of hand.r	Dorsum of hand	Regions of hand.g	301
+Cingulate gyrus (Posteroventral part*).l	Cingulate gyrus (Posteroventral part*)	Limbic lobe.g	298
+Cingulate gyrus (Posteroventral part*).r	Cingulate gyrus (Posteroventral part*)	Limbic lobe.g	298
+Flexor retinaculum of ankle.l	Flexor retinaculum of ankle	Fasciae of lower limb.g	298
+Flexor retinaculum of ankle.r	Flexor retinaculum of ankle	Fasciae of lower limb.g	298
+Intermuscular gluteal bursae.l	Intermuscular gluteal bursae	Bursae of lower limb.g	292
+Intermuscular gluteal bursae.r	Intermuscular gluteal bursae	Bursae of lower limb.g	292
+Middle phalanx of fifth finger of hand.l	Middle phalanx of fifth finger of hand	Bones of free part of upper limb.g	292
+Middle phalanx of fifth finger of hand.r	Middle phalanx of fifth finger of hand	Bones of free part of upper limb.g	292
+Nasal bone.l	Nasal bone	Bones of cranium.g	292
+Nasal bone.r	Nasal bone	Bones of cranium.g	292
+Scapular region.l	Scapular region	Regions of back.g	292
+Scapular region.r	Scapular region	Regions of back.g	292
+Sesamoid bones of foot.l	Sesamoid bones of foot	Bones of foot.g	290
+Sesamoid bones of foot.r	Sesamoid bones of foot	Bones of foot.g	290
+Articular disc of temporomandibular joint.l	Articular disc of temporomandibular joint	Temporomandibular joint.g	288
+Articular disc of temporomandibular joint.r	Articular disc of temporomandibular joint	Temporomandibular joint.g	288
+Posterior region of neck.l	Posterior region of neck	Regions of neck.g	285
+Posterior region of neck.r	Posterior region of neck	Regions of neck.g	285
+Nail plate.l	Nail plate	Dorsal surfaces of digits of hand.l	283
+Nail plate.r	Nail plate	Dorsal surfaces of digits of hand.r	283
+Cruciform part of fibrous sheath of digit of hand.l	Cruciform part of fibrous sheath of digit of hand	Tendon sheaths of digits of hand.g	282
+Cruciform part of fibrous sheath of digit of hand.r	Cruciform part of fibrous sheath of digit of hand	Tendon sheaths of digits of hand.g	282
+Articular capsule of hip joint.l	Articular capsule of hip joint	Hip joint.g	280
+Articular capsule of hip joint.r	Articular capsule of hip joint	Hip joint.g	280
+Heel region.l	Heel region	Regions of foot.g	279
+Heel region.r	Heel region	Regions of foot.g	279
+Corrugator supercilii.l	Corrugator supercilii	Facial muscles.g	278
+Corrugator supercilii.r	Corrugator supercilii	Facial muscles.g	278
+Distal phalanx of fourth finger of foot.l	Distal phalanx of fourth finger of foot	Phalanges of foot.g	278
+Distal phalanx of fourth finger of foot.r	Distal phalanx of fourth finger of foot	Phalanges of foot.g	278
+Pisiform bone.l	Pisiform bone	Bones of free part of upper limb.g	278
+Pisiform bone.r	Pisiform bone	Bones of free part of upper limb.g	278
+Depressor septi nasi.l	Depressor septi nasi	Facial muscles.g	276
+Depressor septi nasi.r	Depressor septi nasi	Facial muscles.g	276
+Patella.l	Patella	Bones of free part of lower limb.g	276
+Patella.r	Patella	Bones of free part of lower limb.g	276
+Superficial head of flexor pollicis brevis.l	Superficial head of flexor pollicis brevis	Muscles of hand.g	276
+Superficial head of flexor pollicis brevis.r	Superficial head of flexor pollicis brevis	Muscles of hand.g	276
+Deltoid region.l	Deltoid region	Regions of upper limb.g	268
+Deltoid region.r	Deltoid region	Regions of upper limb.g	268
+Posterior intermuscular septum of leg.l	Posterior intermuscular septum of leg	Fasciae of lower limb.g	265
+Posterior intermuscular septum of leg.r	Posterior intermuscular septum of leg	Fasciae of lower limb.g	265
+Oral region.l	Oral region	Regions of face.g	261
+Oral region.r	Oral region	Regions of face.g	261
+Posterior region of knee.l	Posterior region of knee	Posterior region of knee.g	261
+Posterior region of knee.r	Posterior region of knee	Posterior region of knee.g	261
+Superior fibular retinaculum.l	Superior fibular retinaculum	Fasciae of lower limb.g	254
+Superior fibular retinaculum.r	Superior fibular retinaculum	Fasciae of lower limb.g	254
+Distal phalanx of second finger of hand.l	Distal phalanx of second finger of hand	Bones of free part of upper limb.g	250
+Distal phalanx of second finger of hand.r	Distal phalanx of second finger of hand	Bones of free part of upper limb.g	250
+Nasal region.l	Nasal region	Regions of face.g	248
+Nasal region.r	Nasal region	Regions of face.g	248
+Orbital region.l	Orbital region	Regions of face.g	247
+Orbital region.r	Orbital region	Regions of face.g	247
+Palm.l	Palm	Regions of hand.g	247
+Palm.r	Palm	Regions of hand.g	247
+Inferior temporal sulcus.l	Inferior temporal sulcus	Temporal lobe.g	246
+Inferior temporal sulcus.r	Inferior temporal sulcus	Temporal lobe.g	246
+Ampulla of lacrimal canaliculus.l	Ampulla of lacrimal canaliculus	Lacrimal canaliculus.l	244
+Ampulla of lacrimal canaliculus.r	Ampulla of lacrimal canaliculus	Lacrimal canaliculus.r	244
+Transverse frontopolar gyrus and sulcus*.l	Transverse frontopolar gyrus and sulcus*	Frontal lobe.g	242
+Transverse frontopolar gyrus and sulcus*.r	Transverse frontopolar gyrus and sulcus*	Frontal lobe.g	242
+Distal phalanx of fifth finger of foot.l	Distal phalanx of fifth finger of foot	Phalanges of foot.g	236
+Distal phalanx of fifth finger of foot.r	Distal phalanx of fifth finger of foot	Phalanges of foot.g	236
+Distal phalanx of second finger of foot.l	Distal phalanx of second finger of foot	Phalanges of foot.g	236
+Distal phalanx of second finger of foot.r	Distal phalanx of second finger of foot	Phalanges of foot.g	236
+Transverse temporal gyri.l	Transverse temporal gyri	Temporal lobe.g	234
+Transverse temporal gyri.r	Transverse temporal gyri	Temporal lobe.g	234
+Midclavicular line.l	Midclavicular line	Reference lines.g	232
+Midclavicular line.r	Midclavicular line	Reference lines.g	232
+Frontal region.l	Frontal region	Regions of epicranium.g	227
+Frontal region.r	Frontal region	Regions of epicranium.g	227
+Testis.l	Testis	Male internal genitalia.g	226
+Testis.r	Testis	Male internal genitalia.g	226
+Motor root of trigeminal nerve.l	Motor root of trigeminal nerve	Trigeminal nerve (V).l	224
+Motor root of trigeminal nerve.r	Motor root of trigeminal nerve	Trigeminal nerve (V).r	224
+Posterior cochlear nucleus.l	Posterior cochlear nucleus	Grey matter of medulla oblongata.	224
+Posterior cochlear nucleus.r	Posterior cochlear nucleus	Grey matter of medulla oblongata.	224
+Distal phalanx of first finger of hand.l	Distal phalanx of first finger of hand	Bones of free part of upper limb.g	222
+Distal phalanx of first finger of hand.r	Distal phalanx of first finger of hand	Bones of free part of upper limb.g	222
+Mamillary body.l	Mamillary body	Diencephalon.g	220
+Mamillary body.r	Mamillary body	Diencephalon.g	220
+Lobule of auricle.l	Lobule of auricle	Auricular region.g	219
+Lobule of auricle.r	Lobule of auricle	Auricular region.g	219
+Frenula capsulae.l	Frenula capsulae	Hip joint.g	216
+Frenula capsulae.r	Frenula capsulae	Hip joint.g	216
+Middle phalanx of fifth finger of foot.l	Middle phalanx of fifth finger of foot	Phalanges of foot.g	216
+Middle phalanx of fifth finger of foot.r	Middle phalanx of fifth finger of foot	Phalanges of foot.g	216
+Posterior cells of ethmoid bone.l	Posterior cells of ethmoid bone	Ethmoid bone	216
+Posterior cells of ethmoid bone.r	Posterior cells of ethmoid bone	Ethmoid bone	216
+Cavity of concha.l	Cavity of concha	Auricular region.g	215
+Cavity of concha.r	Cavity of concha	Auricular region.g	215
+Flexor retinaculum of wrist.l	Flexor retinaculum of wrist	Fasciae of upper limb.g	215
+Flexor retinaculum of wrist.r	Flexor retinaculum of wrist	Fasciae of upper limb.g	215
+Glenoid labrum.l	Glenoid labrum	Glenohumeral joint.g	214
+Glenoid labrum.r	Glenoid labrum	Glenohumeral joint.g	214
+Vertebral region.l	Vertebral region	Regions of back.g	213
+Vertebral region.r	Vertebral region	Regions of back.g	213
+Sternocleidomastoid region.l	Sternocleidomastoid region	Sternocleidomastoid region.g	209
+Sternocleidomastoid region.r	Sternocleidomastoid region	Sternocleidomastoid region.g	209
+Anterior intermuscular septum of leg.l	Anterior intermuscular septum of leg	Fasciae of lower limb.g	208
+Anterior intermuscular septum of leg.r	Anterior intermuscular septum of leg	Fasciae of lower limb.g	208
+Anterior region of ankle.l	Anterior region of ankle	Talocrural region.g	206
+Anterior region of ankle.r	Anterior region of ankle	Talocrural region.g	206
+Parietal region.l	Parietal region	Regions of epicranium.g	205
+Parietal region.r	Parietal region	Regions of epicranium.g	205
+Metatarsal region.l	Metatarsal region	Regions of foot.g	203
+Metatarsal region.r	Metatarsal region	Regions of foot.g	203
+External anal sphincter.l	External anal sphincter	Perineal muscles.g	202
+External anal sphincter.r	External anal sphincter	Perineal muscles.g	202
+Articular capsule of temporomandibular joint.l	Articular capsule of temporomandibular joint	Temporomandibular joint.g	200
+Articular capsule of temporomandibular joint.r	Articular capsule of temporomandibular joint	Temporomandibular joint.g	200
+Orbital sulci (Lateral Orbital sulcus*).l	Orbital sulci (Lateral Orbital sulcus*)	Frontal lobe.g	200
+Orbital sulci (Lateral Orbital sulcus*).r	Orbital sulci (Lateral Orbital sulcus*)	Frontal lobe.g	200
+Posterior region of elbow.l	Posterior region of elbow	Cubital region.g	200
+Posterior region of elbow.r	Posterior region of elbow	Cubital region.g	200
+Medial geniculate body.l	Medial geniculate body	Diencephalon.g	198
+Medial geniculate body.r	Medial geniculate body	Diencephalon.g	198
+Nail plate (foot).l	Nail plate (foot)	Dorsal surfaces of digits of foot.l	198
+Nail plate (foot).r	Nail plate (foot)	Dorsal surfaces of digits of foot.r	198
+Infrascapular region.l	Infrascapular region	Regions of back.g	196
+Infrascapular region.r	Infrascapular region	Regions of back.g	196
+Lat_Fis-ant-Vertical.l	Lat_Fis-ant-Vertical	Frontal lobe.g	194
+Lat_Fis-ant-Vertical.r	Lat_Fis-ant-Vertical	Frontal lobe.g	194
+Distal phalanx of fifth finger of hand.l	Distal phalanx of fifth finger of hand	Bones of free part of upper limb.g	192
+Distal phalanx of fifth finger of hand.r	Distal phalanx of fifth finger of hand	Bones of free part of upper limb.g	192
+Distal phalanx of third finger of hand.l	Distal phalanx of third finger of hand	Bones of free part of upper limb.g	192
+Distal phalanx of third finger of hand.r	Distal phalanx of third finger of hand	Bones of free part of upper limb.g	192
+Pectoral region.l	Pectoral region	Anterior region of thorax.g	191
+Pectoral region.r	Pectoral region	Anterior region of thorax.g	191
+Orbital part of  inferior frontal gyrus.l	Orbital part of  inferior frontal gyrus	Frontal lobe.g	186
+Orbital part of  inferior frontal gyrus.r	Orbital part of  inferior frontal gyrus	Inferior frontal sulcus.r	186
+ Posterior transverse collateral sulcus.l	 Posterior transverse collateral sulcus	Interlobar sulci.g	184
+ Posterior transverse collateral sulcus.r	 Posterior transverse collateral sulcus	Interlobar sulci.g	184
+Superior tarsus.l	Superior tarsus	Extra-ocular muscles.g	178
+Superior tarsus.r	Superior tarsus	Extra-ocular muscles.g	178
+Temporal region.l	Temporal region	Regions of epicranium.g	178
+Temporal region.r	Temporal region	Regions of epicranium.g	178
+Triquetrum bone.l	Triquetrum bone	Bones of free part of upper limb.g	176
+Triquetrum bone.r	Triquetrum bone	Bones of free part of upper limb.g	176
+Lat_Fis-ant-Horizont.l	Lat_Fis-ant-Horizont	Frontal lobe.g	174
+Lat_Fis-ant-Horizont.r	Lat_Fis-ant-Horizont	Frontal lobe.g	174
+Buccal region.l	Buccal region	Regions of face.g	172
+Buccal region.r	Buccal region	Regions of face.g	172
+Levator nasolabialis.l	Levator nasolabialis	Facial muscles.g	172
+Levator nasolabialis.r	Levator nasolabialis	Facial muscles.g	172
+Anterior region of elbow.l	Anterior region of elbow	Cubital region.g	170
+Anterior region of elbow.r	Anterior region of elbow	Cubital region.g	170
+Parotid gland.l	Parotid gland	Major salivary glands.g	170
+Parotid gland.r	Parotid gland	Major salivary glands.g	170
+(Anterior tibial node).l	(Anterior tibial node)	Lymph nodes of lower limb.g	168
+(Anterior tibial node).r	(Anterior tibial node)	Lymph nodes of lower limb.g	168
+(Fibular node).l	(Fibular node)	Lymph nodes of lower limb.g	168
+(Fibular node).r	(Fibular node)	Lymph nodes of lower limb.g	168
+(Intermediate deep inguinal node).l	(Intermediate deep inguinal node)	Deep inguinal nodes.g	168
+(Intermediate deep inguinal node).r	(Intermediate deep inguinal node)	Deep inguinal nodes.g	168
+(Lateral lacunar node).l	(Lateral lacunar node)	External iliac nodes.g	168
+(Lateral lacunar node).r	(Lateral lacunar node)	External iliac nodes.g	168
+(Posterior tibial node).l	(Posterior tibial node)	Lymph nodes of lower limb.g	168
+(Posterior tibial node).r	(Posterior tibial node)	Lymph nodes of lower limb.g	168
+(Proximal deep inguinal node).l	(Proximal deep inguinal node)	Deep inguinal nodes.g	168
+(Proximal deep inguinal node).r	(Proximal deep inguinal node)	Deep inguinal nodes.g	168
+Auditory tube.l	Auditory tube	Middle ear.g	168
+Auditory tube.r	Auditory tube	Middle ear.g	168
+Jugulodigastric node.l	Jugulodigastric node	Superior deep lateral nodes.g	168
+Jugulodigastric node.r	Jugulodigastric node	Superior deep lateral nodes.g	168
+Nasolabial node.l	Nasolabial node	Facial nodes.g	168
+Nasolabial node.r	Nasolabial node	Facial nodes.g	168
+Palatine tonsil.l	Palatine tonsil	Pharyngeal lymphoid ring.g	168
+Palatine tonsil.r	Palatine tonsil	Pharyngeal lymphoid ring.g	168
+Lateral region of neck.l	Lateral region of neck	Lateral region of neck.g	164
+Lateral region of neck.r	Lateral region of neck	Lateral region of neck.g	164
+Lateral intermuscular septum of arm.l	Lateral intermuscular septum of arm	Fasciae of upper limb.g	160
+Lateral intermuscular septum of arm.r	Lateral intermuscular septum of arm	Fasciae of upper limb.g	160
+Middle cells of ethmoid bone.l	Middle cells of ethmoid bone	Ethmoid bone	160
+Middle cells of ethmoid bone.r	Middle cells of ethmoid bone	Ethmoid bone	160
+Red nucleus.l	Red nucleus	Grey matter of tegmentum of midbrain.g	160
+Red nucleus.r	Red nucleus	Grey matter of tegmentum of midbrain.g	160
+Lumbar region.l	Lumbar region	Regions of back.g	155
+Lumbar region.r	Lumbar region	Regions of back.g	155
+Extensor retinaculum of wrist.l	Extensor retinaculum of wrist	Antebrachial fascia.l	146
+Extensor retinaculum of wrist.r	Extensor retinaculum of wrist	Antebrachial fascia.r	146
+Lateral region of abdomen.l	Lateral region of abdomen	Regions of abdomen.g	144
+Lateral region of abdomen.r	Lateral region of abdomen	Regions of abdomen.g	144
+Occipital region.l	Occipital region	Regions of epicranium.g	138
+Occipital region.r	Occipital region	Regions of epicranium.g	138
+Anterior cells of ethmoid bone.l	Anterior cells of ethmoid bone	Ethmoid bone	136
+Anterior cells of ethmoid bone.r	Anterior cells of ethmoid bone	Ethmoid bone	136
+Corniculate cartilage.l	Corniculate cartilage	Laryngeal cartilages.g	136
+Corniculate cartilage.r	Corniculate cartilage	Laryngeal cartilages.g	136
+Mammary region.l	Mammary region	Pectoral region.l	136
+Mammary region.r	Mammary region	Pectoral region.r	136
+Subtendinous calcaneal bursa.l	Subtendinous calcaneal bursa	Bursae of lower limb.g	136
+Subtendinous calcaneal bursa.r	Subtendinous calcaneal bursa	Bursae of lower limb.g	136
+Distal phalanx of fourth finger of hand.l	Distal phalanx of fourth finger of hand	Bones of free part of upper limb.g	134
+Distal phalanx of fourth finger of hand.r	Distal phalanx of fourth finger of hand	Bones of free part of upper limb.g	134
+Suprapatellar bursa.l	Suprapatellar bursa	Bursae of lower limb.g	132
+Suprapatellar bursa.r	Suprapatellar bursa	Bursae of lower limb.g	132
+Dorsum of foot.l	Dorsum of foot	Regions of foot.g	131
+Dorsum of foot.r	Dorsum of foot	Regions of foot.g	131
+Parasternal line.l	Parasternal line	Reference lines.g	124
+Parasternal line.r	Parasternal line	Reference lines.g	124
+Anserine bursa.l	Anserine bursa	Bursae of lower limb.g	120
+Anserine bursa.r	Anserine bursa	Bursae of lower limb.g	120
+Inferior extensor retinaculum of ankle.l	Inferior extensor retinaculum of ankle	Fasciae of lower limb.g	119
+Inferior extensor retinaculum of ankle.r	Inferior extensor retinaculum of ankle	Fasciae of lower limb.g	119
+Hypogastric region.l	Hypogastric region	Regions of abdomen.g	117
+Hypogastric region.r	Hypogastric region	Regions of abdomen.g	117
+Lateral meniscus.l	Lateral meniscus	Knee joint.g	116
+Lateral meniscus.r	Lateral meniscus	Knee joint.g	116
+Medial border of foot.l	Medial border of foot	Regions of foot.g	116
+Medial border of foot.r	Medial border of foot	Regions of foot.g	116
+Lateral border of foot.l	Lateral border of foot	Regions of foot.g	113
+Lateral border of foot.r	Lateral border of foot	Regions of foot.g	113
+Obturator membrane.l	Obturator membrane	Fibrous joints of pelvic girdle.g	113
+Obturator membrane.r	Obturator membrane	Fibrous joints of pelvic girdle.g	113
+Nucleus of accessory nerve.l	Nucleus of accessory nerve	Anterior horn of spinal cord.g	112
+Nucleus of accessory nerve.r	Nucleus of accessory nerve	Anterior horn of spinal cord.g	112
+Inferior tarsus.l	Inferior tarsus	Extra-ocular muscles.g	108
+Inferior tarsus.r	Inferior tarsus	Extra-ocular muscles.g	108
+Hallucial eminence.l	Hallucial eminence	Metatarsal region.l	106
+Hallucial eminence.r	Hallucial eminence	Metatarsal region.r	106
+Eminentia scaphae.l	Eminentia scaphae	Auricular region.g	103
+Eminentia scaphae.r	Eminentia scaphae	Auricular region.g	103
+Presternal region.l	Presternal region	Anterior region of thorax.g	102
+Presternal region.r	Presternal region	Anterior region of thorax.g	102
+Muscular triangle.l	Muscular triangle	Infrahyoid region.g	97
+Muscular triangle.r	Muscular triangle	Infrahyoid region.g	97
+Superior extensor retinaculum of ankle.l	Superior extensor retinaculum of ankle	Fasciae of lower limb.g	97
+Superior extensor retinaculum of ankle.r	Superior extensor retinaculum of ankle	Fasciae of lower limb.g	97
+Articular capsule of interphalangeal joint of great toe.l	Articular capsule of interphalangeal joint of great toe	Interphalangeal joints of foot.g	96
+Articular capsule of interphalangeal joint of great toe.r	Articular capsule of interphalangeal joint of great toe	Interphalangeal joints of foot.g	96
+Deep infrapatellar bursa.l	Deep infrapatellar bursa	Bursae of lower limb.g	96
+Deep infrapatellar bursa.r	Deep infrapatellar bursa	Bursae of lower limb.g	96
+Interscapular region.l	Interscapular region	Regions of back.g	96
+Interscapular region.r	Interscapular region	Regions of back.g	96
+Mamillary line.l	Mamillary line	Reference lines.g	96
+Mamillary line.r	Mamillary line	Reference lines.g	96
+Semimembranosus bursa.l	Semimembranosus bursa	Bursae of lower limb.g	96
+Semimembranosus bursa.r	Semimembranosus bursa	Bursae of lower limb.g	96
+Subcutaneous prepatellar bursa.l	Subcutaneous prepatellar bursa	Bursae of lower limb.g	96
+Subcutaneous prepatellar bursa.r	Subcutaneous prepatellar bursa	Bursae of lower limb.g	96
+Subfacial prepatellar bursa.l	Subfacial prepatellar bursa	Bursae of lower limb.g	96
+Subfacial prepatellar bursa.r	Subfacial prepatellar bursa	Bursae of lower limb.g	96
+Subtendinous prepatellar bursa.l	Subtendinous prepatellar bursa	Bursae of lower limb.g	96
+Subtendinous prepatellar bursa.r	Subtendinous prepatellar bursa	Bursae of lower limb.g	96
+Hypochondriac region.l	Hypochondriac region	Regions of abdomen.g	94
+Hypochondriac region.r	Hypochondriac region	Regions of abdomen.g	94
+Crura of antihelix.l	Crura of antihelix	Auricular region.g	92
+Crura of antihelix.r	Crura of antihelix	Auricular region.g	92
+Auricular region.l	Auricular region	Auricular region.g	90
+Auricular region.r	Auricular region	Auricular region.g	90
+Cymba conchae.l	Cymba conchae	Auricular region.g	89
+Cymba conchae.r	Cymba conchae	Auricular region.g	89
+Antihelix.l	Antihelix	Auricular region.g	88
+Antihelix.r	Antihelix	Auricular region.g	88
+Parotideomasseteric region.l	Parotideomasseteric region	Regions of face.g	88
+Parotideomasseteric region.r	Parotideomasseteric region	Regions of face.g	88
+Umbilical region.l	Umbilical region	Regions of abdomen.g	86
+Umbilical region.r	Umbilical region	Regions of abdomen.g	86
+Medial retromalleolar region.l	Medial retromalleolar region	Posterior region of ankle.g	84
+Medial retromalleolar region.r	Medial retromalleolar region	Posterior region of ankle.g	84
+Posterior region of wrist.l	Posterior region of wrist	Carpal region.g	80
+Posterior region of wrist.r	Posterior region of wrist	Carpal region.g	80
+Triradiate cartilage.l	Triradiate cartilage	Cartilaginous joints of pelvic girdle.g	79
+Triradiate cartilage.r	Triradiate cartilage	Cartilaginous joints of pelvic girdle.g	79
+Femoral triangle.l	Femoral triangle	Anterior region of thigh.l	78
+Femoral triangle.r	Femoral triangle	Anterior region of thigh.r	78
+Zygomatic region.l	Zygomatic region	Regions of face.g	78
+Zygomatic region.r	Zygomatic region	Regions of face.g	78
+Anterior region of wrist.l	Anterior region of wrist	Carpal region.g	76
+Anterior region of wrist.r	Anterior region of wrist	Carpal region.g	76
+Greater supraclavicular fossa.l	Greater supraclavicular fossa	Lateral region of neck.g	76
+Greater supraclavicular fossa.r	Greater supraclavicular fossa	Lateral region of neck.g	76
+Mental region.l	Mental region	Regions of face.g	76
+Mental region.r	Mental region	Regions of face.g	76
+Tragus.l	Tragus	Auricular region.g	76
+Tragus.r	Tragus	Auricular region.g	76
+Infraclavicular fossa.l	Infraclavicular fossa	Anterior region of thorax.g	74
+Infraclavicular fossa.r	Infraclavicular fossa	Anterior region of thorax.g	74
+Lateral malleolus.l	Lateral malleolus	Talocrural region.g	74
+Lateral malleolus.r	Lateral malleolus	Talocrural region.g	74
+Lateral retromalleolar region.l	Lateral retromalleolar region	Posterior region of ankle.g	74
+Lateral retromalleolar region.r	Lateral retromalleolar region	Posterior region of ankle.g	74
+Epididymis.l	Epididymis	Male internal genitalia.g	72
+Epididymis.r	Epididymis	Male internal genitalia.g	72
+Intertragic incisure.l	Intertragic incisure	Auricular region.g	71
+Intertragic incisure.r	Intertragic incisure	Auricular region.g	71
+Paravertebral line.l	Paravertebral line	Reference lines.g	70
+Paravertebral line.r	Paravertebral line	Reference lines.g	70
+Scapha.l	Scapha	Auricular region.g	69
+Scapha.r	Scapha	Auricular region.g	69
+Epigastric region.l	Epigastric region	Regions of abdomen.g	68
+Epigastric region.r	Epigastric region	Regions of abdomen.g	68
+Medial meniscus.l	Medial meniscus	Knee joint.g	68
+Medial meniscus.r	Medial meniscus	Knee joint.g	68
+Concha of auricle.l	Concha of auricle	Auricular region.g	64
+Concha of auricle.r	Concha of auricle	Auricular region.g	64
+Sole.l	Sole	Regions of foot.g	64
+Sole.r	Sole	Regions of foot.g	64
+Subtendinous bursa of tibialis anterior.l	Subtendinous bursa of tibialis anterior	Bursae of lower limb.g	64
+Subtendinous bursa of tibialis anterior.r	Subtendinous bursa of tibialis anterior	Bursae of lower limb.g	64
+Sacral region.l	Sacral region	Regions of back.g	62
+Sacral region.r	Sacral region	Regions of back.g	62
+Eminentia conchae.l	Eminentia conchae	Auricular region.g	61
+Eminentia conchae.r	Eminentia conchae	Auricular region.g	61
+Fossa antihelica.l	Fossa antihelica	Auricular region.g	61
+Fossa antihelica.r	Fossa antihelica	Auricular region.g	61
+Hip region.l	Hip region	Regions of lower limb.g	60
+Hip region.r	Hip region	Regions of lower limb.g	60
+Inguinal region.l	Inguinal region	Regions of abdomen.g	60
+Inguinal region.r	Inguinal region	Regions of abdomen.g	60
+Subcutaneous bursa of lateral malleolus.l	Subcutaneous bursa of lateral malleolus	Bursae of lower limb.g	60
+Subcutaneous bursa of lateral malleolus.r	Subcutaneous bursa of lateral malleolus	Bursae of lower limb.g	60
+Subcutaneous bursa of medial malleolus.l	Subcutaneous bursa of medial malleolus	Bursae of lower limb.g	60
+Subcutaneous bursa of medial malleolus.r	Subcutaneous bursa of medial malleolus	Bursae of lower limb.g	60
+Interpeduncular fossa.l	Interpeduncular fossa	Midbrain.g	58
+Interpeduncular fossa.r	Interpeduncular fossa	Midbrain.g	58
+Triangular fossa.l	Triangular fossa	Auricular region.g	58
+Triangular fossa.r	Triangular fossa	Auricular region.g	58
+Articular capsule of superior tibiofibular joint.l	Articular capsule of superior tibiofibular joint	Superior tibiofibular joint.g	56
+Articular capsule of superior tibiofibular joint.r	Articular capsule of superior tibiofibular joint	Superior tibiofibular joint.g	56
+Eyelashes.l	Eyelashes	Hairs.g	56
+Eyelashes.r	Eyelashes	Hairs.g	56
+Medial malleolus.l	Medial malleolus	Talocrural region.g	54
+Medial malleolus.r	Medial malleolus	Talocrural region.g	54
+Perionyx.l	Perionyx	Nail plate.l	54
+Perionyx.r	Perionyx	Nail plate.r	54
+Submandibular triangle.l	Submandibular triangle	Suprahyoid region.g	54
+Submandibular triangle.r	Submandibular triangle	Suprahyoid region.g	54
+Lateral part of longitudinal arch of foot.l	Lateral part of longitudinal arch of foot	Sole.l	53
+Lateral part of longitudinal arch of foot.r	Lateral part of longitudinal arch of foot	Sole.r	53
+Posterior auricular groove.l	Posterior auricular groove	Auricular region.g	53
+Posterior auricular groove.r	Posterior auricular groove	Auricular region.g	53
+Eminentia fossae triangularis.l	Eminentia fossae triangularis	Auricular region.g	51
+Eminentia fossae triangularis.r	Eminentia fossae triangularis	Auricular region.g	51
+Cubital fossa.l	Cubital fossa	Anterior region of elbow.l	50
+Cubital fossa.r	Cubital fossa	Anterior region of elbow.r	50
+Anterior notch of auricle.l	Anterior notch of auricle	Auricular region.g	49
+Anterior notch of auricle.r	Anterior notch of auricle	Auricular region.g	49
+Accessory nucleus of oculomotor nerve.l	Accessory nucleus of oculomotor nerve	Oculomotor complex.g	48
+Accessory nucleus of oculomotor nerve.r	Accessory nucleus of oculomotor nerve	Oculomotor complex.g	48
+Anterior cochlear nucleus.l	Anterior cochlear nucleus	Grey matter of medulla oblongata.	48
+Anterior cochlear nucleus.r	Anterior cochlear nucleus	Grey matter of medulla oblongata.	48
+Inferior salivatory nucleus.l	Inferior salivatory nucleus	Grey matter of medulla oblongata.	48
+Inferior salivatory nucleus.r	Inferior salivatory nucleus	Grey matter of medulla oblongata.	48
+Infra-orbital region.l	Infra-orbital region	Regions of face.g	48
+Infra-orbital region.r	Infra-orbital region	Regions of face.g	48
+Infrapatellar fat pad.l	Infrapatellar fat pad	Knee joint.g	48
+Infrapatellar fat pad.r	Infrapatellar fat pad	Knee joint.g	48
+Motor nucleus of facial nerve.l	Motor nucleus of facial nerve	Grey matter of pontine tegmentum.g	48
+Motor nucleus of facial nerve.r	Motor nucleus of facial nerve	Grey matter of pontine tegmentum.g	48
+Nucleus ambiguus.l	Nucleus ambiguus	Grey matter of medulla oblongata.	48
+Nucleus ambiguus.r	Nucleus ambiguus	Grey matter of medulla oblongata.	48
+Nucleus of abducens nerve.l	Nucleus of abducens nerve	Grey matter of pontine tegmentum.g	48
+Nucleus of abducens nerve.r	Nucleus of abducens nerve	Grey matter of pontine tegmentum.g	48
+Nucleus of hypoglossal nerve.l	Nucleus of hypoglossal nerve	Grey matter of medulla oblongata.	48
+Nucleus of hypoglossal nerve.r	Nucleus of hypoglossal nerve	Grey matter of medulla oblongata.	48
+Nucleus of oculomotor nerve.l	Nucleus of oculomotor nerve	Oculomotor complex.g	48
+Nucleus of oculomotor nerve.r	Nucleus of oculomotor nerve	Oculomotor complex.g	48
+Nucleus of trochlear nerve.l	Nucleus of trochlear nerve	Grey matter of tegmentum of midbrain.g	48
+Nucleus of trochlear nerve.r	Nucleus of trochlear nerve	Grey matter of tegmentum of midbrain.g	48
+Posterior nucleus of vagus nerve.l	Posterior nucleus of vagus nerve	Grey matter of medulla oblongata.	48
+Posterior nucleus of vagus nerve.r	Posterior nucleus of vagus nerve	Grey matter of medulla oblongata.	48
+Subcutaneous calcaneal bursa.l	Subcutaneous calcaneal bursa	Bursae of lower limb.g	48
+Subcutaneous calcaneal bursa.r	Subcutaneous calcaneal bursa	Bursae of lower limb.g	48
+Superior salivatory nucleus.l	Superior salivatory nucleus	Grey matter of pontine tegmentum.g	48
+Superior salivatory nucleus.r	Superior salivatory nucleus	Grey matter of pontine tegmentum.g	48
+Labial commissure.l	Labial commissure	Oral region.l	44
+Labial commissure.r	Labial commissure	Oral region.r	44
+Perionyx (foot).l	Perionyx (foot)	Nail plate (foot).l	44
+Perionyx (foot).r	Perionyx (foot)	Nail plate (foot).r	44
+Sternal line.l	Sternal line	Reference lines.g	44
+Sternal line.r	Sternal line	Reference lines.g	44
+Scapular line.l	Scapular line	Reference lines.g	42
+Scapular line.r	Scapular line	Reference lines.g	42
+Submental triangle.l	Submental triangle	Suprahyoid region.g	42
+Submental triangle.r	Submental triangle	Suprahyoid region.g	42
+Popliteal fossa.l	Popliteal fossa	Posterior region of knee.l	41
+Popliteal fossa.r	Popliteal fossa	Posterior region of knee.r	41
+Mastoid region.l	Mastoid region	Regions of epicranium.g	40
+Mastoid region.r	Mastoid region	Regions of epicranium.g	40
+Antitragus.l	Antitragus	Auricular region.g	39
+Antitragus.r	Antitragus	Auricular region.g	39
+Lateral border of forearm.l	Lateral border of forearm	Antebrachial region.g	38
+Lateral border of forearm.r	Lateral border of forearm	Antebrachial region.g	38
+Medial border of forearm.l	Medial border of forearm	Antebrachial region.g	38
+Medial border of forearm.r	Medial border of forearm	Antebrachial region.g	38
+Apex of auricle.l	Apex of auricle	Auricular region.g	36
+Apex of auricle.r	Apex of auricle	Auricular region.g	36
+Mentolabial sulcus.l	Mentolabial sulcus	Regions of face.g	36
+Mentolabial sulcus.r	Mentolabial sulcus	Regions of face.g	36
+Inferior fibular retinaculum.l	Inferior fibular retinaculum	Fasciae of lower limb.g	35
+Inferior fibular retinaculum.r	Inferior fibular retinaculum	Fasciae of lower limb.g	35
+Articular capsule of acromioclavicular joint.l	Articular capsule of acromioclavicular joint	Acromioclavicular joint.g	32
+Articular capsule of acromioclavicular joint.r	Articular capsule of acromioclavicular joint	Acromioclavicular joint.g	32
+Medial part of longitudinal arch of foot.l	Medial part of longitudinal arch of foot	Sole.l	32
+Medial part of longitudinal arch of foot.r	Medial part of longitudinal arch of foot	Sole.r	32
+Inframammary region.l	Inframammary region	Pectoral region.l	30
+Inframammary region.r	Inframammary region	Pectoral region.r	30
+Nasolabial sulcus.l	Nasolabial sulcus	Regions of face.g	30
+Nasolabial sulcus.r	Nasolabial sulcus	Regions of face.g	30
+Articular capsule of sternoclavicular joint.l	Articular capsule of sternoclavicular joint	Sternoclavicular joint.g	28
+Articular capsule of sternoclavicular joint.r	Articular capsule of sternoclavicular joint	Sternoclavicular joint.g	28
+Proximal transverse arch of foot.l	Proximal transverse arch of foot	Sole.l	27
+Proximal transverse arch of foot.r	Proximal transverse arch of foot	Sole.r	27
+Auricular tubercle.l	Auricular tubercle	Auricular region.g	26
+Auricular tubercle.r	Auricular tubercle	Auricular region.g	26
+Carotid triangle.l	Carotid triangle	Infrahyoid region.g	26
+Carotid triangle.r	Carotid triangle	Infrahyoid region.g	26
+Deltopectoral triangle.l	Deltopectoral triangle	Anterior region of thorax.g	26
+Deltopectoral triangle.r	Deltopectoral triangle	Anterior region of thorax.g	26
+Iliopectineal arch.l	Iliopectineal arch	Fasciae of lower limb.g	26
+Iliopectineal arch.r	Iliopectineal arch	Fasciae of lower limb.g	26
+Angle of mouth.l	Angle of mouth	Oral region.l	25
+Angle of mouth.r	Angle of mouth	Oral region.r	25
+Distal transverse arch of foot.l	Distal transverse arch of foot	Sole.l	24
+Distal transverse arch of foot.r	Distal transverse arch of foot	Sole.r	24
+Lateral bicipital groove.l	Lateral bicipital groove	Anterior region of arm.l	24
+Lateral bicipital groove.r	Lateral bicipital groove	Anterior region of arm.r	24
+Medial bicipital groove.l	Medial bicipital groove	Anterior region of arm.l	18
+Medial bicipital groove.r	Medial bicipital groove	Anterior region of arm.r	18
+Philtrum.l	Philtrum	Oral region.l	16
+Philtrum.r	Philtrum	Oral region.r	16
+Posterior axillary line.l	Posterior axillary line	Reference lines.g	16
+Posterior axillary line.r	Posterior axillary line	Reference lines.g	16
+Radial foveola.l	Radial foveola	Carpal region.g	16
+Radial foveola.r	Radial foveola	Carpal region.g	16
+(Accessory parotid gland).l	(Accessory parotid gland)	Major salivary glands.g	15
+(Accessory parotid gland).r	(Accessory parotid gland)	Major salivary glands.g	15
+Anal region.l	Anal region	Regions of perineum.g	14
+Anal region.r	Anal region	Regions of perineum.g	14
+Lesser supraclavicular fossa.l	Lesser supraclavicular fossa	Sternocleidomastoid region.l	14
+Lesser supraclavicular fossa.r	Lesser supraclavicular fossa	Sternocleidomastoid region.r	14
+Eyebrow.l	Eyebrow	Frontal region.l	12
+Eyebrow.r	Eyebrow	Frontal region.r	12
+Gluteal fold.l	Gluteal fold	Gluteal region.l	12
+Gluteal fold.r	Gluteal fold	Gluteal region.r	12
+Umbilicus.l	Umbilicus	Umbilical region.l	12
+Umbilicus.r	Umbilicus	Umbilical region.r	12
+Anterior axillary line.l	Anterior axillary line	Reference lines.g	10
+Anterior axillary line.r	Anterior axillary line	Reference lines.g	10
+Medial patellar retinaculum.l	Medial patellar retinaculum	Anterior compartment of thigh.g	10
+Medial patellar retinaculum.r	Medial patellar retinaculum	Anterior compartment of thigh.g	10
+Inferior parathyroid gland.l	Inferior parathyroid gland	Parathyroid glands.g	8
+Inferior parathyroid gland.r	Inferior parathyroid gland	Parathyroid glands.g	8
+Superior parathyroid gland.l	Superior parathyroid gland	Parathyroid glands.g	8
+Superior parathyroid gland.r	Superior parathyroid gland	Parathyroid glands.g	8
+Articular disc of distal radio-ulnar joint.l	Articular disc of distal radio-ulnar joint	Distal radio-ulnar joint.g	7
+Articular disc of distal radio-ulnar joint.r	Articular disc of distal radio-ulnar joint	Distal radio-ulnar joint.g	7
+Lateral patellar retinaculum.l	Lateral patellar retinaculum	Anterior compartment of thigh.g	7
+Lateral patellar retinaculum.r	Lateral patellar retinaculum	Anterior compartment of thigh.g	7
+Articular disc of acromioclavicular joint.l	Articular disc of acromioclavicular joint	Acromioclavicular joint.g	4
+Articular disc of acromioclavicular joint.r	Articular disc of acromioclavicular joint	Acromioclavicular joint.g	4
+Articular disc of sternoclavicular joint.l	Articular disc of sternoclavicular joint	Sternoclavicular joint.g	4
+Articular disc of sternoclavicular joint.r	Articular disc of sternoclavicular joint	Sternoclavicular joint.g	4
+Triangle of auscultation.l	Triangle of auscultation	Regions of back.g	4
+Triangle of auscultation.r	Triangle of auscultation	Regions of back.g	4
+Tubercle of upper lip.l	Tubercle of upper lip	Oral region.l	4
+Tubercle of upper lip.r	Tubercle of upper lip	Oral region.r	4
+Zonular fibres.l	Zonular fibres	Anterior segment of eyeball.l	4
+Zonular fibres.r	Zonular fibres	Anterior segment of eyeball.r	4
+Oblique cord.l	Oblique cord	Radio-ulnar syndesmoses.g	2
+Oblique cord.r	Oblique cord	Radio-ulnar syndesmoses.g	2

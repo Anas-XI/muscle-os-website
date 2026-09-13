@@ -14,7 +14,7 @@ Pre-PMF / Late MVP per `Escalation Plan - PMF Sprint.md`. Building is done, vali
 ## Decision rules
 
 ### Channel priority
-1. **Telegram bot** (mos_bot/) — ONLY channel to ship to. This is the PMF channel.
+1. **Telegram bot** (mos_os/) — ONLY channel to ship to. This is the PMF channel.
 2. **Alpha app** (muscle-os-alpha/) — Frozen until PMF confirmed (per deferred items)
 3. **Mobile app** (mos-mobile/) — Frozen until PMF confirmed
 

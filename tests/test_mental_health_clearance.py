@@ -3,16 +3,16 @@ import shutil
 import pytest
 from datetime import datetime, timedelta, timezone
 
-from mos_bot.config import DATA_ROOT
-from mos_bot.core.flag_models import MentalHealthFlag, FlagAuditEntry
-from mos_bot.core.mental_health_flags import (
+from mos_os.config import DATA_ROOT
+from mos_os.core.flag_models import MentalHealthFlag, FlagAuditEntry
+from mos_os.core.mental_health_flags import (
     create_or_trigger_flag, claim_flag, clear_flag, set_monitoring,
     escalate_flag, check_monitoring_and_sla_timeouts, has_active_mental_health_flag,
     list_flags, get_flag, get_flag_audit_trail, FLAGS_DIR
 )
-from mos_bot.core.models import ClientProfile, SafetyTriageResult, PillarAssignment
-from mos_bot.core.context_loader import run_safety_triage
-from mos_bot.core.content_generator import generate_nutrition_plan
+from mos_os.core.models import ClientProfile, SafetyTriageResult, PillarAssignment
+from mos_os.core.context_loader import run_safety_triage
+from mos_os.core.content_generator import generate_nutrition_plan
 
 
 def _test_now() -> datetime:
@@ -148,8 +148,8 @@ def test_escalation_triggers_crisis_gate(monkeypatch):
 
     import requests
     monkeypatch.setattr(requests, "post", mock_post)
-    monkeypatch.setattr("mos_bot.core.mental_health_flags.OWNER_ID", 99999)
-    monkeypatch.setattr("mos_bot.config.BOT_TOKEN", "dummy_token")
+    monkeypatch.setattr("mos_os.core.mental_health_flags.OWNER_ID", 99999)
+    monkeypatch.setattr("mos_os.config.BOT_TOKEN", "dummy_token")
 
     escalated = escalate_flag(
         flag.flag_id,
@@ -221,7 +221,7 @@ def test_unclaimed_flag_past_48h_triggers_owner_sla_alert(monkeypatch):
     # Manually backdate created_at to 49 hours ago
     old_time = (_test_now() - timedelta(hours=49)).isoformat()
     flag.created_at = old_time
-    from mos_bot.core.mental_health_flags import _save_flag
+    from mos_os.core.mental_health_flags import _save_flag
     _save_flag(flag)
 
     sla_alerts = []
@@ -233,8 +233,8 @@ def test_unclaimed_flag_past_48h_triggers_owner_sla_alert(monkeypatch):
 
     import requests
     monkeypatch.setattr(requests, "post", mock_post)
-    monkeypatch.setattr("mos_bot.core.mental_health_flags.OWNER_ID", 88888)
-    monkeypatch.setattr("mos_bot.config.BOT_TOKEN", "dummy_token")
+    monkeypatch.setattr("mos_os.core.mental_health_flags.OWNER_ID", 88888)
+    monkeypatch.setattr("mos_os.config.BOT_TOKEN", "dummy_token")
 
     res = check_monitoring_and_sla_timeouts()
     assert res["sla_breach_alert_count"] == 1
@@ -249,7 +249,7 @@ def test_coach_api_auth_and_negative_paths(monkeypatch):
     """Verify coach REST endpoints reject unauthenticated and forged requests,
     and enforce safety invariants across HTTP calls."""
     from fastapi.testclient import TestClient
-    from mos_bot.web.app import app
+    from mos_os.web.app import app
 
     client = TestClient(app)
 
@@ -302,7 +302,7 @@ def test_coach_api_auth_and_negative_paths(monkeypatch):
 def test_intake_moderate_creates_flag():
     """Verify that intake profile creation with moderate mental health concern
     automatically triggers flag creation."""
-    from mos_bot.core.mental_health_flags import list_flags
+    from mos_os.core.mental_health_flags import list_flags
 
     user_id = "user_801_intake"
     # Call trigger flag as intake handler does

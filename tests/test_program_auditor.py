@@ -3,10 +3,10 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from mos_bot.core.program_auditor import audit_user_program, ProgramAuditReport
-from mos_bot.core.intake_builder import save_profile
-from mos_bot.core.coach_actions import _get_programs_json_path, execute_coach_action
-from mos_bot.web.app import app
+from mos_os.core.program_auditor import audit_user_program, ProgramAuditReport
+from mos_os.core.intake_builder import save_profile
+from mos_os.core.coach_actions import _get_programs_json_path, execute_coach_action
+from mos_os.web.app import app
 
 client = TestClient(app)
 AUDIT_USER = "audit_unit_tester"

@@ -1,7 +1,7 @@
 """Unit tests for Circadian & Sleep Optimization Engine."""
 
 import pytest
-from mos_bot.core.circadian_engine import (
+from mos_os.core.circadian_engine import (
     calculate_circadian_schedule,
 )
 

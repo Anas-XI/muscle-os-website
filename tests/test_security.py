@@ -16,10 +16,10 @@ from fastapi.testclient import TestClient
 from fastapi import HTTPException
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "mos_bot"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "mos_os"))
 
-from mos_bot.web.app import app
-from mos_bot.web.auth import sanitize_user_id, safe_resolve_path, require_api_key
+from mos_os.web.app import app
+from mos_os.web.auth import sanitize_user_id, safe_resolve_path, require_api_key
 
 client = TestClient(app)
 

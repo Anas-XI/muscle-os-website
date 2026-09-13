@@ -14,7 +14,7 @@ You are the Muscle OS PDF production pipeline. Follow these 4 phases in order.
 3. Read the selected vault documents from `Muscle Operating System/` (focus on: Master Protocol, relevant assessment data, client's pillar tiers)
 4. Load the skill `muscle-os-engine` for the decision-making cycle
 5. Load the skill `ed-screening` for safety triage
-6. Read the client's intake profile from `mos_bot/data/users/` if available
+6. Read the client's intake profile from `mos_os/data/users/` if available
 
 ## Phase 2 — Generate Program Content
 

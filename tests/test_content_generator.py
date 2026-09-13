@@ -2,13 +2,13 @@
 
 import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "mos_bot"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "mos_os"))
 
-from mos_bot.core.models import (
+from mos_os.core.models import (
     ClientProfile, SafetyTriageResult, PillarAssignment,
     ProgramContent, VaultSource,
 )
-from mos_bot.core.content_generator import (
+from mos_os.core.content_generator import (
     program_to_markdown,
     generate_program,
     generate_nutrition_plan,
@@ -87,7 +87,7 @@ def test_program_to_markdown_all_sections():
                             sex="male")
     triage = SafetyTriageResult(triage="green")
     pillars = PillarAssignment(primary_pillars=["P2 - Training Maxing"])
-    from mos_bot.core.book_engine import BookEngineResult
+    from mos_os.core.book_engine import BookEngineResult
 
     pc = generate_program(profile, triage, pillars, book_result=BookEngineResult(
         vault_insights=["[Schoenfeld] Prioritize compound movements for hypertrophy."],

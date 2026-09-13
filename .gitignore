@@ -89,3 +89,12 @@ temp_worker/
 
 # Agent prompts (not source code)
 docs/prompts/
+
+# mos_os runtime data (users, programs, checkins, vault index) — never commit
+mos_os/data/
+
+# Z-Anatomy / Z-Biomechanics third-party extraction source — too large for git
+z-anatomy-tmp/extracted_z_anatomy/
+z-anatomy-tmp/Z-Anatomy.zip
+z-anatomy-tmp/extracted_biomechanics/
+z-anatomy-tmp/Z-Biomechanics.7z

@@ -1,7 +1,7 @@
 """Unit tests for Muscle OS Check-in Adjustment Engine (ADJUSTMENTS.md)."""
 
 import pytest
-from mos_bot.core.checkin_adjuster import (
+from mos_os.core.checkin_adjuster import (
     CheckinTelemetry,
     evaluate_weekly_adjustments,
     CheckinAdjustmentResult,

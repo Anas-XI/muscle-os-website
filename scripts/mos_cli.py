@@ -38,8 +38,8 @@ def evaluate_ed_screening(answers: dict) -> tuple:
 
 def cmd_from_json(args):
     """Generate a full program (PDF + HTML tracker + JSON data) from an intake JSON file."""
-    from mos_bot.core.intake_builder import build_profile, save_profile
-    from mos_bot.core.program_generator import generate_program_pipeline
+    from mos_os.core.intake_builder import build_profile, save_profile
+    from mos_os.core.program_generator import generate_program_pipeline
 
     json_path = args.json_file
     if not os.path.exists(json_path):
@@ -53,7 +53,7 @@ def cmd_from_json(args):
 
     # Auto-detect format: web form (has "answers") vs raw profile (has profile fields)
     if "answers" in data:
-        from mos_bot.handlers.upload_profile import map_form_json
+        from mos_os.handlers.upload_profile import map_form_json
         name = data.get("name") or data.get("answers", {}).get("Q45", "client")
         if not user_id:
             user_id = name.lower().replace(" ", "_").replace("'", "")
@@ -100,7 +100,7 @@ def cmd_from_json(args):
 
 
 def cmd_generate(args):
-    from mos_bot.core.program_generator import generate_program_pipeline
+    from mos_os.core.program_generator import generate_program_pipeline
 
     ed_answers = {}
     if args.ed_screening:
@@ -127,7 +127,7 @@ def cmd_generate(args):
 
 def cmd_preview(args):
     """Generate and print markdown to stdout (no PDF)."""
-    from mos_bot.core.program_generator import generate_program_pipeline
+    from mos_os.core.program_generator import generate_program_pipeline
 
     result = generate_program_pipeline(args.user_id)
     if "error" in result:
@@ -138,7 +138,7 @@ def cmd_preview(args):
 
 def cmd_rag_query(args):
     """Query the vault RAG system."""
-    from mos_bot.core.vault_rag import VaultIndexer
+    from mos_os.core.vault_rag import VaultIndexer
 
     idx = VaultIndexer()
     idx.index_vault()
@@ -154,9 +154,9 @@ def cmd_rag_query(args):
 
 def cmd_pillar_info(args):
     """Show pillar assignment for a profile without generating."""
-    from mos_bot.core.models import ClientProfile
-    from mos_bot.core.context_loader import load_context
-    from mos_bot.config import USERS_DIR
+    from mos_os.core.models import ClientProfile
+    from mos_os.core.context_loader import load_context
+    from mos_os.config import USERS_DIR
 
     profile_path = os.path.join(USERS_DIR, f"{args.user_id}.json")
     if not os.path.exists(profile_path):

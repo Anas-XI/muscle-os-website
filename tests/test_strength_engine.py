@@ -1,7 +1,7 @@
 """Unit tests for 1RM Autoregulation & Strength Standards Engine."""
 
 import pytest
-from mos_bot.core.strength_engine import (
+from mos_os.core.strength_engine import (
     calculate_1rm,
     get_strength_standard,
     prescribe_working_load,

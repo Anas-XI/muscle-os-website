@@ -4,13 +4,13 @@ against the /arbitrate contract.
 
 import os
 import json
-from mos_bot.config import SUPPLEMENTAL_DIR
-from mos_bot.core.models import ClientProfile
-from mos_bot.core.context_loader import (
+from mos_os.config import SUPPLEMENTAL_DIR
+from mos_os.core.models import ClientProfile
+from mos_os.core.context_loader import (
     evaluate_ed_screening, run_safety_triage, assign_pillars
 )
-from mos_bot.core.intake_builder import load_supplemental, save_supplemental
-from mos_bot.web.routers.arbitrate import _check_required_fields, _merge_supplemental
+from mos_os.core.intake_builder import load_supplemental, save_supplemental
+from mos_os.web.routers.arbitrate import _check_required_fields, _merge_supplemental
 
 
 # ═══════════════════════════════════════════════════════════════

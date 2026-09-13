@@ -1,0 +1,294 @@
+== start ==
+blend loaded
+handlers cleared
+all revealed
+partition done
+node pectoralis_major_sternal_L sources=2 tris=14180
+  joined pectoralis_major_sternal_L tris=14180
+  decimate tris=888
+node pectoralis_major_sternal_R sources=2 tris=14180
+  joined pectoralis_major_sternal_R tris=14180
+  decimate tris=888
+node pectoralis_major_clavicular_L sources=1 tris=2550
+  joined pectoralis_major_clavicular_L tris=2550
+  decimate tris=156
+node pectoralis_major_clavicular_R sources=1 tris=2550
+  joined pectoralis_major_clavicular_R tris=2550
+  decimate tris=156
+node pectoralis_minor_L sources=1 tris=12426
+  joined pectoralis_minor_L tris=12426
+  decimate tris=780
+node pectoralis_minor_R sources=1 tris=12426
+  joined pectoralis_minor_R tris=12426
+  decimate tris=780
+node latissimus_dorsi_L sources=1 tris=64740
+  joined latissimus_dorsi_L tris=64740
+  decimate tris=4074
+node latissimus_dorsi_R sources=1 tris=64740
+  joined latissimus_dorsi_R tris=64740
+  decimate tris=4074
+node rhomboid_major_L sources=1 tris=14400
+  joined rhomboid_major_L tris=14400
+  decimate tris=906
+node rhomboid_major_R sources=1 tris=14400
+  joined rhomboid_major_R tris=14400
+  decimate tris=906
+node rhomboid_minor_L sources=1 tris=4482
+  joined rhomboid_minor_L tris=4482
+  decimate tris=282
+node rhomboid_minor_R sources=1 tris=4482
+  joined rhomboid_minor_R tris=4482
+  decimate tris=282
+node teres_major_L sources=1 tris=3462
+  joined teres_major_L tris=3462
+  decimate tris=216
+node teres_major_R sources=1 tris=3462
+  joined teres_major_R tris=3462
+  decimate tris=216
+node erector_spinae_L sources=8 tris=112650
+  joined erector_spinae_L tris=112650
+  decimate tris=7092
+node erector_spinae_R sources=9 tris=118800
+  joined erector_spinae_R tris=118800
+  decimate tris=7482
+node deltoid_anterior_L sources=1 tris=8706
+  joined deltoid_anterior_L tris=8706
+  decimate tris=546
+node deltoid_anterior_R sources=1 tris=8706
+  joined deltoid_anterior_R tris=8706
+  decimate tris=546
+node deltoid_lateral_L sources=1 tris=8892
+  joined deltoid_lateral_L tris=8892
+  decimate tris=558
+node deltoid_lateral_R sources=1 tris=8892
+  joined deltoid_lateral_R tris=8892
+  decimate tris=558
+node deltoid_posterior_L sources=1 tris=13134
+  joined deltoid_posterior_L tris=13134
+  decimate tris=822
+node deltoid_posterior_R sources=1 tris=13134
+  joined deltoid_posterior_R tris=13134
+  decimate tris=822
+node supraspinatus_L sources=1 tris=4290
+  joined supraspinatus_L tris=4290
+  decimate tris=270
+node supraspinatus_R sources=1 tris=4290
+  joined supraspinatus_R tris=4290
+  decimate tris=270
+node infraspinatus_L sources=1 tris=9498
+  joined infraspinatus_L tris=9498
+  decimate tris=594
+node infraspinatus_R sources=1 tris=9498
+  joined infraspinatus_R tris=9498
+  decimate tris=594
+node biceps_brachii_long_head_L sources=1 tris=9654
+  joined biceps_brachii_long_head_L tris=9654
+  decimate tris=606
+node biceps_brachii_long_head_R sources=1 tris=9654
+  joined biceps_brachii_long_head_R tris=9654
+  decimate tris=606
+node biceps_brachii_short_head_L sources=1 tris=8088
+  joined biceps_brachii_short_head_L tris=8088
+  decimate tris=504
+node biceps_brachii_short_head_R sources=1 tris=8088
+  joined biceps_brachii_short_head_R tris=8088
+  decimate tris=504
+node brachialis_L sources=1 tris=10434
+  joined brachialis_L tris=10434
+  decimate tris=654
+node brachialis_R sources=1 tris=10434
+  joined brachialis_R tris=10434
+  decimate tris=654
+node triceps_brachii_lateral_head_L sources=1 tris=10884
+  joined triceps_brachii_lateral_head_L tris=10884
+  decimate tris=684
+node triceps_brachii_lateral_head_R sources=1 tris=10884
+  joined triceps_brachii_lateral_head_R tris=10884
+  decimate tris=684
+node triceps_brachii_long_head_L sources=1 tris=11850
+  joined triceps_brachii_long_head_L tris=11850
+  decimate tris=744
+node triceps_brachii_long_head_R sources=1 tris=11850
+  joined triceps_brachii_long_head_R tris=11850
+  decimate tris=744
+node triceps_brachii_medial_head_L sources=1 tris=8058
+  joined triceps_brachii_medial_head_L tris=8058
+  decimate tris=504
+node triceps_brachii_medial_head_R sources=1 tris=8058
+  joined triceps_brachii_medial_head_R tris=8058
+  decimate tris=504
+node rectus_femoris_L sources=1 tris=24828
+  joined rectus_femoris_L tris=24828
+  decimate tris=1560
+node rectus_femoris_R sources=1 tris=24828
+  joined rectus_femoris_R tris=24828
+  decimate tris=1560
+node vastus_lateralis_L sources=1 tris=28068
+  joined vastus_lateralis_L tris=28068
+  decimate tris=1764
+node vastus_lateralis_R sources=1 tris=28068
+  joined vastus_lateralis_R tris=28068
+  decimate tris=1764
+node vastus_medialis_L sources=1 tris=19380
+  joined vastus_medialis_L tris=19380
+  decimate tris=1218
+node vastus_medialis_R sources=1 tris=19380
+  joined vastus_medialis_R tris=19380
+  decimate tris=1218
+node vastus_intermedius_L sources=1 tris=18492
+  joined vastus_intermedius_L tris=18492
+  decimate tris=1164
+node vastus_intermedius_R sources=1 tris=18492
+  joined vastus_intermedius_R tris=18492
+  decimate tris=1164
+node adductor_magnus_L sources=1 tris=24576
+  joined adductor_magnus_L tris=24576
+  decimate tris=1548
+node adductor_magnus_R sources=1 tris=24576
+  joined adductor_magnus_R tris=24576
+  decimate tris=1548
+node adductor_longus_L sources=1 tris=11142
+  joined adductor_longus_L tris=11142
+  decimate tris=696
+node adductor_longus_R sources=1 tris=11142
+  joined adductor_longus_R tris=11142
+  decimate tris=696
+node biceps_femoris_long_head_L sources=1 tris=21774
+  joined biceps_femoris_long_head_L tris=21774
+  decimate tris=1368
+node biceps_femoris_long_head_R sources=1 tris=21774
+  joined biceps_femoris_long_head_R tris=21774
+  decimate tris=1368
+node biceps_femoris_short_head_L sources=1 tris=7428
+  joined biceps_femoris_short_head_L tris=7428
+  decimate tris=462
+node biceps_femoris_short_head_R sources=1 tris=7428
+  joined biceps_femoris_short_head_R tris=7428
+  decimate tris=462
+node semitendinosus_L sources=1 tris=12948
+  joined semitendinosus_L tris=12948
+  decimate tris=810
+node semitendinosus_R sources=1 tris=12948
+  joined semitendinosus_R tris=12948
+  decimate tris=810
+node semimembranosus_L sources=1 tris=22326
+  joined semimembranosus_L tris=22326
+  decimate tris=1404
+node semimembranosus_R sources=1 tris=22326
+  joined semimembranosus_R tris=22326
+  decimate tris=1404
+node gluteus_maximus_L sources=1 tris=9978
+  joined gluteus_maximus_L tris=9978
+  decimate tris=624
+node gluteus_maximus_R sources=1 tris=9978
+  joined gluteus_maximus_R tris=9978
+  decimate tris=624
+node gluteus_medius_L sources=1 tris=15528
+  joined gluteus_medius_L tris=15528
+  decimate tris=978
+node gluteus_medius_R sources=1 tris=15528
+  joined gluteus_medius_R tris=15528
+  decimate tris=978
+node gluteus_minimus_L sources=1 tris=18750
+  joined gluteus_minimus_L tris=18750
+  decimate tris=1176
+node gluteus_minimus_R sources=1 tris=18750
+  joined gluteus_minimus_R tris=18750
+  decimate tris=1176
+node tensor_fasciae_latae_L sources=1 tris=5586
+  joined tensor_fasciae_latae_L tris=5586
+  decimate tris=348
+node tensor_fasciae_latae_R sources=1 tris=5586
+  joined tensor_fasciae_latae_R tris=5586
+  decimate tris=348
+node gastrocnemius_medial_head_L sources=1 tris=19386
+  joined gastrocnemius_medial_head_L tris=19386
+  decimate tris=1218
+node gastrocnemius_medial_head_R sources=1 tris=19386
+  joined gastrocnemius_medial_head_R tris=19386
+  decimate tris=1218
+node gastrocnemius_lateral_head_L sources=1 tris=14724
+  joined gastrocnemius_lateral_head_L tris=14724
+  decimate tris=924
+node gastrocnemius_lateral_head_R sources=1 tris=14724
+  joined gastrocnemius_lateral_head_R tris=14724
+  decimate tris=924
+node soleus_L sources=1 tris=20322
+  joined soleus_L tris=20322
+  decimate tris=1278
+node soleus_R sources=1 tris=20322
+  joined soleus_R tris=20322
+  decimate tris=1278
+node tibialis_anterior_L sources=1 tris=10578
+  joined tibialis_anterior_L tris=10578
+  decimate tris=666
+node tibialis_anterior_R sources=1 tris=10578
+  joined tibialis_anterior_R tris=10578
+  decimate tris=666
+node trapezius_upper_L sources=1 tris=20280
+  joined trapezius_upper_L tris=20280
+  decimate tris=1272
+node trapezius_upper_R sources=1 tris=20280
+  joined trapezius_upper_R tris=20280
+  decimate tris=1272
+node trapezius_middle_L sources=1 tris=8976
+  joined trapezius_middle_L tris=8976
+  decimate tris=564
+node trapezius_middle_R sources=1 tris=8976
+  joined trapezius_middle_R tris=8976
+  decimate tris=564
+node trapezius_lower_L sources=1 tris=13788
+  joined trapezius_lower_L tris=13788
+  decimate tris=864
+node trapezius_lower_R sources=1 tris=13788
+  joined trapezius_lower_R tris=13788
+  decimate tris=864
+node levator_scapulae_L sources=1 tris=9246
+  joined levator_scapulae_L tris=9246
+  decimate tris=582
+node levator_scapulae_R sources=1 tris=9246
+  joined levator_scapulae_R tris=9246
+  decimate tris=582
+node brachioradialis_L sources=1 tris=21936
+  joined brachioradialis_L tris=21936
+  decimate tris=1380
+node brachioradialis_R sources=1 tris=21936
+  joined brachioradialis_R tris=21936
+  decimate tris=1380
+node pronator_teres_L sources=2 tris=10980
+  joined pronator_teres_L tris=10980
+  decimate tris=690
+node pronator_teres_R sources=2 tris=10980
+  joined pronator_teres_R tris=10980
+  decimate tris=690
+node flexor_carpi_radialis_L sources=1 tris=4998
+  joined flexor_carpi_radialis_L tris=4998
+  decimate tris=312
+node flexor_carpi_radialis_R sources=1 tris=4998
+  joined flexor_carpi_radialis_R tris=4998
+  decimate tris=312
+node extensor_carpi_radialis_L sources=2 tris=20544
+  joined extensor_carpi_radialis_L tris=20544
+  decimate tris=1290
+node extensor_carpi_radialis_R sources=2 tris=20544
+  joined extensor_carpi_radialis_R tris=20544
+  decimate tris=1290
+node obliquus_externus_L sources=1 tris=88866
+  joined obliquus_externus_L tris=88866
+  decimate tris=5598
+node obliquus_externus_R sources=1 tris=88866
+  joined obliquus_externus_R tris=88866
+  decimate tris=5598
+node transversus_abdominis_L sources=1 tris=102984
+  joined transversus_abdominis_L tris=102984
+  decimate tris=6486
+node transversus_abdominis_R sources=1 tris=102984
+  joined transversus_abdominis_R tris=102984
+  decimate tris=6486
+  rectus rectus_abdominis_upper_L tris_b=33066 tris_a=2097
+  rectus rectus_abdominis_lower_L tris_b=29794 tris_a=1890
+  rectus rectus_abdominis_upper_R tris_b=33066 tris_a=2097
+  rectus rectus_abdominis_lower_R tris_b=29794 tris_a=1890
+rectus split done
+export 110 meshes 158928 tris
+export selection=110 target=110

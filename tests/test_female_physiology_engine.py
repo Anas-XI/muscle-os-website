@@ -1,7 +1,7 @@
 """Unit tests for Female Physiology & Menstrual Cycle Periodization."""
 
 import pytest
-from mos_bot.core.female_physiology_engine import (
+from mos_os.core.female_physiology_engine import (
     get_cycle_phase_recommendations,
 )
 

@@ -85,7 +85,7 @@
           <td><strong>2. Vector RAG Engine</strong></td>
           <td>FAISS (Facebook AI Similarity Search) + <code>all-MiniLM-L6-v2</code> 384-dim dense embeddings.</td>
           <td>Semantic search over 1,563 research chunks extracted from Coach Anas's 277 scientific book chapters.</td>
-          <td>Local vector index cached at <code>mos_bot/vault_index/</code> with graph traversal edges.</td>
+          <td>Local vector index cached at <code>mos_os/vault_index/</code> with graph traversal edges.</td>
         </tr>
         <tr>
           <td><strong>3. LLM Coaching Pipeline</strong></td>
@@ -103,7 +103,7 @@
     </table>
 
     <h2>2. Vector RAG Engine Specification</h2>
-    <p>Our research retrieval engine (implemented in <code>mos_bot/core/vault_rag.py</code>) allows our system to synthesize answers based on empirical exercise literature rather than ungrounded LLM completions.</p>
+    <p>Our research retrieval engine (implemented in <code>mos_os/core/vault_rag.py</code>) allows our system to synthesize answers based on empirical exercise literature rather than ungrounded LLM completions.</p>
 
     <div class="code-block">
 <span class="comment"># Muscle OS FAISS Retrieval & Graph Expansion Pipeline</span>

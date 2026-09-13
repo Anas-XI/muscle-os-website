@@ -1,7 +1,7 @@
 """Unit tests for Posture Assessment & Correctives Engine."""
 
 import pytest
-from mos_bot.core.posture_engine import (
+from mos_os.core.posture_engine import (
     evaluate_posture,
 )
 

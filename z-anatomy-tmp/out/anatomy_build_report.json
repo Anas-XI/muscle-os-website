@@ -1,0 +1,824 @@
+{
+  "build": "body_muscular_v1",
+  "source_blend": "E:\\MoS\\z-anatomy-tmp\\extracted_z_anatomy\\Z-Anatomy\\Startup.blend",
+  "output_glb": "E:\\MoS\\z-anatomy-tmp\\out\\quick_glb.glb",
+  "timestamp": "2026-09-13 01:34:29",
+  "totals": {
+    "meshes_exported": 110,
+    "triangles_total": 158928,
+    "highlight_meshes": 98,
+    "context_meshes": 12,
+    "elapsed_seconds": 357.5
+  },
+  "settings": {
+    "highlight_ratio": 0.063,
+    "context_ratio": 0.0285
+  },
+  "nodes": {
+    "pectoralis_major_sternal": {
+      "L": {
+        "sources": [
+          "Sternocostal head of pectoralis major muscle.l",
+          "(Abdominal part of pectoralis major muscle).l"
+        ],
+        "tris_before": 14180,
+        "tris_after": 888
+      },
+      "R": {
+        "sources": [
+          "Sternocostal head of pectoralis major muscle.r",
+          "(Abdominal part of pectoralis major muscle).r"
+        ],
+        "tris_before": 14180,
+        "tris_after": 888
+      }
+    },
+    "pectoralis_major_clavicular": {
+      "L": {
+        "sources": [
+          "Clavicular head of pectoralis major muscle.l"
+        ],
+        "tris_before": 2550,
+        "tris_after": 156
+      },
+      "R": {
+        "sources": [
+          "Clavicular head of pectoralis major muscle.r"
+        ],
+        "tris_before": 2550,
+        "tris_after": 156
+      }
+    },
+    "pectoralis_minor": {
+      "L": {
+        "sources": [
+          "Pectoralis minor muscle.l"
+        ],
+        "tris_before": 12426,
+        "tris_after": 780
+      },
+      "R": {
+        "sources": [
+          "Pectoralis minor muscle.r"
+        ],
+        "tris_before": 12426,
+        "tris_after": 780
+      }
+    },
+    "latissimus_dorsi": {
+      "L": {
+        "sources": [
+          "Latissimus dorsi muscle.l"
+        ],
+        "tris_before": 64740,
+        "tris_after": 4074
+      },
+      "R": {
+        "sources": [
+          "Latissimus dorsi muscle.r"
+        ],
+        "tris_before": 64740,
+        "tris_after": 4074
+      }
+    },
+    "rhomboid_major": {
+      "L": {
+        "sources": [
+          "Rhomboid major muscle.l"
+        ],
+        "tris_before": 14400,
+        "tris_after": 906
+      },
+      "R": {
+        "sources": [
+          "Rhomboid major muscle.r"
+        ],
+        "tris_before": 14400,
+        "tris_after": 906
+      }
+    },
+    "rhomboid_minor": {
+      "L": {
+        "sources": [
+          "Rhomboid minor muscle.l"
+        ],
+        "tris_before": 4482,
+        "tris_after": 282
+      },
+      "R": {
+        "sources": [
+          "Rhomboid minor muscle.r"
+        ],
+        "tris_before": 4482,
+        "tris_after": 282
+      }
+    },
+    "teres_major": {
+      "L": {
+        "sources": [
+          "Teres major muscle.l"
+        ],
+        "tris_before": 3462,
+        "tris_after": 216
+      },
+      "R": {
+        "sources": [
+          "Teres major muscle.r"
+        ],
+        "tris_before": 3462,
+        "tris_after": 216
+      }
+    },
+    "erector_spinae": {
+      "L": {
+        "sources": [
+          "Iliocostalis lumborum muscle.l",
+          "Iliocostalis thoracis muscle.l",
+          "Longissimus thoracis muscle.l",
+          "Longissimus colli muscle.l",
+          "Longissimus capitis muscle.l",
+          "Spinalis thoracis muscle.l",
+          "Spinalis colli muscle.l",
+          "Spinalis capitis muscle.l"
+        ],
+        "tris_before": 112650,
+        "tris_after": 7092
+      },
+      "R": {
+        "sources": [
+          "Iliocostalis lumborum muscle.r",
+          "Iliocostalis thoracis muscle.r",
+          "Iliocostalis colli muscle.r",
+          "Longissimus thoracis muscle.r",
+          "Longissimus colli muscle.r",
+          "Longissimus capitis muscle.r",
+          "Spinalis thoracis muscle.r",
+          "Spinalis colli muscle.r",
+          "Spinalis capitis muscle.r"
+        ],
+        "tris_before": 118800,
+        "tris_after": 7482
+      }
+    },
+    "deltoid_anterior": {
+      "L": {
+        "sources": [
+          "Clavicular part of deltoid muscle.l"
+        ],
+        "tris_before": 8706,
+        "tris_after": 546
+      },
+      "R": {
+        "sources": [
+          "Clavicular part of deltoid muscle.r"
+        ],
+        "tris_before": 8706,
+        "tris_after": 546
+      }
+    },
+    "deltoid_lateral": {
+      "L": {
+        "sources": [
+          "Acromial part of deltoid muscle.l"
+        ],
+        "tris_before": 8892,
+        "tris_after": 558
+      },
+      "R": {
+        "sources": [
+          "Acromial part of deltoid muscle.r"
+        ],
+        "tris_before": 8892,
+        "tris_after": 558
+      }
+    },
+    "deltoid_posterior": {
+      "L": {
+        "sources": [
+          "Scapular spinal part of deltoid muscle.l"
+        ],
+        "tris_before": 13134,
+        "tris_after": 822
+      },
+      "R": {
+        "sources": [
+          "Scapular spinal part of deltoid muscle.r"
+        ],
+        "tris_before": 13134,
+        "tris_after": 822
+      }
+    },
+    "supraspinatus": {
+      "L": {
+        "sources": [
+          "Supraspinatus muscle.l"
+        ],
+        "tris_before": 4290,
+        "tris_after": 270
+      },
+      "R": {
+        "sources": [
+          "Supraspinatus muscle.r"
+        ],
+        "tris_before": 4290,
+        "tris_after": 270
+      }
+    },
+    "infraspinatus": {
+      "L": {
+        "sources": [
+          "Infraspinatus muscle.l"
+        ],
+        "tris_before": 9498,
+        "tris_after": 594
+      },
+      "R": {
+        "sources": [
+          "Infraspinatus muscle.r"
+        ],
+        "tris_before": 9498,
+        "tris_after": 594
+      }
+    },
+    "biceps_brachii_long_head": {
+      "L": {
+        "sources": [
+          "Long head of biceps brachii.l"
+        ],
+        "tris_before": 9654,
+        "tris_after": 606
+      },
+      "R": {
+        "sources": [
+          "Long head of biceps brachii.r"
+        ],
+        "tris_before": 9654,
+        "tris_after": 606
+      }
+    },
+    "biceps_brachii_short_head": {
+      "L": {
+        "sources": [
+          "Short head of biceps brachii.l"
+        ],
+        "tris_before": 8088,
+        "tris_after": 504
+      },
+      "R": {
+        "sources": [
+          "Short head of biceps brachii.r"
+        ],
+        "tris_before": 8088,
+        "tris_after": 504
+      }
+    },
+    "brachialis": {
+      "L": {
+        "sources": [
+          "Brachialis muscle.l"
+        ],
+        "tris_before": 10434,
+        "tris_after": 654
+      },
+      "R": {
+        "sources": [
+          "Brachialis muscle.r"
+        ],
+        "tris_before": 10434,
+        "tris_after": 654
+      }
+    },
+    "triceps_brachii_lateral_head": {
+      "L": {
+        "sources": [
+          "Lateral head of triceps brachii.l"
+        ],
+        "tris_before": 10884,
+        "tris_after": 684
+      },
+      "R": {
+        "sources": [
+          "Lateral head of triceps brachii.r"
+        ],
+        "tris_before": 10884,
+        "tris_after": 684
+      }
+    },
+    "triceps_brachii_long_head": {
+      "L": {
+        "sources": [
+          "Long head of triceps brachii.l"
+        ],
+        "tris_before": 11850,
+        "tris_after": 744
+      },
+      "R": {
+        "sources": [
+          "Long head of triceps brachii.r"
+        ],
+        "tris_before": 11850,
+        "tris_after": 744
+      }
+    },
+    "triceps_brachii_medial_head": {
+      "L": {
+        "sources": [
+          "Medial head of triceps brachii.l"
+        ],
+        "tris_before": 8058,
+        "tris_after": 504
+      },
+      "R": {
+        "sources": [
+          "Medial head of triceps brachii.r"
+        ],
+        "tris_before": 8058,
+        "tris_after": 504
+      }
+    },
+    "rectus_femoris": {
+      "L": {
+        "sources": [
+          "Rectus femoris muscle.l"
+        ],
+        "tris_before": 24828,
+        "tris_after": 1560
+      },
+      "R": {
+        "sources": [
+          "Rectus femoris muscle.r"
+        ],
+        "tris_before": 24828,
+        "tris_after": 1560
+      }
+    },
+    "vastus_lateralis": {
+      "L": {
+        "sources": [
+          "Vastus lateralis muscle.l"
+        ],
+        "tris_before": 28068,
+        "tris_after": 1764
+      },
+      "R": {
+        "sources": [
+          "Vastus lateralis muscle.r"
+        ],
+        "tris_before": 28068,
+        "tris_after": 1764
+      }
+    },
+    "vastus_medialis": {
+      "L": {
+        "sources": [
+          "Vastus medialis muscle.l"
+        ],
+        "tris_before": 19380,
+        "tris_after": 1218
+      },
+      "R": {
+        "sources": [
+          "Vastus medialis muscle.r"
+        ],
+        "tris_before": 19380,
+        "tris_after": 1218
+      }
+    },
+    "vastus_intermedius": {
+      "L": {
+        "sources": [
+          "Vastus intermedius muscle.l"
+        ],
+        "tris_before": 18492,
+        "tris_after": 1164
+      },
+      "R": {
+        "sources": [
+          "Vastus intermedius muscle.r"
+        ],
+        "tris_before": 18492,
+        "tris_after": 1164
+      }
+    },
+    "adductor_magnus": {
+      "L": {
+        "sources": [
+          "Adductor magnus.l"
+        ],
+        "tris_before": 24576,
+        "tris_after": 1548
+      },
+      "R": {
+        "sources": [
+          "Adductor magnus.r"
+        ],
+        "tris_before": 24576,
+        "tris_after": 1548
+      }
+    },
+    "adductor_longus": {
+      "L": {
+        "sources": [
+          "Adductor longus.l"
+        ],
+        "tris_before": 11142,
+        "tris_after": 696
+      },
+      "R": {
+        "sources": [
+          "Adductor longus.r"
+        ],
+        "tris_before": 11142,
+        "tris_after": 696
+      }
+    },
+    "biceps_femoris_long_head": {
+      "L": {
+        "sources": [
+          "Long head of biceps femoris.l"
+        ],
+        "tris_before": 21774,
+        "tris_after": 1368
+      },
+      "R": {
+        "sources": [
+          "Long head of biceps femoris.r"
+        ],
+        "tris_before": 21774,
+        "tris_after": 1368
+      }
+    },
+    "biceps_femoris_short_head": {
+      "L": {
+        "sources": [
+          "Short head of biceps femoris.l"
+        ],
+        "tris_before": 7428,
+        "tris_after": 462
+      },
+      "R": {
+        "sources": [
+          "Short head of biceps femoris.r"
+        ],
+        "tris_before": 7428,
+        "tris_after": 462
+      }
+    },
+    "semitendinosus": {
+      "L": {
+        "sources": [
+          "Semitendinosus muscle.l"
+        ],
+        "tris_before": 12948,
+        "tris_after": 810
+      },
+      "R": {
+        "sources": [
+          "Semitendinosus muscle.r"
+        ],
+        "tris_before": 12948,
+        "tris_after": 810
+      }
+    },
+    "semimembranosus": {
+      "L": {
+        "sources": [
+          "Semimembranosus muscle.l"
+        ],
+        "tris_before": 22326,
+        "tris_after": 1404
+      },
+      "R": {
+        "sources": [
+          "Semimembranosus muscle.r"
+        ],
+        "tris_before": 22326,
+        "tris_after": 1404
+      }
+    },
+    "gluteus_maximus": {
+      "L": {
+        "sources": [
+          "Gluteus maximus muscle.l"
+        ],
+        "tris_before": 9978,
+        "tris_after": 624
+      },
+      "R": {
+        "sources": [
+          "Gluteus maximus muscle.r"
+        ],
+        "tris_before": 9978,
+        "tris_after": 624
+      }
+    },
+    "gluteus_medius": {
+      "L": {
+        "sources": [
+          "Gluteus medius muscle.l"
+        ],
+        "tris_before": 15528,
+        "tris_after": 978
+      },
+      "R": {
+        "sources": [
+          "Gluteus medius muscle.r"
+        ],
+        "tris_before": 15528,
+        "tris_after": 978
+      }
+    },
+    "gluteus_minimus": {
+      "L": {
+        "sources": [
+          "Gluteus minimus muscle.l"
+        ],
+        "tris_before": 18750,
+        "tris_after": 1176
+      },
+      "R": {
+        "sources": [
+          "Gluteus minimus muscle.r"
+        ],
+        "tris_before": 18750,
+        "tris_after": 1176
+      }
+    },
+    "tensor_fasciae_latae": {
+      "L": {
+        "sources": [
+          "Tensor fasciae latae.l"
+        ],
+        "tris_before": 5586,
+        "tris_after": 348
+      },
+      "R": {
+        "sources": [
+          "Tensor fasciae latae.r"
+        ],
+        "tris_before": 5586,
+        "tris_after": 348
+      }
+    },
+    "gastrocnemius_medial_head": {
+      "L": {
+        "sources": [
+          "Medial head of gastrocnemius.l"
+        ],
+        "tris_before": 19386,
+        "tris_after": 1218
+      },
+      "R": {
+        "sources": [
+          "Medial head of gastrocnemius.r"
+        ],
+        "tris_before": 19386,
+        "tris_after": 1218
+      }
+    },
+    "gastrocnemius_lateral_head": {
+      "L": {
+        "sources": [
+          "Lateral head of gastrocnemius.l"
+        ],
+        "tris_before": 14724,
+        "tris_after": 924
+      },
+      "R": {
+        "sources": [
+          "Lateral head of gastrocnemius.r"
+        ],
+        "tris_before": 14724,
+        "tris_after": 924
+      }
+    },
+    "soleus": {
+      "L": {
+        "sources": [
+          "Soleus muscle.l"
+        ],
+        "tris_before": 20322,
+        "tris_after": 1278
+      },
+      "R": {
+        "sources": [
+          "Soleus muscle.r"
+        ],
+        "tris_before": 20322,
+        "tris_after": 1278
+      }
+    },
+    "tibialis_anterior": {
+      "L": {
+        "sources": [
+          "Tibialis anterior muscle.l"
+        ],
+        "tris_before": 10578,
+        "tris_after": 666
+      },
+      "R": {
+        "sources": [
+          "Tibialis anterior muscle.r"
+        ],
+        "tris_before": 10578,
+        "tris_after": 666
+      }
+    },
+    "trapezius_upper": {
+      "L": {
+        "sources": [
+          "Descending part of trapezius muscle.l"
+        ],
+        "tris_before": 20280,
+        "tris_after": 1272
+      },
+      "R": {
+        "sources": [
+          "Descending part of trapezius muscle.r"
+        ],
+        "tris_before": 20280,
+        "tris_after": 1272
+      }
+    },
+    "trapezius_middle": {
+      "L": {
+        "sources": [
+          "Transverse part of trapezius muscle.l"
+        ],
+        "tris_before": 8976,
+        "tris_after": 564
+      },
+      "R": {
+        "sources": [
+          "Transverse part of trapezius muscle.r"
+        ],
+        "tris_before": 8976,
+        "tris_after": 564
+      }
+    },
+    "trapezius_lower": {
+      "L": {
+        "sources": [
+          "Ascending part of trapezius muscle.l"
+        ],
+        "tris_before": 13788,
+        "tris_after": 864
+      },
+      "R": {
+        "sources": [
+          "Ascending part of trapezius muscle.r"
+        ],
+        "tris_before": 13788,
+        "tris_after": 864
+      }
+    },
+    "levator_scapulae": {
+      "L": {
+        "sources": [
+          "Levator scapulae.l"
+        ],
+        "tris_before": 9246,
+        "tris_after": 582
+      },
+      "R": {
+        "sources": [
+          "Levator scapulae.r"
+        ],
+        "tris_before": 9246,
+        "tris_after": 582
+      }
+    },
+    "brachioradialis": {
+      "L": {
+        "sources": [
+          "Brachioradialis muscle.l"
+        ],
+        "tris_before": 21936,
+        "tris_after": 1380
+      },
+      "R": {
+        "sources": [
+          "Brachioradialis muscle.r"
+        ],
+        "tris_before": 21936,
+        "tris_after": 1380
+      }
+    },
+    "pronator_teres": {
+      "L": {
+        "sources": [
+          "Superficial head of pronator teres.l",
+          "Deep head of pronator teres.l"
+        ],
+        "tris_before": 10980,
+        "tris_after": 690
+      },
+      "R": {
+        "sources": [
+          "Superficial head of pronator teres.r",
+          "Deep head of pronator teres.r"
+        ],
+        "tris_before": 10980,
+        "tris_after": 690
+      }
+    },
+    "flexor_carpi_radialis": {
+      "L": {
+        "sources": [
+          "Flexor carpi radialis.l"
+        ],
+        "tris_before": 4998,
+        "tris_after": 312
+      },
+      "R": {
+        "sources": [
+          "Flexor carpi radialis.r"
+        ],
+        "tris_before": 4998,
+        "tris_after": 312
+      }
+    },
+    "extensor_carpi_radialis": {
+      "L": {
+        "sources": [
+          "Extensor carpi radialis longus.l",
+          "Extensor carpi radialis brevis.l"
+        ],
+        "tris_before": 20544,
+        "tris_after": 1290
+      },
+      "R": {
+        "sources": [
+          "Extensor carpi radialis longus.r",
+          "Extensor carpi radialis brevis.r"
+        ],
+        "tris_before": 20544,
+        "tris_after": 1290
+      }
+    },
+    "obliquus_externus": {
+      "L": {
+        "sources": [
+          "External abdominal oblique muscle.l"
+        ],
+        "tris_before": 88866,
+        "tris_after": 5598
+      },
+      "R": {
+        "sources": [
+          "External abdominal oblique muscle.r"
+        ],
+        "tris_before": 88866,
+        "tris_after": 5598
+      }
+    },
+    "transversus_abdominis": {
+      "L": {
+        "sources": [
+          "Transversus abdominis muscle.l"
+        ],
+        "tris_before": 102984,
+        "tris_after": 6486
+      },
+      "R": {
+        "sources": [
+          "Transversus abdominis muscle.r"
+        ],
+        "tris_before": 102984,
+        "tris_after": 6486
+      }
+    },
+    "rectus_abdominis_upper": {
+      "L": {
+        "sources": [
+          "Rectus abdominis muscle.l"
+        ],
+        "tris_before": 33066,
+        "tris_after": 2097
+      },
+      "R": {
+        "sources": [
+          "Rectus abdominis muscle.r"
+        ],
+        "tris_before": 33066,
+        "tris_after": 2097
+      }
+    },
+    "rectus_abdominis_lower": {
+      "L": {
+        "sources": [
+          "Rectus abdominis muscle.l"
+        ],
+        "tris_before": 29794,
+        "tris_after": 1890
+      },
+      "R": {
+        "sources": [
+          "Rectus abdominis muscle.r"
+        ],
+        "tris_before": 29794,
+        "tris_after": 1890
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 """Unit tests for Evidence Supplement Stack Analyzer."""
 
 import pytest
-from mos_bot.core.supplement_engine import (
+from mos_os.core.supplement_engine import (
     analyze_supplement_stack,
 )
 

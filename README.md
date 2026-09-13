@@ -56,7 +56,7 @@ safety triage → vault RAG (FAISS + graph expansion)
 <summary><strong>📦 Project Structure</strong></summary>
 
 ```
-mos_bot/
+mos_os/
 ├── bot.py                 # Entry point, 3 ConversationHandlers
 ├── config.py              # Environment variables
 ├── core/                  # Core intelligence
@@ -147,13 +147,13 @@ export LM_STUDIO_URL="http://localhost:1234/v1"
 ### Run
 
 ```bash
-python -m mos_bot.bot
+python -m mos_os.bot
 ```
 
 ### Web UI
 
 ```bash
-uvicorn mos_bot.web.app:app --host 0.0.0.0 --port 8080
+uvicorn mos_os.web.app:app --host 0.0.0.0 --port 8080
 # → http://localhost:8080
 ```
 

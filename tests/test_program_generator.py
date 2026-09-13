@@ -2,10 +2,10 @@
 
 import sys
 import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "mos_bot"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "mos_os"))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "Muscle Operating System", "00_META", "scripts"))
 
-from mos_bot.core.program_generator import generate_program
+from mos_os.core.program_generator import generate_program
 
 
 def test_generate_program_returns_markdown():
@@ -40,7 +40,7 @@ def test_generate_program_handles_fat_loss_goal():
 def test_generate_program_handles_injuries(monkeypatch):
     from tests.skip_helpers import vault_available
     if not vault_available:
-        monkeypatch.setattr("mos_bot.core.program_generator.evaluate_rag_impact", lambda p, rf: ("proceed", ""))
+        monkeypatch.setattr("mos_os.core.program_generator.evaluate_rag_impact", lambda p, rf: ("proceed", ""))
 
     profile = {"user_id": "test", "name": "Injured", "goal": "strength", "bodyweight_kg": 75,
                "height_cm": 170, "age": 28, "training_days": 4, "injries": ["Lower back disc"]}

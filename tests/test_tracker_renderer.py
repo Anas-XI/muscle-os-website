@@ -2,14 +2,14 @@
 
 import sys, os, json
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "mos_bot"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "mos_os"))
 
-from mos_bot.core.models import (
+from mos_os.core.models import (
     ClientProfile, SafetyTriageResult, PillarAssignment,
     ProgramContent, ProgramStructure, NutritionPlan,
     Exercise, Session, Phase,
 )
-from mos_bot.core.tracker_renderer import (
+from mos_os.core.tracker_renderer import (
     generate_tracker_html, generate_tracker_file, TRACKERS_DIR,
 )
 

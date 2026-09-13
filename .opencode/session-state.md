@@ -194,7 +194,7 @@
 - KV prefix counts after seeding: TR 1000 · TD 1000 · TB 1000 · BK 1000 · BN 1000 · BB 1000 · MA 1000 (BB/MA via re-run; first run partial)
 
 ## Notes
-- STRAY GIT REPO: `E:\MoS\website\.git` exists (old snapshot repo tracking mos_bot/, website/ nested copies, mostly D). NEVER run bare `git` from E:\MoS\website — always `git -C E:\MoS`. Flagged to user; not deleted (destructive, unrelated).
+- STRAY GIT REPO: `E:\MoS\website\.git` exists (old snapshot repo tracking mos_os/, website/ nested copies, mostly D). NEVER run bare `git` from E:\MoS\website — always `git -C E:\MoS`. Flagged to user; not deleted (destructive, unrelated).
 - JWT_SECRET unchanged this session (old session's fresh key) — session tokens fine.
 - No maxUses on bulk codes: one-account binding blocks sharing; revoke via /api/revoke-code if needed.
 

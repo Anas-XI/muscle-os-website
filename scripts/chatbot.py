@@ -1,5 +1,5 @@
 import os, requests
-from mos_bot.config import LM_STUDIO_URL, LLM_API_KEY, LLM_API_URL, LLM_MODEL
+from mos_os.config import LM_STUDIO_URL, LLM_API_KEY, LLM_API_URL, LLM_MODEL
 
 USE_MOCK = os.getenv("USE_MOCK_LLM", "").lower() in ("1", "true", "yes")
 MOCK_RESPONSE = os.getenv(

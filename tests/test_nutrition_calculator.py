@@ -1,7 +1,7 @@
 """Unit tests for Precision TDEE & Nutrition Calculator Engine."""
 
 import pytest
-from mos_bot.core.nutrition_calculator import (
+from mos_os.core.nutrition_calculator import (
     calculate_tdee,
     calculate_macro_split,
 )

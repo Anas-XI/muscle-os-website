@@ -1,8 +1,8 @@
 """Tests for Hybrid RAG (BM25 + FAISS + RRF) and GraphRAG v2 Subgraphs."""
 
 import pytest
-from mos_bot.core.vault_rag import VaultIndexer, VaultChunk
-from mos_bot.core.vault_graph import VaultGraph, GraphNode, GraphEdge, build_vault_graph
+from mos_os.core.vault_rag import VaultIndexer, VaultChunk
+from mos_os.core.vault_graph import VaultGraph, GraphNode, GraphEdge, build_vault_graph
 
 
 class TestHybridRAG:

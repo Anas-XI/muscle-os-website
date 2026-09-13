@@ -2,12 +2,12 @@
 
 import sys
 import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "mos_bot"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "mos_os"))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "Muscle Operating System", "00_META", "scripts"))
 sys.path.insert(0, os.path.dirname(__file__))
 
 from skip_helpers import skip_if_no_vault
-from mos_bot.core.vault_context import get_vault_context
+from mos_os.core.vault_context import get_vault_context
 
 pytestmark = skip_if_no_vault
 

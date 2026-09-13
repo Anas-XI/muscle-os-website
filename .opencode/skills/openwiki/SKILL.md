@@ -27,12 +27,12 @@ openwiki --init
 openwiki --update
 
 # Interactive session
-openwiki "Generate documentation for the mos_bot module"
+openwiki "Generate documentation for the mos_os module"
 ```
 
 ## How it helps Muscle OS
 
-- Generates agent documentation for `mos_bot/`, `mos-mobile/backend/`, and `muscle-os-alpha/`
+- Generates agent documentation for `mos_os/`, `mos-mobile/backend/`, and `muscle-os-alpha/`
 - Keeps docs in sync as the codebase evolves (runs via scheduled GitHub Action)
 - Writes references to CLAUDE.md so agents can discover wiki pages automatically
 - Supports Q&A over the generated docs

@@ -1,0 +1,480 @@
+﻿
+	BPY_driver_exec: restricted access disallows name 'test', enable auto-execution to support
+Error in PyDriver: expression failed: test(self, depsgraph)
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - bones["Humerus.r"].use_inherit_rotation[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - bones["Humerus.l"].use_inherit_rotation[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Forearm-XY"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Ulna.l"].constraints["Rest pose"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Ulna.l"].constraints["Rot from Forearm XYZ"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["RightArm"].constraints["Rest Pose"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Ulna.r"].constraints["Rot from Forearm XYZ"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Ulna.r"].constraints["Rest pose"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Ulna.l"].constraints["IK"].influence[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["FK/IK-Button"]["prop"][0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Radius.r"].constraints["Rest pose"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Radius.l"].constraints["Rest pose"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Ulna.r"].constraints["IK"].influence[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Tibia.l"].constraints["IK"].influence[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Tibia.r"].constraints["IK"].influence[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Cranium"].constraints["IK"].influence[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["FK/IK-Button"]["IK"][0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["RightShoulder"].constraints["Damped Track"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Ulna.l"].constraints["Set T-Pose"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Knee-Flexion"].constraints["Set T-Pose"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Knee-Flexion.r"].constraints["Set T-Pose"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Clavicle-X.r"].constraints["Damped Track"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Clavicle-X.l"].constraints["Damped Track"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["LeftArm"].constraints["Set Rest Pose"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["RightLeg"].constraints["Set T-Pose"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Knee-Flexion.l"].constraints["Set T-Pose"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Neck"].constraints["Copy Rotation"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Vertebral column"].constraints["Limit Rotation"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Radius.r"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Radius.l"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Head"].constraints["Rest position"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Humerus.r"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Humerus.r"].constraints["Rest pose"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Ulna.l"].constraints["Rest position"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Proximal carpal bones-abduction.l"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Proximal carpal bones-flexion.l"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Proximal carpal bones-abduction.r"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Proximal carpal bones-flexion.r"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Hand-XYZ.r"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Hand-XYZ.l"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["L5"].constraints["Copy Rotation"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Cranium"].constraints["Copy Transforms"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Clavicle-Z.r"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Clavicle-X.r"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Proximal phalanx of foot-5th 
+finger.r"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Proximal phalanx of foot-4t 
+finger.r"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Proximal phalanx of foot-3d 
+finger.r"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Proximal phalanx of foot-2d 
+finger.r"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Proximal phalanx of foot-1st 
+finger.r"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Proximal phalanx of foot-5th 
+finger.l"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Clavicle-Z.l"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["FK/IK-Button"]["FK"][0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Clavicle-X.l"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Proximal phalanx of foot-4t 
+finger.l"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Proximal phalanx of foot-3d 
+finger.l"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Proximal phalanx of foot-2d 
+finger.l"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Clavicle.l"].constraints["IK"].influence[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Proximal phalanx of foot-1st 
+finger.l"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Hips"].constraints["Mocap Rot"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["RightForeArm"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["LeftForeArm"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Humerus.l"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["LeftArm"].constraints["Rest Pose"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["RightUpLeg"].constraints["Rest Pose"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["LeftUpLeg"].constraints["RestPose"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Hips"].constraints["Mocap Loc"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Clavicle.r"].constraints["IK"].influence[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["C3"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Cranium"].constraints["Mocap-location"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["S1-2-3-4-5"].constraints["Copy Rotation"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["C7"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["T7"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["T12"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["L5"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["S1-2-3-4-5"].constraints["Copy Location"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Spine"].constraints["Copy Rotation"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Neck"].constraints["Mocap-Neck"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Head"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Talus.r"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Tibia-Flexion.r"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Tibia-Flexion.l"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Femur.l"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Femur.r"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Spine2"].constraints["Copy Rotation"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["NEck"].constraints["Copy Rotation"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Spine1"].constraints["Copy Rotation"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["LowerBack"].constraints["Mocap"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Lhip"].constraints["Copy Rotation"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Rhip"].constraints["Copy Rotation"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["L4"].constraints["Copy Rotation"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["L3"].constraints["Copy Rotation"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["L2"].constraints["Copy Rotation"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["L1"].constraints["Copy Rotation"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["T12"].constraints["Copy Rotation"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["T11"].constraints["Copy Rotation"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["T10"].constraints["Copy Rotation"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["T9"].constraints["Copy Rotation"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["T8"].constraints["Copy Rotation"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["T7"].constraints["Copy Rotation"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["T6"].constraints["Copy Rotation"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["T5"].constraints["Copy Rotation"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["T4"].constraints["Copy Rotation"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["T3"].constraints["Copy Rotation"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["T2"].constraints["Copy Rotation"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Cranium"].constraints["Limit Rotation"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["T1"].constraints["Copy Rotation"].mute[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Knee-font.l"].rotation_euler[0]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Patella.r"].rotation_quaternion[1]
+WARN (bke.anim_sys): C:\Users\blender\git\blender-v420\blender.git\source\blender\blenkernel\intern\anim_sys.cc:4218 
+BKE_animsys_eval_driver: invalid driver - pose.bones["Patella.r"].location[1]
+TOTAL_MESHES=1424 TOTAL_TRIS=634227
+2nd plantar interosseus muscle on middle phal. of 4th finger	parent=Proximal phalanx of fourth finger of foot.001	
+faces=18	tris~=18	vis=False
+2nd plantar interosseus muscle on middle phal. of 4th finger.r	parent=-	faces=18	tris~=18	vis=False
+3rd plantar interosseous muscle on middle phal. of 5th finger	parent=Proximal phalanx of fifth finger of foot.001	
+faces=15	tris~=15	vis=False
+3rd plantar interosseous muscle on middle phal. of 5th finger.r	parent=Proximal phalanx of fifth finger of foot	
+faces=15	tris~=15	vis=False
+Abdominal part of pectoralis major muscle- Insertion.l	parent=Costal cartilage of 7th rib.l	faces=87	tris~=87	vis=False
+Abdominal part of pectoralis major muscle- Insertion.r	parent=Costal cartilage of 7th rib.r	faces=87	tris~=87	vis=False
+Acromial head of deltoid muscle-Scapular insertion.l	parent=Scapula.l	faces=510	tris~=510	vis=False
+Acromial head of deltoid muscle-Scapular insertion.r	parent=Scapula.r	faces=510	tris~=510	vis=False
+Anconeus muscle-Humeral insertion.l	parent=Humerus.l	faces=31	tris~=31	vis=False
+Anconeus muscle-Humeral insertion.r	parent=Humerus.r	faces=31	tris~=31	vis=False
+Anconeus muscle-Ulnar insertion.l	parent=Ulna.l	faces=24	tris~=24	vis=False
+Anconeus muscle-Ulnar insertion.r	parent=Ulna.r	faces=24	tris~=24	vis=False
+Anterior belly of digastric muscle on mandible.l	parent=Mandible	faces=15	tris~=15	vis=False
+Anterior belly of digastric muscle on mandible.r	parent=Mandible	faces=15	tris~=15	vis=False
+Ascending part of trapezius muscle-Acromial insertion.l	parent=Scapula.l	faces=214	tris~=214	vis=False
+Ascending part of trapezius muscle-Acromial insertion.r	parent=Scapula.r	faces=214	tris~=214	vis=False
+Ascending part of trapezius muscle-Clavicular insertion.l	parent=Clavicle.l	faces=61	tris~=61	vis=False
+Ascending part of trapezius muscle-Clavicular insertion.r	parent=Clavicle.r	faces=61	tris~=61	vis=False
+Ascending part of trapezius muscle-Occipital insertion.l	parent=Occipital bone	faces=12	tris~=21	vis=False
+Ascending part of trapezius muscle-Occipital insertion.r	parent=Occipital bone	faces=12	tris~=21	vis=False
+Ascending part of trapezius muscle-Spinal insertion.l	parent=Scapula.l	faces=247	tris~=247	vis=False
+Ascending part of trapezius muscle-Spinal insertion.r	parent=Scapula.r	faces=247	tris~=247	vis=False
+Biceps brachii muscle-Radial insertion.l	parent=Radius.l	faces=25	tris~=25	vis=False
+Biceps brachii muscle-Radial insertion.r	parent=Radius.r	faces=25	tris~=25	vis=False
+Brachialis anterior muscle-Humeral insertion.l	parent=Humerus.l	faces=192	tris~=192	vis=False
+Brachialis anterior muscle-Humeral insertion.r	parent=Humerus.r	faces=192	tris~=192	vis=False
+Brachialis muscle-Ulnar insertion.l	parent=Ulna.l	faces=67	tris~=67	vis=False
+Brachialis muscle-Ulnar insertion.r	parent=Ulna.r	faces=67	tris~=67	vis=False
+Brachioradialis muscle on radial styloid process.l	parent=Radius.l	faces=32	tris~=32	vis=False
+Brachioradialis muscle on radial styloid process.r	parent=Radius.r	faces=32	tris~=32	vis=False
+Bracioradialis muscle-Humeral insertion.l	parent=Humerus.l	faces=30	tris~=30	vis=False
+Bracioradialis muscle-Humeral insertion.r	parent=Humerus.r	faces=30	tris~=30	vis=False
+Clavicular part of deltoid muscle-Clavicular insertion.l	parent=Clavicle.l	faces=125	tris~=125	vis=False
+Clavicular part of deltoid muscle-Clavicular insertion.r	parent=Clavicle.r	faces=125	tris~=125	vis=False
+Coracobrachialis muscle on coracoid process of scapula.l	parent=Scapula.l	faces=209	tris~=209	vis=False
+Coracobrachialis muscle on coracoid process of scapula.r	parent=Scapula.r	faces=209	tris~=209	vis=False
+Coracoradialis muscle-Humeral insertion.l	parent=Humerus.l	faces=28	tris~=28	vis=False
+Coracoradialis muscle-Humeral insertion.r	parent=Humerus.r	faces=28	tris~=28	vis=False
+Deltoid muscle-Humeral insertion.l	parent=Humerus.l	faces=35	tris~=35	vis=False
+Deltoid muscle-Humeral insertion.r	parent=Humerus.r	faces=35	tris~=35	vis=False
+Dorsal interosseus muscles d 3d metacarpal bone.l	parent=Third metacarpal bone	faces=53	tris~=53	vis=False
+Dorsal interosseus muscles d 3d metacarpal bone.r	parent=Third metacarpal bone.l	faces=53	tris~=53	vis=False
+Dorsal interosseus muscles of 1st metacarpal bone.l	parent=First metacarpal bone.001	faces=18	tris~=18	vis=False
+Dorsal interosseus muscles of 1st metacarpal bone.r	parent=First metacarpal bone	faces=18	tris~=18	vis=False
+Dorsal interosseus muscles of 2d metacarpal bone.l	parent=Second metacarpal bone.l	faces=51	tris~=51	vis=False
+Dorsal interosseus muscles of 2d metacarpal bone.r	parent=Second metacarpal bone.r	faces=51	tris~=51	vis=False
+Dorsal interosseus muscles of 4th metacarpal bone.l	parent=Fourth metacarpal bone.001	faces=63	tris~=63	vis=False
+Dorsal interosseus muscles of 4th metacarpal bone.r	parent=Fourth metacarpal bone	faces=63	tris~=63	vis=False
+Dorsal interosseus musclesof 5th metacarpal bone.l	parent=Fifth metacarpal bone.l	faces=20	tris~=20	vis=False
+Dorsal interosseus musclesof 5th metacarpal bone.r	parent=Fifth metacarpal bone.r	faces=20	tris~=20	vis=False
+Erector spinae muscles-Iliac insertions.l	parent=Hip bone.l	faces=57	tris~=57	vis=False
+Erector spinae muscles-Iliac insertions.r	parent=Hip bone.r	faces=57	tris~=57	vis=False
+Extensor carpi radialis longus muscle-Humeral insertion.l	parent=Humerus.l	faces=63	tris~=63	vis=False
+Extensor carpi radialis longus muscle-Humeral insertion.r	parent=Humerus.r	faces=63	tris~=63	vis=False
+External abdominal oblique muscle-Iliac insertion.l	parent=Hip bone.l	faces=56	tris~=80	vis=False
+External abdominal oblique muscle-Iliac insertion.r	parent=Hip bone.r	faces=56	tris~=80	vis=False
+Geniohyoid muscle on hyoid bone.l	parent=Hyoid bone	faces=27	tris~=39	vis=False
+Geniohyoid muscle on hyoid bone.r	parent=Hyoid bone	faces=27	tris~=39	vis=False
+Geniohyoid muscle on mandible.l	parent=Mandible	faces=7	tris~=7	vis=False
+Geniohyoid muscle on mandible.r	parent=Mandible	faces=7	tris~=7	vis=False
+Gluteus maximus muscle-Iliac insertion.l	parent=Hip bone.l	faces=76	tris~=76	vis=False
+Gluteus maximus muscle-Iliac insertion.r	parent=Hip bone.r	faces=76	tris~=76	vis=False
+Gluteus medius muscle-Iliac insertion.l	parent=Hip bone.l	faces=52	tris~=61	vis=False
+Gluteus medius muscle-Iliac insertion.r	parent=Hip bone.r	faces=52	tris~=61	vis=False
+Gluteus minimus muscle-Iliac insertion.l	parent=Hip bone.l	faces=82	tris~=93	vis=False
+Gluteus minimus muscle-Iliac insertion.r	parent=Hip bone.r	faces=82	tris~=93	vis=False
+Gracilis muscle-Pubic insertion.l	parent=Hip bone.l	faces=59	tris~=59	vis=False
+Gracilis muscle-Pubic insertion.r	parent=Hip bone.r	faces=59	tris~=59	vis=False
+Groove for popliteus muscle-line	parent=Groove for popliteus muscle.t	faces=0	tris~=0	vis=False
+Inferior gemellus muscle-Ischiatic insertion.l	parent=Hip bone.l	faces=21	tris~=21	vis=False
+Inferior gemellus muscle-Ischiatic insertion.r	parent=Hip bone.r	faces=21	tris~=21	vis=False
+Infraspinatus muscle-Humeral insertion.l	parent=Humerus.l	faces=79	tris~=79	vis=False
+Infraspinatus muscle-Humeral insertion.r	parent=Humerus.r	faces=79	tris~=79	vis=False
+Infraspinatus muscle-Scapular insertion.l	parent=Scapula.l	faces=1027	tris~=1027	vis=False
+Infraspinatus muscle-Scapular insertion.r	parent=Scapula.r	faces=1027	tris~=1027	vis=False
+Internal abdominal oblique muscle-Iliac insertion.l	parent=Hip bone.l	faces=66	tris~=82	vis=False
+Internal abdominal oblique muscle-Iliac insertion.r	parent=Hip bone.r	faces=66	tris~=82	vis=False
+Lateral pterygoid muscle- Maxillar insertion.l	parent=Maxilla.r	faces=21	tris~=27	vis=False
+Lateral pterygoid muscle- Maxillar insertion.r	parent=Maxilla.r	faces=21	tris~=27	vis=False
+Lateral pterygoid muscle- Palatine insertion.l	parent=Palatine bone.r	faces=49	tris~=59	vis=False
+Lateral pterygoid muscle- Palatine insertion.r	parent=Palatine bone.r	faces=49	tris~=59	vis=False
+Long head of biceps femoris muscle-Ischiatic insertion.l	parent=Hip bone.l	faces=21	tris~=23	vis=False
+Long head of biceps femoris muscle-Ischiatic insertion.r	parent=Hip bone.r	faces=21	tris~=23	vis=False
+Longus capitis muscle-Occipital insertion.l	parent=Occipital bone	faces=4	tris~=8	vis=False
+Longus capitis muscle-Occipital insertion.r	parent=Occipital bone	faces=4	tris~=8	vis=False
+Medial pterygoid muscle in the pterygoid fossa.l	parent=Sphenoid bone	faces=34	tris~=45	vis=False
+Medial pterygoid muscle in the pterygoid fossa.r	parent=Sphenoid bone	faces=34	tris~=45	vis=False
+Medial pterygoid muscle on the mandibular angle.l	parent=Mandible	faces=15	tris~=20	vis=False
+Medial pterygoid muscle on the mandibular angle.r	parent=Mandible	faces=15	tris~=20	vis=False
+Mentalis muscle- Insertion.l	parent=Mandible	faces=3	tris~=4	vis=False
+Mentalis muscle- Insertion.r	parent=Mandible	faces=3	tris~=4	vis=False
+Mylohyoid muscle on mandible.l	parent=Mandible	faces=13	tris~=25	vis=False
+Mylohyoid muscle on mandible.r	parent=Mandible	faces=13	tris~=25	vis=False
+Nasalis muscle on nasal bone.l	parent=Nasal bone.l	faces=21	tris~=34	vis=False
+Nasalis muscle on nasal bone.r	parent=Nasal bone.r	faces=21	tris~=34	vis=False
+Obliquus inferior capitis muscle on axis.l	parent=Axis (C2)	faces=16	tris~=26	vis=False
+Obliquus inferior capitis muscle on axis.r	parent=Axis (C2)	faces=16	tris~=26	vis=False
+Obliquus superior capitis muscle-Occipital insertion.l	parent=Occipital bone	faces=27	tris~=38	vis=False
+Obliquus superior capitis muscle-Occipital insertion.r	parent=Occipital bone	faces=27	tris~=38	vis=False
+Omohyoid muscle on hyoid bone.l	parent=Hyoid bone	faces=12	tris~=15	vis=False
+Omohyoid muscle on hyoid bone.r	parent=Hyoid bone	faces=12	tris~=15	vis=False
+Omohyoid muscle on superior border of scapula.l	parent=Scapula.l	faces=64	tris~=73	vis=False
+Omohyoid muscle on superior border of scapula.r	parent=Scapula.r	faces=64	tris~=73	vis=False
+Pectineus muscle on medial surface od femur.l	parent=Femur.l	faces=12	tris~=17	vis=False
+Pectineus muscle on medial surface od femur.r	parent=Femur.r	faces=12	tris~=17	vis=False
+Pectineus muscle-Pubic insertion.l	parent=Hip bone.l	faces=51	tris~=63	vis=False
+Pectineus muscle-Pubic insertion.r	parent=Hip bone.r	faces=51	tris~=63	vis=False
+Pectoralis major muscle-Clavicular insertion.l	parent=Clavicle.l	faces=108	tris~=108	vis=False
+Pectoralis major muscle-Clavicular insertion.r	parent=Clavicle.r	faces=108	tris~=108	vis=False
+Pectoralis major muscle-Humeral insertion.l	parent=Humerus.l	faces=47	tris~=47	vis=False
+Pectoralis major muscle-Humeral insertion.r	parent=Humerus.r	faces=47	tris~=47	vis=False
+Pectoralis minor muscle on 3rd rib.l	parent=Third rib.l	faces=92	tris~=107	vis=False
+Pectoralis minor muscle on 3rd rib.r	parent=Third rib.r	faces=92	tris~=107	vis=False
+Pectoralis minor muscle- on 4th rib.l	parent=Fourth rib.l	faces=182	tris~=187	vis=False
+Pectoralis minor muscle- on 4th rib.r	parent=Fourth rib.r	faces=182	tris~=187	vis=False
+Pectoralis minor muscle-Thoracic insertions	parent=-	faces=0	tris~=0	vis=False
+Pectoralis minor muscleon 5th rib.l	parent=Fifth rib.l	faces=129	tris~=137	vis=False
+Pectoralis minor muscleon 5th rib.r	parent=Fifth rib.r	faces=129	tris~=137	vis=False
+Piriformis muscle in trochanteric fossa.l	parent=Femur.l	faces=22	tris~=22	vis=False
+Piriformis muscle in trochanteric fossa.r	parent=Femur.r	faces=22	tris~=22	vis=False
+Piriformis muscle on pelvic surface of sacrum.l	parent=Sacrum	faces=107	tris~=152	vis=False
+Piriformis muscle on pelvic surface of sacrum.r	parent=Sacrum	faces=107	tris~=152	vis=False
+Plantar interossei muscles on 3rd metatarsal bone.l	parent=Third metatarsal bone.l	faces=25	tris~=25	vis=False
+Plantar interossei muscles on 3rd metatarsal bone.r	parent=Third metatarsal bone.r	faces=25	tris~=25	vis=False
+Plantar interossei muscles on 4th metatarsal bone.l	parent=Fourth metatarsal bone.l	faces=27	tris~=27	vis=False
+Plantar interossei muscles on 4th metatarsal bone.r	parent=Fourth metatarsal bone.r	faces=27	tris~=27	vis=False
+Plantar interossei muscles on 5th metatarsal bone.l	parent=Fifth metatarsal bone.l	faces=42	tris~=42	vis=False
+Plantar interossei muscles on 5th metatarsal bone.r	parent=Fifth metatarsal bone.r	faces=42	tris~=42	vis=False
+Plantaris muscle medially to the lateral gastrocnemius origin	parent=Femur.r	faces=38	tris~=38	vis=False
+Plantaris muscle medially to the lateral gastrocnemius origin.l	parent=Femur.l	faces=38	tris~=38	vis=False
+Plantaris muscle medially to the lateral gastrocnemius origin.r	parent=Femur.r	faces=38	tris~=38	vis=False
+Popliteus muscle in the groove for popliteus muscle.l	parent=Femur.l	faces=29	tris~=29	vis=False
+Popliteus muscle in the groove for popliteus muscle.r	parent=Femur.r	faces=29	tris~=29	vis=False
+Pronator teres muscle-Humeral insertion.l	parent=Humerus.l	faces=16	tris~=16	vis=False
+Pronator teres muscle-Humeral insertion.r	parent=Humerus.r	faces=16	tris~=16	vis=False
+Rectus abdominis muscle-Thoracic insertions.l	parent=Costal cartilage of 6th rib.l	faces=290	tris~=327	vis=False
+Rectus abdominis muscle-Thoracic insertions.r	parent=Costal cartilage of 6th rib.r	faces=290	tris~=327	vis=False
+Rectus anterior capitis muscle on atlas.l	parent=Atlas (C1)	faces=15	tris~=21	vis=False
+Rectus anterior capitis muscle on atlas.r	parent=Atlas (C1)	faces=15	tris~=21	vis=False
+Rectus anterior capitis muscle-Occipital insertion.l	parent=Occipital bone	faces=4	tris~=7	vis=False
+Rectus anterior capitis muscle-Occipital insertion.r	parent=Occipital bone	faces=4	tris~=7	vis=False
+Rectus femoris muscle-Iliac insertion.l	parent=Hip bone.l	faces=30	tris~=30	vis=False
+Rectus femoris muscle-Iliac insertion.r	parent=Hip bone.r	faces=30	tris~=30	vis=False
+Rectus lateralis capitis muscle on Occipital bone.l	parent=Occipital bone	faces=22	tris~=31	vis=False
+Rectus lateralis capitis muscle on Occipital bone.r	parent=Occipital bone	faces=22	tris~=31	vis=False
+Rectus posterior major capitis muscle-Occipital insertion.l	parent=Occipital bone	faces=11	tris~=17	vis=False
+Rectus posterior major capitis muscle-Occipital insertion.r	parent=Occipital bone	faces=11	tris~=17	vis=False
+Rectus posterior minor capitis muscle-Occipital insertion.l	parent=Occipital bone	faces=13	tris~=17	vis=False
+Rectus posterior minor capitis muscle-Occipital insertion.r	parent=Occipital bone	faces=13	tris~=17	vis=False
+Rhomboid major muscle-Scapular insertion.l	parent=Scapula.l	faces=1238	tris~=1238	vis=False
+Rhomboid major muscle-Scapular insertion.r	parent=Scapula.r	faces=1238	tris~=1238	vis=False
+Rhomboid minor muscle-Scapular insertion.l	parent=Scapula.l	faces=366	tris~=366	vis=False
+Rhomboid minor muscle-Scapular insertion.r	parent=Scapula.r	faces=366	tris~=366	vis=False
+Sartorius muscle on upper anterior iliac spine.l	parent=Hip bone.l	faces=83	tris~=83	vis=False
+Sartorius muscle on upper anterior iliac spine.r	parent=Hip bone.r	faces=83	tris~=83	vis=False
+Scalene anterior muscle on 1st rib.l	parent=First rib.l	faces=68	tris~=78	vis=False
+Scalene anterior muscle on 1st rib.r	parent=First rib.r	faces=68	tris~=78	vis=False
+Scalene anterior muscle on transverse process of C4.l	parent=Vertebra C4	faces=19	tris~=24	vis=False
+Scalene anterior muscle on transverse process of C4.r	parent=Vertebra C4	faces=19	tris~=24	vis=False
+Scalene anterior muscle on transverse process of C5.l	parent=Vertebra C5	faces=14	tris~=18	vis=False
+Scalene anterior muscle on transverse process of C5.r	parent=Vertebra C5	faces=14	tris~=18	vis=False
+Scalene anterior muscle on transverse process of C6.l	parent=Vertebra C6	faces=8	tris~=10	vis=False
+Scalene anterior muscle on transverse process of C6.r	parent=Vertebra C6	faces=8	tris~=10	vis=False
+Scapular head of deltoid muscle-Scapular insertion.l	parent=Scapula.l	faces=872	tris~=872	vis=False
+Scapular head of deltoid muscle-Scapular insertion.r	parent=Scapula.r	faces=872	tris~=872	vis=False
+Semimembranosus muscle-Ischiatic insertion.l	parent=Hip bone.l	faces=28	tris~=32	vis=False
+Semimembranosus muscle-Ischiatic insertion.r	parent=Hip bone.r	faces=28	tris~=32	vis=False
+Semitendinosus muscle-Isciatic insertion.l	parent=Hip bone.l	faces=45	tris~=55	vis=False
+Semitendinosus muscle-Isciatic insertion.r	parent=Hip bone.r	faces=45	tris~=55	vis=False
+Serratus anterior muscle on 1st rib.l	parent=First rib.l	faces=119	tris~=128	vis=False
+Serratus anterior muscle on 1st rib.r	parent=First rib.r	faces=119	tris~=128	vis=False
+Serratus anterior muscle on 2nd rib.l	parent=Second rib.l	faces=128	tris~=143	vis=False
+Serratus anterior muscle on 2nd rib.r	parent=Second rib.r	faces=128	tris~=143	vis=False
+Serratus anterior muscle on 3rd rib.l	parent=Third rib.l	faces=176	tris~=194	vis=False
+Serratus anterior muscle on 3rd rib.r	parent=Third rib.r	faces=176	tris~=194	vis=False
+Serratus anterior muscle on 4th rib.l	parent=Fourth rib.l	faces=305	tris~=315	vis=False
+Serratus anterior muscle on 4th rib.r	parent=Fourth rib.r	faces=305	tris~=315	vis=False
+Serratus anterior muscle on 5th rib.l	parent=Fifth rib.l	faces=113	tris~=125	vis=False
+Serratus anterior muscle on 5th rib.r	parent=Fifth rib.r	faces=113	tris~=125	vis=False
+Serratus anterior muscle on 6th rib.l	parent=Sixth rib.l	faces=137	tris~=145	vis=False
+Serratus anterior muscle on 6th rib.r	parent=Sixth rib.r	faces=137	tris~=145	vis=False
+Serratus anterior muscle on 7th rib.l	parent=Seventh rib.l	faces=190	tris~=210	vis=False
+Serratus anterior muscle on 7th rib.r	parent=Seventh rib.r	faces=190	tris~=210	vis=False
+Serratus anterior muscle on 8th rib.l	parent=Heighth rib.l	faces=123	tris~=133	vis=False
+Serratus anterior muscle on 8th rib.r	parent=Heighth rib.r	faces=123	tris~=133	vis=False
+Serratus anterior muscle on 9th rib.l	parent=Ninth rib.l	faces=82	tris~=98	vis=False
+Serratus anterior muscle on 9th rib.r	parent=Ninth rib.r	faces=82	tris~=98	vis=False
+Serratus anterior muscle-Scapular insertion.l	parent=Scapula.l	faces=306	tris~=306	vis=False
+Serratus anterior muscle-Scapular insertion.r	parent=Scapula.r	faces=306	tris~=306	vis=False
+Serratus posterior inferior muscle on 12th rib.l	parent=Twelfth rib.l	faces=54	tris~=60	vis=False
+Serratus posterior inferior muscle on 12th rib.r	parent=Twelfth rib.r	faces=54	tris~=60	vis=False
+Spinalis capitis muscle-Occipital insertion.l	parent=Occipital bone	faces=17	tris~=25	vis=False
+Spinalis capitis muscle-Occipital insertion.r	parent=Occipital bone	faces=17	tris~=25	vis=False
+Sternocleidomastoid muscle on mastoid process.l	parent=Temporal bone.l	faces=169	tris~=210	vis=False
+Sternocleidomastoid muscle on mastoid process.r	parent=Temporal bone.r	faces=169	tris~=210	vis=False
+Sternocleidomastoid muscle-Clavicular insertion.l	parent=Clavicle.l	faces=28	tris~=28	vis=False
+Sternocleidomastoid muscle-Clavicular insertion.r	parent=Clavicle.r	faces=28	tris~=28	vis=False
+Sternocleidomastoid muscle-Sternal insertion.l	parent=Manubrium of sternum	faces=62	tris~=80	vis=False
+Sternocleidomastoid muscle-Sternal insertion.r	parent=Manubrium of sternum	faces=62	tris~=80	vis=False
+Sternohyoid muscle on hyoid bone.l	parent=Hyoid bone	faces=23	tris~=33	vis=False
+Sternohyoid muscle on hyoid bone.r	parent=Hyoid bone	faces=23	tris~=33	vis=False
+Sternohyoid muscle-Sternoclavicular insertion.l	parent=Clavicle.l	faces=107	tris~=113	vis=False
+Sternohyoid muscle-Sternoclavicular insertion.r	parent=Clavicle.r	faces=107	tris~=113	vis=False
+Subclavius muscle-Clavicular insertion.l	parent=Clavicle.l	faces=47	tris~=47	vis=False
+Subclavius muscle-Clavicular insertion.r	parent=Clavicle.r	faces=47	tris~=47	vis=False
+Subscapularis muscle-Humeral insertion.l	parent=Humerus.l	faces=28	tris~=28	vis=False
+Subscapularis muscle-Humeral insertion.r	parent=Humerus.r	faces=28	tris~=28	vis=False
+Subscapularis muscle-Scapular insertion.l	parent=Scapula.l	faces=1319	tris~=1319	vis=False
+Subscapularis muscle-Scapular insertion.r	parent=Scapula.r	faces=1319	tris~=1319	vis=False
+Superior gemellus muscle-Ischiatic insertion.l	parent=Hip bone.l	faces=39	tris~=39	vis=False
+Superior gemellus muscle-Ischiatic insertion.r	parent=Hip bone.r	faces=39	tris~=39	vis=False
+Supraspinatus muscle-Humeral insertion.l	parent=Humerus.l	faces=89	tris~=89	vis=False
+Supraspinatus muscle-Humeral insertion.r	parent=Humerus.r	faces=89	tris~=89	vis=False
+Supraspinatus muscle-Scapular insertion.l	parent=Scapula.l	faces=598	tris~=598	vis=False
+Supraspinatus muscle-Scapular insertion.r	parent=Scapula.r	faces=598	tris~=598	vis=False
+Temporalis muscle on coronoid process of mandible.l	parent=Mandible	faces=117	tris~=135	vis=False
+Temporalis muscle on coronoid process of mandible.r	parent=Mandible	faces=117	tris~=135	vis=False
+Temporalis muscle on temporal fossa- Frontal part.l	parent=Frontal bone	faces=93	tris~=94	vis=False
+Temporalis muscle on temporal fossa- Frontal part.r	parent=Frontal bone	faces=93	tris~=94	vis=False
+Temporalis muscle on temporal fossa- Parietal part.l	parent=Parietal bone.l	faces=230	tris~=232	vis=False
+Temporalis muscle on temporal fossa- Parietal part.r	parent=Parietal bone.r	faces=230	tris~=232	vis=False
+Temporalis muscle on temporal fossa- Sphenoid part.l	parent=Sphenoid bone	faces=81	tris~=91	vis=False
+Temporalis muscle on temporal fossa- Sphenoid part.r	parent=Sphenoid bone	faces=81	tris~=91	vis=False
+Temporalis muscle on temporal fossa- Temporal part.l	parent=Temporal bone.l	faces=412	tris~=412	vis=False
+Temporalis muscle on temporal fossa- Temporal part.r	parent=Temporal bone.r	faces=412	tris~=412	vis=False
+Teres major muscle-Humeral insertion.l	parent=Humerus.l	faces=18	tris~=18	vis=False
+Teres major muscle-Humeral insertion.r	parent=Humerus.r	faces=18	tris~=18	vis=False
+Teres major muscle-Scapular insertion.l	parent=Scapula.l	faces=323	tris~=353	vis=False
+Teres major muscle-Scapular insertion.r	parent=Scapula.r	faces=323	tris~=353	vis=False
+Teres minor muscle-Humeral insertion.l	parent=Humerus.l	faces=127	tris~=127	vis=False
+Teres minor muscle-Humeral insertion.r	parent=Humerus.r	faces=127	tris~=127	vis=False
+Teres minor muscle-Scapular insertion.l	parent=Scapula.l	faces=408	tris~=408	vis=False
+Teres minor muscle-Scapular insertion.r	parent=Scapula.r	faces=408	tris~=408	vis=False
+Thyrohyoid muscle on hyoid bone.l	parent=Hyoid bone	faces=30	tris~=34	vis=False
+Thyrohyoid muscle on hyoid bone.r	parent=Hyoid bone	faces=30	tris~=34	vis=False
+Thyrohyoid muscle on thyroid cartilage.l	parent=Thyroid cartilage	faces=63	tris~=80	vis=False
+Thyrohyoid muscle on thyroid cartilage.r	parent=Thyroid cartilage	faces=63	tris~=80	vis=False
+Transverse abdominal muscle-Iliac insertion.l	parent=Hip bone.l	faces=57	tris~=80	vis=False
+Transverse abdominal muscle-Iliac insertion.r	parent=Hip bone.r	faces=57	tris~=80	vis=False
+Zygomaticus major muscle on zygomtic bone.l	parent=Zygomatic bone.l	faces=3	tris~=8	vis=False
+Zygomaticus major muscle on zygomtic bone.r	parent=Zygomatic bone.r	faces=3	tris~=8	vis=False
+Zygomaticus minor muscle on zygomatic bone.l	parent=Zygomatic bone.l	faces=7	tris~=10	vis=False
+Zygomaticus minor muscle on zygomatic bone.r	parent=Zygomatic bone.r	faces=7	tris~=10	vis=False
+
+

@@ -2,10 +2,10 @@
 
 import sys
 import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "mos_bot"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "mos_os"))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "Muscle Operating System", "00_META", "scripts"))
 
-from mos_bot.core.intake_builder import build_profile, parse_weight, parse_height
+from mos_os.core.intake_builder import build_profile, parse_weight, parse_height
 
 
 def test_parse_weight_kg():

@@ -6,11 +6,11 @@ Muscle OS is an AI-native fitness coaching system. It delivers through:
 2. **Mobile App** (React Native / Expo in `mos-mobile/`)
 3. **Desktop App** (TypeScript/React/Electron)
 
-## Backend & Core Architecture (FastAPI + mos_bot/core/)
-The backend runs via **FastAPI** (`mos_bot/web/app.py` via `uvicorn`) powered by the deterministic core decision engine in `mos_bot/core/`.
+## Backend & Core Architecture (FastAPI + mos_os/core/)
+The backend runs via **FastAPI** (`mos_os/web/app.py` via `uvicorn`) powered by the deterministic core decision engine in `mos_os/core/`.
 
 ```
-mos_bot/
+mos_os/
 ├── bot.py                 # Entry point, wires 3 ConversationHandlers
 ├── config.py              # Env vars: BOT_TOKEN, LLM_API_KEY, LM_STUDIO_URL, VAULT_ROOT
 ├── states.py              # All Telegram state constants (range(37))
@@ -74,7 +74,7 @@ start → GOAL → SITUATION → EXPERIENCE → WEIGHT → HEIGHT → AGE → TR
 
 ## Vault Knowledge Graph
 
-The vault has a knowledge graph at `mos_bot/core/vault_graph.py` with 606 nodes and 5448 edges.
+The vault has a knowledge graph at `mos_os/core/vault_graph.py` with 606 nodes and 5448 edges.
 
 **Node types**: document (277), tool (160), protocol (65), research (61), principle (12), assessment (11), mechanism (7), exercise (3), pillar (10)
 
@@ -84,13 +84,13 @@ The vault has a knowledge graph at `mos_bot/core/vault_graph.py` with 606 nodes 
 
 **Rebuild**: Graph auto-builds on first access and caches to `data/vault_index/vault_graph.pkl`. Force rebuild with `build_vault_graph(force_rebuild=True)`.
 
-**Analysis**: Run `python -m mos_bot.core.vault_graph_analysis` to regenerate the graph report at `00_META/Vault Knowledge Graph.md`.
+**Analysis**: Run `python -m mos_os.core.vault_graph_analysis` to regenerate the graph report at `00_META/Vault Knowledge Graph.md`.
 
 ## Conventions
 
-- **Imports:** Relative within `mos_bot`, absolute for external modules
+- **Imports:** Relative within `mos_os`, absolute for external modules
 - **Config:** All secrets/settings from `config.py` via `os.getenv()` — never hardcoded
-- **Analytics:** Every new user-facing action should call `track()` from `mos_bot.core.analytics`
+- **Analytics:** Every new user-facing action should call `track()` from `mos_os.core.analytics`
 - **Free-text inputs:** Always sanitize with `_sanitize_text()` from `intake.py`
 - **LLM:** Two modes — local (LM Studio at LM_STUDIO_URL) or cloud (LLM_API_URL + LLM_API_KEY)
 - **Tests:** Run with `python -m pytest tests/` — all 192 should pass

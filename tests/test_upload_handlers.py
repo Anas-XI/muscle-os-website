@@ -1,11 +1,11 @@
 """Test upload message handlers — _process_json_file validation, size checks, non-JSON replies."""
 import sys, os
 import pytest
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "mos_bot"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "mos_os"))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "Muscle Operating System", "00_META", "scripts"))
 
 from unittest.mock import AsyncMock, patch
-from mos_bot.handlers.upload_profile import (
+from mos_os.handlers.upload_profile import (
     _process_json_file, handle_json_upload,
     upload_profile, MAX_JSON_BYTES,
 )
@@ -75,7 +75,7 @@ async def test_process_json_missing_both():
 async def test_process_json_name_from_top_level():
     msg = FakeMsg()
     form_json = {"name": "Alice", "answers": {"Q46": "70"}}
-    with patch("mos_bot.handlers.upload_profile.map_form_json") as mock_map:
+    with patch("mos_os.handlers.upload_profile.map_form_json") as mock_map:
         mock_map.side_effect = Exception("stop here")
         await _process_json_file(None, None, msg, form_json, "u1")
     mock_map.assert_called_once()
@@ -105,9 +105,9 @@ async def test_handle_json_upload_rejects_oversized():
 async def test_handle_json_upload_accepts_valid():
     doc = FakeDoc(name="intake.json", size=4096)
     update = FakeUpdate(doc=doc)
-    with patch("mos_bot.handlers.upload_profile._download_json") as mock_dl:
+    with patch("mos_os.handlers.upload_profile._download_json") as mock_dl:
         mock_dl.return_value = {"name": "Test", "answers": {"Q46": "75"}}
-        with patch("mos_bot.handlers.upload_profile._process_json_file"):
+        with patch("mos_os.handlers.upload_profile._process_json_file"):
             await handle_json_upload(update, None)
     mock_dl.assert_awaited_once()
 

@@ -1,7 +1,7 @@
 """Unit tests for Plant-Based DIAAS & Protein Optimizer Engine."""
 
 import pytest
-from mos_bot.core.plant_protein_engine import (
+from mos_os.core.plant_protein_engine import (
     optimize_plant_protein,
 )
 

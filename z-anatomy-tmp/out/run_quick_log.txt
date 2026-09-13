@@ -1,0 +1,101 @@
+﻿blender.exe : TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize
+At line:1 char:106
++ ... NTEXT="12"; & "C:\Program Files\Blender Foundation\Blender 4.2\blende ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (TBBmalloc: skip...function _msize:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Blender 4.2.16 LTS (hash 39502cae951c built 2025-11-18 01:34:37)
+Read blend: "E:\MoS\z-anatomy-tmp\extracted_z_anatomy\Z-Anatomy\Startup.blend"
+Warning: region type 5 missing in space type "Text" (id: 9) - removing region
+scripts disabled for "E:\MoS\z-anatomy-tmp\extracted_z_anatomy\Z-Anatomy\Startup.blend", skipping 'z-anatomy.py'
+Dependency cycle detected:
+  OBOesophagus-profile/TRANSFORM_INIT() depends on
+  OBOesophagus/GEOMETRY_EVAL() via 'Curve Follow Parent'
+  OBOesophagus/MODIFIER(Solidify) via 'modifier stack order'
+  OBOesophagus/GEOMETRY_EVAL_INIT() via 'Modifier'
+  CUOesophagus/GEOMETRY_EVAL_DONE() via 'Object Geometry Base Data'
+  CUOesophagus/GEOMETRY_EVAL() via 'ObData Geom Eval Done'
+  OBOesophagus-profile/TRANSFORM_FINAL() via 'Curve Bevel Transform'
+  OBOesophagus-profile/TRANSFORM_SIMULATION_INIT() via 'Simulation -> Final Transform'
+  OBOesophagus-profile/TRANSFORM_EVAL() via 'Transform Eval -> Simulation Init'
+  OBOesophagus-profile/TRANSFORM_PARENT() via 'Eval'
+  OBOesophagus-profile/TRANSFORM_LOCAL() via 'ObLocal -> ObParent'
+  OBOesophagus-profile/TRANSFORM_INIT() via 'Transform Init'
+Detected 1 dependency cycles
+Dependency cycle detected:
+  OBOesophagus-profile/TRANSFORM_INIT() depends on
+  OBOesophagus/GEOMETRY_EVAL() via 'Curve Follow Parent'
+  OBOesophagus/MODIFIER(Solidify) via 'modifier stack order'
+  OBOesophagus/GEOMETRY_EVAL_INIT() via 'Modifier'
+  CUOesophagus/GEOMETRY_EVAL_DONE() via 'Object Geometry Base Data'
+  CUOesophagus/GEOMETRY_EVAL() via 'ObData Geom Eval Done'
+  OBOesophagus-profile/TRANSFORM_FINAL() via 'Curve Bevel Transform'
+  OBOesophagus-profile/TRANSFORM_SIMULATION_INIT() via 'Simulation -> Final Transform'
+  OBOesophagus-profile/TRANSFORM_EVAL() via 'Transform Eval -> Simulation Init'
+  OBOesophagus-profile/TRANSFORM_PARENT() via 'Eval'
+  OBOesophagus-profile/TRANSFORM_LOCAL() via 'ObLocal -> ObParent'
+  OBOesophagus-profile/TRANSFORM_INIT() via 'Transform Init'
+Detected 1 dependency cycles
+Dependency cycle detected:
+  OBOesophagus-profile/TRANSFORM_INIT() depends on
+  OBOesophagus/GEOMETRY_EVAL() via 'Curve Follow Parent'
+  OBOesophagus/MODIFIER(Solidify) via 'modifier stack order'
+  OBOesophagus/GEOMETRY_EVAL_INIT() via 'Modifier'
+  CUOesophagus/GEOMETRY_EVAL_DONE() via 'Object Geometry Base Data'
+  CUOesophagus/GEOMETRY_EVAL() via 'ObData Geom Eval Done'
+  OBOesophagus-profile/TRANSFORM_FINAL() via 'Curve Bevel Transform'
+  OBOesophagus-profile/TRANSFORM_SIMULATION_INIT() via 'Simulation -> Final Transform'
+  OBOesophagus-profile/TRANSFORM_EVAL() via 'Transform Eval -> Simulation Init'
+  OBOesophagus-profile/TRANSFORM_PARENT() via 'Eval'
+  OBOesophagus-profile/TRANSFORM_LOCAL() via 'ObLocal -> ObParent'
+  OBOesophagus-profile/TRANSFORM_INIT() via 'Transform Init'
+Detected 1 dependency cycles
+Dependency cycle detected:
+  OBOesophagus-profile/TRANSFORM_INIT() depends on
+  OBOesophagus/GEOMETRY_EVAL() via 'Curve Follow Parent'
+  OBOesophagus/MODIFIER(Solidify) via 'modifier stack order'
+  OBOesophagus/GEOMETRY_EVAL_INIT() via 'Modifier'
+  CUOesophagus/GEOMETRY_EVAL_DONE() via 'Object Geometry Base Data'
+  CUOesophagus/GEOMETRY_EVAL() via 'ObData Geom Eval Done'
+  OBOesophagus-profile/TRANSFORM_FINAL() via 'Curve Bevel Transform'
+  OBOesophagus-profile/TRANSFORM_SIMULATION_INIT() via 'Simulation -> Final Transform'
+  OBOesophagus-profile/TRANSFORM_EVAL() via 'Transform Eval -> Simulation Init'
+  OBOesophagus-profile/TRANSFORM_PARENT() via 'Eval'
+  OBOesophagus-profile/TRANSFORM_LOCAL() via 'ObLocal -> ObParent'
+  OBOesophagus-profile/TRANSFORM_INIT() via 'Transform Init'
+Detected 1 dependency cycles
+Dependency cycle detected:
+  OBOesophagus-profile/TRANSFORM_INIT() depends on
+  OBOesophagus/GEOMETRY_EVAL() via 'Curve Follow Parent'
+  OBOesophagus/MODIFIER(Solidify) via 'modifier stack order'
+  OBOesophagus/GEOMETRY_EVAL_INIT() via 'Modifier'
+  CUOesophagus/GEOMETRY_EVAL_DONE() via 'Object Geometry Base Data'
+  CUOesophagus/GEOMETRY_EVAL() via 'ObData Geom Eval Done'
+  OBOesophagus-profile/TRANSFORM_FINAL() via 'Curve Bevel Transform'
+  OBOesophagus-profile/TRANSFORM_SIMULATION_INIT() via 'Simulation -> Final Transform'
+  OBOesophagus-profile/TRANSFORM_EVAL() via 'Transform Eval -> Simulation Init'
+  OBOesophagus-profile/TRANSFORM_PARENT() via 'Eval'
+  OBOesophagus-profile/TRANSFORM_LOCAL() via 'ObLocal -> ObParent'
+  OBOesophagus-profile/TRANSFORM_INIT() via 'Transform Init'
+Detected 1 dependency cycles
+Traceback (most recent call last):
+  File "E:\MoS\z-anatomy-tmp\build_anatomy_glb.py", line 483, in <module>
+    main()
+  File "E:\MoS\z-anatomy-tmp\build_anatomy_glb.py", line 324, in main
+    after = decimate(joined, HIGHLIGHT_RATIO)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\MoS\z-anatomy-tmp\build_anatomy_glb.py", line 267, in decimate
+    bpy.ops.object.modifier_apply(modifier="dec")
+  File "C:\Program Files\Blender Foundation\Blender 4.2\4.2\scripts\modules\bpy\ops.py", line 109, in __call__
+    ret = _op_call(self.idname_py(), kw)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Error: Modifiers cannot be applied to multi-user data
+
+[anatomy] loaded blend in 21.7s
+[anatomy] highlight sources: 117 objects across 59 keys | context: 256
+Warning: Active object is not a selected mesh
+Error: Modifiers cannot be applied to multi-user data
+
+Blender quit
+Error: Not freed memory blocks: 322, total unfreed memory 0.002457 MB

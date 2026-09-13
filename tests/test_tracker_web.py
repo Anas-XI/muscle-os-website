@@ -2,16 +2,16 @@
 
 import sys, os, json
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "mos_bot"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "mos_os"))
 
 import pytest
 from fastapi.testclient import TestClient
 from unittest.mock import patch
 
-from mos_bot.web.app import app
-from mos_bot.config import DATA_ROOT
-from mos_bot.core.tracker_renderer import TRACKERS_DIR, generate_tracker_file
-from mos_bot.core.models import ClientProfile, ProgramContent
+from mos_os.web.app import app
+from mos_os.config import DATA_ROOT
+from mos_os.core.tracker_renderer import TRACKERS_DIR, generate_tracker_file
+from mos_os.core.models import ClientProfile, ProgramContent
 from tests.test_tracker_renderer import _make_test_pc
 
 client = TestClient(app)

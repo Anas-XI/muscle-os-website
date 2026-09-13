@@ -1,10 +1,10 @@
 """Test /upload_profile command — JSON parsing, field mapping, profile build."""
 import sys, os, json, tempfile
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "mos_bot"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "mos_os"))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "Muscle Operating System", "00_META", "scripts"))
 
-from mos_bot.handlers.upload_profile import map_form_json
-from mos_bot.core.intake_builder import build_profile
+from mos_os.handlers.upload_profile import map_form_json
+from mos_os.core.intake_builder import build_profile
 
 
 def make_form_json(overrides=None):

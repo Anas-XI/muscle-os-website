@@ -2,7 +2,7 @@
 
 import pytest
 from fastapi.testclient import TestClient
-from mos_bot.web.app import app
+from mos_os.web.app import app
 
 client = TestClient(app)
 

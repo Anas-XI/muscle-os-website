@@ -29,8 +29,8 @@ The **performance goal** across all channels: intake → program generation → 
 
 | # | Project | Where | Status | Stack | Why it exists |
 |---|---------|-------|--------|-------|---------------|
-| P1 | Telegram bot + backend | `mos_bot/` + root scripts | 🟢 Active (primary) | Python 3.12, python-telegram-bot 21, FastAPI, FAISS, sentence-transformers | Full coaching flow: intake → program PDF → check-ins → coach |
-| P2 | **Muscle OS Core** (Coaching Engine) | `mos_bot/core/` + `Muscle Operating System/` | 🟢 In production (reused by bot, web, web backend v2, desktop alpha, mobile) | Python + Markdown vault + FAISS + graph | The shared "brain": safety, pillars, book engine, vault RAG |
+| P1 | Telegram bot + backend | `mos_os/` + root scripts | 🟢 Active (primary) | Python 3.12, python-telegram-bot 21, FastAPI, FAISS, sentence-transformers | Full coaching flow: intake → program PDF → check-ins → coach |
+| P2 | **Muscle OS Core** (Coaching Engine) | `mos_os/core/` + `Muscle Operating System/` | 🟢 In production (reused by bot, web, web backend v2, desktop alpha, mobile) | Python + Markdown vault + FAISS + graph | The shared "brain": safety, pillars, book engine, vault RAG |
 | P3 | **Website & media commerce** | `website/` + worker + `books/`, `guides/`, `knowledge-hub/`, `samples/`, `quiz/`, `pdf/`, `admin/` | 🟢 Live (midnight deploys) | Static HTML/CSS/JS, GitHub Pages, Cloudflare Worker (KV + Durable Objects) | Marketing, monetization (access codes, PDF books), order/payment handling, analytics |
 | P4 | **Web Tools** | `tools/` (mirrored in `website/tools/`) | 🟢 Live: two paid (Training App PRO, TDEE Adaptive Engine) + free calculators | Vanilla JS SPA, PWA, bilingual EN/AR | Productized interactive training & nutrition tools sold as subscriptions |
 | P5 | **Books & Guides (digital products)** | `books/`, `guides/`, `website/books/`, `site guides/`, `knowledge-hub/`, `samples/`, bundles | 🟢 Shipped (6 full books + samples + 6 guide work-sheets) | HTML → PDF generator, in English + Arabic + French variants | Owned paid content / lead magnets sold via codes |
@@ -62,7 +62,7 @@ safety triage (run_safety_triage)
 
 - Location: `Muscle Operating System/` (Obsidian vault)
 - Entry points: `Muscle OS Core Engine.md`, `Master Protocol.md`, `USER_GUIDE.md`, plus auto-generated `00_META/Vault Knowledge Graph.md`
-- Storage: `mos_bot/core/vault_rag.py` — FAISS + sentence-transformers over 1,563 chunks; graph expansion via `vault_graph.py` (606 nodes / 5,448 edges, edge types wikilink 2.0, same_pillar 1.0, same_category 0.5); rule-based selection `vault_context.py`; graph analysis `vault_graph_analysis.py`
+- Storage: `mos_os/core/vault_rag.py` — FAISS + sentence-transformers over 1,563 chunks; graph expansion via `vault_graph.py` (606 nodes / 5,448 edges, edge types wikilink 2.0, same_pillar 1.0, same_category 0.5); rule-based selection `vault_context.py`; graph analysis `vault_graph_analysis.py`
 - Rebuild: auto on first access, cached to `data/vault_index/vault_graph.pkl`; force with `build_vault_graph(force_rebuild=True)`
 
 ### 3.3 Safety & screening
@@ -91,7 +91,7 @@ JSONL event logging for every user-facing action. Funnel web analytics separate 
 
 # P1 — Telegram Bot (Primary Coaching Channel)
 
-**Component:** `mos_bot/` + root scripts (`chatbot.py`, `coaching_mode.py`, `checkin_tracker.py`)
+**Component:** `mos_os/` + root scripts (`chatbot.py`, `coaching_mode.py`, `checkin_tracker.py`)
 **Status:** 🟢 Active, primary
 
 ## Problem / Persona
@@ -115,14 +115,14 @@ An intermediate+ lifter who has plateaued and wants science-based training and c
 ### JSON profile upload (`handlers/upload_profile.py`)
 - Automates the profile from `intake-form.html` submission
 ### Web UI (FastAPI in-process)
-- `mos_bot/web/` — FastAPI server (port 8080) with a single-page web UI (`index.html`, `coach.html`) served at `muscleos.xyz`
+- `mos_os/web/` — FastAPI server (port 8080) with a single-page web UI (`index.html`, `coach.html`) served at `muscleos.xyz`
 
 ## Integrations
 - Reuses the shared core (vault, safety, decision engine). `handlers/start.py` wire 3 ConversationHandlers.
 
 ## Inputs/Outputs
 - **First inbox:** Telegram chat. Outputs: PDF program, check-in summaries, chat markdown.
-- Data: `mos_bot/data/users/*.json` profiles, `programs/*.md`, `pdfs/*.pdf`, `checkins/*.json`, `analytics/*.jsonl`, `vault_index/` (FAISS, pkl graphs)
+- Data: `mos_os/data/users/*.json` profiles, `programs/*.md`, `pdfs/*.pdf`, `checkins/*.json`, `analytics/*.jsonl`, `vault_index/` (FAISS, pkl graphs)
 
 ## Success Metrics
 - Intake completion rate, program generation success, check-in cadence, coach chat retention.
@@ -136,14 +136,14 @@ See §Shared Core. The engine files:
 
 | File | Role |
 |---|---|
-| `mos_bot/core/program_generator.py` | Full pipeline orchestrator (safety → vault → pillars → book → content → PDF) |
-| `mos_bot/core/content_generator.py` | Deterministic program/nutrition/structure from templates + vault |
-| `mos_bot/core/business/book_engine.py` | 35+ decision rules |
-| `mos_bot/core/constraint_engine.py` | Multi-domain constraint resolution w/ conflict detection |
-| `mos_bot/core/vault_*.py` | Vault selection + RAG + graph |
-| `mos_bot/core/analytics.py`/`citation_tracker.py` | Tracking + evidence citations |
+| `mos_os/core/program_generator.py` | Full pipeline orchestrator (safety → vault → pillars → book → content → PDF) |
+| `mos_os/core/content_generator.py` | Deterministic program/nutrition/structure from templates + vault |
+| `mos_os/core/business/book_engine.py` | 35+ decision rules |
+| `mos_os/core/constraint_engine.py` | Multi-domain constraint resolution w/ conflict detection |
+| `mos_os/core/vault_*.py` | Vault selection + RAG + graph |
+| `mos_os/core/analytics.py`/`citation_tracker.py` | Tracking + evidence citations |
 | `coaching_mode.py` | Coach prompt rules (shared with frontends) |
-| `mos_bot/data/` | Runtime stores: users, programs, pdfs, checkins, analytics, vault_index |
+| `mos_os/data/` | Runtime stores: users, programs, pdfs, checkins, analytics, vault_index |
 
 ---
 
@@ -275,7 +275,7 @@ Put the coach loop (check-in + coach chat + program + tracker) on mobile, using 
   - Onboarding: 8-screen glass-style intake matching the bot's intake (incl. safety/ED screening); on submit fires `updateProfile` + fire-and-forget `generateProgram` then lands in chat
   - Client tabs: **Chat** (AI, SSE streaming, markdown bubbles), **Tracker** (Log/History/Progress — volume, per-exercise weight trends), **Program** (renders markdown; "Generate New" button), **Profile** (weekly check-in modal)
   - Coach tabs: Client list, add client by email, client detail with 5 subtabs (profile/program/check-ins/workouts/chat — read-only)
-- **`backend/`** — FastAPI (port 8000) reuses the bot's intelligence (`mos_bot`, `chatbot.py`, `coaching_mode.py`) via `sys.path`; DB abstraction `Supabase` or `LocalDB` (SQLite) — `db_adapter.py`, `local_db.py`. CRISIS flow: on safety-crisis, calls `_notify_owner_crisis` Telegram to owner, returns support resources. Endpoints: auth, profile, chat (+stream SSE), programs, checkins, workouts, coach, admin.
+- **`backend/`** — FastAPI (port 8000) reuses the bot's intelligence (`mos_os`, `chatbot.py`, `coaching_mode.py`) via `sys.path`; DB abstraction `Supabase` or `LocalDB` (SQLite) — `db_adapter.py`, `local_db.py`. CRISIS flow: on safety-crisis, calls `_notify_owner_crisis` Telegram to owner, returns support resources. Endpoints: auth, profile, chat (+stream SSE), programs, checkins, workouts, coach, admin.
 - **`supabase/`** — `schema.sql` (profiles, client_profiles, programs, messages, checkins, coach_clients, workout_logs) with RLS + `get_user_context()` helper.
 
 ## 6.3 Known gaps (from repo analysis)
@@ -348,7 +348,7 @@ React 19, Vite 6, Tailwind 4, Zustand, React Markdown, **Dexie/IndexedDB** (offl
 - `website/scripts/` (in site repo under scripts): `generate-codes.js` (bulk code gen: 1000 codes × 6 products, seed 6000 to KV), `coach-admin.js`, `rotate-fallback-codes.js`, `hash-code.js` — generate & rotate fallback codes for resilience. `codes/` root — local dev copies.
 
 ### Testing
-- `tests/` (192 tests) in `mos_bot`/`tests/` — run `python -m pytest tests/`. Mobile backend tests separate (test_api.py, SQLite-fixture-driven).
+- `tests/` (192 tests) in `mos_os`/`tests/` — run `python -m pytest tests/`. Mobile backend tests separate (test_api.py, SQLite-fixture-driven).
 - Website — Playwright functional tests for tools; `bracecheck2.js` + `check_parse.js` per tool feature.
 
 ---
@@ -356,10 +356,10 @@ React 19, Vite 6, Tailwind 4, Zustand, React Markdown, **Dexie/IndexedDB** (offl
 ## 8. Cross-Project Data Flow
 
 ```
-Telegram client ──► mos_bot bot (intake / checkin / coach)
+Telegram client ──► mos_os bot (intake / checkin / coach)
       │                │
       │                ▼
-      │        mos_bot/core engine ──► Muscle Operating System/ (vault)  ▲
+      │        mos_os/core engine ──► Muscle Operating System/ (vault)  ▲
       │                ▲                       (knowledge graph + RAG)    │
       │                │                                                 │
 Mobile app ──► FastAPI backend (mos-mobile) → reuses bot's core          │

@@ -1,0 +1,13 @@
+blend loaded
+sources: ['Sternocostal head of pectoralis major muscle.l', '(Abdominal part of pectoralis major muscle).l']
+step unparent Sternocostal head of pectoralis major muscle.l users=2
+copied data for Sternocostal head of pectoralis major muscle.l (was multi-user)
+step transform_apply Sternocostal head of pectoralis major muscle.l
+step unparent (Abdominal part of pectoralis major muscle).l users=2
+copied data for (Abdominal part of pectoralis major muscle).l (was multi-user)
+step transform_apply (Abdominal part of pectoralis major muscle).l
+step select for join
+step join ['Sternocostal head of pectoralis major muscle.l', '(Abdominal part of pectoralis major muscle).l']
+step shade_smooth
+step decimate
+DONE after=606

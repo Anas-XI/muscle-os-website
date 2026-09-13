@@ -6,14 +6,14 @@ import json
 from pathlib import Path
 from fastapi.testclient import TestClient
 
-from mos_bot.core.coach_actions import (
+from mos_os.core.coach_actions import (
     execute_coach_action,
     load_active_program_content,
     get_program_modifications,
 )
-from mos_bot.core.coach_intelligence import extract_and_execute_coach_actions
-from mos_bot.core.intake_builder import save_profile
-from mos_bot.web.app import app
+from mos_os.core.coach_intelligence import extract_and_execute_coach_actions
+from mos_os.core.intake_builder import save_profile
+from mos_os.web.app import app
 
 client = TestClient(app)
 
@@ -22,7 +22,7 @@ TEST_USER = "coach_action_tester"
 
 @pytest.fixture(autouse=True)
 def setup_test_environment(tmp_path):
-    from mos_bot.core.coach_actions import _get_programs_json_path
+    from mos_os.core.coach_actions import _get_programs_json_path
     json_path = _get_programs_json_path(TEST_USER)
     if json_path.exists():
         try: json_path.unlink()

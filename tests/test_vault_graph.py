@@ -1,7 +1,7 @@
 """Tests for Vault Knowledge Graph connectivity, zero orphans, and ontology edges."""
 
 import pytest
-from mos_bot.core.vault_graph import build_vault_graph, VaultGraph
+from mos_os.core.vault_graph import build_vault_graph, VaultGraph
 from tests.skip_helpers import skip_if_no_vault
 
 

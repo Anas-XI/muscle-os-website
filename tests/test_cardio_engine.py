@@ -1,7 +1,7 @@
 """Unit tests for Cardio & Concurrent Training Engine."""
 
 import pytest
-from mos_bot.core.cardio_engine import (
+from mos_os.core.cardio_engine import (
     generate_cardio_prescription,
 )
 

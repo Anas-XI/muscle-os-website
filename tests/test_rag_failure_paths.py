@@ -2,8 +2,8 @@
 import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
-from mos_bot.core.context_loader import evaluate_rag_impact
-from mos_bot.core.models import ClientProfile
+from mos_os.core.context_loader import evaluate_rag_impact
+from mos_os.core.models import ClientProfile
 
 
 def test_evaluate_rag_impact_no_failure():
@@ -104,7 +104,7 @@ def test_evaluate_rag_impact_clientprofile_flagged():
 
 def test_generate_program_returns_markdown_for_clean_profile():
     """Verify a minimal profile generates markdown (rag_failed=False, no flags → proceed)."""
-    from mos_bot.core.program_generator import generate_program
+    from mos_os.core.program_generator import generate_program
     profile = {"user_id": "t", "name": "Test", "goal": "hypertrophy"}
     result = generate_program(profile)
     assert result is not None

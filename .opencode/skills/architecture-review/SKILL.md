@@ -19,7 +19,7 @@ Muscle OS has 3 delivery channels sharing a common knowledge base at `Muscle Ope
 - Consistency: do all 3 channels use the same LLM interface (`chatbot.py`)?
 - Data flow: does the knowledge base (`Muscle Operating System/`) serve all channels through `vault_context.py`?
 - State management: bot uses telegram ConversationHandler states, alpha uses Zustand, mobile uses Zustand — are they modeling the same domain?
-- API layers: bot web `mos_bot/web/app.py`, mobile backend `mos-mobile/backend/` — are they converging or diverging?
+- API layers: bot web `mos_os/web/app.py`, mobile backend `mos-mobile/backend/` — are they converging or diverging?
 - Deployment: Procfile for bot, Docker for mobile backend, Electron for alpha — are the infra patterns compatible?
 
 ## Decision-making rules

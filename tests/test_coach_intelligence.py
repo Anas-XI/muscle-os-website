@@ -8,17 +8,17 @@ from unittest.mock import patch, MagicMock
 from fastapi.testclient import TestClient
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "mos_bot"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "mos_os"))
 
-from mos_bot.web.app import app
-from mos_bot.core.coach_intelligence import (
+from mos_os.web.app import app
+from mos_os.core.coach_intelligence import (
     build_coach_system_prompt,
     get_chat_history,
     save_chat_message,
     generate_coach_response,
     _call_gemini_api_sync,
 )
-from mos_bot.core.intake_builder import save_profile
+from mos_os.core.intake_builder import save_profile
 
 client = TestClient(app)
 
@@ -96,7 +96,7 @@ class TestGeminiAPICall:
             assert "For hypertrophy" in resp
             assert mock_post.called
 
-    @patch("mos_bot.core.coach_intelligence._call_gemini_api_sync")
+    @patch("mos_os.core.coach_intelligence._call_gemini_api_sync")
     @pytest.mark.asyncio
     async def test_generate_coach_response(self, mock_gemini):
         mock_gemini.return_value = "Substitute Barbell Bench with Incline Dumbbell Press to protect your shoulder."
@@ -111,7 +111,7 @@ class TestGeminiAPICall:
 class TestWebChatEndpoints:
     """Test FastAPI chat endpoints."""
 
-    @patch("mos_bot.core.coach_intelligence._call_gemini_api_sync")
+    @patch("mos_os.core.coach_intelligence._call_gemini_api_sync")
     def test_api_chat_endpoint(self, mock_gemini):
         mock_gemini.return_value = "Keep sleep above 7.5 hours for optimal muscle protein synthesis."
         payload = {

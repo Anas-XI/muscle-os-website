@@ -1,0 +1,1425 @@
+TOTAL_MESHES=1424 TOTAL_TRIS=634227
+2nd plantar interosseus muscle on middle phal. of 4th finger	Proximal phalanx of fourth finger of foot.001	18	18
+2nd plantar interosseus muscle on middle phal. of 4th finger.r	-	18	18
+3rd plantar interosseous muscle on middle phal. of 5th finger	Proximal phalanx of fifth finger of foot.001	15	15
+3rd plantar interosseous muscle on middle phal. of 5th finger.r	Proximal phalanx of fifth finger of foot	15	15
+[Third trochanter]-line	[Third trochanter].t	0	0
+Abdominal part of pectoralis major muscle- Insertion.l	Costal cartilage of 7th rib.l	87	87
+Abdominal part of pectoralis major muscle- Insertion.r	Costal cartilage of 7th rib.r	87	87
+Abductor digiti minimi of foot on 5th proximal phalanx.l	Proximal phalanx of fifth finger of foot.001	44	44
+Abductor digiti minimi of foot on 5th proximal phalanx.r	Proximal phalanx of fifth finger of foot	44	44
+Abductor digiti minimi on base of prox. phal. of 5th finger.r	Proximal phalanx of fifth finger of hand	66	66
+Abductor digiti minimi-Insertion.l	Pisiform bone.l	48	48
+Abductor digiti minimi-Insertion.r	Pisiform bone.r	48	48
+Abductor hallucis on medial process of calcaneal tuberosity	-	32	32
+Abductor hallucis on medial process of calcaneal tuberosity.r	Calcaneus.r	32	32
+Abductor hallucis on proximal phalanx of 1st finger.l	Proximal phalanx of first finger of foot.001	15	15
+Abductor hallucis on proximal phalanx of 1st finger.r	Proximal phalanx of first finger of foot	15	15
+Abductor pollicis longus-Insertion.l	First metacarpal bone.001	14	14
+Abductor pollicis longus-Insertion.r	First metacarpal bone	14	14
+Abductor pollicis longus-Radio-ulnar insertion.l	Ulna.l	110	110
+Abductor pollicis longus-Radio-ulnar insertion.r	Ulna.r	110	110
+Acetabular fossa-line	Acetabular fossa.t	0	0
+Acetabular margin-line	Acetabular margin.t	0	0
+Acetabular notch-line	Acetabular notch.t	0	0
+Acetabulum-line	Acetabulum.t	0	0
+Acromial angle-line	Acromial angle.t	0	0
+Acromial head of deltoid muscle-Scapular insertion.l	Scapula.l	510	510
+Acromial head of deltoid muscle-Scapular insertion.r	Scapula.r	510	510
+Acromion-line	Acromion.t	0	0
+Adductor longus on medial surface of femur.l	Femur.l	29	29
+Adductor longus on medial surface of femur.r	Femur.r	29	29
+Adductor longus-Pubic insertion.l	Hip bone.l	13	23
+Adductor longus-Pubic insertion.r	Hip bone.r	13	23
+Adductor magnus on medial lip of linea aspera.l	Femur.l	106	133
+Adductor magnus on medial lip of linea aspera.r	Femur.r	106	133
+Adductor magnus-Ischiatic insertion.l	Hip bone.l	43	60
+Adductor magnus-Ischiatic insertion.r	Hip bone.r	43	60
+Adductor pollicis brevis-Ending.l	Capitate bone.l	30	30
+Adductor pollicis brevis-Ending.r	Capitate bone.r	30	30
+Adductor pollicis brevis-Insertion.l	Proximal phalanx of first finger of hand.001	18	18
+Adductor pollicis brevis-Insertion.r	Proximal phalanx of first finger of hand	18	18
+Adductor tubercle-line	Adductor tubercle.t	0	0
+Ala of ilium-line	Ala of ilium.t	0	0
+Ala of sacrum-line	Ala of sacrum.t	0	0
+Anatomical neck of humerus-line	Anatomical neck of humerus.t	0	0
+Anconeus muscle-Humeral insertion.l	Humerus.l	31	31
+Anconeus muscle-Humeral insertion.r	Humerus.r	31	31
+Anconeus muscle-Ulnar insertion.l	Ulna.l	24	24
+Anconeus muscle-Ulnar insertion.r	Ulna.r	24	24
+Angle of rib-line	Angle of rib.t	0	0
+Annular hypophisis-line	Annular hypophisis.t	0	0
+Anterior arch of atlas-line	Anterior arch of atlas.t	0	0
+Anterior articular facet of dens axis-line	Anterior articular facet of dens axis.t	0	0
+Anterior belly of digastric muscle on mandible.l	Mandible	15	15
+Anterior belly of digastric muscle on mandible.r	Mandible	15	15
+Anterior border of fibula-line	Anterior border of fibula.t	0	0
+Anterior border of humerus-line	Anterior border of humerus.t	0	0
+Anterior border of radius-line	Anterior border of radius.t	0	0
+Anterior border of tibia-line	Anterior border of tibia.t	0	0
+Anterior border of ulna-line	Anterior border of ulna.t	0	0
+Anterior clinoid process-line	Anterior clinoid process.t	0	0
+Anterior gluteal line-line	Anterior gluteal line.t	0	0
+Anterior inferior iliac spine-line	Anterior inferior iliac spine.t	0	0
+Anterior intercondylar area-line	Anterior intercondylar area.t	0	0
+Anterior obturator tubercle-line	Anterior obturator tubercle.t	0	0
+Anterior sacral foramina-line	Anterior sacral foramina.t	0	0
+Anterior superior iliac spine-line	Anterior superior iliac spine.t	0	0
+Anterior surface of radius-line	Anterior surface of radius.t	0	0
+Anterior tubercle of atlas-line	Anterior tubercle of atlas.t	0	0
+Anterior tubercle of transverse process-line	Anterior tubercle of transverse process.t	0	0
+Anterolateral surface of humerus-line	Anterolateral surface of humerus.t	0	0
+Anteromedial surface of fibula-line	Anteromedial surface of fibula.t	0	0
+Anteromedial surface of humerus-line	Anteromedial surface of humerus.t	0	0
+Apex of coccyx-line	Apex of coccyx.t	0	0
+Apex of dens axis-line	Apex of dens axis.t	0	0
+Apex of head of fibula-line	Apex of head of fibula.t	0	0
+Apex of sacrum-line	Apex of sacrum.t	0	0
+Arcuate line of ilium-line	Arcuate line of ilium.t	0	0
+Articular circumference of head of radius-line	Articular circumference of head of radius.t	0	0
+Articular circumference of ulna-line	Articular circumference of ulna.t	0	0
+Articular facet of head of fibula-line	Articular facet of head of fibula.t	0	0
+Articular facet of head of radius-line	Articular facet of head of radius.t	0	0
+Articular facet of head of rib-line	Articular facet of head of rib.t	0	0
+Articular facet of lateral malleolus-line	Articular facet of lateral malleolus.t	0	0
+Articular facet of medial malleolus-line	Articular facet of medial malleolus.t	0	0
+Articular surface of the medial condyle-line	Articular surface of the medial condyle.t	0	0
+Arytenoid cartilage.l	Armature	534	534
+Arytenoid cartilage.r	Armature	534	534
+Ascending part of trapezius muscle-Acromial insertion.l	Scapula.l	214	214
+Ascending part of trapezius muscle-Acromial insertion.r	Scapula.r	214	214
+Ascending part of trapezius muscle-Clavicular insertion.l	Clavicle.l	61	61
+Ascending part of trapezius muscle-Clavicular insertion.r	Clavicle.r	61	61
+Ascending part of trapezius muscle-Occipital insertion.l	Occipital bone	12	21
+Ascending part of trapezius muscle-Occipital insertion.r	Occipital bone	12	21
+Ascending part of trapezius muscle-Spinal insertion.l	Scapula.l	247	247
+Ascending part of trapezius muscle-Spinal insertion.r	Scapula.r	247	247
+Atlas (C1)	Armature	2146	2194
+Atlas-line	Atlas.t	0	0
+Auricular surface of ilium-line	Auricular surface of ilium.t	0	0
+Auricular surface of sacrum-line	Auricular surface of sacrum.t	0	0
+Axis (C2)	Armature	2244	2334
+Axis (C2)-line	Axis (C2).t	0	0
+Base of coccyx-line	Base of coccyx.t	0	0
+Base of sacrum-line	Base of sacrum.t	0	0
+Basilar part of occipital bone-line	Basilar part of occipital bone.t	0	0
+Biceps brachii muscle-Radial insertion.l	Radius.l	25	25
+Biceps brachii muscle-Radial insertion.r	Radius.r	25	25
+Biceps femoris on fibular head.l	Fibula.l	50	51
+Biceps femoris on fibular head.r	Fibula.r	50	51
+Body of femur-line	Body of femur.t	0	0
+Body of fibula-line	Body of fibula.t	0	0
+Body of humerus-line	Body of humerus.t	0	0
+Body of ilium-line	Body of ilium.t	0	0
+Body of ischium-line	Body of ischium.t	0	0
+Body of pubis-line	Body of pubis.t	0	0
+Body of radius-line	Body of radius.t	0	0
+Body of rib-line	Body of rib.t	0	0
+Body of sphenoid bone-line	Body of sphenoid bone.t	0	0
+Body of sternum-line	Body of sternum.t	0	0
+Body of tibia-line	Body of tibia.t	0	0
+Body of ulna-line	Body of ulna.t	0	0
+Brachialis anterior muscle-Humeral insertion.l	Humerus.l	192	192
+Brachialis anterior muscle-Humeral insertion.r	Humerus.r	192	192
+Brachialis muscle-Ulnar insertion.l	Ulna.l	67	67
+Brachialis muscle-Ulnar insertion.r	Ulna.r	67	67
+Brachioradialis muscle on radial styloid process.l	Radius.l	32	32
+Brachioradialis muscle on radial styloid process.r	Radius.r	32	32
+Bracioradialis muscle-Humeral insertion.l	Humerus.l	30	30
+Bracioradialis muscle-Humeral insertion.r	Humerus.r	30	30
+Buccinator- Mandibular insertions.l	Mandible	13	22
+Buccinator- Mandibular insertions.r	Mandible	13	22
+Buccinator- Maxillar insertion.l	Maxilla.l	14	25
+Buccinator- Maxillar insertion.r	Maxilla.r	14	25
+Calcaneus.l	Armature	1428	1428
+Calcaneus.r	Armature	1428	1428
+Canal for vertebral artery-line	Canal for vertebral artery.t	0	0
+Capitate bone.l	Armature	470	472
+Capitate bone.r	Armature	470	472
+Capitulum of the humerus-line	Capitulum of the humerus.t	0	0
+Carotid sulcus-line	Carotid sulcus.t	0	0
+Carpal articular surface-line	Carpal articular surface.t	0	0
+Cerebellar fossa-line	Cerebellar fossa.t	0	0
+Cerebral fossa-line	Cerebral fossa.t	0	0
+Cerebral surface of greater wing-line	Cerebral surface of greater wing.t	0	0
+Cervical vertebra-line	Cervical vertebra.t	0	0
+Chiasmatic sulcus-line	Chiasmatic sulcus.t	0	0
+Clavicle.l	Armature	1548	1548
+Clavicle.r	Armature	1548	1548
+Clavicular facet-line	Clavicular facet.t	0	0
+Clavicular notch-line	Clavicular notch.t	0	0
+Clavicular part of deltoid muscle-Clavicular insertion.l	Clavicle.l	125	125
+Clavicular part of deltoid muscle-Clavicular insertion.r	Clavicle.r	125	125
+Coccygeal horn-line	Coccygeal horn.t	0	0
+Coccyx	Armature	1066	1166
+Coccyx-line	Coccyx.t	0	0
+Common extensor tendon.l	Humerus.l	40	40
+Common extensor tendon.r	Humerus.r	40	40
+Common flexor tendon.l	Humerus.l	44	44
+Common flexor tendon.r	Humerus.r	44	44
+Condylar canal-line	Condylar canal.t	0	0
+Condylar fossa-line	Condylar fossa.t	0	0
+Condyle of humerus-line	Condyle of humerus.t	0	0
+Coracobrachialis muscle on coracoid process of scapula.l	Scapula.l	209	209
+Coracobrachialis muscle on coracoid process of scapula.r	Scapula.r	209	209
+Coracoid process-line	Coracoid process.t	0	0
+Coracoradialis muscle-Humeral insertion.l	Humerus.l	28	28
+Coracoradialis muscle-Humeral insertion.r	Humerus.r	28	28
+Corniculate cartilage.l	Armature	136	136
+Corniculate cartilage.r	Armature	136	136
+Coronoid fossa of the humerus-line	Coronoid fossa of the humerus.t	0	0
+Coronoid process of ulna-line	Coronoid process of ulna.t	0	0
+Costal cartilage of 10th rib.l	Armature	192	378
+Costal cartilage of 10th rib.r	Armature	192	378
+Costal cartilage of 1st rib.l	Armature	462	462
+Costal cartilage of 1st rib.r	Armature	462	462
+Costal cartilage of 2nd rib.l	Armature	568	568
+Costal cartilage of 2nd rib.r	Armature	568	568
+Costal cartilage of 3rd rib.l	Armature	600	600
+Costal cartilage of 3rd rib.r	Armature	600	600
+Costal cartilage of 4th rib.l	Armature	745	746
+Costal cartilage of 4th rib.r	Armature	745	746
+Costal cartilage of 5th rib.l	Armature	1082	1082
+Costal cartilage of 5th rib.r	Armature	1082	1082
+Costal cartilage of 6th rib.l	Armature	1353	1354
+Costal cartilage of 6th rib.r	Armature	1353	1354
+Costal cartilage of 7th rib.l	Armature	2294	2294
+Costal cartilage of 7th rib.r	Armature	2294	2294
+Costal cartilage of 8th rib.l	Armature	330	652
+Costal cartilage of 8th rib.r	Armature	330	652
+Costal cartilage of 9th rib.l	Armature	247	488
+Costal cartilage of 9th rib.r	Armature	247	488
+Costal groove-line	Costal groove.t	0	0
+Costal notches-line	Costal notches.t	0	0
+Costal part of transverse process-line	Costal part of transverse process.t	0	0
+Costal surface of scapula-line	Costal surface of scapula.t	0	0
+Crest of costal angle-line	Crest of costal angle.t	0	0
+Crest of greater tubercule-line	Crest of greater tubercule.t	0	0
+Crest of head of rib-line	Crest of head of rib.t	0	0
+Crest of lesser tubercule-line	Crest of lesser tubercule.t	0	0
+Cricoid cartilage	Armature	1802	1878
+Cross Section X	-	0	0
+Cross Section Y	-	0	0
+Cross Section Z	-	0	0
+Crown of tooth-line	Crown of tooth.t	0	0
+Cruciform eminence-line	Cruciform eminence.t	0	0
+Cuboid bone.l	Armature	974	974
+Cuboid bone.r	Armature	974	974
+Deep head of flexor pollicis brevis on 1st metacarpal bone.	-	31	31
+Deep head of flexor pollicis brevis on 1st metacarpal bone..r	First metacarpal bone	31	31
+Deep head of flexor pollicis brevis on tubercle of trapezium	Trapezium bone.l	64	64
+Deep head of flexor pollicis brevis on tubercle of trapezium.r	Trapezium bone.r	64	64
+Deltoid muscle-Humeral insertion.l	Humerus.l	35	35
+Deltoid muscle-Humeral insertion.r	Humerus.r	35	35
+Deltoid tubercle-line	Deltoid tubercle.t	0	0
+Deltoid tuberosity-line	Deltoid tuberosity.t	0	0
+Dens axis-line	Dens axis.t	0	0
+Depressor anguli oris- Insertion.l	Mandible	17	17
+Depressor anguli oris- Insertion.r	Mandible	17	17
+Depressor labii superioris- Insertion.l	Mandible	13	23
+Depressor labii superioris- Insertion.r	Mandible	13	23
+Depressor septi nasi- Insertion.l	Maxilla.l	17	25
+Depressor septi nasi- Insertion.r	Maxilla.r	17	25
+Diaphragm- Insertion on 11th rib.l	Eleventh rib.l	73	85
+Diaphragm- Insertion on 11th rib.r	Eleventh rib.r	73	85
+Diaphragm- Insertion on 12th rib.l	Twelfth rib.l	453	488
+Diaphragm- Insertion on 12th rib.r	Twelfth rib.r	453	488
+Diaphragm- Insertion on costal cartilage.l	Costal cartilage of 9th rib.l	158	257
+Diaphragm- Insertion on costal cartilage.r	Costal cartilage of 8th rib.r	158	257
+Diaphragm- Insertion on L1.l	Vertebra L1	90	98
+Diaphragm- Insertion on L1.r	Vertebra L1	90	98
+Diaphragm- Insertion on L2.l	Vertebra L2	45	54
+Diaphragm- Insertion on L2.r	Vertebra L2	45	54
+Diaphragm- Insertion on L3.l	Vertebra L3	23	29
+Diaphragm- Insertion on L3.r	Vertebra L3	23	29
+Distal phalanx of fifth finger of foot	Armature	222	236
+Distal phalanx of fifth finger of foot.001	Armature	222	236
+Distal phalanx of fifth finger of hand	Armature	192	192
+Distal phalanx of fifth finger of hand.001	Armature	192	192
+Distal phalanx of first finger of foot	Armature	466	466
+Distal phalanx of first finger of foot.001	Armature	466	466
+Distal phalanx of first finger of hand.l	Armature	222	222
+Distal phalanx of first finger of hand.r	Armature	222	222
+Distal phalanx of fourth finger of foot	Armature	278	278
+Distal phalanx of fourth finger of foot.001	Armature	278	278
+Distal phalanx of fourth finger of hand	Armature	134	134
+Distal phalanx of fourth finger of hand.001	Armature	134	134
+Distal phalanx of second finger of foot	Armature	236	236
+Distal phalanx of second finger of foot.001	Armature	236	236
+Distal phalanx of second finger of hand	Armature	250	250
+Distal phalanx of second finger of hand.001	Armature	250	250
+Distal phalanx of third finger of foot	Armature	318	318
+Distal phalanx of third finger of foot.001	Armature	318	318
+Distal phalanx of third finger of hand	Armature	192	192
+Distal phalanx of third finger of hand.001	Armature	192	192
+Dorsal interosseus muscles d 3d metacarpal bone.l	Third metacarpal bone	53	53
+Dorsal interosseus muscles d 3d metacarpal bone.r	Third metacarpal bone.l	53	53
+Dorsal interosseus muscles of 1st metacarpal bone.l	First metacarpal bone.001	18	18
+Dorsal interosseus muscles of 1st metacarpal bone.r	First metacarpal bone	18	18
+Dorsal interosseus muscles of 2d metacarpal bone.l	Second metacarpal bone.l	51	51
+Dorsal interosseus muscles of 2d metacarpal bone.r	Second metacarpal bone.r	51	51
+Dorsal interosseus muscles of 4th metacarpal bone.l	Fourth metacarpal bone.001	63	63
+Dorsal interosseus muscles of 4th metacarpal bone.r	Fourth metacarpal bone	63	63
+Dorsal interosseus musclesof 5th metacarpal bone.l	Fifth metacarpal bone.l	20	20
+Dorsal interosseus musclesof 5th metacarpal bone.r	Fifth metacarpal bone.r	20	20
+Dorsal radial tubercle-line	Dorsal radial tubercle.t	0	0
+Dorsal surface of sacrum-line	Dorsal surface of sacrum.t	0	0
+Dorsum sellae-line	Dorsum sellae.t	0	0
+Eleventh rib.l	Armature	5032	5034
+Eleventh rib.r	Armature	5032	5034
+Erector spinae muscles-Iliac insertions.l	Hip bone.l	57	57
+Erector spinae muscles-Iliac insertions.r	Hip bone.r	57	57
+Ethmoid bone	Armature	3870	4308
+Ethmoidal notch-line	Ethmoidal notch.t	0	0
+Ext. and int. abd. oblique, transv. and rectus abd.- Insert	Xiphoid process	53	54
+Ext. and int. abd. oblique, transv. and rectus abd.- Insert.r	Xiphoid process	53	54
+Ext. digitorum & indicis on distal phal. of 2d finger.l	Distal phalanx of second finger of hand.001	12	12
+Ext. digitorum & indicis on distal phal. of 2d finger.r	Distal phalanx of second finger of hand	12	12
+Extensor carpi radialis longus muscle-Humeral insertion.l	Humerus.l	63	63
+Extensor carpi radialis longus muscle-Humeral insertion.r	Humerus.r	63	63
+Extensor carpi ulnaris on triquetrum bone.l	Triquetrum bone.l	5	5
+Extensor carpi ulnaris on triquetrum bone.r	Triquetrum bone.r	5	5
+Extensor carpi ulnaris-Ulnar insertion.l	Ulna.l	9	9
+Extensor carpi ulnaris-Ulnar insertion.r	Ulna.r	9	9
+Extensor digitorum longus & brevis on 2d distal phalanx.l	Distal phalanx of second finger of foot.001	14	15
+Extensor digitorum longus & brevis on 2d distal phalanx.r	Distal phalanx of second finger of foot	14	15
+Extensor digitorum longus & brevis on 2d middle phalanx.l	Middle phalanx of second finger of foot.001	14	17
+Extensor digitorum longus & brevis on 2d middle phalanx.r	Middle phalanx of second finger of foot	14	17
+Extensor digitorum longus & brevis on 3d distal phalanx.l	Distal phalanx of third finger of foot.001	12	14
+Extensor digitorum longus & brevis on 3d distal phalanx.r	Distal phalanx of third finger of foot	12	14
+Extensor digitorum longus & brevis on 3d middle phalanx.l	Middle phalanx of third finger of foot.001	20	23
+Extensor digitorum longus & brevis on 3d middle phalanx.r	Middle phalanx of third finger of foot	20	23
+Extensor digitorum longus & brevis on 4th distal phalanx.l	Distal phalanx of fourth finger of foot.001	19	19
+Extensor digitorum longus & brevis on 4th distal phalanx.r	Distal phalanx of fourth finger of foot	19	19
+Extensor digitorum longus & brevis on 4th middle phalanx.l	Middle phalanx of fourth finger of foot.001	14	18
+Extensor digitorum longus & brevis on 4th middle phalanx.r	Middle phalanx of fourth finger of foot	14	18
+Extensor digitorum longus on fibula and interosseus membrane	Fibula.l	200	237
+Extensor digitorum longus on fibula and interosseus membrane.r	Fibula.r	200	237
+Extensor digitorum longus on lat. surf of lat.condyle.l	Tibia.l	17	17
+Extensor digitorum longus on lat. surf of lat.condyle.r	Tibia.r	17	17
+Extensor digitorum on 5th distal phalanx.l	Distal phalanx of fifth finger of foot.001	6	6
+Extensor digitorum on 5th distal phalanx.r	Distal phalanx of fifth finger of foot	6	6
+Extensor digitorum on 5th middle phalanx.l	Middle phalanx of fifth finger of foot.001	13	13
+Extensor digitorum on 5th middle phalanx.r	Middle phalanx of fifth finger of foot	13	13
+Extensor digitorum&Extensor indicis-proximal phalanx.l	Proximal phalanx of second finger of hand.001	17	17
+Extensor digitorum&Extensor indicis-proximal phalanx.r	Proximal phalanx of second finger of hand	17	17
+Extensor digitorum-middle phalanx-2d finger.l	Middle phalanx of second finger of hand.001	16	16
+Extensor digitorum-middle phalanx-2d finger.r	Middle phalanx of second finger of hand	16	16
+Extensor digitorum-middle phalanx-3d finger.l	Middle phalanx of third finger of hand.001	6	6
+Extensor digitorum-middle phalanx-3d finger.r	Middle phalanx of third finger of hand	6	6
+Extensor digitorum-middle phalanx-4th finger.l	Middle phalanx of fourth finger of hand.001	11	11
+Extensor digitorum-middle phalanx-4th finger.r	Middle phalanx of fourth finger of hand	11	11
+Extensor digitorum-middle phalanx-5th finger.l	Middle phalanx of fifth finger of hand.001	8	8
+Extensor digitorum-middle phalanx-5th finger.r	Middle phalanx of fifth finger of hand	8	8
+Extensor digitorum-proximal phalanx-3d finger.l	Proximal phalanx of third finger of hand.001	23	23
+Extensor digitorum-proximal phalanx-3d finger.r	Proximal phalanx of third finger of hand	23	23
+Extensor digitorum-proximal phalanx-4th finger.l	Proximal phalanx of fourth finger of hand.001	14	14
+Extensor digitorum-proximal phalanx-4th finger.r	Proximal phalanx of fourth finger of hand	14	14
+Extensor digitorum-proximal phalanx-5th finger.l	Proximal phalanx of fifth finger of hand.001	18	18
+Extensor digitorum-proximal phalanx-5th finger.r	Proximal phalanx of fifth finger of hand	18	18
+Extensor hallucis brevis on dorsal surface of calcaneus.l	Calcaneus.l	29	29
+Extensor hallucis brevis on dorsal surface of calcaneus.r	Calcaneus.r	29	29
+Extensor hallucis longus on 1st finger of foot.l	Proximal phalanx of first finger of foot.001	18	18
+Extensor hallucis longus on 1st finger of foot.r	Proximal phalanx of first finger of foot	18	18
+Extensor hallucis longus on fibula and interosseus membrane	Fibula.l	321	352
+Extensor hallucis longus on fibula and interosseus membrane.r	Fibula.r	321	352
+Extensor indicis on ulna.l	Ulna.l	45	45
+Extensor indicis on ulna.r	Ulna.r	45	45
+Extensor pollicis brevis-Ulnar insertion.l	Radius.l	53	53
+Extensor pollicis brevis-Ulnar insertion.r	Radius.r	53	53
+Extensor pollicis longus on dist. phal. of 1st finger.l	Distal phalanx of first finger of hand.l	13	13
+Extensor pollicis longus on dist. phal. of 1st finger.r	Distal phalanx of first finger of hand.r	13	13
+Extensor pollicis longus on ulna.l	Ulna.l	64	64
+Extensor pollicis longus on ulna.r	Ulna.r	64	64
+Extensor radialis brevis-Insertion.l	Third metacarpal bone	13	13
+Extensor radialis brevis-Insertion.r	Third metacarpal bone.l	13	13
+Extensor radialis longus-Insertion.l	Second metacarpal bone.l	13	13
+Extensor radialis longus-Insertion.r	Second metacarpal bone.r	13	13
+External abdominal oblique muscle-Iliac insertion.l	Hip bone.l	56	80
+External abdominal oblique muscle-Iliac insertion.r	Hip bone.r	56	80
+External abdominal oblique on 5th rib.l	Fifth rib.l	132	144
+External abdominal oblique on 5th rib.r	Fifth rib.r	132	144
+External abdominal oblique on 7th rib.l	Sixth rib.l	142	167
+External abdominal oblique on 7th rib.r	Sixth rib.r	142	167
+External abdominal oblique on 8th rib.l	Seventh rib.l	115	127
+External abdominal oblique on 8th rib.r	Seventh rib.r	115	127
+External abdominal oblique on 9th rib.l	Heighth rib.l	215	226
+External abdominal oblique on 9th rib.r	Heighth rib.r	215	226
+External abdominal oblique on inguinal ligament.l	Hip bone.l	189	212
+External abdominal oblique on inguinal ligament.r	-	189	212
+External occipital crest-line	External occipital crest.t	0	0
+External occipital protuberance-line	External occipital protuberance.t	0	0
+External surface of frontal bone-line	External surface of squamous part of frontal bone.t	0	0
+Facet for dens-line	Facet for dens.t	0	0
+Femur-line	Femur.t	0	0
+Femur.l	Armature	3786	3794
+Femur.r	Armature	3786	3794
+Fibula-line	Fibula.t	0	0
+Fibula.l	Armature	1264	1264
+Fibula.r	Armature	1264	1264
+Fibular articular facet-line	Fibular articular facet.t	0	0
+Fibular notch-line	Fibular notch.t	0	0
+Fibularis brevis on lateral side of fibula.l	Fibula.l	56	56
+Fibularis brevis on lateral side of fibula.r	Fibula.r	56	56
+Fibularis brevis on tuberosity of fifth metatarsal bone.l	Fifth metatarsal bone.l	42	50
+Fibularis brevis on tuberosity of fifth metatarsal bone.r	Fifth metatarsal bone.r	42	50
+Fibularis longus on lateral side of fibula.l	Fibula.l	91	98
+Fibularis longus on lateral side of fibula.r	Fibula.r	91	98
+Fibularis tertius on tuberosity of fifth metatarsal bone.l	Fifth metatarsal bone.l	24	24
+Fibularis tertius on tuberosity of fifth metatarsal bone.r	Fifth metatarsal bone.r	24	24
+Fibularis tertius-Origin.l	Fibula.l	6	8
+Fibularis tertius-Origin.r	Fibula.r	6	8
+Fifth metacarpal bone.l	Armature	503	512
+Fifth metacarpal bone.r	Armature	503	512
+Fifth metatarsal bone.l	Armature	894	894
+Fifth metatarsal bone.r	Armature	894	894
+Fifth rib.l	Armature	9360	9376
+Fifth rib.r	Armature	9360	9376
+First metacarpal bone	Armature	682	682
+First metacarpal bone.001	Armature	682	682
+First metatarsal bone.l	Armature	1084	1084
+First metatarsal bone.r	Armature	1084	1084
+First rib.l	Armature	3208	3210
+First rib.r	Armature	3208	3210
+Flexor carpi ulnaris-Insertion.l	Pisiform bone.l	56	56
+Flexor carpi ulnaris-Insertion.r	Pisiform bone.r	56	56
+Flexor digiti minimi of foot on 5th proximal phalanx.l	Proximal phalanx of fifth finger of foot.001	29	29
+Flexor digiti minimi of foot on 5th proximal phalanx.r	Proximal phalanx of fifth finger of foot	29	29
+Flexor digiti minimi on base of 5th proximal phalanx.l	Proximal phalanx of fifth finger of hand.001	62	62
+Flexor digiti minimi on base of 5th proximal phalanx.r	Proximal phalanx of fifth finger of hand	62	62
+Flexor digiti minimi-Insertion.l	Hamate bone.l	12	12
+Flexor digiti minimi-Insertion.r	Hamate bone.r	12	12
+Flexor digitorum brevis on 2d medial phalanx.l	Middle phalanx of second finger of foot.001	29	39
+Flexor digitorum brevis on 2d medial phalanx.r	Middle phalanx of second finger of foot	29	39
+Flexor digitorum brevis on 3d medial phalanx.l	Middle phalanx of third finger of foot.001	58	58
+Flexor digitorum brevis on 3d medial phalanx.r	Middle phalanx of third finger of foot	58	58
+Flexor digitorum brevis on 5th medial phalanx.l	Middle phalanx of fifth finger of foot.001	25	25
+Flexor digitorum brevis on 5th medial phalanx.r	Middle phalanx of fifth finger of foot	25	25
+Flexor digitorum brevis on medial process of calcaneal tube	Calcaneus.l	39	47
+Flexor digitorum brevis on medial process of calcaneal tubero	-	39	47
+Flexor digitorum brevis on medial process of calcaneal tubero.r	Calcaneus.r	39	47
+Flexor digitorum longus on 2d distal phalanx.l	Distal phalanx of second finger of foot.001	18	18
+Flexor digitorum longus on 2d distal phalanx.r	Distal phalanx of second finger of foot	18	18
+Flexor digitorum longus on 3d distal phalanx.l	Distal phalanx of third finger of foot.001	17	20
+Flexor digitorum longus on 3d distal phalanx.r	Distal phalanx of third finger of foot	17	20
+Flexor digitorum longus on 4th distal phalanx.l	Distal phalanx of fourth finger of foot.001	10	10
+Flexor digitorum longus on 4th distal phalanx.r	Distal phalanx of fourth finger of foot	10	10
+Flexor digitorum longus on 5th distal phalanx.l	Distal phalanx of fifth finger of foot.001	15	17
+Flexor digitorum longus on 5th distal phalanx.r	Distal phalanx of fifth finger of foot	15	17
+Flexor digitorum longus on medial 1/3 of post. tibial surf	Tibia.l	17	25
+Flexor digitorum longus on medial 1/3 of post. tibial surf.r	Tibia.r	17	25
+Flexor digitorum profundus on distal phalanx of 2d finger	Distal phalanx of second finger of hand.001	13	13
+Flexor digitorum profundus on distal phalanx of 2d finger.l	Distal phalanx of second finger of hand.001	13	13
+Flexor digitorum profundus on distal phalanx of 2d finger.r	Distal phalanx of second finger of hand	13	13
+Flexor digitorum profundus on distal phalanx of 3d finger	Distal phalanx of third finger of hand.001	7	7
+Flexor digitorum profundus on distal phalanx of 3d finger.l	Distal phalanx of third finger of hand.001	7	7
+Flexor digitorum profundus on distal phalanx of 3d finger.r	Distal phalanx of third finger of hand	7	7
+Flexor digitorum profundus on distal phalanx of 4th finger.l	Distal phalanx of fourth finger of hand.001	11	11
+Flexor digitorum profundus on distal phalanx of 4th finger.r	Distal phalanx of fourth finger of hand	11	11
+Flexor digitorum profundus on distal phalanx of 5th finger.l	Distal phalanx of fifth finger of hand.001	7	7
+Flexor digitorum profundus on distal phalanx of 5th finger.r	Distal phalanx of fifth finger of hand	7	7
+Flexor digitorum superficialis-middle phalanx of 2d finger.l	Middle phalanx of second finger of hand.001	25	25
+Flexor digitorum superficialis-middle phalanx of 2d finger.r	Middle phalanx of second finger of hand	25	25
+Flexor digitorum superficialis-middle phalanx of 3d finger..l	Middle phalanx of third finger of hand.001	25	25
+Flexor digitorum superficialis-middle phalanx of 3d finger..r	Middle phalanx of third finger of hand	25	25
+Flexor digitorum superficialis-middle phalanx of 4th finger.l	Middle phalanx of fourth finger of hand.001	24	24
+Flexor digitorum superficialis-middle phalanx of 4th finger.r	Middle phalanx of fourth finger of hand	24	24
+Flexor digitorum superficialis-middle phalanx of 5th finger.l	Middle phalanx of fifth finger of hand.001	24	24
+Flexor digitorum superficialis-middle phalanx of 5th finger.r	Middle phalanx of fifth finger of hand	24	24
+Flexor digitorum superficialis-Radial insertion.l	Radius.l	41	41
+Flexor digitorum superficialis-Radial insertion.r	Radius.r	41	41
+Flexor hallucis longus on 1st distal phalanx.l	Distal phalanx of first finger of foot.001	17	17
+Flexor hallucis longus on 1st distal phalanx.r	Distal phalanx of first finger of foot	17	17
+Flexor hallucis longus on post. fibular surf.l	Fibula.l	231	266
+Flexor hallucis longus on post. fibular surf.r	Fibula.r	231	266
+Flexor pollicis longus on distal phalanx of 1st finger.l	Distal phalanx of first finger of hand.l	6	6
+Flexor pollicis longus on distal phalanx of 1st finger.r	Distal phalanx of first finger of hand.r	6	6
+Flexor pollicis longus-Radial insertion.l	Radius.l	125	125
+Flexor pollicis longus-Radial insertion.r	Radius.r	125	125
+Flexor pollicis longus-Ulnar insertion.l	Ulna.l	12	12
+Flexor pollicis longus-Ulnar insertion.r	Ulna.r	12	12
+Foramen caecum of frontal bone-line	Foramen caecum of frontal bone.t	0	0
+Foramen magnum-line	Foramen magnum.t	0	0
+Foramen ovale-line	Foramen ovale.t	0	0
+Foramen rotundum-line	Foramen rotundum.t	0	0
+Foramen spinosum-line	Foramen spinosum.t	0	0
+Foramen transversarium-line	Foramen transversarium.t	0	0
+Fossa for lacrimal gland-line	Fossa for lacrimal gland.t	0	0
+Fourth metacarpal bone	Armature	642	642
+Fourth metacarpal bone.001	Armature	642	642
+Fourth metatarsal bone.l	Armature	732	834
+Fourth metatarsal bone.r	Armature	732	834
+Fourth rib.l	Armature	8640	8646
+Fourth rib.r	Armature	8640	8646
+Fovea for ligament of head of femur-line	Fovea for ligament of head of femur.t	0	0
+Frontal bone	Armature	7746	7746
+Frontal crest-line	Frontal crest.t	0	0
+Frontal eminence-line	Frontal eminence.t	0	0
+Frontal margin of greater wing-line	Frontal margin of greater wing.t	0	0
+Frontal part of orbital margin-line	Frontal part of orbital margin.t	0	0
+Frontalis- Insertion.l	Frontal bone	57	77
+Frontalis- Insertion.r	Frontal bone	57	77
+Geniohyoid muscle on hyoid bone.l	Hyoid bone	27	39
+Geniohyoid muscle on hyoid bone.r	Hyoid bone	27	39
+Geniohyoid muscle on mandible.l	Mandible	7	7
+Geniohyoid muscle on mandible.r	Mandible	7	7
+Glabella-line	Glabella.t	0	0
+Glenoid fossa-line	Glenoid fossa.t	0	0
+Glenoid process of scapula-line	Glenoid process of scapula.t	0	0
+Gluteal surface of ilium-line	Gluteal surface of ilium.t	0	0
+Gluteal tuberosity-line	Gluteal tuberosity.t	0	0
+Gluteus maximus ending on gluteal surface.l	Femur.l	60	60
+Gluteus maximus ending on gluteal surface.r	Femur.r	60	60
+Gluteus maximus muscle-Iliac insertion.l	Hip bone.l	76	76
+Gluteus maximus muscle-Iliac insertion.r	Hip bone.r	76	76
+Gluteus medius muscle-Iliac insertion.l	Hip bone.l	52	61
+Gluteus medius muscle-Iliac insertion.r	Hip bone.r	52	61
+Gluteus medius on greater trochanter.l	Femur.l	37	38
+Gluteus medius on greater trochanter.r	Femur.r	37	38
+Gluteus minimus muscle-Iliac insertion.l	Hip bone.l	82	93
+Gluteus minimus muscle-Iliac insertion.r	Hip bone.r	82	93
+Gracilis muscle-Pubic insertion.l	Hip bone.l	59	59
+Gracilis muscle-Pubic insertion.r	Hip bone.r	59	59
+Gracilis on pes anserinus.l	Tibia.l	12	14
+Gracilis on pes anserinus.r	Tibia.r	12	14
+Greater sciatic foramen-line	Greater sciatic foramen.t	0	0
+Greater sciatic notch-line	Greater sciatic notch.t	0	0
+Greater trochanter-line	Greater trochanter.t	0	0
+Greater tubercle-line	Greater tubercle.t	0	0
+Greater wing -line	Greater wing .t	0	0
+Groove for marginal sinus-line	Groove for marginal sinus.t	0	0
+Groove for occipital sinus-line	Groove for occipital sinus.t	0	0
+Groove for popliteus muscle-line	Groove for popliteus muscle.t	0	0
+Groove for spinal nerve-line	Groove for spinal nerve.t	0	0
+Groove for transverse sinus-line	Groove for transverse sinus.t	0	0
+Groove for ulnar nerve-line	Groove for ulnar nerve.t	0	0
+Groove for vertebral artery-line	Groove for vertebral artery.t	0	0
+Groove of the pterygoid hamulus-line	Groove of the pterygoid hamulus.t	0	0
+Grooves for extensor tendons-line	Grooves for extensor tendons.t	0	0
+Hamate bone.l	Armature	536	536
+Hamate bone.r	Armature	536	536
+Head of femur-line	Head of femur.t	0	0
+Head of fibula-line	Head of fibula.t	0	0
+Head of humerus-line	Head of humerus.t	0	0
+Head of radius-line	Head of radius.t	0	0
+Head of rib-line	Head of rib.t	0	0
+Head of ulna-line	Head of ulna.t	0	0
+Heighth rib.l	Armature	8257	8270
+Heighth rib.r	Armature	8257	8270
+Hip bone-line	Hip bone.t	0	0
+Hip bone.l	Armature	3558	3680
+Hip bone.r	Armature	3558	3680
+Humerus-line	Humerus.t	0	0
+Humerus.l	Armature	4280	4280
+Humerus.r	Armature	4280	4280
+Hyoid bone	Armature	1310	1324
+Hypoglossal canal-line	Hypoglossal canal.t	0	0
+Hypophyseal fossa-line	Hypophyseal fossa.t	0	0
+Iliac crest-line	Iliac crest.t	0	0
+Iliac fossa-line	Iliac fossa.t	0	0
+Iliac tubercle-line	Iliac tubercle.t	0	0
+Iliac tuberosity-line	Iliac tuberosity.t	0	0
+Iliocostalis colli on transverse process of C4.l	Vertebra C4	16	22
+Iliocostalis colli on transverse process of C4.r	Vertebra C4	16	22
+Iliopsoas ending on the lesser trochanter.l	Femur.l	106	114
+Iliopsoas ending on the lesser trochanter.r	Femur.r	106	114
+Iliopubic eminence-line	Iliopubic eminence.t	0	0
+Ilium-line	Ilium.t	0	0
+Incus.l	Armature	1246	2492
+Incus.r	Armature	1246	2492
+Inferior angle of scapula-line	Inferior angle of scapula.t	0	0
+Inferior articular facet of vertebra-line	Inferior articular facet of vertebra.t	0	0
+Inferior articular surface of atlas-line	Inferior articular surface of atlas.t	0	0
+Inferior articular surface of tibia-line	Inferior articular surface of tibia.t	0	0
+Inferior articular surface of vertebra-line	Inferior articular surface of vertebra.t	0	0
+Inferior costal facet-line	Inferior costal facet.t	0	0
+Inferior gemellus muscle-Ischiatic insertion.l	Hip bone.l	21	21
+Inferior gemellus muscle-Ischiatic insertion.r	Hip bone.r	21	21
+Inferior gluteal line-line	Inferior gluteal line.t	0	0
+Inferior nasal concha bone.l	Armature	476	476
+Inferior nasal concha bone.r	Armature	476	476
+Inferior nuchal line-line	Inferior nuchal line.t	0	0
+Inferior pubic ramus-line	Inferior pubic ramus.t	0	0
+Inferior vertebral notch-line	Inferior vertebral notch.t	0	0
+Infraglenoid tubercle-line	Infraglenoid tubercle.t	0	0
+Infraspinatus muscle-Humeral insertion.l	Humerus.l	79	79
+Infraspinatus muscle-Humeral insertion.r	Humerus.r	79	79
+Infraspinatus muscle-Scapular insertion.l	Scapula.l	1027	1027
+Infraspinatus muscle-Scapular insertion.r	Scapula.r	1027	1027
+Infraspinous fossa-line	Infraspinous fossa.t	0	0
+Infratemporal surface of greater wing-line	Infratemporal surface of greater wing.t	0	0
+Inner lip of iliac crest-line	Inner lip of iliac crest.t	0	0
+Intercondylar area-line	Intercondylar area.t	0	0
+Intercondylar eminence-line	Intercondylar eminence.t	0	0
+Intercondylar fossa-line	Intercondylar fossa.t	0	0
+Intercondylar line-line	Intercondylar line.t	0	0
+Intermediate cuneiform bone.l	Armature	444	444
+Intermediate cuneiform bone.r	Armature	444	444
+Intermediate sacral crest-line	Intermediate sacral crest.t	0	0
+Intermediate zone-line	Intermediate zone.t	0	0
+Internal abdominal oblique muscle-Iliac insertion.l	Hip bone.l	66	82
+Internal abdominal oblique muscle-Iliac insertion.r	Hip bone.r	66	82
+Internal abdominal oblique on 10th rib.l	Tenth rib.r	83	91
+Internal abdominal oblique on 10th rib.r	Tenth rib.r	83	91
+Internal abdominal oblique on 11th rib.l	Eleventh rib.l	461	494
+Internal abdominal oblique on 11th rib.r	Eleventh rib.r	461	494
+Internal abdominal oblique on 12th rib.l	Twelfth rib.l	381	388
+Internal abdominal oblique on 12th rib.r	Twelfth rib.r	381	388
+Internal abdominal oblique on costal cartilage.l	Costal cartilage of 10th rib.l	61	118
+Internal abdominal oblique on costal cartilage.r	Costal cartilage of 10th rib.r	61	118
+Internal occipital crest-line	Internal occipital crest.t	0	0
+Internal occipital protuberance-line	Internal occipital protuberance.t	0	0
+Internal surface of squamous part of frontal bone-line	Internal surface of squamous part of frontal bone.t	0	0
+Interosseous border of radius-line	Interosseous border of radius.t	0	0
+Interosseous border of ulna-line	Interosseous border of ulna.t	0	0
+Interosseous crest of fibula-line	Interosseous crest of fibula.t	0	0
+Interosseus border of tibia-line	Interosseus border of tibia.t	0	0
+Intertrochanteric crest-line	Intertrochanteric crest.t	0	0
+Intertrochanteric line-line	Intertrochanteric line.t	0	0
+Intertubercular sulcus-line	Intertubercular sulcus.t	0	0
+Intervertebral foramen-line	Intervertebral foramen.t	0	0
+Intervertebral foramina-line	Intervertebral foramina.t	0	0
+Intervertebral surface-line	Intervertebral surface.t.001	0	0
+Intervertebral surface-line.001	Intervertebral surface.t	0	0
+Intrajugular process of occipital bone-line	Intrajugular process of occipital bone.t	0	0
+Ischial spine-line	Ischial spine.t	0	0
+Ischial tuberosity-line	Ischial tuberosity.t	0	0
+Ischiopubic ramus-line	Ischiopubic ramus.t	0	0
+Ischium-line	Ischium.t	0	0
+Jugular notch of occipital bone-line	Jugular notch of occipital bone.t	0	0
+Jugular notch of sternum-line	Jugular notch of sternum.t	0	0
+Jugular process-line	Jugular process.t	0	0
+Lacrimal bone.l	Armature	588	588
+Lacrimal bone.r	Armature	588	588
+Lamina of vertebral arch-line	Lamina of vertebral arch.t	0	0
+LAteral angle of scapula-line	LAteral angle of scapula.t	0	0
+Lateral border of humerus-line	Lateral border of humerus.t	0	0
+Lateral border of scapula-line	Lateral border of scapula.t	0	0
+Lateral condyle of femur-line	Lateral condyle of femur.t	0	0
+Lateral condyle of tibia-line	Lateral condyle of tibia.t	0	0
+Lateral cuneiform bone.l	Armature	632	638
+Lateral cuneiform bone.r	Armature	632	638
+Lateral epicondyle of femur-line	Lateral epicondyle of femur.t	0	0
+Lateral epicondyle of humerus-line	Lateral epicondyle of humerus.t	0	0
+Lateral head of flexor hallucis brevis on 1st metatarsal base	First metatarsal bone.l	21	21
+Lateral head of flexor hallucis brevis on 1st metatarsal base.r	First metatarsal bone.r	21	21
+Lateral head of flexor hallucis brevis on medial cuneiform.	Medial cuneiform bone.l	94	98
+Lateral head of flexor hallucis brevis on medial cuneiform..l	Medial cuneiform bone.r	94	98
+Lateral head of flexor hallucis brevis on medial cuneiform.r	Medial cuneiform bone.r	13	13
+Lateral head of flexor hallucis brevis on prox. phal. of 1st	Proximal phalanx of first finger of foot.001	11	15
+Lateral head of flexor hallucis brevis on prox. phal. of 1st.r	Proximal phalanx of first finger of foot	11	15
+Lateral head of gastrocnemius on lat. supracondylar tubercle.l	Femur.l	17	22
+Lateral head of gastrocnemius on lat. supracondylar tubercle.r	Femur.r	17	22
+Lateral head of triceps brachii-Humeral insertion.l	Humerus.l	72	72
+Lateral head of triceps brachii-Humeral insertion.r	Humerus.r	72	72
+Lateral intercondylar tubercle-line	Lateral intercondylar tubercle.t	0	0
+Lateral lip of linea apera-line	Lateral lip of linea apera.t	0	0
+Lateral malleolus-line	Lateral malleolus.t	0	0
+Lateral mass-line	Lateral mass.t	0	0
+Lateral part of sacrum-line	Lateral part of sacrum.t	0	0
+Lateral part of the occipital bone-line	Lateral part of the occipital bone.t	0	0
+Lateral part of transverse process-line	Lateral part of transverse process.t	0	0
+Lateral process of nasal septal cartilage	Armature	347	347
+Lateral process of nasal septal cartilage.001	Armature	347	347
+Lateral pterygoid muscle- Maxillar insertion.l	Maxilla.r	21	27
+Lateral pterygoid muscle- Maxillar insertion.r	Maxilla.r	21	27
+Lateral pterygoid muscle- Palatine insertion.l	Palatine bone.r	49	59
+Lateral pterygoid muscle- Palatine insertion.r	Palatine bone.r	49	59
+Lateral pterygoid plate-line	Lateral pterygoid plate.t	0	0
+Lateral sacral crest-line	Lateral sacral crest.t	0	0
+Lateral supracondylar line-line	Lateral supracondylar line.t	0	0
+Lateral supracondylar ridge-line	Lateral supracondylar ridge.t	0	0
+Lateral surface of fibula-line	Lateral surface of fibula.t	0	0
+Lateral surface of radius-line	Lateral surface of radius.t	0	0
+Lateral surface of tibia-line	Lateral surface of tibia.t	0	0
+Latissimus dorsi on apex of the scapula.l	Scapula.l	231	234
+Latissimus dorsi on apex of the scapula.r	Scapula.r	231	234
+Latissimus dorsi-Iliac insertion.l	Hip bone.l	46	67
+Latissimus dorsi-Iliac insertion.r	Hip bone.r	46	67
+Lesser sciatic foramen-line	Lesser sciatic foramen.t	0	0
+Lesser sciatic notch-line	Lesser sciatic notch.t	0	0
+Lesser trochanter-line	Lesser trochanter.t	0	0
+Lesser tubercle-line	Lesser tubercle.t	0	0
+Lesser wing-line	Lesser wing.t	0	0
+Levator anguli oris on maxilla.l	Maxilla.l	14	20
+Levator anguli oris on maxilla.r	Maxilla.r	14	20
+Levator ani-Pubic and ischiatic insertions.l	Hip bone.l	42	42
+Levator ani-Pubic and ischiatic insertions.r	Hip bone.r	42	42
+Levator labii superioris- Insertion.l	Maxilla.l	67	69
+Levator labii superioris- Insertion.r	Maxilla.r	67	69
+Levator nasolabialis on maxilla.l	Maxilla.l	24	24
+Levator nasolabialis on maxilla.r	Maxilla.r	24	24
+Levator scapulae- Insertion on axis.l	Axis (C2)	5	8
+Levator scapulae- Insertion on axis.r	Axis (C2)	5	8
+Levator scapulae- Insertion on C4.l	Vertebra C4	25	31
+Levator scapulae- Insertion on C4.r	Vertebra C4	25	31
+Levator scapulae- Insertion on transverse process of C3.l	Vertebra C3	26	30
+Levator scapulae- Insertion on transverse process of C3.r	Vertebra C3	26	30
+Levator scapulae- Insertion.l	Atlas (C1)	11	14
+Levator scapulae- Insertion.r	Atlas (C1)	11	14
+Levator scapulae-Scapular insertion.l	Scapula.l	897	897
+Levator scapulae-Scapular insertion.r	Scapula.r	897	897
+Levatores longi costarum on 10th rib.l	Tenth rib.l	119	132
+Levatores longi costarum on 10th rib.r	Tenth rib.r	119	132
+Levatores longi costarum on 11th rib.l	Eleventh rib.l	134	152
+Levatores longi costarum on 11th rib.r	Eleventh rib.r	134	152
+Levatores longi costarum on 12th rib.l	Twelfth rib.l	27	35
+Levatores longi costarum on 12th rib.r	Twelfth rib.r	27	35
+Levatores longi costarum on 2nd rib.l	Second rib.l	44	56
+Levatores longi costarum on 2nd rib.r	Second rib.r	44	56
+Levatores longi costarum on 3rd rib.l	Third rib.l	75	92
+Levatores longi costarum on 3rd rib.r	Third rib.r	75	92
+Levatores longi costarum on 4th rib.l	Fourth rib.l	83	92
+Levatores longi costarum on 4th rib.r	Fourth rib.r	83	92
+Levatores longi costarum on 5th rib.l	Fifth rib.l	56	75
+Levatores longi costarum on 5th rib.r	Fifth rib.r	56	75
+Levatores longi costarum on 6th rib.l	Sixth rib.l	72	80
+Levatores longi costarum on 6th rib.r	Sixth rib.r	72	80
+Levatores longi costarum on 7th rib.l	Seventh rib.l	36	47
+Levatores longi costarum on 7th rib.r	Seventh rib.r	36	47
+Levatores longi costarum on 8th rib.l	Heighth rib.l	53	65
+Levatores longi costarum on 8th rib.r	Heighth rib.r	53	65
+Levatores longi costarum on 9th rib.l	Ninth rib.l	148	166
+Levatores longi costarum on 9th rib.r	Ninth rib.r	148	166
+Limbus of sphenoid-line	Limbus of sphenoid.t	0	0
+Linea aspera-line	Linea aspera.t	0	0
+Long head of biceps brachi on supraglenoid tuberle of scapula	Scapula.l	80	80
+Long head of biceps brachi on supraglenoid tuberle of scapula.r	Scapula.r	80	80
+Long head of biceps femoris muscle-Ischiatic insertion.l	Hip bone.l	21	23
+Long head of biceps femoris muscle-Ischiatic insertion.r	Hip bone.r	21	23
+Long head of triceps brachii on infraglenoid tubercle of scap	Scapula.l	105	105
+Long head of triceps brachii on infraglenoid tubercle of scap.r	Scapula.r	105	105
+Long plantar ligament on 1st metatarsal base.l	First metatarsal bone.l	37	37
+Long plantar ligament on 1st metatarsal base.r	First metatarsal bone.r	37	37
+Long plantar ligament on 2d metatarsal base.l	Second metatarsal bone.l	26	26
+Long plantar ligament on 2d metatarsal base.r	Second metatarsal bone.r	26	26
+Long plantar ligament on 3rd metatarsal base.l	Third metatarsal bone.l	8	8
+Long plantar ligament on 3rd metatarsal base.r	Third metatarsal bone.r	8	8
+Long plantar ligament on 4th metatarsal base.l	Fourth metatarsal bone.l	12	24
+Long plantar ligament on 4th metatarsal base.r	Fourth metatarsal bone.r	12	24
+Long plantar ligament on plantar surface of calcaneum.l	Calcaneus.l	45	52
+Long plantar ligament on plantar surface of calcaneum.r	Calcaneus.r	45	52
+Longissimus thoracis on 10th rib.l	Tenth rib.l	53	63
+Longissimus thoracis on 10th rib.r	Tenth rib.r	53	63
+Longissimus thoracis on 11th rib.l	Eleventh rib.l	44	50
+Longissimus thoracis on 11th rib.r	Eleventh rib.r	44	50
+Longissimus thoracis on 12th rib.l	Twelfth rib.l	37	43
+Longissimus thoracis on 12th rib.r	Twelfth rib.r	37	43
+Longissimus thoracis on 1st rib.l	First rib.l	26	32
+Longissimus thoracis on 1st rib.r	First rib.r	26	32
+Longissimus thoracis on 2nd rib.l	Second rib.l	19	21
+Longissimus thoracis on 2nd rib.r	Second rib.r	19	21
+Longissimus thoracis on 3rd rib.l	Third rib.l	27	40
+Longissimus thoracis on 3rd rib.r	Third rib.r	27	40
+Longissimus thoracis on 4th rib.l	Fourth rib.l	34	44
+Longissimus thoracis on 4th rib.r	Fourth rib.r	34	44
+Longissimus thoracis on 5th rib.l	Fifth rib.l	15	24
+Longissimus thoracis on 5th rib.r	Fifth rib.r	15	24
+Longissimus thoracis on 6th rib.l	Sixth rib.l	22	36
+Longissimus thoracis on 6th rib.r	Sixth rib.r	22	36
+Longissimus thoracis on 7th rib.l	Seventh rib.l	26	36
+Longissimus thoracis on 7th rib.r	Seventh rib.r	26	36
+Longissimus thoracis on 8th rib.l	Heighth rib.l	45	51
+Longissimus thoracis on 8th rib.r	Heighth rib.r	45	51
+Longissimus thoracis on 9th rib.l	Ninth rib.l	23	33
+Longissimus thoracis on 9th rib.r	Ninth rib.r	23	33
+Longissimus thoracis on L1.l	Vertebra L1	40	50
+Longissimus thoracis on L1.r	Vertebra L1	40	50
+Longissimus thoracis on L2.l	Vertebra L2	53	67
+Longissimus thoracis on L2.r	Vertebra L2	53	67
+Longissimus thoracis on L3.l	Vertebra L3	19	24
+Longissimus thoracis on L3.r	Vertebra L3	19	24
+Longissimus thoracis on T1.l	Vertebra T1	17	23
+Longissimus thoracis on T1.r	Vertebra T1	17	23
+Longissimus thoracis on T10.l	Vertebra T10	43	47
+Longissimus thoracis on T10.r	Vertebra T10	43	47
+Longissimus thoracis on T11.l	Vertebra T11	23	27
+Longissimus thoracis on T11.r	Vertebra T11	23	27
+Longissimus thoracis on T12.l	Vertebra T12	28	35
+Longissimus thoracis on T12.r	Vertebra T12	28	35
+Longissimus thoracis on T2.l	Vertebra T2	12	18
+Longissimus thoracis on T2.r	Vertebra T2	12	18
+Longissimus thoracis on T3.l	Vertebra T3	19	27
+Longissimus thoracis on T3.r	Vertebra T3	19	27
+Longissimus thoracis on T4.l	Vertebra T4	17	19
+Longissimus thoracis on T4.r	Vertebra T4	17	19
+Longissimus thoracis on T5.l	Vertebra T5	12	19
+Longissimus thoracis on T5.r	Vertebra T5	12	19
+Longissimus thoracis on T6.l	Vertebra T6	9	10
+Longissimus thoracis on T6.r	Vertebra T6	9	10
+Longissimus thoracis on T7.l	Vertebra T7	25	28
+Longissimus thoracis on T7.r	Vertebra T7	25	28
+Longissimus thoracis on T8.l	Vertebra T8	15	16
+Longissimus thoracis on T8.r	Vertebra T8	15	16
+Longissimus thoracis on T9.l	Vertebra T9	23	28
+Longissimus thoracis on T9.r	Vertebra T9	23	28
+Longus capitis muscle-Occipital insertion.l	Occipital bone	4	8
+Longus capitis muscle-Occipital insertion.r	Occipital bone	4	8
+Lower canine.l	Armature	1178	1178
+Lower canine.r	Armature	1178	1178
+Lower first molar tooth.l	Armature	1762	1762
+Lower first molar tooth.r	Armature	1762	1762
+Lower first premolar.l	Armature	1180	1180
+Lower first premolar.r	Armature	1180	1180
+Lower lateral incisor.l	Armature	958	958
+Lower lateral incisor.r	Armature	958	958
+Lower medial incisor.l	Armature	920	920
+Lower medial incisor.r	Armature	920	920
+Lower second molar tooth.l	Armature	1620	1620
+Lower second molar tooth.r	Armature	1620	1620
+Lower second premolar.l	Armature	1124	1124
+Lower second premolar.r	Armature	1124	1124
+Lunate bone.l	Armature	348	348
+Lunate bone.r	Armature	348	348
+Lunate surface-line	Lunate surface.t	0	0
+Major alar cartilage.l	Armature	344	344
+Major alar cartilage.r	Armature	344	344
+Malleolar fossa-line	Malleolar fossa.t	0	0
+Malleolar groove of fibula-line	Malleolar groove of fibula.t	0	0
+Malleolar groove of tibia-line	Malleolar groove of tibia.t	0	0
+Malleus.l	Armature	1984	3968
+Malleus.r	Armature	1984	3968
+Mandible	Armature	13642	17412
+Mandibular dental arch-line	Mandibular dental arch.t	0	0
+Manubrium of sternum	Armature	2662	2662
+Manubrium of sternum-line	Manubrium of sternum.t	0	0
+Masseter on ramus of mandible.l	Mandible	39	39
+Masseter on ramus of mandible.r	Mandible	39	39
+Masseter on zygomatic arch- Temporal part.l	Temporal bone.l	60	70
+Masseter on zygomatic arch- Temporal part.r	Temporal bone.r	60	70
+Masseter on zygomatic arch- Zygomatic part.l	Zygomatic bone.l	85	92
+Masseter on zygomatic arch- Zygomatic part.r	Zygomatic bone.r	85	92
+Mastoid border of occipital bone-line	Mastoid border of occipital bone.t	0	0
+Maxilla.l	Armature	4798	4798
+Maxilla.r	Armature	4798	4798
+Maxillary dental arch-line	Maxillary dental arch.t	0	0
+Maxillary surface of greater wing-line	Maxillary surface of greater wing.t	0	0
+Medial border of fibula-line	Medial border of fibula.t	0	0
+Medial border of humerus-line	Medial border of humerus.t	0	0
+Medial border of scapula-line	Medial border of scapula.t	0	0
+Medial condyle of femur-line	Medial condyle of femur.t	0	0
+Medial condyle of tibia-line	Medial condyle of tibia.t	0	0
+Medial cuneiform bone.l	Armature	968	992
+Medial cuneiform bone.r	Armature	968	992
+Medial epicondyle of femur-line	Medial epicondyle of femur.t	0	0
+Medial epicondyle of the humerus-line	Medial epicondyle of the humerus.t	0	0
+Medial head of flexor hallucis brevis on prox phal of 1st.l	Proximal phalanx of first finger of foot.001	17	17
+Medial head of flexor hallucis brevis on prox phal of 1st.r	Proximal phalanx of first finger of foot	17	17
+Medial head of gastrocnemius on med. supracondylar tubercle	Femur.r	48	72
+Medial head of gastrocnemius on med. supracondylar tubercle.r	Femur.r	48	72
+Medial head of triceps brachii-Humeral insertion.l	Humerus.l	97	97
+Medial head of triceps brachii-Humeral insertion.r	Humerus.r	97	97
+Medial intercondylar tubercle-line	Medial intercondylar tubercle.t	0	0
+Medial lip of linea apera-line	Medial lip of linea apera.t	0	0
+Medial malleolus-line	Medial malleolus.t	0	0
+Medial pterygoid muscle in the pterygoid fossa.l	Sphenoid bone	34	45
+Medial pterygoid muscle in the pterygoid fossa.r	Sphenoid bone	34	45
+Medial pterygoid muscle on the mandibular angle.l	Mandible	15	20
+Medial pterygoid muscle on the mandibular angle.r	Mandible	15	20
+Medial pterygoid plate-line	Medial pterygoid plate.t	0	0
+Medial supracondylar line-line	Medial supracondylar line.t	0	0
+Medial supracondylar ridge-line	Medial supracondylar ridge.t	0	0
+Medial surface of fibula-line	Medial surface of fibula.t	0	0
+Medial surface of tibia-line	Medial surface of tibia.t	0	0
+Medial surface of ulna-line	Medial surface of ulna.t	0	0
+Median sacral crest-line	Median sacral crest.t	0	0
+Mentalis muscle- Insertion.l	Mandible	3	4
+Mentalis muscle- Insertion.r	Mandible	3	4
+Middle clinoid process-line	Middle clinoid process.t	0	0
+Middle phalanx of fifth finger of foot	Armature	216	216
+Middle phalanx of fifth finger of foot.001	Armature	216	216
+Middle phalanx of fifth finger of hand	Armature	292	292
+Middle phalanx of fifth finger of hand.001	Armature	292	292
+Middle phalanx of fourth finger of foot	Armature	404	448
+Middle phalanx of fourth finger of foot.001	Armature	404	448
+Middle phalanx of fourth finger of hand	Armature	446	446
+Middle phalanx of fourth finger of hand.001	Armature	446	446
+Middle phalanx of second finger of foot	Armature	326	382
+Middle phalanx of second finger of foot.001	Armature	326	382
+Middle phalanx of second finger of hand	Armature	314	314
+Middle phalanx of second finger of hand.001	Armature	314	314
+Middle phalanx of third finger of foot	Armature	359	400
+Middle phalanx of third finger of foot.001	Armature	359	400
+Middle phalanx of third finger of hand	Armature	360	360
+Middle phalanx of third finger of hand.001	Armature	360	360
+Mylohyoid muscle on mandible.l	Mandible	13	25
+Mylohyoid muscle on mandible.r	Mandible	13	25
+Nasal bone.l	Armature	292	292
+Nasal bone.r	Armature	292	292
+Nasal margin of frontal bone-line	Nasal margin of frontal bone.t	0	0
+Nasal part of frontal bone-line	Nasal part of frontal bone.t	0	0
+Nasal septal cartilage	Armature	360	360
+Nasal spine of frontal bone-line	Nasal spine of frontal bone.t	0	0
+Nasalis muscle on nasal bone.l	Nasal bone.l	21	34
+Nasalis muscle on nasal bone.r	Nasal bone.r	21	34
+Navicular bone.l	Armature	718	718
+Navicular bone.r	Armature	718	718
+Neck of femur-line	Neck of femur.t	0	0
+Neck of fibula-line	Neck of fibula.t	0	0
+Neck of radius-line	Neck of radius.t	0	0
+Neck of rib-line	Neck of rib.t	0	0
+Neck of scapula-line	Neck of scapula.t	0	0
+Ninth rib.l	Armature	7743	7778
+Ninth rib.r	Armature	7743	7778
+Oblique head of add. hallucis on sesamoid bones.l	Sesamoid bones of foot.l	17	17
+Oblique head of add. hallucis on sesamoid bones.r	Sesamoid bones of foot.r	17	17
+Oblique head of adductor hallucis on 3rd metatarsal base.l	Fourth metatarsal bone.l	58	76
+Oblique head of adductor hallucis on 3rd metatarsal base.r	Fourth metatarsal bone.r	58	76
+Oblique head of adductor hallucis on cuboid bone.l	Cuboid bone.l	31	31
+Oblique head of adductor hallucis on cuboid bone.r	Cuboid bone.r	31	31
+Obliquus inferior capitis muscle on axis.l	Axis (C2)	16	26
+Obliquus inferior capitis muscle on axis.r	Axis (C2)	16	26
+Obliquus inferior capitis on transverse process of atlas.l	Atlas (C1)	9	14
+Obliquus inferior capitis on transverse process of atlas.r	Atlas (C1)	9	14
+Obliquus superior capitis muscle-Occipital insertion.l	Occipital bone	27	38
+Obliquus superior capitis muscle-Occipital insertion.r	Occipital bone	27	38
+Obturator crest-line	Obturator crest.t	0	0
+Obturator externus on obturator membrane.l	Hip bone.l	200	206
+Obturator externus on obturator membrane.r	Hip bone.r	200	206
+Obturator foramen-line	Obturator foramen.t	0	0
+Obturator groove-line	Obturator groove.t	0	0
+Obturator internus-Pelvic insertion.l	Hip bone.l	106	121
+Obturator internus-Pelvic insertion.r	Hip bone.r	106	121
+Occipital bone	Armature	7475	7477
+Occipital condyle-line	Occipital condyle.t	0	0
+Occipital plane-line	Occipital plane.t	0	0
+Occipitalis-Occipital insertion.l	Occipital bone	20	31
+Occipitalis-Occipital insertion.r	Occipital bone	20	31
+Occlusal surface-line	Occlusal surface.t	0	0
+Olecranon fossa-line	Olecranon fossa.t	0	0
+Olecranon-line	Olecranon.t	0	0
+Omohyoid muscle on hyoid bone.l	Hyoid bone	12	15
+Omohyoid muscle on hyoid bone.r	Hyoid bone	12	15
+Omohyoid muscle on superior border of scapula.l	Scapula.l	64	73
+Omohyoid muscle on superior border of scapula.r	Scapula.r	64	73
+Opening of frontal sinus-line	Opening of frontal sinus.t	0	0
+Opponens digiti minimi of foot on 5th metatarsal bone.l	Fifth metatarsal bone.l	30	38
+Opponens digiti minimi of foot on 5th metatarsal bone.r	Fifth metatarsal bone.r	30	38
+Opponens digiti minimi on tubercle of hamate bone.l	Hamate bone.l	16	16
+Opponens digiti minimi on tubercle of hamate bone.r	Hamate bone.r	16	16
+Optic canal-line	Optic canal.t	0	0
+Orbicularis oris- Insertion.l	Mandible	5	10
+Orbicularis oris- Insertion.r	Mandible	5	10
+Orbital part of frontal bone-line	Orbital part of frontal bone.t	0	0
+Orbital part of orbicularis oculi on maxilla.l	Maxilla.l	16	16
+Orbital part of orbicularis oculi on maxilla.r	Maxilla.r	16	16
+Orbital plate of frontal bone-line	Orbital plate of frontal bone.t	0	0
+Orbital surface of frontal bone-line	Orbital surface of frontal bone.t	0	0
+Orbital surface of greater wing-line	Orbital surface of greater wing.t	0	0
+Origin of articularis genus.l	Femur.l	11	19
+Origin of articularis genus.r	Femur.r	11	19
+Origin of psoas minor on Iliac fossa.l	Hip bone.l	61	79
+Origin of psoas minor on Iliac fossa.r	Hip bone.r	61	79
+Origin of vastus intermedius.l	Femur.l	92	113
+Origin of vastus intermedius.r	Femur.r	92	113
+Origin of vastus lateralis.l	Femur.l	116	121
+Origin of vastus lateralis.r	Femur.r	116	121
+Origin of vastus medialis.l	Femur.l	115	117
+Origin of vastus medialis.r	Femur.r	115	117
+Outer lip of iliac crest-line	Outer lip of iliac crest.t	0	0
+Palatine bone.l	Armature	1460	1460
+Palatine bone.r	Armature	1460	1460
+Parietal bone.l	Armature	6714	6714
+Parietal bone.r	Armature	6628	6628
+Parietal margin of frontal bone-line	Parietal margin of frontal bone.t	0	0
+Parietal margin of greater wing-line	Parietal margin of greater wing.t	0	0
+Pars interradicularis of vertebral arch-line	Pars interradicularis of vertebral arch.t	0	0
+Patella.l	Armature	274	276
+Patella.r	Armature	274	276
+Patellar surface of femur-line	Patellar surface of femur.t	0	0
+Patellar tendon on anterior tibial tuberosity.l	Tibia.l	43	43
+Patellar tendon on anterior tibial tuberosity.r	Tibia.r	43	43
+Patellar tendon on apex of patella.l	Patella.l	53	54
+Patellar tendon on apex of patella.r	Patella.r	53	54
+Pecten pubis-line	Pecten pubis.t	0	0
+Pectineal line of femur-line	Pectineal line of femur.t	0	0
+Pectineus muscle on medial surface od femur.l	Femur.l	12	17
+Pectineus muscle on medial surface od femur.r	Femur.r	12	17
+Pectineus muscle-Pubic insertion.l	Hip bone.l	51	63
+Pectineus muscle-Pubic insertion.r	Hip bone.r	51	63
+Pectoralis major muscle-Clavicular insertion.l	Clavicle.l	108	108
+Pectoralis major muscle-Clavicular insertion.r	Clavicle.r	108	108
+Pectoralis major muscle-Humeral insertion.l	Humerus.l	47	47
+Pectoralis major muscle-Humeral insertion.r	Humerus.r	47	47
+Pectoralis minor muscle on 3rd rib.l	Third rib.l	92	107
+Pectoralis minor muscle on 3rd rib.r	Third rib.r	92	107
+Pectoralis minor muscle- on 4th rib.l	Fourth rib.l	182	187
+Pectoralis minor muscle- on 4th rib.r	Fourth rib.r	182	187
+Pectoralis minor muscle-Thoracic insertions	-	0	0
+Pectoralis minor muscleon 5th rib.l	Fifth rib.l	129	137
+Pectoralis minor muscleon 5th rib.r	Fifth rib.r	129	137
+Pectoralis minor on coracoid process of scapula.l	Scapula.l	361	361
+Pectoralis minor on coracoid process of scapula.r	Scapula.r	361	361
+Pelvic surface of sacrum-line	Pelvic surface of sacrum.t	0	0
+Pharyngeal tubercle-line	Pharyngeal tubercle.t	0	0
+Piriformis muscle in trochanteric fossa.l	Femur.l	22	22
+Piriformis muscle in trochanteric fossa.r	Femur.r	22	22
+Piriformis muscle on pelvic surface of sacrum.l	Sacrum	107	152
+Piriformis muscle on pelvic surface of sacrum.r	Sacrum	107	152
+Pisiform bone.l	Armature	278	278
+Pisiform bone.r	Armature	278	278
+Plantar interossei muscles on 3rd metatarsal bone.l	Third metatarsal bone.l	25	25
+Plantar interossei muscles on 3rd metatarsal bone.r	Third metatarsal bone.r	25	25
+Plantar interossei muscles on 4th metatarsal bone.l	Fourth metatarsal bone.l	27	27
+Plantar interossei muscles on 4th metatarsal bone.r	Fourth metatarsal bone.r	27	27
+Plantar interossei muscles on 5th metatarsal bone.l	Fifth metatarsal bone.l	42	42
+Plantar interossei muscles on 5th metatarsal bone.r	Fifth metatarsal bone.r	42	42
+Plantaris muscle medially to the lateral gastrocnemius origin	Femur.r	38	38
+Plantaris muscle medially to the lateral gastrocnemius origin.l	Femur.l	38	38
+Plantaris muscle medially to the lateral gastrocnemius origin.r	Femur.r	38	38
+Popliteal surface of femur-line	Popliteal surface of femur.t	0	0
+Popliteus above oblique line of tibia.l	Tibia.l	54	57
+Popliteus above oblique line of tibia.r	Tibia.r	54	57
+Popliteus muscle in the groove for popliteus muscle.l	Femur.l	29	29
+Popliteus muscle in the groove for popliteus muscle.r	Femur.r	29	29
+Posterior arch of atlas-line	Posterior arch of atlas.t	0	0
+Posterior articular facet of dens axis-line	Posterior articular facet of dens axis.t	0	0
+Posterior border of fibula-line	Posterior border of fibula.t	0	0
+Posterior border of radius-line	Posterior border of radius.t	0	0
+Posterior border of ulna-line	Posterior border of ulna.t	0	0
+Posterior clinoid process-line	Posterior clinoid process.t	0	0
+Posterior gluteal line-line	Posterior gluteal line.t	0	0
+Posterior inferior iliac spine-line	Posterior inferior iliac spine.t	0	0
+Posterior intercondylar area-line	Posterior intercondylar area.t	0	0
+Posterior malleolus-line	Posterior malleolus.t	0	0
+Posterior obturator groove-line	(Posterior obturator tubercle).t	0	0
+Posterior sacral foramina-line	Posterior sacral foramina.t	0	0
+Posterior superior iliac spine-line	Posterior superior iliac spine.t	0	0
+Posterior surface of fibula-line	Posterior surface of fibula.t	0	0
+Posterior surface of humerus-line	Posterior surface of humerus.t	0	0
+Posterior surface of radius-line	Posterior surface of radius.t	0	0
+Posterior surface of scapula-line	Posterior surface of scapula.t	0	0
+Posterior surface of tibia-line	Posterior surface of tibia.t	0	0
+Posterior surface of ulna-line	Posterior surface of ulna.t	0	0
+Posterior tubercle of transverse process-line	Posterior tubercle of transverse process.t	0	0
+Posterior tubercule of atlas-line	Posterior tubercule of atlas.t	0	0
+Posteromedial surface of fibula-line	Posteromedial surface of fibula.t	0	0
+Procerus- Frontal nsertion.l	Frontal bone	13	18
+Procerus- Frontal nsertion.r	Frontal bone	13	18
+Procerus- Nasal insertion.l	Nasal bone.l	12	17
+Procerus- Nasal insertion.r	Nasal bone.r	12	17
+Promontory-line	Promontory.t	0	0
+Pronator quadratus-Radial insertions.l	Radius.l	39	39
+Pronator quadratus-Radial insertions.r	Radius.r	39	39
+Pronator quadratus-Ulnar insertion.l	Ulna.l	13	13
+Pronator quadratus-Ulnar insertion.r	Ulna.r	13	13
+Pronator teres muscle-Humeral insertion.l	Humerus.l	16	16
+Pronator teres muscle-Humeral insertion.r	Humerus.r	16	16
+Pronator teres-Radial insertion.l	Radius.l	16	16
+Pronator teres-Radial insertion.r	Radius.r	16	16
+Pronator teres-Ulnar insertion.l	Ulna.l	15	15
+Pronator teres-Ulnar insertion.r	Ulna.r	15	15
+Pronator tuberosity-line	Pronator tuberosity.t	0	0
+Proximal phalanx of 3rd finger of foot	Proximal phalanx of third finger of foot.001	15	15
+Proximal phalanx of 3rd finger of foot.001	Proximal phalanx of third finger of foot	15	15
+Proximal phalanx of fifth finger of foot	Armature	516	516
+Proximal phalanx of fifth finger of foot.001	Armature	516	516
+Proximal phalanx of fifth finger of hand	Armature	560	560
+Proximal phalanx of fifth finger of hand.001	Armature	560	560
+Proximal phalanx of first finger of foot	Armature	517	532
+Proximal phalanx of first finger of foot.001	Armature	517	532
+Proximal phalanx of first finger of hand	Armature	328	328
+Proximal phalanx of first finger of hand.001	Armature	328	328
+Proximal phalanx of fourth finger of foot	Armature	460	460
+Proximal phalanx of fourth finger of foot.001	Armature	460	460
+Proximal phalanx of fourth finger of hand	Armature	368	368
+Proximal phalanx of fourth finger of hand.001	Armature	368	368
+Proximal phalanx of hand-1st finger.l	Proximal phalanx of first finger of hand.001	14	14
+Proximal phalanx of hand-1st finger.r	Proximal phalanx of first finger of hand	14	14
+Proximal phalanx of second finger of foot	Armature	424	426
+Proximal phalanx of second finger of foot.001	Armature	424	426
+Proximal phalanx of second finger of hand	Armature	414	414
+Proximal phalanx of second finger of hand.001	Armature	414	414
+Proximal phalanx of third finger of foot	Armature	454	454
+Proximal phalanx of third finger of foot.001	Armature	454	454
+Proximal phalanx of third finger of hand	Armature	436	436
+Proximal phalanx of third finger of hand.001	Armature	436	436
+Pterygoid canal-line	Pterygoid canal.t	0	0
+Pterygoid fossa-line	Pterygoid fossa.t	0	0
+Pterygoid hamulus-line	Pterygoid hamulus.t	0	0
+Pterygoid notch-line	Pterygoid notch.t	0	0
+Pterygoid process -line	Pterygoid process .t	0	0
+Pterygospinous process-line	Pterygospinous process.t	0	0
+Pubic crest-line	Pubic crest.t	0	0
+Pubic tubercle-line	Pubic tubercle.t	0	0
+Pubis-line	Pubis.t	0	0
+Quadrate tubercle-line	Quadrate tubercle.t	0	0
+Quadratus femoris ending on quadrate tubercle.l	Femur.l	39	43
+Quadratus femoris ending on quadrate tubercle.r	Femur.r	39	43
+Quadratus femoris-Ischiatic insertion.l	Hip bone.l	27	27
+Quadratus femoris-Ischiatic insertion.r	Hip bone.r	27	27
+Quadriceps femoris on base of patella.l	Patella.l	49	50
+Quadriceps femoris on base of patella.r	Patella.r	49	50
+Radial fossa-line	Radial fossa.t	0	0
+Radial groove-line	Radial groove.t	0	0
+Radial notch-line	Radial notch.t	0	0
+Radial styloid process-line	Radial styloid process.t	0	0
+Radial tuberosity-line	Radial tuberosity.t	0	0
+Radius-line	Radius.t	0	0
+Radius.l	Armature	722	788
+Radius.r	Armature	722	788
+Ramus of ischium-line	Ramus of ischium.t	0	0
+Rectus abdominis muscle-Thoracic insertions.l	Costal cartilage of 6th rib.l	290	327
+Rectus abdominis muscle-Thoracic insertions.r	Costal cartilage of 6th rib.r	290	327
+Rectus anterior capitis muscle on atlas.l	Atlas (C1)	15	21
+Rectus anterior capitis muscle on atlas.r	Atlas (C1)	15	21
+Rectus anterior capitis muscle-Occipital insertion.l	Occipital bone	4	7
+Rectus anterior capitis muscle-Occipital insertion.r	Occipital bone	4	7
+Rectus femoris muscle-Iliac insertion.l	Hip bone.l	30	30
+Rectus femoris muscle-Iliac insertion.r	Hip bone.r	30	30
+Rectus lateralis capitis muscle on Occipital bone.l	Occipital bone	22	31
+Rectus lateralis capitis muscle on Occipital bone.r	Occipital bone	22	31
+Rectus posterior major capitis muscle-Occipital insertion.l	Occipital bone	11	17
+Rectus posterior major capitis muscle-Occipital insertion.r	Occipital bone	11	17
+Rectus posterior major capitis on axis.l	Axis (C2)	13	19
+Rectus posterior major capitis on axis.r	Axis (C2)	13	19
+Rectus posterior minor capitis muscle-Occipital insertion.l	Occipital bone	13	17
+Rectus posterior minor capitis muscle-Occipital insertion.r	Occipital bone	13	17
+Rectus posterior minor capitis on atlas.l	Atlas (C1)	21	33
+Rectus posterior minor capitis on atlas.r	Atlas (C1)	21	33
+Rhomboid major muscle-Scapular insertion.l	Scapula.l	1238	1238
+Rhomboid major muscle-Scapular insertion.r	Scapula.r	1238	1238
+Rhomboid minor muscle-Scapular insertion.l	Scapula.l	366	366
+Rhomboid minor muscle-Scapular insertion.r	Scapula.r	366	366
+Rib-line	Rib.t	0	0
+Sacral canal-line	Sacral canal.t	0	0
+Sacral hiatus-line	Sacral hiatus.t	0	0
+Sacral horn-line	Sacral horn.t	0	0
+Sacral tuberosity-line	Sacral tuberosity.t	0	0
+Sacropelvic surface of ilium-line	Sacropelvic surface of ilium.t	0	0
+Sacrum	Armature	8522	11676
+Sacrum-line	Sacrum.t	0	0
+Sartorius muscle on upper anterior iliac spine.l	Hip bone.l	83	83
+Sartorius muscle on upper anterior iliac spine.r	Hip bone.r	83	83
+Sartorius on pes anserinus.l	Tibia.l	8	8
+Sartorius on pes anserinus.r	Tibia.r	8	8
+Scalene anterior muscle on 1st rib.l	First rib.l	68	78
+Scalene anterior muscle on 1st rib.r	First rib.r	68	78
+Scalene anterior muscle on transverse process of C4.l	Vertebra C4	19	24
+Scalene anterior muscle on transverse process of C4.r	Vertebra C4	19	24
+Scalene anterior muscle on transverse process of C5.l	Vertebra C5	14	18
+Scalene anterior muscle on transverse process of C5.r	Vertebra C5	14	18
+Scalene anterior muscle on transverse process of C6.l	Vertebra C6	8	10
+Scalene anterior muscle on transverse process of C6.r	Vertebra C6	8	10
+Scalenus medius and posterior on 1st rib.l	First rib.l	86	102
+Scalenus medius and posterior on 1st rib.r	First rib.r	86	102
+Scalenus medius and posterior on transverse process of C6.l	Vertebra C6	29	39
+Scalenus medius and posterior on transverse process of C6.r	Vertebra C6	29	39
+Scalenus medius and posterior on transverse process of C7.l	Vertebra C7	22	27
+Scalenus medius and posterior on transverse process of C7.r	Vertebra C7	22	27
+Scalenus posterior on transverse process of C5.l	Vertebra C5	33	40
+Scalenus posterior on transverse process of C5.r	Vertebra C5	33	40
+Scaphoid bone	Armature	388	388
+Scaphoid bone.001	Armature	388	388
+Scaphoid fossa-line	Scaphoid fossa.t	0	0
+Scapula-line	Scapula.t	0	0
+Scapula.l	Armature	25255	25326
+Scapula.r	Armature	25255	25326
+Scapular head of deltoid muscle-Scapular insertion.l	Scapula.l	872	872
+Scapular head of deltoid muscle-Scapular insertion.r	Scapula.r	872	872
+Scapular notch-line	Scapular notch.t	0	0
+Second metacarpal bone.l	Armature	764	764
+Second metacarpal bone.r	Armature	764	764
+Second metatarsal bone.l	Armature	690	690
+Second metatarsal bone.r	Armature	690	690
+Second rib.l	Armature	5354	5364
+Second rib.r	Armature	5354	5364
+Sella turcica-line	Sella turcica.t	0	0
+Semimembranosus muscle-Ischiatic insertion.l	Hip bone.l	28	32
+Semimembranosus muscle-Ischiatic insertion.r	Hip bone.r	28	32
+Semimembranosus on posterior surf. of med. condyle.l	Tibia.l	38	43
+Semimembranosus on posterior surf. of med. condyle.r	Tibia.r	38	43
+Semitendinosus muscle-Isciatic insertion.l	Hip bone.l	45	55
+Semitendinosus muscle-Isciatic insertion.r	Hip bone.r	45	55
+Semitendinosus on pes anserinus.l	Tibia.l	22	28
+Semitendinosus on pes anserinus.r	Tibia.r	22	28
+Septum of frontal sinus-line	Septum of frontal sinus.t	0	0
+Septum of sphenoidal sinuses-line	Septum of sphenoidal sinuses.t	0	0
+Serratus anterior muscle on 1st rib.l	First rib.l	119	128
+Serratus anterior muscle on 1st rib.r	First rib.r	119	128
+Serratus anterior muscle on 2nd rib.l	Second rib.l	128	143
+Serratus anterior muscle on 2nd rib.r	Second rib.r	128	143
+Serratus anterior muscle on 3rd rib.l	Third rib.l	176	194
+Serratus anterior muscle on 3rd rib.r	Third rib.r	176	194
+Serratus anterior muscle on 4th rib.l	Fourth rib.l	305	315
+Serratus anterior muscle on 4th rib.r	Fourth rib.r	305	315
+Serratus anterior muscle on 5th rib.l	Fifth rib.l	113	125
+Serratus anterior muscle on 5th rib.r	Fifth rib.r	113	125
+Serratus anterior muscle on 6th rib.l	Sixth rib.l	137	145
+Serratus anterior muscle on 6th rib.r	Sixth rib.r	137	145
+Serratus anterior muscle on 7th rib.l	Seventh rib.l	190	210
+Serratus anterior muscle on 7th rib.r	Seventh rib.r	190	210
+Serratus anterior muscle on 8th rib.l	Heighth rib.l	123	133
+Serratus anterior muscle on 8th rib.r	Heighth rib.r	123	133
+Serratus anterior muscle on 9th rib.l	Ninth rib.l	82	98
+Serratus anterior muscle on 9th rib.r	Ninth rib.r	82	98
+Serratus anterior muscle-Scapular insertion.l	Scapula.l	306	306
+Serratus anterior muscle-Scapular insertion.r	Scapula.r	306	306
+Serratus posterior inferior muscle on 12th rib.l	Twelfth rib.l	54	60
+Serratus posterior inferior muscle on 12th rib.r	Twelfth rib.r	54	60
+Serratus posterior inferior on 10th rib.l	Tenth rib.l	93	101
+Serratus posterior inferior on 10th rib.r	Tenth rib.r	93	101
+Serratus posterior inferior on 11th rib.l	Eleventh rib.l	39	46
+Serratus posterior inferior on 11th rib.r	Eleventh rib.r	39	46
+Serratus posterior inferior on 9th rib.l	Ninth rib.l	86	98
+Serratus posterior inferior on 9th rib.r	Ninth rib.r	86	98
+Serratus posterior superior on 2nd rib.l	Second rib.l	133	155
+Serratus posterior superior on 2nd rib.r	Second rib.r	133	155
+Serratus posterior superior on 3rd rib.l	Third rib.l	139	149
+Serratus posterior superior on 3rd rib.r	Third rib.r	139	149
+Serratus posterior superior on 4th rib.l	Fourth rib.l	358	382
+Serratus posterior superior on 4th rib.r	Fourth rib.r	358	382
+Serratus posterior superior on 5th rib.l	Fifth rib.l	278	297
+Serratus posterior superior on 5th rib.r	Fifth rib.r	278	297
+Sesamoid bones of foot.l	Armature	290	290
+Sesamoid bones of foot.r	Armature	290	290
+Seventh rib.l	Armature	9741	9776
+Seventh rib.r	Armature	9741	9776
+Short head of biceps brachii on coracoid process of scapula	Scapula.l	200	200
+Short head of biceps brachii on coracoid process of scapula.r	Scapula.r	200	200
+Short head of biceps femoris on lateral lip of linea aspera	Femur.r	60	65
+Short head of biceps femoris on lateral lip of linea aspera.r	Femur.r	60	65
+Sinus of frontal bone	Armature	752	1504
+Sinus of sphenoid bone	Armature	384	384
+Sixth rib.l	Armature	10092	10132
+Sixth rib.r	Armature	10092	10132
+Soleal line-line.001	Soleal line.t.001	0	0
+Solear on solear crest on fibular head.l	Fibula.l	46	50
+Solear on solear crest on fibular head.r	Fibula.r	46	50
+Solear on solear crest on oblique line.l	Tibia.l	40	60
+Solear on solear crest on oblique line.r	Tibia.r	40	60
+Sphenoid bone	Armature	7186	7226
+Sphenoidal crest-line	Sphenoidal crest.t	0	0
+Sphenoidal lingula-line	Sphenoidal lingula.t	0	0
+Sphenoidal margin of frontal bone-line	Sphenoidal margin of frontal bone.t	0	0
+Sphenoidal yoke-line	Sphenoidal yoke.t	0	0
+Spinalis capitis muscle-Occipital insertion.l	Occipital bone	17	25
+Spinalis capitis muscle-Occipital insertion.r	Occipital bone	17	25
+Spine of scapula-line	Spine of scapula.t	0	0
+Spine of sphenoid bone-line	Spine of sphenoid bone.t	0	0
+Spinoglenoid notch-line	Spinoglenoid notch.t	0	0
+Spinous process-line	Spinous process.t	0	0
+Splenius colli on transverse process of atlas.l	Atlas (C1)	23	46
+Splenius colli on transverse process of atlas.r	Atlas (C1)	23	46
+Splenius colli on transverse process of axis.l	Axis (C2)	10	17
+Splenius colli on transverse process of axis.r	Axis (C2)	10	17
+Squamosal margin of greater wing-line	Squamosal margin of greater wing.t	0	0
+Squamous part of frontal bone-line	Squamous part of frontal bone.t	0	0
+Squamous part of occipital bone-line	Squamous part of occipital bone.t	0	0
+Stapes.l	Armature	2168	4336
+Stapes.r	Armature	2168	4336
+Sternal angle-line	Sternal angle.t	0	0
+Sternocleidomastoid muscle on mastoid process.l	Temporal bone.l	169	210
+Sternocleidomastoid muscle on mastoid process.r	Temporal bone.r	169	210
+Sternocleidomastoid muscle-Clavicular insertion.l	Clavicle.l	28	28
+Sternocleidomastoid muscle-Clavicular insertion.r	Clavicle.r	28	28
+Sternocleidomastoid muscle-Sternal insertion.l	Manubrium of sternum	62	80
+Sternocleidomastoid muscle-Sternal insertion.r	Manubrium of sternum	62	80
+Sternocostal head of pectoralis major- Body of sternum part	Sternum	317	336
+Sternocostal head of pectoralis major- Body of sternum part.r	Sternum	317	336
+Sternocostal head of pectoralis major- Costal cartilage par	Costal cartilage of 6th rib.l	418	466
+Sternocostal head of pectoralis major- Costal cartilage part	Costal cartilage of 6th rib.r	418	466
+Sternocostal head of pectoralis major- Costal cartilage part.r	Costal cartilage of 6th rib.r	418	466
+Sternocostal head of pectoralis major- manubrium part.l	Manubrium of sternum	157	164
+Sternocostal head of pectoralis major- manubrium part.r	Manubrium of sternum	157	164
+Sternohyoid muscle on hyoid bone.l	Hyoid bone	23	33
+Sternohyoid muscle on hyoid bone.r	Hyoid bone	23	33
+Sternohyoid muscle-Sternoclavicular insertion.l	Clavicle.l	107	113
+Sternohyoid muscle-Sternoclavicular insertion.r	Clavicle.r	107	113
+Sternum	Armature	4466	4466
+Sternum-line	Sternum.t	0	0
+Subclavius muscle-Clavicular insertion.l	Clavicle.l	47	47
+Subclavius muscle-Clavicular insertion.r	Clavicle.r	47	47
+Sublime tubercle-line	Sublime tubercle.t	0	0
+Subscapular fossa-line	Subscapular fossa.t	0	0
+Subscapularis muscle-Humeral insertion.l	Humerus.l	28	28
+Subscapularis muscle-Humeral insertion.r	Humerus.r	28	28
+Subscapularis muscle-Scapular insertion.l	Scapula.l	1319	1319
+Subscapularis muscle-Scapular insertion.r	Scapula.r	1319	1319
+Sulcus of auditory tube-line	Sulcus of auditory tube.t	0	0
+Supercilliary arch-line	Supercilliary arch.t	0	0
+Superior angle of scapula-line	Superior angle of scapula.t	0	0
+Superior articular facet of vertebra-line	Superior articular facet of vertebra.t	0	0
+Superior articular process of sacrum-line	Superior articular process of sacrum.t	0	0
+Superior articular process of vertebra-line	Superior articular process of vertebra.t	0	0
+Superior articular surface of atlas-line	Superior articular surface of atlas.t	0	0
+Superior articular surface of lateral condyle-line	Superior articular surface of lateral condyle.t	0	0
+Superior articular surfaces of tibia-line	Superior articular surfaces of tibia.t	0	0
+Superior border of scapula-line	Superior border of scapula.t	0	0
+Superior costal facet-line	Superior costal facet.t	0	0
+Superior gemellus muscle-Ischiatic insertion.l	Hip bone.l	39	39
+Superior gemellus muscle-Ischiatic insertion.r	Hip bone.r	39	39
+Superior nuchal line-line	Superior nuchal line.t	0	0
+Superior pubic ramus-line	Superior pubic ramus.t	0	0
+Superior vertebral notch-line	Superior vertebral notch.t	0	0
+Supinator crest-line	Supinator crest.t	0	0
+Supinator-Radial insertion.l	Radius.l	90	90
+Supinator-Radial insertion.r	Radius.r	90	90
+Supinator-Ulnar insertion.l	Ulna.l	29	29
+Supinator-Ulnar insertion.r	Ulna.r	29	29
+Supra-acetabular groove-line	Supra-acetabular groove.t	0	0
+Supra-orbital notch-line	Supra-orbital notch.t	0	0
+Supraglenoid tubercle-line	Supraglenoid tubercle.t	0	0
+Supraspinatus muscle-Humeral insertion.l	Humerus.l	89	89
+Supraspinatus muscle-Humeral insertion.r	Humerus.r	89	89
+Supraspinatus muscle-Scapular insertion.l	Scapula.l	598	598
+Supraspinatus muscle-Scapular insertion.r	Scapula.r	598	598
+Supraspinous fossa-line	Supraspinous fossa.t	0	0
+Suprastyloid crest-line	Suprastyloid crest.t	0	0
+Supreme nuchal line-line	Supreme nuchal line.t	0	0
+Surgical neck of the humerus-line	Surgical neck of the humerus.t	0	0
+Symphyseal surface of pubic bone-line	Symphyseal surface of pubic bone.t	0	0
+Talus.l	Armature	1288	1288
+Talus.r	Armature	1288	1288
+Temporal bone.l	Armature	4241	4250
+Temporal bone.r	Armature	4241	4250
+Temporal line-line	Temporal line.t	0	0
+Temporal surface of frontal bone-line	Temporal surface of frontal bone.t	0	0
+Temporal surface of greater wing-line	Temporal surface of greater wing.t	0	0
+Temporalis muscle on coronoid process of mandible.l	Mandible	117	135
+Temporalis muscle on coronoid process of mandible.r	Mandible	117	135
+Temporalis muscle on temporal fossa- Frontal part.l	Frontal bone	93	94
+Temporalis muscle on temporal fossa- Frontal part.r	Frontal bone	93	94
+Temporalis muscle on temporal fossa- Parietal part.l	Parietal bone.l	230	232
+Temporalis muscle on temporal fossa- Parietal part.r	Parietal bone.r	230	232
+Temporalis muscle on temporal fossa- Sphenoid part.l	Sphenoid bone	81	91
+Temporalis muscle on temporal fossa- Sphenoid part.r	Sphenoid bone	81	91
+Temporalis muscle on temporal fossa- Temporal part.l	Temporal bone.l	412	412
+Temporalis muscle on temporal fossa- Temporal part.r	Temporal bone.r	412	412
+Tensor fasciae latae on upper anterior iliac spine.l	Hip bone.l	19	19
+Tensor fasciae latae on upper anterior iliac spine.r	Hip bone.r	19	19
+Tenth rib.l	Armature	7002	7026
+Tenth rib.r	Armature	7002	7026
+Teres major muscle-Humeral insertion.l	Humerus.l	18	18
+Teres major muscle-Humeral insertion.r	Humerus.r	18	18
+Teres major muscle-Scapular insertion.l	Scapula.l	323	353
+Teres major muscle-Scapular insertion.r	Scapula.r	323	353
+Teres minor muscle-Humeral insertion.l	Humerus.l	127	127
+Teres minor muscle-Humeral insertion.r	Humerus.r	127	127
+Teres minor muscle-Scapular insertion.l	Scapula.l	408	408
+Teres minor muscle-Scapular insertion.r	Scapula.r	408	408
+Third metacarpal bone	Armature	708	708
+Third metacarpal bone.l	Armature	708	708
+Third metatarsal bone.l	Armature	722	722
+Third metatarsal bone.r	Armature	722	722
+Third rib.l	Armature	6957	6980
+Third rib.r	Armature	6957	6980
+Thoracic vertebra-line	Thoracic vertebra.t	0	0
+Thyrohyoid muscle on hyoid bone.l	Hyoid bone	30	34
+Thyrohyoid muscle on hyoid bone.r	Hyoid bone	30	34
+Thyrohyoid muscle on thyroid cartilage.l	Thyroid cartilage	63	80
+Thyrohyoid muscle on thyroid cartilage.r	Thyroid cartilage	63	80
+Thyroid cartilage	Armature	4586	4632
+Tibia-line	Tibia.t	0	0
+Tibia.l	Armature	1613	1670
+Tibia.r	Armature	1613	1670
+Tibial plateau-line	Tibial plateau.t	0	0
+Tibial tuberosity-line	Tibial tuberosity.t	0	0
+Tibialis anterior on 1st metatarsal bone.l	First metatarsal bone.l	33	33
+Tibialis anterior on 1st metatarsal bone.r	First metatarsal bone.r	33	33
+Tibialis anterior on lateral surface of tibia.l	Tibia.l	378	380
+Tibialis anterior on lateral surface of tibia.r	Tibia.r	378	380
+Tibialis anterior on medial cuneiform bone.l	Medial cuneiform bone.l	86	86
+Tibialis anterior on medial cuneiform bone.r	Medial cuneiform bone.r	86	86
+Tibialis posterior on post. surface of interosseus membrane	Tibia.l	651	675
+Tibialis posterior on post. surface of interosseus membrane.r	Tibia.r	651	675
+Transv. head of add. hallucis on sesamoid bones.l	Sesamoid bones of foot.l	6	6
+Transv. head of add. hallucis on sesamoid bones.r	Sesamoid bones of foot.r	6	6
+Transverse abdominal muscle-Iliac insertion.l	Hip bone.l	57	80
+Transverse abdominal muscle-Iliac insertion.r	Hip bone.r	57	80
+Transverse costal facet-line	Transverse costal facet.t	0	0
+Transverse head of adductor hallucis on 3rd metatarsal head.r	Third metatarsal bone.r	34	34
+Transverse head of adductor hallucis on 4th metatarsal head	-	49	69
+Transverse head of adductor hallucis on 4th metatarsal head.r	Fourth metatarsal bone.r	49	69
+Transverse head of adductor hallucis on 5th metatarsal head	-	12	12
+Transverse head of adductor hallucis on 5th metatarsal head.r	Fifth metatarsal bone.r	12	12
+Transverse ligament tubercule-line	Transverse ligament tubercule.t	0	0
+Transverse process-line	Transverse process.t	0	0
+Transverse ridges-line	Transverse ridges.t	0	0
+Transversus thoracis-Sternal insertion- Body of sternum part	Sternum	229	264
+Transversus thoracis-Sternal insertion- Body of sternum part.r	Sternum	229	264
+Transversus thoracis-Sternal insertion- Xiphoid process part	Xiphoid process	55	64
+Transversus thoracis-Sternal insertion- Xiphoid process part.r	Xiphoid process	55	64
+Trapezium bone.l	Armature	500	500
+Trapezium bone.r	Armature	500	500
+Trapezoid bone	Armature	364	364
+Trapezoid bone.001	Armature	364	364
+Triceps brachii-Ulnar insertion	-	54	54
+Triceps brachii-Ulnar insertion.l	-	54	54
+Triceps brachii-Ulnar insertion.r	-	54	54
+Triceps surae on calcaneal tuberosity.l	Calcaneus.l	61	61
+Triceps surae on calcaneal tuberosity.r	Calcaneus.r	61	61
+Triquetrum bone.l	Armature	176	176
+Triquetrum bone.r	Armature	176	176
+Trochanteric fossa-line	Trochanteric fossa.t	0	0
+Trochlea of humerus-line	Trochlea of humerus.t	0	0
+Trochlear fovea-line	Trochlear fovea.t	0	0
+Trochlear notch-line	Trochlear notch.t	0	0
+Trochlear spine of frontal bone-line	Trochlear spine.t	0	0
+Tubercle of iliotibial tract-line	Tubercle of iliotibial tract.t	0	0
+Tubercule of rib-line	Tubercule of rib.t	0	0
+Tuberculum sellae-line	Tuberculum sellae.t	0	0
+Tuberosity of ulna-line	Tuberosity of ulna.t	0	0
+Twelfth rib.l	Armature	2995	3002
+Twelfth rib.r	Armature	2995	3002
+Ulna-line	Ulna.t	0	0
+Ulna.l	Armature	875	904
+Ulna.r	Armature	875	904
+Ulnar head of flexor carpi ulnaris-Ulnar insertion.l	Ulna.l	230	230
+Ulnar head of flexor carpi ulnaris-Ulnar insertion.r	Ulna.r	230	230
+Ulnar notch-line	Ulnar notch.t	0	0
+Ulnar styloid process-line	Ulnar styloid process.t	0	0
+Uncinate process of cervical vertebra-line	Uncinate process of cervical vertebra.t	0	0
+Upper canine.l	Armature	1392	1392
+Upper canine.r	Armature	1392	1392
+Upper first molar tooth.l	Armature	2156	2156
+Upper first molar tooth.r	Armature	2156	2156
+Upper first premolar.l	Armature	1610	1610
+Upper first premolar.r	Armature	1610	1610
+Upper lateral incisor.l	Armature	1368	1368
+Upper lateral incisor.r	Armature	1368	1368
+Upper medial incisor.l	Armature	1288	1288
+Upper medial incisor.r	Armature	1288	1288
+Upper second molar tooth.l	Armature	1838	1838
+Upper second molar tooth.r	Armature	1838	1838
+Upper second premolar.l	Armature	1466	1466
+Upper second premolar.r	Armature	1466	1466
+Vaginal process of sphenoid bone-line	Vaginal process of sphenoid bone.t	0	0
+Vermian fossa-line	Vermian fossa.t	0	0
+Vertebra C3	Armature	2374	2440
+Vertebra C4	Armature	1938	1940
+Vertebra C5	Armature	2256	2336
+Vertebra C6	Armature	2224	2304
+Vertebra C7	Armature	2090	2164
+Vertebra L1	Armature	3056	3162
+Vertebra L2	Armature	2572	2688
+Vertebra L3	Armature	3058	3158
+Vertebra L4	Armature	3692	3804
+Vertebra L5	Armature	3920	4032
+Vertebra T1	Armature	1946	1946
+Vertebra T10	Armature	2953	3058
+Vertebra T11	Armature	1780	1798
+Vertebra T12	Armature	2472	2586
+Vertebra T2	Armature	2092	2142
+Vertebra T3	Armature	2342	2344
+Vertebra T4	Armature	2214	2216
+Vertebra T5	Armature	2152	2152
+Vertebra T6	Armature	1766	1772
+Vertebra T7	Armature	2640	2786
+Vertebra T8	Armature	1690	1700
+Vertebra T9	Armature	2970	2980
+Vertebra-line	Vertebra.t	0	0
+Vertebral arch-line	Vertebral arch.t	0	0
+Vertebral body-line	Vertebral body.t	0	0
+Vertebral foramen-line	Vertebral foramen.t	0	0
+Vomer	Armature	800	800
+Xiphoid process	Armature	914	914
+Xiphoid process-line	Xiphoid process.t	0	0
+Zygomatic bone.l	Armature	1328	1328
+Zygomatic bone.r	Armature	1328	1328
+Zygomatic margin of greater wing-line	Zygomatic margin of greater wing.t	0	0
+Zygomatic process of frontal bone-line	Zygomatic process of frontal bone.t	0	0
+Zygomaticus major muscle on zygomtic bone.l	Zygomatic bone.l	3	8
+Zygomaticus major muscle on zygomtic bone.r	Zygomatic bone.r	3	8
+Zygomaticus minor muscle on zygomatic bone.l	Zygomatic bone.l	7	10
+Zygomaticus minor muscle on zygomatic bone.r	Zygomatic bone.r	7	10

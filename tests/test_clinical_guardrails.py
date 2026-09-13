@@ -1,8 +1,8 @@
 """Adversarial & Clinical Safety Guardrail Tests."""
 
 import pytest
-from mos_bot.core.models import ClientProfile, SafetyTriageResult
-from mos_bot.core.context_loader import (
+from mos_os.core.models import ClientProfile, SafetyTriageResult
+from mos_os.core.context_loader import (
     run_safety_triage,
     evaluate_ed_screening,
 )

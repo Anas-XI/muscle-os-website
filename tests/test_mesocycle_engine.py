@@ -1,7 +1,7 @@
 """Tests for Mesocycle Progression State Machine."""
 
 import pytest
-from mos_bot.core.mesocycle_engine import (
+from mos_os.core.mesocycle_engine import (
     MesocycleState,
     advance_mesocycle,
     get_mesocycle_phase,
