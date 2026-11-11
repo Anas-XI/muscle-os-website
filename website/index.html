@@ -364,16 +364,9 @@
   .hub-card .hub-link { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--yellow); font-weight:700; }
 
   .packages { background:radial-gradient(circle at center, #171822 0%, var(--ink) 80%); border-top:1px solid var(--line); }
-  .currency-toggle-wrap { display:flex; justify-content:center; margin: 24px 0 32px; }
-  .currency-toggle {
-    background: var(--ink-2); padding: 4px; border-radius: 30px; display:inline-flex; border: 1px solid var(--border-color);
-  }
-  .currency-btn {
-    border-radius: 25px; padding: 7px 20px; font-size:12.5px; font-weight:700; text-transform:uppercase;
-    border:none; cursor:pointer; font-family:'Inter',sans-serif; transition:all 0.2s;
-  }
-  .currency-btn.active { background:var(--yellow); color:var(--ink); box-shadow:0 0 10px var(--yellow-glow); }
-  .currency-btn:not(.active) { background:transparent; color:var(--gray-light); }
+  .currency-toggle-wrap, .currency-toggle, .currency-btn { display:none; }
+  .reveal { opacity:0; transform:translateY(18px); transition:opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1); }
+  .reveal.is-visible { opacity:1; transform:translateY(0); }
 
   .tabs-nav { display:flex; justify-content:center; gap:10px; margin-bottom:36px; flex-wrap:wrap; }
   .tab-btn {
@@ -434,17 +427,19 @@
   .faq-item .faq-a a { color:var(--yellow); text-decoration:underline; }
 
   .contact {
-    background: linear-gradient(135deg, #94A3B8 0%, #E2E8F0 50%, #FFFFFF 100%); color:var(--ink);
+    background: radial-gradient(circle at top center, rgba(30, 33, 43, 0.92) 0%, #08090C 72%);
+    border-top: 1px solid rgba(226, 232, 240, 0.16);
+    color: var(--paper);
     position:relative; overflow:hidden;
   }
   .contact-inner { text-align:center; position: relative; z-index: 1; }
-  .contact h2 { font-family:'Oswald',sans-serif; text-transform:uppercase; font-size:clamp(28px,4vw,44px); line-height:1.05; font-weight:700; color:var(--ink); }
-  .contact p.lead { margin-top:16px; font-size:15.5px; color:#1E2029; max-width:620px; line-height:1.65; margin-left:auto; margin-right:auto; font-weight: 500; }
+  .contact h2 { font-family:'Oswald',sans-serif; text-transform:uppercase; font-size:clamp(28px,4vw,44px); line-height:1.05; font-weight:700; color:#fff; }
+  .contact p.lead { margin-top:16px; font-size:15px; color:var(--gray-light); max-width:620px; line-height:1.65; margin-left:auto; margin-right:auto; font-weight: 400; }
   .contact-ctas { margin-top:28px; display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
-  .btn-dark { background:var(--ink); color:#fff; box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
-  .btn-dark:hover { background:#000; transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,0.4); }
-  .btn-ghost-dark { background:transparent; color:var(--ink); border:2px solid rgba(20,21,26,0.6); font-weight: 700; }
-  .btn-ghost-dark:hover { border-color:var(--ink); background: rgba(20,21,26,0.08); transform: translateY(-2px); }
+  .btn-dark { background:linear-gradient(135deg, #FFFFFF 0%, #CBD5E1 100%); color:#08090C; font-weight:700; box-shadow: 0 8px 25px rgba(226,232,240,0.22); }
+  .btn-dark:hover { background:#fff; transform: translateY(-2px); box-shadow: 0 12px 30px rgba(255,255,255,0.28); }
+  .btn-ghost-dark { background:rgba(255,255,255,0.04); color:#F8FAFC; border:1.5px solid rgba(226,232,240,0.28); font-weight: 600; }
+  .btn-ghost-dark:hover { border-color:#E2E8F0; background: rgba(226,232,240,0.1); transform: translateY(-2px); }
 
   footer { background:var(--ink); border-top:1px solid var(--line); padding:36px 0; }
   .footer-inner { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
@@ -498,7 +493,7 @@
   @media (max-width: 480px) {
     .hero h1 { font-size:36px; }
     .hero-stats { grid-template-columns: 1fr 1fr; gap:16px; }
-    .hstat { padding-right:8px; }
+    .hstat { padding-right:0; border-right:none; }
     .btn { width:100%; justify-content:center; }
     .about-facts { grid-template-columns:1fr; }
   }
@@ -524,14 +519,14 @@
     <div class="nav-actions">
       <a href="portal.html" class="nav-portal-btn">Portal</a>
       <a class="nav-cta" href="https://wa.me/201040796017" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu">
         <span></span><span></span><span></span>
       </button>
     </div>
   </div>
 </header>
 
-<div id="mobileMenu">
+<div id="mobileMenu" role="dialog" aria-modal="true" aria-label="Mobile Navigation" aria-hidden="true">
   <a href="#about" class="mobile-link display">About</a>
   <a href="#methodology" class="mobile-link display">Methodology</a>
   <a href="#services" class="mobile-link display">Services</a>
@@ -578,7 +573,7 @@
 <section class="about section-pad" id="about">
   <div class="wrap about-grid">
     <div class="about-photo-wrap">
-      <div class="about-photo"><img src="assets/portrait.png" alt="Anas Mo'men Coaching"></div>
+      <div class="about-photo"><img src="assets/portrait.png" alt="Anas Mo'men Coaching" loading="lazy"></div>
     </div>
     <div>
       <div class="eyebrow">About Your Coach</div>
@@ -828,8 +823,8 @@
       <div class="eyebrow">Interactive Systems // 1-Month Free Trial</div>
       <h2 class="section-title" style="margin:0 auto;">Upgrade Your Training OS</h2>
       
-      <div style="margin: 16px auto 26px; max-width: 600px; background: rgba(76,175,80,0.12); border: 1.5px solid rgba(76,175,80,0.35); border-radius: 12px; padding: 14px 20px; color: #4CAF50; font-weight: 600; font-size: 0.95rem;">
-        🎉 1-Month All-Access Free Trial is Active for Everyone! Enjoy full features with zero credit cards or paywalls.
+      <div style="margin: 16px auto 26px; max-width: 600px; background: rgba(16,185,129,0.12); border: 1.5px solid rgba(16,185,129,0.35); border-radius: 12px; padding: 14px 20px; color: #10B981; font-weight: 600; font-size: 0.95rem;">
+        1-Month All-Access Free Trial is Active for Everyone! Enjoy full features with zero credit cards or paywalls.
       </div>
 
       <div class="tabs-nav">
@@ -1097,38 +1092,60 @@
 
     const menuToggle = document.getElementById('menuToggle');
     const mobileMenu = document.getElementById('mobileMenu');
+    function setMenuState(open) {
+      if (!menuToggle || !mobileMenu) return;
+      mobileMenu.classList.toggle('is-open', open);
+      menuToggle.classList.toggle('is-active', open);
+      menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      mobileMenu.setAttribute('aria-hidden', open ? 'false' : 'true');
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
     if (menuToggle && mobileMenu) {
       menuToggle.addEventListener('click', function() {
-        const isOpen = mobileMenu.classList.toggle('is-open');
-        menuToggle.classList.toggle('is-active', isOpen);
+        setMenuState(!mobileMenu.classList.contains('is-open'));
       });
       document.querySelectorAll('.mobile-link').forEach(function(link) {
         link.addEventListener('click', function() {
-          mobileMenu.classList.remove('is-open');
-          menuToggle.classList.remove('is-active');
+          setMenuState(false);
         });
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('is-open')) {
+          setMenuState(false);
+          menuToggle.focus();
+        }
       });
     }
 
     const progressBar = document.getElementById('scroll-progress');
     const header = document.getElementById('header');
     const backToTop = document.getElementById('backToTop');
+    const navAnchors = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
+    const trackedSections = navAnchors
+      .map(function(a) { return document.querySelector(a.getAttribute('href')); })
+      .filter(Boolean);
 
-    window.addEventListener('scroll', function() {
+    function updateScrollUI() {
       const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
 
       if (progressBar) progressBar.style.width = scrolled + '%';
-      if (header) {
-        if (winScroll > 40) header.classList.add('scrolled');
-        else header.classList.remove('scrolled');
+      if (header) header.classList.toggle('scrolled', winScroll > 40);
+      if (backToTop) backToTop.classList.toggle('visible', winScroll > 400);
+
+      let currentId = '';
+      for (let i = 0; i < trackedSections.length; i++) {
+        const sec = trackedSections[i];
+        if (sec.offsetTop - 160 <= winScroll) currentId = '#' + sec.id;
       }
-      if (backToTop) {
-        if (winScroll > 400) backToTop.classList.add('visible');
-        else backToTop.classList.remove('visible');
-      }
-    });
+      navAnchors.forEach(function(a) {
+        a.style.color = a.getAttribute('href') === currentId ? 'var(--yellow)' : '';
+      });
+    }
+
+    window.addEventListener('scroll', updateScrollUI, { passive: true });
+    updateScrollUI();
 
     if (backToTop) {
       backToTop.addEventListener('click', function() {
@@ -1136,34 +1153,42 @@
       });
     }
 
-    window.setCurrency = function(curr) {
-      localStorage.setItem('mos_currency', curr);
-      const egpBtn = document.getElementById('currencyEGP');
-      const usdBtn = document.getElementById('currencyUSD');
-      if (egpBtn) egpBtn.classList.toggle('active', curr === 'egp');
-      if (usdBtn) usdBtn.classList.toggle('active', curr === 'usd');
-
-      document.querySelectorAll('.price-val.egp').forEach(function(el) {
-        el.style.display = (curr === 'egp') ? 'inline' : 'none';
-      });
-      document.querySelectorAll('.price-val.usd').forEach(function(el) {
-        el.style.display = (curr === 'usd') ? 'inline' : 'none';
-      });
-    };
-
-    function detectCurrency() {
-      const saved = localStorage.getItem('mos_currency');
-      if (saved) return saved;
-      try {
-        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        const egyptZones = ['Africa/Cairo', 'Africa/Tripoli', 'Africa/Khartoum'];
-        const menaZones = ['Asia/Riyadh', 'Asia/Dubai', 'Asia/Kuwait', 'Asia/Bahrain',
-                           'Asia/Qatar', 'Asia/Amman', 'Asia/Beirut', 'Asia/Baghdad'];
-        if (egyptZones.includes(tz) || menaZones.includes(tz)) return 'egp';
-      } catch(e) {}
-      return 'usd';
+    // Scroll reveal + Hero stat counter animation (respecting reduced-motion)
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const revealTargets = document.querySelectorAll('.method-card, .service-card, .pricing-card, .review-card, .faq-item, .hub-card');
+    if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+      revealTargets.forEach(function(el) { el.classList.add('reveal'); });
+      const obs = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealTargets.forEach(function(el) { obs.observe(el); });
     }
-    setCurrency(detectCurrency());
+
+    if (!prefersReducedMotion) {
+      document.querySelectorAll('.hstat .num').forEach(function(numEl) {
+        const raw = (numEl.textContent || '').trim();
+        const match = raw.match(/^(\d+)(.*)$/);
+        if (!match) return;
+        const target = parseInt(match[1], 10);
+        const suffix = match[2] || '';
+        const start = target > 1500 ? target - 20 : 0;
+        const duration = 650;
+        const startTime = performance.now();
+        function tick(now) {
+          const p = Math.min(1, (now - startTime) / duration);
+          const eased = 1 - Math.pow(1 - p, 3);
+          const current = Math.round(start + (target - start) * eased);
+          numEl.textContent = current + suffix;
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+    }
 
     window.switchTab = function(tab) {
       const toolsTab = document.getElementById('tabTools');

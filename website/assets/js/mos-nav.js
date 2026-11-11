@@ -254,6 +254,7 @@
   }
 
   function initNav() {
+    if (window.self !== window.top) return;
     var paths = resolvePaths();
     var currentTool = detectCurrentTool(paths.currentFile);
 

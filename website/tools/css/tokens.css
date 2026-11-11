@@ -1,0 +1,85 @@
+/* Auto-generated from design-tokens.json — do not edit manually */
+:root {
+  /* Canonical Muscle OS Obsidian + Chrome Silver Tokens */
+  --mos-bg: #08090C;
+  --mos-surface: #14151A;
+  --mos-surface-subtle: #11131A;
+  --mos-card: #16181F;
+  --mos-card-elevated: #1E212B;
+
+  --mos-accent: #E2E8F0;
+  --mos-accent-strong: #FFFFFF;
+  --mos-accent-secondary: #CBD5E1;
+  --mos-accent-dim: rgba(226, 232, 240, 0.12);
+  --mos-accent-glow: rgba(226, 232, 240, 0.28);
+
+  --mos-emerald: #10B981;
+  --mos-emerald-dim: rgba(16, 185, 129, 0.14);
+  --mos-cyan: #38BDF8;
+  --mos-cyan-dim: rgba(56, 189, 248, 0.14);
+  --mos-amber: #F59E0B;
+  --mos-amber-dim: rgba(245, 158, 11, 0.14);
+  --mos-danger: #EF4444;
+  --mos-danger-dim: rgba(239, 68, 68, 0.14);
+  --mos-rose: #F43F5E;
+
+  --mos-text: #F8FAFC;
+  --mos-text-secondary: #94A3B8;
+  --mos-text-muted: #8B95A7;
+  --mos-text-dim: #64748B;
+  --mos-text-inverse: #08090C;
+
+  --mos-border: #232735;
+  --mos-border-subtle: rgba(255, 255, 255, 0.08);
+  --mos-border-active: #E2E8F0;
+
+  --mos-radius-sm: 6px;
+  --mos-radius-md: 10px;
+  --mos-radius-card: 12px;
+  --mos-radius-lg: 16px;
+  --mos-radius-pill: 999px;
+
+  --mos-font-display: 'Oswald', sans-serif;
+  --mos-font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --mos-font-mono: 'JetBrains Mono', monospace;
+  --mos-body-size: 15px;
+
+  /* Semantic Aliases */
+  --ink: var(--mos-bg);
+  --bg: var(--mos-bg);
+  --surface: var(--mos-surface);
+  --surface-2: var(--mos-card-elevated);
+  --card: var(--mos-card);
+  --card-bg: rgba(22, 24, 31, 0.88);
+  --accent: var(--mos-accent);
+  --silver: var(--mos-accent);
+  --silver-glow: var(--mos-accent-glow);
+  --paper: var(--mos-text);
+  --text: var(--mos-text);
+  --text-sub: var(--mos-text-secondary);
+  --text-muted: var(--mos-text-muted);
+  --gray: var(--mos-text-secondary);
+  --gray-light: #CBD5E1;
+  --line: var(--mos-border-subtle);
+  --border: var(--mos-border);
+  --border-hover: rgba(226, 232, 240, 0.42);
+  --green: var(--mos-emerald);
+  --red: var(--mos-danger);
+  --amber: var(--mos-amber);
+  --cyan: var(--mos-cyan);
+}
+
+/* Global keyboard accessibility & reduced-motion baseline */
+:focus-visible {
+  outline: 2px solid var(--mos-accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

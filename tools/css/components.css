@@ -102,8 +102,8 @@
   animation: mosToastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   transition: opacity 0.3s, transform 0.3s;
 }
-.mos-toast.success { border-color: rgba(76, 175, 80, 0.6); }
-.mos-toast.error { border-color: rgba(244, 67, 54, 0.6); }
+.mos-toast.success { border-color: rgba(16, 185, 129, 0.6); }
+.mos-toast.error { border-color: rgba(239, 68, 68, 0.6); }
 .mos-toast.warning { border-color: rgba(226, 232, 240, 0.6); }
 .mos-toast-icon { font-size: 1.2rem; flex-shrink: 0; }
 .mos-toast-msg { flex: 1; line-height: 1.4; }
@@ -176,7 +176,7 @@
   padding: 6px 14px;
   border-radius: 20px;
   cursor: pointer;
-  min-height: 38px;
+  min-height: 44px;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
 }
@@ -193,3 +193,132 @@
   from { box-shadow: 0 0 6px rgba(226, 232, 240, 0.2); }
   to { box-shadow: 0 0 16px rgba(226, 232, 240, 0.6); }
 }
+
+/* ══════════════════════════════════════════════════════════════════
+   Modern Interaction & Animation Suite (Sleek Data Logging UX)
+   ══════════════════════════════════════════════════════════════════ */
+
+/* Tactile press response for all interactive elements */
+button:active, .btn:active, .interactive-tap:active, .quick-pill:active {
+  transform: scale(0.96) !important;
+  transition: transform 0.08s ease !important;
+}
+
+/* Smooth Sheet & Popup Transitions */
+.mos-sheet-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99998;
+  background: rgba(8, 9, 12, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.mos-sheet-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.mos-bottom-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-width: 540px;
+  margin: 0 auto;
+  background: #14151A;
+  border: 1px solid #262936;
+  border-bottom: none;
+  border-radius: 20px 20px 0 0;
+  padding: 20px 20px 32px;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6);
+  z-index: 99999;
+  transform: translateY(100%);
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.mos-bottom-sheet.open {
+  transform: translateY(0);
+}
+.mos-sheet-handle {
+  width: 36px;
+  height: 4px;
+  background: #3A3E50;
+  border-radius: 2px;
+  margin: 0 auto 16px;
+}
+
+/* Satisfying Set / Data Log Success Feedback */
+@keyframes logSuccessFlash {
+  0% { background-color: rgba(16, 185, 129, 0.28); transform: scale(1.02); }
+  50% { background-color: rgba(16, 185, 129, 0.14); }
+  100% { background-color: transparent; transform: scale(1); }
+}
+.just-logged {
+  animation: logSuccessFlash 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Row Entry Slide-In */
+@keyframes rowSlideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-row-in {
+  animation: rowSlideIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Tab & Screen Transitions */
+@keyframes tabSlideFade {
+  from { opacity: 0; transform: translateX(10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.tab-pane-active {
+  animation: tabSlideFade 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Quick Increment / Action Pills */
+.quick-pills-row {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 4px 0;
+  scrollbar-width: none;
+}
+.quick-pills-row::-webkit-scrollbar { display: none; }
+.quick-pill {
+  padding: 8px 14px;
+  min-height: 44px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: var(--mos-card);
+  border: 1px solid var(--mos-border);
+  color: var(--mos-text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s ease;
+}
+.quick-pill:hover, .quick-pill:focus-visible {
+  background: var(--mos-card-elevated);
+  color: var(--mos-text);
+  border-color: var(--accent);
+}
+.quick-pill.active {
+  background: var(--mos-accent-dim);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+

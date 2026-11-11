@@ -10,25 +10,26 @@
 <title>Which Book Should You Read First? — Muscle OS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/tokens.css">
 <style>
-:root{--ink:#14151A;--ink-2:#1E2027;--ink-3:#26282F;--yellow:#E2E8F0;--paper:#FAFAF8;--gray:#8A8D96;--line:#2C2E37}
+:root{--ink-2:var(--mos-surface);--ink-3:var(--mos-card-elevated);--paper:var(--mos-text);--gray:var(--mos-text-muted);--line:var(--mos-border)}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',sans-serif;background:var(--ink);color:#fff;line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
-a{color:var(--yellow);text-decoration:none}
+body{font-family:var(--mos-font-body);background:var(--mos-bg);color:#fff;line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
+a{color:var(--accent);text-decoration:none}
 .wrap{max-width:680px;margin:0 auto;padding:0 24px;width:100%}
-::selection{background:var(--yellow);color:var(--ink)}
-header{background:rgba(20,21,26,.95);border-bottom:1px solid var(--line)}
+::selection{background:var(--accent);color:var(--mos-bg)}
+header{background:rgba(8,9,12,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .header-inner{max-width:1180px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
-.brand{font-family:'Oswald',sans-serif;font-weight:700;font-size:16px;letter-spacing:.5px;text-transform:uppercase}
-.brand span{color:var(--yellow)}
+.brand{font-family:var(--mos-font-display);font-weight:700;font-size:16px;letter-spacing:.5px;text-transform:uppercase}
+.brand span{color:var(--accent)}
 .nav-links{display:flex;gap:20px;font-size:12px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
 .nav-links a{color:#C7C9D0;transition:color .2s}
-.nav-links a:hover{color:var(--yellow)}
+.nav-links a:hover{color:var(--accent)}
 main{flex:1;padding:60px 0}
-.card{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:48px 40px}
-.badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 10px;border-radius:3px;margin-bottom:16px;background:rgba(255,215,0,.1);color:#FFD700;border:1px solid rgba(255,215,0,.2)}
-.card h1{font-family:'Oswald',sans-serif;font-size:clamp(26px,4vw,36px);font-weight:700;text-transform:uppercase;margin-bottom:10px;line-height:1.2}
-.card h1 span{color:var(--yellow)}
+.card{background:var(--mos-card);border:1px solid var(--line);border-radius:12px;padding:48px 40px}
+.badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 10px;border-radius:3px;margin-bottom:16px;background:var(--mos-accent-dim);color:var(--accent);border:1px solid rgba(226,232,240,.28)}
+.card h1{font-family:var(--mos-font-display);font-size:clamp(26px,4vw,36px);font-weight:700;text-transform:uppercase;margin-bottom:10px;line-height:1.2}
+.card h1 span{color:var(--accent)}
 .card .sub{color:var(--gray);font-size:14px;margin-bottom:24px;line-height:1.6}
 .progress{display:flex;align-items:center;gap:10px;margin-bottom:28px}
 .progress .p-track{flex:1;height:4px;background:var(--line);border-radius:2px;overflow:hidden}
@@ -116,7 +117,8 @@ main{flex:1;padding:60px 0}
 <nav class="nav-links">
 <a href="../index.html">Home</a>
 <a href="../tools/">Tools</a>
-<a href="../knowledge-hub/" style="color:var(--yellow)">Knowledge Hub</a>
+<a href="../knowledge-hub/" style="color:var(--accent)">Knowledge Hub</a>
+<a href="../portal.html">Portal</a>
 <a href="../index.html#packages">Coaching</a>
 </nav>
 </div>
