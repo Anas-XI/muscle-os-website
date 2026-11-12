@@ -22,23 +22,24 @@
  <meta name="twitter:title" content="RPE Load Calculator — Coach Anas Mo'men | Muscle OS">
  <meta name="twitter:description" content="RPE load calculator by Coach Anas Mo'men. Convert between RPE, percentages, and estimated 1RM for precise training intensity.">
  <meta name="twitter:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
+ <link rel="stylesheet" href="css/tokens.css">
  <link rel="stylesheet" href="../assets/css/mos-nav.css">
  <script src="../assets/js/mos_charts.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:#08090C;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:32px 16px;line-height:1.7}
+body{font-family:var(--mos-font-body);background:var(--mos-bg);color:var(--mos-text);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:32px 16px;line-height:1.7}
 .container{width:100%;max-width:860px}
 .header{text-align:center;margin-bottom:20px}
-.header h1{font-family:'Inter',sans-serif;font-size:2rem;font-weight:600;color:#E2E8F0;text-transform:uppercase;letter-spacing:1px;line-height:1.1}
-.header p{font-size:.72rem;color:rgba(250,250,248,.4);margin-top:3px;font-weight:300;letter-spacing:.5px}
-.stepper{display:flex;gap:0;background:rgba(8, 9, 12,.4);border-radius:10px;padding:3px;margin-bottom:16px;overflow:hidden}
-.step{flex:1;text-align:center;padding:8px 4px;font-size:.58rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:rgba(250,250,248,.2);cursor:pointer;transition:all .2s;border-radius:8px}
-.step:hover{color:rgba(250,250,248,.4)}
-.step.active{background:#E2E8F0;color:#08090C}
-.step.done{color:rgba(250,250,248,.5)}
-.step .num{display:inline-block;width:16px;height:16px;line-height:16px;border-radius:50%;font-size:.5rem;font-weight:700;text-align:center;margin-right:4px}
-.step.active .num{background:#08090C;color:#E2E8F0}
-.step.done .num{background:rgba(250,250,248,.15);color:#FAFAF8}
+.header h1{font-family:var(--mos-font-display);font-size:2rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px;line-height:1.1}
+.header p{font-size:.82rem;color:var(--mos-text-muted);margin-top:4px;font-weight:400;letter-spacing:.4px}
+.stepper{display:flex;gap:4px;background:rgba(8, 9, 12,.5);border:1px solid var(--mos-border);border-radius:10px;padding:4px;margin-bottom:16px;overflow:hidden}
+.step{flex:1;text-align:center;padding:10px 6px;min-height:44px;display:flex;align-items:center;justify-content:center;font-size:.74rem;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--mos-text-muted);cursor:pointer;transition:all .2s;border-radius:8px}
+.step:hover{color:var(--mos-text)}
+.step.active{background:var(--accent);color:var(--mos-bg);font-weight:700}
+.step.done{color:var(--mos-text-secondary);background:rgba(226,232,240,.06)}
+.step .num{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;font-size:.7rem;font-weight:700;margin-right:5px;background:rgba(255,255,255,.08)}
+.step.active .num{background:var(--mos-bg);color:var(--accent)}
+.step.done .num{background:rgba(250,250,248,.18);color:var(--mos-text)}
 .step-content{display:none}
 .step-content.active{display:block;animation:fadeSlideIn .4s ease-out}
 @keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}

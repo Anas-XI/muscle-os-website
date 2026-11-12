@@ -172,14 +172,15 @@
 
     <div class="input-group">
       <label for="accessCode">Pro Access Code</label>
-      <input type="text" id="accessCode" placeholder="OH-XXXX-XXXX" autocomplete="off">
+      <input type="text" id="accessCode" placeholder="OH-XXXX-XXXX" autocomplete="off" aria-describedby="codeHelp">
+      <div id="codeHelp" style="font-size:0.75rem; color:var(--text-muted); margin-top:6px;">Receive your code on WhatsApp after activation, or use Google Sign-In above.</div>
     </div>
     
     <button id="unlockBtn" class="btn-unlock">UNLOCK SUITE ACCESS</button>
-    <div id="errorMsg" class="error-msg">Invalid access code. Please check and try again.</div>
+    <div id="errorMsg" class="error-msg" role="alert" aria-live="polite">Invalid access code. Please check and try again.</div>
 
-    <div style="margin-top: 18px;">
-      <a href="tools/muscle_os_app.html" style="font-size: 14px; font-weight:700; color: #4CAF50; text-decoration: none;">🎉 Start 1-Month Free Trial (No Code Needed) &rarr;</a>
+    <div style="margin-top: 18px; padding:12px 14px; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.3); border-radius:10px;">
+      <a href="tools/muscle_os_app.html" style="font-size: 14px; font-weight:700; color: #10B981; text-decoration: none; display:block;">Start 1-Month Free Trial (No Code Needed) &rarr;</a>
     </div>
 
     <a href="tools/index.html" class="get-access">Explore All Tools &amp; Calculators &rarr;</a>
@@ -246,15 +247,16 @@
       function showError(msg) {
         err.style.display = 'block';
         err.textContent = msg;
-        portalCard.classList.remove('shake');
-        void portalCard.offsetWidth; // trigger reflow
-        portalCard.classList.add('shake');
+        input.style.borderColor = '#EF4444';
+        input.setAttribute('aria-invalid', 'true');
       }
 
       function attemptVerify(code) {
         btn.disabled = true;
-        btn.textContent = 'Verifying Code...';
+        btn.innerHTML = '<span style="display:inline-block;width:14px;height:14px;border:2px solid rgba(8,9,12,0.25);border-top-color:#08090C;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:8px;"></span>VERIFYING CODE...';
         err.style.display = 'none';
+        input.style.borderColor = '';
+        input.removeAttribute('aria-invalid');
 
         fetch(API, { 
           method: 'POST', 

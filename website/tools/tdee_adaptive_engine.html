@@ -16,6 +16,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="../assets/css/mos-nav.css">
 <link rel="stylesheet" href="../assets/css/mos-modern.css">
 <script src="../assets/js/mos_charts.js"></script>
@@ -2595,7 +2596,7 @@ if(data && data.error === 'wrong_product') msg = 'This code unlocks the OMNI HUB
 <script>
 if (window.self !== window.top) {
   var style = document.createElement('style');
-  style.innerHTML = '#mobileCtaBar { display: none !important; } body { padding-bottom: 30px !important; }';
+  style.innerHTML = '.mos-nav, #mosBottomDock, #mobileCtaBar { display: none !important; } body { padding-top: 16px !important; padding-bottom: 30px !important; }';
   document.head.appendChild(style);
 }
 </script>

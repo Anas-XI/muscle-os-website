@@ -1,0 +1,65 @@
+{
+  "$schema": "https://muscleos.is-a.dev/schemas/design-tokens.v2.json",
+  "name": "Muscle OS Design System",
+  "version": "2.0.0",
+  "palette": "Obsidian & Chrome Silver",
+  "color": {
+    "bg": "#08090C",
+    "surface": "#14151A",
+    "surfaceSubtle": "#11131A",
+    "card": "#16181F",
+    "cardElevated": "#1E212B",
+    "accent": {
+      "primary": "#E2E8F0",
+      "strong": "#FFFFFF",
+      "secondary": "#CBD5E1",
+      "dim": "rgba(226, 232, 240, 0.12)",
+      "glow": "rgba(226, 232, 240, 0.28)"
+    },
+    "semantic": {
+      "emerald": "#10B981",
+      "emeraldDim": "rgba(16, 185, 129, 0.14)",
+      "cyan": "#38BDF8",
+      "cyanDim": "rgba(56, 189, 248, 0.14)",
+      "amber": "#F59E0B",
+      "amberDim": "rgba(245, 158, 11, 0.14)",
+      "danger": "#EF4444",
+      "dangerDim": "rgba(239, 68, 68, 0.14)",
+      "rose": "#F43F5E"
+    },
+    "text": {
+      "primary": "#F8FAFC",
+      "secondary": "#94A3B8",
+      "muted": "#8B95A7",
+      "dim": "#64748B",
+      "inverse": "#08090C"
+    },
+    "border": {
+      "default": "#232735",
+      "subtle": "rgba(255, 255, 255, 0.08)",
+      "active": "#E2E8F0"
+    }
+  },
+  "radius": {
+    "xs": "4px",
+    "sm": "6px",
+    "md": "10px",
+    "card": "12px",
+    "lg": "16px",
+    "pill": "999px"
+  },
+  "spacing": {
+    "xs": "4px",
+    "sm": "8px",
+    "md": "12px",
+    "lg": "16px",
+    "xl": "24px",
+    "xxl": "32px"
+  },
+  "typography": {
+    "display": "'Oswald', sans-serif",
+    "body": "'Inter', system-ui, -apple-system, sans-serif",
+    "mono": "'JetBrains Mono', monospace",
+    "bodySize": "15px"
+  }
+}

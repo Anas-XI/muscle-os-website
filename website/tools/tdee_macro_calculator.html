@@ -22,27 +22,28 @@
  <meta name="twitter:title" content="TDEE & Macro Calculator — Coach Anas Mo'men | Muscle OS">
  <meta name="twitter:description" content="Precision TDEE & macro calculator by Coach Anas Mo'men. Calculate your maintenance calories, optimal macros for cutting, bulking, or recomposition.">
  <meta name="twitter:image" content="https://muscleos.is-a.dev/assets/img/coach.jpg">
+ <link rel="stylesheet" href="css/tokens.css">
  <link rel="stylesheet" href="../assets/css/mos-nav.css">
  <script src="../assets/js/mos_charts.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:#08090C;color:#FAFAF8;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 16px;line-height:1.7}
+body{font-family:var(--mos-font-body);background:var(--mos-bg);color:var(--mos-text);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 16px;line-height:1.7}
 .container{width:100%;max-width:640px}
 .header{text-align:center;margin-bottom:28px}
-.header h1{font-family:'Inter',sans-serif;font-size:2.4rem;font-weight:600;color:#E2E8F0;text-transform:uppercase;letter-spacing:1px;line-height:1.1}
-.header p{font-size:.8rem;color:rgba(250,250,248,.5);margin-top:4px;font-weight:300;letter-spacing:.5px}
-.card{background: #161822; border-radius: 16px; padding: 24px 22px; }
-.section-header{font-family:'Inter',sans-serif;font-size:.9rem;font-weight:500;text-transform:uppercase;letter-spacing:.5px;color:#E2E8F0;border-bottom:1px solid rgba(250,250,248,.07);padding-bottom:5px;margin:20px 0 12px}
+.header h1{font-family:var(--mos-font-display);font-size:2.4rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px;line-height:1.1}
+.header p{font-size:.84rem;color:var(--mos-text-muted);margin-top:4px;font-weight:400;letter-spacing:.4px}
+.card{background:var(--mos-card);border:1px solid var(--mos-border);border-radius:16px;padding:24px 22px}
+.section-header{font-family:var(--mos-font-display);font-size:1rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--accent);border-bottom:1px solid var(--mos-border-subtle);padding-bottom:6px;margin:20px 0 12px}
 .section-header:first-of-type{margin-top:0}
-.section-sub{font-size:.6rem;color:rgba(250,250,248,.35);font-weight:400;text-transform:none;letter-spacing:0;font-family:'Inter',sans-serif}
+.section-sub{font-size:.76rem;color:var(--mos-text-muted);font-weight:400;text-transform:none;letter-spacing:0;font-family:var(--mos-font-body)}
 .form-group{margin-bottom:14px}
 .form-group:last-of-type{margin-bottom:0}
-.form-group label{display:block;font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(250,250,248,.45);margin-bottom:5px}
+.form-group label{display:block;font-size:.74rem;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--mos-text-secondary);margin-bottom:6px}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
 .sex-group{display:flex;gap:8px}
-.sex-btn{flex:1;padding:9px 0;border:1.5px solid rgba(250,250,248,.12);border-radius:8px;background:transparent;color:#FAFAF8;font-family:'Inter',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;transition:all .2s;text-align:center}
-.sex-btn:hover{border-color:rgba(250,250,248,.25)}
+.sex-btn{flex:1;min-height:44px;padding:9px 0;border:1.5px solid var(--mos-border);border-radius:8px;background:transparent;color:var(--mos-text);font-family:var(--mos-font-body);font-size:.84rem;font-weight:500;cursor:pointer;transition:all .2s;text-align:center}
+.sex-btn:hover{border-color:var(--accent)}
 .sex-btn.active{background:linear-gradient(135deg, #FFFFFF, #CBD5E1);color:#08090C;border-color:#E2E8F0;font-weight:600}
 input,select{width:100%;padding:9px 11px;background:rgba(8, 9, 12,.6);border:1.5px solid rgba(250,250,248,.1);border-radius:8px;color:#FAFAF8;font-family:'JetBrains Mono',monospace;font-size:.85rem;outline:none;transition:border-color .2s}
 input:focus,select:focus{border-color:#E2E8F0}
